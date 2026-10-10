@@ -1,0 +1,11 @@
+float:
+  euclidean:
+  - base_args: []
+    constructor: Custom
+    disabled: false
+    docker_tag: ann-benchmarks-custom
+    module: ann_benchmarks.algorithms.custom
+    name: declared-audit-flat-and-empty
+    run_groups:
+      audit:
+        args: [[flat, empty]]
