@@ -3,9 +3,11 @@ import hashlib, io, tarfile
 
 LABEL='org.edgebenchverified.native_finite_token'
 OWNER_LABEL='org.edgebenchverified.job_id'
+class BackendFailure(ValueError):
+    def __init__(self,code):super().__init__(code);self.code=code
 
 def need(value,reason):
-    if not value: raise ValueError(reason)
+    if not value: raise BackendFailure(reason)
 
 def selected_file(container,path,wanted):
     bits,_=container.get_archive(path); raw=bytearray()

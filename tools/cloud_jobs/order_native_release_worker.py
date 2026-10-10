@@ -1,12 +1,13 @@
 """Unadmitted next Order native-archive/compact-retention job; no import work."""
-import base64, hashlib, importlib.metadata, io, json, os, sys, tarfile, time
+import base64, hashlib, importlib.metadata, io, json, os, re, sys, tarfile, time
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import common
 from order_built_image_worker import (Runner, read, need, build_context, verify_derived,
-    cleanup_image, cleanup_owned, IMAGE_FORMAT, PROJECT, LABEL)
+    cleanup_image, cleanup_owned, IMAGE_FORMAT, PROJECT, LABEL, GuardFailure)
 from order_release_delta import preserve, parent_map, restore_chunks
-from order_release_backend import make_backend, selected_file
+from order_release_backend import make_backend, selected_file, BackendFailure
+from reconstruct import Incomplete
 
 HERE=Path(__file__).resolve().parent
 NATIVE_TAG='edgebench_order_integrity_v1.judge.order_addition_permutation_optimization:helper-integrity-v1'
@@ -181,8 +182,10 @@ def run():
         result.update(complete=True,status='native_finite_controls_completed_pending_review')
     except BaseException as exc:
         number=getattr(exc,'errno',None)
-        result.update(complete=False,status='incomplete',exception_class=type(exc).__name__,
+        result.update(complete=False,status='incomplete',failure_phase=phase,exception_class=type(exc).__name__,
             exception_errno=number if type(number) is int and 0<=number<=4095 else None)
+        code=exc.args[0] if isinstance(exc,Incomplete) and len(exc.args)==1 else getattr(exc,'code',None) if isinstance(exc,(GuardFailure,BackendFailure)) else None
+        if type(code) is str and re.fullmatch('[a-z0-9_]{1,80}',code):result['guard_reason']=code
     finally:
         phase='owned_cleanup'
         result['container_cleanup']=cleanup_owned(cleaner,token,None,client is not None)
