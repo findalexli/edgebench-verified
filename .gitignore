@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+
+# uv
+uv.lock
+
+# Logs (generated at runtime)
+logs/
+
+# Experiments (generated at runtime)
+experiments/
+
+# Task definitions are versioned evidence in this fork.
+
+# Local image/data caches and temporary credentials are not release artifacts.
+/.cache/
+/work/
+.pytest_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local audit archive and private acquired task contents are added only through
+# an explicit reviewed allowlist; never stage the entire working directory.
+/audit/
+/ audit/
+/candidates/
+/overlays/
+/.local/
+.env
+.env.*
+!.env.example
+auth.json
+credentials.json
+hosts.yml
+*.pem
+*.key
+*.sqlite
+*.sqlite3
+*.db
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.h5
+*.hdf5
