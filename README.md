@@ -34,3 +34,6 @@ The resumed execution window ends October 12, 2026 at 05:52:16 UTC. Existing aut
 The harness derives from [ByteDance Seed EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its Apache-2.0 license is retained in `LICENSE`. Public task definitions derive from the [Hugging Face release](https://huggingface.co/datasets/ByteDance-Seed/EdgeBench) at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75`; the separate license is retained in `tasks/LICENSE`. These notices do not clear every in-image dataset or dependency for redistribution.
 
 The authorized [public progress report](https://edgebench-audit-progress.alex-shengzhi.chatgpt.site) explains the current findings and their limits.
+
+For selected mathematical claims, [Rethlas and the formal-checking workflow](docs/FORMAL-TOOLS.md)
+can support proof generation and critique before independent Lean or TLA+ checking.
