@@ -27,6 +27,8 @@ CI runs only these small contract checks on Python 3.12. It does not start nativ
 
 Use focused branches and worktrees for Order, Equivalence and ANN. Keep one canonical local cloud queue and ownership registry; worktree copies must never create competing accounting state. Freeze candidate code before fresh independent controls. Record original/candidate results and remaining gates before a task decision.
 
+Current private drafts: [Order built-image controls #4](https://github.com/findalexli/edgebench-verified/pull/4), [ANN prerequisites #5](https://github.com/findalexli/edgebench-verified/pull/5) and [Equivalence recipe #6](https://github.com/findalexli/edgebench-verified/pull/6). On October 10, the built Order checker passed a fresh legal submission 5/5 and rejected the wrong-cost control with 4/5 and no score. Different saved-result review and root acceptance support those finite observations; the tested image was removed, and retention, native manifest adoption, complete harness transport and independent native reproduction remain pending. ANN's original performance evaluator and Equivalence's complete six-part evaluation have not run successfully. Draft and CI success are not task certification.
+
 The resumed execution window ends October 12, 2026 at 05:52:16 UTC. Existing automatic-review holds remain in effect. Creating this private repository does not authorize benchmark publication.
 
 ## Sources and attribution
