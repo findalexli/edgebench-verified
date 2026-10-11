@@ -1,0 +1,30 @@
+{
+  "before_card": {
+    "bytes": 19773,
+    "path": "edgebenchverified/audit/evidence/molecular-memory-contract-astra-high-v1-root/card-before.json",
+    "sha256": "db7792d79bbecd26bfef2c0e1e7f2f94f2f11052ae463c9314f1443f975b90b5"
+  },
+  "claim": "The original Molecular helper and published judge configuration do not enforce the stated 1 GB per-solution limit.",
+  "decision": "CONFIRMED_ORIGINAL_HELPER_AND_PUBLISHED_CONFIGURATION_MEMORY_ENFORCEMENT_GAP",
+  "different_review": {
+    "bytes": 4538,
+    "path": "work/reviews/molecular-memory-combined-astra-high-v1-different/review.json",
+    "sha256": "8657a6629f48fa3dc45040a3bf45209852d6a2a2c4de62820fd92722973e239d"
+  },
+  "expected": "An above-limit solution should not be accepted as an ordinary valid submission under that advertised resource contract.",
+  "limits": "Actual acceptance was measured in our explicitly2GiB audit regime. This is not evidence of historical deployment policy, all50case incidence or score gain. README leaves the precise memory-accounting convention unspecified. No task repair, original disposition change or certification follows.",
+  "native_acceptance": {
+    "bytes": 1806,
+    "path": "edgebenchverified/audit/evidence/molecular-child-memory-native-astra-high-v1/root-result-review.json",
+    "sha256": "b34dceb528111a3f1316887fd1e619ae051ac1af2a6a8a7b0b7dc543c4c502b3"
+  },
+  "observed": "Two sequential original run_case calls on the same official input returned OK and score1392530. Measured RSS was549842944 and1220866048bytes. Four pinned published configurations supply an aggregate8Gi judge limit, not a per-child1GB limit.",
+  "repair_question": "Define and implement a versioned per-solution memory policy in the native evaluator, then preserve the low-memory valid control and reject the above-limit control. Avoid treating an aggregate pool limit as an individual allocation.",
+  "source_complement": {
+    "bytes": 14021,
+    "path": "work/reviews/molecular-external-memory-policy-astra-high-v1/review.json",
+    "sha256": "53cca97d808589d317732ae88cfeaa49846da5c65cc93dd12236130d96b70d58"
+  },
+  "task_id": "molecular_self_assembly",
+  "utc": "2026-10-11T23:21:27.391949+00:00"
+}
