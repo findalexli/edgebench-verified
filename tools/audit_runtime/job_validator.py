@@ -138,7 +138,14 @@ def validate(job, grant_bytes, expected_grant_sha256, payload, *, now=None):
             native_limits = {'as_bytes':536870912,'cpu_seconds':120,'wall_seconds':180,'container_cpus':1,'container_memory_mib':1024}
         need(canonical(exception.get('inspector_limits')) == canonical(native_limits), 'inherited native resource regime')
         need(science.get('child_cpu_seconds') == 180 and type(science.get('child_cpu_seconds')) is int and science.get('child_file_bytes') == 1048576 and exception.get('host_cpu_boundary') == 'inherited_180CPU_seconds_one_affinity_CPU', 'inherited host CPU/file regime')
-    need(science.get('network') in {'no_network_requested', 'owned_host_public_image_and_wheel_bootstrap'}, 'explicit network scope')
+    # One frozen public-archive byte comparison; no general network permission.
+    archive = science.get('public_archive_identity_check')
+    if archive is not None or science.get('network') == 'public_archive_identity_check':
+        need(type(archive) is dict and job['task_id'] == 'ann_vector_search_qps' and science.get('network') == 'public_archive_identity_check', 'explicit archive identity scope')
+        need(sha(canonical(job)) == '754615ec12cc78577def0c165c8159323b5176b89c437d1590b91e96b3251f5f' and grant.get('public_archive_identity_job_sha256') == sha(canonical(job)), 'only exact frozen public archive job')
+        need(canonical(archive) == canonical({'regime': 'public_archive_identity_check_v1', 'worker_sha256': 'baf139e08124b0b4d025b745b9426041807fc659d5ad08f5a81c1b6fe318bc3f', 'control_sha256': '2469283c6fbfdb8e55dfe20c9ca560128e5b9a0935ee3910218b473146587947', 'url_origins': ['https://zenodo.org'], 'range_url': 'https://zenodo.org/api/records/4607761/files/data.tar/content', 'gzip_url': 'https://zenodo.org/api/records/5613101/files/data.tar.gz/content', 'range_read_bytes': 555745280, 'gzip_archive_bytes': 3673212163, 'gzip_extra_byte_guard': 1, 'expanded_bytes_cap': 17179869184, 'max_tar_headers': 128, 'gzip_attempts_max': 1, 'raw_data_exported': False, 'extraction_or_spooling': False}) and canonical(grant.get('public_archive_identity_check')) == canonical(archive), 'exact archive origins source and byte caps')
+        need(job['timeout_seconds'] == 600 and science['child_as_bytes'] == 268435456 and science['child_cpu_seconds'] == 180 and science['child_wall_seconds'] == 550 and science['child_file_bytes'] == 262144 and science['capture_bytes'] == 1024 and science['child_argv'] == ['python3','-I','-S','-B','worker.py'], 'unchanged finite archive child envelope')
+    need(science.get('network') in {'no_network_requested', 'owned_host_public_image_and_wheel_bootstrap', 'public_archive_identity_check'}, 'explicit network scope')
     argv = science.get('child_argv')
     need(type(argv) is list and 1 <= len(argv) <= 32 and all(type(x) is str and 0 < len(x) <= 512 and '\x00' not in x for x in argv), 'exact child argv')
     need(job.get('argv') == ['python3', '-I', '-S', '-B', 'experiment_runner.py', 'experiment.json'], 'fixed trusted wrapper argv')
