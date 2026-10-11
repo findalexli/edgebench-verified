@@ -1,8 +1,17 @@
 # Where the audit stands
 
-Snapshot: **October 11, 2026, 06:05 UTC**. This audit is unfinished; no benchmark release is approved.
+Snapshot: **October 11, 2026, 06:41 UTC**. This audit is unfinished; no benchmark release is approved.
 
-## What changed since 05:02 UTC
+## What changed since 06:05 UTC
+
+Three K–12 Math data checks are complete. The tested references and declared ranges passed; recorded history is excluded from recommendation pools. We also rejected a proposed Juliet path rule that the task does not state. These results add evidence on existing tasks, with no new finding or final task decision.
+
+- **K–12 question references:** The two original CSV loaders read **5,000 questions and 50 knowledge points**; **45,000 scenario question references** resolved. This checks parsing and references, not answer labels or educational quality. [Result](evidence/selected/k12-question-reference-integrity.json).
+- **K–12 declared ranges:** The selected knowledge-point keys fit **1–50**, and question difficulties fit the declared **1–5** range. No out-of-range references were found. This closes that specific caveat, not the whole data review. [Result](evidence/selected/k12-question-domain.json).
+- **K–12 recorded history:** The diagnostic streamed **793,457 history rows**. All **200 scenarios** had past and future records; their recommendation pools excluded both, and test post-test lists excluded history. The **99 past-question references** in padded candidate lists are allowed by the generator, so they are not a new defect or evidence of solver leakage. When the scorer reaches these checks, membership in the measured pools also satisfies the recent-history rule. That is a conditional source/data result, not an executed score. [Result](evidence/selected/k12-history-cutoff.json).
+- **Juliet witness paths:** We rejected the proposed requirement that witness statements must form an adjacent or reachable path in the supplied approximate control-flow graph. The acquired contract does not require it. Whether witnesses correctly describe vulnerabilities remains unresolved; no new corpus test ran. [Contract record](evidence/selected/juliet-unrequired-path-hypothesis.json).
+
+## Earlier checks accepted by 06:05 UTC
 
 We finished the following checks on tasks already under review. They add evidence, but no new finding or final task decision.
 
