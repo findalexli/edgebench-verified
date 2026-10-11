@@ -1,6 +1,6 @@
 # Current task decisions
 
-Accepted-state handoff: **October 11, 2026**. **51 public originals: 15 withheld, 36 review pending; 18 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
+Accepted-state handoff: **October 11, 2026**. **51 public originals: 16 withheld, 35 review pending; 18 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
 
 The [accepted 18-task union][40] counts scoped findings, including source/component findings, without approving whole tasks.
 
@@ -46,7 +46,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Portfolio calibration<br>`portfolio_risk_calibration` | Withhold original | Annual-excess formula contradiction; exact original withholding adopted [53]. | Eight authored paired cases / 16 complete native metric calls match, preserving seven other metrics per pair [50] | Do misaligned dates, strategy eligibility and the complete scorer preserve intended behavior beyond these aligned cases? |
 | Rust multicrate<br>`rust_multicrate_reconstruction` | Withhold original | Actual Cargo reproduces false PASS on an authored fixture [35]; exact original withholding adopted [47]. | Five fixtures, ten original/corrected helper outcomes match [35] | Does the full scorer preserve original-corpus behavior and intended exemption policy? |
 | Schemathesis config<br>`schemathesis_config_modernization` | Withhold original | Full scorer misses function identity [16]; explicit release-policy withholding preserves the contrary review [48]. | Native paired fix | Can exact repair be packaged and reproduced? |
-| Schemathesis data generation<br>`schemathesis_datagen_pipeline` | Review pending | Impossible dates pass original predicate [17]. | Twelve complete native property calls / 14 draws match with an explicit authored strategy [55] | Assess a supplied generator and complete corrected phase; this fixture run does not validate a generator. Original import guards failed. |
+| Schemathesis data generation<br>`schemathesis_datagen_pipeline` | Withhold original | Complete property accepts impossible dates under supplied strategies; exact original withheld [60]. | Twelve complete native property calls / 14 draws match with an explicit authored strategy [55] | Assess a supplied generator and complete corrected phase; this fixture run does not validate a generator. Original import guards failed. |
 | Schemathesis reporting<br>`schemathesis_reporting_observability` | Withhold original | Original checker gaps support withholding [49]. Original judge: 55 collected/53 reported [29]; combined corrected judge: 57 collected/55 reported, both score 1.0 [32]. | Integrated judge and all 24 countercontrols pass [32]; three corrected serial stateful controls pass cleanup on the unchanged implementation [57]; earlier failed premises preserved [56] | Assess remaining lazy-schema/dispatcher behavior and independent reproduction; do not extend these serial controls to broader xdist behavior. |
 | SMT solver<br>`smt_solver` | Review pending | Local witness lookup conflates variable scopes [7]. | Held | Held; no follow-up. |
 | Sphere eversion proof<br>`sphere_eversion_formalization` | Review pending | Preparation guard failed on cap-metadata mismatch before any original helper; worker closed [54]. | No task result | No retry authorized. Any later correction must address the known comparison mismatch and unresolved final file join while preserving content and limits. |
@@ -127,3 +127,4 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [57]: evidence/selected/reporting-stateful-corrected-acceptance.json
 [58]: evidence/selected/vrptw-native-v4-acceptance.json
 [59]: evidence/selected/vrptw-travel-window-acceptance.json
+[60]: evidence/selected/datagen-original-exclusion.json

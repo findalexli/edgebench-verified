@@ -1,12 +1,13 @@
 # Continuing the EdgeBench audit
 
-**October 11, 2026, 22:46 UTC accepted results.** Reporting’s three corrected
+**October 11, 2026, 22:57 UTC accepted decisions.** Data Generation’s original
+is now withheld for its date-checker weakness; a generator and complete corrected
+phase still require assessment. Reporting’s three corrected
 serial lifecycle controls pass, including their cleanup assertions, on the
 unchanged implementation. Earlier failures remain evidence of the unsupported
 all-callbacks-positive premise. The owned worker is closed. The October 9
 vehicle-routing V4 result and existing 56-case travel-window complement are now
-selected here; these are recovered evidence, not new runs. Original decisions,
-finding-task counts and certifications are unchanged.
+selected here; these are recovered evidence, not new runs. The finding-task count and certifications are unchanged.
 
 ## Outcome and current decisions
 
@@ -17,7 +18,7 @@ see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable
 
 Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
 and [TASKS](TASKS.md) for current decisions. There are findings across 18 tasks,
-15 withheld original versions, 36 pending decisions and zero certified versions.
+16 withheld original versions, 35 pending decisions and zero certified versions.
 “Withheld” applies to the exact original unchanged; it does not approve or rule
 out a repaired version. The Git `audit/task-registry.json` is a historical partial
 snapshot with three exclusions, not the current tracker.

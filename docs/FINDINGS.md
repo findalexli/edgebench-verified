@@ -1,10 +1,10 @@
 # What we found
 
-**We decided to withhold 15 exact original versions from the proposed verified release.** “Excluded” is a release decision; it does not mean every score is wrong or repair is impossible. Evidence remains available, and corrected versions need separate approval.
+**We decided to withhold 16 exact original versions from the proposed verified release.** “Excluded” is a release decision; it does not mean every score is wrong or repair is impossible. Evidence remains available, and corrected versions need separate approval.
 
-There are **18 closed finding-task decisions**: 15 with exclusions and three whose task decisions remain pending. The [accepted union](../evidence/selected/finding-task-union-18.json) adds CTA and Portfolio; repeated checks on an existing task do not increase this count. None certifies a replacement or measures historical leaderboard impact. [Current summary](../README.md) · [Task decisions](../TASKS.md).
+There are **18 closed finding-task decisions**: 16 with exclusions and two whose task decisions remain pending. The [accepted union](../evidence/selected/finding-task-union-18.json) adds CTA and Portfolio; repeated checks on an existing task do not increase this count. None certifies a replacement or measures historical leaderboard impact. [Current summary](../README.md) · [Task decisions](../TASKS.md).
 
-## Why 15 original versions are excluded
+## Why 16 original versions are excluded
 
 | Original task | Reason for exclusion | Important limit and evidence |
 | --- | --- | --- |
@@ -23,14 +23,14 @@ There are **18 closed finding-task decisions**: 15 with exclusions and three who
 | **Schemathesis Config** | Explicit release-policy choice: its metric phase omits the required exact returned-function identity. | Reference and wrapper received equal partial scores, with no wrapper advantage. A prior reviewer preferred repair without exclusion; that contrary view remains valid counterevidence, not a retracted experiment. This choice does not make every score invalid. [Decision](../evidence/selected/config-original-exclusion.json) · [different review](../evidence/selected/config-original-exclusion-review.json). |
 | **Schemathesis Reporting** | The JUnit check accepts malformed output, and the coverage filter can miss forced wrong generation behavior. | Isolated original-function and candidate-overlay countercontrols support these specific gaps. Prior positive implementations and scores remain accepted; no whole-score inflation is established. The newer failed lifecycle controls are not an exclusion premise. [Decision](../evidence/selected/reporting-original-exclusion.json) · [different review](../evidence/selected/reporting-original-exclusion-review.json). |
 | **Portfolio Calibration** | The evaluator annualizes the period-return difference instead of subtracting aligned annualized returns. | The same 126-observation native witness yields 21% instead of 23%; seven unaffected metrics are preserved. This is a formula error, not a claim of historical ranking impact or complete repair. [Decision](../evidence/selected/portfolio-original-exclusion.json) · [different review](../evidence/selected/portfolio-original-exclusion-review.json). |
+| **Schemathesis Data Generation** | The complete HTTP-date property accepts impossible April 31 and hour 24 values under supplied strategies. | Twelve native property calls use explicit authored strategies and import-guard substitution; four valid inputs are preserved. Baseline implementation absence is not the exclusion reason. No complete generator, phase/scorer or replacement is approved. [Decision](../evidence/selected/datagen-original-exclusion.json) · [different review](../evidence/selected/datagen-original-exclusion-review.json) · [exact rationale](../evidence/selected/datagen-original-exclusion-rationale.json). |
 
 None of these exclusions rests merely on missing evidence or our environment failures. Current totals are in the [summary](../README.md).
 
-## Three other tasks with confirmed findings and decisions pending
+## Two other tasks with confirmed findings and decisions pending
 
 | Task | What is established | Why the claim stays narrow |
 | --- | --- | --- |
-| **Schemathesis Data Generation** | The original date predicate accepts impossible dates and times, including April 31 and minute 60. | The earlier finding used eleven predicate evaluations; later native property controls are reported below. Original generator and score impact remain untested. [Conclusion](../evidence/selected/datagen-http-date-acceptance.json) · [independent review](../evidence/selected/datagen-http-date-review.json). |
 | **SMT Solver** | The recovered witness lookup merges expressions from different variable scopes. It cannot represent the different values required by a constructed satisfiable example. | Source and a small local test support this; native failure and score impact remain unobserved. Follow-up is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
 | **FFmpeg Scaling** | A recovered timing component can report a positive speed ratio even when a timed call fails or produces no output. | Local substitutes establish this behavior. Separate correctness checks were not bypassed; real score gain is unproved. Follow-up is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
 
