@@ -326,6 +326,16 @@ def execute_one(job, grant_bytes, grant_sha, *, root, state_dir, store, deps, ma
         'finalization_error_errno':receipt.get('finalization_error_errno'),
         **{key:receipt[key] for key in ('provider_inspection_error_class','provider_inspection_error_errno','provider_inspection_http_status') if key in receipt}}
 
+def select_batch_profile(jobs):
+    need(type(jobs) is list and jobs, 'finite profile batch')
+    profiles = {job.get('resource_profile') for job in jobs}
+    need(len(profiles) == 1 and profiles <= {'small','large'}, 'homogeneous reviewed profile')
+    profile = next(iter(profiles))
+    if profile == 'large':
+        expected = {'e771c8308e359a38e86429182fb2d0efd485cd24e77088476ca65e0de94212a0': 'flt_regular_formalization', '1952baec0f3394afcb344d83f7ee5c73f3794c237af038f5b6a50cb39ad6c45d': 'sphere_eversion_formalization'}
+        need(all(job.get('task_id') in expected.values() and expected.get(sha(canonical(job))) == job.get('task_id') for job in jobs), 'only two exact FS large jobs')
+    return profile
+
 def run_batch(packets, *, root, state_dir, deps, provider, max_workers=10):
     """Packets are (job dict, exact root grant bytes, externally selected hash).
 
@@ -346,7 +356,10 @@ def run_batch(packets, *, root, state_dir, deps, provider, max_workers=10):
         admitted[job['job_id']] = {'job_sha256':grant['job_sha256'],'grant_sha256':expected,'resume_registered_pending_without_attempt':resume}
     store = experiment_store(deps.QueueStore,state_dir/'queue.sqlite3',deps.policy['compute_ceiling_usd'],admitted)
     proxy = DeadlineProvider(provider,deps.NotFound,deps.OutcomeUnknown)
-    manager = deps.CloudWorkerManager(proxy,state_dir/'provider',deps.OWNERS,max_workers=deps.policy['max_workers'],profile='small',second_worker_reason='Root granted a finite useful batch, with small-profile hourly reservations, four staging slots and exact owned close; no idle fanout.')
+    profile = select_batch_profile([packet[0] for packet in packets])
+    need(getattr(provider,'profile',None) == profile, 'provider manager profile consensus')
+    reason = 'Root granted a finite useful batch, with small-profile hourly reservations, four staging slots and exact owned close; no idle fanout.' if profile == 'small' else 'Root granted only exact FS original-helper pilots, pinned8CPU8GiB large template, .5328 conservative hourly reservations, four staging slots and exact owned close; no fallback.'
+    manager = deps.CloudWorkerManager(proxy,state_dir/'provider',deps.OWNERS,max_workers=deps.policy['max_workers'],profile=profile,second_worker_reason=reason)
     staging = deps.StagingBudget(max_stages=4,max_bytes=67108864)
     threading.stack_size(262144)
     results = []; pending = iter(packets); stopped = False
