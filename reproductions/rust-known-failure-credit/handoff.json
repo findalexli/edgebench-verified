@@ -1,0 +1,42 @@
+{
+  "schema": "portable-reproduction-handoff-v1",
+  "created_utc": "2026-10-11T17:59:43.751319+00:00",
+  "author": "/root/astra_efficiency_retrospective",
+  "requested_model": "gpt-6-astra/high",
+  "decision": "READY_FOR_PUBLICATION_PACKAGING_REVIEW",
+  "task_id": "rust_multicrate_reconstruction",
+  "files": [
+    {
+      "path": "reproduce.py",
+      "bytes": 8336,
+      "sha256": "0c9ded7761bafa380fd11ff6881788d58b2cd82be94f055aebff11f6e5efb35e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3853,
+      "sha256": "0c3a94c56309ce231fe96c33221c64e8bd76a5d17718c10ade83a17256068fd9"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 6791,
+      "sha256": "146fec98d6bc7102b0735c3bd9fd374f0d2962ab3247e2a1f0ad9c07dd8b4089"
+    }
+  ],
+  "cli": "reproduce.py ORIGINAL_SCORE_PY FRESH_OUTPUT_DIR",
+  "original_source_sha256": "d725dd934a01e40948267131d8ae91a075b4217d8012b41468cc9b38bb782b35",
+  "packaging_validation": "One run outside workspace exactly matched all six accepted result rows; two mismatches and four countercontrols.",
+  "scientific_scope": "Original Python component finding using explicitly simulated Cargo. No new independent science, repair, native result or task decision.",
+  "calls": {
+    "packaging_replay_runs": 1,
+    "original_component_calls": 6,
+    "original_score_calls": 12,
+    "simulated_cargo_responses": 12,
+    "real_cargo": 0,
+    "native": 0,
+    "provider": 0,
+    "auth": 0,
+    "model": 0
+  },
+  "shared_git_or_runtime_mutations": false,
+  "next": "Root may select these four portable artifacts for its publication Git batch; preserve native/incidence limitations."
+}
