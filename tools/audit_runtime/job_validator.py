@@ -43,18 +43,19 @@ def validate(job, grant_bytes, expected_grant_sha256, payload, *, now=None):
     need(sha(canonical(job)) == grant.get('job_sha256'), 'immutable job hash')
     need(job.get('resource_profile') == 'small' and job.get('execution_class') == 'native_task_control' and job.get('automatic_retries') == 0 and type(job.get('automatic_retries')) is int, 'small profile and zero retries')
     exception = job.get('science', {}).get('host_tool_vm_memory_boundary')
-    ceiling = 1200 if exception is not None else 600
+    nf = job.get('science', {}).get('nf_selective_original_component')
+    ceiling = 1200 if nf is not None else (1200 if exception is not None else 600)
     need(integer(job.get('timeout_seconds'), 10, ceiling), 'job wall cap')
     current = now or datetime.now(timezone.utc)
     expiry = datetime.fromisoformat(grant['expires_at_utc'])
     need(expiry.tzinfo is not None and current.tzinfo is not None and current + timedelta(seconds=job['timeout_seconds'] + 300) <= min(expiry, DEADLINE), 'deadline reserves collection and close')
     science = job.get('science', {})
     bootstrap = science.get('dependency_bootstrap')
-    need(not (bootstrap is not None and exception is not None), 'separate explicit resource exceptions')
+    need(sum(x is not None for x in (bootstrap, exception, nf)) <= 1, 'separate explicit resource exceptions')
     need(science.get('job_id') == job['job_id'], 'wrapper job identity')
     need(integer(science.get('child_wall_seconds'), 1, job['timeout_seconds'] - (0 if exception else 6)), 'child wall')
     need(integer(science.get('capture_bytes'), 1024, 65536), 'capture cap')
-    need(integer(science.get('child_file_bytes'), 262144, 67108864 if bootstrap else 1048576), 'file growth cap')
+    need(integer(science.get('child_file_bytes'), 262144, 268435456 if nf is not None else (67108864 if bootstrap else 1048576)), 'file growth cap')
     if bootstrap is not None:
         need(type(bootstrap) is dict and grant.get('dependency_bootstrap') == bootstrap and science.get('network') == 'owned_host_public_image_and_wheel_bootstrap', 'root-granted dependency bootstrap')
         need(science.get('child_as_bytes') == 536870912 and science.get('child_cpu_seconds') == 90 and science.get('child_wall_seconds') == 180 and science.get('child_file_bytes') == 67108864, 'finite bootstrap process caps')
@@ -64,11 +65,55 @@ def validate(job, grant_bytes, expected_grant_sha256, payload, *, now=None):
         for row in wheels:
             need(type(row.get('name')) is str and row['name'].endswith('.whl') and type(row.get('sha256')) is str and re.fullmatch('[0-9a-f]{64}',row['sha256']) and integer(row.get('bytes'),1,67108864) and type(row.get('version')) is str and type(row.get('url')) is str and row['url'].startswith('https://files.pythonhosted.org/'), 'exact public wheel pin')
         need(sum(r['bytes'] for r in wheels) <= 268435456, 'dependency input cap')
+    elif nf is not None:
+        need(type(nf) is dict and job['task_id'] == 'new_foundations_consistency' and grant.get('nf_selective_original_component') == nf, 'explicit NF selected component grant')
+        need(sha(canonical(job)) in ('88b61825f53959437833ea4ba2ffa39413ae6a806b04a6d851968cdfa38873ae', 'bf65b0f8b83f2601d82a5c4de11b6f668b7bd45d5c68f8a9c034c3b488f8d721', '5376ad0a51724a7c593c64c343e018ac9d560b03e55ef06b8781b571d5c24721') and grant.get('task_resource_exception_job_sha256') == sha(canonical(job)), 'only exact frozen NF component job')
+        expected_nf = {'native_as_bytes': 2147483648, 'native_cpu_soft_hard': [55, 56], 'native_file_bytes': 67108864, 'native_log_bytes': 65536, 'native_nproc': 64, 'regime': 'nf_selective_original_component_v1', 'source_refs': [{'path': 'work/packets/nf-selective-original-component-sol-v5-corrected-v1/worker.py', 'sha256': '285c7cc6c3ff0afb198b812d84727527bebe615e87de61a138c9777a64fbd5d2', 'bytes': 23018, 'target': 'worker.py'}, {'bytes': 19774, 'path': 'work/packets/nf-selective-original-component-sol-v1/census_restore.py', 'sha256': '04d9942e23a0e3859785edf81c8ffb3af5120a02bfbe237b05171534d366596f', 'target': 'census_restore.py'}, {'bytes': 3316, 'path': 'work/packets/nf-selective-original-component-sol-v1/command_entry.py', 'sha256': '1234651cfd331ddf05a752cdc72cb3b5048a553ec3b79c657902dc1d6200c160', 'target': 'command_entry.py'}, {'bytes': 14790, 'path': 'work/packets/nf-selective-original-component-sol-v2/nf_original_component_actor.py', 'sha256': 'a8bbec72d06bb1cc076b00c4b97e9e8d1cec85173c7d2e641978275beef2a09a', 'target': 'nf_original_component_actor.py'}], 'worker_memory_mib': 4096} if sha(canonical(job)) == 'bf65b0f8b83f2601d82a5c4de11b6f668b7bd45d5c68f8a9c034c3b488f8d721' else None
+        expected_nf = {'native_as_bytes': 2147483648, 'native_cpu_soft_hard': [55, 56], 'native_file_bytes': 67108864, 'native_log_bytes': 65536, 'native_nproc': 64, 'regime': 'nf_selective_original_component_v1', 'source_refs': [{'bytes': 27894, 'path': 'work/packets/nf-selective-original-component-sol-v6/worker.py', 'sha256': 'fded4b9c0f64be7b2c5065448b67496534d79e6f0cb3c8fb1bcae39a34cca836', 'target': 'worker.py'}, {'bytes': 19774, 'path': 'work/packets/nf-selective-original-component-sol-v1/census_restore.py', 'sha256': '04d9942e23a0e3859785edf81c8ffb3af5120a02bfbe237b05171534d366596f', 'target': 'census_restore.py'}, {'bytes': 7133, 'path': 'work/packets/nf-selective-original-component-sol-v6/command_entry.py', 'sha256': '5ec68d3b8891f9e0d9d820e9ff44b308cae8f979f887f5806a6f550d03a13832', 'target': 'command_entry.py'}, {'bytes': 14790, 'path': 'work/packets/nf-selective-original-component-sol-v2/nf_original_component_actor.py', 'sha256': 'a8bbec72d06bb1cc076b00c4b97e9e8d1cec85173c7d2e641978275beef2a09a', 'target': 'nf_original_component_actor.py'}], 'worker_memory_mib': 4096} if sha(canonical(job)) == '5376ad0a51724a7c593c64c343e018ac9d560b03e55ef06b8781b571d5c24721' else expected_nf
+        need(canonical(nf) == canonical(expected_nf if expected_nf is not None else {'native_as_bytes': 2147483648, 'native_cpu_soft_hard': [55, 56], 'native_file_bytes': 67108864, 'native_log_bytes': 65536, 'native_nproc': 64, 'regime': 'nf_selective_original_component_v1', 'source_refs': [{'path': 'work/packets/nf-selective-original-component-sol-v4/worker.py', 'sha256': 'd84696f78bd0d46abc070b9543c93fdbcac0936c671e7a3416f7053e802fba7b', 'bytes': 22277, 'target': 'worker.py'}, {'bytes': 19774, 'path': 'work/packets/nf-selective-original-component-sol-v1/census_restore.py', 'sha256': '04d9942e23a0e3859785edf81c8ffb3af5120a02bfbe237b05171534d366596f', 'target': 'census_restore.py'}, {'bytes': 3316, 'path': 'work/packets/nf-selective-original-component-sol-v1/command_entry.py', 'sha256': '1234651cfd331ddf05a752cdc72cb3b5048a553ec3b79c657902dc1d6200c160', 'target': 'command_entry.py'}, {'bytes': 14790, 'path': 'work/packets/nf-selective-original-component-sol-v2/nf_original_component_actor.py', 'sha256': 'a8bbec72d06bb1cc076b00c4b97e9e8d1cec85173c7d2e641978275beef2a09a', 'target': 'nf_original_component_actor.py'}], 'worker_memory_mib': 4096}), 'exact NF selected component source and native bounds')
+        need(job['timeout_seconds'] == 1200 and science['child_wall_seconds'] == 1190 and science['capture_bytes'] == 4096 and science['child_as_bytes'] == 2147483648 and science['child_cpu_seconds'] == 600 and science['child_file_bytes'] == 268435456 and science['child_argv'] == ['python3','-I','-S','-B','worker.py'] and science.get('network') == 'owned_host_public_image_and_wheel_bootstrap', 'exact NF selected outer envelope')
     elif exception is None:
         need(integer(science.get('child_cpu_seconds'), 1, 300) and integer(science.get('child_as_bytes'), 134217728, 2147483648), 'standard child CPU memory caps')
     else:
         need(science.get('child_as_bytes') is None and grant.get('host_tool_vm_memory_boundary') == exception, 'explicit root-selected VM AS exception')
-        need(type(exception) is dict and exception.get('worker_memory_mib') == 4096 and canonical(exception.get('inspector_limits')) == canonical({'as_bytes':536870912,'cpu_seconds':120,'wall_seconds':180,'container_cpus':1,'container_memory_mib':1024}), 'inherited native resource regime')
+        need(type(exception) is dict and exception.get('worker_memory_mib') == 4096, 'inherited physical VM regime')
+        if exception.get('task_resource_regime') == 'jagua_rust_main_export_v1':
+            need(job['task_id'] == 'jagua_nesting_optimization' and grant.get('task_resource_exception_job_sha256') == sha(canonical(job)), 'exact root-selected Jagua Rust resource exception')
+            native_limits = {'as_bytes':3221225472,'cpu_seconds':110,'wall_seconds':110,'container_cpus':1,'container_memory_mib':3072}
+            need(canonical(science.get('task_native_limits')) == canonical({'cpus':1,'memory_mib':3072,'as_bytes':3221225472,'cpu_seconds':110,'wall_seconds':110,'pids':128,'output_bytes':65536,'file_bytes':67108864,'exec_tmpfs_bytes':268435456}), 'exact Jagua native declared limits')
+            need(job['timeout_seconds'] == 180 and science['child_wall_seconds'] == 175 and science['capture_bytes'] == 65536 and science['child_argv'] == ['python3','-I','-S','-B','worker.py'], 'exact Jagua host declared limits')
+        elif exception.get('task_resource_regime') == 'equivalence_original_evaluator_scratch_v1':
+            need(job['task_id'] == 'equivalence_class_divide_and_conquer' and grant.get('task_resource_exception_job_sha256') == sha(canonical(job)), 'exact root-selected Equivalence scratch resource exception')
+            native_limits = {'as_bytes': 536870912, 'cpu_seconds': 120, 'wall_seconds': 180, 'container_cpus': 1, 'container_memory_mib': 2048, 'native_file_bytes': 16777216, 'native_tmpfs_bytes': 1073741824}
+            need(canonical(science.get('task_native_limits')) == canonical({'as_bytes': 536870912, 'file_bytes': 16777216, 'grader_stdout_stderr_stop_bytes_each': 1048576, 'grader_wall_seconds': 150, 'installed_metadata_total_bytes': 1342177280, 'legacy_corpus_bodyhash_guard_bytes': 536870912, 'memory_mib': 2048, 'native_cpu_seconds': 120, 'native_cpus': 1, 'native_wall_seconds': 180, 'one_container_at_a_time': True, 'raw_body_exports': False, 'tmpfs_bytes': 1073741824, 'tmpfs_exec': True}), 'exact Equivalence scratch native declared limits')
+            need(job['timeout_seconds'] == 900 and science['child_wall_seconds'] == 890 and science['capture_bytes'] == 65536 and science['child_argv'] == ['python3','-I','-S','-B','worker.py'], 'exact Equivalence scratch host declared limits')
+            need(type(science.get('native_containers')) is int and science['native_containers'] == 2 and science.get('sequential_only') is True and science.get('native_network') == 'none', 'paired sequential Equivalence scratch actors')
+        elif exception.get('task_resource_regime') == 'equivalence_one_case_re_baseline_v1':
+            need(job['task_id'] == 'equivalence_class_divide_and_conquer' and grant.get('task_resource_exception_job_sha256') == sha(canonical(job)), 'exact root-selected Equivalence one-case baseline exception')
+            need(sha(canonical(job)) == '1b7a69b76cd95be5ba0e43733cbbd348287c777e37de0e4b6f28ad988fa0e455' and science.get('experiment_shape') == 'equivalence_one_case_re_baseline_v1', 'only frozen one-case baseline job and science')
+            native_limits = {'as_bytes': 536870912, 'cpu_seconds': 120, 'wall_seconds': 550, 'container_cpus': 1, 'container_memory_mib': 2048, 'native_file_bytes': 16777216, 'native_tmpfs_bytes': 1073741824}
+            need(canonical(science.get('task_native_limits')) == canonical({'as_bytes': 536870912, 'file_bytes': 16777216, 'grader_stdout_stderr_stop_bytes_each': 1048576, 'grader_wall_seconds': 525, 'installed_metadata_total_bytes': 1342177280, 'legacy_corpus_bodyhash_guard_bytes': 536870912, 'memory_mib': 2048, 'native_cpu_seconds': 120, 'native_cpus': 1, 'native_wall_seconds': 550, 'one_container_at_a_time': True, 'raw_body_exports': False, 'tmpfs_bytes': 1073741824, 'tmpfs_exec': True}), 'exact Equivalence wall-only native declared limits')
+            need(job['timeout_seconds'] == 1200 and science['child_wall_seconds'] == 1190 and science['capture_bytes'] == 65536 and science['child_argv'] == ['python3','-I','-S','-B','worker.py'], 'exact Equivalence wall-only host declared limits')
+            need(type(science.get('native_containers')) is int and science['native_containers'] == 1 and science.get('sequential_only') is True and science.get('native_network') == 'none', 'one exact sequential Equivalence baseline actor')
+        elif exception.get('task_resource_regime') == 'equivalence_original_evaluator_wall_v1':
+            need(job['task_id'] == 'equivalence_class_divide_and_conquer' and grant.get('task_resource_exception_job_sha256') == sha(canonical(job)), 'exact root-selected Equivalence wall-only exception')
+            native_limits = {'as_bytes': 536870912, 'cpu_seconds': 120, 'wall_seconds': 550, 'container_cpus': 1, 'container_memory_mib': 2048, 'native_file_bytes': 16777216, 'native_tmpfs_bytes': 1073741824}
+            need(canonical(science.get('task_native_limits')) == canonical({'as_bytes': 536870912, 'file_bytes': 16777216, 'grader_stdout_stderr_stop_bytes_each': 1048576, 'grader_wall_seconds': 525, 'installed_metadata_total_bytes': 1342177280, 'legacy_corpus_bodyhash_guard_bytes': 536870912, 'memory_mib': 2048, 'native_cpu_seconds': 120, 'native_cpus': 1, 'native_wall_seconds': 550, 'one_container_at_a_time': True, 'raw_body_exports': False, 'tmpfs_bytes': 1073741824, 'tmpfs_exec': True}), 'exact Equivalence wall-only native declared limits')
+            need(job['timeout_seconds'] == 1200 and science['child_wall_seconds'] == 1190 and science['capture_bytes'] == 65536 and science['child_argv'] == ['python3','-I','-S','-B','worker.py'], 'exact Equivalence wall-only host declared limits')
+            need(type(science.get('native_containers')) is int and science['native_containers'] == 2 and science.get('sequential_only') is True and science.get('native_network') == 'none', 'paired sequential Equivalence wall-only actors')
+        elif exception.get('task_resource_regime') == 'bipedal_original_ten_episode_v1':
+            need(job['task_id'] == 'bipedalwalker_locomotion_rl' and grant.get('task_resource_exception_job_sha256') == sha(canonical(job)), 'exact root-selected Bipedal resource exception')
+            need(sha(canonical(job)) == '151ef6a488416ec04da149b0d8b4a6f5b8306b69b1d7c4d61ca64bfba69cf04e' and science.get('experiment_shape') == 'bipedal_original_ten_episode_v1', 'only frozen Bipedal ten-episode job')
+            native_limits = {'as_bytes':3221225472,'container_cpus':1,'container_memory_mib':2048,'cpu_seconds':120,'wall_seconds':180}
+            need(canonical(science.get('task_native_limits')) == canonical({'as_bytes': 3221225472, 'native_cpu_seconds_per_process': 120, 'native_cpus': 1, 'native_wall_seconds': 180, 'caller_wall_seconds': 150, 'memory_mib': 2048, 'memory_swap_mib': 2048, 'pids': 64, 'file_bytes': 1048576, 'output_bytes_each': 65536, 'tmpfs_bytes': 268435456, 'submission_tmpfs_bytes': 4194304, 'observer_bytes': 32768, 'observer_max_episode_steps': 10000, 'original_episodes_per_environment': 10, 'native_network': 'none'}), 'exact Bipedal native declared limits')
+            need(job['timeout_seconds'] == 1200 and science['child_wall_seconds'] == 1190 and science['capture_bytes'] == 65536 and science['child_argv'] == ['python3','-I','-S','-B','worker.py'], 'exact Bipedal host limits')
+            need(type(science.get('native_containers')) is int and science['native_containers'] == 1 and science.get('sequential_only') is True and science.get('native_network') == 'none' and science.get('original_cli_called_once') is True, 'one original Bipedal CLI actor')
+        elif 'task_resource_regime' in exception:
+            need(exception['task_resource_regime'] == 'ann_original_evaluator_v1' and job['task_id'] == 'ann_vector_search_qps' and grant.get('task_resource_exception_job_sha256') == sha(canonical(job)), 'exact root-selected ANN evaluator resource exception')
+            native_limits = {'as_bytes':3221225472,'cpu_seconds':900,'wall_seconds':900,'container_cpus':1,'container_memory_mib':2048,'native_file_bytes':1073741824}
+        else:
+            native_limits = {'as_bytes':536870912,'cpu_seconds':120,'wall_seconds':180,'container_cpus':1,'container_memory_mib':1024}
+        need(canonical(exception.get('inspector_limits')) == canonical(native_limits), 'inherited native resource regime')
         need(science.get('child_cpu_seconds') == 180 and type(science.get('child_cpu_seconds')) is int and science.get('child_file_bytes') == 1048576 and exception.get('host_cpu_boundary') == 'inherited_180CPU_seconds_one_affinity_CPU', 'inherited host CPU/file regime')
     need(science.get('network') in {'no_network_requested', 'owned_host_public_image_and_wheel_bootstrap'}, 'explicit network scope')
     argv = science.get('child_argv')
@@ -94,6 +139,9 @@ def validate(job, grant_bytes, expected_grant_sha256, payload, *, now=None):
     if exception is not None:
         refs = exception.get('source_refs')
         need(type(refs) is list and 1 <= len(refs) <= 8 and all(row in inputs for row in refs), 'accepted host exception source pins')
+    if nf is not None:
+        refs = nf.get('source_refs')
+        need(type(refs) is list and 1 <= len(refs) <= 8 and all(row in inputs for row in refs), 'NF selected component source pins')
     if bootstrap is not None:
         refs = bootstrap.get('source_refs')
         need(type(refs) is list and 1 <= len(refs) <= 8 and all(row in inputs for row in refs), 'bootstrap worker/control source pins')
