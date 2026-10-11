@@ -1,0 +1,133 @@
+{
+  "author_handoff": {
+    "bytes": 2794,
+    "path": "work/packets/reporting-full-reference-native-astra-high-v2/handoff.json",
+    "sha256": "4eec6f15f931f635280309e0c35b6ef70f4ce1e02ce836b5c80f41235a5c2114"
+  },
+  "candidate_manifest": {
+    "bytes": 30854,
+    "path": "work/packets/reporting-full-reference-astra-high-v2/candidate-manifest.json",
+    "sha256": "07fa58fc5b8446ec36f189f9e2e914e565d1c7d214d5777d09bb5aa0534a5a27"
+  },
+  "checks": {
+    "bytes": 1640,
+    "path": "work/reviews/reporting-full-reference-native-result-astra-high-v2/checks.json",
+    "sha256": "053da08c0c20a2657b5cc1949fde9fc9eb5530ad22677d84d22d1311a4cce0b8"
+  },
+  "conclusion": "The exact30-file reporting implementation overlay completed one unchanged original full scorer call with55 distinct printed PASSED items, all5 phases passing and score1.0. The separately selected patched JUnit test also passed against the actual candidate writer. Accept these native observations at the frozen version and scope; do not infer full specification satisfaction or task certification.",
+  "count_effect": {
+    "new_certifications": 0,
+    "new_exclusions": 0,
+    "new_findings": 0,
+    "new_original_full_scorer_calls_in_reviewed_attempt": 1,
+    "new_selected_patched_test_calls_in_reviewed_attempt": 1,
+    "new_task_breadth": 0
+  },
+  "decision": "ACCEPT_SAVED_NATIVE_REFERENCE_OVERLAY_AND_SELECTED_JUNIT_OBSERVATION",
+  "execution": {
+    "bytes": 589,
+    "path": "work/cloud-queue/exports/deterministic-reporting-reference-00b7702ce00ed906/63d26aea0c884120a4c49edfd63d0e8d/execution.json",
+    "sha256": "c6c140e026f4053225d37b8204f875f43f60896a45785cbf173ec5f065a8fb5e"
+  },
+  "historical_baseline": {
+    "comparison_scope": "Historical packaged-baseline review/result recovered and hash checked; review is labeled evidence_consistent_under_review, and a distinct root acceptance was not established in this bounded pass. Therefore no accepted paired before/after or numeric improvement claim is made. Collection/runtime diagnostics and600s historical versus240s present budgets also differ.",
+    "recovered_score": 0.02,
+    "reported_passed_total": [
+      2,
+      55
+    ],
+    "result": {
+      "bytes": 9648,
+      "path": "edgebenchverified/audit/evidence/cloud-runs/systems-schemathesis-reporting-0adf483bd51068b2/67e3918a19c847bdae2f4b4242336f62/result.json",
+      "sha256": "7c6e0fc1c359ffd1abf81988e4bf8a25aa20b6c33d06c8e5963e9ebb6a557750"
+    },
+    "review": {
+      "bytes": 3839,
+      "path": "edgebenchverified/audit/evidence/systems-native-results/schemathesis_reporting_observability/review.json",
+      "sha256": "32f491e0c4a117e889782476869e481601ee3bb538da4f36d07ecfb5e2bc58cc"
+    },
+    "same_original_parent_config": true
+  },
+  "job": {
+    "bytes": 3279,
+    "path": "work/packets/reporting-full-reference-native-astra-high-v2/job.json",
+    "sha256": "9bf3a85712fe773086e418f75a37894f4a91342e838913429a061813b22958a7"
+  },
+  "limits": [
+    "The55 outcomes are one actual native scorer run, not55 independent tasks or trials. One additional selected patched test is separate; it does not make a patched full-scorer run.",
+    "Full-score acceptance by the original tests does not establish fullreference/specification correctness, including actual pytest lifecycle/xdist or every reporting format. Those untested requirements retain their own reviews and controls.",
+    "No fresh independent native rerun, derived persisted image, paired unchanged-submission score comparison, exploit/score-inflation claim, historical leaderboard impact, repair certification or task inclusion.",
+    "240-second diagnostic budget completed here but is not the original1800-second allowance. No measured family-memory peak is exported; configured caps are not aggregate telemetry.",
+    "Raw private outputs remain unavailable for independent reparsing. Selected JUnit pass supports only the exact mounted patched test and candidate writer. All prior task/runner holds remain."
+  ],
+  "observations": {
+    "original_full_scorer_calls": 1,
+    "original_full_scorer_returncode": 0,
+    "original_full_scorer_wall_seconds": 22.604833,
+    "owned_worker_closed": true,
+    "phase_pass_rate": 1.0,
+    "printed_item_counts_by_module": [
+      12,
+      14,
+      8,
+      11,
+      10
+    ],
+    "printed_items_passed": 55,
+    "score": 1.0,
+    "script_reported_phase_totals": [
+      12,
+      14,
+      8,
+      9,
+      10
+    ],
+    "script_reported_total_passed": 53,
+    "script_reported_total_tests": 53,
+    "selected_patched_junit_calls": 1,
+    "selected_patched_junit_outcomes": [
+      "PASSED"
+    ],
+    "selected_patched_junit_wall_seconds": 2.011206,
+    "settled_estimate_microusd": 8280,
+    "settled_estimate_usd": 0.00828
+  },
+  "requested_model": "gpt-6-astra/high",
+  "result": {
+    "bytes": 15125,
+    "path": "work/cloud-queue/exports/deterministic-reporting-reference-00b7702ce00ed906/63d26aea0c884120a4c49edfd63d0e8d/result.json",
+    "sha256": "0acf2c25f7f14709359194d1ac4e2e54b296a1df4df5cd2286fd07f6fe078c73"
+  },
+  "review_actions": {
+    "auth": 0,
+    "canonical_mutations": 0,
+    "native_reruns": 0,
+    "provider": 0
+  },
+  "reviewer": "/root/astra_git_content_review",
+  "role": "Different from candidate/adapter author; also performed adapter source review. This pass independently checks saved result identities and arithmetic; it is not a fresh native reproduction.",
+  "root_admission": {
+    "bytes": 2952,
+    "path": "edgebenchverified/audit/evidence/reporting-full-reference-native-astra-high-v2/root-admission.json",
+    "sha256": "266964d39b4d6a0ac71584b9df3afedf21be768defa0d38520e3755db2352289"
+  },
+  "schema_version": 1,
+  "settlement": {
+    "bytes": 1653,
+    "path": "work/cloud-queue/settlements/63d26aea0c884120a4c49edfd63d0e8d.json",
+    "sha256": "416b3fee2035378d8937889b85f0a63d2d956e89c2a8981ad5a93f9b3a4de161"
+  },
+  "terminal_snapshot": {
+    "bytes": 7650,
+    "path": "work/reviews/reporting-full-reference-native-result-astra-high-v2/terminal-snapshot.json",
+    "sha256": "3fba669ccef7eb75b3e7442c792ca26a1d0adf70341eb703f09c8d1739343663"
+  },
+  "utc": "2026-10-11T18:59:33.530534+00:00",
+  "verification": [
+    "Frozen job, grant, actual admission and execution controls identities join. Transport exports exactly bind both saved files; provider input identities match all12 frozen payloads.30 output overlay identities and6 unchanged judge file identities match source pins. Parent Config ID and full original eval_cmd hash match.",
+    "Printed identities are unique and all PASSED. Phase weights2,2,3,2,1 recompute exact score1. The53 reported total is distinct from55 printed items: phase4 reports9 on success although11 items are printed. No inferred extra or missing native calls.",
+    "Complete output-length/hash receipts join phase and structured/wrapper hashes. These hash receipts do not permit raw-log reparsing; the compact trusted-driver observations and exact source path support the accepted scope.",
+    "All4 Docker/storage command records returned0 without timeout. The source-reviewed driver verifies original files before execution and their final identities after scorer and selected-test paths. Successful complete phase means those guards passed; source body and logs are not re-exported here.",
+    "Read-only SQLite attempt is completed; canonical attempt result hash, settlement proof hash, original job manifest hash and closed provider-record hash agree in their separate domains. Both exports are verified. Exact owned worker closed at2026-10-11T18:55:59.914747+00:00;180 rounded charged seconds yield8280microUSD. This is conservative accounting, not a provider invoice."
+  ]
+}

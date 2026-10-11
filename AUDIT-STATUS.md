@@ -1,8 +1,8 @@
 # Where the audit stands
 
-Scientific evidence snapshot: **October 11, 2026, 18:23 UTC**. This is an unfinished, private audit; no benchmark release is approved.
+Scientific evidence snapshot: **October 11, 2026, 19:03 UTC**. This is an unfinished, private audit; no benchmark release is approved.
 
-**Two more checker weaknesses are confirmed: impossible HTTP dates pass a date predicate, and malformed XML passes a reporting test.** There are now **16 confirmed findings at their documented scopes**. Ten original versions remain excluded, 41 public tasks await a final decision, and none is approved for inclusion.
+**The reporting candidate passed all 55 printed tests in one native run of the unchanged original scorer, earning score 1.0.** Its actual writer also passed the separately selected patched JUnit test. These results advance one existing task; the totals remain **16 scoped findings, ten excluded originals, 41 pending and zero certified**.
 
 | Decision on the 51 public originals | Tasks | Meaning |
 | --- | ---: | --- |
@@ -14,7 +14,17 @@ Scientific evidence snapshot: **October 11, 2026, 18:23 UTC**. This is an unfini
 
 **Sixteen scoped finding-task decisions are closed.** A confirmed defect can be settled before its repair is ready, and a useful partial check does not finish a task review. The finding count is separate from the final task decisions above. Another **83 advertised tasks were unavailable** and are outside this audit's acquired set.
 
-## What changed since the 17:58 UTC checkpoint
+## What changed since the 18:23 UTC checkpoint
+
+The reporting implementation was applied as a **30-file overlay** inside the pinned original judge. All five original test modules and the scoring command stayed unchanged. The run completed in 22.6 seconds with **55 distinct printed test items passing** and score **1.0**. The scorer reports **53/53** because phase four uses a nine-test success count while printing 11 items. These are different counts of the same run, not extra tests. [Accepted result](evidence/selected/reporting-native-reference-acceptance.json) · [saved outcomes](evidence/selected/reporting-native-reference-result.json) · [different result review](evidence/selected/reporting-native-reference-review.json).
+
+Afterward, the actual candidate writer passed the separately mounted patched JUnit test in 2.0 seconds. That is one selected repaired-test result, not a run of the full patched scorer. The owned worker closed; the settled usage estimate is $0.00828.
+
+This adds **one original full-scorer call and one selected patched-test call** on a task already checked. It adds no finding, task breadth, exclusion or certification. The overlay is not a persisted replacement image; passing the original tests does not establish the full reporting specification. Actual pytest lifecycle and xdist behavior remain separate questions. The 240-second diagnostic budget differs from the original 1,800-second allowance; no measured aggregate memory peak or fresh independent native rerun is claimed.
+
+## Earlier checkpoint: 16 findings at 18:23 UTC
+
+**Two more checker weaknesses are confirmed: impossible HTTP dates pass a date predicate, and malformed XML passes a reporting test.** There are now **16 confirmed findings at their documented scopes**. Ten original versions remain excluded, 41 public tasks await a final decision, and none is approved for inclusion.
 
 - **Schemathesis Data Generation:** the original date predicate accepts impossible dates and clock values. A separate reviewer reproduced acceptance of April 31 and minute 60; valid dates still pass. This establishes a weakness in the predicate, not a run of the generated strategy or full test suite. [Conclusion](evidence/selected/datagen-http-date-acceptance.json) · [results](evidence/selected/datagen-http-date-result.json) · [independent review](evidence/selected/datagen-http-date-review.json).
 - **Schemathesis Reporting:** the unchanged original JUnit test accepts plain text and malformed XML containing its two required text fragments. A separate reviewer reproduced acceptance of a report missing its closing tag. Valid XML passes, while a missing-label control fails the original test. The writer was controlled; actual production output and whole-suite acceptance were not measured. [Conclusion](evidence/selected/reporting-junit-acceptance.json) · [results](evidence/selected/reporting-junit-result.json) · [independent review](evidence/selected/reporting-junit-review.json).
@@ -24,7 +34,7 @@ The two new findings used **17 local original-predicate/test evaluations**: 11 d
 
 ## Repair progress after the 18:23 UTC checkpoint
 
-The reporting checker now has a concrete patch that checks XML structure and the recorded error. Twelve author controls and four fresh reviewer controls support it; real-writer and native full-suite testing are still pending. This is a repair prototype, not an approved replacement. [Patch and evidence](proposedrepairs/reporting-junit/README.md).
+The reporting checker has a concrete patch that checks XML structure and the recorded error. Twelve author controls and four fresh reviewer controls support it. The later native result above adds a pass against the actual candidate writer for the selected patched test; the full patched scorer and a persisted corrected image remain untested. This is a repair prototype, not an approved replacement. [Patch and evidence](proposedrepairs/reporting-junit/README.md).
 
 Apple’s current summary now includes its already accepted 50-case judge run. Its independent-review checklist permits justified fixed-suite evidence, as the protocol requires, instead of demanding a new seed and timing sweep by default. The authentic submission/history path and other task requirements remain unresolved. This correction adds no new test or gate pass. [Record correction](evidence/selected/apple-current-execution-review.json).
 
@@ -38,7 +48,7 @@ This update adds **one confirmed finding and one satisfied numeric-conversion re
 
 ## Operational update at 18:12 UTC
 
-The Schemathesis replacement image built successfully, but a configuration guard stopped the attempt before any original scorer ran. The differing field is unknown because the actual configuration and logs were not exported. The owned worker is closed. This was our setup failure, not a new task defect; this attempt will not be retried without concrete evidence identifying the failed guard. The scientific snapshot and counts above are unchanged. [Accepted build-stop record](evidence/selected/schemathesis-persisted-build-stop.json).
+The Schemathesis replacement image built successfully, but a configuration guard stopped the attempt before any original scorer ran. The differing field is unknown because the actual configuration and logs were not exported. The owned worker is closed. This was our setup failure, not a new task defect; this attempt will not be retried without concrete evidence identifying the failed guard. That attempt added no scientific result or count change. [Accepted build-stop record](evidence/selected/schemathesis-persisted-build-stop.json).
 
 ## Why the audit is still unfinished
 
