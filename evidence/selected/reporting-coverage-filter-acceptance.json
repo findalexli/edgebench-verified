@@ -1,0 +1,52 @@
+{
+  "batch": {
+    "bytes": 2358,
+    "path": "edgebenchverified/audit/evidence/reporting-pair-native-20261011-v1/batch-result.json",
+    "sha256": "9b56a9b8c52649528c1d70b4f46b69f269655eac505adb884c5b2ce3ea097b56"
+  },
+  "claims": [
+    "Four actual coverage-helper calls passed their authored behavior checks on the frozen reporting implementation V2 overlay in the pinned native judge. Body allow/deny produced 12/11 values; query allow/deny produced 7/6. Each allowed case contained one unexpected-property value; each denied case contained zero.",
+    "All 36 returned values were instances of coverage.GeneratedValue. The original test filter uses negative.GeneratedValue, a distinct class with neither subclass relation, and selected zero values in all four calls.",
+    "The original deny assertion therefore sees an empty scenario set for both allowed countercontrols even though each actual stream contains one unexpected-property value. This establishes a finite non-discriminating original-test filter in this measured environment.",
+    "The two hypothesis observations are both true independently of the passed behavior status. The original body/query test source uses exactly the filtered absence predicate analyzed; no synthetic iterator replaced the actual helper."
+  ],
+  "count_effect": {
+    "certifications": 0,
+    "disposition_changes": 0,
+    "new_finding_tasks": 0,
+    "new_task_breadth": 0
+  },
+  "decision": "ACCEPT_FINITE_NATIVE_ORIGINAL_TEST_FILTER_SENSITIVITY_GAP",
+  "different": {
+    "bytes": 7658,
+    "path": "work/reviews/reporting-coverage-filter-native-result-astra-high-v2/review.json",
+    "sha256": "175970eaf8a4665593a25456c22cef6c11af4d2540d20f940d9509556cc3d4c0"
+  },
+  "execution": {
+    "bytes": 588,
+    "path": "work/cloud-queue/exports/deterministic-reporting-coverage-bdad4143009235c5/a1584c8a7ccb4263a5002532af3d880c/execution.json",
+    "sha256": "342479881b63c48a1d842124facb6a11265b2a7477f2f899da475c0b08c559b0"
+  },
+  "limits": [
+    "No bare-original helper run, other schemas or versions, corpus incidence, model submission, score change or leaderboard effect is established.",
+    "The authored helper projects the original filter/assertion over actual generated values; neither original test function nor the full original scorer was rerun in this attempt.",
+    "The installed candidate behavior checks are finite. They do not prove all reporting requirements, lifecycle/xdist behavior, full repair, persisted replacement image or certification.",
+    "Earlier accepted 55 printed original items versus53 reported and score1.0 remain scoped historical evidence, not re-counted here. The earlier invalid_json attempt remains unresolved as to cause.",
+    "This is added evidence within the existing reporting task, not new task breadth or an automatic change to accepted disposition/finding counts. Root owns final adjudication.",
+    "No native/provider/authentication call, canonical/Git edit or automatic retry occurred during this review."
+  ],
+  "next": "Freeze judge test correction and test old/new complete original functions on a force-allow mutation and legitimate streams.",
+  "result": {
+    "bytes": 10662,
+    "path": "work/cloud-queue/exports/deterministic-reporting-coverage-bdad4143009235c5/a1584c8a7ccb4263a5002532af3d880c/result.json",
+    "sha256": "2bb6fa6a873b418aaafec9bca49ea4ee90aeb1841c7ae724356854b40080c886"
+  },
+  "root_review": "Verified exact result/source/control/receipt pins, class mismatch and complete nonempty complementary generated streams. Original deny predicate is a source-faithful projection, not original-function execution. Allowed generation is intentional and used only as test sensitivity countercontrol.",
+  "settlement": {
+    "bytes": 1652,
+    "path": "work/cloud-queue/settlements/a1584c8a7ccb4263a5002532af3d880c.json",
+    "sha256": "2a1be2ff0b1bfd7b11d1c93e31998fe9f42782075557d1f4c054a40ff8a2145d"
+  },
+  "task_id": "schemathesis_reporting_observability",
+  "utc": "2026-10-11T19:55:03.785324+00:00"
+}

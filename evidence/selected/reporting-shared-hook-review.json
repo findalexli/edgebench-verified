@@ -1,0 +1,142 @@
+{
+  "attempt_id": "b1356f6de6ef4ca399d02c495893d08a",
+  "batch": {
+    "bytes": 1353,
+    "path": "edgebenchverified/audit/evidence/reporting-shared-hook-native-astra-high-v1/batch-result.json",
+    "sha256": "1152e76a08e0467cf5a93674b6360e944ce0339517def4646cb710494fc5bfe2"
+  },
+  "before_result": {
+    "bytes": 14369,
+    "path": "work/cloud-queue/exports/deterministic-reporting-integration-d1f5ed62d6fbfcbe/426c8bc146224757affd8406e6013742/result.json",
+    "sha256": "53db50b2da1148f7ae8e3e0b94c90f1d3c30b5b4883c98f87ea412ff86d53c4a"
+  },
+  "before_review": {
+    "bytes": 1449,
+    "path": "work/reviews/reporting-runtime-integration-native-result-astra-high-v3/handoff.json",
+    "sha256": "a4906d9f4313c18bb903ac7aa3693e818f2fee08b08bd4e63960217a25e19cd1"
+  },
+  "candidate_source_review": {
+    "bytes": 1542,
+    "path": "work/reviews/reporting-shared-hook-repair-astra-high-v1/handoff.json",
+    "sha256": "7c174330a80dabe0dd7b7f31d6d407c1935feaacb644df222df5cca14ce9e5b1"
+  },
+  "case_assertion_coverage": [
+    {
+      "cases": [
+        "success",
+        "test_failure"
+      ],
+      "conclusion": "PASSED. Nested expected outcomes returned, trace-controller exists, finish hook counts clear, observed active hook counts stay bounded, two HAR and two JUnit writer identities exist, close is invoked once and returns, and report files parse with per-schema URL/testcase correspondence. Success additionally checks exact HAR entry counts. The deliberate test failure is an expected control outcome."
+    },
+    {
+      "cases": [
+        "writer_failure"
+      ],
+      "conclusion": "PASSED. Expected nonzero and injected-error text checks returned; trace lifecycle/hook cleanup and writer close-return checks completed. Allowed HAR write-error events remain explicit in the instrumentation; both named HAR/JUnit files parse. This mode does not require nonempty reports or the success-mode content/count assertions."
+    },
+    {
+      "cases": [
+        "xdist"
+      ],
+      "conclusion": "PASSED. Nested three-pass expectation, controller and both worker traces, observed same-worker first-schema reuse, zero worker-side writer events, controller writer counts/close-return, hook cleanup and per-schema report content/count assertions completed."
+    },
+    {
+      "cases": [
+        "xdist_writer_failure"
+      ],
+      "conclusion": "FAILED at authored line173 requiring injected-error text in nested stdout, after the nonzero check. Trace inventory, writer close/cleanup and report assertions that follow were not reached for this case. The result does not establish successful or failed xdist writer-error cleanup."
+    }
+  ],
+  "checks": {
+    "bytes": 1420,
+    "path": "work/reviews/reporting-shared-hook-native-result-astra-high-v1/checks.json",
+    "sha256": "f9322508bff2e0f0c6c622f6fc2d852bd94cd577f5545dd6ce72eda682389918"
+  },
+  "closure_and_accounting": {
+    "charged_seconds": 180,
+    "closure_observed_at": "2026-10-11T20:04:18.307424+00:00",
+    "estimated_cost_microusd": 8280,
+    "estimated_cost_usd": 0.00828,
+    "joins": "Exact source/payload/export hashes, root grant, batch, read-only attempt and settlement, canonical manifest/terminal/provider/proof digests and saved owned-worker closure verified. Estimate, not invoice or fresh provider query.",
+    "owned_child_reaped": true,
+    "proof_sha256": "9de45f77f4501f95a488268f7afc1f0c2c4c2cce2c847f645b8fadc560d18adb",
+    "queue_state": "completed",
+    "worker_closed": true
+  },
+  "comparison": {
+    "after": {
+      "failed": 1,
+      "passed": 4
+    },
+    "before": {
+      "failed": 5,
+      "passed": 0
+    },
+    "binding": "Actual installed entrypoint and nine critical imported modules bind to the new overlay;30overlay hashes and original judge posthashes pass. Inherited scope text still says implementationV2; exact job/overlay/plugin identities distinguish this correction.",
+    "changed_implementation": "Only src/schemathesis/pytest/plugin.py in the30-file overlay, from ac42e63030c5b9a29b5b101f7f55e3d23df27f41064a0e8a89614f15b4404977 to2affff28fc2f3b1e582bcbc079440304210ee0b00fa5bf33809def5f7af87ccb.",
+    "interpretation": "Supports the finite effect of the shared-hook ownership correction on these fixed controls. This is a comparison across two saved runs, not a same-process paired experiment or universal causal proof.",
+    "native_control_seconds": 26.662318,
+    "unchanged": "Exact five control source bytes, driver, outer pytest.ini, original judge ledger, parent Config identity, command digest, resource profile and time limits. All29other implementation overlay entries unchanged."
+  },
+  "controls": {
+    "bytes": 10338,
+    "path": "work/packets/reporting-runtime-integration-controls-astra-high-v3/test_runtime_integration.py",
+    "sha256": "c1982b905b01c59e3b5820dae1a04abe127091dd23d508d66cf109de130119ff"
+  },
+  "decision": "ACCEPT_FOUR_NATIVE_CONTROL_IMPROVEMENTS_ONE_ASSESSMENT_UNRESOLVED",
+  "execution": {
+    "bytes": 591,
+    "path": "work/cloud-queue/exports/deterministic-reporting-shared-hook-86aca7be624e40d7/b1356f6de6ef4ca399d02c495893d08a/execution.json",
+    "sha256": "13248404b6e04d3e74beb95b1c97f2f530ce86ace3053c81eada11df5699c13b"
+  },
+  "job": {
+    "bytes": 3502,
+    "path": "work/packets/reporting-shared-hook-native-astra-high-v1/job.json",
+    "sha256": "d57ba5c5f31a90be55015297317301343219fbd0e1ddc77ccf73e0a5496c622c"
+  },
+  "job_id": "deterministic-reporting-shared-hook-86aca7be624e40d7",
+  "limits": [
+    "The prior55printed original items/53reported/score1.0 apply to the previous implementationV2, not automatically to this changed plugin. No original suite replay or full patched scorer ran here.",
+    "No stateful workflow, all22requirements, standalone original implementation, all versions, corpus impact, measured score change, persisted replacement image or certification is established.",
+    "Passing authored assertions supports their finite invariants; do not expand this to every hook/writer state or an upstream defect.",
+    "Review performed no native/provider/authentication calls, canonical edits, Git edits or retries."
+  ],
+  "model": "gpt-6-astra",
+  "necessary_corrections": [],
+  "reasoning_effort": "high",
+  "remaining_diagnostic_limit": [
+    "The sole remaining failure is a stdout-specific expectation. Fixed keyword markers can match displayed assertion source; RuntimeError/error-text presence is insufficient to identify the actual stream, exception path or cleanup behavior.",
+    "Complete6785-byte control-log hash receipt is retained, but raw log/worker traces are not exported. Exact output-channel cause remains unresolved. No retry, assertion weakening or candidate change is authorized by this review."
+  ],
+  "requirement_mapping": {
+    "R3.1": "Keep Partial, explicitly add successful finite repeated-schema registration/removal and separation controls. Arbitrary schema/config sharing and all dispatcher paths remain outside this evidence.",
+    "R3.2": "Partial: four successful finite native lifecycle cases plus one unresolved xdist writer-failure assessment. Replace the exclusively failed-control category; do not mark the whole requirement passed.",
+    "R3.4": "Keep Partial, explicitly add successful finite real xdist worker transport/controller reporting and same-worker reuse; exceptional writer-error cleanup is unresolved.",
+    "derived_current_categories": {
+      "finite_checks": 11,
+      "native_controls_failed_as_exclusive_row_category": 0,
+      "partial": 11,
+      "total_requirements": 22
+    },
+    "interpretation": "The failed case remains visible within Partial; category counts are not passed requirements, new task breadth, findings or certifications. Preserve prior dated matrices and both earlier failure attempts."
+  },
+  "result": {
+    "bytes": 11186,
+    "path": "work/cloud-queue/exports/deterministic-reporting-shared-hook-86aca7be624e40d7/b1356f6de6ef4ca399d02c495893d08a/result.json",
+    "sha256": "592a40398c8c3650cff2a29260dab317304da3b0bb84a8555ed030c7c026a53b"
+  },
+  "reviewed_at_utc": "2026-10-11T20:07:36.367981+00:00",
+  "reviewer": "astra_git_content_review",
+  "role_disclosure": "Different from candidate implementation, control, adapter and binding authors. Reviewed saved source/results only; no fresh independent native replay.",
+  "root_admission": {
+    "bytes": 2579,
+    "path": "edgebenchverified/audit/evidence/reporting-shared-hook-native-astra-high-v1/root-admission.json",
+    "sha256": "b8d95847eb4a92dc58f32d89ffc6acc779bd211e81c4ccf2d2c1483e1e85d0f0"
+  },
+  "schema": "different-saved-result-review-v1",
+  "settlement": {
+    "bytes": 1655,
+    "path": "work/cloud-queue/settlements/b1356f6de6ef4ca399d02c495893d08a.json",
+    "sha256": "14f714abd91fd35207c5ee7abfb7b3d720cf1647d9669e3f4fc03d92ae1fc424"
+  }
+}

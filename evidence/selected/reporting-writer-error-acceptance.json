@@ -1,0 +1,81 @@
+{
+  "assertions_reached": {
+    "all_modes": "Corrected outer cases completed their applicable nested outcome checks and trace assertions. Observed finish records were unique, hook counts cleared, active hook counts satisfied the authored invariant, and every observed writer had exactly one final close event whose outcome was returned.",
+    "success_and_deliberate_test_failure": "Nested expectations and parseable per-schema HAR/JUnit content checks passed; success also matched entry counts. The deliberate test failure is an expected test input, not a candidate defect.",
+    "writer_failure_modes": "Child exit was nonzero; controller writer events included at least one same HarWriter/write/error/RuntimeError event. The frozen observer records and rethrows the deliberate injected error on that event, so evidence is no longer merely an expected string in stdout.",
+    "xdist_modes": "Controller,gw0,gw1 traces existed; both first-schema setup items were observed on one worker; worker traces contained no writer events. Ordinary xdist also passed per-schema report content and entry-count checks.",
+    "xdist_writer_failure": "Reached controller-event check and required at least one HAR and one JUnit writer; observed writers completed close despite the injected error. The intentional early return at223 skips final report-content checks and does not require both schemas to be fully received."
+  },
+  "controls": {
+    "bytes": 10631,
+    "path": "work/packets/reporting-writer-error-control-astra-high-v1/test_runtime_integration.py",
+    "sha256": "986051e6b19b834399e9ad87b977c9bd9864bc3f8bea1923e85932e4ae01fba0"
+  },
+  "count_effect": {
+    "certifications": 0,
+    "disposition_changes": 0,
+    "new_finding_tasks": 0,
+    "new_task_breadth": 0
+  },
+  "decision": "ACCEPT_FIVE_FINITE_NATIVE_LIFECYCLE_CONTROLS_ON_SHARED_HOOK_CANDIDATE",
+  "derived_current_categories": {
+    "finite_checks": 13,
+    "partial": 9,
+    "total_requirements": 22
+  },
+  "different": {
+    "bytes": 7947,
+    "path": "work/reviews/reporting-writer-error-native-result-astra-high-v1/review.json",
+    "sha256": "5b2a8626ae51fb72c6fb4724d9bc45a642a10f10a99a0cc9d93c927d7e5fb026"
+  },
+  "limits": [
+    "The corrected assessment relaxes an unrelated stdout-channel requirement and adds a required event predicate. It is not logically identical to or a strict superset of the old assertion.",
+    "No run of the original pre-shared-hook implementation under these corrected controls is included. Do not call this a matched0/5\u21925/5implementation comparison. The earlier identical-control0/5\u21924/5comparison remains separate.",
+    "The previous stdout failure cause is not established by this successful run. Its missing stream/trace details remain unknown.",
+    "Passing fixed assertions supports their finite observations; raw worker traces are not exported for independent re-parsing. The full1164-byte control-log hash receipt is complete but is not an independent trace archive.",
+    "No original55replay or scorer result in this attempt. The separately running regression was not accessed or changed.",
+    "No whole-task/all22requirements certification, persisted replacement, score or historical leaderboard effect.",
+    "No native/provider/authentication call, canonical/Git edit or retry during this review."
+  ],
+  "next": "Original-suite regression on exact changed plugin is terminal and under different review; integrated corrected judge and named remaining requirements are separate.",
+  "observations": {
+    "actual_installed_candidate_binding": "PASS: imported entrypoint and nine critical module pins, all30overlay files, original judge posthashes.",
+    "candidate_change": false,
+    "candidate_identity": "Same accepted shared-hook plugin2affff28fc2f3b1e582bcbc079440304210ee0b00fa5bf33809def5f7af87ccb and full30-file overlay as prior4/5run. Driver, outer pytest configuration, helpers and limits unchanged. Only reviewed control assessment and dependent binding bytes changed.",
+    "control_exit_code": 0,
+    "control_seconds": 22.280902,
+    "diagnostic_failure_sections": 0,
+    "failed": 0,
+    "passed": 5,
+    "passed_cases": [
+      "success",
+      "test_failure",
+      "writer_failure",
+      "xdist",
+      "xdist_writer_failure"
+    ]
+  },
+  "requirement_mapping": {
+    "R3.1": "Keep Partial: registration/removal and finite separation support improves, but second-pop removal and accumulated check-content requirements are not directly asserted.",
+    "R3.2": "Retain Finite checks: actual stateless opening/delivery/closing now includes the named injected-error assessment. This is not full lifecycle, lazy-schema, stateful or literal pytest_sessionstart timing proof.",
+    "R3.4": "Recommend Finite checks for the named ordinary and injected-HAR-error xdist paths: actual workers, controller-side reporting, no worker writers and successful observed-writer cleanup. Do not infer arbitrary recorder/config serialization fidelity or complete reports for both schemas after exceptional interruption.",
+    "derived_categories_if_adopted": {
+      "finite_checks": 13,
+      "partial": 9,
+      "total_requirements": 22
+    },
+    "history": "Date any updated matrix and retain prior snapshots. Categories are evidence descriptions, not completed requirements, findings, task breadth or certification."
+  },
+  "result": {
+    "bytes": 10298,
+    "path": "work/cloud-queue/exports/deterministic-reporting-writer-error-cbe7108f1d39422e/accbf9b85dbe4b2495f0f0323da6922b/result.json",
+    "sha256": "187b483234d26b1099448b9d100132103cb4f1c9774256753dfe3dfeeca58d33"
+  },
+  "review_roles": "Different from control, candidate, adapter and binding authors. Saved-result/source-correspondence review, not a fresh independent native replay.",
+  "settlement": {
+    "bytes": 1656,
+    "path": "work/cloud-queue/settlements/accbf9b85dbe4b2495f0f0323da6922b.json",
+    "sha256": "df95e3a9d8af03c12f7252f4cff53dcc72c05a02366d582e98e7cacd53de748b"
+  },
+  "utc": "2026-10-11T20:19:07.256640+00:00"
+}

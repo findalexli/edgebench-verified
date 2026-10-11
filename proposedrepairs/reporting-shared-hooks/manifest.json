@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task_id": "schemathesis_reporting_observability",
+  "status": "FINITE_NATIVE_FIVE_CONTROLS_AND_ORIGINAL55_REGRESSION_PASS",
+  "patch": {
+    "path": "work/packets/reporting-shared-hook-repair-astra-high-v1/candidate.patch",
+    "sha256": "4ed2e75ec131224a39cb84a71caac54d2b1a6bc0b986933fbd733092c21ff7ec",
+    "bytes": 4183
+  },
+  "base": "Frozen reporting implementationV2, not standalone original image. Full base overlay remains local.",
+  "target": "src/schemathesis/pytest/plugin.py",
+  "root": {
+    "path": "edgebenchverified/audit/evidence/reporting-shared-hook-native-astra-high-v1/root-result-review.json",
+    "sha256": "1ccf463bf7b64e08ed03d06504492fefae95d129b5473d6457ffd906b7fb38e6",
+    "bytes": 4544
+  },
+  "different": {
+    "path": "work/reviews/reporting-shared-hook-native-result-astra-high-v1/final-handoff.json",
+    "sha256": "1a268014fec6620142648e17f91165bf27d99efd5fe2bba132a13d389b9e9689",
+    "bytes": 1264
+  },
+  "original55_tests_replayed_on_changed_candidate": true,
+  "task_certified": false,
+  "history": {
+    "four_of_five_matched_controls": {
+      "path": "edgebenchverified/audit/evidence/reporting-shared-hook-native-astra-high-v1/root-result-review.json",
+      "sha256": "1ccf463bf7b64e08ed03d06504492fefae95d129b5473d6457ffd906b7fb38e6",
+      "bytes": 4544
+    },
+    "original55_tests_replayed_on_changed_candidate_before_this_update": false
+  },
+  "latest_lifecycle_root": {
+    "path": "evidence/selected/reporting-writer-error-acceptance.json",
+    "sha256": "7ec576f49fb2d2dfbe9a4cb7cd7e156500ce28a0ab5d156a8dd52682f376ea83",
+    "bytes": 6028
+  },
+  "regression_root": {
+    "path": "edgebenchverified/audit/evidence/reporting-shared-hook-original-regression-astra-high-v1/root-result-review.json",
+    "sha256": "fbc7def8f241cedd4befead7bee7c78ed31a7b3bb18176096283337a859d3e54",
+    "bytes": 4427
+  }
+}

@@ -44,11 +44,11 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Portfolio calibration<br>`portfolio_risk_calibration` | Review pending | Price/metadata joins; missing macro dates qualified [14]. | — | Does loss calibration match task promise? |
 | Rust multicrate<br>`rust_multicrate_reconstruction` | Review pending | Python helper cancels unrelated failure; Cargo simulated [15]. | Local prototype | Does native paired repair preserve counts? |
 | Schemathesis config<br>`schemathesis_config_modernization` | Review pending | Full scorer misses function identity [16]. | Native paired fix | Can exact repair be packaged and reproduced? |
-| Schemathesis data generation<br>`schemathesis_datagen_pipeline` | Review pending | Impossible dates pass original predicate [17]. | V2 finite fix | Does generated-strategy/full test validate repair? |
-| Schemathesis reporting<br>`schemathesis_reporting_observability` | Review pending | 55 original tests pass; JUnit test gap confirmed [18]. | XML prototype | Do corrected integration/helper controls complete? |
+| Schemathesis data generation<br>`schemathesis_datagen_pipeline` | Review pending | Impossible dates pass original predicate [17]. | V2 finite fix | Pin the generator and selected-overlay runner before native checks. |
+| Schemathesis reporting<br>`schemathesis_reporting_observability` | Review pending | Changed plugin passes the same 55 original tests, score 1.0, plus selected JUnit [29]; checker gaps remain distinct [23]. | 20 coverage expectations on base V2 [26]; four unchanged controls improve [27], then five corrected controls pass [28] | Does the integrated corrected judge preserve valid scoring, and do named stateful gaps pass? |
 | SMT solver<br>`smt_solver` | Review pending | Local witness lookup conflates variable scopes [7]. | Held | Held; no follow-up. |
 | Sphere eversion proof<br>`sphere_eversion_formalization` | Review pending | Selected source/setup only; no proof run (L). | — | Can one original kernel control run? |
-| Treant forest<br>`treant_forest` | Review pending | 16 native observations; two rule/score mismatches (L). | No validated fix | Which movement semantics does contract require? |
+| Treant forest<br>`treant_forest` | Review pending | Movement differs from the primary game; adapted README counts turns, so a separate arithmetic-defect claim is rejected [25]. | No validated fix | Which movement semantics does the adapted contract require? |
 | Tree partitioning<br>`tree_block_partitioning` | Withhold original | Native supplied self-product violates semantics [19]. | Finite native fix | Does full grading preserve valid operations? |
 | Triangulation coloring<br>`triangulation_coloring_optimization` | Withhold original | Ten retained large meshes violate geometry [7]. | No validated fix | Can valid replacement data preserve task skill? |
 | Trinity<br>`trinity_text_adventure` | Review pending | Original state/route helpers with doubles; no game (L). | — | Does real terminal score match contract? |
@@ -60,7 +60,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Wesnoth<br>`wesnoth_tactical_ai` | Review pending | Two failed engine attempts; parser doubles only (L). | Setup blocked | What prevented a valid game result? |
 | Wireless electricity<br>`wireless_electricity_layout` | Withhold original | Raw selection favors compilation failure; normalized gain absent [22]. | No validated fix | Does repair reject failure and retain feasible output? |
 
-Reporting's corrected integration control and separate JSON-output helper adapter are **source-ready but unrun**; the earlier integration attempt failed in control setup and the helper result was unparseable. Neither adds successful scientific coverage. Its selected XML-test pass does not validate the full patched scorer. K–12's later full-caller attempt likewise stopped before an original call; the linked data checks remain valid.
+Reporting's four native helper calls on base V2 exposed a filter discarding all 36 generated values [23]. Its judge correction then matched 20 complete-function expectations: 12 normal returns and eight expected assertion failures, using 12 actual-generator calls and eight doubles [26]. Separately, the shared-hook plugin improved four of five unchanged controls [27]; all five later corrected controls passed using actual error events rather than a stdout-only check [28]. This does not establish why the earlier stdout check failed or a matched zero-to-five implementation improvement. A fresh regression on that same plugin passed all 55 original identities with score 1.0, plus the selected repaired JUnit test [29]. The original scorer remained unpatched; the coverage repair's 20 calls used the earlier base overlay. Integrated corrected-scorer, stateful and fresh independent reproduction work remain. Both latest workers are closed. K–12's later full-caller attempt stopped before an original call; linked data checks remain valid.
 
 Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 51 canonical task cards, current accepted handoff and named accepted result leaves; selected findings and reports supply Git links. The Git `audit/task-registry.json` is a historical release snapshot, not this current disposition table. Certification still follows [VERIFICATION.md](VERIFICATION.md); see [current overview](README.md).
 
@@ -86,3 +86,11 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [20]: evidence/selected/vrptw-retained-converter-reproduction.json
 [21]: evidence/selected/vliw-original-exclusion.json
 [22]: evidence/selected/wireless-original-exclusion.json
+
+[23]: evidence/selected/reporting-coverage-filter-acceptance.json
+[24]: evidence/selected/reporting-integration-v3-acceptance.json
+[25]: evidence/selected/treant-contract-conclusion.json
+[26]: evidence/selected/reporting-coverage-repair-acceptance.json
+[27]: evidence/selected/reporting-shared-hook-acceptance.json
+[28]: evidence/selected/reporting-writer-error-acceptance.json
+[29]: evidence/selected/reporting-shared-regression-acceptance.json
