@@ -123,7 +123,7 @@
     "public_tasks": 51,
     "source_setup_only_unheld_tasks": 5
   },
-  "counts_scope": "Historical selected evidence at2026-10-11T01:22:34UTC. AUDIT-STATUS.md and current_status_snapshot include later Wireless,Jagua,Equivalence,Graph,Tree,English decisions. Historical counts and validation are unchanged.",
+  "counts_scope": "Historical selected evidence at2026-10-11T01:22:34UTC. Historical counts/validation remain unchanged; AUDIT-STATUS.md and current_status_snapshot include the later ten exclusions and thirteen findings; the prior 06:41UTC52-file/status identity is preserved in histories.",
   "coverage_pin_counterevidence": {
     "actual_consumed_pin": {
       "bytes": 35313,
@@ -137,10 +137,11 @@
     },
     "resolution": "Use actual current bytes for a marked derived snapshot; do not claim an exact copy of the supplied historical version."
   },
-  "current_selection_git_base": "b0996dbeabff34464bbb1e99fca8cb8cf0a18037",
+  "current_selection_git_base": "508b93e640b3c1dc96001ef6813d6e4695640bef",
   "current_status_snapshot": {
     "certified_tasks": 0,
-    "closed_scoped_finding_task_decisions": 12,
+    "closed_scoped_finding_task_decisions": 13,
+    "coverage_scope": "37 is the historical tracked partial-observation set, not the union of every task with accepted evidence. Held and excluded buckets retain earlier scoped observations. No fresh whole-evidence union is claimed.",
     "data_diagnostics": {
       "generation_pairs": 4,
       "reference_locations": 2,
@@ -186,18 +187,32 @@
       "new_task_breadth_findings_dispositions_certifications": 0,
       "original_scorer_calls": 0
     },
-    "new_task_coverage_findings_certifications": 0,
-    "pending_original_dispositions": 42,
+    "new_scoped_results_since_0641": {
+      "juliet_full_public_scorer_calls": 1,
+      "juliet_public_cases": 240,
+      "juliet_public_label_records": 192,
+      "k12_answer_reference_rows": 100,
+      "k12_preferred_post_references": 1000,
+      "k12_response_label_references": 1825,
+      "new_certifications": 0,
+      "new_closed_findings": 1,
+      "new_original_decisions": 1,
+      "new_task_coverage": 0,
+      "total_new_local_original_path_calls": 5,
+      "vliw_ordinary_local_runner_calls": 3,
+      "vliw_original600_local_timeout_calls": 1
+    },
+    "pending_original_dispositions": 41,
     "pending_partition": {
       "automatic_review_held": 7,
       "formal_source_setup_only": 5,
-      "partial_observation_tasks": 30
+      "partial_observation_tasks": 29
     },
     "public_tasks": 51,
     "raw_partial_observation_tasks": 37,
     "recovered_not_rerun": "Schemathesis full126-outcome scorers each; older Bipedal20 episodes reused.",
-    "reviewed_original_exclusions": 9,
-    "utc": "2026-10-11T06:41:28.636047+00:00"
+    "reviewed_original_exclusions": 10,
+    "utc": "2026-10-11T07:24:20.080142+00:00"
   },
   "later_english_exclusion": {
     "scope": "Exact final supplied-source assessment-completeness exclusion, earlier unchanged component results reused. No final100/native/provider incidence or repaired-version certification claim.",
@@ -292,6 +307,24 @@
       "sha256": "418929269bac66f68df6d7b4a608edb9167b298e90c445da49df60d3f6f6175f"
     }
   },
+  "later_vliw_exclusion": {
+    "AI_review_selected_paths": [
+      "evidence/selected/vliw-exclusion-review-source.json",
+      "evidence/selected/vliw-exclusion-review-installed.json",
+      "evidence/selected/vliw-exclusion-review-root.json"
+    ],
+    "scope": "Exact original source-copy integrity exclusion with native installed-source correspondence; native invalid execution unobserved. No legal gain or replacement certification.",
+    "selected": {
+      "bytes": 3240,
+      "path": "evidence/selected/vliw-original-exclusion.json",
+      "sha256": "ee71f1d8e6aa279cd7dc922f1b83d3b2242f35f19538bb5199832c8eac1c556b"
+    },
+    "source": {
+      "bytes": 3240,
+      "path": "edgebenchverified/audit/evidence/vliw-original-exclusion-20261011-root-integration/root-integration.json",
+      "sha256": "ee71f1d8e6aa279cd7dc922f1b83d3b2242f35f19538bb5199832c8eac1c556b"
+    }
+  },
   "later_wireless_exclusion": {
     "certified_tasks": 0,
     "pending_original_dispositions": 47,
@@ -309,35 +342,77 @@
     }
   },
   "latest_selected_results_scope": {
-    "conditional_history_corollary": "For measured pools at tested source branches, pool membership implies recent-history compliance; no score executed.",
-    "four_exact_root_aggregate_records": true,
-    "new_task_coverage_findings_certifications_dispositions": 0,
-    "original_scorer_calls": 0,
+    "actual_local_timeout_calls": 1,
+    "actual_ordinary_local_runner_calls": 3,
+    "actual_original_public_scorer_calls": 1,
+    "historical_integrity_and_native_positive_reused": true,
+    "new_certifications": 0,
+    "new_closed_finding_task_decisions": 1,
+    "new_final_task_decisions": 1,
+    "new_task_coverage": 0,
     "private_source_and_data_copied": false,
-    "scope": "K12 selected question/reference/domain/history consistency and rejection of an unsupported Juliet CFG path requirement. No label/educational/learning/solver-leakage/rights/full-certification inference.",
+    "reviewers_AI_not_three_humans": true,
+    "scope": "VLIW exact original evaluator-integrity exclusion; accepted ordinary rejection controls, specification/calibration conclusions and K12 answer-reference correspondence. Source/component and native identity distinctions preserved.",
+    "source_and_native_scopes_not_combined": true,
     "source_refs": [
       {
-        "bytes": 4770,
-        "path": "edgebenchverified/audit/evidence/k12-cached-csv-reference-integrity-20261011-root-acceptance/root-result-review.json",
-        "sha256": "39ea98d5a9ef041ec5c6ad644f472ed3072492ae9f1270872d396cff2adc60fd"
+        "bytes": 3677,
+        "path": "edgebenchverified/audit/evidence/k12-ground-truth-consumer-join-20261011-root-acceptance/root-result-review.json",
+        "sha256": "11a13579a2e5631ad2b660a16d07fae1cd2691db681de0afbdfe8a5da667388c"
       },
       {
-        "bytes": 3684,
-        "path": "edgebenchverified/audit/evidence/k12-csv-index-domain-20261011-root-acceptance/root-result-review.json",
-        "sha256": "91873bd7624a20c8c3b199a9be88fcb256436d97f2efce966a970ae41824ec56"
+        "bytes": 4027,
+        "path": "edgebenchverified/audit/evidence/vliw-original-three-failures-local-20261011-root-acceptance/root-result-review.json",
+        "sha256": "6ef64bd273762152412c5564f0780711817c204cd6010bc4be9da0322831fd3f"
       },
       {
-        "bytes": 4169,
-        "path": "edgebenchverified/audit/evidence/k12-cached-history-cutoff-20261011-root-acceptance/root-result-review.json",
-        "sha256": "fd893e26ea10a4f4d8f78490c13a163f8aa9bbd95b58a3abe1fa6dc8c6aaec80"
+        "bytes": 3072,
+        "path": "edgebenchverified/audit/evidence/vliw-specification-calibration-20261011-root-record/root-record.json",
+        "sha256": "38e374337e41a890e5050865214152a6acff9eaa64fd45ec210dec2d2c984e04"
       },
       {
-        "bytes": 2198,
-        "path": "edgebenchverified/audit/evidence/juliet-witness-edge-contract-source-20261011-root-record/root-record.json",
-        "sha256": "1d03ffb70b3c599085ccaf01f1d1b51c822ea337dfe1466b3692c5d15ee25e30"
+        "bytes": 2771,
+        "path": "edgebenchverified/audit/evidence/vliw-historical-integrity-component-20261011-root-record/root-record.json",
+        "sha256": "574a1e0644a8a9867b9bb35c48d62d2471f37016efa4bf1bb4fde473b79112d0"
+      },
+      {
+        "bytes": 3240,
+        "path": "edgebenchverified/audit/evidence/vliw-original-exclusion-20261011-root-integration/root-integration.json",
+        "sha256": "ee71f1d8e6aa279cd7dc922f1b83d3b2242f35f19538bb5199832c8eac1c556b"
+      },
+      {
+        "bytes": 4795,
+        "path": "edgebenchverified/audit/reviews/vliw-original-source-adjudicator-20261011.json",
+        "sha256": "7064f40408d18b00294ad06888633c7613f273d2e5d57e64cce6e89bfb0279e4"
+      },
+      {
+        "bytes": 5085,
+        "path": "edgebenchverified/audit/reviews/vliw-original-installed-source-applicability-20261011.json",
+        "sha256": "494e86360b188672e97c11f5f41d894f6ae5515cfd82f680360805e04b7e4bac"
+      },
+      {
+        "bytes": 3350,
+        "path": "edgebenchverified/audit/reviews/vliw-original-root-20261011.json",
+        "sha256": "e8d5d35c48c5cbd764c8e2f1e9a709fc2258ce4cf456f7ead60a1ffd2868036f"
+      },
+      {
+        "bytes": 4477,
+        "path": "edgebenchverified/audit/evidence/vliw-git-useful-native-batch-v1-root-result-review/root-result-review.json",
+        "sha256": "9e523f5590b6c00691354b11901e56204306373de1db6b4a2a3e3e20f7a47411"
+      },
+      {
+        "bytes": 2853,
+        "path": "edgebenchverified/audit/evidence/juliet-original-public-baseline-20261011-root-acceptance/root-result-review.json",
+        "sha256": "3e69cdb9242d328d0e2fd6f500981569aa33a98c4c9ffb13bcdeba8185994203"
+      },
+      {
+        "bytes": 3658,
+        "path": "edgebenchverified/audit/evidence/vliw-original-timeout600-local-v2-20261011-root-acceptance/root-result-review.json",
+        "sha256": "58f3a290971e59f5fdfd803fbe3a072f9a285a239e6364b8fae69373109219a7"
       }
     ],
-    "utc": "2026-10-11T06:41:28.636047+00:00"
+    "total_new_local_original_path_calls": 5,
+    "utc": "2026-10-11T07:24:20.080142+00:00"
   },
   "manifest_identity_history": [
     {
@@ -354,6 +429,14 @@
       "bytes": 62014,
       "git_commit": "b0996dbeabff34464bbb1e99fca8cb8cf0a18037",
       "sha256": "2e29587da1e9934ae683f64f5c52f92e14897962b4d37857315acafc82f77f64"
+    },
+    {
+      "bytes": 68769,
+      "git_base": "508b93e640b3c1dc96001ef6813d6e4695640bef",
+      "scope": "Historical52-file selection preserved before VLIW exclusion/current accepted complements.",
+      "selected_files": 52,
+      "sha256": "071a0115491a751f6e33fabd2f189cf6986cf69a6cfdc394be44ff1cfab357b6",
+      "utc": "2026-10-11T06:41:28.636047+00:00"
     }
   ],
   "manifest_self_hash": "Excluded to avoid a self-reference; final manifest identity is supplied in the review handoff.",
@@ -372,15 +455,16 @@
     "2026-10-11T03:00:00+00:00",
     "2026-10-11T05:09:13.311437+00:00",
     "2026-10-11T06:06:38.913248+00:00",
+    "2026-10-11T06:41:28.636047+00:00",
     "2026-10-11T06:41:28.636047+00:00"
   ],
-  "presentation_refresh_utc": "2026-10-11T06:41:28.636047+00:00",
+  "presentation_refresh_utc": "2026-10-11T17:24:31.674695+00:00",
   "previous_manifest_identity": {
     "bytes": 14504,
     "git_commit": "13df675c9083d4722d56c712bc7b64964fbc1add",
     "sha256": "4038361b4087c7cff0f2d6dea4ebeeb07ebd03e6646897b23fe0639021605368"
   },
-  "prior_presentation_refresh_utc": "2026-10-11T06:06:38.913248+00:00",
+  "prior_presentation_refresh_utc": "2026-10-11T06:41:28.636047+00:00",
   "prior_selected_projection": [
     {
       "bytes": 3799,
@@ -646,6 +730,32 @@
       ],
       "scope": "Three accepted K12 data checks and one rejected Juliet hypothesis; unchanged task/finding counts.",
       "utc": "2026-10-11T06:41:28.636047+00:00"
+    },
+    {
+      "preexisting_root_skill_pin": {
+        "bytes": 23957,
+        "path": ".agents/skills/e2b-efficient-audits/references/observed-failure-lessons.md",
+        "sha256": "835fb36871be19b99e3dccaf2d560afe7a367dd7bdf89d2f90073a123344121d"
+      },
+      "previous_report_pins": [
+        {
+          "bytes": 7289,
+          "path": "AUDIT-STATUS.md",
+          "sha256": "880eecbd60eb1a56ffb6f679113653c8b36d4f9cf65a032b9d0046a5ddbc6167"
+        },
+        {
+          "bytes": 7606,
+          "path": "docs/FINDINGS.md",
+          "sha256": "083456e6ce7a098180b4f0edcd26bfe708ce4911d4ada6612944332d957a6509"
+        },
+        {
+          "bytes": 11758,
+          "path": "docs/EVIDENCE-INDEX.md",
+          "sha256": "56af7256069d2d03f082b32955cb2381caf0be84d01ad2f0ed266245f5c26dc1"
+        }
+      ],
+      "scope": "VLIW exclusion and accepted K12/VLIW complements; unchanged prior snapshots.",
+      "utc": "2026-10-11T07:21:28.565618+00:00"
     }
   ],
   "repository_scope": "Private selected evidence; local archive excluded. This manifest is a derived provenance record, not an exact copy of any source and not a scientific acceptance or rights-clearance decision.",
@@ -669,9 +779,9 @@
   "schema": "selected-evidence-manifest-v1",
   "selected_files": [
     {
-      "bytes": 23132,
+      "bytes": 23957,
       "path": ".agents/skills/e2b-efficient-audits/references/observed-failure-lessons.md",
-      "sha256": "db96d844258ee4d5cc041e903431a09f8924ce73bd2eaf3961bf54e37a219257"
+      "sha256": "835fb36871be19b99e3dccaf2d560afe7a367dd7bdf89d2f90073a123344121d"
     },
     {
       "bytes": 17693,
@@ -679,9 +789,9 @@
       "sha256": "ce59f637258dc3415955c71b08856b58306b2c01f88cccb0190ae3cc9afee685"
     },
     {
-      "bytes": 7289,
+      "bytes": 12728,
       "path": "AUDIT-STATUS.md",
-      "sha256": "880eecbd60eb1a56ffb6f679113653c8b36d4f9cf65a032b9d0046a5ddbc6167"
+      "sha256": "2c7fd38386226c6df7eeb712f655709d85143d7584b764796d8707360545e878"
     },
     {
       "bytes": 3354,
@@ -744,14 +854,14 @@
       "sha256": "91854757179ee0f8010bfb235362589a0ebc551da76951caaa75846451d1f970"
     },
     {
-      "bytes": 11758,
+      "bytes": 15303,
       "path": "docs/EVIDENCE-INDEX.md",
-      "sha256": "56af7256069d2d03f082b32955cb2381caf0be84d01ad2f0ed266245f5c26dc1"
+      "sha256": "eaeaaa2cca46cf33898d909091fc33bfd2e54555bc2c0c0ed7ca96646964b695"
     },
     {
-      "bytes": 7606,
+      "bytes": 7828,
       "path": "docs/FINDINGS.md",
-      "sha256": "083456e6ce7a098180b4f0edcd26bfe708ce4911d4ada6612944332d957a6509"
+      "sha256": "78d1aab6ac3ea7174344ad5971c228439839fb10d60cd811c7dfe5c3f02f8967"
     },
     {
       "bytes": 20870,
@@ -809,9 +919,19 @@
       "sha256": "ab003776d78e41ee51a470b71a4b41c164f75f550c77d6e4507f3c9b600a2b31"
     },
     {
+      "bytes": 2853,
+      "path": "evidence/selected/juliet-original-public-baseline.json",
+      "sha256": "3e69cdb9242d328d0e2fd6f500981569aa33a98c4c9ffb13bcdeba8185994203"
+    },
+    {
       "bytes": 2198,
       "path": "evidence/selected/juliet-unrequired-path-hypothesis.json",
       "sha256": "1d03ffb70b3c599085ccaf01f1d1b51c822ea337dfe1466b3692c5d15ee25e30"
+    },
+    {
+      "bytes": 3677,
+      "path": "evidence/selected/k12-answer-reference-correspondence.json",
+      "sha256": "11a13579a2e5631ad2b660a16d07fae1cd2691db681de0afbdfe8a5da667388c"
     },
     {
       "bytes": 4169,
@@ -879,9 +999,54 @@
       "sha256": "418929269bac66f68df6d7b4a608edb9167b298e90c445da49df60d3f6f6175f"
     },
     {
+      "bytes": 5085,
+      "path": "evidence/selected/vliw-exclusion-review-installed.json",
+      "sha256": "494e86360b188672e97c11f5f41d894f6ae5515cfd82f680360805e04b7e4bac"
+    },
+    {
+      "bytes": 3350,
+      "path": "evidence/selected/vliw-exclusion-review-root.json",
+      "sha256": "e8d5d35c48c5cbd764c8e2f1e9a709fc2258ce4cf456f7ead60a1ffd2868036f"
+    },
+    {
+      "bytes": 4795,
+      "path": "evidence/selected/vliw-exclusion-review-source.json",
+      "sha256": "7064f40408d18b00294ad06888633c7613f273d2e5d57e64cce6e89bfb0279e4"
+    },
+    {
       "bytes": 1705,
       "path": "evidence/selected/vliw-fresh-nine-local.json",
       "sha256": "da2ab8b3fd89b53223249c93044f892b4134c0787e5e2b8aa586c76bd02aba11"
+    },
+    {
+      "bytes": 3240,
+      "path": "evidence/selected/vliw-original-exclusion.json",
+      "sha256": "ee71f1d8e6aa279cd7dc922f1b83d3b2242f35f19538bb5199832c8eac1c556b"
+    },
+    {
+      "bytes": 4477,
+      "path": "evidence/selected/vliw-original-nine-source-identity.json",
+      "sha256": "9e523f5590b6c00691354b11901e56204306373de1db6b4a2a3e3e20f7a47411"
+    },
+    {
+      "bytes": 3658,
+      "path": "evidence/selected/vliw-original-timeout-control.json",
+      "sha256": "58f3a290971e59f5fdfd803fbe3a072f9a285a239e6364b8fae69373109219a7"
+    },
+    {
+      "bytes": 2771,
+      "path": "evidence/selected/vliw-source-copy-integrity.json",
+      "sha256": "574a1e0644a8a9867b9bb35c48d62d2471f37016efa4bf1bb4fde473b79112d0"
+    },
+    {
+      "bytes": 3072,
+      "path": "evidence/selected/vliw-specification-calibration.json",
+      "sha256": "38e374337e41a890e5050865214152a6acff9eaa64fd45ec210dec2d2c984e04"
+    },
+    {
+      "bytes": 4027,
+      "path": "evidence/selected/vliw-three-rejection-controls.json",
+      "sha256": "6ef64bd273762152412c5564f0780711817c204cd6010bc4be9da0322831fd3f"
     },
     {
       "bytes": 2364,
@@ -1068,6 +1233,37 @@
       ],
       "two_exact_root_acceptance_aggregates": true,
       "utc": "2026-10-11T06:06:38.913248+00:00"
+    },
+    {
+      "conditional_history_corollary": "For measured pools at tested source branches, pool membership implies recent-history compliance; no score executed.",
+      "four_exact_root_aggregate_records": true,
+      "new_task_coverage_findings_certifications_dispositions": 0,
+      "original_scorer_calls": 0,
+      "private_source_and_data_copied": false,
+      "scope": "K12 selected question/reference/domain/history consistency and rejection of an unsupported Juliet CFG path requirement. No label/educational/learning/solver-leakage/rights/full-certification inference.",
+      "source_refs": [
+        {
+          "bytes": 4770,
+          "path": "edgebenchverified/audit/evidence/k12-cached-csv-reference-integrity-20261011-root-acceptance/root-result-review.json",
+          "sha256": "39ea98d5a9ef041ec5c6ad644f472ed3072492ae9f1270872d396cff2adc60fd"
+        },
+        {
+          "bytes": 3684,
+          "path": "edgebenchverified/audit/evidence/k12-csv-index-domain-20261011-root-acceptance/root-result-review.json",
+          "sha256": "91873bd7624a20c8c3b199a9be88fcb256436d97f2efce966a970ae41824ec56"
+        },
+        {
+          "bytes": 4169,
+          "path": "edgebenchverified/audit/evidence/k12-cached-history-cutoff-20261011-root-acceptance/root-result-review.json",
+          "sha256": "fd893e26ea10a4f4d8f78490c13a163f8aa9bbd95b58a3abe1fa6dc8c6aaec80"
+        },
+        {
+          "bytes": 2198,
+          "path": "edgebenchverified/audit/evidence/juliet-witness-edge-contract-source-20261011-root-record/root-record.json",
+          "sha256": "1d03ffb70b3c599085ccaf01f1d1b51c822ea337dfe1466b3692c5d15ee25e30"
+        }
+      ],
+      "utc": "2026-10-11T06:41:28.636047+00:00"
     }
   ],
   "selection_method": {
@@ -1076,7 +1272,8 @@
     "findings": "Allowlisted root decision fields only. Claim/counterevidence/source-version/task-definition/primary-accepted-reference values retained unchanged; no accepted-observation raw native leaf references copied.",
     "jagua_flt_status_update": "Dated summary and links only, from exact accepted Jagua decision/FLT saved-failure receipts and selected current coordinator fields. Older finding/table counts and dates are preserved. No new scientific execution or private material is added.",
     "later_update": "Safe counts/claims/status only from three exact root-accepted leaves. Original twelve finding claim/counterevidence strings unchanged; original helper bodies, raw vectors, IDs, native logs, credentials and provider identities are omitted.",
-    "reference_validation": "Root decision and current snapshots were exact byte/size verified; each later accepted depth leaf was independently size/hash verified. Primary finding leaf references were taken from the accepted decision source, without re-reading held source bodies or re-reviewing all ancestry."
+    "reference_validation": "Root decision and current snapshots were exact byte/size verified; each later accepted depth leaf was independently size/hash verified. Primary finding leaf references were taken from the accepted decision source, without re-reading held source bodies or re-reviewing all ancestry.",
+    "vliw_exclusion_and_complements": "Exact small accepted root aggregates and three AI approval records copied after public-safety inspection. Supporting private/source bodies omitted; prior twelve-finding/coverage snapshots preserved. Root-owned preexisting E2B lesson change is preserved and its selected pin refreshed only."
   },
   "source_git_head": "39c8ac988ec78500e97f47a199d2a591cbe36491",
   "source_refs": [
@@ -1314,6 +1511,61 @@
       "bytes": 2198,
       "path": "edgebenchverified/audit/evidence/juliet-witness-edge-contract-source-20261011-root-record/root-record.json",
       "sha256": "1d03ffb70b3c599085ccaf01f1d1b51c822ea337dfe1466b3692c5d15ee25e30"
+    },
+    {
+      "bytes": 3677,
+      "path": "edgebenchverified/audit/evidence/k12-ground-truth-consumer-join-20261011-root-acceptance/root-result-review.json",
+      "sha256": "11a13579a2e5631ad2b660a16d07fae1cd2691db681de0afbdfe8a5da667388c"
+    },
+    {
+      "bytes": 4027,
+      "path": "edgebenchverified/audit/evidence/vliw-original-three-failures-local-20261011-root-acceptance/root-result-review.json",
+      "sha256": "6ef64bd273762152412c5564f0780711817c204cd6010bc4be9da0322831fd3f"
+    },
+    {
+      "bytes": 3072,
+      "path": "edgebenchverified/audit/evidence/vliw-specification-calibration-20261011-root-record/root-record.json",
+      "sha256": "38e374337e41a890e5050865214152a6acff9eaa64fd45ec210dec2d2c984e04"
+    },
+    {
+      "bytes": 2771,
+      "path": "edgebenchverified/audit/evidence/vliw-historical-integrity-component-20261011-root-record/root-record.json",
+      "sha256": "574a1e0644a8a9867b9bb35c48d62d2471f37016efa4bf1bb4fde473b79112d0"
+    },
+    {
+      "bytes": 3240,
+      "path": "edgebenchverified/audit/evidence/vliw-original-exclusion-20261011-root-integration/root-integration.json",
+      "sha256": "ee71f1d8e6aa279cd7dc922f1b83d3b2242f35f19538bb5199832c8eac1c556b"
+    },
+    {
+      "bytes": 4795,
+      "path": "edgebenchverified/audit/reviews/vliw-original-source-adjudicator-20261011.json",
+      "sha256": "7064f40408d18b00294ad06888633c7613f273d2e5d57e64cce6e89bfb0279e4"
+    },
+    {
+      "bytes": 5085,
+      "path": "edgebenchverified/audit/reviews/vliw-original-installed-source-applicability-20261011.json",
+      "sha256": "494e86360b188672e97c11f5f41d894f6ae5515cfd82f680360805e04b7e4bac"
+    },
+    {
+      "bytes": 3350,
+      "path": "edgebenchverified/audit/reviews/vliw-original-root-20261011.json",
+      "sha256": "e8d5d35c48c5cbd764c8e2f1e9a709fc2258ce4cf456f7ead60a1ffd2868036f"
+    },
+    {
+      "bytes": 4477,
+      "path": "edgebenchverified/audit/evidence/vliw-git-useful-native-batch-v1-root-result-review/root-result-review.json",
+      "sha256": "9e523f5590b6c00691354b11901e56204306373de1db6b4a2a3e3e20f7a47411"
+    },
+    {
+      "bytes": 2853,
+      "path": "edgebenchverified/audit/evidence/juliet-original-public-baseline-20261011-root-acceptance/root-result-review.json",
+      "sha256": "3e69cdb9242d328d0e2fd6f500981569aa33a98c4c9ffb13bcdeba8185994203"
+    },
+    {
+      "bytes": 3658,
+      "path": "edgebenchverified/audit/evidence/vliw-original-timeout600-local-v2-20261011-root-acceptance/root-result-review.json",
+      "sha256": "58f3a290971e59f5fdfd803fbe3a072f9a285a239e6364b8fae69373109219a7"
     }
   ],
   "status_snapshot_history": [
@@ -1482,6 +1734,67 @@
       "recovered_not_rerun": "Schemathesis full126-outcome scorers each; older Bipedal20 episodes reused.",
       "reviewed_original_exclusions": 9,
       "utc": "2026-10-11T06:06:38.913248+00:00"
+    },
+    {
+      "certified_tasks": 0,
+      "closed_scoped_finding_task_decisions": 12,
+      "data_diagnostics": {
+        "generation_pairs": 4,
+        "reference_locations": 2,
+        "selected_response_labels": 8
+      },
+      "english_scope": "Final supplied-source offline original/candidate fullmain calls: complete assessment byte-identical valid96; required omission valid96 original vs invalid0 repair. No live provider/installed-image/replacement certification.",
+      "new_acquired_data_observations_since_0543": {
+        "authored_local_data_diagnostics": 2,
+        "cta_price_rows": 46950,
+        "cta_selected_cells": 554691,
+        "juliet_cases": 976,
+        "juliet_label_records": 915,
+        "new_task_breadth_findings_dispositions_certifications": 0,
+        "original_scorer_calls": 0
+      },
+      "new_execution_cases_since_0412": {
+        "english_full_source_main_calls": 4,
+        "molecular_original_tester_controls": 2,
+        "schemathesis_full_source_components": 4,
+        "total": 19,
+        "vliw_original_source_copy_cases": 9
+      },
+      "new_finite_observations_since_0502": {
+        "bipedal_original_native_malformed_controls": 1,
+        "carleson_original_proof_helper_controls": 0,
+        "nethack_original_receipt_wrapper_calls": 4,
+        "portfolio_authored_table_diagnostics": 1,
+        "portfolio_price_rows": 16990,
+        "rust_original_loader_calls": 1,
+        "rust_retained_manifest_records": 2749,
+        "vrptw_converter_pairs": 56,
+        "vrptw_original_function_calls": 112
+      },
+      "new_scoped_results_since_0605": {
+        "juliet_unsupported_path_hypotheses_rejected": 1,
+        "k12_candidate_past_references_allowed": 99,
+        "k12_history_rows": 793457,
+        "k12_knowledge_points": 50,
+        "k12_original_CSV_loader_calls": 2,
+        "k12_question_records": 5000,
+        "k12_scenario_question_references": 45000,
+        "k12_scenarios": 200,
+        "new_task_breadth_findings_dispositions_certifications": 0,
+        "original_scorer_calls": 0
+      },
+      "new_task_coverage_findings_certifications": 0,
+      "pending_original_dispositions": 42,
+      "pending_partition": {
+        "automatic_review_held": 7,
+        "formal_source_setup_only": 5,
+        "partial_observation_tasks": 30
+      },
+      "public_tasks": 51,
+      "raw_partial_observation_tasks": 37,
+      "recovered_not_rerun": "Schemathesis full126-outcome scorers each; older Bipedal20 episodes reused.",
+      "reviewed_original_exclusions": 9,
+      "utc": "2026-10-11T06:41:28.636047+00:00"
     }
   ],
   "validation": {
