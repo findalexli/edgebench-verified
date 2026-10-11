@@ -103,7 +103,7 @@
     "public_tasks": 51,
     "source_setup_only_unheld_tasks": 5
   },
-  "counts_scope": "Historical selected evidence at 2026-10-11T01:22:34 UTC. AUDIT-STATUS.md includes separately accepted Wireless, Jagua, Equivalence and Graph decisions below; historical counts and validation are unchanged.",
+  "counts_scope": "Historical selected evidence at2026-10-11T01:22:34UTC. AUDIT-STATUS.md and current_status_snapshot include later Wireless,Jagua,Equivalence,Graph,Tree decisions. Historical counts and validation are unchanged.",
   "coverage_pin_counterevidence": {
     "actual_consumed_pin": {
       "bytes": 35313,
@@ -120,21 +120,24 @@
   "current_status_snapshot": {
     "certified_tasks": 0,
     "closed_scoped_finding_task_decisions": 12,
-    "new_findings_since_0249": 0,
-    "new_task_coverage_since_0249": 0,
-    "new_task_decisions_since_0249": 2,
-    "new_task_tests_since_0249": 0,
-    "order_nf_parallel_batch": "Both failed attempts and exact owned worker closures independently/root accepted; no original checker tests/proofs, repair validation or new task defect. Historical incomplete Order output and NF preparation cause remain unresolved.",
-    "pending_original_dispositions": 44,
+    "english_source_check": "Final grader replacement identified; helper and downstream assessment/export source identities match; model/environment configuration differs. No new original-helper/native/model execution; old whole-main observations stay old-version only.",
+    "pending_original_dispositions": 43,
     "pending_partition": {
       "automatic_review_held": 7,
       "formal_source_setup_only": 5,
-      "partial_observation_tasks": 32
+      "partial_observation_tasks": 31
     },
     "public_tasks": 51,
     "raw_partial_observation_tasks": 37,
-    "reviewed_original_exclusions": 7,
-    "utc": "2026-10-11T03:00:00+00:00"
+    "reviewed_original_exclusions": 8,
+    "since_0300": {
+      "completed_native_repair_attempts": 1,
+      "completed_original_decisions": 1,
+      "new_findings": 0,
+      "new_task_coverage": 0,
+      "original_checker_tests_in_that_attempt": 0
+    },
+    "utc": "2026-10-11T03:54:14.744615+00:00"
   },
   "later_eq_graph_exclusions": {
     "certified_tasks": 0,
@@ -190,6 +193,30 @@
       "bytes": 2337,
       "path": "edgebenchverified/audit/evidence/jagua-original-exact-version-exclusion-20261011-root-integration/root-integration.json",
       "sha256": "5481055d88f9350c1f494df633bf3d5623b30d0487e559577f8092b5a015c4b4"
+    }
+  },
+  "later_order_repair_failed_pilot": {
+    "selected": {
+      "bytes": 2515,
+      "path": "evidence/selected/order-repair-failed-pilot.json",
+      "sha256": "37755e576701ca2c68d42a60c2b2e855ed12064de4af4869df857a8bcfce8dcf"
+    },
+    "source": {
+      "bytes": 2515,
+      "path": "edgebenchverified/audit/evidence/order-native-format-integration-20261011-v3.1-root-run/root-result-review.json",
+      "sha256": "37755e576701ca2c68d42a60c2b2e855ed12064de4af4869df857a8bcfce8dcf"
+    }
+  },
+  "later_tree_exclusion": {
+    "selected": {
+      "bytes": 2835,
+      "path": "evidence/selected/tree-original-exclusion.json",
+      "sha256": "418929269bac66f68df6d7b4a608edb9167b298e90c445da49df60d3f6f6175f"
+    },
+    "source": {
+      "bytes": 2835,
+      "path": "edgebenchverified/audit/evidence/tree-original-exclusion-20261011-root-integration/root-integration.json",
+      "sha256": "418929269bac66f68df6d7b4a608edb9167b298e90c445da49df60d3f6f6175f"
     }
   },
   "later_wireless_exclusion": {
@@ -261,6 +288,28 @@
       "sha256": "dc973810b1378ecb6d8cd25004f7ea14d0014a200a3c865d66d9ccd0350da329"
     }
   ],
+  "report_pin_history": [
+    {
+      "previous_report_pins": [
+        {
+          "bytes": 6021,
+          "path": "AUDIT-STATUS.md",
+          "sha256": "54c8e4283e229bdba03cdabcd51098ba1fe51dfd9c189363831e3d165a8185d6"
+        },
+        {
+          "bytes": 3894,
+          "path": "docs/EVIDENCE-INDEX.md",
+          "sha256": "6d5bad09633c50a9eb39a60e15ad015e67375635ada847962c67ab9c0bbc94ee"
+        },
+        {
+          "bytes": 5246,
+          "path": "docs/FINDINGS.md",
+          "sha256": "33338e37b0dd9190b242e7acafec6c9364e8990a4a6ca3b91d671f522ef8e92e"
+        }
+      ],
+      "utc": "2026-10-11T03:54:14.744633+00:00"
+    }
+  ],
   "repository_scope": "Private selected evidence; local archive excluded. This manifest is a derived provenance record, not an exact copy of any source and not a scientific acceptance or rights-clearance decision.",
   "root_presentation_adoption_utc": "2026-10-11T01:32:41.562556+00:00",
   "saved_failure_review_history": [
@@ -282,9 +331,9 @@
   "schema": "selected-evidence-manifest-v1",
   "selected_files": [
     {
-      "bytes": 6021,
+      "bytes": 5629,
       "path": "AUDIT-STATUS.md",
-      "sha256": "54c8e4283e229bdba03cdabcd51098ba1fe51dfd9c189363831e3d165a8185d6"
+      "sha256": "2d1109da3c913ec5aa397c98137a4982e04f3c716e94fa3c111eb5807c3b95af"
     },
     {
       "bytes": 3127,
@@ -347,14 +396,14 @@
       "sha256": "91854757179ee0f8010bfb235362589a0ebc551da76951caaa75846451d1f970"
     },
     {
-      "bytes": 3894,
+      "bytes": 4360,
       "path": "docs/EVIDENCE-INDEX.md",
-      "sha256": "6d5bad09633c50a9eb39a60e15ad015e67375635ada847962c67ab9c0bbc94ee"
+      "sha256": "e0ea5ec44bb387c4aed547c039de4df844ad83c4876e5dfad2e4951c80e7fd0b"
     },
     {
-      "bytes": 5246,
+      "bytes": 5733,
       "path": "docs/FINDINGS.md",
-      "sha256": "33338e37b0dd9190b242e7acafec6c9364e8990a4a6ca3b91d671f522ef8e92e"
+      "sha256": "051b8c5888a58ad049b544c5ded6565480654e8f38622c5d5af6001abbef99a8"
     },
     {
       "bytes": 20870,
@@ -390,6 +439,16 @@
       "bytes": 1431,
       "path": "evidence/selected/graph-confidence-qualification.json",
       "sha256": "918f1fde775dffaaa51a6bd5f76c30e71a600b08684e39409273333bf4085343"
+    },
+    {
+      "bytes": 2835,
+      "path": "evidence/selected/tree-original-exclusion.json",
+      "sha256": "418929269bac66f68df6d7b4a608edb9167b298e90c445da49df60d3f6f6175f"
+    },
+    {
+      "bytes": 2515,
+      "path": "evidence/selected/order-repair-failed-pilot.json",
+      "sha256": "37755e576701ca2c68d42a60c2b2e855ed12064de4af4869df857a8bcfce8dcf"
     }
   ],
   "selected_order_sidecar_scope": "Exact accepted compact metadata only; three actual bundle approvals and five immediate scientific decision leaves. Other50 task cards, source-lock/harness/catalog and full raw/native archive are absent. No complete-release check, fresh reproduction or certification claim.",
