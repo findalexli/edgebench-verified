@@ -1,14 +1,15 @@
 # Continuing the EdgeBench audit
 
-**October 11, 2026, 22:24 UTC accepted results.** Config and Reporting originals
-are now withheld; Config’s explicit policy choice preserves the earlier contrary
-review. Portfolio’s eight paired full-metric cases pass all 16 native calls.
-Reporting’s three new stateful controls all fail a combined callback assertion;
-exact causes and later cleanup checks remain unresolved. Zig’s selected negative
-baseline is accepted and closed. These workers are closed; Sphere’s first native
-run is executing under the canonical coordinator (session 10860), with no result
-claimed. Recheck its saved ownership before taking action. The routing
-travel-window complement remains accepted locally, not yet selected here.
+**October 11, 2026, 22:40 UTC accepted results.** Portfolio’s unchanged original
+is now withheld. Date-checker original/corrected property calls match all 12
+expectations with a supplied strategy; the missing original generator remains
+untested. Reporting’s observation run identifies six empty callbacks among eight,
+with all elapsed times nonnegative; all three controls still fail and later
+cleanup assertions remain unreached. Sphere’s preparation failed before original
+helpers. These attempts are terminal and their owned workers closed; no running
+handle remains for them. Exact attempt and closure records are linked from the
+selected receipts. The routing travel-window complement remains accepted locally,
+not yet selected here.
 
 ## Outcome and current decisions
 
@@ -19,7 +20,7 @@ see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable
 
 Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
 and [TASKS](TASKS.md) for current decisions. There are findings across 18 tasks,
-14 withheld original versions, 37 pending decisions and zero certified versions.
+15 withheld original versions, 36 pending decisions and zero certified versions.
 “Withheld” applies to the exact original unchanged; it does not approve or rule
 out a repaired version. The Git `audit/task-registry.json` is a historical partial
 snapshot with three exclusions, not the current tracker.
@@ -63,12 +64,12 @@ All local paths below are relative to the shared workspace:
 | --- | --- | --- |
 | Tree T2 alias correction | Matched installed evaluator: official reference 10/10 and missing-answer controls 0/10 before and after correction; T2 contributes 5/100 task points. [Accepted result](evidence/selected/tree-t2-repair-regression-acceptance.json). | Reuse the completed T2 regression and earlier alias-trigger controls; assess remaining components separately. |
 | Equivalence T3 checker correction | Same one official input passes with corrected checker and 64 MiB audit output allowance; 40,623,541 output bytes exceeded the earlier 16 MiB cap. [Accepted result](evidence/selected/equivalence-t3-repair-case-acceptance.json). | Extend to remaining T3 cases with a justified output allowance; preserve the combined checker/resource change and separate 14 boundary controls. |
-| Reporting combined judge correction | Accepted: 57 collected tests pass, 55/55 reported, score 1.0; 20 coverage and four JUnit controls match. [Result](evidence/selected/reporting-integrated-acceptance.json). | Preserve this positive result; locate the exact failed callback condition in each newer stateful mode before assessing later cleanup. [Counterevidence](evidence/selected/reporting-stateful-failed-controls-acceptance.json). |
+| Reporting combined judge correction | Accepted: 57 collected tests pass, 55/55 reported, score 1.0; 20 coverage and four JUnit controls match. [Result](evidence/selected/reporting-integrated-acceptance.json). | Preserve this positive result; determine why six callbacks were empty before changing the test or assessing later cleanup. [Observed counts](evidence/selected/reporting-stateful-observation-acceptance.json). |
 | Rust failure-credit correction | [Original withholding adopted](evidence/selected/rust-original-exclusion.json). Accepted actual Cargo comparison: five authored fixtures, ten helper outcomes; false PASS corrected, four other pairs preserved. [Result](evidence/selected/rust-native-repair-acceptance.json). | Assess original-corpus/full-scorer behavior and the distinct `cas-cli` policy; do not rerun the closed fixture question. |
 | Routing data complement | Root accepted: no necessary travel-window violation in 56 retained instances / 5,600 customers. Root receipt under `edgebenchverified/audit/evidence/vrptw-travel-window-complement-astra-high-v1-root-review/`. | Select the accepted evidence in the next results delivery. This does not establish complete route feasibility. |
 | OpenTTD cohort complement | Final source preserves the requested seed and propagates missing-directory errors; an existing empty directory can return no rows. [Narrowed conclusion](evidence/selected/openttd-final-library-acceptance.json). | Establish actual engine reachability of the empty-directory condition before claiming score distortion. |
 | CTA currency correction | Original withheld [decision](evidence/selected/cta-original-exclusion.json). Accepted: 12 native risk-method calls plus two accounting calls preserve expected behavior. [Result](evidence/selected/cta-currency-native-acceptance.json). | Assess a complete eligible portfolio/full scorer; preserve module/bytecode and dependency-version limits. |
-| Portfolio annual-excess correction | Eight paired aligned cases, 16 complete native metric calls match; seven other metrics unchanged per pair. [Result](evidence/selected/portfolio-native-repair-acceptance.json). | Address misaligned dates, eligibility and full scoring separately. Keep the prior failed attempt and its unknown cause; successful V3 does not explain it. |
+| Portfolio annual-excess correction | [Original withheld](evidence/selected/portfolio-original-exclusion.json). Eight paired aligned cases, 16 complete native metric calls match; seven other metrics unchanged per pair. [Result](evidence/selected/portfolio-native-repair-acceptance.json). | Address misaligned dates, eligibility and full scoring separately. Keep the prior failed attempt and its unknown cause; successful V3 does not explain it. |
 | NetHack native path | One reset and 5,000 API step returns; observed peak zero matches WA/0. [Result](evidence/selected/nethack-native-acceptance.json). | Positive-score behavior and default 20-trajectory repeatability remain untested; API steps do not prove world turns or competence. |
 | ARC public and hidden suites | Public 48/48 versus 16/48; hidden scorer reports 167/448 at 35.59 versus 45/448 at 7.41. All 12 unaffected hidden suites retain their counts. [Hidden result](evidence/selected/arc-hidden-native-acceptance.json). | Assess hidden-case expectations and scorer validity beyond this mutation; do not repeat the completed comparisons. Import failures can count as 0/N without executing every assertion. |
 
@@ -79,9 +80,12 @@ distinct four-of-five unchanged-control
 improvement and later five-of-five corrected-control result. Exact evidence and
 remaining requirements are in [REPORTING-COVERAGE](docs/REPORTING-COVERAGE.md).
 Treant’s arithmetic-defect hypothesis was rejected; intended movement remains
-unresolved. HTTP-date and K–12 setup are stopped: resume only with evidence
-addressing their recorded missing source/preflight failures, not another blind
-attempt. Recover exact accepted records before assigning follow-up.
+unresolved. HTTP-date now has accepted native property evidence with an authored strategy,
+not the original generator: recover that generator before broader phase checks.
+K–12 setup remains stopped pending evidence resolving its recorded preflight failure.
+Sphere’s preparation is closed with zero original helper calls; no retry is
+authorized. Its cap-metadata comparison and unresolved final file join must both
+be addressed before any separately authorized correction. [Sphere record](evidence/selected/sphere-native-preparation-failure.json). Recover exact accepted records before assigning follow-up.
 
 ## Authority and execution ownership
 
