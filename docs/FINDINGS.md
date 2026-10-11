@@ -2,7 +2,7 @@
 
 **Ten exact original versions are excluded from the candidate release because of independently reviewed defects.** “Excluded” means omit that original version while keeping its audit record. It does not mean the task is repaired, every score is wrong, or a corrected version is approved.
 
-The audit has **14 closed finding-task decisions**, including the ten exclusions below. The remaining four findings are confirmed at a narrower scope, with their overall task decisions still pending. None of these findings certifies a replacement or establishes how often the defect changes real benchmark scores. [Current counts and progress](../AUDIT-STATUS.md).
+The audit has **16 closed finding-task decisions**, including the ten exclusions below. The remaining six findings are confirmed at a narrower scope, with their overall task decisions still pending. None of these findings certifies a replacement or establishes how often the defect changes real benchmark scores. [Current counts and progress](../AUDIT-STATUS.md).
 
 ## Why ten original versions are excluded
 
@@ -21,10 +21,12 @@ The audit has **14 closed finding-task decisions**, including the ten exclusions
 
 Each row concerns the acquired version. None of these decisions automatically excludes a future corrected version or clears it for release. The historical evidence records keep their original dates and counts; the [status page](../AUDIT-STATUS.md) owns the current totals.
 
-## Four other confirmed findings, with task decisions pending
+## Six other confirmed findings, with task decisions pending
 
 | Task | What is established | Why the claim stays narrow |
 | --- | --- | --- |
+| **Schemathesis Data Generation** | The original date predicate accepts impossible dates and times, including April 31 and minute 60. | Eight authored and three independent predicate evaluations; no generated-strategy, full Hypothesis suite, native or score-impact claim. [Conclusion](../evidence/selected/datagen-http-date-acceptance.json) · [independent review](../evidence/selected/datagen-http-date-review.json). |
+| **Schemathesis Reporting** | The original JUnit test accepts non-XML or malformed XML containing its two required text fragments. | Four authored and two independent original-function calls with controlled writers. Actual writer output and full-suite acceptance were not measured. [Conclusion](../evidence/selected/reporting-junit-acceptance.json) · [independent review](../evidence/selected/reporting-junit-review.json). |
 | **Rust Multicrate Reconstruction** | A passing test on the known-failure exception list can cancel an unrelated failure, allowing the original Python helper to report PASS while a hidden failure remains. | Six authored and three independent controls used simulated Cargo responses. The 0.1 score effect is synthetic; no Cargo/native run, actual incidence or historical score impact is established. No repair or exclusion follows. [Accepted finding](../evidence/selected/rust-known-failure-outcome.json) · [reproduction](../reproductions/rust-known-failure-credit/README.md). |
 | **Schemathesis Config** | Tests omit the requirement to return the identical decorated function and accept a forwarding wrapper instead. | The complete original scorer gave the reference and wrapper the same partial score, 0.135313. This confirms a missing test, not a wrapper score gain or an automatic exclusion. [Accepted full-score result](../evidence/selected/schemathesis-full-consumer-recovery.json). |
 | **SMT Solver** | The recovered witness lookup merges expressions from different variable scopes. It cannot represent the different values required by a constructed satisfiable example. | Source analysis and a small local test support this finding; full-image failure, false acceptance and score impact remain unobserved. Existing follow-up work is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
@@ -40,10 +42,12 @@ These conclusions do not add to the finding count. **Apple Incremental Game’s 
 
 ## Repairs are a separate result
 
-Two proposed changes are available in the original task format: [English assessment completeness](../proposedrepairs/college-english-assessment-completeness/README.md) and [Schemathesis function identity](../proposedrepairs/schemathesis-config-function-identity/README.md). **Neither is a certified replacement.**
+Proposed changes include [English assessment completeness](../proposedrepairs/college-english-assessment-completeness/README.md) and [Schemathesis function identity](../proposedrepairs/schemathesis-config-function-identity/README.md). The Rust prototype below is also available. **None is a certified replacement.**
 
 For English, four offline calls used fixed model responses and an explicit controlled rubric. The correction preserved a complete assessment at valid 96 and changed an assessment missing a rule from original valid 96 to candidate invalid 0. This shows the selected correction works on those cases. The installed environment and real model-provider behavior remain untested. [Accepted repair check](../evidence/selected/english-final-source-repair.json).
 
 For Schemathesis, the exact two-file correction already passed a complete native scoring comparison. The reference retained score 0.135313; the wrapper changed from 0.135313 to 0.129063, an exact −1/160. All 126 original outcomes stayed unchanged in each pair. This validates the narrow correction on partial implementations; a complete task solution and certified packaged replacement remain absent. These October 8 runs were recovered, not rerun. [Accepted native comparison](../evidence/selected/schemathesis-native-repair-comparison.json) · [patch](../proposedrepairs/schemathesis-config-function-identity/README.md).
+
+For Rust, an [accepted finite prototype](../proposedrepairs/rust-known-failure-credit/README.md) credits the named `cas-pty` exemption only for its explicit FAILED outcome and adjusts the matching public or hidden totals. Five paired Python-helper controls used simulated Cargo responses; the different review reused earlier mixed-bucket controls after checking the V2 guard change. Original CLI allowance behavior remains unchanged and unresolved. This is a source patch, not a native Rust repair or certified replacement.
 
 The [evidence index](EVIDENCE-INDEX.md) explains what is included in this repository and what remains in the local archive. These findings do not measure historical leaderboard effects or establish a complete repair of any task.

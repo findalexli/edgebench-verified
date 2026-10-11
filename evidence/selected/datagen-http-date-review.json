@@ -1,0 +1,90 @@
+{
+  "accepted_leaf_recovered": {
+    "bytes": 1733,
+    "path": "edgebenchverified/audit/evidence/schemathesis-selected-fixture-data-20261011-root-acceptance/root-result-review.json",
+    "sha256": "3aeda0908ae36c65e025084b2cf08ec0e2dc2b1befb8cd3cb1dbe0448db1a1bd"
+  },
+  "author_review": {
+    "cross_interpreter_ast_digest_caveat": {
+      "bytes": 599,
+      "path": "work/reviews/datagen-http-date-astra-high-v1/packaging-failure.json",
+      "sha256": "dc0798942e2ffb5dce3211e86aa8f806a6268a35a9925993f5feb0842263d53f"
+    },
+    "handoff": {
+      "bytes": 3528,
+      "path": "work/packets/datagen-http-date-astra-high-v1/handoff.json",
+      "sha256": "fa4396bb40e3072bcc05a6ce5ddcdf96c34165f2a21ed3d3aea71da7b9d6444b"
+    },
+    "judgment": "All four primary author cases violate valid date/token/clock requirements: nonleap February 29, February 31, unknown weekday and hour 25. Listed datetime/token oracle conclusions are sound; that oracle is not a general IMF-fixdate validator. Wrong-weekday remains supplemental. Eight author controls were inspected, not rerun.",
+    "reference_visits": 13,
+    "source_bytes_and_assignment_text_match": true,
+    "unique_refs": 12
+  },
+  "claim_dispositions": {
+    "finite_predicate_gap": "confirmed",
+    "full_suite_or_score_acceptance_of_bad_strategy": "unresolved; not claimed",
+    "historical_score_effect_or_corpus_incidence": "unresolved; not measured",
+    "repair": "not evaluated",
+    "whole_task": "pending unchanged"
+  },
+  "conclusion": "The original HTTP-date predicate accepts impossible calendar and clock values despite the explicit valid IMF-fixdate promise. Two fresh invalid controls and a valid control independently confirm the finite gap.",
+  "contract": {
+    "line": 44,
+    "quote": "Generate valid HTTP-date values in IMF-fixdate format.",
+    "source": {
+      "bytes": 13812,
+      "path": "work/task-sources/cloud-exports/merged/schemathesis_datagen_pipeline_work/app/TODO.md",
+      "sha256": "3cf8492eacc5b49379f239ea1bb11933dd88f7382bb5cf77f045a4256e06fb82"
+    }
+  },
+  "counterevidence": [
+    "Author two valid dates and reviewer valid date pass. Author missing-GMT case fails; this is not unconditional acceptance.",
+    "Original test rejects import failure and requires nonempty generation; these conditions remain effective but do not reject the listed calendar/clock values.",
+    "A real submitted strategy might fail separate tests or runtime requirements. Full Hypothesis test and strategy execution were not observed."
+  ],
+  "decision": "CONFIRMED_FINITE_ORIGINAL_DATE_PREDICATE_WEAKNESS",
+  "fresh_independent_controls": {
+    "actual_result": "April 31 and minute 60 accepted by original predicate but invalid by independent bounds; valid April 30 accepted. All 3 expectations match.",
+    "limits": "128 MiB address space, 1 CPU affinity, 5 CPU seconds, 18-second alarm; actual 0.0532 sec, 13216 KiB RSS.",
+    "method": "Unchanged original AST assignment, with independently authored April 31, minute 60 and valid April 30 strings. Independent finite calendar.monthrange and clock bound oracle; no author oracle import/reuse.",
+    "oracle_scope": "Fixed modern dates and valid tokens only; no general grammar or leap-second claim.",
+    "result": {
+      "bytes": 1859,
+      "path": "work/reviews/datagen-http-date-astra-high-v1/result.json",
+      "sha256": "e20d684d30a0a4885033efe5aefd8348887bf4683cd9e76b6a24e0064656397e"
+    }
+  },
+  "limitations": [
+    "Zero package imports, strategy executions, full Hypothesis tests, scorer calls, native or provider runs.",
+    "Pinned retained source; no newly tested installed-image parity.",
+    "Task already has accepted component and fixture-data evidence. Zero task breadth or certification increase. Root decides finding count.",
+    "One reviewer packaging assertion failed on cross-version AST serialization; preserved and corrected by exact source identity without rerun."
+  ],
+  "next_decision": "Root may accept the finite source/predicate finding. Native-format repair and matched strategy/full-test checks remain separate work.",
+  "requested_model_policy": "gpt-6-astra/high",
+  "requirement": "D1.3",
+  "reviewer": "/root/astra_efficiency_retrospective",
+  "schema_version": 1,
+  "shared_mutations": "None; no Git, status, runtime or task-count edits.",
+  "source_context": {
+    "analysis": "The date property draws from http_date_values(), checks regex.match on each value, then requires a nonempty values list. Import failure is separately rejected. Neither importability nor nonemptiness validates date semantics. Header registry checks validate keys, not generated dates. Targeted search of the retained top-level tests found no additional date-semantic validator; this is not whole-image absence.",
+    "assertions": [
+      "len(values) > 0",
+      "HTTP_DATE_RE.match(value)"
+    ],
+    "assignment_line": 33,
+    "date_property_line": 56,
+    "search": {
+      "bytes": 3482,
+      "path": "work/reviews/datagen-http-date-astra-high-v1/source-context.json",
+      "sha256": "70efdf2763bb8cb3b02d925ba86754b31f1f927037e913a848234321076859f5"
+    },
+    "source": {
+      "bytes": 5899,
+      "path": "work/task-sources/cloud-exports/merged/schemathesis_datagen_pipeline/tests/test_01_header_strategies.py",
+      "sha256": "f2bf937f58549d6a82468883cf5a199357cef2caaf5dc9da865f962648bdeec6"
+    },
+    "value_assertion_line": 68
+  },
+  "task_id": "schemathesis_datagen_pipeline"
+}
