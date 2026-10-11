@@ -2,6 +2,10 @@
 
 Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings](FINDINGS.md). This page explains where their supporting records live.
 
+## Reporting control failure accepted at 19:30 UTC
+
+[Accepted integration-attempt review](../evidence/selected/reporting-integration-v2-failure-acceptance.json) and [different saved-result review](../evidence/selected/reporting-integration-v2-failure-review.json): five authored controls failed before nested lifecycle assertions. Source identifies a generated configuration filename mismatch; the exact historical missing path was not exported. No candidate defect or successful lifecycle/xdist evidence follows. The worker closed; counts remain unchanged.
+
 ## Date repair and reporting coverage accepted at 19:13–19:17 UTC
 
 - [Date-checker V2 patch](../proposedrepairs/datagen-http-date/README.md): six V1 false acceptances corrected; all 16 classified reviewer controls matched, with one future leap occurrence unclassified. Includes the original/V1 retractions and exact source/candidate pins; no full private test module or native generator/scorer validation.
