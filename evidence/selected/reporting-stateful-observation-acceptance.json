@@ -1,0 +1,32 @@
+{
+  "closure": {
+    "both_owned_workers_terminated": true,
+    "settled_estimate_usd_each": 0.00552,
+    "staging_drained": true
+  },
+  "conclusion": "All3 unchanged lifecycle controls remain failed. Across8 observed callbacks,6 had zero cases and interactions, while every elapsed value was nonnegative. Success and validation-failure later produced2 and1 productive cases with matching named statuses; writer-failure had no productive callback. Later cleanup assertions remain unreached. Counts alone do not explain empty-callback cause or establish a candidate defect.",
+  "decision": "ACCEPT_DIAGNOSTIC_RESOLVING_FAILED_CONJUNCTS",
+  "different_review": {
+    "bytes": 1307,
+    "path": "work/reviews/reporting-stateful-lifecycle-observation-astra-high-v1-result/handoff.json",
+    "sha256": "a04e1386d96521ba088a405ada920ef0bfc1cd34b224df57442d88946259f576"
+  },
+  "limitations": [
+    "Observed empty callbacks do not establish whether empty/aborted initialization is legitimate, a Hypothesis behavior, candidate defect or test expectation error. No all-to-any weakening is justified by counts alone.",
+    "Writer-failure has no productive callback. RuntimeError/known frames support the injected writer path, but counts alone do not prove the precise interruption sequence.",
+    "Later named-check/hook-removal/callback-clearing/writer-close/order assertions were not reached. Exported status/event counts support only their stated finite observations, not whole lifecycle success.",
+    "Source identity is not fresh-bytecode proof. This is one run; no repeatability, generalization or task certification claim.",
+    "Root/provider closure receipts reused; no fresh provider query. Settlement result hash names queue-level result, distinct from17315byte exported scientific result; export hashes checked against attempt/provider export records."
+  ],
+  "new_finding_count": 0,
+  "result": {
+    "bytes": 17315,
+    "path": "work/cloud-queue/exports/deterministic-reporting-stateful-observe-b8c5b3966bcf8961/51013665b0144e8da4278af1abf6bdad/result.json",
+    "sha256": "abda1925f307739fa496fecb40dcd112268be3fee37a2a064a3aa8068a7b4350"
+  },
+  "reviewer": "root; read and recomputed saved scientific observations; different result review reused, no new native reproduction",
+  "root_checks": "Recomputed actual unique outcomes and case hashes for DataGen; recomputed each callback conjunction for Reporting; checked all named scientific and terminal evidence hashes. Actual launcher session70679 terminal0 chunk1a2ed7 and both worker closure receipts retained.",
+  "task_certification": false,
+  "task_id": "schemathesis_reporting_observability",
+  "utc": "2026-10-11T22:40:23.656937+00:00"
+}

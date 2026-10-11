@@ -8,8 +8,8 @@ An independent audit of whether EdgeBench’s tasks, tests and data measure what
 | --- | ---: |
 | Public tasks acquired | 51 |
 | Tasks with confirmed findings, within the scope stated in each case | 18 |
-| Original versions we would withhold from a verified release | 14 |
-| Original task decisions still pending | 37 |
+| Original versions we would withhold from a verified release | 15 |
+| Original task decisions still pending | 36 |
 | Task versions approved for a verified release | 0 |
 | Additional advertised tasks unavailable to this audit | 83 |
 
@@ -27,7 +27,7 @@ The reporting implementation now passes the combined corrected judge: **57 colle
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
 
-The latest decisions also withhold the original Schemathesis Config and Reporting tasks, bringing the total to 14. Config is an explicit release-policy choice about a missing identity check; the prior contrary view remains recorded. Portfolio’s correction now matches all 16 full metric-function calls across eight authored cases, including 21% → 23% annual excess. Three new reporting lifecycle controls all failed at a combined callback assertion; the cause and later cleanup checks remain unresolved, without erasing the earlier passing results. Zig’s original stub built, but failed selected setup and reached no test cases. [Evidence and limits](docs/FINDINGS.md).
+**October 11, 2026, 22:40 UTC:** Portfolio’s original is now withheld for its annual-excess formula error; the tested correction remains separate from whole-task approval. The date-checker repair matched all 12 complete property-call expectations with an authored input strategy; the original generator remains untested. Reporting still fails three lifecycle controls: six of eight callbacks were empty, but why they were empty and whether later cleanup works remain unresolved. Sphere stopped in our preparation checks before any original helper ran. The audit remains unfinished because these bounded results do not yet cover complete task behavior or certify replacements. [Evidence and next questions](TASKS.md).
 
 ## What this repository contains
 

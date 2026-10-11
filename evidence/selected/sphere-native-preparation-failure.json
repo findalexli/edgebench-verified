@@ -1,0 +1,62 @@
+{
+  "completed_scope": {
+    "actual_native_helper_calls": 0,
+    "full_decompressed_stream_bytes": 24049046016,
+    "namespace_probe": "Preloaded-stdlib chroot/PID namespace/nonroot readonly probe completed; actor_invoked=false and exec_requested=false. This is infrastructure preparation, not original-image Python parity.",
+    "reported_peak_rss_KiB": 168972,
+    "sampled_minimum_available_bytes": 12350427136,
+    "selected_body_bytes_written_including_overwrites": 8409101666,
+    "selected_regular_body_bytes_hashed": 8409101666,
+    "unique_stored_objects": 45604,
+    "verified_unique_layer_rows": 11,
+    "worker_elapsed_seconds": 273.059,
+    "worker_process_cpu_seconds": 248.622
+  },
+  "counts_change": 0,
+  "decision": "ACCEPT_PREPARATION_FAILURE_NO_SPHERE_TASK_RESULT",
+  "different_review": {
+    "bytes": 1062,
+    "path": "work/reviews/sphere-original-native-astra-high-v1-result/handoff.json",
+    "sha256": "4ef72758eb930022da8eedb68e0db8170a523f1f6b618af1ee314e5a29bfc2bd"
+  },
+  "failure": {
+    "class": "ValueError",
+    "concrete_supported_mismatch": "Full equality includes decompressed_byte_cap. Observed rows use34359738368 for each layer; accepted rows after index0 use declining cumulative remaining caps. Ten rows therefore differ on this field, while every other exported layer field matches. This is sufficient to falsify the first equality conjunct and explains the named guard failure at least in part.",
+    "fixed_reason": "exact_accepted_ordered_overlay_and_body_join",
+    "not_reached": [
+      "readonly_final_projection",
+      "fixed_elf_metadata_closure",
+      "fixed_version_before_parse",
+      "unchanged_original_component_actor",
+      "IndexType permitted-axiom control",
+      "Gromov sorryAx/signature control",
+      "IllTyped original rejection control"
+    ],
+    "phase": "full_stream_reverification_and_body_sink",
+    "source_location": "worker.py lines280-284",
+    "unknowns": "Ordered_positions and final selected_candidate_closure are updated into the receipt only after the guard passes and are absent here. Their equality, and whether additional mismatches would remain, is unknown. No claim of corrupted downloaded bodies, missing native dependencies, Lean failure or unique deeper cause."
+  },
+  "next": "Do not repeat this attempt. Existing finite source conclusions stand. Any later correction must address known cap-metadata comparison and unknown final join, while preserving content identities and resource enforcement.",
+  "result": {
+    "bytes": 11595,
+    "path": "work/cloud-queue/exports/deterministic-sphere-original-45a0e90d358f64a0/8ae38852c13b47209f13e79b0543551c/result.json",
+    "sha256": "d9059c51ca0e9af2b7edca5c1e1a8cb8b8e6fb1c9c524df9dd35dd72c7659901"
+  },
+  "retry_authorized": false,
+  "reviewer": "root; independent saved-result comparison, not independent native reproduction",
+  "root_checks": "All13 frozen review references verified; source guard read; independently compared11 exported layer rows. Ten differ only in decompressed_byte_cap, which is sufficient to falsify whole-row equality. Final positions and closure not exported, so their equality remains unknown.",
+  "task_certification": false,
+  "terminal": {
+    "batch_phase": "validate_result",
+    "driver_exit_code": 1,
+    "joins": "19 staged input pins and job/control hashes match; export hashes, attempt and queue result, provider closed record, settlement proof and batch terminal identity verified read-only.",
+    "launcher_terminal_zero_meaning": "Coordinator completed collection/finalization; not scientific success.",
+    "owned_child_reaped": true,
+    "queue_state": "failed",
+    "settled_cost_microusd": 53280,
+    "worker_closed_at_utc": "2026-10-11T22:26:57.733522+00:00",
+    "worker_termination_confirmed": true,
+    "wrapper_capture_complete": true
+  },
+  "utc": "2026-10-11T22:34:59.987066+00:00"
+}
