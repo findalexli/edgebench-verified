@@ -21,7 +21,7 @@ Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings
 
 The four added acceptance records are dated **04:51 UTC on October 11**. They add scoped results and a recovery, while task coverage, finding counts and dispositions remain unchanged.
 
-The earlier finding JSON and task table were prepared at **01:22 UTC on October 11**. Their historical counts remain unchanged. The current status page incorporates the later Wireless, Jagua, Equivalence, Graph, Tree and English decisions; older snapshots are not live progress counters.
+The earlier finding JSON and task table were prepared at **01:22 UTC on October 11**. Their historical counts remain unchanged. The current status page incorporates the later Wireless, Jagua, Equivalence, Graph, Tree, English and VLIW decisions; older snapshots are not live progress counters.
 
 The manifest also identifies FLT's accepted failed attempt: selected restoration and readiness checks completed, but the version-check path returned signal 11 before any original proof helper ran. The owned worker is closed. The signal recipient and cause remain unknown; this is not a new task defect.
 
@@ -62,6 +62,22 @@ Four further records were accepted between **06:16 and 06:38 UTC on October 11**
 - [Juliet's unsupported path hypothesis](../evidence/selected/juliet-unrequired-path-hypothesis.json): source review rejects an invented adjacency/reachability requirement. Approximate graph edges do not settle witness semantic truth; no new data or analyzer execution occurred.
 
 These are exact selected root records. Their supporting archive references remain local; private CSV/history/question bodies are not copied. They add no finding, task coverage, disposition or certification.
+
+## VLIW exclusion and later bounded checks
+
+The original VLIW decision is now closed. The earlier twelve-finding record and 52-file selection keep their historical identities; the new VLIW record adds the thirteenth finding without rerunning the historical control or native positive.
+
+- [VLIW original exclusion](../evidence/selected/vliw-original-exclusion.json): exact version, adopted decision, ten exclusions and thirteen findings; all inclusion fields remain unchanged. Three actual AI approvals are selected: [source contract](../evidence/selected/vliw-exclusion-review-source.json), [installed-source applicability](../evidence/selected/vliw-exclusion-review-installed.json) and [root integration](../evidence/selected/vliw-exclusion-review-root.json).
+- [VLIW source-copy integrity evidence](../evidence/selected/vliw-source-copy-integrity.json): invalid candidate-origin checker replacement accepted on nine authored cases; missing-builder control rejected. No native invalid-candidate result or legal score gain.
+- [Reused VLIW native positive](../evidence/selected/vliw-original-nine-source-identity.json): the earlier unchanged original nine-case run binds the installed source identity. Its historical batch/count snapshot is preserved; it is not a fresh invalid-control experiment.
+- [VLIW three ordinary rejection controls](../evidence/selected/vliw-three-rejection-controls.json): three local original source-copy calls, no valid cycle score. Declared memory limits do not establish measured family-memory fit; direct-child completion is not an independent orphan/process-group census.
+- [VLIW specification and calibration](../evidence/selected/vliw-specification-calibration.json): rejects invented index-write-back and mandatory anchor-history obligations; no new execution or calibration certification.
+- [K–12 answer-reference correspondence](../evidence/selected/k12-answer-reference-correspondence.json): 100 rows, 1,825 response-label keys and 1,000 preferred references; exact list equality extends the prior history result conditionally. Integer-binary schema and permitted unlabeled padding do not establish label truth or scorer behavior.
+
+- [VLIW original timeout control](../evidence/selected/vliw-original-timeout-control.json): one real 600-second inner timeout, completed after 600.113 seconds with invalid/null-score output; observed direct child and parent absent. Local CPython 3.12.12/source-copy only. Declared per-process caps are not measured aggregate memory, and the fallback error row is not a hidden-case test. Earlier failed observer cause remains unknown.
+- [Juliet original public baseline](../evidence/selected/juliet-original-public-baseline.json): one full public scorer call and unchanged empty-analyzer child on 240 cases/192 label records; ten points from intentional low-recall partial credit, with 192 misses. Scientific Python micro-version not captured; separate parent/child lifetime RSS figures do not establish aggregate memory, and direct-child return is not an independent process-group census. No hidden/native, vulnerability-truth or detection-quality result.
+
+These are exact public-safe aggregate/review copies. Evidence paths inside them refer to the canonical local audit archive described in [the workflow](AUDIT-WORKFLOW.md), not necessarily files in this curated clone. The full canonical task registry, material bundles, source/control bodies, private inputs and native logs are not copied; this selection does not promise a runnable whole-archive release check.
 
 ## How to interpret these records
 

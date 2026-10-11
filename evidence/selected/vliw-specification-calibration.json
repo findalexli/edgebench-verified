@@ -1,0 +1,64 @@
+{
+  "conclusions": [
+    {
+      "claim": "Missing final index write-back is a task defect.",
+      "decision": "REJECTED",
+      "line": 220,
+      "literal_starter": {
+        "bytes": 10778,
+        "path": "work/task-sources/merged/vliw_kernel_optimization/home/workspace/sebench_performance_takehome/solution.py",
+        "sha256": "778c1dceb6e8731424301faa93d47f253ed15bc4016ac002495c5538cf1b39da"
+      },
+      "reason": "The original starter expressly makes final index write-back unnecessary; correctness grades final values. The tested values remain necessary."
+    },
+    {
+      "claim": "Historical performance-anchor producer records are a mandatory additional task requirement.",
+      "decision": "REJECTED",
+      "reason": "Selected original requirements contain no such obligation. The positive baseline/expert anchors are mathematically coherent; unavailable history limits lineage claims and cannot alone require a raw-cycle alternative version."
+    }
+  ],
+  "decision": "CLOSE_TWO_REJECTED_OBLIGATIONS_AND_SCOPED_READINESS",
+  "different_handoff": {
+    "bytes": 1573,
+    "path": "work/reviews/vliw-whole-task-readiness-20261011-sol-v1-different-source/handoff.json",
+    "sha256": "73a47a4d9f20bc3a5a0039d0acbf99cd25080b9cce4e016802328e3d8d91596c"
+  },
+  "different_review": {
+    "bytes": 13958,
+    "path": "work/reviews/vliw-whole-task-readiness-20261011-sol-v1-different-source/review.json",
+    "sha256": "4871df7e3f1ef6ed833d85dbc4e4b22f159dc50d5064ad13cf19f9921cba8017"
+  },
+  "gates_and_counts_unchanged": true,
+  "limits": [
+    "No native/resource/domain/rights or whole-task certification from this source assessment.",
+    "Historical checker-replacement claim has a separately accepted finite component record; prior accepted-finding authority wording was retracted and is not revived.",
+    "Fresh positives and ordinary rejection controls do not resolve candidate-origin mutable-checker integrity."
+  ],
+  "new_scientific_executions": 0,
+  "root_nonprivate_pin_checks": 27,
+  "root_preserved_check_failure": {
+    "bytes": 371,
+    "path": "edgebenchverified/audit/evidence/vliw-specification-calibration-20261011-root-record/first-root-check-failure.json",
+    "sha256": "47c347190f982e0fb43fe79e2ce891ced9ee02ffa1a8f54392d1c1764ca6990a"
+  },
+  "schema_version": 1,
+  "source_handoffs": [
+    {
+      "bytes": 567,
+      "path": "work/packets/vliw-whole-task-readiness-20261011-sol-v1/handoff.json",
+      "sha256": "d7008d79e1f5c6ffcb9900afd1e225af1b14f49f8c87ab93f7307056a5129008"
+    },
+    {
+      "bytes": 1033,
+      "path": "work/packets/vliw-specification-calibration-assessment-20261011-sol-v1/handoff.json",
+      "sha256": "c40acef3fdfdae68e746192c6e188892fe0fa77f52f0f18a1d785ff03fe773ef"
+    },
+    {
+      "bytes": 570,
+      "path": "work/packets/vliw-specification-calibration-assessment-20261011-sol-v1-clarification/handoff.json",
+      "sha256": "5ab8c6d0db35df2f44cd06486eadb55197b33225cd6543a9cd4c795ed044e8fd"
+    }
+  ],
+  "task_id": "vliw_kernel_optimization",
+  "utc": "2026-10-11T07:12:00.517481+00:00"
+}
