@@ -12,6 +12,10 @@ Read only the section relevant to the current changed operation. These are retai
 
 ## Receipt budgets and phase snapshots
 
+For scientific-library values in a result, exercise the actual JSON writer with representative returned types before a costly run. NumPy equality can produce `numpy.bool_`: `all(...)` accepts it while strict JSON rejects it. Normalize stored scalar comparisons to built-in booleans without changing their truth; check both true and false. Portfolio's V3 receipt correction preserves this bounded witness; its success does not prove the cause of the earlier unlogged failure.
+
+When a native control uses a compound assertion, retain bounded, non-sensitive measurements for each condition before raising. A line number for `all(cases > 0 and interactions > 0 and elapsed >= 0)` cannot identify the failed condition. The Reporting lifecycle run failed there in all three modes, leaving later assertions unexecuted. Capture those counts and the relevant dependency version instead of weakening the assertion or inferring an implementation defect from its location alone.
+
 Keep observed capture length, reader chunk size, a post-capture acceptance threshold and an enforced growth cap distinct. Inspect the actual writer and reader before attributing incomplete output to a limit. A 4096-byte read chunk does not establish truncation at 4096 bytes.
 
 Separate queue completion and collected-source identity from scientific `complete`. The ANN archive result (local archive: `edgebenchverified/audit/evidence/ann-licensed-archive-member-identity-native-20261011-v1/root-result-review.json`) closed operationally with source identity true, but scientific completion false and member/association null after 525,132,896 range bytes and `TimeoutError`. Checkpoint each completed member digest and its verified scope before continuing to a later failure. An unfinished scan stays incomplete; byte counts cannot reconstruct an unretained hash or establish association.
