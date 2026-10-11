@@ -1,137 +1,313 @@
 {
-  "schema": "selected-evidence-manifest-v1",
-  "prepared_utc": "2026-10-11T00:35:36.597739+00:00",
-  "repository_scope": "Private selected evidence; local archive excluded. This manifest is a derived provenance record, not an exact copy of any source and not a scientific acceptance or rights-clearance decision.",
-  "counts": {
-    "public_tasks": 51,
-    "partial_observation_tasks": 37,
-    "closed_scoped_finding_task_decisions": 12,
-    "certified_tasks": 0,
-    "excluded_exact_versions": 2,
-    "pending_dispositions": 49,
-    "advertised_unavailable": 83,
-    "source_setup_only_unheld_tasks": 5,
-    "automatic_review_held_tasks": 7
+  "accepted_later_scope": {
+    "ann_exact_numeric_split": {
+      "observation": {
+        "distinct_numeric_test_vectors": 9999,
+        "duplicate_extra_rows": 1,
+        "numeric_vectors_occurring_twice": 1,
+        "test_rows": 10000,
+        "test_rows_present_in_train": 0,
+        "train_rows": 1000000,
+        "train_rows_matching_any_test": 0
+      },
+      "root": {
+        "bytes": 3385,
+        "path": "edgebenchverified/audit/evidence/ann-split-overlap-native-20261011-v1-root-result-review/root-result-review.json",
+        "sha256": "2973165bdffaa7316e6fee765dcce0906af60a8391a83154f018dee91c606a0f"
+      },
+      "scope": "Finite integral numeric rows; NaN refused, signed zero normalized. Trusted actor/previous file identity reused; no fresh independent vectors, all-training uniqueness, near-duplicate, chronology, labels/QPS or new defect inference."
+    },
+    "nf_setup_failure": {
+      "cause": "unknown",
+      "child_returncode": 32,
+      "image_acquired": false,
+      "internal_backing_cleanup": "unconfirmed",
+      "original_helper_commands": 0,
+      "owned_worker_closed": true,
+      "phase": "readonly-bind",
+      "root": {
+        "bytes": 3261,
+        "path": "edgebenchverified/audit/evidence/nf-original-docker-component-native-v3-root-result-review/root-result-review.json",
+        "sha256": "21b6c9303cd0628d3e7ce82e5095fbe4d8fd9bc1568282addd067541732c512e"
+      },
+      "version_commands": 0
+    },
+    "order_exact_original_exclusion": {
+      "raw_observation_history_retained": true,
+      "repaired_version": "pending_separately",
+      "review_bundle_sha256": "d1fb2b297a7a2e7cca14a478863cfb69979bab1b1a670ef73960ded623455a08",
+      "root": {
+        "bytes": 2690,
+        "path": "edgebenchverified/audit/evidence/order-original-exact-version-exclusion-20261011-root-integration/root-integration.json",
+        "sha256": "b3f09bbf1f36ffd77018ca5899cca65630a77c4e5d17ae9ebe8b5e5e0f141191"
+      }
+    }
   },
-  "selected_files": [
-    {
-      "path": "evidence/selected/12-finding-decisions.json",
-      "bytes": 19569,
-      "sha256": "7c83b8918e073a2c65deb92fe6af26a5598fd1e100d3aaebd8238298e0ca975b"
-    },
-    {
-      "path": "evidence/selected/51-task-coverage.md",
-      "bytes": 8028,
-      "sha256": "2c7c7e91871f42fcb57b404bac04cc54750ab62cdc976ad5911d4f316d01957f"
-    },
-    {
-      "path": "docs/EVIDENCE-INDEX.md",
-      "bytes": 2146,
-      "sha256": "d68cbe536232b4a0e20b66a8b36bf6da61f76b685473f519d5b757de1586d8eb"
-    }
-  ],
-  "manifest_self_hash": "Excluded to avoid a self-reference; final manifest identity is supplied in the review handoff.",
-  "source_refs": [
-    {
-      "path": "edgebenchverified/audit/evidence/twelve-finding-finality-sol-v1-root-review/root-finding-decisions.json",
-      "bytes": 30251,
-      "sha256": "b495442055265e1ce607a342a9bff38b1fdfa739dd4dce0a64c3afb3824f798e"
-    },
-    {
-      "path": "edgebenchverified/audit/TASK-COVERAGE.md",
-      "bytes": 35313,
-      "sha256": "71f9cba8cf53a6c977aa2283c85cc05cc9e9fe0f1100bf9e35c2104dabac141a"
-    },
-    {
-      "path": "edgebenchverified/audit/evidence/sol-cloud-authorization-v1/current-root-handoff.json",
-      "bytes": 567925,
-      "sha256": "dc8db9283c15e023dd0fa320c2d0e06b79a44b921dcd9de404a8e69f2931a70b"
-    },
-    {
-      "path": "edgebenchverified/audit/evidence/bipedal-original-ten-episode-native-v3-root-result-review/root-result-review.json",
-      "bytes": 4875,
-      "sha256": "0e55fb3a416094c7f321c6967caac2ebb87a3a1a7fa30c525a42c7f104f22911"
-    },
-    {
-      "path": "edgebenchverified/audit/evidence/vliw-git-useful-native-batch-v1-root-result-review/root-result-review.json",
-      "bytes": 4477,
-      "sha256": "9e523f5590b6c00691354b11901e56204306373de1db6b4a2a3e3e20f7a47411"
-    },
-    {
-      "path": "edgebenchverified/audit/evidence/fresh-git-hooklist-helper-local-sol-v1-root-result-review/root-result-review.json",
-      "bytes": 3068,
-      "sha256": "60a1d20e41614854a87e22a28bb22492986c9998ad3c5571699205c3566cc73c"
-    },
-    {
-      "path": "edgebenchverified/audit/evidence/git-suite-effective-overlay-native-v1-root-result-review/root-result-review.json",
-      "bytes": 1888,
-      "sha256": "ba113d79927269e76c3b32d6f94314a5d9e8e1a407cb75d06e6c834217f2e02d"
-    },
-    {
-      "path": "edgebenchverified/audit/evidence/formal-four-selected-census-native-v2-root-result-review/root-result-review.json",
-      "bytes": 5803,
-      "sha256": "da6d66f00775933a74994522ef1a9a7e3d70905f8d65fd2e07a139ecd42f16de"
-    },
-    {
-      "path": "edgebenchverified/audit/evidence/nf-selected-closure-census-native-v3-root-result-review/root-result-review.json",
-      "bytes": 3791,
-      "sha256": "41db6a6d844080dbdab53113efc71e54a61c75e481c8ed4ca0fbf8c6468095d7"
-    },
-    {
-      "path": "edgebenchverified/audit/evidence/nf-selective-original-component-native-v6-root-result-review/root-result-review.json",
-      "bytes": 2984,
-      "sha256": "21adbc2110c628e4c7a636dede09dbd004e24418e7bbabfb9318ec44fbf5c3c8"
-    }
-  ],
-  "mutable_source_qualification": "The coverage history and current root handoff are mutable local paths. Their byte hashes identify only the exact snapshots consumed here; neither entire body is included. Immutable accepted leaf references support the finite depth updates.",
+  "counts": {
+    "advertised_unavailable": 83,
+    "automatic_review_held_tasks": 7,
+    "certified_tasks": 0,
+    "closed_scoped_finding_task_decisions": 12,
+    "excluded_exact_versions": 3,
+    "nonexcluded_partial_observation_tasks": 36,
+    "partial_observation_tasks": 37,
+    "pending_dispositions": 48,
+    "public_tasks": 51,
+    "source_setup_only_unheld_tasks": 5
+  },
   "coverage_pin_counterevidence": {
-    "provided_historical_pin": {
-      "path": "edgebenchverified/audit/TASK-COVERAGE.md",
-      "bytes": 20236,
-      "sha256": "253316210502e3a84e2fb17b9673af0604abd2dd291048e3fb0d39bda888518a"
-    },
     "actual_consumed_pin": {
-      "path": "edgebenchverified/audit/TASK-COVERAGE.md",
       "bytes": 35313,
+      "path": "edgebenchverified/audit/TASK-COVERAGE.md",
       "sha256": "71f9cba8cf53a6c977aa2283c85cc05cc9e9fe0f1100bf9e35c2104dabac141a"
+    },
+    "provided_historical_pin": {
+      "bytes": 20236,
+      "path": "edgebenchverified/audit/TASK-COVERAGE.md",
+      "sha256": "253316210502e3a84e2fb17b9673af0604abd2dd291048e3fb0d39bda888518a"
     },
     "resolution": "Use actual current bytes for a marked derived snapshot; do not claim an exact copy of the supplied historical version."
   },
-  "selection_method": {
-    "findings": "Allowlisted root decision fields only. Claim/counterevidence/source-version/task-definition/primary-accepted-reference values retained unchanged; no accepted-observation raw native leaf references copied.",
-    "coverage": "Selected original 51-row table with archive Markdown links removed. Bipedal, VLIW, Git and formal rows updated only from named accepted leaves; formal inventory/version diagnostics not counted as original helper controls.",
-    "reference_validation": "Root decision and current snapshots were exact byte/size verified; each later accepted depth leaf was independently size/hash verified. Primary finding leaf references were taken from the accepted decision source, without re-reading held source bodies or re-reviewing all ancestry."
-  },
+  "manifest_self_hash": "Excluded to avoid a self-reference; final manifest identity is supplied in the review handoff.",
+  "mutable_source_qualification": "The coverage history and current root handoff are mutable local paths. Their byte hashes identify only the exact snapshots consumed here; neither entire body is included. Immutable accepted leaf references support the finite depth updates.",
   "omitted_material": [
     "Raw hidden inputs, labels, features, reference answers and case bodies",
     "Raw native/provider logs, credentials, authentication material and operational identities",
     "Full mutable handoff, ownership/accounting registry and queue",
     "Full local source/evidence archive and unaccepted operational proposals"
   ],
-  "validation": {
-    "finding_rows": 12,
-    "unique_finding_tasks": 12,
-    "native_finding_decisions": 8,
-    "source_local_finding_decisions": 3,
-    "mathematical_exclusion_decisions": 1,
-    "coverage_rows": 51,
-    "unique_public_tasks": 51,
-    "excluded_rows": 2,
-    "pending_rows": 49,
-    "gap_partition": {
-      "unheld_formal_without_original_helper_completion": 5,
-      "automatic_review_held": 7,
-      "exact_excluded_versions": 2,
-      "total": 14
+  "prepared_utc": "2026-10-11T01:22:34.670162+00:00",
+  "prior_selected_projection": [
+    {
+      "bytes": 3799,
+      "path": "work/edgebench-worktrees/consolidation/README.md",
+      "sha256": "a19e37bc25e19d1cda181779e9f5ceea2b972ef266c62ae4384dd04c075f76bd"
     },
-    "fresh_scientific_executions": 0,
-    "bounded_intake_bytes": 660375,
-    "no_native_provider_auth_model_calls": true,
+    {
+      "bytes": 4093,
+      "path": "work/edgebench-worktrees/consolidation/AUDIT-STATUS.md",
+      "sha256": "609a4c6d417d3356e9e206eb084d4e269c69217ab34500fe60e19904d7c61e51"
+    },
+    {
+      "bytes": 2146,
+      "path": "work/edgebench-worktrees/consolidation/docs/EVIDENCE-INDEX.md",
+      "sha256": "d68cbe536232b4a0e20b66a8b36bf6da61f76b685473f519d5b757de1586d8eb"
+    },
+    {
+      "bytes": 19569,
+      "path": "work/edgebench-worktrees/consolidation/evidence/selected/12-finding-decisions.json",
+      "sha256": "7c83b8918e073a2c65deb92fe6af26a5598fd1e100d3aaebd8238298e0ca975b"
+    },
+    {
+      "bytes": 8028,
+      "path": "work/edgebench-worktrees/consolidation/evidence/selected/51-task-coverage.md",
+      "sha256": "2c7c7e91871f42fcb57b404bac04cc54750ab62cdc976ad5911d4f316d01957f"
+    },
+    {
+      "bytes": 6541,
+      "path": "work/edgebench-worktrees/consolidation/evidence/selected/EVIDENCE-MANIFEST.json",
+      "sha256": "dc973810b1378ecb6d8cd25004f7ea14d0014a200a3c865d66d9ccd0350da329"
+    }
+  ],
+  "repository_scope": "Private selected evidence; local archive excluded. This manifest is a derived provenance record, not an exact copy of any source and not a scientific acceptance or rights-clearance decision.",
+  "root_presentation_adoption_utc": "2026-10-11T01:32:41.562556+00:00",
+  "schema": "selected-evidence-manifest-v1",
+  "selected_files": [
+    {
+      "bytes": 4835,
+      "path": "AUDIT-STATUS.md",
+      "sha256": "958061912e6da3e5388ddedd5562151ac6c754f51c3c7d2f8872d1891b45378c"
+    },
+    {
+      "bytes": 3966,
+      "path": "README.md",
+      "sha256": "bcd3e0d7b3a2a60a828d0c21ba447782f278db8fa27e9287d4c4b139048addb7"
+    },
+    {
+      "bytes": 7778,
+      "path": "audit/evidence/deterministic-native-batch-20261010-v40-order-cliV3-root-result-review/root-result-review.json",
+      "sha256": "eb75aa25a179f3137999786306d37e6d3890029bbf6057137af0d111c8bf4e13"
+    },
+    {
+      "bytes": 3776,
+      "path": "audit/evidence/order-native-integrity-finding-sol-v1-root-review/finding-adjudication.json",
+      "sha256": "a9b62b25bb94755eb8360888a4f042695f25ca3ce1b8de37b200d3ccaaae75d9"
+    },
+    {
+      "bytes": 4538,
+      "path": "audit/evidence/order-original-exact-version-exclusion-20261011-sol-v1/exclusion-rationale.json",
+      "sha256": "bf3d180503da2193e177b03db695d7ab720ac0e1b851297f7d7fa736a1994a57"
+    },
+    {
+      "bytes": 6805,
+      "path": "audit/evidence/order-retained-restoration-v60-sol-v1-root-result-review/root-result-review.json",
+      "sha256": "22c349638522b830f2aad14c5ac78a3870651cbbfe829f9def3ff3bd9d6a2d01"
+    },
+    {
+      "bytes": 2518,
+      "path": "audit/evidence/order-selection-v57-result-sol-v1-root-review/root-result-review.json",
+      "sha256": "937ea65923a65d47adeabf34ffe4938caba98e029b454822877554c714a7bdfb"
+    },
+    {
+      "bytes": 6858,
+      "path": "audit/evidence/order-whole-pytest-four-controls-sol-v2-root-result-review/root-result-review.json",
+      "sha256": "58f3f8787783f4c06b955e602df8ddf9b81ec52d5ef730369373cf0c350b018f"
+    },
+    {
+      "bytes": 6225,
+      "path": "audit/reviews/order-original-exclusion-fixed-input-20261011-sol-v1.json",
+      "sha256": "f10841ed7e396e3eeb72783a305e54b4f9b53a25af73c3f187ccfb9f97838099"
+    },
+    {
+      "bytes": 3390,
+      "path": "audit/reviews/order-original-exclusion-native-disposition-20261011-sol-v1.json",
+      "sha256": "2d6631a5edd657be6517fa68776969d14bcc90927f4da653d829de2b22102042"
+    },
+    {
+      "bytes": 4457,
+      "path": "audit/reviews/order-original-exclusion-root-20261011.json",
+      "sha256": "22fe91124c8270421e06c25f2f93f584a37adaf93f9683cf7ca84c9a8d771c9b"
+    },
+    {
+      "bytes": 2845,
+      "path": "audit/task-registry.json",
+      "sha256": "e8ec2b97122d2d367ea7b595290eb7335b6562cc0d382eedc80af6a21fb2f1b0"
+    },
+    {
+      "bytes": 8806,
+      "path": "audit/tasks/order_addition_permutation_optimization.json",
+      "sha256": "91854757179ee0f8010bfb235362589a0ebc551da76951caaa75846451d1f970"
+    },
+    {
+      "bytes": 3219,
+      "path": "docs/EVIDENCE-INDEX.md",
+      "sha256": "cd86ea7383585b95325c2ea8945a918cb5e26276762722d09a9feec3323400ea"
+    },
+    {
+      "bytes": 20870,
+      "path": "evidence/selected/12-finding-decisions.json",
+      "sha256": "877a9057b192b9c77826bd9131b16701b29d9915adf3b430e4dfeefca0c61a44"
+    },
+    {
+      "bytes": 8734,
+      "path": "evidence/selected/51-task-coverage.md",
+      "sha256": "7f5155182d63e02544f396867abf57b7686a237efc79acd3beb79a71e0a6f1a8"
+    },
+    {
+      "bytes": 6281,
+      "path": "evidence/selected/order-original-exclusion-binding.json",
+      "sha256": "8459ea047a3f551e178f0918431f3af6cc908cf6d23c928dd631669e3f0b3da3"
+    }
+  ],
+  "selected_order_sidecar_scope": "Exact accepted compact metadata only; three actual bundle approvals and five immediate scientific decision leaves. Other50 task cards, source-lock/harness/catalog and full raw/native archive are absent. No complete-release check, fresh reproduction or certification claim.",
+  "selected_order_sidecar_source_packet": {
+    "bytes": 2316,
+    "path": "work/packets/order-selected-sidecar-reconciliation-20261011-sol-v1/handoff.json",
+    "sha256": "1609354c478e707dcb90353fb0474865d245074f0d663c090d165ae40a01e53a"
+  },
+  "selection_method": {
+    "coverage": "Selected original 51-row table with archive Markdown links removed. Bipedal, VLIW, Git and formal rows updated only from named accepted leaves; formal inventory/version diagnostics not counted as original helper controls.",
+    "findings": "Allowlisted root decision fields only. Claim/counterevidence/source-version/task-definition/primary-accepted-reference values retained unchanged; no accepted-observation raw native leaf references copied.",
+    "later_update": "Safe counts/claims/status only from three exact root-accepted leaves. Original twelve finding claim/counterevidence strings unchanged; original helper bodies, raw vectors, IDs, native logs, credentials and provider identities are omitted.",
+    "reference_validation": "Root decision and current snapshots were exact byte/size verified; each later accepted depth leaf was independently size/hash verified. Primary finding leaf references were taken from the accepted decision source, without re-reading held source bodies or re-reviewing all ancestry."
+  },
+  "source_git_head": "39c8ac988ec78500e97f47a199d2a591cbe36491",
+  "source_refs": [
+    {
+      "bytes": 30251,
+      "path": "edgebenchverified/audit/evidence/twelve-finding-finality-sol-v1-root-review/root-finding-decisions.json",
+      "sha256": "b495442055265e1ce607a342a9bff38b1fdfa739dd4dce0a64c3afb3824f798e"
+    },
+    {
+      "bytes": 35313,
+      "path": "edgebenchverified/audit/TASK-COVERAGE.md",
+      "sha256": "71f9cba8cf53a6c977aa2283c85cc05cc9e9fe0f1100bf9e35c2104dabac141a"
+    },
+    {
+      "bytes": 567925,
+      "path": "edgebenchverified/audit/evidence/sol-cloud-authorization-v1/current-root-handoff.json",
+      "sha256": "dc8db9283c15e023dd0fa320c2d0e06b79a44b921dcd9de404a8e69f2931a70b"
+    },
+    {
+      "bytes": 4875,
+      "path": "edgebenchverified/audit/evidence/bipedal-original-ten-episode-native-v3-root-result-review/root-result-review.json",
+      "sha256": "0e55fb3a416094c7f321c6967caac2ebb87a3a1a7fa30c525a42c7f104f22911"
+    },
+    {
+      "bytes": 4477,
+      "path": "edgebenchverified/audit/evidence/vliw-git-useful-native-batch-v1-root-result-review/root-result-review.json",
+      "sha256": "9e523f5590b6c00691354b11901e56204306373de1db6b4a2a3e3e20f7a47411"
+    },
+    {
+      "bytes": 3068,
+      "path": "edgebenchverified/audit/evidence/fresh-git-hooklist-helper-local-sol-v1-root-result-review/root-result-review.json",
+      "sha256": "60a1d20e41614854a87e22a28bb22492986c9998ad3c5571699205c3566cc73c"
+    },
+    {
+      "bytes": 1888,
+      "path": "edgebenchverified/audit/evidence/git-suite-effective-overlay-native-v1-root-result-review/root-result-review.json",
+      "sha256": "ba113d79927269e76c3b32d6f94314a5d9e8e1a407cb75d06e6c834217f2e02d"
+    },
+    {
+      "bytes": 5803,
+      "path": "edgebenchverified/audit/evidence/formal-four-selected-census-native-v2-root-result-review/root-result-review.json",
+      "sha256": "da6d66f00775933a74994522ef1a9a7e3d70905f8d65fd2e07a139ecd42f16de"
+    },
+    {
+      "bytes": 3791,
+      "path": "edgebenchverified/audit/evidence/nf-selected-closure-census-native-v3-root-result-review/root-result-review.json",
+      "sha256": "41db6a6d844080dbdab53113efc71e54a61c75e481c8ed4ca0fbf8c6468095d7"
+    },
+    {
+      "bytes": 2984,
+      "path": "edgebenchverified/audit/evidence/nf-selective-original-component-native-v6-root-result-review/root-result-review.json",
+      "sha256": "21adbc2110c628e4c7a636dede09dbd004e24418e7bbabfb9318ec44fbf5c3c8"
+    },
+    {
+      "bytes": 2690,
+      "path": "edgebenchverified/audit/evidence/order-original-exact-version-exclusion-20261011-root-integration/root-integration.json",
+      "sha256": "b3f09bbf1f36ffd77018ca5899cca65630a77c4e5d17ae9ebe8b5e5e0f141191"
+    },
+    {
+      "bytes": 3385,
+      "path": "edgebenchverified/audit/evidence/ann-split-overlap-native-20261011-v1-root-result-review/root-result-review.json",
+      "sha256": "2973165bdffaa7316e6fee765dcce0906af60a8391a83154f018dee91c606a0f"
+    },
+    {
+      "bytes": 3261,
+      "path": "edgebenchverified/audit/evidence/nf-original-docker-component-native-v3-root-result-review/root-result-review.json",
+      "sha256": "21b6c9303cd0628d3e7ce82e5095fbe4d8fd9bc1568282addd067541732c512e"
+    }
+  ],
+  "validation": {
+    "bounded_intake_bytes": 211253,
+    "coverage_rows": 51,
+    "excluded_rows": 3,
     "files_written_allowlist": [
-      "docs/EVIDENCE-INDEX.md",
       "evidence/selected/12-finding-decisions.json",
       "evidence/selected/51-task-coverage.md",
+      "docs/EVIDENCE-INDEX.md",
+      "README.md",
+      "AUDIT-STATUS.md",
       "evidence/selected/EVIDENCE-MANIFEST.json"
-    ]
+    ],
+    "finding_rows": 12,
+    "fresh_scientific_executions": 0,
+    "gap_partition": {
+      "automatic_review_held": 7,
+      "exact_excluded_versions": 3,
+      "nonexcluded_partial": 36,
+      "public_total": 51,
+      "unheld_formal_without_original_helper_completion": 5
+    },
+    "mathematical_exclusion_decisions": 1,
+    "native_finding_decisions": 8,
+    "no_native_provider_auth_model_calls": true,
+    "nonexcluded_partial_observation_rows": 36,
+    "pending_rows": 48,
+    "raw_partial_observation_rows": 37,
+    "source_local_finding_decisions": 3,
+    "unique_finding_tasks": 12,
+    "unique_public_tasks": 51
   }
 }

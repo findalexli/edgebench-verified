@@ -2,7 +2,7 @@
 
 An independent audit of the public EdgeBench release, with versioned repairs and evidence-backed conclusions. **No task is certified.** This project is not affiliated with or endorsed by the upstream authors.
 
-The acquired scope contains **51 public tasks**. There are accepted partial component or data observations for **37 tasks**, **12 closed scoped finding decisions**, **two reviewed exact-version exclusions**, and **49 pending final dispositions**. The other **83 advertised tasks are unavailable**. Finding closure, tested repairs and task certification are separate measures. See [current status](AUDIT-STATUS.md), [the evidence index](docs/EVIDENCE-INDEX.md) and [verification requirements](VERIFICATION.md).
+The acquired scope contains **51 public tasks**. There are accepted partial component or data observations for **37 tasks**, **12 closed scoped finding decisions**, **three reviewed exact-original exclusions**, and **48 pending final dispositions**. The other **83 advertised tasks are unavailable**. Order remains in the37-task raw observation history;36 observed tasks are nonexcluded. Its broken original is excluded, while its repaired version remains pending. Finding closure, tested repairs and task certification are separate measures. See [current status](AUDIT-STATUS.md), [the evidence index](docs/EVIDENCE-INDEX.md) and [verification requirements](VERIFICATION.md).
 
 ## Repository and evidence
 
