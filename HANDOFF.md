@@ -1,12 +1,13 @@
 # Continuing the EdgeBench audit
 
-**October 11, 2026, 21:30 UTC accepted results.** Rust’s actual-Cargo fixture
-comparison and CTA’s installed-module currency comparison are complete and their
-workers closed. Portfolio’s final-source binding and scalar formula correction
-are accepted; native validation is still separate. OpenTTD’s final-library review
-narrows earlier hypotheses. The accepted finding-task union is now 18; original
-dispositions are unchanged. Recheck canonical ownership before any launch. The
-routing travel-window complement remains accepted locally, not yet selected here.
+**October 11, 2026, 21:54 UTC accepted results.** CTA’s exact original is now
+withheld; the finding-task union remains 18. NetHack completed one real zero-score
+trajectory, and ARC’s public suite distinguished the supplied baseline from a
+wrong interpreter. Portfolio’s native attempt retained no metric outcomes and is
+stopped; its source/scalar repair remains accepted. All currently owned native
+workers are closed. ARC’s hidden-evaluator complement is being prepared, not run.
+Recheck canonical ownership before any launch. The routing travel-window
+complement remains accepted locally, not yet selected here.
 
 ## Outcome and current decisions
 
@@ -17,7 +18,7 @@ see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable
 
 Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
 and [TASKS](TASKS.md) for current decisions. There are findings across 18 tasks,
-ten withheld original versions, 41 pending decisions and zero certified versions.
+11 withheld original versions, 40 pending decisions and zero certified versions.
 “Withheld” applies to the exact original unchanged; it does not approve or rule
 out a repaired version. The Git `audit/task-registry.json` is a historical partial
 snapshot with three exclusions, not the current tracker.
@@ -65,8 +66,10 @@ All local paths below are relative to the shared workspace:
 | Rust failure-credit correction | Accepted actual Cargo comparison: five authored fixtures, ten helper outcomes; false PASS corrected, four other pairs preserved. [Result](evidence/selected/rust-native-repair-acceptance.json). | Assess original-corpus/full-scorer behavior and the distinct `cas-cli` policy; do not rerun the closed fixture question. |
 | Routing data complement | Root accepted: no necessary travel-window violation in 56 retained instances / 5,600 customers. Root receipt under `edgebenchverified/audit/evidence/vrptw-travel-window-complement-astra-high-v1-root-review/`. | Select the accepted evidence in the next results delivery. This does not establish complete route feasibility. |
 | OpenTTD cohort complement | Final source preserves the requested seed and propagates missing-directory errors; an existing empty directory can return no rows. [Narrowed conclusion](evidence/selected/openttd-final-library-acceptance.json). | Establish actual engine reachability of the empty-directory condition before claiming score distortion. |
-| CTA currency correction | Accepted: 12 native risk-method calls plus two accounting calls preserve expected behavior. [Result](evidence/selected/cta-currency-native-acceptance.json). | Assess a complete eligible portfolio/full scorer; preserve module/bytecode and dependency-version limits. |
-| Portfolio annual-excess correction | Exact final source bound; two assignments corrected, with 64 authored/six different scalar controls. [Result](evidence/selected/portfolio-annual-excess-repair-acceptance.json). | Complete the full metric-function check under installed Pandas; preserve the scalar scope and annualization assumptions. |
+| CTA currency correction | Original withheld [decision](evidence/selected/cta-original-exclusion.json). Accepted: 12 native risk-method calls plus two accounting calls preserve expected behavior. [Result](evidence/selected/cta-currency-native-acceptance.json). | Assess a complete eligible portfolio/full scorer; preserve module/bytecode and dependency-version limits. |
+| Portfolio annual-excess correction | Exact final source bound; two assignments corrected, with 64 authored/six different scalar controls. [Result](evidence/selected/portfolio-annual-excess-repair-acceptance.json). | Native attempt stopped: no retained metric outcomes, actual call count and cause unknown. Resume only with concrete new failure evidence. [Closed attempt](evidence/selected/portfolio-native-failure-acceptance.json). |
+| NetHack native path | One reset and 5,000 API step returns; observed peak zero matches WA/0. [Result](evidence/selected/nethack-native-acceptance.json). | Positive-score behavior and default 20-trajectory repeatability remain untested; API steps do not prove world turns or competence. |
+| ARC public suite | Supplied baseline 48/48; wrong interpreter 16/48, preserving unaffected cases. [Result](evidence/selected/arc-public-native-acceptance.json). | Hidden 448-case complement is source preparation only; no hidden result or full-task approval. |
 
 The reporting plugin’s earlier original-judge result remains 55 collected/53
 reported with score 1.0. The new combined corrected judge passes 57 collected/55

@@ -1,6 +1,6 @@
 # Current task decisions
 
-Accepted-state handoff: **October 11, 2026**. **51 public originals: 10 withheld, 41 review pending; 18 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
+Accepted-state handoff: **October 11, 2026**. **51 public originals: 11 withheld, 40 review pending; 18 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
 
 The [accepted 18-task union][40] counts scoped findings, including source/component findings, without approving whole tasks.
 
@@ -14,13 +14,13 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Anchorhead<br>`anchorhead_text_adventure` | Review pending | Two real engines; reset/direct guards checked (L). | — | Does terminal scoring match play? |
 | ANN vector search<br>`ann_vector_search_qps` | Review pending | All 10,000 query-label checks accepted under ordinary binary64 arithmetic [41]; original evaluator controls (L). | — | Are data provenance and QPS hardware/repeatability scope established for release? |
 | Apple incremental game<br>`apple_incremental_game` | Review pending | Original 50-case caller completed [1]. | Resource prototype | Does authentic history select correctly? |
-| ARC compiler<br>`arc_compiler_runtime` | Review pending | Four native comparator observations; two inputs (L). | — | Does original suite reject wrong code? |
+| ARC compiler<br>`arc_compiler_runtime` | Review pending | Supplied public baseline 48/48 versus wrong interpreter 16/48; all 32 affected cases rejected, 16 unaffected preserved [43]. | — | Does the hidden 448-case evaluator show the same finite sensitivity? Source preparation only; not run. |
 | Bipedal walking<br>`bipedalwalker_locomotion_rl` | Review pending | 20 prior episodes; malformed model rejected [2]. | — | Does broader policy evaluation repeat? |
 | Borden inversion<br>`borden_source_inversion` | Review pending | Native score/bounds controls; physics unproved (L). | — | Do units-aware predictions agree? |
 | Carleson proof<br>`carleson_formalization` | Review pending | Restoration succeeded; tool startup crashed [3]. | Setup blocked | What explains startup failure? |
 | College English<br>`college_english_exam_bank` | Withhold original | Incomplete assessment accepted [4]. | Local prototype | Does installed repair preserve valid grading? |
 | Combinatorial games proof<br>`combinatorial_games_formalization` | Review pending | Nine local parser/report flows; no kernel (L). | — | Does original kernel check intended targets? |
-| CTA risk budget<br>`cta_risk_budget_optimization` | Review pending | Installed-module exposure calculation mixes currencies [37]. | 12 risk-method calls and two accounting calls match corrected expectations [37] | Does a complete eligible portfolio preserve intended full-scorer behavior? |
+| CTA risk budget<br>`cta_risk_budget_optimization` | Withhold original | Installed-module exposure calculation mixes currencies; exact original withholding accepted [44]. | 12 risk-method calls and two accounting calls match corrected expectations [37] | Does a complete eligible portfolio preserve intended full-scorer behavior? |
 | Gravity inversion<br>`dabic_gravity_inversion` | Review pending | 21 native scalar helper calls; not inversion (L). | — | Does independent forward physics agree? |
 | Dungeon Crawl<br>`dcss_dungeon_ai` | Review pending | Ten historical native positive aggregates (L). | Output prototype | Does real failure scoring behave correctly? |
 | Equivalence classes<br>`equivalence_class_divide_and_conquer` | Withhold original | Original checker accepts above-limit cost [6]. | Corrected T3 checker passes one official input at 64 MiB output cap [31]; finite boundary controls remain separate | Do remaining T3 cases pass within a justified output allowance? |
@@ -36,14 +36,14 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | K–12 recommendation<br>`k12_math_recommendation` | Review pending | Reference/history joins checked; full call stopped [10]. | Caller prepared | What resolves full-caller preflight? |
 | Lean analysis<br>`lean_analysis_proofs` | Withhold original | Two required statements mathematically false [7]. | No validated fix | Can corrected statements retain the skill? |
 | Molecular assembly<br>`molecular_self_assembly` | Review pending | Six original game-pipeline submissions [34] and final-tick controls [11]. | — | Does the release enforce per-child memory limits and cover remaining stated game-rule behavior? |
-| NetHack<br>`nethack_dungeon_agent` | Review pending | Four output-boundary controls; no game [12]. | — | Does real game output match score contract? |
+| NetHack<br>`nethack_dungeon_agent` | Review pending | One real reset, 5,000 successful API step returns, zero observed peak and matching original WA/0 [42]. | — | Do a positive-score control and the default 20-trajectory evaluation establish scoring/repeatability beyond this zero trajectory? |
 | New Foundations proof<br>`new_foundations_consistency` | Review pending | Read-only mount setup stopped; no compiler (L). | Setup blocked | What caused the mount failure? |
 | OpenRCT2<br>`openrct2_theme_park_ai` | Review pending | 11 original score-helper calls; no engine (L). | — | Does scenario monitor match score inputs? |
 | OpenTTD<br>`openttd_transport_ai` | Review pending | Final source preserves requested seed; existing empty directory can return no rows [38]. | No repair approved | Can an actual game produce the empty-directory condition and affect cohort scoring? |
 | Order addition<br>`order_addition_permutation_optimization` | Withhold original | Installed helper fails expected fingerprint [13]. | Restored finite fix | Does complete native repair preserve scoring? |
 | Ordinal notation<br>`ordinal_notation_well_foundedness` | Review pending | Historical formal-source facts retained (L). | Held | Held; no follow-up. |
 | Polynomial Freiman–Ruzsa proof<br>`pfr_formalization` | Review pending | Restored sources; startup crashed, zero proofs (L). | Setup blocked | What explains startup failure? |
-| Portfolio calibration<br>`portfolio_risk_calibration` | Review pending | Annual-excess formula finding bound to final image source [39]. | Two-line correction; 64 authored and six different scalar controls [36] | Does the repaired full metric function preserve valid behavior under installed Pandas? |
+| Portfolio calibration<br>`portfolio_risk_calibration` | Review pending | Annual-excess formula finding bound to final image source [39]. | Two-line correction; 64 authored and six different scalar controls [36]; native attempt retained no metric outcomes [45] | Stopped: resume only with concrete evidence explaining the failed native attempt; actual metric-call count and failure cause are unknown. |
 | Rust multicrate<br>`rust_multicrate_reconstruction` | Review pending | Actual Cargo reproduces false PASS on an authored fixture [35]. | Five fixtures, ten original/corrected helper outcomes match [35] | Does the full scorer preserve original-corpus behavior and intended exemption policy? |
 | Schemathesis config<br>`schemathesis_config_modernization` | Review pending | Full scorer misses function identity [16]. | Native paired fix | Can exact repair be packaged and reproduced? |
 | Schemathesis data generation<br>`schemathesis_datagen_pipeline` | Review pending | Impossible dates pass original predicate [17]. | V2 finite fix | Pin the generator and selected-overlay runner before native checks. |
@@ -108,3 +108,8 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [37]: evidence/selected/cta-currency-native-acceptance.json
 [40]: evidence/selected/finding-task-union-18.json
 [41]: evidence/selected/ann-numerical-conclusion.json
+
+[42]: evidence/selected/nethack-native-acceptance.json
+[43]: evidence/selected/arc-public-native-acceptance.json
+[44]: evidence/selected/cta-original-exclusion.json
+[45]: evidence/selected/portfolio-native-failure-acceptance.json
