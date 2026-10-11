@@ -1,6 +1,6 @@
 # Current task decisions
 
-Accepted-state handoff: **October 11, 2026**. **51 public originals: 11 withheld, 40 review pending; 18 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
+Accepted-state handoff: **October 11, 2026**. **51 public originals: 12 withheld, 39 review pending; 18 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
 
 The [accepted 18-task union][40] counts scoped findings, including source/component findings, without approving whole tasks.
 
@@ -44,7 +44,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Ordinal notation<br>`ordinal_notation_well_foundedness` | Review pending | Historical formal-source facts retained (L). | Held | Held; no follow-up. |
 | Polynomial Freiman–Ruzsa proof<br>`pfr_formalization` | Review pending | Restored sources; startup crashed, zero proofs (L). | Setup blocked | What explains startup failure? |
 | Portfolio calibration<br>`portfolio_risk_calibration` | Review pending | Annual-excess formula finding bound to final image source [39]. | Two-line correction; 64 authored and six different scalar controls [36]; native attempt retained no metric outcomes [45] | Stopped: resume only with concrete evidence explaining the failed native attempt; actual metric-call count and failure cause are unknown. |
-| Rust multicrate<br>`rust_multicrate_reconstruction` | Review pending | Actual Cargo reproduces false PASS on an authored fixture [35]. | Five fixtures, ten original/corrected helper outcomes match [35] | Does the full scorer preserve original-corpus behavior and intended exemption policy? |
+| Rust multicrate<br>`rust_multicrate_reconstruction` | Withhold original | Actual Cargo reproduces false PASS on an authored fixture [35]; exact original withholding adopted [47]. | Five fixtures, ten original/corrected helper outcomes match [35] | Does the full scorer preserve original-corpus behavior and intended exemption policy? |
 | Schemathesis config<br>`schemathesis_config_modernization` | Review pending | Full scorer misses function identity [16]. | Native paired fix | Can exact repair be packaged and reproduced? |
 | Schemathesis data generation<br>`schemathesis_datagen_pipeline` | Review pending | Impossible dates pass original predicate [17]. | V2 finite fix | Pin the generator and selected-overlay runner before native checks. |
 | Schemathesis reporting<br>`schemathesis_reporting_observability` | Review pending | Original judge: 55 collected/53 reported [29]; combined corrected judge: 57 collected/55 reported, both score 1.0 [32]. | Integrated judge and all 24 countercontrols pass [32]; lifecycle controls remain finite [28] | Do named stateful/dispatcher gaps and independent reproduction satisfy the remaining requirements? |
@@ -114,3 +114,4 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [44]: evidence/selected/cta-original-exclusion.json
 [45]: evidence/selected/portfolio-native-failure-acceptance.json
 [46]: evidence/selected/arc-hidden-native-acceptance.json
+[47]: evidence/selected/rust-original-exclusion.json
