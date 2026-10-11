@@ -1,0 +1,26 @@
+{
+  "author": {
+    "bytes": 7297,
+    "path": "work/packets/portfolio-annual-excess-repair-astra-high-v1/handoff.json",
+    "sha256": "53947a257614173c50e36117a5f6890cd66da8710dd4a1d931592a1ef2b03bf9"
+  },
+  "author_cases": 64,
+  "certified": false,
+  "conclusion": "Two assignments replace annualization of the return difference with difference of aligned annualized returns. Known126-observation example21% becomes23%.",
+  "decision": "ACCEPT_SCOPED_SOURCE_REPAIR_AND_DIFFERENT_SCALAR_CONTROLS",
+  "different_fresh_cases": 6,
+  "different_review": {
+    "bytes": 1162,
+    "path": "work/reviews/portfolio-annual-excess-repair-astra-high-v1/handoff.json",
+    "sha256": "db70b98b10156c288727869120d4ba0b6ef5df4a3712b78ad1fa5c16d40cd3b1"
+  },
+  "intentional_effect": "Information and Sortino numerators inherit corrected excess; differently defined global annual_return is not substituted.",
+  "limits": [
+    "Scalar AST component controls only; actual Pandas/full metric function/native still separate.",
+    "Existing252/aligned-observation annualization convention preserved rather than independently certified.",
+    "Other Portfolio contract defects and release gates remain open."
+  ],
+  "root_check": "Read exact patch and different review; verified all frozen referenced bytes. This acceptance is evidence integration, not another execution.",
+  "task_id": "portfolio_risk_calibration",
+  "utc": "2026-10-11T21:24:55.019861+00:00"
+}

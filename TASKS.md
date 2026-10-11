@@ -1,6 +1,8 @@
 # Current task decisions
 
-Accepted-state handoff: **October 11, 2026**. **51 public originals: 10 withheld, 41 review pending; 16 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
+Accepted-state handoff: **October 11, 2026**. **51 public originals: 10 withheld, 41 review pending; 18 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
+
+The [accepted 18-task union][40] counts scoped findings, including source/component findings, without approving whole tasks.
 
 This is the current accepted-disposition tracker, **not release approval or launch authority**. “Withhold original” is a finished decision to omit that exact original unchanged for the recorded reason; a replacement remains separate. Results below establish only their stated scope, not a whole-task pass or a count of fully checked tasks. No historical “37 tasks” coverage total is carried forward.
 
@@ -10,7 +12,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | --- | --- | --- | --- | --- |
 | Ad placement<br>`ad_placement_optimization` | Review pending | Four native functional controls; held (L). | — | Held; no follow-up. |
 | Anchorhead<br>`anchorhead_text_adventure` | Review pending | Two real engines; reset/direct guards checked (L). | — | Does terminal scoring match play? |
-| ANN vector search<br>`ann_vector_search_qps` | Review pending | All 10,000 query labels checked under stated numerical assumptions [33]; original evaluator controls (L). | — | Are those numerical assumptions and release provenance/repeatability scope adequately established? |
+| ANN vector search<br>`ann_vector_search_qps` | Review pending | All 10,000 query-label checks accepted under ordinary binary64 arithmetic [41]; original evaluator controls (L). | — | Are data provenance and QPS hardware/repeatability scope established for release? |
 | Apple incremental game<br>`apple_incremental_game` | Review pending | Original 50-case caller completed [1]. | Resource prototype | Does authentic history select correctly? |
 | ARC compiler<br>`arc_compiler_runtime` | Review pending | Four native comparator observations; two inputs (L). | — | Does original suite reject wrong code? |
 | Bipedal walking<br>`bipedalwalker_locomotion_rl` | Review pending | 20 prior episodes; malformed model rejected [2]. | — | Does broader policy evaluation repeat? |
@@ -18,7 +20,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Carleson proof<br>`carleson_formalization` | Review pending | Restoration succeeded; tool startup crashed [3]. | Setup blocked | What explains startup failure? |
 | College English<br>`college_english_exam_bank` | Withhold original | Incomplete assessment accepted [4]. | Local prototype | Does installed repair preserve valid grading? |
 | Combinatorial games proof<br>`combinatorial_games_formalization` | Review pending | Nine local parser/report flows; no kernel (L). | — | Does original kernel check intended targets? |
-| CTA risk budget<br>`cta_risk_budget_optimization` | Review pending | Selected workbook joins/numeric cells checked [5]. | — | Are cost and financial semantics correct? |
+| CTA risk budget<br>`cta_risk_budget_optimization` | Review pending | Installed-module exposure calculation mixes currencies [37]. | 12 risk-method calls and two accounting calls match corrected expectations [37] | Does a complete eligible portfolio preserve intended full-scorer behavior? |
 | Gravity inversion<br>`dabic_gravity_inversion` | Review pending | 21 native scalar helper calls; not inversion (L). | — | Does independent forward physics agree? |
 | Dungeon Crawl<br>`dcss_dungeon_ai` | Review pending | Ten historical native positive aggregates (L). | Output prototype | Does real failure scoring behave correctly? |
 | Equivalence classes<br>`equivalence_class_divide_and_conquer` | Withhold original | Original checker accepts above-limit cost [6]. | Corrected T3 checker passes one official input at 64 MiB output cap [31]; finite boundary controls remain separate | Do remaining T3 cases pass within a justified output allowance? |
@@ -37,12 +39,12 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | NetHack<br>`nethack_dungeon_agent` | Review pending | Four output-boundary controls; no game [12]. | — | Does real game output match score contract? |
 | New Foundations proof<br>`new_foundations_consistency` | Review pending | Read-only mount setup stopped; no compiler (L). | Setup blocked | What caused the mount failure? |
 | OpenRCT2<br>`openrct2_theme_park_ai` | Review pending | 11 original score-helper calls; no engine (L). | — | Does scenario monitor match score inputs? |
-| OpenTTD<br>`openttd_transport_ai` | Review pending | Eight original score-helper calls; no engine (L). | — | Does real cohort chronology match scoring? |
+| OpenTTD<br>`openttd_transport_ai` | Review pending | Final source preserves requested seed; existing empty directory can return no rows [38]. | No repair approved | Can an actual game produce the empty-directory condition and affect cohort scoring? |
 | Order addition<br>`order_addition_permutation_optimization` | Withhold original | Installed helper fails expected fingerprint [13]. | Restored finite fix | Does complete native repair preserve scoring? |
 | Ordinal notation<br>`ordinal_notation_well_foundedness` | Review pending | Historical formal-source facts retained (L). | Held | Held; no follow-up. |
 | Polynomial Freiman–Ruzsa proof<br>`pfr_formalization` | Review pending | Restored sources; startup crashed, zero proofs (L). | Setup blocked | What explains startup failure? |
-| Portfolio calibration<br>`portfolio_risk_calibration` | Review pending | Price/metadata joins; missing macro dates qualified [14]. | — | Does loss calibration match task promise? |
-| Rust multicrate<br>`rust_multicrate_reconstruction` | Review pending | Python helper cancels unrelated failure; Cargo simulated [15]. | Local prototype | Does native paired repair preserve counts? |
+| Portfolio calibration<br>`portfolio_risk_calibration` | Review pending | Annual-excess formula finding bound to final image source [39]. | Two-line correction; 64 authored and six different scalar controls [36] | Does the repaired full metric function preserve valid behavior under installed Pandas? |
+| Rust multicrate<br>`rust_multicrate_reconstruction` | Review pending | Actual Cargo reproduces false PASS on an authored fixture [35]. | Five fixtures, ten original/corrected helper outcomes match [35] | Does the full scorer preserve original-corpus behavior and intended exemption policy? |
 | Schemathesis config<br>`schemathesis_config_modernization` | Review pending | Full scorer misses function identity [16]. | Native paired fix | Can exact repair be packaged and reproduced? |
 | Schemathesis data generation<br>`schemathesis_datagen_pipeline` | Review pending | Impossible dates pass original predicate [17]. | V2 finite fix | Pin the generator and selected-overlay runner before native checks. |
 | Schemathesis reporting<br>`schemathesis_reporting_observability` | Review pending | Original judge: 55 collected/53 reported [29]; combined corrected judge: 57 collected/55 reported, both score 1.0 [32]. | Integrated judge and all 24 countercontrols pass [32]; lifecycle controls remain finite [28] | Do named stateful/dispatcher gaps and independent reproduction satisfy the remaining requirements? |
@@ -99,3 +101,10 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [32]: evidence/selected/reporting-integrated-acceptance.json
 [33]: evidence/selected/ann-full-label-acceptance.json
 [34]: evidence/selected/molecular-harness-acceptance.json
+[35]: evidence/selected/rust-native-repair-acceptance.json
+[36]: evidence/selected/portfolio-annual-excess-repair-acceptance.json
+[38]: evidence/selected/openttd-final-library-acceptance.json
+[39]: evidence/selected/portfolio-final-source-acceptance.json
+[37]: evidence/selected/cta-currency-native-acceptance.json
+[40]: evidence/selected/finding-task-union-18.json
+[41]: evidence/selected/ann-numerical-conclusion.json

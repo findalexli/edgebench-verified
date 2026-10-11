@@ -7,13 +7,13 @@ An independent audit of whether EdgeBench’s tasks, tests and data measure what
 | What we know | Count |
 | --- | ---: |
 | Public tasks acquired | 51 |
-| Tasks with confirmed findings, within the scope stated in each case | 16 |
+| Tasks with confirmed findings, within the scope stated in each case | 18 |
 | Original versions we would withhold from a verified release | 10 |
 | Original task decisions still pending | 41 |
 | Task versions approved for a verified release | 0 |
 | Additional advertised tasks unavailable to this audit | 83 |
 
-The 16 finding tasks overlap the other rows; these counts must not be added together. A confirmed problem can be settled before its repair or the rest of the task is reviewed.
+The [18 finding tasks](evidence/selected/finding-task-union-18.json) overlap the other rows; these counts must not be added together. A confirmed problem can be settled before its repair or the rest of the task is reviewed.
 
 **“Excluded” means “withhold this original version unchanged.”** It does not mean deleted, worthless, impossible to score or unfixable. For example, an original checker that accepts overlapping shapes should be corrected and tested as a new version. Graph’s exclusion is a conservative policy choice about invalid confidence values; no score inflation was demonstrated. Every reason and its limits are in the findings.
 
@@ -26,6 +26,8 @@ The 16 finding tasks overlap the other rows; these counts must not be added toge
 The reporting implementation now passes the combined corrected judge: **57 collected tests passed, 55/55 reported, score 1.0**, and all 24 paired countercontrols matched. This closes the judge-repair integration check. The earlier original-judge 55 collected/53 reported run remains a separate result; neither run certifies the complete task. Details and failed hypotheses remain in [Findings](docs/FINDINGS.md) and the [reporting requirement table](docs/REPORTING-COVERAGE.md).
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
+
+The latest batch adds CTA’s mixed-currency exposure defect and Portfolio’s source-bound annual-excess formula defect to that finding count. CTA’s native repair preserves the checked accounting behavior; Portfolio’s repair currently has scalar evidence. Rust’s correction now passes five paired fixtures using real Cargo. OpenTTD’s source review rejects the proposed foreign-seed mechanism but leaves an empty-directory case unproved in real games. [Evidence and limits](docs/FINDINGS.md).
 
 ## What this repository contains
 
