@@ -1,6 +1,6 @@
 # A publishable EdgeBench audit
 
-**The target is a reproducible audit with evaluated repairs and clear reporting.** At the **October 11, 2026, 17:58 UTC** snapshot, our record supports 14 scoped finding decisions and ten decisions to omit exact originals. It does not yet support a completed public-task audit or a verified replacement benchmark: 41 of 51 public task decisions remain pending and no task is certified.
+**The target is a reproducible audit with evaluated repairs and clear reporting.** At the **October 11, 2026, 18:23 UTC** snapshot, our record supports 16 scoped finding decisions and ten decisions to omit exact originals. It does not yet support a completed public-task audit or a verified replacement benchmark: 41 of 51 public task decisions remain pending and no task is certified.
 
 ## What to take from the reference
 
@@ -15,7 +15,7 @@ Case 4026 makes a remaining false rejection visible: a shared-email alternative 
 | Publication requirement | EdgeBench's current position | Deliverable that closes the gap |
 | --- | --- | --- |
 | Complete account of the acquired public set | 51 acquired; 10 original exclusions; 41 pending; 0 certified | One reviewed final disposition for every acquired original, with separate identities and decisions for proposed replacements. All 51 remain visible, including exclusions. |
-| Reader-verifiable findings | 14 scoped decisions and selected evidence exist; much supporting execution evidence remains in the local archive | A complete case card for every published claim, with a public-safe, usable reproduction bundle or an explicit access limit. |
+| Reader-verifiable findings | 16 scoped decisions and selected evidence exist; much supporting execution evidence remains in the local archive | A complete case card for every published claim, with a public-safe, usable reproduction bundle or an explicit access limit. |
 | Repairs that actually run | Schemathesis has a complete native scorer comparison for the exact two-file repair; English has fixed-response local controls. Persisted replacement packaging and whole-task approval remain incomplete | Exact task definition, source changes, work/judge environment identities and run instructions, followed by original/candidate tests in the actual candidate environment. A patch file alone is insufficient. |
 | Evidence that a repair preserves valid work | Selected controls exist; their coverage differs by task | Matched original/candidate results for the triggering failure and independently justified valid alternatives, with meaningful negative and boundary controls. Keep every observed regression visible. |
 | Independent reproduction | Separate reviews exist, but source review, review of saved results and fresh reruns are distinct | Identify the author, reviewer and reproducer for each case, reused evidence, actual rerun commands and outcomes. Say when no independent execution occurred. |

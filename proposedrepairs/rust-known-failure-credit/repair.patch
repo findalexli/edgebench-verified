@@ -1,0 +1,37 @@
+--- a/judge/tools/score.py
++++ b/judge/tools/score.py
+@@ -282,6 +282,7 @@
+         passed, failed = 0, 0
+         pub_passed, pub_failed, hid_passed, hid_failed = 0, 0, 0, 0
+         hidden_set = HIDDEN_TESTS_BY_CRATE.get(crate_name, set())
++        failed_test_paths = set()
+ 
+         for line in stdout.splitlines():
+             if line.startswith("test result:"):
+@@ -299,17 +300,23 @@
+                     if is_hidden: hid_passed += 1
+                     else: pub_passed += 1
+                 elif result_str == "FAILED":
++                    failed_test_paths.add(test_path)
+                     if is_hidden: hid_failed += 1
+                     else: pub_failed += 1
+ 
+         known = KNOWN_FAILURES.get(crate_name, [])
+         if known and failed > 0:
+             for test_name in known:
+-                if test_name in stdout:
++                if ((crate_name == "cas-pty" and failed > 0 and test_name in failed_test_paths)
++                        or (crate_name != "cas-pty" and test_name in stdout)):
+                     failed -= 1
+                     passed += 1
+-                    pub_passed += 1
+-                    pub_failed = max(0, pub_failed - 1)
++                    if crate_name == "cas-pty" and test_name.rsplit("::", 1)[-1] in hidden_set:
++                        hid_passed += 1
++                        hid_failed = max(0, hid_failed - 1)
++                    else:
++                        pub_passed += 1
++                        pub_failed = max(0, pub_failed - 1)
+ 
+         executed = passed + failed
+ 
