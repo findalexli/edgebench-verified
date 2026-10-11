@@ -1,7 +1,7 @@
 {
   "schema": "selected-scoped-finding-decisions-v1",
-  "prepared_utc": "2026-10-11T00:35:36.597739+00:00",
-  "selection": "Derived safe projection of the accepted root decisions; not an exact copy or a new scientific review. Accepted claim and counterevidence strings are unchanged. Operational, raw scientific and private-answer records are omitted.",
+  "prepared_utc": "2026-10-11T01:22:34.670162+00:00",
+  "selection": "Derived safe projection of accepted root decisions and the later adopted exact-original Order exclusion; not an exact copy or a new scientific review. Original accepted finding claim/counterevidence strings are unchanged. Operational, raw scientific and private-answer records are omitted.",
   "source": {
     "path": "edgebenchverified/audit/evidence/twelve-finding-finality-sol-v1-root-review/root-finding-decisions.json",
     "bytes": 30251,
@@ -12,10 +12,11 @@
   "counts": {
     "public_tasks": 51,
     "partial_observation_tasks": 37,
+    "nonexcluded_partial_observation_tasks": 36,
     "closed_scoped_finding_task_decisions": 12,
     "certified_tasks": 0,
-    "excluded_exact_versions": 2,
-    "pending_dispositions": 49,
+    "excluded_exact_versions": 3,
+    "pending_dispositions": 48,
     "advertised_unavailable": 83,
     "source_setup_only_unheld_tasks": 5,
     "automatic_review_held_tasks": 7
@@ -247,8 +248,13 @@
           "sha256": "a9b62b25bb94755eb8360888a4f042695f25ca3ce1b8de37b200d3ccaaae75d9"
         }
       ],
-      "formal_disposition": "Pending",
-      "repair_and_certification_scope": "This finite finding decision does not establish an integrated repair, whole-corpus validity, domain review, redistribution rights, or task certification."
+      "formal_disposition": "Excluded exact acquired original",
+      "repair_and_certification_scope": "The original exclusion is adopted. The helper-integrity repaired version is separate and pending; finite candidate/native restoration observations do not establish native release adoption, whole-corpus validity, domain review, redistribution rights or certification.",
+      "disposition_accepted_ref": {
+        "path": "edgebenchverified/audit/evidence/order-original-exact-version-exclusion-20261011-root-integration/root-integration.json",
+        "bytes": 2690,
+        "sha256": "b3f09bbf1f36ffd77018ca5899cca65630a77c4e5d17ae9ebe8b5e5e0f141191"
+      }
     },
     {
       "task_id": "jagua_nesting_optimization",
@@ -297,6 +303,19 @@
       ],
       "formal_disposition": "Pending",
       "repair_and_certification_scope": "This finite finding decision does not establish an integrated repair, whole-corpus validity, domain review, redistribution rights, or task certification."
+    }
+  ],
+  "disposition_updates": [
+    {
+      "task_id": "order_addition_permutation_optimization",
+      "decision": "Excluded exact acquired original",
+      "root_integration": {
+        "path": "edgebenchverified/audit/evidence/order-original-exact-version-exclusion-20261011-root-integration/root-integration.json",
+        "bytes": 2690,
+        "sha256": "b3f09bbf1f36ffd77018ca5899cca65630a77c4e5d17ae9ebe8b5e5e0f141191"
+      },
+      "review_bundle_sha256": "d1fb2b297a7a2e7cca14a478863cfb69979bab1b1a670ef73960ded623455a08",
+      "scope": "Necessary fixed private-helper identity assertion is false under legitimate transport. Original reports/nonzero continuous score remain possible; the minimal repaired version remains pending separately."
     }
   ]
 }
