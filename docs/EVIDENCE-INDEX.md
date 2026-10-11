@@ -10,11 +10,12 @@ Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings
 - [Later Jagua exclusion](../evidence/selected/jagua-original-exclusion.json): the accepted original-version decision and totals at 02:31 UTC on October 11; no score gain or general geometry repair is claimed.
 - [Later Equivalence and Graph exclusions](../evidence/selected/eq-graph-original-exclusions.json): two accepted original-version decisions and totals at 02:55 UTC on October 11, based on existing witnesses and reviews.
 - [Later Tree exclusion](../evidence/selected/tree-original-exclusion.json): the accepted supplied-operation contract decision, three actual AI reviews and mechanical check. Existing native controls are reused; no complete-task score effect is claimed.
+- [Later English exclusion](../evidence/selected/english-original-exclusion.json): the accepted final-source assessment-completeness decision and three actual AI reviews. Earlier unchanged helper observations are reused; no final 100-point or live provider result is claimed.
 - [Order repair pilot failure](../evidence/selected/order-repair-failed-pilot.json): the latest reviewed failure after a file-size correction; zero checker test cases, closed worker and no validated repair.
 - [Order exclusion binding](../evidence/selected/order-original-exclusion-binding.json): identifies the copied Order decision records and approvals.
 - [Evidence manifest](../evidence/selected/EVIDENCE-MANIFEST.json): file identities, sources, selection method and omitted material.
 
-The earlier finding JSON and task table were prepared at **01:22 UTC on October 11**. Their historical counts remain unchanged. The current status page incorporates the later Wireless, Jagua, Equivalence, Graph and Tree decisions; older snapshots are not live progress counters.
+The earlier finding JSON and task table were prepared at **01:22 UTC on October 11**. Their historical counts remain unchanged. The current status page incorporates the later Wireless, Jagua, Equivalence, Graph, Tree and English decisions; older snapshots are not live progress counters.
 
 The manifest also identifies FLT's accepted failed attempt: selected restoration and readiness checks completed, but the version-check path returned signal 11 before any original proof helper ran. The owned worker is closed. The signal recipient and cause remain unknown; this is not a new task defect.
 
