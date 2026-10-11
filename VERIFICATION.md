@@ -8,6 +8,26 @@ The acquisition lock in `audit/upstream-lock.json` records the exact upstream ha
 
 Keep the original task IDs and the SForge JSON/BENCHMARK.yaml format. Preserve originals in the acquisition record. Place fixes in task definitions, source overlays, or the forked harness, with patches and before/after evidence. A different evaluator, changed data split, or changed scoring rule creates a different benchmark version. Do not silently combine its scores with the upstream leaderboard.
 
+## Deliverables and proportional work
+
+A **finding report** can publish supported, scoped conclusions while other tasks
+remain pending. A **completed public-set audit** needs a reviewed decision for all
+51 acquired originals. A **verified replacement benchmark** additionally needs
+tested, versioned retained/repaired tasks and a runnable release manifest. These
+are distinct milestones; finishing one does not imply the next.
+
+Use the original task promise to choose the checks. A complete new solver is not
+a prerequisite for demonstrating a narrow verifier defect. Build a reference only
+when it resolves a named question that smaller controls cannot answer. Domain,
+rights and generalization gaps limit the applicable release claim; they do not
+reopen a separately established finite finding. Formal tools should reduce a
+specific uncertainty, not create a mandatory proof project for every task.
+
+The three checks below must provide different evidence: interpretation, execution
+and an attempt to refute/generalize. Three agents agreeing on the same source is
+not three independent reproductions. Follow the actual frozen-run and release
+gates; do not add a fresh approval chain for routine reversible diagnostics.
+
 ## Three independent checks
 
 1. **Specification and data:** identify the intended skill, permitted tools, exact inputs, target outputs and failure conditions; reconcile task prose with every scoring rule. Trace data to its source and recorded license, identify split membership, inspect duplicates, and distinguish provided feedback from untouched evaluation. Verify labels or reference answers independently where feasible. Specialized scientific, educational and formal tasks require competent domain review or an explicit unresolved gate.
@@ -20,8 +40,15 @@ These are evidence modes, not a claim that three independent humans have reviewe
 
 - **Retain:** all gates pass without a material change to the task; record the tested release identity.
 - **Repair:** identify the failing contract, preserve a regression case, implement a justified correction and rerun both valid and invalid controls in the actual task environment. Record score incompatibilities and rescore affected artifacts.
-- **Exclude:** give a specific, evidenced reason and an independent review; preserve the original and the audit record. Do not exclude merely because a task is difficult to inspect or lowers model performance. An unavailable or unresolved task remains explicitly unresolved unless a justified release exclusion is adjudicated.
+- **Exclude (withhold this original unchanged):** give a specific, evidenced reason and an independent review; preserve the original and the audit record. Do not exclude merely because a task is difficult to inspect or lowers model performance. An unavailable or unresolved task remains explicitly unresolved unless a justified release exclusion is adjudicated.
 - **Review pending:** evidence is incomplete. This is the initial state of every task and is not a release decision.
+
+An exclusion is a version-specific release decision, not a statement that every
+score is invalid, a repair is finished, or a future version is unusable. State
+whether it follows an impossible requirement, observed verifier/data defect, or
+conservative policy choice, and disclose the affected subtask or capability.
+Missing evidence and our own environment failures do not by themselves justify
+exclusion. Keep the replacement's status separate.
 
 No unresolved task should disappear from the denominator. Publish the list of retained, repaired, excluded and pending tasks alongside family coverage, and disclose how removing tasks changes the evaluated capabilities.
 
@@ -44,3 +71,31 @@ The benchmark should report original versus repaired score effects where compara
 Store compact evidence and hashes in `audit/`. Keep large image blobs, temporary registry tokens and raw hidden answer archives outside the publishable repository. Pin all acquired images by OCI digest. Dataset and image contents can have different provenance from the harness; preserve notices and resolve redistribution rights before publishing those contents.
 
 The work/judge split prevents direct visibility during ordinary agent work, but does not itself prove evaluator integrity. Review trust boundaries with local controlled tests. Do not test attacks against the authors' hosted systems or contact them without user authorization.
+
+## Reader-verifiable case and publication package
+
+Use the [reference publication](https://parsewave.ai/benchmark-research/automation-bench#overview)
+as a presentation target: overview, browsable cases, concrete evidence, method
+and usable downloads. Presentation quality does not replace scientific evidence.
+The dated comparison and worked template remain in the
+[pre-cleanup Git snapshot](https://github.com/findalexli/edgebench-verified/tree/8f55f7e115cd68d7e61da94db5c8b4e5486e42aa/docs).
+
+Each case should contain:
+
+1. The task's promised behavior and the exact original version.
+2. A small counterexample: expected versus observed result, provenance and limits.
+3. A conclusion: confirmed, rejected or unresolved; original disposition separate.
+4. A versioned correction, if present, and matched before/after results for the
+   trigger plus independently justified valid and invalid controls. Say “not run”
+   where evidence is absent; never estimate an unobserved leaderboard effect.
+5. Who authored, reviewed and actually reproduced the result, with reused evidence
+   and any failed hypotheses or regressions visible.
+6. Commands, manifests, resource needs and accessible evidence sufficient to
+   reproduce the claimed scope. Explicitly identify restricted or missing inputs.
+
+Keep all 51 task decisions visible in `TASKS.md`, including withheld originals and
+pending tasks. Link repaired versions separately and explain capability coverage
+lost through exclusion. Before claiming a reproducible benchmark release, verify
+a clean rerun of the release package and resolve its distribution permissions.
+An interim report must clearly retain its unfinished scope and applicable
+publication authorization; it must not imply that release gates passed.

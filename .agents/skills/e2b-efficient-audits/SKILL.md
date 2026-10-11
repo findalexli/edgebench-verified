@@ -11,11 +11,11 @@ Prepare a worker only for a named unanswered task question. Prefer collecting an
 
 Enforce the evidence-audit skill's setup stop when dispatching: preserve the typed failure, leave the lane stopped, and advance its named ready fallback. Another preparation assignment requires new evidence about the failure. A source-ready packet goes to its required review and admission. Reuse unchanged accepted checks and completed slices; admit the unresolved complement. Useful concurrency follows demonstrated original task execution and observed staging/settlement capacity.
 
-Report how many original task checks actually ran and what they established. If none ran, say so in plain language. Put worker handles, estimates and failure codes in linked operational records. The evidence-audit skill owns scientific conclusions and the dated current progress summary.
+Report how many original task checks actually ran and what they established. If none ran, say so in plain language. Put worker handles, estimates and failure codes in linked operational records. The evidence-audit skill owns scientific conclusions; README is the overview and TASKS is the current decision tracker.
 
 ## Start from one current state
 
-Resolve current authority/state from the designated coordinator. Repository copies use `docs/AUDIT-WORKFLOW.md` to locate it; workspace paths and historical receipt links below are locally available provenance, not required archive contents in Git. Obtain the current handoff/authority from that coordinator rather than substitute an old packet when a link is absent.
+Resolve current authority/state from the designated coordinator. Repository copies use `HANDOFF.md` to locate it; workspace paths and historical receipt links below are locally available provenance, not required archive contents in Git. Obtain the current handoff/authority from that coordinator rather than substitute an old packet when a link is absent.
 
 Read the coordinator's dated `audit/AUDIT-BRIEF.md`, compact current handoff and later steering. Follow only the historical archive keys needed for the current question; preserve the full archive without repeatedly loading it. Bind authorization, user deadline, local guards, ownership and task/runner holds; historical packets are not current authority. Never retry or reroute automatic-review holds. A separate model-runner hold does not block unrelated unheld native/data lanes.
 
