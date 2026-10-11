@@ -1,0 +1,54 @@
+{
+  "attempt_id": "2716a913db0d49fc8b9e5378ea0fcfeb",
+  "batch": {
+    "bytes": 2335,
+    "path": "edgebenchverified/audit/evidence/nethack-arc-native-astra-high-v1/batch-result.json",
+    "sha256": "52680d17f381f98ddeda7237f3f6257a5a57f8aba1b546727028d34afb071535"
+  },
+  "certification": false,
+  "conclusion": "Original evaluator ran one supplied-agent trajectory:one reset,5000 successful NLE API step returns,zero observed peak score and matchingWA0. First authentic path check completed; no defect or competence claim.",
+  "decision": "ROOT_ACCEPT_FINITE_ORIGINAL_NATIVE_RESULT",
+  "different_review": {
+    "bytes": 1051,
+    "path": "work/reviews/nethack-original-one-game-astra-high-v1-result/handoff.json",
+    "sha256": "0f8d413e7f3b827792a311bc553dd63eedd7b67d78d67c776f41de9d5618d2b3"
+  },
+  "execution": {
+    "bytes": 571,
+    "path": "work/cloud-queue/exports/deterministic-nethack-d8598d38d0130e48/2716a913db0d49fc8b9e5378ea0fcfeb/execution.json",
+    "sha256": "663df16709118c69ab90afea27ea76be170732b4be1829b801dc40f7f2df21ee"
+  },
+  "job_id": "deterministic-nethack-d8598d38d0130e48",
+  "limits": [
+    "One configured trajectory only,not default ten seeds times two repeats,not a repeatability or competence estimate. Positive scoring and known-good competence remain untested.",
+    "terminal_observed combines terminated/done and truncated flags. It does not distinguish natural game termination from limit/truncation;5000 successful API steps are not proof of5000 game-world turns or meaningful dungeon progress.",
+    "The zero outcome does not identify why the starter failed to score,nor a defect in agent,evaluator,NLE or benchmark. No raw observations/game messages were exported.",
+    "Profiling adds overhead and changes instrumentation; no uninstrumented timing/performance parity. Measured module hashes are not a complete environment-integrity audit.",
+    "No fullsubmission/harness/rescaling,score-cap incidence,task certification,new exclusion or new scoped defect is established. This closes the one-game native-path availability question at its finite scope.",
+    "Configured resource bounds and observed durations are not independent aggregate peak-memory telemetry. Same-reviewer source/result assessment is not fresh independent native reproduction."
+  ],
+  "native_observations": {
+    "CASES_OK": 0,
+    "CASES_TOTAL": 1,
+    "TOTAL_SCORE": 0.0,
+    "case_status": "WA",
+    "score": 0
+  },
+  "new_finding_tasks": 0,
+  "new_original_decisions": 0,
+  "remaining": "Positive-scoring control and default20-game repeatability remain; terminal flag combines termination/truncation and5000API calls do not prove5000world turns.",
+  "result": {
+    "bytes": 2851,
+    "path": "work/cloud-queue/exports/deterministic-nethack-d8598d38d0130e48/2716a913db0d49fc8b9e5378ea0fcfeb/result.json",
+    "sha256": "ace612c3049f19834bd396740595fcb32167826cd7811d993228bf57e4e752ac"
+  },
+  "root_verified_frozen_receipts": true,
+  "settlement": {
+    "bytes": 1641,
+    "path": "work/cloud-queue/settlements/2716a913db0d49fc8b9e5378ea0fcfeb.json",
+    "sha256": "6d91b9dc7b77bb6e66354f446d29148e8ce250609530aec508b6350af1dc6665"
+  },
+  "task_id": "nethack_dungeon_agent",
+  "utc": "2026-10-11T21:53:58.199648+00:00",
+  "worker_termination_confirmed": true
+}

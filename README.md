@@ -8,8 +8,8 @@ An independent audit of whether EdgeBench’s tasks, tests and data measure what
 | --- | ---: |
 | Public tasks acquired | 51 |
 | Tasks with confirmed findings, within the scope stated in each case | 18 |
-| Original versions we would withhold from a verified release | 10 |
-| Original task decisions still pending | 41 |
+| Original versions we would withhold from a verified release | 11 |
+| Original task decisions still pending | 40 |
 | Task versions approved for a verified release | 0 |
 | Additional advertised tasks unavailable to this audit | 83 |
 
@@ -27,7 +27,7 @@ The reporting implementation now passes the combined corrected judge: **57 colle
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
 
-The latest batch adds CTA’s mixed-currency exposure defect and Portfolio’s source-bound annual-excess formula defect to that finding count. CTA’s native repair preserves the checked accounting behavior; Portfolio’s repair currently has scalar evidence. Rust’s correction now passes five paired fixtures using real Cargo. OpenTTD’s source review rejects the proposed foreign-seed mechanism but leaves an empty-directory case unproved in real games. [Evidence and limits](docs/FINDINGS.md).
+The latest decision withholds CTA’s unchanged original for mixed-currency exposure scoring, bringing the total to 11. NetHack completed one zero-score trajectory; ARC’s supplied public baseline passed 48/48, while a wrong interpreter passed 16/48. These establish finite native behavior, not competence or complete task validity. Portfolio’s native attempt retained no metric outcomes and is stopped; its source/scalar repair stands. [Evidence and limits](docs/FINDINGS.md).
 
 ## What this repository contains
 
