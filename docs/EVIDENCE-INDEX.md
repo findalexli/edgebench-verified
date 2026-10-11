@@ -2,6 +2,14 @@
 
 Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings](FINDINGS.md). This page explains where their supporting records live.
 
+## Reporting native result accepted at 19:03 UTC on October 11
+
+[Root acceptance](../evidence/selected/reporting-native-reference-acceptance.json) · [saved native outcomes](../evidence/selected/reporting-native-reference-result.json) · [different saved-result review](../evidence/selected/reporting-native-reference-review.json).
+
+The exact 30-file implementation overlay passed **55 printed test items** in one call to the unchanged original scorer, with all five phases passing and score **1.0**. The scorer reports **53/53**, because phase four reports nine successes while printing 11 items. A separate selected patched JUnit test passed against the actual candidate writer. [Patch status](../proposedrepairs/reporting-junit/README.md).
+
+This is one original full-scorer call plus one selected patched-test call. It is not a full patched-scorer run, persisted replacement image, complete specification review or independent native reproduction. Counts remain **16 scoped findings, ten exclusions, 41 pending and zero certified**, with no new task breadth. The worker closed and the settled estimate is $0.00828. The 240-second diagnostic allowance differs from the original 1,800 seconds; aggregate memory was not measured. Full implementation and raw logs remain local, and JSON archive links do not promise that those bodies are available in Git.
+
 ## New conclusions accepted at 18:23 UTC on October 11
 
 - **Date predicate:** [accepted finding](../evidence/selected/datagen-http-date-acceptance.json), [eight author evaluations](../evidence/selected/datagen-http-date-result.json), and [different review with three fresh evaluations](../evidence/selected/datagen-http-date-review.json). Invalid calendar and clock values pass the unchanged predicate. No full Hypothesis test or native score is claimed.
