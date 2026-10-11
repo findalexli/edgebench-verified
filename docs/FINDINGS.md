@@ -2,7 +2,7 @@
 
 **Ten exact original versions are excluded from the candidate release because of independently reviewed defects.** “Excluded” means omit that original version while keeping its audit record. It does not mean the task is repaired, every score is wrong, or a corrected version is approved.
 
-The audit has **13 closed finding decisions**, including the ten exclusions below. The remaining three findings are confirmed at a narrower scope, with their overall task decisions still pending. None of these findings certifies a replacement or establishes how often the defect changes real benchmark scores. [Current counts and progress](../AUDIT-STATUS.md).
+The audit has **14 closed finding-task decisions**, including the ten exclusions below. The remaining four findings are confirmed at a narrower scope, with their overall task decisions still pending. None of these findings certifies a replacement or establishes how often the defect changes real benchmark scores. [Current counts and progress](../AUDIT-STATUS.md).
 
 ## Why ten original versions are excluded
 
@@ -21,15 +21,22 @@ The audit has **13 closed finding decisions**, including the ten exclusions belo
 
 Each row concerns the acquired version. None of these decisions automatically excludes a future corrected version or clears it for release. The historical evidence records keep their original dates and counts; the [status page](../AUDIT-STATUS.md) owns the current totals.
 
-## Three other confirmed findings, with task decisions pending
+## Four other confirmed findings, with task decisions pending
 
 | Task | What is established | Why the claim stays narrow |
 | --- | --- | --- |
+| **Rust Multicrate Reconstruction** | A passing test on the known-failure exception list can cancel an unrelated failure, allowing the original Python helper to report PASS while a hidden failure remains. | Six authored and three independent controls used simulated Cargo responses. The 0.1 score effect is synthetic; no Cargo/native run, actual incidence or historical score impact is established. No repair or exclusion follows. [Accepted finding](../evidence/selected/rust-known-failure-outcome.json) · [reproduction](../reproductions/rust-known-failure-credit/README.md). |
 | **Schemathesis Config** | Tests omit the requirement to return the identical decorated function and accept a forwarding wrapper instead. | The complete original scorer gave the reference and wrapper the same partial score, 0.135313. This confirms a missing test, not a wrapper score gain or an automatic exclusion. [Accepted full-score result](../evidence/selected/schemathesis-full-consumer-recovery.json). |
 | **SMT Solver** | The recovered witness lookup merges expressions from different variable scopes. It cannot represent the different values required by a constructed satisfiable example. | Source analysis and a small local test support this finding; full-image failure, false acceptance and score impact remain unobserved. Existing follow-up work is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
 | **FFmpeg Scaling** | A recovered timing component can report a positive speed ratio even when a timed call fails or produces no output. | Controlled local substitutes establish the component behavior. The task has separate correctness checks; bypassing them or improving a real benchmark score was not shown. Existing follow-up work is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
 
 “Original component ran” means the named original checker, grader or routine was executed. It does not imply that the entire task environment or hosted benchmark ran. Mathematical arguments and local tests are identified separately above.
+
+## Other requirements reviewed at 17:58 UTC on October 11
+
+These conclusions do not add to the finding count. **Apple Incremental Game’s integer-score conversion is exact within the mathematical task range**: at most 8,200,000 per case and 410,000,000 for the fixed 50 cases. This closes the conversion question; the saved values were reconstructed decimals, not raw-marker reparses, and native logarithm rounding remains unproved. [Accepted numeric-range review](../evidence/selected/apple-numeric-range.json).
+
+**Schemathesis’s new API paths and removal goal are compatible:** re-exporting an implementation at a required new path does not require preserving an obsolete alias. The exhaustive list of old paths to remove remains unspecified; no whole specification gate is passed. This is separate from the confirmed decorated-function identity defect. [Accepted API interpretation](../evidence/selected/schemathesis-api-contract.json).
 
 ## Repairs are a separate result
 

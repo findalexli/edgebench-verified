@@ -2,6 +2,14 @@
 
 Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings](FINDINGS.md). This page explains where their supporting records live.
 
+## New conclusions accepted at 17:58 UTC on October 11
+
+- [Rust known-failure credit error](../evidence/selected/rust-known-failure-outcome.json): the original Python helper credits an unrelated failed test when the named exempt test passes. Six author controls, 12 original score calculations and three independent helper controls use simulated Cargo responses. The 0.1 score difference is synthetic; no Cargo/native execution or actual benchmark incidence is claimed. [Portable reproduction](../reproductions/rust-known-failure-credit/README.md).
+- [Apple numeric-range conclusion](../evidence/selected/apple-numeric-range.json): the mathematical 8,200,000 case bound and 410,000,000 fixed-set bound make canonical integer-score conversion exact. Author and independent checks cover 50 saved numeric values and six boundary controls each; independent reasoning also checks a tighter production bound. Raw score markers were not reparsed; native logarithm rounding and full-task approval remain unresolved.
+- [Schemathesis API-path interpretation](../evidence/selected/schemathesis-api-contract.json): required new import paths can coexist with removal of obsolete aliases. The original 26 positive API tests do not specify an exhaustive old-path removal policy. Source interpretation only; no new helper/native execution or whole specification approval.
+
+Rust adds the **fourteenth scoped finding-task decision**. Original-version dispositions remain **ten excluded, 41 pending and zero certified**; no new task breadth or validated repair is counted. The earlier evidence records and checkpoints below retain their dates and historical counts.
+
 ## What is included
 
 - [Twelve finding decisions](../evidence/selected/12-finding-decisions.json): exact confirmed claims, how they were checked, limiting evidence and references to the accepted results.
