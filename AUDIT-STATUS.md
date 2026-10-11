@@ -1,8 +1,8 @@
 # Where the audit stands
 
-Scientific evidence snapshot: **October 11, 2026, 19:03 UTC**. This is an unfinished, private audit; no benchmark release is approved.
+Scientific evidence snapshot: **October 11, 2026, 19:17 UTC**. This is an unfinished, private audit; no benchmark release is approved.
 
-**The reporting candidate passed all 55 printed tests in one native run of the unchanged original scorer, earning score 1.0.** Its actual writer also passed the separately selected patched JUnit test. These results advance one existing task; the totals remain **16 scoped findings, ten excluded originals, 41 pending and zero certified**.
+**The date-checker repair now rejects six earlier false acceptances, and the reporting coverage review separates tested behavior from remaining gaps.** These advance existing tasks; the totals remain **16 scoped findings, ten excluded originals, 41 pending and zero certified**.
 
 | Decision on the 51 public originals | Tasks | Meaning |
 | --- | ---: | --- |
@@ -14,7 +14,15 @@ Scientific evidence snapshot: **October 11, 2026, 19:03 UTC**. This is an unfini
 
 **Sixteen scoped finding-task decisions are closed.** A confirmed defect can be settled before its repair is ready, and a useful partial check does not finish a task review. The finding count is separate from the final task decisions above. Another **83 advertised tasks were unavailable** and are outside this audit's acquired set.
 
-## What changed since the 18:23 UTC checkpoint
+## What changed since the 19:03 UTC checkpoint
+
+**Schemathesis Data Generation:** date-checker repair V2 passed all 16 classified reviewer controls; one future leap-second occurrence remains unclassified. It corrects V1's acceptance of years before 1900 and second 60 outside 23:59 GMT. The original impossible-date finding and V1's retracted year assumptions remain documented. This is a finite predicate repair, without native generator or full patched-scorer validation. [Patch, controls and limits](proposedrepairs/datagen-http-date/README.md).
+
+**Schemathesis Reporting:** the accepted 22-requirement mapping gives **ten finite named behavior conclusions, ten partially tested requirements and two behaviors supported only by source inspection**. This is not ten whole requirements approved. Automatic pytest lifecycle, stateful/xdist behavior and nonvacuous body-property checks still need their own evidence. [Readable coverage matrix](docs/REPORTING-COVERAGE.md).
+
+These accepted analyses add no findings, task breadth, exclusions or certifications. This delivery reruns no tests and claims no later integration-control result.
+
+## Earlier native checkpoint at 19:03 UTC (changes since 18:23 UTC)
 
 The reporting implementation was applied as a **30-file overlay** inside the pinned original judge. All five original test modules and the scoring command stayed unchanged. The run completed in 22.6 seconds with **55 distinct printed test items passing** and score **1.0**. The scorer reports **53/53** because phase four uses a nine-test success count while printing 11 items. These are different counts of the same run, not extra tests. [Accepted result](evidence/selected/reporting-native-reference-acceptance.json) · [saved outcomes](evidence/selected/reporting-native-reference-result.json) · [different result review](evidence/selected/reporting-native-reference-review.json).
 

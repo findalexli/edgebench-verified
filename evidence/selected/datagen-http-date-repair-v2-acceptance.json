@@ -1,0 +1,43 @@
+{
+  "author_handoff": {
+    "bytes": 7987,
+    "path": "work/packets/datagen-http-date-repair-astra-high-v2/handoff.json",
+    "sha256": "16392d159bc76522554bf7a50cdf11c2edb2883a60d04787f73c8df9859756a2"
+  },
+  "candidate": {
+    "bytes": 7076,
+    "path": "work/packets/datagen-http-date-repair-astra-high-v2/candidate/tests/test_01_header_strategies.py",
+    "sha256": "b5ae22f45cd7e7a2cb9f74979fa599cfdb97d672ca1d971682416871dd94261d"
+  },
+  "conclusion": "V2 fixes the six independently observed V1 false acceptances at the stated source/finite-predicate scope. All16 classified controls passed; one future leap occurrence remains unclassified.",
+  "decision": "ACCEPT_FINITE_CALENDAR_CLOCK_PREDICATE_REPAIR_V2",
+  "different_review": {
+    "bytes": 2326,
+    "path": "work/reviews/datagen-http-date-repair-astra-high-v1/v2-review.json",
+    "sha256": "a321bb97e9ff64b1e78ecd3494ffb93a0081db5356dd7e1c62b9a18e6bd02235"
+  },
+  "fresh_controls": {
+    "bytes": 4046,
+    "path": "work/reviews/datagen-http-date-repair-astra-high-v1/v2-result.json",
+    "sha256": "44c2bbc95a66123edf77fa0db6d64cbfb7d2ba97d1c646a5fa9128150e7e3282"
+  },
+  "limits": [
+    "Calendar/clock/format predicate correction only. Acceptance of an arbitrary23:59:60 date is not proof a leap second occurred. No whole module imports, Hypothesis, generator, native/fullscore, image parity or certification was performed.",
+    "V1classificationyear0001valid was wrong and retracted; original and V1failures preserved.",
+    "No newfinding,taskbreadth,disposition orcertification.",
+    "Native strategy generation and fullpatchedscorer remain required for complete repair."
+  ],
+  "patch": {
+    "bytes": 2167,
+    "path": "work/packets/datagen-http-date-repair-astra-high-v2/repair.patch",
+    "sha256": "1603988bfdd50ed6380ab65a6127b68d3f2039c56c0d9b5063318c2c67bcf9a4"
+  },
+  "root_actions": "Verified exactcandidate/reviewer/evidence/patch identities; source scope reviewed; no newnative or duplicate scientificexecution.",
+  "source_qualification": "Root independently read RFC9110 semantic reference and RFC5322 year/day/clock requirements; source component only. Reviewer supplies leap timing basis.",
+  "standards_sources": [
+    "https://www.rfc-editor.org/rfc/rfc9110.html#section-5.6.7",
+    "https://www.rfc-editor.org/rfc/rfc5322.html#section-3.3"
+  ],
+  "task_id": "schemathesis_datagen_pipeline",
+  "utc": "2026-10-11T19:17:08.717955+00:00"
+}
