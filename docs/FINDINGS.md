@@ -2,7 +2,7 @@
 
 **We decided to withhold 16 exact original versions from the proposed verified release.** “Excluded” is a release decision; it does not mean every score is wrong or repair is impossible. Evidence remains available, and corrected versions need separate approval.
 
-There are **18 closed finding-task decisions**: 16 with exclusions and two whose task decisions remain pending. The [accepted union](../evidence/selected/finding-task-union-18.json) adds CTA and Portfolio; repeated checks on an existing task do not increase this count. None certifies a replacement or measures historical leaderboard impact. [Current summary](../README.md) · [Task decisions](../TASKS.md).
+There are **19 closed finding-task decisions**: 16 with exclusions and three whose task decisions remain pending. The [accepted union](../evidence/selected/finding-task-union-19.json) adds Molecular to the earlier 18; repeated checks on an existing task do not increase this count. None certifies a replacement or measures historical leaderboard impact. [Current summary](../README.md) · [Task decisions](../TASKS.md).
 
 ## Why 16 original versions are excluded
 
@@ -27,12 +27,13 @@ There are **18 closed finding-task decisions**: 16 with exclusions and two whose
 
 None of these exclusions rests merely on missing evidence or our environment failures. Current totals are in the [summary](../README.md).
 
-## Two other tasks with confirmed findings and decisions pending
+## Three other tasks with confirmed findings and decisions pending
 
 | Task | What is established | Why the claim stays narrow |
 | --- | --- | --- |
 | **SMT Solver** | The recovered witness lookup merges expressions from different variable scopes. It cannot represent the different values required by a constructed satisfiable example. | Source and a small local test support this; native failure and score impact remain unobserved. Follow-up is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
 | **FFmpeg Scaling** | A recovered timing component can report a positive speed ratio even when a timed call fails or produces no output. | Local substitutes establish this behavior. Separate correctness checks were not bypassed; real score gain is unproved. Follow-up is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
+| **Molecular Assembly** | The original helper and published judge configuration do not enforce the stated 1 GB per-solution limit. Two real helper calls accepted both the low-memory control and a child measured at 1,220,866,048 bytes RSS. | The audit explicitly allowed 2 GiB; published settings supply an aggregate 8 GiB judge bound. Historical deployed policy, full-pool effects and score gain remain unknown. No repair or original disposition is adopted. [Accepted finding](../evidence/selected/molecular-memory-contract-acceptance.json) · [different review](../evidence/selected/molecular-memory-contract-review.json). |
 
 **Reporting coverage filter:** four native helper calls on the candidate V2 overlay passed their authored checks, but the original test's class filter discarded all **36 generated values**. Complementary allow cases contained unexpected properties and still left the deny assertion checking nothing. This establishes a finite additional checker gap on the same task. The attempt did not run the original test function, bare original implementation or full scorer, and establishes no historical score impact. The correction then matched all 20 paired complete test-function expectations: 12 normal returns and eight expected assertion failures, rejecting forced wrong behavior and preserving valid generation. Twelve calls used the real generator; eight used explicit empty/wrong-type doubles. These checks used base V2, before the shared-hook plugin correction. The later combined judge now also passes its full scorer and repeated countercontrols, as reported below. [Patch and accepted repair](../proposedrepairs/reporting-coverage-filter/README.md). [Accepted result](../evidence/selected/reporting-coverage-filter-acceptance.json).
 

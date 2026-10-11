@@ -1,0 +1,106 @@
+{
+  "decision": "ACCEPT_ORIGINAL_RUN_CASE_MEMORY_NON_ENFORCEMENT_IN_EXPLICIT_AUDIT_REGIME",
+  "task_id": "molecular_self_assembly",
+  "job_id": "deterministic-molecular-memory-ca6df9c9fc68b3fa",
+  "attempt_id": "0e2a462ab4124b7ea2ce889632fa4787",
+  "reviewer": "/root/astra_reporting_requirement_coverage; different from packet author, same prior source reviewer; saved-result review only",
+  "conclusion": "The unchanged original run_case accepted the same valid molecular output after its solution child completed a touched allocation with measured RSS above both decimal1GB and binary1GiB. The lower-memory positive control also passed. This establishes original-helper non-enforcement of those ceilings for this single process/case in the explicitly2GiB audit environment; it does not establish an upstream hosted-policy violation.",
+  "observations": [
+    {
+      "requested_allocation_bytes": 536870912,
+      "measured_child_VmRSS_bytes": 549842944,
+      "measured_child_VmSize_bytes": 552476672,
+      "allocation_completed": true,
+      "original_status": "OK",
+      "original_score": 1392530,
+      "role": "Genuine below-both-threshold positive control."
+    },
+    {
+      "requested_allocation_bytes": 1207959552,
+      "measured_child_VmRSS_bytes": 1220866048,
+      "measured_child_VmSize_bytes": 1223565312,
+      "allocation_completed": true,
+      "original_status": "OK",
+      "original_score": 1392530,
+      "role": "High-memory control; RSS exceeds binary1GiB by147124224bytes."
+    }
+  ],
+  "interpretation": {
+    "actual_case": "Both sequential calls use the same hash-pinned official cases/0000.txt and same290-bond star output. Returned identifiers0000/0001 are call indices, not two different official input files.",
+    "metric_separation": "Allocation request, measured resident size, virtual size, high-water mark and cgroup current are distinct. Both child maxrss values equal their reported VmHWM snapshots. Child AS soft/hard are2147483648; DATA is[-1,-1].",
+    "environment": "Container cgroup memory.max2147483648, swap.max0 and cpu.max200000/100000 were read before and after both calls. All recorded memory event counters, including OOM/OOM-kill, remained0. ParentAS readback is2GiB.",
+    "lifetime": "Previously reviewed original subprocess.run waits for each child before tester/next case. The probe keeps allocation alive through its measurement/output. After each finished call aggregate memory.current returned to about13.3MB; this corroborates absence of accumulated allocations, not peak process-tree memory.",
+    "original_path": "The original30second solution/60second tester paths and exact evaluator/tester/case hashes are unchanged. Native command returned0 in3.003s with empty errors and no timeout; score is the original tester result, not independently recalculated here.",
+    "matched_identity": "All export hashes/lengths, exact grant/job/control identities, configured immutable image and source before/after match the frozen packet."
+  },
+  "closure": {
+    "worker_termination_confirmed": true,
+    "worker_reservation": "4483e579-9e85-403c-a8ca-9e0c160a5114",
+    "sandbox_id": "ixxe32zvitoaax2pnahky",
+    "closure_observed_at": "2026-10-11T23:09:04.743216+00:00",
+    "estimated_cost_usd": 0.00552,
+    "charged_seconds": 120,
+    "basis": "Saved batch, attempt and settlement join exact IDs/pins; wrapper owned child reaped and group kill sent or absent. No new provider check."
+  },
+  "limits": [
+    "Two finite calls on one official case do not establish full evaluator pool behavior, all cases, historical leaderboard impact or task certification.",
+    "The audit deliberately set external protection above1GB. An upstream host could separately enforce1GB; no such hosted policy was observed, and no violation of it is claimed.",
+    "README memory semantics do not distinguish RSS/AS/process tree or decimal/binary convention. This witnessed RSS and virtual size cross both numerical conventions, without resolving all resource-policy semantics.",
+    "Successful comparison is not a repair; no memory limit implementation was changed. Release disposition and any new finding/task-count adjudication remain root decisions.",
+    "Review reuses frozen source analysis and actual saved run; it is not another independent native reproduction."
+  ],
+  "checks": {
+    "path": "work/reviews/molecular-child-memory-native-astra-high-v1-result/checks.json",
+    "bytes": 3107,
+    "sha256": "8ca566aadf2d58c6cf05e93bd0071f30d0cda742e2c44fe275cedf41526d1267"
+  },
+  "evidence": [
+    {
+      "path": "work/cloud-queue/exports/deterministic-molecular-memory-ca6df9c9fc68b3fa/0e2a462ab4124b7ea2ce889632fa4787/result.json",
+      "bytes": 4504,
+      "sha256": "131f6a4c298c70854acdaf096196af48ee9a9da45803f59e0f6fa21f49037ca2"
+    },
+    {
+      "path": "work/cloud-queue/exports/deterministic-molecular-memory-ca6df9c9fc68b3fa/0e2a462ab4124b7ea2ce889632fa4787/execution.json",
+      "bytes": 580,
+      "sha256": "76833251bfa15ab41ae643a1d80d4024b096aafb3f081912d5e420b9dd294667"
+    },
+    {
+      "path": "work/cloud-queue/attempts/0e2a462ab4124b7ea2ce889632fa4787.json",
+      "bytes": 1565,
+      "sha256": "2fbb3d2c98e0d3e4ad5ab230ece0861bd41a16a43ae5aea527e4644b6d788be9"
+    },
+    {
+      "path": "work/cloud-queue/settlements/0e2a462ab4124b7ea2ce889632fa4787.json",
+      "bytes": 1650,
+      "sha256": "9003e1f50a7e92f9a982a0cab561e806f24400c617624335b8577663b421f754"
+    },
+    {
+      "path": "edgebenchverified/audit/evidence/molecular-child-memory-native-astra-high-v1/batch-result.json",
+      "bytes": 1348,
+      "sha256": "97c56d24d7879bf4714a8da02c99af1ca33c735b2ffb2523df9f99fb5efa6ed0"
+    },
+    {
+      "path": "edgebenchverified/audit/evidence/molecular-child-memory-native-astra-high-v1/molecular_self_assembly-root-grant.json",
+      "bytes": 1879,
+      "sha256": "35620b9601dee090067a0e3bbbce352a92416560a51d1f86ac2a36c7138a5d84"
+    },
+    {
+      "path": "work/packets/molecular-child-memory-native-astra-high-v1/job.json",
+      "bytes": 3216,
+      "sha256": "93335b4f3f991ece0a71401e60858c55c6434e6f4440ee1202a64d30f34afc90"
+    },
+    {
+      "path": "work/packets/molecular-child-memory-native-astra-high-v1/expected.json",
+      "bytes": 613,
+      "sha256": "22c94d11fc6c9a99b6611032e4d705714996979b42cff28e68215f71549cc443"
+    },
+    {
+      "path": "work/reviews/molecular-child-memory-native-astra-high-v1/review.json",
+      "bytes": 7212,
+      "sha256": "586060b9fd4d8c0878967cf15034ff5479ae486c1f7577392aa7e3c93545772e"
+    }
+  ],
+  "reruns": 0,
+  "canonical_git_mutations": 0
+}
