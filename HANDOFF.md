@@ -1,13 +1,6 @@
 # Continuing the EdgeBench audit
 
-**October 11, 2026, 22:57 UTC accepted decisions.** Data Generation’s original
-is now withheld for its date-checker weakness; a generator and complete corrected
-phase still require assessment. Reporting’s three corrected
-serial lifecycle controls pass, including their cleanup assertions, on the
-unchanged implementation. Earlier failures remain evidence of the unsupported
-all-callbacks-positive premise. The owned worker is closed. The October 9
-vehicle-routing V4 result and existing 56-case travel-window complement are now
-selected here; these are recovered evidence, not new runs. The finding-task count and certifications are unchanged.
+**October 11, 2026, 23:53 UTC accepted results.** Molecular’s six original/candidate helper calls validate the explicit new per-process address-space policy. Vibrating’s 16 paired fixtures validate its zero-hit format repair through the native tester and original helper. Dungeon Crawl’s five-game idle control completed with all five records accepted at zero score. These workers are closed. Reuse the [accepted results and next questions](TASKS.md); neither finite repair certifies a complete task, and both exact originals are now withheld unchanged. Dungeon Crawl’s 11 author and 19 different local controls also close the tested parser-failure and fixed-five aggregation question; another engine-generated malformed file is unnecessary. Its separate work-helper correspondence review remains pending.
 
 ## Outcome and current decisions
 
@@ -17,8 +10,8 @@ repairs progressing alongside the remaining audit. An interim findings report, a
 see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable.
 
 Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
-and [TASKS](TASKS.md) for current decisions. There are findings across 19 tasks,
-16 withheld original versions, 35 pending decisions and zero certified versions.
+and [TASKS](TASKS.md) for current decisions. There are findings across 20 tasks,
+18 withheld original versions, 33 pending decisions and zero certified versions.
 “Withheld” applies to the exact original unchanged; it does not approve or rule
 out a repaired version. The Git `audit/task-registry.json` is a historical partial
 snapshot with three exclusions, not the current tracker.

@@ -1,0 +1,24 @@
+--- original/home/workspace/molecules/README.md
++++ candidate/home/workspace/molecules/README.md
+@@ -53,8 +53,20 @@
+ | Resource | Limit |
+ |----------|-------|
+ | Time limit | 30 seconds / test case |
+-| Memory limit | 1 GB |
++| Memory limit | 1,000,000,000 bytes of virtual address space per solution process |
+ | GPU | Not available |
++
++Versioned memory policy: the evaluator applies a Linux `RLIMIT_AS` soft and
++hard limit before starting `solution.py`. A stricter inherited limit remains
++in effect. Virtual address space includes mappings and interpreter/library
++reservations; it is not measured resident memory (RSS). Descendants inherit
++the per-process limit, but this policy does not enforce a combined process-tree
++budget. An allocation refused by the operating system may be handled by the
++solution; valid output from a process that stays within the limit remains
++eligible for its normal score. Unhandled allocation failures receive the
++existing runtime-error result. The tester and evaluator have separate resource
++budgets. This clarifies and changes the original unspecified memory-accounting
++convention; scores from this version must remain separately identified.
+ 
+ ## Programming Language
+ 

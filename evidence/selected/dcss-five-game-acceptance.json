@@ -1,0 +1,45 @@
+{
+  "accepted_morgues": 5,
+  "actual_game_calls": 5,
+  "before_card": {
+    "bytes": 8202,
+    "path": "edgebenchverified/audit/evidence/dcss-idle-termination-native-astra-high-v1/card-before-result.json",
+    "sha256": "158e8598e312c4bd17202d9dc72cdc04d51f8fabc436b89d87b1da531da4f954"
+  },
+  "conclusion": "The unchanged original evaluator and game engine completed the authored idle-bot control with all five morgues accepted, each score0, fixed-five mean0 and quit/function-entry markers. This closes the finite idle termination and zero-score observation question.",
+  "decision": "ACCEPT_ORIGINAL_FIVE_GAME_IDLE_TERMINATION_AND_ZERO_SCORE_RESULT",
+  "denominator": 5,
+  "different_review": {
+    "bytes": 4290,
+    "path": "work/reviews/dcss-idle-termination-native-astra-high-v1-result/review.json",
+    "sha256": "549fce826702694ca20cb5e43bf782160499cafa94136cea81a5d36d05fc04a3"
+  },
+  "estimated_cost_usd": 0.04968,
+  "limits": "Raw morgues/logs were not exported: hashes and both score parses are worker receipts, not independent local reparse. Whole evaluation962.091seconds; markers do not prove exact900seconds pergame or exclusive termination cause. No missing-morgue case was observed. NativeOK means accepted result records, not solved games. No new defect, task decision or certification.",
+  "next_question": "Reuse this completed five-game control and earlier positive runs. Assess whether remaining missing/invalid-morgue behavior and task-level specification/data/reproduction evidence support a disposition; do not repeat idle or positive-baseline setup.",
+  "result": {
+    "bytes": 33742,
+    "path": "work/cloud-queue/exports/dcss-idle-original-8a7008c21ac11a8a/dffc605b6c764a649cd3a2efb0bb94da/result.json",
+    "sha256": "24c56ece712a85a4ac7bc8846005e4d7a97c6d95c69aa7968f3e46866a6c62c0"
+  },
+  "scores": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "settlement": {
+    "bytes": 1640,
+    "path": "work/cloud-queue/settlements/dffc605b6c764a649cd3a2efb0bb94da.json",
+    "sha256": "d3d6bbc730c3806ea88eadd2b9c4aeefcfe9c6a215bd42e2bf490b517c0de168"
+  },
+  "settlement_review": {
+    "bytes": 2987,
+    "path": "work/reviews/dcss-idle-termination-native-astra-high-v1-result/settlement-addendum.json",
+    "sha256": "a5aae0e16f6fa30e3b9ca3178d568a960000dad0b566909388d4b4d9caa91b58"
+  },
+  "task_id": "dcss_dungeon_ai",
+  "utc": "2026-10-11T23:34:23.048334+00:00",
+  "worker_termination_confirmed": true
+}
