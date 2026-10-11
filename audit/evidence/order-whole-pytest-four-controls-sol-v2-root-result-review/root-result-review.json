@@ -1,0 +1,154 @@
+{
+  "actual_outcomes": [
+    {
+      "actual_phase_receipts": 15,
+      "actual_test_calls": 5,
+      "closed": true,
+      "failed_tests": [
+        {
+          "checker_line": 98,
+          "exception_class": "AssertionError",
+          "outcome": "failed",
+          "phase": "call",
+          "test": "test_private_judge_files_are_available"
+        }
+      ],
+      "job_id": "deterministic-ce6abfb0d58d241b",
+      "kind": "legal",
+      "mode": "original",
+      "pytest_exit_code": 1,
+      "result": {
+        "bytes": 9347,
+        "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/results/deterministic-ce6abfb0d58d241b/result.json",
+        "sha256": "83f9476e09c9a9b29ef8b3502f337368f276ad1bfacf9aa7179917fe98fa6dd5"
+      },
+      "saved_settlement": {
+        "bytes": 1633,
+        "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/results/deterministic-ce6abfb0d58d241b/saved-settlement.json",
+        "sha256": "334a5366b41f68d082303b191c383fdc80964fd0ff4f84435f6d4dabe8c72b97"
+      },
+      "source_manifest_sha256": "de5bb237e4e87545f8933e335c79fa6833c21e77f8caf19b491edeab37c595b3"
+    },
+    {
+      "actual_phase_receipts": 15,
+      "actual_test_calls": 5,
+      "closed": true,
+      "failed_tests": [
+        {
+          "checker_line": 139,
+          "exception_class": "AssertionError",
+          "outcome": "failed",
+          "phase": "call",
+          "test": "test_final_result_is_valid_permutation_and_cost"
+        }
+      ],
+      "job_id": "deterministic-a079d45202f3e2b1",
+      "kind": "wrong_cost",
+      "mode": "candidate",
+      "pytest_exit_code": 1,
+      "result": {
+        "bytes": 9423,
+        "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/results/deterministic-a079d45202f3e2b1/result.json",
+        "sha256": "b2bf09307369d4b49f384a1cbfd05a866f71a29f92b37c9928f7185f71c988cc"
+      },
+      "saved_settlement": {
+        "bytes": 1633,
+        "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/results/deterministic-a079d45202f3e2b1/saved-settlement.json",
+        "sha256": "4bc3de17ea70eaf98272596f19f14bea3a4b5a2b7362805cad6639a1b2481175"
+      },
+      "source_manifest_sha256": "de5bb237e4e87545f8933e335c79fa6833c21e77f8caf19b491edeab37c595b3"
+    },
+    {
+      "actual_phase_receipts": 15,
+      "actual_test_calls": 5,
+      "closed": true,
+      "failed_tests": [
+        {
+          "checker_line": 133,
+          "exception_class": "AssertionError",
+          "outcome": "failed",
+          "phase": "call",
+          "test": "test_final_result_is_valid_permutation_and_cost"
+        }
+      ],
+      "job_id": "deterministic-bf187cd2e425e0eb",
+      "kind": "duplicate",
+      "mode": "candidate",
+      "pytest_exit_code": 1,
+      "result": {
+        "bytes": 9420,
+        "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/results/deterministic-bf187cd2e425e0eb/result.json",
+        "sha256": "29302c671434af55ac0f7c7a94e8a9363d7fc4613ef332830130ac364fc97fc6"
+      },
+      "saved_settlement": {
+        "bytes": 1633,
+        "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/results/deterministic-bf187cd2e425e0eb/saved-settlement.json",
+        "sha256": "7ad9c5334100da08ceb904ae220521542201944a025c45a51f26b3db7705045a"
+      },
+      "source_manifest_sha256": "de5bb237e4e87545f8933e335c79fa6833c21e77f8caf19b491edeab37c595b3"
+    },
+    {
+      "actual_phase_receipts": 15,
+      "actual_test_calls": 5,
+      "closed": true,
+      "failed_tests": [],
+      "job_id": "deterministic-f59513895d595ee9",
+      "kind": "legal",
+      "mode": "candidate",
+      "pytest_exit_code": 0,
+      "result": {
+        "bytes": 9259,
+        "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/results/deterministic-f59513895d595ee9/result.json",
+        "sha256": "ad6ae335e7702089d153a7da8456451561cde8094a2e939c7b940f9b4eba48c9"
+      },
+      "saved_settlement": {
+        "bytes": 1633,
+        "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/results/deterministic-f59513895d595ee9/saved-settlement.json",
+        "sha256": "07d09c07c81ab05ba571faa52fd195b2ca0ded2efd9daafc7f01c6e0b8a4150f"
+      },
+      "source_manifest_sha256": "de5bb237e4e87545f8933e335c79fa6833c21e77f8caf19b491edeab37c595b3"
+    }
+  ],
+  "all_five_gates": "pending",
+  "all_owned_workers_closed": true,
+  "batch": {
+    "bytes": 1799,
+    "path": "audit/evidence/deterministic-native-batch-20261010-v22-order-whole/result-handoff.json",
+    "sha256": "7dd79b2a3b314020c58be96cb4b4916e2b604f6c12c402286bc428db88bfa36f"
+  },
+  "certification_effect": "none",
+  "conclusion": "Original legal submission fails the stale helper SHA integrity assertion; the one-literal candidate legal submission passes all five intended tests, while incorrect cost and duplicate permutation still fail their original validation assertions.",
+  "decision": "ACCEPT_FOUR_ACTUAL_WHOLE_MODULE_CONTROLS_WITH_LIMITS",
+  "different_handoff": {
+    "bytes": 1615,
+    "path": "audit/evidence/order-whole-pytest-four-controls-sol-v2-independent-result-review/handoff.json",
+    "sha256": "d5629dd6bd31427104fda26dae500ea11e3ffe22d11a1e28f8c2a666278db117"
+  },
+  "different_review": {
+    "bytes": 16969,
+    "path": "audit/evidence/order-whole-pytest-four-controls-sol-v2-independent-result-review/review.json",
+    "sha256": "937d969e6f809b1d968dfe18cd824bc0542ebd4baf90d73aa01462e4c8471f0a"
+  },
+  "estimated_settled_microusd": 22080,
+  "formal_disposition_effect": "none",
+  "limits": [
+    "Complete intended five-test modules in authentic bounded scratch copies; full untouched submission harness and complete loaded plugin parity remain unverified.",
+    "No retained numeric TOTAL_SCORE, score improvement, objective truth, optimization performance, actual solver-call provenance or broad task validity claim.",
+    "Existing fractional declared-count acceptance limitation is unchanged by this helper-hash correction.",
+    "Saved exact-owned closure and settlement receipts are assessed; no fresh provider/account-wide absence or invoice claim.",
+    "All data/domain/rights/corpus gates remain pending."
+  ],
+  "new_issue_count": 0,
+  "new_native_model_provider_auth_calls": 0,
+  "operational_admission": false,
+  "phase_receipts": 60,
+  "provider_invoice_claim": false,
+  "root_method": "Bound exact frozen source/result/peer and saved closure domains; independently derive all unique actual phase failure sets, caller exits, copied project manifest and canonical native/settlement hashes; no scientific rerun.",
+  "root_read_batch_bytes": [
+    322525
+  ],
+  "root_read_unique_bytes": 198980,
+  "schema": "root_order_four_actual_whole_module_review_v1",
+  "test_calls": 20,
+  "utc": "2026-10-10T03:22:29.432364+00:00"
+}
