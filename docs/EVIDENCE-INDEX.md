@@ -30,6 +30,23 @@ Order and New Foundations also have accepted saved-failure reviews and closed wo
 - [Molecular deadline controls](../evidence/selected/molecular-final-tick-local.json): two original local tester boundary controls on authored stationary coordinates.
 - [Schemathesis identity repair](../evidence/selected/schemathesis-config-identity-repair.json): exact native-format correction and four fresh source-component observations; older native scorer results reused.
 
+The following later acceptance records are dated **05:21–05:24 UTC on October 11** and selected here. They add 57 finite checks on existing task IDs, with no change to dispositions, coverage or findings:
+
+- [VRPTW retained converter reproduction](../evidence/selected/vrptw-retained-converter-reproduction.json): 56 retained input/output pairs, 112 calls to the two unchanged original functions and zero byte mismatches; 5,656 parsed node rows include depots. Authored sink, no full CLI/native-image, route/BKS or solver-quality claim.
+- [Bipedal malformed-checkpoint control](../evidence/selected/bipedal-malformed-checkpoint-native.json): one actual original native CLI rejection with the specific deserialization phase recorded. Intentional partial credit of 5.0, two of five checks and valid status are separate from raw score zero; no successful new episodes, and the older 20 are not replayed.
+- [Carleson corrected-restoration failure](../evidence/selected/carleson-cap-restoration-failed-prefix.json): restoration and materialization passed, then a fixed version-process attempt stopped with signal 11 before any original proof/helper control. Worker closed; cause unknown, no new upstream defect or proof result.
+
+The earlier 19 execution cases remain dated and separate. The aggregate records are copied exactly from root acceptances; linked full source/data/log/closure bodies remain local. The new converter-pair count is not a count of complete tasks.
+
+Two further root acceptances are dated **05:35 UTC on October 11**:
+
+- [NetHack original receipt boundaries](../evidence/selected/nethack-original-receipt-boundaries.json): four original-wrapper calls with authored receipt-emitter children; score-cap and the selected failure cases matched. No game/native-image/episode or universal failure-score claim.
+- [Rust retained split consistency](../evidence/selected/rust-retained-split-consistency.json): 2,749 manifest records have no cross-label basename collision; 820 distinct hidden identities collapse to 795 loader keys, losing 25 distinctions within that label. No actual Cargo discovery, hidden-source injection, executed-test coverage or score effect follows.
+
+These local component/data counts remain separate from the preceding converter pairs, Bipedal control and Carleson's zero proof checks. The previously dated 19 execution cases remain unchanged. Portfolio's later accepted observation is listed below; it is an authored data diagnostic, not an original scorer call.
+
+- [Portfolio retained table links](../evidence/selected/portfolio-retained-table-links.json): all 16,990 price rows had one metadata lookup; 730 price rows lacked same-date macro data, while 6,988 numeric cells were finite. Optional macro use means this alone establishes no task defect or harmlessness. No scorer/Pandas/domain validation was run.
+
 ## How to interpret these records
 
 A confirmed finding answers a specific question. It can be concluded without approving the entire task or its proposed repair. Tests on an original component, simulated inputs, mathematical arguments and complete task execution provide different kinds of evidence; the records say which was used.
