@@ -1,15 +1,57 @@
 # Where the audit stands
 
-Snapshot: **October 11, 2026, 06:41 UTC**. This audit is unfinished; no benchmark release is approved.
+Scientific evidence snapshot: **October 11, 2026, 07:24 UTC**. Presentation reviewed again at **17:24 UTC**. This is an unfinished, private audit; no benchmark release is approved.
 
-## What changed since 06:05 UTC
+**We have decided to omit ten flawed original task versions from a candidate release. The other 41 public tasks still await a final decision, and none is certified for inclusion.** Since the 06:41 UTC checkpoint, VLIW Kernel Optimization became the tenth exclusion. That is one new final task decision and one newly closed finding. The latest interval did not add a newly tested task.
 
-Three K–12 Math data checks are complete. The tested references and declared ranges passed; recorded history is excluded from recommendation pools. We also rejected a proposed Juliet path rule that the task does not state. These results add evidence on existing tasks, with no new finding or final task decision.
+| Decision on the 51 public originals | Tasks | Meaning |
+| --- | ---: | --- |
+| Excluded after review | **10** | A specific, independently reviewed defect justifies omitting this exact original version. |
+| Awaiting a final decision | **41** | The evidence does not yet support a final keep, repair or exclude decision. |
+| Certified for inclusion | **0** | No original or replacement has completed the required release review. |
 
-- **K–12 question references:** The two original CSV loaders read **5,000 questions and 50 knowledge points**; **45,000 scenario question references** resolved. This checks parsing and references, not answer labels or educational quality. [Result](evidence/selected/k12-question-reference-integrity.json).
-- **K–12 declared ranges:** The selected knowledge-point keys fit **1–50**, and question difficulties fit the declared **1–5** range. No out-of-range references were found. This closes that specific caveat, not the whole data review. [Result](evidence/selected/k12-question-domain.json).
-- **K–12 recorded history:** The diagnostic streamed **793,457 history rows**. All **200 scenarios** had past and future records; their recommendation pools excluded both, and test post-test lists excluded history. The **99 past-question references** in padded candidate lists are allowed by the generator, so they are not a new defect or evidence of solver leakage. When the scorer reaches these checks, membership in the measured pools also satisfies the recent-history rule. That is a conditional source/data result, not an executed score. [Result](evidence/selected/k12-history-cutoff.json).
-- **Juliet witness paths:** We rejected the proposed requirement that witness statements must form an adjacent or reachable path in the supplied approximate control-flow graph. The acquired contract does not require it. Whether witnesses correctly describe vulnerabilities remains unresolved; no new corpus test ran. [Contract record](evidence/selected/juliet-unrequired-path-hypothesis.json).
+**What “excluded” means:** omit the exact flawed original from the candidate release and preserve its evidence. The decision is finished for that version. It does not delete the task from the audit, mean every score is wrong, fix the task, or approve a replacement. A corrected version needs its own tests and release decision. [Why these ten originals were excluded](docs/FINDINGS.md#why-ten-original-versions-are-excluded).
+
+**Thirteen specific finding decisions are closed.** A confirmed defect can be settled before its repair is ready, and a useful partial check does not finish a task review. The finding count is separate from the final task decisions above. Another **83 advertised tasks were unavailable** and are outside this audit's acquired set.
+
+## What the latest work established
+
+- **VLIW Kernel Optimization:** an invalid file could replace the live checker and be reported correct in a local run of the original source. Existing native evidence connects that source to the acquired task version. The invalid file itself was not run in the native image. This supports excluding the original; it does not establish a legal optimization or a leaderboard gain. [Decision](evidence/selected/vliw-original-exclusion.json).
+- **Ordinary VLIW failures and timeout:** three local calls rejected empty source, malformed source and an empty instruction program. A sleeping program hit the original 600-second limit and received no valid score. These are four new local original-source calls. [Rejections](evidence/selected/vliw-three-rejection-controls.json) · [timeout](evidence/selected/vliw-original-timeout-control.json).
+- **Juliet vulnerability detection:** the original public scorer gave an empty analyzer 10 points with zero detections and 192 misses across 192 label records. The written scoring rule deliberately allows that partial credit, so this result is neither a new defect nor successful detection. This was one new public scoring call. [Result](evidence/selected/juliet-original-public-baseline.json).
+- **K–12 answer references:** all 100 retained answer-reference rows matched their scenarios. This checks that the records link correctly, not that the answers or labels are true. [Result](evidence/selected/k12-answer-reference-correspondence.json).
+
+The VLIW integrity result and earlier positive native run were recovered and reused, not rerun. The latest update therefore contains **five new local original-source calls**, alongside the data-reference check and the new exclusion decision.
+
+## Why the audit is still unfinished
+
+From the 07:24 checkpoint through the 17:10 state check, no additional task checks completed. The next cloud checks had not launched, and the prepared report was still uncommitted. This was a real stall. The new independent review found an overstated coverage description, corrected below; it did not add new benchmark test results.
+
+Progress has produced clearer defect decisions, but **no task has reached inclusion approval and the latest interval added no newly tested task**. Pending work includes partial checks, formal tasks that have reached only source or environment work, and seven tasks stopped by existing review holds. An example of stalled execution is Carleson: its proof-tool version check crashed before any proof or original helper ran. That is an audit setup failure, not a demonstrated benchmark defect. [Saved attempt](evidence/selected/carleson-cap-restoration-failed-prefix.json).
+
+The next useful work is to finish supported decisions from saved results and complete ready checks on still-pending tasks. A confirmed original defect does not need to be rediscovered before a separate repair can proceed. Where setup fails, make one supported correction, then move to another runnable task rather than repeat the same attempt.
+
+The detailed records below retain the limits of each check. The [verification protocol](VERIFICATION.md) defines the separate standard for including an original or corrected task. The active work window ends **October 12, 2026 at 05:52:16 UTC**.
+
+The historical tracking group of **37 tasks with partial observations** is being reconciled against evidence outside that group. It should not be read as the total number of tasks ever checked or reviewed. This bookkeeping question does not change the ten original-version exclusions or certify any task.
+
+<details>
+<summary>Detailed results and earlier checkpoints</summary>
+
+## What changed since 06:41 UTC
+
+**We excluded the original VLIW task after confirming that submitted code can replace its live checker.** Ten original versions are now excluded and thirteen specific finding decisions are closed. No new task entered the tested set, and no task is certified.
+
+The unchanged original runner accepted an invalid file without the required kernel builder in a local source-copy control. A previously accepted native run confirms that the affected runner and verifier are installed in this exact original version. The invalid file itself was not run in the native image. This is a checker-integrity finding, not a permitted optimization or a measured legal score gain. [Decision](evidence/selected/vliw-original-exclusion.json) · [component evidence](evidence/selected/vliw-source-copy-integrity.json).
+
+- **VLIW ordinary failures:** Three separate local source-copy calls rejected empty source, malformed source and an empty instruction program; none earned a valid cycle score. The saved memory anomaly prevents a claim of measured aggregate memory fit, and cleanup establishes direct-child completion only. These controls do not test a native submission or resolve checker replacement. [Result](evidence/selected/vliw-three-rejection-controls.json).
+- **VLIW written requirements:** We rejected two extra obligations: final index write-back is expressly unnecessary, and the task does not require historical producer records for its performance anchors. Those source conclusions do not validate all calibration, data or rights. [Contract review](evidence/selected/vliw-specification-calibration.json).
+- **K–12 answer references:** All **100 retained answer-reference rows** matched their test scenarios; **1,825 response-label references** resolved and met the integer-binary schema, and all **1,000 preferred post-test references** were known. Preferred lists matched the scenario lists. This extends the prior history-exclusion result only through that exact list correspondence; it does not verify label truth or execute the scorer. The **175 candidate entries without labels** are compatible with intentional padding. [Result](evidence/selected/k12-answer-reference-correspondence.json).
+
+- **VLIW timeout:** One sleeping-program control reached the unchanged **600-second** limit and finished after **600.113 seconds**, with invalid output and null raw/normalized scores. The observed owned parent and direct child were absent afterward. The fallback error row is not a tested hidden kernel case. This was a local source-copy call, not a native-image run; the earlier failed observer's signal cause remains unknown. [Result](evidence/selected/vliw-original-timeout-control.json).
+- **Juliet public baseline:** The full original public scorer and unchanged empty analyzer ran once on **240 cases and 192 label records**. They returned **10 points**, status OK, zero true or false positives and **192 misses**. The written low-recall cap makes those points intentional partial credit, not a defect or detection success. Native hidden cases, vulnerability truth and whole-task approval remain untested; the scientific Python micro-version was not captured. [Result](evidence/selected/juliet-original-public-baseline.json).
+
+This update records **one new final task decision, one newly closed finding and five completed local original-path calls**: three ordinary VLIW rejections, one VLIW timeout and one Juliet public scoring call. The integrity control and native positive were recovered and reused, not rerun. The answer-reference check adds data evidence on an existing task. Earlier K–12 CSV, range and history checks and the rejected Juliet path hypothesis remain dated in the [evidence index](docs/EVIDENCE-INDEX.md).
 
 ## Earlier checks accepted by 06:05 UTC
 
@@ -26,24 +68,5 @@ We finished the following checks on tasks already under review. They add evidenc
 
 The preceding update added **19 execution cases**: four offline English grader calls, nine VLIW cases, two Molecular controls and four Schemathesis component controls. Two concrete proposed patches were checked: [English assessment completeness](evidence/selected/english-final-source-repair.json) and [Schemathesis function identity](evidence/selected/schemathesis-config-identity-repair.json). Neither replacement is certified. Older completed scoring runs were recovered or reused, not rerun. [Details](docs/EVIDENCE-INDEX.md).
 
-## Decisions for the 51 public original versions
 
-| Final decision | Tasks |
-| --- | ---: |
-| Approved for inclusion | 0 |
-| Excluded after review | 9 |
-| Awaiting a final decision | 42 |
-
-**37 tasks have accepted partial test or data observations. Twelve specific finding decisions are closed.** Those are separate measures; neither means a complete task review.
-
-The nine excluded originals are Triangulation Coloring, Lean Analysis Proofs, Order Addition, Wireless Electricity Layout, Jagua Nesting, Equivalence Classes, Graph Node Classification, Tree Block Partitioning and College English Exam. Their evidenced reasons are in the [findings report](docs/FINDINGS.md). These original-version decisions are finished; proposed replacements need their own review.
-
-Of the **42 pending tasks**, 30 have some accepted observations, five formal tasks have only source/environment work, and seven remain stopped by existing review holds. Another **83 advertised tasks were unavailable**. The older [51-task table](evidence/selected/51-task-coverage.md) keeps its original date and counts.
-
-## Next work
-
-Close supported conclusions from evidence already collected and run ready checks in parallel. Acquire missing actual task data where possible. After one supported setup correction, move to another runnable task rather than repeat the same failed attempt.
-
-Inclusion requires sound task requirements, checker, data, execution and independent-reproduction evidence. No task has passed that full review. Private data, raw logs, credentials and live worker records stay outside Git. [Evidence index](docs/EVIDENCE-INDEX.md) · [Release requirements](VERIFICATION.md).
-
-The active work window ends **October 12, 2026 at 05:52:16 UTC**.
+</details>
