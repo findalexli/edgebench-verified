@@ -1,0 +1,39 @@
+--- original/tmp/eval_molecules.py
++++ candidate/tmp/eval_molecules.py
+@@ -1,6 +1,6 @@
+ #!/usr/bin/env python3
+ """SE-Bench evaluator for molecules task (parallel)."""
+-import subprocess, os, glob, re
++import subprocess, os, glob, re, resource
+ from concurrent.futures import ProcessPoolExecutor, as_completed
+ 
+ WORK_DIR = "/home/workspace/molecules"
+@@ -19,6 +19,19 @@
+     return ""
+ 
+ 
++# Versioned policy: decimal 1 GB of virtual address space per solution process.
++# This is not RSS accounting or a combined descendant/process-tree budget.
++SOLUTION_ADDRESS_SPACE_BYTES = 1_000_000_000
++
++
++def _limit_solution_address_space():
++    soft, hard = resource.getrlimit(resource.RLIMIT_AS)
++    limits = [SOLUTION_ADDRESS_SPACE_BYTES]
++    limits.extend(value for value in (soft, hard) if value != resource.RLIM_INFINITY)
++    limit = min(limits)
++    resource.setrlimit(resource.RLIMIT_AS, (limit, limit))
++
++
+ def run_case(args):
+     i, case_file = args
+     cid = f"{i:04d}"
+@@ -26,7 +39,7 @@
+         with open(case_file) as fin:
+             proc = subprocess.run(["python3", "solution.py"], stdin=fin,
+                                   capture_output=True, text=True, timeout=TIME_LIMIT,
+-                                  cwd=WORK_DIR)
++                                  cwd=WORK_DIR, preexec_fn=_limit_solution_address_space)
+         if proc.returncode != 0:
+             return cid, "RE", 0, _short_reason(proc.stderr or proc.stdout)
+ 

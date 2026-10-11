@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "decision": "GO_SCOPED_ZERO_HIT_FORMAT_SOURCE_REPAIR_WITH_FINITE_PAIRED_CONTROLS",
+  "reviewer": "/root/astra_git_content_review",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "task_id": "vibrating_path_graph_coloring",
+  "independence": "Different from candidate/control author. Six fresh authored ordinary cases on a five-node, three-color chain were run on both exact original and candidate;12 new local calls. Saved32author calls reviewed without rerun.",
+  "candidate": {
+    "path": "work/packets/vibrating-zero-hit-format-repair-astra-high-v1/tester",
+    "bytes": 5540,
+    "sha256": "769a1bed1134e9cae91fd36a9331b622313658afe23bedacbb9668975fc83d0b"
+  },
+  "patch": {
+    "path": "work/packets/vibrating-zero-hit-format-repair-astra-high-v1/repair.patch",
+    "bytes": 699,
+    "sha256": "957162bb9fe18b72a6656dd44684905e04dd4eb84c70b2133550d42a66b0bfa1"
+  },
+  "findings": [
+    "Exact inverse of the replacement parser block restores original5296bytes; zero-fuzz patch application produces exact candidate5540bytes. Positive-hit branch, graph-removal, coloring validation and cost formula remain byte-identical.",
+    "For explicit three-line Q=0 output, candidate requires an empty or whitespace-only second line and reads colors from third line. This repairs the visible root README format contradiction while retaining well-formed two-line legacy output. It intentionally does not preserve every formerly accepted extra-line encoding.",
+    "Saved16paired cases/32calls match frozen expectations, including original full numeric-domain documentedQ0 rejection versus candidate score0, both legacy score0, malformed ordinary output rejection and positive-hit cost3.",
+    "Independent6paired cases/12calls use different graph size, color count, palette and costs: documented whitespace-empty list changes reject\u2192score0; two-line legacy stays score0; explicit nonempty list changes old accepted0\u2192candidate rejection; short/out-of-range colors remain rejected; a valid positive hit stays cost7. All inputs are ordinary numeric graph/output fixtures, without exception-text or reflected-score investigation.",
+    "The parser change selects the Q<=0 branch already present. NegativeQ remains rejected by unchanged hit-count mismatch; it was not converted into a valid count. This is source reasoning, not an additional executed control."
+  ],
+  "counts": {
+    "saved_author_original_calls": 16,
+    "saved_author_candidate_calls": 16,
+    "fresh_reviewer_original_calls": 6,
+    "fresh_reviewer_candidate_calls": 6,
+    "total_calls_for_this_candidate_review_chain": 44
+  },
+  "limits": [
+    "Local source/component repair only; no integrated image, native benchmark environment, full wrapper, official50-case corpus or task certification.",
+    "The unresolved primary-versus-adapted graph path precedence is untouched and is not claimed repaired.",
+    "Missing work toolsREADME remains a provenance limitation for complete specification precedence. The visible root README three-line convention is the explicit repair target.",
+    "Fresh cases are small authored graph controls; the author provided the reused numeric-domain pair. No new full-domain/corpus or generator-distribution claim."
+  ],
+  "result": {
+    "path": "work/reviews/vibrating-zero-hit-format-repair-astra-high-v1-different/result.json",
+    "bytes": 6727,
+    "sha256": "3f44924253d66cf264ae7a8df485dbc79f569eada99eb7732553642a53422419"
+  },
+  "freeze": {
+    "path": "work/reviews/vibrating-zero-hit-format-repair-astra-high-v1-different/freeze.json",
+    "bytes": 3591,
+    "sha256": "163da02cdfefc263d20a9604eed19f1281745cd70968c78d02410d1cd2a71c72"
+  },
+  "canonical_mutations": 0,
+  "provider_or_cloud_calls": 0
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/astra_git_content_review",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "decision": "ACCEPT_FINITE_PRIMARY_DIVERGENCE_AND_INDEPENDENTLY_REPRODUCED_VISIBLE_FORMAT_MISMATCH",
+  "task_id": "vibrating_path_graph_coloring",
+  "independence": "Different from source/oracle/control author. Independently checked primary oracle via forced global-minimum continuation and repeated only the two frozen full numeric-domain formatting calls using unchanged tester. Prior effective-source layer closure reused.",
+  "topology": {
+    "saved_actual_tester_calls": 96,
+    "new_topology_tester_calls": 0,
+    "independently_checked_primary_oracle_cases": 96,
+    "agrees": 86,
+    "primary_relative_false_accepts": 10,
+    "false_rejects": 0,
+    "joint_valid_cost_agreements": 40,
+    "cost_mismatches": 0,
+    "basis": "The primary defines next-edge global minimum after excluding only predecessor, plus distinct/no-chord constraints. A forbidden minimum ends the path; substituting a heavier permitted edge violates that definition. Independent direct interpretation matches all frozen exhaustive-oracle paths and verdicts.",
+    "witness": "Triangle-tail hit at1: primary path1,2 stops because mandatory minimum2,3 creates chord1,3. Remaining2,4 is monochromatic for colors1,1,2,1. Tester skips that minimum and extends2,4, accepting cost3.",
+    "qualification": "These are four-vertex authored component controls outside the stated numeric domain. The adapted README refers to minimum-weight paths with unspecified removal rules and does not explicitly settle precedence. Confirm primary divergence; do not call the10 unconditional adapted-contract false accepts."
+  },
+  "format": {
+    "decision": "CONFIRMED_VISIBLE_ADAPTED_README_ZERO_HIT_FORMAT_MISMATCH",
+    "author_actual_calls": 4,
+    "new_independent_actual_calls": 2,
+    "original_tester_sha256": "b1c7694b8de3444c0459393b967851ad7d61e38a9a320222ce01ba7a1b446463",
+    "witness": "Same frozen N1000/M100000/K2 bipartite graph and coloring: Q=0, blank hit-list line, then1000 colors is rejected with expected1000colors/got0; Q=0 immediately followed by identical coloring is accepted at cost0.",
+    "domain_validation": "Read input independently:100000 distinct valid cross-partition edges, permutation weights1..100000,1000 costs within bounds,1000 valid colors. The graph is authored, not an official generator draw or official case. Random-distribution claims are not made.",
+    "contract": "Available adapted README explicitly labels line1Q, line2hit list, line3coloring without Q=0 exception; primary also specifies three lines. Actual tester special-cases Q<=0 by reading colors from its second line. This is a concrete contradiction between available instructions and implementation.",
+    "remaining_uncertainty": "Work-image tools/README.md is not recovered in accepted source evidence. It could document a differing convention; do not claim the entire original documentation has no exception or that all contract precedence is resolved."
+  },
+  "limits": [
+    "Author100 calls plus reviewer2 distinct new calls:102 total local unchanged-tester invocations across these two packets; review does not relabel them as native-image or full-wrapper execution.",
+    "No official50-case corpus, full task, all graph semantics, arbitrary path-length correctness or release certification.",
+    "No reflected-score or exception-text experiment, no candidate-controlled score payload, no original disposition edit.",
+    "Formatting evidence stands independently of the unresolved adapted-versus-primary graph-rule question. Missing tools documentation limits the strongest task-wide contract conclusion; it does not erase the visible README inconsistency."
+  ],
+  "result": {
+    "path": "work/reviews/vibrating-graph-semantics-astra-high-v1-different/result.json",
+    "bytes": 2208,
+    "sha256": "77fc9b32fccb330bd12a1c6b834f1d97c44844a64a751495f4dc910d8458d7ef"
+  },
+  "freeze": {
+    "path": "work/reviews/vibrating-graph-semantics-astra-high-v1-different/freeze.json",
+    "bytes": 3630,
+    "sha256": "c1191303da627d83bc0e6773cf34182ad11161845aa9066ecea5003c9b6a93aa"
+  },
+  "canonical_mutations": 0,
+  "cloud_calls": 0
+}
