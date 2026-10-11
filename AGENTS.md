@@ -1,5 +1,19 @@
 # EdgeBench Verified working instructions
 
+## Latest user preferences, October 11, 2026
+
+Use `gpt-6-astra` with `high` reasoning for new parallel reviewers and E2B model
+requests. The current coordinator's `audit/model-policy.json` and later direct
+steering supersede historical Sol/xhigh settings. Frozen attempts retain their
+recorded regime, and all automatic-review holds remain.
+
+The obsolete hourly continuation automation was removed at the user's request.
+Continue the active audit goal within its existing authorized window; do not
+recreate a recurring schedule without a useful purpose and user authorization.
+The publication target is a reproducible audit with evaluated native-format
+repairs and clear case evidence; see `docs/PUBLICATION-STANDARD.md`.
+
+
 ## User priorities: finish reviews and make reports readable
 
 The user has repeatedly asked for faster task conclusions and plain-language

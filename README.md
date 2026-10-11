@@ -35,3 +35,5 @@ The [shareable progress site](https://edgebench-audit-progress.alex-shengzhi.cha
 The harness derives from [ByteDance Seed EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its Apache-2.0 license is retained in `LICENSE`. Public definitions derive from the [Hugging Face release](https://huggingface.co/datasets/ByteDance-Seed/EdgeBench) at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75`, with a separate license in `tasks/LICENSE`. These notices do not establish rights to redistribute every dataset or dependency inside the images.
 
 [Rethlas, Lean and TLA+](docs/FORMAL-TOOLS.md) can help check suitable mathematical claims. A generated proof needs an actual tool check and a clear connection to the task being audited.
+
+Publication target: [evidence and repair standard](docs/PUBLICATION-STANDARD.md) · [finding case template](docs/CASE-TEMPLATE.md) · [lessons applied](docs/AUDIT-LESSONS.md).
