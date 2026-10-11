@@ -47,6 +47,11 @@ These local component/data counts remain separate from the preceding converter p
 
 - [Portfolio retained table links](../evidence/selected/portfolio-retained-table-links.json): all 16,990 price rows had one metadata lookup; 730 price rows lacked same-date macro data, while 6,988 numeric cells were finite. Optional macro use means this alone establishes no task defect or harmlessness. No scorer/Pandas/domain validation was run.
 
+Two completed cached-data checks were accepted at **06:02 UTC on October 11**. They add no task disposition, finding or certification:
+
+- [Juliet acquired case/label integrity](../evidence/selected/juliet-acquired-case-label-integrity.json): 976 cases and 915 label records agreed on statement references, label keys and declared distributions, with no tested structural mismatch. Label records are not a count of labeled cases. This authored data diagnostic does not establish vulnerability or label truth, graph reachability, final installed-file equality or safety of unlabeled cases; no original analyzer or scorer ran.
+- [CTA acquired workbook integrity](../evidence/selected/cta-acquired-workbook-integrity.json): 46,950 price rows and 554,691 selected cells were read from six sheets. Tested contract/cost ticker membership, USD FX links, duplicates and selected finite values passed. Numeric transaction costs, other sheets, original file discovery and financial validity remain untested. A bounded ZIP/XML diagnostic was used, not the original Pandas loader or scorer.
+
 ## How to interpret these records
 
 A confirmed finding answers a specific question. It can be concluded without approving the entire task or its proposed repair. Tests on an original component, simulated inputs, mathematical arguments and complete task execution provide different kinds of evidence; the records say which was used.

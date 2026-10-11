@@ -1,6 +1,6 @@
 # Where the audit stands
 
-Snapshot: **October 11, 2026, 05:43 UTC**. This audit is unfinished; no benchmark release is approved.
+Snapshot: **October 11, 2026, 06:05 UTC**. This audit is unfinished; no benchmark release is approved.
 
 ## What changed since 05:02 UTC
 
@@ -11,6 +11,8 @@ We finished the following checks on tasks already under review. They add evidenc
 - **NetHack:** The original result reader handled **four simulated game outputs** as expected: it accepted the score limit and rejected an excessive score, a failed child process and a malformed final result. No game or original full environment ran. [Result](evidence/selected/nethack-original-receipt-boundaries.json).
 - **Rust:** The original loader read the **2,749-entry test manifest**. No public test was classified as hidden. However, shortening test identities merged 820 distinct hidden entries into 795 keys, losing 25 distinctions. Actual Rust tests and score effects were not checked. [Result](evidence/selected/rust-retained-split-consistency.json).
 - **Portfolio:** All **16,990 price rows** matched instrument metadata; **6,988 macro values** were finite. But **730 price rows** lacked same-date macro data. The task permits strategies without that data, so this difference alone establishes neither a defect nor financial harmlessness. No original scorer ran. [Result](evidence/selected/portfolio-retained-table-links.json).
+- **Juliet vulnerability data:** Facts for **976 cases and 915 label records** agreed on references, keys and declared distributions; no structural mismatch was found. Vulnerability and label truth remain unverified, and unlabeled cases are not proven safe. No original analyzer or scorer ran. [Result](evidence/selected/juliet-acquired-case-label-integrity.json).
+- **CTA risk-budget data:** The diagnostic read **46,950 price rows and 554,691 selected cells** across six workbook sheets. Tested ticker and USD currency links and selected numeric values passed; no defect was found in those checks. Numeric costs, other sheets and financial correctness remain untested. No original scorer ran. [Result](evidence/selected/cta-acquired-workbook-integrity.json).
 - **Carleson:** Required files were restored, but the attempt to check the proof program's version crashed before any proof or original helper ran. The cause is unknown, and the worker is closed. This is a failure of our test setup, not an established benchmark defect. [Saved failure](evidence/selected/carleson-cap-restoration-failed-prefix.json).
 
 The preceding update added **19 execution cases**: four offline English grader calls, nine VLIW cases, two Molecular controls and four Schemathesis component controls. Two concrete proposed patches were checked: [English assessment completeness](evidence/selected/english-final-source-repair.json) and [Schemathesis function identity](evidence/selected/schemathesis-config-identity-repair.json). Neither replacement is certified. Older completed scoring runs were recovered or reused, not rerun. [Details](docs/EVIDENCE-INDEX.md).
