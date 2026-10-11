@@ -1,5 +1,16 @@
 # EdgeBench Verified working instructions
 
+## Consolidated workflow, October 11, 2026
+
+Read `docs/AUDIT-WORKFLOW.md` and the two relevant skills under `.agents/skills/`
+before preparing another experiment. Recover the named accepted evidence and exact
+saved job terminal before assigning source preparation or review. Worktrees isolate
+code; the designated coordinator owns the single live queue and ownership ledger.
+The Git snapshot contains selected evidence and is not independent launch authority.
+The October 11 consolidation does not change existing execution authorization,
+holds or release gates. Resume authorized audit work after consolidation without
+inventing another user-approval requirement.
+
 ## Resumed 48-hour window, October 10, 2026
 
 The user explicitly said to keep going for another two days and requested a
