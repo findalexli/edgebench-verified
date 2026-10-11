@@ -1,8 +1,8 @@
 # Where the audit stands
 
-Scientific evidence snapshot: **October 11, 2026, 07:24 UTC**. Presentation reviewed again at **17:24 UTC**. This is an unfinished, private audit; no benchmark release is approved.
+Scientific evidence snapshot: **October 11, 2026, 17:58 UTC**. This is an unfinished, private audit; no benchmark release is approved.
 
-**We have decided to omit ten flawed original task versions from a candidate release. The other 41 public tasks still await a final decision, and none is certified for inclusion.** Since the 06:41 UTC checkpoint, VLIW Kernel Optimization became the tenth exclusion. That is one new final task decision and one newly closed finding. The latest interval did not add a newly tested task.
+**We confirmed a Rust scoring error: a passing test on the exception list can cancel an unrelated failure.** This raises the number of closed finding-task decisions from 13 to **14**. Ten original versions remain excluded, 41 public tasks await a final decision, and none is certified. Apple’s score conversion and Schemathesis’s API wording also received narrower conclusions; neither adds a defect or a task decision.
 
 | Decision on the 51 public originals | Tasks | Meaning |
 | --- | ---: | --- |
@@ -12,22 +12,21 @@ Scientific evidence snapshot: **October 11, 2026, 07:24 UTC**. Presentation revi
 
 **What “excluded” means:** omit the exact flawed original from the candidate release and preserve its evidence. The decision is finished for that version. It does not delete the task from the audit, mean every score is wrong, fix the task, or approve a replacement. A corrected version needs its own tests and release decision. [Why these ten originals were excluded](docs/FINDINGS.md#why-ten-original-versions-are-excluded).
 
-**Thirteen specific finding decisions are closed.** A confirmed defect can be settled before its repair is ready, and a useful partial check does not finish a task review. The finding count is separate from the final task decisions above. Another **83 advertised tasks were unavailable** and are outside this audit's acquired set.
+**Fourteen scoped finding-task decisions are closed.** A confirmed defect can be settled before its repair is ready, and a useful partial check does not finish a task review. The finding count is separate from the final task decisions above. Another **83 advertised tasks were unavailable** and are outside this audit's acquired set.
 
-## What the latest work established
+## What changed since the 17:24 UTC review
 
-- **VLIW Kernel Optimization:** an invalid file could replace the live checker and be reported correct in a local run of the original source. Existing native evidence connects that source to the acquired task version. The invalid file itself was not run in the native image. This supports excluding the original; it does not establish a legal optimization or a leaderboard gain. [Decision](evidence/selected/vliw-original-exclusion.json).
-- **Ordinary VLIW failures and timeout:** three local calls rejected empty source, malformed source and an empty instruction program. A sleeping program hit the original 600-second limit and received no valid score. These are four new local original-source calls. [Rejections](evidence/selected/vliw-three-rejection-controls.json) · [timeout](evidence/selected/vliw-original-timeout-control.json).
-- **Juliet vulnerability detection:** the original public scorer gave an empty analyzer 10 points with zero detections and 192 misses across 192 label records. The written scoring rule deliberately allows that partial credit, so this result is neither a new defect nor successful detection. This was one new public scoring call. [Result](evidence/selected/juliet-original-public-baseline.json).
-- **K–12 answer references:** all 100 retained answer-reference rows matched their scenarios. This checks that the records link correctly, not that the answers or labels are true. [Result](evidence/selected/k12-answer-reference-correspondence.json).
+- **Rust Multicrate Reconstruction:** the original Python helper credited an unrelated failed test when the named exempt test passed. Six authored controls and three independently authored controls support the finding; an independent example reported 11 passed, zero failed and PASS while one hidden failure remained. Cargo responses were simulated. The 0.1 score difference is synthetic, not measured native or benchmark impact. The original task decision remains pending. [Accepted finding](evidence/selected/rust-known-failure-outcome.json) · [portable reproduction](reproductions/rust-known-failure-credit/README.md).
+- **Apple Incremental Game:** the mathematical score is bounded by 8,200,000 per case and 410,000,000 across the fixed 50 cases, so correctly computed integer scores convert exactly through the caller’s floating-point step. Independent reasoning and arithmetic checks support this narrow requirement. Saved numeric values were reconstructed as decimal strings; raw markers were not reparsed, and native logarithm rounding remains unproved. [Accepted conclusion](evidence/selected/apple-numeric-range.json).
+- **Schemathesis Config:** new public paths may re-export existing implementations while obsolete aliases are removed. This resolves the apparent conflict in those instructions, but the complete list of old paths to remove is still unspecified. No implementation or whole specification approval follows. [Accepted source interpretation](evidence/selected/schemathesis-api-contract.json).
 
-The VLIW integrity result and earlier positive native run were recovered and reused, not rerun. The latest update therefore contains **five new local original-source calls**, alongside the data-reference check and the new exclusion decision.
+This update adds **one confirmed finding and one satisfied numeric-conversion requirement**, plus a narrow API interpretation. It adds no native or full-task runs, newly checked task, repair validation, final task decision or certification.
 
 ## Why the audit is still unfinished
 
-From the 07:24 checkpoint through the 17:10 state check, no additional task checks completed. The next cloud checks had not launched, and the prepared report was still uncommitted. This was a real stall. The new independent review found an overstated coverage description, corrected below; it did not add new benchmark test results.
+The earlier stall remains part of the record: from the 07:24 checkpoint through the 17:10 state check, no additional task checks completed. The next cloud checks had not launched, and the prepared report was still uncommitted. The 17:24 presentation review corrected an overstated coverage description without adding benchmark test results. The new conclusions above were accepted at 17:58 UTC.
 
-Progress has produced clearer defect decisions, but **no task has reached inclusion approval and the latest interval added no newly tested task**. Pending work includes partial checks, formal tasks that have reached only source or environment work, and seven tasks stopped by existing review holds. An example of stalled execution is Carleson: its proof-tool version check crashed before any proof or original helper ran. That is an audit setup failure, not a demonstrated benchmark defect. [Saved attempt](evidence/selected/carleson-cap-restoration-failed-prefix.json).
+The new component and arithmetic checks advance specific questions, but **no task has reached inclusion approval and no new task entered the checked set**. Pending work includes partial checks, formal tasks that have reached only source or environment work, and seven tasks stopped by existing review holds. An example of stalled execution is Carleson: its proof-tool version check crashed before any proof or original helper ran. That is an audit setup failure, not a demonstrated benchmark defect. [Saved attempt](evidence/selected/carleson-cap-restoration-failed-prefix.json).
 
 The next useful work is to finish supported decisions from saved results and complete ready checks on still-pending tasks. A confirmed original defect does not need to be rediscovered before a separate repair can proceed. Where setup fails, make one supported correction, then move to another runnable task rather than repeat the same attempt.
 
@@ -37,6 +36,16 @@ The historical tracking group of **37 tasks with partial observations** is being
 
 <details>
 <summary>Detailed results and earlier checkpoints</summary>
+
+## Summary recorded at 07:24 UTC
+
+- **VLIW Kernel Optimization:** an invalid file could replace the live checker and be reported correct in a local run of the original source. Existing native evidence connects that source to the acquired task version. The invalid file itself was not run in the native image. This supports excluding the original; it does not establish a legal optimization or a leaderboard gain. [Decision](evidence/selected/vliw-original-exclusion.json).
+- **Ordinary VLIW failures and timeout:** three local calls rejected empty source, malformed source and an empty instruction program. A sleeping program hit the original 600-second limit and received no valid score. These are four new local original-source calls. [Rejections](evidence/selected/vliw-three-rejection-controls.json) · [timeout](evidence/selected/vliw-original-timeout-control.json).
+- **Juliet vulnerability detection:** the original public scorer gave an empty analyzer 10 points with zero detections and 192 misses across 192 label records. The written scoring rule deliberately allows that partial credit, so this result is neither a new defect nor successful detection. This was one new public scoring call. [Result](evidence/selected/juliet-original-public-baseline.json).
+- **K–12 answer references:** all 100 retained answer-reference rows matched their scenarios. This checks that the records link correctly, not that the answers or labels are true. [Result](evidence/selected/k12-answer-reference-correspondence.json).
+
+The VLIW integrity result and earlier positive native run were recovered and reused, not rerun. The latest update therefore contains **five new local original-source calls**, alongside the data-reference check and the new exclusion decision.
+
 
 ## What changed since 06:41 UTC
 
