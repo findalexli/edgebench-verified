@@ -21,7 +21,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | CTA risk budget<br>`cta_risk_budget_optimization` | Review pending | Selected workbook joins/numeric cells checked [5]. | — | Are cost and financial semantics correct? |
 | Gravity inversion<br>`dabic_gravity_inversion` | Review pending | 21 native scalar helper calls; not inversion (L). | — | Does independent forward physics agree? |
 | Dungeon Crawl<br>`dcss_dungeon_ai` | Review pending | Ten historical native positive aggregates (L). | Output prototype | Does real failure scoring behave correctly? |
-| Equivalence classes<br>`equivalence_class_divide_and_conquer` | Withhold original | Original checker accepts above-limit cost [6]. | Finite T2/T3 fixes | Do repaired full-corpus runs complete? |
+| Equivalence classes<br>`equivalence_class_divide_and_conquer` | Withhold original | Original checker accepts above-limit cost [6]. | Corrected T3 checker passes one official input at 64 MiB output cap [31]; finite boundary controls remain separate | Do remaining T3 cases pass within a justified output allowance? |
 | Exchange throughput<br>`exchange_core_throughput` | Review pending | One original native JUnit test passed (L). | — | Does throughput scoring require correctness? |
 | FFmpeg scaling<br>`ffmpeg_swscale_reimplementation` | Review pending | Timing component credits failed calls [7]. | Held | Held; no follow-up. |
 | Fermat regular-prime proof<br>`flt_regular_formalization` | Review pending | Version startup failed; no proof control (L). | Setup blocked | What explains startup failure? |
@@ -49,7 +49,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | SMT solver<br>`smt_solver` | Review pending | Local witness lookup conflates variable scopes [7]. | Held | Held; no follow-up. |
 | Sphere eversion proof<br>`sphere_eversion_formalization` | Review pending | Selected source/setup only; no proof run (L). | — | Can one original kernel control run? |
 | Treant forest<br>`treant_forest` | Review pending | Movement differs from the primary game; adapted README counts turns, so a separate arithmetic-defect claim is rejected [25]. | No validated fix | Which movement semantics does the adapted contract require? |
-| Tree partitioning<br>`tree_block_partitioning` | Withhold original | Native supplied self-product violates semantics [19]. | Finite native fix | Does full grading preserve valid operations? |
+| Tree partitioning<br>`tree_block_partitioning` | Withhold original | Native supplied self-product violates semantics [19]. | T2 regression: reference 10/10, wrong 0/10 before/after correction [30]; earlier alias controls separate | Do remaining components and integrated grading preserve intended behavior? |
 | Triangulation coloring<br>`triangulation_coloring_optimization` | Withhold original | Ten retained large meshes violate geometry [7]. | No validated fix | Can valid replacement data preserve task skill? |
 | Trinity<br>`trinity_text_adventure` | Review pending | Original state/route helpers with doubles; no game (L). | — | Does real terminal score match contract? |
 | Tryst<br>`tryst_text_adventure` | Review pending | Original state/route helpers with doubles; no game (L). | — | Does real ROM rescaling match contract? |
@@ -94,3 +94,5 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [27]: evidence/selected/reporting-shared-hook-acceptance.json
 [28]: evidence/selected/reporting-writer-error-acceptance.json
 [29]: evidence/selected/reporting-shared-regression-acceptance.json
+[30]: evidence/selected/tree-t2-repair-regression-acceptance.json
+[31]: evidence/selected/equivalence-t3-repair-case-acceptance.json
