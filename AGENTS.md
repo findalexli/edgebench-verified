@@ -1,5 +1,22 @@
 # EdgeBench Verified working instructions
 
+## User priorities: finish reviews and make reports readable
+
+The user has repeatedly asked for faster task conclusions and plain-language
+updates. Finish decisions from accepted evidence before adding setup for the
+same question. Run independent ready task checks alongside result review. After
+one bounded setup correction or roughly 15 minutes of setup, record the blocker
+and advance another task; do not create another controller framework by default.
+Preserve the actual execution gates, review requirements and holds.
+
+Lead reports with what changed since a dated checkpoint, what was concluded and
+what it means. Count final task decisions, actual task checks and specific findings
+separately. Partial observations are not finished task reviews. Use ordinary task
+names; keep job IDs, hashes and internal workflow terminology in supporting links.
+`AUDIT-STATUS.md` owns the dated current summary; evidence snapshots retain their
+original dates. Apply the two existing skills rather than adding more skills for
+these same needs.
+
 ## Consolidated workflow, October 11, 2026
 
 Read `docs/AUDIT-WORKFLOW.md` and the two relevant skills under `.agents/skills/`

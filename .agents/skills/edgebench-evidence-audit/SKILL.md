@@ -5,6 +5,17 @@ description: Audit EdgeBench task promises, verifiers, tests and data; reproduce
 
 # EdgeBench evidence audit
 
+## Finish work and explain it plainly
+
+The user repeatedly identified two failures: setup displaced task reviews, and reports hid results behind internal terminology. Apply these priorities before preparing another run:
+
+- Conclude evidence already collected before commissioning more setup for the same question. A supported finding can be finished while its repair or whole-task release review remains separate.
+- Dispatch disjoint, decision-changing questions in parallel. Give each assignment one question, an existing evidence pointer and a bounded finish condition; reuse those records instead of creating a new planning framework.
+- After one bounded setup correction or roughly 15 minutes of setup work, name the blocker and advance another ready task. Preserve the failed attempt. Resume the blocked lane only with a specific new diagnosis or a supported environment; respect all existing holds.
+- Count completed task decisions, tasks actually checked and new established results separately. Setup, copied receipts and source preparation are operational work, not new audited tasks. Report zero scientific progress explicitly when that is the outcome.
+
+For user-facing updates and repository reports, lead with **what changed since a dated checkpoint, what we concluded, and what it means**. Use ordinary task names and explain a technical term when needed. Put run IDs, hashes, queue details and full diagnostic history behind evidence links. Keep one dated current summary in `AUDIT-STATUS.md`; historical evidence snapshots keep their dates. Never make partial checks sound like complete task reviews.
+
 ## Recover, then choose the question
 
 Resolve current authority/state from the designated coordinator. Repository copies use `docs/AUDIT-WORKFLOW.md` to locate it; local workspace/archive links are provenance, not required Git contents. Missing historical links do not authorize stale state or make another preparation/review necessary.
