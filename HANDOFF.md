@@ -1,73 +1,117 @@
 # Continuing the EdgeBench audit
 
-**Handoff snapshot: October 11, 2026, after the corrected writer-error assessment and original-suite regression.** Five corrected integration controls passed. The same shared-hook plugin also passed a fresh 55-item original-suite regression and selected repaired JUnit test. Both workers are closed; no owned workers are running. These results remain finite evidence; verify current ownership before acting.
+**October 11, 2026.** The selected Git evidence is through the reporting regression
+merged in PR #31. Two later local results are accepted but not yet selected into
+Git: the routing travel-window check and OpenTTD cohort check described below.
+No native worker was active when this handoff was written; recheck the canonical
+ledger before launching anything.
 
-## Goal and what counts as finished
+## Outcome and current decisions
 
-The goal is a defensible decision for every acquired public task, with useful native-format corrections where possible. Three products have different finish conditions: an interim findings report can include pending work; a completed public-set audit needs decisions for all 51 acquired tasks; a verified replacement benchmark additionally needs every included version to satisfy [VERIFICATION.md](VERIFICATION.md). Another 83 advertised tasks were unavailable.
+The target is a defensible decision for all 51 acquired public tasks, with tested
+repairs progressing alongside the remaining audit. An interim findings report, a completed
+51-task audit and a released verified benchmark have different finish conditions;
+see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable.
 
-[README](README.md) gives the overview, [FINDINGS](docs/FINDINGS.md) explains confirmed problems, and [TASKS](TASKS.md) owns the current 51 dispositions. The Git `audit/task-registry.json` is a historical snapshot with three exclusions; it is not the current ten-exclusion tracker. Do not silently update historical evidence counts. A confirmed finding, an excluded original, a repair candidate and a certified replacement are separate outcomes. Current totals remain findings across 16 tasks, ten excluded originals, 41 pending decisions and zero certifications.
+Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
+and [TASKS](TASKS.md) for current decisions. There are findings across 16 tasks,
+ten withheld original versions, 41 pending decisions and zero certified versions.
+“Withheld” applies to the exact original unchanged; it does not approve or rule
+out a repaired version. The Git `audit/task-registry.json` is a historical partial
+snapshot with three exclusions, not the current tracker.
 
-## Authority, files and execution
+## What the critical review changed
 
-The shared workspace is:
+- **Too much preparation displaced task work.** Give each assignment one question,
+  saved evidence, a finish condition and a ready fallback. Stop setup after one
+  supported correction or roughly 15 minutes without reaching the intended task.
+  Renaming the attempt does not restart that allowance.
+- **Different outcomes were blurred.** Close a supported finding without waiting
+  for a whole replacement to be approved. Keep test coverage, task decisions and
+  repair validation separate. A narrow pass does not approve every requirement.
+- **Repeated reviews added less than different evidence.** Review changed claims
+  and meaningful counterexamples. Reuse unchanged accepted work; three agents
+  agreeing is not three independent reproductions.
+- **Too many status documents obscured the result.** Maintain the three entry
+  points above. Save detailed receipts behind links, update reports in batches,
+  and preserve superseded prose in Git history. The two existing skills already
+  contain these lessons; no additional skill is needed for them.
+
+The saved history does not isolate model quality from workflow, tooling and
+instructions. Do not attribute the delays to Sol without comparative evidence.
+Astra/high remains the current review setting; returning routine work to Sol is
+proposed, not yet adopted. Measure useful conclusions and tests, not agent count.
+
+## Ready work: continue, do not recreate
+
+The latest user priority is to finish repairs of withheld originals, not treat
+exclusion as the end product. Start from the existing Order, Equivalence, English
+and Tree repair evidence; choose the next missing check rather than reopening the
+original finding. Record a tested fix separately from whole-task release approval.
+The reporting and Rust packets below remain prepared work to reuse, not a reason
+to postpone those repairs.
+
+All local paths below are relative to the shared workspace:
 
 `/mnt/c/users/lisz1/documents/codex/2026-10-07/shopify-plugin-shopify-openai-curated-remote-2`
 
-Paths below are relative to that workspace unless stated otherwise:
+| Work | Saved state | Next action |
+| --- | --- | --- |
+| Reporting combined judge correction | Frozen; different source review accepted. No native execution. `work/packets/reporting-integrated-judge-native-astra-high-v1/handoff.json`; review at `work/reviews/reporting-integrated-judge-native-astra-high-v1/handoff.json`. | Root admission, then one full corrected-scorer run and 24 paired controls. Check actual outcomes; 57 printed/55 reported is an expectation, not a result. |
+| Rust failure-credit correction | Actor/fixture review accepted; minimal real-Cargo integration frozen at `work/packets/rust-native-paired-integration-astra-high-v1/handoff.json`. No native execution. | Different review of the added driver/bindings, then root admission. Preserve simulated-Cargo evidence as a separate earlier result. |
+| Routing data complement | Root accepted: no necessary travel-window violation in 56 retained instances / 5,600 customers. Root receipt under `edgebenchverified/audit/evidence/vrptw-travel-window-complement-astra-high-v1-root-review/`. | Select the accepted evidence in the next results delivery. This does not establish complete route feasibility. |
+| OpenTTD cohort complement | Root accepted: the original caller averages supplied groups without checking they match requested seeds, using controlled library outputs. Root receipt under `edgebenchverified/audit/evidence/openttd-cohort-complement-astra-high-v1-root-review/`. | Select the conditional result; actual library guarantees remain unknown. No engine failure or new task exclusion is established. |
 
-| Purpose | Location |
+The reporting plugin already passed 55 original test identities with score 1.0;
+the unchanged script reports 53/53. Its two judge repairs were tested separately,
+not together in that run. Preserve the distinct four-of-five unchanged-control
+improvement and later five-of-five corrected-control result. Exact evidence and
+remaining requirements are in [REPORTING-COVERAGE](docs/REPORTING-COVERAGE.md).
+Treant’s arithmetic-defect hypothesis was rejected; intended movement remains
+unresolved. HTTP-date and K–12 setup are stopped: resume only with evidence
+addressing their recorded missing source/preflight failures, not another blind
+attempt. Recover exact accepted records before assigning follow-up.
+
+## Authority and execution ownership
+
+| Purpose | Workspace location |
 | --- | --- |
-| Canonical audit and execution coordinator | `edgebenchverified/` |
-| Current authority and protocol | `edgebenchverified/AGENTS.md`, `edgebenchverified/VERIFICATION.md`, direct user steering |
-| Compact coordinator handoff | `edgebenchverified/audit/evidence/sol-cloud-authorization-v1/current-root-handoff.json` |
+| Canonical audit, current policy and release registry | `edgebenchverified/` |
+| Current instructions and scientific protocol | `edgebenchverified/AGENTS.md`, `edgebenchverified/VERIFICATION.md`, later direct user steering |
+| Exact current handles and accepted records | `edgebenchverified/audit/evidence/sol-cloud-authorization-v1/current-root-handoff.json` |
 | Model policy | `edgebenchverified/audit/model-policy.json` |
-| Single queue, attempts, exports and settlements | `work/cloud-queue/` |
-| This Git review checkout | `work/edgebench-worktrees/consolidation/` |
-| Local source/evidence packets and reviews | `work/packets/`, `work/reviews/`, `work/task-sources/` |
+| Shared queue, exports and settlements | `work/cloud-queue/` |
+| This selected Git checkout | `work/edgebench-worktrees/consolidation/` |
+| Local packets, reviews and retained sources | `work/packets/`, `work/reviews/`, `work/task-sources/` |
 
-Execute only through the canonical coordinator and its maintained admission/ownership path. A Git clone, copied launcher or prepared grant is not launch authority. Resolve exact accepted leaves and later steering: the compact handoff retains older subfields that can lag terminal reviews. Recover a live attempt's handle instead of duplicating it; accept or explain an already completed result before rerunning it.
+Check the actual saved attempt and terminal receipts: dated handoff fields can
+lag completed work. Recover a running handle; never duplicate its job. A clone,
+copied launcher or prepared grant is not execution authority. The
+[evidence index](docs/EVIDENCE-INDEX.md) identifies selected Git records. Private
+source/test bodies, images, raw logs and live accounting are not all in this
+repository. A clone is not yet a self-contained reproduction of the full audit.
 
-The Git [evidence index](docs/EVIDENCE-INDEX.md) and selected manifest identify included records and local provenance. Large images, private source/test bodies, raw logs, credentials and live accounting are not all present here. Missing archive material is an availability limitation, not permission to fabricate a result or weaken a check.
+## Boundaries and delivery
 
-## Latest results and next work
+The current authorized window ends **October 12, 2026 at 05:52:16 UTC**. Stop new
+work then, collect results and close only this audit’s workers. The obsolete
+hourly automation was deleted; do not recreate it by default.
 
-**Coverage filtering:** all four native helper calls passed their authored checks on the reporting candidate V2 overlay. The original test's class filter discarded all 36 generated values; complementary allow cases contained unexpected properties while the filtered assertion still examined nothing. This confirms a finite test gap in that measured environment, not bare-original behavior or historical score impact. The original test function and full scorer were not run in this attempt. [Accepted result](evidence/selected/reporting-coverage-filter-acceptance.json). The frozen correction matched all 20 paired complete test-function expectations: 12 normal returns and eight expected assertion failures, using actual generation in 12 calls and explicit empty/wrong-type doubles in eight. Valid generation passed; forced wrong behavior was rejected by the repaired tests. [Patch and finite acceptance](proposedrepairs/reporting-coverage-filter/README.md). Full phase-five pytest/scorer execution and fresh independent native reproduction remain separate.
+Up to 50 useful owned E2B workers and justified resources are authorized, with no
+agent-imposed dollar ceiling. Keep finite per-job limits/accounting, four shared
+staging slots / 64 MiB, and the coordinator’s memory bound. Credentials stay
+outside native task containers and evidence. Heavy local work requires the
+existing host guard; use current canonical resource policy rather than inferring
+free capacity from WSL alone.
 
-**Actual plugin integration:** the shared-hook correction improved four of five unchanged controls over the base plugin's zero of five. A later control-only change replaced the stdout-specific error check with an actual injected-error event and nonzero exit; all five corrected controls passed, including completed closing of observed writers. The exceptional parallel case does not check complete final reports or receipt of both schemas. This is not an unchanged-control zero-to-five comparison and does not explain the prior stdout failure. [Matched comparison](evidence/selected/reporting-shared-hook-acceptance.json) · [corrected-control acceptance](evidence/selected/reporting-writer-error-acceptance.json).
+All existing automatic-review holds remain: ad-overlap, Coq output/tactics,
+native codec, CVC5 parser/observer/fanout, grid reflected score and warehouse
+implementation; the Sol V8 model runner has a separate hold. Do not retry, rename
+or reroute held work. Resolve exact scopes in canonical AGENTS. Unrelated work
+may continue. Private Git delivery is authorized; this does not authorize paid
+fallback, usage resets, third-party contact or benchmark publication.
 
-**Treant:** the adapted README counts turns, so seven iterations with six position changes do not establish a separate arithmetic defect. Differences from the primary game's movement remain measured, but whether the adaptation intended them is unresolved. Seek authoritative adaptation wording rather than replaying the same controls. [Accepted conclusion](evidence/selected/treant-contract-conclusion.json).
-
-## Evidence to reuse and next priorities
-
-A **fresh regression on the changed shared-hook plugin** passed the same **55 original test identities**, all five phases and score **1.0**; the unchanged script still reports **53/53**. Its actual writer also passed the separately mounted repaired JUnit test. This is newly measured evidence, not an inherited base-V2 pass. [Accepted regression](evidence/selected/reporting-shared-regression-acceptance.json). The original scorer was unpatched; the 20 coverage-repair expectations remain evidence on base V2. The [current matrix](docs/REPORTING-COVERAGE.md) has 13 finite-check rows and nine partial rows, not 13 completed requirements. Historical category snapshots and failed controls remain linked there.
-
-The HTTP-date V2 repair has 16 classified reviewer controls matching and one future leap occurrence unclassified. Native preparation still lacks a pinned generator and selected-overlay runner; generator/property and full patched-scorer checks are not ready. Rust's repair is finite component evidence, with Cargo/native behavior still separate. Earlier Schemathesis function-identity native comparisons remain accepted; do not rediscover them.
-
-Prioritize decision-changing work: run the integrated corrected judge through the full scorer, address named stateful and dispatcher gaps, and obtain a fresh independent reproduction with matched controls. Keep another source-ready task moving when setup stalls. For excluded originals, preserve the finished exclusion and evaluate a separately identified replacement rather than repeatedly reopening the original finding. Use formal tools only where they resolve a specific mathematical uncertainty.
-
-Routine source/accounting work on Sol with targeted Astra review is a **proposed efficiency strategy**, not an adopted model switch. The latest actual policy requests Astra/high for new reviewers; follow current policy and direct user steering. Do not introduce repeated reviews of unchanged evidence or a new controller merely to organize work.
-
-## Boundaries that remain in force
-
-The authorized window ends **October 12, 2026 at 05:52:16 UTC**. Stop new work then, collect terminal evidence and close only owned workers. The obsolete hourly automation was deleted; do not recreate it by default.
-
-Up to 50 useful owned cloud workers and justified resource increases are authorized without the removed dollar ceiling. Keep finite reservations/settlements, four shared staging slots and 64 MiB staged bytes. Native task containers receive no credentials. Local heavy work requires the existing host guard, at least 4 GiB free physical/commit headroom and 50 GiB free on affected filesystems, at most one heavy local job, two CPUs and the default 1 GiB bound unless specifically admitted. Prefer cloud execution for heavy tasks; ordinary bounded source work stays small. Sampled memory or disk observations do not prove an aggregate peak.
-
-Seven task IDs retain automatic-review holds, covering ad-overlap, Coq output/tactic, native codec, CVC5 parser/observer/fanout, grid reflected-score and warehouse implementation work. The Sol V8 model-runner implementation has a separate hold. Use the exact held scope in canonical AGENTS and TASKS; do not retry, rename or route held work through another agent. Unrelated work can continue. Paid fallback, usage resets, third-party messages and benchmark publication require applicable authorization; repository maintenance does not supply it.
-
-After one supported setup correction or roughly 15 minutes without reaching the intended task, record the stop and move to ready work. Preserve failed authored expectations, exact versions, counterevidence and unknown causes. Finish with a clear claim and its limits, update TASKS and the handoff, and deliver a focused Git change. Historical narrative and removed documentation remain recoverable in the [parent Git snapshot](https://github.com/findalexli/edgebench-verified/tree/8f55f7e115cd68d7e61da94db5c8b4e5486e42aa); no duplicate archive documents were created.
-
-## Checks available in a clone
-
-GitHub uses Python 3.12 for lightweight contract checks. These do not create cloud
-workers or task containers, and passing them does not certify benchmark tasks:
-
-```sh
-python -m pip install -e . pytest
-PYTHONPATH=tools python -m pytest tests/test_grading_contract.py tests/test_release_gates.py tests/test_cloud_dispatch_resources.py tests/test_cloud_policy.py tests/test_cloud_queue.py -q
-```
-
-The partial historical release registry lacks its full evidence bundle. Use the
-canonical coordinator's current registry for release assessment; do not interpret
-fixture-test success as successful validation of this repository's selected data.
+Commit a focused selection after related results are accepted. Check links,
+counts and evidence identities; use [CONTRIBUTING](CONTRIBUTING.md) for lightweight
+checks. Preserve failed expectations and unknown causes. Keep historical
+snapshots dated instead of rewriting their counts to match today’s overview.
