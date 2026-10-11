@@ -22,6 +22,10 @@ Scientific evidence snapshot: **October 11, 2026, 17:58 UTC**. This is an unfini
 
 This update adds **one confirmed finding and one satisfied numeric-conversion requirement**, plus a narrow API interpretation. It adds no native or full-task runs, newly checked task, repair validation, final task decision or certification.
 
+## Operational update at 18:12 UTC
+
+The Schemathesis replacement image built successfully, but a configuration guard stopped the attempt before any original scorer ran. The differing field is unknown because the actual configuration and logs were not exported. The owned worker is closed. This was our setup failure, not a new task defect; this attempt will not be retried without concrete evidence identifying the failed guard. The scientific snapshot and counts above are unchanged. [Accepted build-stop record](evidence/selected/schemathesis-persisted-build-stop.json).
+
 ## Why the audit is still unfinished
 
 The earlier stall remains part of the record: from the 07:24 checkpoint through the 17:10 state check, no additional task checks completed. The next cloud checks had not launched, and the prepared report was still uncommitted. The 17:24 presentation review corrected an overstated coverage description without adding benchmark test results. The new conclusions above were accepted at 17:58 UTC.
