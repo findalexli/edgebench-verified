@@ -1,0 +1,96 @@
+--- a/home/workspace/scoring/grade_with_codex.py
++++ b/home/workspace/scoring/grade_with_codex.py
+@@ -1021,14 +1021,14 @@
+ # Output parsing
+ # ---------------------------------------------------------------------------
+ 
+-def extract_json_from_output(output: str) -> dict | None:
++def extract_json_from_output(output: str, rules: list[dict]) -> dict | None:
+     """Extract JSON scoring result from codex output with validation."""
+     # Try ```json block first (case-insensitive, flexible whitespace)
+     pattern = r"```(?:json|JSON)?\s*\n(.*?)\n\s*```"
+     matches = re.findall(pattern, output, re.DOTALL)
+     if matches:
+         for match in reversed(matches):
+-            result = _try_parse_and_validate(match)
++            result = _try_parse_and_validate(match, rules)
+             if result:
+                 return result
+ 
+@@ -1039,18 +1039,18 @@
+             try:
+                 obj, _ = decoder.raw_decode(output, i)
+                 if isinstance(obj, dict) and "scores" in obj:
+-                    return _validate_result(obj)
++                    return _validate_result(obj, rules)
+             except (json.JSONDecodeError, ValueError):
+                 continue
+ 
+     return None
+ 
+ 
+-def _try_parse_and_validate(text: str) -> dict | None:
++def _try_parse_and_validate(text: str, rules: list[dict]) -> dict | None:
+     try:
+         obj = json.loads(text)
+         if isinstance(obj, dict) and "scores" in obj:
+-            return _validate_result(obj)
++            return _validate_result(obj, rules)
+     except (json.JSONDecodeError, ValueError):
+         pass
+     return None
+@@ -1151,8 +1151,36 @@
+     )
+ 
+ 
+-def _validate_result(obj: dict) -> dict:
++def _require_complete_rule_scores(obj: dict, rules: list[dict]) -> None:
++    """Reject incomplete/malformed assessment before lossy normalization."""
++    if type(rules) is not list or not rules or any(type(r) is not dict for r in rules):
++        raise ValueError("invalid_authoritative_rule_list")
++    expected = [r.get("rule_id") for r in rules]
++    if any(type(rid) is not str for rid in expected) or len(set(expected)) != len(expected):
++        raise ValueError("invalid_authoritative_rule_ids")
++    if type(obj) is not dict or type(obj.get("scores")) is not list:
++        raise ValueError("invalid_score_record_list")
++    scores = obj["scores"]
++    if len(scores) != len(expected):
++        raise ValueError("incomplete_or_duplicate_rule_scores")
++    seen = set()
++    for row in scores:
++        if type(row) is not dict or type(row.get("rule_id")) is not str:
++            raise ValueError("invalid_score_record")
++        rid = row["rule_id"]
++        if rid not in expected or rid in seen:
++            raise ValueError("unknown_or_duplicate_rule_score")
++        value = row.get("score")
++        if type(value) not in (int, float) or not -float("inf") < value < float("inf"):
++            raise ValueError("invalid_numeric_rule_score")
++        seen.add(rid)
++    if seen != set(expected):
++        raise ValueError("incomplete_rule_scores")
++
++
++def _validate_result(obj: dict, rules: list[dict]) -> dict:
+     """Validate and normalize the scoring result schema."""
++    _require_complete_rule_scores(obj, rules)
+     scores = obj.get("scores", [])
+     validated_scores = []
+     for s in scores:
+@@ -1248,6 +1276,7 @@
+ 
+ def reconcile_result_with_rubrics(result: dict, rules: list[dict]) -> dict:
+     """Force result coverage/order/max_score to match rubrics.json."""
++    _require_complete_rule_scores(result, rules)
+     by_id = {str(s.get("rule_id")): s for s in result.get("scores", []) if isinstance(s, dict)}
+     reconciled = []
+     for rule in rules:
+@@ -1622,7 +1651,7 @@
+     if args.dump_codex_output:
+         Path(args.dump_codex_output).write_text(codex_output, encoding="utf-8")
+ 
+-    result = extract_json_from_output(codex_output)
++    result = extract_json_from_output(codex_output, rubric_rules)
+     if not result:
+         sys.stderr.write(f"[codex-judge] Failed to extract JSON from output (len={len(codex_output)})\n")
+         sys.stderr.write(f"[codex-judge] Output tail: {codex_output[-1000:]}\n")

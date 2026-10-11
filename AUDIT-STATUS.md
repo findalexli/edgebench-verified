@@ -1,6 +1,6 @@
 # Where the audit stands
 
-Snapshot: **October 11, 2026, 04:12 UTC**. This page owns the current progress summary. It describes an unfinished audit, not a benchmark release.
+Snapshot: **October 11, 2026, 05:02 UTC**. This page owns the current progress summary. It describes an unfinished audit, not a benchmark release.
 
 | Review outcome for the 51 public original versions | Tasks |
 | --- | ---: |
@@ -12,15 +12,18 @@ Nine exclusions are finished decisions about the original versions. They do not 
 
 ## What changed
 
-Compared with the report at 03:54 UTC, **one more original-version decision is finished**:
+Since the 04:12 UTC snapshot, five sets of new checks were accepted and one completed scoring result was recovered. **The totals remain nine excluded originals, 42 pending tasks, zero certified tasks, 37 task IDs with partial observations and twelve closed finding decisions.** These results add detail; they do not add newly checked task IDs or new findings.
 
-- **College English Exam is excluded.** The final supplied grader requires an assessment for every grading rule, but its code can report completed grading when none was assessed. A different reviewer checked the final source and challenged that conclusion. The decision assumes a successfully loaded nonempty rubric and a successfully parsed response; it does not claim a live provider failure or a 100-point result from the final grader. [Accepted decision](evidence/selected/english-original-exclusion.json).
-- **No increase in task coverage or confirmed finding count.** Partial tests or data observations still cover 37 task IDs. Twelve specific finding decisions remain closed. Neither number means those tasks have finished review.
-- **Tree's exclusion remains finished.** It was recorded in the preceding update from accepted before/after controls and separate reviews. The official reference avoids the affected use; no complete-task score effect is claimed. [Accepted decision](evidence/selected/tree-original-exclusion.json).
-- **Schemathesis's finding remains confirmed, while its task decision stays pending.** A different reviewer confirmed that the saved wrapper passed tests despite violating the required function identity. Its complete scoring path was not observed, so that evidence does not justify claiming the whole task accepted it.
-- **The latest Order repair attempt remains a failed attempt.** The corrected grader reported zero test cases; the reviewed worker is closed. No repair was validated and the precise cause is unknown. [Accepted failure](evidence/selected/order-repair-failed-pilot.json).
+- **The English completeness repair passed four offline full-grader calls.** With fixed model responses and a controlled rubric, a complete partial assessment stayed byte-identical at valid 96. Omitting one required assessment gave valid 96 in the final supplied original source and invalid 0 in the candidate. This validates the versioned correction on that source path. It does not approve a replacement task, establish installed-image parity or measure a live grader. The original exclusion stands. [Accepted repair check](evidence/selected/english-final-source-repair.json).
+- **VLIW passed nine fresh seed cases using the original source-copy runner.** A separate arithmetic derivation agreed with the reference's final value and index hashes. Machine final indices were not checked, and this local run establishes no physical speed or calibration claim. [Accepted checks](evidence/selected/vliw-fresh-nine-local.json).
+- **Selected Schemathesis data were consistent.** Eight response labels, four generation pairs and two reference locations passed the finite checks; no selected-fixture defect was found. This is not a whole-corpus, standards or rights conclusion. [Accepted data check](evidence/selected/schemathesis-selected-fixture-data.json).
+- **Schemathesis Config's complete scoring path was recovered, not rerun.** Reference and the same identity-violating wrapper had already completed 126 original outcomes each: both passed 22, including 15/15 metric checks, and received the same partial score 0.135313. The missing identity check is confirmed and needs a versioned repair; there is no observed wrapper score gain or automatic exclusion. Actual submission-history selection remains unobserved. [Accepted recovery](evidence/selected/schemathesis-full-consumer-recovery.json).
 
-These are changes over this specific interval, not claims about a whole day's throughput.
+The Bipedal 20-episode result is an older accepted result already represented in the evidence table; it adds no new episodes in this interval. The latest reviewed Order repair attempt still ran zero checker cases and validated no repair. [Accepted failure](evidence/selected/order-repair-failed-pilot.json).
+
+Addendum: **October 11, 2026, 04:59 UTC**. Two later results are accepted. The original Molecular Self-Assembly tester accepted the authored tick 999 completion with score 24,789,550 and rejected tick 1000 before scoring; the coincident, stationary coordinates do not establish realistic molecular behavior. The Schemathesis Config correction adds a required identity test while preserving partial credit. Four fresh source-component controls kept behavior, registration and cleanup intact: the reference returned the required identity twice, while the wrapper failed identity twice. Earlier native 16/16 reference versus 15/16 wrapper results are reused, not rerun; no derived-image or replacement certification is claimed. [Molecular controls](evidence/selected/molecular-final-tick-local.json); [Schemathesis repair](evidence/selected/schemathesis-config-identity-repair.json).
+
+Across this update there are **19 new execution cases**: four English original/candidate calls, nine VLIW source-copy cases, two Molecular original-tester controls and four Schemathesis source-component controls. The eight labels, four generation pairs and two references are separate data diagnostics. The recovered Schemathesis 126-outcome runs and older Bipedal 20 episodes add no new execution. Counts remain **nine excluded, 42 pending, 37 task IDs with partial observations, twelve closed finding decisions and zero certified tasks**. These are additional checks on existing tasks, not 19 complete task reviews.
 
 ## Which decisions are finished?
 
@@ -34,7 +37,7 @@ These are changes over this specific interval, not claims about a whole day's th
 | Equivalence Classes | Excluded | A mandatory operation-cost check accepts output above the stated limit. |
 | Graph Node Classification | Excluded | The required confidence-range check accepts an undefined numeric value. |
 | Tree Block Partitioning | Excluded | The supplied multiplication operation violates the unrestricted value behavior stated in the task. |
-| College English Exam | Excluded | The final supplied grader can report completed grading without the required per-rule assessments. This is a source-backed decision, not a live final-grader run. |
+| College English Exam | Excluded | The final supplied grader can report completed grading without the required per-rule assessments. Later offline calls check a versioned correction on that supplied source. |
 
 The [findings report](docs/FINDINGS.md) explains all twelve confirmed problems and the limits of each check. A confirmed problem can be concluded even while a repair or a broader release decision remains unfinished.
 

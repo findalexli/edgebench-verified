@@ -1,0 +1,75 @@
+{
+  "accepted_results": "Reference15/15\u219216/16;wrapper15/15\u219215/16. Other126original outcomes unchanged; reference score0.135313 preserved, wrapper0.135313\u21920.129063(exact\u22121/160); intentional partial scoring/validity unchanged.",
+  "application": {
+    "base": "/",
+    "files": [
+      {
+        "after": {
+          "bytes": 5990,
+          "sha256": "27d754251b9d1748745ced071c8f1c1d3c38325747539277ac9b2d765dd2530c"
+        },
+        "before": {
+          "bytes": 5532,
+          "sha256": "42bc43ff89970586a74af55e811485fcbc50ef8a26034cbd0f0c11a70c4b0eea"
+        },
+        "target": "/tests/test_03_metric_system.py"
+      },
+      {
+        "after": {
+          "bytes": 10791,
+          "sha256": "0fd4de0a5f88a62fe3fdec73b8566c8bebe8a70ac68fe67c6f410cfd0f331871"
+        },
+        "before": {
+          "bytes": 10791,
+          "sha256": "67f455c3b139f0a587211549fe96d0d7e7bb5ed9a06254573d0b9f4266aa9e9e"
+        },
+        "target": "/tests/test.sh"
+      }
+    ],
+    "role": "judge",
+    "strip_components": 1
+  },
+  "certification": false,
+  "distribution_scope": "Explicit selection for private Git only; no rights/public redistribution claim. No whole judge/source or private data copied.",
+  "evidence": [
+    {
+      "bytes": 1760,
+      "path": "edgebenchverified/audit/evidence/systems-metrics-full-scorer-results/root-adjudication.json",
+      "sha256": "12d83348ee89881071f88056d600e6a8620268a076b7e8f859f3b7ccee2d4f28"
+    },
+    {
+      "bytes": 9145,
+      "path": "edgebenchverified/audit/evidence/systems-metrics-full-scorer-results/reference/independent-review.json",
+      "sha256": "e68624c90c81e0c834c1002f12b9ef1b38fd337fd065b5d59abf918069aa5376"
+    },
+    {
+      "bytes": 9891,
+      "path": "edgebenchverified/audit/evidence/systems-metrics-full-scorer-results/wrapped_decorator/independent-review.json",
+      "sha256": "311746d6669deea43fdd184badb101abda4c273cd2af0a388954c51ac7025b71"
+    },
+    {
+      "bytes": 2032,
+      "path": "work/reviews/schemathesis-full-consumer-contract-adjudication-20261011-sol-v1/handoff.json",
+      "sha256": "19f2043cf14310c09cde1e91fbb3be3b70c15a9e84a4d07244463fa8f7a54dc8"
+    },
+    {
+      "bytes": 1952,
+      "path": "edgebenchverified/audit/evidence/schemathesis-config-identity-repair-20261011-root-acceptance/root-result-review.json",
+      "sha256": "f94acd531c4daebe0fce0444938a570b02d944bbe80e94b105e74306d1cd0092"
+    }
+  ],
+  "fresh_component_controls": "Four actual full standalone-source controls, separately reviewed: original identity2/2; forwarding wrapper identityfails2/2; values/registration/cleanup4/4. No new native scorer replay.",
+  "integrated_derived_image": false,
+  "inverse": "Remove the final458-byte identity-test append; reverse only PHASE3_TOTAL=16 and PHASE3_EXPECTED=16 to15. Both complete original byte hashes verified.",
+  "original_task_manifest": {
+    "bytes": 8292,
+    "path": "tasks/schemathesis_config_modernization.json",
+    "sha256": "04ef947e4a7ed2ff86122ef7cd6fedc2c246c56f5ccecd8cdceea3b063539ab5"
+  },
+  "patch": {
+    "bytes": 1462,
+    "path": "patch.diff",
+    "sha256": "c762b585e255ade60d23a363a6b8e2a25d66b093b3a73f25fb7cfb52124f977a"
+  },
+  "task_id": "schemathesis_config_modernization"
+}

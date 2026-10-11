@@ -1,0 +1,41 @@
+--- a/tests/test_03_metric_system.py
++++ b/tests/test_03_metric_system.py
+@@ -181,3 +181,18 @@
+     import schemathesis
+     assert hasattr(schemathesis, "MetricContext")
+     assert hasattr(schemathesis, "MetricFunction")
++
++
++# EdgeBench Verified repair candidate: explicit TODO Target 3 requirement 3.
++# Copyright (c) 2026 EdgeBench Verified contributors
++# SPDX-License-Identifier: Apache-2.0
++
++def test_metric_decorator_preserves_exact_function_identity():
++    def ebv_identity_probe(context):
++        return 0.375
++
++    try:
++        decorated = metric(ebv_identity_probe)
++        assert decorated is ebv_identity_probe
++    finally:
++        METRICS.unregister("ebv_identity_probe")
+--- a/tests/test.sh
++++ b/tests/test.sh
+@@ -16,7 +16,7 @@
+ PHASE2_TOTAL=26
+ PHASE3_PASSED=0
+ PHASE3_PASS=0
+-PHASE3_TOTAL=15
++PHASE3_TOTAL=16
+ PHASE4_PASSED=0
+ PHASE4_PASS=0
+ PHASE4_TOTAL=19
+@@ -95,7 +95,7 @@
+ printf "%s\n" "$PHASE3_OUTPUT" | grep -v "^__FG_PHASE_3_PASSED="
+ PHASE3_PASSED=$(printf "%s\n" "$PHASE3_OUTPUT" | sed -n "s/^__FG_PHASE_3_PASSED=//p" | tail -1)
+ PHASE3_PASSED=${PHASE3_PASSED:-0}
+-PHASE3_EXPECTED=15
++PHASE3_EXPECTED=16
+ PHASE3_PASS=$(printf "%s\n" "$PHASE3_OUTPUT" | grep -cE " PASSED( |$)" || true)
+ PHASE3_FAIL=$(printf "%s\n" "$PHASE3_OUTPUT" | grep -cE " (FAILED|ERROR)( |$)" || true)
+ if [ "$PHASE3_PASS" -eq 0 ]; then PHASE3_PASS=$(printf "%s\n" "$PHASE3_OUTPUT" | grep -oE "[0-9]+ passed" | tail -1 | grep -oE "[0-9]+" || true); fi

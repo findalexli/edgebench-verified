@@ -7,6 +7,7 @@ We are checking whether EdgeBench's tasks, tests and data measure what they prom
 - [Where we are now](AUDIT-STATUS.md): finished decisions, changes since the previous snapshot, and remaining work.
 - [What we found](docs/FINDINGS.md): each confirmed problem, how we checked it, and what the result means.
 - [Supporting evidence](docs/EVIDENCE-INDEX.md): recorded results and their sources.
+- Native-format fixes: [English assessment completeness](proposedrepairs/college-english-assessment-completeness/README.md) and [Schemathesis function identity](proposedrepairs/schemathesis-config-function-identity/README.md).
 
 We acquired 51 public tasks. Another 83 advertised tasks were unavailable. A partial test is useful evidence, but it does not finish a task review. The dated status page owns the current progress numbers; older evidence snapshots retain their original dates.
 
