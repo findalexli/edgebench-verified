@@ -1,8 +1,8 @@
 # Current task decisions
 
-Accepted-state handoff: **October 11, 2026**. **51 public originals: 16 withheld, 35 review pending; 19 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
+Accepted-state handoff: **October 11, 2026**. **51 public originals: 18 withheld, 33 review pending; 20 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
 
-The [accepted 19-task union][64] counts scoped findings, including source/component findings, without approving whole tasks.
+The [accepted 20-task union][68] counts scoped findings, including source/component findings, without approving whole tasks.
 
 This is the current accepted-disposition tracker, **not release approval or launch authority**. “Withhold original” is a finished decision to omit that exact original unchanged for the recorded reason; a replacement remains separate. Results below establish only their stated scope, not a whole-task pass or a count of fully checked tasks. No historical “37 tasks” coverage total is carried forward.
 
@@ -22,7 +22,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Combinatorial games proof<br>`combinatorial_games_formalization` | Review pending | Nine local parser/report flows; no kernel (L). | — | Does original kernel check intended targets? |
 | CTA risk budget<br>`cta_risk_budget_optimization` | Withhold original | Installed-module exposure calculation mixes currencies; exact original withholding accepted [44]. | 12 risk-method calls and two accounting calls match corrected expectations [37] | Does a complete eligible portfolio preserve intended full-scorer behavior? |
 | Gravity inversion<br>`dabic_gravity_inversion` | Review pending | 21 native scalar helper calls; not inversion (L). | — | Does independent forward physics agree? |
-| Dungeon Crawl<br>`dcss_dungeon_ai` | Review pending | Ten historical native positive aggregates (L). | Output prototype | Does real failure scoring behave correctly? |
+| Dungeon Crawl<br>`dcss_dungeon_ai` | Review pending | Actual five-game idle run: five accepted zero-score records [67]. Eleven author plus 19 different local controls settle tested parser failures and fixed-five aggregation [72]. | Output prototype | Complete task-level requirements and review recovered work-helper correspondence separately. No further engine-created malformed file is needed for the closed parser/aggregation question. |
 | Equivalence classes<br>`equivalence_class_divide_and_conquer` | Withhold original | Original checker accepts above-limit cost [6]. | Corrected T3 checker passes one official input at 64 MiB output cap [31]; finite boundary controls remain separate | Do remaining T3 cases pass within a justified output allowance? |
 | Exchange throughput<br>`exchange_core_throughput` | Review pending | One original native JUnit test passed (L). | — | Does throughput scoring require correctness? |
 | FFmpeg scaling<br>`ffmpeg_swscale_reimplementation` | Review pending | Timing component credits failed calls [7]. | Held | Held; no follow-up. |
@@ -35,7 +35,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Juliet analyzer<br>`juliet_vulnerability_analyzer` | Review pending | All 736 retained mapping/fact records join; 723 labels match. Eighteen of 120 null-pointer labels anchor comparisons with separate dereference facts [62]. Earlier empty-analyzer score remains [9]. | — | Does the original source and label transformation establish an intentional guard-anchor convention for those 18 labels? No confirmed label defect yet. |
 | K–12 recommendation<br>`k12_math_recommendation` | Review pending | Reference/history joins checked; full call stopped [10]. | Caller prepared | What resolves full-caller preflight? |
 | Lean analysis<br>`lean_analysis_proofs` | Withhold original | Two required statements mathematically false [7]. | No validated fix | Can corrected statements retain the skill? |
-| Molecular assembly<br>`molecular_self_assembly` | Review pending | Original helper accepts an above-1-GB child in our explicit 2 GiB regime; published 8 GiB aggregate setting supplies no per-solution enforcement [61]. Six prior submissions remain valid [34]. | No validated repair | Define and enforce the versioned per-solution memory policy, preserving the low-memory control and rejecting the high-memory control; decide original disposition separately. Remaining game/data checks are incomplete. |
+| Molecular assembly<br>`molecular_self_assembly` | Withhold original | Original helper and published configuration omit per-solution memory enforcement; exact-original decision adopted [70]. Historical hosted policy remains unknown. | Six original/candidate helper calls validate a new per-process address-space policy [65]; not RSS or aggregate-child enforcement | Integrate the tested versioned evaluator and contract. Full process-pool/corpus and broader compatibility remain unvalidated; original withholding is settled. |
 | NetHack<br>`nethack_dungeon_agent` | Review pending | One real reset, 5,000 successful API step returns, zero observed peak and matching original WA/0 [42]. | — | Do a positive-score control and the default 20-trajectory evaluation establish scoring/repeatability beyond this zero trajectory? |
 | New Foundations proof<br>`new_foundations_consistency` | Review pending | Read-only mount setup stopped; no compiler (L). | Setup blocked | What caused the mount failure? |
 | OpenRCT2<br>`openrct2_theme_park_ai` | Review pending | 11 original score-helper calls; no engine (L). | — | Does scenario monitor match score inputs? |
@@ -56,7 +56,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Trinity<br>`trinity_text_adventure` | Review pending | Original state/route helpers with doubles; no game (L). | — | Does real terminal score match contract? |
 | Tryst<br>`tryst_text_adventure` | Review pending | Original state/route helpers with doubles; no game (L). | — | Does real ROM rescaling match contract? |
 | Vehicle routing<br>`vehicle_routing_time_windows` | Review pending | Recovered October 9 native checker: 19 binary64 predictions match [58]. No relaxed travel-window violation in 56 cases / 5,600 customers [59]; not a complete-route witness. | — | Does an independently checked complete route set satisfy visitation, capacity, windows and depot return? Are reference vehicle-count/distance provenance and scoring established? |
-| Vibrating graph coloring<br>`vibrating_path_graph_coloring` | Review pending | Recovered actual tester and original helper accept two valid tiny examples and reject six invalid ones [63]; tested ordinary-failure hypothesis rejected. | — | Does an independent graph oracle confirm broader removal, coloring and cost semantics? Native/full-corpus checks remain separate; excluded exception-text follow-up stays excluded. |
+| Vibrating graph coloring<br>`vibrating_path_graph_coloring` | Withhold original | Conservative interface-consistency decision: documented zero-hit format is rejected [71]. Missing detailed documentation may warrant reconsideration; graph-rule divergence is not a premise. | Exact format correction matches 16 paired native fixtures through direct tester and original helper: 32 calls each [66] | Integrate the tested parser overlay; resolve graph-rule precedence independently. No full official-corpus or released-image claim. |
 | VLIW kernels<br>`vliw_kernel_optimization` | Withhold original | Local invalid code replaces installed-equivalent checker [21]. | No validated fix | Can checker isolation preserve legal kernels? |
 | Warehouse routing<br>`warehouse_forklift_routing` | Review pending | Historical source/math facts retained (L). | Held | Held; no follow-up. |
 | Wesnoth<br>`wesnoth_tactical_ai` | Review pending | Two failed engine attempts; parser doubles only (L). | Setup blocked | What prevented a valid game result? |
@@ -133,3 +133,13 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [62]: evidence/selected/juliet-mapping-acceptance.json
 [63]: evidence/selected/vibrating-tester-acceptance.json
 [64]: evidence/selected/finding-task-union-19.json
+
+[65]: evidence/selected/molecular-memory-repair-native-acceptance.json
+[66]: evidence/selected/vibrating-format-native-acceptance.json
+[67]: evidence/selected/dcss-five-game-acceptance.json
+[68]: evidence/selected/finding-task-union-20.json
+[69]: evidence/selected/vibrating-format-finding-acceptance.json
+
+[70]: evidence/selected/molecular-original-exclusion.json
+[71]: evidence/selected/vibrating-original-exclusion.json
+[72]: evidence/selected/dcss-parser-aggregation-acceptance.json

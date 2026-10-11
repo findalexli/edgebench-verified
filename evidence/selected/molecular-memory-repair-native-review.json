@@ -1,0 +1,60 @@
+{
+  "attempt_id": "455134372f59480cbf71b1785d043f58",
+  "checks": {
+    "bytes": 2487,
+    "path": "work/reviews/molecular-memory-repair-native-astra-high-v1-result/checks.json",
+    "sha256": "6fa34627a418a734fdbfd16fb00bc736f22326d58dd09987d178f10292f36dd8"
+  },
+  "closure": {
+    "bytes": 1035,
+    "path": "work/reviews/molecular-memory-repair-native-astra-high-v1-result/owned-closure.json",
+    "sha256": "05b0fb6da0e17bd3bd311e32ca36cea06a7d2395d145d7ee3dde5524bad5c5db"
+  },
+  "conclusion": "All six actual complete run_case outcomes match. Original512MiB and both1152MiB allocations complete and score1392530. Candidate512MiB completes with same score; both1152MiB requests receive MemoryError under exact1,000,000,000-byte AS. Handled refusal returns validOK/1392530; unhandled refusal returnsRE/0. The finite candidate mechanism and valid-output regression are confirmed.",
+  "decision": "ACCEPT_FINITE_NATIVE_VALIDATION_OF_VERSIONED_PER_PROCESS_AS_POLICY",
+  "execution": {
+    "bytes": 576,
+    "path": "work/cloud-queue/exports/deterministic-molecular-as-eee099207dc45364/455134372f59480cbf71b1785d043f58/execution.json",
+    "sha256": "a133a3d97c2661cddb8b4e131a031079932f92752143062a8fd2fe2e23f00e08"
+  },
+  "job_id": "deterministic-molecular-as-eee099207dc45364",
+  "limitations": [
+    "Per-process virtual address space only; measured RSS supports touched allocations but is not the enforced accounting policy.",
+    "No aggregate descendant-memory claim or compatibility guarantee for highvirtual/lowRSS programs.",
+    "Six whole-helper calls on one frozen official input, not full50case/process-pool or algorithm-ranking equivalence.",
+    "Finite claim closed; no new unrelated gates or reruns proposed."
+  ],
+  "measurements": {
+    "candidate_AS_bytes": 1000000000,
+    "execution_seconds": 23.432214989,
+    "host_seconds": 23.149364,
+    "native_seconds": 4.508,
+    "outer_container_memory_bytes": 2147483648,
+    "outer_cpu_count": 2,
+    "outer_memory_event_deltas": 0,
+    "outer_swap_bytes": 0,
+    "parent_AS_bytes": 2147483648
+  },
+  "operations": {
+    "canonical_changes": 0,
+    "new_native_calls": 0,
+    "new_provider_calls": 0
+  },
+  "policy_review": {
+    "bytes": 1055,
+    "path": "work/reviews/molecular-memory-repair-policy-astra-high-v1/handoff.json",
+    "sha256": "c94ce4af0bc1c8243f80fa110aaf78101ef9fadbf4dcc6064f99320740bb279d"
+  },
+  "result": {
+    "bytes": 8851,
+    "path": "work/cloud-queue/exports/deterministic-molecular-as-eee099207dc45364/455134372f59480cbf71b1785d043f58/result.json",
+    "sha256": "8a2d54f5f48a763e6f2f447717225c23bd177426a3fcbafac5f626f5a9c5931d"
+  },
+  "reviewer": "/root/astra_k12_full_scorer_review; different saved-result reviewer from packet author/root executor; also earlier policy/source reviewer",
+  "semantics": "Denied allocation is not a disallowed valid submission: the handled case never consumes above-cap address space and legitimately retains the original tester score. Only its unhandled failure yields runtime error.",
+  "source_review": {
+    "bytes": 1157,
+    "path": "work/reviews/molecular-memory-repair-native-astra-high-v1/handoff.json",
+    "sha256": "2cc1920952b36158b1a08b336cc2c0c3d7aa590a088373a3ff4f71a5d21d07a3"
+  }
+}

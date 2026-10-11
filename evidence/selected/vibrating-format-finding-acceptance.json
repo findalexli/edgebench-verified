@@ -1,0 +1,30 @@
+{
+  "author_review": {
+    "bytes": 7107,
+    "path": "work/reviews/vibrating-graph-semantics-astra-high-v1/review.json",
+    "sha256": "d7d1f655f1056ed37e6d4a297928e639b8fdb4acd6c6a001673cc6f4c125c296"
+  },
+  "before_card": {
+    "bytes": 7353,
+    "path": "edgebenchverified/audit/evidence/vibrating-format-and-semantics-astra-high-v1-root/card-before.json",
+    "sha256": "efe45f9811fc2bfe0d7667868148eaca8fa591a27762b81d8d0c11bcbba7bca3"
+  },
+  "decision": "CONFIRMED_VISIBLE_OUTPUT_FORMAT_INCONSISTENCY_WITH_PRIMARY_RULE_DIVERGENCE_SEPARATELY_QUALIFIED",
+  "different_review": {
+    "bytes": 4244,
+    "path": "work/reviews/vibrating-graph-semantics-astra-high-v1-different/review.json",
+    "sha256": "a94c5326da953d6569031057134262764d8813b2f302ddc93ecaeb656f70942f"
+  },
+  "finding": "The available adapted README specifies three output lines, but the original tester rejects a zero-hit answer with a blank second line. The identical coloring in two lines is accepted at cost0.",
+  "independent_result": {
+    "bytes": 2208,
+    "path": "work/reviews/vibrating-graph-semantics-astra-high-v1-different/result.json",
+    "sha256": "77fc9b32fccb330bd12a1c6b834f1d97c44844a64a751495f4dc910d8458d7ef"
+  },
+  "limits": "100 author plus2 different-review local original-tester calls. No native image/full wrapper/full corpus execution. Work-only tools README is unrecovered; its possible differing convention prevents an all-documentation precedence claim but does not remove the visible inconsistency. Original disposition and release gates unchanged.",
+  "next_question": "Validate the minimal versioned zero-hit format correction with matched valid/invalid original/candidate controls; preserve legacy two-line output. Resolve graph-rule precedence separately without changing it in this repair.",
+  "separate_semantics_conclusion": "96 tiny topology cases:86 agree and10 disagree with the primary problem oracle. Adapted minimum-edge/chord precedence remains unspecified, so these are not promoted to unconditional adapted-contract false accepts. All40 jointly accepted costs agree.",
+  "task_id": "vibrating_path_graph_coloring",
+  "utc": "2026-10-11T23:32:12.929411+00:00",
+  "witness": "Authored N1000/M100000/K2 graph,100000 distinct bipartite edges, valid costs and permutation weights. Two independent original-tester invocations reproduce the before/alternative-format result; no official-corpus incidence claimed."
+}

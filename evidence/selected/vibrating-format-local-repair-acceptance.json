@@ -1,0 +1,35 @@
+{
+  "candidate": {
+    "bytes": 5540,
+    "path": "work/packets/vibrating-zero-hit-format-repair-astra-high-v1/tester",
+    "sha256": "769a1bed1134e9cae91fd36a9331b622313658afe23bedacbb9668975fc83d0b"
+  },
+  "conclusion": "Minimal parser correction accepts documented three-line zero-hit output, preserves well-formed legacy two-line output, rejects explicit nonempty zero-hit lists, and preserves the tested positive-hit and invalid-color behavior. Graph and scoring bytes unchanged.",
+  "counts": {
+    "fresh_reviewer_candidate_calls": 6,
+    "fresh_reviewer_original_calls": 6,
+    "saved_author_candidate_calls": 16,
+    "saved_author_original_calls": 16,
+    "total_calls_for_this_candidate_review_chain": 44
+  },
+  "decision": "ACCEPT_FINITE_LOCAL_SOURCE_REPAIR_AND_FRESH_PAIRED_CONTROLS",
+  "different_review": {
+    "bytes": 3754,
+    "path": "work/reviews/vibrating-zero-hit-format-repair-astra-high-v1-different/review.json",
+    "sha256": "11a4084788146a2ec81f33509585c8e50a29daeb0e7b16c654dccff1d038d377"
+  },
+  "independent_result": {
+    "bytes": 6727,
+    "path": "work/reviews/vibrating-zero-hit-format-repair-astra-high-v1-different/result.json",
+    "sha256": "3f44924253d66cf264ae7a8df485dbc79f569eada99eb7732553642a53422419"
+  },
+  "limits": "32 author plus12 different-review local actual original/candidate tester calls. No pinned-image, full wrapper, official corpus or task certification yet; graph-rule ambiguity remains separate.",
+  "next_question": "Validate this exact candidate in the pinned original image using the unchanged run_case path and matched controls. Native preparation is active; do not repeat local candidate tests.",
+  "patch": {
+    "bytes": 699,
+    "path": "work/packets/vibrating-zero-hit-format-repair-astra-high-v1/repair.patch",
+    "sha256": "957162bb9fe18b72a6656dd44684905e04dd4eb84c70b2133550d42a66b0bfa1"
+  },
+  "task_id": "vibrating_path_graph_coloring",
+  "utc": "2026-10-11T23:36:11.002017+00:00"
+}
