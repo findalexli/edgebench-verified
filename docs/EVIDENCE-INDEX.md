@@ -7,10 +7,16 @@ Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings
 - [Twelve finding decisions](../evidence/selected/12-finding-decisions.json): exact confirmed claims, how they were checked, limiting evidence and references to the accepted results.
 - [51-task evidence table](../evidence/selected/51-task-coverage.md): the tests or observations recorded for each task at the table's original snapshot date.
 - [Later Wireless exclusion](../evidence/selected/wireless-original-exclusion.json): the accepted original-version decision and current totals at 02:12 UTC on October 11.
+- [Later Jagua exclusion](../evidence/selected/jagua-original-exclusion.json): the accepted original-version decision and totals at 02:31 UTC on October 11; no score gain or general geometry repair is claimed.
+- [Later Equivalence and Graph exclusions](../evidence/selected/eq-graph-original-exclusions.json): two accepted original-version decisions and totals at 02:55 UTC on October 11, based on existing witnesses and reviews.
 - [Order exclusion binding](../evidence/selected/order-original-exclusion-binding.json): identifies the copied Order decision records and approvals.
 - [Evidence manifest](../evidence/selected/EVIDENCE-MANIFEST.json): file identities, sources, selection method and omitted material.
 
-The earlier finding JSON and task table were prepared at **01:22 UTC on October 11**. Their historical counts remain unchanged. The current status page incorporates the later Wireless decision; older snapshots are not live progress counters.
+The earlier finding JSON and task table were prepared at **01:22 UTC on October 11**. Their historical counts remain unchanged. The current status page incorporates the later Wireless, Jagua, Equivalence and Graph decisions; older snapshots are not live progress counters.
+
+The manifest also identifies FLT's accepted failed attempt: selected restoration and readiness checks completed, but the version-check path returned signal 11 before any original proof helper ran. The owned worker is closed. The signal recipient and cause remain unknown; this is not a new task defect.
+
+Order and New Foundations also have accepted saved-failure reviews and closed workers. Order reached the corrected judge but ran no tests; New Foundations stopped before acquiring its image or running proof helpers. These do not validate a repair or establish a new task defect. English's 22 original-helper cases reuse an October 9 acceptance and add no new execution or coverage. Exact references are in the manifest.
 
 ## How to interpret these records
 
