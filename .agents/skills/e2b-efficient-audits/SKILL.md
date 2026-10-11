@@ -5,6 +5,14 @@ description: Plan, run, recover, and account for useful E2B audit or test worker
 
 # E2B: useful tests, accountable workers
 
+## Spend coordination on useful tests
+
+Prepare a worker only for a named unanswered task question. Prefer collecting and concluding a completed run to recreating its setup. Use an existing runner and bounded local checks when they answer the question; add infrastructure only for an identified missing capability in the next useful test.
+
+After one bounded setup correction or roughly 15 minutes of setup work, record the blocker and move another ready lane forward. Do not keep the whole audit waiting on one environment. Reuse unchanged accepted checks and reviews. Useful worker concurrency can rise within the authorized shared limits once original task execution is demonstrated; idle machines and repeated launcher tests do not improve coverage.
+
+Report how many original task checks actually ran and what they established. If none ran, say so in plain language. Put worker handles, estimates and failure codes in linked operational records. The evidence-audit skill owns scientific conclusions and the dated current progress summary.
+
 ## Start from one current state
 
 Resolve current authority/state from the designated coordinator. Repository copies use `docs/AUDIT-WORKFLOW.md` to locate it; workspace paths and historical receipt links below are locally available provenance, not required archive contents in Git. Obtain the current handoff/authority from that coordinator rather than substitute an old packet when a link is absent.

@@ -1,5 +1,7 @@
 # Selected 51-task coverage snapshot
 
+Historical snapshot: **October 11, 2026, 01:22 UTC**. The counts and decisions below retain that date. See [current status](../../AUDIT-STATUS.md) for later accepted decisions, including Wireless's exclusion.
+
 **37 of 51 public tasks retain accepted partial actual observations; 36 of those tasks are nonexcluded. All 12 scoped finding-task decisions are closed; 0 tasks are certified; 3 exact originals are excluded and 48 dispositions remain pending. Another 83 advertised tasks were unavailable to this audit.**
 
 This is a compact derived snapshot, not a copy of the full local coverage history. It uses the accepted 51-row table and later accepted leaves named below. A component pass, a failed native attempt, an inventory, or synthetic control establishes only its stated scope. None establishes a complete task, integrated repair, domain validation or redistribution clearance.
