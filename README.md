@@ -23,7 +23,7 @@ The 16 finding tasks overlap the other rows; these counts must not be added toge
 - [Task tracker](TASKS.md): the current decision and next useful question for every public task.
 - [Handoff](HANDOFF.md): where the work stands and how another contributor can continue.
 
-Recent measured progress includes a changed reporting plugin passing all 55 original test identities, plus a separately repaired JUnit check. A hook correction improved four of five unchanged integration controls; a corrected error assessment then passed all five. These are specific repair results, not approval of the complete task. The combined corrected-judge run is executing; its outcome is pending. Details and failed hypotheses remain in [Findings](docs/FINDINGS.md) and the [reporting requirement table](docs/REPORTING-COVERAGE.md).
+The reporting implementation now passes the combined corrected judge: **57 collected tests passed, 55/55 reported, score 1.0**, and all 24 paired countercontrols matched. This closes the judge-repair integration check. The earlier original-judge 55 collected/53 reported run remains a separate result; neither run certifies the complete task. Details and failed hypotheses remain in [Findings](docs/FINDINGS.md) and the [reporting requirement table](docs/REPORTING-COVERAGE.md).
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
 

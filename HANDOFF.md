@@ -1,11 +1,13 @@
 # Continuing the EdgeBench audit
 
-**October 11, 2026, 20:57 UTC accepted results.** The selected Git evidence now
-includes the Tree T2 repair regression and Equivalence one-input repair check.
-Routing travel-window and OpenTTD cohort results remain accepted locally but
-not yet selected into Git, as described below.
-The reporting combined-judge run is executing and awaiting its outcome under the
-canonical coordinator. Recheck its saved handle and the ledger before any launch.
+**October 11, 2026, 21:08 UTC accepted results.** The selected evidence includes
+Tree and Equivalence repair complements and the completed reporting combined
+judge. Reporting’s worker is closed. Rust’s first integration attempt stopped
+before Cargo with exit 125. Its source has an unsupported Docker option, but the
+historical diagnostic body is unavailable. One supported setup correction is
+in progress, with no accepted Cargo result. Recheck canonical ownership before
+launching anything. Routing and OpenTTD complements remain accepted locally,
+not yet selected here.
 
 ## Outcome and current decisions
 
@@ -49,8 +51,8 @@ The latest user priority is to finish repairs of withheld originals, not treat
 exclusion as the end product. Start from the existing Order, Equivalence, English
 and Tree repair evidence; choose the next missing check rather than reopening the
 original finding. Record a tested fix separately from whole-task release approval.
-The reporting and Rust packets below remain prepared work to reuse, not a reason
-to postpone those repairs.
+Reuse reporting’s completed integration result and Rust’s existing packet; neither
+is a reason to postpone remaining repairs.
 
 All local paths below are relative to the shared workspace:
 
@@ -60,14 +62,15 @@ All local paths below are relative to the shared workspace:
 | --- | --- | --- |
 | Tree T2 alias correction | Matched installed evaluator: official reference 10/10 and missing-answer controls 0/10 before and after correction; T2 contributes 5/100 task points. [Accepted result](evidence/selected/tree-t2-repair-regression-acceptance.json). | Reuse the completed T2 regression and earlier alias-trigger controls; assess remaining components separately. |
 | Equivalence T3 checker correction | Same one official input passes with corrected checker and 64 MiB audit output allowance; 40,623,541 output bytes exceeded the earlier 16 MiB cap. [Accepted result](evidence/selected/equivalence-t3-repair-case-acceptance.json). | Extend to remaining T3 cases with a justified output allowance; preserve the combined checker/resource change and separate 14 boundary controls. |
-| Reporting combined judge correction | Root-admitted run executing; outcome pending. Current attempt under `edgebenchverified/audit/evidence/reporting-integrated-judge-native-astra-high-v1/`; reused packet and source review remain frozen. | Recover the running handle and collect the full corrected-scorer and 24-control result. Expected 57 printed/55 reported is not yet an observed result. |
-| Rust failure-credit correction | Actor/fixture review accepted; minimal real-Cargo integration frozen at `work/packets/rust-native-paired-integration-astra-high-v1/handoff.json`. No native execution. | Different review of the added driver/bindings, then root admission. Preserve simulated-Cargo evidence as a separate earlier result. |
+| Reporting combined judge correction | Accepted: 57 collected tests pass, 55/55 reported, score 1.0; 20 coverage and four JUnit controls match. [Result](evidence/selected/reporting-integrated-acceptance.json). | Reuse this closed integration check; address named stateful/dispatcher gaps and independent reproduction. |
+| Rust failure-credit correction | First native attempt stopped before Cargo (exit 125). Unsupported source option confirmed; historical diagnostic unavailable. One supported V2 setup correction is in progress; no accepted Cargo result. | Recover the current attempt from the canonical coordinator; preserve the setup failure and earlier simulated-Cargo evidence. |
 | Routing data complement | Root accepted: no necessary travel-window violation in 56 retained instances / 5,600 customers. Root receipt under `edgebenchverified/audit/evidence/vrptw-travel-window-complement-astra-high-v1-root-review/`. | Select the accepted evidence in the next results delivery. This does not establish complete route feasibility. |
 | OpenTTD cohort complement | Root accepted: the original caller averages supplied groups without checking they match requested seeds, using controlled library outputs. Root receipt under `edgebenchverified/audit/evidence/openttd-cohort-complement-astra-high-v1-root-review/`. | Select the conditional result; actual library guarantees remain unknown. No engine failure or new task exclusion is established. |
 
-The reporting plugin already passed 55 original test identities with score 1.0;
-the unchanged script reports 53/53. Its two judge repairs were tested separately,
-not together in that run. Preserve the distinct four-of-five unchanged-control
+The reporting plugin’s earlier original-judge result remains 55 collected/53
+reported with score 1.0. The new combined corrected judge passes 57 collected/55
+reported, also score 1.0; both repairs are now exercised together. Preserve the
+distinct four-of-five unchanged-control
 improvement and later five-of-five corrected-control result. Exact evidence and
 remaining requirements are in [REPORTING-COVERAGE](docs/REPORTING-COVERAGE.md).
 Treant’s arithmetic-defect hypothesis was rejected; intended movement remains
