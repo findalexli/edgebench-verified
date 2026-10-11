@@ -1,0 +1,67 @@
+{
+  "certified": false,
+  "conclusion": "Actual complete original/corrected calculate_metrics_from_data calls with installed Pandas/NumPy validate the finite aligned annual-excess correction on eight paired authored cases. All16 calls returned without error and matched frozen predictions; seven unaffected metrics stayed equal in each pair. The witness changes21% to23%. This closes native full-metric-function compatibility for these cases, not strategy eligibility, market-data behavior, full scorer or task certification.",
+  "decision": "ROOT_ACCEPT_FINITE_NATIVE_METRIC_REPAIR",
+  "different_review": {
+    "bytes": 1097,
+    "path": "work/reviews/portfolio-annual-excess-native-astra-high-v3-result/handoff.json",
+    "sha256": "52486f41deb6a31de0ec71ef6ff8693f7302e76657e62b28d7d9ac55fdc000cf"
+  },
+  "limitations": [
+    "Authored small matched-date NAV paths and two weight rows, not market corpus or a strategy. Misaligned/missing dates, eligibility/risk constraints, score aggregation, complete evaluator entrypoint and other Portfolio findings are not covered.",
+    "The accepted scientific patch is the two-line aligned annual-excess correction. Information/Sortino ratios change downstream as expected from their numerator; this review checks their returned observations but does not claim independent oracle validation of all statistical formulas or whole-task score impact.",
+    "Candidate is a source overlay into the native execution, not a persisted corrected judge/release image. No full-task correctness, certification, historical impact or new task breadth is claimed.",
+    "The2.5GiB receipt is Python-parent limit readback before dependencies, not measured aggregate peak memory. Installed versions and source pins are observed for this attempt only.",
+    "Prior V2 failure remains preserved and its historical cause remains unknown. V3 successful receipt collection does not retrospectively prove the failed run reached NumPy boolean serialization.",
+    "Different from candidate and native-adapter author; same reviewer as narrow V3 receipt delta. Reuses accepted scientific source/component checks. Saved-result review is not a fresh independent native replay; only finite rational arithmetic and receipt joins executed locally. No provider/auth/native/Git/canonical actions."
+  ],
+  "math_scope": {
+    "controls": "Equal positive, equal zero and252-observation exponent1 preserve results; opposite signs, both negative and zero-agent cases match exact signed rational predictions. All input NAV values remain positive.",
+    "corrected_formula": "(1 + agent_period_return) ** (252 / aligned_observation_count) - (1 + benchmark_period_return) ** (252 / aligned_observation_count)",
+    "important_limit": "Existing aligned-observation convention is preserved, not independently endorsed as the only horizon policy. Exported global annual_return uses125 daily-return intervals in the witness and remains.4442; it is not substituted for aligned agent annual return. Thus corrected excess is not newly claimed equal to exported global annual_return minus benchmark annual return.",
+    "original_formula": "(1 + agent_period_return - benchmark_period_return) ** (252 / aligned_observation_count) - 1",
+    "witness": "126 aligned observations, agent total20%, benchmark total10%: original1.1^2-1=.21; corrected1.2^2-1.1^2=.23."
+  },
+  "new_findings": 0,
+  "observed": {
+    "address_space_parent_readback": [
+      2684354560,
+      2684354560
+    ],
+    "all_command_returncodes_zero": true,
+    "calls": 16,
+    "cases": 8,
+    "compiled_source_binding": "Accepted actor reads bounded complete source bytes, verifies length/hash, compiles those bytes and executes in module namespace; both source pins match before and after. No cached evaluator bytecode selection or function/global doubles.",
+    "driver_seconds": 34.569073,
+    "joins": "Exact job/input/control/grant/export, queue attempt, saved provider closure and settlement proof checked read-only.",
+    "native_command_seconds": 2.003,
+    "runtime": {
+      "numpy": "2.4.6",
+      "pandas": "3.0.3",
+      "python": "3.11.15",
+      "scipy": "1.17.1"
+    },
+    "settled_cost_microusd": 5520,
+    "source_corrected": {
+      "bytes": 94458,
+      "sha256": "94a4545b9c629cc541772353673df89765dcc1ae145e6f82bf8de43d2e83acf6"
+    },
+    "source_original": {
+      "bytes": 94432,
+      "sha256": "829eeee186f02fba42e4291fea94523a8a7c89cf62c7e534c77115cb8eea4f9b"
+    },
+    "timeouts": false,
+    "unchanged_metrics_per_pair": 7,
+    "worker_closed_at_utc": "2026-10-11T22:20:48.166231+00:00",
+    "wrapper_seconds": 34.83560333
+  },
+  "original_disposition_changes": 0,
+  "result": {
+    "bytes": 12892,
+    "path": "work/cloud-queue/exports/deterministic-portfolio-excess-v3-40004d2d1855b682/63a2d20a68e24822a4bc28e51a7c6b45/result.json",
+    "sha256": "e12540eb64e8447c39695c2916c80bf90dc141328a64a3a2549193011033b84c"
+  },
+  "root_method": "Read actual paired metrics and different review; verify all16 expectations,7unchangedmetrics perpair and exact source equality. Reuse source/receipt checks; no rerun.",
+  "task_id": "portfolio_risk_calibration",
+  "utc": "2026-10-11T22:23:58.139888+00:00"
+}
