@@ -59,8 +59,12 @@ Before writing adjudication records, inspect the exact consumed schema, decision
 
 Confirm reviewer roles against the source handoff before dispatch: an agent who reviewed another task may still be this component's author. Preserve any corrected assignment and count only a genuinely different pass toward author-independent review. Freeze scientific inputs and results; snapshot mutable context when its historical bytes matter rather than treating a live root handoff as an immutable dependency.
 
+Preserve actual raw card bytes for a guarded adoption. Normalized JSON can represent the same card while having a different hash. Check the semantic inverse separately; use the live raw-byte identity for replacement.
+
 ## Resolve identity at the smallest artifact boundary
 
 Use a saved final inventory's supplying layer and ordinal to resolve a source mismatch through a small pinned patch blob before costly image restoration. Verify compressed SHA, diff-ID, full EOF and the named member. The [eight-file acquisition](../../../../work/packets/formal-four-installed-source-acquisition-local-sol-v1/result.json) obtained 53,941 target bytes from 25,374 compressed / 241,152 expanded bytes in 13.605s, without executing a helper/compiler. This resolves installed source identity, not dependency closure or runtime fit; retain earlier source mismatches.
 
 Compare package identities within their encoding and member domains. Local gzip, decoded tar and native repacked tar can differ in byte length/hash while preserving file contents. Count regular files and directories separately: [Snapshot15's root counterexamples](../../../../edgebenchverified/audit/evidence/public-site-snapshot15-root-publication-review/root-package-domain-counterexamples.json) retain six regular files plus two directories, not six total members. Recover the failed join without repeating publication or science.
+
+English's final grader was resolved from a 29,691-byte patch layer. Compare helper bodies and actual main call arguments, order and controls. Unchanged helpers can link earlier component observations; changed main/model configuration prevents transferring earlier whole-main results. Separate missing assessment validation from numeric scores that depend on the effective rubric. Prompt instructions are not runtime guards: explain why their completeness requirement matters before concluding that successful grading is falsely reported.
