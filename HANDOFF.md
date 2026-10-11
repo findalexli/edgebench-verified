@@ -1,15 +1,13 @@
 # Continuing the EdgeBench audit
 
-**October 11, 2026, 22:40 UTC accepted results.** Portfolio’s unchanged original
-is now withheld. Date-checker original/corrected property calls match all 12
-expectations with a supplied strategy; the missing original generator remains
-untested. Reporting’s observation run identifies six empty callbacks among eight,
-with all elapsed times nonnegative; all three controls still fail and later
-cleanup assertions remain unreached. Sphere’s preparation failed before original
-helpers. These attempts are terminal and their owned workers closed; no running
-handle remains for them. Exact attempt and closure records are linked from the
-selected receipts. The routing travel-window complement remains accepted locally,
-not yet selected here.
+**October 11, 2026, 22:57 UTC accepted decisions.** Data Generation’s original
+is now withheld for its date-checker weakness; a generator and complete corrected
+phase still require assessment. Reporting’s three corrected
+serial lifecycle controls pass, including their cleanup assertions, on the
+unchanged implementation. Earlier failures remain evidence of the unsupported
+all-callbacks-positive premise. The owned worker is closed. The October 9
+vehicle-routing V4 result and existing 56-case travel-window complement are now
+selected here; these are recovered evidence, not new runs. The finding-task count and certifications are unchanged.
 
 ## Outcome and current decisions
 
@@ -20,7 +18,7 @@ see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable
 
 Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
 and [TASKS](TASKS.md) for current decisions. There are findings across 18 tasks,
-15 withheld original versions, 36 pending decisions and zero certified versions.
+16 withheld original versions, 35 pending decisions and zero certified versions.
 “Withheld” applies to the exact original unchanged; it does not approve or rule
 out a repaired version. The Git `audit/task-registry.json` is a historical partial
 snapshot with three exclusions, not the current tracker.
@@ -64,9 +62,9 @@ All local paths below are relative to the shared workspace:
 | --- | --- | --- |
 | Tree T2 alias correction | Matched installed evaluator: official reference 10/10 and missing-answer controls 0/10 before and after correction; T2 contributes 5/100 task points. [Accepted result](evidence/selected/tree-t2-repair-regression-acceptance.json). | Reuse the completed T2 regression and earlier alias-trigger controls; assess remaining components separately. |
 | Equivalence T3 checker correction | Same one official input passes with corrected checker and 64 MiB audit output allowance; 40,623,541 output bytes exceeded the earlier 16 MiB cap. [Accepted result](evidence/selected/equivalence-t3-repair-case-acceptance.json). | Extend to remaining T3 cases with a justified output allowance; preserve the combined checker/resource change and separate 14 boundary controls. |
-| Reporting combined judge correction | Accepted: 57 collected tests pass, 55/55 reported, score 1.0; 20 coverage and four JUnit controls match. [Result](evidence/selected/reporting-integrated-acceptance.json). | Preserve this positive result; reconcile callback-count expectations with the original requirement, then execute remaining cleanup assertions; empty-callback cause remains separately unknown. [Observed counts](evidence/selected/reporting-stateful-observation-acceptance.json). |
+| Reporting combined judge correction | Accepted: 57 collected tests pass, 55/55 reported, score 1.0; 20 coverage and four JUnit controls match. [Result](evidence/selected/reporting-integrated-acceptance.json). | Three corrected serial stateful controls also pass on this unchanged implementation. [Accepted cleanup checks](evidence/selected/reporting-stateful-corrected-acceptance.json). Address remaining lazy-schema/dispatcher behavior and independent reproduction; no broader xdist conclusion. |
 | Rust failure-credit correction | [Original withholding adopted](evidence/selected/rust-original-exclusion.json). Accepted actual Cargo comparison: five authored fixtures, ten helper outcomes; false PASS corrected, four other pairs preserved. [Result](evidence/selected/rust-native-repair-acceptance.json). | Assess original-corpus/full-scorer behavior and the distinct `cas-cli` policy; do not rerun the closed fixture question. |
-| Routing data complement | Root accepted: no necessary travel-window violation in 56 retained instances / 5,600 customers. Root receipt under `edgebenchverified/audit/evidence/vrptw-travel-window-complement-astra-high-v1-root-review/`. | Select the accepted evidence in the next results delivery. This does not establish complete route feasibility. |
+| Vehicle routing | Recovered October 9: 19 native checker controls match binary64 predictions, with two nominal decimal-boundary disagreements. [V4](evidence/selected/vrptw-native-v4-acceptance.json). Existing 56-case / 5,600-customer relaxation finds no necessary time-window violation. [Data check](evidence/selected/vrptw-travel-window-acceptance.json). | Check a complete route set and reference vehicle-count/distance provenance. Finite checker readiness is settled; earlier setup errors need not block those distinct questions. |
 | OpenTTD cohort complement | Final source preserves the requested seed and propagates missing-directory errors; an existing empty directory can return no rows. [Narrowed conclusion](evidence/selected/openttd-final-library-acceptance.json). | Establish actual engine reachability of the empty-directory condition before claiming score distortion. |
 | CTA currency correction | Original withheld [decision](evidence/selected/cta-original-exclusion.json). Accepted: 12 native risk-method calls plus two accounting calls preserve expected behavior. [Result](evidence/selected/cta-currency-native-acceptance.json). | Assess a complete eligible portfolio/full scorer; preserve module/bytecode and dependency-version limits. |
 | Portfolio annual-excess correction | [Original withheld](evidence/selected/portfolio-original-exclusion.json). Eight paired aligned cases, 16 complete native metric calls match; seven other metrics unchanged per pair. [Result](evidence/selected/portfolio-native-repair-acceptance.json). | Address misaligned dates, eligibility and full scoring separately. Keep the prior failed attempt and its unknown cause; successful V3 does not explain it. |
