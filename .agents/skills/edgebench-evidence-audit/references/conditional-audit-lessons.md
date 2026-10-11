@@ -26,6 +26,10 @@ When retained source excerpts and a final installed overlay differ, join every r
 
 ## Evaluator diagnostics and numerical scope
 
+For authored integration tests, check what helper methods actually create against the child command's filenames and working directory before cloud execution. In pytest 9.0.3, `Pytester.makeini()` creates `tox.ini`; requesting `-c pytest.ini` is a control mismatch. Prefer a tiny helper/command check to another broad source review. Preserve the failed attempt and correct the control separately from the task implementation.
+
+Treat diagnostic keywords as observations, not causal labels. `FileNotFoundError` alone does not identify a missing report, and an expected error string can appear in pytest's displayed assertion without the error having occurred. Locate the first failed assertion and distinguish executed behavior from echoed test source; when the exact traceback was not retained, leave historical attribution unresolved.
+
 Before declaring a mandatory-validity defect, trace what `valid`, `pass`, `MUST` and partial credit mean in the original contract and consumed evaluator. In [Borden's accepted interpretation](../../../../edgebenchverified/audit/evidence/borden-original-bounds-interpretation-20261011-root-review/root-review.json), a detected bound violation removed one point (7.012 to 6.012); the task describes capped partial credit and a degenerate fallback. The flags do not specify feasibility. Keep the observed component result separate from the unresolved hard-eligibility interpretation; positive total credit alone does not establish false acceptance.
 
 Separate an audit's readiness restrictions from the original task contract. A metadata census can complete while the full grader never starts; outer worker completion does not establish test or score outcomes. Diagnose the exact stop, preserve it, and correct only the audit restriction with a justified finite envelope before a useful original-evaluator run. Source analysis of sequential data consumption does not prove token expansion, cumulative output storage or runtime fit.
