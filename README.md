@@ -27,7 +27,7 @@ The reporting implementation now passes the combined corrected judge: **57 colle
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
 
-The latest decision withholds CTA’s unchanged original for mixed-currency exposure scoring, bringing the total to 11. NetHack completed one zero-score trajectory; ARC’s supplied public baseline passed 48/48, while a wrong interpreter passed 16/48. These establish finite native behavior, not competence or complete task validity. Portfolio’s native attempt retained no metric outcomes and is stopped; its source/scalar repair stands. [Evidence and limits](docs/FINDINGS.md).
+The latest decision withholds CTA’s unchanged original for mixed-currency exposure scoring, bringing the total to 11. NetHack completed one zero-score trajectory; ARC’s supplied public baseline passed 48/48, while a wrong interpreter passed 16/48. Its hidden scorer now reports 167/448 at score 35.59 versus 45/448 at 7.41, preserving all 12 unaffected suites; these are suite-accounting totals, not proof of 448 individual assertion executions. These establish finite native behavior, not competence or complete task validity. Portfolio’s native attempt retained no metric outcomes and is stopped; its source/scalar repair stands. [Evidence and limits](docs/FINDINGS.md).
 
 ## What this repository contains
 

@@ -14,7 +14,7 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | Anchorhead<br>`anchorhead_text_adventure` | Review pending | Two real engines; reset/direct guards checked (L). | — | Does terminal scoring match play? |
 | ANN vector search<br>`ann_vector_search_qps` | Review pending | All 10,000 query-label checks accepted under ordinary binary64 arithmetic [41]; original evaluator controls (L). | — | Are data provenance and QPS hardware/repeatability scope established for release? |
 | Apple incremental game<br>`apple_incremental_game` | Review pending | Original 50-case caller completed [1]. | Resource prototype | Does authentic history select correctly? |
-| ARC compiler<br>`arc_compiler_runtime` | Review pending | Supplied public baseline 48/48 versus wrong interpreter 16/48; all 32 affected cases rejected, 16 unaffected preserved [43]. | — | Does the hidden 448-case evaluator show the same finite sensitivity? Source preparation only; not run. |
+| ARC compiler<br>`arc_compiler_runtime` | Review pending | Public 48/48 versus 16/48 [43]; hidden scorer reports 167/448 at 35.59 versus 45/448 at 7.41, preserving all 12 unaffected suites [46]. Suite totals do not prove 448 individual assertions ran. | — | Do independent hidden-case expectations support scorer validity beyond this one interpreter mutation? |
 | Bipedal walking<br>`bipedalwalker_locomotion_rl` | Review pending | 20 prior episodes; malformed model rejected [2]. | — | Does broader policy evaluation repeat? |
 | Borden inversion<br>`borden_source_inversion` | Review pending | Native score/bounds controls; physics unproved (L). | — | Do units-aware predictions agree? |
 | Carleson proof<br>`carleson_formalization` | Review pending | Restoration succeeded; tool startup crashed [3]. | Setup blocked | What explains startup failure? |
@@ -113,3 +113,4 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [43]: evidence/selected/arc-public-native-acceptance.json
 [44]: evidence/selected/cta-original-exclusion.json
 [45]: evidence/selected/portfolio-native-failure-acceptance.json
+[46]: evidence/selected/arc-hidden-native-acceptance.json

@@ -33,7 +33,7 @@ The [current matrix](REPORTING-COVERAGE.md) has 13 finite-check rows and nine pa
 
 [NetHack native result](../evidence/selected/nethack-native-acceptance.json) and [different review](../evidence/selected/nethack-native-review.json): one reset, 5,000 successful API step returns, zero peak matching WA/0. No competence, world-turn or default 20-trajectory claim.
 
-[ARC public-suite result](../evidence/selected/arc-public-native-acceptance.json) and [different review](../evidence/selected/arc-public-native-review.json): supplied baseline 48/48 versus wrong interpreter 16/48; 32 affected rejections and 16 unaffected passes. Hidden 448 unrun; no new defect.
+[ARC public-suite result](../evidence/selected/arc-public-native-acceptance.json) and [different review](../evidence/selected/arc-public-native-review.json): supplied baseline 48/48 versus wrong interpreter 16/48; 32 affected rejections and 16 unaffected passes. The [accepted hidden comparison](../evidence/selected/arc-hidden-native-acceptance.json) and [different review](../evidence/selected/arc-hidden-native-review.json) report 167/448 at score 35.59 versus 45/448 at 7.41; all 12 unaffected suites preserve counts. Original 21-suite accounting can record import failures as 0/N, so 448 individual assertion executions are not established. No new defect or certification.
 
 [ANN numerical conclusion](../evidence/selected/ann-numerical-conclusion.json) closes the arithmetic question for all 10,000 installed queries under ordinary correct binary64 operations; data provenance and QPS scope remain separate.
 
