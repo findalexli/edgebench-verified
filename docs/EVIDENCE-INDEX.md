@@ -10,6 +10,9 @@ Use [findings](FINDINGS.md) for conclusions and the [task tracker](../TASKS.md) 
 
 ## Repairs and reusable checks
 
+- [Tree T2 regression](../evidence/selected/tree-t2-repair-regression-acceptance.json) and [different review](../evidence/selected/tree-t2-repair-regression-review.json): ten official reference passes and ten wrong-control rejections in each original/corrected arm. Complements earlier alias-trigger evidence; T2 only, 5/100 points.
+- [Equivalence T3 one-input repair check](../evidence/selected/equivalence-t3-repair-case-acceptance.json) and [different review](../evidence/selected/equivalence-t3-repair-case-review.json): corrected checker plus 64 MiB output allowance accepts the same official input, producing 40,623,541 bytes. Combined change, not all 30 cases or isolated score impact.
+
 - [Schemathesis function identity](../proposedrepairs/schemathesis-config-function-identity/README.md) and its [native comparison](../evidence/selected/schemathesis-native-repair-comparison.json): matched evidence for the correction, not a complete reference solution.
 - [English assessment completeness](../proposedrepairs/college-english-assessment-completeness/README.md): offline supplied-source controls with fixed responses.
 - [Rust proposed repair](../proposedrepairs/rust-known-failure-credit/README.md) and [portable reproduction](../reproductions/rust-known-failure-credit/README.md): finite original-helper evidence; actual Cargo/native behavior is separate.
