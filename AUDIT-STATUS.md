@@ -22,6 +22,12 @@ Scientific evidence snapshot: **October 11, 2026, 18:23 UTC**. This is an unfini
 
 The two new findings used **17 local original-predicate/test evaluations**: 11 date-predicate evaluations and six reporting-test calls, including separate reproductions. Both tasks already had partial evidence, so this adds depth and conclusions, not two newly checked tasks. No native task run, full-score effect, final task decision or certification is added. The Rust patch remains a local prototype.
 
+## Repair progress after the 18:23 UTC checkpoint
+
+The reporting checker now has a concrete patch that checks XML structure and the recorded error. Twelve author controls and four fresh reviewer controls support it; real-writer and native full-suite testing are still pending. This is a repair prototype, not an approved replacement. [Patch and evidence](proposedrepairs/reporting-junit/README.md).
+
+Apple’s current summary now includes its already accepted 50-case judge run. Its independent-review checklist permits justified fixed-suite evidence, as the protocol requires, instead of demanding a new seed and timing sweep by default. The authentic submission/history path and other task requirements remain unresolved. This correction adds no new test or gate pass. [Record correction](evidence/selected/apple-current-execution-review.json).
+
 ## Earlier checkpoint: 14 findings at 17:58 UTC
 
 - **Rust Multicrate Reconstruction:** the original Python helper credited an unrelated failed test when the named exempt test passed. Six authored controls and three independently authored controls support the finding; an independent example reported 11 passed, zero failed and PASS while one hidden failure remained. Cargo responses were simulated. The 0.1 score difference is synthetic, not measured native or benchmark impact. The original task decision remains pending. [Accepted finding](evidence/selected/rust-known-failure-outcome.json) · [portable reproduction](reproductions/rust-known-failure-credit/README.md).

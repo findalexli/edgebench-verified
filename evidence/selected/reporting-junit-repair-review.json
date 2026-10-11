@@ -1,0 +1,21 @@
+{
+  "author": {
+    "bytes": 2380,
+    "path": "work/packets/reporting-junit-verifier-repair-astra-high-v1/handoff.json",
+    "sha256": "b4adfe3f3949f0465668e26bd27789037de2f8c8d2d31fbf8eca773678b00901"
+  },
+  "decision": "ACCEPT_FINITE_CHECKER_REPAIR_PROTOTYPE_NATIVE_COMPATIBILITY_PENDING",
+  "different_controls": {
+    "bytes": 2343,
+    "path": "edgebenchverified/audit/evidence/reporting-junit-verifier-repair-20261011-root-review/fresh-controls.json",
+    "sha256": "fb7a69f24be2502d97ba47f84f2fd2e326521765795980ba2ff86334f5d859f7"
+  },
+  "finding": "Candidate replaces substring acceptance with parsed JUnit structure and associated error semantics. Author12paired controls and root4freshpaired controls pass.",
+  "independence": "Root did not author repair; fresh controls use authored XML writer doubles. Author controls reused, not independently rerun.",
+  "limits": "Actual writer compatibility, original full suite and integrated corrected-image verification remain. This prototype does not close fulltask/verifiergate.",
+  "new_certified_tasks": 0,
+  "new_finding_tasks": 0,
+  "unchanged": "Other test bodies,14 test names, implementation and scorer remain unchanged. No original or candidate task installation has been altered.",
+  "utc": "2026-10-11T18:46:42.975750+00:00",
+  "versioning": "Adoption creates a distinct evaluator version despite unchanged testcount/weight. Conditional one-verdict effect -1/70 is arithmetic only; no measured score."
+}
