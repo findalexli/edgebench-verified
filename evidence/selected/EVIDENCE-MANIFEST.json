@@ -158,6 +158,43 @@
       "wrapper_exact_score_delta": "-1/160"
     }
   },
+  "arc_hidden_delivery": {
+    "accepted_snapshot_utc": "2026-10-11T22:02:32.331346+00:00",
+    "exact_copies": [
+      {
+        "selected": {
+          "bytes": 3729,
+          "path": "evidence/selected/arc-hidden-native-acceptance.json",
+          "sha256": "ad3ca88faac6b0ca3f89e1305ad036a4fdb18215ae65aa84561129d2dd525b54"
+        },
+        "source": {
+          "bytes": 3729,
+          "path": "edgebenchverified/audit/evidence/arc-hidden-native-astra-high-v1/root-result-review.json",
+          "sha256": "ad3ca88faac6b0ca3f89e1305ad036a4fdb18215ae65aa84561129d2dd525b54"
+        }
+      },
+      {
+        "selected": {
+          "bytes": 1104,
+          "path": "evidence/selected/arc-hidden-native-review.json",
+          "sha256": "1a348e781e02316b5a5db8baad20d1b4e874d5ab0c58c16df338c25b7e52b913"
+        },
+        "source": {
+          "bytes": 1104,
+          "path": "work/reviews/arc-hidden-suite-native-astra-high-v1-result/handoff.json",
+          "sha256": "1a348e781e02316b5a5db8baad20d1b4e874d5ab0c58c16df338c25b7e52b913"
+        }
+      }
+    ],
+    "scope": "Original 21-suite aggregate hidden comparison; no individual448-execution, new finding/disposition or certification claim. No private cases, raw logs or authentication copied.",
+    "utc": "2026-10-11T22:05:34.217898+00:00",
+    "validation": {
+      "changed_report_pins": 5,
+      "new_exact_copies": 2,
+      "previous_selected_pins_verified": 167,
+      "selected_files": 169
+    }
+  },
   "control_lessons_delivery_validation": {
     "final_selected_files": 105,
     "fresh_science_or_provider_calls": 0,
@@ -193,7 +230,7 @@
     },
     "resolution": "Use actual current bytes for a marked derived snapshot; do not claim an exact copy of the supplied historical version."
   },
-  "current_selection_git_base": "51bcde977e74288d1054b4b8cefab081e81ee519",
+  "current_selection_git_base": "6017734376c4bee15bce5f6183600db428d006e5",
   "current_status_snapshot": {
     "accepted_finding_task_union": {
       "bytes": 2843,
@@ -211,7 +248,22 @@
     "finite_native_path_results": {
       "arc": {
         "affected_rejections": 32,
-        "hidden_448_run": false,
+        "hidden_scorer": {
+          "accepted_result": {
+            "bytes": 3729,
+            "path": "evidence/selected/arc-hidden-native-acceptance.json",
+            "sha256": "ad3ca88faac6b0ca3f89e1305ad036a4fdb18215ae65aa84561129d2dd525b54"
+          },
+          "all_448_individual_assertion_executions_proven": false,
+          "import_failure_may_be_recorded_as_zero_over_suite_total": true,
+          "raw_denominator": 448,
+          "suite_count": 21,
+          "supplied_reported_passes": 167,
+          "supplied_weighted_score": 35.59,
+          "unaffected_suites_preserved": 12,
+          "wrong_reported_passes": 45,
+          "wrong_weighted_score": 7.41
+        },
         "new_defect_demonstrated": false,
         "public_supplied_baseline_passed": 48,
         "public_total": 48,
@@ -255,7 +307,7 @@
         "paired_helper_outcomes": 10
       }
     },
-    "new_disposition_changes": 1,
+    "new_disposition_changes": 0,
     "new_scoped_findings_tasks": [],
     "new_task_breadth": 0,
     "pending_original_dispositions": 40,
@@ -317,7 +369,7 @@
     },
     "reviewed_original_exclusions": 11,
     "treant": "Separate arithmetic-defect claim rejected under acquired adaptation turn-count wording; movement intent remains unresolved.",
-    "utc": "2026-10-11T21:53:58.277040+00:00"
+    "utc": "2026-10-11T22:02:32.331346+00:00"
   },
   "date_coverage_delivery_validation": {
     "existing_pins_updated": [
@@ -500,7 +552,22 @@
     "finite_native_path_results": {
       "arc": {
         "affected_rejections": 32,
-        "hidden_448_run": false,
+        "hidden_scorer": {
+          "accepted_result": {
+            "bytes": 3729,
+            "path": "evidence/selected/arc-hidden-native-acceptance.json",
+            "sha256": "ad3ca88faac6b0ca3f89e1305ad036a4fdb18215ae65aa84561129d2dd525b54"
+          },
+          "all_448_individual_assertion_executions_proven": false,
+          "import_failure_may_be_recorded_as_zero_over_suite_total": true,
+          "raw_denominator": 448,
+          "suite_count": 21,
+          "supplied_reported_passes": 167,
+          "supplied_weighted_score": 35.59,
+          "unaffected_suites_preserved": 12,
+          "wrong_reported_passes": 45,
+          "wrong_weighted_score": 7.41
+        },
         "new_defect_demonstrated": false,
         "public_supplied_baseline_passed": 48,
         "public_total": 48,
@@ -544,7 +611,7 @@
         "paired_helper_outcomes": 10
       }
     },
-    "new_disposition_changes": 1,
+    "new_disposition_changes": 0,
     "new_scoped_findings_tasks": [],
     "new_task_breadth": 0,
     "pending_original_dispositions": 40,
@@ -606,7 +673,7 @@
     },
     "reviewed_original_exclusions": 11,
     "treant": "Separate arithmetic-defect claim rejected under acquired adaptation turn-count wording; movement intent remains unresolved.",
-    "utc": "2026-10-11T21:53:58.277040+00:00"
+    "utc": "2026-10-11T22:02:32.331346+00:00"
   },
   "manifest_identity_history": [
     {
@@ -747,6 +814,14 @@
       "selected_files": 159,
       "sha256": "18c4c79c36ea9ef50f3466689744ce04b824dbb85a0e2a1d08b53ba28d4425b0",
       "utc": "2026-10-11T21:57:34.099209+00:00"
+    },
+    {
+      "bytes": 197294,
+      "git_revision": "6017734376c4bee15bce5f6183600db428d006e5",
+      "scope": "Before accepted ARC hidden comparison delivery.",
+      "selected_files": 167,
+      "sha256": "59288017bce62a7f478daa53323492d2f0f7b77012e516ecde74e0e79ca8507a",
+      "utc": "2026-10-11T22:05:34.217898+00:00"
     }
   ],
   "manifest_self_hash": "Excluded to avoid a self-reference; final manifest identity is supplied in the review handoff.",
@@ -1694,6 +1769,38 @@
       ],
       "reason": "Accepted NetHack/ARC finite native results, CTA withholding, and closed incomplete Portfolio attempt.",
       "utc": "2026-10-11T21:57:34.099209+00:00"
+    },
+    {
+      "git_revision": "6017734376c4bee15bce5f6183600db428d006e5",
+      "previous_report_pins": [
+        {
+          "bytes": 10593,
+          "path": "HANDOFF.md",
+          "sha256": "4034065694ca789e23020ee6071292ed1f011c20fe6225e6cdcf4b8ed5de7945"
+        },
+        {
+          "bytes": 4185,
+          "path": "README.md",
+          "sha256": "39e451e8024b5b9d5fc1f72ecebc57034203f44fa624b264d07d92f6526e4bf4"
+        },
+        {
+          "bytes": 16077,
+          "path": "TASKS.md",
+          "sha256": "3ecf4f715be457e0bcf93de5e0d693ee4c4b4b06ac1ed214c307febdc627fe03"
+        },
+        {
+          "bytes": 9514,
+          "path": "docs/EVIDENCE-INDEX.md",
+          "sha256": "1911cdf06b376cb9ee3ca74edfde7d29e00147542e02d28c50e6da327464b72c"
+        },
+        {
+          "bytes": 19334,
+          "path": "docs/FINDINGS.md",
+          "sha256": "91af073c06b1f9458e0a2f1961abb2d4fd68fc565f4811532f7f3037060674cf"
+        }
+      ],
+      "reason": "Replace ARC hidden preparation with accepted finite native result; counts unchanged.",
+      "utc": "2026-10-11T22:05:34.217898+00:00"
     }
   ],
   "reporting_integrated_delivery": {
@@ -2168,19 +2275,19 @@
       "sha256": "dcb2544b8ec35538b342f0a14497f4ba75c2bf3b62f783b12f0d93739f13a25e"
     },
     {
-      "bytes": 10593,
+      "bytes": 10970,
       "path": "HANDOFF.md",
-      "sha256": "4034065694ca789e23020ee6071292ed1f011c20fe6225e6cdcf4b8ed5de7945"
+      "sha256": "6ccc2fda14d0ab9d735b21e39a1c06caad6311047197ea3afe086553dc4341cf"
     },
     {
-      "bytes": 4185,
+      "bytes": 4383,
       "path": "README.md",
-      "sha256": "39e451e8024b5b9d5fc1f72ecebc57034203f44fa624b264d07d92f6526e4bf4"
+      "sha256": "3137bf1f429805a6dece14bafc13fc0bb32a908b358a95a9b46e28fa48b42b79"
     },
     {
-      "bytes": 16077,
+      "bytes": 16202,
       "path": "TASKS.md",
-      "sha256": "3ecf4f715be457e0bcf93de5e0d693ee4c4b4b06ac1ed214c307febdc627fe03"
+      "sha256": "a3ce129083197b88d27bfed4d50c658f3337fa638e8951fbc2bc63f43a925afd"
     },
     {
       "bytes": 9943,
@@ -2243,14 +2350,14 @@
       "sha256": "91854757179ee0f8010bfb235362589a0ebc551da76951caaa75846451d1f970"
     },
     {
-      "bytes": 9514,
+      "bytes": 9896,
       "path": "docs/EVIDENCE-INDEX.md",
-      "sha256": "1911cdf06b376cb9ee3ca74edfde7d29e00147542e02d28c50e6da327464b72c"
+      "sha256": "6e9a09f481219681dc9510cae42c0ec65fed0112261b5ae80390fb6f02faf5c0"
     },
     {
-      "bytes": 19334,
+      "bytes": 19852,
       "path": "docs/FINDINGS.md",
-      "sha256": "91af073c06b1f9458e0a2f1961abb2d4fd68fc565f4811532f7f3037060674cf"
+      "sha256": "3d4511285188a41251d297d4c42e57dd7ab8e7ed6cd53445065578e8a30beade"
     },
     {
       "bytes": 5988,
@@ -2286,6 +2393,16 @@
       "bytes": 2016,
       "path": "evidence/selected/apple-numeric-range.json",
       "sha256": "79b0c6b1bbee07bc3cdcf559f7272a9f6be9698a21cd588a26111e8d7ccc7cb5"
+    },
+    {
+      "bytes": 3729,
+      "path": "evidence/selected/arc-hidden-native-acceptance.json",
+      "sha256": "ad3ca88faac6b0ca3f89e1305ad036a4fdb18215ae65aa84561129d2dd525b54"
+    },
+    {
+      "bytes": 1104,
+      "path": "evidence/selected/arc-hidden-native-review.json",
+      "sha256": "1a348e781e02316b5a5db8baad20d1b4e874d5ab0c58c16df338c25b7e52b913"
     },
     {
       "bytes": 3069,
@@ -3547,6 +3664,131 @@
       "reviewed_original_exclusions": 10,
       "treant": "Separate arithmetic-defect claim rejected under acquired adaptation turn-count wording; movement intent remains unresolved.",
       "utc": "2026-10-11T21:30:03.463530+00:00"
+    },
+    {
+      "accepted_finding_task_union": {
+        "bytes": 2843,
+        "path": "evidence/selected/finding-task-union-18.json",
+        "sha256": "645f628147e0c6a67c088e4938dd7e45c02da0b20c6d4b01b3080bfbcc82b9b3"
+      },
+      "advertised_unavailable": 83,
+      "certified_tasks": 0,
+      "closed_scoped_finding_task_decisions": 18,
+      "cta_original_disposition": {
+        "bytes": 2008,
+        "path": "evidence/selected/cta-original-exclusion.json",
+        "sha256": "54f3b48fab4842644e71dd804db64a25ff8bf8c332dea2cb208edb2c40fb6037"
+      },
+      "finite_native_path_results": {
+        "arc": {
+          "affected_rejections": 32,
+          "hidden_448_run": false,
+          "new_defect_demonstrated": false,
+          "public_supplied_baseline_passed": 48,
+          "public_total": 48,
+          "public_wrong_interpreter_passed": 16,
+          "unaffected_passes_preserved": 16
+        },
+        "nethack": {
+          "competence_or_world_turn_count_established": false,
+          "default_20_trajectories_run": false,
+          "observed_peak": 0,
+          "original_score": 0,
+          "original_verdict": "WA",
+          "resets": 1,
+          "successful_api_step_returns": 5000
+        }
+      },
+      "latest_repair_and_source_results": {
+        "ann": "Ordinary binary64 numerical conclusion accepted for all10000installed queries; no extra corpus pass required. Data provenance/QPSscope separate.",
+        "cta": {
+          "actual_installed_module_behavior": true,
+          "fresh_original_source_compilation_proven": false,
+          "native_accounting_calls": 2,
+          "native_risk_method_calls": 12,
+          "whole_task_certified": false
+        },
+        "openttd": "Foreign-seed mechanism unsupported on examined final source; missing-directory error differs from empty-directory no-row behavior. Actual engine reachability and score effect unresolved; no new defect count.",
+        "portfolio": {
+          "actual_native_metric_calls": "unknown",
+          "authored_scalar_cases": 64,
+          "different_scalar_cases": 6,
+          "failure_cause": "unknown",
+          "final_image_path_source_bound": true,
+          "native_attempt": "closed incomplete; stopped pending new failure evidence",
+          "native_validation_accepted": false,
+          "retained_native_metric_outcomes": 0,
+          "source_repair_assignments": 2
+        },
+        "rust": {
+          "actual_cargo_fixtures": 5,
+          "original_corpus_or_full_scorer": false,
+          "paired_helper_outcomes": 10
+        }
+      },
+      "new_disposition_changes": 1,
+      "new_scoped_findings_tasks": [],
+      "new_task_breadth": 0,
+      "pending_original_dispositions": 40,
+      "public_tasks": 51,
+      "repair_complements": {
+        "equivalence_T3": {
+          "audit_output_limit_bytes": 67108864,
+          "combined_checker_and_output_allowance_change": true,
+          "official_cases_passed": 1,
+          "official_cases_run": 1,
+          "output_bytes": 40623541
+        },
+        "new_certifications": 0,
+        "new_disposition_changes": 0,
+        "new_task_breadth": 0,
+        "tree_T2": {
+          "installed_evaluator_calls": 4,
+          "reference_passed_before_after": [
+            10,
+            10
+          ],
+          "reference_score_delta": 0,
+          "task_points_scope": 5,
+          "unique_official_cases": 10,
+          "wrong_passed_before_after": [
+            0,
+            0
+          ]
+        }
+      },
+      "reporting_evidence": {
+        "changed_plugin_original_printed_items_passed": 55,
+        "coverage_filter_observed_generated_values": 36,
+        "coverage_repair_matched_expectations": 20,
+        "full_corrected_scorer_executed": true,
+        "integrated_corrected_judge": {
+          "collected_passed": 57,
+          "coverage_countercontrols_matched": 20,
+          "junit_countercontrols_matched": 4,
+          "score": 1.0,
+          "script_reported_passed": 55,
+          "whole_task_certified": false
+        },
+        "original_score": 1.0,
+        "original_script_reported_total": 53,
+        "requirement_evidence_categories": {
+          "finite_checks": 13,
+          "partial": 9,
+          "total": 22
+        },
+        "same_control_candidate_comparison": {
+          "after_passed": 4,
+          "before_passed": 0,
+          "total": 5
+        },
+        "selected_repaired_junit": "PASS",
+        "separately_corrected_control_passes": 5,
+        "whole_task_certified": false
+      },
+      "reviewed_original_exclusions": 11,
+      "treant": "Separate arithmetic-defect claim rejected under acquired adaptation turn-count wording; movement intent remains unresolved.",
+      "utc": "2026-10-11T21:53:58.277040+00:00"
     }
   ],
   "selection_method": {
@@ -4695,6 +4937,131 @@
       "reviewed_original_exclusions": 10,
       "treant": "Separate arithmetic-defect claim rejected under acquired adaptation turn-count wording; movement intent remains unresolved.",
       "utc": "2026-10-11T21:30:03.463530+00:00"
+    },
+    {
+      "accepted_finding_task_union": {
+        "bytes": 2843,
+        "path": "evidence/selected/finding-task-union-18.json",
+        "sha256": "645f628147e0c6a67c088e4938dd7e45c02da0b20c6d4b01b3080bfbcc82b9b3"
+      },
+      "advertised_unavailable": 83,
+      "certified_tasks": 0,
+      "closed_scoped_finding_task_decisions": 18,
+      "cta_original_disposition": {
+        "bytes": 2008,
+        "path": "evidence/selected/cta-original-exclusion.json",
+        "sha256": "54f3b48fab4842644e71dd804db64a25ff8bf8c332dea2cb208edb2c40fb6037"
+      },
+      "finite_native_path_results": {
+        "arc": {
+          "affected_rejections": 32,
+          "hidden_448_run": false,
+          "new_defect_demonstrated": false,
+          "public_supplied_baseline_passed": 48,
+          "public_total": 48,
+          "public_wrong_interpreter_passed": 16,
+          "unaffected_passes_preserved": 16
+        },
+        "nethack": {
+          "competence_or_world_turn_count_established": false,
+          "default_20_trajectories_run": false,
+          "observed_peak": 0,
+          "original_score": 0,
+          "original_verdict": "WA",
+          "resets": 1,
+          "successful_api_step_returns": 5000
+        }
+      },
+      "latest_repair_and_source_results": {
+        "ann": "Ordinary binary64 numerical conclusion accepted for all10000installed queries; no extra corpus pass required. Data provenance/QPSscope separate.",
+        "cta": {
+          "actual_installed_module_behavior": true,
+          "fresh_original_source_compilation_proven": false,
+          "native_accounting_calls": 2,
+          "native_risk_method_calls": 12,
+          "whole_task_certified": false
+        },
+        "openttd": "Foreign-seed mechanism unsupported on examined final source; missing-directory error differs from empty-directory no-row behavior. Actual engine reachability and score effect unresolved; no new defect count.",
+        "portfolio": {
+          "actual_native_metric_calls": "unknown",
+          "authored_scalar_cases": 64,
+          "different_scalar_cases": 6,
+          "failure_cause": "unknown",
+          "final_image_path_source_bound": true,
+          "native_attempt": "closed incomplete; stopped pending new failure evidence",
+          "native_validation_accepted": false,
+          "retained_native_metric_outcomes": 0,
+          "source_repair_assignments": 2
+        },
+        "rust": {
+          "actual_cargo_fixtures": 5,
+          "original_corpus_or_full_scorer": false,
+          "paired_helper_outcomes": 10
+        }
+      },
+      "new_disposition_changes": 1,
+      "new_scoped_findings_tasks": [],
+      "new_task_breadth": 0,
+      "pending_original_dispositions": 40,
+      "public_tasks": 51,
+      "repair_complements": {
+        "equivalence_T3": {
+          "audit_output_limit_bytes": 67108864,
+          "combined_checker_and_output_allowance_change": true,
+          "official_cases_passed": 1,
+          "official_cases_run": 1,
+          "output_bytes": 40623541
+        },
+        "new_certifications": 0,
+        "new_disposition_changes": 0,
+        "new_task_breadth": 0,
+        "tree_T2": {
+          "installed_evaluator_calls": 4,
+          "reference_passed_before_after": [
+            10,
+            10
+          ],
+          "reference_score_delta": 0,
+          "task_points_scope": 5,
+          "unique_official_cases": 10,
+          "wrong_passed_before_after": [
+            0,
+            0
+          ]
+        }
+      },
+      "reporting_evidence": {
+        "changed_plugin_original_printed_items_passed": 55,
+        "coverage_filter_observed_generated_values": 36,
+        "coverage_repair_matched_expectations": 20,
+        "full_corrected_scorer_executed": true,
+        "integrated_corrected_judge": {
+          "collected_passed": 57,
+          "coverage_countercontrols_matched": 20,
+          "junit_countercontrols_matched": 4,
+          "score": 1.0,
+          "script_reported_passed": 55,
+          "whole_task_certified": false
+        },
+        "original_score": 1.0,
+        "original_script_reported_total": 53,
+        "requirement_evidence_categories": {
+          "finite_checks": 13,
+          "partial": 9,
+          "total": 22
+        },
+        "same_control_candidate_comparison": {
+          "after_passed": 4,
+          "before_passed": 0,
+          "total": 5
+        },
+        "selected_repaired_junit": "PASS",
+        "separately_corrected_control_passes": 5,
+        "whole_task_certified": false
+      },
+      "reviewed_original_exclusions": 11,
+      "treant": "Separate arithmetic-defect claim rejected under acquired adaptation turn-count wording; movement intent remains unresolved.",
+      "utc": "2026-10-11T21:53:58.277040+00:00"
     }
   ],
   "validation": {
