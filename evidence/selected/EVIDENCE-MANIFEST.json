@@ -110,6 +110,25 @@
         "sha256": "fcca00e0697de9ea74307bb9c62c6efeab4243993d5844bf1a3e73ff2fd56b36"
       }
     },
+    "rust_finite_cas_pty_repair_prototype": {
+      "counts_delta": {
+        "certifications": 0,
+        "dispositions": 0,
+        "findings": 0,
+        "task_breadth": 0
+      },
+      "root": {
+        "bytes": 1884,
+        "path": "edgebenchverified/audit/evidence/rust-known-failure-repair-v2-20261011-root-acceptance/root-result-review.json",
+        "sha256": "0a945d6f2e0d49e009ab08b332244cd914465348a8274bf1e45ec923cff0179c"
+      },
+      "scope": "Accepted finite Python-component prototype with simulated Cargo; no native execution or certification. Packaging only, no new science.",
+      "selected": {
+        "bytes": 1884,
+        "path": "evidence/selected/rust-known-failure-repair-acceptance.json",
+        "sha256": "0a945d6f2e0d49e009ab08b332244cd914465348a8274bf1e45ec923cff0179c"
+      }
+    },
     "schemathesis_recovered_native_repair": {
       "original_outcomes_preserved_per_pair": 126,
       "record_date": "2026-10-08",
@@ -130,7 +149,7 @@
     "public_tasks": 51,
     "source_setup_only_unheld_tasks": 5
   },
-  "counts_scope": "Historical selected evidence at2026-10-11T01:22:34UTC. Historical counts/validation remain unchanged; AUDIT-STATUS.md and current_status_snapshot record ten exclusions and fourteen findings at2026-10-11T17:58UTC. Prior selection, report pins and thirteen-finding snapshot are preserved in histories.",
+  "counts_scope": "Historical selected evidence at2026-10-11T01:22:34UTC is preserved in counts/validation. AUDIT-STATUS.md and current_status_snapshot record ten exclusions,41pending originals,zero certifications and16 scoped finding decisions at2026-10-11T18:23UTC. Prior selections, report pins and earlier snapshots remain in histories.",
   "coverage_pin_counterevidence": {
     "actual_consumed_pin": {
       "bytes": 35313,
@@ -148,22 +167,19 @@
   "current_status_snapshot": {
     "advertised_unavailable": 83,
     "certified_tasks": 0,
-    "closed_scoped_finding_task_decisions": 14,
+    "closed_scoped_finding_task_decisions": 16,
     "coverage_scope": "37 is the historical tracked partial-observation set, not the union of every task with accepted evidence. Held and excluded buckets retain earlier scoped observations. No fresh whole-evidence union is claimed.",
-    "new_scoped_results_since_0724": {
-      "apple_completed_conditional_numeric_requirement": 1,
-      "apple_original_full_task_calls": 0,
+    "new_scoped_results_since_1758": {
+      "closed_finding_task_decisions": 2,
+      "datagen_original_predicate_evaluations": 11,
+      "native_task_controls": 0,
       "new_certifications": 0,
-      "new_closed_finding_task_decisions": 1,
       "new_original_decisions": 0,
       "new_task_coverage": 0,
-      "rust_calls_scope": "Six author and three different-reviewer original Python controls with simulated Cargo; no native Rust.",
-      "rust_original_component_calls": 9,
-      "rust_original_compute_score_calls": 12,
-      "schemathesis_native_or_helper_calls": 0,
-      "schemathesis_source_contract_conclusion": 1
+      "reporting_original_test_calls": 6,
+      "rust_repair": "Accepted finite cas-pty prototype; no native repair",
+      "scopes": "Datagen original predicate projection; reporting original isolated function with controlled writers."
     },
-    "packaging_validation": "One portable six-case Rust replay reuses confirmed science; not an independent result or added scientific count.",
     "pending_original_dispositions": 41,
     "pending_partition": {
       "automatic_review_held": 7,
@@ -173,7 +189,7 @@
     "public_tasks": 51,
     "raw_partial_observation_tasks": 37,
     "reviewed_original_exclusions": 10,
-    "utc": "2026-10-11T17:58:21.154886+00:00"
+    "utc": "2026-10-11T18:23:00+00:00"
   },
   "later_english_exclusion": {
     "scope": "Exact final supplied-source assessment-completeness exclusion, earlier unchanged component results reused. No final100/native/provider incidence or repaired-version certification claim.",
@@ -302,55 +318,7 @@
       "sha256": "d74fc5d4aebc948c817450d4ffad05a95d216311176ac7c08adddbb6362970b2"
     }
   },
-  "latest_selected_results_scope": {
-    "limits": "Rust Cargo is simulated, Apple range does not prove libm rounding, Schemathesis exhaustive removal policy remains unresolved. No repair or benchmark release.",
-    "native_calls": 0,
-    "new_certifications": 0,
-    "new_closed_finding_task_decisions": 1,
-    "new_final_task_decisions": 0,
-    "new_task_coverage": 0,
-    "packaging_replay": "One six-case portable replay exactly matches accepted rows; packaging validation only.",
-    "private_source_and_data_copied": false,
-    "reviewers_AI_not_three_humans": true,
-    "scope": "Confirmed Rust known-failure credit component finding, conditional Apple integer-score conversion requirement, and qualified Schemathesis public-API contract interpretation. Exact root aggregates plus portable Rust replay; no private original source or test bodies.",
-    "source_refs": [
-      {
-        "bytes": 2796,
-        "path": "edgebenchverified/audit/evidence/rust-known-failure-outcome-20261011-root-acceptance/root-result-review.json",
-        "sha256": "b6d47e2a55a462fd4bbde28a7d3bb5efc4894fb4de35b54808a489fc16d352e3"
-      },
-      {
-        "bytes": 2016,
-        "path": "edgebenchverified/audit/evidence/apple-numeric-range-20261011-root-acceptance/root-result-review.json",
-        "sha256": "79b0c6b1bbee07bc3cdcf559f7272a9f6be9698a21cd588a26111e8d7ccc7cb5"
-      },
-      {
-        "bytes": 1673,
-        "path": "edgebenchverified/audit/evidence/schemathesis-api-contract-20261011-root-acceptance/root-source-review.json",
-        "sha256": "900b2c8267282c2ed394ae82964a728554eac7663b110069708669aa2f367058"
-      },
-      {
-        "bytes": 8336,
-        "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/reproduce.py",
-        "sha256": "0c9ded7761bafa380fd11ff6881788d58b2cd82be94f055aebff11f6e5efb35e"
-      },
-      {
-        "bytes": 3853,
-        "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/README.md",
-        "sha256": "0c3a94c56309ce231fe96c33221c64e8bd76a5d17718c10ade83a17256068fd9"
-      },
-      {
-        "bytes": 6791,
-        "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/validation.json",
-        "sha256": "146fec98d6bc7102b0735c3bd9fd374f0d2962ab3247e2a1f0ad9c07dd8b4089"
-      },
-      {
-        "bytes": 1631,
-        "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/handoff.json",
-        "sha256": "3eb14b4d1c9226b20f922d5754951b33e9bc338f3bab2224c2b3ce8ea2960abc"
-      }
-    ]
-  },
+  "latest_selected_results_scope": "Datagen11 originalpredicate evaluations and reporting6 originaltestfunction calls support2 additional finite findings. Rust scopedcomponentprototype accepted; no native repair or task certification. Failedcloudconfigurationcheck retained in priorbatch.",
   "manifest_identity_history": [
     {
       "bytes": 46417,
@@ -388,6 +356,20 @@
       "scope": "Before operational build-stop selection and deadline-maintenance binding; scientific snapshot retained.",
       "sha256": "38d2b5d6f967fcf1111455f357552795f09742277eb4fd6491f4d6eafc5851f7",
       "utc": "2026-10-11T18:12:00+00:00"
+    },
+    {
+      "bytes": 94575,
+      "git_base": "2b53128c3a26b4a2030050dc4707bffa47c80f42",
+      "scope": "Before accepted Rust finite-prototype packaging; current scientific snapshot and counts unchanged.",
+      "selected_files": 72,
+      "sha256": "5e0629f9cdfa65fea6d8b9995bdf4e673c668c819ddaca9999e62996d97b457d",
+      "utc": "2026-10-11T18:18:58.575130+00:00"
+    },
+    {
+      "bytes": 97950,
+      "path": "evidence/selected/EVIDENCE-MANIFEST.json",
+      "scope": "Before16findingdeliveryandfailure-diagnosticslesson",
+      "sha256": "9a4b299887103faa2beb69db9947c01530a66af1c466354257759de972f9ebe4"
     }
   ],
   "manifest_self_hash": "Excluded to avoid a self-reference; final manifest identity is supplied in the review handoff.",
@@ -429,7 +411,7 @@
       "sha256": "8da56a6c1ae28d8707e8f58faebd8eac033f85b2e80ad20ce87714d04d1881a5"
     }
   },
-  "prepared_utc": "2026-10-11T01:22:34.670162+00:00",
+  "prepared_utc": "2026-10-11T18:28:01.672161+00:00",
   "presentation_refresh_history_utc": [
     "2026-10-11T02:22:58.708663+00:00",
     "2026-10-11T02:40:00+00:00",
@@ -441,7 +423,7 @@
     "2026-10-11T06:41:28.636047+00:00",
     "2026-10-11T17:32:44.773476+00:00"
   ],
-  "presentation_refresh_utc": "2026-10-11T18:06:15.694119+00:00",
+  "presentation_refresh_utc": "2026-10-11T18:18:58.575130+00:00",
   "previous_manifest_identity": {
     "bytes": 14504,
     "git_commit": "13df675c9083d4722d56c712bc7b64964fbc1add",
@@ -771,6 +753,41 @@
       ],
       "scope": "Operational build-stop paragraph only; scientific17:58snapshot unchanged.",
       "utc": "2026-10-11T18:12:00+00:00"
+    },
+    {
+      "previous_report_pins": [
+        {
+          "bytes": 9666,
+          "path": "docs/FINDINGS.md",
+          "sha256": "9d90556771d1997474d444da3375b313e8e75e79df760f8b25829625d4152cb6"
+        }
+      ],
+      "scope": "Add only Rust finite-prototype repair paragraph; current status and finding/disposition counts unchanged.",
+      "utc": "2026-10-11T18:18:58.575130+00:00"
+    },
+    {
+      "bytes": 23957,
+      "path": ".agents/skills/e2b-efficient-audits/references/observed-failure-lessons.md",
+      "scope": "Superseded current selected pin before16findingdelivery",
+      "sha256": "835fb36871be19b99e3dccaf2d560afe7a367dd7bdf89d2f90073a123344121d"
+    },
+    {
+      "bytes": 15174,
+      "path": "AUDIT-STATUS.md",
+      "scope": "Superseded current selected pin before16findingdelivery",
+      "sha256": "7f057306b0ee5a8e772307f8f3e2644b913a055c1cb6d932891227f3cf47a939"
+    },
+    {
+      "bytes": 16951,
+      "path": "docs/EVIDENCE-INDEX.md",
+      "scope": "Superseded current selected pin before16findingdelivery",
+      "sha256": "1d6095d301f2d8ab5f73935dabc75de2d798e5ceb5b5af14c60c430c9cd23ec1"
+    },
+    {
+      "bytes": 10191,
+      "path": "docs/FINDINGS.md",
+      "scope": "Superseded current selected pin before16findingdelivery",
+      "sha256": "5e1fd9cfcf1b8d5781c56bb2ab4a09f09af534c22507b8e51fcc84876fd3849c"
     }
   ],
   "repository_scope": "Private selected evidence; local archive excluded. This manifest is a derived provenance record, not an exact copy of any source and not a scientific acceptance or rights-clearance decision.",
@@ -794,9 +811,9 @@
   "schema": "selected-evidence-manifest-v1",
   "selected_files": [
     {
-      "bytes": 23957,
+      "bytes": 24494,
       "path": ".agents/skills/e2b-efficient-audits/references/observed-failure-lessons.md",
-      "sha256": "835fb36871be19b99e3dccaf2d560afe7a367dd7bdf89d2f90073a123344121d"
+      "sha256": "674b3aa7f0de389fba45511763d5bc1cc1bacc4d5c7954d6c823464d73fab34f"
     },
     {
       "bytes": 17693,
@@ -804,9 +821,9 @@
       "sha256": "ce59f637258dc3415955c71b08856b58306b2c01f88cccb0190ae3cc9afee685"
     },
     {
-      "bytes": 15174,
+      "bytes": 17019,
       "path": "AUDIT-STATUS.md",
-      "sha256": "7f057306b0ee5a8e772307f8f3e2644b913a055c1cb6d932891227f3cf47a939"
+      "sha256": "959776bd5f0adf639efc786f6ac964f53534628f471653aba38fdc26b2003f74"
     },
     {
       "bytes": 3531,
@@ -869,14 +886,14 @@
       "sha256": "91854757179ee0f8010bfb235362589a0ebc551da76951caaa75846451d1f970"
     },
     {
-      "bytes": 16951,
+      "bytes": 18257,
       "path": "docs/EVIDENCE-INDEX.md",
-      "sha256": "1d6095d301f2d8ab5f73935dabc75de2d798e5ceb5b5af14c60c430c9cd23ec1"
+      "sha256": "bf89f13de0f2126286639556190a090d94a272178b3084b29edd76790d1a8e73"
     },
     {
-      "bytes": 9666,
+      "bytes": 11039,
       "path": "docs/FINDINGS.md",
-      "sha256": "9d90556771d1997474d444da3375b313e8e75e79df760f8b25829625d4152cb6"
+      "sha256": "15c1f172a5da2d347e894a57721b601780b04fc344b333d15a856cff50032f65"
     },
     {
       "bytes": 20870,
@@ -999,6 +1016,21 @@
       "sha256": "b6d47e2a55a462fd4bbde28a7d3bb5efc4894fb4de35b54808a489fc16d352e3"
     },
     {
+      "bytes": 1884,
+      "path": "evidence/selected/rust-known-failure-repair-acceptance.json",
+      "sha256": "0a945d6f2e0d49e009ab08b332244cd914465348a8274bf1e45ec923cff0179c"
+    },
+    {
+      "bytes": 1612,
+      "path": "evidence/selected/rust-known-failure-repair-result.json",
+      "sha256": "b95797476eda2e33bf9f0274fcef45985b9611cd76cfe5f964e979d65f626198"
+    },
+    {
+      "bytes": 3545,
+      "path": "evidence/selected/rust-known-failure-repair-review.json",
+      "sha256": "edf2b7fe18beb02f8ad2ba1b7ec3d9c09dd504e9e284b2536902043ae982bd65"
+    },
+    {
       "bytes": 3021,
       "path": "evidence/selected/rust-retained-split-consistency.json",
       "sha256": "fe81193545dee9b884b3dd426f6526dcdb361964ee7b18278699f95f0d09ad7e"
@@ -1022,6 +1054,11 @@
       "bytes": 1760,
       "path": "evidence/selected/schemathesis-native-repair-comparison.json",
       "sha256": "12d83348ee89881071f88056d600e6a8620268a076b7e8f859f3b7ccee2d4f28"
+    },
+    {
+      "bytes": 1772,
+      "path": "evidence/selected/schemathesis-persisted-build-stop.json",
+      "sha256": "8da56a6c1ae28d8707e8f58faebd8eac033f85b2e80ad20ce87714d04d1881a5"
     },
     {
       "bytes": 1733,
@@ -1109,6 +1146,21 @@
       "sha256": "8560cdf6bd6a961a03f6c3d0127cf582b8b2248e234d8efb1753b35f5eb4d80a"
     },
     {
+      "bytes": 3425,
+      "path": "proposedrepairs/rust-known-failure-credit/README.md",
+      "sha256": "1b71fdc13fa917342cc3ecb3a8133a33308401d5d635621f361cd84c701eb424"
+    },
+    {
+      "bytes": 1690,
+      "path": "proposedrepairs/rust-known-failure-credit/manifest.json",
+      "sha256": "4d87037871ff271ba47c0329022198695f3cd48deb78e2900bd335aad43f643a"
+    },
+    {
+      "bytes": 1550,
+      "path": "proposedrepairs/rust-known-failure-credit/repair.patch",
+      "sha256": "700b66ca7b61dd78870a74d26397e5d81e867fbc96677140c68f0f0286c68b82"
+    },
+    {
       "bytes": 1327,
       "path": "proposedrepairs/schemathesis-config-function-identity/README.md",
       "sha256": "53a7607c5d0532ec76e2100a758db4a8dc181dd2cae5fb42885e9c9ba6141626"
@@ -1149,9 +1201,34 @@
       "sha256": "1e95da67e5ae05b7fc342b1d81ee8abe269e40a2205447cd61ea26d6f87449e2"
     },
     {
-      "bytes": 1772,
-      "path": "evidence/selected/schemathesis-persisted-build-stop.json",
-      "sha256": "8da56a6c1ae28d8707e8f58faebd8eac033f85b2e80ad20ce87714d04d1881a5"
+      "bytes": 1939,
+      "path": "evidence/selected/datagen-http-date-acceptance.json",
+      "sha256": "9298beae701a0e0a29cbff2050551d5b20faf9be97c41733db9e2487bd2a05bc"
+    },
+    {
+      "bytes": 4378,
+      "path": "evidence/selected/datagen-http-date-result.json",
+      "sha256": "4c6487386da0dc91c08c836e403656cf6b61022512a0e8807f249ce105f0a993"
+    },
+    {
+      "bytes": 5455,
+      "path": "evidence/selected/datagen-http-date-review.json",
+      "sha256": "2b3076a48970a21f8a24c5598c626a6c73821c5808f0f54fa296f51f0106628f"
+    },
+    {
+      "bytes": 2096,
+      "path": "evidence/selected/reporting-junit-acceptance.json",
+      "sha256": "8d9f1ad25a5a50f735ae162a3b15cbf07a026c0336b5a54ac24d926b2c14e6f9"
+    },
+    {
+      "bytes": 3047,
+      "path": "evidence/selected/reporting-junit-result.json",
+      "sha256": "9fc2bc242e65a15384272d7ef8b524cbc66a8b74fea57aeb0b97fef1d55fd3e6"
+    },
+    {
+      "bytes": 5543,
+      "path": "evidence/selected/reporting-junit-review.json",
+      "sha256": "523ef67831a68d707881a5fc17ad8d20dbcabb81a4538c7173dadea355a9bff7"
     }
   ],
   "selected_order_sidecar_scope": "Exact accepted compact metadata only; three actual bundle approvals and five immediate scientific decision leaves. Other50 task cards, source-lock/harness/catalog and full raw/native archive are absent. No complete-release check, fresh reproduction or certification claim.",
@@ -1397,6 +1474,55 @@
       ],
       "total_new_local_original_path_calls": 5,
       "utc": "2026-10-11T07:24:20.080142+00:00"
+    },
+    {
+      "limits": "Rust Cargo is simulated, Apple range does not prove libm rounding, Schemathesis exhaustive removal policy remains unresolved. No repair or benchmark release.",
+      "native_calls": 0,
+      "new_certifications": 0,
+      "new_closed_finding_task_decisions": 1,
+      "new_final_task_decisions": 0,
+      "new_task_coverage": 0,
+      "packaging_replay": "One six-case portable replay exactly matches accepted rows; packaging validation only.",
+      "private_source_and_data_copied": false,
+      "reviewers_AI_not_three_humans": true,
+      "scope": "Confirmed Rust known-failure credit component finding, conditional Apple integer-score conversion requirement, and qualified Schemathesis public-API contract interpretation. Exact root aggregates plus portable Rust replay; no private original source or test bodies.",
+      "source_refs": [
+        {
+          "bytes": 2796,
+          "path": "edgebenchverified/audit/evidence/rust-known-failure-outcome-20261011-root-acceptance/root-result-review.json",
+          "sha256": "b6d47e2a55a462fd4bbde28a7d3bb5efc4894fb4de35b54808a489fc16d352e3"
+        },
+        {
+          "bytes": 2016,
+          "path": "edgebenchverified/audit/evidence/apple-numeric-range-20261011-root-acceptance/root-result-review.json",
+          "sha256": "79b0c6b1bbee07bc3cdcf559f7272a9f6be9698a21cd588a26111e8d7ccc7cb5"
+        },
+        {
+          "bytes": 1673,
+          "path": "edgebenchverified/audit/evidence/schemathesis-api-contract-20261011-root-acceptance/root-source-review.json",
+          "sha256": "900b2c8267282c2ed394ae82964a728554eac7663b110069708669aa2f367058"
+        },
+        {
+          "bytes": 8336,
+          "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/reproduce.py",
+          "sha256": "0c9ded7761bafa380fd11ff6881788d58b2cd82be94f055aebff11f6e5efb35e"
+        },
+        {
+          "bytes": 3853,
+          "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/README.md",
+          "sha256": "0c3a94c56309ce231fe96c33221c64e8bd76a5d17718c10ade83a17256068fd9"
+        },
+        {
+          "bytes": 6791,
+          "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/validation.json",
+          "sha256": "146fec98d6bc7102b0735c3bd9fd374f0d2962ab3247e2a1f0ad9c07dd8b4089"
+        },
+        {
+          "bytes": 1631,
+          "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/handoff.json",
+          "sha256": "3eb14b4d1c9226b20f922d5754951b33e9bc338f3bab2224c2b3ce8ea2960abc"
+        }
+      ]
     }
   ],
   "selection_method": {
@@ -1740,6 +1866,21 @@
       "bytes": 1772,
       "path": "edgebenchverified/audit/evidence/schemathesis-persisted-native-astra-high-v2/root-result-review.json",
       "sha256": "8da56a6c1ae28d8707e8f58faebd8eac033f85b2e80ad20ce87714d04d1881a5"
+    },
+    {
+      "bytes": 1612,
+      "path": "work/packets/rust-known-failure-repair-astra-high-v2/result.json",
+      "sha256": "b95797476eda2e33bf9f0274fcef45985b9611cd76cfe5f964e979d65f626198"
+    },
+    {
+      "bytes": 3545,
+      "path": "work/reviews/rust-known-failure-repair-astra-high-v2/review.json",
+      "sha256": "edf2b7fe18beb02f8ad2ba1b7ec3d9c09dd504e9e284b2536902043ae982bd65"
+    },
+    {
+      "bytes": 1884,
+      "path": "edgebenchverified/audit/evidence/rust-known-failure-repair-v2-20261011-root-acceptance/root-result-review.json",
+      "sha256": "0a945d6f2e0d49e009ab08b332244cd914465348a8274bf1e45ec923cff0179c"
     }
   ],
   "status_snapshot_history": [
@@ -2045,6 +2186,36 @@
       "recovered_not_rerun": "Schemathesis full126-outcome scorers each; older Bipedal20 episodes reused.",
       "reviewed_original_exclusions": 10,
       "utc": "2026-10-11T07:24:20.080142+00:00"
+    },
+    {
+      "advertised_unavailable": 83,
+      "certified_tasks": 0,
+      "closed_scoped_finding_task_decisions": 14,
+      "coverage_scope": "37 is the historical tracked partial-observation set, not the union of every task with accepted evidence. Held and excluded buckets retain earlier scoped observations. No fresh whole-evidence union is claimed.",
+      "new_scoped_results_since_0724": {
+        "apple_completed_conditional_numeric_requirement": 1,
+        "apple_original_full_task_calls": 0,
+        "new_certifications": 0,
+        "new_closed_finding_task_decisions": 1,
+        "new_original_decisions": 0,
+        "new_task_coverage": 0,
+        "rust_calls_scope": "Six author and three different-reviewer original Python controls with simulated Cargo; no native Rust.",
+        "rust_original_component_calls": 9,
+        "rust_original_compute_score_calls": 12,
+        "schemathesis_native_or_helper_calls": 0,
+        "schemathesis_source_contract_conclusion": 1
+      },
+      "packaging_validation": "One portable six-case Rust replay reuses confirmed science; not an independent result or added scientific count.",
+      "pending_original_dispositions": 41,
+      "pending_partition": {
+        "automatic_review_held": 7,
+        "formal_source_setup_only": 5,
+        "partial_observation_tasks": 29
+      },
+      "public_tasks": 51,
+      "raw_partial_observation_tasks": 37,
+      "reviewed_original_exclusions": 10,
+      "utc": "2026-10-11T17:58:21.154886+00:00"
     }
   ],
   "validation": {

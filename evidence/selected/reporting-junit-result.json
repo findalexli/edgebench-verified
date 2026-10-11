@@ -1,0 +1,120 @@
+{
+  "completed_utc": "2026-10-11T18:19:34.488742+00:00",
+  "freeze_sha256": "1f7cccd34a8bd167d0d16e9167ed92ade67e940d8ef89cf6453976781c476617",
+  "results": [
+    {
+      "case": "plain_text",
+      "original_test": "pass",
+      "xml_well_formed": false,
+      "expected_testcase_label_present": null,
+      "xml_parse_error": "syntax error: line 1, column 0",
+      "trace": [
+        [
+          "init"
+        ],
+        [
+          "enter"
+        ],
+        [
+          "record_error",
+          "test_label",
+          "something went wrong"
+        ],
+        [
+          "exit",
+          null
+        ]
+      ],
+      "payload_sha256": "1a47dbc7499541dbb93566a8edd24cf4dbaa643bc58a6388b5520208af82465e",
+      "matches_frozen_expectations": true
+    },
+    {
+      "case": "representative_junit_positive",
+      "original_test": "pass",
+      "xml_well_formed": true,
+      "expected_testcase_label_present": true,
+      "xml_parse_error": null,
+      "trace": [
+        [
+          "init"
+        ],
+        [
+          "enter"
+        ],
+        [
+          "record_error",
+          "test_label",
+          "something went wrong"
+        ],
+        [
+          "exit",
+          null
+        ]
+      ],
+      "payload_sha256": "5ae7dcb0014eedb2d19d3e1947780f330ae609b1961b81cf732bf567a2de3ed7",
+      "matches_frozen_expectations": true
+    },
+    {
+      "case": "missing_label_negative",
+      "original_test": "assertion_failure",
+      "xml_well_formed": true,
+      "expected_testcase_label_present": false,
+      "xml_parse_error": null,
+      "trace": [
+        [
+          "init"
+        ],
+        [
+          "enter"
+        ],
+        [
+          "record_error",
+          "test_label",
+          "something went wrong"
+        ],
+        [
+          "exit",
+          null
+        ]
+      ],
+      "payload_sha256": "668ee603a56cd46c176013b4187874239d03fa1c1e23f0fe79bfc8ab82086ee2",
+      "matches_frozen_expectations": true
+    },
+    {
+      "case": "unescaped_ampersand",
+      "original_test": "pass",
+      "xml_well_formed": false,
+      "expected_testcase_label_present": null,
+      "xml_parse_error": "not well-formed (invalid token): line 1, column 160",
+      "trace": [
+        [
+          "init"
+        ],
+        [
+          "enter"
+        ],
+        [
+          "record_error",
+          "test_label",
+          "something went wrong"
+        ],
+        [
+          "exit",
+          null
+        ]
+      ],
+      "payload_sha256": "7cee479db950e33724eb73ed0e07ad0f689e982a6458357f3ba9a10c3e75705d",
+      "matches_frozen_expectations": true
+    }
+  ],
+  "all_expectations_matched": true,
+  "original_test_calls": 4,
+  "native_calls": 0,
+  "measured_score_effect": null,
+  "resource_observed": {
+    "cpu_affinity_count": 1,
+    "wall_seconds": 0.03180238898494281,
+    "max_rss_kib": 535280
+  },
+  "scope": "AST-selected unchanged original test and controlled writer interface only; no actual writer, original module imports, native suite, provider, auth, score measurement, repair or certification."
+}
