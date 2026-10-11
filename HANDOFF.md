@@ -64,7 +64,7 @@ All local paths below are relative to the shared workspace:
 | --- | --- | --- |
 | Tree T2 alias correction | Matched installed evaluator: official reference 10/10 and missing-answer controls 0/10 before and after correction; T2 contributes 5/100 task points. [Accepted result](evidence/selected/tree-t2-repair-regression-acceptance.json). | Reuse the completed T2 regression and earlier alias-trigger controls; assess remaining components separately. |
 | Equivalence T3 checker correction | Same one official input passes with corrected checker and 64 MiB audit output allowance; 40,623,541 output bytes exceeded the earlier 16 MiB cap. [Accepted result](evidence/selected/equivalence-t3-repair-case-acceptance.json). | Extend to remaining T3 cases with a justified output allowance; preserve the combined checker/resource change and separate 14 boundary controls. |
-| Reporting combined judge correction | Accepted: 57 collected tests pass, 55/55 reported, score 1.0; 20 coverage and four JUnit controls match. [Result](evidence/selected/reporting-integrated-acceptance.json). | Preserve this positive result; determine why six callbacks were empty before changing the test or assessing later cleanup. [Observed counts](evidence/selected/reporting-stateful-observation-acceptance.json). |
+| Reporting combined judge correction | Accepted: 57 collected tests pass, 55/55 reported, score 1.0; 20 coverage and four JUnit controls match. [Result](evidence/selected/reporting-integrated-acceptance.json). | Preserve this positive result; reconcile callback-count expectations with the original requirement, then execute remaining cleanup assertions; empty-callback cause remains separately unknown. [Observed counts](evidence/selected/reporting-stateful-observation-acceptance.json). |
 | Rust failure-credit correction | [Original withholding adopted](evidence/selected/rust-original-exclusion.json). Accepted actual Cargo comparison: five authored fixtures, ten helper outcomes; false PASS corrected, four other pairs preserved. [Result](evidence/selected/rust-native-repair-acceptance.json). | Assess original-corpus/full-scorer behavior and the distinct `cas-cli` policy; do not rerun the closed fixture question. |
 | Routing data complement | Root accepted: no necessary travel-window violation in 56 retained instances / 5,600 customers. Root receipt under `edgebenchverified/audit/evidence/vrptw-travel-window-complement-astra-high-v1-root-review/`. | Select the accepted evidence in the next results delivery. This does not establish complete route feasibility. |
 | OpenTTD cohort complement | Final source preserves the requested seed and propagates missing-directory errors; an existing empty directory can return no rows. [Narrowed conclusion](evidence/selected/openttd-final-library-acceptance.json). | Establish actual engine reachability of the empty-directory condition before claiming score distortion. |
@@ -81,7 +81,8 @@ improvement and later five-of-five corrected-control result. Exact evidence and
 remaining requirements are in [REPORTING-COVERAGE](docs/REPORTING-COVERAGE.md).
 Treant’s arithmetic-defect hypothesis was rejected; intended movement remains
 unresolved. HTTP-date now has accepted native property evidence with an authored strategy,
-not the original generator: recover that generator before broader phase checks.
+not the original generator. Assess a supplied generator and complete corrected
+phase; this fixture run does not validate a generator.
 K–12 setup remains stopped pending evidence resolving its recorded preflight failure.
 Sphere’s preparation is closed with zero original helper calls; no retry is
 authorized. Its cap-metadata comparison and unresolved final file join must both
