@@ -8,8 +8,8 @@ An independent audit of whether EdgeBench’s tasks, tests and data measure what
 | --- | ---: |
 | Public tasks acquired | 51 |
 | Tasks with confirmed findings, within the scope stated in each case | 18 |
-| Original versions we would withhold from a verified release | 15 |
-| Original task decisions still pending | 36 |
+| Original versions we would withhold from a verified release | 16 |
+| Original task decisions still pending | 35 |
 | Task versions approved for a verified release | 0 |
 | Additional advertised tasks unavailable to this audit | 83 |
 
@@ -27,7 +27,7 @@ The reporting implementation now passes the combined corrected judge: **57 colle
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
 
-**October 11, 2026, 22:40 UTC:** Portfolio’s original is now withheld for its annual-excess formula error; the tested correction remains separate from whole-task approval. The date-checker repair matched all 12 complete property-call expectations with an authored input strategy; the original generator remains untested. Reporting still fails three lifecycle controls: six of eight callbacks were empty, but why they were empty and whether later cleanup works remain unresolved. Sphere stopped in our preparation checks before any original helper ran. The audit remains unfinished because these bounded results do not yet cover complete task behavior or certify replacements. [Evidence and next questions](TASKS.md).
+**October 11, 2026, 22:57 UTC:** Data Generation’s original is now withheld for accepting impossible HTTP dates; its finite checker repair does not complete the generator or task. All three corrected reporting lifecycle controls now pass, including their cleanup checks. The implementation did not change: the earlier controls wrongly required every callback to contain requests. This is finite serial evidence, not wider parallel validation. We also recovered the accepted October 9 vehicle-routing checker result and selected the existing 56-case data check; neither is a new run. Complete route feasibility, reference-score provenance and broader replacement checks remain unfinished. [Evidence and next questions](TASKS.md).
 
 ## What this repository contains
 
