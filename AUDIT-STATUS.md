@@ -1,8 +1,8 @@
 # Where the audit stands
 
-Scientific evidence snapshot: **October 11, 2026, 17:58 UTC**. This is an unfinished, private audit; no benchmark release is approved.
+Scientific evidence snapshot: **October 11, 2026, 18:23 UTC**. This is an unfinished, private audit; no benchmark release is approved.
 
-**We confirmed a Rust scoring error: a passing test on the exception list can cancel an unrelated failure.** This raises the number of closed finding-task decisions from 13 to **14**. Ten original versions remain excluded, 41 public tasks await a final decision, and none is certified. Apple’s score conversion and Schemathesis’s API wording also received narrower conclusions; neither adds a defect or a task decision.
+**Two more checker weaknesses are confirmed: impossible HTTP dates pass a date predicate, and malformed XML passes a reporting test.** There are now **16 confirmed findings at their documented scopes**. Ten original versions remain excluded, 41 public tasks await a final decision, and none is approved for inclusion.
 
 | Decision on the 51 public originals | Tasks | Meaning |
 | --- | ---: | --- |
@@ -12,9 +12,17 @@ Scientific evidence snapshot: **October 11, 2026, 17:58 UTC**. This is an unfini
 
 **What “excluded” means:** omit the exact flawed original from the candidate release and preserve its evidence. The decision is finished for that version. It does not delete the task from the audit, mean every score is wrong, fix the task, or approve a replacement. A corrected version needs its own tests and release decision. [Why these ten originals were excluded](docs/FINDINGS.md#why-ten-original-versions-are-excluded).
 
-**Fourteen scoped finding-task decisions are closed.** A confirmed defect can be settled before its repair is ready, and a useful partial check does not finish a task review. The finding count is separate from the final task decisions above. Another **83 advertised tasks were unavailable** and are outside this audit's acquired set.
+**Sixteen scoped finding-task decisions are closed.** A confirmed defect can be settled before its repair is ready, and a useful partial check does not finish a task review. The finding count is separate from the final task decisions above. Another **83 advertised tasks were unavailable** and are outside this audit's acquired set.
 
-## What changed since the 17:24 UTC review
+## What changed since the 17:58 UTC checkpoint
+
+- **Schemathesis Data Generation:** the original date predicate accepts impossible dates and clock values. A separate reviewer reproduced acceptance of April 31 and minute 60; valid dates still pass. This establishes a weakness in the predicate, not a run of the generated strategy or full test suite. [Conclusion](evidence/selected/datagen-http-date-acceptance.json) · [results](evidence/selected/datagen-http-date-result.json) · [independent review](evidence/selected/datagen-http-date-review.json).
+- **Schemathesis Reporting:** the unchanged original JUnit test accepts plain text and malformed XML containing its two required text fragments. A separate reviewer reproduced acceptance of a report missing its closing tag. Valid XML passes, while a missing-label control fails the original test. The writer was controlled; actual production output and whole-suite acceptance were not measured. [Conclusion](evidence/selected/reporting-junit-acceptance.json) · [results](evidence/selected/reporting-junit-result.json) · [independent review](evidence/selected/reporting-junit-review.json).
+- **Rust:** the scoped source patch passed finite component review. It fixes the measured exception-credit error while preserving the other crate's unresolved allowance. The broader first proposal was narrowed after independent counterevidence. [Prototype and evidence](proposedrepairs/rust-known-failure-credit/README.md).
+
+The two new findings used **17 local original-predicate/test evaluations**: 11 date-predicate evaluations and six reporting-test calls, including separate reproductions. Both tasks already had partial evidence, so this adds depth and conclusions, not two newly checked tasks. No native task run, full-score effect, final task decision or certification is added. The Rust patch remains a local prototype.
+
+## Earlier checkpoint: 14 findings at 17:58 UTC
 
 - **Rust Multicrate Reconstruction:** the original Python helper credited an unrelated failed test when the named exempt test passed. Six authored controls and three independently authored controls support the finding; an independent example reported 11 passed, zero failed and PASS while one hidden failure remained. Cargo responses were simulated. The 0.1 score difference is synthetic, not measured native or benchmark impact. The original task decision remains pending. [Accepted finding](evidence/selected/rust-known-failure-outcome.json) · [portable reproduction](reproductions/rust-known-failure-credit/README.md).
 - **Apple Incremental Game:** the mathematical score is bounded by 8,200,000 per case and 410,000,000 across the fixed 50 cases, so correctly computed integer scores convert exactly through the caller’s floating-point step. Independent reasoning and arithmetic checks support this narrow requirement. Saved numeric values were reconstructed as decimal strings; raw markers were not reparsed, and native logarithm rounding remains unproved. [Accepted conclusion](evidence/selected/apple-numeric-range.json).
@@ -28,7 +36,7 @@ The Schemathesis replacement image built successfully, but a configuration guard
 
 ## Why the audit is still unfinished
 
-The earlier stall remains part of the record: from the 07:24 checkpoint through the 17:10 state check, no additional task checks completed. The next cloud checks had not launched, and the prepared report was still uncommitted. The 17:24 presentation review corrected an overstated coverage description without adding benchmark test results. The new conclusions above were accepted at 17:58 UTC.
+The earlier stall remains part of the record: from the 07:24 checkpoint through the 17:10 state check, no additional task checks completed. The next cloud checks had not launched, and the prepared report was still uncommitted. The 17:24 presentation review corrected an overstated coverage description without adding benchmark test results. The Rust, Apple and API conclusions were accepted at 17:58 UTC; the two additional checker findings were accepted by 18:23 UTC.
 
 The new component and arithmetic checks advance specific questions, but **no task has reached inclusion approval and no new task entered the checked set**. Pending work includes partial checks, formal tasks that have reached only source or environment work, and seven tasks stopped by existing review holds. An example of stalled execution is Carleson: its proof-tool version check crashed before any proof or original helper ran. That is an audit setup failure, not a demonstrated benchmark defect. [Saved attempt](evidence/selected/carleson-cap-restoration-failed-prefix.json).
 

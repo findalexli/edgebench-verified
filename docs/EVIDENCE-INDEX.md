@@ -2,6 +2,14 @@
 
 Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings](FINDINGS.md). This page explains where their supporting records live.
 
+## New conclusions accepted at 18:23 UTC on October 11
+
+- **Date predicate:** [accepted finding](../evidence/selected/datagen-http-date-acceptance.json), [eight author evaluations](../evidence/selected/datagen-http-date-result.json), and [different review with three fresh evaluations](../evidence/selected/datagen-http-date-review.json). Invalid calendar and clock values pass the unchanged predicate. No full Hypothesis test or native score is claimed.
+- **JUnit test:** [accepted finding](../evidence/selected/reporting-junit-acceptance.json), [four author controls](../evidence/selected/reporting-junit-result.json), and [different review with two fresh controls](../evidence/selected/reporting-junit-review.json). Controlled malformed output passes the unchanged test. No actual production writer or whole-suite result is claimed.
+- **Rust repair prototype:** [patch and evidence](../proposedrepairs/rust-known-failure-credit/README.md), including the independently rejected broader CLI assumption. This is a finite component correction, not a validated native replacement.
+
+Current totals are **16 scoped finding-task decisions, ten original exclusions, 41 pending originals and zero certified tasks**. These checks add no new task breadth. Earlier checkpoints below retain their historical counts.
+
 ## New conclusions accepted at 17:58 UTC on October 11
 
 - [Rust known-failure credit error](../evidence/selected/rust-known-failure-outcome.json): the original Python helper credits an unrelated failed test when the named exempt test passes. Six author controls, 12 original score calculations and three independent helper controls use simulated Cargo responses. The 0.1 score difference is synthetic; no Cargo/native execution or actual benchmark incidence is claimed. [Portable reproduction](../reproductions/rust-known-failure-credit/README.md).
