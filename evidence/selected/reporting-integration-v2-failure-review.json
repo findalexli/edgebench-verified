@@ -1,0 +1,130 @@
+{
+  "attempt_id": "69dfd0dce3184f2b9f31b17bc088dedb",
+  "batch": {
+    "bytes": 1353,
+    "path": "edgebenchverified/audit/evidence/reporting-runtime-integration-native-astra-high-v2/batch-result.json",
+    "sha256": "5902ebc59ba4442481c0ae8a6275fa76979b2f7b87e19ebd2dc2ee288ecb72a1"
+  },
+  "checks": {
+    "bytes": 1236,
+    "path": "work/reviews/reporting-runtime-integration-native-result-astra-high-v2/checks.json",
+    "sha256": "d1c7f869c758527fd488779a00c0d15353de25b74b7099e4d0d444b60c2be810"
+  },
+  "closure_and_cost": {
+    "charged_seconds": 120,
+    "closure_observed_at": "2026-10-11T19:27:10.852029+00:00",
+    "estimated_cost_microusd": 5520,
+    "estimated_cost_usd": 0.00552,
+    "joins": "Read-only SQLite attempt, exact export sizes/hashes, root grant, manifest canonical digest, terminal receipt canonical digest, provider record canonical digest and settlement proof verified. No provider call made.",
+    "owned_child_reaped": true,
+    "proof_sha256": "873911e1292dd4b2100dc2eab6caa5b16d9442ceb676a6d146a63a4db778041b",
+    "queue_state": "completed",
+    "worker_closed": true
+  },
+  "decision": "ACCEPT_SAVED_FIVE_OUTER_FAILURES_WITH_CONTROL_CONFIGURATION_DEFECT",
+  "diagnostic_limits": [
+    "All five cases stop at assertions immediately after runpytest_subprocess, before lifecycle/trace and report-content assertions.",
+    "missing_report_file is implemented as presence of the token FileNotFoundError. It does not identify the missing path as a report.",
+    "The injected-HAR marker may match the displayed authored assertion; it does not prove an injected writer error happened.",
+    "The 23113-byte complete control log has a saved hash receipt but its body was not exported. The sanitized projection does not contain the missing filename or a complete nested traceback.",
+    "Parent import origins are observed. Per-child import origins, actual nested test outcomes and successful writer lifecycle are not established by this result."
+  ],
+  "execution": {
+    "bytes": 585,
+    "path": "work/cloud-queue/exports/deterministic-reporting-integration-02c6243154732d2c/69dfd0dce3184f2b9f31b17bc088dedb/execution.json",
+    "sha256": "1a21f8f8e0f3a469af2cab2b27a3cd82bde0719b4bbe3096c8684a827b29f18b"
+  },
+  "job": {
+    "bytes": 3529,
+    "path": "work/packets/reporting-runtime-integration-native-astra-high-v2/job.json",
+    "sha256": "b9a45fa45edc1eee3ad5ee754de258180817cd4ac037ed3ebd4497f9f79b18fe"
+  },
+  "job_id": "deterministic-reporting-integration-02c6243154732d2c",
+  "model": "gpt-6-astra",
+  "observations": {
+    "actual_installed_candidate_binding": "PASS: unique installed entrypoints, editable /app package origin, nine critical module origins/hashes and all 30 overlay files checked.",
+    "control_exit_code": 1,
+    "coordinator_and_container_exit_code": 0,
+    "dependency_probe_seconds": 0.803572,
+    "interpretation": "The adapter successfully collected five failing authored outer cases. Collection success does not mean scientific controls passed.",
+    "original_scorer_calls": 0,
+    "outer_cases_failed": 5,
+    "outer_cases_passed": 0,
+    "outer_control_seconds": 4.911677,
+    "post_guard": "Six original judge/test paths checked unchanged after controls; candidate overlay receipt matches the frozen 30-file bundle.",
+    "versions": {
+      "pytest": "9.0.3",
+      "pytest-xdist": "3.8.0",
+      "schemathesis": "4.13.0"
+    }
+  },
+  "preserved_limits": [
+    "Earlier accepted original scorer result remains 55 actual passed items versus 53 reported, score 1.0, plus separate patched JUnit real-writer PASS. This attempt does not replay or overturn those scoped results.",
+    "No claim of full repair, certification, full reference verification, independent reproduction, all-22-case or stateful coverage.",
+    "No new native execution, authentication, provider call, implementation change or automatic retry. The single setup correction and existing holds remain recorded; no further setup loop started."
+  ],
+  "reasoning_effort": "high",
+  "result": {
+    "bytes": 13468,
+    "path": "work/cloud-queue/exports/deterministic-reporting-integration-02c6243154732d2c/69dfd0dce3184f2b9f31b17bc088dedb/result.json",
+    "sha256": "83e8ca8d5ea6d74d74531e52926af7269f949e6ffcffac9b7320106ad1cf8a81"
+  },
+  "review_check_correction": "Initial equality check compared returned six judge pins against the wider expected source ledger; corrected to check the complete six-path judge subset. Initial check retained as reviewer evidence.",
+  "reviewed_at_utc": "2026-10-11T19:30:00.003305+00:00",
+  "reviewer": "astra_git_content_review",
+  "root_admission": {
+    "bytes": 3036,
+    "path": "edgebenchverified/audit/evidence/reporting-runtime-integration-native-astra-high-v2/root-admission.json",
+    "sha256": "c890304113a2154785306836e6075c9032224f3eb1002367660bec04a1272ccf"
+  },
+  "root_grant": {
+    "bytes": 1904,
+    "path": "edgebenchverified/audit/evidence/reporting-runtime-integration-native-astra-high-v2/root-grant.json",
+    "sha256": "800379f0172f4000024599c31d7a49f50ef02bdb7e054cc44e595dfabf35ab4e"
+  },
+  "schema": "different-saved-result-review-v1",
+  "settlement": {
+    "bytes": 1655,
+    "path": "work/cloud-queue/settlements/69dfd0dce3184f2b9f31b17bc088dedb.json",
+    "sha256": "a48baddc86b5ed536b97dac86721b5cd2621b21fa14cd675d7a605a550227f08"
+  },
+  "source_review": {
+    "bytes": 1007,
+    "path": "work/reviews/reporting-runtime-integration-native-astra-high-v2/handoff.json",
+    "sha256": "4ee20027c2ad560f2c437efcb4369dcf88862278ef01fdc27fa6a5d45c1823e4"
+  },
+  "source_supported_cause": {
+    "attribution": "Control configuration defect, not evidence of a candidate or upstream implementation defect. Candidate behavior under correctly configured controls remains unresolved.",
+    "control_lines": [
+      118,
+      163,
+      166,
+      168,
+      170,
+      173
+    ],
+    "control_source": {
+      "bytes": 10341,
+      "path": "work/packets/reporting-runtime-integration-controls-astra-high-v2/test_runtime_integration.py",
+      "sha256": "396ac82d82edb8e2004ef5fe8c5d4ecd4a6c22a42e0dbdc1774d35da6b4443a9"
+    },
+    "finding": "The authored control creates tox.ini but explicitly requests pytest.ini in every nested run.",
+    "primary_sources": [
+      {
+        "bytes": 62389,
+        "path": "work/reviews/reporting-runtime-integration-native-result-astra-high-v2/pytest-9.0.3-pytester.py",
+        "sha256": "c746a6f5b5c7cf740f0533d73f295c6267cff2c1a1562e510bf28f8fa8371e7e",
+        "url": "https://raw.githubusercontent.com/pytest-dev/pytest/9.0.3/src/_pytest/pytester.py"
+      },
+      {
+        "bytes": 12878,
+        "path": "work/reviews/reporting-runtime-integration-native-result-astra-high-v2/pytest-9.0.3-findpaths.py",
+        "sha256": "d22abddac47a73a81504569cc0c356fa0145ce57ef58d3b8e9d5fdc77f609c88",
+        "url": "https://raw.githubusercontent.com/pytest-dev/pytest/9.0.3/src/_pytest/config/findpaths.py"
+      }
+    ],
+    "review_correction": "The earlier source GO did not catch this existing control filename mismatch. Preserve that review as historical; this result review supersedes any inference that the five authored controls have valid execution coverage.",
+    "semantics": "Official pytest 9.0.3 Pytester.makeini creates tox.ini (pytester.py lines 832\u2013838). Explicit -c invokes direct loading of the requested configuration path (config/findpaths.py lines 306\u2013309), rather than discovering tox.ini. The authored child sources do not create pytest.ini.",
+    "strength": "Concrete source-level control mismatch; smallest supported causal explanation consistent with all five immediate failures. Exact historical FileNotFoundError path was not exported, so direct traceback attribution is unavailable. Official version-tag source matches reported installed version but is not a measured container copy."
+  }
+}
