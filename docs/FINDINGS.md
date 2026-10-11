@@ -1,10 +1,10 @@
 # What we found
 
-**We decided to withhold 11 exact original versions from the proposed verified release.** “Excluded” is a release decision; it does not mean every score is wrong or repair is impossible. Evidence remains available, and corrected versions need separate approval.
+**We decided to withhold 12 exact original versions from the proposed verified release.** “Excluded” is a release decision; it does not mean every score is wrong or repair is impossible. Evidence remains available, and corrected versions need separate approval.
 
-There are **18 closed finding-task decisions**: 11 with exclusions and seven whose task decisions remain pending. The [accepted union](../evidence/selected/finding-task-union-18.json) adds CTA and Portfolio; repeated checks on an existing task do not increase this count. None certifies a replacement or measures historical leaderboard impact. [Current summary](../README.md) · [Task decisions](../TASKS.md).
+There are **18 closed finding-task decisions**: 12 with exclusions and six whose task decisions remain pending. The [accepted union](../evidence/selected/finding-task-union-18.json) adds CTA and Portfolio; repeated checks on an existing task do not increase this count. None certifies a replacement or measures historical leaderboard impact. [Current summary](../README.md) · [Task decisions](../TASKS.md).
 
-## Why 11 original versions are excluded
+## Why 12 original versions are excluded
 
 | Original task | Reason for exclusion | Important limit and evidence |
 | --- | --- | --- |
@@ -19,17 +19,17 @@ There are **18 closed finding-task decisions**: 11 with exclusions and seven who
 | **College English Exam** | The grader accepts an assessment missing required rules as complete. | Fixed-response local calls support this. Earlier 100-point examples used an earlier grader copy. [Decision](../evidence/selected/english-original-exclusion.json) · [final-source check](../evidence/selected/english-final-source-repair.json). |
 | **VLIW Kernel Optimization** | Submitted code can replace the live checker and make an invalid file appear correct. | The invalid control ran on an original source copy. Native receipts match installed source identities; no native invalid-submission run occurred. [Decision](../evidence/selected/vliw-original-exclusion.json). |
 | **CTA Risk Budget** | The original mixes currencies when measuring overseas exposure, contradicting its common-currency accounting contract. | A matched fixture changes exposure from 1/3 to 7/9 and the component award from one point to zero. Installed-module behavior and source controls support this decision; fresh source compilation and full-portfolio score impact remain unproved. [Decision](../evidence/selected/cta-original-exclusion.json) · [different review](../evidence/selected/cta-original-exclusion-review.json). |
+| **Rust Multicrate Reconstruction** | A passing exempt test can cancel an unrelated failure, producing false PASS. | Real Cargo fixture evidence supports the decision and five paired fixture controls support the helper repair; original-corpus frequency and the full public/hidden suite remain unmeasured. [Decision](../evidence/selected/rust-original-exclusion.json) · [different disposition review](../evidence/selected/rust-original-exclusion-review.json). |
 
 None of these exclusions rests merely on missing evidence or our environment failures. Current totals are in the [summary](../README.md).
 
-## Seven other tasks with confirmed findings and decisions pending
+## Six other tasks with confirmed findings and decisions pending
 
 | Task | What is established | Why the claim stays narrow |
 | --- | --- | --- |
 | **Portfolio Calibration** | The annual-excess metric annualizes the return difference instead of subtracting aligned annualized returns. | The reviewed evaluator is bound to the final image path. Scalar controls show a 126-observation example should be 23%, not 21%; full Pandas/native validation is separate. [Source binding](../evidence/selected/portfolio-final-source-acceptance.json) · [repair](../evidence/selected/portfolio-annual-excess-repair-acceptance.json). |
 | **Schemathesis Data Generation** | The original date predicate accepts impossible dates and times, including April 31 and minute 60. | Eleven predicate evaluations; no generator, native or score-impact claim. [Conclusion](../evidence/selected/datagen-http-date-acceptance.json) · [independent review](../evidence/selected/datagen-http-date-review.json). |
 | **Schemathesis Reporting** | The original JUnit test accepts non-XML or malformed XML containing its two required text fragments. | Four authored and two independent original-function calls used controlled writers. Actual-writer repair evidence follows below. [Conclusion](../evidence/selected/reporting-junit-acceptance.json) · [review](../evidence/selected/reporting-junit-review.json). |
-| **Rust Multicrate Reconstruction** | A passing test on the known-failure list can cancel an unrelated failure, allowing the Python helper to report PASS. | Actual Cargo now confirms the defect on an authored fixture. Five fixture pairs support the correction, not original-corpus incidence or whole-task score impact. The earlier 0.1 score effect was synthetic. [Native result](../evidence/selected/rust-native-repair-acceptance.json) · [original controls](../evidence/selected/rust-known-failure-outcome.json). |
 | **Schemathesis Config** | Tests omit the requirement to return the identical decorated function and accept a forwarding wrapper instead. | The original scorer gave reference and wrapper the same partial score, 0.135313. This confirms the missing test, without score gain. [Accepted full-score result](../evidence/selected/schemathesis-full-consumer-recovery.json). |
 | **SMT Solver** | The recovered witness lookup merges expressions from different variable scopes. It cannot represent the different values required by a constructed satisfiable example. | Source and a small local test support this; native failure and score impact remain unobserved. Follow-up is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
 | **FFmpeg Scaling** | A recovered timing component can report a positive speed ratio even when a timed call fails or produces no output. | Local substitutes establish this behavior. Separate correctness checks were not bypassed; real score gain is unproved. Follow-up is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
