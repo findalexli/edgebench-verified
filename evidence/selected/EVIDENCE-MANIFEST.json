@@ -318,7 +318,14 @@
       "sha256": "d74fc5d4aebc948c817450d4ffad05a95d216311176ac7c08adddbb6362970b2"
     }
   },
-  "latest_selected_results_scope": "Datagen11 originalpredicate evaluations and reporting6 originaltestfunction calls support2 additional finite findings. Rust scopedcomponentprototype accepted; no native repair or task certification. Failedcloudconfigurationcheck retained in priorbatch.",
+  "latest_selected_results_scope": {
+    "new_certifications": 0,
+    "new_findings": 0,
+    "new_native_calls": 0,
+    "new_task_coverage": 0,
+    "scope": "Independent finite JUnit checker prototype and Apple record correction; no task decision/count changes.",
+    "utc": "2026-10-11T18:48:52.063870+00:00"
+  },
   "manifest_identity_history": [
     {
       "bytes": 46417,
@@ -370,6 +377,12 @@
       "path": "evidence/selected/EVIDENCE-MANIFEST.json",
       "scope": "Before16findingdeliveryandfailure-diagnosticslesson",
       "sha256": "9a4b299887103faa2beb69db9947c01530a66af1c466354257759de972f9ebe4"
+    },
+    {
+      "bytes": 101881,
+      "path": "evidence/selected/EVIDENCE-MANIFEST.json",
+      "scope": "Before JUnit checker prototype and Apple current-record correction",
+      "sha256": "1c2829a59696d3b8d4ef901376d981cae10d5a7e0c8eb07c8bf120046eca4697"
     }
   ],
   "manifest_self_hash": "Excluded to avoid a self-reference; final manifest identity is supplied in the review handoff.",
@@ -423,7 +436,7 @@
     "2026-10-11T06:41:28.636047+00:00",
     "2026-10-11T17:32:44.773476+00:00"
   ],
-  "presentation_refresh_utc": "2026-10-11T18:18:58.575130+00:00",
+  "presentation_refresh_utc": "2026-10-11T18:48:52.063870+00:00",
   "previous_manifest_identity": {
     "bytes": 14504,
     "git_commit": "13df675c9083d4722d56c712bc7b64964fbc1add",
@@ -788,6 +801,18 @@
       "path": "docs/FINDINGS.md",
       "scope": "Superseded current selected pin before16findingdelivery",
       "sha256": "5e1fd9cfcf1b8d5781c56bb2ab4a09f09af534c22507b8e51fcc84876fd3849c"
+    },
+    {
+      "bytes": 17019,
+      "path": "AUDIT-STATUS.md",
+      "scope": "Superseded pin before JUnit prototype and Apple record correction",
+      "sha256": "959776bd5f0adf639efc786f6ac964f53534628f471653aba38fdc26b2003f74"
+    },
+    {
+      "bytes": 40067,
+      "path": "tools/audit_runtime/job_validator.py",
+      "scope": "Superseded pin before JUnit prototype and Apple record correction",
+      "sha256": "1e95da67e5ae05b7fc342b1d81ee8abe269e40a2205447cd61ea26d6f87449e2"
     }
   ],
   "repository_scope": "Private selected evidence; local archive excluded. This manifest is a derived provenance record, not an exact copy of any source and not a scientific acceptance or rights-clearance decision.",
@@ -821,9 +846,9 @@
       "sha256": "ce59f637258dc3415955c71b08856b58306b2c01f88cccb0190ae3cc9afee685"
     },
     {
-      "bytes": 17019,
+      "bytes": 17867,
       "path": "AUDIT-STATUS.md",
-      "sha256": "959776bd5f0adf639efc786f6ac964f53534628f471653aba38fdc26b2003f74"
+      "sha256": "f47522f1ae1033fccd3fe9e3388db9a668a1844925e9f7bad3f50f1a34e7ddf7"
     },
     {
       "bytes": 3531,
@@ -1196,9 +1221,9 @@
       "sha256": "146fec98d6bc7102b0735c3bd9fd374f0d2962ab3247e2a1f0ad9c07dd8b4089"
     },
     {
-      "bytes": 40067,
+      "bytes": 41473,
       "path": "tools/audit_runtime/job_validator.py",
-      "sha256": "1e95da67e5ae05b7fc342b1d81ee8abe269e40a2205447cd61ea26d6f87449e2"
+      "sha256": "fdd1fd25d829e6ac5807826017248758f53174b00d3f07852921a9288ba2faba"
     },
     {
       "bytes": 1939,
@@ -1229,6 +1254,41 @@
       "bytes": 5543,
       "path": "evidence/selected/reporting-junit-review.json",
       "sha256": "523ef67831a68d707881a5fc17ad8d20dbcabb81a4538c7173dadea355a9bff7"
+    },
+    {
+      "bytes": 2183,
+      "path": "evidence/selected/apple-current-execution-review.json",
+      "sha256": "9190b46511817aae786dd70716beb0816d4574196c61a6f4a2d5a2bd2bbabbde"
+    },
+    {
+      "bytes": 1469,
+      "path": "evidence/selected/reporting-junit-repair-review.json",
+      "sha256": "18a85c364b958a4578fb3fe86d59bf5a1207a126e353923d1b984e103dd2f12c"
+    },
+    {
+      "bytes": 2343,
+      "path": "evidence/selected/reporting-junit-repair-fresh-controls.json",
+      "sha256": "fb7a69f24be2502d97ba47f84f2fd2e326521765795980ba2ff86334f5d859f7"
+    },
+    {
+      "bytes": 4280,
+      "path": "evidence/selected/reporting-junit-repair-author-controls.json",
+      "sha256": "fe58b77dd2ede3bc1f1d349b83d2b125f7ce85fcbe18c82a20536e878b2e4240"
+    },
+    {
+      "bytes": 1325,
+      "path": "proposedrepairs/reporting-junit/repair.patch",
+      "sha256": "484d916010afdd5d50017a8016fd79041e9142d46b37748b53563887965cd497"
+    },
+    {
+      "bytes": 1580,
+      "path": "proposedrepairs/reporting-junit/README.md",
+      "sha256": "8a0d65e382a4347720d27cde3bfc87d557dba342f71a14c19760403c44873e9a"
+    },
+    {
+      "bytes": 1513,
+      "path": "proposedrepairs/reporting-junit/manifest.json",
+      "sha256": "7760e60062f0af4e490e529a475782efb43ada50b0dab955bab5a7237c486c0e"
     }
   ],
   "selected_order_sidecar_scope": "Exact accepted compact metadata only; three actual bundle approvals and five immediate scientific decision leaves. Other50 task cards, source-lock/harness/catalog and full raw/native archive are absent. No complete-release check, fresh reproduction or certification claim.",
@@ -1881,6 +1941,31 @@
       "bytes": 1884,
       "path": "edgebenchverified/audit/evidence/rust-known-failure-repair-v2-20261011-root-acceptance/root-result-review.json",
       "sha256": "0a945d6f2e0d49e009ab08b332244cd914465348a8274bf1e45ec923cff0179c"
+    },
+    {
+      "bytes": 2183,
+      "path": "edgebenchverified/audit/evidence/apple-current-gate-record-20261011-root-acceptance/root-result-review.json",
+      "sha256": "9190b46511817aae786dd70716beb0816d4574196c61a6f4a2d5a2bd2bbabbde"
+    },
+    {
+      "bytes": 1469,
+      "path": "edgebenchverified/audit/evidence/reporting-junit-verifier-repair-20261011-root-review/root-result-review.json",
+      "sha256": "18a85c364b958a4578fb3fe86d59bf5a1207a126e353923d1b984e103dd2f12c"
+    },
+    {
+      "bytes": 2343,
+      "path": "edgebenchverified/audit/evidence/reporting-junit-verifier-repair-20261011-root-review/fresh-controls.json",
+      "sha256": "fb7a69f24be2502d97ba47f84f2fd2e326521765795980ba2ff86334f5d859f7"
+    },
+    {
+      "bytes": 4280,
+      "path": "work/packets/reporting-junit-verifier-repair-astra-high-v1/result.json",
+      "sha256": "fe58b77dd2ede3bc1f1d349b83d2b125f7ce85fcbe18c82a20536e878b2e4240"
+    },
+    {
+      "bytes": 1325,
+      "path": "work/packets/reporting-junit-verifier-repair-astra-high-v1/repair.patch",
+      "sha256": "484d916010afdd5d50017a8016fd79041e9142d46b37748b53563887965cd497"
     }
   ],
   "status_snapshot_history": [
