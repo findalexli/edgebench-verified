@@ -1,41 +1,37 @@
 # EdgeBench Verified — private working audit
 
-An independent audit and repair of the public EdgeBench release. **No task is certified.** This project is not affiliated with or endorsed by the upstream authors.
+An independent audit of the public EdgeBench release, with versioned repairs and evidence-backed conclusions. **No task is certified.** This project is not affiliated with or endorsed by the upstream authors.
 
-The aim is to retain, repair or exclude tasks using reproducible evidence while preserving the original SForge task format. The acquired scope contains 51 public tasks; 83 other advertised tasks remain unavailable. Current decisions are two exact-version exclusions and 49 pending. See [audit status](AUDIT-STATUS.md) and [verification requirements](VERIFICATION.md).
+The acquired scope contains **51 public tasks**. There are accepted partial component or data observations for **37 tasks**, **12 closed scoped finding decisions**, **two reviewed exact-version exclusions**, and **49 pending final dispositions**. The other **83 advertised tasks are unavailable**. Finding closure, tested repairs and task certification are separate measures. See [current status](AUDIT-STATUS.md), [the evidence index](docs/EVIDENCE-INDEX.md) and [verification requirements](VERIFICATION.md).
 
 ## Repository and evidence
 
-This initial private repository contains the harness, public task definitions, selected contract tests and the fail-closed release checker. The complete local audit archive, private acquired judge/data contents, cloud ownership ledger, credentials and image caches are deliberately outside the initial commit. Selected compact evidence and versioned repairs will be added through focused review branches.
+This private repository consolidates the harness, public task definitions, Order/ANN/Equivalence branches, selected source and evidence, contract checks, and reusable audit skills. The complete local audit archive, acquired private data, cloud ownership ledger, credentials and image caches remain outside Git. Selected evidence has an explicit provenance manifest; copying a record does not constitute another independent reproduction.
 
-- `sforge/`: acquired harness and existing audited changes.
-- `tasks/`: public definitions in upstream format; presence does not imply inclusion.
-- `tests/`: selected grading and synthetic evidence-integrity regressions.
-- `tools/check_release.py`: release-evidence integrity checker; passing would still require scientific review.
-- `AGENTS.md`: current execution authority, resource limits and preserved holds.
+- `sforge/` and `tasks/`: harness and public definitions in the original format.
+- `evidence/selected/`: scoped conclusions and task coverage, with source hashes.
+- `tools/` and `tests/`: selected execution, accounting and contract checks.
+- `.agents/skills/`: E2B execution and EdgeBench evidence-audit guidance.
+- [Audit workflow](docs/AUDIT-WORKFLOW.md): canonical coordination, worktrees and useful experiments.
+- [Consolidated source manifest](docs/CONSOLIDATED-SOURCE-MANIFEST.json): exact source-copy identities.
 
 ## Lightweight checks
 
 ```sh
 python -m pip install -e . pytest
-python -m pytest tests/test_grading_contract.py tests/test_release_gates.py -q
+PYTHONPATH=tools python -m pytest tests/test_grading_contract.py tests/test_release_gates.py tests/test_cloud_dispatch_resources.py tests/test_cloud_policy.py tests/test_cloud_queue.py -q
 ```
 
-CI runs only these small contract checks on Python 3.12. It does not start native task containers, E2B workers or model runs. A real release check against this incomplete archive is expected to reject release; it is not a CI success criterion.
+CI uses Python 3.12 and runs these provider-free contract checks. It starts no native containers, cloud workers or model runs. The optional E2B dependency is pinned to the reviewed coordinator SDK; task interpreters remain separate. The incomplete release registry is expected to reject benchmark release.
 
-## Parallel work
+## Current execution
 
-Use focused branches and worktrees for Order, Equivalence and ANN. Keep one canonical local cloud queue and ownership registry; worktree copies must never create competing accounting state. Freeze candidate code before fresh independent controls. Record original/candidate results and remaining gates before a task decision.
+Use isolated worktrees for concurrent source edits and **one canonical cloud queue, ownership registry and coordinator**. Read current accepted evidence and exact job terminals before preparing another run. Preserve failed hypotheses and run only unresolved work. The resumed window ends **October 12, 2026 at 05:52:16 UTC**. The user removed the compute ceiling and reserve; useful cloud concurrency up to 50 remains subject to local responsiveness, staging limits and existing holds.
 
-Current private drafts: [Order built-image controls #4](https://github.com/findalexli/edgebench-verified/pull/4), [ANN prerequisites #5](https://github.com/findalexli/edgebench-verified/pull/5) and [Equivalence recipe #6](https://github.com/findalexli/edgebench-verified/pull/6). On October 10, the built Order checker passed a fresh legal submission 5/5 and rejected the wrong-cost control with 4/5 and no score. Different saved-result review and root acceptance support those finite observations; the tested image was removed, and retention, native manifest adoption, complete harness transport and independent native reproduction remain pending. ANN's original performance evaluator and Equivalence's complete six-part evaluation have not run successfully. Draft and CI success are not task certification.
-
-The resumed execution window ends October 12, 2026 at 05:52:16 UTC. Existing automatic-review holds remain in effect. Creating this private repository does not authorize benchmark publication.
+The [public progress report](https://edgebench-audit-progress.alex-shengzhi.chatgpt.site) is separately authorized and can lag this repository's snapshot. This private consolidation does not publish or certify the benchmark.
 
 ## Sources and attribution
 
-The harness derives from [ByteDance Seed EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its Apache-2.0 license is retained in `LICENSE`. Public task definitions derive from the [Hugging Face release](https://huggingface.co/datasets/ByteDance-Seed/EdgeBench) at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75`; the separate license is retained in `tasks/LICENSE`. These notices do not clear every in-image dataset or dependency for redistribution.
+The harness derives from [ByteDance Seed EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its Apache-2.0 license is retained in `LICENSE`. Public definitions derive from the [Hugging Face release](https://huggingface.co/datasets/ByteDance-Seed/EdgeBench) at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75`; the separate license is retained in `tasks/LICENSE`. These notices do not clear every in-image dataset or dependency for redistribution.
 
-The authorized [public progress report](https://edgebench-audit-progress.alex-shengzhi.chatgpt.site) explains the current findings and their limits.
-
-For selected mathematical claims, [Rethlas and the formal-checking workflow](docs/FORMAL-TOOLS.md)
-can support proof generation and critique before independent Lean or TLA+ checking.
+[Rethlas and the formal-checking workflow](docs/FORMAL-TOOLS.md) can support selected mathematical claims. Generated proofs require actual independent Lean or TLA+ checks and correspondence with the audited implementation.
