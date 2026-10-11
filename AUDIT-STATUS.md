@@ -14,6 +14,12 @@ Scientific evidence snapshot: **October 11, 2026, 19:17 UTC**. This is an unfini
 
 **Sixteen scoped finding-task decisions are closed.** A confirmed defect can be settled before its repair is ready, and a useful partial check does not finish a task review. The finding count is separate from the final task decisions above. Another **83 advertised tasks were unavailable** and are outside this audit's acquired set.
 
+## Operational update at 19:30 UTC
+
+**All five authored reporting integration controls failed before their nested lifecycle checks.** The installed candidate matched its expected files, but our control creates `tox.ini` and asks pytest to load `pytest.ini`. This is a confirmed source mistake in our control, not a demonstrated defect in the candidate or upstream task. The exact missing filename was not retained in the runtime traceback, so the historical cause remains source-supported rather than directly observed. [Accepted failure review](evidence/selected/reporting-integration-v2-failure-acceptance.json) · [different result review](evidence/selected/reporting-integration-v2-failure-review.json).
+
+The worker is closed. The corrected controls remain source-only; no successful nested lifecycle or xdist coverage is added. The earlier 55 passing original tests and score 1.0 retain their stated limits. A separate coverage-helper process exited successfully, but its result could not be parsed; no scientific conclusion is accepted from it. Findings, task decisions and certifications are unchanged.
+
 ## What changed since the 19:03 UTC checkpoint
 
 **Schemathesis Data Generation:** date-checker repair V2 passed all 16 classified reviewer controls; one future leap-second occurrence remains unclassified. It corrects V1's acceptance of years before 1900 and second 60 outside 23:59 GMT. The original impossible-date finding and V1's retracted year assumptions remain documented. This is a finite predicate repair, without native generator or full patched-scorer validation. [Patch, controls and limits](proposedrepairs/datagen-http-date/README.md).
