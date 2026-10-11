@@ -1,0 +1,311 @@
+{
+  "decision": "CONFIRMED_SOURCE_CONFIGURATION_DELEGATES_LIMIT_AND_PUBLISHES_8GI_JUDGE_DEFAULT_FOR_MOLECULAR",
+  "task_id": "molecular_self_assembly",
+  "reviewer": "/root/astra_reporting_requirement_coverage; same prior independent source/native-result reviewer, source complement only",
+  "question": "Does the acquired pinned task/harness itself establish an external 1GB cap that would explain the original helper not enforcing the README memory promise?",
+  "conclusion": "No 1GB external cap is established by the pinned task/harness configuration examined. The task JSON omits memory limits. The acquired official leaderboard Kubernetes experiment files explicitly list Molecular with no override and a shared judge limit of 8g, translated by the original backend to an 8Gi container limit. That aggregate bound is not a per-solution 1GB check. This resolves the source-configuration question, while actual deployed overrides/admission policies remain unknown.",
+  "source_revision": "6e4e5f4aa087a9121aa09a6059e5484e5102c6ff",
+  "facts": [
+    {
+      "fact": "The exact task manifest has no work.mem_limit or judge.mem_limit. The original parser gets these absent values as None.",
+      "refs": [
+        "tasks/molecular_self_assembly.json (whole 2192-byte file)",
+        "sforge/harness/task_spec.py:217-218,231-232"
+      ]
+    },
+    {
+      "fact": "SForgeConfig defaults both work/judge memory limits to None. CLI and experiment values can supply resource policy. Per-task experiment values override experiment defaults; CLI-selected values take precedence when already present.",
+      "refs": [
+        "sforge/harness/config.py:67-70,194-201",
+        "sforge/harness/experiment.py:207-216,257-271",
+        "sforge/cli.py:443-449,1020-1025,1036-1039"
+      ]
+    },
+    {
+      "fact": "All four acquired all-tasks-k8s experiment YAMLs describe themselves as official leaderboard settings and list Molecular with an empty override. Their inherited judge memory is 8g; work memory is 16g. This is a concrete published configuration, not evidence of an actual deployed run.",
+      "refs": [
+        "examples/all-tasks-k8s/experiment.yaml:1-4,41-51,96",
+        "examples/all-tasks-k8s/experiment-codex.yaml:40-42,87",
+        "examples/all-tasks-k8s/experiment-deepseek.yaml:45-47,101",
+        "examples/all-tasks-k8s/experiment-glm.yaml:45-47,104"
+      ]
+    },
+    {
+      "fact": "The configured judge limit is forwarded from run registration into judge submission and resolved as config over task. K8s applies it to the container requests and limits; 8g becomes 8Gi. There is no conversion into a per-case child limit in this path.",
+      "refs": [
+        "sforge/harness/run_agent.py:392-393",
+        "sforge/harness/judge_server.py:505-524",
+        "sforge/harness/run_evaluation.py:163-172",
+        "sforge/harness/backend/k8s_backend.py:213-224,243-244,747-756"
+      ]
+    },
+    {
+      "fact": "Other supported backends do not imply a hidden 1GB default: Docker forwards mem_limit only when non-None; E2B warns that per-container CPU/memory values are ignored and uses template-level resources. Docker host policy and E2B template resources cannot be recovered from these defaults alone.",
+      "refs": [
+        "sforge/harness/backend/docker_backend.py:121-125",
+        "sforge/harness/backend/e2b_backend.py:265-273"
+      ]
+    }
+  ],
+  "scientific_effect": {
+    "closed": "The available exact source does not provide the hypothesized external 1GB enforcement. Its published official K8s setting instead provides an aggregate 8Gi judge cap.",
+    "preserved_native_fact": "The unchanged original run_case accepted a child with measured RSS 1220866048 bytes and valid output on the official case under our explicit 2GiB regime. The lower-memory positive control also passed.",
+    "not_established": "Whether any historical leaderboard deployment added a stricter 1GB per-child cap, changed CLI settings, admission policy, wrapper, or runtime limit; incidence and full-pool scoring impact.",
+    "scope": "Source-level missing per-solution enforcement remains supported; benchmark-wide deployed-policy violation is not promoted. Container-level 8Gi shared by the parallel evaluator is not eight independent per-child 1Gi allocations or guarantees.",
+    "disposition": "No task exclusion, certification, repair or new native execution in this complement. Root may adjudicate the finite contract finding separately."
+  },
+  "remaining_specific_decisive_fact": "For a historical hosted-policy claim, obtain the exact effective judge pod/container resource and per-child enforcement policy for that run; neither generic defaults nor comments claiming official settings prove deployment.",
+  "source_pins": [
+    {
+      "path": "edgebenchverified/tasks/molecular_self_assembly.json",
+      "sha256": "e8569e3a42da7c685fc93367701d844aefe2d4d9e541919fca298501efa41717",
+      "bytes": 2192,
+      "upstream_sha256": "e8569e3a42da7c685fc93367701d844aefe2d4d9e541919fca298501efa41717",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/task_spec.py",
+      "sha256": "6be45aeae6a061c0097a34b6740461a673d40e76a631975946572bdd78f8ad55",
+      "bytes": 9283,
+      "upstream_sha256": "6be45aeae6a061c0097a34b6740461a673d40e76a631975946572bdd78f8ad55",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/config.py",
+      "sha256": "d90ff0e49cfa7a08c6bb1c31fbba5d527881771312447dcf9d52ddf9c2227213",
+      "bytes": 13846,
+      "upstream_sha256": "d90ff0e49cfa7a08c6bb1c31fbba5d527881771312447dcf9d52ddf9c2227213",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/experiment.py",
+      "sha256": "e82b6666d70ce4a1fd5f07e6ff0ed156419fd9a7ef8be92319c34077015f8d25",
+      "bytes": 9173,
+      "upstream_sha256": "e82b6666d70ce4a1fd5f07e6ff0ed156419fd9a7ef8be92319c34077015f8d25",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/cli.py",
+      "sha256": "b53a54eff9a8957d834c37cfa11c4fe3078b3d6a1db68ee1de1d16615ab846e6",
+      "bytes": 44704,
+      "upstream_sha256": "b53a54eff9a8957d834c37cfa11c4fe3078b3d6a1db68ee1de1d16615ab846e6",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/run_agent.py",
+      "sha256": "0177a656a51250c42e77b99b96cb08cd7f73a1ddc2bf35b7b5bfe7ad8fcdd149",
+      "bytes": 39039,
+      "upstream_sha256": "0177a656a51250c42e77b99b96cb08cd7f73a1ddc2bf35b7b5bfe7ad8fcdd149",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/judge_server.py",
+      "sha256": "77410d7e4705df03418d0676ddbb74241da7746190807cb073fbcdae3edf4e04",
+      "bytes": 42206,
+      "upstream_sha256": "77410d7e4705df03418d0676ddbb74241da7746190807cb073fbcdae3edf4e04",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/run_evaluation.py",
+      "sha256": "cbc6cd92cd9ff42adcb7a19adc7acfce94c8f727f9869fed96978a2657b2bb52",
+      "bytes": 11154,
+      "upstream_sha256": "cbc6cd92cd9ff42adcb7a19adc7acfce94c8f727f9869fed96978a2657b2bb52",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/backend/docker_backend.py",
+      "sha256": "e56e6a71db8c9709b06edde162ec11e9a39f369b213a20844d49037ab4324aaf",
+      "bytes": 14609,
+      "upstream_sha256": "e56e6a71db8c9709b06edde162ec11e9a39f369b213a20844d49037ab4324aaf",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/backend/k8s_backend.py",
+      "sha256": "30eceb514e92639d7032f7bffbdcebb82f90d7496403f201f7c573beda83f27e",
+      "bytes": 24984,
+      "upstream_sha256": "30eceb514e92639d7032f7bffbdcebb82f90d7496403f201f7c573beda83f27e",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/sforge/harness/backend/e2b_backend.py",
+      "sha256": "716b6474c7b5782ad9bfdda0a1b5b8f0956bf5ebdc7c37db63a554672ccb7edc",
+      "bytes": 40861,
+      "upstream_sha256": "716b6474c7b5782ad9bfdda0a1b5b8f0956bf5ebdc7c37db63a554672ccb7edc",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/examples/all-tasks-k8s/experiment-codex.yaml",
+      "sha256": "6cf7d41bc67f765adbd458409209e6af02bbb9a53020cf366511707b3fc45b33",
+      "bytes": 5807,
+      "upstream_sha256": "6cf7d41bc67f765adbd458409209e6af02bbb9a53020cf366511707b3fc45b33",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/examples/all-tasks-k8s/experiment-deepseek.yaml",
+      "sha256": "35f09b33bc36d74f57be1e88920b3bf1a48f9950c15ac91784d25d76f7df47e5",
+      "bytes": 6570,
+      "upstream_sha256": "35f09b33bc36d74f57be1e88920b3bf1a48f9950c15ac91784d25d76f7df47e5",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/examples/all-tasks-k8s/experiment-glm.yaml",
+      "sha256": "b7b7c2de7575689c2e9c4287d50b5d7ce0da43e52b05477152ec6c45d141f694",
+      "bytes": 6636,
+      "upstream_sha256": "b7b7c2de7575689c2e9c4287d50b5d7ce0da43e52b05477152ec6c45d141f694",
+      "matches_pinned_upstream": true
+    },
+    {
+      "path": "edgebenchverified/examples/all-tasks-k8s/experiment.yaml",
+      "sha256": "d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be",
+      "bytes": 6224,
+      "upstream_sha256": "d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be",
+      "matches_pinned_upstream": true
+    }
+  ],
+  "additional_evidence": [
+    {
+      "path": "edgebenchverified/audit/upstream-lock.json",
+      "sha256": "863fd7d6381d78401c75c24b3116b1216513c96ab55df03025c6cd0c905252b8",
+      "bytes": 21251
+    },
+    {
+      "path": "edgebenchverified/audit/release/harness-source-inventory-v1.json",
+      "sha256": "03f6334541e641ce4e3cf8d225215cc2b61c7365f85a435ac7bde4c5888f28fd",
+      "bytes": 11328
+    },
+    {
+      "path": "work/task-sources/merged/molecular_self_assembly/home/workspace/molecules/README.md",
+      "sha256": "290ee7a37f39522e3b1fd3e6882e8d91e756d89081797f5d6d765c1fe6cad5b9",
+      "bytes": 3243
+    },
+    {
+      "path": "work/task-sources/merged/molecular_self_assembly/tmp/eval_molecules.py",
+      "sha256": "4faad7b93a842cf17cab13f3ae8b3e67c4c7504a34cb02062a06cdbab985baac",
+      "bytes": 3037
+    },
+    {
+      "path": "work/reviews/molecular-child-memory-native-astra-high-v1-result/handoff.json",
+      "sha256": "d5072b91718187580bdda3d858b354a44968b6cdb70d88f116a0681ea2d4baba",
+      "bytes": 897
+    },
+    {
+      "path": "work/reviews/molecular-child-memory-native-astra-high-v1-result/review.json",
+      "sha256": "c1ac169bbfeada5c380f14d6304c4888e0fd335b17bf9c17e6e8aa5529e9e71d",
+      "bytes": 6592
+    }
+  ],
+  "examples": [
+    {
+      "path": "edgebenchverified/examples/all-tasks-k8s/experiment-codex.yaml",
+      "relevant_lines": [
+        {
+          "line": 42,
+          "text": "judge_mem_limit: \"8g\""
+        },
+        {
+          "line": 50,
+          "text": "judge_mem_limit: \"16g\""
+        },
+        {
+          "line": 62,
+          "text": "judge_mem_limit: \"16g\""
+        },
+        {
+          "line": 87,
+          "text": "molecular_self_assembly: {}"
+        },
+        {
+          "line": 93,
+          "text": "judge_mem_limit: \"16g\""
+        }
+      ],
+      "interpretation": "Molecular has no task override, inheriting defaults judge_mem_limit 8g. Other task/anchor 16g settings do not apply to Molecular."
+    },
+    {
+      "path": "edgebenchverified/examples/all-tasks-k8s/experiment-deepseek.yaml",
+      "relevant_lines": [
+        {
+          "line": 47,
+          "text": "judge_mem_limit: \"8g\""
+        },
+        {
+          "line": 64,
+          "text": "judge_mem_limit: \"16g\""
+        },
+        {
+          "line": 76,
+          "text": "judge_mem_limit: \"16g\""
+        },
+        {
+          "line": 101,
+          "text": "molecular_self_assembly: {}"
+        },
+        {
+          "line": 107,
+          "text": "judge_mem_limit: \"16g\""
+        }
+      ],
+      "interpretation": "Molecular has no task override, inheriting defaults judge_mem_limit 8g. Other task/anchor 16g settings do not apply to Molecular."
+    },
+    {
+      "path": "edgebenchverified/examples/all-tasks-k8s/experiment-glm.yaml",
+      "relevant_lines": [
+        {
+          "line": 47,
+          "text": "judge_mem_limit: \"8g\""
+        },
+        {
+          "line": 67,
+          "text": "judge_mem_limit: \"16g\""
+        },
+        {
+          "line": 79,
+          "text": "judge_mem_limit: \"16g\""
+        },
+        {
+          "line": 104,
+          "text": "molecular_self_assembly: {}"
+        },
+        {
+          "line": 110,
+          "text": "judge_mem_limit: \"16g\""
+        }
+      ],
+      "interpretation": "Molecular has no task override, inheriting defaults judge_mem_limit 8g. Other task/anchor 16g settings do not apply to Molecular."
+    },
+    {
+      "path": "edgebenchverified/examples/all-tasks-k8s/experiment.yaml",
+      "relevant_lines": [
+        {
+          "line": 51,
+          "text": "judge_mem_limit: \"8g\""
+        },
+        {
+          "line": 59,
+          "text": "judge_mem_limit: \"16g\""
+        },
+        {
+          "line": 71,
+          "text": "judge_mem_limit: \"16g\""
+        },
+        {
+          "line": 96,
+          "text": "molecular_self_assembly: {}"
+        },
+        {
+          "line": 102,
+          "text": "judge_mem_limit: \"16g\""
+        }
+      ],
+      "interpretation": "Molecular has no task override, inheriting defaults judge_mem_limit 8g. Other task/anchor 16g settings do not apply to Molecular."
+    }
+  ],
+  "verification": {
+    "all_15_selected_task_harness_and_example_files_match_upstream_lock": true,
+    "manifest_resource_field_absence_checked": true,
+    "all_four_molecular_empty_overrides_and_first_default_8g_checked": true,
+    "native_reruns": 0,
+    "canonical_mutations": 0,
+    "cloud_calls": 0
+  }
+}

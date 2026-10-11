@@ -17,7 +17,7 @@ repairs progressing alongside the remaining audit. An interim findings report, a
 see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable.
 
 Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
-and [TASKS](TASKS.md) for current decisions. There are findings across 18 tasks,
+and [TASKS](TASKS.md) for current decisions. There are findings across 19 tasks,
 16 withheld original versions, 35 pending decisions and zero certified versions.
 “Withheld” applies to the exact original unchanged; it does not approve or rule
 out a repaired version. The Git `audit/task-registry.json` is a historical partial

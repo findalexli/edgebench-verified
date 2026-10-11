@@ -7,13 +7,13 @@ An independent audit of whether EdgeBench’s tasks, tests and data measure what
 | What we know | Count |
 | --- | ---: |
 | Public tasks acquired | 51 |
-| Tasks with confirmed findings, within the scope stated in each case | 18 |
+| Tasks with confirmed findings, within the scope stated in each case | 19 |
 | Original versions we would withhold from a verified release | 16 |
 | Original task decisions still pending | 35 |
 | Task versions approved for a verified release | 0 |
 | Additional advertised tasks unavailable to this audit | 83 |
 
-The [18 finding tasks](evidence/selected/finding-task-union-18.json) overlap the other rows; these counts must not be added together. A confirmed problem can be settled before its repair or the rest of the task is reviewed.
+The [19 finding tasks](evidence/selected/finding-task-union-19.json) overlap the other rows; these counts must not be added together. A confirmed problem can be settled before its repair or the rest of the task is reviewed.
 
 **“Excluded” means “withhold this original version unchanged.”** It does not mean deleted, worthless, impossible to score or unfixable. For example, an original checker that accepts overlapping shapes should be corrected and tested as a new version. Graph’s exclusion is a conservative policy choice about invalid confidence values; no score inflation was demonstrated. Every reason and its limits are in the findings.
 
@@ -27,7 +27,9 @@ The reporting implementation now passes the combined corrected judge: **57 colle
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
 
-**October 11, 2026, 22:57 UTC:** Data Generation’s original is now withheld for accepting impossible HTTP dates; its finite checker repair does not complete the generator or task. All three corrected reporting lifecycle controls now pass, including their cleanup checks. The implementation did not change: the earlier controls wrongly required every callback to contain requests. This is finite serial evidence, not wider parallel validation. We also recovered the accepted October 9 vehicle-routing checker result and selected the existing 56-case data check; neither is a new run. Complete route feasibility, reference-score provenance and broader replacement checks remain unfinished. [Evidence and next questions](TASKS.md).
+**October 11, 2026, 23:21 UTC:** Molecular’s original helper accepted a solution using about 1.22 GB despite the stated 1 GB limit, in our explicitly 2 GiB audit environment. Published settings provide an aggregate 8 GiB judge limit, not the promised per-solution enforcement. This is a new scoped finding, not a repair or a claim about historical deployments. Juliet’s 736 retained records join and 723 labels match, but 18 label locations still need their original convention resolved. Vibrating’s actual tester accepted two valid tiny examples and rejected six invalid ones; the tested failure hypothesis was not confirmed. [Evidence and next questions](TASKS.md).
+
+The 51-task audit remains unfinished because resolving one finding does not validate the rest of a task, its data or its replacement. Thirty-five original decisions remain pending; no corrected version is certified.
 
 ## What this repository contains
 
