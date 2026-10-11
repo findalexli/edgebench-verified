@@ -1,0 +1,44 @@
+{
+  "task_id": "schemathesis_datagen_pipeline",
+  "version": 2,
+  "native_target": "/tests/test_01_header_strategies.py",
+  "application": "Apply repair.patch relative to original /tests parent only after original file SHA matches original_source. Full original/candidate test modules intentionally omitted.",
+  "original_source": {
+    "path": "work/task-sources/cloud-exports/merged/schemathesis_datagen_pipeline/tests/test_01_header_strategies.py",
+    "bytes": 5899,
+    "sha256": "f2bf937f58549d6a82468883cf5a199357cef2caaf5dc9da865f962648bdeec6"
+  },
+  "resulting_candidate": {
+    "path": "work/packets/datagen-http-date-repair-astra-high-v2/candidate/tests/test_01_header_strategies.py",
+    "bytes": 7076,
+    "sha256": "b5ae22f45cd7e7a2cb9f74979fa599cfdb97d672ca1d971682416871dd94261d"
+  },
+  "patch": {
+    "path": "repair.patch",
+    "bytes": 2167,
+    "sha256": "1603988bfdd50ed6380ab65a6127b68d3f2039c56c0d9b5063318c2c67bcf9a4"
+  },
+  "acceptance": "../../evidence/selected/datagen-http-date-repair-v2-acceptance.json",
+  "different_review": "../../evidence/selected/datagen-http-date-repair-v2-review.json",
+  "fresh_controls": "../../evidence/selected/datagen-http-date-repair-v2-result.json",
+  "original_v1_retractions": "V1 authored year0001 known-valid expectation was wrong. Its8 valid count is retracted; seven of those eight are valid. Year0000 is invalid, not unresolved. Preserve V1 bytes and result as superseded expectations.",
+  "validation_scope": "Source/component finite predicate only; no native generator/property/full scorer or complete leap-occurrence validation.",
+  "full_source_or_private_test_body_included": false,
+  "provenance": {
+    "author_handoff": {
+      "path": "work/packets/datagen-http-date-repair-astra-high-v2/handoff.json",
+      "bytes": 7987,
+      "sha256": "16392d159bc76522554bf7a50cdf11c2edb2883a60d04787f73c8df9859756a2"
+    },
+    "v1_source": {
+      "path": "work/packets/datagen-http-date-repair-astra-high-v1/candidate/tests/test_01_header_strategies.py",
+      "bytes": 6988,
+      "sha256": "ea0619b2bd421307db542de5bb8d7a94baa5a48cc2985c30982477d62f9781e9"
+    },
+    "v1_review": {
+      "path": "work/reviews/datagen-http-date-repair-astra-high-v1/review.json",
+      "bytes": 5509,
+      "sha256": "6f1e3875d77bb0973e85113c786018b591a5120d8f3041c790a6e4b5abbf1efb"
+    }
+  }
+}
