@@ -9,7 +9,7 @@ description: Plan, run, recover, and account for useful E2B audit or test worker
 
 Prepare a worker only for a named unanswered task question. Prefer collecting and concluding a completed run to recreating its setup. Use an existing runner and bounded local checks when they answer the question; add infrastructure only for an identified missing capability in the next useful test.
 
-After one bounded setup correction or roughly 15 minutes of setup work, record the blocker and move another ready lane forward. Do not keep the whole audit waiting on one environment. Reuse unchanged accepted checks and reviews. Useful worker concurrency can rise within the authorized shared limits once original task execution is demonstrated; idle machines and repeated launcher tests do not improve coverage.
+Enforce the evidence-audit skill's setup stop when dispatching: preserve the typed failure, leave the lane stopped, and advance its named ready fallback. Another preparation assignment requires new evidence about the failure. A source-ready packet goes to its required review and admission. Reuse unchanged accepted checks and completed slices; admit the unresolved complement. Useful concurrency follows demonstrated original task execution and observed staging/settlement capacity.
 
 Report how many original task checks actually ran and what they established. If none ran, say so in plain language. Put worker handles, estimates and failure codes in linked operational records. The evidence-audit skill owns scientific conclusions and the dated current progress summary.
 
@@ -36,13 +36,17 @@ Pilot the **original task path** on useful actual inputs before repeating it at 
 
 Run independent task/data/review lanes together. Reuse collectors/reviewers across waves. Read-only adjudication of a closed batch can use its saved history while a separately admitted batch runs; preserve that run's handle instead of restoring a stale current-batch pointer. Whole-drain requirements for new launch/runtime replacement do not automatically block adjudication. Use `followup_task` to start an idle agent's new assignment.
 
+A shared-runner failure blocks only its actual consumers. Keep one repair owner while unrelated admitted runs, saved-result review and completed Git delivery proceed. On owner failure, preserve any exact live worker handle and recover ownership; an old handoff entry does not establish a live agent.
+
+When direct user steering changes a deadline, budget, model or schedule, reconcile the saved automation with current authority. Inspect its actual cadence; do not carry it forward merely because it already exists. An active goal does not by itself require a recurring wake-up. Remove an obsolete automation when authorized, and preserve notification preferences on retained schedules.
+
 ## Preserve execution boundaries
 
 This audit permits up to **50 useful owned workers**, including unresolved reservations, and useful CPU/memory increases under reviewed resource/cost envelopes. Capacity is not a target. Bound CPU, memory, wall time, disk, expansion, output and cleanup. Honor host/headroom guards and **four staging slots totaling 64 MiB**, releasing bytes after verified upload; keep the independent coordinator address-space cap. Scale with runnable work, observed throughput and cost, not submitted threads.
 
 Bind final serialized job, controls digest, grant, worker identity and actual runtime consumers before credentials. Use the supported coordinator interpreter/SDK; scientific interpreter/ABI is separate. Check policy loaders/imported constants when renewing deadlines. Keep credentials in the authorized coordinator or isolated account service, outside native actors and evidence. Secure staging of the authorized Codex-plan cache does not authorize unrelated keys; native actors retain their network/filesystem restrictions.
 
-The user removed the $15 ceiling/$5 reserve: record actual/committed usage and forecasts without a replacement ceiling. New reviewers/E2B model runs use `gpt-6.1-sol`/`xhigh`; frozen attempts retain their regime. Resets, paid fallback, publication and unrelated work need applicable authorization.
+The user removed the $15 ceiling/$5 reserve: record actual/committed usage and forecasts without a replacement ceiling. Resolve new reviewer and E2B model settings from the current model policy and latest direct user steering. Frozen attempts retain their regime; a preference change does not authorize retrying a hold. Resets, paid fallback, publication and unrelated work need applicable authorization.
 
 ## Collect and conclude
 
