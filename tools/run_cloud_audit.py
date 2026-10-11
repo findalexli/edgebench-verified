@@ -35,7 +35,7 @@ PLAN = ROOT / "audit/cloud/queue-plan.json"
 OWNER = "edgebenchverified-20261007-scaled-audit"
 OWNERS = ("edgebenchverified-20261007-runtime-ad-o9qveecn", "edgebenchverified-20261007-runtime-ad-o9qveecn-artifact", OWNER)
 AUDIT_STARTED_AT = "2026-10-08T04:35:48+00:00"
-AUDIT_DEADLINE = "2026-10-10T05:18:55+00:00"
+AUDIT_DEADLINE = read_policy()["audit_deadline_utc"]
 
 
 def private_input_root():

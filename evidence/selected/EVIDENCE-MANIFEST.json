@@ -382,6 +382,12 @@
       "selected_files": 64,
       "sha256": "8c7bb2f0f4c4f97955eadccf6e6e55537cebab9a31eb840162c9740243705109",
       "utc": "2026-10-11T17:32:44.773476+00:00"
+    },
+    {
+      "bytes": 92205,
+      "scope": "Before operational build-stop selection and deadline-maintenance binding; scientific snapshot retained.",
+      "sha256": "38d2b5d6f967fcf1111455f357552795f09742277eb4fd6491f4d6eafc5851f7",
+      "utc": "2026-10-11T18:12:00+00:00"
     }
   ],
   "manifest_self_hash": "Excluded to avoid a self-reference; final manifest identity is supplied in the review handoff.",
@@ -392,6 +398,37 @@
     "Full mutable handoff, ownership/accounting registry and queue",
     "Full local source/evidence archive and unaccepted operational proposals"
   ],
+  "operational_update_20261011_1812": {
+    "deadline_maintenance": {
+      "after": {
+        "bytes": 20079,
+        "path": "tools/run_cloud_audit.py",
+        "sha256": "28767f81e30744b46b899c7023375cb4d6e58cfdcb0707c6ac7e4717d18caa39"
+      },
+      "before_sha256": "9eab75d7f2cae8577938678aa4d7f007f99677b7d72c7e21dd5b8c91c798899e",
+      "path": "tools/run_cloud_audit.py",
+      "review": {
+        "bytes": 4979,
+        "path": "work/reviews/schemathesis-persisted-judge-astra-high-v2/review.json",
+        "sha256": "23bc18e192cf5c7993145876b313150fdc5898e03c1335c6f22530e425a5625b"
+      },
+      "scope": "Exact independently reviewed one-line policy-deadline read; no execution or new tests."
+    },
+    "original_scorer_calls": 0,
+    "owned_worker_closed": true,
+    "retry": false,
+    "scientific_snapshot_unchanged": true,
+    "setup_result": {
+      "bytes": 1772,
+      "path": "evidence/selected/schemathesis-persisted-build-stop.json",
+      "sha256": "8da56a6c1ae28d8707e8f58faebd8eac033f85b2e80ad20ce87714d04d1881a5"
+    },
+    "setup_source": {
+      "bytes": 1772,
+      "path": "edgebenchverified/audit/evidence/schemathesis-persisted-native-astra-high-v2/root-result-review.json",
+      "sha256": "8da56a6c1ae28d8707e8f58faebd8eac033f85b2e80ad20ce87714d04d1881a5"
+    }
+  },
   "prepared_utc": "2026-10-11T01:22:34.670162+00:00",
   "presentation_refresh_history_utc": [
     "2026-10-11T02:22:58.708663+00:00",
@@ -723,6 +760,17 @@
       ],
       "scope": "Final readable14finding report pins; old detailed checkpoint content preserved by report editor.",
       "utc": "2026-10-11T18:06:15.694119+00:00"
+    },
+    {
+      "previous_report_pins": [
+        {
+          "bytes": 14600,
+          "path": "AUDIT-STATUS.md",
+          "sha256": "ff15f7b8fdc6b9ed42a2f3f4347c6c1a1e4b785553a5a99b1f7f28d507390ed6"
+        }
+      ],
+      "scope": "Operational build-stop paragraph only; scientific17:58snapshot unchanged.",
+      "utc": "2026-10-11T18:12:00+00:00"
     }
   ],
   "repository_scope": "Private selected evidence; local archive excluded. This manifest is a derived provenance record, not an exact copy of any source and not a scientific acceptance or rights-clearance decision.",
@@ -756,9 +804,9 @@
       "sha256": "ce59f637258dc3415955c71b08856b58306b2c01f88cccb0190ae3cc9afee685"
     },
     {
-      "bytes": 14600,
+      "bytes": 15174,
       "path": "AUDIT-STATUS.md",
-      "sha256": "ff15f7b8fdc6b9ed42a2f3f4347c6c1a1e4b785553a5a99b1f7f28d507390ed6"
+      "sha256": "7f057306b0ee5a8e772307f8f3e2644b913a055c1cb6d932891227f3cf47a939"
     },
     {
       "bytes": 3531,
@@ -1099,6 +1147,11 @@
       "bytes": 40067,
       "path": "tools/audit_runtime/job_validator.py",
       "sha256": "1e95da67e5ae05b7fc342b1d81ee8abe269e40a2205447cd61ea26d6f87449e2"
+    },
+    {
+      "bytes": 1772,
+      "path": "evidence/selected/schemathesis-persisted-build-stop.json",
+      "sha256": "8da56a6c1ae28d8707e8f58faebd8eac033f85b2e80ad20ce87714d04d1881a5"
     }
   ],
   "selected_order_sidecar_scope": "Exact accepted compact metadata only; three actual bundle approvals and five immediate scientific decision leaves. Other50 task cards, source-lock/harness/catalog and full raw/native archive are absent. No complete-release check, fresh reproduction or certification claim.",
@@ -1682,6 +1735,11 @@
       "bytes": 1631,
       "path": "work/packets/rust-known-failure-reproduction-astra-high-v1/handoff.json",
       "sha256": "3eb14b4d1c9226b20f922d5754951b33e9bc338f3bab2224c2b3ce8ea2960abc"
+    },
+    {
+      "bytes": 1772,
+      "path": "edgebenchverified/audit/evidence/schemathesis-persisted-native-astra-high-v2/root-result-review.json",
+      "sha256": "8da56a6c1ae28d8707e8f58faebd8eac033f85b2e80ad20ce87714d04d1881a5"
     }
   ],
   "status_snapshot_history": [
