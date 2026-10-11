@@ -1,37 +1,36 @@
-# EdgeBench Verified — private working audit
+# EdgeBench Verified
 
-An independent audit of the public EdgeBench release, with versioned repairs and evidence-backed conclusions. **No task is certified.** This project is not affiliated with or endorsed by the upstream authors.
+We are checking whether EdgeBench's tasks, tests and data measure what they promise. The goal is a reviewed decision for every publicly available task: keep it, repair it, or exclude the original version for an evidenced reason.
 
-The acquired scope contains **51 public tasks**. There are accepted partial component or data observations for **37 tasks**, **12 closed scoped finding decisions**, **three reviewed exact-original exclusions**, and **48 pending final dispositions**. The other **83 advertised tasks are unavailable**. Order remains in the37-task raw observation history;36 observed tasks are nonexcluded. Its broken original is excluded, while its repaired version remains pending. Finding closure, tested repairs and task certification are separate measures. See [current status](AUDIT-STATUS.md), [the evidence index](docs/EVIDENCE-INDEX.md) and [verification requirements](VERIFICATION.md).
+**This is an unfinished, private audit. No task is certified for benchmark release.** The project is independent of the upstream authors.
 
-## Repository and evidence
+- [Where we are now](AUDIT-STATUS.md): finished decisions, changes since the previous snapshot, and remaining work.
+- [What we found](docs/FINDINGS.md): each confirmed problem, how we checked it, and what the result means.
+- [Supporting evidence](docs/EVIDENCE-INDEX.md): recorded results and their sources.
 
-This private repository consolidates the harness, public task definitions, Order/ANN/Equivalence branches, selected source and evidence, contract checks, and reusable audit skills. The complete local audit archive, acquired private data, cloud ownership ledger, credentials and image caches remain outside Git. Selected evidence has an explicit provenance manifest; copying a record does not constitute another independent reproduction.
+We acquired 51 public tasks. Another 83 advertised tasks were unavailable. A partial test is useful evidence, but it does not finish a task review. The dated status page owns the current progress numbers; older evidence snapshots retain their original dates.
 
-- `sforge/` and `tasks/`: harness and public definitions in the original format.
-- `evidence/selected/`: scoped conclusions and task coverage, with source hashes.
-- `tools/` and `tests/`: selected execution, accounting and contract checks.
-- `.agents/skills/`: E2B execution and EdgeBench evidence-audit guidance.
-- [Audit workflow](docs/AUDIT-WORKFLOW.md): canonical coordination, worktrees and useful experiments.
-- [Consolidated source manifest](docs/CONSOLIDATED-SOURCE-MANIFEST.json): exact source-copy identities.
+## How we work
 
-## Lightweight checks
+Finish conclusions from evidence already collected. Run ready, independent task checks in parallel. If setup repeatedly fails, explain the blocker and move another task forward. Report new results and completed decisions first; keep internal run names and hashes in the supporting records.
+
+The [working instructions](docs/AUDIT-WORKFLOW.md) explain Git branches, shared cloud accounting, local resource limits and how to avoid duplicate work. [Verification requirements](VERIFICATION.md) define what must be established before a task can be included in a release.
+
+## What's in this repository
+
+The original-format task definitions and harness are in `tasks/` and `sforge/`. Reviewed tools, selected evidence and audit skills are versioned here. Large images, private data, credentials and live cloud accounting stay outside Git. The [source manifest](docs/CONSOLIDATED-SOURCE-MANIFEST.json) identifies the copied execution-source snapshot; it is not a second live coordinator.
+
+GitHub runs small checks with Python 3.12. They start no cloud workers or task containers:
 
 ```sh
 python -m pip install -e . pytest
 PYTHONPATH=tools python -m pytest tests/test_grading_contract.py tests/test_release_gates.py tests/test_cloud_dispatch_resources.py tests/test_cloud_policy.py tests/test_cloud_queue.py -q
 ```
 
-CI uses Python 3.12 and runs these provider-free contract checks. It starts no native containers, cloud workers or model runs. The optional E2B dependency is pinned to the reviewed coordinator SDK; task interpreters remain separate. The incomplete release registry is expected to reject benchmark release.
+The [shareable progress site](https://edgebench-audit-progress.alex-shengzhi.chatgpt.site) has its own update date and may lag this repository.
 
-## Current execution
+## Sources
 
-Use isolated worktrees for concurrent source edits and **one canonical cloud queue, ownership registry and coordinator**. Read current accepted evidence and exact job terminals before preparing another run. Preserve failed hypotheses and run only unresolved work. The resumed window ends **October 12, 2026 at 05:52:16 UTC**. The user removed the compute ceiling and reserve; useful cloud concurrency up to 50 remains subject to local responsiveness, staging limits and existing holds.
+The harness derives from [ByteDance Seed EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its Apache-2.0 license is retained in `LICENSE`. Public definitions derive from the [Hugging Face release](https://huggingface.co/datasets/ByteDance-Seed/EdgeBench) at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75`, with a separate license in `tasks/LICENSE`. These notices do not establish rights to redistribute every dataset or dependency inside the images.
 
-The [public progress report](https://edgebench-audit-progress.alex-shengzhi.chatgpt.site) is separately authorized and can lag this repository's snapshot. This private consolidation does not publish or certify the benchmark.
-
-## Sources and attribution
-
-The harness derives from [ByteDance Seed EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its Apache-2.0 license is retained in `LICENSE`. Public definitions derive from the [Hugging Face release](https://huggingface.co/datasets/ByteDance-Seed/EdgeBench) at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75`; the separate license is retained in `tasks/LICENSE`. These notices do not clear every in-image dataset or dependency for redistribution.
-
-[Rethlas and the formal-checking workflow](docs/FORMAL-TOOLS.md) can support selected mathematical claims. Generated proofs require actual independent Lean or TLA+ checks and correspondence with the audited implementation.
+[Rethlas, Lean and TLA+](docs/FORMAL-TOOLS.md) can help check suitable mathematical claims. A generated proof needs an actual tool check and a clear connection to the task being audited.

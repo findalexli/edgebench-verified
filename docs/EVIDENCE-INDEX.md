@@ -1,19 +1,27 @@
-# Selected audit evidence
+# Supporting evidence
 
-**37 of 51 public tasks retain accepted partial actual observations; 36 of those tasks are nonexcluded. All 12 scoped finding-task decisions are closed; 0 tasks are certified; 3 exact originals are excluded and 48 dispositions remain pending. Another 83 advertised tasks were unavailable to this audit.**
+Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings](FINDINGS.md). This page explains where their supporting records live.
 
-These selected records support private repository review of the accepted finite audit conclusions. They contain scoped summaries and exact archive provenance, not the full local archive. No hidden case bodies, labels, answers, raw native logs, credentials or provider/worker identities are included. The local archive remains the source for full evidence and is not published by this selection.
+## What is included
 
-- [Twelve finding-task decisions](../evidence/selected/12-finding-decisions.json) preserves each accepted versioned claim, evidence mode, counterevidence and primary accepted references. Eight decisions are native, three source/local and one mathematical exclusion. Closing a finding does not close a repair or certify a task.
-- [All 51 task dispositions and coverage](../evidence/selected/51-task-coverage.md) distinguishes partial actual observations, five unresolved formal execution lanes, seven held tasks and three exact original exclusions. Later depth is merged explicitly without increasing the 37-task union.
-- [Evidence manifest](../evidence/selected/EVIDENCE-MANIFEST.json) records source and selected-file hashes, safe-selection method, omitted material and the observed historical coverage-pin mismatch. It does not hash itself.
+- [Twelve finding decisions](../evidence/selected/12-finding-decisions.json): exact confirmed claims, how they were checked, limiting evidence and references to the accepted results.
+- [51-task evidence table](../evidence/selected/51-task-coverage.md): the tests or observations recorded for each task at the table's original snapshot date.
+- [Later Wireless exclusion](../evidence/selected/wireless-original-exclusion.json): the accepted original-version decision and current totals at 02:12 UTC on October 11.
+- [Order exclusion binding](../evidence/selected/order-original-exclusion-binding.json): identifies the copied Order decision records and approvals.
+- [Evidence manifest](../evidence/selected/EVIDENCE-MANIFEST.json): file identities, sources, selection method and omitted material.
 
-All 48 nonexcluded versions remain pending, and no task is certified. Order's accepted original controls remain in the raw 37-task union; the disjoint nonexcluded partial category is 36. Its original exclusion is adopted, while its minimally repaired future version remains pending separately. Component candidates and accepted comparisons remain limited to their recorded controls; this selection claims no completed derived-image/TaskSpec integration, full corpus validity, solver holdout, domain review or rights clearance. The reviewers are AI agents, not independent human or domain-expert reviewers.
+The earlier finding JSON and task table were prepared at **01:22 UTC on October 11**. Their historical counts remain unchanged. The current status page incorporates the later Wireless decision; older snapshots are not live progress counters.
 
-Archive paths in the JSON provenance are workspace-relative local references. Those source bodies are intentionally absent from this selected repository; their recorded hashes identify the reviewed evidence rather than making a new availability or rights claim.
+## How to interpret these records
 
-The later ANN data observation found one repeated numeric test vector and no exact numeric test/train matches. It does not establish a uniqueness-contract defect, near-duplicate absence or provenance/rights clearance. The exact accepted root references are in the evidence manifest.
+A confirmed finding answers a specific question. It can be concluded without approving the entire task or its proposed repair. Tests on an original component, simulated inputs, mathematical arguments and complete task execution provide different kinds of evidence; the records say which was used.
 
-## Selected Order disposition subset
+The selected Order records include its original task card, the disposition registry as it stood then, three actual approvals, the rationale and five immediate decision records. The other task cards and complete native-run archive are not included. These selected files are not a runnable benchmark release.
 
-[The exact binding receipt](../evidence/selected/order-original-exclusion-binding.json) distinguishes copied accepted metadata from derived summaries. The subset contains the original Order card, current disposition registry, three actual bundle-bound approvals, the rationale and five immediate scientific decision leaves. The other 50 task cards and complete private native archive are absent; this subset is not a runnable or release-ready benchmark.
+A separate ANN data check found one repeated numeric test vector and no exact numeric matches between the test and training sets. It did not establish a defect in a uniqueness requirement, an absence of near-duplicates, or dataset rights. Its accepted source is recorded in the manifest.
+
+## What remains local
+
+Full evidence, private task inputs and answers, raw logs, credentials, live worker identities and cloud accounting remain outside Git. JSON archive references identify local source records by path and hash; their bodies are not necessarily available in this repository. Copying a result is not an independent reproduction or permission to redistribute its underlying data.
+
+The recorded reviewers are AI agents. They are not three independent human reviewers or substitutes for specialist review where that is required.

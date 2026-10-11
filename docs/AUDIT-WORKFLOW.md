@@ -1,46 +1,43 @@
 # Working audit workflow
 
-This repository stores reviewed source, selected evidence and dated status. The designated audit coordinator maintains current execution authority and private accounting. A repository clone is not a second coordinator and does not contain the complete private archive.
+The purpose is to finish evidence-backed decisions for all 51 acquired public tasks. This Git repository stores reviewed source, selected evidence and dated reports. The designated coordinator owns current execution and private accounting; a clone is not another coordinator.
 
-## Locate current state
+## Finish a task question before adding setup
 
-The active workspace is `/mnt/c/users/lisz1/documents/codex/2026-10-07/shopify-plugin-shopify-openai-curated-remote-2`. Its canonical audit checkout is `edgebenchverified/`; the authoritative handoff is `edgebenchverified/audit/evidence/sol-cloud-authorization-v1/current-root-handoff.json`. The shared queue and ownership records live under `work/cloud-queue/`. Read current `AGENTS.md`, `VERIFICATION.md`, the handoff and later user steering before execution. Ask the designated coordinator for current state when these local paths are unavailable; missing historical files do not justify an old authority packet or duplicated work.
+Recover the task's accepted result and saved attempt before assigning new work. For a completed run, collect missing output, finish the required review and state the conclusion. Do not repeat successful science because reporting or bookkeeping failed. For a running attempt, preserve its handle and close only its owned resources. For an unattempted question, choose the smallest test that could change the decision.
 
-The current handoff is a compact index of accepted evidence, current source pins and owned handles. Its `previous_state_archive` retains the former full handoff. Read only the historical keys needed for a specific question; do not repeatedly load the archive or restore historical handles as current. Keep historical branches and evidence immutable. Cleanup should remove repeated navigation and obsolete current-state instructions, rather than erase failed attempts or reset an active worktree.
+Each assignment should identify one unanswered question, the existing evidence to reuse and a bounded finish condition. Keep the current task row as the plan; do not create a second planning framework. A confirmed finding, a repaired candidate and approval of an entire task are different outcomes. Finish the supported finding even when the other outcomes remain pending.
 
-The active authorization ends October 12, 2026 at 05:52:16 UTC. New auditors and E2B model runs request `gpt-6.1-sol` with `xhigh` reasoning. Up to 50 useful owned E2B workers and useful resource increases are authorized. There is no agent-imposed compute ceiling or reserve. Record finite costs and settlements. Preserve four shared staging slots and 64 MiB total staged bytes, local host guards and exact owned cleanup.
+## Keep independent tasks moving
 
-The held task follow-ups are ad-overlap, Coq output/tactic, native codec, CVC5 parser/observer/fanout, grid reflected score, and warehouse implementation work, covering seven task IDs in the task table. The Sol V8 model-runner implementation has a separate hold. Do not retry, rephrase or reroute held work. Unrelated deterministic or data lanes remain available. Paid API fallback, account resets, third-party contact and benchmark publication have no authorization from this consolidation.
+Run ready task tests, data checks and result reviews in parallel. A closed run can be reviewed while an unrelated admitted run executes. Preserve that running attempt's current handle. Do not make unrelated work wait for one environment problem.
 
-## Recover before assigning work
+Use small bounded local checks where adequate; use E2B for heavy execution. Pilot useful inputs through the original task evaluator or compiler before expanding a lane. Inventories, simulated components and version commands are evidence only for what they actually check.
 
-For each task, maintain one row linking exact version, claim, accepted leaf, saved job/attempt, decisive evidence, counter-evidence, disposition and next decision-changing experiment. Check that leaf and the exact terminal state **before** commissioning source preparation or review, and again before launch.
+After one bounded setup correction or roughly 15 minutes of setup work, name the blocker and move another ready task forward. Resume the blocked lane with a specific new diagnosis or supported environment. Prefer an existing runner; add infrastructure only for a demonstrated missing capability in the next useful test. Reuse unchanged accepted sources, controls and reviews. Freeze a fix before fresh independent tests.
 
-- Accepted/completed: reuse matching evidence; recover only missing collection, review or settlement.
-- Running/unsettled: preserve the handle and recover or close exact owned resources.
-- Failed: identify the failed phase and retain counter-evidence. Launcher failure is not an upstream task defect.
-- Unattempted: choose the smallest useful original-task experiment.
+## Use Git for changes, one coordinator for execution
 
-VLIW's accepted V59 lineage checks already establish the recorded repeatability observation. A differently named prepared job is not new science and should not be launched to repeat that fact. Conversely, an NF compiler startup attempt with zero proof-helper calls cannot establish proof correctness.
+Start source changes from an up-to-date review branch and use focused branches or worktrees for independent edits. Keep temporary runs, large images and private data outside tracked source. Commit an explicit reviewed file list; never stage the entire live audit directory. Preserve uncommitted evidence and active files rather than resetting a worktree to make it look clean.
 
-## Use worktrees for code, one ledger for execution
+All worktrees use one designated cloud queue and ownership ledger. Never copy live accounting into a worktree or launch from a clone as if it were canonical. The [source manifest](CONSOLIDATED-SOURCE-MANIFEST.json) identifies the carried snapshot; historical launchers are not current entrypoints. A merged source change does not by itself authorize a new native run.
 
-Keep focused branches/worktrees for independent source edits. They all use the designated coordinator's single queue and ownership ledger. Never copy live accounting into a worktree or dispatch from a clone as if it were canonical. Check out and review a specific commit; retain historical branches and private evidence rather than deleting them to make status look clean.
+## Report results in language people can read
 
-Prefer maintained source over copied controller ancestry. `docs/CONSOLIDATED-SOURCE-MANIFEST.json` identifies the carried source snapshot. The earlier ANN launcher is preserved under `tools/audit_runtime/history/`; it is historical source, not the current launch entrypoint. Current runtime files remain subject to their frozen intake, grant and ownership checks. GitHub integration or source GO does not grant a new native launch.
+Maintain one dated current summary in `AUDIT-STATUS.md`. README and evidence indexes should link to it instead of duplicating current counters. Historical evidence retains its own snapshot date.
 
-## Pilot, then parallelize
+Each update should answer: **What changed since the previous checkpoint? What did we conclude? Why does it matter?** Include the next unanswered question only when useful. Explain technical terms; put job IDs, hashes, queue details and diagnostic history behind evidence links.
 
-Use small supported local source/data/helper checks where adequate. Run heavy native work in E2B, or locally only when the host guard admits it. Pilot the original evaluator/compiler path with useful actual inputs before broad dispatch. Inventories, mocks and version probes do not substitute for a task pilot. After one evidence-based setup correction, reassess at roughly 15 minutes: identify the concrete blocker and use a supported environment or another runnable lane rather than create more setup machinery.
+Measure completed task decisions, tasks actually checked and new established results separately. Say explicitly when these counts did not increase. More setup versions, agents or machines are not task progress. Missing rights, domain review or whole-task tests limit release claims; they do not reopen a separately established finding. Excluding an original does not approve its replacement.
 
-Run independent task, data and review lanes concurrently. Freeze fixes before fresh independent controls. Reuse passing checks and reviews when source bytes and assumptions match; check changed dependencies and unresolved concerns. Useful independent cloud jobs can outnumber staging slots once uploads finish. Capacity is not a target for idle machines. Preserve active batch pointers while accepting closed unrelated evidence.
+Apply the two existing skills under `.agents/skills/`. Update them when an observed failure changes the next decision; documentation changes themselves are not science. Lean/TLA+ checks require actual tool execution and a clear mapping to the audited claim.
 
-Before a costly integration pilot, trace failure codes and exported receipts through the backend instances that actually execute work and judging. Treat lost diagnostics as an audit-adapter defect. Check restoration identities separately from operational byte allowances, retaining exact source identities and all pinned resource caps. These narrow checks support a useful original-task pilot; they are not another certification or controller framework.
+## Recover authority and protect resources
 
-Authentication belongs in the authorized coordinator or isolated account service, never native task containers or evidence. Keep raw hidden answers, private runtime logs, live worker identifiers and credentials out of selected public exports. Close only exact owned resources and retain unresolved creation/closure liabilities.
+The active workspace is `/mnt/c/users/lisz1/documents/codex/2026-10-07/shopify-plugin-shopify-openai-curated-remote-2`. The canonical audit checkout is `edgebenchverified/`; its current handoff is `audit/evidence/sol-cloud-authorization-v1/current-root-handoff.json`. The single queue and ownership records are under workspace `work/cloud-queue/`. Read the coordinator's current `AGENTS.md`, `VERIFICATION.md`, compact handoff and later user steering before execution. Read only relevant historical keys. Missing local archive files do not justify stale authority or duplicate work; obtain current state from the coordinator.
 
-## Report conclusions separately from release
+The current window ends October 12, 2026 at 05:52:16 UTC. New reviewers and E2B model runs request `gpt-6.1-sol` with `xhigh` reasoning. Up to 50 useful owned E2B workers and useful resource increases are authorized, without an imposed compute ceiling or reserve. Retain finite resource and cost accounting, four shared staging slots, 64 MiB staged bytes, host guards and exact owned cleanup. Keep scientific identities separate from resource allowances while checking both against their recorded requirements.
 
-Use the evidence-audit and E2B skills in `.agents/skills/`, loading only relevant reference sections. Update them when an observed failure changes a future decision; a note alone is not implementation or task progress. Lean/TLA+ corroboration requires executed tools and an explicit mapping of assumptions to the audited claim.
+Existing follow-up holds cover seven task IDs: ad-overlap, Coq output/tactic, native codec, CVC5 parser/observer/fanout, grid reflected score and warehouse implementation work. The Sol V8 model-runner implementation has a separate hold. Never retry, rephrase or reroute held work. Unrelated deterministic and data work can continue. Paid API fallback, usage resets, third-party contact and benchmark publication are not authorized by Git consolidation.
 
-Close a supported scoped finding as confirmed or rejected; unknown broader score impact, rights or whole-corpus behavior constrain broader claims. Track repair validation and task certification separately. Accepted exact-version exclusions need no inclusion-gate completion for that excluded version. All retained/repaired candidates still require the verification protocol. No task is currently certified.
+Keep authentication in the authorized coordinator or isolated account service, outside native task containers and evidence. Private answers, raw runtime logs and live worker identities stay out of selected exports. Verify output from the backend that actually did the work, collect failure evidence and confirm exact owned closure. No task is certified; release follows [VERIFICATION.md](../VERIFICATION.md).
