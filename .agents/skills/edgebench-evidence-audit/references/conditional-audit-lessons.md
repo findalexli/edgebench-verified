@@ -26,6 +26,8 @@ When retained source excerpts and a final installed overlay differ, join every r
 
 ## Evaluator diagnostics and numerical scope
 
+For authored lifecycle controls, justify quantifiers such as “every callback must contain requests” from the task contract. Reporting R3.3 required recorder delivery, not nonempty recorders: that unsupported premise caused three failed audit controls. Its separately reviewed correction preserved productive success/validation cases, actual writer-error injection and every cleanup assertion; all three then passed on the unchanged implementation. Preserve both results and distinguish a corrected audit test from an implementation repair. Unknown framework scheduling does not block a correction supported by the contract; observed counts alone do not justify weakening a test.
+
 For authored integration tests, check what helper methods actually create against the child command's filenames and working directory before cloud execution. In pytest 9.0.3, `Pytester.makeini()` creates `tox.ini`; requesting `-c pytest.ini` is a control mismatch. Prefer a tiny helper/command check to another broad source review. Preserve the failed attempt and correct the control separately from the task implementation.
 
 Treat diagnostic keywords as observations, not causal labels. `FileNotFoundError` alone does not identify a missing report, and an expected error string can appear in pytest's displayed assertion without the error having occurred. Locate the first failed assertion and distinguish executed behavior from echoed test source; when the exact traceback was not retained, leave historical attribution unresolved.
