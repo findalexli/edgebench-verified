@@ -1,10 +1,10 @@
 # Selected 51-task coverage snapshot
 
-**37 of 51 public tasks have accepted partial actual observations; 12 closed scoped finding-task decisions; 0 certified tasks; 2 exact versions excluded and 49 dispositions pending. Another 83 advertised tasks were unavailable to this audit.**
+**37 of 51 public tasks retain accepted partial actual observations; 36 of those tasks are nonexcluded. All 12 scoped finding-task decisions are closed; 0 tasks are certified; 3 exact originals are excluded and 48 dispositions remain pending. Another 83 advertised tasks were unavailable to this audit.**
 
 This is a compact derived snapshot, not a copy of the full local coverage history. It uses the accepted 51-row table and later accepted leaves named below. A component pass, a failed native attempt, an inventory, or synthetic control establishes only its stated scope. None establishes a complete task, integrated repair, domain validation or redistribution clearance.
 
-The 14 tasks outside the partial-observation union are five unheld formal tasks with no established original proof/helper controls, seven tasks under existing automatic-review holds, and two excluded exact versions. Environment inventory and version/loader diagnostics do not add formal task-test coverage. All five canonical inclusion fields for every task retain their historical pending status; accepted scoped failures and exact exclusions are separate decisions.
+The raw 37-task observation union retains Order's accepted controls. The disjoint disposition partition is 36 nonexcluded tasks with partial observations, five unheld formal tasks without original proof/helper completion, seven existing held tasks and three excluded exact originals: 51 total. Formal inventories and environment diagnostics do not add original helper coverage. Historical canonical inclusion fields remain unchanged; exclusion does not pass an inclusion gate.
 
 The five unheld formal task IDs are `carleson_formalization`, `flt_regular_formalization`, `new_foundations_consistency`, `pfr_formalization`, `sphere_eversion_formalization`.
 
@@ -12,7 +12,7 @@ The five unheld formal task IDs are `carleson_formalization`, `flt_regular_forma
 |---|---|---|
 | ad_placement_optimization | Held; preserve existing findings | Pending |
 | anchorhead_text_adventure | Cloud/native actual engine and direct endpoints, Local original component; full game/HTTP pending | Pending |
-| ann_vector_search_qps | Cloud/native original flat/empty evaluator controls over10K rows, Local original component, Data observation; whole-task/performance validity pending | Pending |
+| ann_vector_search_qps | Original evaluator/component observations and data checks. Accepted full exact-numeric scan:10,000 test rows,9,999 distinct, one duplicate extra row;1,000,000 train rows and 0 exact test/train matches. No uniqueness-contract defect is established; near-duplicates, chronology and whole-task/performance validity remain unresolved. | Pending |
 | apple_incremental_game | Cloud/native component, Data observation | Pending |
 | arc_compiler_runtime | Cloud/native component | Pending |
 | bipedalwalker_locomotion_rl | Original evaluator CLI: 20 observed episodes with an explicit zero-policy overlay; local component controls. Whole-task policy/domain/holdout validity pending. | Pending |
@@ -40,7 +40,7 @@ The five unheld formal task IDs are `carleson_formalization`, `flt_regular_forma
 | new_foundations_consistency | Selected inventory/restoration and version diagnostics accepted; latest matched startup experiment failed, with zero original proof/helper commands. | Pending |
 | openrct2_theme_park_ai | Local original component | Pending |
 | openttd_transport_ai | Local original component | Pending |
-| order_addition_permutation_optimization | Cloud/native component, Local original component | Pending |
+| order_addition_permutation_optimization | Original legal controls fail the fixed private-helper hash assertion; matched minimal repair passes finite controls. Valid original reports/nonzero scoring remain possible. Historical cloud/local observations retained; repaired version pending separately. | Excluded exact acquired original |
 | ordinal_notation_well_foundedness | Held; preserve existing findings | Pending |
 | pfr_formalization | Selected environment inventory and source bindings accepted; original compiler/helper execution remains unestablished. | Pending |
 | portfolio_risk_calibration | Cloud/native component, Local original component, Data observation | Pending |
@@ -65,3 +65,5 @@ The five unheld formal task IDs are `carleson_formalization`, `flt_regular_forma
 Provenance: the local coverage history was read as `edgebenchverified/audit/TASK-COVERAGE.md`, 35313 bytes, SHA-256 `71f9cba8cf53a6c977aa2283c85cc05cc9e9fe0f1100bf9e35c2104dabac141a`. The supplied older pin `253316210502e3a84e2fb17b9673af0604abd2dd291048e3fb0d39bda888518a` / 20,236 bytes does not describe these bytes; no historical matching-copy claim is made. Links to uncommitted local archive bodies were removed, and the Bipedal, VLIW, Git and five formal rows were explicitly updated from accepted leaves. Exact source and leaf references are in [EVIDENCE-MANIFEST.json](EVIDENCE-MANIFEST.json).
 
 The selected findings are in [12-finding-decisions.json](12-finding-decisions.json). That record preserves decisive claims and limiting counterevidence, while omitting raw results, hidden inputs/answers, operational identities and credentials. Repeated observations of the same task add depth, not new task breadth.
+
+Current disposition/data supplement: adopted Order exclusion and the accepted ANN exact-numeric split scan are bound in [EVIDENCE-MANIFEST.json](EVIDENCE-MANIFEST.json). The raw 37-task union and12 findings are unchanged.
