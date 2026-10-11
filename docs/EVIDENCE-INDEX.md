@@ -2,6 +2,13 @@
 
 Start with [current status](../AUDIT-STATUS.md) and [the plain-language findings](FINDINGS.md). This page explains where their supporting records live.
 
+## Date repair and reporting coverage accepted at 19:13–19:17 UTC
+
+- [Date-checker V2 patch](../proposedrepairs/datagen-http-date/README.md): six V1 false acceptances corrected; all 16 classified reviewer controls matched, with one future leap occurrence unclassified. Includes the original/V1 retractions and exact source/candidate pins; no full private test module or native generator/scorer validation.
+- [Reporting coverage matrix](REPORTING-COVERAGE.md): ten finite named conclusions, ten partial checks and two source-only behaviors across 22 requirements. The [accepted review](../evidence/selected/reporting-requirement-coverage-acceptance.json) and [concise projection](../evidence/selected/reporting-requirement-coverage-summary.json) pin the local source-citation report without copying its private body.
+
+The findings and task dispositions remain 16 scoped findings, ten excluded originals, 41 pending and zero certified. These records add no task execution in this delivery.
+
 ## Reporting native result accepted at 19:03 UTC on October 11
 
 [Root acceptance](../evidence/selected/reporting-native-reference-acceptance.json) · [saved native outcomes](../evidence/selected/reporting-native-reference-result.json) · [different saved-result review](../evidence/selected/reporting-native-reference-review.json).
