@@ -1,0 +1,69 @@
+{
+  "case_decisions": [
+    {
+      "attribution": "Finite candidate/control integration incompatibility observed. Shared-hook clone versus identity-keyed dispatcher source explanation is supported, not fully observed. Exact-one-hook policy is a control invariant; failure alone does not establish duplicate user-visible records or upstream contract failure.",
+      "cases": [
+        "success",
+        "test_failure",
+        "xdist"
+      ],
+      "established": "Outer expected-outcome assertions failed; retained nested frame test_live.py:33 maps to repeated first-schema exact-one-hook assertion. test_failure also shows deliberate test assertion.",
+      "not_reached": "Outer trace/writer-close/report-content assertions after outcome check."
+    },
+    {
+      "attribution": "Hook-count invariant failed during expected failure handling. Actual triples absent; no blanket writer-close or cleanup failure inferred. Some earlier sequential trace assertions returned, but trace inventory is absent and later writer/report assertions did not complete.",
+      "cases": [
+        "writer_failure"
+      ],
+      "established": "Progresses beyond expected nonzero/error-text checks to setup hook-count assertion190; retained candidate teardown/write/injected-raise frames substantiate exercise of deliberate writer error."
+    },
+    {
+      "attribution": "Output-channel expectation remains unresolved/possibly overstrong. Exported substring marker can match assertion source text itself, so it proves neither an injected error occurred nor that it did not. No actual close/lifecycle assertion reached.",
+      "cases": [
+        "xdist_writer_failure"
+      ],
+      "established": "Inner nonzero check returned; stdout-specific injected-error text assertion173 failed."
+    }
+  ],
+  "counts": {
+    "certifications": 0,
+    "failed": 5,
+    "new_original_findings": 0,
+    "new_task_breadth": 0,
+    "passed": 0
+  },
+  "decision": "ACCEPT_FIVE_FAILED_ACTUAL_INTEGRATION_CONTROLS_KEEP_CAUSAL_LIMITS",
+  "different_review": {
+    "bytes": 6521,
+    "path": "work/reviews/reporting-runtime-integration-native-result-astra-high-v3/review.json",
+    "sha256": "b4403d43e03a7814a56f80e1a1a9d2bf644abcad5dc300fb7ca8f8bfefb69613"
+  },
+  "estimated_cost_usd": 0.00552,
+  "execution": {
+    "bytes": 585,
+    "path": "work/cloud-queue/exports/deterministic-reporting-integration-d1f5ed62d6fbfcbe/426c8bc146224757affd8406e6013742/execution.json",
+    "sha256": "cda404f69625e9d0709f2177d9e60609ff2eba2f9ebf4901a2962b2385d07ad3"
+  },
+  "limits": [
+    "No dependency/configuration FileNotFoundError marker in this attempt; it advances past the earlier filename-mismatch observation. Absence of a marker alone is not exhaustive absence of environment errors.",
+    "Expected deliberate failures and injected RuntimeError are controls, not themselves implementation defects.",
+    "Earlier55original tests/score1.0 and selected patchedJUnit pass remain valid at their scopes; this run neither repeats nor overturns them.",
+    "No new original upstream defect, finding count, task breadth, exclusion, whole22requirement pass, stateful coverage, score effect or certification.",
+    "No further correction/retry is authorized by this saved-result review."
+  ],
+  "next": "Review frozen shared-hook candidate correction and matched native controls; preserve failedV3 and do not relax listener assertions or infer a whole requirement from partial traces.",
+  "result": {
+    "bytes": 14369,
+    "path": "work/cloud-queue/exports/deterministic-reporting-integration-d1f5ed62d6fbfcbe/426c8bc146224757affd8406e6013742/result.json",
+    "sha256": "53db50b2da1148f7ae8e3e0b94c90f1d3c30b5b4883c98f87ea412ff86d53c4a"
+  },
+  "reviewer_roles": "Different from candidate implementation and integration-control authors. Reviewer authored the inherited V1/V2 adapter and its diagnostic projection; this is not independent adapter authorship or a fresh independent native reproduction.",
+  "root_assessment": "Original control source inspected: exact child line33 is repeated first-schema one-listener assertion; three failures stop before final output assertions. Separate writer_failure reaches trace hook counts. Source clone-sharing mechanism is a candidate repair hypothesis, not observed multiplicity or user-visible report corruption. xdist writer failure stdout-only string assertion is inconclusive.",
+  "source_review": {
+    "bytes": 3595,
+    "path": "work/reviews/reporting-runtime-integration-native-astra-high-v3/review.json",
+    "sha256": "ec4de45cd4bd0d388269a509e0a92e604ab9f275161c24d0450d9994d58b0d09"
+  },
+  "utc": "2026-10-11T19:56:16.256472+00:00",
+  "worker_closed": true
+}
