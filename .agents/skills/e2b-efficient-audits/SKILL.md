@@ -9,7 +9,7 @@ description: Plan, run, recover, and account for useful E2B audit or test worker
 
 Resolve current authority/state from the designated coordinator. Repository copies use `docs/AUDIT-WORKFLOW.md` to locate it; workspace paths and historical receipt links below are locally available provenance, not required archive contents in Git. Obtain the current handoff/authority from that coordinator rather than substitute an old packet when a link is absent.
 
-Read its dated brief ([local workspace link](../../../edgebenchverified/audit/AUDIT-BRIEF.md)), root handoff and later steering. Bind authorization, user deadline, local guards, ownership and task/runner holds; historical packets are not current authority. Never retry or reroute automatic-review holds. A separate model-runner hold does not block unrelated unheld native/data lanes.
+Read the coordinator's dated `audit/AUDIT-BRIEF.md`, compact current handoff and later steering. Follow only the historical archive keys needed for the current question; preserve the full archive without repeatedly loading it. Bind authorization, user deadline, local guards, ownership and task/runner holds; historical packets are not current authority. Never retry or reroute automatic-review holds. A separate model-runner hold does not block unrelated unheld native/data lanes.
 
 Before dispatching preparation or review, recover the named task's accepted leaf and exact saved job/attempt terminal, exports, closure and settlement. Keep one current task row pointing to these receipts:
 
@@ -40,7 +40,7 @@ The user removed the $15 ceiling/$5 reserve: record actual/committed usage and f
 
 Retain bounded first-failure observations, partials and typed stops; parse nested connector JSON before safe projection. Missing, malformed, over-cap or failed output is incomplete; exit zero alone is not coverage. Private stderr, hidden IDs/labels/features/answers and credentials stay out of public exports.
 
-Verify declared artifact identities/completeness. Terminate and confirm **exact owned** workers/coordinators/children only; local exit is not closure proof. Preserve unresolved closure and prioritize recovery. Settle usage, retain conservative unknown-cost evidence and join settlement, batch and native hashes in their separate domains. Never clean the whole account.
+Verify declared artifact identities/completeness and that receipts come from the backend that actually performed the work. Keep scientific identities distinct from resource telemetry while checking both against their pinned contracts. Terminate and confirm **exact owned** workers/coordinators/children only; local exit is not closure proof. Preserve unresolved closure and prioritize recovery. Settle usage, retain conservative unknown-cost evidence and join settlement, batch and native hashes in their separate domains. Never clean the whole account.
 
 Separate proposals/source checks/model requests, actual task starts/completions and accepted results. Lead updates with results, failures, closure and spend. Source GO, private auditor access and finite controls do not establish holdout independence, broader science or certification; scientific acceptance remains task-specific.
 
