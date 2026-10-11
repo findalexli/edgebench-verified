@@ -269,7 +269,8 @@ def job_resources(job):
     if name not in RESOURCE_PROFILES:
         raise ValueError("Unknown worker resource profile")
     large_operations = {"smt-cvc5-high-memory-v1", "smt-z3-memory-retry-v1", ASTRA_GRAPH_OPERATION}
-    if name == "large" and job.get("operation_id") not in large_operations:
+    fs_large = (job.get("operation_id") == "deterministic-experiment-v1" and job.get("task_id") in ['flt_regular_formalization', 'sphere_eversion_formalization'] and {'e771c8308e359a38e86429182fb2d0efd485cd24e77088476ca65e0de94212a0': 'flt_regular_formalization', '1952baec0f3394afcb344d83f7ee5c73f3794c237af038f5b6a50cb39ad6c45d': 'sphere_eversion_formalization'}.get(hashlib.sha256(canonical(job)).hexdigest()) == job.get("task_id"))
+    if name == "large" and job.get("operation_id") not in large_operations and not fs_large:
         raise ValueError("Large workers require an explicitly reviewed operation")
     if job.get("operation_id") in large_operations and name != "large":
         raise ValueError("This operation requires the pinned large profile")

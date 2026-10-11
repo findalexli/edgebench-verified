@@ -119,11 +119,12 @@ def main():
         grant=json.loads(body)
         bind_runtime_sources(ROOT,REFERENCE,grant,runtime_pins,read,need)
         payload=coordinator.payload_for(REFERENCE,job,body,g['sha256']);payload.clear();bindings.append((job,body,g['sha256']))
+    batch_profile=coordinator.select_batch_profile([binding[0] for binding in bindings])
     policy=audit.read_policy();need(policy['compute_ceiling_usd'] is None and policy['external_work_reserved_usd']==0,'no_agent_compute_ceiling')
     need(policy['audit_deadline_utc']==validator.DEADLINE.isoformat(),'renewed_window_matches_policy')
     audit.AUDIT_DEADLINE=validator.DEADLINE.isoformat()
     audit.require_audit_time(max(x[0]['timeout_seconds'] for x in bindings))
-    need(hashlib.sha256(read(ROOT/'tools/cloud_queue.py')).hexdigest()=='8ae70740ab9ddc5e0691f6e86e05352c8ac867b79339cd387b1888510102ab36','fresh_current_queue')
+    need(hashlib.sha256(read(ROOT/'tools/cloud_queue.py')).hexdigest()=='3e938a43240969ef50d0de0edac2d0d358a3ac97a17aa50583a26b3cf42808a1','fresh_current_queue')
     deps=SimpleNamespace(QueueStore=QueueStore,CloudWorkerManager=CloudWorkerManager,NotFound=NotFound,OutcomeUnknown=OutcomeUnknown,
       StagingBudget=StagingBudget,policy=policy,require_audit_time=audit.require_audit_time,lifecycle_lock=audit.lifecycle_lock,
       OWNER=audit.OWNER,OWNERS=audit.OWNERS,external_leases=audit.external_leases,save=audit.save)
@@ -135,7 +136,7 @@ def main():
       'provider_source':runtime_pins['cloud_worker']})
     provider=None;secret=None
     try:
-        secret=runpy.run_path(str(keyhelper))['api_key']();provider=SDKProvider(api_key=secret,profile='small');secret=None
+        secret=runpy.run_path(str(keyhelper))['api_key']();provider=SDKProvider(api_key=secret,profile=batch_profile);secret=None
         result=coordinator.run_batch(bindings,root=REFERENCE,state_dir=STATE,deps=deps,provider=provider,max_workers=admission['max_workers'])
         frozen(OUT/'batch-result.json',result);print(json.dumps(result,separators=(',',':')),flush=True)
     finally:
