@@ -52,6 +52,17 @@ Two completed cached-data checks were accepted at **06:02 UTC on October 11**. T
 - [Juliet acquired case/label integrity](../evidence/selected/juliet-acquired-case-label-integrity.json): 976 cases and 915 label records agreed on statement references, label keys and declared distributions, with no tested structural mismatch. Label records are not a count of labeled cases. This authored data diagnostic does not establish vulnerability or label truth, graph reachability, final installed-file equality or safety of unlabeled cases; no original analyzer or scorer ran.
 - [CTA acquired workbook integrity](../evidence/selected/cta-acquired-workbook-integrity.json): 46,950 price rows and 554,691 selected cells were read from six sheets. Tested contract/cost ticker membership, USD FX links, duplicates and selected finite values passed. Numeric transaction costs, other sheets, original file discovery and financial validity remain untested. A bounded ZIP/XML diagnostic was used, not the original Pandas loader or scorer.
 
+## K–12 data and a rejected Juliet hypothesis
+
+Four further records were accepted between **06:16 and 06:38 UTC on October 11**:
+
+- [K–12 question-reference integrity](../evidence/selected/k12-question-reference-integrity.json): two original CSV-loader calls, 5,000 questions, 50 knowledge points and 45,000 scenario references; the tested references resolved. The original and second parsers share CSV/type assumptions, so this is not independent parser reproduction or label validation.
+- [K–12 declared index and difficulty ranges](../evidence/selected/k12-question-domain.json): fixed knowledge-point domain 1–50 and declared difficulty range 1–5 passed for the two selected files. No graph-cycle, educational-validity or full installed-image claim.
+- [K–12 history-cutoff and pool check](../evidence/selected/k12-history-cutoff.json): 793,457 retained history rows, all 200 scenarios with past/future records and no recorded-history overlap in recommendation pools. The 99 past references in candidate padding are permitted. Pool membership implies recent-history compliance only for the tested source/data branches; no scorer, learning benefit or solver-leakage result was measured.
+- [Juliet's unsupported path hypothesis](../evidence/selected/juliet-unrequired-path-hypothesis.json): source review rejects an invented adjacency/reachability requirement. Approximate graph edges do not settle witness semantic truth; no new data or analyzer execution occurred.
+
+These are exact selected root records. Their supporting archive references remain local; private CSV/history/question bodies are not copied. They add no finding, task coverage, disposition or certification.
+
 ## How to interpret these records
 
 A confirmed finding answers a specific question. It can be concluded without approving the entire task or its proposed repair. Tests on an original component, simulated inputs, mathematical arguments and complete task execution provide different kinds of evidence; the records say which was used.
