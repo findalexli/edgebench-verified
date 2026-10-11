@@ -1,11 +1,14 @@
 # Continuing the EdgeBench audit
 
-**October 11, 2026, 21:54 UTC accepted results.** CTA’s exact original is now
+**October 11, 2026, 22:02 UTC accepted results.** CTA’s exact original is now
 withheld; the finding-task union remains 18. NetHack completed one real zero-score
 trajectory, and ARC’s public suite distinguished the supplied baseline from a
 wrong interpreter. Portfolio’s native attempt retained no metric outcomes and is
 stopped; its source/scalar repair remains accepted. All currently owned native
-workers are closed. ARC’s hidden-evaluator complement is being prepared, not run.
+workers are closed. ARC’s hidden comparison is now accepted: reported 167/448
+at score 35.59 versus 45/448 at 7.41, with all 12 unaffected suites preserved.
+These totals do not prove 448 individual assertions executed. Zig’s selected
+original-source review is active; no run is claimed.
 Recheck canonical ownership before any launch. The routing travel-window
 complement remains accepted locally, not yet selected here.
 
@@ -69,7 +72,7 @@ All local paths below are relative to the shared workspace:
 | CTA currency correction | Original withheld [decision](evidence/selected/cta-original-exclusion.json). Accepted: 12 native risk-method calls plus two accounting calls preserve expected behavior. [Result](evidence/selected/cta-currency-native-acceptance.json). | Assess a complete eligible portfolio/full scorer; preserve module/bytecode and dependency-version limits. |
 | Portfolio annual-excess correction | Exact final source bound; two assignments corrected, with 64 authored/six different scalar controls. [Result](evidence/selected/portfolio-annual-excess-repair-acceptance.json). | Native attempt stopped: no retained metric outcomes, actual call count and cause unknown. Resume only with concrete new failure evidence. [Closed attempt](evidence/selected/portfolio-native-failure-acceptance.json). |
 | NetHack native path | One reset and 5,000 API step returns; observed peak zero matches WA/0. [Result](evidence/selected/nethack-native-acceptance.json). | Positive-score behavior and default 20-trajectory repeatability remain untested; API steps do not prove world turns or competence. |
-| ARC public suite | Supplied baseline 48/48; wrong interpreter 16/48, preserving unaffected cases. [Result](evidence/selected/arc-public-native-acceptance.json). | Hidden 448-case complement is source preparation only; no hidden result or full-task approval. |
+| ARC public and hidden suites | Public 48/48 versus 16/48; hidden scorer reports 167/448 at 35.59 versus 45/448 at 7.41. All 12 unaffected hidden suites retain their counts. [Hidden result](evidence/selected/arc-hidden-native-acceptance.json). | Assess hidden-case expectations and scorer validity beyond this mutation; do not repeat the completed comparisons. Import failures can count as 0/N without executing every assertion. |
 
 The reporting plugin’s earlier original-judge result remains 55 collected/53
 reported with score 1.0. The new combined corrected judge passes 57 collected/55
