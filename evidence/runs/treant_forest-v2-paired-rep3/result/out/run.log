@@ -1,0 +1,114 @@
++ J=seededge/edgebench.judge.treant_forest@sha256:783e9ca24139ac6aa672ec0576b5f75648e8ad47c0d937988deeb41b639bf21a
++ mkdir -p /job/out
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         350        7597           0         248        7614
+Swap:              0           0           0
++ date -u
+Mon Oct 12 09:50:09 UTC 2026
++ docker pull -q seededge/edgebench.judge.treant_forest@sha256:783e9ca24139ac6aa672ec0576b5f75648e8ad47c0d937988deeb41b639bf21a
+docker.io/seededge/edgebench.judge.treant_forest@sha256:783e9ca24139ac6aa672ec0576b5f75648e8ad47c0d937988deeb41b639bf21a
++ docker image inspect seededge/edgebench.judge.treant_forest@sha256:783e9ca24139ac6aa672ec0576b5f75648e8ad47c0d937988deeb41b639bf21a --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
+template parsing error: template: :1:17: executing "" at <.Config.User>: map has no entry for key "User"
++ docker build -q -t treant_forest_v2 -f /job/Dockerfile /job/empty_ctx
++ docker image inspect treant_forest_v2 --format '{{.Id}}'
++ for IMG in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.treant_forest@sha256:783e9ca24139ac6aa672ec0576b5f75648e8ad47c0d937988deeb41b639bf21a
++ for S in baseline honest_greedy invalid_revealed
++ docker rm -f jd
++ docker create --name jd --network none --memory 4g --cpus 8 seededge/edgebench.judge.treant_forest@sha256:783e9ca24139ac6aa672ec0576b5f75648e8ad47c0d937988deeb41b639bf21a sleep 3600
+8d46cc22a67e6b1163efd7d4b06074d3b88395542cd87a4967a6d8f0cce3b246
++ docker start jd
+jd
++ docker cp /job/subs/baseline/solution.py jd:/home/workspace/treants_forest/solution.py
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && sha256sum /tmp/eval_treants_forest.py tools/bin/tester solution.py && (cd cases && sha256sum * | sha256sum) && ls -la tools/bin'
+++ date +%s
++ T0=1791798623
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && python3 /tmp/eval_treants_forest.py'
+++ date +%s
++ echo 'exit=0 wall_s=0'
++ docker rm -f jd
+jd
++ for S in baseline honest_greedy invalid_revealed
++ docker rm -f jd
++ docker create --name jd --network none --memory 4g --cpus 8 seededge/edgebench.judge.treant_forest@sha256:783e9ca24139ac6aa672ec0576b5f75648e8ad47c0d937988deeb41b639bf21a sleep 3600
+48319b7a71a24b8c6acef18e1c3fc69261a9262ca277be90342436ce9e150905
++ docker start jd
+jd
++ docker cp /job/subs/honest_greedy/solution.py jd:/home/workspace/treants_forest/solution.py
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && sha256sum /tmp/eval_treants_forest.py tools/bin/tester solution.py && (cd cases && sha256sum * | sha256sum) && ls -la tools/bin'
+++ date +%s
++ T0=1791798624
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && python3 /tmp/eval_treants_forest.py'
+++ date +%s
++ echo 'exit=0 wall_s=3'
++ docker rm -f jd
+jd
++ for S in baseline honest_greedy invalid_revealed
++ docker rm -f jd
++ docker create --name jd --network none --memory 4g --cpus 8 seededge/edgebench.judge.treant_forest@sha256:783e9ca24139ac6aa672ec0576b5f75648e8ad47c0d937988deeb41b639bf21a sleep 3600
+e210ae02e0c3cf3ccfbf0204ffb52ed809c64927c88e4086fb73d23ad9f5e9ee
++ docker start jd
+jd
++ docker cp /job/subs/invalid_revealed/solution.py jd:/home/workspace/treants_forest/solution.py
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && sha256sum /tmp/eval_treants_forest.py tools/bin/tester solution.py && (cd cases && sha256sum * | sha256sum) && ls -la tools/bin'
+++ date +%s
++ T0=1791798627
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && python3 /tmp/eval_treants_forest.py'
+++ date +%s
++ echo 'exit=0 wall_s=1'
++ docker rm -f jd
+jd
++ for IMG in v1 v2
++ '[' v2 = v1 ']'
++ I=treant_forest_v2
++ for S in baseline honest_greedy invalid_revealed
++ docker rm -f jd
++ docker create --name jd --network none --memory 4g --cpus 8 treant_forest_v2 sleep 3600
+7bd4664e3ae2bbdbcaae1d5518bff94abf0ad8766d873bd658a189ae175e035d
++ docker start jd
+jd
++ docker cp /job/subs/baseline/solution.py jd:/home/workspace/treants_forest/solution.py
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && sha256sum /tmp/eval_treants_forest.py tools/bin/tester solution.py && (cd cases && sha256sum * | sha256sum) && ls -la tools/bin'
+++ date +%s
++ T0=1791798628
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && python3 /tmp/eval_treants_forest.py'
+++ date +%s
++ echo 'exit=0 wall_s=1'
++ docker rm -f jd
+jd
++ for S in baseline honest_greedy invalid_revealed
++ docker rm -f jd
++ docker create --name jd --network none --memory 4g --cpus 8 treant_forest_v2 sleep 3600
+e6d91ffa3124e10a802a7579b752197b4cb79a72a58c17148b82f1dd869ecea3
++ docker start jd
+jd
++ docker cp /job/subs/honest_greedy/solution.py jd:/home/workspace/treants_forest/solution.py
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && sha256sum /tmp/eval_treants_forest.py tools/bin/tester solution.py && (cd cases && sha256sum * | sha256sum) && ls -la tools/bin'
+++ date +%s
++ T0=1791798629
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && python3 /tmp/eval_treants_forest.py'
+++ date +%s
++ echo 'exit=0 wall_s=3'
++ docker rm -f jd
+jd
++ for S in baseline honest_greedy invalid_revealed
++ docker rm -f jd
++ docker create --name jd --network none --memory 4g --cpus 8 treant_forest_v2 sleep 3600
+9de3cb7de15b97b81bbbcbbdcb0fc66a8a3f90afc61a6f754f204d78156dd475
++ docker start jd
+jd
++ docker cp /job/subs/invalid_revealed/solution.py jd:/home/workspace/treants_forest/solution.py
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && sha256sum /tmp/eval_treants_forest.py tools/bin/tester solution.py && (cd cases && sha256sum * | sha256sum) && ls -la tools/bin'
+++ date +%s
++ T0=1791798633
++ docker exec jd bash -c 'cd /home/workspace/treants_forest && python3 /tmp/eval_treants_forest.py'
+++ date +%s
++ echo 'exit=0 wall_s=0'
++ docker rm -f jd
+jd
++ date -u
+Mon Oct 12 09:50:33 UTC 2026

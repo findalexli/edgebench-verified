@@ -1,0 +1,40 @@
+>>>>> Start Test Output
++ echo '>>>>> Start Test Output'
++ cd /home/workspace/complex_job_scheduling
++ python -m pytest tests/test_final_result.py -s -v
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /home/workspace/complex_job_scheduling
+collecting ... collected 5 items
+
+tests/test_final_result.py::test_no_private_cost_module_access PASSED
+tests/test_final_result.py::test_private_judge_files_are_available FAILED
+tests/test_final_result.py::test_baseline_file_was_not_modified PASSED
+tests/test_final_result.py::test_final_result_exists_and_has_required_fields PASSED
+tests/test_final_result.py::test_final_result_is_valid_permutation_and_cost TOTAL_SCORE 0.0003106985
+PASSED
+
+=================================== FAILURES ===================================
+____________________ test_private_judge_files_are_available ____________________
+
+    def test_private_judge_files_are_available() -> None:
+        assert PRIVATE_COST_MODULE_PATH.exists(), "judge cost module is missing"
+        assert PRIVATE_SCORE_HELPER_PATH.exists(), "judge score helper is missing"
+        assert hashlib.sha256(PRIVATE_COST_MODULE_PATH.read_bytes()).hexdigest() == EXPECTED_COST_MODULE_SHA256
+>       assert hashlib.sha256(PRIVATE_SCORE_HELPER_PATH.read_bytes()).hexdigest() == EXPECTED_SCORE_HELPER_SHA256
+E       AssertionError: assert '337837af7067...f2ca411c99630' == '3023b9a44911...2522f915dbbac'
+E         
+E         - 3023b9a449119e862d4ca86d3ab45599e2496e182be82959a642522f915dbbac
+E         + 337837af7067b3dae8d4ef068d26d8dd8ff779f9a627d95451af2ca411c99630
+
+tests/test_final_result.py:98: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_result.py::test_private_judge_files_are_available - A...
+========================= 1 failed, 4 passed in 0.30s ==========================
+>>>>> End Test Output
+Exit code: 1
++ EXIT_CODE=1
++ echo '>>>>> End Test Output'
++ echo 'Exit code: 1'
++ exit 0

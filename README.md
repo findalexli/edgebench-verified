@@ -25,7 +25,7 @@ controls and counterexamples, never estimated for historical leaderboard entries
 | --- | ---: | --- |
 | Retain | 0 | No defect and nothing to note (every retained task carries at least one note) |
 | Retain with note | 28 | Real but immaterial, or disclosed, issue, or a usage note only where no good-faith defect was found; the note ships with the task |
-| **Repair (v2)** | **22** | Material defect fixed in a new version; every repair passed a paired before/after check, a native run for all but the prompt-only OpenRCT2 repair ([134 paired rows](paired-results.csv), 4 of them for the excluded task's partial repair) |
+| **Repair (v2)** | **22** | Material defect fixed in a new version; every repair passed a paired before/after check, a native run for all but the prompt-only OpenRCT2 repair ([134 paired rows](paired-results.csv), 4 of them for the excluded task's partial repair); [repeated 3×](paired-repeatability.md): 0 of 132 executed arms changed verdict |
 | Exclude | 1 | Material defect without a justified repair in this release |
 | **Total** | **51** | |
 

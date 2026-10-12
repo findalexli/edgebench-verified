@@ -1,0 +1,75 @@
++ J=seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ CWD=/home/workspace/045_graph_node_classification
++ O=/job/out
++ mkdir -p /job/out
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         351        7595           0         249        7613
+Swap:              0           0           0
++ df -h /
++ tail -1
+/dev/root        21G  2.2G   18G  11% /
++ date -u
+Mon Oct 12 09:06:20 UTC 2026
++ docker pull -q seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ docker image inspect seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
++ docker build -t graph_v2 /job/v2ctx
++ echo build_rc=0
++ docker image inspect graph_v2 --format '{{.Id}}'
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ docker run --rm --network none seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd bash -c 'cd /home/workspace/045_graph_node_classification && sha256sum verifier.py runner.py judge_eval.py config.yaml solution/solution.py solution/solution_template.py'
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=graph_v2
++ docker run --rm --network none graph_v2 bash -c 'cd /home/workspace/045_graph_node_classification && sha256sum verifier.py runner.py judge_eval.py config.yaml solution/solution.py solution/solution_template.py'
++ for m in baseline shrink neighbor nanconf missing_half
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/baseline /home/workspace/045_graph_node_classification 1800 /job/out/v1.baseline 4 6g SEB_PARALLEL_WORKERS=4
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/baseline /home/workspace/045_graph_node_classification 1800 /job/out/v2.baseline 4 6g SEB_PARALLEL_WORKERS=4
++ for m in baseline shrink neighbor nanconf missing_half
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/shrink /home/workspace/045_graph_node_classification 1800 /job/out/v1.shrink 4 6g SEB_PARALLEL_WORKERS=4
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/shrink /home/workspace/045_graph_node_classification 1800 /job/out/v2.shrink 4 6g SEB_PARALLEL_WORKERS=4
++ for m in baseline shrink neighbor nanconf missing_half
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/neighbor /home/workspace/045_graph_node_classification 1800 /job/out/v1.neighbor 4 6g SEB_PARALLEL_WORKERS=4
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/neighbor /home/workspace/045_graph_node_classification 1800 /job/out/v2.neighbor 4 6g SEB_PARALLEL_WORKERS=4
++ for m in baseline shrink neighbor nanconf missing_half
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/nanconf /home/workspace/045_graph_node_classification 1800 /job/out/v1.nanconf 4 6g SEB_PARALLEL_WORKERS=4
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/nanconf /home/workspace/045_graph_node_classification 1800 /job/out/v2.nanconf 4 6g SEB_PARALLEL_WORKERS=4
++ for m in baseline shrink neighbor nanconf missing_half
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/missing_half /home/workspace/045_graph_node_classification 1800 /job/out/v1.missing_half 4 6g SEB_PARALLEL_WORKERS=4
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/missing_half /home/workspace/045_graph_node_classification 1800 /job/out/v2.missing_half 4 6g SEB_PARALLEL_WORKERS=4
++ date -u
+Mon Oct 12 09:37:58 UTC 2026

@@ -1,0 +1,26 @@
+{
+  "x_center": 261.57404299447813,
+  "y_center": 234.87165581229172,
+  "z_center": 219.04325829757659,
+  "half_length_x": 5.000000000000001,
+  "half_length_y": 7.512911564446614,
+  "half_length_z": 0.6104704438420113,
+  "C0": 47.38799318435226,
+  "t_start": 504.3689385283798,
+  "duration": 3057.2092874659425,
+  "source_type": "rectangular_region",
+  "dimension": 3,
+  "transport_model": {
+    "equation_type": "advection_dispersion_reaction",
+    "governing_equation": "R*dC/dt = div(D grad C) - v dot grad C - lambda*C + source",
+    "velocity_m_per_day": 0.02777777777777778,
+    "alpha_L_m": 10.0,
+    "alpha_TH_m": 0.5,
+    "alpha_TV_m": 0.01,
+    "porosity": 0.3,
+    "retardation_factor": 1.0,
+    "lambda_per_day": 0.0,
+    "numerical_approach": "analytical erf box-source, continuous release, superposition in time; least squares"
+  },
+  "method": "multi-start bounded least squares on censored log residuals of public monitoring data: textbook fit"
+}

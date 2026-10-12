@@ -1,0 +1,21 @@
+Exception in thread Thread-1 (main):
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/job/tools/v2_paired/make_witness_sets.py", line 161, in main
+    row["oracle_C"] = oracle.is_model(C)
+                      ^^^^^^^^^^^^^^^^^^
+  File "/job/tools/v2_paired/make_witness_sets.py", line 105, in is_model
+    cons.append(self.funs[k] == self.value(raw, self.sort_of(k), labels))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/job/tools/v2_paired/make_witness_sets.py", line 54, in value
+    zs = self.funs_sort(sort)
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/job/tools/v2_paired/make_witness_sets.py", line 75, in funs_sort
+    return {"Bool": z3.BoolSort(), "Int": z3.IntSort(), "Real": z3.RealSort()}.get(sort) or z3.DeclareSort(sort)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/z3/z3.py", line 381, in __bool__
+    raise Z3Exception("Symbolic expressions cannot be cast to concrete Boolean values.")
+z3.z3types.Z3Exception: Symbolic expressions cannot be cast to concrete Boolean values.

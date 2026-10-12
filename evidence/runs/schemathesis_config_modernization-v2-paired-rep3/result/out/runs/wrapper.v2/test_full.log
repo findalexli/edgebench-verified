@@ -1,0 +1,910 @@
+=== Phase 1: Configuration System ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-8.4.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, cov-7.1.0, pytest_httpserver-1.1.5, mock-3.15.1, subtests-0.14.2, schemathesis-3.39.16, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 30 items
+
+../tests/test_01_config_system.py::test_config_available FAILED          [  3%]
+../tests/test_01_config_system.py::test_discover_in_current_directory FAILED [  6%]
+../tests/test_01_config_system.py::test_discover_in_parent_directory FAILED [ 10%]
+../tests/test_01_config_system.py::test_discover_not_found FAILED        [ 13%]
+../tests/test_01_config_system.py::test_discover_stops_at_git_root FAILED [ 16%]
+../tests/test_01_config_system.py::test_from_str_basic FAILED            [ 20%]
+../tests/test_01_config_system.py::test_from_dict_basic FAILED           [ 23%]
+../tests/test_01_config_system.py::test_from_path FAILED                 [ 26%]
+../tests/test_01_config_system.py::test_default_config FAILED            [ 30%]
+../tests/test_01_config_system.py::test_config_error_on_invalid_key FAILED [ 33%]
+../tests/test_01_config_system.py::test_config_error_on_wrong_type FAILED [ 36%]
+../tests/test_01_config_system.py::test_config_error_on_invalid_health_check FAILED [ 40%]
+../tests/test_01_config_system.py::test_env_resolve_basic FAILED         [ 43%]
+../tests/test_01_config_system.py::test_env_resolve_missing_var FAILED   [ 46%]
+../tests/test_01_config_system.py::test_env_resolve_non_string FAILED    [ 50%]
+../tests/test_01_config_system.py::test_env_resolve_invalid_placeholder FAILED [ 53%]
+../tests/test_01_config_system.py::test_phases_config_defaults FAILED    [ 56%]
+../tests/test_01_config_system.py::test_phases_config_update FAILED      [ 60%]
+../tests/test_01_config_system.py::test_phases_config_get_by_name FAILED [ 63%]
+../tests/test_01_config_system.py::test_coverage_phase_config FAILED     [ 66%]
+../tests/test_01_config_system.py::test_stateful_phase_config FAILED     [ 70%]
+../tests/test_01_config_system.py::test_examples_phase_config FAILED     [ 73%]
+../tests/test_01_config_system.py::test_phases_from_dict FAILED          [ 76%]
+../tests/test_01_config_system.py::test_generation_config_defaults FAILED [ 80%]
+../tests/test_01_config_system.py::test_generation_config_from_dict_mode_all FAILED [ 83%]
+../tests/test_01_config_system.py::test_generation_config_from_dict_single_mode FAILED [ 86%]
+../tests/test_01_config_system.py::test_generation_config_from_dict_options FAILED [ 90%]
+../tests/test_01_config_system.py::test_health_check_enum_values FAILED  [ 93%]
+../tests/test_01_config_system.py::test_path_to_section_name_empty FAILED [ 96%]
+../tests/test_01_config_system.py::test_path_to_section_name_with_path FAILED [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_config_available _____________________________
+/tests/test_01_config_system.py:27: in test_config_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.config'
+______________________ test_discover_in_current_directory ______________________
+/tests/test_01_config_system.py:45: in test_discover_in_current_directory
+    config = SchemathesisConfig.discover()
+             ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SchemathesisConfig' is not defined
+______________________ test_discover_in_parent_directory _______________________
+/tests/test_01_config_system.py:59: in test_discover_in_parent_directory
+    config = SchemathesisConfig.discover()
+             ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SchemathesisConfig' is not defined
+___________________________ test_discover_not_found ____________________________
+/tests/test_01_config_system.py:67: in test_discover_not_found
+    config = SchemathesisConfig.discover()
+             ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SchemathesisConfig' is not defined
+_______________________ test_discover_stops_at_git_root ________________________
+/tests/test_01_config_system.py:87: in test_discover_stops_at_git_root
+    config = SchemathesisConfig.discover()
+             ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SchemathesisConfig' is not defined
+_____________________________ test_from_str_basic ______________________________
+/tests/test_01_config_system.py:95: in test_from_str_basic
+    config = SchemathesisConfig.from_str(toml)
+             ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SchemathesisConfig' is not defined
+_____________________________ test_from_dict_basic _____________________________
+/tests/test_01_config_system.py:101: in test_from_dict_basic
+    config = SchemathesisConfig.from_dict({
+             ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SchemathesisConfig' is not defined
+________________________________ test_from_path ________________________________
+/tests/test_01_config_system.py:115: in test_from_path
+    config = SchemathesisConfig.from_path(config_file)
+             ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SchemathesisConfig' is not defined
+_____________________________ test_default_config ______________________________
+/tests/test_01_config_system.py:121: in test_default_config
+    config = SchemathesisConfig()
+             ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SchemathesisConfig' is not defined
+_______________________ test_config_error_on_invalid_key _______________________
+/tests/test_01_config_system.py:131: in test_config_error_on_invalid_key
+    with pytest.raises(ConfigError):
+                       ^^^^^^^^^^^
+E   NameError: name 'ConfigError' is not defined
+_______________________ test_config_error_on_wrong_type ________________________
+/tests/test_01_config_system.py:136: in test_config_error_on_wrong_type
+    with pytest.raises(ConfigError):
+                       ^^^^^^^^^^^
+E   NameError: name 'ConfigError' is not defined
+__________________ test_config_error_on_invalid_health_check ___________________
+/tests/test_01_config_system.py:141: in test_config_error_on_invalid_health_check
+    with pytest.raises(ConfigError):
+                       ^^^^^^^^^^^
+E   NameError: name 'ConfigError' is not defined
+____________________________ test_env_resolve_basic ____________________________
+/tests/test_01_config_system.py:149: in test_env_resolve_basic
+    result = resolve("Bearer ${MY_TOKEN}")
+             ^^^^^^^
+E   NameError: name 'resolve' is not defined
+_________________________ test_env_resolve_missing_var _________________________
+/tests/test_01_config_system.py:154: in test_env_resolve_missing_var
+    with pytest.raises(ConfigError):
+                       ^^^^^^^^^^^
+E   NameError: name 'ConfigError' is not defined
+_________________________ test_env_resolve_non_string __________________________
+/tests/test_01_config_system.py:159: in test_env_resolve_non_string
+    assert resolve(42) == 42
+           ^^^^^^^
+E   NameError: name 'resolve' is not defined
+_____________________ test_env_resolve_invalid_placeholder _____________________
+/tests/test_01_config_system.py:164: in test_env_resolve_invalid_placeholder
+    with pytest.raises(ConfigError):
+                       ^^^^^^^^^^^
+E   NameError: name 'ConfigError' is not defined
+_________________________ test_phases_config_defaults __________________________
+/tests/test_01_config_system.py:171: in test_phases_config_defaults
+    phases = PhasesConfig()
+             ^^^^^^^^^^^^
+E   NameError: name 'PhasesConfig' is not defined
+__________________________ test_phases_config_update ___________________________
+/tests/test_01_config_system.py:179: in test_phases_config_update
+    phases = PhasesConfig()
+             ^^^^^^^^^^^^
+E   NameError: name 'PhasesConfig' is not defined
+________________________ test_phases_config_get_by_name ________________________
+/tests/test_01_config_system.py:188: in test_phases_config_get_by_name
+    phases = PhasesConfig()
+             ^^^^^^^^^^^^
+E   NameError: name 'PhasesConfig' is not defined
+__________________________ test_coverage_phase_config __________________________
+/tests/test_01_config_system.py:196: in test_coverage_phase_config
+    config = CoveragePhaseConfig(
+             ^^^^^^^^^^^^^^^^^^^
+E   NameError: name 'CoveragePhaseConfig' is not defined
+__________________________ test_stateful_phase_config __________________________
+/tests/test_01_config_system.py:206: in test_stateful_phase_config
+    config = StatefulPhaseConfig(max_steps=10)
+             ^^^^^^^^^^^^^^^^^^^
+E   NameError: name 'StatefulPhaseConfig' is not defined
+__________________________ test_examples_phase_config __________________________
+/tests/test_01_config_system.py:212: in test_examples_phase_config
+    config = ExamplesPhaseConfig(fill_missing=True)
+             ^^^^^^^^^^^^^^^^^^^
+E   NameError: name 'ExamplesPhaseConfig' is not defined
+____________________________ test_phases_from_dict _____________________________
+/tests/test_01_config_system.py:224: in test_phases_from_dict
+    phases = PhasesConfig.from_dict(data)
+             ^^^^^^^^^^^^
+E   NameError: name 'PhasesConfig' is not defined
+_______________________ test_generation_config_defaults ________________________
+/tests/test_01_config_system.py:234: in test_generation_config_defaults
+    config = GenerationConfig()
+             ^^^^^^^^^^^^^^^^
+E   NameError: name 'GenerationConfig' is not defined
+__________________ test_generation_config_from_dict_mode_all ___________________
+/tests/test_01_config_system.py:245: in test_generation_config_from_dict_mode_all
+    config = GenerationConfig.from_dict({"mode": "all"})
+             ^^^^^^^^^^^^^^^^
+E   NameError: name 'GenerationConfig' is not defined
+_________________ test_generation_config_from_dict_single_mode _________________
+/tests/test_01_config_system.py:251: in test_generation_config_from_dict_single_mode
+    config = GenerationConfig.from_dict({"mode": "positive"})
+             ^^^^^^^^^^^^^^^^
+E   NameError: name 'GenerationConfig' is not defined
+___________________ test_generation_config_from_dict_options ___________________
+/tests/test_01_config_system.py:257: in test_generation_config_from_dict_options
+    config = GenerationConfig.from_dict({
+             ^^^^^^^^^^^^^^^^
+E   NameError: name 'GenerationConfig' is not defined
+________________________ test_health_check_enum_values _________________________
+/tests/test_01_config_system.py:272: in test_health_check_enum_values
+    assert HealthCheck.too_slow.value == "too_slow"
+           ^^^^^^^^^^^
+E   NameError: name 'HealthCheck' is not defined
+_______________________ test_path_to_section_name_empty ________________________
+/tests/test_01_config_system.py:282: in test_path_to_section_name_empty
+    assert path_to_section_name([]) == "root"
+           ^^^^^^^^^^^^^^^^^^^^
+E   NameError: name 'path_to_section_name' is not defined
+_____________________ test_path_to_section_name_with_path ______________________
+/tests/test_01_config_system.py:286: in test_path_to_section_name_with_path
+    assert path_to_section_name(["phases", "fuzzing"]) == "[phases.fuzzing]"
+           ^^^^^^^^^^^^^^^^^^^^
+E   NameError: name 'path_to_section_name' is not defined
+=============================== warnings summary ===============================
+src/schemathesis/generation/coverage.py:305
+  /app/src/schemathesis/generation/coverage.py:305: DeprecationWarning: jsonschema.exceptions.RefResolutionError is deprecated as of version 4.18.0. If you wish to catch potential reference resolution errors, directly catch referencing.exceptions.Unresolvable.
+    ref_error: type[Exception] = jsonschema.RefResolutionError,
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../tests/test_01_config_system.py::test_config_available - Failed: Imp...
+FAILED ../tests/test_01_config_system.py::test_discover_in_current_directory
+FAILED ../tests/test_01_config_system.py::test_discover_in_parent_directory
+FAILED ../tests/test_01_config_system.py::test_discover_not_found - NameError...
+FAILED ../tests/test_01_config_system.py::test_discover_stops_at_git_root - N...
+FAILED ../tests/test_01_config_system.py::test_from_str_basic - NameError: na...
+FAILED ../tests/test_01_config_system.py::test_from_dict_basic - NameError: n...
+FAILED ../tests/test_01_config_system.py::test_from_path - NameError: name 'S...
+FAILED ../tests/test_01_config_system.py::test_default_config - NameError: na...
+FAILED ../tests/test_01_config_system.py::test_config_error_on_invalid_key - ...
+FAILED ../tests/test_01_config_system.py::test_config_error_on_wrong_type - N...
+FAILED ../tests/test_01_config_system.py::test_config_error_on_invalid_health_check
+FAILED ../tests/test_01_config_system.py::test_env_resolve_basic - NameError:...
+FAILED ../tests/test_01_config_system.py::test_env_resolve_missing_var - Name...
+FAILED ../tests/test_01_config_system.py::test_env_resolve_non_string - NameE...
+FAILED ../tests/test_01_config_system.py::test_env_resolve_invalid_placeholder
+FAILED ../tests/test_01_config_system.py::test_phases_config_defaults - NameE...
+FAILED ../tests/test_01_config_system.py::test_phases_config_update - NameErr...
+FAILED ../tests/test_01_config_system.py::test_phases_config_get_by_name - Na...
+FAILED ../tests/test_01_config_system.py::test_coverage_phase_config - NameEr...
+FAILED ../tests/test_01_config_system.py::test_stateful_phase_config - NameEr...
+FAILED ../tests/test_01_config_system.py::test_examples_phase_config - NameEr...
+FAILED ../tests/test_01_config_system.py::test_phases_from_dict - NameError: ...
+FAILED ../tests/test_01_config_system.py::test_generation_config_defaults - N...
+FAILED ../tests/test_01_config_system.py::test_generation_config_from_dict_mode_all
+FAILED ../tests/test_01_config_system.py::test_generation_config_from_dict_single_mode
+FAILED ../tests/test_01_config_system.py::test_generation_config_from_dict_options
+FAILED ../tests/test_01_config_system.py::test_health_check_enum_values - Nam...
+FAILED ../tests/test_01_config_system.py::test_path_to_section_name_empty - N...
+FAILED ../tests/test_01_config_system.py::test_path_to_section_name_with_path
+======================== 30 failed, 1 warning in 0.45s =========================
+FAILED
+
+Phase 1: 0/30 passed
+=== Phase 2: API Namespace Reorganization ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-8.4.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, cov-7.1.0, pytest_httpserver-1.1.5, mock-3.15.1, subtests-0.14.2, schemathesis-3.39.16, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 26 items
+
+../tests/test_02_api_namespace.py::test_api_namespace_available FAILED   [  3%]
+../tests/test_02_api_namespace.py::test_openapi_from_url_exists FAILED   [  7%]
+../tests/test_02_api_namespace.py::test_openapi_from_dict_exists FAILED  [ 11%]
+../tests/test_02_api_namespace.py::test_openapi_from_wsgi_exists FAILED  [ 15%]
+../tests/test_02_api_namespace.py::test_openapi_from_asgi_exists FAILED  [ 19%]
+../tests/test_02_api_namespace.py::test_openapi_from_file_exists FAILED  [ 23%]
+../tests/test_02_api_namespace.py::test_openapi_from_path_exists FAILED  [ 26%]
+../tests/test_02_api_namespace.py::test_openapi_format_exists FAILED     [ 30%]
+../tests/test_02_api_namespace.py::test_openapi_media_type_exists FAILED [ 34%]
+../tests/test_02_api_namespace.py::test_pytest_from_fixture_exists FAILED [ 38%]
+../tests/test_02_api_namespace.py::test_top_level_case PASSED            [ 42%]
+../tests/test_02_api_namespace.py::test_top_level_response FAILED        [ 46%]
+../tests/test_02_api_namespace.py::test_top_level_api_operation FAILED   [ 50%]
+../tests/test_02_api_namespace.py::test_top_level_base_schema PASSED     [ 53%]
+../tests/test_02_api_namespace.py::test_top_level_config FAILED          [ 57%]
+../tests/test_02_api_namespace.py::test_top_level_generation_mode FAILED [ 61%]
+../tests/test_02_api_namespace.py::test_top_level_hook PASSED            [ 65%]
+../tests/test_02_api_namespace.py::test_top_level_check FAILED           [ 69%]
+../tests/test_02_api_namespace.py::test_top_level_auth FAILED            [ 73%]
+../tests/test_02_api_namespace.py::test_top_level_metric PASSED          [ 76%]
+../tests/test_02_api_namespace.py::test_top_level_serializer FAILED      [ 80%]
+../tests/test_02_api_namespace.py::test_top_level_version PASSED         [ 84%]
+../tests/test_02_api_namespace.py::test_generation_mode_positive FAILED  [ 88%]
+../tests/test_02_api_namespace.py::test_generation_mode_negative FAILED  [ 92%]
+../tests/test_02_api_namespace.py::test_generation_mode_is_str_enum FAILED [ 96%]
+../tests/test_02_api_namespace.py::test_generation_mode_from_value FAILED [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_api_namespace_available _________________________
+/tests/test_02_api_namespace.py:24: in test_api_namespace_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.openapi'
+_________________________ test_openapi_from_url_exists _________________________
+/tests/test_02_api_namespace.py:30: in test_openapi_from_url_exists
+    from schemathesis.openapi import from_url
+E   ModuleNotFoundError: No module named 'schemathesis.openapi'
+________________________ test_openapi_from_dict_exists _________________________
+/tests/test_02_api_namespace.py:35: in test_openapi_from_dict_exists
+    from schemathesis.openapi import from_dict
+E   ModuleNotFoundError: No module named 'schemathesis.openapi'
+________________________ test_openapi_from_wsgi_exists _________________________
+/tests/test_02_api_namespace.py:40: in test_openapi_from_wsgi_exists
+    from schemathesis.openapi import from_wsgi
+E   ModuleNotFoundError: No module named 'schemathesis.openapi'
+________________________ test_openapi_from_asgi_exists _________________________
+/tests/test_02_api_namespace.py:45: in test_openapi_from_asgi_exists
+    from schemathesis.openapi import from_asgi
+E   ModuleNotFoundError: No module named 'schemathesis.openapi'
+________________________ test_openapi_from_file_exists _________________________
+/tests/test_02_api_namespace.py:50: in test_openapi_from_file_exists
+    from schemathesis.openapi import from_file
+E   ModuleNotFoundError: No module named 'schemathesis.openapi'
+________________________ test_openapi_from_path_exists _________________________
+/tests/test_02_api_namespace.py:55: in test_openapi_from_path_exists
+    from schemathesis.openapi import from_path
+E   ModuleNotFoundError: No module named 'schemathesis.openapi'
+__________________________ test_openapi_format_exists __________________________
+/tests/test_02_api_namespace.py:60: in test_openapi_format_exists
+    from schemathesis.openapi import format
+E   ModuleNotFoundError: No module named 'schemathesis.openapi'
+________________________ test_openapi_media_type_exists ________________________
+/tests/test_02_api_namespace.py:65: in test_openapi_media_type_exists
+    from schemathesis.openapi import media_type
+E   ModuleNotFoundError: No module named 'schemathesis.openapi'
+_______________________ test_pytest_from_fixture_exists ________________________
+/tests/test_02_api_namespace.py:72: in test_pytest_from_fixture_exists
+    from schemathesis.pytest import from_fixture
+E   ModuleNotFoundError: No module named 'schemathesis.pytest'
+___________________________ test_top_level_response ____________________________
+/tests/test_02_api_namespace.py:84: in test_top_level_response
+    from schemathesis import Response
+E   ImportError: cannot import name 'Response' from 'schemathesis' (/app/src/schemathesis/__init__.py)
+_________________________ test_top_level_api_operation _________________________
+/tests/test_02_api_namespace.py:89: in test_top_level_api_operation
+    from schemathesis import APIOperation
+E   ImportError: cannot import name 'APIOperation' from 'schemathesis' (/app/src/schemathesis/__init__.py)
+____________________________ test_top_level_config _____________________________
+/tests/test_02_api_namespace.py:99: in test_top_level_config
+    from schemathesis import Config
+E   ImportError: cannot import name 'Config' from 'schemathesis' (/app/src/schemathesis/__init__.py)
+________________________ test_top_level_generation_mode ________________________
+/tests/test_02_api_namespace.py:105: in test_top_level_generation_mode
+    from schemathesis import GenerationMode
+E   ImportError: cannot import name 'GenerationMode' from 'schemathesis' (/app/src/schemathesis/__init__.py)
+_____________________________ test_top_level_check _____________________________
+/tests/test_02_api_namespace.py:117: in test_top_level_check
+    from schemathesis import check, CheckContext, CheckFunction
+E   ImportError: cannot import name 'CheckContext' from 'schemathesis' (/app/src/schemathesis/__init__.py)
+_____________________________ test_top_level_auth ______________________________
+/tests/test_02_api_namespace.py:123: in test_top_level_auth
+    from schemathesis import auth, AuthContext, AuthProvider
+E   ImportError: cannot import name 'AuthContext' from 'schemathesis' (/app/src/schemathesis/__init__.py)
+__________________________ test_top_level_serializer ___________________________
+/tests/test_02_api_namespace.py:135: in test_top_level_serializer
+    from schemathesis import serializer, SerializationContext
+E   ImportError: cannot import name 'SerializationContext' from 'schemathesis' (/app/src/schemathesis/__init__.py)
+________________________ test_generation_mode_positive _________________________
+/tests/test_02_api_namespace.py:149: in test_generation_mode_positive
+    assert GenerationMode.POSITIVE.value == "positive"
+           ^^^^^^^^^^^^^^
+E   NameError: name 'GenerationMode' is not defined
+________________________ test_generation_mode_negative _________________________
+/tests/test_02_api_namespace.py:155: in test_generation_mode_negative
+    assert GenerationMode.NEGATIVE.value == "negative"
+           ^^^^^^^^^^^^^^
+E   NameError: name 'GenerationMode' is not defined
+_______________________ test_generation_mode_is_str_enum _______________________
+/tests/test_02_api_namespace.py:161: in test_generation_mode_is_str_enum
+    assert isinstance(GenerationMode.POSITIVE, str)
+                      ^^^^^^^^^^^^^^
+E   NameError: name 'GenerationMode' is not defined
+_______________________ test_generation_mode_from_value ________________________
+/tests/test_02_api_namespace.py:168: in test_generation_mode_from_value
+    assert GenerationMode("positive") == GenerationMode.POSITIVE
+           ^^^^^^^^^^^^^^
+E   NameError: name 'GenerationMode' is not defined
+=============================== warnings summary ===============================
+src/schemathesis/generation/coverage.py:305
+  /app/src/schemathesis/generation/coverage.py:305: DeprecationWarning: jsonschema.exceptions.RefResolutionError is deprecated as of version 4.18.0. If you wish to catch potential reference resolution errors, directly catch referencing.exceptions.Unresolvable.
+    ref_error: type[Exception] = jsonschema.RefResolutionError,
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../tests/test_02_api_namespace.py::test_api_namespace_available - Fail...
+FAILED ../tests/test_02_api_namespace.py::test_openapi_from_url_exists - Modu...
+FAILED ../tests/test_02_api_namespace.py::test_openapi_from_dict_exists - Mod...
+FAILED ../tests/test_02_api_namespace.py::test_openapi_from_wsgi_exists - Mod...
+FAILED ../tests/test_02_api_namespace.py::test_openapi_from_asgi_exists - Mod...
+FAILED ../tests/test_02_api_namespace.py::test_openapi_from_file_exists - Mod...
+FAILED ../tests/test_02_api_namespace.py::test_openapi_from_path_exists - Mod...
+FAILED ../tests/test_02_api_namespace.py::test_openapi_format_exists - Module...
+FAILED ../tests/test_02_api_namespace.py::test_openapi_media_type_exists - Mo...
+FAILED ../tests/test_02_api_namespace.py::test_pytest_from_fixture_exists - M...
+FAILED ../tests/test_02_api_namespace.py::test_top_level_response - ImportErr...
+FAILED ../tests/test_02_api_namespace.py::test_top_level_api_operation - Impo...
+FAILED ../tests/test_02_api_namespace.py::test_top_level_config - ImportError...
+FAILED ../tests/test_02_api_namespace.py::test_top_level_generation_mode - Im...
+FAILED ../tests/test_02_api_namespace.py::test_top_level_check - ImportError:...
+FAILED ../tests/test_02_api_namespace.py::test_top_level_auth - ImportError: ...
+FAILED ../tests/test_02_api_namespace.py::test_top_level_serializer - ImportE...
+FAILED ../tests/test_02_api_namespace.py::test_generation_mode_positive - Nam...
+FAILED ../tests/test_02_api_namespace.py::test_generation_mode_negative - Nam...
+FAILED ../tests/test_02_api_namespace.py::test_generation_mode_is_str_enum - ...
+FAILED ../tests/test_02_api_namespace.py::test_generation_mode_from_value - N...
+=================== 21 failed, 5 passed, 1 warning in 0.21s ====================
+FAILED
+
+Phase 2: 5/26 passed
+=== Phase 3: Metric System ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-8.4.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, cov-7.1.0, pytest_httpserver-1.1.5, mock-3.15.1, subtests-0.14.2, schemathesis-3.39.16, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 16 items
+
+../tests/test_03_metric_system.py::test_metric_system_available PASSED   [  6%]
+../tests/test_03_metric_system.py::test_metric_context_slots PASSED      [ 12%]
+../tests/test_03_metric_system.py::test_metric_context_creation PASSED   [ 18%]
+../tests/test_03_metric_system.py::test_metric_decorator_registers PASSED [ 25%]
+../tests/test_03_metric_system.py::test_metric_decorator_returns_function PASSED [ 31%]
+../tests/test_03_metric_system.py::test_builtin_response_time PASSED     [ 37%]
+../tests/test_03_metric_system.py::test_metric_collector_init_empty PASSED [ 43%]
+../tests/test_03_metric_system.py::test_metric_collector_init_with_metrics PASSED [ 50%]
+../tests/test_03_metric_system.py::test_metric_collector_store PASSED    [ 56%]
+../tests/test_03_metric_system.py::test_metric_collector_reset PASSED    [ 62%]
+../tests/test_03_metric_system.py::test_metric_collector_maximize PASSED [ 68%]
+../tests/test_03_metric_system.py::test_metric_collector_slots PASSED    [ 75%]
+../tests/test_03_metric_system.py::test_maximize_function PASSED         [ 81%]
+../tests/test_03_metric_system.py::test_schemathesis_metric_decorator PASSED [ 87%]
+../tests/test_03_metric_system.py::test_schemathesis_metric_context_export PASSED [ 93%]
+../tests/test_03_metric_system.py::test_metric_decorator_preserves_exact_function_identity FAILED [100%]
+
+=================================== FAILURES ===================================
+___________ test_metric_decorator_preserves_exact_function_identity ____________
+/tests/test_03_metric_system.py:196: in test_metric_decorator_preserves_exact_function_identity
+    assert decorated is ebv_identity_probe
+E   assert <function test_metric_decorator_preserves_exact_function_identity.<locals>.ebv_identity_probe at 0x7f47302c9760> is <function test_metric_decorator_preserves_exact_function_identity.<locals>.ebv_identity_probe at 0x7f47302c96c0>
+=============================== warnings summary ===============================
+src/schemathesis/generation/coverage.py:305
+  /app/src/schemathesis/generation/coverage.py:305: DeprecationWarning: jsonschema.exceptions.RefResolutionError is deprecated as of version 4.18.0. If you wish to catch potential reference resolution errors, directly catch referencing.exceptions.Unresolvable.
+    ref_error: type[Exception] = jsonschema.RefResolutionError,
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../tests/test_03_metric_system.py::test_metric_decorator_preserves_exact_function_identity
+=================== 1 failed, 15 passed, 1 warning in 0.16s ====================
+FAILED
+
+Phase 3: 15/16 passed
+=== Phase 4: Transport & Serialization ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-8.4.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, cov-7.1.0, pytest_httpserver-1.1.5, mock-3.15.1, subtests-0.14.2, schemathesis-3.39.16, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 19 items
+
+../tests/test_04_transport.py::test_transport_available FAILED           [  5%]
+../tests/test_04_transport.py::test_base_transport_init FAILED           [ 10%]
+../tests/test_04_transport.py::test_base_transport_register_serializer FAILED [ 15%]
+../tests/test_04_transport.py::test_base_transport_register_multiple_media_types FAILED [ 21%]
+../tests/test_04_transport.py::test_base_transport_unregister_serializer FAILED [ 26%]
+../tests/test_04_transport.py::test_base_transport_unregister_nonexistent FAILED [ 31%]
+../tests/test_04_transport.py::test_base_transport_get_first_matching FAILED [ 36%]
+../tests/test_04_transport.py::test_base_transport_get_first_matching_none FAILED [ 42%]
+../tests/test_04_transport.py::test_base_transport_get_matching_wildcard FAILED [ 47%]
+../tests/test_04_transport.py::test_serialization_context_slots FAILED   [ 52%]
+../tests/test_04_transport.py::test_serialization_context_creation FAILED [ 57%]
+../tests/test_04_transport.py::test_get_transport_none_app FAILED        [ 63%]
+../tests/test_04_transport.py::test_get_transport_wsgi_app FAILED        [ 68%]
+../tests/test_04_transport.py::test_get_transport_asgi_app FAILED        [ 73%]
+../tests/test_04_transport.py::test_get_transport_callable_async FAILED  [ 78%]
+../tests/test_04_transport.py::test_top_level_serializer_is_callable PASSED [ 84%]
+../tests/test_04_transport.py::test_serialization_context_export FAILED  [ 89%]
+../tests/test_04_transport.py::test_transports_are_distinct FAILED       [ 94%]
+../tests/test_04_transport.py::test_transports_are_base_transport FAILED [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_transport_available ___________________________
+/tests/test_04_transport.py:30: in test_transport_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.transport'
+___________________________ test_base_transport_init ___________________________
+/tests/test_04_transport.py:36: in test_base_transport_init
+    t = BaseTransport()
+        ^^^^^^^^^^^^^
+E   NameError: name 'BaseTransport' is not defined
+___________________ test_base_transport_register_serializer ____________________
+/tests/test_04_transport.py:41: in test_base_transport_register_serializer
+    t = BaseTransport()
+        ^^^^^^^^^^^^^
+E   NameError: name 'BaseTransport' is not defined
+______________ test_base_transport_register_multiple_media_types _______________
+/tests/test_04_transport.py:52: in test_base_transport_register_multiple_media_types
+    t = BaseTransport()
+        ^^^^^^^^^^^^^
+E   NameError: name 'BaseTransport' is not defined
+__________________ test_base_transport_unregister_serializer ___________________
+/tests/test_04_transport.py:65: in test_base_transport_unregister_serializer
+    t = BaseTransport()
+        ^^^^^^^^^^^^^
+E   NameError: name 'BaseTransport' is not defined
+__________________ test_base_transport_unregister_nonexistent __________________
+/tests/test_04_transport.py:76: in test_base_transport_unregister_nonexistent
+    t = BaseTransport()
+        ^^^^^^^^^^^^^
+E   NameError: name 'BaseTransport' is not defined
+____________________ test_base_transport_get_first_matching ____________________
+/tests/test_04_transport.py:82: in test_base_transport_get_first_matching
+    t = BaseTransport()
+        ^^^^^^^^^^^^^
+E   NameError: name 'BaseTransport' is not defined
+_________________ test_base_transport_get_first_matching_none __________________
+/tests/test_04_transport.py:95: in test_base_transport_get_first_matching_none
+    t = BaseTransport()
+        ^^^^^^^^^^^^^
+E   NameError: name 'BaseTransport' is not defined
+__________________ test_base_transport_get_matching_wildcard ___________________
+/tests/test_04_transport.py:101: in test_base_transport_get_matching_wildcard
+    t = BaseTransport()
+        ^^^^^^^^^^^^^
+E   NameError: name 'BaseTransport' is not defined
+_______________________ test_serialization_context_slots _______________________
+/tests/test_04_transport.py:118: in test_serialization_context_slots
+    assert "case" in SerializationContext.__slots__
+                     ^^^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SerializationContext' is not defined
+_____________________ test_serialization_context_creation ______________________
+/tests/test_04_transport.py:123: in test_serialization_context_creation
+    ctx = SerializationContext(case=mock_case)
+          ^^^^^^^^^^^^^^^^^^^^
+E   NameError: name 'SerializationContext' is not defined
+_________________________ test_get_transport_none_app __________________________
+/tests/test_04_transport.py:130: in test_get_transport_none_app
+    transport = get(None)
+                ^^^
+E   NameError: name 'get' is not defined
+_________________________ test_get_transport_wsgi_app __________________________
+/tests/test_04_transport.py:138: in test_get_transport_wsgi_app
+    transport = get(wsgi_app)
+                ^^^
+E   NameError: name 'get' is not defined
+_________________________ test_get_transport_asgi_app __________________________
+/tests/test_04_transport.py:146: in test_get_transport_asgi_app
+    transport = get(asgi_app)
+                ^^^
+E   NameError: name 'get' is not defined
+______________________ test_get_transport_callable_async _______________________
+/tests/test_04_transport.py:155: in test_get_transport_callable_async
+    transport = get(AsyncApp())
+                ^^^
+E   NameError: name 'get' is not defined
+______________________ test_serialization_context_export _______________________
+/tests/test_04_transport.py:168: in test_serialization_context_export
+    assert hasattr(schemathesis, "SerializationContext")
+E   AssertionError: assert False
+E    +  where False = hasattr(<module 'schemathesis' from '/app/src/schemathesis/__init__.py'>, 'SerializationContext')
+_________________________ test_transports_are_distinct _________________________
+/tests/test_04_transport.py:174: in test_transports_are_distinct
+    assert REQUESTS_TRANSPORT is not WSGI_TRANSPORT
+           ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'REQUESTS_TRANSPORT' is not defined
+______________________ test_transports_are_base_transport ______________________
+/tests/test_04_transport.py:180: in test_transports_are_base_transport
+    assert isinstance(REQUESTS_TRANSPORT, BaseTransport)
+                      ^^^^^^^^^^^^^^^^^^
+E   NameError: name 'REQUESTS_TRANSPORT' is not defined
+=============================== warnings summary ===============================
+src/schemathesis/generation/coverage.py:305
+  /app/src/schemathesis/generation/coverage.py:305: DeprecationWarning: jsonschema.exceptions.RefResolutionError is deprecated as of version 4.18.0. If you wish to catch potential reference resolution errors, directly catch referencing.exceptions.Unresolvable.
+    ref_error: type[Exception] = jsonschema.RefResolutionError,
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../tests/test_04_transport.py::test_transport_available - Failed: Impo...
+FAILED ../tests/test_04_transport.py::test_base_transport_init - NameError: n...
+FAILED ../tests/test_04_transport.py::test_base_transport_register_serializer
+FAILED ../tests/test_04_transport.py::test_base_transport_register_multiple_media_types
+FAILED ../tests/test_04_transport.py::test_base_transport_unregister_serializer
+FAILED ../tests/test_04_transport.py::test_base_transport_unregister_nonexistent
+FAILED ../tests/test_04_transport.py::test_base_transport_get_first_matching
+FAILED ../tests/test_04_transport.py::test_base_transport_get_first_matching_none
+FAILED ../tests/test_04_transport.py::test_base_transport_get_matching_wildcard
+FAILED ../tests/test_04_transport.py::test_serialization_context_slots - Name...
+FAILED ../tests/test_04_transport.py::test_serialization_context_creation - N...
+FAILED ../tests/test_04_transport.py::test_get_transport_none_app - NameError...
+FAILED ../tests/test_04_transport.py::test_get_transport_wsgi_app - NameError...
+FAILED ../tests/test_04_transport.py::test_get_transport_asgi_app - NameError...
+FAILED ../tests/test_04_transport.py::test_get_transport_callable_async - Nam...
+FAILED ../tests/test_04_transport.py::test_serialization_context_export - Ass...
+FAILED ../tests/test_04_transport.py::test_transports_are_distinct - NameErro...
+FAILED ../tests/test_04_transport.py::test_transports_are_base_transport - Na...
+=================== 18 failed, 1 passed, 1 warning in 0.19s ====================
+FAILED
+
+Phase 4: 1/19 passed
+=== Phase 5: Response Class ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-8.4.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, cov-7.1.0, pytest_httpserver-1.1.5, mock-3.15.1, subtests-0.14.2, schemathesis-3.39.16, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 18 items
+
+../tests/test_05_response.py::test_response_available FAILED             [  5%]
+../tests/test_05_response.py::test_response_basic_attributes FAILED      [ 11%]
+../tests/test_05_response.py::test_response_headers_lowercase FAILED     [ 16%]
+../tests/test_05_response.py::test_response_text_property FAILED         [ 22%]
+../tests/test_05_response.py::test_response_text_default_encoding FAILED [ 27%]
+../tests/test_05_response.py::test_response_json FAILED                  [ 33%]
+../tests/test_05_response.py::test_response_json_caching FAILED          [ 38%]
+../tests/test_05_response.py::test_response_body_size FAILED             [ 44%]
+../tests/test_05_response.py::test_response_body_size_empty FAILED       [ 50%]
+../tests/test_05_response.py::test_response_encoded_body FAILED          [ 55%]
+../tests/test_05_response.py::test_response_encoded_body_caching FAILED  [ 61%]
+../tests/test_05_response.py::test_from_requests FAILED                  [ 66%]
+../tests/test_05_response.py::test_from_requests_http10 FAILED           [ 72%]
+../tests/test_05_response.py::test_from_httpx FAILED                     [ 77%]
+../tests/test_05_response.py::test_from_any_passthrough FAILED           [ 83%]
+../tests/test_05_response.py::test_from_any_requests FAILED              [ 88%]
+../tests/test_05_response.py::test_user_agent_format FAILED              [ 94%]
+../tests/test_05_response.py::test_default_response_timeout FAILED       [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_response_available ____________________________
+/tests/test_05_response.py:23: in test_response_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.core'
+________________________ test_response_basic_attributes ________________________
+/tests/test_05_response.py:47: in test_response_basic_attributes
+    resp = _make_response()
+           ^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+_______________________ test_response_headers_lowercase ________________________
+/tests/test_05_response.py:57: in test_response_headers_lowercase
+    resp = _make_response(headers={"Content-Type": ["text/plain"], "X-Custom": ["value"]})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+_________________________ test_response_text_property __________________________
+/tests/test_05_response.py:64: in test_response_text_property
+    resp = _make_response(content=b"hello world", encoding="utf-8")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+_____________________ test_response_text_default_encoding ______________________
+/tests/test_05_response.py:69: in test_response_text_default_encoding
+    resp = _make_response(content=b"no encoding")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+______________________________ test_response_json ______________________________
+/tests/test_05_response.py:75: in test_response_json
+    resp = _make_response(content=json.dumps(data).encode(), encoding="utf-8")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+__________________________ test_response_json_caching __________________________
+/tests/test_05_response.py:80: in test_response_json_caching
+    resp = _make_response(content=b'{"a": 1}', encoding="utf-8")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+___________________________ test_response_body_size ____________________________
+/tests/test_05_response.py:87: in test_response_body_size
+    resp = _make_response(content=b"12345")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+________________________ test_response_body_size_empty _________________________
+/tests/test_05_response.py:92: in test_response_body_size_empty
+    resp = _make_response(content=b"")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+__________________________ test_response_encoded_body __________________________
+/tests/test_05_response.py:98: in test_response_encoded_body
+    resp = _make_response(content=content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+______________________ test_response_encoded_body_caching ______________________
+/tests/test_05_response.py:104: in test_response_encoded_body_caching
+    resp = _make_response(content=b"test")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+______________________________ test_from_requests ______________________________
+/tests/test_05_response.py:136: in test_from_requests
+    resp = Response.from_requests(mock_response, verify=True)
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+__________________________ test_from_requests_http10 ___________________________
+/tests/test_05_response.py:167: in test_from_requests_http10
+    resp = Response.from_requests(mock_response, verify=False)
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+_______________________________ test_from_httpx ________________________________
+/tests/test_05_response.py:196: in test_from_httpx
+    resp = Response.from_httpx(mock_response, verify=True)
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+__________________________ test_from_any_passthrough ___________________________
+/tests/test_05_response.py:208: in test_from_any_passthrough
+    original = _make_response()
+               ^^^^^^^^^^^^^^^^
+/tests/test_05_response.py:33: in _make_response
+    return Response(
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+____________________________ test_from_any_requests ____________________________
+/tests/test_05_response.py:235: in test_from_any_requests
+    resp = Response.from_any(mock_response)
+           ^^^^^^^^
+E   NameError: name 'Response' is not defined
+____________________________ test_user_agent_format ____________________________
+/tests/test_05_response.py:243: in test_user_agent_format
+    assert "schemathesis/" in USER_AGENT
+                              ^^^^^^^^^^
+E   NameError: name 'USER_AGENT' is not defined
+________________________ test_default_response_timeout _________________________
+/tests/test_05_response.py:249: in test_default_response_timeout
+    assert DEFAULT_RESPONSE_TIMEOUT == 10
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   NameError: name 'DEFAULT_RESPONSE_TIMEOUT' is not defined
+=============================== warnings summary ===============================
+src/schemathesis/generation/coverage.py:305
+  /app/src/schemathesis/generation/coverage.py:305: DeprecationWarning: jsonschema.exceptions.RefResolutionError is deprecated as of version 4.18.0. If you wish to catch potential reference resolution errors, directly catch referencing.exceptions.Unresolvable.
+    ref_error: type[Exception] = jsonschema.RefResolutionError,
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../tests/test_05_response.py::test_response_available - Failed: Import...
+FAILED ../tests/test_05_response.py::test_response_basic_attributes - NameErr...
+FAILED ../tests/test_05_response.py::test_response_headers_lowercase - NameEr...
+FAILED ../tests/test_05_response.py::test_response_text_property - NameError:...
+FAILED ../tests/test_05_response.py::test_response_text_default_encoding - Na...
+FAILED ../tests/test_05_response.py::test_response_json - NameError: name 'Re...
+FAILED ../tests/test_05_response.py::test_response_json_caching - NameError: ...
+FAILED ../tests/test_05_response.py::test_response_body_size - NameError: nam...
+FAILED ../tests/test_05_response.py::test_response_body_size_empty - NameErro...
+FAILED ../tests/test_05_response.py::test_response_encoded_body - NameError: ...
+FAILED ../tests/test_05_response.py::test_response_encoded_body_caching - Nam...
+FAILED ../tests/test_05_response.py::test_from_requests - NameError: name 'Re...
+FAILED ../tests/test_05_response.py::test_from_requests_http10 - NameError: n...
+FAILED ../tests/test_05_response.py::test_from_httpx - NameError: name 'Respo...
+FAILED ../tests/test_05_response.py::test_from_any_passthrough - NameError: n...
+FAILED ../tests/test_05_response.py::test_from_any_requests - NameError: name...
+FAILED ../tests/test_05_response.py::test_user_agent_format - NameError: name...
+FAILED ../tests/test_05_response.py::test_default_response_timeout - NameErro...
+======================== 18 failed, 1 warning in 0.25s =========================
+FAILED
+
+Phase 5: 0/18 passed
+=== Phase 6: Check System ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-8.4.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, cov-7.1.0, pytest_httpserver-1.1.5, mock-3.15.1, subtests-0.14.2, schemathesis-3.39.16, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 18 items
+
+../tests/test_06_check_system.py::test_check_system_available FAILED     [  5%]
+../tests/test_06_check_system.py::test_registry_init FAILED              [ 11%]
+../tests/test_06_check_system.py::test_registry_register FAILED          [ 16%]
+../tests/test_06_check_system.py::test_registry_unregister FAILED        [ 22%]
+../tests/test_06_check_system.py::test_registry_get_all_names FAILED     [ 27%]
+../tests/test_06_check_system.py::test_registry_get_all FAILED           [ 33%]
+../tests/test_06_check_system.py::test_registry_get_by_names FAILED      [ 38%]
+../tests/test_06_check_system.py::test_checks_is_registry FAILED         [ 44%]
+../tests/test_06_check_system.py::test_not_a_server_error_registered FAILED [ 50%]
+../tests/test_06_check_system.py::test_check_decorator_registers FAILED  [ 55%]
+../tests/test_06_check_system.py::test_check_decorator_returns_function FAILED [ 61%]
+../tests/test_06_check_system.py::test_check_context_slots FAILED        [ 66%]
+../tests/test_06_check_system.py::test_check_context_has_config FAILED   [ 72%]
+../tests/test_06_check_system.py::test_check_context_loads_enabled_checks FAILED [ 77%]
+../tests/test_06_check_system.py::test_not_a_server_error_passes_on_200 FAILED [ 83%]
+../tests/test_06_check_system.py::test_not_a_server_error_raises_on_500 FAILED [ 88%]
+../tests/test_06_check_system.py::test_schemathesis_check_decorator PASSED [ 94%]
+../tests/test_06_check_system.py::test_schemathesis_check_context_export FAILED [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_check_system_available __________________________
+/tests/test_06_check_system.py:29: in test_check_system_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'CheckContext' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)
+______________________________ test_registry_init ______________________________
+/tests/test_06_check_system.py:35: in test_registry_init
+    r = Registry()
+        ^^^^^^^^
+E   NameError: name 'Registry' is not defined
+____________________________ test_registry_register ____________________________
+/tests/test_06_check_system.py:40: in test_registry_register
+    r = Registry()
+        ^^^^^^^^
+E   NameError: name 'Registry' is not defined
+___________________________ test_registry_unregister ___________________________
+/tests/test_06_check_system.py:51: in test_registry_unregister
+    r = Registry()
+        ^^^^^^^^
+E   NameError: name 'Registry' is not defined
+_________________________ test_registry_get_all_names __________________________
+/tests/test_06_check_system.py:62: in test_registry_get_all_names
+    r = Registry()
+        ^^^^^^^^
+E   NameError: name 'Registry' is not defined
+____________________________ test_registry_get_all _____________________________
+/tests/test_06_check_system.py:78: in test_registry_get_all
+    r = Registry()
+        ^^^^^^^^
+E   NameError: name 'Registry' is not defined
+__________________________ test_registry_get_by_names __________________________
+/tests/test_06_check_system.py:89: in test_registry_get_by_names
+    r = Registry()
+        ^^^^^^^^
+E   NameError: name 'Registry' is not defined
+___________________________ test_checks_is_registry ____________________________
+/tests/test_06_check_system.py:106: in test_checks_is_registry
+    assert isinstance(CHECKS, Registry)
+                      ^^^^^^
+E   NameError: name 'CHECKS' is not defined
+______________________ test_not_a_server_error_registered ______________________
+/tests/test_06_check_system.py:110: in test_not_a_server_error_registered
+    assert "not_a_server_error" in CHECKS.get_all_names()
+                                   ^^^^^^
+E   NameError: name 'CHECKS' is not defined
+________________________ test_check_decorator_registers ________________________
+/tests/test_06_check_system.py:116: in test_check_decorator_registers
+    @check
+     ^^^^^
+E   NameError: name 'check' is not defined
+____________________ test_check_decorator_returns_function _____________________
+/tests/test_06_check_system.py:126: in test_check_decorator_returns_function
+    @check
+     ^^^^^
+E   NameError: name 'check' is not defined
+___________________________ test_check_context_slots ___________________________
+/tests/test_06_check_system.py:137: in test_check_context_slots
+    assert "config" in CheckContext.__slots__
+                       ^^^^^^^^^^^^
+E   NameError: name 'CheckContext' is not defined
+________________________ test_check_context_has_config _________________________
+/tests/test_06_check_system.py:141: in test_check_context_has_config
+    from schemathesis.config._checks import ChecksConfig
+E   ModuleNotFoundError: No module named 'schemathesis.config'
+___________________ test_check_context_loads_enabled_checks ____________________
+/tests/test_06_check_system.py:154: in test_check_context_loads_enabled_checks
+    from schemathesis.config._checks import ChecksConfig
+E   ModuleNotFoundError: No module named 'schemathesis.config'
+____________________ test_not_a_server_error_passes_on_200 _____________________
+/tests/test_06_check_system.py:171: in test_not_a_server_error_passes_on_200
+    from schemathesis.config._checks import ChecksConfig
+E   ModuleNotFoundError: No module named 'schemathesis.config'
+____________________ test_not_a_server_error_raises_on_500 _____________________
+/tests/test_06_check_system.py:206: in test_not_a_server_error_raises_on_500
+    from schemathesis.config._checks import ChecksConfig
+E   ModuleNotFoundError: No module named 'schemathesis.config'
+____________________ test_schemathesis_check_context_export ____________________
+/tests/test_06_check_system.py:249: in test_schemathesis_check_context_export
+    assert hasattr(schemathesis, "CheckContext")
+E   AssertionError: assert False
+E    +  where False = hasattr(<module 'schemathesis' from '/app/src/schemathesis/__init__.py'>, 'CheckContext')
+=============================== warnings summary ===============================
+src/schemathesis/generation/coverage.py:305
+  /app/src/schemathesis/generation/coverage.py:305: DeprecationWarning: jsonschema.exceptions.RefResolutionError is deprecated as of version 4.18.0. If you wish to catch potential reference resolution errors, directly catch referencing.exceptions.Unresolvable.
+    ref_error: type[Exception] = jsonschema.RefResolutionError,
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../tests/test_06_check_system.py::test_check_system_available - Failed...
+FAILED ../tests/test_06_check_system.py::test_registry_init - NameError: name...
+FAILED ../tests/test_06_check_system.py::test_registry_register - NameError: ...
+FAILED ../tests/test_06_check_system.py::test_registry_unregister - NameError...
+FAILED ../tests/test_06_check_system.py::test_registry_get_all_names - NameEr...
+FAILED ../tests/test_06_check_system.py::test_registry_get_all - NameError: n...
+FAILED ../tests/test_06_check_system.py::test_registry_get_by_names - NameErr...
+FAILED ../tests/test_06_check_system.py::test_checks_is_registry - NameError:...
+FAILED ../tests/test_06_check_system.py::test_not_a_server_error_registered
+FAILED ../tests/test_06_check_system.py::test_check_decorator_registers - Nam...
+FAILED ../tests/test_06_check_system.py::test_check_decorator_returns_function
+FAILED ../tests/test_06_check_system.py::test_check_context_slots - NameError...
+FAILED ../tests/test_06_check_system.py::test_check_context_has_config - Modu...
+FAILED ../tests/test_06_check_system.py::test_check_context_loads_enabled_checks
+FAILED ../tests/test_06_check_system.py::test_not_a_server_error_passes_on_200
+FAILED ../tests/test_06_check_system.py::test_not_a_server_error_raises_on_500
+FAILED ../tests/test_06_check_system.py::test_schemathesis_check_context_export
+=================== 17 failed, 1 passed, 1 warning in 0.20s ====================
+FAILED
+Phase 6: 1/18 passed
+Result: 0/6 phases; 22/127 tests | Reward: 0.129063
+tests/roadmap.py::test_phase_1 FAILED
+tests/roadmap.py::test_phase_2 FAILED
+tests/roadmap.py::test_phase_3 FAILED
+tests/roadmap.py::test_phase_4 FAILED
+tests/roadmap.py::test_phase_5 FAILED
+tests/roadmap.py::test_phase_6 FAILED
+=== 0 passed, 6 failed in 1.00s ===
+TOTAL_SCORE 0.129063

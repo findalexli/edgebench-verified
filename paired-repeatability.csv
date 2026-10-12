@@ -1,0 +1,400 @@
+task_id,arm,role,run,v1_result,v2_result,v1_score,v2_score
+arc_compiler_runtime,(a) shipped starter,baseline,1,true,true,35.59,35.59
+arc_compiler_runtime,(a) shipped starter,baseline,2,true,true,35.59,35.59
+arc_compiler_runtime,(a) shipped starter,baseline,3,true,true,35.59,35.59
+arc_compiler_runtime,"(b) starter, `analyze()` returns `[]` (documented shape only)",valid,1,true,true,47.21,47.21
+arc_compiler_runtime,"(b) starter, `analyze()` returns `[]` (documented shape only)",valid,2,true,true,47.21,47.21
+arc_compiler_runtime,"(b) starter, `analyze()` returns `[]` (documented shape only)",valid,3,true,true,47.21,47.21
+arc_compiler_runtime,(c) invalid: codegen emits `var result = null;`,invalid,1,true,true,25.79,25.79
+arc_compiler_runtime,(c) invalid: codegen emits `var result = null;`,invalid,2,true,true,25.79,25.79
+arc_compiler_runtime,(c) invalid: codegen emits `var result = null;`,invalid,3,true,true,25.79,25.79
+arc_compiler_runtime,"(d) independent honest analyzer, documented shape",trigger,1,true,true,69.26,69.26
+arc_compiler_runtime,"(d) independent honest analyzer, documented shape",trigger,2,true,true,69.26,69.26
+arc_compiler_runtime,"(d) independent honest analyzer, documented shape",trigger,3,true,true,69.26,69.26
+arc_compiler_runtime,"(e) same analyzer as (d), starter shape `{ok,errors,warnings,program}`",trigger,1,true,true,35.59,35.59
+arc_compiler_runtime,"(e) same analyzer as (d), starter shape `{ok,errors,warnings,program}`",trigger,2,true,true,35.59,35.59
+arc_compiler_runtime,"(e) same analyzer as (d), starter shape `{ok,errors,warnings,program}`",trigger,3,true,true,35.59,35.59
+borden_source_inversion,textbook ADE fit (review regression case),valid,1,exit=0,exit=0,7.031,7.031
+borden_source_inversion,textbook ADE fit (review regression case),valid,2,exit=0,exit=0,7.031,7.031
+borden_source_inversion,textbook ADE fit (review regression case),valid,3,exit=0,exit=0,7.031,7.031
+borden_source_inversion,"judge-convention fit (review, own re-implementation)",valid,1,exit=0,exit=0,31.2,31.2
+borden_source_inversion,"judge-convention fit (review, own re-implementation)",valid,2,exit=0,exit=0,31.2,31.2
+borden_source_inversion,"judge-convention fit (review, own re-implementation)",valid,3,exit=0,exit=0,31.2,31.2
+borden_source_inversion,v2 fit using only the shipped `forward_model.py`,valid,1,exit=0,exit=0,31.199,31.199
+borden_source_inversion,v2 fit using only the shipped `forward_model.py`,valid,2,exit=0,exit=0,31.199,31.199
+borden_source_inversion,v2 fit using only the shipped `forward_model.py`,valid,3,exit=0,exit=0,31.199,31.199
+borden_source_inversion,bound-midpoint baseline,baseline,1,exit=0,exit=0,7.012,7.012
+borden_source_inversion,bound-midpoint baseline,baseline,2,exit=0,exit=0,7.012,7.012
+borden_source_inversion,bound-midpoint baseline,baseline,3,exit=0,exit=0,7.012,7.012
+borden_source_inversion,hidden true source,setup,1,exit=0,exit=0,109,109
+borden_source_inversion,hidden true source,setup,2,exit=0,exit=0,109,109
+borden_source_inversion,hidden true source,setup,3,exit=0,exit=0,109,109
+borden_source_inversion,"out-of-bounds answer (C0=5000, half_length_x=500)",invalid,1,exit=0,exit=0,4,4
+borden_source_inversion,"out-of-bounds answer (C0=5000, half_length_x=500)",invalid,2,exit=0,exit=0,4,4
+borden_source_inversion,"out-of-bounds answer (C0=5000, half_length_x=500)",invalid,3,exit=0,exit=0,4,4
+borden_source_inversion,no `answer.json`,invalid,1,exit=0,exit=0,0,0
+borden_source_inversion,no `answer.json`,invalid,2,exit=0,exit=0,0,0
+borden_source_inversion,no `answer.json`,invalid,3,exit=0,exit=0,0,0
+college_english_exam_bank,"A all 12 rules, one deduction each",valid,1,true,true,77,77
+college_english_exam_bank,"A all 12 rules, one deduction each",valid,2,true,true,77,77
+college_english_exam_bank,"A all 12 rules, one deduction each",valid,3,true,true,77,77
+college_english_exam_bank,B all 12 rules floored to 0,valid,1,true,true,0,0
+college_english_exam_bank,B all 12 rules floored to 0,valid,2,true,true,0,0
+college_english_exam_bank,B all 12 rules floored to 0,valid,3,true,true,0,0
+college_english_exam_bank,"F R009 rule-level score 0, no checkpoints",valid,1,true,true,0,0
+college_english_exam_bank,"F R009 rule-level score 0, no checkpoints",valid,2,true,true,0,0
+college_english_exam_bank,"F R009 rule-level score 0, no checkpoints",valid,3,true,true,0,0
+college_english_exam_bank,L A without any rule-level score (complete checkpoints),valid,1,true,true,77,77
+college_english_exam_bank,L A without any rule-level score (complete checkpoints),valid,2,true,true,77,77
+college_english_exam_bank,L A without any rule-level score (complete checkpoints),valid,3,true,true,77,77
+college_english_exam_bank,C empty `scores`,trigger,1,true,false,100,
+college_english_exam_bank,C empty `scores`,trigger,2,true,false,100,
+college_english_exam_bank,C empty `scores`,trigger,3,true,false,100,
+college_english_exam_bank,D A minus R009,trigger,1,true,false,81,
+college_english_exam_bank,D A minus R009,trigger,2,true,false,81,
+college_english_exam_bank,D A minus R009,trigger,3,true,false,81,
+college_english_exam_bank,E B minus R009,trigger,1,true,false,15,
+college_english_exam_bank,E B minus R009,trigger,2,true,false,15,
+college_english_exam_bank,E B minus R009,trigger,3,true,false,15,
+college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,1,true,false,0,
+college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,2,true,false,0,
+college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,3,true,false,0,
+college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,1,true,false,15,
+college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,2,true,false,15,
+college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,3,true,false,15,
+college_english_exam_bank,H no JSON,invalid,1,false,false,,
+college_english_exam_bank,H no JSON,invalid,2,false,false,,
+college_english_exam_bank,H no JSON,invalid,3,false,false,,
+college_english_exam_bank,"J D, then A on re-ask",trigger,1,true,true,81,77
+college_english_exam_bank,"J D, then A on re-ask",trigger,2,true,true,81,77
+college_english_exam_bank,"J D, then A on re-ask",trigger,3,true,true,81,77
+college_english_exam_bank,"K no JSON, then A on re-ask",trigger,1,false,true,,77
+college_english_exam_bank,"K no JSON, then A on re-ask",trigger,2,false,true,,77
+college_english_exam_bank,"K no JSON, then A on re-ask",trigger,3,false,true,,77
+cta_risk_budget_optimization,Trigger (synthetic),trigger,1,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Trigger (synthetic),trigger,2,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Trigger (synthetic),trigger,3,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Trigger (real data),trigger,1,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Trigger (real data),trigger,2,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Trigger (real data),trigger,3,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Same-currency control,valid,1,violations 0/1; cb 1 / 5,violations 0/1; cb 1 / 5,,
+cta_risk_budget_optimization,Same-currency control,valid,2,violations 0/1; cb 1 / 5,violations 0/1; cb 1 / 5,,
+cta_risk_budget_optimization,Same-currency control,valid,3,violations 0/1; cb 1 / 5,violations 0/1; cb 1 / 5,,
+cta_risk_budget_optimization,Under-limit mixed control,valid,1,violations 0/1; cb 1 / 5,violations 0/1; cb 1 / 5,,
+cta_risk_budget_optimization,Under-limit mixed control,valid,2,violations 0/1; cb 1 / 5,violations 0/1; cb 1 / 5,,
+cta_risk_budget_optimization,Under-limit mixed control,valid,3,violations 0/1; cb 1 / 5,violations 0/1; cb 1 / 5,,
+cta_risk_budget_optimization,Invalid control (over the limit even natively),invalid,1,violations 1/1; cb 0 / 1,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Invalid control (over the limit even natively),invalid,2,violations 1/1; cb 0 / 1,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Invalid control (over the limit even natively),invalid,3,violations 1/1; cb 0 / 1,violations 1/1; cb 0 / 1,,
+cta_risk_budget_optimization,Shipped reference positions (component),baseline,1,violations 0/1565; cb 1 / 5,violations 32/1565; cb 0 / 1,,
+cta_risk_budget_optimization,Shipped reference positions (component),baseline,2,violations 0/1565; cb 1 / 5,violations 32/1565; cb 0 / 1,,
+cta_risk_budget_optimization,Shipped reference positions (component),baseline,3,violations 0/1565; cb 1 / 5,violations 32/1565; cb 0 / 1,,
+cta_risk_budget_optimization,"Full original scorer, complete shipped reference",valid,1,"score 20.0 valid True pass_rate 1.0 {""M1_backtest_verification"": 4.0, ""M2_performance_metrics"": 0.0, ""M3_risk_constraints"": 0.0, ""M4_signal_generation"": 2.0, ""M5_code_compliance"": 10.0}","score 20.0 valid True pass_rate 1.0 {""M1_backtest_verification"": 4.0, ""M2_performance_metrics"": 0.0, ""M3_risk_constraints"": 0.0, ""M4_signal_generation"": 2.0, ""M5_code_compliance"": 10.0}",20,20
+cta_risk_budget_optimization,"Full original scorer, complete shipped reference",valid,2,"score 20.0 valid True pass_rate 1.0 {""M1_backtest_verification"": 4.0, ""M2_performance_metrics"": 0.0, ""M3_risk_constraints"": 0.0, ""M4_signal_generation"": 2.0, ""M5_code_compliance"": 10.0}","score 20.0 valid True pass_rate 1.0 {""M1_backtest_verification"": 4.0, ""M2_performance_metrics"": 0.0, ""M3_risk_constraints"": 0.0, ""M4_signal_generation"": 2.0, ""M5_code_compliance"": 10.0}",20,20
+cta_risk_budget_optimization,"Full original scorer, complete shipped reference",valid,3,"score 20.0 valid True pass_rate 1.0 {""M1_backtest_verification"": 4.0, ""M2_performance_metrics"": 0.0, ""M3_risk_constraints"": 0.0, ""M4_signal_generation"": 2.0, ""M5_code_compliance"": 10.0}","score 20.0 valid True pass_rate 1.0 {""M1_backtest_verification"": 4.0, ""M2_performance_metrics"": 0.0, ""M3_risk_constraints"": 0.0, ""M4_signal_generation"": 2.0, ""M5_code_compliance"": 10.0}",20,20
+dabic_gravity_inversion,"honest model-space D-ABIC (`FORM=""model""`)",trigger,1,valid=true; structural_failure=true,valid=true; structural_failure=false,25.77006789,26.81045151
+dabic_gravity_inversion,"honest model-space D-ABIC (`FORM=""model""`)",trigger,2,valid=true; structural_failure=true,valid=true; structural_failure=false,25.78570882,26.8498774
+dabic_gravity_inversion,"honest model-space D-ABIC (`FORM=""model""`)",trigger,3,valid=true; structural_failure=true,valid=true; structural_failure=false,25.75246042,26.84857407
+dabic_gravity_inversion,"honest data-space D-ABIC (`FORM=""data""`)",valid,1,valid=true; structural_failure=false,valid=true; structural_failure=false,26.82405897,26.83561289
+dabic_gravity_inversion,"honest data-space D-ABIC (`FORM=""data""`)",valid,2,valid=true; structural_failure=false,valid=true; structural_failure=false,26.81932354,26.81077555
+dabic_gravity_inversion,"honest data-space D-ABIC (`FORM=""data""`)",valid,3,valid=true; structural_failure=false,valid=true; structural_failure=false,26.813708,26.81385308
+dabic_gravity_inversion,"data form, log-det via `np.linalg.det` (`make_invalid_variant.py`)",invalid,1,valid=false; structural_failure=true,valid=false; structural_failure=true,26.91092672,26.86163934
+dabic_gravity_inversion,"data form, log-det via `np.linalg.det` (`make_invalid_variant.py`)",invalid,2,valid=false; structural_failure=true,valid=false; structural_failure=true,26.90091686,26.88435101
+dabic_gravity_inversion,"data form, log-det via `np.linalg.det` (`make_invalid_variant.py`)",invalid,3,valid=false; structural_failure=true,valid=false; structural_failure=true,26.92042495,26.90193971
+dabic_gravity_inversion,"judge image's own workspace (no `outputs/`, nothing submitted)",baseline,1,valid=false; structural_failure=true,valid=false; structural_failure=true,0,0
+dabic_gravity_inversion,"judge image's own workspace (no `outputs/`, nothing submitted)",baseline,2,valid=false; structural_failure=true,valid=false; structural_failure=true,0,0
+dabic_gravity_inversion,"judge image's own workspace (no `outputs/`, nothing submitted)",baseline,3,valid=false; structural_failure=true,valid=false; structural_failure=true,0,0
+equivalence_class_divide_and_conquer,"`naive.cpp` on crafted B (star, n=10⁶, m=2501; true cost 2.501·10⁹ > limit)",trigger,1,raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},raw 0; pass_rate 0/10=0.0000; {'T3': '0/1'},10,0
+equivalence_class_divide_and_conquer,"`naive.cpp` on crafted B (star, n=10⁶, m=2501; true cost 2.501·10⁹ > limit)",trigger,2,raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},raw 0; pass_rate 0/10=0.0000; {'T3': '0/1'},10,0
+equivalence_class_divide_and_conquer,"`naive.cpp` on crafted B (star, n=10⁶, m=2501; true cost 2.501·10⁹ > limit)",trigger,3,raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},raw 0; pass_rate 0/10=0.0000; {'T3': '0/1'},10,0
+equivalence_class_divide_and_conquer,`naive.cpp` on crafted A (m=2500; true cost exactly 2.5·10⁹),valid,1,raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},10,10
+equivalence_class_divide_and_conquer,`naive.cpp` on crafted A (m=2500; true cost exactly 2.5·10⁹),valid,2,raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},10,10
+equivalence_class_divide_and_conquer,`naive.cpp` on crafted A (m=2500; true cost exactly 2.5·10⁹),valid,3,raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'},10,10
+equivalence_class_divide_and_conquer,official `std.cpp` for T1–T6,valid,1,"raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}","raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",100,100
+equivalence_class_divide_and_conquer,official `std.cpp` for T1–T6,valid,2,"raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}","raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",100,100
+equivalence_class_divide_and_conquer,official `std.cpp` for T1–T6,valid,3,"raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}","raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",100,100
+equivalence_class_divide_and_conquer,"`naive.cpp` as T3, others empty, on the 30 official inputs",invalid,1,"raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}","raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",1,1
+equivalence_class_divide_and_conquer,"`naive.cpp` as T3, others empty, on the 30 official inputs",invalid,2,"raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}","raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",1,1
+equivalence_class_divide_and_conquer,"`naive.cpp` as T3, others empty, on the 30 official inputs",invalid,3,"raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}","raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",1,1
+exchange_core_throughput,"unmodified engine, original image without artifacts (""v1raw"")",setup,1,RE,—,0,
+exchange_core_throughput,"unmodified engine, original image without artifacts (""v1raw"")",setup,2,RE,—,0,
+exchange_core_throughput,"unmodified engine, original image without artifacts (""v1raw"")",setup,3,RE,—,0,
+exchange_core_throughput,"unmodified engine (control, run 1)",valid,1,OK,gate OK; OK,2050,2153
+exchange_core_throughput,"unmodified engine (control, run 1)",valid,2,OK,gate OK; OK,2008,3105
+exchange_core_throughput,"unmodified engine (control, run 1)",valid,3,OK,gate OK; OK,2054,2293
+exchange_core_throughput,"unmodified engine (control, run 2)",valid,1,OK,gate OK; OK,2210,2978
+exchange_core_throughput,"unmodified engine (control, run 2)",valid,2,OK,gate OK; OK,2698,2729
+exchange_core_throughput,"unmodified engine (control, run 2)",valid,3,OK,gate OK; OK,2542,2750
+exchange_core_throughput,`topo21` honest variant,valid,1,OK,gate OK; OK,2524,2481
+exchange_core_throughput,`topo21` honest variant,valid,2,OK,gate OK; OK,3003,3222
+exchange_core_throughput,`topo21` honest variant,valid,3,OK,gate OK; OK,2440,2387
+exchange_core_throughput,"`feeswap` (fee swap, balance kept at zero)",trigger,1,OK,WA,2269,0
+exchange_core_throughput,"`feeswap` (fee swap, balance kept at zero)",trigger,2,OK,WA,2643,0
+exchange_core_throughput,"`feeswap` (fee swap, balance kept at zero)",trigger,3,OK,WA,2307,0
+exchange_core_throughput,`dropevents` (user events not forwarded),trigger,1,OK,WA,2234,0
+exchange_core_throughput,`dropevents` (user events not forwarded),trigger,2,OK,WA,2457,0
+exchange_core_throughput,`dropevents` (user events not forwarded),trigger,3,OK,WA,2197,0
+exchange_core_throughput,`feeleak`,invalid,1,RE,WA,0,0
+exchange_core_throughput,`feeleak`,invalid,2,RE,WA,0,0
+exchange_core_throughput,`feeleak`,invalid,3,RE,WA,0,0
+exchange_core_throughput,`compileerr`,invalid,1,RE,WA,0,0
+exchange_core_throughput,`compileerr`,invalid,2,RE,WA,0,0
+exchange_core_throughput,`compileerr`,invalid,3,RE,WA,0,0
+ffmpeg_swscale_reimplementation,reference implementation (run 1),valid,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.967353,0.980056
+ffmpeg_swscale_reimplementation,reference implementation (run 1),valid,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.98489,0.995963
+ffmpeg_swscale_reimplementation,reference implementation (run 1),valid,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.990566,1.012284
+ffmpeg_swscale_reimplementation,reference implementation (run 2),valid,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.509049,0.507032
+ffmpeg_swscale_reimplementation,reference implementation (run 2),valid,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.496127,0.501321
+ffmpeg_swscale_reimplementation,reference implementation (run 2),valid,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.505227,0.498528
+ffmpeg_swscale_reimplementation,shipped scaffold,baseline,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 1,0.447819,0.012416
+ffmpeg_swscale_reimplementation,shipped scaffold,baseline,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 1,0.452737,0.01239
+ffmpeg_swscale_reimplementation,shipped scaffold,baseline,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 1,0.440964,0.012246
+ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,2.881761,0.000464
+ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,2.895562,0.00046
+ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,2.964297,0.000449
+ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,2.884506,0.000463
+ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,2.964279,0.000458
+ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,2.985832,0.000446
+ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,1.30586,0.000451
+ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,1.361517,0.000455
+ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 2,1.322883,0.000453
+ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,1,correct 28/30; timed_errors 0,correct 28/30; timed_errors 0,0,0
+ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,2,correct 28/30; timed_errors 0,correct 28/30; timed_errors 0,0,0
+ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,3,correct 28/30; timed_errors 0,correct 28/30; timed_errors 0,0,0
+graph_node_classification,baseline (shipped solution.py),valid,1,true,true,29.27832597,29.27023467
+graph_node_classification,baseline (shipped solution.py),valid,2,true,true,29.2412547,29.2709693
+graph_node_classification,baseline (shipped solution.py),valid,3,true,true,29.17798219,29.19055028
+graph_node_classification,"neighbor (honest neighbour-vote solver, int ids)",valid,1,true,true,24.10019512,24.10438617
+graph_node_classification,"neighbor (honest neighbour-vote solver, int ids)",valid,2,true,true,24.11019477,24.08480617
+graph_node_classification,"neighbor (honest neighbour-vote solver, int ids)",valid,3,true,true,24.00170058,24.01940179
+graph_node_classification,"nanconf (baseline predictions, NaN confidences)",valid,1,true,true,27.14649555,27.1431187
+graph_node_classification,"nanconf (baseline predictions, NaN confidences)",valid,2,true,true,27.16689382,27.1393734
+graph_node_classification,"nanconf (baseline predictions, NaN confidences)",valid,3,true,true,27.08711461,27.07935437
+graph_node_classification,"shrink (one real prediction, rest `""x""`)",trigger,1,true,false,16.0264378,
+graph_node_classification,"shrink (one real prediction, rest `""x""`)",trigger,2,true,false,15.98522763,
+graph_node_classification,"shrink (one real prediction, rest `""x""`)",trigger,3,true,false,15.91200212,
+graph_node_classification,missing_half (half the test nodes),invalid,1,false,false,,
+graph_node_classification,missing_half (half the test nodes),invalid,2,false,false,,
+graph_node_classification,missing_half (half the test nodes),invalid,3,false,false,,
+integer_compression_codec,shipped Varint starter (unchanged),trigger,1,valid=True; pass 8/8,valid=True; pass 8/8,0.2327,0.9786
+integer_compression_codec,shipped Varint starter (unchanged),trigger,2,valid=True; pass 8/8,valid=True; pass 8/8,0.2998,0.9685
+integer_compression_codec,shipped Varint starter (unchanged),trigger,3,valid=True; pass 8/8,valid=True; pass 8/8,0.2857,1.0569
+integer_compression_codec,delta + zigzag + varint,valid,1,valid=True; pass 8/8,valid=True; pass 8/8,0.8253,6.7024
+integer_compression_codec,delta + zigzag + varint,valid,2,valid=True; pass 8/8,valid=True; pass 8/8,0.896,8.2668
+integer_compression_codec,delta + zigzag + varint,valid,3,valid=True; pass 8/8,valid=True; pass 8/8,0.9679,7.2261
+integer_compression_codec,starter with one corrupted value,invalid,1,valid=True; pass 0/8,valid=True; pass 0/8,0,0
+integer_compression_codec,starter with one corrupted value,invalid,2,valid=True; pass 0/8,valid=True; pass 0/8,0,0
+integer_compression_codec,starter with one corrupted value,invalid,3,valid=True; pass 0/8,valid=True; pass 0/8,0,0
+jagua_nesting_optimization,valid_adjacent_squares (shared edge),valid,1,accept,accept,,
+jagua_nesting_optimization,valid_adjacent_squares (shared edge),valid,2,accept,accept,,
+jagua_nesting_optimization,valid_adjacent_squares (shared edge),valid,3,accept,accept,,
+jagua_nesting_optimization,coincident_squares,trigger,1,accept,reject overlap_0_1,,
+jagua_nesting_optimization,coincident_squares,trigger,2,accept,reject overlap_0_1,,
+jagua_nesting_optimization,coincident_squares,trigger,3,accept,reject overlap_0_1,,
+jagua_nesting_optimization,half_slid_squares,trigger,1,accept,reject overlap_0_1,,
+jagua_nesting_optimization,half_slid_squares,trigger,2,accept,reject overlap_0_1,,
+jagua_nesting_optimization,half_slid_squares,trigger,3,accept,reject overlap_0_1,,
+jagua_nesting_optimization,rect_inside_square,trigger,1,accept,reject overlap_0_1,,
+jagua_nesting_optimization,rect_inside_square,trigger,2,accept,reject overlap_0_1,,
+jagua_nesting_optimization,rect_inside_square,trigger,3,accept,reject overlap_0_1,,
+jagua_nesting_optimization,triangle_inside_square,trigger,1,accept,reject overlap_0_1,,
+jagua_nesting_optimization,triangle_inside_square,trigger,2,accept,reject overlap_0_1,,
+jagua_nesting_optimization,triangle_inside_square,trigger,3,accept,reject overlap_0_1,,
+jagua_nesting_optimization,diamond_inside_square,trigger,1,accept,reject overlap_0_1,,
+jagua_nesting_optimization,diamond_inside_square,trigger,2,accept,reject overlap_0_1,,
+jagua_nesting_optimization,diamond_inside_square,trigger,3,accept,reject overlap_0_1,,
+jagua_nesting_optimization,diag_shift_squares (proper crossings),invalid,1,reject overlap_0_1,reject overlap_0_1,,
+jagua_nesting_optimization,diag_shift_squares (proper crossings),invalid,2,reject overlap_0_1,reject overlap_0_1,,
+jagua_nesting_optimization,diag_shift_squares (proper crossings),invalid,3,reject overlap_0_1,reject overlap_0_1,,
+jagua_nesting_optimization,tiny_overlap_1e-6 (relative overlap 1e-7),valid,1,accept,accept,,
+jagua_nesting_optimization,tiny_overlap_1e-6 (relative overlap 1e-7),valid,2,accept,accept,,
+jagua_nesting_optimization,tiny_overlap_1e-6 (relative overlap 1e-7),valid,3,accept,accept,,
+jagua_nesting_optimization,forbidden_rotation_90 (allowed [0]),trigger,1,accept,reject orientation_not_allowed_0,,
+jagua_nesting_optimization,forbidden_rotation_90 (allowed [0]),trigger,2,accept,reject orientation_not_allowed_0,,
+jagua_nesting_optimization,forbidden_rotation_90 (allowed [0]),trigger,3,accept,reject orientation_not_allowed_0,,
+jagua_nesting_optimization,"allowed_rotation_minus180 (allowed [0, 180])",valid,1,accept,accept,,
+jagua_nesting_optimization,"allowed_rotation_minus180 (allowed [0, 180])",valid,2,accept,accept,,
+jagua_nesting_optimization,"allowed_rotation_minus180 (allowed [0, 180])",valid,3,accept,accept,,
+jagua_nesting_optimization,Shipped baseline (candidate = reference),valid,1,valid true; 0 / 16 / 0,valid true; 0 / 16 / 0,0,0
+jagua_nesting_optimization,Shipped baseline (candidate = reference),valid,2,valid true; 0 / 16 / 0,valid true; 0 / 16 / 0,0,0
+jagua_nesting_optimization,Shipped baseline (candidate = reference),valid,3,valid true; 0 / 16 / 0,valid true; 0 / 16 / 0,0,0
+jagua_nesting_optimization,"seed_shift (honest: same LBF, different PRNG stream)",valid,1,valid true; 6 / 10 / 0,valid true; 6 / 10 / 0,1.644419,1.644419
+jagua_nesting_optimization,"seed_shift (honest: same LBF, different PRNG stream)",valid,2,valid true; 6 / 10 / 0,valid true; 6 / 10 / 0,1.644419,1.644419
+jagua_nesting_optimization,"seed_shift (honest: same LBF, different PRNG stream)",valid,3,valid true; 6 / 10 / 0,valid true; 6 / 10 / 0,1.644419,1.644419
+jagua_nesting_optimization,drop_last_item (one item missing),invalid,1,valid true; 0 / 16 / 0,valid true; 0 / 16 / 0,0,0
+jagua_nesting_optimization,drop_last_item (one item missing),invalid,2,valid true; 0 / 16 / 0,valid true; 0 / 16 / 0,0,0
+jagua_nesting_optimization,drop_last_item (one item missing),invalid,3,valid true; 0 / 16 / 0,valid true; 0 / 16 / 0,0,0
+lean_analysis_proofs,orig,valid,1,repaired 0/2901,repaired 0/2338,0,0
+lean_analysis_proofs,orig,valid,2,repaired 0/2901,repaired 0/2338,0,0
+lean_analysis_proofs,orig,valid,3,repaired 0/2901,repaired 0/2338,0,0
+lean_analysis_proofs,A (trigger + controls),trigger,1,repaired 1/2901; type_changed 2,repaired 3/2338,0.000345,0.001283
+lean_analysis_proofs,A (trigger + controls),trigger,2,repaired 1/2901; type_changed 2,repaired 3/2338,0.000345,0.001283
+lean_analysis_proofs,A (trigger + controls),trigger,3,repaired 1/2901; type_changed 2,repaired 3/2338,0.000345,0.001283
+lean_analysis_proofs,BAD (invalid),invalid,1,lake build rc=1; no score,lake build rc=1; no score,,
+lean_analysis_proofs,BAD (invalid),invalid,2,lake build rc=1; no score,lake build rc=1; no score,,
+lean_analysis_proofs,BAD (invalid),invalid,3,lake build rc=1; no score,lake build rc=1; no score,,
+lean_analysis_proofs,T,valid,1,repaired 26/2901; type_changed 4,repaired 15/2338,0.008962,0.006416
+lean_analysis_proofs,T,valid,2,repaired 26/2901; type_changed 4,repaired 15/2338,0.008962,0.006416
+lean_analysis_proofs,T,valid,3,repaired 26/2901; type_changed 4,repaired 15/2338,0.008962,0.006416
+lean_analysis_proofs,S,valid,1,published (reviewer native run): 26/2901 (15 + 11),repaired 15/2338,0.008962,0.006416
+lean_analysis_proofs,S,valid,2,repaired 26/2901; type_changed 4,repaired 15/2338,0.008962,0.006416
+lean_analysis_proofs,S,valid,3,repaired 26/2901; type_changed 4,repaired 15/2338,0.008962,0.006416
+lean_analysis_proofs,W,valid,1,published (reviewer native run): 25/2901 (15 + 10),repaired 15/2338,0.008618,0.006416
+lean_analysis_proofs,W,valid,2,repaired 25/2901; type_changed 5,repaired 15/2338,0.008618,0.006416
+lean_analysis_proofs,W,valid,3,repaired 25/2901; type_changed 5,repaired 15/2338,0.008618,0.006416
+order_addition_permutation_optimization,identity,valid,1,4/5,5/5,3.3e-09,3.3e-09
+order_addition_permutation_optimization,identity,valid,2,4/5,5/5,3.3e-09,3.3e-09
+order_addition_permutation_optimization,identity,valid,3,4/5,5/5,3.3e-09,3.3e-09
+order_addition_permutation_optimization,search,valid,1,4/5,5/5,0.0093733018,0.0093733018
+order_addition_permutation_optimization,search,valid,2,4/5,5/5,0.0003106985,0.0003106985
+order_addition_permutation_optimization,search,valid,3,4/5,5/5,0.0004940978,0.0004940978
+order_addition_permutation_optimization,badcost (misreported cost),invalid,1,3/5,4/5,,
+order_addition_permutation_optimization,badcost (misreported cost),invalid,2,3/5,4/5,,
+order_addition_permutation_optimization,badcost (misreported cost),invalid,3,3/5,4/5,,
+order_addition_permutation_optimization,dup (not a permutation),invalid,1,3/5,4/5,,
+order_addition_permutation_optimization,dup (not a permutation),invalid,2,3/5,4/5,,
+order_addition_permutation_optimization,dup (not a permutation),invalid,3,3/5,4/5,,
+order_addition_permutation_optimization,"identity, search",trigger,1,best identity,best search,3.3e-09,0.0093733018
+order_addition_permutation_optimization,"identity, search",trigger,2,best identity,best search,3.3e-09,0.0003106985
+order_addition_permutation_optimization,"identity, search",trigger,3,best identity,best search,3.3e-09,0.0004940978
+order_addition_permutation_optimization,"search, identity",valid,1,best search,best search,0.0093733018,0.0093733018
+order_addition_permutation_optimization,"search, identity",valid,2,best search,best search,0.0003106985,0.0003106985
+order_addition_permutation_optimization,"search, identity",valid,3,best search,best search,0.0004940978,0.0004940978
+order_addition_permutation_optimization,"dup, identity, search",trigger,1,best identity,best search,3.3e-09,0.0093733018
+order_addition_permutation_optimization,"dup, identity, search",trigger,2,best identity,best search,3.3e-09,0.0003106985
+order_addition_permutation_optimization,"dup, identity, search",trigger,3,best identity,best search,3.3e-09,0.0004940978
+order_addition_permutation_optimization,"badcost, identity, search",trigger,1,best identity,best search,3.3e-09,0.0093733018
+order_addition_permutation_optimization,"badcost, identity, search",trigger,2,best identity,best search,3.3e-09,0.0003106985
+order_addition_permutation_optimization,"badcost, identity, search",trigger,3,best identity,best search,3.3e-09,0.0004940978
+schemathesis_config_modernization,starter,baseline,1,Phase 1:0/30; Phase 2:4/26; Phase 3:0/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:4/26; Phase 3:0/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.031466,0.031466
+schemathesis_config_modernization,starter,baseline,2,Phase 1:0/30; Phase 2:4/26; Phase 3:0/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:4/26; Phase 3:0/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.031466,0.031466
+schemathesis_config_modernization,starter,baseline,3,Phase 1:0/30; Phase 2:4/26; Phase 3:0/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:4/26; Phase 3:0/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.031466,0.031466
+schemathesis_config_modernization,identity,valid,1,Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:16/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.135313,0.135313
+schemathesis_config_modernization,identity,valid,2,Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:16/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.135313,0.135313
+schemathesis_config_modernization,identity,valid,3,Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:16/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.135313,0.135313
+schemathesis_config_modernization,wrapper,trigger,1,Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:15/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.135313,0.129063
+schemathesis_config_modernization,wrapper,trigger,2,Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:15/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.135313,0.129063
+schemathesis_config_modernization,wrapper,trigger,3,Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:15/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.135313,0.129063
+schemathesis_config_modernization,no_register,invalid,1,Phase 1:0/30; Phase 2:5/26; Phase 3:12/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:12/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.115313,0.110313
+schemathesis_config_modernization,no_register,invalid,2,Phase 1:0/30; Phase 2:5/26; Phase 3:12/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:12/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.115313,0.110313
+schemathesis_config_modernization,no_register,invalid,3,Phase 1:0/30; Phase 2:5/26; Phase 3:12/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,Phase 1:0/30; Phase 2:5/26; Phase 3:12/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18,0.115313,0.110313
+schemathesis_datagen_pipeline,correct,valid,1,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,correct,valid,2,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,correct,valid,3,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,stdlib_1900,valid,1,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,stdlib_1900,valid,2,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,stdlib_1900,valid,3,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,stdlib_any_year,valid,1,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,stdlib_any_year,valid,2,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,stdlib_any_year,valid,3,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,0.47735,0.47735
+schemathesis_datagen_pipeline,independent_fields,trigger,1,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20,0.47735,0.467094
+schemathesis_datagen_pipeline,independent_fields,trigger,2,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20,0.47735,0.467094
+schemathesis_datagen_pipeline,independent_fields,trigger,3,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20,0.47735,0.467094
+schemathesis_datagen_pipeline,off_by_one_clock,trigger,1,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20,0.47735,0.467094
+schemathesis_datagen_pipeline,off_by_one_clock,trigger,2,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20,0.47735,0.467094
+schemathesis_datagen_pipeline,off_by_one_clock,trigger,3,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20,0.47735,0.467094
+schemathesis_datagen_pipeline,garbage_shape,invalid,1,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.47735,0.467094
+schemathesis_datagen_pipeline,garbage_shape,invalid,2,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.47735,0.467094
+schemathesis_datagen_pipeline,garbage_shape,invalid,3,Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.47735,0.467094
+schemathesis_datagen_pipeline,rfc850 (invalid),invalid,1,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.467094,0.467094
+schemathesis_datagen_pipeline,rfc850 (invalid),invalid,2,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.467094,0.467094
+schemathesis_datagen_pipeline,rfc850 (invalid),invalid,3,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.467094,0.467094
+schemathesis_datagen_pipeline,starter,baseline,1,Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.323504,0.323504
+schemathesis_datagen_pipeline,starter,baseline,2,Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.323504,0.323504
+schemathesis_datagen_pipeline,starter,baseline,3,Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36,0.323504,0.323504
+schemathesis_reporting_observability,fullref,valid,1,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12,1,1
+schemathesis_reporting_observability,fullref,valid,2,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12,1,1
+schemathesis_reporting_observability,fullref,valid,3,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12,1,1
+schemathesis_reporting_observability,fullref_junit_drops_error,trigger,1,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:13/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12,1,0.985714
+schemathesis_reporting_observability,fullref_junit_drops_error,trigger,2,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:13/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12,1,0.985714
+schemathesis_reporting_observability,fullref_junit_drops_error,trigger,3,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:13/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12,1,0.985714
+schemathesis_reporting_observability,fullref_no_body_fix,trigger,1,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:11/12,1,0.991667
+schemathesis_reporting_observability,fullref_no_body_fix,trigger,2,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:11/12,1,0.991667
+schemathesis_reporting_observability,fullref_no_body_fix,trigger,3,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:11/12,1,0.991667
+schemathesis_reporting_observability,fullref_always_suppress,trigger,1,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/12,1,0.983333
+schemathesis_reporting_observability,fullref_always_suppress,trigger,2,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/12,1,0.983333
+schemathesis_reporting_observability,fullref_always_suppress,trigger,3,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10,Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/12,1,0.983333
+schemathesis_reporting_observability,stub_junit_correct,valid,1,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.091429,0.096429
+schemathesis_reporting_observability,stub_junit_correct,valid,2,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.091429,0.096429
+schemathesis_reporting_observability,stub_junit_correct,valid,3,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.091429,0.096429
+schemathesis_reporting_observability,stub_junit_drops_error,trigger,1,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:4/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.091429,0.082143
+schemathesis_reporting_observability,stub_junit_drops_error,trigger,2,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:4/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.091429,0.082143
+schemathesis_reporting_observability,stub_junit_drops_error,trigger,3,Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:4/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.091429,0.082143
+schemathesis_reporting_observability,starter,invalid,1,Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.02,0.025
+schemathesis_reporting_observability,starter,invalid,2,Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.02,0.025
+schemathesis_reporting_observability,starter,invalid,3,Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10,Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12,0.02,0.025
+smt_solver,ground,trigger,1,multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},multi27 {'correct': 27}; single42 {'correct': 42},0,0.9
+smt_solver,ground,trigger,2,multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},multi27 {'correct': 27}; single42 {'correct': 42},0,0.9
+smt_solver,ground,trigger,3,multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},multi27 {'correct': 27}; single42 {'correct': 42},0,0.9
+smt_solver,textual,valid,1,multi27 {'unknown': 27}; single42 {'correct': 42},multi27 {'unknown': 27}; single42 {'correct': 42},0.587,0.587
+smt_solver,textual,valid,2,multi27 {'unknown': 27}; single42 {'correct': 42},multi27 {'unknown': 27}; single42 {'correct': 42},0.587,0.587
+smt_solver,textual,valid,3,multi27 {'unknown': 27}; single42 {'correct': 42},multi27 {'unknown': 27}; single42 {'correct': 42},0.587,0.587
+smt_solver,textual_true,trigger,1,multi27 {'invalid_model': 27}; single42 {'correct': 42},multi27 {'correct': 27}; single42 {'correct': 42},0.587,0.9
+smt_solver,textual_true,trigger,2,multi27 {'invalid_model': 27}; single42 {'correct': 42},multi27 {'correct': 27}; single42 {'correct': 42},0.587,0.9
+smt_solver,textual_true,trigger,3,multi27 {'invalid_model': 27}; single42 {'correct': 42},multi27 {'correct': 27}; single42 {'correct': 42},0.587,0.9
+smt_solver,ground_wrong,invalid,1,multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},0,0
+smt_solver,ground_wrong,invalid,2,multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},0,0
+smt_solver,ground_wrong,invalid,3,multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},multi27 {'invalid_model': 27}; single42 {'invalid_model': 42},0,0
+treant_forest,"Shipped baseline (`0`, `-1`)",baseline,1,50/50 OK; raw 3418,50/50 OK; raw 3418,0,0
+treant_forest,"Shipped baseline (`0`, `-1`)",baseline,2,50/50 OK; raw 3418,50/50 OK; raw 3418,0,0
+treant_forest,"Shipped baseline (`0`, `-1`)",baseline,3,50/50 OK; raw 3418,50/50 OK; raw 3418,0,0
+treant_forest,Honest greedy (grid-only maze lengthening),valid,1,50/50 OK; raw 17960,50/50 OK; raw 17960,3.04,16.36
+treant_forest,Honest greedy (grid-only maze lengthening),valid,2,50/50 OK; raw 17960,50/50 OK; raw 17960,3.04,16.36
+treant_forest,Honest greedy (grid-only maze lengthening),valid,3,50/50 OK; raw 17960,50/50 OK; raw 17960,3.04,16.36
+treant_forest,Invalid: treant on the revealed entrance,invalid,1,0/50 WA; raw 0,0/50 WA; raw 0,0,0
+treant_forest,Invalid: treant on the revealed entrance,invalid,2,0/50 WA; raw 0,0/50 WA; raw 0,0,0
+treant_forest,Invalid: treant on the revealed entrance,invalid,3,0/50 WA; raw 0,0/50 WA; raw 0,0,0
+treant_forest,"92304 (= Σ 2N², the score cap)",trigger,1,derived (no execution),derived (no execution),,
+treant_forest,"92304 (= Σ 2N², the score cap)",trigger,2,derived (no execution),derived (no execution),,
+treant_forest,"92304 (= Σ 2N², the score cap)",trigger,3,derived (no execution),derived (no execution),,
+tree_block_partitioning,Official `std.cpp` for all six subtasks,valid,1,"raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}","raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",100,100
+tree_block_partitioning,Official `std.cpp` for all six subtasks,valid,2,"raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}","raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",100,100
+tree_block_partitioning,Official `std.cpp` for all six subtasks,valid,3,"raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}","raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",100,100
+tree_block_partitioning,"T2 = alias variant of `std.cpp` (`make_alias_variant.py`); T1, T3–T6 empty",trigger,1,"raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}","raw 5; {'T1': '0/45', 'T2': '10/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",0.25,5
+tree_block_partitioning,"T2 = alias variant of `std.cpp` (`make_alias_variant.py`); T1, T3–T6 empty",trigger,2,"raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}","raw 5; {'T1': '0/45', 'T2': '10/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",0.25,5
+tree_block_partitioning,"T2 = alias variant of `std.cpp` (`make_alias_variant.py`); T1, T3–T6 empty",trigger,3,"raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}","raw 5; {'T1': '0/45', 'T2': '10/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",0.25,5
+tree_block_partitioning,T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty,invalid,1,"raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}","raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",0.25,0.25
+tree_block_partitioning,T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty,invalid,2,"raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}","raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",0.25,0.25
+tree_block_partitioning,T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty,invalid,3,"raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}","raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",0.25,0.25
+triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,1,cases_ok 10/10; valid true,cases_ok 10/10; valid true,0.05502779662,0.05396489013
+triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,2,cases_ok 10/10; valid true,cases_ok 10/10; valid true,0.05502779662,0.05396489013
+triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,3,cases_ok 10/10; valid true,cases_ok 10/10; valid true,0.05502779662,0.05396489013
+triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,1,cases_ok 10/10; valid true,cases_ok 10/10; valid true,48.87203972,48.94838762
+triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,2,cases_ok 10/10; valid true,cases_ok 10/10; valid true,48.87203972,48.94838762
+triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,3,cases_ok 10/10; valid true,cases_ok 10/10; valid true,48.87203972,48.94838762
+triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,1,cases_ok 10/10; valid true,cases_ok 0/10; valid false,0.05159561496,0
+triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,2,cases_ok 10/10; valid true,cases_ok 0/10; valid false,0.05159561496,0
+triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,3,cases_ok 10/10; valid true,cases_ok 0/10; valid false,0.05159561496,0
+triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,1,cases_ok 0/10; valid false,cases_ok 0/10; valid false,0,0
+triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,2,cases_ok 0/10; valid false,cases_ok 0/10; valid false,0,0
+triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,3,cases_ok 0/10; valid false,cases_ok 0/10; valid false,0,0
+warehouse_forklift_routing,generic valid control,valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,46676.8,46676.8
+warehouse_forklift_routing,generic valid control,valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,46676.8,46676.8
+warehouse_forklift_routing,generic valid control,valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,46676.8,46676.8
+warehouse_forklift_routing,one honest bug,invalid,1,OK 49 TLE 0 WA 1 RE 0,OK 49 TLE 0 WA 1 RE 0,inf,inf
+warehouse_forklift_routing,one honest bug,invalid,2,OK 49 TLE 0 WA 1 RE 0,OK 49 TLE 0 WA 1 RE 0,inf,inf
+warehouse_forklift_routing,one honest bug,invalid,3,OK 49 TLE 0 WA 1 RE 0,OK 49 TLE 0 WA 1 RE 0,inf,inf
+warehouse_forklift_routing,shipped starter,invalid,1,OK 0 TLE 0 WA 50 RE 0,OK 0 TLE 0 WA 50 RE 0,inf,inf
+warehouse_forklift_routing,shipped starter,invalid,2,OK 0 TLE 0 WA 50 RE 0,OK 0 TLE 0 WA 50 RE 0,inf,inf
+warehouse_forklift_routing,shipped starter,invalid,3,OK 0 TLE 0 WA 50 RE 0,OK 0 TLE 0 WA 50 RE 0,inf,inf
+warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger,1,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger,2,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger,3,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,near the 150 s per-input limit,trigger,1,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,near the 150 s per-input limit,trigger,2,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,near the 150 s per-input limit,trigger,3,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,1,died at main.nut line 5,no,0,0
+openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,2,died at main.nut line 5,no,0,0
+openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,3,died at main.nut line 5,no,0,0
+openttd_transport_ai,baseline_v1 (shipped starter),baseline,1,died at main.nut line 5,died at main.nut line 5,0,0
+openttd_transport_ai,baseline_v1 (shipped starter),baseline,2,died at main.nut line 5,died at main.nut line 5,0,0
+openttd_transport_ai,baseline_v1 (shipped starter),baseline,3,died at main.nut line 5,died at main.nut line 5,0,0
+openttd_transport_ai,probe_min (calls corrected API monthly),valid,1,no,no,0,0
+openttd_transport_ai,probe_min (calls corrected API monthly),valid,2,no,no,0,0
+openttd_transport_ai,probe_min (calls corrected API monthly),valid,3,no,no,0,0
+openttd_transport_ai,baseline_v2 (fixed starter),baseline,1,no,no,0,0
+openttd_transport_ai,baseline_v2 (fixed starter),baseline,2,no,no,0,0
+openttd_transport_ai,baseline_v2 (fixed starter),baseline,3,no,no,0,0
+openttd_transport_ai,probe_value (positive-value control),valid,1,no,no,4975,4975
+openttd_transport_ai,probe_value (positive-value control),valid,2,no,no,4975,4975
+openttd_transport_ai,probe_value (positive-value control),valid,3,no,no,4975,4975

@@ -1,0 +1,173 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T09:49:09.671441+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 0,
+            "failed": 12,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791798549229,
+            "stop": 1791798549671
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_01_hooks.py::test_hook_system_available",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 356,
+                "start": 1791798549258,
+                "stop": 1791798549614,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:25: in test_hook_system_available\n    pytest.fail(f\"Import failed: {_IMPORT_ERROR}\")\nE   Failed: Import failed: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_check_result_dataclass",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798549614,
+                "stop": 1791798549619,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:39: in test_check_result_dataclass\n    from schemathesis.checks import CheckResult\nE   ImportError: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_check_result_exported_from_top_level",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798549619,
+                "stop": 1791798549624,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:53: in test_check_result_exported_from_top_level\n    from schemathesis import CheckResult as CR\nE   ImportError: cannot import name 'CheckResult' from 'schemathesis' (/app/src/schemathesis/__init__.py)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_hook_dispatcher_defines_method",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1791798549624,
+                "stop": 1791798549630,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:60: in test_hook_dispatcher_defines_method\n    dispatcher = HookDispatcher(scope=HookScope.SCHEMA)\n                 ^^^^^^^^^^^^^^\nE   NameError: name 'HookDispatcher' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_hook_dispatcher_defines_false_after_unregister",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1791798549630,
+                "stop": 1791798549634,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:72: in test_hook_dispatcher_defines_false_after_unregister\n    dispatcher = HookDispatcher(scope=HookScope.SCHEMA)\n                 ^^^^^^^^^^^^^^\nE   NameError: name 'HookDispatcher' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_global_defines_function",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1791798549635,
+                "stop": 1791798549639,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:86: in test_global_defines_function\n    assert hasattr(hooks_mod, \"defines\")\nE   AssertionError: assert False\nE    +  where False = hasattr(<module 'schemathesis.hooks' from '/app/src/schemathesis/hooks.py'>, 'defines')",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_01_hooks.py::test_after_validate_hook_spec_registered",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1791798549640,
+                "stop": 1791798549644,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:95: in test_after_validate_hook_spec_registered\n    dispatcher = HookDispatcher(scope=HookScope.SCHEMA)\n                 ^^^^^^^^^^^^^^\nE   NameError: name 'HookDispatcher' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_after_network_error_hook_spec_registered",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798549644,
+                "stop": 1791798549649,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:106: in test_after_network_error_hook_spec_registered\n    dispatcher = HookDispatcher(scope=HookScope.SCHEMA)\n                 ^^^^^^^^^^^^^^\nE   NameError: name 'HookDispatcher' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_after_validate_hook_fires_on_success",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1791798549649,
+                "stop": 1791798549656,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:117: in test_after_validate_hook_fires_on_success\n    from schemathesis.checks import CheckResult\nE   ImportError: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_after_validate_hook_fires_on_failure",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798549656,
+                "stop": 1791798549661,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:162: in test_after_validate_hook_fires_on_failure\n    from schemathesis.checks import CheckResult\nE   ImportError: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_after_validate_global_hook",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798549661,
+                "stop": 1791798549666,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:210: in test_after_validate_global_hook\n    from schemathesis.checks import CheckResult\nE   ImportError: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_01_hooks.py::test_flatmap_hook_negative_mode",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798549666,
+                "stop": 1791798549671,
+                "retries": 0,
+                "file_path": "test_01_hooks.py",
+                "trace": "/tests/test_01_hooks.py:273: in test_flatmap_hook_negative_mode\n    schema = schemathesis.openapi.from_dict(raw_schema)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

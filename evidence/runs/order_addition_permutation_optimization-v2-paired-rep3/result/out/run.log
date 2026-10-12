@@ -1,0 +1,69 @@
++ J=seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8
++ CWD=/home/workspace/complex_job_scheduling
++ O=/job/out
++ mkdir -p /job/out/subs
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         351        7596           0         249        7613
+Swap:              0           0           0
++ df -h /
++ tail -1
+/dev/root        21G  2.2G   18G  11% /
++ date -u
+Mon Oct 12 09:49:33 UTC 2026
++ docker pull -q seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8
++ docker image inspect seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
++ docker build -t order_v2 /job/v2ctx
++ echo build_rc=0
++ docker image inspect order_v2 --format '{{.Id}}'
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8
++ docker run --rm --network none seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 bash -c 'cd /home/workspace/complex_job_scheduling && sha256sum tests/* vcpom_m1000_final_result.txt && grep -n EXPECTED_SCORE_HELPER_SHA256 tests/test_final_result.py | head -1 && python -m pytest tests/test_final_result.py --collect-only -q'
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=order_v2
++ docker run --rm --network none order_v2 bash -c 'cd /home/workspace/complex_job_scheduling && sha256sum tests/* vcpom_m1000_final_result.txt && grep -n EXPECTED_SCORE_HELPER_SHA256 tests/test_final_result.py | head -1 && python -m pytest tests/test_final_result.py --collect-only -q'
++ for m in identity search badcost dup
++ mkdir -p /job/out/subs/identity
++ docker run --rm --network none --cpus 2 --memory 4g -v /job:/job:ro -v /job/out/subs/identity:/o seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 bash -c 'cd /home/workspace/complex_job_scheduling && python /job/make_result.py identity 60 > /o/gen.txt 2>&1 && cp final_result.txt /o/final_result.txt && cp /job/make_result.py /o/solver.py'
++ mv /job/out/subs/identity/gen.txt /job/out/subs/identity.gen.txt
++ for m in identity search badcost dup
++ mkdir -p /job/out/subs/search
++ docker run --rm --network none --cpus 2 --memory 4g -v /job:/job:ro -v /job/out/subs/search:/o seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 bash -c 'cd /home/workspace/complex_job_scheduling && python /job/make_result.py search 60 > /o/gen.txt 2>&1 && cp final_result.txt /o/final_result.txt && cp /job/make_result.py /o/solver.py'
++ mv /job/out/subs/search/gen.txt /job/out/subs/search.gen.txt
++ for m in identity search badcost dup
++ mkdir -p /job/out/subs/badcost
++ docker run --rm --network none --cpus 2 --memory 4g -v /job:/job:ro -v /job/out/subs/badcost:/o seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 bash -c 'cd /home/workspace/complex_job_scheduling && python /job/make_result.py badcost 60 > /o/gen.txt 2>&1 && cp final_result.txt /o/final_result.txt && cp /job/make_result.py /o/solver.py'
++ mv /job/out/subs/badcost/gen.txt /job/out/subs/badcost.gen.txt
++ for m in identity search badcost dup
++ mkdir -p /job/out/subs/dup
++ docker run --rm --network none --cpus 2 --memory 4g -v /job:/job:ro -v /job/out/subs/dup:/o seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 bash -c 'cd /home/workspace/complex_job_scheduling && python /job/make_result.py dup 60 > /o/gen.txt 2>&1 && cp final_result.txt /o/final_result.txt && cp /job/make_result.py /o/solver.py'
++ mv /job/out/subs/dup/gen.txt /job/out/subs/dup.gen.txt
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8
++ for m in identity search badcost dup
++ bash /job/judge_one.sh seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 /job/out/subs/identity /home/workspace/complex_job_scheduling 600 /job/out/v1.identity 2 4g
++ for m in identity search badcost dup
++ bash /job/judge_one.sh seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 /job/out/subs/search /home/workspace/complex_job_scheduling 600 /job/out/v1.search 2 4g
++ for m in identity search badcost dup
++ bash /job/judge_one.sh seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 /job/out/subs/badcost /home/workspace/complex_job_scheduling 600 /job/out/v1.badcost 2 4g
++ for m in identity search badcost dup
++ bash /job/judge_one.sh seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 /job/out/subs/dup /home/workspace/complex_job_scheduling 600 /job/out/v1.dup 2 4g
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=order_v2
++ for m in identity search badcost dup
++ bash /job/judge_one.sh order_v2 /job/out/subs/identity /home/workspace/complex_job_scheduling 600 /job/out/v2.identity 2 4g
++ for m in identity search badcost dup
++ bash /job/judge_one.sh order_v2 /job/out/subs/search /home/workspace/complex_job_scheduling 600 /job/out/v2.search 2 4g
++ for m in identity search badcost dup
++ bash /job/judge_one.sh order_v2 /job/out/subs/badcost /home/workspace/complex_job_scheduling 600 /job/out/v2.badcost 2 4g
++ for m in identity search badcost dup
++ bash /job/judge_one.sh order_v2 /job/out/subs/dup /home/workspace/complex_job_scheduling 600 /job/out/v2.dup 2 4g
++ sha256sum /job/out/subs/badcost/final_result.txt /job/out/subs/badcost/solver.py /job/out/subs/dup/final_result.txt /job/out/subs/dup/solver.py /job/out/subs/identity/final_result.txt /job/out/subs/identity/solver.py /job/out/subs/search/final_result.txt /job/out/subs/search/solver.py
++ date -u
+Mon Oct 12 09:51:09 UTC 2026

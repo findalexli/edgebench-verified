@@ -1,0 +1,47 @@
++ J=seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466
++ CWD=/home/workspace/jagua-rs
++ CASES=blaz1,jakobs2,mao,marques,shapes1,shirts,swim,swim_cr,trousers,gardeyn0,gardeyn1,gardeyn2,gardeyn3,gardeyn4,gardeyn5,gardeyn6
++ O=/job/out
++ mkdir -p /job/out/refsol
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         352        7593           0         251        7612
+Swap:              0           0           0
++ df -h /
++ tail -1
+/dev/root        21G  2.2G   18G  11% /
++ date -u
+Mon Oct 12 09:21:03 UTC 2026
++ docker pull -q seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466
++ docker image inspect seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
+template parsing error: template: :1:17: executing "" at <.Config.User>: map has no entry for key "User"
++ docker build -t jagua_v2 /job/v2ctx
++ echo build_rc=0
++ docker image inspect jagua_v2 --format '{{.Id}}'
++ for V in v1 v2
++ '[' v1 = v1 ']'
++ I=seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466
++ docker run --rm --network none seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 bash -c 'sha256sum /home/workspace/jagua_task_scorer/*; cd /home/workspace/jagua-rs-ref/assets && sha256sum $(echo blaz1,jakobs2,mao,marques,shapes1,shirts,swim,swim_cr,trousers,gardeyn0,gardeyn1,gardeyn2,gardeyn3,gardeyn4,gardeyn5,gardeyn6 | tr , '\'' '\'' | sed '\''s/\([a-z0-9_]*\)/\1.json/g'\'')'
++ docker run --rm --network none -v /job:/job:ro seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 python3 /job/validate_witnesses.py /home/workspace/jagua_task_scorer/evaluate.py /job/witnesses
++ for V in v1 v2
++ '[' v2 = v1 ']'
++ I=jagua_v2
++ docker run --rm --network none jagua_v2 bash -c 'sha256sum /home/workspace/jagua_task_scorer/*; cd /home/workspace/jagua-rs-ref/assets && sha256sum $(echo blaz1,jakobs2,mao,marques,shapes1,shirts,swim,swim_cr,trousers,gardeyn0,gardeyn1,gardeyn2,gardeyn3,gardeyn4,gardeyn5,gardeyn6 | tr , '\'' '\'' | sed '\''s/\([a-z0-9_]*\)/\1.json/g'\'')'
++ docker run --rm --network none -v /job:/job:ro jagua_v2 python3 /job/validate_witnesses.py /home/workspace/jagua_task_scorer/evaluate.py /job/witnesses
++ docker run --rm --network none --cpus 4 --memory 4g -v /job:/job:ro -v /job/out/refsol:/o seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 bash -c 'cd /home/workspace/jagua-rs-ref && RUSTC_BOOTSTRAP=1 cargo build --release --bin lbf >/dev/null 2>&1; python3 /job/ref_validity.py blaz1,jakobs2,mao,marques,shapes1,shirts,swim,swim_cr,trousers,gardeyn0,gardeyn1,gardeyn2,gardeyn3,gardeyn4,gardeyn5,gardeyn6; for n in $(echo blaz1,jakobs2,mao,marques,shapes1,shirts,swim,swim_cr,trousers,gardeyn0,gardeyn1,gardeyn2,gardeyn3,gardeyn4,gardeyn5,gardeyn6 | tr , '\'' '\''); do echo -n "$n "; python3 /job/max_overlap.py /job/v2ctx/files/home/workspace/jagua_task_scorer/evaluate.py assets/$n.json /o/$n.sol.json; done'
++ for m in baseline seed_shift drop_last_item
++ wait
++ bash /job/judge_one.sh seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 /job/subs/baseline /home/workspace/jagua-rs 1200 /job/out/v1.baseline 3 3g
++ bash /job/judge_one.sh jagua_v2 /job/subs/baseline /home/workspace/jagua-rs 1200 /job/out/v2.baseline 3 3g
++ for m in baseline seed_shift drop_last_item
++ wait
++ bash /job/judge_one.sh seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 /job/subs/seed_shift /home/workspace/jagua-rs 1200 /job/out/v1.seed_shift 3 3g
++ bash /job/judge_one.sh jagua_v2 /job/subs/seed_shift /home/workspace/jagua-rs 1200 /job/out/v2.seed_shift 3 3g
++ for m in baseline seed_shift drop_last_item
++ wait
++ bash /job/judge_one.sh seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 /job/subs/drop_last_item /home/workspace/jagua-rs 1200 /job/out/v1.drop_last_item 3 3g
++ bash /job/judge_one.sh jagua_v2 /job/subs/drop_last_item /home/workspace/jagua-rs 1200 /job/out/v2.drop_last_item 3 3g
++ date -u
+Mon Oct 12 09:31:31 UTC 2026

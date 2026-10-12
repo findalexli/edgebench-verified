@@ -1,0 +1,4606 @@
+{
+ "arc_compiler_runtime": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "(a) shipped starter",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "35.59",
+      "35.59"
+     ],
+     "2": [
+      "true",
+      "true",
+      "35.59",
+      "35.59"
+     ],
+     "3": [
+      "true",
+      "true",
+      "35.59",
+      "35.59"
+     ]
+    },
+    "v1_spread": {
+     "min": 35.59,
+     "max": 35.59,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 35.59,
+     "max": 35.59,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "(b) starter, `analyze()` returns `[]` (documented shape only)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "47.21",
+      "47.21"
+     ],
+     "2": [
+      "true",
+      "true",
+      "47.21",
+      "47.21"
+     ],
+     "3": [
+      "true",
+      "true",
+      "47.21",
+      "47.21"
+     ]
+    },
+    "v1_spread": {
+     "min": 47.21,
+     "max": 47.21,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 47.21,
+     "max": 47.21,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "(c) invalid: codegen emits `var result = null;`",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "25.79",
+      "25.79"
+     ],
+     "2": [
+      "true",
+      "true",
+      "25.79",
+      "25.79"
+     ],
+     "3": [
+      "true",
+      "true",
+      "25.79",
+      "25.79"
+     ]
+    },
+    "v1_spread": {
+     "min": 25.79,
+     "max": 25.79,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 25.79,
+     "max": 25.79,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "(d) independent honest analyzer, documented shape",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "69.26",
+      "69.26"
+     ],
+     "2": [
+      "true",
+      "true",
+      "69.26",
+      "69.26"
+     ],
+     "3": [
+      "true",
+      "true",
+      "69.26",
+      "69.26"
+     ]
+    },
+    "v1_spread": {
+     "min": 69.26,
+     "max": 69.26,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 69.26,
+     "max": 69.26,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "(e) same analyzer as (d), starter shape `{ok,errors,warnings,program}`",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "35.59",
+      "35.59"
+     ],
+     "2": [
+      "true",
+      "true",
+      "35.59",
+      "35.59"
+     ],
+     "3": [
+      "true",
+      "true",
+      "35.59",
+      "35.59"
+     ]
+    },
+    "v1_spread": {
+     "min": 35.59,
+     "max": 35.59,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 35.59,
+     "max": 35.59,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "borden_source_inversion": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "textbook ADE fit (review regression case)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "exit=0",
+      "exit=0",
+      "7.031",
+      "7.031"
+     ],
+     "2": [
+      "exit=0",
+      "exit=0",
+      "7.031",
+      "7.031"
+     ],
+     "3": [
+      "exit=0",
+      "exit=0",
+      "7.031",
+      "7.031"
+     ]
+    },
+    "v1_spread": {
+     "min": 7.031,
+     "max": 7.031,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 7.031,
+     "max": 7.031,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "judge-convention fit (review, own re-implementation)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "exit=0",
+      "exit=0",
+      "31.2",
+      "31.2"
+     ],
+     "2": [
+      "exit=0",
+      "exit=0",
+      "31.2",
+      "31.2"
+     ],
+     "3": [
+      "exit=0",
+      "exit=0",
+      "31.2",
+      "31.2"
+     ]
+    },
+    "v1_spread": {
+     "min": 31.2,
+     "max": 31.2,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 31.2,
+     "max": 31.2,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "v2 fit using only the shipped `forward_model.py`",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "exit=0",
+      "exit=0",
+      "31.199",
+      "31.199"
+     ],
+     "2": [
+      "exit=0",
+      "exit=0",
+      "31.199",
+      "31.199"
+     ],
+     "3": [
+      "exit=0",
+      "exit=0",
+      "31.199",
+      "31.199"
+     ]
+    },
+    "v1_spread": {
+     "min": 31.199,
+     "max": 31.199,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 31.199,
+     "max": 31.199,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "bound-midpoint baseline",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "exit=0",
+      "exit=0",
+      "7.012",
+      "7.012"
+     ],
+     "2": [
+      "exit=0",
+      "exit=0",
+      "7.012",
+      "7.012"
+     ],
+     "3": [
+      "exit=0",
+      "exit=0",
+      "7.012",
+      "7.012"
+     ]
+    },
+    "v1_spread": {
+     "min": 7.012,
+     "max": 7.012,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 7.012,
+     "max": 7.012,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "hidden true source",
+    "role": "setup",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "exit=0",
+      "exit=0",
+      "109",
+      "109"
+     ],
+     "2": [
+      "exit=0",
+      "exit=0",
+      "109",
+      "109"
+     ],
+     "3": [
+      "exit=0",
+      "exit=0",
+      "109",
+      "109"
+     ]
+    },
+    "v1_spread": {
+     "min": 109.0,
+     "max": 109.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 109.0,
+     "max": 109.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "out-of-bounds answer (C0=5000, half_length_x=500)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "exit=0",
+      "exit=0",
+      "4",
+      "4"
+     ],
+     "2": [
+      "exit=0",
+      "exit=0",
+      "4",
+      "4"
+     ],
+     "3": [
+      "exit=0",
+      "exit=0",
+      "4",
+      "4"
+     ]
+    },
+    "v1_spread": {
+     "min": 4.0,
+     "max": 4.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 4.0,
+     "max": 4.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "no `answer.json`",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "exit=0",
+      "exit=0",
+      "0",
+      "0"
+     ],
+     "2": [
+      "exit=0",
+      "exit=0",
+      "0",
+      "0"
+     ],
+     "3": [
+      "exit=0",
+      "exit=0",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "college_english_exam_bank": {
+  "runs_ok": [],
+  "errors": {
+   "1": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/college_english_exam_bank-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/college_english_exam_bank-run1/']' returned non-zero exit statu",
+   "2": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/college_english_exam_bank-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/college_english_exam_bank-run2/']' returned non-zero exit statu",
+   "3": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/college_english_exam_bank-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/college_english_exam_bank-run3/']' returned non-zero exit statu"
+  },
+  "arms": [
+   {
+    "arm": "A all 12 rules, one deduction each",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "B all 12 rules floored to 0",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "F R009 rule-level score 0, no checkpoints",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "L A without any rule-level score (complete checkpoints)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "C empty `scores`",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "D A minus R009",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "E B minus R009",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "G R009 row with no score and no checkpoints",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "I R009 score 0 with all-zero checkpoints",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "H no JSON",
+    "role": "invalid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "J D, then A on re-ask",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "K no JSON, then A on re-ask",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   }
+  ]
+ },
+ "cta_risk_budget_optimization": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "Trigger (synthetic)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "violations 0/1; cb 1 / 5",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ],
+     "2": [
+      "violations 0/1; cb 1 / 5",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ],
+     "3": [
+      "violations 0/1; cb 1 / 5",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Trigger (real data)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "violations 0/1; cb 1 / 5",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ],
+     "2": [
+      "violations 0/1; cb 1 / 5",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ],
+     "3": [
+      "violations 0/1; cb 1 / 5",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Same-currency control",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "violations 0/1; cb 1 / 5",
+      "violations 0/1; cb 1 / 5",
+      "",
+      ""
+     ],
+     "2": [
+      "violations 0/1; cb 1 / 5",
+      "violations 0/1; cb 1 / 5",
+      "",
+      ""
+     ],
+     "3": [
+      "violations 0/1; cb 1 / 5",
+      "violations 0/1; cb 1 / 5",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Under-limit mixed control",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "violations 0/1; cb 1 / 5",
+      "violations 0/1; cb 1 / 5",
+      "",
+      ""
+     ],
+     "2": [
+      "violations 0/1; cb 1 / 5",
+      "violations 0/1; cb 1 / 5",
+      "",
+      ""
+     ],
+     "3": [
+      "violations 0/1; cb 1 / 5",
+      "violations 0/1; cb 1 / 5",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Invalid control (over the limit even natively)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "violations 1/1; cb 0 / 1",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ],
+     "2": [
+      "violations 1/1; cb 0 / 1",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ],
+     "3": [
+      "violations 1/1; cb 0 / 1",
+      "violations 1/1; cb 0 / 1",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Shipped reference positions (component)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "violations 0/1565; cb 1 / 5",
+      "violations 32/1565; cb 0 / 1",
+      "",
+      ""
+     ],
+     "2": [
+      "violations 0/1565; cb 1 / 5",
+      "violations 32/1565; cb 0 / 1",
+      "",
+      ""
+     ],
+     "3": [
+      "violations 0/1565; cb 1 / 5",
+      "violations 32/1565; cb 0 / 1",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Full original scorer, complete shipped reference",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "score 20.0 valid True pass_rate 1.0 {\"M1_backtest_verification\": 4.0, \"M2_performance_metrics\": 0.0, \"M3_risk_constraints\": 0.0, \"M4_signal_generation\": 2.0, \"M5_code_compliance\": 10.0}",
+      "score 20.0 valid True pass_rate 1.0 {\"M1_backtest_verification\": 4.0, \"M2_performance_metrics\": 0.0, \"M3_risk_constraints\": 0.0, \"M4_signal_generation\": 2.0, \"M5_code_compliance\": 10.0}",
+      "20",
+      "20"
+     ],
+     "2": [
+      "score 20.0 valid True pass_rate 1.0 {\"M1_backtest_verification\": 4.0, \"M2_performance_metrics\": 0.0, \"M3_risk_constraints\": 0.0, \"M4_signal_generation\": 2.0, \"M5_code_compliance\": 10.0}",
+      "score 20.0 valid True pass_rate 1.0 {\"M1_backtest_verification\": 4.0, \"M2_performance_metrics\": 0.0, \"M3_risk_constraints\": 0.0, \"M4_signal_generation\": 2.0, \"M5_code_compliance\": 10.0}",
+      "20",
+      "20"
+     ],
+     "3": [
+      "score 20.0 valid True pass_rate 1.0 {\"M1_backtest_verification\": 4.0, \"M2_performance_metrics\": 0.0, \"M3_risk_constraints\": 0.0, \"M4_signal_generation\": 2.0, \"M5_code_compliance\": 10.0}",
+      "score 20.0 valid True pass_rate 1.0 {\"M1_backtest_verification\": 4.0, \"M2_performance_metrics\": 0.0, \"M3_risk_constraints\": 0.0, \"M4_signal_generation\": 2.0, \"M5_code_compliance\": 10.0}",
+      "20",
+      "20"
+     ]
+    },
+    "v1_spread": {
+     "min": 20.0,
+     "max": 20.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 20.0,
+     "max": 20.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "dabic_gravity_inversion": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "honest model-space D-ABIC (`FORM=\"model\"`)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid=true; structural_failure=true",
+      "valid=true; structural_failure=false",
+      "25.77006789",
+      "26.81045151"
+     ],
+     "2": [
+      "valid=true; structural_failure=true",
+      "valid=true; structural_failure=false",
+      "25.78570882",
+      "26.8498774"
+     ],
+     "3": [
+      "valid=true; structural_failure=true",
+      "valid=true; structural_failure=false",
+      "25.75246042",
+      "26.84857407"
+     ]
+    },
+    "v1_spread": {
+     "min": 25.752460419837448,
+     "max": 25.78570882238141,
+     "rel": 0.0012902274237521613,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 26.81045151483323,
+     "max": 26.849877404748028,
+     "rel": 0.001469125343281783,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "honest data-space D-ABIC (`FORM=\"data\"`)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid=true; structural_failure=false",
+      "valid=true; structural_failure=false",
+      "26.82405897",
+      "26.83561289"
+     ],
+     "2": [
+      "valid=true; structural_failure=false",
+      "valid=true; structural_failure=false",
+      "26.81932354",
+      "26.81077555"
+     ],
+     "3": [
+      "valid=true; structural_failure=false",
+      "valid=true; structural_failure=false",
+      "26.813708",
+      "26.81385308"
+     ]
+    },
+    "v1_spread": {
+     "min": 26.813708003133794,
+     "max": 26.82405896664803,
+     "rel": 0.0003859559219344715,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 26.81077555157037,
+     "max": 26.835612888399915,
+     "rel": 0.0009260724188891915,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "data form, log-det via `np.linalg.det` (`make_invalid_variant.py`)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid=false; structural_failure=true",
+      "valid=false; structural_failure=true",
+      "26.91092672",
+      "26.86163934"
+     ],
+     "2": [
+      "valid=false; structural_failure=true",
+      "valid=false; structural_failure=true",
+      "26.90091686",
+      "26.88435101"
+     ],
+     "3": [
+      "valid=false; structural_failure=true",
+      "valid=false; structural_failure=true",
+      "26.92042495",
+      "26.90193971"
+     ]
+    },
+    "v1_spread": {
+     "min": 26.90091685541025,
+     "max": 26.920424947379416,
+     "rel": 0.0007249180157877323,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 26.861639342366097,
+     "max": 26.901939711692652,
+     "rel": 0.0014991222699576642,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "judge image's own workspace (no `outputs/`, nothing submitted)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid=false; structural_failure=true",
+      "valid=false; structural_failure=true",
+      "0",
+      "0"
+     ],
+     "2": [
+      "valid=false; structural_failure=true",
+      "valid=false; structural_failure=true",
+      "0",
+      "0"
+     ],
+     "3": [
+      "valid=false; structural_failure=true",
+      "valid=false; structural_failure=true",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "equivalence_class_divide_and_conquer": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "`naive.cpp` on crafted B (star, n=10\u2076, m=2501; true cost 2.501\u00b710\u2079 > limit)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "raw 0; pass_rate 0/10=0.0000; {'T3': '0/1'}",
+      "10",
+      "0"
+     ],
+     "2": [
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "raw 0; pass_rate 0/10=0.0000; {'T3': '0/1'}",
+      "10",
+      "0"
+     ],
+     "3": [
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "raw 0; pass_rate 0/10=0.0000; {'T3': '0/1'}",
+      "10",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 10.0,
+     "max": 10.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`naive.cpp` on crafted A (m=2500; true cost exactly 2.5\u00b710\u2079)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "10",
+      "10"
+     ],
+     "2": [
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "10",
+      "10"
+     ],
+     "3": [
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "raw 10; pass_rate 10/10=1.0000; {'T3': '1/1'}",
+      "10",
+      "10"
+     ]
+    },
+    "v1_spread": {
+     "min": 10.0,
+     "max": 10.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 10.0,
+     "max": 10.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "official `std.cpp` for T1\u2013T6",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",
+      "raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",
+      "100",
+      "100"
+     ],
+     "2": [
+      "raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",
+      "raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",
+      "100",
+      "100"
+     ],
+     "3": [
+      "raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",
+      "raw 100; pass_rate 6000/6000=1.0000; {'T1': '5/5', 'T2': '10/10', 'T3': '30/30', 'T4': '25/25', 'T5': '20/20', 'T6': '30/30'}",
+      "100",
+      "100"
+     ]
+    },
+    "v1_spread": {
+     "min": 100.0,
+     "max": 100.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 100.0,
+     "max": 100.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`naive.cpp` as T3, others empty, on the 30 official inputs",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",
+      "raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",
+      "1",
+      "1"
+     ],
+     "2": [
+      "raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",
+      "raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",
+      "1",
+      "1"
+     ],
+     "3": [
+      "raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",
+      "raw 1; pass_rate 120/6000=0.0200; {'T1': '0/5', 'T2': '0/10', 'T3': '6/30', 'T4': '0/25', 'T5': '0/20', 'T6': '0/30'}",
+      "1",
+      "1"
+     ]
+    },
+    "v1_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "exchange_core_throughput": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "unmodified engine, original image without artifacts (\"v1raw\")",
+    "role": "setup",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "RE",
+      "\u2014",
+      "0",
+      ""
+     ],
+     "2": [
+      "RE",
+      "\u2014",
+      "0",
+      ""
+     ],
+     "3": [
+      "RE",
+      "\u2014",
+      "0",
+      ""
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": null,
+    "timing": true
+   },
+   {
+    "arm": "unmodified engine (control, run 1)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK",
+      "gate OK; OK",
+      "2050",
+      "2153"
+     ],
+     "2": [
+      "OK",
+      "gate OK; OK",
+      "2008",
+      "3105"
+     ],
+     "3": [
+      "OK",
+      "gate OK; OK",
+      "2054",
+      "2293"
+     ]
+    },
+    "v1_spread": {
+     "min": 2008.0,
+     "max": 2054.0,
+     "rel": 0.022578534031413612,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 2153.0,
+     "max": 3105.0,
+     "rel": 0.37822804926499803,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "unmodified engine (control, run 2)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK",
+      "gate OK; OK",
+      "2210",
+      "2978"
+     ],
+     "2": [
+      "OK",
+      "gate OK; OK",
+      "2698",
+      "2729"
+     ],
+     "3": [
+      "OK",
+      "gate OK; OK",
+      "2542",
+      "2750"
+     ]
+    },
+    "v1_spread": {
+     "min": 2210.0,
+     "max": 2698.0,
+     "rel": 0.19651006711409394,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 2729.0,
+     "max": 2978.0,
+     "rel": 0.08832919474991131,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "`topo21` honest variant",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK",
+      "gate OK; OK",
+      "2524",
+      "2481"
+     ],
+     "2": [
+      "OK",
+      "gate OK; OK",
+      "3003",
+      "3222"
+     ],
+     "3": [
+      "OK",
+      "gate OK; OK",
+      "2440",
+      "2387"
+     ]
+    },
+    "v1_spread": {
+     "min": 2440.0,
+     "max": 3003.0,
+     "rel": 0.21199949792895695,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 2387.0,
+     "max": 3222.0,
+     "rel": 0.30964153275648953,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "`feeswap` (fee swap, balance kept at zero)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK",
+      "WA",
+      "2269",
+      "0"
+     ],
+     "2": [
+      "OK",
+      "WA",
+      "2643",
+      "0"
+     ],
+     "3": [
+      "OK",
+      "WA",
+      "2307",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 2269.0,
+     "max": 2643.0,
+     "rel": 0.155423188807314,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "`dropevents` (user events not forwarded)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK",
+      "WA",
+      "2234",
+      "0"
+     ],
+     "2": [
+      "OK",
+      "WA",
+      "2457",
+      "0"
+     ],
+     "3": [
+      "OK",
+      "WA",
+      "2197",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 2197.0,
+     "max": 2457.0,
+     "rel": 0.1132404181184669,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "`feeleak`",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "RE",
+      "WA",
+      "0",
+      "0"
+     ],
+     "2": [
+      "RE",
+      "WA",
+      "0",
+      "0"
+     ],
+     "3": [
+      "RE",
+      "WA",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "`compileerr`",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "RE",
+      "WA",
+      "0",
+      "0"
+     ],
+     "2": [
+      "RE",
+      "WA",
+      "0",
+      "0"
+     ],
+     "3": [
+      "RE",
+      "WA",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": true
+   }
+  ]
+ },
+ "ffmpeg_swscale_reimplementation": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "reference implementation (run 1)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 0",
+      "0.967353",
+      "0.980056"
+     ],
+     "2": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 0",
+      "0.98489",
+      "0.995963"
+     ],
+     "3": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 0",
+      "0.990566",
+      "1.012284"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.967353,
+     "max": 0.990566,
+     "rel": 0.023664124990782544,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.980056,
+     "max": 1.012284,
+     "rel": 0.03235414882627356,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "reference implementation (run 2)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 0",
+      "0.509049",
+      "0.507032"
+     ],
+     "2": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 0",
+      "0.496127",
+      "0.501321"
+     ],
+     "3": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 0",
+      "0.505227",
+      "0.498528"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.496127,
+     "max": 0.509049,
+     "rel": 0.025665997750269273,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.498528,
+     "max": 0.507032,
+     "rel": 0.016930334910321407,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "shipped scaffold",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 1",
+      "0.447819",
+      "0.012416"
+     ],
+     "2": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 1",
+      "0.452737",
+      "0.01239"
+     ],
+     "3": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 1",
+      "0.440964",
+      "0.012246"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.440964,
+     "max": 0.452737,
+     "rel": 0.026327598544934053,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.012246,
+     "max": 0.012416,
+     "rel": 0.013764439166576702,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "errors on 3:1 downscale",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "2.881761",
+      "0.000464"
+     ],
+     "2": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "2.895562",
+      "0.00046"
+     ],
+     "3": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "2.964297",
+      "0.000449"
+     ]
+    },
+    "v1_spread": {
+     "min": 2.881761,
+     "max": 2.964297,
+     "rel": 0.028325184576771866,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.000449,
+     "max": 0.000464,
+     "rel": 0.03277494537509101,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "silent no-op on 3:1 downscale",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "2.884506",
+      "0.000463"
+     ],
+     "2": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "2.964279",
+      "0.000458"
+     ],
+     "3": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "2.985832",
+      "0.000446"
+     ]
+    },
+    "v1_spread": {
+     "min": 2.884506,
+     "max": 2.985832,
+     "rel": 0.03440760363465665,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.000446,
+     "max": 0.000463,
+     "rel": 0.03730797366495972,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "errors on RGBA\u2192RGB24",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "1.30586",
+      "0.000451"
+     ],
+     "2": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "1.361517",
+      "0.000455"
+     ],
+     "3": [
+      "correct 30/30; timed_errors 0",
+      "correct 30/30; timed_errors 2",
+      "1.322883",
+      "0.000453"
+     ]
+    },
+    "v1_spread": {
+     "min": 1.30586,
+     "max": 1.361517,
+     "rel": 0.04184464170254575,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.000451,
+     "max": 0.000455,
+     "rel": 0.008830022075055163,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "unsupported yuv420p\u2192rgb24",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "correct 28/30; timed_errors 0",
+      "correct 28/30; timed_errors 0",
+      "0",
+      "0"
+     ],
+     "2": [
+      "correct 28/30; timed_errors 0",
+      "correct 28/30; timed_errors 0",
+      "0",
+      "0"
+     ],
+     "3": [
+      "correct 28/30; timed_errors 0",
+      "correct 28/30; timed_errors 0",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": true
+   }
+  ]
+ },
+ "graph_node_classification": {
+  "runs_ok": [],
+  "errors": {
+   "1": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/graph_node_classification-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/graph_node_classification-run1/']' returned non-zero exit statu",
+   "2": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/graph_node_classification-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/graph_node_classification-run2/']' returned non-zero exit statu",
+   "3": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/graph_node_classification-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/graph_node_classification-run3/']' returned non-zero exit statu"
+  },
+  "arms": [
+   {
+    "arm": "baseline (shipped solution.py)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "neighbor (honest neighbour-vote solver, int ids)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "nanconf (baseline predictions, NaN confidences)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "shrink (one real prediction, rest `\"x\"`)",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "missing_half (half the test nodes)",
+    "role": "invalid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   }
+  ]
+ },
+ "integer_compression_codec": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "shipped Varint starter (unchanged)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid=True; pass 8/8",
+      "valid=True; pass 8/8",
+      "0.2327",
+      "0.9786"
+     ],
+     "2": [
+      "valid=True; pass 8/8",
+      "valid=True; pass 8/8",
+      "0.2998",
+      "0.9685"
+     ],
+     "3": [
+      "valid=True; pass 8/8",
+      "valid=True; pass 8/8",
+      "0.2857",
+      "1.0569"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.2327,
+     "max": 0.2998,
+     "rel": 0.24602786604742125,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.9685,
+     "max": 1.0569,
+     "rel": 0.08828229027962708,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "delta + zigzag + varint",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid=True; pass 8/8",
+      "valid=True; pass 8/8",
+      "0.8253",
+      "6.7024"
+     ],
+     "2": [
+      "valid=True; pass 8/8",
+      "valid=True; pass 8/8",
+      "0.896",
+      "8.2668"
+     ],
+     "3": [
+      "valid=True; pass 8/8",
+      "valid=True; pass 8/8",
+      "0.9679",
+      "7.2261"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.8253,
+     "max": 0.9679,
+     "rel": 0.1590807675145024,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.7024,
+     "max": 8.2668,
+     "rel": 0.21145017188323656,
+     "n": 3
+    },
+    "timing": true
+   },
+   {
+    "arm": "starter with one corrupted value",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid=True; pass 0/8",
+      "valid=True; pass 0/8",
+      "0",
+      "0"
+     ],
+     "2": [
+      "valid=True; pass 0/8",
+      "valid=True; pass 0/8",
+      "0",
+      "0"
+     ],
+     "3": [
+      "valid=True; pass 0/8",
+      "valid=True; pass 0/8",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": true
+   }
+  ],
+  "in_run_repeats": {
+   "1": {
+    "r1": 1.0155,
+    "r3": 6.9708
+   },
+   "2": {
+    "r1": 0.988,
+    "r3": 7.7421
+   },
+   "3": {
+    "r1": 1.0198,
+    "r3": 7.59
+   }
+  }
+ },
+ "jagua_nesting_optimization": {
+  "runs_ok": [],
+  "errors": {
+   "1": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/jagua_nesting_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/jagua_nesting_optimization-run1/']' returned non-zero exit sta",
+   "2": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/jagua_nesting_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/jagua_nesting_optimization-run2/']' returned non-zero exit sta",
+   "3": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/jagua_nesting_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/jagua_nesting_optimization-run3/']' returned non-zero exit sta"
+  },
+  "arms": [
+   {
+    "arm": "valid_adjacent_squares (shared edge)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "coincident_squares",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "half_slid_squares",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "rect_inside_square",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "triangle_inside_square",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "diamond_inside_square",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "diag_shift_squares (proper crossings)",
+    "role": "invalid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "tiny_overlap_1e-6 (relative overlap 1e-7)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "forbidden_rotation_90 (allowed [0])",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "allowed_rotation_minus180 (allowed [0, 180])",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Shipped baseline (candidate = reference)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "seed_shift (honest: same LBF, different PRNG stream)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "drop_last_item (one item missing)",
+    "role": "invalid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   }
+  ]
+ },
+ "lean_analysis_proofs": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "orig",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "repaired 0/2901",
+      "repaired 0/2338",
+      "0",
+      "0"
+     ],
+     "2": [
+      "repaired 0/2901",
+      "repaired 0/2338",
+      "0",
+      "0"
+     ],
+     "3": [
+      "repaired 0/2901",
+      "repaired 0/2338",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "A (trigger + controls)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "repaired 1/2901; type_changed 2",
+      "repaired 3/2338",
+      "0.000345",
+      "0.001283"
+     ],
+     "2": [
+      "repaired 1/2901; type_changed 2",
+      "repaired 3/2338",
+      "0.000345",
+      "0.001283"
+     ],
+     "3": [
+      "repaired 1/2901; type_changed 2",
+      "repaired 3/2338",
+      "0.000345",
+      "0.001283"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.000345,
+     "max": 0.000345,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.001283,
+     "max": 0.001283,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "BAD (invalid)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "lake build rc=1; no score",
+      "lake build rc=1; no score",
+      "",
+      ""
+     ],
+     "2": [
+      "lake build rc=1; no score",
+      "lake build rc=1; no score",
+      "",
+      ""
+     ],
+     "3": [
+      "lake build rc=1; no score",
+      "lake build rc=1; no score",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "T",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "repaired 26/2901; type_changed 4",
+      "repaired 15/2338",
+      "0.008962",
+      "0.006416"
+     ],
+     "2": [
+      "repaired 26/2901; type_changed 4",
+      "repaired 15/2338",
+      "0.008962",
+      "0.006416"
+     ],
+     "3": [
+      "repaired 26/2901; type_changed 4",
+      "repaired 15/2338",
+      "0.008962",
+      "0.006416"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.008962,
+     "max": 0.008962,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.006416,
+     "max": 0.006416,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "S",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "published (reviewer native run): 26/2901 (15 + 11)",
+      "repaired 15/2338",
+      "0.008962",
+      "0.006416"
+     ],
+     "2": [
+      "repaired 26/2901; type_changed 4",
+      "repaired 15/2338",
+      "0.008962",
+      "0.006416"
+     ],
+     "3": [
+      "repaired 26/2901; type_changed 4",
+      "repaired 15/2338",
+      "0.008962",
+      "0.006416"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.008962,
+     "max": 0.008962,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.006416,
+     "max": 0.006416,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "W",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "published (reviewer native run): 25/2901 (15 + 10)",
+      "repaired 15/2338",
+      "0.008618",
+      "0.006416"
+     ],
+     "2": [
+      "repaired 25/2901; type_changed 5",
+      "repaired 15/2338",
+      "0.008618",
+      "0.006416"
+     ],
+     "3": [
+      "repaired 25/2901; type_changed 5",
+      "repaired 15/2338",
+      "0.008618",
+      "0.006416"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.008618,
+     "max": 0.008618,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.006416,
+     "max": 0.006416,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "openrct2_theme_park_ai": {
+  "skipped": "prompt-only repair, nothing executable",
+  "arms": [
+   {
+    "arm": "Trigger: v1 states a false horizon, v2 states the measured one",
+    "role": "trigger"
+   }
+  ]
+ },
+ "order_addition_permutation_optimization": {
+  "runs_ok": [],
+  "errors": {
+   "1": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/order_addition_permutation_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/order_addition_permutation_optimization-run1/']' ",
+   "2": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/order_addition_permutation_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/order_addition_permutation_optimization-run2/']' ",
+   "3": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/order_addition_permutation_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/order_addition_permutation_optimization-run3/']' "
+  },
+  "arms": [
+   {
+    "arm": "identity",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "search",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "badcost (misreported cost)",
+    "role": "invalid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "dup (not a permutation)",
+    "role": "invalid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "identity, search",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "search, identity",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "dup, identity, search",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "badcost, identity, search",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   }
+  ]
+ },
+ "schemathesis_config_modernization": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "starter",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:0/30; Phase 2:4/26; Phase 3:0/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:4/26; Phase 3:0/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.031466",
+      "0.031466"
+     ],
+     "2": [
+      "Phase 1:0/30; Phase 2:4/26; Phase 3:0/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:4/26; Phase 3:0/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.031466",
+      "0.031466"
+     ],
+     "3": [
+      "Phase 1:0/30; Phase 2:4/26; Phase 3:0/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:4/26; Phase 3:0/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.031466",
+      "0.031466"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.031466,
+     "max": 0.031466,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.031466,
+     "max": 0.031466,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "identity",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:16/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.135313",
+      "0.135313"
+     ],
+     "2": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:16/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.135313",
+      "0.135313"
+     ],
+     "3": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:16/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.135313",
+      "0.135313"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.135313,
+     "max": 0.135313,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.135313,
+     "max": 0.135313,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "wrapper",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.135313",
+      "0.129063"
+     ],
+     "2": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.135313",
+      "0.129063"
+     ],
+     "3": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:15/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.135313",
+      "0.129063"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.135313,
+     "max": 0.135313,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.129063,
+     "max": 0.129063,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "no_register",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:12/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:12/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.115313",
+      "0.110313"
+     ],
+     "2": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:12/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:12/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.115313",
+      "0.110313"
+     ],
+     "3": [
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:12/15; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "Phase 1:0/30; Phase 2:5/26; Phase 3:12/16; Phase 4:1/19; Phase 5:0/18; Phase 6:1/18",
+      "0.115313",
+      "0.110313"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.115313,
+     "max": 0.115313,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.110313,
+     "max": 0.110313,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "schemathesis_datagen_pipeline": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "correct",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ],
+     "2": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ],
+     "3": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "stdlib_1900",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ],
+     "2": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ],
+     "3": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "stdlib_any_year",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ],
+     "2": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ],
+     "3": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "0.47735",
+      "0.47735"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "independent_fields",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20",
+      "0.47735",
+      "0.467094"
+     ],
+     "2": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20",
+      "0.47735",
+      "0.467094"
+     ],
+     "3": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20",
+      "0.47735",
+      "0.467094"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.467094,
+     "max": 0.467094,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "off_by_one_clock",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20",
+      "0.47735",
+      "0.467094"
+     ],
+     "2": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20",
+      "0.47735",
+      "0.467094"
+     ],
+     "3": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 0/20",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36; sweep failing 20/20",
+      "0.47735",
+      "0.467094"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.467094,
+     "max": 0.467094,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "garbage_shape",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.47735",
+      "0.467094"
+     ],
+     "2": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.47735",
+      "0.467094"
+     ],
+     "3": [
+      "Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.47735",
+      "0.467094"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.47735,
+     "max": 0.47735,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.467094,
+     "max": 0.467094,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "rfc850 (invalid)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.467094",
+      "0.467094"
+     ],
+     "2": [
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.467094",
+      "0.467094"
+     ],
+     "3": [
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:14/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.467094",
+      "0.467094"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.467094,
+     "max": 0.467094,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.467094,
+     "max": 0.467094,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "starter",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.323504",
+      "0.323504"
+     ],
+     "2": [
+      "Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.323504",
+      "0.323504"
+     ],
+     "3": [
+      "Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "Phase 1:0/15; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36",
+      "0.323504",
+      "0.323504"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.323504,
+     "max": 0.323504,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.323504,
+     "max": 0.323504,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "schemathesis_reporting_observability": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "fullref",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12",
+      "1",
+      "1"
+     ],
+     "2": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12",
+      "1",
+      "1"
+     ],
+     "3": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12",
+      "1",
+      "1"
+     ]
+    },
+    "v1_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "fullref_junit_drops_error",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:13/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12",
+      "1",
+      "0.985714"
+     ],
+     "2": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:13/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12",
+      "1",
+      "0.985714"
+     ],
+     "3": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:13/14; Phase 3:8/8; Phase 4:9/9; Phase 5:12/12",
+      "1",
+      "0.985714"
+     ]
+    },
+    "v1_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.985714,
+     "max": 0.985714,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "fullref_no_body_fix",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:11/12",
+      "1",
+      "0.991667"
+     ],
+     "2": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:11/12",
+      "1",
+      "0.991667"
+     ],
+     "3": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:11/12",
+      "1",
+      "0.991667"
+     ]
+    },
+    "v1_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.991667,
+     "max": 0.991667,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "fullref_always_suppress",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/12",
+      "1",
+      "0.983333"
+     ],
+     "2": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/12",
+      "1",
+      "0.983333"
+     ],
+     "3": [
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/10",
+      "Phase 1:12/12; Phase 2:14/14; Phase 3:8/8; Phase 4:9/9; Phase 5:10/12",
+      "1",
+      "0.983333"
+     ]
+    },
+    "v1_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.983333,
+     "max": 0.983333,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "stub_junit_correct",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.091429",
+      "0.096429"
+     ],
+     "2": [
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.091429",
+      "0.096429"
+     ],
+     "3": [
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.091429",
+      "0.096429"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.091429,
+     "max": 0.091429,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.096429,
+     "max": 0.096429,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "stub_junit_drops_error",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:4/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.091429",
+      "0.082143"
+     ],
+     "2": [
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:4/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.091429",
+      "0.082143"
+     ],
+     "3": [
+      "Phase 1:0/12; Phase 2:5/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:4/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.091429",
+      "0.082143"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.091429,
+     "max": 0.091429,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.082143,
+     "max": 0.082143,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "starter",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.02",
+      "0.025"
+     ],
+     "2": [
+      "Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.02",
+      "0.025"
+     ],
+     "3": [
+      "Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:2/10",
+      "Phase 1:0/12; Phase 2:0/14; Phase 3:0/8; Phase 4:0/11; Phase 5:3/12",
+      "0.02",
+      "0.025"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.02,
+     "max": 0.02,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.025,
+     "max": 0.025,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "smt_solver": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "ground",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "multi27 {'correct': 27}; single42 {'correct': 42}",
+      "0",
+      "0.9"
+     ],
+     "2": [
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "multi27 {'correct': 27}; single42 {'correct': 42}",
+      "0",
+      "0.9"
+     ],
+     "3": [
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "multi27 {'correct': 27}; single42 {'correct': 42}",
+      "0",
+      "0.9"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.9,
+     "max": 0.9,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "textual",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "multi27 {'unknown': 27}; single42 {'correct': 42}",
+      "multi27 {'unknown': 27}; single42 {'correct': 42}",
+      "0.587",
+      "0.587"
+     ],
+     "2": [
+      "multi27 {'unknown': 27}; single42 {'correct': 42}",
+      "multi27 {'unknown': 27}; single42 {'correct': 42}",
+      "0.587",
+      "0.587"
+     ],
+     "3": [
+      "multi27 {'unknown': 27}; single42 {'correct': 42}",
+      "multi27 {'unknown': 27}; single42 {'correct': 42}",
+      "0.587",
+      "0.587"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.587,
+     "max": 0.587,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.587,
+     "max": 0.587,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "textual_true",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "multi27 {'invalid_model': 27}; single42 {'correct': 42}",
+      "multi27 {'correct': 27}; single42 {'correct': 42}",
+      "0.587",
+      "0.9"
+     ],
+     "2": [
+      "multi27 {'invalid_model': 27}; single42 {'correct': 42}",
+      "multi27 {'correct': 27}; single42 {'correct': 42}",
+      "0.587",
+      "0.9"
+     ],
+     "3": [
+      "multi27 {'invalid_model': 27}; single42 {'correct': 42}",
+      "multi27 {'correct': 27}; single42 {'correct': 42}",
+      "0.587",
+      "0.9"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.587,
+     "max": 0.587,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.9,
+     "max": 0.9,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "ground_wrong",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "0",
+      "0"
+     ],
+     "2": [
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "0",
+      "0"
+     ],
+     "3": [
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "multi27 {'invalid_model': 27}; single42 {'invalid_model': 42}",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "treant_forest": {
+  "runs_ok": [],
+  "errors": {
+   "1": "RuntimeError: /home/alex/agentsmd-rl/.venv/bin/python: can't open file '/home/alex/edgebench-verified/tools/repeatability/bin/treant_normalize.py': [Errno 2] No such file or directory",
+   "2": "RuntimeError: /home/alex/agentsmd-rl/.venv/bin/python: can't open file '/home/alex/edgebench-verified/tools/repeatability/bin/treant_normalize.py': [Errno 2] No such file or directory",
+   "3": "RuntimeError: /home/alex/agentsmd-rl/.venv/bin/python: can't open file '/home/alex/edgebench-verified/tools/repeatability/bin/treant_normalize.py': [Errno 2] No such file or directory"
+  },
+  "arms": [
+   {
+    "arm": "Shipped baseline (`0`, `-1`)",
+    "role": "baseline",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Honest greedy (grid-only maze lengthening)",
+    "role": "valid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "Invalid: treant on the revealed entrance",
+    "role": "invalid",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "92304 (= \u03a3 2N\u00b2, the score cap)",
+    "role": "trigger",
+    "runs": [],
+    "derived": false,
+    "stable": true,
+    "per": {},
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   }
+  ]
+ },
+ "tree_block_partitioning": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "Official `std.cpp` for all six subtasks",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",
+      "raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",
+      "100",
+      "100"
+     ],
+     "2": [
+      "raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",
+      "raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",
+      "100",
+      "100"
+     ],
+     "3": [
+      "raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",
+      "raw 100; {'T1': '45/45', 'T2': '10/10', 'T3': '20/20', 'T4': '10/10', 'T5': '40/40', 'T6': '10/10'}",
+      "100",
+      "100"
+     ]
+    },
+    "v1_spread": {
+     "min": 100.0,
+     "max": 100.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 100.0,
+     "max": 100.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "T2 = alias variant of `std.cpp` (`make_alias_variant.py`); T1, T3\u2013T6 empty",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "raw 5; {'T1': '0/45', 'T2': '10/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "0.25",
+      "5"
+     ],
+     "2": [
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "raw 5; {'T1': '0/45', 'T2': '10/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "0.25",
+      "5"
+     ],
+     "3": [
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "raw 5; {'T1': '0/45', 'T2': '10/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "0.25",
+      "5"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.25,
+     "max": 0.25,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 5.0,
+     "max": 5.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "0.25",
+      "0.25"
+     ],
+     "2": [
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "0.25",
+      "0.25"
+     ],
+     "3": [
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "raw 0.25; {'T1': '0/45', 'T2': '1/10', 'T3': '0/20', 'T4': '0/10', 'T5': '0/40', 'T6': '0/10'}",
+      "0.25",
+      "0.25"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.25,
+     "max": 0.25,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.25,
+     "max": 0.25,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "triangulation_coloring_optimization": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "shipped `solution.py` (do nothing)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 10/10; valid true",
+      "0.05502779662",
+      "0.05396489013"
+     ],
+     "2": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 10/10; valid true",
+      "0.05502779662",
+      "0.05396489013"
+     ],
+     "3": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 10/10; valid true",
+      "0.05502779662",
+      "0.05396489013"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.05502779662164155,
+     "max": 0.05502779662164155,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.053964890130204515,
+     "max": 0.053964890130204515,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`greedy.py` (greedy recolour + greedy README-legal convex flips)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 10/10; valid true",
+      "48.87203972",
+      "48.94838762"
+     ],
+     "2": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 10/10; valid true",
+      "48.87203972",
+      "48.94838762"
+     ],
+     "3": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 10/10; valid true",
+      "48.87203972",
+      "48.94838762"
+     ]
+    },
+    "v1_spread": {
+     "min": 48.87203971527134,
+     "max": 48.87203971527134,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 48.94838762267952,
+     "max": 48.94838762267952,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 0/10; valid false",
+      "0.05159561496",
+      "0"
+     ],
+     "2": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 0/10; valid false",
+      "0.05159561496",
+      "0"
+     ],
+     "3": [
+      "cases_ok 10/10; valid true",
+      "cases_ok 0/10; valid false",
+      "0.05159561496",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.051595614962425165,
+     "max": 0.051595614962425165,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`wrong_count.py` (recolours vertex 1, claims C=0)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "cases_ok 0/10; valid false",
+      "cases_ok 0/10; valid false",
+      "0",
+      "0"
+     ],
+     "2": [
+      "cases_ok 0/10; valid false",
+      "cases_ok 0/10; valid false",
+      "0",
+      "0"
+     ],
+     "3": [
+      "cases_ok 0/10; valid false",
+      "cases_ok 0/10; valid false",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "warehouse_forklift_routing": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "generic valid control",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "46676.8",
+      "46676.8"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "46676.8",
+      "46676.8"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "46676.8",
+      "46676.8"
+     ]
+    },
+    "v1_spread": {
+     "min": 46676.80000000002,
+     "max": 46676.80000000002,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 46676.80000000002,
+     "max": 46676.80000000002,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "one honest bug",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 49 TLE 0 WA 1 RE 0",
+      "OK 49 TLE 0 WA 1 RE 0",
+      "inf",
+      "inf"
+     ],
+     "2": [
+      "OK 49 TLE 0 WA 1 RE 0",
+      "OK 49 TLE 0 WA 1 RE 0",
+      "inf",
+      "inf"
+     ],
+     "3": [
+      "OK 49 TLE 0 WA 1 RE 0",
+      "OK 49 TLE 0 WA 1 RE 0",
+      "inf",
+      "inf"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "shipped starter",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 0 WA 50 RE 0",
+      "OK 0 TLE 0 WA 50 RE 0",
+      "inf",
+      "inf"
+     ],
+     "2": [
+      "OK 0 TLE 0 WA 50 RE 0",
+      "OK 0 TLE 0 WA 50 RE 0",
+      "inf",
+      "inf"
+     ],
+     "3": [
+      "OK 0 TLE 0 WA 50 RE 0",
+      "OK 0 TLE 0 WA 50 RE 0",
+      "inf",
+      "inf"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "13 s per test case (uses the promised budget)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ],
+     "2": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ],
+     "3": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 46676.80000000002,
+     "max": 46676.80000000002,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "near the 150 s per-input limit",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ],
+     "2": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ],
+     "3": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 46676.80000000002,
+     "max": 46676.80000000002,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "openttd_transport_ai": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "shipped starter (v1 work image vs v2 work image)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "died at main.nut line 5",
+      "no",
+      "0",
+      "0"
+     ],
+     "2": [
+      "died at main.nut line 5",
+      "no",
+      "0",
+      "0"
+     ],
+     "3": [
+      "died at main.nut line 5",
+      "no",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "baseline_v1 (shipped starter)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "died at main.nut line 5",
+      "died at main.nut line 5",
+      "0",
+      "0"
+     ],
+     "2": [
+      "died at main.nut line 5",
+      "died at main.nut line 5",
+      "0",
+      "0"
+     ],
+     "3": [
+      "died at main.nut line 5",
+      "died at main.nut line 5",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "probe_min (calls corrected API monthly)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "no",
+      "no",
+      "0",
+      "0"
+     ],
+     "2": [
+      "no",
+      "no",
+      "0",
+      "0"
+     ],
+     "3": [
+      "no",
+      "no",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "baseline_v2 (fixed starter)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "no",
+      "no",
+      "0",
+      "0"
+     ],
+     "2": [
+      "no",
+      "no",
+      "0",
+      "0"
+     ],
+     "3": [
+      "no",
+      "no",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "probe_value (positive-value control)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "stable": true,
+    "per": {
+     "1": [
+      "no",
+      "no",
+      "4975",
+      "4975"
+     ],
+     "2": [
+      "no",
+      "no",
+      "4975",
+      "4975"
+     ],
+     "3": [
+      "no",
+      "no",
+      "4975",
+      "4975"
+     ]
+    },
+    "v1_spread": {
+     "min": 4975.0,
+     "max": 4975.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 4975.0,
+     "max": 4975.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ }
+}

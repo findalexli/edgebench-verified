@@ -1,0 +1,25 @@
+
+[QF_UF] Evaluating 53 benchmarks...
+  [25/53] invalid_model 81b677a374f1bf61.smt2: sat (0.3s)
+  [50/53] invalid_model ee3d82cafc081255.smt2: sat (0.4s)
+  [53/53] invalid_model fd1e1b5fdf3c1301.smt2: sat (2.6s)
+
+[QF_UFLRA] Evaluating 16 benchmarks...
+  [16/16] invalid_model f63091ea2c55b7da.smt2: sat (0.0s)
+
+========================================================================
+SUMMARY
+========================================================================
+By logic (diagnostic):
+QF_UF    score=0.0000 correct=0/53 wrong=0 status_only_unsat=0 timeout=0 unknown=0 invalid_model=53 error=0
+QF_LRA   score=0.0000 correct=0/0 wrong=0 status_only_unsat=0 timeout=0 unknown=0 invalid_model=0 error=0
+QF_LIA   score=0.0000 correct=0/0 wrong=0 status_only_unsat=0 timeout=0 unknown=0 invalid_model=0 error=0
+QF_UFLRA score=0.0000 correct=0/16 wrong=0 status_only_unsat=0 timeout=0 unknown=0 invalid_model=16 error=0
+By difficulty (scored):
+easy     score=0.0000 weight=0.10 correct=0/0 wrong=0 status_only_unsat=0 timeout=0 unknown=0 invalid_model=0 error=0
+medium   score=0.0000 weight=0.20 correct=0/23 wrong=0 status_only_unsat=0 timeout=0 unknown=0 invalid_model=23 error=0
+hard     score=0.0000 weight=0.70 correct=0/46 wrong=0 status_only_unsat=0 timeout=0 unknown=0 invalid_model=46 error=0
+FINAL    score=0.000000 score_percent=0.00
+========================================================================
+
+Detailed results written to /out/res.json

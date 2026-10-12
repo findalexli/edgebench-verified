@@ -1,0 +1,61 @@
+
+[QF_UF] Evaluating 192 benchmarks...
+  [25/192] unknown 26704c820c49b053.smt2: unknown (0.2s)
+  [50/192] unknown 5a6333b3781d55af.smt2: unknown (0.1s)
+  [75/192] unknown 793c3120a8ffa8e9.smt2: unknown (0.1s)
+  [100/192] correct 8b66f6dbd27e147e.smt2: sat (0.4s)
+  [125/192] unknown a879aec57728f1e6.smt2: unknown (0.2s)
+  [150/192] correct c9d96744f3e68156.smt2: sat (0.4s)
+  [175/192] correct decce715b718b2ab.smt2: sat (1.7s)
+  [192/192] correct fd1e1b5fdf3c1301.smt2: sat (10.8s)
+
+[QF_LRA] Evaluating 213 benchmarks...
+  [25/213] unknown 1edcec2ec9fce86f.smt2: unknown (0.2s)
+  [50/213] unknown 37dd8a6d217370e0.smt2: unknown (0.1s)
+  [75/213] unknown 57aead5ba48f89e7.smt2: unknown (0.1s)
+  [100/213] unknown 630b753f7dfe899c.smt2: unknown (0.3s)
+  [125/213] unknown 9306e0e9d0fce4cc.smt2: unknown (0.1s)
+  [150/213] unknown 98192d6f247623e5.smt2: unknown (0.3s)
+  [175/213] unknown d179b5c4a96a48e2.smt2: unknown (0.1s)
+  [200/213] unknown ef8ce40e86ae8c54.smt2: unknown (0.1s)
+  [213/213] unknown e45c987658dc5920.smt2: unknown (0.5s)
+
+[QF_LIA] Evaluating 227 benchmarks...
+  [25/227] unknown 236a4d5c86e7727b.smt2: unknown (0.1s)
+  [50/227] unknown 4adc9514640c18dd.smt2: unknown (0.1s)
+  [75/227] unknown 679ef1b891b51428.smt2: unknown (0.1s)
+  [100/227] unknown 82eab423c4787cb2.smt2: unknown (0.1s)
+  [125/227] unknown a73b9878cb2fcf8b.smt2: unknown (0.1s)
+  [150/227] unknown bd399c2b67d8d991.smt2: unknown (0.1s)
+  [175/227] unknown d3826237e297544d.smt2: unknown (0.1s)
+  [200/227] unknown ea68ff75705bf4a1.smt2: unknown (0.1s)
+  [225/227] unknown cb00c50bc53f29cd.smt2: unknown (1.4s)
+  [227/227] unknown dc2fc23f236f2824.smt2: unknown (1.3s)
+
+[QF_UFLRA] Evaluating 142 benchmarks...
+  [25/142] unknown 386c1338fd2eef1a.smt2: unknown (0.1s)
+  [50/142] unknown 68fcb7e7a1d039d1.smt2: unknown (0.1s)
+  [75/142] unknown 9f6a39b8b8fa188d.smt2: unknown (0.1s)
+  [100/142] unknown dc49c49f84196d05.smt2: unknown (0.1s)
+  [125/142] unknown f8bd089c16227618.smt2: unknown (0.1s)
+  [142/142] correct 6119e57336958691.smt2: sat (4.3s)
+
+========================================================================
+SUMMARY
+========================================================================
+By logic (diagnostic):
+QF_UF    score=0.2760 correct=53/192 wrong=0 status_only_unsat=0 timeout=0 unknown=139 invalid_model=0 error=0
+QF_LRA   score=0.0000 correct=0/213 wrong=0 status_only_unsat=0 timeout=0 unknown=213 invalid_model=0 error=0
+QF_LIA   score=0.0000 correct=0/227 wrong=0 status_only_unsat=0 timeout=0 unknown=227 invalid_model=0 error=0
+QF_UFLRA score=0.1127 correct=16/142 wrong=0 status_only_unsat=0 timeout=0 unknown=126 invalid_model=0 error=0
+By difficulty (scored):
+easy     score=0.0000 weight=0.10 correct=0/63 wrong=0 status_only_unsat=0 timeout=0 unknown=63 invalid_model=0 error=0
+medium   score=0.3770 weight=0.20 correct=23/61 wrong=0 status_only_unsat=0 timeout=0 unknown=38 invalid_model=0 error=0
+hard     score=0.0708 weight=0.70 correct=46/650 wrong=0 status_only_unsat=0 timeout=0 unknown=604 invalid_model=0 error=0
+FINAL    score=0.124948 score_percent=12.49
+========================================================================
+
+Detailed results written to /tmp/smt_hidden_score.json
+>>>>> Start Structured Result
+{"valid": true, "score": 0.12494829760403531, "pass_rate": 0.08914728682170543, "total_tests": 774, "passed": 69, "failed": 705, "errors": 0, "summary": "score=0.124948 (12.49/100), correct=69/774", "details": [], "metrics": {"score": 0.12494829760403531, "score_percent": 12.494829760403531, "total": 774, "correct": 69, "wrong_or_failed": 705, "by_logic": {"QF_LIA": {"total": 227, "correct": 0, "wrong": 0, "timeout": 0, "unknown": 227, "error": 0, "no_reference": 0, "invalid_model": 0, "score": 0.0}, "QF_LRA": {"total": 213, "correct": 0, "wrong": 0, "timeout": 0, "unknown": 213, "error": 0, "no_reference": 0, "invalid_model": 0, "score": 0.0}, "QF_UF": {"total": 192, "correct": 53, "wrong": 0, "timeout": 0, "unknown": 139, "error": 0, "no_reference": 0, "invalid_model": 0, "score": 0.2760416666666667}, "QF_UFLRA": {"total": 142, "correct": 16, "wrong": 0, "timeout": 0, "unknown": 126, "error": 0, "no_reference": 0, "invalid_model": 0, "score": 0.11267605633802817}}}}
+>>>>> End Structured Result

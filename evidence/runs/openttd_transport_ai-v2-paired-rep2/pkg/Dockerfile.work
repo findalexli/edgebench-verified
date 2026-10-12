@@ -1,0 +1,8 @@
+# openttd_transport_ai v2 WORK image: the shipped baseline AI called AICompany.GetCompanyValue,
+# which does not exist in OpenTTD 13.4, so it died on its first statement. v2 changes that one
+# call to AICompany.GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, AICompany.CURRENT_QUARTER).
+# Run ./materialize.sh first (it writes files/my_ai/main.nut), then:
+#   docker build -f Dockerfile.work -t <tag> .
+# The JUDGE image is unchanged (v1 digest). info.nut and docs/ are unchanged.
+FROM --platform=linux/amd64 seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0
+COPY --chown=1000:1000 files/my_ai/main.nut /home/workspace/openttd_ai/my_ai/main.nut

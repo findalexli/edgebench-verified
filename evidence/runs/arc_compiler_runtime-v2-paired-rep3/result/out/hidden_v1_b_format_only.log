@@ -1,0 +1,73 @@
+=== Arc Hidden Evaluator ===
+SUBMISSION_INPUT=agent-start
+SUBMISSION_AGENT_START=/home/workspace/arc-compiler-runtime-implementation/agent-start
+TMP_WORK=/tmp/arc-hidden-eval-U42piC
+EXPECTED_TOTAL=448
+EXPECTED_WEIGHTED_TOTAL=2970
+
+=== Hidden Module Distribution ===
+  parser           raw= 85 weighted= 425 pass= 19 wpass=  95
+  type-system      raw=128 weighted=1000 pass= 45 wpass= 345
+  interpreter      raw=  8 weighted=  40 pass=  5 wpass=  25
+  stdlib           raw= 50 weighted= 310 pass= 49 wpass= 303
+  codegen          raw= 90 weighted= 666 pass= 43 wpass= 316
+  toolchain        raw= 36 weighted= 156 pass= 19 wpass=  83
+  integration      raw= 51 weighted= 373 pass= 32 wpass= 235
+
+=== Hidden Difficulty Distribution ===
+  MEDIUM       raw=  8 weighted=  16 pass=  4 wpass=   8
+  HARD         raw=157 weighted= 785 pass= 68 wpass= 340
+  ADVERSARIAL  raw=283 weighted=2169 pass=140 wpass=1054
+
+=== Hidden Final Score ===
+SCORE_STATUS=OK
+RAW_PASSED=212
+RAW_TOTAL=448
+WEIGHTED_PASSED=1402
+WEIGHTED_TOTAL=2970
+SCORE=47.21
+Running hidden strengthened/round2-lexer-parser...
+  strengthened/round2-lexer-parser             1 /   8
+Running hidden strengthened/round2-type-system...
+  strengthened/round2-type-system              5 /   8
+Running hidden strengthened/round2-interpreter...
+  strengthened/round2-interpreter              5 /   8
+Running hidden strengthened/round2-stdlib...
+  strengthened/round2-stdlib                   8 /   8
+Running hidden strengthened/round2-codegen...
+  strengthened/round2-codegen                  4 /   8
+Running hidden strengthened/round2-toolchain...
+  strengthened/round2-toolchain                2 /   8
+Running hidden strengthened/compact-parser-boundary...
+  strengthened/compact-parser-boundary         2 /  25
+Running hidden strengthened/compact-codegen-consistency...
+  strengthened/compact-codegen-consistency    16 /  30
+Running hidden strengthened/compact-stdlib-composition...
+  strengthened/compact-stdlib-composition     29 /  30
+Running hidden strengthened/compact-toolchain-edge...
+  strengthened/compact-toolchain-edge         13 /  20
+Running hidden strengthened/compact-integration...
+  strengthened/compact-integration            21 /  35
+Running hidden extra/hidden-parser-boundary...
+  extra/hidden-parser-boundary                12 /  12
+Running hidden extra/hidden-codegen-consistency...
+  extra/hidden-codegen-consistency             9 /  12
+Running hidden extra/hidden-stdlib-composition...
+  extra/hidden-stdlib-composition             12 /  12
+Running hidden extra/hidden-toolchain-edge...
+  extra/hidden-toolchain-edge                  4 /   8
+Running hidden extra/hidden-integration...
+  extra/hidden-integration                    11 /  16
+Running hidden extra/hidden-type-system-adversarial-1...
+  extra/hidden-type-system-adversarial-1       0 /  40
+Running hidden extra/hidden-type-system-adversarial-2...
+  extra/hidden-type-system-adversarial-2       0 /  40
+Running hidden extra/hidden-type-system-adversarial-3...
+  extra/hidden-type-system-adversarial-3      40 /  40
+Running hidden extra/hidden-parser-boundary-round2...
+  extra/hidden-parser-boundary-round2          4 /  40
+Running hidden extra/hidden-codegen-consistency-round2...
+  extra/hidden-codegen-consistency-round2     14 /  40
+>>>>> Start Structured Result
+{"valid": true, "score": 47.21, "pass_rate": 0.4732142857142857, "total_tests": 448, "passed": 212, "failed": 236, "errors": 0, "summary": "Score: 47.21, raw: 212/448, weighted: 1402/2970", "details": [{"name": "hidden_score", "status": "PASSED", "score": 47.21, "message": "nd2-interpreter...\n  strengthened/round2-interpreter              5 /   8\nRunning hidden strengthened/round2-stdlib...\n  strengthened/round2-stdlib                   8 /   8\nRunning hidden strengthened/round2-codegen...\n  strengthened/round2-codegen                  4 /   8\nRunning hidden strengthened/round2-toolchain...\n  strengthened/round2-toolchain                2 /   8\nRunning hidden strengthened/compact-parser-boundary...\n  strengthened/compact-parser-boundary         2 /  25\nRunning hidden strengthened/compact-codegen-consistency...\n  strengthened/compact-codegen-consistency    16 /  30\nRunning hidden strengthened/compact-stdlib-composition...\n  strengthened/compact-stdlib-composition     29 /  30\nRunning hidden strengthened/compact-toolchain-edge...\n  strengthened/compact-toolchain-edge         13 /  20\nRunning hidden strengthened/compact-integration...\n  strengthened/compact-integration            21 /  35\nRunning hidden extra/hidden-parser-boundary...\n  extra/hidden-parser-boundary                12 /  12\nRunning hidden extra/hidden-codegen-consistency...\n  extra/hidden-codegen-consistency             9 /  12\nRunning hidden extra/hidden-stdlib-composition...\n  extra/hidden-stdlib-composition             12 /  12\nRunning hidden extra/hidden-toolchain-edge...\n  extra/hidden-toolchain-edge                  4 /   8\nRunning hidden extra/hidden-integration...\n  extra/hidden-integration                    11 /  16\nRunning hidden extra/hidden-type-system-adversarial-1...\n  extra/hidden-type-system-adversarial-1       0 /  40\nRunning hidden extra/hidden-type-system-adversarial-2...\n  extra/hidden-type-system-adversarial-2       0 /  40\nRunning hidden extra/hidden-type-system-adversarial-3...\n  extra/hidden-type-system-adversarial-3      40 /  40\nRunning hidden extra/hidden-parser-boundary-round2...\n  extra/hidden-parser-boundary-round2          4 /  40\nRunning hidden extra/hidden-codegen-consistency-round2...\n  extra/hidden-codegen-consistency-round2     14 /  40\n"}], "metrics": {"score": 47.21, "raw_passed": 212, "raw_total": 448, "weighted_passed": 1402, "weighted_total": 2970, "runner_returncode": 0}}
+>>>>> End Structured Result

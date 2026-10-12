@@ -140,7 +140,7 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
     <span><i class="k-exclude"></i>Exclude</span>
   </div>
   <div class="counts">
-    <div><b>{{repair-v2}}</b><span>repaired as v2, each passed a paired before/after native run</span></div>
+    <div><b>{{repair-v2}}</b><span>repaired as v2, each checked on paired before/after runs, repeated three times</span></div>
     <div><b>{{retain-with-note}}</b><span>retained with a published note</span></div>
     <div><b>{{retain}}</b><span>retained as is</span></div>
     <div><b>{{exclude}}</b><span>excluded from this release</span></div>
@@ -203,6 +203,7 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
     <li><b>Use an independent oracle.</b> Exact rational arithmetic, a second implementation, brute force, or a formal tool: Lean 4 for false theorem statements and a routing lower bound (axioms reported for every proof), TLA+ for aliasing and counting rules, each with a negative control.</li>
     <li><b>Trace to the reported score.</b> Through the parser, selection policy and rescale. Some real defects are immaterial; one small one froze every run's best score.</li>
     <li><b>Accept a repair only on paired evidence.</b> The same inputs scored by the original and repaired evaluator in one run: the trigger fixed, valid controls unchanged, invalid controls still rejected.</li>
+    <li><b>Repeat it.</b> Every paired evaluation was run three times on fresh workers. Across 132 executed arms in 22 repairs, no verdict changed between runs; only throughput and timing scores moved.</li>
   </ol>
   <p class="sub col">Out of scope: tampering with the scorer by a deliberately malicious submission (an EdgeBench harness design choice), and fresh model runs. Reviews were performed by AI agents with a coordinating reviewer who re-checked the decisive line or result of every published finding; agreement between agents is not counted as independent reproduction.</p>
   <div class="paths">

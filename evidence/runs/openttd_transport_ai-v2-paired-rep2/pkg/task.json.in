@@ -1,0 +1,30 @@
+{
+  "task_id": "openttd_transport_ai",
+  "name": "Openttd Transport Ai",
+  "category": "Interactive Games & Simulators",
+  "base_image": "python310",
+  "platform": "linux/amd64",
+  "internet": false,
+  "cwd": "/home/workspace/openttd_ai",
+  "submit_paths": [
+    "my_ai/"
+  ],
+  "work": {
+    "image_tag": "f2e9a9fb0fff-ebv-v2",
+    "specs_dir": "/home/workspace/openttd_ai/docs",
+    "agent_query": "## Role\n\nYou are an expert OpenTTD AI script developer. Write a **Squirrel** AI in `my_ai/` that maximizes **company value** over 20 game-years, averaged across multiple random seed maps.\n\n---\n\n## Files\n\n- `my_ai/info.nut` — AI metadata (class `MyAI extends AIInfo`, `GetAPIVersion()` returns \"13\")\n- `my_ai/main.nut` — AI controller (class `MyAI extends AIController`, implements `Start()`, `Save()`, `Load()`)\n- `docs/squirrel_reference.html` — Squirrel 2.2 language reference (offline)\n- `docs/noai_tutorial.html` — NoAI introductory tutorial (offline)\n- `docs/noai_api_docs/` — full NoAI API (115 classes, offline HTML)\n\n---\n\n## Game Background\n\nOpenTTD (Transport Tycoon Deluxe clone) simulates a transport company: build roads / rails / airports / ships, connect towns and industries, buy vehicles, manage finances. The NoAI framework runs Squirrel scripts to control a company headlessly. Your AI is the only company on the map (no competitors).\n\n## Goal\n\nMaximize your **company value**. OpenTTD 13.4 has no `AICompany.GetCompanyValue`: calling it stops your script (\"the index 'GetCompanyValue' does not exist\"). Read the value with **`AICompany.GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, AICompany.CURRENT_QUARTER)`** (the running value), or with quarter `1` (the value recorded at the start of the current quarter). Company value = 1.5 × the current value of your vehicles + a fixed amount per station facility + cash − loan, with a floor of 1; roads, rails and other infrastructure do not count.\n\n**How it is scored:** for each seed map the judge reads the company value recorded at the most recent quarter boundary before the 20-year game ends, which is the value `GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, 1)` returns at the end of the game (recorded on 1 October of the final year). A value of 1 or less does not count; the judge then falls back to the latest earlier quarter with a value above 1, or 0. The score is the mean over the 5 seed maps. Use `AILog.Info(...)` / `AILog.Warning(...)` for debugging.\n\n## Local Testing\n\nInstall OpenTTDLab (already installed). Run locally with:\n\n```python\nfrom openttdlab import run_experiments, local_folder\nresults = run_experiments(openttd_version='13.4', opengfx_version='7.1',\n    experiments=({'seed': s, 'ais': (local_folder('my_ai/', ai_name='MyAI'),),\n                  'days': 365*20} for s in range(5)))\n```\n\n## Rules\n\n- Write only in `my_ai/` (info.nut + main.nut + optional sub-squirrel files)\n- `CreateInstance()` in info.nut must return \"MyAI\" (matching main.nut's class name)\n- `GetAPIVersion()` must return `\"13\"` for OpenTTD 13.x compatibility\n- Do NOT modify anything under `docs/` — it's reference material\n- A baseline AI that just logs company value is already in `my_ai/`; improve it\n"
+  },
+  "judge": {
+    "image_tag": "d8e83be4044e",
+    "eval_cmd": "cd /home/workspace/openttd_ai && OPENTTD_N_SEEDS=5 python3 /tmp/eval_openttd.py",
+    "eval_timeout": 3600,
+    "parser": "score_sum",
+    "score_direction": "maximize",
+    "selection": "score_first",
+    "rescale": {
+      "kind": "log_max",
+      "baseline": 100000.0,
+      "expert": 1000000000.0
+    }
+  }
+}

@@ -1,0 +1,11 @@
+--- /job/sub/baseline_v1/main.nut	2026-06-06 13:55:44.000000000 +0000
++++ /job/sub/baseline_v2/main.nut	2026-10-12 09:31:34.000000000 +0000
+@@ -2,7 +2,7 @@
+     function Start() {
+         AILog.Info("MyAI baseline started.");
+         while (true) {
+-            AILog.Info("Company value: " + AICompany.GetCompanyValue(AICompany.COMPANY_SELF));
++            AILog.Info("Company value: " + AICompany.GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, AICompany.CURRENT_QUARTER));
+             this.Sleep(74);
+         }
+     }

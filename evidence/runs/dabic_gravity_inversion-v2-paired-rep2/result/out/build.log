@@ -1,0 +1,37 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 556B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.dabic_gravity_inversion@sha256:fe3dc29058385bb3f44101df77fc935d8dd7859bbe8aa0add21fc93e83c0731d
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 58.45kB done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/seededge/edgebench.judge.dabic_gravity_inversion@sha256:fe3dc29058385bb3f44101df77fc935d8dd7859bbe8aa0add21fc93e83c0731d
+#5 resolve docker.io/seededge/edgebench.judge.dabic_gravity_inversion@sha256:fe3dc29058385bb3f44101df77fc935d8dd7859bbe8aa0add21fc93e83c0731d done
+#5 DONE 0.2s
+
+#6 [2/3] COPY files/eval_dabic_v2.py /opt/evaluator/eval_dabic_v2.py
+#6 DONE 0.6s
+
+#7 [3/3] COPY files/eval_dabic_v2.py /opt/dabic_judge_files/eval_dabic_v2.py
+#7 DONE 0.0s
+
+#8 exporting to image
+#8 exporting layers 0.1s done
+#8 exporting manifest sha256:afe4615b2541b1e15350587ed2bf86a2ee8e38898b4fe867d9df0453df100f6c done
+#8 exporting config sha256:f268a9f15db2cc5d45e36710fa87a6bf5f7b27250cf68f4b7d8d0a4ca696a97a done
+#8 exporting attestation manifest sha256:2d953326358511e98e383a489e312ce7f22d1afb8141f66d94671299f36b2b2e
+#8 exporting attestation manifest sha256:2d953326358511e98e383a489e312ce7f22d1afb8141f66d94671299f36b2b2e 0.0s done
+#8 exporting manifest list sha256:86b6a9e39778b840e1ee2d183150af8e5318b57ce30ec68a8c3b0a966906cd52 done
+#8 naming to docker.io/ebv/dabic_gravity_inversion:v2 done
+#8 unpacking to docker.io/ebv/dabic_gravity_inversion:v2 0.0s done
+#8 DONE 0.2s

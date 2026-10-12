@@ -1,0 +1,86 @@
+patched ExchangeCore.java: 'public final class ExchangeCore {' -> 'public final class ExchangeCore { int broken = ;'
+DEBUG: no MT/s line found. Output tail:
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/processors/BinaryCommandsProcessor.java:171: error: cannot find symbol
+        final Constructor<? extends ReportQuery<?>> constructor = queriesConfiguration.getReportConstructors().get(classCode);
+                                                                                      ^
+  symbol:   method getReportConstructors()
+  location: variable queriesConfiguration of type exchange.core2.core.common.config.ReportsQueriesConfiguration
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/processors/BinaryCommandsProcessor.java:173: error: cannot find symbol
+            log.error("Unknown Report Query class code: {}", classCode);
+            ^
+  symbol:   variable log
+  location: class exchange.core2.core.processors.BinaryCommandsProcessor
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/processors/BinaryCommandsProcessor.java:181: error: cannot find symbol
+            log.error("Failed to deserialize report instance of class {} error: {}", constructor.getDeclaringClass().getSimpleName(), ex.getMessage());
+            ^
+  symbol:   variable log
+  location: class exchange.core2.core.processors.BinaryCommandsProcessor
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/processors/BinaryCommandsProcessor.java:229: error: cannot find symbol
+                log.warn("Resizing incoming transfer buffer to {} longs", dataArray.length * 2);
+                ^
+  symbol:   variable log
+  location: class exchange.core2.core.processors.BinaryCommandsProcessor.TransferRecord
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/config/ExchangeConfiguration.java:66: error: cannot find symbol
+        return ExchangeConfiguration.builder()
+                                    ^
+  symbol:   method builder()
+  location: class exchange.core2.core.common.config.ExchangeConfiguration
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/UserProfile.java:96: error: cannot find symbol
+        bytes.writeByte(userStatus.getCode());
+                                  ^
+  symbol:   method getCode()
+  location: variable userStatus of type exchange.core2.core.common.UserStatus
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/CoreSymbolSpecification.java:81: error: cannot find symbol
+        bytes.writeByte(type.getCode());
+                            ^
+  symbol:   method getCode()
+  location: variable type of type @lombok.NonNull exchange.core2.core.common.SymbolType
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/CoreSymbolSpecification.java:96: error: cannot find symbol
+                type.getCode(),
+                    ^
+  symbol:   method getCode()
+  location: variable type of type @lombok.NonNull exchange.core2.core.common.SymbolType
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/SymbolPositionRecord.java:138: error: cannot find symbol
+        final long signedPosition = openVolume * direction.getMultiplier();
+                                                          ^
+  symbol:   method getMultiplier()
+  location: variable direction of type exchange.core2.core.common.PositionDirection
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/SymbolPositionRecord.java:161: error: cannot find symbol
+        final long signedPosition = openVolume * direction.getMultiplier();
+                                                          ^
+  symbol:   method getMultiplier()
+  location: variable direction of type exchange.core2.core.common.PositionDirection
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/SymbolPositionRecord.java:226: error: cannot find symbol
+        profit += (openVolume * tradePrice - openPriceSum) * direction.getMultiplier();
+                                                                      ^
+  symbol:   method getMultiplier()
+  location: variable direction of type exchange.core2.core.common.PositionDirection
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/SymbolPositionRecord.java:249: error: cannot find symbol
+        bytes.writeByte((byte) direction.getMultiplier());
+                                        ^
+  symbol:   method getMultiplier()
+  location: variable direction of type exchange.core2.core.common.PositionDirection
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/SymbolPositionRecord.java:271: error: cannot find symbol
+            log.error("uid {} : position:{} totalSize:{} openPriceSum:{}", uid, direction, openVolume, openPriceSum);
+            ^
+  symbol:   variable log
+  location: class exchange.core2.core.common.SymbolPositionRecord
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/SymbolPositionRecord.java:275: error: cannot find symbol
+            log.error("uid {} : position:{} totalSize:{} openPriceSum:{}", uid, direction, openVolume, openPriceSum);
+            ^
+  symbol:   variable log
+  location: class exchange.core2.core.common.SymbolPositionRecord
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/SymbolPositionRecord.java:280: error: cannot find symbol
+            log.error("uid {} : pendingSellSize:{} pendingBuySize:{}", uid, pendingSellSize, pendingBuySize);
+            ^
+  symbol:   variable log
+  location: class exchange.core2.core.common.SymbolPositionRecord
+/home/workspace/exchange-core/src/main/java/exchange/core2/core/common/SymbolPositionRecord.java:287: error: cannot find symbol
+        return Objects.hash(symbol, currency, direction.getMultiplier(), openVolume, openPriceSum, profit, pendingSellSize, pendingBuySize);
+                                                       ^
+  symbol:   method getMultiplier()
+  location: variable direction of type exchange.core2.core.common.PositionDirection
+CASE 0000 RE score=0
+TOTAL_SCORE 0
+CASES_OK 0
+CASES_TOTAL 1

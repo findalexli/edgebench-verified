@@ -1,0 +1,438 @@
+=== Phase 1: Post-Validation Hook System ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 12 items
+
+../tests/test_01_hooks.py::test_hook_system_available FAILED             [  8%]
+../tests/test_01_hooks.py::test_check_result_dataclass FAILED            [ 16%]
+../tests/test_01_hooks.py::test_check_result_exported_from_top_level FAILED [ 25%]
+../tests/test_01_hooks.py::test_hook_dispatcher_defines_method FAILED    [ 33%]
+../tests/test_01_hooks.py::test_hook_dispatcher_defines_false_after_unregister FAILED [ 41%]
+../tests/test_01_hooks.py::test_global_defines_function FAILED           [ 50%]
+../tests/test_01_hooks.py::test_after_validate_hook_spec_registered FAILED [ 58%]
+../tests/test_01_hooks.py::test_after_network_error_hook_spec_registered FAILED [ 66%]
+../tests/test_01_hooks.py::test_after_validate_hook_fires_on_success FAILED [ 75%]
+../tests/test_01_hooks.py::test_after_validate_hook_fires_on_failure FAILED [ 83%]
+../tests/test_01_hooks.py::test_after_validate_global_hook FAILED        [ 91%]
+../tests/test_01_hooks.py::test_flatmap_hook_negative_mode FAILED        [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_hook_system_available __________________________
+/tests/test_01_hooks.py:25: in test_hook_system_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)
+_________________________ test_check_result_dataclass __________________________
+/tests/test_01_hooks.py:39: in test_check_result_dataclass
+    from schemathesis.checks import CheckResult
+E   ImportError: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)
+__________________ test_check_result_exported_from_top_level ___________________
+/tests/test_01_hooks.py:53: in test_check_result_exported_from_top_level
+    from schemathesis import CheckResult as CR
+E   ImportError: cannot import name 'CheckResult' from 'schemathesis' (/app/src/schemathesis/__init__.py)
+_____________________ test_hook_dispatcher_defines_method ______________________
+/tests/test_01_hooks.py:60: in test_hook_dispatcher_defines_method
+    dispatcher = HookDispatcher(scope=HookScope.SCHEMA)
+                 ^^^^^^^^^^^^^^
+E   NameError: name 'HookDispatcher' is not defined
+_____________ test_hook_dispatcher_defines_false_after_unregister ______________
+/tests/test_01_hooks.py:72: in test_hook_dispatcher_defines_false_after_unregister
+    dispatcher = HookDispatcher(scope=HookScope.SCHEMA)
+                 ^^^^^^^^^^^^^^
+E   NameError: name 'HookDispatcher' is not defined
+_________________________ test_global_defines_function _________________________
+/tests/test_01_hooks.py:86: in test_global_defines_function
+    assert hasattr(hooks_mod, "defines")
+E   AssertionError: assert False
+E    +  where False = hasattr(<module 'schemathesis.hooks' from '/app/src/schemathesis/hooks.py'>, 'defines')
+___________________ test_after_validate_hook_spec_registered ___________________
+/tests/test_01_hooks.py:95: in test_after_validate_hook_spec_registered
+    dispatcher = HookDispatcher(scope=HookScope.SCHEMA)
+                 ^^^^^^^^^^^^^^
+E   NameError: name 'HookDispatcher' is not defined
+________________ test_after_network_error_hook_spec_registered _________________
+/tests/test_01_hooks.py:106: in test_after_network_error_hook_spec_registered
+    dispatcher = HookDispatcher(scope=HookScope.SCHEMA)
+                 ^^^^^^^^^^^^^^
+E   NameError: name 'HookDispatcher' is not defined
+__________________ test_after_validate_hook_fires_on_success ___________________
+/tests/test_01_hooks.py:117: in test_after_validate_hook_fires_on_success
+    from schemathesis.checks import CheckResult
+E   ImportError: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)
+__________________ test_after_validate_hook_fires_on_failure ___________________
+/tests/test_01_hooks.py:162: in test_after_validate_hook_fires_on_failure
+    from schemathesis.checks import CheckResult
+E   ImportError: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)
+_______________________ test_after_validate_global_hook ________________________
+/tests/test_01_hooks.py:210: in test_after_validate_global_hook
+    from schemathesis.checks import CheckResult
+E   ImportError: cannot import name 'CheckResult' from 'schemathesis.checks' (/app/src/schemathesis/checks.py)
+_______________________ test_flatmap_hook_negative_mode ________________________
+/tests/test_01_hooks.py:273: in test_flatmap_hook_negative_mode
+    schema = schemathesis.openapi.from_dict(raw_schema)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+=========================== short test summary info ============================
+FAILED ../tests/test_01_hooks.py::test_hook_system_available - Failed: Import...
+FAILED ../tests/test_01_hooks.py::test_check_result_dataclass - ImportError: ...
+FAILED ../tests/test_01_hooks.py::test_check_result_exported_from_top_level
+FAILED ../tests/test_01_hooks.py::test_hook_dispatcher_defines_method - NameE...
+FAILED ../tests/test_01_hooks.py::test_hook_dispatcher_defines_false_after_unregister
+FAILED ../tests/test_01_hooks.py::test_global_defines_function - AssertionErr...
+FAILED ../tests/test_01_hooks.py::test_after_validate_hook_spec_registered - ...
+FAILED ../tests/test_01_hooks.py::test_after_network_error_hook_spec_registered
+FAILED ../tests/test_01_hooks.py::test_after_validate_hook_fires_on_success
+FAILED ../tests/test_01_hooks.py::test_after_validate_hook_fires_on_failure
+FAILED ../tests/test_01_hooks.py::test_after_validate_global_hook - ImportErr...
+FAILED ../tests/test_01_hooks.py::test_flatmap_hook_negative_mode - NameError...
+============================== 12 failed in 0.40s ==============================
+FAILED
+Phase 1: 0/12 passed
+=== Phase 2: Reporting Writers Module ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 14 items
+
+../tests/test_02_reporting.py::test_reporting_module_available PASSED    [  7%]
+../tests/test_02_reporting.py::test_ndjson_writer_context_manager FAILED [ 14%]
+../tests/test_02_reporting.py::test_ndjson_writer_context_manager_closes_file FAILED [ 21%]
+../tests/test_02_reporting.py::test_junitxml_writer_context_manager PASSED [ 28%]
+../tests/test_02_reporting.py::test_vcr_writer_context_manager_no_error PASSED [ 35%]
+../tests/test_02_reporting.py::test_har_writer_context_manager_no_error PASSED [ 42%]
+../tests/test_02_reporting.py::test_vcr_writer_open_writes_header FAILED [ 50%]
+../tests/test_02_reporting.py::test_get_command_representation_exists PASSED [ 57%]
+../tests/test_02_reporting.py::test_report_format_allure_enum FAILED     [ 64%]
+../tests/test_02_reporting.py::test_reports_config_allure_field FAILED   [ 71%]
+../tests/test_02_reporting.py::test_reports_config_update_allure_path FAILED [ 78%]
+../tests/test_02_reporting.py::test_reports_config_get_stable_path FAILED [ 85%]
+../tests/test_02_reporting.py::test_reports_config_get_stable_path_with_suffix FAILED [ 92%]
+../tests/test_02_reporting.py::test_reports_config_get_stable_path_allure FAILED [100%]
+
+=================================== FAILURES ===================================
+______________________ test_ndjson_writer_context_manager ______________________
+/tests/test_02_reporting.py:33: in test_ndjson_writer_context_manager
+    assert '"Initialize"' in content
+E   assert '"Initialize"' in ''
+________________ test_ndjson_writer_context_manager_closes_file ________________
+/tests/test_02_reporting.py:44: in test_ndjson_writer_context_manager_closes_file
+    assert path.stat().st_size > 0
+E   AssertionError: assert 0 > 0
+E    +  where 0 = os.stat_result(st_mode=33152, st_ino=568931, st_dev=38, st_nlink=1, st_uid=0, st_gid=0, st_size=0, st_atime=1791798535, st_mtime=1791798535, st_ctime=1791798535).st_size
+E    +    where os.stat_result(st_mode=33152, st_ino=568931, st_dev=38, st_nlink=1, st_uid=0, st_gid=0, st_size=0, st_atime=1791798535, st_mtime=1791798535, st_ctime=1791798535) = stat()
+E    +      where stat = PosixPath('/tmp/tmpmee0i64m.ndjson').stat
+______________________ test_vcr_writer_open_writes_header ______________________
+/tests/test_02_reporting.py:80: in test_vcr_writer_open_writes_header
+    assert "command:" in content
+E   AssertionError: assert 'command:' in ''
+________________________ test_report_format_allure_enum ________________________
+/tests/test_02_reporting.py:95: in test_report_format_allure_enum
+    assert hasattr(ReportFormat, "ALLURE")
+E   AssertionError: assert False
+E    +  where False = hasattr(<enum 'ReportFormat'>, 'ALLURE')
+_______________________ test_reports_config_allure_field _______________________
+/tests/test_02_reporting.py:103: in test_reports_config_allure_field
+    assert hasattr(config, "allure")
+E   AssertionError: assert False
+E    +  where False = hasattr(ReportsConfig(), 'allure')
+____________________ test_reports_config_update_allure_path ____________________
+/tests/test_02_reporting.py:111: in test_reports_config_update_allure_path
+    config.update(allure_path="/tmp/allure-results")
+E   TypeError: ReportsConfig.update() got an unexpected keyword argument 'allure_path'
+_____________________ test_reports_config_get_stable_path ______________________
+/tests/test_02_reporting.py:119: in test_reports_config_get_stable_path
+    path = config.get_stable_path(ReportFormat.VCR)
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'
+_______________ test_reports_config_get_stable_path_with_suffix ________________
+/tests/test_02_reporting.py:129: in test_reports_config_get_stable_path_with_suffix
+    path = config.get_stable_path(ReportFormat.VCR, suffix="abc12345")
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'
+__________________ test_reports_config_get_stable_path_allure __________________
+/tests/test_02_reporting.py:137: in test_reports_config_get_stable_path_allure
+    path = config.get_stable_path(ReportFormat.ALLURE)
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'
+=========================== short test summary info ============================
+FAILED ../tests/test_02_reporting.py::test_ndjson_writer_context_manager - as...
+FAILED ../tests/test_02_reporting.py::test_ndjson_writer_context_manager_closes_file
+FAILED ../tests/test_02_reporting.py::test_vcr_writer_open_writes_header - As...
+FAILED ../tests/test_02_reporting.py::test_report_format_allure_enum - Assert...
+FAILED ../tests/test_02_reporting.py::test_reports_config_allure_field - Asse...
+FAILED ../tests/test_02_reporting.py::test_reports_config_update_allure_path
+FAILED ../tests/test_02_reporting.py::test_reports_config_get_stable_path - A...
+FAILED ../tests/test_02_reporting.py::test_reports_config_get_stable_path_with_suffix
+FAILED ../tests/test_02_reporting.py::test_reports_config_get_stable_path_allure
+========================= 9 failed, 5 passed in 0.21s ==========================
+FAILED
+Phase 2: 5/14 passed
+=== Phase 3: Pytest Plugin Report Integration ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 8 items
+
+../tests/test_03_pytest_reporting.py::test_pytest_reporting_available FAILED [ 12%]
+../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_registers_hooks FAILED [ 25%]
+../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_pop_recorder_none FAILED [ 37%]
+../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_accumulates_data FAILED [ 50%]
+../tests/test_03_pytest_reporting.py::test_vcr_report_written_via_config FAILED [ 62%]
+../tests/test_03_pytest_reporting.py::test_har_report_written_via_config FAILED [ 75%]
+../tests/test_03_pytest_reporting.py::test_xdist_module_exports_serialization FAILED [ 87%]
+../tests/test_03_pytest_reporting.py::test_stateful_callback_mark_exists FAILED [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_pytest_reporting_available ________________________
+/tests/test_03_pytest_reporting.py:26: in test_pytest_reporting_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.pytest.reporting'
+________________ test_pytest_report_dispatcher_registers_hooks _________________
+/tests/test_03_pytest_reporting.py:36: in test_pytest_report_dispatcher_registers_hooks
+    schema = schemathesis.openapi.from_dict(raw_schema)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_______________ test_pytest_report_dispatcher_pop_recorder_none ________________
+/tests/test_03_pytest_reporting.py:57: in test_pytest_report_dispatcher_pop_recorder_none
+    schema = schemathesis.openapi.from_dict(raw_schema)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+________________ test_pytest_report_dispatcher_accumulates_data ________________
+/tests/test_03_pytest_reporting.py:79: in test_pytest_report_dispatcher_accumulates_data
+    schema = schemathesis.openapi.from_url(
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+______________________ test_vcr_report_written_via_config ______________________
+/tests/test_03_pytest_reporting.py:123: in test_vcr_report_written_via_config
+    schema = schemathesis.openapi.from_url(
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+______________________ test_har_report_written_via_config ______________________
+/tests/test_03_pytest_reporting.py:178: in test_har_report_written_via_config
+    schema = schemathesis.openapi.from_url(
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+___________________ test_xdist_module_exports_serialization ____________________
+/tests/test_03_pytest_reporting.py:218: in test_xdist_module_exports_serialization
+    from schemathesis.pytest.xdist import (
+E   ModuleNotFoundError: No module named 'schemathesis.pytest.xdist'
+______________________ test_stateful_callback_mark_exists ______________________
+/tests/test_03_pytest_reporting.py:232: in test_stateful_callback_mark_exists
+    from schemathesis.generation.stateful.state_machine import (
+E   ImportError: cannot import name 'StatefulCallbackMark' from 'schemathesis.generation.stateful.state_machine' (/app/src/schemathesis/generation/stateful/state_machine.py)
+=========================== short test summary info ============================
+FAILED ../tests/test_03_pytest_reporting.py::test_pytest_reporting_available
+FAILED ../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_registers_hooks
+FAILED ../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_pop_recorder_none
+FAILED ../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_accumulates_data
+FAILED ../tests/test_03_pytest_reporting.py::test_vcr_report_written_via_config
+FAILED ../tests/test_03_pytest_reporting.py::test_har_report_written_via_config
+FAILED ../tests/test_03_pytest_reporting.py::test_xdist_module_exports_serialization
+FAILED ../tests/test_03_pytest_reporting.py::test_stateful_callback_mark_exists
+============================== 8 failed in 1.73s ===============================
+FAILED
+Phase 3: 0/8 passed
+=== Phase 4: Examples Phase Enhancement ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 11 items
+
+../tests/test_04_examples.py::test_examples_phase_available FAILED       [  9%]
+../tests/test_04_examples.py::test_property_without_example_is_generated_optional FAILED [ 18%]
+../tests/test_04_examples.py::test_property_without_example_is_generated_required FAILED [ 27%]
+../tests/test_04_examples.py::test_gate_preserved_when_no_explicit_examples[plain] FAILED [ 36%]
+../tests/test_04_examples.py::test_gate_preserved_when_no_explicit_examples[oneof] FAILED [ 45%]
+../tests/test_04_examples.py::test_branch_required_yields_disjoint_sets[oneOf] FAILED [ 54%]
+../tests/test_04_examples.py::test_branch_required_yields_disjoint_sets[anyOf] FAILED [ 63%]
+../tests/test_04_examples.py::test_oneof_branch_isolation_own_properties FAILED [ 72%]
+../tests/test_04_examples.py::test_oneof_branch_isolation_shared_property FAILED [ 81%]
+../tests/test_04_examples.py::test_anyof_with_required_constraints_per_branch FAILED [ 90%]
+../tests/test_04_examples.py::test_optional_properties_included_in_extraction FAILED [100%]
+
+=================================== FAILURES ===================================
+________________________ test_examples_phase_available _________________________
+/tests/test_04_examples.py:28: in test_examples_phase_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name '_yield_examples_from_properties' from 'schemathesis.specs.openapi.examples' (/app/src/schemathesis/specs/openapi/examples.py)
+_____________ test_property_without_example_is_generated_optional ______________
+/tests/test_04_examples.py:70: in test_property_without_example_is_generated_optional
+    result = _extract_json_body_examples(body_schema)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_04_examples.py:56: in _extract_json_body_examples
+    schema = schemathesis.openapi.from_dict(raw)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_____________ test_property_without_example_is_generated_required ______________
+/tests/test_04_examples.py:84: in test_property_without_example_is_generated_required
+    result = _extract_json_body_examples(body_schema)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_04_examples.py:56: in _extract_json_body_examples
+    schema = schemathesis.openapi.from_dict(raw)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_____________ test_gate_preserved_when_no_explicit_examples[plain] _____________
+/tests/test_04_examples.py:102: in test_gate_preserved_when_no_explicit_examples
+    assert _extract_json_body_examples(body_schema) == []
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_04_examples.py:56: in _extract_json_body_examples
+    schema = schemathesis.openapi.from_dict(raw)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_____________ test_gate_preserved_when_no_explicit_examples[oneof] _____________
+/tests/test_04_examples.py:102: in test_gate_preserved_when_no_explicit_examples
+    assert _extract_json_body_examples(body_schema) == []
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tests/test_04_examples.py:56: in _extract_json_body_examples
+    schema = schemathesis.openapi.from_dict(raw)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_______________ test_branch_required_yields_disjoint_sets[oneOf] _______________
+/tests/test_04_examples.py:108: in test_branch_required_yields_disjoint_sets
+    result = _extract_json_body_examples({
+/tests/test_04_examples.py:56: in _extract_json_body_examples
+    schema = schemathesis.openapi.from_dict(raw)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_______________ test_branch_required_yields_disjoint_sets[anyOf] _______________
+/tests/test_04_examples.py:108: in test_branch_required_yields_disjoint_sets
+    result = _extract_json_body_examples({
+/tests/test_04_examples.py:56: in _extract_json_body_examples
+    schema = schemathesis.openapi.from_dict(raw)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+__________________ test_oneof_branch_isolation_own_properties __________________
+/tests/test_04_examples.py:126: in test_oneof_branch_isolation_own_properties
+    result = _extract_json_body_examples({
+/tests/test_04_examples.py:56: in _extract_json_body_examples
+    schema = schemathesis.openapi.from_dict(raw)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_________________ test_oneof_branch_isolation_shared_property __________________
+/tests/test_04_examples.py:143: in test_oneof_branch_isolation_shared_property
+    result = _extract_json_body_examples({
+/tests/test_04_examples.py:56: in _extract_json_body_examples
+    schema = schemathesis.openapi.from_dict(raw)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_______________ test_anyof_with_required_constraints_per_branch ________________
+/tests/test_04_examples.py:191: in test_anyof_with_required_constraints_per_branch
+    schema = schemathesis.openapi.from_dict(raw_schema)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+_______________ test_optional_properties_included_in_extraction ________________
+/tests/test_04_examples.py:229: in test_optional_properties_included_in_extraction
+    schema = schemathesis.openapi.from_dict(raw_schema)
+             ^^^^^^^^^^^^
+E   NameError: name 'schemathesis' is not defined
+=========================== short test summary info ============================
+FAILED ../tests/test_04_examples.py::test_examples_phase_available - Failed: ...
+FAILED ../tests/test_04_examples.py::test_property_without_example_is_generated_optional
+FAILED ../tests/test_04_examples.py::test_property_without_example_is_generated_required
+FAILED ../tests/test_04_examples.py::test_gate_preserved_when_no_explicit_examples[plain]
+FAILED ../tests/test_04_examples.py::test_gate_preserved_when_no_explicit_examples[oneof]
+FAILED ../tests/test_04_examples.py::test_branch_required_yields_disjoint_sets[oneOf]
+FAILED ../tests/test_04_examples.py::test_branch_required_yields_disjoint_sets[anyOf]
+FAILED ../tests/test_04_examples.py::test_oneof_branch_isolation_own_properties
+FAILED ../tests/test_04_examples.py::test_oneof_branch_isolation_shared_property
+FAILED ../tests/test_04_examples.py::test_anyof_with_required_constraints_per_branch
+FAILED ../tests/test_04_examples.py::test_optional_properties_included_in_extraction
+============================== 11 failed in 0.32s ==============================
+FAILED
+Phase 4: 0/11 passed
+=== Phase 5: Email Format & Coverage Fixes ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 10 items
+
+../tests/test_05_email_coverage.py::test_email_format_fix_available FAILED [ 10%]
+../tests/test_05_email_coverage.py::test_lowercase_email_domain_basic FAILED [ 20%]
+../tests/test_05_email_coverage.py::test_lowercase_email_domain_preserves_local FAILED [ 30%]
+../tests/test_05_email_coverage.py::test_lowercase_email_domain_already_lowercase FAILED [ 40%]
+../tests/test_05_email_coverage.py::test_lowercase_email_domain_idn FAILED [ 50%]
+../tests/test_05_email_coverage.py::test_email_format_strategy_registered FAILED [ 60%]
+../tests/test_05_email_coverage.py::test_email_format_generates_lowercase_domain FAILED [ 70%]
+../tests/test_05_email_coverage.py::test_idn_email_format_generates_lowercase_domain FAILED [ 80%]
+../tests/test_05_email_coverage.py::test_body_unexpected_parameters_control_deny PASSED [ 90%]
+../tests/test_05_email_coverage.py::test_query_unexpected_parameters_control_deny PASSED [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_email_format_fix_available ________________________
+/tests/test_05_email_coverage.py:21: in test_email_format_fix_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name '_lowercase_email_domain' from 'schemathesis.specs.openapi.formats' (/app/src/schemathesis/specs/openapi/formats.py)
+______________________ test_lowercase_email_domain_basic _______________________
+/tests/test_05_email_coverage.py:26: in test_lowercase_email_domain_basic
+    result = _lowercase_email_domain("user@EXAMPLE.COM")
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E   NameError: name '_lowercase_email_domain' is not defined
+_________________ test_lowercase_email_domain_preserves_local __________________
+/tests/test_05_email_coverage.py:32: in test_lowercase_email_domain_preserves_local
+    result = _lowercase_email_domain("User.Name@Domain.Org")
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E   NameError: name '_lowercase_email_domain' is not defined
+________________ test_lowercase_email_domain_already_lowercase _________________
+/tests/test_05_email_coverage.py:38: in test_lowercase_email_domain_already_lowercase
+    result = _lowercase_email_domain("test@example.org")
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E   NameError: name '_lowercase_email_domain' is not defined
+_______________________ test_lowercase_email_domain_idn ________________________
+/tests/test_05_email_coverage.py:44: in test_lowercase_email_domain_idn
+    result = _lowercase_email_domain("user@Xn--nxasmq6b.example")
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E   NameError: name '_lowercase_email_domain' is not defined
+____________________ test_email_format_strategy_registered _____________________
+/tests/test_05_email_coverage.py:51: in test_email_format_strategy_registered
+    assert "email" in strategies
+E   assert 'email' in {'_basic_auth': tuples(text(alphabet=characters(min_codepoint=0, max_codepoint=255)), text(alphabet=characters(min_codepoint=0, max_codepoint=255))).map(make_basic_auth_str), '_bearer_auth': text(alphabet=characters(min_codepoint=0, max_codepoint=255, exclude_characters='\n\r')).map(lstrip).map('Bearer {}'.format), '_header_name': text(alphabet=sampled_from(('!', '#', '$', '%', '&', "'", '*', '+', '-', '.', '^', '_', '`', '|', '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')), min_size=1), '_header_value': text(alphabet=characters(min_codepoint=0, max_codepoint=255, exclude_characters='\n\r')).map(lstrip), ...}
+_________________ test_email_format_generates_lowercase_domain _________________
+/tests/test_05_email_coverage.py:60: in test_email_format_generates_lowercase_domain
+    email_strategy = strategies["email"]
+                     ^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'email'
+_______________ test_idn_email_format_generates_lowercase_domain _______________
+/tests/test_05_email_coverage.py:76: in test_idn_email_format_generates_lowercase_domain
+    email_strategy = strategies["idn-email"]
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'idn-email'
+=========================== short test summary info ============================
+FAILED ../tests/test_05_email_coverage.py::test_email_format_fix_available - ...
+FAILED ../tests/test_05_email_coverage.py::test_lowercase_email_domain_basic
+FAILED ../tests/test_05_email_coverage.py::test_lowercase_email_domain_preserves_local
+FAILED ../tests/test_05_email_coverage.py::test_lowercase_email_domain_already_lowercase
+FAILED ../tests/test_05_email_coverage.py::test_lowercase_email_domain_idn - ...
+FAILED ../tests/test_05_email_coverage.py::test_email_format_strategy_registered
+FAILED ../tests/test_05_email_coverage.py::test_email_format_generates_lowercase_domain
+FAILED ../tests/test_05_email_coverage.py::test_idn_email_format_generates_lowercase_domain
+========================= 8 failed, 2 passed in 1.31s ==========================
+FAILED
+Phase 5: 2/10 passed
+Result: 0/5 phases; 7/55 tests | Reward: 0.091429
+tests/roadmap.py::test_phase_1 FAILED
+tests/roadmap.py::test_phase_2 FAILED
+tests/roadmap.py::test_phase_3 FAILED
+tests/roadmap.py::test_phase_4 FAILED
+tests/roadmap.py::test_phase_5 FAILED
+=== 0 passed, 5 failed in 1.00s ===
+TOTAL_SCORE 0.091429

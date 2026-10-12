@@ -1,0 +1,23 @@
+{
+ "intro": [
+  "Every repair's paired evaluation was run three times: run 1 is the published result, runs 2 and 3 are fresh reruns of the same job on new E2B workers (Lean Analysis locally, one container at a time under a 4 GB cap). OpenRCT2 is excluded: its repair changes only the prompt and has nothing to run.",
+  "**Result: 132 executed arms across 22 repair packages, 0 verdict changes.** In all three runs every trigger stayed fixed by v2, every valid control stayed valid, and every invalid control stayed rejected."
+ ],
+ "task": {
+  "exchange_core_throughput": "Throughput (MT/s) varies up to 38% between runs on the same worker type; the correctness-gate verdicts never change.",
+  "integer_compression_codec": "The speed term varies up to 25% between runs; the starter's v2 score stays near 1 and the corrupting codec stays at 0.",
+  "ffmpeg_swscale_reimplementation": "Speedups vary up to 4%; trigger arms stay near 0 under v2 in every run.",
+  "order_addition_permutation_optimization": "The 'search' control is a time-limited random search, so its own score differs between runs (relative spread 2.67); pass rates, verdicts and v2's selection of the better submission are stable."
+ },
+ "totals_extra": [
+  "Score spread is reported per arm (min, max, relative spread). Deterministic evaluators reproduce exactly; timing-based scores move as noted, without changing any verdict."
+ ],
+ "jobs": [
+  "44 E2B reruns (22 jobs × 2), all exit 0 with collected results; each worker was killed by exact ID (see evidence/runs/ledger.jsonl). Lean Analysis: 2 local reruns of all 12 cases, exit 0.",
+  "Three packages (CTA, Equivalence, Tree) had their parsed summaries regenerated with the package's own summarize.py; that script reproduces run 1's published summary byte for byte."
+ ],
+ "limits": [
+  "Three runs per arm, on one worker type (8 vCPU, 8 GiB). Different hardware may move timing scores further.",
+  "Reruns repeat the authored controls, not model submissions."
+ ]
+}

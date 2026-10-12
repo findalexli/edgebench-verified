@@ -1,0 +1,42 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 569B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 4)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 21.45kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466
+#5 resolve docker.io/seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/home/workspace/jagua_task_scorer/evaluate.py /home/workspace/jagua_task_scorer/evaluate.py
+#6 DONE 0.2s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:b4f89e7e0d7d28e277e6c50054e9dd108a1bced302237e4ceac20f619020e95d done
+#7 exporting config sha256:f37b7bd2daecd696545ce3237bf8c8942f90e44047a1d5ae16cbc12e2bad75bf done
+#7 exporting attestation manifest sha256:074b27b316fb742ff589bd579f19fa7bd5c86ac14ac29dd39646229c57ff4cb9
+#7 exporting attestation manifest sha256:074b27b316fb742ff589bd579f19fa7bd5c86ac14ac29dd39646229c57ff4cb9 0.0s done
+#7 exporting manifest list sha256:4d31a1c223596488603f6d1bcd426f9a074e552b12bb0f90d840bc46b80af83f done
+#7 naming to docker.io/library/jagua_v2:latest done
+#7 unpacking to docker.io/library/jagua_v2:latest 0.0s done
+#7 DONE 0.2s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 4)
+build_rc=0

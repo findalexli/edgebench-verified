@@ -1,0 +1,86 @@
+patched processors/RiskEngine.java: 'taker.accounts.addToValue(quoteCurrency, takerSizePriceForThisHandler * spec.quoteScaleK -' -> 'taker.accounts.addToValue(quoteCurrency, takerSizePriceForThisHandler * spec.quoteScaleK -'
+DEBUG: no MT/s line found. Output tail:
+2026-10-12/09:16:29.126/UTC [Thread-AF-6-cpu2] DEBUG e.c.core.utils.AffinityThreadFactory - java.util.concurrent.ThreadPoolExecutor$Worker@6cb6decd[State = -1, empty queue] will be running on thread=Thread-AF-6-cpu2 pinned to cpu 2
+2026-10-12/09:16:29.138/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/09:16:29.138/UTC [Thread-AF-4-cpu4] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@1a72a540[State = 0, empty queue]
+2026-10-12/09:16:29.139/UTC [Thread-AF-5-cpu3] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@327af41b[State = 0, empty queue]
+2026-10-12/09:16:29.140/UTC [Thread-AF-3-cpu5] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@4e31276e[State = 0, empty queue]
+2026-10-12/09:16:29.140/UTC [Thread-AF-1-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@5170bcf4[State = 0, empty queue]
+2026-10-12/09:16:29.141/UTC [Thread-AF-2-cpu6] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@df6620a[State = 0, empty queue]
+2026-10-12/09:16:29.142/UTC [Thread-AF-6-cpu2] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@6cb6decd[State = 0, empty queue]
+2026-10-12/09:16:29.192/UTC [Thread-AF-7-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - GroupingProcessor{GL=4096} will be running on thread=Thread-AF-7-cpu7 pinned to cpu 7
+2026-10-12/09:16:29.202/UTC [Thread-AF-8-cpu6] DEBUG e.c.core.utils.AffinityThreadFactory - TwoStepMasterProcessor{R1_0} will be running on thread=Thread-AF-8-cpu6 pinned to cpu 6
+2026-10-12/09:16:29.205/UTC [main] WARN  e.c.core.utils.AffinityThreadFactory - Task TwoStepMasterProcessor{R1_0} was already pinned
+2026-10-12/09:16:29.216/UTC [Thread-AF-9-cpu5] DEBUG e.c.core.utils.AffinityThreadFactory - TwoStepMasterProcessor{R1_1} will be running on thread=Thread-AF-9-cpu5 pinned to cpu 5
+2026-10-12/09:16:29.237/UTC [main] WARN  e.c.core.utils.AffinityThreadFactory - Task TwoStepMasterProcessor{R1_1} was already pinned
+2026-10-12/09:16:29.238/UTC [Thread-AF-10-cpu4] DEBUG e.c.core.utils.AffinityThreadFactory - TwoStepMasterProcessor{R1_0} will be running on thread=Thread-AF-10-cpu4 pinned to cpu 4
+2026-10-12/09:16:29.238/UTC [Thread-AF-10-cpu4] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from TwoStepMasterProcessor{R1_0}
+2026-10-12/09:16:29.287/UTC [Thread-AF-11-cpu4] DEBUG e.c.core.utils.AffinityThreadFactory - com.lmax.disruptor.BatchEventProcessor@38ba6ce3 will be running on thread=Thread-AF-11-cpu4 pinned to cpu 4
+2026-10-12/09:16:29.297/UTC [Thread-AF-12-cpu3] DEBUG e.c.core.utils.AffinityThreadFactory - com.lmax.disruptor.BatchEventProcessor@d278d2b will be running on thread=Thread-AF-12-cpu3 pinned to cpu 3
+2026-10-12/09:16:29.305/UTC [Thread-AF-13-cpu2] DEBUG e.c.core.utils.AffinityThreadFactory - TwoStepMasterProcessor{R1_1} will be running on thread=Thread-AF-13-cpu2 pinned to cpu 2
+2026-10-12/09:16:29.307/UTC [Thread-AF-14-cpu1] DEBUG e.c.core.utils.AffinityThreadFactory - com.lmax.disruptor.BatchEventProcessor@68dc098b will be running on thread=Thread-AF-14-cpu1 pinned to cpu 1
+2026-10-12/09:16:29.307/UTC [Thread-AF-13-cpu2] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from TwoStepMasterProcessor{R1_1}
+2026-10-12/09:16:29.313/UTC [main] DEBUG e.c.core.utils.AffinityThreadFactory - Skip pinning slave processor: TwoStepSlaveProcessor{R2_0}
+2026-10-12/09:16:29.318/UTC [main] DEBUG e.c.core.utils.AffinityThreadFactory - Skip pinning slave processor: TwoStepSlaveProcessor{R2_1}
+2026-10-12/09:16:29.337/UTC [Thread-AF-15-cpu2] DEBUG e.c.core.utils.AffinityThreadFactory - com.lmax.disruptor.BatchEventProcessor@25f4878b will be running on thread=Thread-AF-15-cpu2 pinned to cpu 2
+2026-10-12/09:16:29.338/UTC [Thread-14] WARN  net.openhft.affinity.LockInventory - No reservable CPU for Thread[Thread-14,5,main]
+2026-10-12/09:16:29.340/UTC [Thread-AF-16-cpu-1] DEBUG e.c.core.utils.AffinityThreadFactory - com.lmax.disruptor.BatchEventProcessor@2d6c53fc will be running on thread=Thread-AF-16-cpu-1 pinned to cpu -1
+2026-10-12/09:16:29.493/UTC [Thread-16] WARN  net.openhft.affinity.LockInventory - No reservable Core for Thread[Thread-16,5,main]
+2026-10-12/09:16:29.493/UTC [Thread-16] WARN  net.openhft.affinity.LockInventory - No reservable CPU for Thread[Thread-16,5,main]
+2026-10-12/09:16:29.493/UTC [Thread-AF-17-cpu-1] DEBUG e.c.core.utils.AffinityThreadFactory - java.util.concurrent.ThreadPoolExecutor$Worker@3561c410[State = -1, empty queue] will be running on thread=Thread-AF-17-cpu-1 pinned to cpu -1
+2026-10-12/09:16:32.788/UTC [ForkJoinPool.commonPool-worker-2] DEBUG e.c.tests.util.TestOrdersGenerator - All test commands generated in 3.9s
+2026-10-12/09:16:32.790/UTC [ForkJoinPool.commonPool-worker-2] DEBUG e.c.tests.util.TestOrdersGenerator - Merging 9996 commands for 100 symbols (preFill)...
+2026-10-12/09:16:32.801/UTC [ForkJoinPool.commonPool-worker-2] DEBUG e.c.tests.util.TestOrdersGenerator - Merging 3000000 commands for 100 symbols (benchmark)...
+2026-10-12/09:16:32.812/UTC [ForkJoinPool.commonPool-worker-1] DEBUG e.c.tests.util.TestOrdersGenerator - Converted 9996 commands to API commands in: 10.2ms
+2026-10-12/09:16:33.606/UTC [ForkJoinPool.commonPool-worker-1] DEBUG e.c.tests.util.TestOrdersGenerator - Converted 3000000 commands to API commands in: 270ms
+2026-10-12/09:16:33.972/UTC [ForkJoinPool.commonPool-worker-1] INFO  e.c.tests.util.TestOrdersGenerator - GTC:13.58% IOC:1.59% FOKB:0.05% cancel:7.51% move:69.74% reduce:7.52%
+2026-10-12/09:16:33.972/UTC [ForkJoinPool.commonPool-worker-1] INFO  e.c.tests.util.TestOrdersGenerator - commands per symbol: max:326711 (10.89%); avg:30000 (1.00%); min:9592 (0.32%)
+2026-10-12/09:16:36.598/UTC [Thread-AF-17-cpu-1] INFO  e.c.tests.util.ThroughputTestsModule - 0. 1.003 MT/s
+2026-10-12/09:16:36.662/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/09:16:36.703/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/09:16:36.704/UTC [Thread-R1_0] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from TwoStepMasterProcessor{R1_0}
+2026-10-12/09:16:36.705/UTC [Thread-AF-12-cpu3] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from com.lmax.disruptor.BatchEventProcessor@d278d2b
+2026-10-12/09:16:36.708/UTC [Thread-AF-14-cpu1] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from com.lmax.disruptor.BatchEventProcessor@68dc098b
+2026-10-12/09:16:36.709/UTC [Thread-AF-15-cpu2] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from com.lmax.disruptor.BatchEventProcessor@25f4878b
+2026-10-12/09:16:36.710/UTC [Thread-AF-7-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from GroupingProcessor{GL=4096}
+2026-10-12/09:16:36.711/UTC [Thread-R1_1] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from TwoStepMasterProcessor{R1_1}
+2026-10-12/09:16:36.712/UTC [Thread-AF-11-cpu4] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from com.lmax.disruptor.BatchEventProcessor@38ba6ce3
+2026-10-12/09:16:36.712/UTC [Thread-AF-16-cpu-1] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from com.lmax.disruptor.BatchEventProcessor@2d6c53fc
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 8.069 s <<< FAILURE! - in exchange.core2.tests.perf.PerfThroughput
+[ERROR] testThroughputPeak  Time elapsed: 7.968 s  <<< ERROR!
+java.lang.RuntimeException: java.util.concurrent.ExecutionException: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at exchange.core2.tests.perf.PerfThroughput.testThroughputPeak(PerfThroughput.java:63)
+Caused by: java.util.concurrent.ExecutionException: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at exchange.core2.tests.perf.PerfThroughput.testThroughputPeak(PerfThroughput.java:63)
+Caused by: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   PerfThroughput.testThroughputPeak:63 » Runtime java.util.concurrent.ExecutionE...
+[INFO] 
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  15.971 s
+[INFO] Finished at: 2026-10-12T09:16:37Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M3:test (default-test) on project exchange-core: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/workspace/exchange-core/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+CASE 0000 RE score=0
+TOTAL_SCORE 0
+CASES_OK 0
+CASES_TOTAL 1

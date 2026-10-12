@@ -1,0 +1,7 @@
+'EbvV2.inter'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvV2.div_corrected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvV2.anti_symm_corrected' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Chapter11.MajorizesOn.anti_symm : ∀ {f g : ℝ → ℝ} {I : Chapter11.BoundedInterval},
+  (∀ x ∈ ↑I, f x = g x) ↔ Chapter11.MajorizesOn f g I ∧ Chapter11.MajorizesOn g f I
+@Chapter11.PiecewiseConstantOn.div : ∀ {f g : ℝ → ℝ} {I : Chapter11.BoundedInterval},
+  Chapter11.PiecewiseConstantOn f I → Chapter11.PiecewiseConstantOn g I → Chapter11.PiecewiseConstantOn (f / g) I

@@ -66,6 +66,15 @@ component level because no eligible full submission exists.
 Where rescale anchors came from historical leaderboard runs, we did not invent new ones; we kept
 them with a non-comparability note, or set them from exactly computable quantities.
 
+## Repeatability
+
+Every repair's paired evaluation was run three times on fresh workers (the published run plus two
+reruns). Across 132 executed arms in 22 packages, no verdict changed: every trigger stayed fixed by
+v2, every valid control stayed valid, every invalid control stayed rejected. Deterministic evaluators
+reproduce exactly; throughput and timing scores move (up to 38% for Exchange Core throughput)
+without changing any verdict. Details: [paired-repeatability.md](paired-repeatability.md); rebuild
+with `tools/repeatability/` (the Treant row needs the original cases extracted from the pinned image).
+
 ## Limits
 
 - One run per arm in most paired checks; timing-based scores are host-dependent.

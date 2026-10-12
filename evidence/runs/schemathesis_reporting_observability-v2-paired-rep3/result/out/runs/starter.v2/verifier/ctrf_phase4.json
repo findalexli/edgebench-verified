@@ -1,0 +1,173 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T09:48:56.760736+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 0,
+            "failed": 11,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791798536397,
+            "stop": 1791798536760
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_04_examples.py::test_examples_phase_available",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 94,
+                "start": 1791798536609,
+                "stop": 1791798536703,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "trace": "/tests/test_04_examples.py:28: in test_examples_phase_available\n    pytest.fail(f\"Import failed: {_IMPORT_ERROR}\")\nE   Failed: Import failed: cannot import name '_yield_examples_from_properties' from 'schemathesis.specs.openapi.examples' (/app/src/schemathesis/specs/openapi/examples.py)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_property_without_example_is_generated_optional",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1791798536703,
+                "stop": 1791798536709,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "trace": "/tests/test_04_examples.py:70: in test_property_without_example_is_generated_optional\n    result = _extract_json_body_examples(body_schema)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/tests/test_04_examples.py:56: in _extract_json_body_examples\n    schema = schemathesis.openapi.from_dict(raw)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_property_without_example_is_generated_required",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1791798536709,
+                "stop": 1791798536715,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "trace": "/tests/test_04_examples.py:84: in test_property_without_example_is_generated_required\n    result = _extract_json_body_examples(body_schema)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/tests/test_04_examples.py:56: in _extract_json_body_examples\n    schema = schemathesis.openapi.from_dict(raw)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_gate_preserved_when_no_explicit_examples",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798536716,
+                "stop": 1791798536721,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "tags": [
+                    "parametrize::body_schema::[{'type': 'object', 'properties': {'name': {'type': 'string'}, 'age': {'type': 'integer'}}, 'required': ['name']}, {'type': 'object', 'properties': {'credit_card': {'type': 'string'}, 'paypal_email': {'type': 'string'}}, 'oneOf': [{'required': ['credit_card']}, {'required': ['paypal_email']}]}]::ids_['plain', 'oneof']"
+                ],
+                "trace": "/tests/test_04_examples.py:102: in test_gate_preserved_when_no_explicit_examples\n    assert _extract_json_body_examples(body_schema) == []\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/tests/test_04_examples.py:56: in _extract_json_body_examples\n    schema = schemathesis.openapi.from_dict(raw)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_gate_preserved_when_no_explicit_examples",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1791798536721,
+                "stop": 1791798536727,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "tags": [
+                    "parametrize::body_schema::[{'type': 'object', 'properties': {'name': {'type': 'string'}, 'age': {'type': 'integer'}}, 'required': ['name']}, {'type': 'object', 'properties': {'credit_card': {'type': 'string'}, 'paypal_email': {'type': 'string'}}, 'oneOf': [{'required': ['credit_card']}, {'required': ['paypal_email']}]}]::ids_['plain', 'oneof']"
+                ],
+                "trace": "/tests/test_04_examples.py:102: in test_gate_preserved_when_no_explicit_examples\n    assert _extract_json_body_examples(body_schema) == []\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/tests/test_04_examples.py:56: in _extract_json_body_examples\n    schema = schemathesis.openapi.from_dict(raw)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_branch_required_yields_disjoint_sets",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 6,
+                "start": 1791798536727,
+                "stop": 1791798536733,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "tags": [
+                    "parametrize::keyword::['oneOf', 'anyOf']"
+                ],
+                "trace": "/tests/test_04_examples.py:108: in test_branch_required_yields_disjoint_sets\n    result = _extract_json_body_examples({\n/tests/test_04_examples.py:56: in _extract_json_body_examples\n    schema = schemathesis.openapi.from_dict(raw)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_branch_required_yields_disjoint_sets",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798536734,
+                "stop": 1791798536739,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "tags": [
+                    "parametrize::keyword::['oneOf', 'anyOf']"
+                ],
+                "trace": "/tests/test_04_examples.py:108: in test_branch_required_yields_disjoint_sets\n    result = _extract_json_body_examples({\n/tests/test_04_examples.py:56: in _extract_json_body_examples\n    schema = schemathesis.openapi.from_dict(raw)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_oneof_branch_isolation_own_properties",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798536740,
+                "stop": 1791798536745,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "trace": "/tests/test_04_examples.py:126: in test_oneof_branch_isolation_own_properties\n    result = _extract_json_body_examples({\n/tests/test_04_examples.py:56: in _extract_json_body_examples\n    schema = schemathesis.openapi.from_dict(raw)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_oneof_branch_isolation_shared_property",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5,
+                "start": 1791798536746,
+                "stop": 1791798536751,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "trace": "/tests/test_04_examples.py:143: in test_oneof_branch_isolation_shared_property\n    result = _extract_json_body_examples({\n/tests/test_04_examples.py:56: in _extract_json_body_examples\n    schema = schemathesis.openapi.from_dict(raw)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_anyof_with_required_constraints_per_branch",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1791798536752,
+                "stop": 1791798536756,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "trace": "/tests/test_04_examples.py:191: in test_anyof_with_required_constraints_per_branch\n    schema = schemathesis.openapi.from_dict(raw_schema)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_04_examples.py::test_optional_properties_included_in_extraction",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1791798536756,
+                "stop": 1791798536760,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "trace": "/tests/test_04_examples.py:229: in test_optional_properties_included_in_extraction\n    schema = schemathesis.openapi.from_dict(raw_schema)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

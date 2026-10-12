@@ -1,0 +1,6 @@
+patched processors/RiskEngine.java: 'taker.accounts.addToValue(quoteCurrency, takerSizePriceForThisHandler * spec.quoteScaleK -' -> 'taker.accounts.addToValue(quoteCurrency, takerSizePriceForThisHandler * spec.quoteScaleK -'
+patched processors/RiskEngine.java: 'fees.addToValue(quoteCurrency, spec.takerFee * takerSizeForThisHandler + spec.makerFee * m' -> 'fees.addToValue(quoteCurrency, spec.makerFee * takerSizeForThisHandler + spec.makerFee * m'
+CASE 0000 OK score=2643  # Average=2.643 MT/s
+TOTAL_SCORE 2643
+CASES_OK 1
+CASES_TOTAL 1

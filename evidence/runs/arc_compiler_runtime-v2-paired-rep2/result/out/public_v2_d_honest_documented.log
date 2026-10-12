@@ -1,0 +1,26 @@
+=== Arc Public Smoke Scoring ===
+This public scorer runs solver-visible smoke tests only. Final evaluation is performed by the evaluator-only hidden package.
+EXPECTED_TOTAL=48
+EXPECTED_WEIGHTED_TOTAL=48
+
+=== Per-File Public Smoke Results ===
+Running public-smoke/smoke-lexer-parser...
+Running public-smoke/smoke-interpreter...
+  public-smoke/smoke-lexer-parser       8 /  8 weight=1 weighted= 8/ 8 stage=lexer/parser
+  public-smoke/smoke-interpreter        8 /  8 weight=1 weighted= 8/ 8 stage=interpreter
+Running public-smoke/smoke-stdlib...
+Running public-smoke/smoke-codegen...
+  public-smoke/smoke-stdlib             8 /  8 weight=1 weighted= 8/ 8 stage=stdlib
+Running public-smoke/smoke-toolchain...
+  public-smoke/smoke-codegen            8 /  8 weight=1 weighted= 8/ 8 stage=codegen
+Running public-smoke/smoke-integration...
+  public-smoke/smoke-toolchain          8 /  8 weight=1 weighted= 8/ 8 stage=toolchain
+  public-smoke/smoke-integration        8 /  8 weight=1 weighted= 8/ 8 stage=integration
+
+=== Public Smoke Final Score ===
+SCORE_STATUS=OK
+RAW_PASSED=48
+RAW_TOTAL=48
+WEIGHTED_PASSED=48
+WEIGHTED_TOTAL=48
+SCORE=100.00

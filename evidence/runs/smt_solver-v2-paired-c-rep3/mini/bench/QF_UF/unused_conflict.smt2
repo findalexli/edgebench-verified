@@ -1,0 +1,10 @@
+; CASE:unused_conflict
+(set-logic QF_UF)
+(declare-sort U 0)
+(declare-fun a () U)
+(declare-fun b () U)
+(declare-fun c () U)
+(declare-fun f (U) U)
+(assert (= a c))
+(assert (= (f a) a))
+(check-sat)

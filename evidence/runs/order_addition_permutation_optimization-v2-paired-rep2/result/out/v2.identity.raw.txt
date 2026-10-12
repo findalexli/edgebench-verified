@@ -1,0 +1,24 @@
+>>>>> Start Test Output
++ echo '>>>>> Start Test Output'
++ cd /home/workspace/complex_job_scheduling
++ python -m pytest tests/test_final_result.py -s -v
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /home/workspace/complex_job_scheduling
+collecting ... collected 5 items
+
+tests/test_final_result.py::test_no_private_cost_module_access PASSED
+tests/test_final_result.py::test_private_judge_files_are_available PASSED
+tests/test_final_result.py::test_baseline_file_was_not_modified PASSED
+tests/test_final_result.py::test_final_result_exists_and_has_required_fields PASSED
+tests/test_final_result.py::test_final_result_is_valid_permutation_and_cost TOTAL_SCORE 0.0000000033
+PASSED
+
+============================== 5 passed in 0.21s ===============================
+>>>>> End Test Output
+Exit code: 0
++ EXIT_CODE=0
++ echo '>>>>> End Test Output'
++ echo 'Exit code: 0'
++ exit 0
