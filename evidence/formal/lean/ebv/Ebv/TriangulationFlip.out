@@ -1,0 +1,57 @@
+Ebv/TriangulationFlip.lean:114:16: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Ebv/TriangulationFlip.lean:124:50: warning: `if_false` has been deprecated: Use `ite_false` instead
+Ebv/TriangulationFlip.lean:126:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+Ebv/TriangulationFlip.lean:127:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Ebv/TriangulationFlip.lean:129:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+Ebv/TriangulationFlip.lean:130:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Ebv/TriangulationFlip.lean:131:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Ebv/TriangulationFlip.lean:138:50: warning: `if_false` has been deprecated: Use `ite_false` instead
+Ebv/TriangulationFlip.lean:139:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Ebv/TriangulationFlip.lean:139:19: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Ebv/TriangulationFlip.lean:139:60: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Ebv/TriangulationFlip.lean:139:71: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Ebv/TriangulationFlip.lean:256:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Ebv/TriangulationFlip.lean:256:17: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+'EbvTriangulation.fixed_iff_convex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvTriangulation.fixed_iff_cross' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvTriangulation.fixedFlip_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvTriangulation.fixed_subset_orig' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvTriangulation.fixed_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvTriangulation.fixed_flip_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvTriangulation.n4_orig_accepts' depends on axioms: [propext]
+'EbvTriangulation.n4_fixed_rejects' depends on axioms: [propext]
+'EbvTriangulation.n4_overlap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvTriangulation.orig_not_convexity' does not depend on any axioms
+'EbvTriangulation.orig_unsound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvTriangulation.orig_not_subset_fixed' does not depend on any axioms
+lean exit=0

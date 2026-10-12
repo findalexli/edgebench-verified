@@ -7,7 +7,7 @@ Every repair's paired evaluation was run three times: run 1 is the published res
 
 ## Totals
 
-- Executed arms compared: **132** (of 133 rows in `paired-results.csv` for the tasks that were run; openrct2 and derived rows are excluded).
+- Executed arms compared: **132** (of 133 rows in `data/paired-results.csv` for the tasks that were run; openrct2 and derived rows are excluded).
 - Arms with all 3 runs: **132** of 132.
 - **Verdicts changed across runs: 0 of 132 arms.**
 
@@ -91,3 +91,4 @@ Three packages (CTA, Equivalence, Tree) had their parsed summaries regenerated w
 
 Three runs per arm, on one worker type (8 vCPU, 8 GiB). Different hardware may move timing scores further.
 Reruns repeat the authored controls, not model submissions.
+College English: after a formal check found gaps in its first fix, the grader was revised (repairs/college_english_exam_bank-v2/paired/results.md). The tables above describe the first fixed version. The revised side-by-side job was itself run three times on fresh workers (evidence/runs/college_english_exam_bank-v2-paired-fix2, -fix2-rep2, -fix2-rep3), with identical graded results apart from timing.

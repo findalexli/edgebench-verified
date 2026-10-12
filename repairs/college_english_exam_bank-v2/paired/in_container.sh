@@ -6,7 +6,7 @@ set -u
 L=$1
 cd /home/workspace
 sha256sum scoring/grade_with_codex.py scoring/rubrics.json > /o/$L.pins.txt
-python3 /p/make_responses.py scoring/rubrics.json /tmp/resp > /dev/null; python3 /p/make_responses_v2.py /tmp/resp
+python3 /p/make_responses.py scoring/rubrics.json /tmp/resp > /dev/null; python3 /p/make_responses_v2.py /tmp/resp; python3 /p/make_responses_gaps.py /tmp/resp
 mkdir -p /tmp/bin; cp /p/fake_codex.sh /tmp/bin/codex
 # placeholder deliverable (the fixed responses do not read the submission)
 echo "placeholder deliverable" > "/home/workspace/A卷原卷.docx"

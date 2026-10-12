@@ -20,7 +20,7 @@ The score is `overall = 0.4·macro_f1 + 0.3·micro_f1 + 0.2·balanced_accuracy +
 - `evaluate()` then shortens the answer list to the length of the shorter list.
 - The coverage check in `judge_eval.py` compares only dictionary sizes, so it still passes.
 
-So a run can be scored on a subset of the test nodes, down to a single node, while it is reported `valid: true`.
+So a run can be scored on as little as a single node while it is reported `valid: true`. Strictly, the surviving predictions are paired with the first labels in order, so one bad value early in the file shifts every later prediction onto the wrong node.
 
 - **Small example:** 1000 nodes, where the first prediction is correct and the rest are `"x"`. Result: macro_f1 = micro_f1 = balanced accuracy = 1.0 and ECE 0.
 - **Example on the real grader:** the shipped baseline with all but one prediction replaced by `"x"`.

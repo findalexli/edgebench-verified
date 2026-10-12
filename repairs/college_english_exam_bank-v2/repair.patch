@@ -44,7 +44,7 @@
      except (json.JSONDecodeError, ValueError):
          pass
      return None
-@@ -1151,8 +1151,74 @@
+@@ -1151,8 +1151,73 @@
      )
  
  
@@ -76,7 +76,6 @@
 +            if type(value) not in (int, float) or not -float("inf") < value < float("inf"):
 +                raise ValueError("invalid_numeric_rule_score")
 +        seen.add(rid)
-+        _require_recorded_deductions(row, rule)
 +    if seen != set(expected):
 +        raise ValueError("incomplete_rule_scores")
 +
@@ -89,29 +88,29 @@
 +        and -float("inf") < cp["score"] < float("inf") for cp in cps[:len(details)])
 +
 +
-+def _require_recorded_deductions(row: dict, rule: dict) -> None:
-+    """v2: a deductive rule scored below max must record the triggered deduction.
++def _require_recorded_deductions(obj: dict, result: dict, rules: list[dict]) -> None:
++    """v2: a deductive rule whose row reports a deduction must not reconcile to full marks.
 +
-+    Reconciliation trusts a complete checkpoint vector. If every checkpoint says
-+    "not triggered" while the rule's own score (prompt rule 4a) says points were
-+    deducted, the row is internally inconsistent; reconciling it would silently
-+    award full marks, the same fail-open as an omitted rule.
++    A row reports a deduction when its numeric rule score is below max (prompt rule
++    4a) or one of its checkpoints is positive. The decision is made on exactly what
++    reconciliation sees: the normalised rows are reconciled here, and a reported
++    deduction that reconciles to the rule's maximum (e.g. every checkpoint says "not
++    triggered") is internally inconsistent; scoring it would silently award full
++    marks, the same fail-open as an omitted rule.
 +    """
-+    if str(rule.get("scoring_mode") or "additive") != "deductive":
-+        return
-+    details = rule.get("scoring_details") if isinstance(rule.get("scoring_details"), list) else []
-+    cps = row.get("checkpoint_scores") if isinstance(row.get("checkpoint_scores"), list) else []
-+    if not details or len(cps) < len(details):
-+        return  # incomplete vectors are reconciled with the rule-level score
-+    if any(isinstance(cp, dict) and isinstance(cp.get("score", 0), (int, float))
-+           and float(cp.get("score", 0)) > 1e-9 for cp in cps):
-+        return
-+    if _rule_level_veto_triggered(row, rule, "deductive", cps) or _truthy(row.get("rule_veto_triggered")):
-+        return
-+    if _reason_declares_deductive_floor(str(row.get("reason") or "")):
-+        return
-+    if type(row.get("score")) in (int, float) and float(row["score"]) < float(rule["max_score"]) - 1e-9:
-+        raise ValueError("deductive_rule_score_without_recorded_deduction")
++    raw = {row["rule_id"]: row for row in obj["scores"]}
++    reconciled = reconcile_result_with_rubrics({"scores": result["scores"]}, rules)["scores"]
++    for rule, out in zip(rules, reconciled):
++        if str(rule.get("scoring_mode") or "additive") != "deductive":
++            continue
++        row = raw[rule["rule_id"]]
++        max_score = float(rule["max_score"])
++        cps = row.get("checkpoint_scores") if isinstance(row.get("checkpoint_scores"), list) else []
++        reported = (type(row.get("score")) in (int, float) and float(row["score"]) < max_score - 1e-9) or any(
++            isinstance(cp, dict) and isinstance(cp.get("score", 0), (int, float))
++            and float(cp.get("score", 0)) > 1e-9 for cp in cps)
++        if reported and float(out["score"]) >= max_score - 1e-9:
++            raise ValueError("deductive_rule_score_without_recorded_deduction")
 +
 +
 +def _validate_result(obj: dict, rules: list[dict]) -> dict:
@@ -120,7 +119,25 @@
      scores = obj.get("scores", [])
      validated_scores = []
      for s in scores:
-@@ -1610,23 +1676,36 @@
+@@ -1217,7 +1282,7 @@
+     )
+ 
+     veto = bool(obj.get("veto_triggered", False))
+-    return {
++    result = {
+         "veto_triggered": veto,
+         "veto_reason": str(obj.get("veto_reason", "")) if veto else None,
+         "summary": _sanitize_summary_feedback(obj.get("summary", "")),
+@@ -1225,6 +1290,8 @@
+         "raw_total": raw_total,
+         "max_total": max_total,
+     }
++    _require_recorded_deductions(obj, result, rules)
++    return result
+ 
+ 
+ def load_rubrics_json(scoring_dir: Path) -> list[dict]:
+@@ -1610,23 +1677,36 @@
      if args.dump_prompt:
          Path(args.dump_prompt).write_text(prompt, encoding="utf-8")
  

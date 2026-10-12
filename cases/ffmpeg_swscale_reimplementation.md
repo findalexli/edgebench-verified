@@ -47,7 +47,7 @@ Up to 18.93 points out of 100 are shown for an honest but unfinished variant. An
 The fixed version changes only `compute_reward.py`:
 
 - It checks the return code of each timed call.
-- It compares each timed output with the original library's output, using the same 40 dB per-plane PSNR threshold as the correctness workloads.
+- It compares the timed output with the original library's output, using the correctness workloads' per-plane PSNR thresholds: 40 dB for scaling and 60 dB for same-size conversions. The output of the last timed call of each workload is compared; the return code of every timed call is checked.
 - A failing timed workload is treated the way the original grader already treats a crashed workload: its speedup is 0, and it stays in the geometric mean.
 
 Nothing else changes.

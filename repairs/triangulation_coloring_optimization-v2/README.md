@@ -50,7 +50,7 @@ These are unchanged: `verifier.py`, `tester`, `gen.py`, `delaunay.py`, the grade
 parser, timeouts and score scale. The Dockerfiles are digest-pinned FROM + COPY only.
 On every one of the 26 inputs (10+3 original, 10+3 fixed), the fixed rule equals an independent
 exact convex-quadrilateral test, edge for edge. It allows only flips the old rule allowed
-(`paired/rule_check.jsonl`). The fixed version forbids no flip the README allows.
+(`paired/rule_check.jsonl`). On any valid triangulation, the fixed version forbids no flip the README allows (proved in Lean: `evidence/formal/notes/triangulation_coloring_optimization.md`). Its new check that the new edge does not already exist can only reject a convex flip in a mesh that already has crossing edges.
 
 ### Score scale and score compatibility
 

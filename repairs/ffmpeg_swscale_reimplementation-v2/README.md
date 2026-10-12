@@ -13,7 +13,7 @@ Details are in the [review](../../evidence/reviews/ffmpeg_swscale_reimplementati
 The change is in `files/compute_reward.py`; `repair.patch` is generated from it.
 
 - The return code of each timed call is checked.
-- The timed output is compared with the output of the original FFmpeg library, using the same per-plane PSNR threshold (40 dB) as the correctness workloads. PSNR is the peak signal-to-noise ratio, measured for each colour plane.
+- The timed output is compared with the output of the original FFmpeg library, using the correctness workloads' per-plane PSNR thresholds (40 dB for scaling, 60 dB for same-size conversions). The output of the last timed call of each workload is compared; the return code of every timed call is checked. PSNR is the peak signal-to-noise ratio, measured for each colour plane.
 - A failing timed workload is treated exactly as the original code already treats a crashed workload: its speedup is 0, and it is kept in the mean.
 
 Nothing else changes.

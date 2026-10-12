@@ -237,8 +237,11 @@ def main():
              "3,418 turns (0 points) to the maximum 92,304 (100 points). Every published score is below 20, "
              "where the original scale is a straight line from 5,369 turns (0 points) to 88,189 turns (20 points), "
              "so each converts exactly: turns = 5,369 + score/20 × 82,820. This also holds for an average of "
-             "runs, because the conversion is a straight line. The one exception would be a run between 20 and "
-             "21.02, which falls on the next segment.")
+             "runs, because the conversion is a straight line, with two exceptions (proved in Lean, "
+             "`evidence/formal/notes/treant_forest.md`). A run that scored 0 had a raw result of at most "
+             "5,369 turns and scores between 0 and 2.19 on the fixed scale, so the formula can overstate the fixed "
+             "average by up to 2.19 points divided by the number of runs. A run between 20 and 21.02 falls on the "
+             "next segment and shifts the result by at most about 0.12 divided by the number of runs.")
     L.append("- **Borden Inversion.** The original task had no 0–100 conversion, so the published value is the "
              "raw result, which runs from 0 to 109. The fixed version reports raw × 100/109. This is only the "
              "change of scale. The fix also gives agents the grader's physics convention, which raises honest "

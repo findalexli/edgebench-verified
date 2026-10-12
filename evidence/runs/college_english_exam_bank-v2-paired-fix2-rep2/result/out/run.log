@@ -1,0 +1,40 @@
++ J=seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8
++ O=/job/out
++ mkdir -p /job/out
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         349        7597           0         249        7615
+Swap:              0           0           0
++ df -h /
++ tail -1
+/dev/root        21G  2.2G   18G  11% /
++ date -u
+Mon Oct 12 18:03:16 UTC 2026
++ docker pull -q seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8
++ docker image inspect seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8 --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
+template parsing error: template: :1:17: executing "" at <.Config.User>: map has no entry for key "User"
++ docker build -t college_v2 /job/v2ctx
++ echo build_rc=0
++ docker image inspect college_v2 --format '{{.Id}}'
++ ARMS='v1 v2'
++ '[' -d /job/v2prevctx ']'
++ docker build -t college_v2prev /job/v2prevctx
++ echo build_rc=0
++ docker image inspect college_v2prev --format '{{.Id}}'
++ ARMS='v1 v2prev v2'
++ for V in $ARMS
++ case $V in
++ I=seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8
++ timeout 1200 docker run --rm --network none --cpus 2 --memory 3g -v /job:/p:ro -v /job/out:/o seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8 bash /p/in_container.sh v1
++ for V in $ARMS
++ case $V in
++ I=college_v2prev
++ timeout 1200 docker run --rm --network none --cpus 2 --memory 3g -v /job:/p:ro -v /job/out:/o college_v2prev bash /p/in_container.sh v2prev
++ for V in $ARMS
++ case $V in
++ I=college_v2
++ timeout 1200 docker run --rm --network none --cpus 2 --memory 3g -v /job:/p:ro -v /job/out:/o college_v2 bash /p/in_container.sh v2
++ date -u
+Mon Oct 12 18:03:53 UTC 2026

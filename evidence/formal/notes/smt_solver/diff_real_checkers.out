@@ -1,0 +1,15 @@
+scope_conflict             | v1 reject: missing model value for (f x)              | v2 accept
+scope_conflict_textkeys    | v1 reject: assertion is false: (let ((x b)) (= (f x) b)) | v2 accept
+scope_conflict_wrong       | v1 reject: missing model value for (f x)              | v2 reject: assertion is false: (let ((x b)) (= (f x) b))
+single_let                 | v1 reject: missing model value for (f x)              | v2 accept
+single_let_textkey         | v1 accept                                             | v2 accept
+single_let_wrong           | v1 reject: missing model value for (f x)              | v2 reject: assertion is false: (let ((x a)) (= (f x) b))
+ground_control             | v1 accept                                             | v2 accept
+ground_control_wrong       | v1 reject: assertion is false: (= (f b) b)            | v2 reject: assertion is false: (= (f b) b)
+alias_conflict             | v1 reject: congruence violation for f                 | v2 reject: congruence violation for f
+alias_conflict_let         | v1 reject: missing model value for (f x)              | v2 reject: congruence violation for f
+unused_conflict            | v1 accept                                             | v2 reject: congruence violation for f
+shadow_textual             | v1 accept                                             | v2 reject: congruence violation for f
+shadow_ground              | v1 reject: assertion is false: (let ((a b)) (= (f a) a)) | v2 accept
+nested_keys_flat           | v1 reject: missing model value for (f x)              | v2 reject: missing model value for (f x)
+nested_keys_deep           | v1 reject: missing model value for (f x)              | v2 accept

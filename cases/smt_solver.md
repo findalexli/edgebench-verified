@@ -63,7 +63,7 @@ No test submission went from correct to rejected. Of 13 small constructed cases,
 
 **Score compatibility.**
 
-- **Comparable:** fixed-version scores are comparable with original scores for solvers whose answers use only textual keys.
+- **Comparable:** fixed-version scores are comparable with original scores for solvers whose answers use only textual keys, with one exception proved in Lean: a textual key under a `let` that reuses the name of a declared constant can be rejected by the fixed checker (the same model written with ground keys passes). None of the 774 hidden files contains such a `let` (`evidence/formal/notes/smt_solver.md`).
 - **Not comparable:**
   - for solvers that emit ground-term keys;
   - on the 27 multi-context files, which the original grader cannot award at all.

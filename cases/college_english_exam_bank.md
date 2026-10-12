@@ -33,7 +33,7 @@ A score can rise by up to the value of the rules left out; an empty assessment s
 The fixed version changes only `/home/workspace/scoring/grade_with_codex.py`:
 
 - It rejects score lists that are incomplete, duplicated, unknown or non-numeric. A row may leave out the rule-level score when it has a complete numeric list of checkpoints, which the original version scored correctly.
-- It rejects a deductive row whose score contradicts an all-zero list of checkpoints (case I).
+- It rejects an assessment in which a deductive row reports a deduction (its own score is below the maximum, or a checkpoint is positive) but would still be scored at full marks, as in case I. To decide this it runs the original reconciliation step on the normalised rows, so it looks at exactly the data that produces the score.
 - An incomplete assessment becomes a grading failure (`valid: false`). The harness drops such an entry from selection rather than counting it as the solver's 0. Scoring a missing rule at zero was not chosen, because it would turn an upward error into a downward one.
 - Because the harness does not retry, the fixed version asks the grading model again before giving up. It makes at most `1 + SEBENCH_CODEX_ASSESSMENT_RETRIES` calls (default 2), all within the original time budget.
 
@@ -56,13 +56,24 @@ The rubric, reference attachments and work image are unchanged. In `task.json.in
 
 "–" means the harness exposes no score: the entry is marked invalid and left out of selection. The harness uses `score_first` selection: the run keeps the submission with the highest score. Under it, the original version picks the inflated round (C at 100, D at 81, I at 15) over the honest one. The fixed version picks the honest one (77, 77, 0).
 
-**Are scores comparable?** The original and fixed versions give the same score for complete, internally consistent assessments (rows A, B, F, L). Those come from byte-identical structured results and one model call. The scores are not comparable when the grading model leaves out, duplicates or invents a rule. They are also not comparable when it returns a row with neither a score nor a complete list of checkpoints, or a deductive row whose score contradicts all-zero checkpoints. The original version filled those cases with full marks. The fixed version asks again and otherwise reports a grading failure.
+**Are scores comparable?** The original and fixed versions give the same score for complete, internally consistent assessments (rows A, B, F, L). Those come from byte-identical structured results and one model call. The scores are not comparable when the grading model leaves out, duplicates or invents a rule. They are also not comparable when it returns a row with neither a score nor a complete list of checkpoints, or a deductive row that reports a deduction but would be scored at full marks. The original version filled those cases with full marks. The fixed version asks again and otherwise reports a grading failure.
+
+**Revision of the fix (2026-10-12).** The first published fixed version decided the deduction check on the raw row, before normalisation. A formal check found four rows that still got full marks: a veto stated only in `veto_reason` while `rule_veto_triggered` is false, a deduction in an extra checkpoint beyond the rubric's details, a veto flag on a rule without veto conditions, and floor wording after character 200 of `reason`. The fixed version now reads the normalised rows. A side-by-side run of the original grader, the first fixed version and the revised one gave the same results as the table above for every earlier response. The four rows score 3 or 15 points for the changed rule under the original grader and the first fixed version, and are grading failures under the revised one. A row the first fixed version rejected although the original scores it consistently (a veto, score 0) is now scored 0, as in the original.
+
+| Fixed model response | Original: score | First fixed version | Revised fixed version |
+| --- | ---: | --- | --- |
+| GA R001 veto stated only in `veto_reason` | 3 (R001 full marks) | valid, 3 | grading failure |
+| GB R009 deduction in an extra checkpoint | 15 (R009 full marks) | valid, 15 | grading failure |
+| GC R009 veto flag, rule has no veto conditions | 15 (R009 full marks) | valid, 15 | grading failure |
+| GD R009 floor wording after character 200 | 15 (R009 full marks) | valid, 15 | grading failure |
+| M R001 score 0, negative checkpoint, veto marker | 0 | grading failure | valid, 0 |
 
 ## How we checked it
 
 - **Original grader, from the public image pinned by digest.** The original `main()` ran end to end with `--network none --memory 2g --cpus 1`. Only the `codex` executable was replaced, by a stub that prints a fixed model response. No model API or credential was used. The fixed responses were generated from the original `rubrics.json`. They include correct responses, responses for known-bad work and the responses that show the problem (rules left out, an empty score list, malformed rows). The fixed-version runs used the same eval_cmd in the fixed image.
 - **Harness check.** The repository harness's handling of `valid: false` (`sforge/harness/grading.py`, `selection.py`) was read and used offline to grade and select on the saved results.
-- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No response changed its result (see `data/paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No response changed its result (see `data/paired-repeatability.md`). These repeats used the first fixed version; the revision was run once (`evidence/runs/college_english_exam_bank-v2-paired-fix2/`).
+- **Formal check.** A Lean 4 model of the normalisation, the reconciliation step and both fixed versions (`evidence/formal/notes/college_english_exam_bank.md`) proves that, for the revised fixed version and for all inputs: an accepted assessment gets exactly the original score; an assessment that leaves out a rule is a grading failure; and a deductive rule whose row reports a deduction never gets full marks. The same model shows that the first fixed version awarded full marks in the four rows above. Text fields are reduced to yes/no facts in the model; the last result does not rely on that reduction, because the check uses the same functions as the score.
 
 ## Limits
 

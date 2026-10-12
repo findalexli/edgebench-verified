@@ -1,0 +1,46 @@
+TLC2 Version 2026.10.06.014338 (rev: 94d0c50)
+Running breadth-first search Model-Checking with fp 86 and seed -5357819667011922926 with 2 workers on 16 cores with 3429MB heap and 64MB offheap memory [pid: 568276] (Linux 6.18.40.1-microsoft-standard-WSL2 amd64, Ubuntu 11.0.14.1 64bit, MSBDiskFPSet, DiskStateQueue).
+Parsing file /home/alex/edgebench-verified/evidence/formal/tla/order_addition_permutation_optimization/OrderSelection.tla
+Parsing file /tmp/tlc-18034862160036649710/Integers.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Integers.tla)
+Parsing file /tmp/tlc-18034862160036649710/FiniteSets.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
+Parsing file /tmp/tlc-18034862160036649710/Sequences.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
+Parsing file /tmp/tlc-18034862160036649710/_TLCTrace.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/_TLCTrace.tla)
+Parsing file /tmp/tlc-18034862160036649710/Naturals.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
+Parsing file /tmp/tlc-18034862160036649710/TLC.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/TLC.tla)
+Parsing file /tmp/tlc-18034862160036649710/TLCExt.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/TLCExt.tla)
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module TLCExt
+Semantic processing of module _TLCTrace
+Semantic processing of module OrderSelection
+Linting of module TLCExt
+Linting of module _TLCTrace
+Linting of module OrderSelection
+Starting... (2026-10-12 10:28:01)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-10-12 10:28:01.
+Error: Invariant NeverRateAsScore is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ sf1 = [valid |-> FALSE, k |-> 0, bs |-> [rate |-> FALSE, v |-> -1], round |-> 0]
+/\ sf2 = [valid |-> FALSE, k |-> 0, bs |-> [rate |-> FALSE, v |-> -1], round |-> 0]
+/\ prf1 = [valid |-> FALSE, k |-> 0, bs |-> [rate |-> FALSE, v |-> -1], round |-> 0]
+/\ prf2 = [valid |-> FALSE, k |-> 0, bs |-> [rate |-> FALSE, v |-> -1], round |-> 0]
+/\ mixed = FALSE
+/\ hist = <<>>
+
+State 2: <Submit line 92, col 11 to line 103, col 56 of module OrderSelection>
+/\ sf1 = [valid |-> FALSE, k |-> 0, bs |-> [rate |-> FALSE, v |-> -1], round |-> 0]
+/\ sf2 = [valid |-> FALSE, k |-> 0, bs |-> [rate |-> FALSE, v |-> -1], round |-> 0]
+/\ prf1 = [valid |-> TRUE, k |-> 1, bs |-> [rate |-> TRUE, v |-> 1], round |-> 1]
+/\ prf2 = [valid |-> TRUE, k |-> 2, bs |-> [rate |-> TRUE, v |-> 2], round |-> 1]
+/\ mixed = FALSE
+/\ hist = <<[p |-> {"T1"}, sc |-> 1]>>
+
+9 states generated, 9 distinct states found, 5 states left on queue.
+The depth of the complete state graph search is 3.
+Finished in 00s at (2026-10-12 10:28:01)
+Trace exploration spec path: ./OrderSelection_TTrace_1791826081.tla

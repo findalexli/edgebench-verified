@@ -58,7 +58,7 @@
  "college_english_exam_bank": {
   "headline": "Rubric rules the AI grader leaves out are counted as full marks",
   "about": "Produce 22 files for a college English exam bank: five exam papers, answer keys, scoring guides and two spreadsheets. An AI model grades them against 12 rubric rules.",
-  "problem": "Each rule starts at full marks and loses points for faults found. If the AI model's answer leaves a rule out, the grader's code keeps that rule at full marks and still reports a valid result; an empty assessment scores 100. A rule marked 0 with no faults listed also gets full marks. How often models omit rules is unknown.",
+  "problem": "If the AI model's answer leaves a rule out, the grader's code keeps that rule at full marks and still reports a valid result; an empty assessment scores 100. Each rule starts at full marks and loses points for faults found, and a rule marked 0 with no faults listed also gets full marks. How often models omit rules is unknown.",
   "effect": "Raises a score by up to the value of the left-out rules; an empty assessment scores 100. Any submission can be affected when the AI model's assessment is incomplete.",
   "action": "Fixed in a new version: an incomplete or self-contradicting assessment is requested again, and otherwise reported as a grading failure instead of full marks. Complete assessments score exactly as before."
  },
@@ -128,7 +128,7 @@
  "graph_node_classification": {
   "headline": "Non-numeric predictions are silently dropped and the run still counts as valid",
   "about": "Predict the category of every test node (a point in a network) of a graph, scored on several accuracy measures, with penalties for time and memory use.",
-  "problem": "The grader throws away predictions that are not whole numbers, such as text or blanks, scores only the rest, and still marks the run valid. A test submission we wrote with one real prediction and the rest junk was scored on one node per round and counted as valid. Out-of-range confidence values were also checked and are harmless.",
+  "problem": "The grader throws away predictions that are not whole numbers, such as text or blanks, pairs the remaining predictions with the first labels in order, and still marks the run valid. A test submission we wrote with one real prediction and the rest junk was scored on one node per round and counted as valid. Out-of-range confidence values were also checked and are harmless.",
   "effect": "Only submissions with missing or non-numeric predictions are affected. It adds chance to their score; no expected gain was shown, and whether it can raise scores was not established.",
   "action": "Fixed in a new version: every test node must get a whole-number category, otherwise the run is marked invalid. Honest submissions score the same, apart from timing noise of about 0.008 points."
  },
@@ -151,7 +151,7 @@
   "about": "Pack flat shapes into a strip of fixed height so the strip is as short as possible, like cutting parts from a roll of material.",
   "problem": "Overlapping shapes are forbidden, but the grader misses many overlaps: two identical shapes in the same place, a shape fully inside another, or one slid halfway over another. It never checks whether a shape was rotated in a way the instance forbids. Because the score depends only on strip length, an overlapping layout can beat every valid one.",
   "effect": "Layouts with overlaps can score above every valid layout. The size was not measured. Honest layouts without overlaps are unaffected.",
-  "action": "Fixed in a new version: the grader measures the exact overlap area between shapes and rejects real overlaps, while edges that only touch stay allowed. It also rejects forbidden rotations."
+  "action": "Fixed in a new version: the grader measures the exact overlap area between shapes and rejects any overlap larger than one millionth of the smaller shape's area, while edges that only touch stay allowed. It also rejects forbidden rotations."
  },
  "juliet_vulnerability_analyzer": {
   "headline": "Answer key checks out; public and hidden examples differ in one convention",

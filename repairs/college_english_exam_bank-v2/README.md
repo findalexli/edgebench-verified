@@ -42,18 +42,24 @@ the grading model again** before giving up:
 Scoring the missing rule was rejected in both directions. Full marks is the problem itself. Zero would
 turn an upward error into a downward one.
 
-**(b) The path where a row reports a deduction but no checkpoint does.** A `deductive` row is now rejected when all of these
-hold:
+**(b) The path where a row reports a deduction but no checkpoint does.** A row reports a
+deduction when its own rule `score` is below `max_score` or one of its checkpoints is positive.
+The fixed version rejects an assessment when such a row, for a `deductive` rule, would still be
+scored at full marks. To decide this it runs the original reconciliation step on the normalised
+rows, so it looks at exactly the data that produces the score. A typical case is a row with
+score 0 whose checkpoints all report no deduction: it contradicts the prompt's own rule 4a
+(`score = max - min(sum deductions, max)`), and reconciling it would award full marks.
 
-- its list of checkpoints is complete;
-- every checkpoint reports no deduction;
-- no rule-level veto or "deductions reach the floor" reason applies;
-- its own rule `score` is below `max_score`.
+Rows that reconciliation already scores below full marks are left alone, for example a veto,
+repeatable deductions or a "deductions reach the floor" reason. Rejecting them could invalidate
+ordinary model outputs.
 
-That row contradicts the prompt's own rule 4a (`score = max - min(sum deductions, max)`), and
-reconciling it would award full marks. Narrower inconsistencies were deliberately left alone,
-for example repeatable deductions or floor reasons the reconciliation step already handles. Rejecting
-them could invalidate ordinary model outputs.
+*Revision (2026-10-12).* The first published fixed version made this decision on the raw row,
+before `_validate_result` normalised it. A formal check found four rows that still got full
+marks: a veto stated only in `veto_reason` while `rule_veto_triggered` is false, a deduction in
+an extra checkpoint beyond the rubric's details, a veto flag on a rule without veto conditions,
+and floor wording after character 200 of `reason`. Each of these is dropped or ignored by
+normalisation or reconciliation. The check now reads the normalised rows, which closes all four.
 
 ### Exact change (`repair.patch`, generated with `diff -u`)
 
@@ -68,7 +74,10 @@ Only `/home/workspace/scoring/grade_with_codex.py` changes.
    patch would have invalidated such outputs, which the original version scored correctly (row L in `paired/results.md`). The
    redundant re-check inside `reconcile_result_with_rubrics` was removed: it ran on normalized
    rows where a missing score had already become 0.
-3. **Added.** `_require_recorded_deductions` covers caveat (b).
+3. **Added.** `_require_recorded_deductions` covers caveat (b). It runs at the end of
+   `_validate_result`, reconciles the normalised rows with the unchanged
+   `reconcile_result_with_rubrics`, and raises when a deductive row that reports a deduction
+   reconciles to full marks.
 4. **Added.** The bounded loop in `main()` that asks again covers caveat (a). After it, the existing
    `emit_all_failed(..., status="json_parse_failed")` path reports `valid: false`.
 
@@ -85,7 +94,7 @@ the original when the grading model:
 
 - leaves out, duplicates or invents a rule;
 - gives a row with neither a score nor a complete list of checkpoints;
-- or gives a deductive row whose score contradicts an all-zero list of checkpoints.
+- or gives a deductive row that reports a deduction but would be scored at full marks.
 
 The original version scored those cases with silently filled full marks. The fixed version asks again and otherwise reports a
 grading failure. Runs with a real model may make extra grading calls (paid API cost) when the first
@@ -97,6 +106,20 @@ See `paired/results.md`. It is an offline run with fixed model responses and no 
 eval_cmd in the original image and in the image built from this Dockerfile. **Accepted.**
 
 In plain words: complete, consistent responses (A, B, F, L) give byte-identical results and the same scores (77, 0, 0, 77) under both graders. The responses that show the problem (an empty list, a rule left out, or a self-contradicting row) are reported valid with inflated scores by the original grader (100, 81, 15) and as grading failures by the fixed one. When the model's second answer is complete, the fixed grader recovers the honest score of 77.
+
+The revision was checked the same way, on one worker, with the original grader, the first
+published fixed version and the revised one side by side (`paired/results.md`, revision
+section). All earlier responses give the same results as before. The four rows found by the
+formal check get full marks for the changed rule under the original grader and the first fixed
+version (3 or 15 points), and are grading failures under the revised one. A row that the first
+fixed version rejected although the original scores it consistently (a veto, score 0) is now
+scored 0, the same as the original.
+
+Formal check (`evidence/formal/notes/college_english_exam_bank.md`, Lean 4): for every
+assessment the fixed version accepts, the score equals the original grader's, an assessment
+that leaves out a rule is rejected, and a deductive rule whose row reports a deduction never
+gets full marks. The last result holds for all inputs. It does not depend on how the Lean model
+represents normalisation, because the check uses the same functions as the score.
 
 ## Build and use
 
@@ -120,6 +143,9 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
 The task JSON change is in `task-json.diff`.
 
 ## Limits
+
+- The deduction check covers rules the rubric marks `deductive` (all 12 in this task), not
+  additive or penalty rules.
 
 - No live grading model was used. How often real models produce incomplete rows, and whether
   past scores were inflated, are not measured.

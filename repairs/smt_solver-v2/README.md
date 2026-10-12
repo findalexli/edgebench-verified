@@ -44,7 +44,9 @@ parsing, perturbation, timeouts, scoring and the rest of the answer format.
 
 **Score compatibility.**
 - **Comparable:** fixed-version scores are comparable with original scores for any solver whose answers use only textual
-  keys.
+  keys, except when a `let` reuses the name of a declared constant: the textual key is then read as the global term, and
+  the fixed checker can reject a genuine model that the original accepted. The same model written with ground keys passes.
+  None of the 774 hidden files contains such a `let` (proved and scanned: `../../evidence/formal/notes/smt_solver.md`).
 - **Not comparable:**
   - for solvers that emit ground-term keys, which the fixed version accepts where the original rejected them;
   - on the 27 hidden files that reuse the same text under different bindings, which the original grader cannot award at all.

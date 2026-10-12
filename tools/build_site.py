@@ -37,10 +37,14 @@ def main():
             # the figure is shown in the plain summary above the technical case; drop the duplicate
             cases[f.stem] = re.sub(r'\n!\[[^\]]*\]\(figures/[^)]+\)\n\n\*[^\n]*\*\n', '\n', f.read_text())
     plain = json.loads((ROOT / 'cases' / 'plain.json').read_text())
+    formal_by_task = {r['task']: r for r in json.loads((ROOT / 'evidence/formal/summary.json').read_text())['rows']}
     rows = []
     for r in sorted(decisions, key=lambda r: meta[r['task_id']]['name']):
         t = r['task_id']
         extra = {'figure': svg(t), 'figcap': caption(t)} if (FIG / f'{t}.svg').exists() else {}
+        fr = formal_by_task.get(t)
+        if fr:
+            extra['formal'] = f"{fr['result'].capitalize()} in {fr['tool']}. {fr['what']} Limit: {fr['limit']}."
         rows.append({**r, **meta[t], 'plain': plain[t], **extra})
     assert len(rows) == 51 and len(cases) == 51
     counts = Counter(r['proposed'] for r in rows)
@@ -84,6 +88,19 @@ def main():
     out = (out.replace('{{impact_rows}}', trs).replace('{{shift_lo}}', f'{min(shifts):.1f}')
            .replace('{{shift_hi}}', f'{max(shifts):.1f}').replace('{{fragile_text}}', ftxt)
            .replace('{{bound_down}}', f'{max(lo.values()):.1f}').replace('{{bound_up}}', f'{max(hi.values()):.1f}'))
+    frm = json.loads((ROOT / 'evidence' / 'formal' / 'summary.json').read_text())['rows']
+    names = task_names()
+    label = {'fix': 'the fix', 'finding': 'the finding', 'note': 'the note', 'numbers': 'published numbers'}
+    frows = ''.join(f"<tr><td>{html.escape(names[r['task']])}</td><td>{r['tool'].replace(' ', '&nbsp;')}</td>"
+                    f"<td>{r['result'].capitalize()}<br><span style=\"color:var(--muted)\">{label[r['covers']]}</span></td>"
+                    f"<td>{html.escape(r['what'])}</td><td>{html.escape(r['limit'])}</td></tr>" for r in frm)
+    leans = [p for p in (ROOT / 'evidence/formal/lean/ebv/Ebv').glob('*.lean') if p.with_suffix('.out').exists()]
+    thms = sum(len(set(re.findall(r"^'[^']+' (?:depends on axioms|does not depend on any axioms)", p.with_suffix('.out').read_text(), re.M))) for p in leans)
+    cfgs = list((ROOT / 'evidence/formal/tla').glob('*/*.cfg'))
+    out = (out.replace('{{formal_rows}}', frows).replace('{{formal_tasks}}', str(len(frm)))
+           .replace('{{lean_files}}', str(len(leans))).replace('{{lean_thms}}', str(thms))
+           .replace('{{tla_runs}}', str(len(cfgs))).replace('{{tla_models}}', str(len({c.parent for c in cfgs})))
+           .replace('{{fix_proved}}', str(sum(r['covers'] == 'fix' and r['result'] == 'proved' for r in frm))))
     left = re.findall(r'\{\{[\w|:-]+\}\}', out)
     assert not left, left
     (ROOT / 'site').mkdir(exist_ok=True)

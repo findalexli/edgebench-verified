@@ -16,7 +16,7 @@ The solver writes a plugin for OpenRCT2, a theme-park simulation game, that "max
 
 - At speed 4 the engine advances 0.593 to 0.597 game days per wall-clock second. The rate is limited by real time, not by the host's CPU: cutting to 0.25 CPU changed it by about 2%.
 - Each 120 s scenario covered 68 to 69 game days, about 7% of the 992-day target, and `DONE` was never seen.
-- Reaching 992 days would take about 1,667 s per scenario. That is far beyond the 120 s scenario budget, the 1,800 s wrapper cap and the 2,400 s manifest timeout.
+- Reaching 992 days would take about 1,667 s per scenario, far beyond the 120 s scenario budget. For all three scenarios together (about 83 minutes) it would also exceed the 1,800 s wrapper cap and the 2,400 s manifest timeout.
 
 Example on the original grader (120 s, speed 4, medium scenario):
 

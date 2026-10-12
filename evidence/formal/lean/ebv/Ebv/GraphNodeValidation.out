@@ -1,0 +1,26 @@
+Ebv/GraphNodeValidation.lean:159:16: warning: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [hl, ih.1]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Ebv/GraphNodeValidation.lean:160:31: warning: This simp argument is unused:
+  List.filterMap_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [List.map_cons, hl, hti, ih.2.1]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'EbvGraph.fixed_accepts_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvGraph.strict_accepts' depends on axioms: [propext, Quot.sound]
+'EbvGraph.fixed_eq_orig' depends on axioms: [propext, Quot.sound]
+'EbvGraph.shrink' depends on axioms: [propext]
+'EbvGraph.misaligned' does not depend on any axioms
+'EbvGraph.separator_boundary' depends on axioms: [propext]
+'EbvGraph.v1_converts_v2_rejects' depends on axioms: [propext]
+'EbvGraph.emax_ge' depends on axioms: [propext, Quot.sound]
+'EbvGraph.emax_gt' depends on axioms: [propext, Quot.sound]
+'EbvGraph.two_outcomes' depends on axioms: [propext, Quot.sound]
+'EbvGraph.illustration' does not depend on any axioms
+lean exit=0

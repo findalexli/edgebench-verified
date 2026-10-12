@@ -4,7 +4,7 @@
 
 ![Two squares slid halfway over each other with a shaded overlap of area 50; the original grader accepts the layout and the fixed grader rejects it.](figures/jagua_nesting_optimization.svg)
 
-*The original validity check misses many real overlaps, such as squares slid halfway over each other; the fixed grader measures overlap area and rejects them.*
+*The original validity check misses many real overlaps, such as squares slid halfway over each other; the fixed grader measures overlap area and rejects any overlap above one millionth of the smaller shape's area.*
 
 ## What the task asks
 

@@ -94,16 +94,19 @@ leaderboard used.
 
 1. **Test submissions.** For each suspected problem we wrote a correct submission, one that
    triggers the problem, and a wrong one, and ran all three through the original grader.
-2. **Independent checks.** Where a question is mathematical, we confirmed it a second way:
-   - **Lean 4**, a proof checker that verifies mathematical proofs by machine:
-     - two theorem statements that Lean Analysis asks agents to prove are false;
-     - a lower bound showing Warehouse Routing's top scores are unreachable;
-     - the arithmetic behind two finance findings.
-   - **TLA+**, a tool that checks every possible state of a small model:
-     - the in-place multiplication bug in Tree Block Partitioning;
-     - the test-credit rule in Rust Multicrate.
-     Each model also has a counter-check that must come out the other way.
-   - **Exact arithmetic, a second implementation, or exhaustive search** for the rest.
+2. **Formal proofs.** Wherever a claim could be stated precisely, we also checked it with **Lean 4**
+   (a proof checker that accepts a claim only with a complete proof) or **TLA+** (a model checker that
+   explores every state of a bounded model). Each model is tied to the real grader code and has a
+   counter-check that must fail.
+   - 26 of the 51 tasks have formal results.
+   - For 12 of the 22 fixes, the fix itself is proved correct within its model, for example the SMT
+     answer checker, the Triangulation flip rule and the Order Addition selection. One more is partly
+     proved.
+   - The proofs also checked our own work. They showed the first College English fix was narrower
+     than published, so it was revised, re-proved and re-tested; and they led to eight wording
+     corrections.
+   - The rest of the checks use exact arithmetic, a second implementation or exhaustive search.
+   Every result and its limits: [evidence/formal/SUMMARY.md](evidence/formal/SUMMARY.md).
 3. **Following each problem to the final score.** A problem counts only if it changes the 0–100
    score of honest work. Problems that do not are recorded as notes.
 4. **Testing every fix side by side.** The same test submissions were graded by the original and
@@ -114,8 +117,8 @@ leaderboard used.
    Each comparison was repeated three times on fresh machines; across 132 graded comparisons, no
    outcome changed.
 
-All 21 formal results rerun with one command (`python3 tools/check_formal.py`). The full method is
-in [METHOD.md](METHOD.md).
+All formal results rerun with one command (`python3 tools/check_formal.py`). The full method is in
+[METHOD.md](METHOD.md).
 
 ## Using the fixed tasks
 

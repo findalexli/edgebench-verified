@@ -51,7 +51,13 @@ def check_tla():
     for cfg in sorted(FORMAL.glob('tla/*/*.cfg')):
         d, name = cfg.parent, cfg.stem
         saved = next((p for p in (d / f'tlc-{name}.out', d / f'tlc_{name}.out') if p.exists()), None)
-        spec = next(iter(d.glob('*.tla')))
+        specs = [p for p in d.glob('*.tla') if '_TTrace_' not in p.name]
+        named = [p for p in specs if name.startswith(p.stem)]
+        spec = specs[0] if len(specs) == 1 else (max(named, key=lambda p: len(p.stem)) if named else None)
+        if spec is None:
+            print(f'BAD TLA+ {d.name}/{name}: cannot tell which model it checks (name the .cfg <Model>_<check>.cfg)')
+            n += 1; bad += 1
+            continue
         with tempfile.TemporaryDirectory() as meta:
             r = subprocess.run(['java', '-XX:+UseParallelGC', '-cp', str(j), 'tlc2.TLC', '-workers', '2',
                                 '-deadlock', '-config', cfg.name, '-metadir', meta, spec.name],

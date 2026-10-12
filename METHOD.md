@@ -50,24 +50,16 @@ Not covered:
 
 ## Formal verification
 
-Six tasks have formal results: 24 reported theorems in five Lean 4 files, and 16 model-checking runs
-over two TLA+ models. Lean accepts a claim only with a complete proof, and every proof prints the
-axioms it uses. TLA+ explores every reachable state of a bounded model, and each model has a
-counter-check that must fail.
+Wherever a claim could be stated precisely, it was also checked with Lean 4 (a proof assistant whose
+kernel accepts a claim only with a complete proof, and which lists the axioms each proof uses) or TLA+
+(a model checker that explores every reachable state of a bounded model). Every formal result is tied to
+the real grader code by a source-line mapping and the file's fingerprint, is checked against saved
+outputs of the real code wherever possible, has a counter-check that must fail, and states its limits.
 
-| Task | Tool | What is proved or checked | Supports | Limit |
-| --- | --- | --- | --- | --- |
-| Lean Analysis Proofs | Lean 4 | Two required statements are false, refuted inside the task's own image against its own definitions; both corrected statements are proved | Finding and fix | Covers the two statements only |
-| Warehouse Routing | Lean 4 | Every valid answer totals at least 712.538, above the top reference point 395.80, so no score exceeds about 30.3 | Finding | A Lean model of the tester, matched to the original on 294 strings |
-| CTA Risk Budget | Lean 4 | Exact arithmetic of the currency undercount (1/3 unconverted is 7/9 in yuan, against a 40% limit) | Finding | Arithmetic only |
-| Portfolio Risk | Lean 4 | The two excess-return formulas differ by 2b(a − b) and rank strategies identically | Kept, with a note | Two-period case |
-| Tree Block Partitioning | TLA+ | The original library computes `v *= v` wrongly; the fixed library is correct with and without aliasing | Finding and fix | Arithmetic modulo 4 |
-| Rust Multicrate | TLA+ | The original credit rule can count an unrelated failure as a pass; the corrected rule cannot | Kept, with a note (recommended fix) | Up to four tests, one or two exempt |
-
-Formal methods prove two shipped fixes correct within their models (Lean Analysis, Tree Block), as well
-as one recommended change (Rust Multicrate). The other twenty fixes rest on side-by-side runs, repeated
-three times, and on a check against a real agent run ([IMPACT.md](IMPACT.md)). That check found the one
-flaw in a shipped fix, the saturated Integer Codec scale. No formal result covered it.
+26 of the 51 tasks have formal results. For 12 of the 22 fixes the fix itself is proved correct within
+its model, and one more is partly proved. The formal checks found that the first College English fix was
+narrower than published (since revised, re-proved and re-tested) and led to eight wording corrections.
+Every result, its limit and its note: [evidence/formal/SUMMARY.md](evidence/formal/SUMMARY.md).
 
 ## Outcomes
 

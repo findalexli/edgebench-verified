@@ -69,6 +69,8 @@ legal submission now gets 5/5 instead of 4/5. The run's `best_score` / `best_rou
 `pass_rate_first` are therefore not comparable with the original version whenever a run had more than one valid
 submission and a later one scored higher. The original version kept the first; the fixed version keeps the best.
 
+One further change comes from the harness rather than the task: when no submission in a run has a score, `pass_rate_first` reports the pass rate itself as `best_score`. A run whose only submission is rejected for its cost therefore reports 0.6 under the original version and 0.8 under the fixed one (`evidence/formal/notes/order_addition_permutation_optimization.md`).
+
 ## How it was checked
 
 A side-by-side run of the original and fixed graders on the same test submissions. See `paired/results.md`. **Accepted.** Correct submissions pass 4 of 5 tests under the original grader and 5 of 5 under the fixed grader, with identical scores.
