@@ -2,7 +2,7 @@
 
 **Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so an honest solver using a textbook model scores at the baseline level.</mark>
 
-![Bars of raw scores on the original grader: the textbook fit 7.03 and the midpoint baseline 7.01 versus 31.2 for a fit using the grader's hidden convention.](figures/borden_source_inversion.svg)
+![Bars of scores on the original grader, where the true source scores 109: the textbook fit 7.03 and the midpoint baseline 7.01 versus 31.2 for a fit using the grader's hidden convention.](figures/borden_source_inversion.svg)
 
 *The grader uses unstated, non-physical conventions, so an honest textbook fit scores at the baseline level, about 24 points below the same fit using the hidden convention.*
 

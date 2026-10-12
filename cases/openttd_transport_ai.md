@@ -2,7 +2,7 @@
 
 **Outcome:** Fixed. <mark>The instructions tell the solver to maximize a game function, `AICompany.GetCompanyValue`, that does not exist in the pinned game version, so a script that calls it crashes, and the supplied starter program crashes on its first statement; the fix changes the instructions and the starter, not the grader.</mark>
 
-![A flow shows the original instructions naming GetCompanyValue, which does not exist in OpenTTD 13.4, so the script dies and scores 0 on 5 of 5 seeds, while the fixed version names GetQuarterlyCompanyValue, which exists.](figures/openttd_transport_ai.svg)
+![A flow shows the original instructions naming GetCompanyValue, which does not exist in OpenTTD 13.4, so a script that calls it dies at that call and its company stops acting, while the fixed instructions and starter name GetQuarterlyCompanyValue, which exists, so the script keeps running; a note says the grader is unchanged and the starter scores 0 in both versions.](figures/openttd_transport_ai.svg)
 
 *The task told solvers to call a game function that does not exist, so the starter crashed on its first statement; the fix changes the instructions and starter.*
 

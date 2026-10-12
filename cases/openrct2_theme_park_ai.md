@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The prompt promises about 4 game years per scenario, but the 120 s time budget covers about 68 game days, so the score is a snapshot taken early in the game; the fix corrects the prompt.</mark>
 
-![Two bars show 69 of the promised 992 game days reached in the 120 s budget, and 120 s against the 1,667 s that 992 days would need.](figures/openrct2_theme_park_ai.svg)
+![Two bars show 68 to 69 game days reached in the 120 s per-scenario budget against the promised 992 days (about 4 years), and the 120 s budget against the 1,667 s that 992 days would need per scenario.](figures/openrct2_theme_park_ai.svg)
 
-*The prompt promised about 4 game years per scenario, but the 120 s budget covers about 69 days, so the score is a snapshot taken early in the game.*
+*The prompt promised about 4 game years per scenario, but the 120 s per-scenario budget covers only 68 to 69 game days, so the score is a snapshot taken early in the game.*
 
 ## What the task asks
 

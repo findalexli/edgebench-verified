@@ -2,7 +2,7 @@
 
 **Outcome:** Fixed. <mark>The answer checker looks up a function's value by its literal text, so 27 satisfiable hidden problems cannot be won by any solver.</mark>
 
-![Two assertions that bind x to a and to b both read the single key (f x) in the original checker, so no answer passes; the fixed checker uses a key per value and accepts.](figures/smt_solver.svg)
+![Two assertions that bind x to a and to b both read the single key (f x) in the original checker, so no answer passes; the fixed checker looks up (f a) and (f b) by the actual argument and accepts the correct answer.](figures/smt_solver.svg)
 
 *The original checker looks up a function's value by its text, so 27 satisfiable hidden problems cannot be won; the fixed checker uses the actual arguments.*
 

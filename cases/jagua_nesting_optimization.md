@@ -2,7 +2,7 @@
 
 **Outcome:** Fixed. <mark>The original grader's validity check accepts large overlaps between shapes, such as identical placements, shapes inside other shapes and shapes slid halfway over others, so it cannot guarantee that a winning layout is possible to cut.</mark>
 
-![Two squares slid halfway over each other with a shaded overlap of area 50; the original grader accepts the layout and the fixed grader rejects it.](figures/jagua_nesting_optimization.svg)
+![Two squares slid halfway over each other with a shaded overlap of area 50 (each square is 10 by 10); the original grader accepts the layout and the fixed grader rejects it.](figures/jagua_nesting_optimization.svg)
 
 *The original validity check misses many real overlaps, such as squares slid halfway over each other; the fixed grader measures overlap area and rejects any overlap above one millionth of the smaller shape's area.*
 

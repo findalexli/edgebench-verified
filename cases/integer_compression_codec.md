@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The grader compares submissions against stored baseline numbers that the documented Varint starter cannot produce, so the starter scores about 0.24 instead of the documented 1.0 and the datasets are in effect weighted differently from what is published.</mark>
 
-![The unchanged starter scores 0.24 on the original grader against a documented 1.0 and 0.98 on the fixed grader, because the stored baseline of 5.13 bits per integer is below the 8-bit minimum and far from the measured 38.98.](figures/integer_compression_codec.svg)
+![Left: the unchanged starter's raw score is 0.24 on the original grader against a documented 1.0, and 0.98 on the fixed grader (which maps it to 0 on its 0 to 100 scale). Right: for the docids dataset the stored starter value is 5.13 bits per integer, below the 8-bit minimum for a whole-byte format and far from the measured 38.98.](figures/integer_compression_codec.svg)
 
-*The original grader compares against stored baseline numbers the starter cannot produce, so it scores 0.24 instead of 1.0; the fixed version measures the starter itself.*
+*The original grader compares against stored baseline numbers the starter cannot produce, so the starter's raw score is 0.24 instead of the documented 1.0; the fixed version measures the starter itself.*
 
 ## What the task asks
 

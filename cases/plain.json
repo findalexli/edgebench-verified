@@ -45,7 +45,7 @@
   "headline": "The hidden grading model uses unstated, non-physical conventions, so textbook solutions score near baseline",
   "about": "From readings at groundwater monitoring wells, work out the location, size, timing and strength of a hidden underground pollution source.",
   "problem": "The grader predicts well readings with a hidden model whose conventions the documentation never states: it treats a rate as a total amount, ignores soil porosity, ignores how long the source lasts, mislabels units, and places the source at the bottom of its region instead of the centre. A textbook model fits the public data equally well yet scores lower.",
-  "effect": "About 24 points out of 100: the same honest fitting method scores 7.0 with a textbook model and 31.2 with the grader's hidden conventions. Affects every documentation-following solver.",
+  "effect": "About 24 points on the original grader's 0–109 scale, about 22 out of 100: the same honest fitting method scores 7.0 with a textbook model and 31.2 with the grader's hidden conventions. Affects every solver that follows the documentation.",
   "action": "Fixed in a new version: solvers receive the grader's own prediction code and an exact description of its conventions, and the score scale runs from 0 up to the true source's score of 109."
  },
  "carleson_formalization": {

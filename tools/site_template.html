@@ -67,6 +67,8 @@ ol.steps > li { margin-bottom: 0.6em; padding-left: 0.2em; }
 ul.tight { padding-left: 1.2em; margin: 0 0 1em; }
 ul.tight > li { margin-bottom: 0.45em; }
 .note { font: 14.5px/1.55 var(--sans); color: var(--muted); }
+.verif { font: 14px/1.5 var(--sans); color: var(--soft); border-left: 3px solid #d9c25a; padding: 2px 0 2px 10px; margin: -4px 0 6px; }
+.verif b { color: var(--ink); font-weight: 600; }
 .breakout { width: min(960px, calc(100vw - 48px)); position: relative; left: 50%; transform: translateX(-50%); margin-bottom: 22px; }
 @media (max-width: 720px) { .breakout { width: auto; left: 0; transform: none; } }
 
@@ -167,10 +169,10 @@ details.tech > summary { cursor: pointer; font: 600 15px var(--sans); color: var
 <nav class="bar" aria-label="Sections"><div class="in">
   <a class="home" href="#top">EdgeBench Verified</a>
   <a class="l" href="#background">1&ensp;Background</a>
-  <a class="l" href="#findings">2&ensp;Findings</a>
-  <a class="l" href="#impact">3&ensp;Leaderboard</a>
-  <a class="l" href="#tasks">4&ensp;All tasks</a>
-  <a class="l" href="#method">5&ensp;Method</a>
+  <a class="l" href="#method">2&ensp;Verification</a>
+  <a class="l" href="#findings">3&ensp;Findings</a>
+  <a class="l" href="#impact">4&ensp;Leaderboard</a>
+  <a class="l" href="#tasks">5&ensp;All tasks</a>
   <a class="l" href="#lessons">6&ensp;Lessons</a>
   <a class="l" href="#data">Data and code</a>
 </div></nav>
@@ -186,15 +188,20 @@ details.tech > summary { cursor: pointer; font: 600 15px var(--sans); color: var
   </div>
   <div class="abstract">
     <h2>Abstract</h2>
-    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> ranks AI agents on long, open-ended engineering and science tasks. Each agent works on a task for up to twelve hours, and a hidden grader program scores its work from 0 to 100. We examined the grader of each of the 51 publicly released tasks and asked whether an agent doing honest, correct work receives the score the task promises. <mark>For 23 of the 51 tasks it does not:</mark> correct work is scored too low, wrong work is accepted, the grader applies a rule the agent was never told, the score scale cannot be reached, or the wrong submission is kept. Every finding was reproduced on EdgeBench's own grading software, and for 26 tasks the claims were also checked formally with the proof assistant Lean&nbsp;4 or the model checker TLA+, which prove 12 of our fixes correct within their models. We publish fixed versions of {{repair-v2}} tasks in EdgeBench's own format and remove {{exclude}}; each fix was tested side by side against the original grader on the same submissions, three times over. Applied to EdgeBench's published scores, the corrections that can be computed exactly raise every model's average by {{shift_lo}}–{{shift_hi}} points, and <mark>the public tasks alone do not establish whether Opus&nbsp;4.8 or GPT-5.5 ranks first.</mark></p>
+    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> ranks AI agents on long, open-ended engineering and science tasks. Each agent works on a task for up to twelve hours, and a hidden grader program scores its work from 0 to 100. We examined the grader of each of the 51 publicly released tasks and asked whether an agent doing honest, correct work receives the score the task promises. <mark>For 23 of the 51 tasks it does not:</mark> correct work is scored too low, wrong work is accepted, the grader applies a rule the agent was never told, the score scale cannot be reached, or the wrong submission is kept. Every finding was reproduced on EdgeBench's own grading software. <mark>Wherever a claim could be stated precisely, we also proved it with the proof assistant Lean&nbsp;4 or the model checker TLA+:</mark> {{formal_tasks}} tasks have formal results, and {{fix_proved}} of our fixes are proved correct within their models. The proofs also checked our own work, catching one fix that was narrower than published. We publish fixed versions of {{repair-v2}} tasks in EdgeBench's own format and remove {{exclude}}; each fix was tested side by side against the original grader on the same submissions, three times over. How much the published leaderboard changes cannot be determined from public data, because EdgeBench has not released the agents' submissions. The part that can be computed exactly is a lower limit, and the remaining fixes could move a model's average by as much as {{wide_down}} points down or {{wide_up}} up. <mark>Even the effects we can bound are enough that the public tasks do not establish whether Opus&nbsp;4.8 or GPT-5.5 ranks first.</mark></p>
   </div>
-  <p class="tcap"><b>Table 1.</b> Outcome for the 51 public tasks.</p>
+  <p class="tcap"><b>Table 1.</b> The audit in numbers.</p>
   <div class="tablewrap"><table class="bt">
-    <thead><tr><th>Outcome</th><th class="n">Tasks</th><th>Meaning</th></tr></thead>
     <tbody>
-      <tr><td class="o-repair-v2">Fixed</td><td class="n">{{repair-v2}}</td><td>A problem that changes scores; a fixed version is published and tested against the original</td></tr>
-      <tr><td class="o-retain-with-note nw">Kept, with a note</td><td class="n">{{retain-with-note}}</td><td>The grader works as intended; the note records smaller caveats</td></tr>
-      <tr><td class="o-exclude">Removed</td><td class="n">{{exclude}}</td><td>A problem without a sound fix</td></tr>
+      <tr><td>Public tasks examined</td><td class="n">51</td><td></td></tr>
+      <tr><td>Tasks whose grader has a problem that changes scores</td><td class="n">23</td><td></td></tr>
+      <tr><td style="padding-left:1.4em" class="o-repair-v2">fixed in a new version, tested against the original</td><td class="n">{{repair-v2}}</td><td></td></tr>
+      <tr><td style="padding-left:1.4em" class="o-exclude">removed, no sound fix</td><td class="n">{{exclude}}</td><td></td></tr>
+      <tr><td>Tasks kept, grader works as intended (with a note)</td><td class="n">{{retain-with-note}}</td><td></td></tr>
+      <tr><td>Tasks with a formal result in Lean&nbsp;4 or TLA+</td><td class="n">{{formal_tasks}}</td><td class="note">{{lean_thms}} theorems, {{tla_runs}} model-checking runs</td></tr>
+      <tr><td>Fixes proved correct within their models</td><td class="n">{{fix_proved}}</td><td class="note">one more partly proved</td></tr>
+      <tr><td>Formal checks, all rerun from scratch with one command</td><td class="n">{{formal_checks}}</td><td class="note">0 mismatches</td></tr>
+      <tr><td>Side-by-side comparisons of original and fixed graders</td><td class="n">132</td><td class="note">each run 3 times; no outcome changed</td></tr>
     </tbody>
   </table></div>
 </header>
@@ -206,62 +213,104 @@ details.tech > summary { cursor: pointer; font: 600 15px var(--sans); color: var
   {{fig:scoring-pipeline}}
 </section>
 
-<section id="findings" class="col">
-  <h2 class="sec"><span class="num">2</span>What goes wrong</h2>
-  <p>The examples below are representative. Every task is listed in Section&nbsp;4, and each has a full case with the test submissions, the independent checks and the fix.</p>
+<section id="method" class="col">
+  <h2 class="sec"><span class="num">2</span>How we verified</h2>
+  <p>Every claim on this site rests on up to four independent layers of evidence (Figure&nbsp;2). The first and third apply to every finding and every fix; the second applies wherever a claim could be stated precisely enough to prove.</p>
+  {{fig:evidence-layers}}
+  <ol class="steps">
+    <li><b>Use the original grader.</b> Every check ran on EdgeBench's published grading software, pulled from its public images and identified by a cryptographic fingerprint, with network access switched off.</li>
+    <li><b>Quote the promise.</b> What a task promises is taken verbatim from the instructions and documents the agent receives, and read next to the grader's code.</li>
+    <li><b>Show the problem with test submissions.</b> For each suspected problem we wrote three submissions and ran them through the original grader: a correct one, which must score as promised; one that triggers the problem; and a wrong one, which must be rejected.</li>
+    <li><b>Confirm it independently.</b> Claims were checked a second way, with exact arithmetic, a separate implementation, exhaustive search, or a formal proof in Lean&nbsp;4 or TLA+ (Section&nbsp;2.1).</li>
+    <li><b>Follow it to the final score.</b> A problem counts only if it changes the 0–100 score of honest work; problems that do not are recorded as notes.</li>
+    <li><b>Test every fix side by side.</b> The same test submissions were graded by the original and the fixed grader. A fix is accepted only if the problem disappears, correct work keeps its score and wrong work is still rejected. Each comparison was repeated three times on fresh machines; across 132 comparisons, no outcome changed.</li>
+  </ol>
+  <h3 id="formal"><span class="num">2.1</span>Formal verification with Lean 4 and TLA+</h3>
+  <p>Testing shows that a problem occurs; it cannot show that something holds for every input. Wherever a claim could be stated precisely, we also checked it with a formal tool. <b>Lean&nbsp;4</b> is a proof assistant: a claim counts only once its kernel accepts a complete proof, and every proof lists the basic axioms it relies on, so a hidden gap would show. <b>TLA+</b> describes a system as a state machine, and its model checker explores every reachable state of a bounded version.</p>
+  <p>Three rules applied to every formal result. The model is tied to the real grader code: each step maps to a source line, the file's fingerprint is recorded, and wherever possible the model is run against the real code's saved outputs. Each result has a counter-check that must fail, such as the original rule violating the property or a deliberately too-strong claim being false. And each states its limits.</p>
+  <p>In total, {{formal_tasks}} of the 51 tasks have formal results: {{lean_files}} Lean files with {{lean_thms}} reported theorems, and {{tla_runs}} model-checking runs over {{tla_models}} TLA+ models (Table&nbsp;2). <mark>For {{fix_proved}} of the 22 fixes, Lean or TLA+ proves the fix itself correct within its model, and one more is partly proved.</mark> The rest cannot be usefully formalized. ARC and OpenTTD are documentation fixes, Borden's physics convention is a modelling choice, and Exchange Core's fix relies on the project's own test suite. Those fixes rest on the side-by-side runs and the real-run check in Section&nbsp;4.3. Every formal result reruns with one command, and the TLA+ checks rerun automatically on every change.</p>
+  <p>The formal checks also corrected us. <mark>One shipped fix was narrower than published:</mark> the College English grader still gave full marks in four rare kinds of contradictory assessment. It has been revised, re-proved and re-tested three times. Eight other statements were imprecise and have been corrected, for example the SMT comparability claim, the exact PSNR thresholds of the FFmpeg fix, and an undocumented side effect of the Order Addition fix. None changed a score we report.</p>
+  <div class="breakout"><p class="tcap"><b>Table 2.</b> Every formal result: what it establishes and where it stops.</p>
+  <div class="tablewrap"><table class="bt">
+    <thead><tr><th style="width:17%">Task</th><th style="width:7%">Tool</th><th style="width:10%">Result</th><th>What is proved or checked</th><th style="width:22%">Limit</th></tr></thead>
+    <tbody>{{formal_rows}}</tbody>
+  </table></div></div>
 
-  <h3><span class="num">2.1</span>Correct work is scored too low</h3>
+  <h3><span class="num">2.2</span>Limitations</h3>
+  <ul class="tight">
+    <li>Only the 51 public tasks are covered; EdgeBench's other 83 tasks are unreleased.</li>
+    <li>No model was rerun. Effects on the leaderboard are computed where possible and bounded otherwise.</li>
+    <li>Deliberate attacks on the grader by a malicious submission concern how the benchmark isolates its grader, and are out of scope.</li>
+    <li>Side-by-side tests ran on one machine type (8 virtual CPUs, 8&nbsp;GiB of memory); speed-based scores may differ elsewhere.</li>
+    <li>The reviews were carried out by AI agents. Every claim is tied to a saved evidence file and a rerunnable check, which is not the same as independent human reproduction.</li>
+  </ul>
+</section>
+
+<section id="findings" class="col">
+  <h2 class="sec"><span class="num">3</span>What goes wrong</h2>
+  <p>The examples below are representative. Every task is listed in Section&nbsp;5, and each has a full case with the test submissions, the independent checks and the fix.</p>
+
+  <h3><span class="num">3.1</span>Correct work is scored too low</h3>
   <p><span class="lead-in">SMT Solver.</span> The agent builds a solver for logic formulas. When a formula can be satisfied, the solver must give an example assignment, which the grader checks. The checker looks up a function's value by how the call is written, not by what its arguments evaluate to, so the same written call can stand for two different values. <mark>Correct answers are therefore rejected on 27 hidden problems, and a perfect solver's score falls from 78.61 to 72.40.</mark></p>
+  <p class="verif">{{verif:smt_solver}}</p>
   {{fig:smt_solver|smt_solver}}
-  <p><span class="lead-in">Borden Inversion.</span> The agent infers the location, size and timing of an underground pollution source from monitoring wells. The grader predicts the hidden readings with a physics model whose conventions the instructions never state: among other things, it ignores soil porosity, treats a rate as a total amount and places the source at the bottom of its region. <mark>An honest fit built from textbook physics scores 7.0; the same fitting method using the grader's conventions scores 31.2.</mark> The fixed version gives agents the grader's model. An agent that iterates against the grader's scores can partly learn the convention instead (Section&nbsp;3.3).</p>
+  <p><span class="lead-in">Borden Inversion.</span> The agent infers the location, size and timing of an underground pollution source from monitoring wells. The grader predicts the hidden readings with a physics model whose conventions the instructions never state: among other things, it ignores soil porosity, treats a rate as a total amount and places the source at the bottom of its region. <mark>An honest fit built from textbook physics scores 7.0; the same fitting method using the grader's conventions scores 31.2.</mark> The fixed version gives agents the grader's model. An agent that iterates against the grader's scores can partly learn the convention instead (Section&nbsp;4.3).</p>
+  <p class="verif">{{verif:borden_source_inversion}}</p>
   {{fig:borden_source_inversion|borden_source_inversion}}
 
-  <h3><span class="num">2.2</span>Wrong work is accepted</h3>
+  <h3><span class="num">3.2</span>Wrong work is accepted</h3>
   <p><span class="lead-in">Exchange Core.</span> The agent speeds up a stock-exchange matching engine without changing its behaviour. The grader's correctness check confirms only that money balances overall and that the order books match. <mark>Two realistic one-edit bugs, charging sellers the wrong fee and not delivering trade messages, pass the check and receive full credit</mark>, although the project's own test suite catches both. The fixed version requires those tests to pass before speed is measured.</p>
+  <p class="verif">{{verif:exchange_core_throughput}}</p>
   {{fig:exchange_core_throughput|exchange_core_throughput}}
   <p><span class="lead-in">Jagua Nesting.</span> The agent packs flat shapes into a strip as tightly as possible. The grader misses many overlaps, such as one shape slid halfway over another, <mark>so an infeasible layout can beat every feasible one.</mark></p>
+  <p class="verif">{{verif:jagua_nesting_optimization}}</p>
   {{fig:jagua_nesting_optimization|jagua_nesting_optimization}}
 
-  <h3><span class="num">2.3</span>The grader applies a rule the agent was not told</h3>
+  <h3><span class="num">3.3</span>The grader applies a rule the agent was not told</h3>
   <p><span class="lead-in">Triangulation Coloring.</span> The instructions allow an edge flip only when the two triangles form a convex shape. <mark>The grader omits that condition, and the same faulty rule generated the hidden test cases:</mark> all ten contain overlapping triangles, and a forbidden flip improved the score on one of them.</p>
+  <p class="verif">{{verif:triangulation_coloring_optimization}}</p>
   {{fig:triangulation_coloring_optimization|triangulation_coloring_optimization}}
   <p><span class="lead-in">Warehouse Routing.</span> The instructions promise 30 seconds per test case, or 150 seconds for each input of five cases. <mark>The grader stops each input after 60 seconds, and one time-out voids the whole submission</mark>, so a solution that uses the time it was promised scores zero.</p>
+  <p class="verif">{{verif:warehouse_forklift_routing}}</p>
   {{fig:warehouse_forklift_routing|warehouse_forklift_routing}}
 
-  <h3><span class="num">2.4</span>The 0–100 scale cannot be reached</h3>
+  <h3><span class="num">3.4</span>The 0–100 scale cannot be reached</h3>
   <p><span class="lead-in">Treant Forest.</span> Each test case is scored by the number of turns survived, and the grader caps turns, so the largest possible total is 92,304. The reference points of the 0–100 scale were set far above that cap. <mark>Even a perfect submission scores 21.02 out of 100.</mark> The fixed scale runs from the starter program's total to the true maximum. Warehouse Routing has the same problem, established by proof rather than measurement: a lower bound checked in Lean shows that no valid answer can score above about 30.3.</p>
+  <p class="verif">{{verif:treant_forest}}</p>
   {{fig:treant_forest|treant_forest}}
 
-  <h3><span class="num">2.5</span>The wrong submission is kept</h3>
-  <p><span class="lead-in">Order Addition.</span> One of the five grader tests compares a helper file against an out-of-date checksum, so every submission fails it. The run keeps the submission that passes the most tests and, among ties, the earliest. <mark>Every run's reported best is therefore frozen at its first valid submission, and later improvements never count.</mark> Section&nbsp;3.3 shows this happening in a real agent run.</p>
+  <h3><span class="num">3.5</span>The wrong submission is kept</h3>
+  <p><span class="lead-in">Order Addition.</span> One of the five grader tests compares a helper file against an out-of-date checksum, so every submission fails it. The run keeps the submission that passes the most tests and, among ties, the earliest. <mark>Every run's reported best is therefore frozen at its first valid submission, and later improvements never count.</mark> Section&nbsp;4.3 shows this happening in a real agent run.</p>
+  <p class="verif">{{verif:order_addition_permutation_optimization}}</p>
   {{fig:order_addition_permutation_optimization|order_addition_permutation_optimization}}
 
-  <h3><span class="num">2.6</span>A task without a sound fix</h3>
+  <h3><span class="num">3.6</span>A task without a sound fix</h3>
   <p><span class="lead-in">D-ABIC Gravity Inversion.</span> <mark>Forty-two of the task's points come from numbers the submission reports about its own work, which the grader cannot check.</mark> The grader also quietly penalises one of two mathematically equivalent forms that the instructions explicitly allow. We fixed the second problem, but the first has no fix that preserves the task, so the task is removed.</p>
+  <p class="verif">{{verif:dabic_gravity_inversion}}</p>
   {{fig:dabic_gravity_inversion|dabic_gravity_inversion}}
 </section>
 
 <section id="impact" class="col">
-  <h2 class="sec"><span class="num">3</span>Effect on the published leaderboard</h2>
-  <p>EdgeBench publishes each model's score on every task: the mean, over three twelve-hour runs, of each run's best score. Starting from those numbers, we asked how each model's average over the 51 public tasks changes once the problems are corrected. No model was rerun, and EdgeBench has not released the agents' submissions, so the effect can be computed only in part.</p>
+  <h2 class="sec"><span class="num">4</span>Effect on the published leaderboard</h2>
+  <p>EdgeBench publishes each model's score on every task: the mean, over three twelve-hour runs, of each run's best score. We asked how each model's average over the 51 public tasks changes once the problems are corrected. <mark>The honest answer is that it cannot be determined from public data.</mark> Measuring it requires either regrading the agents' original submissions, which EdgeBench has not released, or rerunning the models on the fixed tasks, which this audit did not do. What can be stated precisely is a lower limit and an outer range (Table&nbsp;3).</p>
 
-  <h3><span class="num">3.1</span>What can and cannot be computed</h3>
+  <h3><span class="num">4.1</span>What can and cannot be said</h3>
   <ul class="tight">
-    <li><b>Exact.</b> Three corrections only change how a raw result maps to 0–100, so each published score converts directly: the Treant Forest scale, the scale Borden Inversion lacked, and the removal of D-ABIC Gravity Inversion. Together they raise every model by {{shift_lo}}–{{shift_hi}} points and leave the order unchanged.</li>
+    <li><b>Outer range.</b> For twelve fixed tasks we know only whether scores rise or fall. Letting each take its largest possible effect moves a model's average by as much as {{wide_down}} points down or {{wide_up}} up. This is a limit, not a prediction; the true change lies somewhere inside it.</li>
     <li><b>Known maximum.</b> For eight fixed tasks we proved or demonstrated the largest possible effect. Together they move an average by at most {{bound_down}} points down or {{bound_up}} up. {{fragile_text}}</li>
-    <li><b>Direction only.</b> For twelve fixed tasks we know whether scores rise or fall, but not by how much. The widest range in Table&nbsp;2 lets each take its largest possible effect. It is an outer limit, not a prediction.</li>
+    <li><b>Lower limit.</b> Three corrections only change how a raw result maps to 0–100, so the published scores convert exactly: the Treant Forest scale, the scale Borden Inversion lacked, and the removal of D-ABIC Gravity Inversion. They raise every average by {{shift_lo}}–{{shift_hi}} points. This is the part that is certain, not an estimate of the total. Several of the largest effects are among the twelve whose size is unknown.</li>
   </ul>
-  <p class="tcap"><b>Table 2.</b> Average score over the 51 public tasks at twelve hours: as published, after the exact corrections, and the ranges allowed by the remaining fixes.</p>
+  <p class="tcap"><b>Table 3.</b> Average score over the 51 public tasks at twelve hours: as published, the outer range allowed by all fixes, the range from fixes with a known maximum, and the exact corrections alone (a lower limit on the change).</p>
   <div class="tablewrap"><table class="bt">
-    <thead><tr><th>Model</th><th class="n">Published</th><th class="n">Exact corrections</th><th class="n">With known maximums</th><th class="n">Widest range</th></tr></thead>
+    <thead><tr><th>Model</th><th class="n">Published</th><th class="n">Outer range</th><th class="n">With known maximums</th><th class="n">Exact corrections only</th></tr></thead>
     <tbody>{{impact_rows}}</tbody>
   </table></div>
   <p class="note" style="margin-top:10px">Averages are over 50 tasks once D-ABIC is removed (49 for Opus 4.8, which has no valid Rust Multicrate result). Recomputing the published averages from EdgeBench's per-task table reproduces them to within 0.06.</p>
 
-  <h3><span class="num">3.2</span>Why the exact column is a floor</h3>
+  <h3><span class="num">4.2</span>Why the true effect may be large</h3>
   <p>Several of the largest effects fall in the direction-only group. Integer Compression Codec measures every submission against stored reference numbers that the documented starter cannot reach, which understates raw results roughly four- to eightfold. In OpenTTD, a program that follows the instructions calls a function that does not exist and stops. Two features of EdgeBench's scoring make such effects larger rather than smaller. <mark>Because each run keeps its best score, a check that only sometimes over-credits still raises the run's result</mark>, and an agent that sees its scores for twelve hours is well placed to find a lenient check and keep using it. And because only valid runs are averaged, a run that a defect kills may be dropped rather than counted as zero.</p>
 
-  <h3><span class="num">3.3</span>A check against real agent runs</h3>
+  <h3><span class="num">4.3</span>A check against real agent runs</h3>
   <p>EdgeBench has not released its runs. A third party has, however, published one run of Claude Opus&nbsp;5.5 on 16 of the public tasks, four hours each, with every submission and its original score. Seven of those tasks are ones we fixed, so we read every submission history and regraded the decisive submissions with both graders.</p>
   <ul class="tight">
     <li><b>Order Addition.</b> Every submission failed one of the five tests, so the run kept its first agent submission, scoring 3.79, and ignored a later one scoring 41.24. <mark>Under the fixed grader every submission passes, and the run keeps 41.24.</mark></li>
@@ -274,46 +323,15 @@ details.tech > summary { cursor: pointer; font: 600 15px var(--sans); color: var
 </section>
 
 <section id="tasks" class="wide">
-  <h2 class="sec"><span class="num">4</span>All 51 tasks</h2>
+  <h2 class="sec"><span class="num">5</span>All 51 tasks</h2>
   <p style="max-width:700px">Select a task to read a short summary, its figure where it has one, and the full technical case.</p>
   <div class="controls" role="group" aria-label="Filter tasks" id="filters"></div>
-  <p class="tcap"><b>Table 3.</b> Every public task, its outcome and the finding in one line.</p>
+  <p class="tcap"><b>Table 4.</b> Every public task, its outcome and the finding in one line.</p>
   <div class="tablewrap"><table class="bt" id="tasktable">
     <thead><tr><th style="width:24%">Task</th><th class="field" style="width:19%">Field</th><th style="width:14%">Outcome</th><th>Finding</th></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
   <div class="empty" id="empty" hidden>No task matches.</div>
-</section>
-
-<section id="method" class="col">
-  <h2 class="sec"><span class="num">5</span>Method</h2>
-  <ol class="steps">
-    <li><b>Use the original grader.</b> Every check ran on EdgeBench's published grading software, pulled from its public images and identified by a cryptographic fingerprint, with network access switched off.</li>
-    <li><b>Quote the promise.</b> What a task promises is taken verbatim from the instructions and documents the agent receives, and read next to the grader's code.</li>
-    <li><b>Show the problem with test submissions.</b> For each suspected problem we wrote three submissions and ran them through the original grader: a correct one, which must score as promised; one that triggers the problem; and a wrong one, which must be rejected.</li>
-    <li><b>Confirm it independently.</b> Claims were checked a second way, with exact arithmetic, a separate implementation, exhaustive search, or a formal proof in Lean&nbsp;4 or TLA+ (Section&nbsp;5.1).</li>
-    <li><b>Follow it to the final score.</b> A problem counts only if it changes the 0–100 score of honest work; problems that do not are recorded as notes.</li>
-    <li><b>Test every fix side by side.</b> The same test submissions were graded by the original and the fixed grader. A fix is accepted only if the problem disappears, correct work keeps its score and wrong work is still rejected. Each comparison was repeated three times on fresh machines; across 132 comparisons, no outcome changed.</li>
-  </ol>
-  <h3 id="formal"><span class="num">5.1</span>Formal verification</h3>
-  <p>Testing shows that a problem occurs; it cannot show that something holds for every input. Wherever a claim could be stated precisely, we also checked it with a formal tool. <b>Lean&nbsp;4</b> is a proof assistant: a claim counts only once its kernel accepts a complete proof, and every proof lists the basic axioms it relies on, so a hidden gap would show. <b>TLA+</b> describes a system as a state machine, and its model checker explores every reachable state of a bounded version.</p>
-  <p>Three rules applied to every formal result. The model is tied to the real grader code: each step maps to a source line, the file's fingerprint is recorded, and wherever possible the model is run against the real code's saved outputs. Each result has a counter-check that must fail, such as the original rule violating the property or a deliberately too-strong claim being false. And each states its limits.</p>
-  <p>In total, {{formal_tasks}} of the 51 tasks have formal results: {{lean_files}} Lean files with {{lean_thms}} reported theorems, and {{tla_runs}} model-checking runs over {{tla_models}} TLA+ models (Table&nbsp;4). <mark>For {{fix_proved}} of the 22 fixes, Lean or TLA+ proves the fix itself correct within its model, and one more is partly proved.</mark> The rest cannot be usefully formalized. ARC and OpenTTD are documentation fixes, Borden's physics convention is a modelling choice, and Exchange Core's fix relies on the project's own test suite. Those fixes rest on the side-by-side runs and the real-run check in Section&nbsp;3.3. Every formal result reruns with one command, and the TLA+ checks rerun automatically on every change.</p>
-  <p>The formal checks also corrected us. <mark>One shipped fix was narrower than published:</mark> the College English grader still gave full marks in four rare kinds of contradictory assessment. It has been revised, re-proved and re-tested three times. Eight other statements were imprecise and have been corrected, for example the SMT comparability claim, the exact PSNR thresholds of the FFmpeg fix, and an undocumented side effect of the Order Addition fix. None changed a score we report.</p>
-  <div class="breakout"><p class="tcap"><b>Table 4.</b> Every formal result: what it establishes and where it stops.</p>
-  <div class="tablewrap"><table class="bt">
-    <thead><tr><th style="width:17%">Task</th><th style="width:7%">Tool</th><th style="width:10%">Result</th><th>What is proved or checked</th><th style="width:22%">Limit</th></tr></thead>
-    <tbody>{{formal_rows}}</tbody>
-  </table></div></div>
-
-  <h3>Limitations</h3>
-  <ul class="tight">
-    <li>Only the 51 public tasks are covered; EdgeBench's other 83 tasks are unreleased.</li>
-    <li>No model was rerun. Effects on the leaderboard are computed where possible and bounded otherwise.</li>
-    <li>Deliberate attacks on the grader by a malicious submission concern how the benchmark isolates its grader, and are out of scope.</li>
-    <li>Side-by-side tests ran on one machine type (8 virtual CPUs, 8&nbsp;GiB of memory); speed-based scores may differ elsewhere.</li>
-    <li>The reviews were carried out by AI agents. Every claim is tied to a saved evidence file and a rerunnable check, which is not the same as independent human reproduction.</li>
-  </ul>
 </section>
 
 <section id="lessons" class="col">

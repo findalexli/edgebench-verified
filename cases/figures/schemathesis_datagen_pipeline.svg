@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img"><title>The original date test accepts a nonsense date string and accepts 50 of 50 generated impossible dates; the fixed test accepts only 5 of 50.</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img"><title>The original date test accepts a nonsense date string and all 50 dates from a generator whose dates are about 90% impossible; the fixed test accepts only the 5 valid ones.</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -18,7 +18,7 @@
 <text class="ink b" x="360" y="75" text-anchor="middle">"Abc, 99 Xyz 0000 99:99:99 GMT"</text>
 <text class="bad b" x="32" y="122">Original: accepted ✓</text>
 <text class="good b" x="400" y="122">Fixed: rejected ✗</text>
-<text class="muted" x="16" y="160">50 generated dates with random weekday, day, month, year and clock:</text>
+<text class="muted" x="16" y="160">Of 50 dates drawn field by field (about 90% impossible), accepted:</text>
 <text class="ink" x="16" y="197">Original</text>
 <rect class="bad" x="120" y="180" width="560" height="22" rx="3"/>
 <text class="bg b" x="660" y="197" text-anchor="end">50 / 50</text>

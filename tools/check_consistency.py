@@ -71,7 +71,10 @@ def main():
     sh = [float(r['exact_adjusted_mean']) - float(r['recomputed_mean']) for r in imp]
     dn = max(float(r['exact_adjusted_mean']) - float(r['bounded_low']) for r in imp)
     up = max(float(r['bounded_high']) - float(r['exact_adjusted_mean']) for r in imp)
-    for txt in (f'{min(sh):.1f}–{max(sh):.1f} points', f'at most {dn:.1f} points down or {up:.1f} up'):
+    wd = max(float(r['exact_adjusted_mean']) - float(r['worst_case_low']) for r in imp)
+    wu = max(float(r['worst_case_high']) - float(r['exact_adjusted_mean']) for r in imp)
+    for txt in (f'{min(sh):.1f}–{max(sh):.1f} points', f'at most {dn:.1f} points down or {up:.1f} up',
+                f'as much as {wd:.1f} points down or {wu:.1f} up'):
         need(txt in ' '.join(readme.split()), f'README impact text missing "{txt}"')
     for m in problems:
         print('MISMATCH:', m)

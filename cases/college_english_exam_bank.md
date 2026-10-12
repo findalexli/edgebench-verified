@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The original grader gave full marks for any rubric rule that the AI grading model did not assess, and still reported the result as valid.</mark>
 
-![Bars show the original grader scoring an empty assessment 100, and assessments with one rule left out 81 instead of 77 and 15 instead of 0; the fixed version rejects all three.](figures/college_english_exam_bank.svg)
+![Bars show the original grader scoring an empty assessment 100, and assessments with one 15-point rule left out 81 instead of 77 and 15 instead of 0; the fixed version reports all three as grading failures.](figures/college_english_exam_bank.svg)
 
-*When the AI grader skipped rules, the original grader gave those rules full marks and called the result valid; the fixed version rejects incomplete assessments.*
+*When the AI grader skipped rules, the original grader gave those rules full marks and called the result valid; the fixed version asks again and otherwise reports a grading failure.*
 
 ## What the task asks
 

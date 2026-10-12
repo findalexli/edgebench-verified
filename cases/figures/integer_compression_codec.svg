@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>Left: the starter should score 1.0 but scores 0.24 on the original grader and 0.98 on the fixed one. Right: stored baseline of 5.13 bits per integer is below the 8-bit minimum and far from the measured 38.98.</title>
+<title>Integer compression baseline</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -15,21 +15,24 @@
 </style>
 
 <text x="16" y="30" font-size="18" font-weight="700" class="ink">The baseline numbers cannot be real</text>
-<text x="16" y="62" font-size="14" class="muted">Starter score (documented: 1.0)</text>
+<text x="16" y="62" font-size="14" class="muted">Starter's raw score (documented: 1.0)</text>
 <text x="16" y="102" font-size="15" class="ink">Original</text>
-<rect x="96" y="82" width="64" height="26" class="bad"/><text x="168" y="102" font-size="16" font-weight="700" class="ink">0.24</text>
+<rect x="96" y="82" width="62" height="26" class="bad"/><text x="166" y="102" font-size="16" font-weight="700" class="ink">0.24</text>
 <text x="16" y="152" font-size="15" class="ink">Fixed</text>
-<rect x="96" y="132" width="260" height="26" class="good"/><text x="364" y="152" font-size="16" font-weight="700" class="ink">0.98</text>
+<rect x="96" y="132" width="255" height="26" class="good"/><text x="364" y="152" font-size="16" font-weight="700" class="ink">0.98</text>
 <line x1="356" y1="72" x2="356" y2="172" class="inkS" stroke-width="1" stroke-dasharray="4 4"/>
 <text x="356" y="190" font-size="14" text-anchor="middle" class="muted">1.0</text>
 <line x1="410" y1="50" x2="410" y2="284" class="rule" stroke-width="1.5"/>
-<text x="426" y="62" font-size="14" class="muted">Bits per integer, docids</text>
-<text x="426" y="100" font-size="14" class="ink">Stored "Varint"</text>
+<text x="426" y="62" font-size="14" class="muted">Bits per integer, one dataset (docids)</text>
+<text x="426" y="100" font-size="14" class="ink">Stored starter value</text>
 <rect x="426" y="108" width="31" height="24" class="bad"/><text x="486" y="127" font-size="16" font-weight="700" class="ink">5.13</text>
 <text x="426" y="170" font-size="14" class="ink">Starter, measured</text>
 <rect x="426" y="178" width="234" height="24" class="acc"/><text x="650" y="196" font-size="16" font-weight="700" text-anchor="end" class="bg">38.98</text>
 <line x1="474" y1="104" x2="474" y2="136" class="warnS" stroke-width="2"/><line x1="474" y1="174" x2="474" y2="206" class="warnS" stroke-width="2"/>
-<text x="426" y="262" font-size="14" class="warn">8 bits = byte-varint minimum</text>
-<rect x="16" y="226" width="368" height="44" rx="8" class="warnBg"/>
-<text x="32" y="253" font-size="15" class="ink">Fixed: measure the starter in the same run</text>
+<text x="482" y="151" font-size="14" class="warn">8-bit minimum</text>
+<text x="426" y="236" font-size="14" class="muted">The starter stores each number in</text>
+<text x="426" y="254" font-size="14" class="muted">whole bytes: at least 8 bits.</text>
+<rect x="16" y="210" width="378" height="70" rx="8" class="warnBg"/>
+<text x="32" y="236" font-size="15" class="ink">Fixed: measure the starter in the same run</text>
+<text x="32" y="262" font-size="14" class="muted">Raw score. On the fixed 0–100 scale the starter gets 0.</text>
 </svg>

@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The hidden test for HTTP dates checks only the shape of the string, so generators that emit impossible dates and clock times pass; the gap is worth about 1% of the score.</mark>
 
-![The original date test accepts a nonsense date string and accepts 50 of 50 generated impossible dates; the fixed test accepts only 5 of 50.](figures/schemathesis_datagen_pipeline.svg)
+![The original date test accepts a nonsense date string and all 50 dates from a generator whose dates are about 90% impossible; the fixed test accepts only the 5 valid ones.](figures/schemathesis_datagen_pipeline.svg)
 
-*The original date test checked only the string shape, so impossible dates passed 50 of 50; the fixed test accepts 5 of 50.*
+*The original date test checked only the string shape, so a generator whose dates are about 90% impossible passed 50 of 50; the fixed test accepts only the 5 valid dates.*
 
 ## What the task asks
 

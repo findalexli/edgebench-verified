@@ -18,16 +18,19 @@
 <polygon points="60,250 180,170 300,250 180,70" class="warnBg"/>
 <polygon points="60,250 180,170 300,250 180,70" fill="none" class="inkS" stroke-width="2"/>
 <line x1="180" y1="170" x2="180" y2="70" class="inkS" stroke-width="2"/>
+<polygon points="60,250 180,170 300,250" class="bad" fill-opacity="0.3"/>
 <line x1="60" y1="250" x2="300" y2="250" class="badS" stroke-width="4" stroke-dasharray="9 6"/>
-<text x="188" y="150" font-size="14" class="muted">old edge</text>
+<text x="174" y="144" font-size="13" class="muted" text-anchor="end">old</text><text x="174" y="160" font-size="13" class="muted" text-anchor="end">edge</text>
+<text x="180" y="234" font-size="13" text-anchor="middle" font-weight="600" class="bad">overlap</text>
+<text x="16" y="60" font-size="13" class="muted">Sketch: four-sided shape with a dent (not convex)</text>
 <text x="180" y="278" font-size="14" text-anchor="middle" class="bad">new edge: triangles overlap</text>
 <rect x="352" y="56" width="352" height="64" rx="8" class="badBg"/>
 <text x="368" y="82" font-size="15" font-weight="700" class="bad">Original grader: accepted</text>
-<text x="368" y="106" font-size="15" class="ink">Score = 41</text>
+<text x="368" y="106" font-size="15" class="ink">Flip scored as normal (score 41)</text>
 <rect x="352" y="132" width="352" height="64" rx="8" class="goodBg"/>
 <text x="368" y="158" font-size="15" font-weight="700" class="good">Fixed version: rejected</text>
-<text x="368" y="182" font-size="15" class="ink">Invalid flip</text>
+<text x="368" y="182" font-size="15" class="ink">Error: invalid flip</text>
 <text x="352" y="228" font-size="14" class="muted">Real hidden case 0009:</text>
-<text x="352" y="252" font-size="15" class="ink">one forbidden flip improves the score</text>
+<text x="352" y="252" font-size="15" class="ink">one forbidden flip improves (lowers) the score</text>
 <text x="352" y="276" font-size="15" font-weight="700" class="ink">644,809 → 641,611</text>
 </svg>

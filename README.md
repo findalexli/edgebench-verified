@@ -70,17 +70,19 @@ Every task is listed in [FINDINGS.md](FINDINGS.md), and each has its own page in
 
 ## Effect on the published leaderboard
 
-EdgeBench publishes each model's score on every task. From those numbers alone we can exactly
-correct the fixes that only change the 0–100 scale (mainly Treant Forest) and remove the excluded
-task. That raises every model's average by 1.2–1.9 points and leaves the order unchanged.
+**How much the published leaderboard changes cannot be determined from public data.** Measuring it
+would require regrading the agents' original submissions, which EdgeBench has not released, or
+rerunning the models on the fixed tasks, which this audit did not do. What can be stated precisely:
 
-Fixes with a known maximum effect add at most 0.3 points down or 1.4 up. That is enough to swap
-Opus 4.8 (44.2) and GPT-5.5 (43.1), so the public tasks alone do not show which of the two is ahead.
-
-For 12 more fixed tasks we know only the direction of the effect. Several of them are large, for
-example Integer Codec, OpenTTD and SMT Solver. Sizing these would require regrading the original
-submissions, which are not public. The exact figures are therefore a lower limit on the change,
-not an estimate of it.
+- **Outer range.** For 12 fixed tasks only the direction of the effect is known. Letting each take
+  its largest possible effect moves a model's average by as much as 9.3 points down or 13.5 up. This
+  is a limit, not a prediction.
+- **Known maximum.** Fixes with a proved or demonstrated maximum move an average by at most 0.3
+  points down or 1.4 up. That alone is enough to swap Opus 4.8 (44.2) and GPT-5.5 (43.1), so the
+  public tasks do not establish which of the two is ahead.
+- **Lower limit.** Changes of scale convert exactly and raise every average by 1.2–1.9 points. This
+  is the certain part, not an estimate of the total; several of the largest effects are among those
+  whose size is unknown.
 
 A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, with every
 submission. Regrading it confirmed the Order Addition defect in practice: the run kept its first

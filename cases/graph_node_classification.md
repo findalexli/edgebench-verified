@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The original grader silently drops predictions that are not whole numbers and still marks the run valid.</mark>
 
-![Original grader scores a prediction list that is mostly "x" on a single node and calls it valid; the fixed version rejects it.](figures/graph_node_classification.svg)
+![Original grader drops every non-integer prediction, scores the one prediction left against the first label in each of 10 rounds and calls the run valid; the fixed version rejects it.](figures/graph_node_classification.svg)
 
-*The original grader silently dropped non-integer predictions and scored one node as valid; the fixed version rejects the run.*
+*The original grader silently dropped the non-integer predictions, scored the one left against the first label in each round and still called the run valid; the fixed version rejects it.*
 
 ## What the task asks
 

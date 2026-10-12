@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The grader's rule for legal edge flips leaves out the README's convexity condition; the same rule generated all ten hidden inputs, which contain overlapping or folded triangles, and it also decides which submitted moves are accepted.</mark>
 
-![A dart-shaped four-point shape where flipping its inner edge makes two triangles overlap; the original grader accepts the flip with Score = 41 and the fixed version rejects it as an invalid flip.](figures/triangulation_coloring_optimization.svg)
+![Sketch of a dart-shaped four-sided shape with a dent, where flipping its inner edge makes the two new triangles overlap; the original grader accepts the flip and scores it (41 on the four-point test input) and the fixed version rejects it as an invalid flip. On real hidden case 0009 one forbidden flip lowers (improves) the score from 644,809 to 641,611.](figures/triangulation_coloring_optimization.svg)
 
-*The original grader accepts flips the rules forbid, and they even improve the score (644,809 to 641,611 on case 0009); the fixed version rejects them.*
+*The original grader accepts flips the rules forbid, and one even improves the score (lower is better: 644,809 to 641,611 on hidden case 0009); the fixed version rejects them.*
 
 ## What the task asks
 

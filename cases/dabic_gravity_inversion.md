@@ -2,9 +2,9 @@
 
 **Outcome:** Removed. <mark>42 points come from results the submission reports about itself, which the grader cannot verify; a partial fix removes a second, undisclosed penalty on one of two allowed forms, but does not make the task usable.</mark>
 
-![Bars show the same work scoring 88.92 in the data form and 42.86 in the model form on the original grader, with a note that 42 points are self-reported.](figures/dabic_gravity_inversion.svg)
+![Bars show the same strong work scoring 88.92 in the data form and 42.86 in the model form on the original grader, computed from the grader's own penalty rule; a line gives the measured moderate-level scores (26.82 and 25.77, model form 26.81 after the fix), and a note says the task is still removed because 42 points are self-reported.](figures/dabic_gravity_inversion.svg)
 
-*The original grader penalised one of two equivalent forms, and the partial fix cannot save the task because 42 points are results the submission reports itself.*
+*The original grader quietly penalises one of two allowed, equivalent forms, but the task is removed anyway because 42 points come from results the submission reports about itself.*
 
 ## What the task asks
 

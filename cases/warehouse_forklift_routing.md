@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The grader gives 60 s per five-case input while the prompt promises 30 s per test case; the fixed version raises the limit to the promised 150 s per input, keeps the score scale unchanged and documents a proven ceiling of about 30.3 points out of 100.</mark>
 
-![Time bar from 0 to 150 seconds per input showing the enforced 60 s limit, the promised 150 s, and the zone between marked as promised but scored 0.](figures/warehouse_forklift_routing.svg)
+![Time bar from 0 to 150 seconds per input showing the enforced 60 s limit, the promised 150 s, and the zone between marked as promised but scored 0; a test submission taking 13 s per test case (65 s per input) times out on all 50 inputs under the original grader and is fully scored by the fixed version with its 150 s limit.](figures/warehouse_forklift_routing.svg)
 
-*The prompt promises 30 s per test case, 150 s per input, but the original grader enforces 60 s, so a solver using the promised budget loses its whole score.*
+*The prompt promises 30 s per test case, 150 s per input, but the original grader enforces 60 s, so a solver that takes more than 60 s on any input, though within the promise, loses its whole score.*
 
 ## What the task asks
 

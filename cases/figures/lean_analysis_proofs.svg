@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>Bar of 2901 graded targets split into 2338 scored, 560 compiler-generated helpers and 3 placeholders, with two false statements and one proof-style example.</title>
+<title>Lean Analysis graded targets</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -15,20 +15,20 @@
 </style>
 
 <text x="16" y="30" font-size="18" font-weight="700" class="ink">Some graded targets cannot be earned fairly</text>
-<text x="16" y="60" font-size="14" class="muted">2901 graded targets in the original</text>
+<text x="16" y="60" font-size="14" class="muted">The original grades 2901 targets (1 point each); the fixed version keeps 2338</text>
 <rect x="16" y="72" width="554" height="36" class="good"/>
 <rect x="572" y="72" width="130" height="36" class="bad"/>
 <rect x="703" y="72" width="1" height="36" class="warn"/>
-<text x="293" y="96" font-size="15" text-anchor="middle" class="bg" style="font-weight:700">2338 still scored</text>
+<text x="293" y="96" font-size="15" text-anchor="middle" class="bg" style="font-weight:700">2338 kept</text>
 <text x="637" y="96" font-size="15" text-anchor="middle" class="bg" style="font-weight:700">560</text>
-<text x="702" y="132" font-size="14" text-anchor="end" class="bad">compiler-generated helpers: removed</text>
-<text x="704" y="152" font-size="14" text-anchor="end" class="warn">3 placeholders: removed</text>
+<text x="702" y="132" font-size="14" text-anchor="end" class="bad">hidden helpers made by the compiler: not scored in the fix</text>
+<text x="704" y="152" font-size="14" text-anchor="end" class="warn">3 placeholder statements: not scored in the fix</text>
 <rect x="16" y="176" width="336" height="108" rx="8" class="badBg"/>
 <text x="32" y="204" font-size="15" font-weight="700" class="bad">2 false statements</text>
 <text x="32" y="230" font-size="14" class="ink">No honest proof can earn them.</text>
 <text x="32" y="254" font-size="14" class="ink">The fix corrects both statements.</text>
 <rect x="368" y="176" width="336" height="108" rx="8" class="warnBg"/>
 <text x="384" y="204" font-size="15" font-weight="700" class="warn">Same proof, other tactic</text>
-<text x="384" y="230" font-size="14" class="ink">omega renames a helper:</text>
-<text x="384" y="254" font-size="14" class="ink">scored 1 point less.</text>
+<text x="384" y="230" font-size="14" class="ink">With the omega tactic, a hidden helper</text>
+<text x="384" y="254" font-size="14" class="ink">gets a new name: 1 point less (25 vs 26).</text>
 </svg>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 296" role="img"><title>A cost scale with the 2.5·10⁹ limit and a tiny gap above it where the original checker wrongly accepts an over-limit answer of 2.501·10⁹; the fixed checker rejects it.</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 316" role="img"><title>A cost scale with the 2.5·10⁹ limit and a tiny gap above it where the original checker wrongly accepts an over-limit answer of 2.501·10⁹; the fixed checker rejects it.</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -20,15 +20,16 @@
 <line class="inkS" x1="440" y1="92" x2="440" y2="150" stroke-width="2.5"/>
 <text class="ink b" x="440" y="82" text-anchor="middle">limit 2.5·10⁹</text>
 <rect class="warnBg" x="440" y="104" width="24" height="26"/>
-<text class="warn" x="452" y="172" text-anchor="middle">gap: at most 0.04%</text>
+<text class="warn" x="452" y="174" text-anchor="middle">gap the original accepts: up to 10⁶ (0.04%)</text>
+<text class="muted" x="452" y="194" text-anchor="middle">(widths not to scale)</text>
 <line class="warn" stroke="#9a6510" x1="452" y1="132" x2="452" y2="156" stroke-width="1.5"/>
 <text class="bad b" x="640" y="123" text-anchor="end">over the limit</text>
-<rect class="badBg badS" x="16" y="196" width="340" height="86" rx="8" stroke-width="1.5"/>
-<text class="bad t" x="32" y="224">Original grader</text>
-<text class="ink" x="32" y="248">True cost 2.501·10⁹: accepted</text>
-<text class="bad b" x="32" y="270">Wrong: over the limit</text>
-<rect class="goodBg goodS" x="372" y="196" width="332" height="86" rx="8" stroke-width="1.5"/>
-<text class="good t" x="388" y="224">Fixed version</text>
-<text class="ink" x="388" y="248">True cost 2.501·10⁹: rejected</text>
-<text class="good b" x="388" y="270">Right</text>
+<rect class="badBg badS" x="16" y="216" width="340" height="86" rx="8" stroke-width="1.5"/>
+<text class="bad t" x="32" y="244">Original grader</text>
+<text class="ink" x="32" y="268">True cost 2.501·10⁹: accepted</text>
+<text class="bad b" x="32" y="290">Wrong: over the limit</text>
+<rect class="goodBg goodS" x="372" y="216" width="332" height="86" rx="8" stroke-width="1.5"/>
+<text class="good t" x="388" y="244">Fixed version</text>
+<text class="ink" x="388" y="268">True cost 2.501·10⁹: rejected</text>
+<text class="good b" x="388" y="290">Correct: over the limit</text>
 </svg>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img"><title>Original grader scores a prediction list that is mostly "x" on a single node and calls it valid; the fixed version rejects it.</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img"><title>Original grader drops every non-integer prediction, scores the one prediction left against the first label in each of 10 rounds and calls the run valid; the fixed version rejects it.</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -13,7 +13,7 @@
     .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
   }
 </style>
-<text class="t ink" x="16" y="30">1000 test nodes, one real answer, 999 left as "x"</text>
+<text class="t ink" x="16" y="30">One real prediction; every other test node left as "x"</text>
 <rect class="goodBg goodS" x="16" y="48" width="42" height="34" rx="4" stroke-width="1.5"/><text class="good b" x="37" y="71" text-anchor="middle">1</text>
 <rect class="badBg badS" x="66" y="48" width="42" height="34" rx="4" stroke-width="1.5"/><text class="bad b" x="87" y="71" text-anchor="middle">x</text>
 <rect class="badBg badS" x="116" y="48" width="42" height="34" rx="4" stroke-width="1.5"/><text class="bad b" x="137" y="71" text-anchor="middle">x</text>
@@ -24,15 +24,16 @@
 <rect class="badBg badS" x="366" y="48" width="42" height="34" rx="4" stroke-width="1.5"/><text class="bad b" x="387" y="71" text-anchor="middle">x</text>
 <rect class="badBg badS" x="416" y="48" width="42" height="34" rx="4" stroke-width="1.5"/><text class="bad b" x="437" y="71" text-anchor="middle">x</text>
 <rect class="badBg badS" x="466" y="48" width="42" height="34" rx="4" stroke-width="1.5"/><text class="bad b" x="487" y="71" text-anchor="middle">x</text>
-<text class="muted" x="530" y="71">… 1000 nodes</text>
-<rect class="badBg badS" x="16" y="112" width="340" height="150" rx="8" stroke-width="1.5"/>
+<text class="muted" x="530" y="71">… every test node</text>
+<rect class="badBg badS" x="16" y="112" width="340" height="160" rx="8" stroke-width="1.5"/>
 <text class="bad t" x="32" y="142">Original grader</text>
 <text class="ink" x="32" y="176">Marked valid: true</text>
-<text class="ink" x="32" y="204">Scored on 1 node only</text>
-<text class="bad b" x="32" y="238">Accuracy 0.20 (honest: 0.333)</text>
-<rect class="goodBg goodS" x="372" y="112" width="332" height="150" rx="8" stroke-width="1.5"/>
+<text class="ink" x="32" y="202">Drops every "x"; scores 1 node per round,</text>
+<text class="ink" x="32" y="226">against the first label in order</text>
+<text class="bad b" x="32" y="256">Quality score 0.20 (full baseline 0.333)</text>
+<rect class="goodBg goodS" x="372" y="112" width="332" height="160" rx="8" stroke-width="1.5"/>
 <text class="good t" x="388" y="142">Fixed version</text>
 <text class="ink" x="388" y="176">Marked valid: false</text>
-<text class="ink" x="388" y="204">"x" is not an integer class id</text>
-<text class="good b" x="388" y="238">Run rejected</text>
+<text class="ink" x="388" y="202">"x" is not an integer class id</text>
+<text class="good b" x="388" y="256">Run rejected</text>
 </svg>

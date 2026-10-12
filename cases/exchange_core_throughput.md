@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The original correctness check does not catch wrong fees or lost messages, so incorrect engines receive full credit; the fixed version requires the project's own integration tests to pass and grades without network access.</mark>
 
-![Bars show the original grader scoring an engine with wrong fees 24.40 and one with dropped events 15.62, above the correct engine at 7.14, while the fixed version rejects both broken engines with 0.](figures/exchange_core_throughput.svg)
+![Bars show the original grader giving full credit to an engine with wrong fees (24.40) and one that loses messages (15.62), as well as to the correct engine (7.14), with a note that the gaps are within speed noise, while the fixed version rejects both broken engines with 0.](figures/exchange_core_throughput.svg)
 
-*The original grader gave broken engines full credit and even higher scores than the correct one; the fixed version scores them 0.*
+*The original grader gives broken engines full credit; their higher single-run scores are within speed noise. The fixed version scores them 0.*
 
 ## What the task asks
 

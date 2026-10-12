@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>Two statements the solver must prove are false, and the original grader scores helper declarations that the compiler generates, so honest proofs of the same theorem can score differently depending on proof style.</mark>
 
-![A bar of 2901 graded targets shows 2338 still scored after removing 560 compiler-generated helpers and 3 placeholders, with callouts for two false statements and for a correct proof losing a point when omega renames a helper.](figures/lean_analysis_proofs.svg)
+![A bar of the original 2901 graded targets shows the 2338 the fixed version keeps, plus 560 hidden compiler-made helpers and 3 placeholder statements it no longer scores, with callouts for two false statements and for a correct proof scoring one point less (25 against 26) when the omega tactic renames a helper.](figures/lean_analysis_proofs.svg)
 
-*Two statements were false and 560 graded helpers depended on proof style; the fixed version corrects the statements and scores 2338 targets.*
+*Two required statements were false and 560 hidden compiler-made helpers were graded, some in a way that depends on proof style; the fixed version corrects the statements and scores 2338 targets.*
 
 ## What the task asks
 

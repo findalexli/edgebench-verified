@@ -117,7 +117,7 @@ All tables, the findings list, the guide and the website are generated from `dat
 `cases/plain.json`:
 
 ```bash
-python3 tools/build_tables.py && python3 tools/build_findings.py && python3 tools/build_applying.py && python3 tools/estimate_impact.py && python3 tools/build_site.py
+python3 tools/sync_case_figures.py && python3 tools/build_tables.py && python3 tools/build_findings.py && python3 tools/build_applying.py && python3 tools/estimate_impact.py && python3 tools/build_site.py
 python3 tools/check_consistency.py   # every published count agrees with data/decisions.json
 python3 tools/check_formal.py        # TLA+ models and Lean proofs reproduce their published outcomes
 ```

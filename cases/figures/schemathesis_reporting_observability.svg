@@ -16,16 +16,16 @@
 <text class="t ink" x="16" y="30">Two hidden tests that give credit for broken work</text>
 <rect class="accBg accS" x="16" y="46" width="338" height="220" rx="8" stroke-width="1.5"/>
 <text class="acc t" x="32" y="74">1. Error report</text>
-<text class="ink" x="32" y="104">Writer drops the &lt;error&gt;:</text>
+<text class="ink" x="32" y="104">Report leaves out the error:</text>
 <text class="bad b" x="32" y="140">Original test: passed ✓</text>
 <text class="good b" x="32" y="172">Fixed test: failed ✗</text>
-<text class="muted" x="32" y="206">A failure looks like a pass in CI.</text>
+<text class="muted" x="32" y="206">A failed test is reported as passed.</text>
 <text class="muted" x="32" y="248">Up to 1/70 of the score</text>
 <rect class="accBg accS" x="366" y="46" width="338" height="220" rx="8" stroke-width="1.5"/>
 <text class="acc t" x="382" y="74">2. Leave bodies out</text>
-<text class="ink" x="382" y="104">Starter makes 12 unwanted values:</text>
+<text class="ink" x="382" y="104">Starter still makes the unwanted case:</text>
 <text class="bad b" x="382" y="140">Original test: passed ✓</text>
 <text class="good b" x="382" y="172">Fixed test: failed ✗</text>
-<text class="muted" x="382" y="206">Checks the wrong class: always empty.</text>
+<text class="muted" x="382" y="206">Looks for the wrong type: finds nothing.</text>
 <text class="muted" x="382" y="248">Up to 1/100 of the score</text>
 </svg>
