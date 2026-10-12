@@ -1,0 +1,170 @@
+{
+  "accepted_conclusions": [
+    "All56 complete public route sets cover5600 retained customers exactly once and satisfy capacity, vehicle limits, service windows and depot return under publisher Euclidean convention; independently recomputed vehicle counts and final rounded objectives match current primary table.",
+    "55 original public route sets also satisfy the task rounded convention. Original R1129-route order fails by0.1 at service start, while its Euclidean minimum slack is approximately0.053324611. This is a convention-transfer counterexample, not upstream data invalidity or task-instance infeasibility.",
+    "The additive R112 native-format candidate moves only customer5 from route2 to a singleton. Independent Decimal oracle confirms10routes within25,100customers once, capacity200, cost1021.50, minimum slack0.1, all service/depot constraints. Original nine-route failure remains preserved. Together these constitute56 finite complete feasible route witnesses for the retained instances.",
+    "Five current-vs-embedded BKS differences are real observations. All vehicle counts agree. They do not reconstruct the2024 snapshot, identify the deployed hidden CSV, or prove an erroneous historical reference."
+  ],
+  "additional_source_pins": [
+    {
+      "bytes": 6314,
+      "path": "work/task-sources/merged/vehicle_routing_time_windows/home/workspace/task_cvrptw_905da6dd/workspace/README.md",
+      "sha256": "26641154d3b6b6459da74a68df8dd1b7de6542826901af9d47e5b9cb0de14eda"
+    },
+    {
+      "bytes": 1269,
+      "path": "work/task-sources/merged/vehicle_routing_time_windows/home/workspace/task_cvrptw_905da6dd/workspace/include/types.h",
+      "sha256": "9fe467dcae6af5adec182c09cda1bd4dd8a7aa31fa08e63c285d798a76ce74f1"
+    },
+    {
+      "bytes": 8593,
+      "path": "work/task-sources/merged/vehicle_routing_time_windows/home/workspace/task_cvrptw_905da6dd/workspace/tools/verify.cpp",
+      "sha256": "0adb0ac0b25a9e44658c31a59fc1b757738a80d9dadfe8f12fdbcae5959865e5"
+    },
+    {
+      "bytes": 11809,
+      "path": "edgebenchverified/tasks/vehicle_routing_time_windows.json",
+      "sha256": "5dc47728618f81deda92fbca50f7dcdff2e72589bc197cfab3a1e95edb0ff427"
+    }
+  ],
+  "additive_handoff": {
+    "bytes": 1618,
+    "path": "work/packets/vrptw-complete-route-witness-astra-high-v1/r112-adjust-handoff.json",
+    "sha256": "1f460378d55259a8d9e421fcbb57cde3e429bc85184fa978af0f5db3806c5dc8"
+  },
+  "author": "/root/astra_report_clarity",
+  "bounds": {
+    "AS_bytes": 134217728,
+    "CPU_seconds": 5,
+    "affinity_cpus": 1,
+    "successful_final_review_wall_seconds": 1.342,
+    "wall_alarm_seconds": 18
+  },
+  "canonical_mutations": 0,
+  "checked_bindings": {
+    "acquisition": {
+      "bytes": 24290,
+      "path": "work/packets/vrptw-complete-route-witness-astra-high-v1/acquisition.json",
+      "sha256": "175f286077775ba15f7494862c225b3ecb09062a9ba08517dc005d222e0fe20b"
+    },
+    "all_56_download_body_hashes_match": true,
+    "all_recorded_download_urls_join_primary_page_links": true,
+    "current_primary_table_independently_parsed": true,
+    "local_embedded_56_references_independently_parsed": true,
+    "original_input_and_source_files": 118
+  },
+  "cloud_calls": 0,
+  "corrections_and_refutations": [
+    "Accept explicit preserved correction original_compute_calls56 to55. Saved result remains unchanged, corrected handoff/conclusion govern count.",
+    "Original conclusion pending R112 witness is superseded only by separately frozen additive R112 handoff; original transfer failure preserved.",
+    "Reviewer initial parser assumed one internal space in Route labels; actual publisher labels padded. Tokenized labels fix only reviewer parsing. Extra provenance check initially used Python3.9removeprefix on local3.8; replaced with equivalent prefix slicing. One exploratory substring lookup failed; no source/science mutation resulted.",
+    "Retained task metric explicitly differs from publisher metric; therefore R112 transfer failure cannot justify a new defect label. The constructive complement directly refutes instance-infeasibility speculation."
+  ],
+  "count_or_disposition_effect": "none",
+  "decision": "GO_FINITE_COMPLETE_ROUTE_FEASIBILITY_AND_CONVENTION_REVIEW",
+  "different_reviewer": "/root/astra_http_date_repair",
+  "independent_checks": {
+    "bytes": 22258,
+    "path": "work/reviews/vrptw-complete-route-witness-astra-high-v1-different/checks.json",
+    "sha256": "ab4569cc852d7f425323085748e5a649746f99e203250450662eb3259d9ee0b9"
+  },
+  "limits": [
+    "No original native checker, wrapper, solver or full benchmark run here. Routes are evaluated by independent source-mapped arithmetic; native-format candidate parsing acceptance is source-inspected, not newly executed.",
+    "No optimality/BKS attainment, all-model performance, historical2024 identity, complete deployed-image inventory, distribution-rights, release certification or task disposition claim.",
+    "Full original-case reference normalization remains a specific evidence gap: exact deployed bks_snapshot.csv and convention/version provenance, or exact observed fallback behavior.",
+    "Raw retained instance bodies are not exported; public route bodies and compact aggregate evidence only."
+  ],
+  "native_calls": 0,
+  "oracle_review": {
+    "binary64_limit": "Author float companion sums all edges globally; original C++ sums each route then total. No bit-identical floating accumulation claim. All observed differences are below1e-8 and far below .05 cost tolerance; schedule accumulation per route corresponds.",
+    "controls": "Seven author negatives inspected; eight independent 3-4-5 triangle controls executed: one valid, seven invalid for missing/duplicate visits, capacity, vehicle count, declared cost, late service and depot return. No old19native controls rerun.",
+    "integer_tenths": "Author uses integer sqrt and squared half-up threshold. Integral coordinate differences imply100*d_squared integral; an exact half-integer square has fractional quarter, so no exact half tie. Independent Decimal50sqrt/ROUND_HALF_UP agrees on all route edges/results.",
+    "schedule": "Reviewed service-start waiting, service duration, return leg, depot latest and capacity. Independent route oracle checks whole routes and full coverage, not relaxed per-customer paths."
+  },
+  "reference_differences": [
+    {
+      "current_primary": [
+        10,
+        1096.73
+      ],
+      "embedded": [
+        10,
+        1096.72
+      ],
+      "public_name": "R111"
+    },
+    {
+      "current_primary": [
+        3,
+        994.43
+      ],
+      "embedded": [
+        3,
+        994.42
+      ],
+      "public_name": "R205"
+    },
+    {
+      "current_primary": [
+        2,
+        885.71
+      ],
+      "embedded": [
+        2,
+        892.71
+      ],
+      "public_name": "R211"
+    },
+    {
+      "current_primary": [
+        14,
+        1696.95
+      ],
+      "embedded": [
+        14,
+        1696.94
+      ],
+      "public_name": "RC101"
+    },
+    {
+      "current_primary": [
+        4,
+        1406.94
+      ],
+      "embedded": [
+        4,
+        1406.91
+      ],
+      "public_name": "RC201"
+    }
+  ],
+  "reused_accepted_evidence": [
+    {
+      "bytes": 2607,
+      "path": "edgebenchverified/audit/evidence/vrptw-environment-native-run-v4-root-review/root-result-review.json",
+      "sha256": "f8806a6c2a1498209a0044888c5737fcd1110ab7e91172bfa321189333640aca"
+    },
+    {
+      "bytes": 4446,
+      "path": "edgebenchverified/audit/evidence/vrptw-travel-window-complement-astra-high-v1-root-review/root-result-review.json",
+      "sha256": "f2ac9ce93e43da4f3123ace28febfe96a8c058a2bcbf41d8d8ed3206f5610cf7"
+    }
+  ],
+  "review_source": {
+    "bytes": 9387,
+    "path": "work/reviews/vrptw-complete-route-witness-astra-high-v1-different/check.py",
+    "sha256": "01241dc919e26580b2858fa323d7df59d8a6c58d45557e3eb2e550b43a3ec018"
+  },
+  "source_contract": {
+    "actual_normalizer": "Original evaluator loads internal/cases/bks_snapshot.csv; for missing name it defaults to observed (nv,td), producing100 for a feasible case. Selected retained inventory did not establish this deployed CSV or its absence from the full image. Local fetch-script constants are not proven actual hidden normalization.",
+    "publisher_metric": "Retained primary SINTEF page specifies double-precision Euclidean travel, hierarchical vehicle count then total distance, final total rounded to two decimals, and warns that lower-precision/other objective conventions are not directly comparable.",
+    "task_metric": "Original retained README/types.h/verify.cpp explicitly use rounded Euclidean distance round(sqrt(dx^2+dy^2)*10)/10 for travel and cost; service starts may wait until earliest window, must not exceed latest plus1e-6; capacity, max vehicles, exactly-once visits and depot return apply. Cost declared to two decimals with .05 tolerance.",
+    "task_scalar": "Original compute scalar has finite vehicle penalties/bonuses and relative-distance terms; this is a weighted scalar, not an optimality proof. Only55 feasible original scalar calls occurred in author run.56th infeasible observation is assigned zero by caller branch."
+  },
+  "source_handoff": {
+    "bytes": 1654,
+    "path": "work/packets/vrptw-complete-route-witness-astra-high-v1/handoff.json",
+    "sha256": "64aa2f4139ffecc6af49a6cbc74e74b167420115ba44eacc231e0ea5d6cb14d0"
+  },
+  "task_id": "vehicle_routing_time_windows"
+}
