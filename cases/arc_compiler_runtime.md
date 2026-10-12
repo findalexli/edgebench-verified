@@ -13,7 +13,7 @@ The solver must "Implement the missing Arc compiler and runtime modules under co
 
 - Source reading of the hidden evaluator (`score_hidden.sh`) and the hidden type-system test files, compared with every solver-visible file (TASK.md, problem.md, CHEATSHEET, spec/, docs/, public smoke tests).
 - A static case inventory of the hidden suites (`case_inventory.py`): 21 suites, 448 cases, 2970 weight units.
-- A local run of the original scorer bytes with a bun stand-in for tsx/node, which reproduced the earlier native starter result exactly (167/448, weighted 1057/2970, 35.59).
+- A local run of the original scorer bytes with a bun stand-in for tsx/node, which reproduced the earlier native starter result exactly (167/448, weighted 1057/2970, 35.59). That run's record is not included here; the native paired run below gives the same values.
 - A paired evaluation on one E2B worker: five authored controls, each scored by the **original judge image** with the **original `judge.eval_cmd`** under `--network none`, once with `compiler/src/` from the v1 work image and once from the v2 work image. The public `score.sh` was also run inside each work image.
 - Original identity: judge image `seededge/edgebench.judge.arc_compiler_runtime@sha256:00a34432…` (unchanged in v2); work image `@sha256:3d90ab27…`; key files `score_hidden.sh` sha256 `42a75e67…4994`, `agent-start/TASK.md` `d22bfb01…c5a7d`, `compiler/src/semantic.js` `76a6b573…b1e`.
 
@@ -64,8 +64,8 @@ Per-suite counts are byte-identical between v1 and v2 for every control.
 
 - No model or solver re-runs; effects are shown on authored controls and counterexamples only.
 - Control (d) was written by an auditor who had read the hidden tests. It shows the documented contract is sufficient, not how a blind solver would perform.
-- Format-only credit remains: returning `[]` earns +11.62, and the earlier triage's constant one-diagnostic analyzer scored 57.81 (bun stand-in, not re-run in the image), because some cases check only for an empty or non-empty result. Fixing this needs judge changes that would alter what scores mean.
-- The adversarial type-system cases (32% of weight) come from 9 templates; v2 does not change this.
+- Format-only credit remains: returning `[]` earns +11.62, and the earlier triage's constant one-diagnostic analyzer scored 57.81 (bun stand-in, not re-run in the image; the triage record is not included in this repository), because some cases check only for an empty or non-empty result. Fixing this needs judge changes that would alter what scores mean.
+- The adversarial type-system cases (32% of weight per the earlier triage; not re-derived here) come from 9 templates; v2 does not change this.
 - One paired run per control. The v2 image was built inside the worker and a rebuild is not claimed bit-identical.
 - Unexplained detail with no effect on the conclusion: under control (c), `round2-codegen` is 5/8 against the starter's 4/8.
 

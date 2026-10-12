@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Interactive Games & Simulators
-- **Decision:** Retain with note — the prompt's stated goal names an API function, `AICompany.GetCompanyValue`, that does not exist in the pinned engine. A script that calls it crashes. The scorer itself works.
+- **Decision:** Retain with note — the prompt's stated goal names an API function, `AICompany.GetCompanyValue`, that does not exist in the pinned engine. A script that calls it crashes. On the do-nothing baseline, the scorer behaved as read from source; no positive-score control was run.
 
 ## What the task promises
 

@@ -53,3 +53,11 @@ Type-system suites (weight 1000/2970 = 33.67 points):
 
 Unexplained detail (no effect on the conclusion): with (c), `round2-codegen` is 5/8 against the starter's 4/8.
 One round2-codegen case evidently passes when the generated JS yields `null`. Not investigated.
+
+## Verdict
+
+**Accepted** (documentation-only repair). The judge is unchanged, so every arm's hidden score is
+identical in v1 and v2 by construction. v2 documents the `analyze()` return contract and the measured
+starter value. A checker written to that documented contract earns 128/128 type-system cases, so the
+contract is sufficient to earn the points. The invalid control (broken codegen) scores 25.79 under
+both versions.

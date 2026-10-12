@@ -62,7 +62,7 @@ Maximum score effect: at most 2.84 points, and only between the baseline and ran
 - at `--cpus 8`: 50 OK, normalized 19.80;
 - at `--cpus 2`: **48 TLE**, so the submission was invalid.
 
-Maximum effect: up to the full score for fixed-work solutions on a judge with fewer than about 8 CPUs. This is a condition of the execution environment, not an error in the task's rules.
+Maximum effect: up to the full score for fixed-work solutions on a judge with fewer than about 8 CPUs. Invalidation was measured only at 2 CPUs with one 12 s-per-case solution; 3 to 7 CPUs were not tested. This is a condition of the execution environment, not an error in the task's rules.
 
 ## Note for users
 

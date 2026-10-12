@@ -35,8 +35,8 @@ Each case's score is the turn count, and the tester caps turns at `max_turns = N
 `piecewise_max` with baseline 5,369, rank30 88,189, rank1 330,195 and super 451,198.
 - Exact arithmetic: the sum of 2N² over the 50 shipped cases is **92,304**, the maximum attainable
   raw score. It maps to **21.02/100** (exactly 2543510/121003).
-- rank1 (330,195) is **3.58×** the attainable maximum, so the 20-80 and 80-100 bands of the scale
-  are unreachable by any submission. Ordering is preserved.
+- rank1 (330,195) is **3.58×** the attainable maximum, so every normalized score above 21.02 (nearly
+  all of the 20-80 band and the whole 80-100 band) is unreachable by any submission. Ordering is preserved.
 - Control: the original evaluator with the shipped baseline gave TOTAL_SCORE **3,418** with 50/50
   cases OK, which maps to 0.
 - Maximum score effect: compresses all scores into 0–21.
@@ -94,7 +94,8 @@ meaning.
 
 - No model or solver re-runs. Effects are shown on authored controls and counterexamples only.
 - 92,304 is the exact upper bound on the score. Reaching it on every case has not been
-  demonstrated; the best honest per-case result was 47% of that case's cap.
+  demonstrated; the best honest per-case result was reported as 47% of that case's cap (the per-case
+  caps for that run are not saved here).
 - A linear scale from baseline to cap compresses realistic strong scores; that cost comes from
   using only exact anchors instead of leaderboard-derived ones.
 - The 2N² cap is still not disclosed in the README; disclosing it would be a separate

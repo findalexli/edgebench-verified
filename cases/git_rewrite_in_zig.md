@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Systems & Software Engineering
-- **Decision:** Retain — a correct, version-matched `git` earns the full score through the original test path: 29,075 of 29,075 tests credited, reward 1.000000, normalized 100.
+- **Decision:** Retain with note. The prompt does not explain how scoring works, and the 120 s per-script timeouts were only tested on 8 cores. A correct, version-matched `git` earns the full score through the original test path: 29,075 of 29,075 tests credited, reward 1.000000, normalized 100.
 
 ## What the task promises
 
@@ -29,7 +29,7 @@ Status: reviewed by the coordinator, 2026-10-12
 - In the full run, each per-category pass count equals the hard-coded `oracle_attempted` baseline exactly: t0 5379, t1 3191, t2 980, t3 4778, t4 3485, t5 4540, t6 2355, t7 2912, t8 493, t9 962. The 29,075 denominator is therefore achievable exactly, at least on an 8-core host.
 - No script hit the 120 s per-script timeout at nproc=8.
 - 147 scripts had no `ok` line. These are prerequisite skips such as "Cannot run httpd tests as root", "skipping Windows-specific tests" and "GIT_TEST_ALLOW_SUDO".
-- An earlier result, not re-run here, recorded that the shipped stub baseline scores 0.
+- An earlier result, not re-run here, recorded that the shipped stub baseline scores 0; that record is not among the saved evidence here.
 - Scorer isolation is outside this release's scope (EdgeBench design choice); no good-faith scoring defect was found.
 
 **How faithful the stand-in is.** Oracle mode is the harness's own path. It skips the submission screens and the build: anti-cheat, the zig build, the strace check, the deletion of system git, and the `/tmp` wipe. Test execution and reward computation are identical to the scored path. The stand-in carries its own exec-path under `/opt/realgit`, so it never relied on the system git that the non-oracle path deletes.

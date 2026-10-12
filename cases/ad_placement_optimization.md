@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Combinatorial Optimization
-- **Decision:** Retain with note. The original tester applies the AHC001 rules correctly and no defect can mis-score an honest solver. The note covers provenance and calibration only.
+- **Decision:** Retain with note. The original tester applies the AHC001 rules correctly and no defect found can mis-score an honest solver. The note covers provenance and calibration only.
 
 ## What the task promises
 
@@ -24,7 +24,7 @@ The prompt asks for one rectangle per company on a 10000x10000 grid: "Each compa
 **Not material: the earlier "ad-overlap" hold.** The hold recorded no defect. Re-checking showed that the tester enforces the README and AHC001 rules for honest output:
 
 - Shared edges and shared corners are accepted. For example, `edge_touch` and `corner_touch` each scored `Score = 1000000000`, the same as the oracle.
-- Any overlap with positive area is rejected, including a single unit cell, a contained rectangle and identical rectangles. Each of these was reported as `wrong answer` with overlap as the reason.
+- Any overlap with positive area is rejected when the later-indexed rectangle of the pair contains its own point, including a single unit cell, a contained rectangle and identical rectangles. Each of these was reported as `wrong answer` with overlap as the reason. The one accepted overlap is the inherited ordering quirk described below.
 - Bounds, positive area and point containment are checked exactly.
 
 **Native results.** On all 50 grading cases, every per-case status and score from the native run equals the exact-rational oracle. Totals for the original evaluator:

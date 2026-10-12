@@ -42,7 +42,9 @@ def main():
              for f in (REPO / 'tasks').glob('*.json')}
     seen = set()
     out = ["# Findings for EdgeBench maintainers", "",
-           "Every defect below was reproduced on the task's original, digest-pinned evaluator. "
+           "Every defect below was checked against the task's original, digest-pinned evaluator, by execution where "
+           "feasible; a few rest on source reading or exact arithmetic, as their case pages state (for example the DCSS "
+           "missing-morgue rule and the BipedalWalker ceiling). "
            "\"Max effect\" is the largest change to a good-faith solver's score we demonstrated or proved, on "
            "the task's 0–100 scale unless stated; it is not an estimate of historical leaderboard impact. "
            "Each task links to its case page (what we ran, the paired before/after table, limits, and how to "
@@ -54,7 +56,7 @@ def main():
             out.append(f"| [{names[t]}](cases/{t}.md) | {LABEL[r['proposed']]} | {r['finding']} | {r.get('max_effect', '')} |")
         out.append("")
     rest = sorted(set(d) - seen, key=lambda t: names[t])
-    out += ["## No defect affecting good-faith solvers", "",
+    out += ["## No defect affecting good-faith solvers (some carry usage notes)", "",
             ", ".join(f"[{names[t]}](cases/{t}.md)" for t in rest) + ".", ""]
     (ROOT / 'FINDINGS.md').write_text('\n'.join(out))
     assert len(seen) + len(rest) == 51, (len(seen), len(rest))

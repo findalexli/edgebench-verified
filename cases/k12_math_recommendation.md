@@ -28,7 +28,7 @@ The prompt points to a workspace instruction file: "Read the complete task instr
 | stage2_advanced | earlier audit envelope: 1 GiB, 1 CPU, `prlimit --as=536870912 --cpu=120:120`, 178 s | `OpenBLAS blas_thread_init: pthread_create failed for thread 7 of 8`, then `KeyboardInterrupt` while importing scipy/sklearn. evaluate.py rc=-2; score.py prints `SCORER_INFRA_ERROR missing parseable score; rc=-2`, `TOTAL_SCORE 0` | 0 (infra error) | none | 108,732,416 B | 0 |
 
 - **Positive control (Confirmed).** The original evaluator path gives finite, valid, positive scores. All 100 of 100 scenarios matched. The weights were M1 .35, M2 .30, M3 .30, M4 .04, M5 .01. The order (stage2 24.7 > stage1 17.6) matches the authors' description of the two stages. Each run took about 8 s end to end.
-- **The earlier failure was the audit's own limit (Confirmed, narrower).** A whole-container peak of about 520 to 535 MiB exceeds a 512 MiB address-space limit. Under that limit, OpenBLAS cannot create its per-core threads (8 visible cores), and the scorer dies while importing numpy/scipy, before inference or scoring. One detail differs from the earlier record: this run gave SIGINT (rc=-2), not the SIGKILL recorded earlier. That the audit infrastructure caused the failure is confirmed; the exact SIGKILL path was not reproduced.
+- **The earlier failure was the audit's own limit (Confirmed, narrower).** Under sound limits the whole-container cgroup peak (page cache included, not address space) was about 520 to 535 MiB. Under a 512 MiB address-space limit, OpenBLAS cannot create its per-core threads (8 visible cores), and the scorer dies while importing numpy/scipy, before inference or scoring. One detail differs from the earlier record: this run gave SIGINT (rc=-2), not the SIGKILL recorded earlier. That the audit infrastructure caused the failure is confirmed; the exact SIGKILL path was not reproduced.
 - **Stale shipped reports (Confirmed).** The shipped `evaluation_report.json` files report 45.292 (stage1) and 50.4 (stage2). The current evaluator gives 17.6 and 24.7. Most of the gap is M1: 44.3/43.6 shipped versus 10.9/9.8 now. This matches an earlier triage finding that the shipped reports came from an older, looser evaluator. A reader comparing against the published reference numbers would be misled. This affects documentation only, not scoring.
 - Scorer isolation is outside this release's scope (EdgeBench design choice); no good-faith scoring defect was found.
 
@@ -37,7 +37,7 @@ The prompt points to a workspace instruction file: "Read the complete task instr
 No repair. The note says:
 
 - The shipped reference reports (45.3/50.4) are stale relative to the current evaluator, which scores the same references 17.6 (stage1) and 24.7 (stage2).
-- The scorer needs more than a 512 MiB address-space limit: about 520 to 535 MiB whole-container peak, and enough room for OpenBLAS to start one thread per visible core.
+- The scorer fails under a 512 MiB address-space limit with 8 visible cores, because OpenBLAS cannot start its threads. Under sound limits the whole-container cgroup peak, page cache included, was about 520 to 535 MiB. The address space it needs was not measured.
 
 ## Limits and what was not run
 

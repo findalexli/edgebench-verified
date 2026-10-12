@@ -51,7 +51,7 @@ benchmark-policy decision and is not part of this repair.
   depends on an unknown reference host, but it is still a wall-clock measurement. On one 8-vCPU E2B
   worker the starter scored 0.979 and 1.016 in two v2 runs (per-dataset ratios 0.93 to 1.07), and
   the honest delta-zigzag-varint codec scored 6.70 and 6.97 (about ±2% around the mean). The
-  starter's own measured throughput moved by up to 15% between runs (docids 0.954 vs 0.826 GB/s),
+  starter's own measured throughput moved by up to about 18% between runs (grid 0.789 vs 0.646 GB/s),
   but the back-to-back pairing cancels most of that. The compression term is exact and repeatable.
 - The starter is measured once per dataset (best of 5 decodes, as for the submission). Taking the
   median of several baseline runs would cut noise further, at extra cost. That was not done, to keep

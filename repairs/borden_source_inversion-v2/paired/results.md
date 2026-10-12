@@ -48,3 +48,11 @@ judge image and its logic are unchanged.
   The v2 solver finished its fit but could not write `answer.json`: the work image runs as a
   non-root user and the bind mount was root-owned (`evidence/v2_solver-r1-write-failed.log`).
 - r2 makes the directory writable (`chmod`) and is otherwise identical.
+
+## Verdict
+
+**Accepted** (documentation and rescale; judge unchanged). Every arm's raw score is identical in v1
+and v2 (14 evaluations, all exit 0). The regression case (textbook ADE fit) stays at 7.031 raw. The
+honest fit built only from the shipped v2 `forward_model.py` reaches 31.199 raw (28.62 normalized),
+which shows the convention can now be reproduced. The out-of-bounds and missing-answer controls stay
+at 4.000 and 0.

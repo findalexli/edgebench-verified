@@ -17,7 +17,7 @@ The overlay is the reviewer's `headers.py` (`scripts/schemathesis_datagen_pipeli
 | rfc850 | invalid control (wrong format) | 0.467094 | 0.467094 | 0 | 14/15 → 14/15 |
 | stdlib_any_year | boundary probe: same formatter, Hypothesis default years 0001–9999 | 0.477350 | 0.467094 | −0.010256 | 8/8 → 14/15 |
 
-The only per-test difference in any variant is `test_http_date_values_grammar`. All other 98 items are unchanged. v1's "8/8" is the original script's success floor (`PHASE1_EXPECTED=8` with 15 collected tests); it is unchanged by v2.
+The only test-function difference in any variant is `test_http_date_values_grammar`; the phase summary item `test_phase_1` flips with it for the failing variants. The other 97 items are unchanged. v1's "8/8" is the original script's success floor (`PHASE1_EXPECTED=8` with 15 collected tests); it is unchanged by v2.
 
 Seed sweep (`seed-sweep.txt`): the single date test was run under 20 Hypothesis seeds per variant and image. v2 sets `max_examples=200` for this one test only.
 

@@ -43,7 +43,7 @@ Expected under the contract: the wrapper should lose the identity item. Observed
 
 **Maximum score effect:** about 1/150 of the total. Phase 3 has weight 1 of 10 and 15 tests, so one test is worth 1/15 × 1/10.
 
-**Materiality.** In behaviour the wrapper is almost equivalent to the correct decorator. It keeps `__name__`, registers under the right name, returns the same values and works with the collector and `hypothesis.target`. The only observable differences are `decorated is original` and the presence of `__wrapped__`. The wrong implementation gains no advantage over a correct one; it only avoids losing one item. The authors probably intended identity: the Phase 6 test asserts `result is my_func` for `@check`, but Phase 3 has no such check.
+**Materiality.** In behaviour the wrapper is almost equivalent to the correct decorator. It keeps `__name__`, registers under the right name, returns the same values and works with the collector and `hypothesis.target`. The only differences the reviewer found are `decorated is original` and the presence of `__wrapped__`. The wrong implementation gains no advantage over a correct one; it only avoids losing one item. The authors probably intended identity: the Phase 6 test asserts `result is my_func` for `@check`, but Phase 3 has no such check.
 
 **Earlier disposition re-checked.** An earlier audit withheld the original as an "explicit release-policy choice" because this identity check was missing. Re-checking showed that the gap is one test item and gives no advantage over correct work. The task should not be counted as withheld for a defect. It is published as a versioned repair instead.
 
@@ -63,7 +63,7 @@ Weights, the parser, the rescale and the other 131 tests are unchanged. In `task
 | wrapper | plausibly wrong: returns a `functools.wraps` forwarding wrapper | 0.135313 | 0.129063 | **−0.006250 (−1/160)** | 15/15 → 15/16 |
 | no_register | invalid control: never registers | 0.115313 | 0.110313 | −0.005000 | 12/15 → 12/16 |
 
-The only per-test difference in any variant is the added identity test. All 132 original items keep their v1 outcome. The wrapper also loses the Phase 3 "all passed" flag. Scores are partial because the overlay implements Target 3 only, not the whole task.
+The only per-test difference in any variant is the added identity test, plus the wrapper's Phase 3 "all passed" item (`test_phase_3`), which flips from passed to failed. The other 131 original items keep their v1 outcome. Scores are partial because the overlay implements Target 3 only, not the whole task.
 
 **Score compatibility.** v1 and v2 scores are identical when Phase 3 is fully passed or fully failed. When Phase 3 is partially passed they are not comparable, because the phase has 16 tests instead of 15 and a non-perfect phase yields a different fraction.
 

@@ -34,7 +34,7 @@ No witness can pass, because both applications read the one key `(f x)`.
 
 - **27 expected-sat QF_UF files (15 medium, 12 hard) are unwinnable.** These are quasigroup files that re-bind `?v_0 … ?v_n` in each assertion. In all 27, the checker-semantics encoding is unsat while the real formula is sat. Natively, `QF_UF/79f4ca54c7f5a5f0.smt2` rejects a true z3 model under both key styles.
 - **42 more hidden sat files reject spec-form keys.** On these files, a solver that follows the spec literally and emits ground-term keys is rejected. Only the undocumented textual-key convention works there.
-- **The public dev set also contains 2 unwinnable sat cases.**
+- **The review also names 2 unwinnable sat cases in the public dev set.** No dev-set scan output is saved in this repository.
 
 *Maximum score effect.* A perfect solver's maximum falls from 78.61 to 72.40, a loss of 6.21 points. The 15 unwinnable medium cases are 15/61 of the medium tier.
 

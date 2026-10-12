@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Systems & Software Engineering
-- **Decision:** Repair v2. The original correctness check does not detect wrong fees or dropped events, so incorrect engines were scored above the correct one. v2 adds the project's own integration tests as a gate and grades offline.
+- **Decision:** Repair v2. The original correctness check does not detect wrong fees or dropped events, so incorrect engines received full credit (in single runs they even scored above the correct one, within throughput noise). v2 adds the project's own integration tests as a gate and grades offline.
 
 ## What the task promises
 

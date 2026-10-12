@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Combinatorial Optimization
-- **Decision:** Repair v2. The T3 checker's cost loop skips the final state, so it accepts costs up to the limit plus the size of the last target. The excess is bounded (under 0.04%) and no score gain was shown. A three-token fix closes it.
+- **Decision:** Repair v2. The T3 checker's cost loop skips the final state, so it accepts costs up to the limit plus the size of the last target. The excess is bounded (at most 0.04%) and no score gain was shown. A three-token fix closes it.
 
 ## What the task promises
 
@@ -61,7 +61,7 @@ Checker run directly on the crafted outputs:
 
 An earlier note said the corrected checker "needed a 64 MiB output allowance". That limit came from the earlier audit's own sandbox. It is not a property of the task. Under the native evaluator, with no limits changed, the reference passes all 30 T3 inputs in both v1 and v2.
 
-**Score compatibility:** v1 and v2 scores are equal for every output whose true cost is ≤ 2.5·10⁹ − |N_last| or > 2.5·10⁹ + |N_last|. Only outputs inside the leak window differ: v2 rejects them, while v1 wrongly accepted them. Only T3 can differ.
+**Score compatibility:** v1 and v2 scores are equal for every output whose true cost is ≤ 2.5·10⁹ or > 2.5·10⁹ + |N_last|. Only outputs inside the leak window differ: v2 rejects them, while v1 wrongly accepted them. Only T3 can differ.
 
 ## Limits and what was not run
 

@@ -69,7 +69,9 @@ instead; the patch paths are the in-image paths.
 
 ## Check a repair
 
-`paired/run.sh` reruns the paired evaluation (it was run on 8-vCPU / 8 GiB workers). The
+`paired/run.sh` reruns the paired evaluation (it was run on 8-vCPU / 8 GiB workers). Two packages
+differ: Lean Analysis uses `paired/run_local.sh`, run locally, and OpenRCT2 has no run script because
+nothing executable changed (its controls hold by construction and were not re-run). The
 accepted results are in `paired/results.md` and in [paired-results.csv](paired-results.csv):
 each repair fixes its trigger, keeps valid controls' scores (or explains the change), and still
 rejects invalid controls.

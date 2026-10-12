@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Combinatorial Optimization
-- **Decision:** Retain with note. The tester rejects the README's three-line form for zero-hit output, but a zero-hit answer is never valid on any official case, so no score can change.
+- **Decision:** Retain with note. The tester rejects the README's three-line form for zero-hit output, but a zero-hit answer is not valid on any official case (proved for 37 of 50; overwhelmingly likely for the other 13 under the published-generator assumption), so no score can change.
 
 ## What the task promises
 
@@ -48,7 +48,7 @@ The README gives no exception for the case with no hits.
 | official cases 0001,0002,0003,0004,0007,0008 | Q=0, baseline coloring, **two-line** | WA "edge (...) has same color" in every case |
 | same cases | Q=0, same coloring, **three-line** | WA "expected N colors, got 0" in every case |
 
-**Zero hits is never valid on an official case.** On all 50 official cases, the input graph cannot be K-colored without hits. A zero-hit answer is therefore wrong in either format, and the mismatch changes only the reason given for the wrong answer.
+**Zero hits is never valid on an official case.** On 37 of the 50 official cases the input graph provably cannot be K-colored without hits; on the other 13 this holds with overwhelming probability, assuming the published generator. A zero-hit answer is therefore wrong in either format, and the mismatch changes only the reason given for the wrong answer.
 
 - **37/50 cases have exact certificates:**
   - 13 cases with K=1: any edge;
@@ -67,7 +67,7 @@ Maximum score effect: 0 on the official cases.
 
 ## Note for users
 
-No repair. The note says: for zero hits, the tester accepts a two-line output and rejects the README's three-line form with an empty hit line. On every official case a zero-hit answer is wrong anyway, so the mismatch cannot change any score.
+No repair. The note says: for zero hits, the tester accepts a two-line output and rejects the README's three-line form with an empty hit line. On every official case a zero-hit answer is wrong anyway (proved for 37 of 50, overwhelmingly likely for the other 13), so the mismatch cannot change any score.
 
 A proposed parser patch would accept both forms. It is score-identical on the official corpus and could be adopted as optional hygiene.
 

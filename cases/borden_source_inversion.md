@@ -12,7 +12,7 @@ The solver must "infer a **finite-duration rectangular-region contaminant source
 ## What we checked and how
 
 - Source reading of the judge's `evaluate.py` and `hidden_forward_model.py`, compared with the solver-visible README and `public_problem_config.json`.
-- An independent forward model (5×5×1 sub-points, 9 pulses, Gaussian kernel) that reproduces all 656 clean labels from the hidden truth to within 2.0e-15 relative.
+- An independent forward model (5×5×1 sub-points, 9 pulses, Gaussian kernel) that reproduces all 656 clean labels from the hidden truth to within 2.0e-15 relative (earlier triage figure, not re-run here; the saved check of the judge's own model, run in the judge image, matches the stored labels to 8.9e-13 relative).
 - Honest-solver experiments: multi-start bounded least squares (60–80 starts) on public noisy, censored data only, once with a textbook ADE model built from the docs and once with the judge's exact convention. Each fitted `answer.json` was scored by the **original `evaluate.py`** with the original arguments (local Python; numpy 1.24.4, scipy 1.10.1, pandas 2.0.3).
 - A paired evaluation on one E2B worker (8 CPU): every arm ran the original eval command inside the **unchanged pinned judge image** with `--network none`, against the v1 and v2 work directories.
 - Original identity: judge image `seededge/edgebench.judge.borden_source_inversion@sha256:b1a08348…`; key files `evaluate.py` sha256 `12124bc4…5e58`, `hidden_forward_model.py` `769ac556…dfd3`, `hidden_true_region_source.json` `0aeb75c8…42ab`; work `README.md` `d19d0c1b…`.
@@ -74,4 +74,4 @@ The shipped `forward_model.py` matches the judge's model with max |diff| = 0.0 o
 - Change: `repairs/borden_source_inversion-v2/repair.patch`, `Dockerfile`, `task.json.in`.
 - Supporting records: `repairs/borden_source_inversion-v2/` (`source-lock.json` holds full hashes).
 
-[^1]: `release/DECISIONS.md` lists this repair as "in progress"; `decisions.json` (the coordinator's later record) and `repairs/borden_source_inversion-v2/paired/results.md` record it as accepted. This page uses "accepted" because `decisions.json` supersedes the table.
+[^1]: An earlier draft of the decision table listed this repair as "in progress"; `decisions.json`, `DECISIONS.md` and `repairs/borden_source_inversion-v2/paired/results.md` now record it as accepted.

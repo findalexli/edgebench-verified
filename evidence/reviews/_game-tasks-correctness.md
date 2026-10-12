@@ -397,8 +397,8 @@ does not mention this cap, so the per-case score is at most 2N².
 
 - The sum of 2N² over the 50 cases is **92,304**. This is the maximum attainable raw score.
 - That maximum maps to **21.02/100** (exactly 2543510/121003).
-- rank1 (330,195) is **3.58×** the attainable maximum. The 20-80 and 80-100 bands of the 0-100 scale
-  are therefore **unreachable** by any submission.
+- rank1 (330,195) is **3.58×** the attainable maximum. Every normalized score above 21.02 is
+  therefore **unreachable** by any submission.
 - Control: the original evaluator with the original tester and shipped baseline gave TOTAL_SCORE
   **3,418** with 50/50 cases OK, which maps to 0 and is consistent with the lower anchor.
 

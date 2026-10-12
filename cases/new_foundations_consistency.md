@@ -3,13 +3,13 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Formal Math & Theorem Proving
-- **Decision:** Retain with note. With the judge's network access, the original evaluator grades correctly. It cannot grade offline, and 15 auxiliary targets have an untested exposure of at most 0.67%.
+- **Decision:** Retain with note. With the judge's network access, the original evaluator builds and returns a valid result for the unmodified starter (one run; no honest-proof variant was scored). It cannot grade offline, and 15 auxiliary targets have an untested exposure of at most 0.67%.
 
 ## What the task promises
 
 The prompt asks the solver to "finish **all** sorries in this folder" and says "we value minor progress". It warns: "do not modify the signature of existing lemma/theorem/def as these changes will not pass the judge evaluation." It also says that "we check the axioms transitively, finishing a theorem without completeing precedent lemma will not count."
 
-The score is the share of baseline `sorry`-dependent declarations that the submission turns into axiom-clean declarations with unchanged printed types. It is unweighted. The task card says `internet: false`. In the maintained harness this applies only to the agent container. The judge container has network access.
+The score is the share of baseline `sorry`-dependent declarations that the submission turns into axiom-clean declarations with unchanged printed types. It is unweighted. The task card says `internet: false`. According to the coordinator's reading of the maintained harness (`sforge/harness/run_evaluation.py`, not included in this repository), this applies only to the agent container, and the judge container has network access.
 
 ## What we checked and how
 
@@ -25,13 +25,13 @@ The score is the share of baseline `sorry`-dependent declarations that the submi
 - **Proof style and auxiliary names.** A core-Lean check with this image's compiler (4.21.0-rc3) tested an `@[simp]` iff theorem proved by `sorry`, by a term, by `omega` and by `simp`. In every case it got its auxiliary under the same name (`_proof_1`) and the same type.
 - **Original identity.**
   - Judge image: `…@sha256:c17cd565…cc4`, toolchain v4.21.0-rc3.
-  - Task JSON: sha256 `37ea0a38…5d`. Export tar: sha256 `076b5c9f…196`.
+  - Task JSON: sha256 `37ea0a38…5d`. Export tar: sha256 `076b5c9f…196` (not recorded in the saved evidence).
   - `eval_lean.py`: sha256 `3319767e…`.
   - Effective `ListDeclAxiom.lean`: `b585194f…`. It prints no HASH lines, and its project prefix test is `startsWith "ConNF"`.
 
 ## What we found
 
-**Grading with the judge's network: works.**
+**Grading with the judge's network: works for the unmodified starter.**
 - **What Lake did.** It printed `doc-gen4: URL has changed; deleting … and cloning again`, then `checking out revision '86d735ecf420e0dbaaf84e2fc2221969f9fca097'`.
   - This is the manifest-pinned commit, not a moving `main`.
   - That revision's `lean-toolchain` is `v4.21.0-rc3`.
@@ -47,7 +47,7 @@ The score is the share of baseline `sorry`-dependent declarations that the submi
 - **Why narrower.** This affects only network-isolated judges. It is not a production defect under the maintained harness.
 - **Remaining dependency.** Grading needs GitHub to be reachable and to keep serving commit `86d735ec`.
 
-**Auxiliary-name defect: no unattainable targets; small untested exposure.** The hypothesis that the lean_analysis defect applies here was not confirmed. The census found no target that an honest, complete solution cannot reach.
+**Auxiliary-name defect: no unattainable targets; small untested exposure.** The hypothesis that the lean_analysis defect applies here was not confirmed. The census found no target that is provably out of reach for an honest, complete solution (lower bound 0). The 15 exposed targets were not tested, and the truth of individual targets was not audited.
 
 Census numbers:
 
@@ -63,13 +63,13 @@ Census numbers:
   - `instMulActionNewPermCode._proof_1/2`
 - **What they are.** Instance fields that contain holes directly, plus their default-field siblings. An honest fill could renumber them, as happened in lean_analysis.
 - **Not tested natively.** 0.67% is an upper bound on exposure, not a measured loss.
-- **Stable auxiliaries.** The 96 theorem-parent `_proof_N` auxiliaries are stable.
+- **Stable auxiliaries.** The 96 theorem-parent `_proof_N` auxiliaries are expected to be stable. This is inferred from the core-Lean proof-style check; none was scored natively.
 
 **Scorer isolation.** Scorer isolation is outside this release's scope (EdgeBench design choice); no good-faith scoring defect was found beyond the notes above.
 
 **Earlier withholding.** An earlier source-only review proposed withholding the original task because of grader-robustness concerns. Under this release's scope, those concerns are scorer isolation.
 
-**Earlier setup records.** An earlier "setup failure" record was a failure of the audit's own infrastructure, not a task defect. The 20th remount command returned exit 32 inside the audit worker, and no task image ran. The offline build behaviour above is a separate result, found by running the original image.
+**Earlier setup records.** An earlier "setup failure" record was a failure of the audit's own infrastructure, not a task defect. The 20th remount command returned exit 32 inside the audit worker, and no task image ran. No log of that earlier record is saved in this repository. The offline build behaviour above is a separate result, found by running the original image.
 
 ## Note for users
 

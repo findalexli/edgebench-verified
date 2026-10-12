@@ -76,7 +76,7 @@ In the table below, the `fullref` rows are the complete reference implementation
 | stub_junit_drops_error | reviewer stub, error dropped | 0.091429 | 0.082143 | −0.009286 | 5/14 → 4/14 ; 2/10 → 3/12 |
 | starter | untouched starter | 0.020000 | 0.025000 | +0.005000 | 0/14 → 0/14 ; 2/10 → 3/12 |
 
-Phases 1, 3 and 4 give identical results in every variant. The only changed items are the JUnit test and the two former deny-only coverage tests, which are replaced by four parametrized allow/deny tests. All three plausibly wrong mutants score 1.0 under v1 but lose points under v2. The positive control stays at 1.0.
+Phases 1, 3 and 4 give identical results in every variant. The only changed items are the JUnit test and the two former deny-only coverage tests, which are replaced by four parametrized allow/deny tests, plus the Phase 2 and Phase 5 summary items (`test_phase_2`, `test_phase_5`) of the mutants that now fail those phases. All three plausibly wrong mutants score 1.0 under v1 but lose points under v2. The positive control stays at 1.0.
 
 **Score compatibility.** Fully correct submissions score 1.0 in both versions. When Phase 2 or Phase 5 is only partly passed, v1 and v2 scores are not comparable, because Phase 5 has 12 tests instead of 10. Under v2 the untouched starter and the stub variants gain +0.005. The new allow cases and the query deny case check generator behaviour the starter already has, so starter credit in Phase 5 moves from the vacuous body test to legitimate checks. A smaller alternative would change only the `GeneratedValue` import and keep 10 tests, but it would not catch over-suppression.
 

@@ -67,3 +67,10 @@ These rows are computed with `score_rescale.py`, not by running a submission.
   result was 47% of that case's cap.
 - `docker image inspect` printed nothing for the original image because of a format-template
   error. The image's identity rests on the pinned digest pull and on the in-image file hashes.
+
+## Verdict
+
+**Accepted** (anchors only; judge unchanged). Raw scores are identical in v1 and v2: 3,418 for the
+baseline and 17,960 for the honest policy, all 50 cases OK. Only the normalized values change, from
+the new anchors: the honest policy moves from 3.04 to 16.36. The invalid control scores raw 0 and
+normalized 0 in both versions.

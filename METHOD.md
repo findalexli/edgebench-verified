@@ -30,15 +30,19 @@ decisions. We treated every earlier claim as a hypothesis and every task as unre
 4. **Use an independent oracle** where the claim is mathematical or combinatorial: exact
    rational/integer arithmetic, a second implementation, brute force, or a formal tool.
    - **Lean 4 + Mathlib** for statement truth (e.g. two false theorem statements refuted inside
-     the task's own image), finance identities, and corrected-statement proofs; every proof is
-     reported with `#print axioms` (only `propext`, `Classical.choice`, `Quot.sound`).
+     the task's own image), finance identities, and corrected-statement proofs; every main proof is
+     reported with `#print axioms` (only `propext`, `Classical.choice`, `Quot.sound`). Two
+     demonstrations built on the task's own sorried statements show `sorryAx` by design, and two
+     one-line CTA fixture inequalities have no printed axiom list.
    - **TLA+ (TLC)** for state/counting logic (aliasing in an in-place multiply; test-credit
      counting), each with a negative control and stated bounds.
 5. **Trace to the reported score.** Through the task parser, selection policy and rescale to
    the 0–100 score. Several real defects turned out to be immaterial (rescale erases them);
    one small one turned out to freeze every run (selection amplifies it).
 6. **Coordinator re-check.** The coordinating reviewer re-read the decisive code line or reran
-   the decisive check for every published finding before recording it.
+   the decisive check for published findings before recording them. A re-check is documented only
+   where a case page or review records it (for example "coordinator-checked"); some pages note
+   where it was not done.
 
 ## Decisions
 
@@ -56,6 +60,9 @@ Each repair is a package in EdgeBench's native format (`repairs/<task>-v2/`): a 
 changing only the needed fields, and a source lock. It is **accepted** only if, on the same inputs
 scored by the original (v1) and repaired (v2) evaluator in one run: the trigger is fixed, valid
 controls keep their scores (or the change is explained), and invalid controls are still rejected.
+Two repairs were accepted on a narrower check: the prompt-only OpenRCT2 repair changes no executable
+file, so its controls hold by construction and were not re-run, and the CTA trigger was paired at
+component level because no eligible full submission exists.
 Where rescale anchors came from historical leaderboard runs, we did not invent new ones; we kept
 them with a non-comparability note, or set them from exactly computable quantities.
 

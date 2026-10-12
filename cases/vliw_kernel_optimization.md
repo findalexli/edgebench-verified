@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Systems & Software Engineering
-- **Decision:** Retain with note. The only issue found concerns scorer isolation, which is outside this release's scope. Honest submissions are scored correctly.
+- **Decision:** Retain with note. The only issue found concerns scorer isolation, which is outside this release's scope. The two honest controls run were scored correctly.
 
 ## What the task promises
 
@@ -30,14 +30,14 @@ The submitted program counts only if every correctness case passes. Its score is
 
 ## What we found
 
-**Honest controls on the original evaluator.**
+**Honest controls on the original evaluator.** The run record is not included in this repository.
 
 | Submission | Original judge result | Rescaled |
 |---|---|---|
 | starter `solution.py` (correct naive kernel) | valid, 9/9 PASSED, cycles = 147734 | 0 |
 | empty program (known-bad) | invalid, 0/9, no score | (invalid) |
 
-The correctness check rejects a wrong program, and a correct kernel receives its true cycle count.
+The correctness check rejected the empty program, and the correct starter kernel received a valid cycle count.
 
 **Scorer isolation.** Scorer isolation is outside this release's scope (EdgeBench design choice); no good-faith scoring defect was found.
 
@@ -45,7 +45,7 @@ The correctness check rejects a wrong program, and a correct kernel receives its
 
 ## Note for users
 
-No repair. The note says: this release does not evaluate scorer isolation (an EdgeBench design choice). Honest submissions are scored correctly on the original evaluator.
+No repair. The note says: this release does not evaluate scorer isolation (an EdgeBench design choice). The two honest controls run (the starter kernel and an empty program) were scored correctly on the original evaluator.
 
 ## Limits and what was not run
 

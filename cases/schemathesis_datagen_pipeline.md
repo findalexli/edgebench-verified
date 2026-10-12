@@ -62,9 +62,9 @@ An earlier draft of the predicate also required year ≥ 1900, following RFC 532
 | rfc850 (invalid) | 0.467094 | 0.467094 | — |
 | starter | 0.323504 | 0.323504 | — |
 
-Across all variants, `test_http_date_values_grammar` is the only test whose result changes. All other 98 items are unchanged. Scores are partial because the other targets stay at the starter. No honest generator loses points. Every plausibly-wrong generator, and the shape-only garbage control, loses 1/15 of Phase 1. The wrong-format control is rejected in both versions.
+Across all variants, `test_http_date_values_grammar` is the only test whose result changes; for the three rejected generators the `test_phase_1` summary item also flips from passed to failed. All other 97 items are unchanged. Scores are partial because the other targets stay at the starter. No honest generator loses points. Every plausibly-wrong generator, and the shape-only garbage control, loses 1/15 of Phase 1. The wrong-format control is rejected in both versions.
 
-**Score compatibility.** v2 differs from v1 only for submissions whose `http_date_values` emits invalid dates or clock times. Those lose 1/15 of Phase 1 (−2/195 of the total). All other submissions score identically.
+**Score compatibility.** v2 differs from v1 only for submissions whose `http_date_values` emits invalid dates or clock times that the test's 200 sampled examples hit. Those lose 1/15 of Phase 1 (−2/195 of the total). All other submissions score identically.
 
 ## Limits and what was not run
 

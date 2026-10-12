@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Formal Math & Theorem Proving
-- **Decision:** Retain with note. The weighted target list matches the baseline listing exactly. It contains no auxiliary names, and no target is out of reach for an honest, complete solution.
+- **Decision:** Retain with note. The weighted target list matches the baseline listing exactly. It contains no auxiliary names, and the census lower bound on targets out of reach for an honest, complete solution is 0 (the truth of individual targets was not audited).
 
 ## What the task promises
 
@@ -22,7 +22,7 @@ Unlike the other Lean tasks, this one is scored in weighted mode. A weights file
 - **Exact `eval_cmd`.** We ran the task's `judge.eval_cmd` verbatim on the unmodified judge baseline sources as a control. The command includes the swap to the shared baseline `.lake` and a full rebuild.
 - **Original identity.**
   - Judge image: `…@sha256:c8b50a05…50fc`, toolchain v4.28.0.
-  - Task JSON: sha256 `57950a57…a61`. Export tar: sha256 `c04d3085…8e1b`.
+  - Task JSON: sha256 `57950a57…a61`. Export tar: sha256 `c04d3085…8e1b` (not recorded in the saved evidence).
   - `eval_lean.py`: sha256 `3319767e…`.
   - Effective `ListDeclAxiom.lean`: `0eee3e92…`. It prints a HASH line for `flt_regular`, which was true on the baseline.
   - Weights file `task/FltRegular_weight.json`: sha256 `943b624f…15ce`.
@@ -49,7 +49,7 @@ Census numbers:
 
 **Earlier withholding.** An earlier source-only review proposed withholding the original task because of grader-robustness concerns. Under this release's scope, those concerns are scorer isolation. The native census found no good-faith defect.
 
-**Earlier setup records.** An earlier "setup failure" record was a failure of the audit's own infrastructure, not a task defect. It was a signal 11 during `lean --version`, in the audit's own selective-restoration route, not in the original image.
+**Earlier setup records.** An earlier "setup failure" record was a failure of the audit's own infrastructure, not a task defect. It was a signal 11 during `lean --version`, in the audit's own selective-restoration route, not in the original image. No log of that earlier record is saved in this repository.
 
 ## Note for users
 
@@ -69,6 +69,6 @@ No repair. The note says: "Census: 25 weighted targets (total weight 87) match t
 
 - Census: `evidence/scripts/lean_family_census/pipeline.sh <task_id> <image@digest> <project dir> <root module> FltRegular_weight.json`.
 - Exact `eval_cmd` control: `evidence/scripts/lean_family_census/run_native.sh`. Its usage line is in the script header.
-- Outputs: `evidence/scripts/lean_family_census/out/flt_regular_formalization/`. The census copy of the weights file is included.
+- Outputs: `evidence/scripts/lean_family_census/out/flt_regular_formalization/`. The weights-file entries and their weights are listed in `classify.txt`; the weights file itself is not included.
 - Supporting records: `evidence/reviews/lean_family_aux_census.md`.
 

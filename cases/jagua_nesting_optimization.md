@@ -33,7 +33,7 @@ This is not a floating-point tolerance effect. It happens with exact integer coo
 - Two squares shifted diagonally, where edges cross properly, were rejected. This shows ordinary overlaps are caught.
 - An edge-sharing pair (legal contact) was accepted, as it should be.
 
-Each accepted overlap is at least 25% of an item's area, about 10^6 times the validator's tolerance.
+Each accepted overlap listed above is 50–100% of an item's area, about 10^6 times the validator's tolerance (`EPS = 1e-5`). The only other accepted overlap witness is at tolerance scale (area 1e-5) and is benign.
 
 A side finding is that `validate_solution` never reads `allowed_orientations`, so rotations an instance forbids are not rejected.
 

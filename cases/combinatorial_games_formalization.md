@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Formal Math & Theorem Proving
-- **Decision:** Retain with note. Native tests show that honest proofs in two styles earn identical credit and that no target is out of reach for an honest, complete solution.
+- **Decision:** Retain with note. A native test on one module shows that honest proofs in two styles earn identical credit, and the in-image census found no target out of reach for an honest, complete solution.
 
 ## What the task promises
 
@@ -40,7 +40,7 @@ Census numbers:
 | 3732 | 937 | 25.1% | **0** | 0 | 0 | **0** |
 
 - **Auxiliary kinds:** 450 `_simp`, 432 `_proof`, 25 `_unsafe_rec`, 13 `eq_def`, 8 `eq_N`, and others.
-- **Duplicate types.** A lexical count finds duplicate types for 33 auxiliaries. Every one of them is transitive-only: it carries no hole of its own and an honest proof never re-elaborates it. These are not at risk.
+- **Duplicate types.** A lexical count finds duplicate types for 33 auxiliaries (the classifier lists them as "likely unattainable"). The probe classes every one of them as transitive-only: it carries no hole of its own, so by the census's reasoning an honest proof never re-elaborates it and they are not at risk. This was not tested by scoring beyond the one-module test below.
 
 **Native honest-proof test.** Six sorried theorems in `SignExpansion/Basic.lean` were proved honestly, with no signature change:
 - `isUpperSet_preimage_singleton_zero`

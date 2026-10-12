@@ -76,7 +76,7 @@ Under v2 the starter's compression ratio is exactly 1.0 on every dataset, and it
 ## Limits and what was not run
 
 - No model or solver re-runs. Effects are shown only on authored controls (the starter, a simple honest codec and a corrupting codec) and counterexamples.
-- **Host dependence and noise remain.** The speed term is now a same-host wall-clock ratio. Two v2 runs on one worker gave 0.979 and 1.016 for the starter, and 6.70 and 6.97 for the honest codec. The starter's own throughput moved by up to 15% between runs, although back-to-back pairing cancels most of that.
+- **Host dependence and noise remain.** The speed term is now a same-host wall-clock ratio. Two v2 runs on one worker gave 0.979 and 1.016 for the starter, and 6.70 and 6.97 for the honest codec. The starter's own throughput moved by up to about 18% between runs (grid 0.789 vs 0.646 GB/s), although back-to-back pairing cancels most of that.
 - The baseline is measured once per dataset (best of 5 decodes). Medians over several baseline runs were not used.
 - Only one E2B host was used. The honest control is a simple codec, not a strong solution. No expert reference solution is shipped.
 - The image still has g++ 11.4, not the documented 12.2. This is unchanged and affects both versions equally.

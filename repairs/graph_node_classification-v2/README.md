@@ -55,8 +55,9 @@ This package fixes only the reviewed defect.
 
 ## Score compatibility
 
-Submissions that give an integer-convertible prediction for every test node score identically
-in v1 and v2. v2 scores are not comparable with v1 when a submission:
+Submissions that give an integer class id (int, integral float, or decimal-integer string) for every
+test node score identically in v1 and v2 (measured on 3 valid controls); v2 newly rejects bools and
+non-integral floats such as `3.5`, which v1 accepted. v2 scores are not comparable with v1 when a submission:
 
 - omits test nodes, or keys them by non-string IDs. This was already rejected by v1's count
   check unless the count happened to match;

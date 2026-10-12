@@ -30,7 +30,7 @@ The solver writes an OpenRCT2 plugin that "maximizes **normalized company value*
   - The game ran from date 8,4,25 to 8,7,2, which is 69 game days.
   - Company value went from 198,010 to 133,260.
   - The normalized score was 0.915.
-  - The three-scenario average was 1.038, printed as `TOTAL_SCORE 10384`.
+  - The three-scenario average was 1.038, which the wrapper would print as `TOTAL_SCORE 10384`. This value was computed; the wrapper itself was not run.
 - **Speed is under the solver's control.** `gamesetspeed` is allowlisted. The submission's later call overrides the monitor's speed 4: speed 1 ran at 0.077 days/s and speed 3 at 0.291 days/s. Speed 8 is rejected. A slower game can hold company value near its starting value. In our runs the 1.10 cap masked this.
 - **Maximum score effect:** not measured. The defect changes *what* is measured: value after about 2 months instead of about 4 years. We did not show that it raises or lowers any particular solver's score.
 - **Earlier repair.** An earlier audit proposed a completion gate. Re-checking showed that under the shipped 120 s budget the gate would score every submission 0, because `DONE` is unreachable.
@@ -93,4 +93,4 @@ run_60s_speed8.log (new)     scenario_small.park     60   8    5.0   59.9   33(2
 
 Supporting records: `repairs/openrct2_theme_park_ai-v2/` (README, `source-lock.json`, `paired/results.md`).
 
-[^1]: The repair's `source-lock.json` records its status as "accepted-candidate (not yet adopted into tasks/)": the v2 prompt is accepted but not yet written into the task records. `decisions.json` ("accepted (prompt correction)", provisional) and `paired/results.md` agree.
+[^1]: The repair's `source-lock.json` records its status as "accepted-candidate (not yet adopted into tasks/)": the v2 prompt is accepted but not yet written into the task records. `decisions.json` records the repair as "accepted (prompt correction)" with status "final (release candidate 2026-10-12)", and `paired/results.md` also accepts it; the source lock has not been updated to match.

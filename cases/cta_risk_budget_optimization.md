@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Professional Knowledge Work
-- **Decision:** Repair v2. The 40% overseas-exposure check adds USD and CNY notionals without currency conversion, so overseas exposure is undercounted about sevenfold. The error is lenient only and worth at most 5/100.
+- **Decision:** Repair v2. The 40% overseas-exposure check adds USD and CNY notionals without currency conversion, so overseas (USD) notionals are undercounted about sevenfold. The error is lenient only and worth at most 5/100.
 
 ## What the task promises
 
@@ -14,7 +14,7 @@ The task instructions ask for a "Multi-currency, multi-market, multi-instrument 
 - **Native component runs.** In the pinned judge image (`--network none --memory 2g --cpus 1`), we imported the installed `eval_script.py` and called the original `_evaluate_risk_constraints`. Two inputs were adjusted so the cross-border block could be reached: the participation gate was stubbed to pass, and `nav_history` was omitted so the volatility/drawdown veto could not fire. The cross-border code itself was not modified.
 - **Code and data reading.** The evaluator recomputes notional as `lots × multiplier × close` from the raw price sheets. All 12 overseas tickers are USD-denominated. The same evaluator converts with USDCNY in its PnL replay and in `_compute_exposure_stats`. Only the cross-border block leaves the conversion out. USDCNY in the data runs from 6.757 to 7.157 (mean 7.004).
 - **Exact arithmetic.** Shares were computed with Python `Fraction`.
-- **Lean 4.** `formal/lean/ebv/Ebv/FinanceExcessFx.lean` proves the fixture shares (1/3 native, 7/9 in CNY), that the native share passes the limit and the CNY share fails it, and that a native share of 2/5 at FX 7 hides a CNY share of up to 14/17. No `sorry` is used. The proofs depend only on the standard axioms.
+- **Lean 4.** `formal/lean/ebv/Ebv/FinanceExcessFx.lean` proves the fixture shares (1/3 native, 7/9 in CNY), that the native share passes the limit and the CNY share fails it, and that a native share of 2/5 at FX 7 hides a CNY share of up to 14/17. No `sorry` is used. The printed axiom lists (for the two share theorems and the hidden-share bound) contain only the standard axioms; the two pass/fail inequalities have no printed list.
 - **Shipped reference.** The image's own standard-answer positions were checked under both accountings.
 - **Paired v1/v2 run.** One E2B worker ran the component arms and the full original `score.py` on the shipped reference.
 - **Original identity.** Judge image `seededge/edgebench.judge.cta_risk_budget_optimization@sha256:34258d85…1b32`. Key file `eval_script.py` has sha256 `252f864a…1300`. The task JSON has sha256 `4681d022…cb1`.

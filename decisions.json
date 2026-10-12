@@ -105,7 +105,7 @@
   "task_id": "equivalence_class_divide_and_conquer",
   "proposed": "repair-v2",
   "finding": "T3 checker cost loop skips the final state (accepts ≤ limit + |last target|)",
-  "max_effect": "bounded (<0.04% over limit); no gain shown",
+  "max_effect": "bounded (≤0.04% over limit); no gain shown",
   "status": "final (release candidate 2026-10-12)",
   "repair": "accepted: crafted over-limit AC→WA; at-limit AC→AC; reference 100→100 (T3 30/30); naive 6/24 identical; 64 MiB allowance was an earlier-audit sandbox artefact",
   "package": "repairs/equivalence_class_divide_and_conquer-v2/"
@@ -114,7 +114,7 @@
   "task_id": "exchange_core_throughput",
   "proposed": "repair-v2",
   "finding": "Correctness gate misses fee/event errors; incorrect engines score higher than correct one",
-  "max_effect": "7.1→24.4 for a buggy engine",
+  "max_effect": "full credit for an incorrect engine (two one-edit bugs passed the check; their higher raw scores in single runs are within throughput noise)",
   "status": "final (release candidate 2026-10-12)",
   "repair": "accepted: project integration tests gate scoring; feeswap/dropevents OK ~2250 → WA 0; honest engines keep scoring (throughput noise ±~20%); v2 pre-seeds Maven artifacts so it grades offline",
   "package": "repairs/exchange_core_throughput-v2/"
@@ -137,9 +137,9 @@
  },
  {
   "task_id": "git_rewrite_in_zig",
-  "proposed": "retain",
-  "finding": "Oracle positive control 29,075/29,075 → 100; stub 0",
-  "max_effect": "0",
+  "proposed": "retain-with-note",
+  "finding": "Scoring path validated end-to-end with a real git positive control (29,075/29,075 tests, score 100); note: the prompt does not explain how scoring works, and the 120 s per-script timeouts were only tested on 8 cores",
+  "max_effect": "0 measured",
   "status": "final (release candidate 2026-10-12)",
   "note_scope": "scorer-isolation findings recorded internally; out of release scope (EdgeBench design choice)"
  },
@@ -385,7 +385,7 @@
  {
   "task_id": "warehouse_forklift_routing",
   "proposed": "repair-v2",
-  "finding": "Prompt promises 30 s per test case (150 s/input) but evaluator gives 60 s/input; and the rank1/super_anchor rescale anchors are provably unreachable (Lean-checked lower bound: every valid TOTAL ≥ 712.54 > rank1 395.80), capping normalized scores at ≈30.3",
+  "finding": "Prompt promises 30 s per test case (150 s/input) but the evaluator gives 60 s per input; and a lower bound proved in Lean for a model of the tester (model matched to the tester by a 294-string differential test) shows every valid TOTAL ≥ 712.538 > rank1 395.80, so the top two anchors are unreachable and normalized scores are capped at ≈30.3",
   "max_effect": "whole score for budget-following solvers; ~70 points of the scale unreachable",
   "status": "final (release candidate 2026-10-12)",
   "repair": "accepted (time contract): TIME_LIMIT 60→150 s per input as promised; budget-following solver 50 TLE → 50 OK; controls unchanged. Anchors kept with the Lean-proved ≈30.3 ceiling documented (no invented recalibration)",

@@ -70,7 +70,7 @@ Scripts are in `evidence/scripts/portfolio_risk_calibration/`. Docker runs used
 3. `sensitivity.py` sweeps agent period returns from −30% to +100% with the real benchmark
    (24.80%) and the real horizon (`sensitivity.out`). The largest excess-component score
    difference is **0.17 points out of 100** (at an agent return of about 36%, just below the 12%
-   cap). The gap in excess is at most about 0.56 pp anywhere in the range. IR and Sortino share
+   cap). The gap in excess reaches 0.713 pp at an agent return of −30% (where both scores are already at the −10 floor); see `sensitivity.out`. IR and Sortino share
    the numerator, which rescales by about 1% (example: IR −1.806 vs −1.823). At most this moves
    each of those scores by about 0.1 points.
 
@@ -128,7 +128,7 @@ or a two-line repair. If the original is withheld, that should rest on other por
 
 "The evaluator computes annualized excess return as ((1 + agent period return − benchmark period
 return)^(252/N) − 1), while the task defines it as strategy annualized return minus benchmark
-annualized return. On the task's fixed 242-day test horizon the two differ by under 0.6
+annualized return. On the task's fixed 242-day test horizon the two differ by at most 0.713
 percentage points, which moves the score by at most about 0.4 of 100 points and never changes
 the ordering of excess returns."
 

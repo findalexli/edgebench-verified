@@ -14,7 +14,7 @@ The task says: "Complete the missing Rust implementations in the unpacked CAS wo
 - **Source reading.** We read the scorer's known-failure exemption. When a crate has at least one failure, the scorer converts one failure into a pass if the exempt test's name appears anywhere in the test output. It does not check whether that test actually failed.
 - **Native run with real Cargo.** We ran this in the pinned judge image (cargo/rustc 1.88.0, `--network none --memory 4g --cpus 2`), calling the unmodified `run_crate_test` from both the original scorer and the corrected scorer.
   - The fixture was a real crate named `cas-pty` with 11 tests: the 10 real cas-pty test names plus one placeholder.
-  - We ran six failure scenarios. Host cargo 1.95.0 gave the same outcomes.
+  - We ran six failure scenarios. The reviewer reports that host cargo 1.95.0 gave the same outcomes; that host run's output is not saved.
 - **Exhaustive bounded model.** We built a TLA+ model (`KnownFailureCredit.tla`) and checked it with TLC 2026.10.06. It covers 4 tests, each of which can be ok, FAILED, ignored or absent, with up to 2 exempt tests. It checks the invariants `PassSound` and `CreditSound`.
 - **Arithmetic.** We worked out the score effect from the layer weights.
 - **Original identity.**

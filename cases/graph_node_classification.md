@@ -90,7 +90,7 @@ The task JSON changes only `judge.image_tag`.
 
 For every valid submission, the quality metrics are identical between v1 and v2 to all printed digits. Final scores differ by at most 8e-5, about 0.008 normalized points. That difference comes only from the wall-time penalty `0.01·log(time)`, not from the repair.
 
-**Score compatibility:** submissions that give an integer-convertible prediction for every test node score identically in v1 and v2, apart from run-to-run timing noise. Submissions that omit test nodes, or give non-integer values for any test node, are invalid in v2 and are not comparable with their v1 scores.
+**Score compatibility:** submissions that give an integer class id (an int, an integral finite float or a decimal-integer string, not a bool) for every test node score identically in v1 and v2, apart from run-to-run timing noise; this was measured on three valid controls. Bools and non-integral floats, which v1 converted with `int()`, are invalid in v2. Submissions that omit test nodes, or give non-integer values for any test node, are invalid in v2 and are not comparable with their v1 scores.
 
 ## Limits and what was not run
 

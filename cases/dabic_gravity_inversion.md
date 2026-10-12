@@ -16,7 +16,7 @@ The prompt says: "Decide for yourself whether to use the model-space or data-spa
 - Audit fixtures held the self-reported components (B, D) and the keyword-scored report (F) constant in every arm, so only the directive form varied. Their values are not task performance.
 - The evaluator's own penalty function applied to each arm's native breakdown with only the hidden-case score C substituted, to show the effect at the strong tier.
 - A paired v1/v2 evaluation on one E2B worker with the same inputs, plus an invalid control (log-determinant via `np.linalg.det`) and the empty shipped workspace.
-- An independent Nagy prism code passed a Bouguer-slab check (4.1931 vs 4.1934 mGal) as a units sanity check.
+- An independent Nagy prism code passed a Bouguer-slab check (4.1931 vs 4.1934 mGal) as a units sanity check. The script is in `evidence/scripts/dabic_gravity_inversion/`; its output was not saved.
 - Original identity: judge image `seededge/edgebench.judge.dabic_gravity_inversion@sha256:fe3dc290…731d`; key files `/opt/evaluator/eval_dabic_v2.py` sha256 `71ca4da8…2409`, `starter/README.md` `a81886fc…7d94`.
 
 ## What we found
@@ -54,7 +54,7 @@ In v1 the data/model gap is 1.05; in v2 it is 0.03, within the measured run nois
 
 **What a full v2 would need.** The judge would have to recompute the B and D components (42 points) from hidden data instead of reading them from the submission's reported results. Until then the task is excluded from this release; the coordinator's disposition note in the paired results says: "a full v2 would need the judge to recompute those components from hidden data."
 
-**Score compatibility.** v2 scores equal v1 scores for every submission classified as data-space and for submissions whose matrices match neither the hidden data nor the hidden cell counts. They are not comparable for model-space submissions, which gain the 3.2 E1 points and, at the strong tier, the uncapped 1.0 penalty. Rescale is unchanged: the task has no `rescale` section, so the maintained harness reports `score_0_100 = None` (`sforge/harness/run_evaluation.py:265`, no clipping); the scores in the tables are raw scores.[^2]
+**Score compatibility.** By code reading, v2 scores equal v1 scores, up to run noise (measured once: the data-space control went 26.82 → 26.84), for every submission classified as data-space and for submissions whose matrices match neither the hidden data nor the hidden cell counts. They are not comparable for model-space submissions, which gain the 3.2 E1 points and, at the strong tier, the uncapped 1.0 penalty. Rescale is unchanged: the task has no `rescale` section, so the maintained harness reports `score_0_100 = None` (`sforge/harness/run_evaluation.py:265`, no clipping); the scores in the tables are raw scores.[^2]
 
 ## Limits and what was not run
 

@@ -57,7 +57,7 @@ An excess return of 12% or more earns full marks for that component, and a negat
 **Maximum score effect.**
 
 - The largest difference in the excess-component score across the sweep is **0.17 points out of 100**. It occurs at an agent return of about 36%, just below the cap.
-- The gap in the excess value itself is at most about 0.56 percentage points.
+- The gap in the excess value itself is at most about 0.56 percentage points for agent returns from 0% to +100%, and up to about 0.71 points at −30%, where both excess scores are already at the −10 floor.
 - Information ratio and Sortino share this numerator, so each moves by at most about 0.1 points.
 - The total score can move by about 0.4 points at most.
 - For a fixed benchmark, both formulas rank strategies' excess returns in the same order.
@@ -70,7 +70,7 @@ An excess return of 12% or more earns full marks for that component, and a negat
 
 ## Note for users
 
-No repair. Scores from the original evaluator compute annualized excess return with the evaluator's formula, which differs from the task's stated definition. On the task's fixed 242-day test horizon the two formulas differ by under 0.6 percentage points. The total score moves by at most about 0.4 of 100 points, and the ordering of excess returns never changes. A two-line formula fix exists if exact agreement with the contract is needed.
+No repair. Scores from the original evaluator compute annualized excess return with the evaluator's formula, which differs from the task's stated definition. On the task's fixed 242-day test horizon the two formulas differ by at most about 0.7 percentage points for agent returns from −30% to +100% (under 0.6 points from 0% upward). The total score moves by at most about 0.4 of 100 points, and the ordering of excess returns never changes. A two-line formula fix exists if exact agreement with the contract is needed.
 
 ## Limits and what was not run
 

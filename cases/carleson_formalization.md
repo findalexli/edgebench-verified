@@ -30,7 +30,7 @@ The score is the share of baseline `sorry`-dependent declarations that the submi
 
 ## What we found
 
-**Auxiliary-name defect: Refuted for this task.** The hypothesis that the lean_analysis defect applies here was tested natively and rejected.
+**Auxiliary-name defect: Not found for this task.** The in-image census and probe found no exposed auxiliary target. No honest proof was scored for this task, so this rests on the probe classification and the unmodified-starter control.
 
 Census numbers:
 
@@ -39,7 +39,7 @@ Census numbers:
 | 3004 | 151 | 5.0% | **0** | 0 | 0 | **0** |
 
 - **Auxiliary kinds:** 90 `_proof`, 19 `_simp`, 11 `congr_simp`, 10 `eq_def`, and others.
-- **Duplicate types.** A lexical count finds duplicate types for 8 auxiliaries. All of them are transitive-only and not at risk.
+- **Duplicate types.** A lexical count finds duplicate types for 8 auxiliaries (the classifier lists them as "likely unattainable"). The probe classes all of them as transitive-only, so by the census's reasoning they are not at risk; this was not tested by scoring.
 - **Control.** The unmodified starter scored 0/3004, with no `type_changed` and no `disappeared`.
 
 **Sorried data definition: Not material to scoring fairness.** `ToMathlib/RealInterpolation/LorentzInterpolation.lean` contains a *data* definition, `C_LorentzInterpolation := sorry`.
@@ -47,7 +47,7 @@ Census numbers:
 - This looks like unfinished upstream work.
 - The finding comes from the source review and was not tested natively.
 
-**Upstream completeness: Not checked.** The upstream project completed its main theorem, but the project is unfinished. Some targets may have no upstream proof.
+**Upstream completeness: Not checked.** The upstream project is reported to have completed its main theorem (not checked here), but the project is unfinished. Some targets may have no upstream proof.
 
 **Scorer isolation.** Scorer isolation is outside this release's scope (EdgeBench design choice); no good-faith scoring defect was found. The sorried data definition above is recorded as a note.
 

@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Formal Math & Theorem Proving
-- **Decision:** Retain with note. Native tests show that honest proofs in two styles score identically. No target is out of reach for an honest, complete solution.
+- **Decision:** Retain with note. Native tests show that honest proofs of one theorem in two styles score identically. The census lower bound on targets out of reach for an honest, complete solution is 0 (the truth of individual targets was not audited).
 
 ## What the task promises
 
@@ -25,7 +25,7 @@ The score is the share of baseline `sorry`-dependent declarations that the submi
   - Then two honest variants of `PFR/HundredPercent.lean`. Each proves `@[simp] mem_symmGroup`, one with `Iff.rfl` (A) and one with `constructor <;> intro h <;> exact h` (B).
 - **Original identity.**
   - Judge image: `…@sha256:07b51e8e…09cc4`, toolchain v4.29.0.
-  - Task JSON: sha256 `d26b45a9…77d0`. Export tar: sha256 `61f3cc08…584`.
+  - Task JSON: sha256 `d26b45a9…77d0`. Export tar: sha256 `61f3cc08…584` (not recorded in the saved evidence).
   - `eval_lean.py`: sha256 `3319767e…`.
   - Effective `ListDeclAxiom.lean`: `0ea47b53…`. It prints HASH lines for `weak_PFR` and `entropic_PFR_conjecture`, which were true on the baseline.
 
@@ -39,7 +39,7 @@ Census numbers:
 |---|---|---|---|---|---|---|
 | 423 | 7 | 1.65% | **0** | 0 (see below) | 0 | **0** |
 
-The auxiliary targets are 7 `_simp` lemmas, and they are stable.
+The auxiliary targets are 7 `_simp` lemmas. The probe found that none holds its own hole. One of them, `mem_symmGroup._simp_1`, was credited natively; the other six were not scored.
 
 **Native honest-proof test.**
 
@@ -64,7 +64,7 @@ In all five, the token comes from `μ : autoParam (Measure Ω) sorry`, which is 
 
 **Earlier withholding.** An earlier source-only review proposed withholding the original task because of grader-robustness concerns. Under this release's scope, those concerns are scorer isolation. The native re-check of the good-faith question found no defect that affects an honest submission.
 
-**Earlier setup records.** An earlier "setup failure" record was a failure of the audit's own infrastructure, not a task defect. A fixed-version step returned -11 in the audit's own restoration route, not in the original image.
+**Earlier setup records.** An earlier "setup failure" record was a failure of the audit's own infrastructure, not a task defect. A fixed-version step returned -11 in the audit's own restoration route, not in the original image. No log of that earlier record is saved in this repository.
 
 ## Note for users
 

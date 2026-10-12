@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Interactive Games & Simulators
-- **Decision:** Retain with note — the full evaluation fits its time budget (80–172 s against 900 s), but the shipped baseline's recruit configuration is broken on the pinned engine, so it scores 0, and games are not repeatable.
+- **Decision:** Retain with note — the full evaluation fits its time budget on one 8-vCPU host (80–172 s against 900 s), but the shipped baseline's recruit configuration is broken on the pinned engine, so it scores 0, and games are not repeatable.
 
 ## What the task promises
 
@@ -21,7 +21,7 @@ The solver writes "a Lua AI for The Battle for Wesnoth 1.18 that wins turn-based
 
 ## What we found
 
-**Refuted: the timing concern.** An earlier audit left this task pending because a game was estimated to take more than 15 s. Re-checking showed that a full-length default-AI game takes about 3 s.
+**Refuted: the timing concern.** An earlier audit left this task pending because a game was estimated to take more than 15 s. Re-checking on one 8-vCPU host showed that a full-length default-AI game takes about 3 s.
 
 - Shipped baseline: the full default evaluation finished in **80 s**, exit 0, `TOTAL_SCORE 0`, `CASES_OK 0/60`, `TIMEOUT_COUNT 0`.
 - Control: finished in **172 s**, exit 0, 60/60 games, `TIMEOUT_COUNT 0`, `TOTAL_SCORE 41` (18/60 wins). Per-game wall time: mean 2.86 s, median 2.79 s, maximum 5.65 s.

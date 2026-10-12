@@ -52,7 +52,7 @@ The shipped feasible baseline totals more than 1e17, so in raw units it ranks be
 
 **Under the maintained harness.** The compile-failure report is rejected as inconsistent: its declared `CASES_TOTAL` disagrees with its CASE records. The shipped baseline, or `re_some`, is selected instead, again with normalized 0.0.
 
-**A normalized score can never change.** The rescale is non-increasing and equals 0 for any raw total at or above the baseline anchor (2.606e16). The compile-failure total of 1e17 is above that anchor. A compile failure can be selected only when every other entry has a raw total of at least 1e17, and those entries also normalize to 0. The 200,000-history check found **0** changes to the selected normalized score and 0 changes to the maximum normalized score. Over the same histories it found 43,336 changes to the raw `best_score`.
+**A normalized score can never change.** The rescale is non-increasing and equals 0 for any raw total at or above the baseline anchor (2.606e16). The compile-failure total of 1e17 is above that anchor. A compile failure can be selected only when every other entry has a raw total of at least 1e17, and those entries also normalize to 0. The 200,000-history check (its output is not saved in this repository) found **0** changes to the selected normalized score and 0 changes to the maximum normalized score. Over the same histories it found 43,336 changes to the raw `best_score`.
 
 Maximum score effect: 0 normalized (monotonicity argument, checked on 200,000 random histories). The defect affects only raw-unit reporting and which submission is named "best".
 

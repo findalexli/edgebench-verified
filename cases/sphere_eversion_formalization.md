@@ -38,11 +38,11 @@ Census numbers:
 | 661 | 119 | 18.0% | **0** | 0 | 0 | **0** |
 
 - **Auxiliary kinds:** 94 `_proof`, 23 `_simp`, and others.
-- No auxiliary target carries its own hole. Each is BAD only because it depends on a sorried theorem, so honest proofs of those theorems leave it unchanged.
+- No auxiliary target carries its own hole. Each is BAD only because it depends on a sorried parent declaration, so honest proofs of those declarations should leave it unchanged. This is inferred from the in-image probe; no honest-proof variant was scored.
 
 **Control.** The unmodified starter scored 0/661, with no `type_changed` and no `disappeared`. This holds even though `eval_cmd` swaps in the shared baseline `.lake`, whose Mathlib differs from the judge repo's, and rebuilds the whole project.
 
-**Weighting skew: Not material.** Auxiliaries are 18.0% of the score. They are earned automatically once their dependencies are proved.
+**Weighting skew: Not material.** Auxiliaries are 18.0% of the score. By the probe, they should be earned automatically once their dependencies are proved; this was not tested by scoring.
 
 **Scorer isolation.** Scorer isolation is outside this release's scope (EdgeBench design choice); no good-faith scoring defect was found.
 
