@@ -1,4 +1,4 @@
-name: Lightweight contract checks
+name: Verification checks
 
 on:
   push:
@@ -9,15 +9,24 @@ permissions:
   contents: read
 
 jobs:
-  regression-tests:
+  checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
       - run: python -m pip install -e . pytest
-      - run: python -m pytest tests/test_grading_contract.py tests/test_release_gates.py tests/test_cloud_dispatch_resources.py tests/test_cloud_policy.py tests/test_cloud_queue.py -q
-        env:
-          PYTHONPATH: tools
+      - name: Harness grading tests
+        run: python -m pytest tests -q
+      - name: Published counts and decisions agree with decisions.json
+        run: python tools/check_consistency.py
+      - name: No image-file copies, tamper material or credentials in the tree
+        run: python tools/check_publish.py
+      - name: TLA+ models reproduce their published outcomes
+        run: python tools/check_formal.py --tla-only

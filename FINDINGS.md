@@ -75,7 +75,7 @@ Scores depend on randomness, host speed or network access that the task does not
 | [Ann Vector Search Qps](cases/ann_vector_search_qps.md) | Retain with note | QPS host-dependent; scorer isolation out of scope | none for honest solvers |
 | [Dcss Dungeon Ai](cases/dcss_dungeon_ai.md) | Retain with note | One missing morgue voids the 5-game mean; wall-clock noise unmeasured | 0 observed |
 | [New Foundations Consistency](cases/new_foundations_consistency.md) | Retain with note | Grades correctly with the judge's network (Lake re-clones doc-gen4 at the manifest-pinned commit 86d735ec, valid result); cannot be graded offline; 15 of 370 aux targets exposed to renumbering (≤0.67%), untested | 0 measured |
-| [K12 Math Recommendation](cases/k12_math_recommendation.md) | Retain with note | Positive control valid (24.7/17.6); earlier failure was audit infrastructure; shipped reports stale | 0 found |
+| [K12 Math Recommendation](cases/k12_math_recommendation.md) | Retain with note | Reference solutions score validly (24.7 and 17.6) with enough memory; the scorer needs more than a 512 MiB address-space limit; the shipped evaluation_report.json files are stale against the current evaluator | 0 found |
 
 ## No defect affecting good-faith solvers (some carry usage notes)
 

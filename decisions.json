@@ -4,36 +4,36 @@
   "proposed": "retain-with-note",
   "finding": "No good-faith defect; graded cases are public seeds 0–49",
   "max_effect": "0",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "anchorhead_text_adventure",
   "proposed": "retain-with-note",
-  "finding": "Final (not peak) score of best session; deterministic (Jericho seed 0); six host sessions reused",
+  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six full and partial native sessions",
   "max_effect": "0",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "ann_vector_search_qps",
   "proposed": "retain-with-note",
   "finding": "QPS host-dependent; scorer isolation out of scope",
   "max_effect": "none for honest solvers",
-  "status": "final (release candidate 2026-10-12)",
-  "note_scope": "scorer-isolation findings recorded internally; out of release scope (EdgeBench design choice)"
+  "status": "final (v1.0)",
+  "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
  {
   "task_id": "apple_incremental_game",
   "proposed": "retain-with-note",
   "finding": "Anchors consistent with an independent simulator; advertised 1 GB memory policy not enforced per solution (note)",
   "max_effect": "0",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "arc_compiler_runtime",
   "proposed": "repair-v2",
   "finding": "Hidden tests require an undocumented analyze() return format; TASK.md claims starter scores 0 (actual 35.59)",
   "max_effect": "up to 33.7 points",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted (documentation v2): analyze() contract and measured starter value documented; contract-following checker earns 128/128 type-system cases; invalid control 25.79 both",
   "package": "repairs/arc_compiler_runtime-v2/"
  },
@@ -42,15 +42,15 @@
   "proposed": "retain-with-note",
   "finding": "Task score capped at 30 (disclosed design) → max normalized 30",
   "max_effect": "by design",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "borden_source_inversion",
   "proposed": "repair-v2",
   "finding": "Hidden forward model uses an undisclosed non-physical convention (mass-rate as mass, no porosity, mg/m³ as mg/L, source plane at box bottom); honest textbook solver scores at baseline; raw score uncapped (109)",
   "max_effect": "≈24 points (7.0 vs 31.2 for the same honest fit)",
-  "status": "final (release candidate 2026-10-12)",
-  "repair": "accepted (documentation + rescale): judge-identical forward_model.py shipped (coordinator: code lines identical, only comments differ) + exact README convention; linear 0–109 rescale; all arms identical raw v1/v2; honest solver using only shipped v2 files reaches 31.2 raw (28.6 normalized) vs textbook 7.03",
+  "status": "final (v1.0)",
+  "repair": "accepted (documentation + rescale): a forward_model.py identical in code to the judge's is shipped with an exact README description of the convention; linear 0–109 rescale; every arm scores identically raw in v1 and v2; an honest solver using only the shipped v2 files reaches 31.2 raw (28.6 normalized) vs 7.03 for a textbook model",
   "package": "repairs/borden_source_inversion-v2/"
  },
  {
@@ -58,14 +58,14 @@
   "proposed": "retain-with-note",
   "finding": "Census: 0 targets unattainable, aux targets 5.0% and stable; a sorried data definition (C_LorentzInterpolation) admits any value; upstream project unfinished, so some targets may lack upstream proofs",
   "max_effect": "0 measured",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "college_english_exam_bank",
   "proposed": "repair-v2",
   "finding": "Grader code treats an unassessed rubric rule as full marks",
   "max_effect": "up to the omitted rules' value",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: omitted-rule/empty-score responses become grading failures instead of full marks; complete assessments unchanged",
   "package": "repairs/college_english_exam_bank-v2/"
  },
@@ -74,14 +74,14 @@
   "proposed": "retain-with-note",
   "finding": "Shared Lean grader: native census shows honest term- and tactic-style proofs earn identical credit (16/3732); 0 targets unattainable; aux targets 25.1% of weight but stable",
   "max_effect": "0 measured",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "cta_risk_budget_optimization",
   "proposed": "repair-v2",
   "finding": "Cross-border exposure omits USD→CNY conversion required by the risk policy (~7× undercount)",
   "max_effect": "up to 5/100, lenient only",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted (component level): mixed-currency trigger fixed, controls unchanged; full score.py on shipped standard answer 20.0→20.0 (vetoed before cross-border block); no eligible full-scorer submission exists",
   "package": "repairs/cta_risk_budget_optimization-v2/"
  },
@@ -90,7 +90,7 @@
   "proposed": "exclude",
   "finding": "42 of the points come from self-reported JSON the judge cannot verify; an undisclosed data-space-only gate also penalised the model-space form the prompt allows (fixed in a partial v2)",
   "max_effect": "42 points unverifiable; form gate up to ~46 at strong tier",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: undisclosed form gate removed; honest model-space directive 25.77→26.81 (structural_failure true→false); invalid control unchanged — PARTIAL: form gate fixed, but self-reported credit remains, so the task is excluded from this release",
   "package": "repairs/dabic_gravity_inversion-v2/"
  },
@@ -99,15 +99,15 @@
   "proposed": "retain-with-note",
   "finding": "One missing morgue voids the 5-game mean; wall-clock noise unmeasured",
   "max_effect": "0 observed",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "equivalence_class_divide_and_conquer",
   "proposed": "repair-v2",
   "finding": "T3 checker cost loop skips the final state (accepts ≤ limit + |last target|)",
   "max_effect": "bounded (≤0.04% over limit); no gain shown",
-  "status": "final (release candidate 2026-10-12)",
-  "repair": "accepted: crafted over-limit AC→WA; at-limit AC→AC; reference 100→100 (T3 30/30); naive 6/24 identical; 64 MiB allowance was an earlier-audit sandbox artefact",
+  "status": "final (v1.0)",
+  "repair": "accepted: crafted over-limit AC→WA; at-limit AC→AC; reference 100→100 (T3 30/30); naive 6/24 identical",
   "package": "repairs/equivalence_class_divide_and_conquer-v2/"
  },
  {
@@ -115,7 +115,7 @@
   "proposed": "repair-v2",
   "finding": "Correctness gate misses fee/event errors; incorrect engines score higher than correct one",
   "max_effect": "full credit for an incorrect engine (two one-edit bugs passed the check; their higher raw scores in single runs are within throughput noise)",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: project integration tests gate scoring; feeswap/dropevents OK ~2250 → WA 0; honest engines keep scoring (throughput noise ±~20%); v2 pre-seeds Maven artifacts so it grades offline",
   "package": "repairs/exchange_core_throughput-v2/"
  },
@@ -124,7 +124,7 @@
   "proposed": "repair-v2",
   "finding": "Timed workloads never correctness-checked; failed calls earn speedup credit",
   "max_effect": "up to ~19 points shown for honest-incomplete variants",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: timed workloads checked for return code and 40 dB PSNR; honest-incomplete variants 2.88/1.31 → ~0.0005; reference 0.967→0.980 and 0.509→0.507 (noise); invalid control 0 both",
   "package": "repairs/ffmpeg_swscale_reimplementation-v2/"
  },
@@ -133,22 +133,22 @@
   "proposed": "retain-with-note",
   "finding": "Census: 25 weighted targets (total weight 87) match the listing exactly; no aux targets; 0 unattainable",
   "max_effect": "0 measured",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "git_rewrite_in_zig",
   "proposed": "retain-with-note",
   "finding": "Scoring path validated end-to-end with a real git positive control (29,075/29,075 tests, score 100); note: the prompt does not explain how scoring works, and the 120 s per-script timeouts were only tested on 8 cores",
   "max_effect": "0 measured",
-  "status": "final (release candidate 2026-10-12)",
-  "note_scope": "scorer-isolation findings recorded internally; out of release scope (EdgeBench design choice)"
+  "status": "final (v1.0)",
+  "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
  {
   "task_id": "graph_node_classification",
   "proposed": "repair-v2",
   "finding": "Non-integer predictions silently dropped and run marked valid; (NaN-confidence clipping is score-neutral)",
   "max_effect": "variance only; no expected gain shown",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: junk/non-integer predictions now invalid (v1 valid 0.20 → v2 invalid); baseline, honest and NaN-confidence quality identical; final score differs ≤8e-5 (wall-time penalty)",
   "package": "repairs/graph_node_classification-v2/"
  },
@@ -157,14 +157,14 @@
   "proposed": "retain-with-note",
   "finding": "Baseline anchor 9,025,986 vs actual 7,744,909 (+2.84); one failed case voids submission (undisclosed); ≥8 CPUs needed for reproducibility",
   "max_effect": "2.84 (baseline anchor); ~20 if one case fails (undisclosed rule); up to full score on <8 judge CPUs",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "integer_compression_codec",
   "proposed": "repair-v2",
   "finding": "Stored baseline table (impossible <8 bpi for varint) replaces the documented starter baseline",
   "max_effect": "starter 0.24 vs documented 1.0; honest codec 0.76 vs 6.24",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: in-run starter baseline; starter 0.23→0.98/1.02; corrupting codec fails roundtrip in both",
   "package": "repairs/integer_compression_codec-v2/"
  },
@@ -173,7 +173,7 @@
   "proposed": "repair-v2",
   "finding": "Validator accepts large positive-area overlaps (identical placements, containment, half-slides)",
   "max_effect": "material: infeasible layouts accepted",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: all overlap witnesses rejected in v2, legal edge contact and tolerance cases accepted",
   "package": "repairs/jagua_nesting_optimization-v2/"
  },
@@ -182,24 +182,24 @@
   "proposed": "retain-with-note",
   "finding": "Labels consistent (723/723); public/hidden CWE-78 trace convention differs",
   "max_effect": "~2.5 points",
-  "status": "final (release candidate 2026-10-12)",
-  "note_scope": "scorer-isolation findings recorded internally; out of release scope (EdgeBench design choice)"
+  "status": "final (v1.0)",
+  "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
  {
   "task_id": "k12_math_recommendation",
   "proposed": "retain-with-note",
-  "finding": "Positive control valid (24.7/17.6); earlier failure was audit infrastructure; shipped reports stale",
+  "finding": "Reference solutions score validly (24.7 and 17.6) with enough memory; the scorer needs more than a 512 MiB address-space limit; the shipped evaluation_report.json files are stale against the current evaluator",
   "max_effect": "0 found",
-  "status": "final (release candidate 2026-10-12)",
-  "note_scope": "scorer-isolation findings recorded internally; out of release scope (EdgeBench design choice)"
+  "status": "final (v1.0)",
+  "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
  {
   "task_id": "lean_analysis_proofs",
   "proposed": "repair-v2",
   "finding": "Two required statements are false (refuted in Lean inside the task image), and compiler-generated auxiliary targets are credited by name and printed type, so at least 49 points (1.69%) are unattainable for any honest complete solution and up to 466 depend on proof style",
   "max_effect": "≥1.69% unattainable; up to 16% style-dependent",
-  "status": "final (release candidate 2026-10-12)",
-  "repair": "accepted (limits: work image not built; local paired runs used judge's prebuilt Mathlib): 2 statements corrected and kernel-proved in task image (axioms propext/choice/Quot.sound, coordinator-checked); 560 compiler-generated + 3 placeholder targets dropped → 2338 targets; honest term/tactic/omega proofs all credit the identical 15 parents (v1 25–26/2901, style-dependent); v2 scores not comparable with v1",
+  "status": "final (v1.0)",
+  "repair": "accepted: the 2 false statements are corrected and their corrected forms proved in the task image (axioms propext, Classical.choice, Quot.sound); 560 compiler-generated and 3 placeholder targets are dropped, leaving 2338 targets; honest term-, tactic- and omega-style proofs now credit the identical 15 parent declarations (v1: 25–26 of 2901, depending on style); v2 scores are not comparable with v1. Limits: the work image was not rebuilt; paired runs used the judge's prebuilt Mathlib",
   "package": "repairs/lean_analysis_proofs-v2/"
  },
  {
@@ -207,28 +207,28 @@
   "proposed": "retain-with-note",
   "finding": "Per-solution memory limit not enforced (one aggregate container limit)",
   "max_effect": "no score mechanism found",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "nethack_dungeon_agent",
   "proposed": "retain-with-note",
   "finding": "Seeding silently fails: the 20 graded games are unseeded and random (run-to-run variance unmeasured for scoring agents); 120 s per-game limit not stated in the prompt",
   "max_effect": "variance unmeasured for scoring agents",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "new_foundations_consistency",
   "proposed": "retain-with-note",
   "finding": "Grades correctly with the judge's network (Lake re-clones doc-gen4 at the manifest-pinned commit 86d735ec, valid result); cannot be graded offline; 15 of 370 aux targets exposed to renumbering (≤0.67%), untested",
   "max_effect": "0 measured",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "openrct2_theme_park_ai",
   "proposed": "repair-v2",
   "finding": "Promised ~4 game years cannot run in the 120 s budget (~68 game days observed); score is an early snapshot",
   "max_effect": "material: prompt/horizon mismatch",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted (prompt correction): states the real ~68-game-day horizon and speed rule; no executable change",
   "package": "repairs/openrct2_theme_park_ai-v2/"
  },
@@ -237,7 +237,7 @@
   "proposed": "repair-v2",
   "finding": "Prompt goal names a non-existent API (AICompany.GetCompanyValue); a script that calls it dies, and the shipped baseline dies on its first statement; scorer itself works",
   "max_effect": "whole score for prompt-following solvers (script dies at the call; score is 0 or an earlier quarter's value)",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: prompt and starter name AICompany.GetQuarterlyCompanyValue and state how the score is read; v1 baseline dies on 5/5 seeds, v2 baseline and a corrected-API probe run with no error; scorer unchanged",
   "package": "repairs/openttd_transport_ai-v2/"
  },
@@ -246,7 +246,7 @@
   "proposed": "repair-v2",
   "finding": "Integrity test expects a stale helper hash; every submission capped at pass rate 0.8, so pass_rate_first freezes the run on its first valid submission",
   "max_effect": "material: later improvements ignored",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: 5/5 tests for valid submissions; better later submission now selected; invalid controls rejected",
   "package": "repairs/order_addition_permutation_optimization-v2/"
  },
@@ -255,35 +255,35 @@
   "proposed": "retain-with-note",
   "finding": "Grader correct on honest/Admitted/axiom controls; helper file-name filter undisclosed; targets 2–9 unproven",
   "max_effect": "0 found",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "pfr_formalization",
   "proposed": "retain-with-note",
   "finding": "Census: honest proofs in two styles score identically (2/423); 0 unattainable; 5 autoParam types print as sorry but are not holes",
   "max_effect": "0 measured",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "portfolio_risk_calibration",
   "proposed": "retain-with-note",
   "finding": "Annual excess computed as annualized difference, not difference of annualized returns",
   "max_effect": "≤~0.4 points; ordering preserved",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "rust_multicrate_reconstruction",
   "proposed": "retain-with-note",
   "finding": "Exempt-test credit can forgive an unrelated failure",
   "max_effect": "≤0.1/100",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "schemathesis_config_modernization",
   "proposed": "repair-v2",
   "finding": "Phase 3 test checks callable() not identity",
   "max_effect": "~1/150 of score",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: identity overlay 0.135313→0.135313; wrapper −1/160; starter unchanged",
   "package": "repairs/schemathesis_config_modernization-v2/"
  },
@@ -292,8 +292,8 @@
   "proposed": "repair-v2",
   "finding": "HTTP-date check is shape-only (accepts invalid dates/times)",
   "max_effect": "~1%",
-  "status": "final (release candidate 2026-10-12)",
-  "repair": "accepted: all honest generators unchanged (incl. any-year after coordinator removed unstated 1900 floor); 3 wrong generators −2/195, caught 20/20 seeds",
+  "status": "final (v1.0)",
+  "repair": "accepted: every honest generator keeps its score (including one using the full year range); 3 plausibly wrong generators lose 2/195 and are caught on 20 of 20 seeds",
   "package": "repairs/schemathesis_datagen_pipeline-v2/"
  },
  {
@@ -301,7 +301,7 @@
   "proposed": "repair-v2",
   "finding": "JUnit check accepts malformed output; body-coverage test is vacuous",
   "max_effect": "~2.4%",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: complete reference 1.0→1.0; three wrong variants lose points; starter +0.005 (Phase 5 partial scores not comparable with v1)",
   "package": "repairs/schemathesis_reporting_observability-v2/"
  },
@@ -310,7 +310,7 @@
   "proposed": "repair-v2",
   "finding": "Witness checker keys UF values by source text, so 27 satisfiable hidden files are unwinnable",
   "max_effect": "perfect-solver max 78.61→72.40 (−6.21)",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: UF witness values keyed by evaluated arguments; all 69 hidden sat files accepted with spec-form keys (27 previously unwinnable); 69 z3-proven wrong models rejected in both; no correct→rejected change; full eval_cmd ground arm 0/774 → 69/774",
   "package": "repairs/smt_solver-v2/"
  },
@@ -319,14 +319,14 @@
   "proposed": "retain-with-note",
   "finding": "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no honest-proof test)",
   "max_effect": "0 measured",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "treant_forest",
   "proposed": "repair-v2",
   "finding": "Anchors exceed the 2N² turn cap: max normalized 21.02; movement semantics question separate",
   "max_effect": "compresses all scores into 0–21",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted (anchors only): raw scores identical; honest policy 3.04→16.36; invalid control 0 both",
   "package": "repairs/treant_forest-v2/"
  },
@@ -335,7 +335,7 @@
   "proposed": "repair-v2",
   "finding": "Supplied in-place multiply wrong when operands alias (v *= v)",
   "max_effect": "≤5/100 (T2), only for aliasing solvers",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted: full eval T1–T6 reference 100→100; alias variant 0.25→5.00; logic-error control 0.25→0.25",
   "package": "repairs/tree_block_partitioning-v2/"
  },
@@ -344,52 +344,52 @@
   "proposed": "repair-v2",
   "finding": "Flip-legality rule omits the README's convexity condition; the same rule generated the cases (all 10 overlap/fold) and scores submissions",
   "max_effect": "material: changes which flips are legal for every solver",
-  "status": "final (release candidate 2026-10-12)",
-  "repair": "accepted: convexity rule enforced, cases regenerated valid; README-forbidden flips rejected (coordinator re-check: all 13 v2 files 0 overlaps/crossings/duplicates/folds; limit: generator still leaves hull gaps in 12/13)",
+  "status": "final (v1.0)",
+  "repair": "accepted: the convexity condition is enforced and the cases are regenerated; all 13 v2 case and sample files have 0 overlapping triangles, crossings, duplicates or folds; README-forbidden flips are rejected. Limit: the generator still leaves gaps in the convex hull in 12 of 13 files",
   "package": "repairs/triangulation_coloring_optimization-v2/"
  },
  {
   "task_id": "trinity_text_adventure",
   "proposed": "retain-with-note",
-  "finding": "Final (not peak) score of best session; deterministic (Jericho seed 0); six host sessions reused",
+  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six full and partial native sessions",
   "max_effect": "0",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "tryst_text_adventure",
   "proposed": "retain-with-note",
-  "finding": "Final (not peak) score of best session; deterministic (Jericho seed 0); six host sessions reused",
+  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six full and partial native sessions",
   "max_effect": "0",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "vehicle_routing_time_windows",
   "proposed": "retain-with-note",
   "finding": "Decimal tolerance immaterial (exact check); instruction clarification adopted as note; the verifier is compiled from the submitted include/types.h, so a solver edit to the distance code changes the checker (recommended hardening: build verifier from the original header)",
   "max_effect": "none",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "vibrating_path_graph_coloring",
   "proposed": "retain-with-note",
   "finding": "Tester rejects documented 3-line zero-hit format",
   "max_effect": "0 on official cases (zero-hit never valid)",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "vliw_kernel_optimization",
   "proposed": "retain-with-note",
   "finding": "Only scorer-isolation issues (out of scope)",
   "max_effect": "none for honest solvers",
-  "status": "final (release candidate 2026-10-12)",
-  "note_scope": "scorer-isolation findings recorded internally; out of release scope (EdgeBench design choice)"
+  "status": "final (v1.0)",
+  "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
  {
   "task_id": "warehouse_forklift_routing",
   "proposed": "repair-v2",
   "finding": "Prompt promises 30 s per test case (150 s/input) but the evaluator gives 60 s per input; and a lower bound proved in Lean for a model of the tester (model matched to the tester by a 294-string differential test) shows every valid TOTAL ≥ 712.538 > rank1 395.80, so the top two anchors are unreachable and normalized scores are capped at ≈30.3",
   "max_effect": "whole score for budget-following solvers; ~70 points of the scale unreachable",
-  "status": "final (release candidate 2026-10-12)",
+  "status": "final (v1.0)",
   "repair": "accepted (time contract): TIME_LIMIT 60→150 s per input as promised; budget-following solver 50 TLE → 50 OK; controls unchanged. Anchors kept with the Lean-proved ≈30.3 ceiling documented (no invented recalibration)",
   "package": "repairs/warehouse_forklift_routing-v2/"
  },
@@ -398,13 +398,13 @@
   "proposed": "retain-with-note",
   "finding": "Evaluation fits budget (80–172 s); shipped baseline recruit config broken (scores 0); games not repeatable",
   "max_effect": "baseline only",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  },
  {
   "task_id": "wireless_electricity_layout",
   "proposed": "retain-with-note",
   "finding": "Compile failure counted once vs per case in raw totals",
   "max_effect": "0 normalized (monotonicity argument, checked on 200,000 random histories)",
-  "status": "final (release candidate 2026-10-12)"
+  "status": "final (v1.0)"
  }
 ]

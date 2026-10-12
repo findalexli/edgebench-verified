@@ -1,41 +1,23 @@
 # Schemathesis reporting and observability (`schemathesis_reporting_observability`)
 
-Status: reviewed by the coordinator, 2026-10-12
+**Decision:** Repair (v2). The JUnit writer test accepts malformed output and the body-suppression coverage test can never fail; together the two gaps mis-credit about 2.4% of the score.
 
-- **Domain:** Systems & Software Engineering
-- **Decision:** Repair v2. The JUnit writer test accepts malformed output, and the body-suppression coverage test is vacuous. Together the two gaps mis-credit about 2.4% of the score.
+## What the task asks for
 
-## What the task promises
-
-The solver is told to "Treat `/app/TODO.md` as the authoritative task specification." `TODO.md` asks for two things relevant here:
+The solver extends reporting and observability in schemathesis 4.13.0 and is told to "Treat `/app/TODO.md` as the authoritative task specification." Two targets matter here:
 
 - Target 2: a "**`JunitXmlWriter`**: A context-manager class that writes JUnit XML reports", with a `record_error` method that "records a test error".
 - Target 5, fix 2: "The `allow-extra-parameters = false` configuration suppresses unexpected-properties coverage scenarios for query, header, and cookie parameters, but not for request bodies. Bodies should be included in this suppression."
 
-## What we checked and how
+Category: Systems & Software Engineering.
 
-- **Pinned judge image.** We pulled the judge image and ran it locally. `/app` is the unmodified schemathesis 4.13.0 starter.
-- **JUnit check.** A minimal reviewer-written `schemathesis.reporting` package supplied four `JunitXmlWriter` variants:
-  - `correct`, built on the `junit_xml` library that the starter's CLI already uses;
-  - `drops_error`, which writes well-formed XML but no `<error>`;
-  - `unterminated`, which writes malformed XML;
-  - `plaintext`, which writes no XML at all.
+## What goes wrong
 
-  Each variant ran against the original and the repaired JUnit test in the judge image.
-- **Coverage check.** We inspected what `cover_schema_iter` yields on the unmodified starter. We then ran the original and repaired coverage tests against three implementations: the starter (no fix), a correct fix, and an over-suppressing fix that ignores the flag.
-- **Paired v1/v2 run.** One E2B worker ran every variant through the full original `judge.eval_cmd` in fresh `--network none` containers. Variants included a complete reference implementation used as a positive control, three single-line mutants of it, the reviewer's stub, and the untouched starter.
-- **Original identity.** Judge image `seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633…`. Key files:
+### 1. The JUnit test accepts malformed or incomplete reports
 
-  | File | sha256 |
-  | --- | --- |
-  | `test_02_reporting.py` | `8dc05817…` |
-  | `test_05_email_coverage.py` | `8f1831e4…` |
-  | `test.sh` | `c74c6c42…` |
-  | `TODO.md` (from the earlier cloud export) | `097166d3…` |
+**Rule.** `record_error` must record an error in a JUnit XML report. The original assertion only checks that the strings `"schemathesis"` and `"test_label"` appear somewhere in the output.
 
-## What we found
-
-**JUnit check: Confirmed.** The original assertion only checks that the strings `"schemathesis"` and `"test_label"` appear somewhere in the output. Expected: a malformed report, or a report missing the error, should fail. Observed with the original test:
+**Example.** Four writers: `correct` (built on the `junit_xml` library the starter's CLI already uses), `drops_error` (well-formed XML, no `<error>`), `unterminated` (malformed XML) and `plaintext` (no XML at all). Expected: only `correct` passes. Observed:
 
 ```
 correct      orig: 1 passed   repaired: 1 passed
@@ -44,27 +26,33 @@ unterminated orig: 1 passed   repaired: 1 failed
 plaintext    orig: 1 passed   repaired: 1 failed
 ```
 
-A writer that drops the `<error>` makes a failed operation look like a pass in CI, and it still earns the item.
+**Why it matters.** A writer that drops the `<error>` makes a failed operation look like a pass in CI, and it still earns the item.
 
-**Maximum score effect:** 1/70 of the total (about 1.4%).
+### 2. The body-suppression coverage test is vacuous
 
-**Body-coverage check: Confirmed, broader than the earlier claim.** The earlier wording said the filter "can miss forced wrong generation behavior". No forcing is needed. On the untouched starter, which lacks the body fix, `cover_schema_iter` yields 12 values with body suppression requested, and the unwanted `OBJECT_UNEXPECTED_PROPERTIES` scenario is present. All 12 values belong to the coverage module's `GeneratedValue` class. The test filters on a different class of the same name, so its scenario set is always empty and the assertion can never fail. Expected: the test should fail on the starter, as its own header comment claims. Observed: it passes on the starter, and it also passes on an over-suppressing implementation. The query-parameter sibling test is vacuous in the same way, but it only guards behaviour that already existed.
+**Rule.** With `allow-extra-parameters = false`, request bodies must not yield unexpected-properties scenarios.
 
-**Maximum score effect:** 1/100 of the total (1.0%).
+**Example.** On the untouched starter, which lacks the body fix, `cover_schema_iter` yields 12 values with body suppression requested, and the unwanted `OBJECT_UNEXPECTED_PROPERTIES` scenario is present. All 12 values belong to the coverage module's `GeneratedValue` class. The test filters on a different class of the same name, so its scenario set is always empty and the assertion can never fail. Expected: the test fails on the starter, as its own header comment says. Observed: it passes on the starter, and it also passes on an over-suppressing implementation that ignores the flag.
 
-No wrong implementation scores above a correct one, and correct work is never penalized. The harm is credit for missing or incorrect behaviour.
+**Why it matters.** The test gives credit for missing or incorrect behaviour. The query-parameter sibling test is vacuous in the same way, but it only guards behaviour that already existed.
 
-## Repair
+## Impact
 
-v2 changes three judge files. The files are taken byte-for-byte from the two earlier accepted patches.
+- JUnit gap: at most 1/70 of the total (about 1.4%).
+- Body-coverage gap: at most 1/100 of the total (1.0%).
+- Only solvers whose writer or suppression is wrong are affected. No wrong implementation scores above a correct one, and correct work is never penalized.
+
+## Fix (v2)
+
+v2 changes three judge files:
 
 - `/tests/test_02_reporting.py` parses the XML. It accepts either a `testsuite` or a `testsuites` root, and it requires one `test_label` testcase with an `<error>` carrying the message. Test names and test count are unchanged.
 - `/tests/test_05_email_coverage.py` uses the correct `GeneratedValue` class and requires a non-empty, correctly typed stream. It also parametrizes allow/deny cases for both body and query.
 - `/tests/test.sh` raises the Phase 5 count from 10 to 12. Weights are unchanged.
 
-In `task.json.in`, only `judge.image_tag` changes. A separate earlier patch to a candidate implementation's plugin file is not a judge file and is not part of v2.
+In `task.json.in`, only `judge.image_tag` changes.
 
-In the table below, the `fullref` rows are the complete reference implementation used as a positive control. The `fullref_*` rows are single-line mutations of it, and the `stub_*` rows use the reviewer's minimal stub.
+In the table below, `fullref` is a complete reference implementation used as a positive control. The `fullref_*` rows are single-line mutations of it, and the `stub_*` rows use a minimal stub.
 
 | Variant | Role | v1 score | v2 score | Delta | Phase 2 / Phase 5 (v1 → v2) |
 |---|---|---|---|---|---|
@@ -80,13 +68,19 @@ Phases 1, 3 and 4 give identical results in every variant. The only changed item
 
 **Score compatibility.** Fully correct submissions score 1.0 in both versions. When Phase 2 or Phase 5 is only partly passed, v1 and v2 scores are not comparable, because Phase 5 has 12 tests instead of 10. Under v2 the untouched starter and the stub variants gain +0.005. The new allow cases and the query deny case check generator behaviour the starter already has, so starter credit in Phase 5 moves from the vacuous body test to legitimate checks. A smaller alternative would change only the `GeneratedValue` import and keep 10 tests, but it would not catch over-suppression.
 
-## Limits and what was not run
+## How we know
 
-- No model or solver re-runs were made. Effects are shown only on authored variants, mutants and counterexamples.
+- **Original evaluator in the pinned image.** The judge image (`sha256:b1e16633…`) holds the unmodified schemathesis 4.13.0 starter. Every variant ran through the full original `judge.eval_cmd` and under v2, in fresh `--network none` containers.
+- **Direct inspection.** The class of every value yielded by `cover_schema_iter` on the starter was inspected, which shows why the original coverage filter is always empty. The repaired coverage tests were run against the starter, a correct fix and an over-suppressing fix.
+- **Repeatability.** The paired evaluation was run three times; no verdict changed (`paired-repeatability.md`).
+
+## Limits
+
+- No model or solver was run. Effects are shown only on authored variants and mutants.
 - Only one complete implementation was available as a positive control.
-- An inherited count quirk in Phase 4 (9 expected, 11 collected) is unchanged and out of scope.
-- The broader integration claims in earlier records (xdist, stateful runs, a 55/53 test-count quirk) were not re-checked.
-- `TODO.md` came from the earlier cloud export and was not re-extracted from the work image.
+- A count quirk in Phase 4 (9 expected, 11 collected) is unchanged and out of scope.
+- Broader integration behaviour (xdist, stateful runs, a 55/53 test-count quirk) was not checked.
+- `TODO.md` was not re-extracted from the work image.
 - The hidden tests are not stored in this repository. They are extracted from the pinned judge image when the checks are rerun.
 
 ## Reproduce

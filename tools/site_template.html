@@ -121,7 +121,6 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
 
 <nav class="top"><div class="wrap">
   <a class="brand" href="#top">EdgeBench Verified</a>
-  <a class="l" href="#changed">What changed</a>
   <a class="l" href="#findings">Findings</a>
   <a class="l" href="#tasks">All 51 tasks</a>
   <a class="l" href="#method">Method</a>
@@ -129,9 +128,9 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
 
 <main class="wrap" id="top">
 <header class="hero">
-  <div class="eyebrow">Release candidate · October 12, 2026 · 51 public tasks</div>
+  <div class="eyebrow">Version 1.0 · 51 public tasks</div>
   <h1>EdgeBench Verified</h1>
-  <p class="lede">We re-checked every one of EdgeBench's 51 public tasks on its original, digest-pinned evaluator and asked one question: is a good-faith solver scored correctly and repeatably for what the task promises? Where it is not, we built a repaired version in EdgeBench's own format and tested it against the original on the same inputs.</p>
+  <p class="lede">A benchmark task is only as good as its evaluator. For each of EdgeBench's 51 public tasks we checked, on the original digest-pinned evaluator, whether a good-faith solver gets the score the task promises. Every material defect was repaired as a new task version in EdgeBench's own format and checked against the original on the same inputs, or the task was excluded.</p>
   <div class="strip" id="strip" aria-label="Decision for each of the 51 tasks"></div>
   <div class="legend">
     <span><i class="k-retain"></i>Retain</span>
@@ -142,28 +141,11 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
   <div class="counts">
     <div><b>{{repair-v2}}</b><span>repaired as v2, each checked on paired before/after runs, repeated three times</span></div>
     <div><b>{{retain-with-note}}</b><span>retained with a published note</span></div>
-    <div><b>{{retain}}</b><span>retained as is</span></div>
     <div><b>{{exclude}}</b><span>excluded from this release</span></div>
   </div>
   <p class="sub">The other 83 advertised EdgeBench tasks were not available and are out of scope. No models were run: score effects are shown on authored controls and counterexamples, never estimated for historical leaderboard entries.</p>
 </header>
 
-<section id="changed">
-  <div class="eyebrow">Audit funnel</div>
-  <h2>What changed from the earlier audit</h2>
-  <p class="sub col">An earlier automated audit had withheld 18 originals, retained 1 and left several findings open. We treated every earlier claim as a hypothesis and reproduced it from the original bytes before keeping it.</p>
-  <div class="tablewrap" style="border:0;background:transparent">
-  <table class="funnel">
-    <thead><tr><th>Earlier state</th><th>After re-checking</th></tr></thead>
-    <tbody>
-      <tr><td>18 originals withheld</td><td>All 18 defects reproduced. <b>12</b> needed a repair and now ship as v2. <b>6</b> are retained with a note: five cannot materially change a good-faith solver's reported score, and one concerned only scorer isolation, which is outside this release's scope.</td></tr>
-      <tr><td>1 task retained</td><td>Retained with a note: its throughput score is host-dependent (±17% across our runs).</td></tr>
-      <tr><td>3 further findings</td><td>All confirmed and stronger than first stated (SMT witness checking, FFmpeg timing credit, OpenRCT2 game horizon). All three repaired.</td></tr>
-      <tr><td>29 tasks pending</td><td>8 had material defects the earlier audit had not found: 7 repaired, 1 excluded. The rest are retained, most with a note. Several earlier "setup blocked" tasks were failures of the earlier audit's own tooling.</td></tr>
-    </tbody>
-  </table>
-  </div>
-</section>
 
 <section id="findings">
   <div class="eyebrow">Selected findings</div>
@@ -205,7 +187,7 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
     <li><b>Accept a repair only on paired evidence.</b> The same inputs scored by the original and repaired evaluator in one run: the trigger fixed, valid controls unchanged, invalid controls still rejected.</li>
     <li><b>Repeat it.</b> Every paired evaluation was run three times on fresh workers. Across 132 executed arms in 22 repairs, no verdict changed between runs; only throughput and timing scores moved.</li>
   </ol>
-  <p class="sub col">Out of scope: tampering with the scorer by a deliberately malicious submission (an EdgeBench harness design choice), and fresh model runs. Reviews were performed by AI agents with a coordinating reviewer who re-checked the decisive line or result of every published finding; agreement between agents is not counted as independent reproduction.</p>
+  <p class="sub col">Out of scope: deliberate tampering with the scorer by a malicious submission (an EdgeBench harness design choice), the 83 unreleased tasks, and model runs. Score effects are measured on authored controls and counterexamples. The reviews were carried out by AI agents; every published claim is traced to a saved evidence file.</p>
   <div class="paths">
     <span class="eyebrow">Overview</span><code>README.md</code>
     <span class="eyebrow">Method</span><code>METHOD.md</code>

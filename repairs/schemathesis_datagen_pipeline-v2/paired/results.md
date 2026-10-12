@@ -36,7 +36,7 @@ Seed sweep (`seed-sweep.txt`): the single date test was run under 20 Hypothesis 
 
 Note: `paired/run.sh` differs from the executed job script only in the `/tests` hash-listing fix. v2 hashes were verified on a local build: `v2-image-tests.sha256`.
 
-## Amendment 2026-10-12 (coordinator): unstated year floor removed
+## Final paired run (year ≥ 1900 floor removed)
 
 The first paired run penalized `stdlib_any_year` (an honest generator using the full year range)
 because the v2 predicate applied RFC 5322's "year ≥ 1900" rule, which the task does not state.

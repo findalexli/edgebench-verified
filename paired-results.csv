@@ -93,14 +93,14 @@ schemathesis_config_modernization,starter,baseline,0/15,0/16,0.031466,0.031466,r
 schemathesis_config_modernization,identity,valid,15/15,16/16,0.135313,0.135313,raw,no,Paired v1/v2 results: schemathesis_config_modernization
 schemathesis_config_modernization,wrapper,trigger,15/15,15/16,0.135313,0.129063,raw,yes,Paired v1/v2 results: schemathesis_config_modernization
 schemathesis_config_modernization,no_register,invalid,12/15,12/16,0.115313,0.110313,raw,yes,Paired v1/v2 results: schemathesis_config_modernization
-schemathesis_datagen_pipeline,correct,valid,,,0.477350,0.477350,raw,no,Amendment 2026-10-12 (coordinator): unstated year floor removed
-schemathesis_datagen_pipeline,stdlib_1900,valid,0/20,0/20,0.477350,0.477350,raw,no,Amendment 2026-10-12 (coordinator): unstated year floor removed
-schemathesis_datagen_pipeline,stdlib_any_year,valid,0/20,0/20,0.477350,0.477350,raw,no,Amendment 2026-10-12 (coordinator): unstated year floor removed
-schemathesis_datagen_pipeline,independent_fields,trigger,0/20,20/20,0.477350,0.467094,raw,yes,Amendment 2026-10-12 (coordinator): unstated year floor removed
-schemathesis_datagen_pipeline,off_by_one_clock,trigger,0/20,20/20,0.477350,0.467094,raw,yes,Amendment 2026-10-12 (coordinator): unstated year floor removed
-schemathesis_datagen_pipeline,garbage_shape,invalid,,,0.477350,0.467094,raw,yes,Amendment 2026-10-12 (coordinator): unstated year floor removed
-schemathesis_datagen_pipeline,rfc850 (invalid),invalid,,,0.467094,0.467094,raw,no,Amendment 2026-10-12 (coordinator): unstated year floor removed
-schemathesis_datagen_pipeline,starter,baseline,,,0.323504,0.323504,raw,no,Amendment 2026-10-12 (coordinator): unstated year floor removed
+schemathesis_datagen_pipeline,correct,valid,,,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed)
+schemathesis_datagen_pipeline,stdlib_1900,valid,0/20,0/20,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed)
+schemathesis_datagen_pipeline,stdlib_any_year,valid,0/20,0/20,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed)
+schemathesis_datagen_pipeline,independent_fields,trigger,0/20,20/20,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed)
+schemathesis_datagen_pipeline,off_by_one_clock,trigger,0/20,20/20,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed)
+schemathesis_datagen_pipeline,garbage_shape,invalid,,,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed)
+schemathesis_datagen_pipeline,rfc850 (invalid),invalid,,,0.467094,0.467094,raw,no,Final paired run (year ≥ 1900 floor removed)
+schemathesis_datagen_pipeline,starter,baseline,,,0.323504,0.323504,raw,no,Final paired run (year ≥ 1900 floor removed)
 schemathesis_reporting_observability,fullref,valid,,,1.000000,1.000000,raw,no,Paired v1/v2 results: schemathesis_reporting_observability
 schemathesis_reporting_observability,fullref_junit_drops_error,trigger,,,1.000000,0.985714,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability
 schemathesis_reporting_observability,fullref_no_body_fix,trigger,,,1.000000,0.991667,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability
@@ -123,11 +123,11 @@ triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,10/
 triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,10/10,10/10,48.87,48.95,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)"
 triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,10/10 accepted,"0/10 (WA ""Invalid flip"")",0.052,,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)"
 triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,0/10 (WA),0/10 (WA),,,normalized,no,"Full judge (`eval_cmd`, 10 hidden cases)"
-warehouse_forklift_routing,generic valid control,valid,"OK 50/50, TOTAL 46676.8","OK 50/50, TOTAL 46676.8",46676.8,46676.8,raw,no,"Re-run after host restart (coordinator, 2026-10-12)"
-warehouse_forklift_routing,one honest bug,invalid,49 OK + 1 WA → inf,49 OK + 1 WA → inf,,,raw,no,"Re-run after host restart (coordinator, 2026-10-12)"
-warehouse_forklift_routing,shipped starter,invalid,50 WA → inf,50 WA → inf,,,raw,no,"Re-run after host restart (coordinator, 2026-10-12)"
-warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,"Re-run after host restart (coordinator, 2026-10-12)"
-warehouse_forklift_routing,near the 150 s per-input limit,trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,"Re-run after host restart (coordinator, 2026-10-12)"
+warehouse_forklift_routing,generic valid control,valid,"OK 50/50, TOTAL 46676.8","OK 50/50, TOTAL 46676.8",46676.8,46676.8,raw,no,Paired run
+warehouse_forklift_routing,one honest bug,invalid,49 OK + 1 WA → inf,49 OK + 1 WA → inf,,,raw,no,Paired run
+warehouse_forklift_routing,shipped starter,invalid,50 WA → inf,50 WA → inf,,,raw,no,Paired run
+warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,Paired run
+warehouse_forklift_routing,near the 150 s per-input limit,trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,Paired run
 openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,"yes, at `main.nut` line 5",no,,,raw,yes,Paired table
 openttd_transport_ai,baseline_v1 (shipped starter),baseline,"yes, at `main.nut` line 5","yes, at `main.nut` line 5",0,0,raw,no,Paired table
 openttd_transport_ai,probe_min (calls corrected API monthly),valid,no,no,0,0,raw,no,Paired table

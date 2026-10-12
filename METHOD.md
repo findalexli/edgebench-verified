@@ -1,84 +1,89 @@
 # Method
 
-EdgeBench Verified re-examines the 51 publicly released EdgeBench tasks (of 134 advertised;
-the other 83 were not available and are out of scope). For each task we asked one question:
-**would a good-faith solver be scored correctly and repeatably for what the task promises?**
+## The question
 
-## Scope
+EdgeBench scores a submission by running a task's evaluator inside a pinned container image. For
+each of the 51 public tasks we asked one question: **does a good-faith solver get the score the
+task promises, reliably?** A task fails this test if the evaluator applies a different rule from the
+one the solver is told, rejects correct work, accepts incorrect work, uses data that violates its own
+contract, promises something its time or score budget cannot deliver, or produces scores that change
+between identical runs without saying so.
 
-- **In scope:** wrong scoring rules, wrong or invalid data, promises the evaluator cannot
-  keep (time horizons, budgets, formats), undocumented conventions an honest solver cannot
-  reproduce, weak checks that accept plausibly incorrect solutions, mis-calibrated score
-  scales, and non-repeatable scoring.
-- **Out of scope:** tampering with the scorer by a deliberately malicious submission. EdgeBench
-  runs submissions inside the judge container; isolating them is a harness design choice, not
-  a task defect. We recorded such observations internally and do not publish them.
-- **Not attempted:** fresh model/agent runs. Score effects are measured on authored controls and
-  counterexamples, never estimated for historical leaderboard entries.
+Out of scope:
 
-## How a claim becomes a finding
+- **Deliberate tampering.** EdgeBench runs submissions inside the judge container, so a submission
+  written to attack the scorer can interfere with it. That is a harness design choice, not a task
+  defect.
+- **The 83 unreleased tasks.** EdgeBench advertises 134 tasks, of which 51 are public.
 
-An earlier audit (Codex agents, October 7–12, 2026) left 21 scoped findings and 18 "withhold"
-decisions. We treated every earlier claim as a hypothesis and every task as unreviewed:
+## What counts as evidence
 
-1. **Pin the original.** Task JSON from the public release, the judge/work images by OCI digest
-   from Docker Hub, and sha256 of every source file relied on.
-2. **Read the contract first.** Prompt, shipped READMEs and evaluator, before earlier evidence.
-3. **Reproduce on the original evaluator path.** Pulled judge image, the task's own `eval_cmd`,
-   `--network none`, with a known-good control, the trigger, and a known-bad control. Heavy runs
-   used isolated E2B cloud workers (8 vCPU, 8 GiB), one job per worker, killed by exact ID.
-4. **Use an independent oracle** where the claim is mathematical or combinatorial: exact
-   rational/integer arithmetic, a second implementation, brute force, or a formal tool.
-   - **Lean 4 + Mathlib** for statement truth (e.g. two false theorem statements refuted inside
-     the task's own image), finance identities, and corrected-statement proofs; every main proof is
-     reported with `#print axioms` (only `propext`, `Classical.choice`, `Quot.sound`). Two
-     demonstrations built on the task's own sorried statements show `sorryAx` by design, and two
-     one-line CTA fixture inequalities have no printed axiom list.
-   - **TLA+ (TLC)** for state/counting logic (aliasing in an in-place multiply; test-credit
-     counting), each with a negative control and stated bounds.
-5. **Trace to the reported score.** Through the task parser, selection policy and rescale to
-   the 0–100 score. Several real defects turned out to be immaterial (rescale erases them);
-   one small one turned out to freeze every run (selection amplifies it).
-6. **Coordinator re-check.** The coordinating reviewer re-read the decisive code line or reran
-   the decisive check for published findings before recording them. A re-check is documented only
-   where a case page or review records it (for example "coordinator-checked"); some pages note
-   where it was not done.
+1. **Pin the original.** The task definition from the public release, the judge and work images by
+   OCI digest, and the sha256 of every evaluator file a finding relies on.
+2. **Read the contract.** The prompt, the README files shipped to the solver, and the evaluator
+   code, so that "what the task promises" is quoted, not paraphrased.
+3. **Run the original evaluator.** The task's own `eval_cmd` in the pulled image, with no network,
+   on three kinds of input:
+   - a correct submission (it must score as promised);
+   - the trigger (a small, concrete input that shows the defect);
+   - an incorrect submission (it must be rejected).
+4. **Check with an independent oracle** where a finding is mathematical or combinatorial: exact
+   rational or integer arithmetic, a second implementation, exhaustive search, or a formal tool.
+   - **Lean 4 + Mathlib:** whether a required theorem is false, finance identities, and a
+     routing lower bound. Every proof lists its axioms.
+   - **TLA+ (TLC):** an aliasing bug and a test-credit counting rule, each with a negative control
+     and stated bounds.
+5. **Trace to the reported score.** A defect matters only through the task's parser, selection
+   policy and rescale to the 0–100 score. "Max effect" on each case page is the largest change we
+   demonstrated or proved on that scale.
 
 ## Decisions
 
 | Decision | Meaning |
 | --- | --- |
-| **Retain** | No defect affecting good-faith solvers was found. |
-| **Retain with note** | A real but immaterial or disclosed issue; the note is part of the release. |
-| **Repair (v2)** | A material, fixable defect. A new task version ships; the original is superseded. v2 scores are not comparable with v1. |
-| **Exclude** | A material defect without a justified repair in this release. |
+| **Retain with note** | No defect that materially changes a good-faith solver's score. Immaterial issues, disclosed design choices and run conditions are recorded as notes that ship with the task. |
+| **Repair (v2)** | A material, fixable defect. A new task version ships in EdgeBench's own format; the original is superseded, and v2 scores are not comparable with v1. |
+| **Exclude** | A material defect without a sound repair in this release. |
 
 ## How a repair is accepted
 
-Each repair is a package in EdgeBench's native format (`repairs/<task>-v2/`): a Dockerfile
-`FROM` the original image digest plus only the changed files, a generated patch, a `task.json.in`
-changing only the needed fields, and a source lock. It is **accepted** only if, on the same inputs
-scored by the original (v1) and repaired (v2) evaluator in one run: the trigger is fixed, valid
-controls keep their scores (or the change is explained), and invalid controls are still rejected.
-Two repairs were accepted on a narrower check: the prompt-only OpenRCT2 repair changes no executable
-file, so its controls hold by construction and were not re-run, and the CTA trigger was paired at
-component level because no eligible full submission exists.
-Where rescale anchors came from historical leaderboard runs, we did not invent new ones; we kept
-them with a non-comparability note, or set them from exactly computable quantities.
+Each repair is a package in `repairs/<task>-v2/`:
+
+- a patch against the files in the original image;
+- `materialize.sh`, which rebuilds the changed files from the pinned public image;
+- a `Dockerfile` `FROM` the original digest;
+- `task.json.in`, changing only the necessary fields.
+
+A repair is accepted only if one paired evaluation, the same inputs scored by the original and the
+repaired evaluator, shows three things: the trigger is fixed, correct controls keep their scores
+(or the change is explained), and incorrect controls are still rejected. Score anchors that came
+from historical leaderboard runs are never re-invented: they are kept with the limit stated, or set
+from exactly computable quantities.
 
 ## Repeatability
 
-Every repair's paired evaluation was run three times on fresh workers (the published run plus two
-reruns). Across 132 executed arms in 22 packages, no verdict changed: every trigger stayed fixed by
-v2, every valid control stayed valid, every invalid control stayed rejected. Deterministic evaluators
-reproduce exactly; throughput and timing scores move (up to 38% for Exchange Core throughput)
-without changing any verdict. Details: [paired-repeatability.md](paired-repeatability.md); rebuild
-with `tools/repeatability/` (the Treant row needs the original cases extracted from the pinned image).
+Every paired evaluation was run three times on fresh workers. Across 132 executed arms in 22
+repair packages, no verdict changed. Deterministic evaluators reproduce exactly. Throughput and
+timing scores move (up to 38% for Exchange Core throughput) without changing any verdict. Details
+are in [paired-repeatability.md](paired-repeatability.md).
 
 ## Limits
 
-- One run per arm in most paired checks; timing-based scores are host-dependent.
-- Controls are authored; they establish the stated behaviour, not a defect rate in real solver
-  populations or historical leaderboard impact.
-- AI agents performed the reviews; agreement between agents reviewing the same evidence is not
-  independent reproduction. Each case states what was re-run and what was reused.
+- **No model runs.** Score effects are measured on authored controls and counterexamples, not on
+  historical leaderboard submissions or fresh model attempts.
+- **One hardware class.** Paired evaluations ran on 8-vCPU / 8 GiB workers. Timing-based scores may
+  move further on other hardware.
+- **Partial checks.** Some findings rest on source reading or exact arithmetic rather than a full
+  native run. Their case pages say so.
+- **AI review.** The reviews were carried out by AI agents. Every published claim is traced to a
+  saved evidence file, but agreement between agents is not independent human reproduction.
+
+## Rebuilding the publication
+
+All tables, the findings list, the guide and the site are generated from `decisions.json`:
+
+```bash
+python3 tools/build_tables.py && python3 tools/build_findings.py && python3 tools/build_applying.py && python3 tools/build_site.py
+python3 tools/check_consistency.py   # every published count agrees with decisions.json
+python3 tools/check_formal.py        # TLA+ models and Lean proofs reproduce their published outcomes
+```

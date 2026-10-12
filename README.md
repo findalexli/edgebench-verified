@@ -1,83 +1,94 @@
 # EdgeBench Verified
 
-An independent re-verification of the **51 publicly released [EdgeBench](https://github.com/ByteDance-Seed/EdgeBench)
-tasks** (of 134 advertised; the other 83 were not available and are out of scope). For every task
-we asked one question: **is a good-faith solver scored correctly and repeatably for what the task
-promises?** Every claim was checked against the task's original, digest-pinned sources and, where
-feasible, reproduced on its original evaluator; each case page states what was run and what rests on
-source reading or arithmetic. Every repaired defect ships as a new task version in EdgeBench's own
-format, accepted only after a paired before/after check on the same inputs.
+**Version 1.0.** A verified edition of the 51 publicly released
+[EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) tasks.
 
-**For EdgeBench maintainers:**
-[What is wrong and how much it matters](FINDINGS.md) ·
-[How to apply the fixes](APPLYING-FIXES.md) ·
-[All 51 decisions](DECISIONS.md) ([CSV](decisions.csv)) ·
-[Case page per task](cases/INDEX.md) ·
-[Method and limits](METHOD.md) ·
-browsable version: open [`site/index.html`](site/index.html) in a browser.
+A benchmark task is only as good as its evaluator: if the evaluator applies a different rule from
+the one the solver is told, accepts wrong work, rejects right work, or cannot deliver what the
+prompt promises, the score stops measuring the skill. For each public EdgeBench task we checked
+whether a good-faith solver gets the score the task promises, reliably. We reproduced every finding
+on the task's original, digest-pinned evaluator. Every material defect was repaired as a new task
+version in EdgeBench's own format, or the task was excluded.
 
-Status: release candidate, October 12, 2026. No models were run: score effects are shown on authored
-controls and counterexamples, never estimated for historical leaderboard entries.
+| Read | For |
+| --- | --- |
+| [FINDINGS.md](FINDINGS.md) | What is wrong in each task and how much it changes the score |
+| [APPLYING-FIXES.md](APPLYING-FIXES.md) | How to build and use the repaired task versions |
+| [DECISIONS.md](DECISIONS.md) · [decisions.csv](decisions.csv) | The decision for all 51 tasks |
+| [cases/](cases/INDEX.md) | One page per task: the problem, its impact, the fix, the evidence |
+| [METHOD.md](METHOD.md) | How findings were established, decision rules, and limits |
+| [site/index.html](site/index.html) | All of the above as one browsable page |
 
-## Decisions for all 51 tasks
+## Decisions
 
 | Decision | Tasks | Meaning |
 | --- | ---: | --- |
-| Retain | 0 | No defect and nothing to note (every retained task carries at least one note) |
-| Retain with note | 28 | Real but immaterial, or disclosed, issue, or a usage note only where no good-faith defect was found; the note ships with the task |
-| **Repair (v2)** | **22** | Material defect fixed in a new version; every repair passed a paired before/after check, a native run for all but the prompt-only OpenRCT2 repair ([134 paired rows](paired-results.csv), 4 of them for the excluded task's partial repair); [repeated 3×](paired-repeatability.md): 0 of 132 executed arms changed verdict |
-| Exclude | 1 | Material defect without a justified repair in this release |
+| **Repair (v2)** | **22** | Material defect, fixed in a new version |
+| Retain with note | 28 | No defect that materially changes a good-faith solver's score; notes ship with the task |
+| Exclude | 1 | Material defect without a sound repair in this release |
 | **Total** | **51** | |
 
-## Selected findings
+Every repair was checked by scoring the same inputs with the original and the repaired evaluator:
+the defect's trigger is fixed, correct controls keep their scores, and incorrect controls are still
+rejected ([134 paired rows](paired-results.csv)). Each paired evaluation was run three times, and
+none of the 132 executed arms changed verdict ([repeatability](paired-repeatability.md)).
 
-- **SMT Solver:** the witness checker keys function values by source text, so 27 satisfiable hidden problems are unwinnable for any solver (perfect-solver ceiling 78.61 → 72.40). Fixed; checked with z3.
-- **Exchange Core:** two plausible engine bugs (a fee swap, dropped events) pass the correctness check and receive full throughput credit (in single runs they even scored higher than the correct engine, within throughput noise). v2 gates scoring on the project's own integration tests.
-- **Order Addition:** a stale integrity hash caps every submission at 4/5 tests, which freezes each run's best score on its first submission. A one-literal fix restores selection of later improvements.
-- **Triangulation Coloring:** the flip-legality rule omits the convexity condition the README states; the same rule generated the test cases (all ten overlap) and scores submissions. v2 fixes the rule and regenerates valid cases.
-- **Warehouse Routing:** the prompt promises 30 s per test case but the evaluator allows 60 s per five-case input; a Lean-proved lower bound (for a model of the tester that was matched to the tester by testing, not by proof) also shows the top two score anchors are unreachable (ceiling ≈30.3/100).
-- **Borden Inversion:** the hidden physics convention is undocumented and non-physical; an honest textbook solver fits the public data equally well but scores at baseline (7.0 vs 31.2). v2 ships the exact forward model.
-- **Lean Analysis:** two required theorem statements are false (refuted in Lean inside the task image), and compiler-generated targets make ≥1.69% of points unattainable and scores proof-style dependent. v2 fixes both.
+## What the defects look like
 
-All defects with their measured impact: [FINDINGS.md](FINDINGS.md).
+- **Correct work scored too low.** SMT Solver's witness checker keys function values by their source
+  text, so 27 satisfiable hidden problems are unwinnable for any solver (perfect-solver ceiling
+  78.61 → 72.40). Borden Inversion's hidden physics convention is undocumented: an honest textbook
+  model fits the public data equally well but scores 7.0, against 31.2 under the judge's convention.
+- **Incorrect work accepted.** In Exchange Core, two plausible engine bugs (a fee swap, dropped
+  events) pass the correctness check and get full credit. In Jagua Nesting, overlapping shapes are
+  accepted as valid layouts.
+- **Rules that differ from the prompt.** Triangulation Coloring's flip rule omits the convexity
+  condition the README states, and the same rule generated its test cases. Warehouse Routing
+  promises 30 s per test case but allows 60 s per five-case input.
+- **Scales that cannot be reached.** A Lean-proved lower bound shows Warehouse Routing's top score
+  anchors are unreachable (ceiling ≈30.3/100). Treant Forest's anchors exceed its own turn cap
+  (ceiling 21.02/100).
+- **Small defects with large effects.** In Order Addition, a stale integrity hash caps every
+  submission at 4 of 5 tests, so each run's best score freezes on its first submission.
 
-## Relation to the earlier audit
-
-An earlier automated audit (October 7–12) had withheld 18 originals, retained 1 and left 21 scoped
-findings. We re-checked every claim from the original bytes. All 18 withheld defects reproduced:
-12 needed repair, and 6 are retained with a note because they cannot materially change a good-faith
-solver's score or concerned only scorer isolation (out of scope). We also found 8 material defects
-the earlier audit had missed. Several earlier "setup blocked" tasks were failures of that audit's own
-tooling. The earlier audit's files are preserved at Git tag `earlier-audit-final`.
+All 51 tasks with their measured impact: [FINDINGS.md](FINDINGS.md).
 
 ## Formal checks
 
-Lean 4 (Mathlib) and TLA+ were used where they settle a question exactly: false task statements,
-finance identities, a warehouse-routing lower bound (kernel-checked; the coordinator's reported independent recompile has no saved log),
-an aliasing bug in an in-place multiply, and a test-credit counting rule. Every main Lean result lists its
-axioms (`propext`, `Classical.choice`, `Quot.sound` only); two Lean Analysis demonstrations that use the
-task's own sorried statements show `sorryAx` by design, and two one-line CTA fixture inequalities have no
-printed axiom list. Every TLA+ model has a negative control.
-See [`evidence/formal/`](evidence/formal/).
+Lean 4 (Mathlib) and TLA+ settle questions that testing cannot. They show that two required theorem
+statements are false, prove finance identities and a routing lower bound, and check an aliasing bug
+and a test-credit counting rule. Every Lean proof lists its axioms, and every TLA+ model has a
+negative control. All 21 formal results reproduce with `python3 tools/check_formal.py`
+([log](evidence/formal/RECHECK.md)).
 
 ## Repository layout
 
 | Path | Contents |
 | --- | --- |
-| `FINDINGS.md`, `APPLYING-FIXES.md`, `METHOD.md`, `DECISIONS.md` | The publication |
-| `site/index.html` | The same content as one browsable page |
-| `cases/` | One page per task: promise, what we ran, findings, repair, paired results, limits, reproduction |
+| `FINDINGS.md`, `APPLYING-FIXES.md`, `METHOD.md`, `DECISIONS.md`, `cases/` | The publication |
+| `site/` | The browsable page (deployed with GitHub Pages) |
 | `repairs/<task>-v2/` | Repair packages: patch, `materialize.sh`, `Dockerfile` `FROM` the original image digest, `task.json.in`, source lock, paired results |
-| `decisions.json`, `decisions.csv`, `paired-results.csv` | Machine-readable decisions and paired evaluations |
-| `evidence/` | `reviews/` (per-task review records), `scripts/` (rerunnable checks), `formal/` (Lean, TLA+), `runs/` (native-run jobs and results) |
-| `tools/` | Generators for the tables, findings, guide and site; the E2B runner; the pre-commit publish check |
+| `decisions.json`, `decisions.csv`, `paired-results.csv`, `paired-repeatability.csv` | Machine-readable decisions and paired evaluations |
+| `evidence/` | `reviews/` (per-task analyses), `scripts/` (rerunnable checks), `formal/` (Lean, TLA+), `runs/` (native-run jobs and results) |
+| `tools/` | Generators for the tables, findings, guide and site; consistency, publish and formal checks; the E2B runner |
 | `tasks/` | The original public task definitions, unchanged |
 | `sforge/`, `tests/` | The EdgeBench harness and its grading tests |
 
-## Provenance and licenses
+## Scope and limits
 
-The harness derives from ByteDance Seed EdgeBench at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its
-Apache-2.0 license is in `LICENSE`. Public task definitions derive from the Hugging Face release at
-`6cc5a7f1b3288ce52484ad828177b8cc86b05b75`, with a separate license in `tasks/LICENSE`. Task images are
-referenced by their public Docker Hub digests and are not redistributed: repair packages contain only
-our patches, and each package's `materialize.sh` regenerates the changed files from the pinned image.
+- The 83 unreleased EdgeBench tasks are out of scope.
+- No model runs: score effects are measured on authored controls and counterexamples, not on
+  historical leaderboard submissions.
+- Deliberate tampering with the scorer by a malicious submission is a harness design choice and is
+  out of scope.
+- v2 scores are not comparable with v1 leaderboard scores.
+
+See [METHOD.md](METHOD.md) for the full list.
+
+## Citation and licenses
+
+Cite with [CITATION.cff](CITATION.cff). The harness derives from ByteDance Seed EdgeBench at
+`6e4e5f4aa087a9121aa09a6059e5484e5102c6ff` (Apache-2.0, `LICENSE`). Task definitions derive from the
+public Hugging Face release at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75` (`tasks/LICENSE`). Task
+images are referenced by their public Docker Hub digests and are not redistributed: repair packages
+contain only patches, and `materialize.sh` rebuilds the changed files from the pinned images.

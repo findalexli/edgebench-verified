@@ -1,41 +1,36 @@
 # OpenRCT2 Theme Park AI (`openrct2_theme_park_ai`)
 
-Status: reviewed by the coordinator, 2026-10-12
+**Decision:** Repair (v2) (prompt correction). The prompt promises about 4 game years per scenario, but the 120 s budget covers about 68 game days, so the score is a snapshot taken early in the game.
 
-- **Domain:** Interactive Games & Simulators
-- **Decision:** Repair v2 (prompt correction)[^1]. The prompt promises about 4 game years per scenario, but the 120 s budget covers about 68 game days, so the score is a snapshot taken early in the game.
+## What the task asks for
 
-## What the task promises
+The solver writes an OpenRCT2 plugin that "maximizes **normalized company value** across 3 scenarios". The v1 Rules section says: "The engine runs each scenario for ~4 game years at speed 4 (host --headless)", and scoring "reads the real in-game `park.companyValue`". The Key APIs section describes `gamesetspeed {speed: 4}` as "max speed (host mode cap is 4)", but the prompt does not require the solver to use speed 4. Category: Interactive Games & Simulators.
 
-The solver writes an OpenRCT2 plugin that "maximizes **normalized company value** across 3 scenarios". The v1 Rules section says: "The engine runs each scenario for ~4 game years at speed 4 (host --headless)". It also says scoring "reads the real in-game `park.companyValue`". The Key APIs section describes `gamesetspeed {speed: 4}` as "max speed (host mode cap is 4)", but the prompt does not require the solver to use speed 4.
+## What goes wrong
 
-## What we checked and how
+**The promised horizon cannot be reached.** The wrapper sets `OPENRCT2_TIMEOUT=120` per scenario and caps the whole run at 1,800 s; the manifest's `eval_timeout` is 2,400 s. The judge monitor has `targetDays = 992` and emits `DONE` only at that date. The scorer uses the last monitor sample and never checks whether `DONE` was reached.
 
-- **Source reading.** We read the evaluator path: the wrapper (`OPENRCT2_TIMEOUT=120`, whole run capped at 1,800 s; the manifest's `eval_timeout` is 2,400 s), the judge monitor (`targetDays = 992`, emits `DONE` only at that date) and the scorer. The scorer uses the last monitor sample. Nothing in it records or checks whether `DONE` was reached.
-- **Native runs in the pinned judge image.** We ran the original helper's own `validate_plugin`, `run_scenario` and `score_scenario` functions, with only a tee added on engine stdout. The plugin was a simple control. Runs used `--network none --memory 2g --cpus 2`, plus one run at `--cpus 0.25`. We ran 120 s on all three scenarios and 60 s at speeds 1, 3, 4 and 8.
-- **Independent rate model.** We built a first-principles rate model from the tick and month constants documented in `openrct2.d.ts` and compared its predictions with the measured logs.
-- **Original identity.**
-  - Judge image `seededge/edgebench.judge.openrct2_theme_park_ai@sha256:a5263578…`.
-  - `/tmp/eval_openrct2.py` sha256 `7fdde3e0…`.
-  - `/tmp/openrct2_original_eval.py` sha256 `bfcf7ab9…`.
-  - Task JSON sha256 `09e2a4d8…`.
+- At speed 4 the engine advances 0.593 to 0.597 game days per wall-second. The rate is limited by real time, not host CPU: cutting to 0.25 CPU changed it by about 2%.
+- Each 120 s scenario covered 68 to 69 game days, about 7% of the 992-day target, and `DONE` was never seen.
+- Reaching 992 days would take about 1,667 s per scenario, far beyond the 120 s scenario budget, the 1,800 s wrapper cap and the 2,400 s manifest timeout.
 
-## What we found
+Example under the original evaluator (120 s, speed 4, medium scenario):
 
-**Confirmed (stronger than the earlier claim).** The earlier claim was that the promised horizon was "unverified". With the shipped budgets it is in fact infeasible.
+- Expected from the prompt: about 4 game years.
+- Observed: the game ran from date 8,4,25 to 8,7,2, which is 69 game days. Company value went from 198,010 to 133,260, and the normalized score was 0.915.
+- The three-scenario average was 1.038, which the wrapper would print as `TOTAL_SCORE 10384` (computed; the wrapper itself was not run).
 
-- **Measured coverage.** At speed 4 the engine advances 0.593 to 0.597 game days per wall-second. The rate is limited by real time, not by host CPU: cutting to 0.25 CPU changed it by about 2%. Each 120 s scenario covered 68 to 69 game days, about 7% of the 992-day target, and `DONE` was never seen.
-- **Time needed for the promised horizon.** Reaching 992 days would take about 1,667 s per scenario. That is far beyond the 120 s scenario budget, the 1,800 s wrapper cap and the 2,400 s manifest timeout.
-- **Example under the original evaluator** (120 s, speed 4, medium scenario):
-  - The game ran from date 8,4,25 to 8,7,2, which is 69 game days.
-  - Company value went from 198,010 to 133,260.
-  - The normalized score was 0.915.
-  - The three-scenario average was 1.038, which the wrapper would print as `TOTAL_SCORE 10384`. This value was computed; the wrapper itself was not run.
-- **Speed is under the solver's control.** `gamesetspeed` is allowlisted. The submission's later call overrides the monitor's speed 4: speed 1 ran at 0.077 days/s and speed 3 at 0.291 days/s. Speed 8 is rejected. A slower game can hold company value near its starting value. In our runs the 1.10 cap masked this.
-- **Maximum score effect:** not measured. The defect changes *what* is measured: value after about 2 months instead of about 4 years. We did not show that it raises or lowers any particular solver's score.
-- **Earlier repair.** An earlier audit proposed a completion gate. Re-checking showed that under the shipped 120 s budget the gate would score every submission 0, because `DONE` is unreachable.
+**Speed is under the solver's control.** `gamesetspeed` is allowlisted, and the submission's later call overrides the monitor's speed 4: speed 1 ran at 0.077 days/s and speed 3 at 0.291 days/s. Speed 8 is rejected. A slower game can hold company value near its starting value. In these runs the 1.10 cap masked this.
 
-## Repair
+Why it matters: the task measures company value after about 2 months, not about 4 years. A solver that plans for the stated horizon is optimizing the wrong thing.
+
+## Impact
+
+Not measured as a score change. The defect changes *what* is measured: value after about 2 months instead of about 4 years. It was not shown to raise or lower any particular solver's score. All solvers who planned for the stated horizon are affected.
+
+A completion gate (score only runs that reach `DONE`) is not a fix: under the shipped 120 s budget it would score every submission 0.
+
+## Fix (v2)
 
 v2 replaces one Rules bullet in `work.agent_query` with two. The new text says:
 
@@ -71,26 +66,28 @@ run_60s_speed3.log (new)     scenario_small.park     60   3    7.5   59.1   15(1
 run_60s_speed8.log (new)     scenario_small.park     60   8    5.0   59.9   33(20)   0.602  0.598  DONE=False
 ```
 
-**Score compatibility.**
+**Score compatibility:**
 
 - **Same harness, same scores.** A given `my_plugin.js` gets the same score under v1 and v2, up to the usual run-to-run variation of a real-time game. v1 runs already had the same real 120 s horizon.
 - **Not comparable as measures of solver ability** where a solver's strategy depended on the prompt. A v1 solver may have planned for 4 years. A v2 solver can front-load its strategy or deliberately lower the speed.
 
-## Limits and what was not run
+## How we know
 
-- **No re-runs of a real solver.** No model or solver was re-run. The effects shown here are on authored controls only, and no leaderboard impact is estimated.
+- **Original evaluator in the pinned image.** The original helper's own `validate_plugin`, `run_scenario` and `score_scenario` functions ran in the judge image (`sha256:a5263578…`) with only a tee added on engine stdout, with `--network none --memory 2g --cpus 2` and one run at `--cpus 0.25`. Runs covered 120 s on all three scenarios and 60 s at speeds 1, 3, 4 and 8, with a simple control plugin.
+- **Independent rate model.** A first-principles model built from the tick and month constants documented in `openrct2.d.ts` predicts the measured rates (the "model" column above).
+- Nothing executable changed in v2, so there is no paired scoring run to repeat.
+
+## Limits
+
+- No model or solver runs. The effects shown are on authored controls only, and no leaderboard impact is estimated.
 - **The speed incentive remains.** v2 states the speed rule honestly but does not stop a plugin from lowering the speed. Removing the incentive needs an evaluator change: re-assert speed 4 every tick, or score at a fixed game date with a long enough budget.
 - **About 70 days assumes the engine keeps real time.** Hosts are not pinned. A slower host, an overloaded host or a heavy plugin could fall further behind.
 - **Small run set.** Each configuration ran once, with one simple control plugin whose staff hiring failed. No competitive plugin was run.
 - **Not run through the wrapper.** The full three-scenario sequence ran through the helper's functions, not through `eval_openrct2.py`. The rescale anchor of 40000 was not examined.
-- **No paired scoring run.** None was made, because nothing executable changed.
 
 ## Reproduce
 
 - Native driver and control plugins: `evidence/scripts/openrct2_theme_park_ai/driver.py`, `plugin.js` and `plugin_speed1.js`. Saved logs are `run_*.log` in the same folder.
 - Horizon check, run from `repairs/openrct2_theme_park_ai-v2/paired/`: `python3 -I check_horizon.py ../../../evidence/scripts/openrct2_theme_park_ai/run_*.log logs/run_*.log`
 - Prompt diff: `repairs/openrct2_theme_park_ai-v2/repair.patch`, which goes from `orig/agent_query.md` to `files/agent_query.md`.
-
-Supporting records: `repairs/openrct2_theme_park_ai-v2/` (README, `source-lock.json`, `paired/results.md`).
-
-[^1]: The repair's `source-lock.json` records its status as "accepted-candidate (not yet adopted into tasks/)": the v2 prompt is accepted but not yet written into the task records. `decisions.json` records the repair as "accepted (prompt correction)" with status "final (release candidate 2026-10-12)", and `paired/results.md` also accepts it; the source lock has not been updated to match.
+- Supporting records: `repairs/openrct2_theme_park_ai-v2/` (README, `source-lock.json`, `paired/results.md`).

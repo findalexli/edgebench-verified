@@ -17,7 +17,7 @@ no arm's score is known. Nothing here says whether the repair works.
 `e2b/jobs/warehouse_forklift_routing-v2-paired/` without `result/` to `e2b/jobs/warehouse_forklift_routing-v2-paired-b/`); the launcher
 refuses to reuse an existing `result/`. This is a collection failure, not a scientific result.
 
-## Re-run after host restart (coordinator, 2026-10-12)
+## Paired run
 
 The first paired job was lost when the host restarted. Re-run on E2B
 (`e2b/jobs/warehouse_forklift_routing-v2-paired-b`, exit 0, worker killed):

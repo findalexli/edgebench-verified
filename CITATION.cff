@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "EdgeBench Verified: a re-verification of the 51 public EdgeBench tasks"
+message: "If you use these decisions, findings or repaired task versions, please cite this repository and the original EdgeBench."
+type: dataset
+version: "1.0"
+date-released: "2026-10-12"
+authors:
+  - name: "EdgeBench Verified contributors"
+repository-code: "https://github.com/findalexli/edgebench-verified"
+license: Apache-2.0
+abstract: >-
+  An independent re-verification of the 51 publicly released EdgeBench tasks. Every task has a
+  decision (retain with note, repair as a new version, or exclude), every repair passed paired
+  before/after runs of the original and repaired evaluator on the same inputs (repeated three
+  times, no verdict changes), and formal checks (Lean 4, TLA+) back several findings.
+references:
+  - type: software
+    title: "EdgeBench"
+    authors:
+      - name: "ByteDance Seed"
+    repository-code: "https://github.com/ByteDance-Seed/EdgeBench"

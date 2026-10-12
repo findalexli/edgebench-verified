@@ -172,7 +172,7 @@ add("schemathesis_config_modernization", "Paired v1/v2 results: schemathesis_con
 ])
 
 # schemathesis datagen: Amendment table (latest); result = 20-seed sweep
-add("schemathesis_datagen_pipeline", "Amendment 2026-10-12 (coordinator): unstated year floor removed", "raw", [
+add("schemathesis_datagen_pipeline", "Final paired run (year ≥ 1900 floor removed)", "raw", [
  ("correct", "valid", "", "", "0.477350", "0.477350"),
  ("stdlib_1900", "valid", "0/20", "0/20", "0.477350", "0.477350"),
  ("stdlib_any_year", "valid", "0/20", "0/20", "0.477350", "0.477350"),
@@ -228,7 +228,7 @@ add("triangulation_coloring_optimization", "Full judge (`eval_cmd`, 10 hidden ca
 ])
 
 # warehouse: Re-run after host restart (latest)
-add("warehouse_forklift_routing", "Re-run after host restart (coordinator, 2026-10-12)", "raw", [
+add("warehouse_forklift_routing", "Paired run", "raw", [
  ("generic valid control", "valid", "OK 50/50, TOTAL 46676.8", "OK 50/50, TOTAL 46676.8", "46676.8", "46676.8"),
  ("one honest bug", "invalid", "49 OK + 1 WA → inf", "49 OK + 1 WA → inf", "", ""),
  ("shipped starter", "invalid", "50 WA → inf", "50 WA → inf", "", ""),
