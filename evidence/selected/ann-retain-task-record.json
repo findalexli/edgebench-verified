@@ -1,0 +1,242 @@
+{
+  "artifacts": {
+    "data": {
+      "kind": "file_inventory",
+      "record": {
+        "path": "audit/evidence/ann-original-gates-astra-high-v1/data-inventory.json",
+        "sha256": "1eeca9aba42e108b560ae9e17b48486d3a3bb093b2ba4b86575d9f1f4f18b21c"
+      },
+      "sha256": "1eeca9aba42e108b560ae9e17b48486d3a3bb093b2ba4b86575d9f1f4f18b21c",
+      "source_reference": null,
+      "status": "pinned",
+      "scope": "Retained corpus manifest and publisher license metadata; external525128288-byte HDF5 referenced by full hash, no body redistribution."
+    },
+    "judge_image": {
+      "config": {
+        "path": "audit/artifacts/registry-metadata/sha256-a285f995eab4dc78c02354ceec593ca936e954eb9e34d67d7524e7ca2bc49de8.json",
+        "sha256": "a285f995eab4dc78c02354ceec593ca936e954eb9e34d67d7524e7ca2bc49de8"
+      },
+      "executed": true,
+      "immutable_reference": "seededge/edgebench.judge.ann_vector_search_qps@sha256:aa2856a379c10b93b0661a0b91b729a80fc2cf9bf119cc1385beea6b93eef288",
+      "kind": "oci_manifest",
+      "layer_bytes_acquired": true,
+      "platform": "linux/amd64",
+      "record": {
+        "path": "audit/artifacts/registry-metadata/sha256-aa2856a379c10b93b0661a0b91b729a80fc2cf9bf119cc1385beea6b93eef288.json",
+        "sha256": "aa2856a379c10b93b0661a0b91b729a80fc2cf9bf119cc1385beea6b93eef288"
+      },
+      "scope": "Actual fresh pinned judge image ran unchanged original evaluator through maintained CLI; exact observed config and resource/isolation/cleanup in native result. No whole-image redistribution claim.",
+      "sha256": "aa2856a379c10b93b0661a0b91b729a80fc2cf9bf119cc1385beea6b93eef288",
+      "source_reference": "9171f6b6de41",
+      "status": "pinned"
+    },
+    "verifier": {
+      "kind": "file_inventory",
+      "record": {
+        "path": "audit/evidence/all51-inventory-binding-closure-sol-v1/inventories/ann_vector_search_qps.verifier.json",
+        "sha256": "00d9a2fe0d3dabbecad2302f5424285974b87814fe5b17b6a705c54c028a1236"
+      },
+      "sha256": "00d9a2fe0d3dabbecad2302f5424285974b87814fe5b17b6a705c54c028a1236",
+      "source_reference": null,
+      "status": "pinned"
+    },
+    "work_image": {
+      "config": {
+        "path": "audit/artifacts/registry-metadata/sha256-ee44bda85b1a5a92d9b5b22e87364786d1ba84092e22b40b97087f242dd8c58c.json",
+        "sha256": "ee44bda85b1a5a92d9b5b22e87364786d1ba84092e22b40b97087f242dd8c58c"
+      },
+      "executed": false,
+      "immutable_reference": "seededge/edgebench.work.ann_vector_search_qps@sha256:9ee5761fa5085a1395cf993ccbb0e1dd6f563558bd787d424773410274948603",
+      "kind": "oci_manifest",
+      "layer_bytes_acquired": false,
+      "platform": "linux/amd64",
+      "record": {
+        "path": "audit/artifacts/registry-metadata/sha256-9ee5761fa5085a1395cf993ccbb0e1dd6f563558bd787d424773410274948603.json",
+        "sha256": "9ee5761fa5085a1395cf993ccbb0e1dd6f563558bd787d424773410274948603"
+      },
+      "scope": "Immutable work-image manifest/config retained; native eval route does not consume this image and no work-container execution is claimed.",
+      "sha256": "9ee5761fa5085a1395cf993ccbb0e1dd6f563558bd787d424773410274948603",
+      "source_reference": "74bf3ba9a919",
+      "status": "pinned"
+    }
+  },
+  "blockers": [],
+  "candidate": {
+    "changes": [],
+    "manifest_path": "tasks/ann_vector_search_qps.json",
+    "manifest_sha256": "1ba7ddb5c135b6aea5a160613d756d733feef12343ccb030535c5a365b8835cf",
+    "release_harness": {
+      "inventory": {
+        "path": "audit/release/harness-source-inventory-core-v2.json",
+        "sha256": "bb4bde2c7edfcdfb75234055b19cc3c9049e3f0ef1576a7936d884b4c74903dc"
+      },
+      "native_format_delta": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/native-format-delta.json",
+        "sha256": "5ce96a86c2a789d62e7b4bb29b9aa7085b27a6d66969c56a1b954ff767475257"
+      },
+      "scope": "ANN task/evaluator/data unchanged; shared maintained-core semantics explicitly versioned."
+    }
+  },
+  "category": "Systems & Software Engineering",
+  "claims": [],
+  "disposition": {
+    "decision": "retain",
+    "status": "reviewed",
+    "rationale": "Retain unchanged ANN task, original evaluator, fixed SIFT data and pinned images under explicitly versioned maintained core-v2. Accepted23 scientific assertions plus actual clean CLI positive/empty controls support all task-specific gates. Shared parser/grading/selection corrections are disclosed separately; no ANN-specific repair or historical original whole-harness equivalence claimed. This is a proposed exact-bundle disposition; approvals must be populated by genuine reviewers before canonical adoption.",
+    "reviews": [
+      {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/scientific-disposition-review.json",
+        "sha256": "94c963d9056f372a790db6bd36f7712b69c78ce1acb6e7b3cade5c4a88227042"
+      },
+      {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/different-disposition-review.json",
+        "sha256": "a097c8c63fdb4397ee6f5262607edc95f0989eba036d25605b1f66ccec2252dd"
+      },
+      {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/root-disposition-review.json",
+        "sha256": "7ea3e0b193cdeb031bf1e085cb656aae5a5d29c69d34d6523cd9d80ad4d03e87"
+      }
+    ],
+    "exclusion_evidence": []
+  },
+  "evidence_under_review": [
+    {
+      "path": "audit/reviews/systems_tasks.txt",
+      "sha256": "98ea21a19e728b8915209f4e3da12f91fcd4004bde9c67bf59caa3d840958ef7"
+    },
+    {
+      "path": "audit/evidence/all51-partial-inventory-adoption-sol-v1/partial-inventory-scope.json",
+      "sha256": "d5f7c236697214d2351cb756dd40570492a34cfd60a522dacfa385dfe374e410"
+    }
+  ],
+  "gates": {
+    "specification": {
+      "status": "passed",
+      "report": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/specification-report.json",
+        "sha256": "524717c8fe0e28e0b003e58b5b06155c1d4436e819d3cc53476fdc4aa6dca135"
+      }
+    },
+    "verifier": {
+      "status": "passed",
+      "report": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/verifier-report.json",
+        "sha256": "d365d20e13bb4fa641ecfdf78dcb5895db13c6394d9dcb1ef104a8f5c4d5dd19"
+      }
+    },
+    "data": {
+      "status": "passed",
+      "report": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/data-report.json",
+        "sha256": "38f491bbf4cad5afdb27390f7f69d41530a0c914c05540dba19a42d7e5ebb770"
+      }
+    },
+    "execution": {
+      "status": "passed",
+      "report": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/execution-report.json",
+        "sha256": "491bb61d5cf16387389c854edc66211b6ebfcdfdeb123af8a08db3c71074f28f"
+      }
+    },
+    "independent_reproduction": {
+      "status": "passed",
+      "report": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/independent_reproduction-report.json",
+        "sha256": "393acf91d9d8eda4a3df7af4572de188ec5b3077e0b49dbe7670dcd4a8fc824a"
+      }
+    }
+  },
+  "review_progress": {
+    "accepted_latest_result": {
+      "conclusion": "The complete publisher archive member matches the installed HDF5 digest; retained metadata binds that exact archive endpoint to its publisher-declared CC BY4.0 license. This finite provenance question is closed.",
+      "root_review": {
+        "bytes": 2061,
+        "path": "edgebenchverified/audit/evidence/ann-licensed-member-occurrence-astra-high-v1-root/root-result-review.json",
+        "sha256": "44a4489d1f1ae02c145b07e963fb85ea659c292fb17b2100146599011ca32a92"
+      }
+    },
+    "accepted_original_requirement_assessment": {
+      "assertions_supported": 23,
+      "conclusion": "Accepted original evaluator positive/empty controls, full-query label validation under stated arithmetic, split and source-license facts, and finite QPS19/20 variation support all23 named assertions at the declared scope. No additional ANN acquisition or baseline replay is required for those closed questions. Exact original-versus-maintained release binding and final release review remain.",
+      "root_review": {
+        "bytes": 3176,
+        "path": "edgebenchverified/audit/evidence/ann-original-gates-astra-high-v1-root/root-result-review.json",
+        "sha256": "90d1299e808fb2506afd1ac2228652cd276118042b6189c87f9b44ee905ed8db"
+      }
+    },
+    "clean_release_integration": {
+      "conclusion": "Fresh pinned maintained core Docker CLI completed original ANN judge, archive input, sibling evaluator output, grading and normalization. Two fixed controls: valid flatOK19 and emptyWA0; report2cases1pass,pass_rate0.5,validtrue,no timeout,normalized0 below declared baseline.",
+      "root_review": {
+        "bytes": 1871,
+        "path": "edgebenchverified/audit/evidence/ann-clean-integration-native-astra-high-v2-root/root-result-review.json",
+        "sha256": "db4ccb787a0e13f8179c8590b9a5a085a277ead0226e2298fd5ec07e7f61c79e"
+      }
+    },
+    "latest_scoped_conclusion": {
+      "conclusion": "The original evaluator rejects empty results at recall zero and accepts the flat-search control at printed recall 0.9993; repeat QPS changed from 19 to 20, so exact throughput is not invariant. All 10000 installed query labels passed the declared tie-tolerant numerical checks. The one duplicated query is a data fact, not an established task defect because uniqueness was not promised. The earlier cardinality-double concern does not justify compulsory repair: the actual non-batch path generates one result per test row.",
+      "remaining_specific_question": [
+        "Explicitly accept or refute the stated ordinary-binary64 numerical assumptions for the intended label claim; lack of a universal vendor-arithmetic proof is not by itself a defect.",
+        "The remaining release provenance question is association of the installed HDF5 with an applicable licensed source/archive member and historical derivation; public-byte equality and a CC-BY archive declaration are distinct facts.",
+        "A reproducible release must document hardware/thread/cache and repeatability scope for QPS and the tested release identity. Existing finite repetition need not be discarded, but does not establish cross-hardware calibration."
+      ],
+      "root_review": {
+        "bytes": 43325,
+        "path": "edgebenchverified/audit/evidence/pending-task-conclusions-astra-high-20261011-root/root-review.json",
+        "sha256": "938c1c9eabd0d95a247a46861bcd4f968513a60b8eb14e80c71337ec86491dc2"
+      },
+      "scope": "Saved evidence reconciled; original release decision and inclusion gates unchanged.",
+      "task_review": {
+        "bytes": 25908,
+        "path": "work/reviews/pending-task-conclusions-astra-high-batch-a/result.json",
+        "sha256": "858cd37e687ed09b8dfbe4c182dab9168510b9385b2011a7c9abda0d04a06525"
+      }
+    },
+    "numerical_assumptions_concluded": {
+      "bytes": 1866,
+      "path": "edgebenchverified/audit/evidence/ann-numerical-assumption-astra-high-v1-root/root-result-review.json",
+      "sha256": "d67b88b1706591da693ae51ca1c6e194910a5e5a77f75ef17806e1416f1aa567"
+    },
+    "question_reconciliation": "Current task-specific questions replace initial generic inventory prompts; closed source/component questions stay closed. Earlier task cards saved in pending-task-conclusions-astra-high-20261011-root/cards-before.json.",
+    "scope": "Concrete proposed task card; pending genuine exact-bundle disposition approvals and canonical adoption. Existing scientific gaps closed at declared task scope.",
+    "stage": "proposed_retained_task_under_versioned_harness",
+    "updated_at_utc": "2026-10-12T00:13:23.380834+00:00",
+    "current_native_evidence": {
+      "result": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/native-result.json",
+        "sha256": "030f3c3fb676206826f71aee374dd2ba97c7ad5d2f13fca71ad71f9eacd06105"
+      },
+      "execution": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/native-execution.json",
+        "sha256": "f562fd2e292b16dc19f0c2f0da6d889ebab9ebb7fc42cdeebdbf66abf461c852"
+      },
+      "batch": {
+        "path": "audit/evidence/ann-retain-decision-astra-high-v1/native-batch.json",
+        "sha256": "31b4424c6780a8d961a2acb003a76bcc24289936e2fd671424a5b67a5bcbad11"
+      }
+    }
+  },
+  "review_questions": [],
+  "schema_version": 1,
+  "source": {
+    "dataset_revision": "6cc5a7f1b3288ce52484ad828177b8cc86b05b75",
+    "manifest_path": "tasks/ann_vector_search_qps.json",
+    "manifest_sha256": "1ba7ddb5c135b6aea5a160613d756d733feef12343ccb030535c5a365b8835cf",
+    "source_revision": "6e4e5f4aa087a9121aa09a6059e5484e5102c6ff"
+  },
+  "static_inventory": {
+    "eval_timeout_seconds": 7800,
+    "game_mode": false,
+    "internet": false,
+    "parser": "score_sum",
+    "rescale": {
+      "baseline": 3108.0,
+      "expert": 21472.0,
+      "kind": "log_max"
+    },
+    "risk_cluster_for_triage_only": "hardware-timing",
+    "scope": "Manifest metadata only; image, verifier and data contents not certified by this record.",
+    "score_direction": "maximize",
+    "selection": "score_first"
+  },
+  "task_id": "ann_vector_search_qps"
+}
