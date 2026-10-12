@@ -67,6 +67,8 @@ ol.steps > li { margin-bottom: 0.6em; padding-left: 0.2em; }
 ul.tight { padding-left: 1.2em; margin: 0 0 1em; }
 ul.tight > li { margin-bottom: 0.45em; }
 .note { font: 14.5px/1.55 var(--sans); color: var(--muted); }
+.breakout { width: min(960px, calc(100vw - 48px)); position: relative; left: 50%; transform: translateX(-50%); margin-bottom: 22px; }
+@media (max-width: 720px) { .breakout { width: auto; left: 0; transform: none; } }
 
 /* Figures */
 figure.fig { margin: 24px 0 30px; }
@@ -169,6 +171,7 @@ details.tech > summary { cursor: pointer; font: 600 15px var(--sans); color: var
   <a class="l" href="#impact">3&ensp;Leaderboard</a>
   <a class="l" href="#tasks">4&ensp;All tasks</a>
   <a class="l" href="#method">5&ensp;Method</a>
+  <a class="l" href="#lessons">6&ensp;Lessons</a>
   <a class="l" href="#data">Data and code</a>
 </div></nav>
 
@@ -616,6 +619,22 @@ details.tech > summary { cursor: pointer; font: 600 15px var(--sans); color: var
     <li><b>Follow it to the final score.</b> A problem counts only if it changes the 0–100 score of honest work; problems that do not are recorded as notes.</li>
     <li><b>Test every fix side by side.</b> The same test submissions were graded by the original and the fixed grader. A fix is accepted only if the problem disappears, correct work keeps its score and wrong work is still rejected. Each comparison was repeated three times on fresh machines; across 132 comparisons, no outcome changed.</li>
   </ol>
+  <h3 id="formal"><span class="num">5.1</span>Formal verification</h3>
+  <p>Testing shows that a problem occurs; it cannot show that something holds for every input. Where a claim was mathematical and small enough to state precisely, we also checked it with a formal tool. <b>Lean&nbsp;4</b> is a proof assistant: a claim counts only once the Lean kernel accepts a complete proof, and each proof lists the basic axioms it relies on, so a hidden gap would show up. <b>TLA+</b> describes a system as a state machine, and its model checker explores every reachable state of a bounded version; each model has a counter-check that must fail, to show it can detect the problem at all. Six tasks have formal results: 24 reported theorems in five Lean files, and 16 model-checking runs over two TLA+ models (Table&nbsp;4). All of them rerun with one command, and the TLA+ checks rerun automatically on every change to the repository.</p>
+  <div class="breakout"><p class="tcap"><b>Table 4.</b> Every formal result, what it establishes, and where it stops.</p>
+  <div class="tablewrap"><table class="bt">
+    <thead><tr><th style="width:17%">Task</th><th style="width:9%">Tool</th><th>What is proved or checked</th><th style="width:13%">Supports</th><th style="width:24%">Limit</th></tr></thead>
+    <tbody>
+      <tr><td>Lean Analysis Proofs</td><td>Lean&nbsp;4</td><td>Two statements the agent must prove are false, refuted inside the task's own image against its own definitions. Both corrected statements are proved.</td><td>Finding and fix</td><td>Covers the two statements, not the rest of the library</td></tr>
+      <tr><td>Warehouse Routing</td><td>Lean&nbsp;4</td><td>Every valid answer has total length at least 712.538, above the scale's top reference point of 395.80, so no score exceeds about 30.3.</td><td>Finding</td><td>Proved for a Lean model of the tester, which agrees with the original tester on 294 test strings</td></tr>
+      <tr><td>CTA Risk Budget</td><td>Lean&nbsp;4</td><td>Exact arithmetic of the undercount: a position that is 1/3 overseas in unconverted units is 7/9 in yuan, against a 40% limit; a general bound on the hidden share.</td><td>Finding</td><td>Arithmetic only; the fix was tested by running it</td></tr>
+      <tr><td>Portfolio Risk</td><td>Lean&nbsp;4</td><td>The grader's and the instructions' excess-return formulas differ by 2b(a&nbsp;−&nbsp;b), and both rank strategies in the same order.</td><td>Kept, with a note</td><td>The two-period case</td></tr>
+      <tr><td>Tree Block Partitioning</td><td>TLA+</td><td>The original library computes <code>v *= v</code> wrongly; the fixed library is correct both when the operands are the same object and when they are not.</td><td>Finding and fix</td><td>Arithmetic modulo 4 instead of 2<sup>16</sup></td></tr>
+      <tr><td>Rust Multicrate</td><td>TLA+</td><td>The original test-credit rule can count an unrelated failure as a pass; the corrected rule cannot.</td><td>Kept, with a note (recommended fix)</td><td>Up to four tests and one or two exempt tests per package</td></tr>
+    </tbody>
+  </table></div></div>
+  <p>Formal methods therefore prove two of the 22 shipped fixes correct within their models (Lean Analysis and Tree Block) and one recommended change (Rust Multicrate). The other twenty fixes rest on side-by-side runs of the original and fixed graders, each repeated three times, and on the check against a real agent run in Section&nbsp;3.3. That check is how we found the one flaw in a shipped fix, the saturated Integer Codec scale. No formal result covered it, because none was stated about it.</p>
+
   <h3>Limitations</h3>
   <ul class="tight">
     <li>Only the 51 public tasks are covered; EdgeBench's other 83 tasks are unreleased.</li>
@@ -623,6 +642,17 @@ details.tech > summary { cursor: pointer; font: 600 15px var(--sans); color: var
     <li>Deliberate attacks on the grader by a malicious submission concern how the benchmark isolates its grader, and are out of scope.</li>
     <li>Side-by-side tests ran on one machine type (8 virtual CPUs, 8&nbsp;GiB of memory); speed-based scores may differ elsewhere.</li>
     <li>The reviews were carried out by AI agents. Every claim is tied to a saved evidence file and a rerunnable check, which is not the same as independent human reproduction.</li>
+  </ul>
+</section>
+
+<section id="lessons" class="col">
+  <h2 class="sec"><span class="num">6</span>Lessons</h2>
+  <ul class="tight">
+    <li><b>Run the original grader before reasoning about it.</b> Most problems were found by reading code but settled only by a submission that triggers them. Several plausible findings did not survive that step.</li>
+    <li><b>Formal tools pay off on small, crisp questions.</b> A false theorem, an arithmetic gap, a lower bound and an aliasing bug were each settled conclusively. Most grader problems concern conventions, file formats or timing, which no proof addresses as cheaply as a side-by-side run.</li>
+    <li><b>A proof is only as good as its link to the code.</b> We stated the Lean Analysis refutations against the task's own definitions inside its own image. We matched the Warehouse model to the real tester on 294 strings, and mapped each TLA+ step to a line of source. Without those links, a proof would be about something else.</li>
+    <li><b>Every check needs a counter-check.</b> Each TLA+ model has a configuration that must fail, each Lean proof prints its axioms, and each fix is tested on wrong work as well as right work. A check that cannot fail shows nothing.</li>
+    <li><b>Test what a fix is for, not only what it changes.</b> The first Integer Codec fix corrected the baseline exactly as documented and passed every test, yet real submissions showed it saturated the score scale. Checking fixes against real agent work found what neither proofs nor authored tests did.</li>
   </ul>
 </section>
 
