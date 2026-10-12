@@ -1,6 +1,6 @@
 # Continuing the EdgeBench audit
 
-**October 12, 2026, 00:13 UTC accepted results.** ANN’s finite publisher-member provenance and declared-license association are closed. Dungeon Crawl’s recovered helper correspondence and finite 22-satisfied/one-not-applicable assessment are accepted; exact inventories, harness semantics and release-package binding remain. Exchange’s consumer controls show that a failed-run measurement can rank positively; they do not establish an engine defect. Carleson’s loader diagnostic failed before proofs, its worker is closed and no retry is authorized. Reuse these [results and next questions](TASKS.md); source-binding proposals and unfinished executions are not accepted outcomes. Counts and certifications are unchanged.
+**October 12, 2026, 00:40 UTC accepted results.** OpenRCT2 adds a completion-verification finding; its proposed gate has only component evidence. Supplied walkthroughs reached a terminal 99/100 without victory in Anchorhead and maximum-score victories in Trinity and Tryst. ANN and Dungeon Crawl have scoped original assessments; Apple's recovered archive/history evidence closes its transport question. K–12's direct evaluator received SIGKILL, cause unknown. The core runtime metadata is adopted canonically without changing task decisions. Reuse [these accepted results](TASKS.md); prepared repairs and release proposals are not native outcomes.
 
 ## Outcome and current decisions
 
@@ -10,7 +10,7 @@ repairs progressing alongside the remaining audit. An interim findings report, a
 see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable.
 
 Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
-and [TASKS](TASKS.md) for current decisions. There are findings across 20 tasks,
+and [TASKS](TASKS.md) for current decisions. There are findings across 21 tasks,
 18 withheld original versions, 33 pending decisions and zero certified versions.
 “Withheld” applies to the exact original unchanged; it does not approve or rule
 out a repaired version. The Git `audit/task-registry.json` is a historical partial
@@ -74,10 +74,14 @@ Treant’s arithmetic-defect hypothesis was rejected; intended movement remains
 unresolved. HTTP-date now has accepted native property evidence with an authored strategy,
 not the original generator. Assess a supplied generator and complete corrected
 phase; this fixture run does not validate a generator.
-K–12 setup remains stopped pending evidence resolving its recorded preflight failure.
+K–12 remains stopped after a killed direct evaluator left no parseable score. The [additive diagnosis](evidence/selected/k12-sigkill-correspondence-acceptance.json) identifies SIGKILL, not its sender or cause; no blind retry.
 Sphere’s preparation is closed with zero original helper calls; no retry is
 authorized. Its cap-metadata comparison and unresolved final file join must both
 be addressed before any separately authorized correction. [Sphere record](evidence/selected/sphere-native-preparation-failure.json). Recover exact accepted records before assigning follow-up.
+
+The maintained core runtime is now resolved from saved successful CI: CPython 3.12.15, 45 installed versions, 102 tests and 302 subtests. [Adoption](evidence/selected/maintained-core-runtime-acceptance.json), [version lock](evidence/selected/maintained-core-runtime-versions.txt) and [source inventory](evidence/selected/maintained-core-runtime-inventory.json) are selected here. All 63 canonical source entries were unchanged; 54 genuine metadata approvals preserved 18 canonical exclusions. All 63 entries now match this Git tree, including the canonical optional E2B declaration. Saved CI tested the identical core dependencies with an older optional declaration; optional E2B was not installed or tested. The cloud coordinator’s E2B 2.19 runtime is separate. No new scientific runs followed from this rebinding. Optional E2B and original-versus-maintained task semantics remain separate.
+
+This Git selection intentionally keeps its historical registry and task-card snapshot. The current canonical runtime adoption's 99 files and complete prior proof references are not copied here. Selected runtime records retain canonical/local provenance paths that may not resolve in a clone; they are not a self-contained release or a promise that the whole registry checker passes. Do not recreate missing private inputs to make those links appear complete.
 
 ## Authority and execution ownership
 
