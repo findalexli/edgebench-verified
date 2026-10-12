@@ -1,6 +1,6 @@
 # Outcome for every task
 
-The outcome for each of the 51 public tasks. The same data is in [decisions.csv](decisions.csv); the `decision` column there uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` (removed).
+The outcome for each of the 51 public tasks. The same data is in [data/decisions.csv](data/decisions.csv); the `decision` column there uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` (removed).
 
 | Outcome | Tasks | Meaning |
 | --- | ---: | --- |

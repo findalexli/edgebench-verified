@@ -66,7 +66,7 @@ For every valid submission, the quality metrics are identical between the origin
 
 - **Original grader.** The real grading command (`python judge_eval.py`) ran in the original public image, pinned by digest, under `--network none`. It ran with the shipped baseline and variants of it (NaN, 0.0, 7.5 and 1.0 confidences, and the "shrink" case).
 - **Independent check of the scoring function.** `verifier.py` was tested as a pure function in three ways: point probes; 20,000 random confidence vectors with 40% special values; and an exhaustive search of all binary cases with n ≤ 3 (84 label/prediction pairs) over a 21-point legal grid plus 5 illegal values. The random vectors gave 0 mismatches against their clipped versions. The exhaustive search found 0 cases where an illegal value beat the best legal one. In the real grader, all-NaN matched all-0.0 (overall 0.31144) and all-7.5 matched all-1.0 (overall 0.26880). Both scored below the baseline's own legal confidences (0.33262).
-- **Side-by-side run of the original and fixed graders.** The full 10-split run through the TaskSpec `eval.sh` (`--network none`, 4 CPUs, 6 GB) gave the table above. It was repeated three times with no verdict change ([`paired-repeatability.md`](../paired-repeatability.md)).
+- **Side-by-side run of the original and fixed graders.** The full 10-split run through the TaskSpec `eval.sh` (`--network none`, 4 CPUs, 6 GB) gave the table above. It was repeated three times with no verdict change ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
 
 ## Limits
 

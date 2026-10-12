@@ -54,7 +54,7 @@ The incorrect test submission has a logic error that exercises the merge code pa
 - **Original grader in the original image, pinned by digest.** The original grader (`eval.py --task T2`) and the full original `eval_cmd` (all six sub-problems) ran in the grader image with `--network none`, using both the original and the fixed library.
 - **Independent calculation.** The original library, compiled with the grader's flags, was compared with a separate 64-bit implementation that computes the stated product from the old values. The comparison covered 1,000,000 random products of distinct objects, 1,000,000 random products of a value with itself, and all scalar values 0–1000.
 - **Formal check (TLA+, a model checker).** A model of `operator*=` explores all 65,536 starting memory states (fields modulo 4). It covers calls with the same object and with distinct objects, under both statement orders. The property `ResultCorrect` fails only for the same-object call under the original order. The distinct-object original and both fixed configurations show no error, so the fix does not change calls on distinct objects.
-- **Repeatability.** The side-by-side run of the original and fixed graders was run three times; no verdict changed (`paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was run three times; no verdict changed (`data/paired-repeatability.md`).
 
 ## Limits
 

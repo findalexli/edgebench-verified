@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate DECISIONS.md and decisions.csv from decisions.json and cases/plain.json."""
+"""Generate DECISIONS.md and data/decisions.csv from data/decisions.json and cases/plain.json."""
 import csv
 import json
 from collections import Counter
@@ -15,12 +15,12 @@ MEANING = {'retain': 'No problem found.',
 
 
 def main():
-    rows = sorted(json.loads((ROOT / 'decisions.json').read_text()), key=lambda r: r['task_id'])
+    rows = sorted(json.loads((ROOT / 'data/decisions.json').read_text()), key=lambda r: r['task_id'])
     plain = json.loads((ROOT / 'cases' / 'plain.json').read_text())
     names = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['name'] for f in (ROOT / 'tasks').glob('*.json')}
     assert len(rows) == 51 and set(plain) == {r['task_id'] for r in rows}
     counts = Counter(r['proposed'] for r in rows)
-    with (ROOT / 'decisions.csv').open('w', newline='') as f:
+    with (ROOT / 'data/decisions.csv').open('w', newline='') as f:
         w = csv.writer(f, lineterminator='\n')
         w.writerow(['task_id', 'name', 'decision', 'outcome', 'summary', 'effect', 'what_we_did',
                     'technical_finding', 'technical_max_effect', 'fixed_version_folder'])
@@ -29,7 +29,7 @@ def main():
             w.writerow([t, names[t], r['proposed'], LABEL[r['proposed']], plain[t]['headline'], plain[t]['effect'],
                         plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', '')])
     lines = ['# Outcome for every task', '',
-             'The outcome for each of the 51 public tasks. The same data is in [decisions.csv](decisions.csv); '
+             'The outcome for each of the 51 public tasks. The same data is in [data/decisions.csv](data/decisions.csv); '
              'the `decision` column there uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` '
              '(removed).', '', '| Outcome | Tasks | Meaning |', '| --- | ---: | --- |']
     lines += [f'| {LABEL[k]} | {counts[k]} | {MEANING[k]} |' for k in ORDER if counts.get(k)]

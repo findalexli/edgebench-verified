@@ -74,7 +74,7 @@ No test submission went from correct to rejected. Of 13 small constructed cases,
 - **Original grader.** Constructed and real hidden problems ran through the original grader in the original public image, pinned by digest, with the official flags (`--perturb --perturb-salt hidden-sebench`). A stand-in solver that prints fixed answers took the place of a correct solver. The most deeply nested sat file (parenthesis depth 2621) was accepted.
 - **Independent check (z3).** z3 is a widely used SMT solver. The checker's acceptance condition was encoded exactly and solved with z3, outside the grader. To validate the encoding, z3 models were converted into answers on all 42 hidden files where the encoding is sat; the original checker accepted all 42. A scan of all 774 hidden files used the original tokenizer rules. z3 confirmed that all 69 ground answers are genuine models and proved that all 69 wrong-model answers are not models.
 - **Arithmetic.** The score effect was recomputed from the task's tier weights.
-- **Repeatability.** The side-by-side run was repeated three times; no verdict changed (`paired-repeatability.md`).
+- **Repeatability.** The side-by-side run was repeated three times; no verdict changed (`data/paired-repeatability.md`).
 
 ## Limits
 

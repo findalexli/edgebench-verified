@@ -4,10 +4,10 @@
 
 - `README.md`, `FINDINGS.md`, `APPLYING-FIXES.md`, `METHOD.md`, `DECISIONS.md`: the publication.
   `site/index.html` is the same content as a single browsable page.
-- `decisions.json`: the authoritative decision for every task. After any change, regenerate the
+- `data/decisions.json`: the authoritative decision for every task. After any change, regenerate the
   derived files: `python3 tools/build_tables.py && python3 tools/build_findings.py &&
   python3 tools/build_applying.py && python3 tools/build_site.py`.
-- `cases/<task_id>.md`: one page per task. `paired-results.csv`: every paired v1/v2 control.
+- `cases/<task_id>.md`: one page per task. `data/paired-results.csv`: every paired v1/v2 control.
 - `repairs/<task>-v2/`: repair packages (patch, `materialize.sh`, Dockerfile `FROM` the original
   image digest, `task.json.in`, source lock, paired results).
 - `evidence/`: `reviews/`, `scripts/`, `formal/` (Lean 4 + TLA+), `runs/` (E2B jobs and ledger).

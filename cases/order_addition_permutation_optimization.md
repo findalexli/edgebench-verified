@@ -56,7 +56,7 @@ Choice of the run's best submission (task rule `pass_rate_first`, computed with 
 
 - **Original grader.** The installed helper was hashed inside the original public image, pinned by digest, and compared with the value the test expects. The original `eval_cmd` (`python -m pytest tests/test_final_result.py -s -v`) ran under `--network none --memory 2g --cpus 2` on valid and invalid test submissions.
 - **Choice of best submission.** The saved logs were fed through the harness's own `grade_output`, `rescale_score` and `select_best`, for both the upstream and the maintained harness versions.
-- **Side-by-side run of the original and fixed graders.** Each submission ran in a fresh `--network none` container through the TaskSpec `eval.sh`. A check beforehand confirmed that each image collects 5 tests. It was repeated three times with no verdict change ([`paired-repeatability.md`](../paired-repeatability.md)).
+- **Side-by-side run of the original and fixed graders.** Each submission ran in a fresh `--network none` container through the TaskSpec `eval.sh`. A check beforehand confirmed that each image collects 5 tests. It was repeated three times with no verdict change ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
 
 ## Limits
 

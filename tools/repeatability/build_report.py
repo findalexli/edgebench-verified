@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Build paired-repeatability.csv and a JSON digest (for the .md) from runs 1-3."""
+"""Build data/paired-repeatability.csv and a JSON digest (for the .md) from runs 1-3."""
 import csv, json, math, sys, traceback
 from collections import OrderedDict
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parent))
 import extract as X
 
 R = X.R
-rows = list(csv.DictReader(open(R / 'paired-results.csv')))
+rows = list(csv.DictReader(open(R / 'data/paired-results.csv')))
 tasks = OrderedDict()
 for r in rows:
     tasks.setdefault(r['task_id'], []).append(r)
@@ -67,7 +67,7 @@ for task, arms in tasks.items():
                            'v1_spread': spread(2), 'v2_spread': spread(3), 'timing': task in TIMING})
     digest[task] = td
 
-with open(R / 'paired-repeatability.csv', 'w', newline='') as f:
+with open(R / 'data/paired-repeatability.csv', 'w', newline='') as f:
     w = csv.writer(f)
     w.writerow(['task_id', 'arm', 'role', 'run', 'v1_result', 'v2_result', 'v1_score', 'v2_score'])
     w.writerows(out_rows)

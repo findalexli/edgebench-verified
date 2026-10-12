@@ -58,7 +58,7 @@ Under the original grader setup, with no limits changed, the reference passes al
 - **Original checker in the original grader image, pinned by digest.** The unchanged T3 checker was compiled with the harness's own flags (`g++ -std=c++17 -Ofast -pipe -I prob -I data`) and run with `--network none`. It was run on five crafted outputs on a star-shaped tree with n = 10⁶: at the limit, just over, further over, the same over-limit output with a free move at the end, and an efficient strategy.
 - **Brute-force check.** 329 random small trees (n ≤ 7) with legal operation sequences were generated. For each, a separate program computed the true cost directly from the statement's definition. This was compared with an instrumented checker that sums all states and with the original checker at an adjustable limit. Result: 0 mismatches in 329 cases. In 307 cases, all those with a non-empty last target, the original checker accepted the output with the limit set to true cost − 1.
 - **Official inputs.** The official reference `std.cpp` and a naive legal strategy ran on all 30 official T3 inputs.
-- **Side-by-side run of the original and fixed graders** with the original `eval.py` command, under `--network none --memory 3g --cpus 3`. For the reference submission it covered the whole six-problem task. It was repeated three times, and no test submission changed verdict (see `paired-repeatability.md`).
+- **Side-by-side run of the original and fixed graders** with the original `eval.py` command, under `--network none --memory 3g --cpus 3`. For the reference submission it covered the whole six-problem task. It was repeated three times, and no test submission changed verdict (see `data/paired-repeatability.md`).
 
 ## Limits
 

@@ -12,6 +12,10 @@ who want to check or rerun a result. The readable account of each task is on its
 | [`runs/`](runs/) | Logs and results of every grading run on cloud machines, one folder per job, plus `ledger.jsonl`, the record of every machine started and stopped |
 | [`impact/`](impact/) | Inputs for the leaderboard estimate in [`../IMPACT.md`](../IMPACT.md): the published per-task scores and the direction and size of each fix's effect |
 
+Some reviews cite documents from the earlier automated audit, such as `VERIFICATION.md`. Those are
+preserved at Git tag `earlier-audit-final`. The outcomes published here are in
+[`../data/decisions.json`](../data/decisions.json).
+
 Terms used in the technical files:
 
 | Term | Meaning |

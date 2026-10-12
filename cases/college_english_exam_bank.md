@@ -62,7 +62,7 @@ The rubric, reference attachments and work image are unchanged. In `task.json.in
 
 - **Original grader, from the public image pinned by digest.** The original `main()` ran end to end with `--network none --memory 2g --cpus 1`. Only the `codex` executable was replaced, by a stub that prints a fixed model response. No model API or credential was used. The fixed responses were generated from the original `rubrics.json`. They include correct responses, responses for known-bad work and the responses that show the problem (rules left out, an empty score list, malformed rows). The fixed-version runs used the same eval_cmd in the fixed image.
 - **Harness check.** The repository harness's handling of `valid: false` (`sforge/harness/grading.py`, `selection.py`) was read and used offline to grade and select on the saved results.
-- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No response changed its result (see `paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No response changed its result (see `data/paired-repeatability.md`).
 
 ## Limits
 

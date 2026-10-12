@@ -30,7 +30,7 @@ def changes(pkg):
 
 
 def main():
-    decisions = {r['task_id']: r for r in json.loads((ROOT / 'decisions.json').read_text())}
+    decisions = {r['task_id']: r for r in json.loads((ROOT / 'data/decisions.json').read_text())}
     names = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['name'] for f in TASKS.glob('*.json')}
     rows = []
     for pkg in sorted(REPAIRS.glob('*-v2')):
@@ -84,7 +84,7 @@ and 8 GiB of memory. Two fixes differ:
 - OpenRCT2 has no run script, because only its instructions changed and nothing that runs was
   modified.
 
-The results are in each `paired/results.md` and together in [paired-results.csv](paired-results.csv).
+The results are in each `paired/results.md` and together in [data/paired-results.csv](data/paired-results.csv).
 Every fix was accepted only if three things held:
 - the test submission that shows the problem is now graded correctly;
 - correct test submissions keep their scores, or the change is explained;

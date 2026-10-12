@@ -52,7 +52,7 @@ Across all generators, `test_http_date_values_grammar` is the only test whose re
 
 - **Original grader, from the public image pinned by digest.** The grader image holds the unmodified schemathesis 4.14.3 starter with hypothesis 6.155.2 (the property-testing library) and no reference solution. Each generator ran under the full original `judge.eval_cmd` and under the fixed version, in fresh `--network none` containers. The single date test was also run with 20 Hypothesis seeds.
 - **Independent check.** A pure-Python check ran the original pattern and the fixed check on fixed strings: 31 Apr, 24:00, a wrong weekday, 29 Feb 2023, 29 Feb 2024 and `Sat, 31 Dec 2016 23:59:60`. Calendar validity was checked against Python's Gregorian `calendar`.
-- **Repeatability.** The side-by-side run of the original and fixed graders was done three times, and no result changed (`paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was done three times, and no result changed (`data/paired-repeatability.md`).
 
 ## Limits
 

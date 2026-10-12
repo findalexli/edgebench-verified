@@ -1,5 +1,5 @@
 import csv, sys
-OUT = "paired-results.csv"
+OUT = "data/paired-results.csv"
 
 # (task, arm, role, v1_result, v2_result, v1_score, v2_score, kind, source)
 R = []

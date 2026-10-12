@@ -82,7 +82,7 @@ All three plausibly wrong versions score 1.0 under the original grader but lose 
 
 - **Original grader in the original image, pinned by digest.** The grader image holds the unmodified schemathesis 4.13.0 starter. Every test submission ran through the full original `judge.eval_cmd` and through the fixed grader, in fresh `--network none` containers.
 - **Direct inspection.** The class of every value produced by `cover_schema_iter` on the starter was inspected. This shows why the original coverage filter is always empty. The fixed coverage tests were run against the starter, a correct fix and a fix that always leaves bodies out.
-- **Repeatability.** The side-by-side run of the original and fixed graders was run three times; no verdict changed (`paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was run three times; no verdict changed (`data/paired-repeatability.md`).
 
 ## Limits
 

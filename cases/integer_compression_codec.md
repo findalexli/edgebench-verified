@@ -71,7 +71,7 @@ Under the fixed version the starter's compression ratio is exactly 1.0 on every 
 - **Offline rescore** of the run logs under the documented definition, with the starter measured on the same machine (`rescore_documented.py`).
 - **Data regeneration.** `gen_data.py --full` inside the image regenerated all 8 shipped data files byte for byte.
 - **Bound by construction.** The floor of 8 bits per integer for any byte varint follows directly from one byte per value; no formal tool was needed.
-- **Side-by-side runs.** The original and fixed graders were alternated on the same submission, one container at a time, giving the table above. The comparison was repeated three times, and no result changed ([`paired-repeatability.md`](../paired-repeatability.md)).
+- **Side-by-side runs.** The original and fixed graders were alternated on the same submission, one container at a time, giving the table above. The comparison was repeated three times, and no result changed ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
 
 ## Limits
 

@@ -66,7 +66,7 @@ The raw result is MT/s × 1000. RE means a run error. The single-run results in 
 
 - **Original grader.** The checks ran on the original public image, pinned by digest. Each submission ran through the task's exact `eval_cmd` in a fresh container with `--network none`, `--cpus 8` and `--memory 6g`.
 - **Independent check:** the project's own shipped integration tests (`ITFeesExchangeBasic`, 5 tests, and `ITExchangeCoreIntegrationRejectionBasic`, 28 tests). They ran in the same container with the grader's exact Maven flags.
-- **Side-by-side run.** The original and fixed graders scored the same submissions, plus valid and invalid test submissions, both with `--network none`. This was repeated three times. No test submission changed verdict (see `paired-repeatability.md`). Throughput moves between runs, but the integration-test verdicts never change.
+- **Side-by-side run.** The original and fixed graders scored the same submissions, plus valid and invalid test submissions, both with `--network none`. This was repeated three times. No test submission changed verdict (see `data/paired-repeatability.md`). Throughput moves between runs, but the integration-test verdicts never change.
 
 ## Limits
 

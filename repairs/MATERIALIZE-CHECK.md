@@ -1,12 +1,12 @@
 # Materialize check (2026-10-12)
 
-**Policy (user decision).** Repair packages in Git contain no files copied from the EdgeBench Docker images. Each `*-v2` package ships the following:
+**Policy.** Repair packages in Git contain no files copied from the EdgeBench Docker images. Each `*-v2` package ships the following:
 
 - `repair.patch`: a `diff -u` from each in-image original to the v2 file, with paths `a/files/…` → `b/files/…` and a `# <dst> <- <image>:<path>` line above each file.
 - `materialize.sh`, which regenerates the image-derived files.
 - `source-lock.json` → `materialize`: the images, the sha256 of each input original, and the sha256 of each output.
 
-Task-JSON hunks were moved verbatim from the old patches to `task-json.diff`. `files/` and `orig/` stay in the working tree; the publish manifest excludes them.
+Task-JSON hunks were moved verbatim from the old patches to `task-json.diff`. `files/` and `orig/` stay in the working tree and are not committed.
 
 ## How the patches and scripts were made
 

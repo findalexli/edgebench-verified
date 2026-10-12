@@ -63,7 +63,7 @@ The shipped `forward_model.py` matches the grader's model with max |diff| = 0.0 
 - **Original grader.** All test submissions ran on the original public image, pinned by digest and unchanged in the fixed version. Each ran the original grading command with `--network none`, against the original and fixed working directories.
 - **Independent forward model.** A separate implementation (5×5×1 sub-points, 9 pulses, Gaussian kernel) reproduces all 656 clean answer-key readings from the hidden true source (rerun with `evidence/scripts/borden_source_inversion/forward_check.py`). The grader's own model, run in the grader image, matches the stored readings to 8.9e-13 relative.
 - **Honest-solver experiments.** These used multi-start bounded least squares (60–80 starts) on the public noisy, censored data only. One run used a textbook ADE model built from the documentation. The other used the grader's exact convention. The original `evaluate.py` scored each fitted `answer.json` with the original arguments (local Python; numpy 1.24.4, scipy 1.10.1, pandas 2.0.3).
-- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No test submission changed verdict (see `paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No test submission changed verdict (see `data/paired-repeatability.md`).
 
 ## Limits
 

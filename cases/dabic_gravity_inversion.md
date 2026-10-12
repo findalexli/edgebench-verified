@@ -60,7 +60,7 @@ On the original grader, the gap between the data and model forms is 1.05. On the
 - **Original grader in the original public image, pinned by digest**, using the exact evaluation command with `--network none --cpus 8 --memory 6g`. One honest D-ABIC submission was scored in two forms that differ only in the line `FORM = "data"` / `FORM = "model"`. Fixed input files held the self-reported components (B, D) and the keyword-scored report (F) constant in every test submission, so only the form varied. Their values are not task performance.
 - **Source reading** of the behaviour monitor (`BehaviorMonitor.report`) and the penalty function (`structural_penalty_v34`).
 - **Effect at the strong level.** The grader's own penalty function was applied to each test submission's real breakdown, with only the hidden-case score C substituted.
-- **Side-by-side run of the original and fixed graders** on the same inputs, plus an invalid submission (log-determinant via `np.linalg.det`) and the empty shipped workspace. It was repeated three times, and no test submission changed outcome (see `paired-repeatability.md`).
+- **Side-by-side run of the original and fixed graders** on the same inputs, plus an invalid submission (log-determinant via `np.linalg.det`) and the empty shipped workspace. It was repeated three times, and no test submission changed outcome (see `data/paired-repeatability.md`).
 - **Units check.** An independent prism gravity code (Nagy's formula) passed a check against an infinite flat slab (the Bouguer slab). Its output was not saved.
 
 ## Limits

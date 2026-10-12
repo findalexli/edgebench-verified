@@ -58,7 +58,7 @@ Raw results were identical in the original and fixed images. Only the score out 
 - **Original grader, from the public image pinned by digest.** The original `eval_cmd` ran in the original grader image and in the fixed image, with `--network none`. The hashes of the grader, tester and cases inside each image matched the pinned values.
 - **Exact arithmetic.** The per-case cap 2N² was summed over the 50 shipped case headers by two independent scripts. Its value under the original score scale was computed exactly.
 - **Source reading.** The cap is read directly from the tester source (`tools/bin/tester`).
-- **Repeatability.** The side-by-side run of the original and fixed versions was done three times, and no result changed (`paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed versions was done three times, and no result changed (`data/paired-repeatability.md`).
 
 ## Limits
 

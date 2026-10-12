@@ -78,7 +78,7 @@ The baseline's cases are labelled `WA` only because a zero score is labelled WA.
 
 - **Original grader in the original image, pinned by digest.** The test layouts ran through the unchanged `validate_solution` in the grader image with `--network none --memory 1g --cpus 1`.
 - **Independent area checks.** Areas were checked with Shapely 2.2.0 and with exact closed-form areas (the test layouts are integer rectangles, triangles and diamonds). The fixed overlap-area routine was also checked against an exact rational Sutherland–Hodgman clip (a standard polygon-clipping method) on random integer polygons: 0 mismatches in 7526 comparisons, with a largest absolute error of 3.4e-13.
-- **Side-by-side run of the original and fixed graders.** The test layouts, the frozen reference outputs on all 16 scored instances, and the full original grader gave the tables above. The side-by-side run was repeated three times with no verdict change ([`paired-repeatability.md`](../paired-repeatability.md)).
+- **Side-by-side run of the original and fixed graders.** The test layouts, the frozen reference outputs on all 16 scored instances, and the full original grader gave the tables above. The side-by-side run was repeated three times with no verdict change ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
 
 ## Limits
 

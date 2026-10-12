@@ -44,7 +44,7 @@ LABEL = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repai
 
 
 def main():
-    d = {r['task_id']: r for r in json.loads((ROOT / 'decisions.json').read_text())}
+    d = {r['task_id']: r for r in json.loads((ROOT / 'data/decisions.json').read_text())}
     plain = json.loads((ROOT / 'cases' / 'plain.json').read_text())
     names = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['name']
              for f in (ROOT / 'tasks').glob('*.json')}

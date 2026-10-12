@@ -61,7 +61,7 @@ In every variant, the only test items whose results differ are the added identit
 
 - **Original grader in the original public image, pinned by digest.** The grader image holds the unmodified schemathesis 3.39.16 starting code in `/app` and no reference solution. Each variant and the untouched starting code ran through the full original `judge.eval_cmd` (`bash /tests/test.sh` plus the structured parser), in a fresh `--network none` container, under both the original and the fixed tests.
 - **Independent check.** The sentence of the specification in `TODO.md` ("Returns the function unchanged") is the reference, and the added test checks it directly. No formal model applies.
-- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times, and no outcome changed (`paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times, and no outcome changed (`data/paired-repeatability.md`).
 
 ## Limits
 

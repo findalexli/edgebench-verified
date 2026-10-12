@@ -64,7 +64,7 @@ Per-suite counts are byte-identical between the original and fixed versions for 
 - **Original grader, from the public image pinned by digest** (unchanged in the fixed version). It ran with the original `judge.eval_cmd` under `--network none`. Each test submission was scored once with `compiler/src/` from the original work image and once from the fixed work image. The public `score.sh` was also run inside each work image.
 - **Source comparison.** The hidden grader (`score_hidden.sh`) and the hidden type-system test files were compared with every solver-visible file (TASK.md, problem.md, CHEATSHEET, spec/, docs/, public smoke tests).
 - **Case inventory.** A static count of the hidden suites (`case_inventory.py`) gives 21 suites, 448 cases and 2970 weight units.
-- **Repeatability.** The side-by-side run of the original and fixed versions was repeated three times. No test submission changed its result (see `paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed versions was repeated three times. No test submission changed its result (see `data/paired-repeatability.md`).
 
 ## Limits
 

@@ -79,7 +79,7 @@ such as the maximum possible raw result.
 Every side-by-side test was run three times on fresh machines. Across 132 graded comparisons in 22
 fixed tasks, no outcome changed. Graders without randomness or timing reproduce exactly. Scores
 based on speed move between runs, by up to 38% for Exchange Core, but no outcome changed. Details:
-[paired-repeatability.md](paired-repeatability.md).
+[data/paired-repeatability.md](data/paired-repeatability.md).
 
 ## Effect on the published leaderboard
 
@@ -100,11 +100,11 @@ public.
 
 ## Rebuilding the publication
 
-All tables, the findings list, the guide and the website are generated from `decisions.json` and
+All tables, the findings list, the guide and the website are generated from `data/decisions.json` and
 `cases/plain.json`:
 
 ```bash
 python3 tools/build_tables.py && python3 tools/build_findings.py && python3 tools/build_applying.py && python3 tools/estimate_impact.py && python3 tools/build_site.py
-python3 tools/check_consistency.py   # every published count agrees with decisions.json
+python3 tools/check_consistency.py   # every published count agrees with data/decisions.json
 python3 tools/check_formal.py        # TLA+ models and Lean proofs reproduce their published outcomes
 ```

@@ -127,8 +127,8 @@ scores from the original. See [APPLYING-FIXES.md](APPLYING-FIXES.md).
 | [IMPACT.md](IMPACT.md) | Effect on the published leaderboard |
 | [METHOD.md](METHOD.md) | How findings were established, and the limits |
 | [APPLYING-FIXES.md](APPLYING-FIXES.md) | How to build and use the fixed tasks |
-| [DECISIONS.md](DECISIONS.md), `decisions.csv`, `decisions.json` | The outcome for every task |
-| `paired-results.csv`, `paired-repeatability.csv` | Every side-by-side test and its three repeats |
+| [DECISIONS.md](DECISIONS.md) | The outcome for every task |
+| [data/](data/README.md) | Machine-readable outcomes, every side-by-side test and its three repeats, and the leaderboard estimate |
 | `repairs/<task>-v2/` | The fixed tasks ("v2" marks the fixed version) |
 | `evidence/` | Detailed reviews, scripts, Lean and TLA+ files, and the logs of every test run |
 | `site/` | The website |

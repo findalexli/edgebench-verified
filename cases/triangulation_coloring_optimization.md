@@ -81,7 +81,7 @@ All four original reference points of the score scale are kept unchanged, as a f
 - **Original grader.** The original `tools/bin/tester` and the full original `eval_cmd` ran in the original public image, pinned by digest, with `--network none`, for the original and fixed versions.
 - **Independent check.** Exact integer geometry, with no floating point, ran on all 10 hidden cases and all 3 samples. It covers: an exact separating-axis overlap test for each triangle pair; proper edge crossings; vertices inside triangles; duplicate, degenerate and non-manifold triangles and edges; Euler characteristic and vertex links (two standard checks that a mesh is a proper surface); area excess against the convex hull; and collinear triples. On every interior edge, the official rule was compared with an independent exact convex-quadrilateral test.
 - **Regeneration.** The shipped `gen.py` with seed 9000000 reproduces hidden case 0000 byte for byte. Seeds 1000001–1000003 reproduce all three samples byte for byte. (The O(N³) collinearity check was swapped for an exactly equivalent faster test.)
-- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times; no verdict changed (`paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times; no verdict changed (`data/paired-repeatability.md`).
 
 ## Limits
 

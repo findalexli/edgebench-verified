@@ -70,7 +70,7 @@ The values in this table are raw geometric-mean speedups, before conversion to t
 
 - **Original grader in the original public image, pinned by digest.** Four submissions were built from the shipped Rust starting code, each changing a single line of `swscale_process`. They ran through the task's exact `eval_cmd` with `--network none --memory 2g --cpus 2`. That path covers `test.sh`, the source scan, the `cargo build --release` rebuild, `compute_reward.py` and `pytest_shim.sh`.
 - **Independent output check.** The original `check_correctness` routine was applied to the 10 timed workloads, with the same PSNR thresholds and the same random-number sequence. The grader itself never runs this check on those workloads.
-- **Side-by-side run of the original and fixed graders** on the same submissions, with `--network none --memory 4g --cpus 4`. It was repeated three times. No test submission changed outcome, and the test submissions that show the problem stayed near 0 on the fixed grader in every run (see `paired-repeatability.md`).
+- **Side-by-side run of the original and fixed graders** on the same submissions, with `--network none --memory 4g --cpus 4`. It was repeated three times. No test submission changed outcome, and the test submissions that show the problem stayed near 0 on the fixed grader in every run (see `data/paired-repeatability.md`).
 
 ## Limits
 

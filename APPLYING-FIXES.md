@@ -45,7 +45,7 @@ and 8 GiB of memory. Two fixes differ:
 - OpenRCT2 has no run script, because only its instructions changed and nothing that runs was
   modified.
 
-The results are in each `paired/results.md` and together in [paired-results.csv](paired-results.csv).
+The results are in each `paired/results.md` and together in [data/paired-results.csv](data/paired-results.csv).
 Every fix was accepted only if three things held:
 - the test submission that shows the problem is now graded correctly;
 - correct test submissions keep their scores, or the change is explained;

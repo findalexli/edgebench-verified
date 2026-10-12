@@ -86,7 +86,7 @@ In the fixed version the term, tactic and `omega` styles credit the same 15 pare
 
 - **Original grader, from the public image pinned by digest** (Lean 4.28.0). The unmodified grader ran on the six Section_4_1 variants above. `lake build ListDeclAxiom` in the grader's repository printed `SUMMARY checked=4743 bad=2901`. The helper targets were counted by name pattern, and each helper's parent was queried in the image.
 - **Formal check in Lean.** A refutation file that imports the task's own `Chapter11` definitions was run with `lake env lean` in the grader image (`--network none --memory 4g --cpus 2`). Lean's kernel proves the negation of each literal statement, stated against the installed definitions, not against Mathlib (Lean's math library) analogues. A local copy under Lean 4.34.1 gave the same results. Both corrected statements were proved free of `sorry` in the fixed grader's repository. All of these proofs use only the axioms `propext`, `Classical.choice` and `Quot.sound`.
-- **Side-by-side runs.** The original and fixed graders ran in the grader image on the test submissions above. The comparison was repeated three times, and no result changed ([`paired-repeatability.md`](../paired-repeatability.md)).
+- **Side-by-side runs.** The original and fixed graders ran in the grader image on the test submissions above. The comparison was repeated three times, and no result changed ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
 
 ## Limits
 

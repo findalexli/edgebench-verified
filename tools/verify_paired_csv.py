@@ -1,6 +1,6 @@
 import csv, collections
 base = ""
-rows = list(csv.DictReader(open(base + "paired-results.csv")))
+rows = list(csv.DictReader(open(base + "data/paired-results.csv")))
 fails, boldonly = [], []
 for i, r in enumerate(rows, start=2):
     raw = open(f"{base}repairs/{r['task_id']}-v2/paired/results.md").read()

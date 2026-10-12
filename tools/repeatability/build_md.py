@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write paired-repeatability.md from digest.json (made by build_report.py) plus notes.json."""
+"""Write data/paired-repeatability.md from digest.json (made by build_report.py) plus notes.json."""
 import json, math, sys
 S = str(__import__('pathlib').Path(__file__).resolve().parent)
 import os
@@ -43,7 +43,7 @@ for t, d in D.items():
     tab.append(f"| {t} | {len(d['arms'])} | {full} | {ok} | {pct(mx('v1_spread'))} / {pct(mx('v2_spread'))} | {note} |")
 
 L += ['## Totals', '']
-L += [f'- Executed arms compared: **{n_exec}** (of {n_arms} rows in `paired-results.csv` for the tasks that were run; '
+L += [f'- Executed arms compared: **{n_exec}** (of {n_arms} rows in `data/paired-results.csv` for the tasks that were run; '
       f'openrct2 and derived rows are excluded).',
       f'- Arms with all 3 runs: **{n_3}** of {n_exec}.',
       f'- **Verdicts changed across runs: {n_exec - n_stable} of {n_exec} arms.**', '']
@@ -75,5 +75,5 @@ for t, d in D.items():
 L += ['']
 L += ['## Jobs', ''] + NOTES['jobs'] + ['']
 L += ['## Limits', ''] + NOTES['limits'] + ['']
-open(__import__('pathlib').Path(__file__).resolve().parents[2] / 'paired-repeatability.md', 'w').write('\n'.join(L))
+open(__import__('pathlib').Path(__file__).resolve().parents[2] / 'data/paired-repeatability.md', 'w').write('\n'.join(L))
 print(f'exec {n_exec} stable {n_stable} full {n_3} flips {len(flips)}')

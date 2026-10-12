@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the single-file EdgeBench Verified site from decisions.json and release/cases/*.md."""
+"""Build the single-file EdgeBench Verified site from data/decisions.json, cases/*.md, cases/plain.json and cases/figures/."""
 import json
 import re
 from collections import Counter
@@ -10,7 +10,7 @@ REPO = ROOT
 
 
 def main():
-    decisions = json.loads((ROOT / 'decisions.json').read_text())
+    decisions = json.loads((ROOT / 'data/decisions.json').read_text())
     meta = {}
     for f in (REPO / 'tasks').glob('*.json'):
         t = json.loads(f.read_text())
@@ -40,7 +40,7 @@ def main():
     for k in ('retain', 'retain-with-note', 'repair-v2', 'exclude'):
         out = out.replace('{{' + k + '}}', str(counts.get(k, 0)))
     import csv
-    imp = list(csv.DictReader(open(ROOT / 'impact.csv')))
+    imp = list(csv.DictReader(open(ROOT / 'data/impact.csv')))
     trs = ''.join(
         f"<tr><td>{r['model']}</td><td class=\"n\">{float(r['published_mean']):.1f}</td>"
         f"<td class=\"n\"><b>{float(r['exact_adjusted_mean']):.1f}</b></td>"

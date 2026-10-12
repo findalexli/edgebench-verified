@@ -14,7 +14,7 @@ These are the "source/math facts" from the earlier dossier (`$W/audit/dossiers/w
 - H6: "The manifest's piecewise_log_min anchors are calibration data, not known-good control results or proof of useful score distribution."
 - H7: from `audit/reviews/optimization_tasks.txt`: "no forklift simulator/tester implementation is retained, so reachability, occupied-cell moves … are not independently source-verified."
 
-Earlier disposition: pending/held. `decisions.json` reads "under review".
+Earlier disposition: pending/held. `data/decisions.json` reads "under review".
 
 ## Pinned artifacts
 

@@ -76,7 +76,7 @@ The test submission that shows the problem, the supplied starter, on the same gr
 
 - **Original grader in the original image, pinned by digest.** The exact eval_cmd, `cd /home/workspace/openttd_ai && OPENTTD_N_SEEDS=5 python3 /tmp/eval_openttd.py`, ran offline under `timeout 2600` in the grader image (`--network none --memory 6g`) on an 8-vCPU host, so all 5 seeds ran in parallel. The submission was the supplied starter `my_ai/` from the work image. OpenTTD 13.4 and OpenGFX 7.1 (the game's graphics set) are pre-cached in the image.
 - **Save-file check.** A seed-0 diagnostic (`diag1.py`) calls `run_experiments` with the grader's own arguments and prints every save row.
-- **Side-by-side run of the original and fixed versions.** The tables above. It was repeated three times with no verdict change ([`paired-repeatability.md`](../paired-repeatability.md)).
+- **Side-by-side run of the original and fixed versions.** The tables above. It was repeated three times with no verdict change ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
 
 ## Limits
 

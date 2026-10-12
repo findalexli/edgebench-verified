@@ -24,7 +24,7 @@ jobs:
       - run: python -m pip install -e . pytest
       - name: Harness grading tests
         run: python -m pytest tests -q
-      - name: Published counts and decisions agree with decisions.json
+      - name: Published counts and decisions agree with data/decisions.json
         run: python tools/check_consistency.py
       - name: No image-file copies, tamper material or credentials in the tree
         run: python tools/check_publish.py

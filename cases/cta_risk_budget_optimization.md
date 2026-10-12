@@ -53,7 +53,7 @@ Row 3 changes as intended. 32/1565 is not below the 2% day-count allowance, so t
 - **Original grader.** The checks ran on the original public image, pinned by digest, with `--network none --memory 2g --cpus 1`. We imported the installed `eval_script.py` and called the original `_evaluate_risk_constraints`. Two inputs were set so the cross-border block could be reached. The participation check was stubbed to pass. `nav_history` was left out, so the volatility/drawdown cancellation could not fire. The cross-border code itself was not modified. The full original `score.py` also ran on the shipped reference (row 4).
 - **Exact arithmetic.** Shares were computed with Python `Fraction`.
 - **Lean 4.** Lean 4 is a proof assistant that checks mathematical proofs by machine. `formal/lean/ebv/Ebv/FinanceExcessFx.lean` proves the example shares (1/3 unconverted, 7/9 in CNY). It proves that the unconverted share passes the limit and the CNY share fails it. It also proves that an unconverted share of 2/5 at an exchange rate of 7 hides a CNY share of up to 14/17. No `sorry` (an unproved step) is used. The printed axiom lists (for the two share theorems and the hidden-share bound) contain only the standard axioms; the two pass/fail inequalities have no printed list.
-- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No test submission changed verdict (see `paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No test submission changed verdict (see `data/paired-repeatability.md`).
 
 ## Limits
 

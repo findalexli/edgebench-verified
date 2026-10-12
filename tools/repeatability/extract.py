@@ -2,7 +2,7 @@
 """Extract per-arm v1/v2 results and scores from one paired run's output directory.
 
 extract(task, run) -> dict arm_index -> (v1_result, v2_result, v1_score, v2_score)
-arm_index is the 0-based position of the arm among that task's rows in paired-results.csv.
+arm_index is the 0-based position of the arm among that task's rows in data/paired-results.csv.
 run is 1 (published output), 2 or 3 (rep output). The same parser is used for every run.
 """
 import csv, glob, gzip, json, os, re, shutil, subprocess, sys
