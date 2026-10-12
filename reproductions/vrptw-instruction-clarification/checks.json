@@ -1,0 +1,46 @@
+{
+  "after_agent_query": "Read README.md, then optimize the C++17 CVRPTW solver. Modify only src/, include/, and Makefile. Preserve the cvrptw_solver binary name and CLI: ./cvrptw_solver <input.txt> <output.txt> <time_budget_sec>. Do not read hidden instances, internal judge files, BKS tables, reference solutions, or evaluator internals. Hidden judge submissions have a 20-minute total wall-clock budget; keep the solver efficient.\n\nScoring and evaluation clarification for this task version (supersedes README statements about three-group weighting and node-scrambled remote copies): the evaluator uses the fixed set of 56 Solomon-100 instances without customer-ID scrambling. Each instance has equal weight. The raw aggregate score is (sum of the 56 per-instance scores / 56) * 100; infeasible or timed-out instances contribute zero and remain in the denominator. The README per-instance formula, including its bonuses and cap, is unchanged. All original solver restrictions above remain in force.",
+  "all_other_manifest_fields_unchanged": true,
+  "before_agent_query": "Read README.md, then optimize the C++17 CVRPTW solver. Modify only src/, include/, and Makefile. Preserve the cvrptw_solver binary name and CLI: ./cvrptw_solver <input.txt> <output.txt> <time_budget_sec>. Do not read hidden instances, internal judge files, BKS tables, reference solutions, or evaluator internals. Hidden judge submissions have a 20-minute total wall-clock budget; keep the solver efficient.",
+  "candidate": {
+    "bytes": 12379,
+    "path": "/mnt/c/users/lisz1/documents/codex/2026-10-07/shopify-plugin-shopify-openai-curated-remote-2/work/packets/vrptw-native-instruction-repair-astra-high-v1/vehicle_routing_time_windows.json",
+    "sha256": "d3334128d323c587277f780511cc6b402b251697e891818d6d7ef3c528891b4b"
+  },
+  "decision": "PASS_INSTRUCTION_ONLY_NATIVE_MANIFEST_REPAIR",
+  "exact_original_query_preserved_as_prefix": true,
+  "judge_work_image_fields_unchanged": true,
+  "native_evidence_rule_checked": {
+    "bytes": 20102,
+    "path": "work/cloud-queue/exports/deterministic-vrptw-witness-aa1419a185a677b5/3f2c9d243ea340a0a005b15e175b67ad/result.json",
+    "sha256": "07258d4271f5beb648e8f0d1177ea4d9a97c461c79f09681ab1f0eb799259c36"
+  },
+  "native_runs": 0,
+  "no_derived_images_required": true,
+  "optional_readme_overlay": "work/packets/vrptw-fixed-reference-contract-astra-high-v1/documentation-only.patch remains unpublished source-only candidate; not required for this native JSON repair.",
+  "original": {
+    "bytes": 11809,
+    "path": "/mnt/c/users/lisz1/documents/codex/2026-10-07/shopify-plugin-shopify-openai-curated-remote-2/work/packets/vrptw-native-instruction-repair-astra-high-v1/original-task.json",
+    "sha256": "5dc47728618f81deda92fbca50f7dcdff2e72589bc197cfab3a1e95edb0ff427"
+  },
+  "original_caller_rule_checked": true,
+  "reused_image_bindings": {
+    "judge_image": "seededge/edgebench.judge.vehicle_routing_time_windows@sha256:5582f7ecfba52327acc98d2da900ac10e09d079040e2a50022c9bc5c8539fd94",
+    "work_image": "seededge/edgebench.work.vehicle_routing_time_windows@sha256:cc37b2508d39deb91b4c5af8f70821b16e1b3f6818c0f64cb547c97ab9b34b29"
+  },
+  "score_incompatibility": "None: instructions clarified; evaluator/data/image bytes and numerical rule unchanged. Different instruction version must still be named; do not silently equate future solver performance across prompts.",
+  "semantic_changed_paths": [
+    [
+      "work",
+      "agent_query"
+    ]
+  ],
+  "semantic_inverse_passed": true,
+  "source_manifest": {
+    "bytes": 11809,
+    "path": "edgebenchverified/tasks/vehicle_routing_time_windows.json",
+    "sha256": "5dc47728618f81deda92fbca50f7dcdff2e72589bc197cfab3a1e95edb0ff427"
+  },
+  "task_id": "vehicle_routing_time_windows",
+  "version": "vrptw-agent-query-clarification-v1"
+}

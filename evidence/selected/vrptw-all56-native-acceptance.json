@@ -1,0 +1,48 @@
+{
+  "utc": "2026-10-12T01:34:44.026762+00:00",
+  "reviewer": "/root",
+  "decision": "ACCEPT56_ORIGINAL_CALLER_CHECKER_PASSES_AND_INSTALLED_REFERENCE_LOOKUP",
+  "different_review": {
+    "bytes": 8278,
+    "path": "work/reviews/vrptw-complete-witness-native-astra-high-v2-result/review.json",
+    "sha256": "6f58a4b3b703b7249f1104b6dea52c1794718ce6634bb6c1702f1990f2c0e423"
+  },
+  "result": {
+    "bytes": 20102,
+    "path": "work/cloud-queue/exports/deterministic-vrptw-witness-aa1419a185a677b5/3f2c9d243ea340a0a005b15e175b67ad/result.json",
+    "sha256": "07258d4271f5beb648e8f0d1177ea4d9a97c461c79f09681ab1f0eb799259c36"
+  },
+  "execution": {
+    "bytes": 577,
+    "path": "work/cloud-queue/exports/deterministic-vrptw-witness-aa1419a185a677b5/3f2c9d243ea340a0a005b15e175b67ad/execution.json",
+    "sha256": "fa5ccc99149520b6f6ecc3d8359206a911c2df5fd5dec89ef78861f5343d805c"
+  },
+  "settlement": {
+    "path": "work/cloud-queue/settlements/3f2c9d243ea340a0a005b15e175b67ad.json",
+    "sha256": "d3017c4bd3a7d60aa885ef7377b6bf4a486d0cc845d06acc44fe1d10ba9649c0",
+    "bytes": 1647
+  },
+  "conclusion": "All56complete route witnesses pass the unchanged original caller/checker and match independently validated vehicle counts and distances. Original aggregate9945.946015130388 independently reproduced from actual rows. Installed56-row referenceCSV supplies all cases;zero fallback.",
+  "installed_reference": {
+    "bytes": 2615,
+    "exists": true,
+    "rows": 56,
+    "sha256": "2e450b7916aa5a7f88a6a119667b8b4748d678151a978f3b4215bdec021fb851",
+    "source_field_counts": {
+      "SINTEF-Solomon-2024": 56
+    },
+    "verified_field_present_rows": 56
+  },
+  "scope_closed": [
+    "Complete feasibility of all56retained cases.",
+    "Actual installed reference presence/identity and original caller lookup/aggregation."
+  ],
+  "limits": [
+    "Audit-only fixed public route fixture;not solverperformance,benchmarksubmission or untouchedholdout.",
+    "CSVsource labels and verified-field presence do not prove historical2024provenance.",
+    "Five currentpublisher/reference differences and roundingconvention effects are observations,not automaticdefects.",
+    "Rawcallerlog/CSV are safe projections and hashes,not rawretained bodies."
+  ],
+  "closure": "Exact ownedworkerclosed andsettled;estimated0.00552USD,notinvoice.",
+  "certification_changed": false
+}

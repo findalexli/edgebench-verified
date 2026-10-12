@@ -158,6 +158,84 @@
       "wrapper_exact_score_delta": "-1/160"
     }
   },
+  "ann_cli_reproduction_delivery": {
+    "base": "bbe795acad658808a6437526670a286766973bb0",
+    "counts": {
+      "certified": 0,
+      "finding_tasks": 21,
+      "pending": 33,
+      "public": 51,
+      "withheld": 18
+    },
+    "disposition_changed": false,
+    "new_docker_builds": 0,
+    "new_native_calls": 0,
+    "package_path": "reproductions/ann-original-cli",
+    "scope": "Exact original task and core reused; finite two-control successful native integration packaged as ordinary Docker/CLI commands. Simplified checkout build recipe source/syntax checked, not newly executed. No vectors/evaluator/credential/coordinator payloads copied.",
+    "source_copies": [
+      {
+        "selected": {
+          "bytes": 811,
+          "path": "reproductions/ann-original-cli/controls.tar.gz",
+          "sha256": "8ea06246d35254a328dcbacb75bb8fbf011eb50393c8333caa8137468df392be"
+        },
+        "source": {
+          "bytes": 811,
+          "path": "work/packets/ann-release-candidate-astra-high-v1/controls.tar.gz",
+          "sha256": "8ea06246d35254a328dcbacb75bb8fbf011eb50393c8333caa8137468df392be"
+        }
+      },
+      {
+        "selected": {
+          "bytes": 841,
+          "path": "reproductions/ann-original-cli/image-lock.json",
+          "sha256": "9c778c1cda3e1d67fcae021a8efcc2c4c7e9ace3a0dbad1724902cb6d4235a0b"
+        },
+        "source": {
+          "bytes": 841,
+          "path": "work/packets/ann-release-candidate-astra-high-v1/image-lock.json",
+          "sha256": "9c778c1cda3e1d67fcae021a8efcc2c4c7e9ace3a0dbad1724902cb6d4235a0b"
+        }
+      },
+      {
+        "selected": {
+          "bytes": 5103,
+          "path": "reproductions/ann-original-cli/data-manifest.json",
+          "sha256": "428605d51ad896505feab9c9797942fbababbb26d0830c651a66e924212cf6fd"
+        },
+        "source": {
+          "bytes": 5103,
+          "path": "work/packets/ann-release-candidate-astra-high-v1/data-manifest.json",
+          "sha256": "428605d51ad896505feab9c9797942fbababbb26d0830c651a66e924212cf6fd"
+        }
+      },
+      {
+        "selected": {
+          "bytes": 1871,
+          "path": "evidence/selected/ann-cli-integration-acceptance.json",
+          "sha256": "db4ccb787a0e13f8179c8590b9a5a085a277ead0226e2298fd5ec07e7f61c79e"
+        },
+        "source": {
+          "bytes": 1871,
+          "path": "edgebenchverified/audit/evidence/ann-clean-integration-native-astra-high-v2-root/root-result-review.json",
+          "sha256": "db4ccb787a0e13f8179c8590b9a5a085a277ead0226e2298fd5ec07e7f61c79e"
+        }
+      },
+      {
+        "selected": {
+          "bytes": 8327,
+          "path": "evidence/selected/ann-cli-integration-review.json",
+          "sha256": "84741171369be3069577bc087fa44e4f569b63c429529b8f19453fcb1454804f"
+        },
+        "source": {
+          "bytes": 8327,
+          "path": "work/reviews/ann-clean-integration-native-astra-high-v2-result/review.json",
+          "sha256": "84741171369be3069577bc087fa44e4f569b63c429529b8f19453fcb1454804f"
+        }
+      }
+    ],
+    "utc": "2026-10-12T01:40:23.295158+00:00"
+  },
   "arc_hidden_delivery": {
     "accepted_snapshot_utc": "2026-10-11T22:02:32.331346+00:00",
     "exact_copies": [
@@ -194,6 +272,22 @@
       "previous_selected_pins_verified": 167,
       "selected_files": 169
     }
+  },
+  "claude_handoff_delivery": {
+    "ann_approval": {
+      "bytes": 3189,
+      "path": "evidence/selected/ann-retain-root-review.json",
+      "sha256": "7ea3e0b193cdeb031bf1e085cb656aae5a5d29c69d34d6523cd9d80ad4d03e87"
+    },
+    "current_decisions": {
+      "bytes": 44493,
+      "path": "evidence/selected/current-task-decisions.json",
+      "sha256": "3de8d3752551fe47fbd29a187f658b0dc864e257f560b9e46f21d68807f88d14"
+    },
+    "remaining_reviews": "Adventure derivedbindings/finalapprovals and DCSSdifferentresult review interrupted/pending; usage limit prevented continuation.",
+    "scope": "No new experiments, no publication. Preserve private canonicalarchive; maintain current source/report entrypoints.",
+    "user_request": "Close out in30minutes and push usable private Git handoff.",
+    "utc": "2026-10-12T02:34:03.014437+00:00"
   },
   "config_reporting_portfolio_delivery": {
     "accepted_snapshot_utc": "2026-10-11T22:23:58.139888+00:00",
@@ -372,346 +466,24 @@
   },
   "current_selection_git_base": "f0cceb5438357021cdc7885ad68b13e19d56b6d2",
   "current_status_snapshot": {
-    "accepted_finding_task_union": {
-      "bytes": 2085,
-      "path": "evidence/selected/finding-task-union-21.json",
-      "sha256": "2952e4d356d3878a17ac5418e1e2190c625dfd28525de51e807e312e47296fe3"
-    },
     "advertised_unavailable": 83,
-    "ann_publisher_provenance": {
-      "archive_wide_uniqueness": false,
-      "complete_member_equality": true,
-      "declared_license_association": "CC BY 4.0",
-      "finite_question_closed": true,
-      "historical_origin_proven": false
-    },
-    "carleson_loader_diagnostic": {
-      "cause": "unknown",
-      "proof_controls": 0,
-      "retry_authorized": false,
-      "setup_lane_stopped": true,
-      "signal": 11,
-      "worker_closed": true
-    },
-    "certified_tasks": 0,
     "closed_scoped_finding_task_decisions": 21,
-    "config_original_disposition": {
-      "acceptance": {
-        "bytes": 2100,
-        "path": "evidence/selected/config-original-exclusion.json",
-        "sha256": "5196eacad3d1e4964c82e553cb6bcdc9d3a85c39858dad3b2cd2f7787d2221b7"
-      },
-      "explicit_policy_choice": true,
-      "prior_contrary_view_preserved": true
+    "current_decisions": {
+      "bytes": 44493,
+      "path": "evidence/selected/current-task-decisions.json",
+      "sha256": "3de8d3752551fe47fbd29a187f658b0dc864e257f560b9e46f21d68807f88d14"
     },
-    "cta_original_disposition": {
-      "bytes": 2008,
-      "path": "evidence/selected/cta-original-exclusion.json",
-      "sha256": "54f3b48fab4842644e71dd804db64a25ff8bf8c332dea2cb208edb2c40fb6037"
-    },
-    "datagen_native_property": {
-      "all_expectations_matched": true,
-      "authored_strategy_substitution": true,
-      "calls": 12,
-      "fixed_inputs": 6,
-      "full_phase_or_scorer": false,
-      "import_guard_failures_before_substitution": 2,
-      "original_generator_tested": false,
-      "strategy_draws": 14
-    },
-    "datagen_original_disposition": {
-      "bytes": 2031,
-      "path": "evidence/selected/datagen-original-exclusion.json",
-      "sha256": "6d77e64f7bf74bf0db5b9718fee00d30655978345badf6d990fd7946478df2e2"
-    },
-    "dcss_finite_requirements": {
-      "local_helper_correspondence_accepted": true,
-      "new_game_calls": 0,
-      "not_applicable": 1,
-      "release_gate_clearance": false,
-      "satisfied": 22
-    },
-    "dcss_idle_result": {
-      "accepted_records": 5,
-      "actual_games": 5,
-      "fixed_denominator": 5,
-      "new_defect": false,
-      "raw_logs_locally_reparsed": false,
-      "scores": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    "dcss_parser_aggregation": {
-      "actual_original_python_functions": true,
-      "additional_engine_malformed_file_required": false,
-      "author_local_controls": 11,
-      "authored_game_response_seam": true,
-      "different_local_controls": 19,
-      "whole_task_approved": false
-    },
-    "exchange_consumer_composition": {
-      "authored_or_substituted_records": true,
-      "grading_calls": 12,
-      "incorrect_engine_reward_proven": false,
-      "new_JVM_calls": 0,
-      "selection_calls": 8
-    },
-    "finite_native_path_results": {
-      "arc": {
-        "affected_rejections": 32,
-        "hidden_scorer": {
-          "accepted_result": {
-            "bytes": 3729,
-            "path": "evidence/selected/arc-hidden-native-acceptance.json",
-            "sha256": "ad3ca88faac6b0ca3f89e1305ad036a4fdb18215ae65aa84561129d2dd525b54"
-          },
-          "all_448_individual_assertion_executions_proven": false,
-          "import_failure_may_be_recorded_as_zero_over_suite_total": true,
-          "raw_denominator": 448,
-          "suite_count": 21,
-          "supplied_reported_passes": 167,
-          "supplied_weighted_score": 35.59,
-          "unaffected_suites_preserved": 12,
-          "wrong_reported_passes": 45,
-          "wrong_weighted_score": 7.41
-        },
-        "new_defect_demonstrated": false,
-        "public_supplied_baseline_passed": 48,
-        "public_total": 48,
-        "public_wrong_interpreter_passed": 16,
-        "unaffected_passes_preserved": 16
-      },
-      "nethack": {
-        "competence_or_world_turn_count_established": false,
-        "default_20_trajectories_run": false,
-        "observed_peak": 0,
-        "original_score": 0,
-        "original_verdict": "WA",
-        "resets": 1,
-        "successful_api_step_returns": 5000
-      },
-      "zig": {
-        "explicit_skipped_scripts": 1006,
-        "new_defect": false,
-        "score": 0,
-        "selected_shared_setup_failed": true,
-        "stub_build_succeeded": true,
-        "test_assertions_reached": 0
-      }
-    },
-    "juliet_retained_crosscheck": {
-      "exact_label_matches": 723,
-      "guard_anchor_convention_resolved": false,
-      "joins": 736,
-      "new_confirmed_defect": false,
-      "null_pointer_labels": 120,
-      "plain_comparison_anchors": 18
-    },
-    "latest_accepted_scope": "Juliet specific18-anchor allegation rejected by primarysource;56 routing feasibility witnesses;finite adventure host composition and reference-only content policy;DCSS command packaging source/component acceptance. No new native execution, finding count, disposition or certification.",
-    "latest_repair_and_source_results": {
-      "ann": "Ordinary binary64 numerical conclusion accepted for all10000installed queries; no extra corpus pass required. Data provenance/QPSscope separate.",
-      "cta": {
-        "actual_installed_module_behavior": true,
-        "fresh_original_source_compilation_proven": false,
-        "native_accounting_calls": 2,
-        "native_risk_method_calls": 12,
-        "whole_task_certified": false
-      },
-      "openttd": "Foreign-seed mechanism unsupported on examined final source; missing-directory error differs from empty-directory no-row behavior. Actual engine reachability and score effect unresolved; no new defect count.",
-      "portfolio": {
-        "authored_scalar_cases": 64,
-        "different_scalar_cases": 6,
-        "final_image_path_source_bound": true,
-        "full_scorer_or_certification": false,
-        "native_full_metric_calls": 16,
-        "native_validation_accepted": true,
-        "paired_authored_cases": 8,
-        "prior_failed_attempt": "V2 retained zero metric outcomes; actual call count and failure cause remain unknown",
-        "source_repair_assignments": 2,
-        "unchanged_metrics_per_pair": 7
-      },
-      "rust": {
-        "actual_cargo_fixtures": 5,
-        "original_corpus_or_full_scorer": false,
-        "paired_helper_outcomes": 10
-      }
-    },
-    "molecular_memory_finding": {
-      "accepted": true,
-      "actual_original_helper_calls": 2,
-      "audit_limit_bytes": 2147483648,
-      "historical_deployment_policy_established": false,
-      "measured_child_rss_bytes": [
-        549842944,
-        1220866048
-      ],
-      "published_aggregate_limit": "8Gi",
-      "repair_validated": false,
-      "score_gain_established": false
-    },
-    "molecular_original_disposition": {
-      "bytes": 2027,
-      "path": "evidence/selected/molecular-original-exclusion.json",
-      "sha256": "d7f138c1382f8ee1fc63d0559e048958f1f9555e0b4079d993f7fb65bf738f80"
-    },
-    "molecular_versioned_as_repair": {
-      "RSS_or_aggregate_tree_enforcement": false,
-      "finite_native_helper_calls": 6,
-      "full_task_certified": false,
-      "paired_controls": 3,
-      "per_process_address_space_bytes": 1000000000
-    },
-    "new_disposition_changes": 0,
-    "new_scoped_findings_tasks": [],
-    "new_task_breadth": 0,
-    "pending_original_dispositions": 33,
-    "portfolio_original_disposition": {
-      "bytes": 2035,
-      "path": "evidence/selected/portfolio-original-exclusion.json",
-      "sha256": "18ae7f892d5fc49734e20887cf9de7bf2970bb7bef10592e0dfed1f0b7962e4f"
-    },
+    "new_result_scope": "ANN retained with genuine approvals. All56routing and6adventure host sessions rootaccepted. DCSS5games completed/collected but differentreview pending. No modelperformance claims.",
+    "owned_active_or_unresolved_workers": 0,
+    "pending_original_dispositions": 32,
     "public_tasks": 51,
-    "repair_complements": {
-      "equivalence_T3": {
-        "audit_output_limit_bytes": 67108864,
-        "combined_checker_and_output_allowance_change": true,
-        "official_cases_passed": 1,
-        "official_cases_run": 1,
-        "output_bytes": 40623541
-      },
-      "new_certifications": 0,
-      "new_disposition_changes": 0,
-      "new_task_breadth": 0,
-      "tree_T2": {
-        "installed_evaluator_calls": 4,
-        "reference_passed_before_after": [
-          10,
-          10
-        ],
-        "reference_score_delta": 0,
-        "task_points_scope": 5,
-        "unique_official_cases": 10,
-        "wrong_passed_before_after": [
-          0,
-          0
-        ]
-      }
-    },
-    "reporting_evidence": {
-      "changed_plugin_original_printed_items_passed": 55,
-      "corrected_serial_stateful_controls": {
-        "authored_control_changed": true,
-        "broader_xdist_validated": false,
-        "cleanup_assertions_passed": true,
-        "empty_scenario_cause_explained": false,
-        "failed": 0,
-        "implementation_changed": false,
-        "passed": 3
-      },
-      "coverage_filter_observed_generated_values": 36,
-      "coverage_repair_matched_expectations": 20,
-      "full_corrected_scorer_executed": true,
-      "integrated_corrected_judge": {
-        "collected_passed": 57,
-        "coverage_countercontrols_matched": 20,
-        "junit_countercontrols_matched": 4,
-        "score": 1.0,
-        "script_reported_passed": 55,
-        "whole_task_certified": false
-      },
-      "later_stateful_controls": {
-        "exact_failed_callback_and_conjunct": "unknown",
-        "failed": 3,
-        "failed_assertion": "all callbacks: cases>0 and interactions>0 and elapsed>=0",
-        "later_cleanup_assertions_reached": false,
-        "new_upstream_defect": false,
-        "passed": 0,
-        "prior_positive_results_preserved": true,
-        "scope": "Earlier failed-control snapshot; subsequent stateful_callback_observation resolves failed conjuncts without resolving cause."
-      },
-      "original_score": 1.0,
-      "original_script_reported_total": 53,
-      "requirement_evidence_categories": {
-        "finite_checks": 13,
-        "partial": 9,
-        "total": 22
-      },
-      "same_control_candidate_comparison": {
-        "after_passed": 4,
-        "before_passed": 0,
-        "total": 5
-      },
-      "selected_repaired_junit": "PASS",
-      "separately_corrected_control_passes": 5,
-      "stateful_callback_observation": {
-        "all_elapsed_nonnegative": true,
-        "callbacks_zero_cases_and_interactions": 6,
-        "empty_callback_cause": "unknown",
-        "failed": 3,
-        "later_cleanup_assertions_reached": false,
-        "new_upstream_defect": false,
-        "observed_callbacks": 8,
-        "passed": 0
-      },
-      "whole_task_certified": false
-    },
-    "reporting_original_disposition": {
-      "bytes": 2039,
-      "path": "evidence/selected/reporting-original-exclusion.json",
-      "sha256": "0ffe9e747272d647bd29fc632330659e156dc4e819d0c9d066f137e1aeb11964"
-    },
+    "repaired_included_tasks": 0,
+    "retained_tasks": 1,
     "reviewed_original_exclusions": 18,
-    "rust_original_disposition": {
-      "bytes": 2017,
-      "path": "evidence/selected/rust-original-exclusion.json",
-      "sha256": "2eb882063a7c3b6cb870bf972db89be3c3305de9a343f90595fe711b423254c7"
-    },
-    "snapshot_utc": "2026-10-12T01:19:00+00:00",
-    "sphere_preparation_failure": {
-      "cap_metadata_rows_different": 10,
-      "final_join_equality": "unknown",
-      "original_helper_calls": 0,
-      "retry_authorized": false,
-      "upstream_defect": false,
-      "verified_layers": 11,
-      "worker_closed": true
-    },
-    "treant": "Separate arithmetic-defect claim rejected under acquired adaptation turn-count wording; movement intent remains unresolved.",
-    "utc": "2026-10-12T00:13:23.380834+00:00",
-    "vibrating_component_controls": {
-      "actual_tester_and_helper_calls": 8,
-      "invalid_rejected": 6,
-      "native_full_scorer": false,
-      "new_confirmed_defect": false,
-      "valid_preserved": 2
-    },
-    "vibrating_format_repair": {
-      "full_corpus_or_released_image": false,
-      "native_direct_calls": 32,
-      "native_original_helper_calls": 32,
-      "paired_authored_fixtures": 16
-    },
-    "vibrating_original_disposition": {
-      "bytes": 2038,
-      "path": "evidence/selected/vibrating-original-exclusion.json",
-      "sha256": "65f04d52eee4ffed32641a1ab09f5225fef0850fb7c13a9e3e9ac6923c418ee5"
-    },
-    "vrptw_recovered_evidence": {
-      "binary64_matches": 19,
-      "checker_controls": 19,
-      "complete_routes_established": false,
-      "existing_data_cases": 56,
-      "existing_data_customers": 5600,
-      "native_commands": 26,
-      "native_result_utc": "2026-10-09T17:41:54.737852+00:00",
-      "necessary_travel_window_violations": 0,
-      "new_native_run": false,
-      "nominal_decimal_matches": 17
-    }
+    "saved_owned_cancelled_before_create": 1,
+    "saved_owned_closed_workers": 523,
+    "utc": "2026-10-12T02:34:03.014437+00:00",
+    "whole_release_ready": false
   },
   "datagen_original_decision_delivery": {
     "accepted_snapshot_utc": "2026-10-11T22:57:12.145647+00:00",
@@ -1512,6 +1284,13 @@
       "scope": "Before Juliet/routing source conclusions and finite game packaging scope delivery.",
       "sha256": "4fcca7fc2abc99156027f740ae55ab05313e89ad212127ed954d021010a7ed1f",
       "utc": "2026-10-12T01:23:20.851818+00:00"
+    },
+    {
+      "bytes": 427589,
+      "git_base": "bbe795acad658808a6437526670a286766973bb0",
+      "scope": "Before usable ANN CLI reproduction package.",
+      "sha256": "7f5a7f021a839b2991c71e5f561216ace2d74537fc7bd3d412690040bf53307f",
+      "utc": "2026-10-12T01:40:23.295158+00:00"
     }
   ],
   "manifest_self_hash": "Excluded to avoid a self-reference; final manifest identity is supplied in the review handoff.",
@@ -1943,7 +1722,7 @@
     "2026-10-11T19:05:36.825048+00:00",
     "2026-10-11T19:19:57.031598+00:00"
   ],
-  "presentation_refresh_utc": "2026-10-12T01:23:20.851818+00:00",
+  "presentation_refresh_utc": "2026-10-12T02:34:03.014437+00:00",
   "previous_manifest_identity": {
     "bytes": 14504,
     "git_commit": "13df675c9083d4722d56c712bc7b64964fbc1add",
@@ -3100,6 +2879,58 @@
       ],
       "reason": "Accepted source conclusions and finite packaging scope; counts unchanged.",
       "utc": "2026-10-12T01:23:20.851818+00:00"
+    },
+    {
+      "previous_report_pins": [
+        {
+          "bytes": 23554,
+          "path": "TASKS.md",
+          "sha256": "7a70f62a7c79f38de93d4fa63a67317090302c49a3a784c99956c39793f4d4fa"
+        },
+        {
+          "bytes": 14977,
+          "path": "HANDOFF.md",
+          "sha256": "4c1f1ad02701c797b48a08a0b2db5badf16cd6c39fb820c7c391a64efa3063f3"
+        },
+        {
+          "bytes": 27196,
+          "path": "docs/EVIDENCE-INDEX.md",
+          "sha256": "9d7050607c5e29cc62fb01324a29a33cae506f19bd97147c3831636c514f27d2"
+        }
+      ],
+      "reason": "Completed ANN CLI integration and selected reproduction; no retain/count promotion.",
+      "utc": "2026-10-12T01:40:23.295158+00:00"
+    },
+    {
+      "previous_report_pins": [
+        {
+          "bytes": 4042,
+          "path": "AGENTS.md",
+          "sha256": "a8fa758f9429ef770e32b0d4552c91419bcf71352ad21c4ecef09ad3b85eea27"
+        },
+        {
+          "bytes": 15224,
+          "path": "HANDOFF.md",
+          "sha256": "4f9ca0456279dfa16a79b4ce49c050bb375d0326b192ce8cbbc1c287790a3475"
+        },
+        {
+          "bytes": 5778,
+          "path": "README.md",
+          "sha256": "c2e013460098f440b242f5c2a95029842f7db792d528f76e4d72bf3a20296a0e"
+        },
+        {
+          "bytes": 23726,
+          "path": "TASKS.md",
+          "sha256": "75fd4ea1e23e23ad0ef92f8b0ad8921d03a3887de802ba65b284a9169ff6733d"
+        },
+        {
+          "bytes": 27765,
+          "path": "docs/EVIDENCE-INDEX.md",
+          "sha256": "79cc08cc3734542e5d5bbc30189d5680962688c371660391f944ab50fb75f699"
+        }
+      ],
+      "reason": "User-requested closeout for Claude: adopted ANN retain, native completed results and exact unfinished work.",
+      "utc": "2026-10-12T02:34:03.014437+00:00"
     }
   ],
   "reporting_integrated_delivery": {
@@ -4217,9 +4048,9 @@
       "sha256": "9e892322f0a3780a6b102fef3c3689122f01d3615af9acd03d92af0e67c5bb6e"
     },
     {
-      "bytes": 4042,
+      "bytes": 4326,
       "path": "AGENTS.md",
-      "sha256": "a8fa758f9429ef770e32b0d4552c91419bcf71352ad21c4ecef09ad3b85eea27"
+      "sha256": "38be88bd632aa3a39ebee941317e78b8f337f42d4ac1d10c82a13856b8c16fc3"
     },
     {
       "bytes": 259,
@@ -4227,19 +4058,19 @@
       "sha256": "dcb2544b8ec35538b342f0a14497f4ba75c2bf3b62f783b12f0d93739f13a25e"
     },
     {
-      "bytes": 14977,
+      "bytes": 9177,
       "path": "HANDOFF.md",
-      "sha256": "4c1f1ad02701c797b48a08a0b2db5badf16cd6c39fb820c7c391a64efa3063f3"
+      "sha256": "3337ea55869df98fe0651f04f1b8953bfd6c39a81e9aa540cef3edd594f58184"
     },
     {
-      "bytes": 5778,
+      "bytes": 5204,
       "path": "README.md",
-      "sha256": "c2e013460098f440b242f5c2a95029842f7db792d528f76e4d72bf3a20296a0e"
+      "sha256": "d80f6aa96348d8c2930622fcf3ea4aa55f6684d3c7ea87c1b98c334b381c73ef"
     },
     {
-      "bytes": 23554,
+      "bytes": 24563,
       "path": "TASKS.md",
-      "sha256": "7a70f62a7c79f38de93d4fa63a67317090302c49a3a784c99956c39793f4d4fa"
+      "sha256": "5a96747920c3f1b0b596e405d62146429a986f27d40c11f1f375bf436d5da577"
     },
     {
       "bytes": 9943,
@@ -4302,9 +4133,9 @@
       "sha256": "91854757179ee0f8010bfb235362589a0ebc551da76951caaa75846451d1f970"
     },
     {
-      "bytes": 27196,
+      "bytes": 28954,
       "path": "docs/EVIDENCE-INDEX.md",
-      "sha256": "9d7050607c5e29cc62fb01324a29a33cae506f19bd97147c3831636c514f27d2"
+      "sha256": "595b9f7cbea2898458a66993833ec6290f9cc48116e8869752828d11726b5bcd"
     },
     {
       "bytes": 27725,
@@ -4337,6 +4168,16 @@
       "sha256": "adae230d90f5387a71319ef1312bad86e2cc9903dbdb7633befc1ff8a587ae8e"
     },
     {
+      "bytes": 1871,
+      "path": "evidence/selected/ann-cli-integration-acceptance.json",
+      "sha256": "db4ccb787a0e13f8179c8590b9a5a085a277ead0226e2298fd5ec07e7f61c79e"
+    },
+    {
+      "bytes": 8327,
+      "path": "evidence/selected/ann-cli-integration-review.json",
+      "sha256": "84741171369be3069577bc087fa44e4f569b63c429529b8f19453fcb1454804f"
+    },
+    {
       "bytes": 4940,
       "path": "evidence/selected/ann-full-label-acceptance.json",
       "sha256": "fe48455c26f0d322125e6ed9ce146033b89ee0b99475e1188abeec371c23ed71"
@@ -4365,6 +4206,31 @@
       "bytes": 1431,
       "path": "evidence/selected/ann-publisher-member-review.json",
       "sha256": "a9c6b5f4b2691c6f2a7d39a4dc9d3ab6813e4b9233ab9e06a8c47525f4654b71"
+    },
+    {
+      "bytes": 22308,
+      "path": "evidence/selected/ann-retain-adoption-check.json",
+      "sha256": "cea753f50ffebc2d970bb896a611c00d2a966b1caf45466fa6d900e115fb0827"
+    },
+    {
+      "bytes": 6732,
+      "path": "evidence/selected/ann-retain-execution-review.json",
+      "sha256": "a097c8c63fdb4397ee6f5262607edc95f0989eba036d25605b1f66ccec2252dd"
+    },
+    {
+      "bytes": 3189,
+      "path": "evidence/selected/ann-retain-root-review.json",
+      "sha256": "7ea3e0b193cdeb031bf1e085cb656aae5a5d29c69d34d6523cd9d80ad4d03e87"
+    },
+    {
+      "bytes": 5599,
+      "path": "evidence/selected/ann-retain-scientific-review.json",
+      "sha256": "94c963d9056f372a790db6bd36f7712b69c78ce1acb6e7b3cade5c4a88227042"
+    },
+    {
+      "bytes": 13138,
+      "path": "evidence/selected/ann-retain-task-record.json",
+      "sha256": "4491349335af8c9ab29f61cacb185ec1d95aab01016be0bfebb684d5d8782f14"
     },
     {
       "bytes": 3255,
@@ -4477,6 +4343,11 @@
       "sha256": "54f3b48fab4842644e71dd804db64a25ff8bf8c332dea2cb208edb2c40fb6037"
     },
     {
+      "bytes": 44493,
+      "path": "evidence/selected/current-task-decisions.json",
+      "sha256": "3de8d3752551fe47fbd29a187f658b0dc864e257f560b9e46f21d68807f88d14"
+    },
+    {
       "bytes": 1939,
       "path": "evidence/selected/datagen-http-date-acceptance.json",
       "sha256": "9298beae701a0e0a29cbff2050551d5b20faf9be97c41733db9e2487bd2a05bc"
@@ -4540,6 +4411,21 @@
       "bytes": 7010,
       "path": "evidence/selected/dcss-bound-assessment-review.json",
       "sha256": "024f92d127573481ff0bc12e96a12a8c97d55f72e0eb0c9e61ae55164a88e873"
+    },
+    {
+      "bytes": 584,
+      "path": "evidence/selected/dcss-cli-native-execution.json",
+      "sha256": "ac9cb80b285887ef0be161299442aa93efab8bd21184e2383fbc03535d71d2a5"
+    },
+    {
+      "bytes": 13250,
+      "path": "evidence/selected/dcss-cli-native-result.json",
+      "sha256": "f4d720a2922ce4a56a754df1146a970964cd438435cfbb1e262e93db9e9f5140"
+    },
+    {
+      "bytes": 1256,
+      "path": "evidence/selected/dcss-cli-result-collection.json",
+      "sha256": "af086828e07d6d471b162b0818d6edf7abd2a2885b79fbf9fd460e0389713bd4"
     },
     {
       "bytes": 1706,
@@ -5272,6 +5158,11 @@
       "sha256": "2af3466d930196ab2a22b20d09aa5ec57923fcdfda5a81f53484ed27ebe60d64"
     },
     {
+      "bytes": 3886,
+      "path": "evidence/selected/three-adventure-native-release-acceptance.json",
+      "sha256": "dc3c7f17fd536842d2a016ba234d132619715737ca2784d4dfc061422f98e82e"
+    },
+    {
       "bytes": 4418,
       "path": "evidence/selected/treant-contract-conclusion.json",
       "sha256": "e4b5ffa94b7dec7f624815f2bd009e68eb171375a6d68c5db52ca75ada0c0de2"
@@ -5400,6 +5291,11 @@
       "bytes": 4027,
       "path": "evidence/selected/vliw-three-rejection-controls.json",
       "sha256": "6ef64bd273762152412c5564f0780711817c204cd6010bc4be9da0322831fd3f"
+    },
+    {
+      "bytes": 2364,
+      "path": "evidence/selected/vrptw-all56-native-acceptance.json",
+      "sha256": "e8eabb8787d4c7e3c251c419e20554c41e23fdb5d116b2a7911511888fd8a2c0"
     },
     {
       "bytes": 2425,
@@ -5577,6 +5473,66 @@
       "sha256": "ba68a847df435b3f8ee132ff6a488898552df53d84b4693987139eb0e4de32e6"
     },
     {
+      "bytes": 17,
+      "path": "reproductions/ann-original-cli/.gitignore",
+      "sha256": "55207283eaae09fac28395ab179a974550c6d994bc131b906d1d158af11925bf"
+    },
+    {
+      "bytes": 861,
+      "path": "reproductions/ann-original-cli/Dockerfile",
+      "sha256": "24a00acca4c96e4cbc30f082467d61136c1e1cb087978b56006f6d97de0bf81f"
+    },
+    {
+      "bytes": 10549,
+      "path": "reproductions/ann-original-cli/README.md",
+      "sha256": "faa238f09f528ef3273039c5a406469fc82d0509a27a85f3221fee23a644e499"
+    },
+    {
+      "bytes": 3215,
+      "path": "reproductions/ann-original-cli/bindings.json",
+      "sha256": "fa87712d102901bc00b59aab4e72357a96a303b5ada469ab07ec6e276e946ec8"
+    },
+    {
+      "bytes": 2858,
+      "path": "reproductions/ann-original-cli/check.py",
+      "sha256": "b7f186b765442ce1e5a84012302e13ca6c0f39ce33224dde1a02840eecd789eb"
+    },
+    {
+      "bytes": 811,
+      "path": "reproductions/ann-original-cli/controls.tar.gz",
+      "sha256": "8ea06246d35254a328dcbacb75bb8fbf011eb50393c8333caa8137468df392be"
+    },
+    {
+      "bytes": 0,
+      "path": "reproductions/ann-original-cli/controls/ann_benchmarks/algorithms/custom/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 241,
+      "path": "reproductions/ann-original-cli/controls/ann_benchmarks/algorithms/custom/config.yml",
+      "sha256": "59726cf80b58a460cc5251894e4119fef20641b0a28f00a78bf5d49aa9bd8235"
+    },
+    {
+      "bytes": 1042,
+      "path": "reproductions/ann-original-cli/controls/ann_benchmarks/algorithms/custom/module.py",
+      "sha256": "3dea16d602879f1e590b98d196b8fd4e2be6e68b163fe5a4cdd225c6b47587f4"
+    },
+    {
+      "bytes": 5103,
+      "path": "reproductions/ann-original-cli/data-manifest.json",
+      "sha256": "428605d51ad896505feab9c9797942fbababbb26d0830c651a66e924212cf6fd"
+    },
+    {
+      "bytes": 841,
+      "path": "reproductions/ann-original-cli/image-lock.json",
+      "sha256": "9c778c1cda3e1d67fcae021a8efcc2c4c7e9ace3a0dbad1724902cb6d4235a0b"
+    },
+    {
+      "bytes": 1276,
+      "path": "reproductions/ann-original-cli/observed-result.json",
+      "sha256": "0a84eea8ddd9ebea7b987c657f5281469c96918f0ad88c1e5f29bffd546f197a"
+    },
+    {
       "bytes": 3853,
       "path": "reproductions/rust-known-failure-credit/README.md",
       "sha256": "0c3a94c56309ce231fe96c33221c64e8bd76a5d17718c10ade83a17256068fd9"
@@ -5595,6 +5551,36 @@
       "bytes": 6791,
       "path": "reproductions/rust-known-failure-credit/validation.json",
       "sha256": "146fec98d6bc7102b0735c3bd9fd374f0d2962ab3247e2a1f0ad9c07dd8b4089"
+    },
+    {
+      "bytes": 1170,
+      "path": "reproductions/vrptw-instruction-clarification/README.md",
+      "sha256": "b8272aa017360d9a7faf86c8a0d72e013ca631e84a5739ecc1509dc4c7d91a17"
+    },
+    {
+      "bytes": 1461,
+      "path": "reproductions/vrptw-instruction-clarification/agent-query.patch",
+      "sha256": "6551b313713116dc94e60578864b7b3e5ba4ad2f2cdc4190dbd22c8658a41817"
+    },
+    {
+      "bytes": 3824,
+      "path": "reproductions/vrptw-instruction-clarification/checks.json",
+      "sha256": "4e475531015a62037cf1dc65beb0a0c403a040d5ca7f1513b8a55883e31f8cf8"
+    },
+    {
+      "bytes": 9509,
+      "path": "reproductions/vrptw-instruction-clarification/gate-map.json",
+      "sha256": "98fe235bdf89ed5bf70f2197fb7ec3fb4cdda90844106cb56e2fd8c6a4395c70"
+    },
+    {
+      "bytes": 2207,
+      "path": "reproductions/vrptw-instruction-clarification/handoff.json",
+      "sha256": "a3ebdb71e300955a0040d3371c965c7b524a51b2a195ed901afce2800a6d1d4e"
+    },
+    {
+      "bytes": 12379,
+      "path": "reproductions/vrptw-instruction-clarification/vehicle_routing_time_windows.json",
+      "sha256": "d3334128d323c587277f780511cc6b402b251697e891818d6d7ef3c528891b4b"
     },
     {
       "bytes": 41473,
@@ -10266,6 +10252,352 @@
         }
       },
       "utc": "2026-10-12T01:23:20.851818+00:00"
+    },
+    {
+      "reason": "Preserved prior checkpoint before first retained task.",
+      "snapshot": {
+        "accepted_finding_task_union": {
+          "bytes": 2085,
+          "path": "evidence/selected/finding-task-union-21.json",
+          "sha256": "2952e4d356d3878a17ac5418e1e2190c625dfd28525de51e807e312e47296fe3"
+        },
+        "advertised_unavailable": 83,
+        "ann_publisher_provenance": {
+          "archive_wide_uniqueness": false,
+          "complete_member_equality": true,
+          "declared_license_association": "CC BY 4.0",
+          "finite_question_closed": true,
+          "historical_origin_proven": false
+        },
+        "carleson_loader_diagnostic": {
+          "cause": "unknown",
+          "proof_controls": 0,
+          "retry_authorized": false,
+          "setup_lane_stopped": true,
+          "signal": 11,
+          "worker_closed": true
+        },
+        "certified_tasks": 0,
+        "closed_scoped_finding_task_decisions": 21,
+        "config_original_disposition": {
+          "acceptance": {
+            "bytes": 2100,
+            "path": "evidence/selected/config-original-exclusion.json",
+            "sha256": "5196eacad3d1e4964c82e553cb6bcdc9d3a85c39858dad3b2cd2f7787d2221b7"
+          },
+          "explicit_policy_choice": true,
+          "prior_contrary_view_preserved": true
+        },
+        "cta_original_disposition": {
+          "bytes": 2008,
+          "path": "evidence/selected/cta-original-exclusion.json",
+          "sha256": "54f3b48fab4842644e71dd804db64a25ff8bf8c332dea2cb208edb2c40fb6037"
+        },
+        "datagen_native_property": {
+          "all_expectations_matched": true,
+          "authored_strategy_substitution": true,
+          "calls": 12,
+          "fixed_inputs": 6,
+          "full_phase_or_scorer": false,
+          "import_guard_failures_before_substitution": 2,
+          "original_generator_tested": false,
+          "strategy_draws": 14
+        },
+        "datagen_original_disposition": {
+          "bytes": 2031,
+          "path": "evidence/selected/datagen-original-exclusion.json",
+          "sha256": "6d77e64f7bf74bf0db5b9718fee00d30655978345badf6d990fd7946478df2e2"
+        },
+        "dcss_finite_requirements": {
+          "local_helper_correspondence_accepted": true,
+          "new_game_calls": 0,
+          "not_applicable": 1,
+          "release_gate_clearance": false,
+          "satisfied": 22
+        },
+        "dcss_idle_result": {
+          "accepted_records": 5,
+          "actual_games": 5,
+          "fixed_denominator": 5,
+          "new_defect": false,
+          "raw_logs_locally_reparsed": false,
+          "scores": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "dcss_parser_aggregation": {
+          "actual_original_python_functions": true,
+          "additional_engine_malformed_file_required": false,
+          "author_local_controls": 11,
+          "authored_game_response_seam": true,
+          "different_local_controls": 19,
+          "whole_task_approved": false
+        },
+        "exchange_consumer_composition": {
+          "authored_or_substituted_records": true,
+          "grading_calls": 12,
+          "incorrect_engine_reward_proven": false,
+          "new_JVM_calls": 0,
+          "selection_calls": 8
+        },
+        "finite_native_path_results": {
+          "arc": {
+            "affected_rejections": 32,
+            "hidden_scorer": {
+              "accepted_result": {
+                "bytes": 3729,
+                "path": "evidence/selected/arc-hidden-native-acceptance.json",
+                "sha256": "ad3ca88faac6b0ca3f89e1305ad036a4fdb18215ae65aa84561129d2dd525b54"
+              },
+              "all_448_individual_assertion_executions_proven": false,
+              "import_failure_may_be_recorded_as_zero_over_suite_total": true,
+              "raw_denominator": 448,
+              "suite_count": 21,
+              "supplied_reported_passes": 167,
+              "supplied_weighted_score": 35.59,
+              "unaffected_suites_preserved": 12,
+              "wrong_reported_passes": 45,
+              "wrong_weighted_score": 7.41
+            },
+            "new_defect_demonstrated": false,
+            "public_supplied_baseline_passed": 48,
+            "public_total": 48,
+            "public_wrong_interpreter_passed": 16,
+            "unaffected_passes_preserved": 16
+          },
+          "nethack": {
+            "competence_or_world_turn_count_established": false,
+            "default_20_trajectories_run": false,
+            "observed_peak": 0,
+            "original_score": 0,
+            "original_verdict": "WA",
+            "resets": 1,
+            "successful_api_step_returns": 5000
+          },
+          "zig": {
+            "explicit_skipped_scripts": 1006,
+            "new_defect": false,
+            "score": 0,
+            "selected_shared_setup_failed": true,
+            "stub_build_succeeded": true,
+            "test_assertions_reached": 0
+          }
+        },
+        "juliet_retained_crosscheck": {
+          "exact_label_matches": 723,
+          "guard_anchor_convention_resolved": false,
+          "joins": 736,
+          "new_confirmed_defect": false,
+          "null_pointer_labels": 120,
+          "plain_comparison_anchors": 18
+        },
+        "latest_accepted_scope": "Juliet specific18-anchor allegation rejected by primarysource;56 routing feasibility witnesses;finite adventure host composition and reference-only content policy;DCSS command packaging source/component acceptance. No new native execution, finding count, disposition or certification.",
+        "latest_repair_and_source_results": {
+          "ann": "Ordinary binary64 numerical conclusion accepted for all10000installed queries; no extra corpus pass required. Data provenance/QPSscope separate.",
+          "cta": {
+            "actual_installed_module_behavior": true,
+            "fresh_original_source_compilation_proven": false,
+            "native_accounting_calls": 2,
+            "native_risk_method_calls": 12,
+            "whole_task_certified": false
+          },
+          "openttd": "Foreign-seed mechanism unsupported on examined final source; missing-directory error differs from empty-directory no-row behavior. Actual engine reachability and score effect unresolved; no new defect count.",
+          "portfolio": {
+            "authored_scalar_cases": 64,
+            "different_scalar_cases": 6,
+            "final_image_path_source_bound": true,
+            "full_scorer_or_certification": false,
+            "native_full_metric_calls": 16,
+            "native_validation_accepted": true,
+            "paired_authored_cases": 8,
+            "prior_failed_attempt": "V2 retained zero metric outcomes; actual call count and failure cause remain unknown",
+            "source_repair_assignments": 2,
+            "unchanged_metrics_per_pair": 7
+          },
+          "rust": {
+            "actual_cargo_fixtures": 5,
+            "original_corpus_or_full_scorer": false,
+            "paired_helper_outcomes": 10
+          }
+        },
+        "molecular_memory_finding": {
+          "accepted": true,
+          "actual_original_helper_calls": 2,
+          "audit_limit_bytes": 2147483648,
+          "historical_deployment_policy_established": false,
+          "measured_child_rss_bytes": [
+            549842944,
+            1220866048
+          ],
+          "published_aggregate_limit": "8Gi",
+          "repair_validated": false,
+          "score_gain_established": false
+        },
+        "molecular_original_disposition": {
+          "bytes": 2027,
+          "path": "evidence/selected/molecular-original-exclusion.json",
+          "sha256": "d7f138c1382f8ee1fc63d0559e048958f1f9555e0b4079d993f7fb65bf738f80"
+        },
+        "molecular_versioned_as_repair": {
+          "RSS_or_aggregate_tree_enforcement": false,
+          "finite_native_helper_calls": 6,
+          "full_task_certified": false,
+          "paired_controls": 3,
+          "per_process_address_space_bytes": 1000000000
+        },
+        "new_disposition_changes": 0,
+        "new_scoped_findings_tasks": [],
+        "new_task_breadth": 0,
+        "pending_original_dispositions": 33,
+        "portfolio_original_disposition": {
+          "bytes": 2035,
+          "path": "evidence/selected/portfolio-original-exclusion.json",
+          "sha256": "18ae7f892d5fc49734e20887cf9de7bf2970bb7bef10592e0dfed1f0b7962e4f"
+        },
+        "public_tasks": 51,
+        "repair_complements": {
+          "equivalence_T3": {
+            "audit_output_limit_bytes": 67108864,
+            "combined_checker_and_output_allowance_change": true,
+            "official_cases_passed": 1,
+            "official_cases_run": 1,
+            "output_bytes": 40623541
+          },
+          "new_certifications": 0,
+          "new_disposition_changes": 0,
+          "new_task_breadth": 0,
+          "tree_T2": {
+            "installed_evaluator_calls": 4,
+            "reference_passed_before_after": [
+              10,
+              10
+            ],
+            "reference_score_delta": 0,
+            "task_points_scope": 5,
+            "unique_official_cases": 10,
+            "wrong_passed_before_after": [
+              0,
+              0
+            ]
+          }
+        },
+        "reporting_evidence": {
+          "changed_plugin_original_printed_items_passed": 55,
+          "corrected_serial_stateful_controls": {
+            "authored_control_changed": true,
+            "broader_xdist_validated": false,
+            "cleanup_assertions_passed": true,
+            "empty_scenario_cause_explained": false,
+            "failed": 0,
+            "implementation_changed": false,
+            "passed": 3
+          },
+          "coverage_filter_observed_generated_values": 36,
+          "coverage_repair_matched_expectations": 20,
+          "full_corrected_scorer_executed": true,
+          "integrated_corrected_judge": {
+            "collected_passed": 57,
+            "coverage_countercontrols_matched": 20,
+            "junit_countercontrols_matched": 4,
+            "score": 1.0,
+            "script_reported_passed": 55,
+            "whole_task_certified": false
+          },
+          "later_stateful_controls": {
+            "exact_failed_callback_and_conjunct": "unknown",
+            "failed": 3,
+            "failed_assertion": "all callbacks: cases>0 and interactions>0 and elapsed>=0",
+            "later_cleanup_assertions_reached": false,
+            "new_upstream_defect": false,
+            "passed": 0,
+            "prior_positive_results_preserved": true,
+            "scope": "Earlier failed-control snapshot; subsequent stateful_callback_observation resolves failed conjuncts without resolving cause."
+          },
+          "original_score": 1.0,
+          "original_script_reported_total": 53,
+          "requirement_evidence_categories": {
+            "finite_checks": 13,
+            "partial": 9,
+            "total": 22
+          },
+          "same_control_candidate_comparison": {
+            "after_passed": 4,
+            "before_passed": 0,
+            "total": 5
+          },
+          "selected_repaired_junit": "PASS",
+          "separately_corrected_control_passes": 5,
+          "stateful_callback_observation": {
+            "all_elapsed_nonnegative": true,
+            "callbacks_zero_cases_and_interactions": 6,
+            "empty_callback_cause": "unknown",
+            "failed": 3,
+            "later_cleanup_assertions_reached": false,
+            "new_upstream_defect": false,
+            "observed_callbacks": 8,
+            "passed": 0
+          },
+          "whole_task_certified": false
+        },
+        "reporting_original_disposition": {
+          "bytes": 2039,
+          "path": "evidence/selected/reporting-original-exclusion.json",
+          "sha256": "0ffe9e747272d647bd29fc632330659e156dc4e819d0c9d066f137e1aeb11964"
+        },
+        "reviewed_original_exclusions": 18,
+        "rust_original_disposition": {
+          "bytes": 2017,
+          "path": "evidence/selected/rust-original-exclusion.json",
+          "sha256": "2eb882063a7c3b6cb870bf972db89be3c3305de9a343f90595fe711b423254c7"
+        },
+        "snapshot_utc": "2026-10-12T01:19:00+00:00",
+        "sphere_preparation_failure": {
+          "cap_metadata_rows_different": 10,
+          "final_join_equality": "unknown",
+          "original_helper_calls": 0,
+          "retry_authorized": false,
+          "upstream_defect": false,
+          "verified_layers": 11,
+          "worker_closed": true
+        },
+        "treant": "Separate arithmetic-defect claim rejected under acquired adaptation turn-count wording; movement intent remains unresolved.",
+        "utc": "2026-10-12T00:13:23.380834+00:00",
+        "vibrating_component_controls": {
+          "actual_tester_and_helper_calls": 8,
+          "invalid_rejected": 6,
+          "native_full_scorer": false,
+          "new_confirmed_defect": false,
+          "valid_preserved": 2
+        },
+        "vibrating_format_repair": {
+          "full_corpus_or_released_image": false,
+          "native_direct_calls": 32,
+          "native_original_helper_calls": 32,
+          "paired_authored_fixtures": 16
+        },
+        "vibrating_original_disposition": {
+          "bytes": 2038,
+          "path": "evidence/selected/vibrating-original-exclusion.json",
+          "sha256": "65f04d52eee4ffed32641a1ab09f5225fef0850fb7c13a9e3e9ac6923c418ee5"
+        },
+        "vrptw_recovered_evidence": {
+          "binary64_matches": 19,
+          "checker_controls": 19,
+          "complete_routes_established": false,
+          "existing_data_cases": 56,
+          "existing_data_customers": 5600,
+          "native_commands": 26,
+          "native_result_utc": "2026-10-09T17:41:54.737852+00:00",
+          "necessary_travel_window_violations": 0,
+          "new_native_run": false,
+          "nominal_decimal_matches": 17
+        }
+      },
+      "utc": "2026-10-12T02:34:03.014437+00:00"
     }
   ],
   "validation": {
