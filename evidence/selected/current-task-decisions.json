@@ -1,0 +1,841 @@
+{
+  "advertised_unavailable": 83,
+  "counts": {
+    "excluded": 18,
+    "included": 1,
+    "pending": 32,
+    "public": 51
+  },
+  "scope": "Current canonical disposition snapshot, not a substitute for complete gate/evidence records. One retained ANN task under maintained core-v2; no repaired task included yet. Older Git audit/task-registry.json is historical.",
+  "tasks": [
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/ad_placement_optimization.json",
+        "manifest_sha256": "972a31a5fa45545f6fcd8d8cada27f4148fb290bf83477df2745a56a7e5b7531"
+      },
+      "canonical_record": {
+        "bytes": 5548,
+        "path": "edgebenchverified/audit/tasks/ad_placement_optimization.json",
+        "sha256": "996f63c2baf8046129aeb260349421a6f780db22d560ccdbdd083eadd434327a"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "ad_placement_optimization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/anchorhead_text_adventure.json",
+        "manifest_sha256": "4b92b45a34d83e21d60fa1529ec078f44f8593b0a2457345c92e82c343031cb2"
+      },
+      "canonical_record": {
+        "bytes": 10578,
+        "path": "edgebenchverified/audit/tasks/anchorhead_text_adventure.json",
+        "sha256": "2dbcd03583762a763def7ef49c9091acbd2a245591620e1ce7ea3bea3df297b1"
+      },
+      "decision": "review",
+      "rationale": "Finite original assessment supports intended maximize-score behavior. Reference-only content scope is settled; exact candidate reproduction and final release review remain pending.",
+      "status": "pending",
+      "task_id": "anchorhead_text_adventure"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/ann_vector_search_qps.json",
+        "manifest_sha256": "1ba7ddb5c135b6aea5a160613d756d733feef12343ccb030535c5a365b8835cf",
+        "release_harness": {
+          "inventory": {
+            "path": "audit/release/harness-source-inventory-core-v2.json",
+            "sha256": "bb4bde2c7edfcdfb75234055b19cc3c9049e3f0ef1576a7936d884b4c74903dc"
+          },
+          "native_format_delta": {
+            "path": "audit/evidence/ann-retain-decision-astra-high-v1/native-format-delta.json",
+            "sha256": "5ce96a86c2a789d62e7b4bb29b9aa7085b27a6d66969c56a1b954ff767475257"
+          },
+          "scope": "ANN task/evaluator/data unchanged; shared maintained-core semantics explicitly versioned."
+        }
+      },
+      "canonical_record": {
+        "bytes": 13138,
+        "path": "edgebenchverified/audit/tasks/ann_vector_search_qps.json",
+        "sha256": "4491349335af8c9ab29f61cacb185ec1d95aab01016be0bfebb684d5d8782f14"
+      },
+      "decision": "retain",
+      "rationale": "Retain unchanged ANN task, original evaluator, fixed SIFT data and pinned images under explicitly versioned maintained core-v2. Accepted23 scientific assertions plus actual clean CLI positive/empty controls support all task-specific gates. Shared parser/grading/selection corrections are disclosed separately; no ANN-specific repair or historical original whole-harness equivalence claimed. This is a proposed exact-bundle disposition; approvals must be populated by genuine reviewers before canonical adoption.",
+      "status": "reviewed",
+      "task_id": "ann_vector_search_qps"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/apple_incremental_game.json",
+        "manifest_sha256": "19021ddcbcaf966d7d43300b439862290a5c6c283aa6e6641f96efa07b34a25c"
+      },
+      "canonical_record": {
+        "bytes": 16208,
+        "path": "edgebenchverified/audit/tasks/apple_incremental_game.json",
+        "sha256": "1219456d2a5c7feab8bcb5f53869158f8c85cda79a5092fe9dee745604a93ade"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "apple_incremental_game"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/arc_compiler_runtime.json",
+        "manifest_sha256": "b79ca27d72c70b75ba4ce2fc9927ce851e0279717d50e2b06117ec0508de9052"
+      },
+      "canonical_record": {
+        "bytes": 8358,
+        "path": "edgebenchverified/audit/tasks/arc_compiler_runtime.json",
+        "sha256": "b6d3fa39f9e09e6a31caad55215751941016c7a085f083e022d16853c4f153ec"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "arc_compiler_runtime"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/bipedalwalker_locomotion_rl.json",
+        "manifest_sha256": "48c3ebf72861e30c116494df5258c278454fd503caba16de9adf971c1bc03ecb"
+      },
+      "canonical_record": {
+        "bytes": 7748,
+        "path": "edgebenchverified/audit/tasks/bipedalwalker_locomotion_rl.json",
+        "sha256": "c17032661c5d25c7814ac8331cd7bb4803530e8b0eface6fe036083f5994c279"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "bipedalwalker_locomotion_rl"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/borden_source_inversion.json",
+        "manifest_sha256": "9218658263fb2217768ff8c75d06410e9811e5022aa387f88e3c62c3e1457195"
+      },
+      "canonical_record": {
+        "bytes": 8840,
+        "path": "edgebenchverified/audit/tasks/borden_source_inversion.json",
+        "sha256": "74c98fca575e1e428a4f4fd8a645dd3d24247111fae064d2b21e94623e7bab5d"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "borden_source_inversion"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/carleson_formalization.json",
+        "manifest_sha256": "361cef52c1cf5168e48b4be094c95d72a8d02d398a8bff90dad74ee1cf4d8526"
+      },
+      "canonical_record": {
+        "bytes": 7334,
+        "path": "edgebenchverified/audit/tasks/carleson_formalization.json",
+        "sha256": "50727b6feea18e660e45b88d5bf17e825a970ed0479238995d1ea029778b6112"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "carleson_formalization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/college_english_exam_bank.json",
+        "manifest_sha256": "93e112ed9d4b899cff8c7f41552e0a35ce6ae2bb0bc45d109706cf39eaf0406f"
+      },
+      "canonical_record": {
+        "bytes": 8970,
+        "path": "edgebenchverified/audit/tasks/college_english_exam_bank.json",
+        "sha256": "9e4aee99e1c6418b93b30b3abfaa11ed5999db7c8db54e451c75790a86d77c44"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude this exact original for missing required grading-assessment completeness validation in its final supplied grader. On the normal valid nonempty-rubric route, a successfully parsed empty assessment is silently filled in and reported as completed grading. This source-backed contract failure is separate from student partial credit, final numeric scores, actual provider incidence and task certification.",
+      "status": "reviewed",
+      "task_id": "college_english_exam_bank"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/combinatorial_games_formalization.json",
+        "manifest_sha256": "fca494f2aa4fd9d6efda689b846f0df908d7093c89970ea98864eca98894f531"
+      },
+      "canonical_record": {
+        "bytes": 6810,
+        "path": "edgebenchverified/audit/tasks/combinatorial_games_formalization.json",
+        "sha256": "70fe9870c70b5cf7297d053bc9214575ed7fc522230546023646a4d97f6cb99a"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "combinatorial_games_formalization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/cta_risk_budget_optimization.json",
+        "manifest_sha256": "4681d022290b1809e48481dab632a67e333b099e89cca031b41a57fd385a805c"
+      },
+      "canonical_record": {
+        "bytes": 8786,
+        "path": "edgebenchverified/audit/tasks/cta_risk_budget_optimization.json",
+        "sha256": "517534440f5b93db334837795c6fc3c61f293e2d9dc343a0880b5b011bd608d8"
+      },
+      "decision": "exclude",
+      "rationale": "Withhold this exact original unchanged for an observed currency-unit defect in cross-border risk scoring: the installed original awards the no-violation point to a mixed CNY/USD fixture whose common-CNY overseas share is7/9, above the existing40% limit. Independent source controls and actual installed-module comparisons support the contradiction. This decision does not claim all scores are wrong or certify the finite repair. Effective only after three exact-bundle approvals and root adoption.",
+      "status": "reviewed",
+      "task_id": "cta_risk_budget_optimization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/dabic_gravity_inversion.json",
+        "manifest_sha256": "d40941617e380d97ea7e623a1e2acaa343974f1eb33ba8d86da338d04777eb34"
+      },
+      "canonical_record": {
+        "bytes": 7971,
+        "path": "edgebenchverified/audit/tasks/dabic_gravity_inversion.json",
+        "sha256": "7c9b4506d2142e21c648cff4772abfc831c97af7e6abfb227f85c04ae15c08db"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "dabic_gravity_inversion"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/dcss_dungeon_ai.json",
+        "manifest_sha256": "7d89425a7b6e072e3ff3b4faf4cd171b60946584c4dd33cabdad298af20a42a4"
+      },
+      "canonical_record": {
+        "bytes": 11478,
+        "path": "edgebenchverified/audit/tasks/dcss_dungeon_ai.json",
+        "sha256": "b41ef0c6f650d3f71e88bf12dd5e1bd2e79c8332a443628b4ae907c72fae7bb7"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "dcss_dungeon_ai"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/equivalence_class_divide_and_conquer.json",
+        "manifest_sha256": "df4775dfc899bb408dab3b5da808a1afecbfd86adbae9cf0d3508185c686db8e"
+      },
+      "canonical_record": {
+        "bytes": 18879,
+        "path": "edgebenchverified/audit/tasks/equivalence_class_divide_and_conquer.json",
+        "sha256": "8cb564b562fdf725f39a9f239236daad9137c2b1eae199a8050cfa0b0f1f1ddd"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude this exact original version: its consumed T3 checker accepts and the original evaluator awards full component credit to an operation sequence with independently derived cost2500050000, exceeding the explicit2500000000 limit. At-limit, efficient and missing-marker controls establish the specific mandatory cost-validation failure. No real-corpus incidence, historical score gain or complete repaired-version certification is claimed. Effective only after three genuine exact-bundle disposition approvals and guarded root adoption.",
+      "status": "reviewed",
+      "task_id": "equivalence_class_divide_and_conquer"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/exchange_core_throughput.json",
+        "manifest_sha256": "fc64c74d1aadd48547407dd4ed66d7473dc8d49e05b66fe460d2513361c18e2f"
+      },
+      "canonical_record": {
+        "bytes": 8836,
+        "path": "edgebenchverified/audit/tasks/exchange_core_throughput.json",
+        "sha256": "cb58de85b3e06f321f4cbe5dc48b410d5b7f4e4a308fd31f69510253c4826d0d"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "exchange_core_throughput"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/ffmpeg_swscale_reimplementation.json",
+        "manifest_sha256": "671c78a14cd9144d4b9e14ca6cf1b61230bb88d29e1565849f509353a9b27b3b"
+      },
+      "canonical_record": {
+        "bytes": 9120,
+        "path": "edgebenchverified/audit/tasks/ffmpeg_swscale_reimplementation.json",
+        "sha256": "41b0831776a79b5695a1757902d5f4d78a1c62ca56eec4b47ab183c6d995508b"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "ffmpeg_swscale_reimplementation"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/flt_regular_formalization.json",
+        "manifest_sha256": "57950a57b88ad09203554da4d1b5b917958a1078024764780bced8afcd428a61"
+      },
+      "canonical_record": {
+        "bytes": 6833,
+        "path": "edgebenchverified/audit/tasks/flt_regular_formalization.json",
+        "sha256": "a6bd094e16a2e0375e934ca82940b7f21a15eca0cece9497fc452673b6647a69"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "flt_regular_formalization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/git_rewrite_in_zig.json",
+        "manifest_sha256": "6ae15eab2468ec372b36ae6101310d21c34803d147fa79752c3fe55f154a7332"
+      },
+      "canonical_record": {
+        "bytes": 8627,
+        "path": "edgebenchverified/audit/tasks/git_rewrite_in_zig.json",
+        "sha256": "7141bd1742e9e359941ff97793a94bfb430b246120ac2b6aa9ed0c9709dc5469"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "git_rewrite_in_zig"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/graph_node_classification.json",
+        "manifest_sha256": "330c5d616fcdaca2504751e841fb170fad18131d4e6a43dad31e3912fa2b0f84"
+      },
+      "canonical_record": {
+        "bytes": 13453,
+        "path": "edgebenchverified/audit/tasks/graph_node_classification.json",
+        "sha256": "8468f4143e0a2b9f74f8a4823dc049a07b632c6d5a040920fd83ac02de21523a"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude this exact original version: a complete submission containing one NaN confidence is reported valid and selected by the original judge/wrapper although the acquired work contract requires supplied confidences in[0,1]. NaN lies outside that real interval; the original calibration clamp does not validate the supplied value. Ordinary controls and original missing-ID rejection are preserved. No NaN-caused score gain, holdout breach or complete repaired-version certification is claimed. Effective only after three genuine exact-bundle disposition approvals and guarded root adoption.",
+      "status": "reviewed",
+      "task_id": "graph_node_classification"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/grid_turing_robot.json",
+        "manifest_sha256": "b88eff2092c1cd10f2356746f0e486f094d09c0c3966497ad1a798f7e7b83948"
+      },
+      "canonical_record": {
+        "bytes": 5249,
+        "path": "edgebenchverified/audit/tasks/grid_turing_robot.json",
+        "sha256": "32e4fd43fc887bdb5f650671bbf3cebb92078b1792cd7e20532276657b04e9b2"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "grid_turing_robot"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/integer_compression_codec.json",
+        "manifest_sha256": "50f4e9ef6f84164b65d66d3e2c368837b928de1729ce8bfcf8a34c1e5b4d84ee"
+      },
+      "canonical_record": {
+        "bytes": 5137,
+        "path": "edgebenchverified/audit/tasks/integer_compression_codec.json",
+        "sha256": "cb8770b56cc7726a8f3a5ec4cd883df977f3777b935693bbb450b2cf79de194a"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "integer_compression_codec"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/jagua_nesting_optimization.json",
+        "manifest_sha256": "5d8f64ebd76218d8636c21aef8bb63b70348e037fad666e9f711450e58a747e7"
+      },
+      "canonical_record": {
+        "bytes": 14514,
+        "path": "edgebenchverified/audit/tasks/jagua_nesting_optimization.json",
+        "sha256": "33fb47a43bef0d8735b0a7235c839483e7966112e97abf01808f6378b68054bd"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude this exact original version: the unchanged installed validator accepts positive-area coincident/collinear placements, contradicting the independent geometric-validity score contract. A new complete43-demand witness on unchanged selected shapes1.json is also accepted despite39 coincident extra copies. Ordinary exact simple rings, zero rotation and integer transport refute contact/tolerance/degeneracy explanations. No score gain or universal repair is claimed. This candidate becomes effective only after three real exact-bundle approvals and guarded root adoption.",
+      "status": "reviewed",
+      "task_id": "jagua_nesting_optimization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/juliet_vulnerability_analyzer.json",
+        "manifest_sha256": "4432f442d75c2663a94da0bf33381df5b43300a05d438d3d8459b473461516fa"
+      },
+      "canonical_record": {
+        "bytes": 7445,
+        "path": "edgebenchverified/audit/tasks/juliet_vulnerability_analyzer.json",
+        "sha256": "6a4e85811aedd5e2e28d03ccffb823dfccf2fb29faf8c4ab384e2e2b800d283f"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "juliet_vulnerability_analyzer"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/k12_math_recommendation.json",
+        "manifest_sha256": "550851358d3cab943dc0cf8ccfd7047afe11c923666855aecf434d3a0d2760ea"
+      },
+      "canonical_record": {
+        "bytes": 8673,
+        "path": "edgebenchverified/audit/tasks/k12_math_recommendation.json",
+        "sha256": "32fb259a128ec98e94971f33e6c9bd67564d2f73e5ce8b96f64ebc2440a24f87"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "k12_math_recommendation"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/lean_analysis_proofs.json",
+        "manifest_sha256": "393385a2974bca00a43f988697c5cd63cc0b0267891d3a1859fe7c5866f5b18d"
+      },
+      "canonical_record": {
+        "bytes": 11255,
+        "path": "edgebenchverified/audit/tasks/lean_analysis_proofs.json",
+        "sha256": "a15826682e5cab50b2dd8549b1331ba1ed163ce760c9c0e13f75e30af030b190"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude this exact acquired source/task version from a verified release: two required unchanged theorem signatures assert false propositions under their actual hypotheses. Explicit elementary counterexamples refute the pointwise/global anti_symm equivalence and duplicated-f division premise. The original prompt requires all holes without signature changes, so a sound complete repair requires a new statement/task version. Other targets can still earn valid partial progress; no zero-score, effective native-type/denominator or kernel-unsoundness claim. Native kernel, final overlay/work parity, score effects, expert and rights checks remain unresolved. This staged exclusion takes effect only after three exact-bundle approvals and root integration.",
+      "status": "reviewed",
+      "task_id": "lean_analysis_proofs"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/molecular_self_assembly.json",
+        "manifest_sha256": "e8569e3a42da7c685fc93367701d844aefe2d4d9e541919fca298501efa41717"
+      },
+      "canonical_record": {
+        "bytes": 21831,
+        "path": "edgebenchverified/audit/tasks/molecular_self_assembly.json",
+        "sha256": "6a866d71ecfced3bc6f5fd860dbe22e1ecb0de3d45bd7d9563ff6a1c97d4ee98"
+      },
+      "decision": "exclude",
+      "rationale": "Withhold the exact unchanged original because its advertised1GB per-solution memory bound is not enforced by the original helper or published judge configuration. An original child measured at1220866048bytes RSS still receivedOK/1392530 under the explicit2GiB audit regime. This finite defect warrants version-specific withholding; historical deployment policy, metric semantics, score gain and full-task validity remain qualified. The separately tested AS-policy candidate is not substituted or certified.",
+      "status": "reviewed",
+      "task_id": "molecular_self_assembly"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/nethack_dungeon_agent.json",
+        "manifest_sha256": "90a9ba87c5f50d17f8a369c34477818035b3d8e2f792076e8cb06d672f958fcb"
+      },
+      "canonical_record": {
+        "bytes": 8007,
+        "path": "edgebenchverified/audit/tasks/nethack_dungeon_agent.json",
+        "sha256": "65147e389d2230cc6dd5f0ead3583bc8b5b1f0d330ddb62fa714391dbbefb383"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "nethack_dungeon_agent"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/new_foundations_consistency.json",
+        "manifest_sha256": "37ea0a38e797f0172f335348f02a09e3886c01fa81bcb915025d6bafd081f55a"
+      },
+      "canonical_record": {
+        "bytes": 6870,
+        "path": "edgebenchverified/audit/tasks/new_foundations_consistency.json",
+        "sha256": "8a5c06fa76a955fa38f684992f49721c4ceff007d1350aabc1f5a59603b570d7"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "new_foundations_consistency"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/openrct2_theme_park_ai.json",
+        "manifest_sha256": "09e2a4d83cb14b735a04f43a40764806d05cadc4206d293c5bd3f211cc051449"
+      },
+      "canonical_record": {
+        "bytes": 8393,
+        "path": "edgebenchverified/audit/tasks/openrct2_theme_park_ai.json",
+        "sha256": "2246524375adbd319a07d5ec1a74bdf918853ffeaeb170c7d3fa6d61d9cd32cf"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "openrct2_theme_park_ai"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/openttd_transport_ai.json",
+        "manifest_sha256": "7ec35c5f0065dd4b2e621077cc38491382899611a4c5fee9398dc62148bb0bd5"
+      },
+      "canonical_record": {
+        "bytes": 8082,
+        "path": "edgebenchverified/audit/tasks/openttd_transport_ai.json",
+        "sha256": "5eb1c0852bde75fefe8a26248eb8d1e1544980301f1d43cb1b020d40d6b03c6e"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "openttd_transport_ai"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/order_addition_permutation_optimization.json",
+        "manifest_sha256": "d27df71e7e05146b3c8ac49932ea789e5c3d30f53bb538d8d79a8f2ef7d8b84f"
+      },
+      "canonical_record": {
+        "bytes": 8964,
+        "path": "edgebenchverified/audit/tasks/order_addition_permutation_optimization.json",
+        "sha256": "2d34510dcaa3d53d77137b28bda605af20bafd1662e38246f4b14c49a60878af"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude only the exact acquired original Order version d27df71e7e05146b3c8ac49932ea789e5c3d30f53bb538d8d79a8f2ef7d8b84f: the supplied private helper integrity assertion expects3023... but reads installed337837... outside legitimate submission edits. Accepted original legal controls fail that necessary check while the one-literal repaired candidate passes and still rejects invalid submissions. Original reports and nonzero continuous scores can remain valid; this is not a score-ceiling or objective-mathematics claim. The minimally repaired version remains separate and pending. This isolated reviewed-status target is effective only after three actual exact-bundle disposition approvals and root integration.",
+      "status": "reviewed",
+      "task_id": "order_addition_permutation_optimization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/ordinal_notation_well_foundedness.json",
+        "manifest_sha256": "8656fb3da6d93d263be514baffaf85577770e22b69424f8bcd16f6991d45ddb8"
+      },
+      "canonical_record": {
+        "bytes": 5174,
+        "path": "edgebenchverified/audit/tasks/ordinal_notation_well_foundedness.json",
+        "sha256": "9d551a12ef3d533f5a416da366bdf8adb991b8267e40c63a61289d6087871b0d"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "ordinal_notation_well_foundedness"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/pfr_formalization.json",
+        "manifest_sha256": "d26b45a9d189eca28d49570bf7d9e292240840f619d7cdb5087758ca1ae677d0"
+      },
+      "canonical_record": {
+        "bytes": 6628,
+        "path": "edgebenchverified/audit/tasks/pfr_formalization.json",
+        "sha256": "fad84f4e1d08be80d4cedc527e1ba59ce2d4c375318bde71b01fc364db468226"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "pfr_formalization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/portfolio_risk_calibration.json",
+        "manifest_sha256": "0343ac03f42042ff9053cb1809d106dac9311e5fe7d9bab353eab4ad1b078cb1"
+      },
+      "canonical_record": {
+        "bytes": 10397,
+        "path": "edgebenchverified/audit/tasks/portfolio_risk_calibration.json",
+        "sha256": "a101ccbe4382c16f103d89d76c8a6aae7c855283969839ea40a62b01da7490fe"
+      },
+      "decision": "exclude",
+      "rationale": "Withhold this exact original unchanged for its documented annual-excess formula contradiction: the native original returns21% instead of the23% difference of separately annualized aligned returns on the accepted126-observation witness. Eight paired complete-metric controls preserve seven unaffected metrics; other inputs can remain correct. Existing aligned/global horizon distinctions and finite repair limits are explicit. No whole-score effect or completed replacement is claimed. Effective only after three exact-bundle approvals and root adoption.",
+      "status": "reviewed",
+      "task_id": "portfolio_risk_calibration"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/rust_multicrate_reconstruction.json",
+        "manifest_sha256": "9c6823f5874adf3b0a8d810b6801eda901f799cd0f5c964616010e61d8505173"
+      },
+      "canonical_record": {
+        "bytes": 8345,
+        "path": "edgebenchverified/audit/tasks/rust_multicrate_reconstruction.json",
+        "sha256": "2ad1653ca1332d219418ba17b1d86e075512f73279f5860ca6e3bc822d66e19e"
+      },
+      "decision": "exclude",
+      "rationale": "Withhold the exact original unchanged: its cas-pty named-failure allowance credits an unrelated failing test when the exempt test passes, producing11passed/0failed/PASS instead of10passed/1failed in accepted realCargo controls. The intentional named exception is preserved; separate cas-cli policy uncertainty is not an exclusion ground. The finite corrected helper is not a completed replacement. Effective only after three exact-bundle approvals and root adoption.",
+      "status": "reviewed",
+      "task_id": "rust_multicrate_reconstruction"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/schemathesis_config_modernization.json",
+        "manifest_sha256": "04ef947e4a7ed2ff86122ef7cd6fedc2c246c56f5ccecd8cdceea3b063539ab5"
+      },
+      "canonical_record": {
+        "bytes": 17694,
+        "path": "edgebenchverified/audit/tasks/schemathesis_config_modernization.json",
+        "sha256": "83587ea98445ce9079071d054b080090c644424728936bcb7da3eb4f722d8b8a"
+      },
+      "decision": "exclude",
+      "rationale": "Withhold the exact original unchanged as an explicit version-specific release judgment: an ordinary forwarding wrapper violating the required metric-decorator identity receives all15original metric points in the complete scorer. Both partial artifacts have identical overall score1504/11115, so no wrapper gain or whole-task invalidity is claimed. The measured identity-only correction is a separate score version. Prior contrary exclusion recommendation is preserved. Effective only after three exact-bundle approvals and root adoption.",
+      "status": "reviewed",
+      "task_id": "schemathesis_config_modernization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/schemathesis_datagen_pipeline.json",
+        "manifest_sha256": "446b568d02621af5b9edd567fb806f32ed009bbc5308b7e7cb547bf1b851a4e5"
+      },
+      "canonical_record": {
+        "bytes": 10382,
+        "path": "edgebenchverified/audit/tasks/schemathesis_datagen_pipeline.json",
+        "sha256": "4a61133d07692ee727ce91e0466a19b70883e2d875c8934cd148932c435d99c2"
+      },
+      "decision": "exclude",
+      "rationale": "Withhold this exact original unchanged for D1.3 date-checker false acceptance: April31/hour24 pass the complete original property under an explicit authored strategy seam; V2 rejects them and preserves four valid inputs. Missing baseline generator/import failure is not a defect premise. No whole-score gain or completed replacement claimed. Effective only after three exact-bundle approvals and root adoption.",
+      "status": "reviewed",
+      "task_id": "schemathesis_datagen_pipeline"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/schemathesis_reporting_observability.json",
+        "manifest_sha256": "4c199f9286f7def2c9d3f3f1b0a35a85f547f2794d4ed81abaf6c74083731e69"
+      },
+      "canonical_record": {
+        "bytes": 12755,
+        "path": "edgebenchverified/audit/tasks/schemathesis_reporting_observability.json",
+        "sha256": "6d1340e11d65cc342cfba62908caaa629fd0d5f2806097b7972bf840361acee3"
+      },
+      "decision": "exclude",
+      "rationale": "Withhold this exact original unchanged for two evidenced verifier gaps: its isolated JUnit test accepts malformed/nonXML output, and its body/query coverage deny tests can pass vacuously when the actual candidate helper emits an unexpected-property scenario. Native whole-function countercontrols substantiate the latter on implementationV2; no historical score effect or bare-original implementation defect is inferred. Preserve original baseline0.02 and original-judge reference score1.0. The separately integrated judge repair is not whole-task certification. Effective only after three exact-bundle approvals and root adoption.",
+      "status": "reviewed",
+      "task_id": "schemathesis_reporting_observability"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/smt_solver.json",
+        "manifest_sha256": "3dd31c12948fae9aa6e8d8b599ddc6c4d93348fb1c89301698c9a0dc6043c11f"
+      },
+      "canonical_record": {
+        "bytes": 10983,
+        "path": "edgebenchverified/audit/tasks/smt_solver.json",
+        "sha256": "6eeea36cb97c56bcf714077e11fad2de8bca97e98118f6b71c96c50de286dce0"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "smt_solver"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/sphere_eversion_formalization.json",
+        "manifest_sha256": "089f12486481efd49688c1eda67823dd9b3b4026c4cfecf047484f1132b217c4"
+      },
+      "canonical_record": {
+        "bytes": 6872,
+        "path": "edgebenchverified/audit/tasks/sphere_eversion_formalization.json",
+        "sha256": "9f331bf8d5e7618114bab531fc9c4b3d60ccb0788b6e9735b2cee734fc94b939"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "sphere_eversion_formalization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/treant_forest.json",
+        "manifest_sha256": "2fdb98ce1166a1fea4743c2ae1613479bdf9eaf755cab190bfd931bc547a615e"
+      },
+      "canonical_record": {
+        "bytes": 8536,
+        "path": "edgebenchverified/audit/tasks/treant_forest.json",
+        "sha256": "eedb15dc7973e0ea31b99db51767518773d8e6523a2ec62501aced19b84cc87a"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "treant_forest"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/tree_block_partitioning.json",
+        "manifest_sha256": "44b08d0d5f7bd4660a3d2a073496a820798762724491d6f0bc1fdc7994b51be4"
+      },
+      "canonical_record": {
+        "bytes": 18327,
+        "path": "edgebenchverified/audit/tasks/tree_block_partitioning.json",
+        "sha256": "09dc25916f75afb72b6e7fc8c422d434541f94a758e38c4d5271bd4524a9250a"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude the exact original because the supplied T2 multiplication operation violates its documented unrestricted value semantics on a legal self-product. The installed helper produces6190 rather than3714 for the accepted scalar1 witness. This is not a claim of full-checker failure, score gain/loss, infeasibility or certification of the finite correction.",
+      "status": "reviewed",
+      "task_id": "tree_block_partitioning"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/triangulation_coloring_optimization.json",
+        "manifest_sha256": "4def4778920ad41c00f14a01c17ccbe2d749431fe835917806c6f5274b8621b7"
+      },
+      "canonical_record": {
+        "bytes": 10639,
+        "path": "edgebenchverified/audit/tasks/triangulation_coloring_optimization.json",
+        "sha256": "139bc927a90bd43049cf6bbb664b236dac90e2d3b5a29f82524f4de085db601b"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude this exact current release: all ten fixed N=512 case files, independently proven to contain positive-area triangle overlap, match the running pinned judge. They violate the declared planar triangulation input contract. The supplemental N=4 invalid-flip diagnostic is also accepted. Preserve the original task and audit record; all inclusion gates remain pending. A repaired future version requires full independent inclusion review. This staged decision becomes effective only after three exact-bundle approvals and root integration.",
+      "status": "reviewed",
+      "task_id": "triangulation_coloring_optimization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/trinity_text_adventure.json",
+        "manifest_sha256": "7364a0121b674177006567c7dc4e7365268c3547d647d956c835db04fd2fc0ee"
+      },
+      "canonical_record": {
+        "bytes": 8705,
+        "path": "edgebenchverified/audit/tasks/trinity_text_adventure.json",
+        "sha256": "8c9f42d3fd92318becdbd8649e3da245abbe4bf47b33f0b3ec49f2d79c065cc9"
+      },
+      "decision": "review",
+      "rationale": "Finite original assessment supports intended maximize-score behavior. Reference-only content scope is settled; exact candidate reproduction and final release review remain pending.",
+      "status": "pending",
+      "task_id": "trinity_text_adventure"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/tryst_text_adventure.json",
+        "manifest_sha256": "a6e4815a7f300f53ac430c2962da256ed8bc5f6552d6e188cd6dfafa78c51b5f"
+      },
+      "canonical_record": {
+        "bytes": 8693,
+        "path": "edgebenchverified/audit/tasks/tryst_text_adventure.json",
+        "sha256": "d55c8374dc0b39f58b8efbea2a0228a6002db3064b95316f994633da82c59741"
+      },
+      "decision": "review",
+      "rationale": "Finite original assessment supports intended maximize-score behavior. Reference-only content scope is settled; exact candidate reproduction and final release review remain pending.",
+      "status": "pending",
+      "task_id": "tryst_text_adventure"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/vehicle_routing_time_windows.json",
+        "manifest_sha256": "5dc47728618f81deda92fbca50f7dcdff2e72589bc197cfab3a1e95edb0ff427"
+      },
+      "canonical_record": {
+        "bytes": 10571,
+        "path": "edgebenchverified/audit/tasks/vehicle_routing_time_windows.json",
+        "sha256": "b268bc71cd48ba39f9ecefa887d8da3f2c2a03f25ac2defa031343e5468a7326"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "vehicle_routing_time_windows"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/vibrating_path_graph_coloring.json",
+        "manifest_sha256": "d3bba05490f7a44245ed836c4efc6e2723399a40ffecaee39c47cdf9d29dc9a8"
+      },
+      "canonical_record": {
+        "bytes": 10432,
+        "path": "edgebenchverified/audit/tasks/vibrating_path_graph_coloring.json",
+        "sha256": "f9c2b65841443410f1b38291056ee0a36f0779cd62628f7237c000bacea1b351"
+      },
+      "decision": "exclude",
+      "rationale": "Withhold this exact original unchanged for the independently reproduced inconsistency between its available documented three-line zero-hit output and its original tester, which rejects that form while accepting the identical coloring in two lines at cost0. This is a conservative interface-consistency release decision: unrecovered toolsREADME may affect complete-documentation precedence, which remains qualified. Do not use the separate ambiguous primary graph-rule divergence as an exclusion ground or infer official-corpus score harm. Preserve legitimate original results and separately tested parser repair. Effective only after three exact-bundle approvals and root adoption.",
+      "status": "reviewed",
+      "task_id": "vibrating_path_graph_coloring"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/vliw_kernel_optimization.json",
+        "manifest_sha256": "b6861e44630e1815b25e79f84b95bbd2a9e0941d218e5934a0a7e659c4b657d3"
+      },
+      "canonical_record": {
+        "bytes": 7926,
+        "path": "edgebenchverified/audit/tasks/vliw_kernel_optimization.json",
+        "sha256": "67f698d8b78968b2450f41fe4551ae18f10191dbb665dafc4680911c0b187ff9"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude this exact original because imported candidate code can substitute the live trusted per-case evaluator. The unchanged original source-copy runner accepted a deliberately invalid file with no required kernel builder after candidate-origin checker replacement. Accepted native installed-source identities match that runner and verifier; native execution of this invalid candidate remains unobserved. This is an evaluator-integrity source/component exclusion, not a permitted optimization or a measured legal score gain.",
+      "status": "reviewed",
+      "task_id": "vliw_kernel_optimization"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/warehouse_forklift_routing.json",
+        "manifest_sha256": "780025706c0b3201025f240e25b742f179c32c25be487d4802f074264b8cbd1c"
+      },
+      "canonical_record": {
+        "bytes": 5316,
+        "path": "edgebenchverified/audit/tasks/warehouse_forklift_routing.json",
+        "sha256": "481c7b2a9d7a679f041d49588334b8aaab06c4bf3b729a2b8584052bc69812bd"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "warehouse_forklift_routing"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/wesnoth_tactical_ai.json",
+        "manifest_sha256": "b03e7eaafb4bddc146b82d80c38eb7222d4b2d3d7130253a2fc5b4903324cf63"
+      },
+      "canonical_record": {
+        "bytes": 6662,
+        "path": "edgebenchverified/audit/tasks/wesnoth_tactical_ai.json",
+        "sha256": "e1105b137ab118a89f5814111e410b787c149418f26ee3e913a526b04bf5edd6"
+      },
+      "decision": "review",
+      "rationale": "Await full specification, verifier, data and execution review. Static inventory is not verification.",
+      "status": "pending",
+      "task_id": "wesnoth_tactical_ai"
+    },
+    {
+      "candidate": {
+        "changes": [],
+        "manifest_path": "tasks/wireless_electricity_layout.json",
+        "manifest_sha256": "050ab35f99431e94ee6279fcd23dc06c9a795ee7b9f26b7d9ec4eadb3e060809"
+      },
+      "canonical_record": {
+        "bytes": 11943,
+        "path": "edgebenchverified/audit/tasks/wireless_electricity_layout.json",
+        "sha256": "5a05e5aa702f3f5420240236d841810d7ab5f38c3b789e57c456ccee51c7ee6d"
+      },
+      "decision": "exclude",
+      "rationale": "Exclude only the exact acquired original Wireless version050ab35f99431e94ee6279fcd23dc06c9a795ee7b9f26b7d9ec4eadb3e060809: its promised50-case feasible sum(P+Q) objective is composed with a failed-compilation branch that emits a single1e17 penalty for the whole suite. Accepted native evidence records a feasible50/50 parked control at683729230558873169 and a compile failure at100000000000000000; intact original raw score_first/minimize history therefore marks the compile failure best, and the pinned original final-result consumer persists that raw selection. This is a material failure-aggregation/verifier mismatch, despite score_first behaving exactly as specified. All observed normalized scores are zero; no normalized leaderboard gain, optimality or historical incidence is claimed. A separately versioned repair remains pending. This reviewed-status target is effective only after actual exact-bundle disposition approvals and root integration.",
+      "status": "reviewed",
+      "task_id": "wireless_electricity_layout"
+    }
+  ],
+  "utc": "2026-10-12T02:30:42.595116+00:00",
+  "whole_release_ready": false
+}

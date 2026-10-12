@@ -1,0 +1,136 @@
+{
+  "accepted_result": {
+    "actual_operation": "Actual python -m sforge eval --backend docker --archive controls.tar.gz, with original pinned ANN judge and retained flat/empty submission. Actual archive transport, evaluator invocation, test_output sibling collection, maintained CASE/TOTAL_SCORE grading and normalization completed.",
+    "counts": {
+      "errors": 0,
+      "failed": 1,
+      "pass_rate": 0.5,
+      "passed": 1,
+      "total": 2
+    },
+    "elapsed_seconds": {
+      "actual_cli_driver_command": 546.058,
+      "reported_native_actor": 545.271244099,
+      "whole_driver": 609.588272722
+    },
+    "negative": "One empty-result control returned WA and score0.",
+    "normalization": "Raw19 is below documented3108 baseline; log_max clip gives0. Independent arithmetic agrees. Normalized0 is expected and is not failed execution. Intentionally failing empty control explains the .5 pass rate.",
+    "positive": "One flat FAISS control returned OK and raw QPS score19.",
+    "projected_case_ids": [
+      "0000 WA score0",
+      "0001 OK score19"
+    ],
+    "report": {
+      "normalized_score": 0,
+      "raw_score": 19,
+      "timed_out": false,
+      "valid": true
+    }
+  },
+  "attempt_id": "ea435b0f39d04dcbaaee7a5a10aea2d3",
+  "canonical_mutations": 0,
+  "checks_passed": 27,
+  "closure_accounting": {
+    "all_three_owned_network_rules_removed": true,
+    "charged_seconds_including_margin_rounding": 720,
+    "estimated_cost_usd": 0.03312,
+    "limit": "Estimated lifecycle accounting, not invoice spend. result.requires_worker_termination=true is a driver cleanup requirement; saved outer receipt and provider closure establish it was fulfilled.",
+    "original_reserved_usd": 0.1656,
+    "outer_child_reaped": true,
+    "owned_containers_absent": true,
+    "owned_worker_closed": true,
+    "queue_and_batch": "completed with exact attempt/export/grant joins"
+  },
+  "decision": "GO_ACCEPT_FINITE_ACTUAL_MAINTAINED_CLI_ORIGINAL_JUDGE_INTEGRATION",
+  "evidence_modes": {
+    "actual": "Trusted native actor executed actual maintained CLI and projected bounded original evaluator/report fields; saved result/execution bytes independently checked against exported receipt hashes.",
+    "control_mapping": "Retained submission has only flat/empty modes: flat searches FAISS IndexFlatL2; empty returns[]. The actor checks exactly oneOK positive and oneWA0; exported case IDs themselves do not include mode labels. Scope follows this two-mode fixture, not an unseen per-mode raw transcript.",
+    "raw_limits": "Original387-byte test_output, report and1722-byte CLI log are represented by hashes/counts, not retained raw bodies in exports. Reviewer cannot independently reparse those private files or reconstruct exact recall values from this receipt. Actor source and observed completion bind the projection; do not call hashes raw-body reproduction."
+  },
+  "independence": "Saved-result and source-to-receipt review. I previously advised on independent native routes and read-only concurrent validator adoption; I did not author this ANN actor, controls or native run. No new original task execution.",
+  "inputs": {
+    "admission": {
+      "bytes": 2881,
+      "path": "edgebenchverified/audit/evidence/ann-clean-integration-native-astra-high-v2-root/root-admission.json",
+      "sha256": "61066a38a412fb779336dbd3fd82ce95a9cf42e88ddba480dd9deaa7b8f0c279"
+    },
+    "attempt": {
+      "bytes": 1560,
+      "path": "work/cloud-queue/attempts/ea435b0f39d04dcbaaee7a5a10aea2d3.json",
+      "sha256": "7410ed4d5245f9a5d09127c25c23b8284c03dd51754235837c78a2c0b3d32076"
+    },
+    "batch": {
+      "bytes": 1346,
+      "path": "edgebenchverified/audit/evidence/ann-clean-integration-native-astra-high-v2-root/batch-result.json",
+      "sha256": "31b4424c6780a8d961a2acb003a76bcc24289936e2fd671424a5b67a5bcbad11"
+    },
+    "checks": {
+      "bytes": 1479,
+      "path": "work/reviews/ann-clean-integration-native-astra-high-v2-result/checks.json",
+      "sha256": "4790dbd568dd5f0235f86e47a38084b9019c8924b187256edb03dd87d91e24c3"
+    },
+    "different_source_review": {
+      "bytes": 1356,
+      "path": "work/reviews/ann-clean-integration-native-astra-high-v2-different/handoff.json",
+      "sha256": "37ba771e437c58e879a538bc2a14987c0574a36b4022fae1a5dd41df9ad49860"
+    },
+    "execution": {
+      "bytes": 578,
+      "path": "work/cloud-queue/exports/deterministic-ann-clean-cli-3bc1e06b0f3fc209/ea435b0f39d04dcbaaee7a5a10aea2d3/execution.json",
+      "sha256": "f562fd2e292b16dc19f0c2f0da6d889ebab9ebb7fc42cdeebdbf66abf461c852"
+    },
+    "grant": {
+      "bytes": 2015,
+      "path": "edgebenchverified/audit/evidence/ann-clean-integration-native-astra-high-v2-root/root-grant.json",
+      "sha256": "76aed888614235ebdff18af07747ee640ec555a6d25f83de6f74c0ccd106603c"
+    },
+    "job": {
+      "bytes": 2232,
+      "path": "work/packets/ann-clean-integration-native-astra-high-v2/job.json",
+      "sha256": "ab16de318d886e29f344a7751a8c9c8eee99de138dfd3de159256445b3584241"
+    },
+    "loaded_runtime": {
+      "bytes": 1074,
+      "path": "edgebenchverified/audit/evidence/ann-clean-integration-native-astra-high-v2-root/launch-handle.json",
+      "sha256": "b1a12bc153fd047de8578d357cb2ff1fd700855df0573f4010642ca5f367e8ef"
+    },
+    "result": {
+      "bytes": 9774,
+      "path": "work/cloud-queue/exports/deterministic-ann-clean-cli-3bc1e06b0f3fc209/ea435b0f39d04dcbaaee7a5a10aea2d3/result.json",
+      "sha256": "030f3c3fb676206826f71aee374dd2ba97c7ad5d2f13fca71ad71f9eacd06105"
+    },
+    "settlement": {
+      "bytes": 1648,
+      "path": "work/cloud-queue/settlements/ea435b0f39d04dcbaaee7a5a10aea2d3.json",
+      "sha256": "d61b7ba97cfd79c725ad8fcfb058e5d4fe1f55704b7ea1ea20aa8a957d08b5b4"
+    },
+    "source_handoff": {
+      "bytes": 1384,
+      "path": "work/packets/ann-clean-integration-native-astra-high-v2/handoff.json",
+      "sha256": "c827d314d626e7165ba55a019794dc84d9f4125a800066987d322d8533af7bd3"
+    }
+  },
+  "job_id": "deterministic-ann-clean-cli-3bc1e06b0f3fc209",
+  "limitations": [
+    "This closes the named maintained CLI/native original-judge integration requirement for these two accepted controls; no whole-task certification or disposition adopted.",
+    "No historical3108/21472 throughput reproduction or solver-competence claim; raw19 remains hardware/runtime-dependent.",
+    "No new label-validity, corpus/provenance, near-duplicate or holdout-independence assertion; reuse existing accepted evidence for those questions.",
+    "Optional E2B/Kubernetes backends, model solving, work-image behavior and other tasks are outside this Docker CLI result.",
+    "Network/cleanup scope is this owned daemon/container/rule set and saved receipts; no global account cleanup or provider call by reviewer."
+  ],
+  "new_native_calls": 0,
+  "provider_calls": 0,
+  "remaining_decision": "Integrate this accepted finite native transport/reproduction evidence with existing ANN requirement reports and exact current release inventory; do not rerun flat/empty or data checks merely for bookkeeping. Root still decides release/retain status.",
+  "reviewer": "astra_efficiency_retrospective; different from ANN scientific actor/driver/control author",
+  "runtime_binding": {
+    "actual_os": "Debian12 bookworm / Linux6.1.158+ / glibc2.36",
+    "image_configs": "Judge and official Python config hashes equal frozen config; runtime built image id retained in result.",
+    "initializer_hash_limit": "source_package_sha256 names the sforge __init__.py file hash, not an aggregate package digest; complete source correspondence comes from the63-member inventory checks.",
+    "loaded_validator": "ANN frozen fb8c020410f46e16d8f2d971442cbd39f2951facce725040d0b91b86c95ed2c1 verified against original proposed copy and launch/grant. Later additive adventure validator is not retroactively attributed to this run.",
+    "meaning": "62 maintained sforge files plus pyproject, each exact byte hash checked by trusted actor; reviewer checked bundled inventory and actor correspondence. This count is not task/data coverage.",
+    "packages": 45,
+    "prior_ci": "Ubuntu24.04.5 GitHub image; same declared core versions/source, different OS/build environment. Not byte-identical wheels or entire filesystem reproduction.",
+    "python": "3.12.15",
+    "source_files_checked": 63
+  }
+}

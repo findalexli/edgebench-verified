@@ -1,134 +1,60 @@
-# Continuing the EdgeBench audit
+# Handoff to Claude
 
-**October 12, 2026, 01:19 UTC:** the specific Juliet 18-anchor allegation is rejected by recovered original source, and all 56 routing instances have complete finite route witnesses. Three-adventure archive/history composition and references-only content policy are accepted; Dungeon Crawl command packaging is source/component checked, not newly executed natively. Reuse these scope closures; remaining clean release checks are distinct.
+**October 12, 2026.** The user asked us to stop new experiments, finish ready work, clean up and push within 30 minutes so Claude can take over. No background agent is working; four review turns stopped at the account usage limit. All 524 owned reservations are settled: 523 closed worker reservations and one cancelled before creation. No hourly automation should be recreated.
 
-**October 12, 2026, 00:40 UTC accepted results.** OpenRCT2 adds a completion-verification finding; its proposed gate has only component evidence. Supplied walkthroughs reached a terminal 99/100 without victory in Anchorhead and maximum-score victories in Trinity and Tryst. ANN and Dungeon Crawl have scoped original assessments; Apple's recovered archive/history evidence closes its transport question. K–12's direct evaluator received SIGKILL, cause unknown. The core runtime metadata is adopted canonically without changing task decisions. Reuse [these accepted results](TASKS.md); prepared repairs and release proposals are not native outcomes.
+## The actual result
 
-## Outcome and current decisions
+**51 public tasks: 1 retained, 18 originals withheld, 32 pending.** Another 83 advertised tasks are unavailable. There are scoped findings across 21 tasks; that overlaps the disposition counts. No repaired task has final inclusion approval and the whole benchmark is not ready for publication.
 
-The target is a defensible decision for all 51 acquired public tasks, with tested
-repairs progressing alongside the remaining audit. An interim findings report, a completed
-51-task audit and a released verified benchmark have different finish conditions;
-see [VERIFICATION](VERIFICATION.md). Another 83 advertised tasks are unavailable.
+ANN is retained unchanged under explicitly versioned maintained core-v2. Its five gates, two saved different approvals and root approval are adopted in the canonical registry. The actual task checker reports no ANN errors. The full checker still rejects the unfinished benchmark with 281 errors, mostly incomplete task requirements; these are not 281 discovered defects. [Current 51 decisions](evidence/selected/current-task-decisions.json) · [ANN adoption check](evidence/selected/ann-retain-adoption-check.json).
 
-Use [README](README.md) for the overview, [FINDINGS](docs/FINDINGS.md) for conclusions
-and [TASKS](TASKS.md) for current decisions. There are findings across 21 tasks,
-18 withheld original versions, 33 pending decisions and zero certified versions.
-“Withheld” applies to the exact original unchanged; it does not approve or rule
-out a repaired version. The Git `audit/task-registry.json` is a historical partial
-snapshot with three exclusions, not the current tracker.
+“Withheld” means an evidenced decision to omit an exact original **unchanged**. It does not finish its repair or mean that every score is wrong. Preserve the reason and capability impact in [TASKS](TASKS.md) and [FINDINGS](docs/FINDINGS.md). A missing dependency or our own failed setup is not sufficient grounds for withholding.
 
-## What the critical review changed
+## Finish these saved results first
 
-- **Too much preparation displaced task work.** Give each assignment one question,
-  saved evidence, a finish condition and a ready fallback. Stop setup after one
-  supported correction or roughly 15 minutes without reaching the intended task.
-  Renaming the attempt does not restart that allowance.
-- **Different outcomes were blurred.** Close a supported finding without waiting
-  for a whole replacement to be approved. Keep test coverage, task decisions and
-  repair validation separate. A narrow pass does not approve every requirement.
-- **Repeated reviews added less than different evidence.** Review changed claims
-  and meaningful counterexamples. Reuse unchanged accepted work; three agents
-  agreeing is not three independent reproductions.
-- **Too many status documents obscured the result.** Maintain the three entry
-  points above. Save detailed receipts behind links, update reports in batches,
-  and preserve superseded prose in Git history. The two existing skills already
-  contain these lessons; no additional skill is needed for them.
-
-The saved history does not isolate model quality from workflow, tooling and
-instructions. Do not attribute the delays to Sol without comparative evidence.
-Astra/high remains the current review setting; returning routine work to Sol is
-proposed, not yet adopted. Measure useful conclusions and tests, not agent count.
-
-## Ready work: continue, do not recreate
-
-The latest user priority is to finish repairs of withheld originals, not treat
-exclusion as the end product. Start from the existing Order, Equivalence, English
-and Tree repair evidence; choose the next missing check rather than reopening the
-original finding. Record a tested fix separately from whole-task release approval.
-Reuse reporting’s completed integration result and Rust’s completed finite Cargo
-comparison; neither is a reason to postpone remaining repairs.
-
-All local paths below are relative to the shared workspace:
-
+All workspace paths below are relative to:
 `/mnt/c/users/lisz1/documents/codex/2026-10-07/shopify-plugin-shopify-openai-curated-remote-2`
 
-| Work | Saved state | Next action |
+| Work | What is already done | Exact remaining step and recovery path |
 | --- | --- | --- |
-| Tree T2 alias correction | Matched installed evaluator: official reference 10/10 and missing-answer controls 0/10 before and after correction; T2 contributes 5/100 task points. [Accepted result](evidence/selected/tree-t2-repair-regression-acceptance.json). | Reuse the completed T2 regression and earlier alias-trigger controls; assess remaining components separately. |
-| Equivalence T3 checker correction | Same one official input passes with corrected checker and 64 MiB audit output allowance; 40,623,541 output bytes exceeded the earlier 16 MiB cap. [Accepted result](evidence/selected/equivalence-t3-repair-case-acceptance.json). | Extend to remaining T3 cases with a justified output allowance; preserve the combined checker/resource change and separate 14 boundary controls. |
-| Reporting combined judge correction | Accepted: 57 collected tests pass, 55/55 reported, score 1.0; 20 coverage and four JUnit controls match. [Result](evidence/selected/reporting-integrated-acceptance.json). | Three corrected serial stateful controls also pass on this unchanged implementation. [Accepted cleanup checks](evidence/selected/reporting-stateful-corrected-acceptance.json). Address remaining lazy-schema/dispatcher behavior and independent reproduction; no broader xdist conclusion. |
-| Rust failure-credit correction | [Original withholding adopted](evidence/selected/rust-original-exclusion.json). Accepted actual Cargo comparison: five authored fixtures, ten helper outcomes; false PASS corrected, four other pairs preserved. [Result](evidence/selected/rust-native-repair-acceptance.json). | Assess original-corpus/full-scorer behavior and the distinct `cas-cli` policy; do not rerun the closed fixture question. |
-| Vehicle routing | Recovered October 9: 19 native checker controls match binary64 predictions, with two nominal decimal-boundary disagreements. [V4](evidence/selected/vrptw-native-v4-acceptance.json). Complete feasible route witnesses now cover all 56 retained instances under task rounding: 55 published routes plus one R112 adjustment. [Accepted witnesses](evidence/selected/vrptw-complete-routes-acceptance.json). | Run these witnesses through the original native checker/caller and observe deployed BKS references or actual fallback. Complete finite feasibility is closed; optimality and historical reference identity are not established. |
-| OpenTTD cohort complement | Final source preserves the requested seed and propagates missing-directory errors; an existing empty directory can return no rows. [Narrowed conclusion](evidence/selected/openttd-final-library-acceptance.json). | Establish actual engine reachability of the empty-directory condition before claiming score distortion. |
-| CTA currency correction | Original withheld [decision](evidence/selected/cta-original-exclusion.json). Accepted: 12 native risk-method calls plus two accounting calls preserve expected behavior. [Result](evidence/selected/cta-currency-native-acceptance.json). | Assess a complete eligible portfolio/full scorer; preserve module/bytecode and dependency-version limits. |
-| Portfolio annual-excess correction | [Original withheld](evidence/selected/portfolio-original-exclusion.json). Eight paired aligned cases, 16 complete native metric calls match; seven other metrics unchanged per pair. [Result](evidence/selected/portfolio-native-repair-acceptance.json). | Address misaligned dates, eligibility and full scoring separately. Keep the prior failed attempt and its unknown cause; successful V3 does not explain it. |
-| NetHack native path | One reset and 5,000 API step returns; observed peak zero matches WA/0. [Result](evidence/selected/nethack-native-acceptance.json). | Positive-score behavior and default 20-trajectory repeatability remain untested; API steps do not prove world turns or competence. |
-| ARC public and hidden suites | Public 48/48 versus 16/48; hidden scorer reports 167/448 at 35.59 versus 45/448 at 7.41. All 12 unaffected hidden suites retain their counts. [Hidden result](evidence/selected/arc-hidden-native-acceptance.json). | Assess hidden-case expectations and scorer validity beyond this mutation; do not repeat the completed comparisons. Import failures can count as 0/N without executing every assertion. |
+| ANN | Original data/source review, positive/negative/fresh native controls, clean CLI integration and exact retain approval complete. | Do not reopen those questions. [Ordinary Docker reproduction package](reproductions/ann-original-cli/README.md) is source/syntax checked; this simplified recipe itself was not rerun. Canonical adopted bundle: `edgebenchverified/audit/evidence/ann-retain-decision-astra-high-v1/`. |
+| Anchorhead, Trinity, Tryst | [Six actual partial/full host sessions](evidence/selected/three-adventure-native-release-acceptance.json) accepted; 1,734 numeric steps, score/archive/history checks; worker closed. References-only distribution policy accepted. | `work/packets/three-adventure-reference-release-astra-high-v1/handoff.json`. Three independent reproduction reports were genuinely endorsed by the different reviewer after the initial freeze. Refreeze derived pins, run full `ReleaseCheck.task()` (individual `gate()` checks miss role collisions), then collect genuine exact-bundle approvals. Final reviewer turns failed at usage limit; do not invent their approval. No further game run needed for these closed questions. |
+| Dungeon Crawl | Clean maintained CLI executed the versioned command; all five original games OK, scores 2/21/18/7/14, mean 12.4; owned worker closed. [Receipt](evidence/selected/dcss-cli-native-result.json). | Different saved-result review and final exact repair inclusion. Source handoff `work/packets/dcss-clean-integration-native-astra-high-v1/handoff.json`; collected result `edgebenchverified/audit/evidence/dcss-clean-integration-native-astra-high-v1-root/result-collection.json`. Terminal session 55603 is closed; never relaunch that attempt. |
+| Vehicle routing | [All 56 route witnesses](evidence/selected/vrptw-all 56-native-acceptance.json) passed original checker/caller; actual56-row reference table, no fallback. Feasibility closed. | Review [instruction-only native proposal](reproductions/vrptw-instruction-clarification/README.md). It changes only agent query, so no derived image is needed. Separately adjudicate the two saved nominal decimal-boundary disagreements; do not pretend this prose change fixes them. Full packet: `work/packets/vrptw-native-instruction-repair-astra-high-v1/`. |
+| Reporting | Corrected combined judge: 57 tests/55 reported, 24 countercontrols and 3 corrected serial stateful controls already accepted. | `work/packets/reporting-lazy-dispatcher-complement-astra-high-v1/` contains unfinished preparation for dispatcher, serial lazy schemas and xdist lazy schemas. Agent stopped before freeze/review/launch. Inspect current bytes before use; no new runtime evidence exists for this complement. |
 
-The reporting plugin’s earlier original-judge result remains 55 collected/53
-reported with score 1.0. The new combined corrected judge passes 57 collected/55
-reported, also score 1.0; both repairs are now exercised together. Preserve the
-distinct four-of-five unchanged-control
-improvement and later five-of-five corrected-control result. Exact evidence and
-remaining requirements are in [REPORTING-COVERAGE](docs/REPORTING-COVERAGE.md).
-Treant’s arithmetic-defect hypothesis was rejected; intended movement remains
-unresolved. HTTP-date now has accepted native property evidence with an authored strategy,
-not the original generator. Assess a supplied generator and complete corrected
-phase; this fixture run does not validate a generator.
-K–12 remains stopped after a killed direct evaluator left no parseable score. The [additive diagnosis](evidence/selected/k12-sigkill-correspondence-acceptance.json) identifies SIGKILL, not its sender or cause; no blind retry.
-Sphere’s preparation is closed with zero original helper calls; no retry is
-authorized. Its cap-metadata comparison and unresolved final file join must both
-be addressed before any separately authorized correction. [Sphere record](evidence/selected/sphere-native-preparation-failure.json). Recover exact accepted records before assigning follow-up.
+The rest of the 51-task queue, with each strongest observation and next useful question, is in [TASKS](TASKS.md). Preserve existing Order, Equivalence, English, Tree, Rust, finance and other repair evidence. K–12 SIGKILL and Carleson signal 11 have unknown causes; OpenRCT2's repair attempt was rejected before creation. Neither is a successful native repair. Reuse saved evidence instead of diagnosing the same failed setup indefinitely.
 
-Juliet’s [source-anchor review](evidence/selected/juliet-source-anchor-acceptance.json) rejects the specific 18-label allegation; the original bad/good source explicitly distinguishes a late NULL check after dereference. The custom transformer and whole-archive identity remain unverified. Do not repeat the full label census to reopen this closed hypothesis.
+## What the Git clone does and does not contain
 
-The [three-adventure assessment](evidence/selected/three-adventure-assessment-acceptance.json) closes finite score/state/archive/history composition using accepted components and game observations, without a new host roundtrip. The [content policy](evidence/selected/three-adventure-content-policy.json) permits a references-only selection with attribution and notices; it omits ROMs, game-bearing images, transcripts and unreviewed Jericho extracts. Exact asset use authority remains separate, and public availability does not establish it. [Dungeon Crawl packaging](evidence/selected/dcss-command-packaging-acceptance.json) preserves the adapted evaluator in a versioned command, but that exact command has not run natively. ANN clean integration is still in progress; OpenRCT2’s proposed repair attempt was rejected before worker creation and supplies no native repair result.
+This private Git repository contains the harness, all public-format task definitions, selected evidence and reproduction/repair packages. The [evidence index](docs/EVIDENCE-INDEX.md) and [selection manifest](evidence/selected/EVIDENCE-MANIFEST.json) identify the selection. **Git `audit/task-registry.json` is a historical partial snapshot**, not the current canonical registry. Use the dated [current decision snapshot](evidence/selected/current-task-decisions.json) for status; do not make the full release checker pass by deleting missing evidence or pending tasks.
 
-The maintained core runtime is now resolved from saved successful CI: CPython 3.12.15, 45 installed versions, 102 tests and 302 subtests. [Adoption](evidence/selected/maintained-core-runtime-acceptance.json), [version lock](evidence/selected/maintained-core-runtime-versions.txt) and [source inventory](evidence/selected/maintained-core-runtime-inventory.json) are selected here. All 63 canonical source entries were unchanged; 54 genuine metadata approvals preserved 18 canonical exclusions. All 63 entries now match this Git tree, including the canonical optional E2B declaration. Saved CI tested the identical core dependencies with an older optional declaration; optional E2B was not installed or tested. The cloud coordinator’s E2B 2.19 runtime is separate. No new scientific runs followed from this rebinding. Optional E2B and original-versus-maintained task semantics remain separate.
+The complete canonical evidence archive, private work/judge bodies, image layers, credentials and live cloud accounting are deliberately not uploaded. A fresh clone cannot reproduce every recorded check. If Claude has this same machine, use the paths below. If it only has GitHub, obtain the specifically named private inputs before a dependent check; do not rebuild the audit from status prose.
 
-This Git selection intentionally keeps its historical registry and task-card snapshot. The current canonical runtime adoption's 99 files and complete prior proof references are not copied here. Selected runtime records retain canonical/local provenance paths that may not resolve in a clone; they are not a self-contained release or a promise that the whole registry checker passes. Do not recreate missing private inputs to make those links appear complete.
-
-## Authority and execution ownership
-
-| Purpose | Workspace location |
+| Purpose | Workspace path |
 | --- | --- |
-| Canonical audit, current policy and release registry | `edgebenchverified/` |
-| Current instructions and scientific protocol | `edgebenchverified/AGENTS.md`, `edgebenchverified/VERIFICATION.md`, later direct user steering |
-| Exact current handles and accepted records | `edgebenchverified/audit/evidence/sol-cloud-authorization-v1/current-root-handoff.json` |
-| Model policy | `edgebenchverified/audit/model-policy.json` |
-| Shared queue, exports and settlements | `work/cloud-queue/` |
-| This selected Git checkout | `work/edgebench-worktrees/consolidation/` |
-| Local packets, reviews and retained sources | `work/packets/`, `work/reviews/`, `work/task-sources/` |
+| Canonical audit, all 51 task cards and current release registry | `edgebenchverified/` |
+| Current instructions and scientific protocol | `edgebenchverified/AGENTS.md`, `edgebenchverified/VERIFICATION.md` |
+| Exact current state and saved handles | `edgebenchverified/audit/evidence/sol-cloud-authorization-v1/current-root-handoff.json` |
+| Shared worker accounting, exports and settlements | `work/cloud-queue/` |
+| Git checkout for commits | `work/edgebench-worktrees/consolidation/` |
+| Prepared packets, different reviews, retained sources | `work/packets/`, `work/reviews/`, `work/task-sources/` |
+| Existing audit and E2B skills | `.agents/skills/edgebench-evidence-audit/`, `.agents/skills/e2b-efficient-audits/` |
+| Local coordinator Python (E2B 2.19 installed) | `/home/alex/agentsmd-rl/.venv/bin/python` |
 
-Check the actual saved attempt and terminal receipts: dated handoff fields can
-lag completed work. Recover a running handle; never duplicate its job. A clone,
-copied launcher or prepared grant is not execution authority. The
-[evidence index](docs/EVIDENCE-INDEX.md) identifies selected Git records. Private
-source/test bodies, images, raw logs and live accounting are not all in this
-repository. A clone is not yet a self-contained reproduction of the full audit.
+## Lessons that must change the next work
 
-## Boundaries and delivery
+1. Finish accepted evidence into decisions before starting another setup chain. A full reference solver is needed only for a named missing audit question.
+2. After one supported setup correction or about 15 minutes without reaching the original task, save the failure and switch to ready work. Renaming a packet does not reset the limit.
+3. Different evidence matters more than reviewer count. Disclose reuse; three agent opinions are not three native reproductions. Never fabricate approvals to satisfy the checker.
+4. Report completed decisions, actual tests and findings separately. Keep setup out of scientific progress counts. Update README/TASKS/HANDOFF instead of adding more status documents or skills.
+5. Use the whole task check before announcing a ready bundle; it checks dependencies between reports. A genuine edited report changes its hash and requires derived bindings to be updated before approval.
+6. Check live ownership. A message to a completed agent does not resume it; a prepared job is not running. Here, all agents are stopped and all owned workers are closed.
 
-The current authorized window ends **October 12, 2026 at 05:52:16 UTC**. Stop new
-work then, collect results and close only this audit’s workers. The obsolete
-hourly automation was deleted; do not recreate it by default.
+## Authority and boundaries
 
-Up to 50 useful owned E2B workers and justified resources are authorized, with no
-agent-imposed dollar ceiling. Keep finite per-job limits/accounting, four shared
-staging slots / 64 MiB, and the coordinator’s memory bound. Credentials stay
-outside native task containers and evidence. Heavy local work requires the
-existing host guard; use current canonical resource policy rather than inferring
-free capacity from WSL alone.
+The user shortened this run to a 30-minute cleanup and handoff; stop Codex work after delivery. The earlier execution window ended at 2026-10-12 05:52:16UTC. Do not interpret this file as a new autonomous run authorization. Private Git delivery was authorized; public benchmark publication, paid API fallback, usage resets and third-party contact were not.
 
-All existing automatic-review holds remain: ad-overlap, Coq output/tactics,
-native codec, CVC5 parser/observer/fanout, grid reflected score and warehouse
-implementation; the Sol V8 model runner has a separate hold. Do not retry, rename
-or reroute held work. Resolve exact scopes in canonical AGENTS. Unrelated work
-may continue. Private Git delivery is authorized; this does not authorize paid
-fallback, usage resets, third-party contact or benchmark publication.
+Preserve all automatic-review holds: ad-overlap, Coq output/tactics, native codec, CVC5 parser/observer/fanout, grid reflected score, warehouse implementation, and the separate Sol V8 model runner. Do not retry, rephrase or reroute held work. Exact scopes are in canonical AGENTS.
 
-Commit a focused selection after related results are accepted. Check links,
-counts and evidence identities; use [CONTRIBUTING](CONTRIBUTING.md) for lightweight
-checks. Preserve failed expectations and unknown causes. Keep historical
-snapshots dated instead of rewriting their counts to match today’s overview.
+Existing cloud policy allows up to 50 **useful** owned workers with no agent-imposed compute ceiling. Keep finite per-job accounting, four staging slots/64MiB, bounded local coordinators, isolated credentials and exact owned cleanup. A handoff is not permission to change global Docker/WSL settings or touch another project's workers. If new agents are authorized, the latest model preference is Astra/high; historical runs keep their recorded model. No paid fallback or reset was used to overcome the current usage limit.

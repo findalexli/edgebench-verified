@@ -35,6 +35,8 @@ Keep hashes and job identifiers in supporting records, not headline updates.
 
 ## Current authorization
 
+The latest user instruction is a 30-minute closeout and GitHub handoff to Claude. After delivery, Codex audit execution is stopped. Read `HANDOFF.md` for completed results and interrupted reviews; do not resume experiments merely because the earlier window below had time remaining.
+
 The authorized audit window ends **2026-10-12 05:52:16 UTC**. Later direct user
 steering prevails. New review agents currently use **gpt-6-astra / high**. The
 user intends to return routine work to Sol after the critical review; do not

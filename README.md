@@ -9,8 +9,8 @@ An independent audit of whether EdgeBench’s tasks, tests and data measure what
 | Public tasks acquired | 51 |
 | Tasks with confirmed findings, within the scope stated in each case | 21 |
 | Original versions we would withhold from a verified release | 18 |
-| Original task decisions still pending | 33 |
-| Task versions approved for a verified release | 0 |
+| Original task decisions still pending | 32 |
+| Retained task versions under the maintained harness | 1 |
 | Additional advertised tasks unavailable to this audit | 83 |
 
 The [21 finding tasks](evidence/selected/finding-task-union-21.json) overlap the other rows; these counts must not be added together. A confirmed problem can be settled before its repair or the rest of the task is reviewed.
@@ -23,17 +23,19 @@ The [21 finding tasks](evidence/selected/finding-task-union-21.json) overlap the
 - [Task tracker](TASKS.md): the current decision and next useful question for every public task.
 - [Handoff](HANDOFF.md): where the work stands and how another contributor can continue.
 
-The reporting implementation now passes the combined corrected judge: **57 collected tests passed, 55/55 reported, score 1.0**, and all 24 paired countercontrols matched. This closes the judge-repair integration check. The earlier original-judge 55 collected/53 reported run remains a separate result; neither run certifies the complete task. Details and failed hypotheses remain in [Findings](docs/FINDINGS.md) and the [reporting requirement table](docs/REPORTING-COVERAGE.md).
+## Latest completed work — October 12, 2026
 
-Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
+**ANN is the first retained task.** Its unchanged task, evaluator and fixed corpus pass the five task-specific review requirements under the separately versioned maintained harness. The actual CLI accepted flat search at raw QPS 19 and rejected the empty control. Two different reviewers and root approved the exact bundle; the task checker has no errors. [Decision and limits](evidence/selected/ann-retain-root-review.json) · [Runnable inputs and commands](reproductions/ann-original-cli/README.md).
 
-**October 12, 2026, 00:40 UTC:** OpenRCT2 adds the twenty-first finding: its default scenario call earned positive credit without verifying the promised game-time endpoint. A completion-gate correction has passed component controls; it has not run in the game. Anchorhead reached a terminal 99/100 without victory; Trinity and Tryst reached victory and their declared maximum scores, each using one supplied walkthrough. ANN and Dungeon Crawl now have accepted finite original assessments, while Apple's recovered archive/history evidence closes its transport question. K–12's stopped evaluator received SIGKILL; the cause remains unknown. [Results and limits](TASKS.md).
+**Vehicle routing:** all 56 feasible route witnesses passed the actual original checker and caller. The deployed reference table had all 56 rows, with no fallback. An instruction-only clarification is prepared but not adopted; the separate decimal-boundary question remains. [Accepted result](evidence/selected/vrptw-all56-native-acceptance.json) · [Proposed clarification](reproductions/vrptw-instruction-clarification/README.md).
 
-**October 12, 2026, 01:19 UTC:** all 56 retained routing instances now have complete feasible route witnesses under the task metric, including one adjusted published route. Recovered Juliet source rejects the specific allegation about 18 comparison-line labels: those originals intentionally target a NULL check after dereference. The three adventure games have accepted finite archive/history assessments and a references-only content policy; Dungeon Crawl’s versioned command packaging has component evidence, with its exact clean native execution still pending. These conclusions change no task counts. [Accepted scope and remaining work](TASKS.md).
+**Three adventure games:** six actual host sessions exercised partial/full trajectories, scores, history selection and archive transport. Anchorhead finished at 99/100 without victory; Trinity and Tryst reached their maximum scores. Their inclusion records still need final exact-bundle approvals; the native result is already accepted. [Evidence](evidence/selected/three-adventure-native-release-acceptance.json).
 
-The maintained **core Python runtime** is now bound to recovered successful CI: 45 installed package versions, 102 tests and 302 subtests. This metadata change preserves all 18 withholding decisions. Optional E2B, original-versus-maintained task semantics and clean task-release reproduction remain separate. The selected [runtime receipt](evidence/selected/maintained-core-runtime-acceptance.json) and [version lock](evidence/selected/maintained-core-runtime-versions.txt) do not make this partial clone a complete release.
+**Dungeon Crawl:** the clean CLI run finished all five games with scores 2, 21, 18, 7 and 14, mean 12.4. The result and cleanup are saved; independent result review and repair approval remain. [Collected result](evidence/selected/dcss-cli-result-collection.json).
 
-The 51-task audit remains unfinished because resolving one finding does not validate the rest of a task, its data or its replacement. Thirty-three original decisions remain pending; no corrected version is certified.
+Earlier completed repair checks remain available: Reporting passes the combined corrected judge (57 collected tests, 55 reported, score 1.0) plus 24 countercontrols; Tree preserves ten official cases and rejects ten missing answers; Equivalence passes one official T3 input under the disclosed 64 MiB output allowance. These are finite repair results, not completed whole-task reviews. [Findings and limits](docs/FINDINGS.md).
+
+**The audit is not finished:** 32 original decisions remain pending, and no repaired task has final inclusion approval. All owned cloud workers are closed. Work is being handed to Claude at the user's request. The [handoff](HANDOFF.md) identifies the saved work to finish first, the interrupted reviews, and the private evidence that a clone does not contain.
 
 ## What this repository contains
 
