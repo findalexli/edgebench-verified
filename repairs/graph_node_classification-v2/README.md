@@ -1,14 +1,18 @@
-# graph_node_classification v2: every test node needs an integer class prediction
+# graph_node_classification, fixed version: every test node needs an integer class prediction
 
-## Defect
+## What this fixes
+
+The original grader silently drops predictions that are not whole numbers, scores only the rest, and still marks the run valid. A submission can therefore be scored on as few as one test node. The fixed grader requires a whole-number class for every test node and marks the run invalid otherwise.
+
+### The problem in detail
 
 In the original `verifier.evaluate`:
 
 - `_to_int_labels` silently **drops** every prediction value that `int()` cannot convert, such
-  as the string `"x"`, `None` or NaN. It then truncates `y_true` to the length of the shorter
+  as the string `"x"`, `None` or NaN. It then shortens `y_true` (the answer list) to the length of the shorter
   list.
 - Predictions for IDs that are not test nodes are ignored, because `evaluate` only uses the
-  intersection of IDs.
+  IDs present in both lists.
 - `judge_eval.py`'s coverage check compares only dictionary sizes.
 
 So a submission can be scored on a subset of the test nodes, for example on one node, while
@@ -16,68 +20,70 @@ the run is still reported `valid: true`. This contradicts the contract ("`predic
 cover all test nodes", "Class IDs must be integers"). Review:
 `evidence/reviews/graph_node_classification.md` (side observation).
 
-## Exact change (`repair.patch`, generated with `diff -u`)
+## What changes
 
-Only `verifier.py` changes. Its UTF-8 BOM is kept. In `evaluate`:
+The exact change is `repair.patch`, generated with `diff -u`.
 
-1. Every ground-truth node ID must be a key of `predictions`. Otherwise a `ValueError` is
+Only `verifier.py` changes. Its UTF-8 BOM (byte-order mark) is kept. In `evaluate`:
+
+1. Every node ID in the answer key must be a key of `predictions`. Otherwise a `ValueError` is
    raised.
 2. Each prediction is converted with the new `_strict_class_id`. It accepts int-like values
-   (including numpy integers, via `operator.index`), integral finite floats such as `3.0`, and
-   decimal-integer strings such as `"3"`. It rejects bool, non-integral or non-finite floats,
+   (including numpy integers, via `operator.index`), whole-valued finite floats such as `3.0`, and
+   decimal-integer strings such as `"3"`. It rejects bool, non-whole or non-finite floats,
    non-numeric strings, `None` and other types with a `ValueError`.
-3. Ground truth and predictions are paired by node ID, with no filtering or truncation.
+3. Answers and predictions are paired by node ID, with no filtering or shortening.
 
-The `ValueError` propagates through the unchanged `runner.py`, which exits non-zero. The
+The `ValueError` passes through the unchanged `runner.py`, which exits non-zero. The
 unchanged `judge_eval.py` then emits its existing failure result (`valid: false`, score 0).
 
 Left unchanged on purpose:
 
 - Confidence handling. Out-of-range values, and NaN, are still clipped into [0, 1] in `_ece`.
-  The review shows this is score-neutral: every such submission scores exactly as the
-  corresponding in-range one.
-- Out-of-class integers such as `7`. They still count as wrong predictions, as in v1.
+  The review shows this does not change scores: every such submission scores exactly as the
+  matching in-range one.
+- Out-of-class integers such as `7`. They still count as wrong predictions, as in the original version.
 - Metric formulas, penalties, data, splits and the baseline.
 
 `task.json.in` changes only `judge.image_tag` (`f2ddd52992ae` to `f2ddd52992ae-ebv-v2`). The
-Dockerfile is `FROM` the pinned original judge digest plus one `COPY`. The work image is
+Dockerfile is `FROM` the pinned original grader digest plus one `COPY`. The agent's working image is
 unchanged.
 
-The earlier overlay (`$W/overlays/graph_node_classification/`) was not
-reused. It targets a much broader contract tightening:
+An earlier overlay (`$W/overlays/graph_node_classification/`) was not
+reused. It targets a much broader tightening of the contract:
 
 - strict JSON readers;
 - ID canonicalization;
 - rejection of out-of-range confidences;
 - class-set checks.
 
-This package fixes only the reviewed defect.
+This package fixes only the reviewed problem.
 
-## Score compatibility
+### Score compatibility
 
-Submissions that give an integer class id (int, integral float, or decimal-integer string) for every
-test node score identically in v1 and v2 (measured on 3 valid controls); v2 newly rejects bools and
-non-integral floats such as `3.5`, which v1 accepted. v2 scores are not comparable with v1 when a submission:
+Some submissions give an integer class id (int, whole-valued float, or decimal-integer string) for every
+test node. These score identically under the original and fixed versions (measured on 3 correct test submissions). The fixed version newly rejects bools and
+non-whole floats such as `3.5`, which the original version accepted. Fixed-version scores are not comparable with original scores when a submission:
 
-- omits test nodes, or keys them by non-string IDs. This was already rejected by v1's count
-  check unless the count happened to match;
-- gives a non-integer or non-integral value for any test node. v1 silently dropped those
+- omits test nodes, or keys them by non-string IDs. The original count
+  check already rejected this unless the count happened to match;
+- gives a non-integer or non-whole value for any test node. The original grader silently dropped those
   nodes.
 
-All of these are invalid in v2.
+All of these are invalid in the fixed version.
 
-## Paired evaluation
+## How it was checked
 
-See `paired/results.md`.
+A side-by-side run of the original and fixed graders on the same test submissions. See `paired/results.md`. Correct test submissions keep the same quality metrics; the one-real-prediction submission, marked valid by the original grader, is rejected by the fixed grader.
 
 ## Limits
 
-- Only the shipped baseline, a weak honest neighbour-vote solver and simple contract-violating
+- Only the shipped baseline, a weak honest neighbour-vote solver and simple contract-breaking
   variants were run. Stronger solvers were not.
 - The `final_score` time penalty (`0.01·log(time)`) depends on wall time and differs slightly
-  between runs. The quality metrics are deterministic and are the comparison target.
+  between runs. The quality metrics are deterministic and are what the comparison uses.
 
-## Build
+## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 

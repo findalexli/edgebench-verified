@@ -2,86 +2,106 @@
 
 ## The question
 
-EdgeBench scores a submission by running a task's evaluator inside a pinned container image. For
-each of the 51 public tasks we asked one question: **does a good-faith solver get the score the
-task promises, reliably?** A task fails this test if the evaluator applies a different rule from the
-one the solver is told, rejects correct work, accepts incorrect work, uses data that violates its own
-contract, promises something its time or score budget cannot deliver, or produces scores that change
-between identical runs without saying so.
+EdgeBench scores an agent's work by running a hidden grader program on it. For each of the 51
+public tasks we asked: **if an agent does honest, correct work, does it get the score the task
+promises, reliably?**
 
-Out of scope:
+A task fails this test in any of these cases:
+- the grader applies a different rule from the one the agent is told;
+- it rejects correct work;
+- it accepts wrong work;
+- it uses test data that breaks its own rules;
+- it promises something its time limit or score scale cannot deliver;
+- it gives different scores to identical work without saying so.
 
-- **Deliberate tampering.** EdgeBench runs submissions inside the judge container, so a submission
-  written to attack the scorer can interfere with it. That is a harness design choice, not a task
-  defect.
-- **The 83 unreleased tasks.** EdgeBench advertises 134 tasks, of which 51 are public.
+Not covered:
 
-## What counts as evidence
+- **Deliberate cheating.** EdgeBench runs submissions next to the grader, so a submission written
+  to attack the grader could interfere with it. That is a question about how the benchmark isolates
+  its grader, not about whether a task is graded correctly.
+- **The 83 unreleased tasks.** EdgeBench has 134 tasks, of which 51 are public.
 
-1. **Pin the original.** The task definition from the public release, the judge and work images by
-   OCI digest, and the sha256 of every evaluator file a finding relies on.
-2. **Read the contract.** The prompt, the README files shipped to the solver, and the evaluator
-   code, so that "what the task promises" is quoted, not paraphrased.
-3. **Run the original evaluator.** The task's own `eval_cmd` in the pulled image, with no network,
-   on three kinds of input:
-   - a correct submission (it must score as promised);
-   - the trigger (a small, concrete input that shows the defect);
-   - an incorrect submission (it must be rejected).
-4. **Check with an independent oracle** where a finding is mathematical or combinatorial: exact
-   rational or integer arithmetic, a second implementation, exhaustive search, or a formal tool.
-   - **Lean 4 + Mathlib:** whether a required theorem is false, finance identities, and a
-     routing lower bound. Every proof lists its axioms.
-   - **TLA+ (TLC):** an aliasing bug and a test-credit counting rule, each with a negative control
-     and stated bounds.
-5. **Trace to the reported score.** A defect matters only through the task's parser, selection
-   policy and rescale to the 0–100 score. "Max effect" on each case page is the largest change we
+## How a finding is established
+
+1. **Pin the original.** We use the task definition from the public release and EdgeBench's
+   published grader and agent images. Each image is identified by its digest, a fingerprint that
+   changes if any byte changes. We also record a fingerprint of every grader file a finding relies on.
+2. **Read the contract.** We quote the instructions and documents the agent receives, next to the
+   grader's code, so that "what the task promises" is the task's own wording.
+3. **Run the original grader.** We run the task's own grading command inside the original image,
+   with no network access, on three kinds of test submission:
+   - a correct submission, which must score as promised;
+   - a submission that shows the problem, as small and concrete as possible;
+   - a wrong submission, which must be rejected.
+4. **Check it a second way.** Where a finding is mathematical or combinatorial, we confirm it
+   independently, with exact arithmetic, a second implementation, exhaustive search, or a formal tool:
+   - **Lean 4 with Mathlib** checks mathematical proofs by machine. It shows that two theorem
+     statements in Lean Analysis are false. It also proves a lower bound on every valid Warehouse
+     Routing answer, and the arithmetic behind the CTA and Portfolio findings. Each proof lists
+     the basic assumptions (axioms) it relies on.
+   - **TLA+ (with its model checker TLC)** explores every reachable state of a small model. It
+     checks the in-place multiplication bug in Tree Block Partitioning and the test-credit rule
+     in Rust Multicrate. Each model has a counter-check: the corrected version must pass where
+     the original fails.
+5. **Follow it to the final score.** A problem matters only through how the grader turns results
+   into the published 0–100 score: how it reads the output, which submission it keeps, and how it
+   converts the raw result. "How much it matters" on each case page is the largest change we
    demonstrated or proved on that scale.
 
-## Decisions
+## Outcomes
 
-| Decision | Meaning |
+| Outcome | Meaning |
 | --- | --- |
-| **Retain with note** | No defect that materially changes a good-faith solver's score. Immaterial issues, disclosed design choices and run conditions are recorded as notes that ship with the task. |
-| **Repair (v2)** | A material, fixable defect. A new task version ships in EdgeBench's own format; the original is superseded, and v2 scores are not comparable with v1. |
-| **Exclude** | A material defect without a sound repair in this release. |
+| **Kept, with a note** | No problem that changes an honest agent's score enough to matter. Smaller issues, openly stated design choices and run conditions are recorded in a note. |
+| **Fixed** | A problem that changes scores and can be fixed. A new version of the task is published in EdgeBench's own format. Scores from it are not comparable with the original. |
+| **Removed** | A problem that changes scores and has no sound fix. |
 
-## How a repair is accepted
+## How a fix is accepted
 
-Each repair is a package in `repairs/<task>-v2/`:
-
+Each fix is a folder in `repairs/<task>-v2/`. It contains:
 - a patch against the files in the original image;
-- `materialize.sh`, which rebuilds the changed files from the pinned public image;
-- a `Dockerfile` `FROM` the original digest;
-- `task.json.in`, changing only the necessary fields.
+- a script that rebuilds the changed files from the public image;
+- a build file based on the exact original image;
+- the fixed task definition, which changes only the fields that must change.
 
-A repair is accepted only if one paired evaluation, the same inputs scored by the original and the
-repaired evaluator, shows three things: the trigger is fixed, correct controls keep their scores
-(or the change is explained), and incorrect controls are still rejected. Score anchors that came
-from historical leaderboard runs are never re-invented: they are kept with the limit stated, or set
-from exactly computable quantities.
+A fix is accepted only after a side-by-side test. The same test submissions are graded by the
+original and the fixed grader, and three things must hold:
+- the submission that showed the problem is now graded correctly;
+- correct submissions keep their scores, or the change is explained;
+- wrong submissions are still rejected.
+
+When a fix needs new reference points for the 0–100 scale, we never invent them. We keep the
+original points and state the limit, or set them from quantities that can be calculated exactly,
+such as the maximum possible raw result.
 
 ## Repeatability
 
-Every paired evaluation was run three times on fresh workers. Across 132 executed arms in 22
-repair packages, no verdict changed. Deterministic evaluators reproduce exactly. Throughput and
-timing scores move (up to 38% for Exchange Core throughput) without changing any verdict. Details
-are in [paired-repeatability.md](paired-repeatability.md).
+Every side-by-side test was run three times on fresh machines. Across 132 graded comparisons in 22
+fixed tasks, no outcome changed. Graders without randomness or timing reproduce exactly. Scores
+based on speed move between runs, by up to 38% for Exchange Core, but no outcome changed. Details:
+[paired-repeatability.md](paired-repeatability.md).
+
+## Effect on the published leaderboard
+
+[IMPACT.md](IMPACT.md) applies the findings to EdgeBench's published per-task scores. It corrects
+changes of scale exactly, and gives the rest as a range, because the original submissions are not
+public.
 
 ## Limits
 
-- **No model runs.** Score effects are measured on authored controls and counterexamples, not on
-  historical leaderboard submissions or fresh model attempts. [IMPACT.md](IMPACT.md) applies them to
-  the publisher's per-task scores: exactly for pure changes of scale, and as bounds otherwise.
-- **One hardware class.** Paired evaluations ran on 8-vCPU / 8 GiB workers. Timing-based scores may
-  move further on other hardware.
-- **Partial checks.** Some findings rest on source reading or exact arithmetic rather than a full
-  native run. Their case pages say so.
-- **AI review.** The reviews were carried out by AI agents. Every published claim is traced to a
-  saved evidence file, but agreement between agents is not independent human reproduction.
+- **No AI models were rerun.** Effects are measured with test submissions we wrote, not with
+  historical leaderboard submissions or new model runs.
+- **One machine type.** Side-by-side tests ran on machines with 8 virtual CPUs and 8 GiB of memory.
+  Speed-based scores may move further on other hardware.
+- **Partial checks.** Some findings rest on reading the grader's code or on exact arithmetic,
+  rather than a full run of the grader. Their case pages say so.
+- **Reviewed by AI agents.** Every published claim is tied to a saved evidence file, but agreement
+  between agents is not independent human reproduction.
 
 ## Rebuilding the publication
 
-All tables, the findings list, the guide and the site are generated from `decisions.json`:
+All tables, the findings list, the guide and the website are generated from `decisions.json` and
+`cases/plain.json`:
 
 ```bash
 python3 tools/build_tables.py && python3 tools/build_findings.py && python3 tools/build_applying.py && python3 tools/estimate_impact.py && python3 tools/build_site.py

@@ -1,0 +1,359 @@
+{
+ "ad_placement_optimization": {
+  "headline": "No problem found; overlap and boundary checks match the original contest rules",
+  "about": "Place one rectangle per company on a 10000 x 10000 grid so each covers its company's point, has close to the requested area, and overlaps no other rectangle.",
+  "problem": "No material problem. Shared edges and corners are accepted, overlaps and out-of-bounds rectangles are rejected, and every case is scored as the contest rules say. Caveats: the 50 graded inputs are public examples, not hidden; the score scale's reference points come from contest results on other inputs and were not checked; the effect of available computing power was not measured.",
+  "effect": "No effect on the scores of honest submissions.",
+  "action": "Kept, with a note: the graded inputs are public, the score scale's reference points come from other contest inputs and were not checked, and available computing power can affect time-limited solvers."
+ },
+ "anchorhead_text_adventure": {
+  "headline": "No scoring problem; the grader counts each game's final score, not its peak",
+  "about": "Play the classic text adventure game Anchorhead by typing commands through a web interface, and score as many in-game points as possible.",
+  "problem": "No scoring problem. The score is the game's own points out of 100, and the game plays the same way for the same commands. Caveats: the grader keeps each session's final score, not its highest; sessions close after 600 seconds idle; at most 3 run at once. The reference walkthrough reaches 99 of 100; reaching 100 was not shown.",
+  "effect": "No effect seen on any score. If 100 points cannot be reached in this game, the best possible score is 1 point lower.",
+  "action": "Kept, with a note: the score is the final score of the best session, idle sessions close after 600 seconds, at most 3 sessions run at once, and full score was not shown."
+ },
+ "ann_vector_search_qps": {
+  "headline": "No scoring problem found; measured speed depends on the machine",
+  "about": "Make a search over one million 128-number vectors answer as many queries per second as possible, while still finding at least 95% of the true 10 nearest matches.",
+  "problem": "The grader's answer key was checked over all 10,000 queries, and valid and empty test submissions we wrote are scored as documented. Caveat: speed is measured in a single run and depends on the machine. One honest submission ranged from 875 to 1,222 queries per second (±17%) on one shared machine, and the score scale comes from the authors' hardware.",
+  "effect": "No effect on the scores of honest submissions, but the same submission's speed varied by ±17% between runs, so scores from different machines are not comparable.",
+  "action": "Kept, with a note: speed depends on the machine, repeated runs of one submission varied by ±17%, and the score scale was set on the authors' hardware, so scores are not comparable across machines."
+ },
+ "apple_incremental_game": {
+  "headline": "No scoring problem found; the stated 1 GB memory limit is not enforced",
+  "about": "Write a program that plays a machine-production incremental game adapted from an AtCoder programming contest (AHC058) on 50 fixed test cases; the score is the sum of per-case scores.",
+  "problem": "No scoring defect. The score scale is consistent: a do-nothing program scores 0, and a simple strategy program we wrote independently scores 17.7, below the 30th-ranked level as expected. The time budget fits. The task text states a 1 GB memory limit, but the grader does not enforce it for each solution.",
+  "effect": "No effect on the scores of honest submissions. The memory note matters only to users who rely on the stated limit.",
+  "action": "Kept, with a note: the 1 GB memory limit stated in the task text is not enforced by the grader for each solution."
+ },
+ "arc_compiler_runtime": {
+  "headline": "Hidden tests need an undocumented output format worth a third of the score",
+  "about": "Write the missing compiler and runtime for Arc, a small programming language, using the supplied language notes and public tests as the specification.",
+  "problem": "The hidden type-checking tests expect the error checker to return a list of items with specific message wording. The starter code returns a different shape, and no visible file says which is right. The same honest checker scores 69.26 in the expected shape and 35.59 in the starter's shape. The instructions also say the starter scores 0.00; it scores 35.59.",
+  "effect": "Up to 33.67 points lost, without warning, by any solver who keeps the starter's format or does not guess the required message wording.",
+  "action": "Fixed in a new version: the instructions now describe the required return format, the three required message texts and the rules checked, and give the starter's real score. Grading is unchanged."
+ },
+ "bipedalwalker_locomotion_rl": {
+  "headline": "Scores are capped at 30 out of 100 by design, as the task states",
+  "about": "Train a program that teaches a simulated two-legged robot to walk, on normal and rough ground, and submit the trained result as a file.",
+  "problem": "The task caps its score at 30, and the work instructions say so. Even a perfect walker gets 30; an untrained but loadable file gets 10. Also, a file whose internal names or sizes do not match the grader's network loads only partly, without an error, and is scored as an untrained walker.",
+  "effect": "Every submission is limited to 30 of 100. A mismatched file scores like an untrained walker plus the points for loading.",
+  "action": "Kept, with a note: scores run from 0 to 30, not 0 to 100; 10 points come from loading checks; files with mismatched names or sizes load partly without an error."
+ },
+ "borden_source_inversion": {
+  "headline": "The hidden grading model uses unstated, non-physical conventions, so textbook solutions score near baseline",
+  "about": "From readings at groundwater monitoring wells, work out the location, size, timing and strength of a hidden underground pollution source.",
+  "problem": "The grader predicts well readings with a hidden model whose conventions the documentation never states: it treats a rate as a total amount, ignores soil porosity, ignores how long the source lasts, mislabels units, and places the source at the bottom of its region instead of the centre. A textbook model fits the public data equally well yet scores lower.",
+  "effect": "About 24 points out of 100: the same honest fitting method scores 7.0 with a textbook model and 31.2 with the grader's hidden conventions. Affects every documentation-following solver.",
+  "action": "Fixed in a new version: solvers receive the grader's own prediction code and an exact description of its conventions, and the score scale runs from 0 up to the true source's score of 109."
+ },
+ "carleson_formalization": {
+  "headline": "No problem found; one placeholder definition accepts any value",
+  "about": "Complete the missing proofs in a large Lean project (Lean is a language for machine-checked math proofs) on Carleson's theorem about Fourier series; credit is the share of proofs completed.",
+  "problem": "No material defect. None of the 3,004 scored items is out of reach for an honest, complete solution. Items Lean generates automatically are 5.0% of the score and keep stable names. Caveats: one unfinished definition accepts any value, possibly easing later proofs (not tested), and the source project is unfinished, so some items may have no known proof.",
+  "effect": "No effect measured. The unfinished definition affects one item and possibly later proofs; its effect on the score was not measured.",
+  "action": "Kept, with a note: one unfinished definition accepts any value, and the source project is incomplete, so some items may have no known proof."
+ },
+ "college_english_exam_bank": {
+  "headline": "Rubric rules the AI grader leaves out are counted as full marks",
+  "about": "Produce 22 files for a college English exam bank: five exam papers, answer keys, scoring guides and two spreadsheets. An AI model grades them against 12 rubric rules.",
+  "problem": "Each rule starts at full marks and loses points for faults found. If the AI model's answer leaves a rule out, the grader's code keeps that rule at full marks and still reports a valid result; an empty assessment scores 100. A rule marked 0 with no faults listed also gets full marks. How often models omit rules is unknown.",
+  "effect": "Raises a score by up to the value of the left-out rules; an empty assessment scores 100. Any submission can be affected when the AI model's assessment is incomplete.",
+  "action": "Fixed in a new version: an incomplete or self-contradicting assessment is requested again, and otherwise reported as a grading failure instead of full marks. Complete assessments score exactly as before."
+ },
+ "combinatorial_games_formalization": {
+  "headline": "No problem found; honest proofs in different styles earn the same credit",
+  "about": "Fill in missing proofs about combinatorial games in Lean, a language for machine-checked math proofs, without changing the statements being proved.",
+  "problem": "No material problem. About a quarter of the credit (25.1%) goes to small helper items that Lean creates on its own; they are earned automatically once the main proofs are done. None of the 3732 graded items is out of reach. Two proof styles earned identical credit (16 of 3732) in a test on one file.",
+  "effect": "No effect measured on the scores of honest submissions.",
+  "action": "Kept, with a note: about 25.1% of the credit comes from helper items Lean generates automatically; honest proofs in different styles earned the same credit in the test."
+ },
+ "cta_risk_budget_optimization": {
+  "headline": "The overseas-exposure limit check skips currency conversion, so dollar positions are undercounted",
+  "about": "Build a backtesting engine (a simulator that replays past prices) for futures in several currencies and markets, keeping the portfolio within risk limits such as at most 40% overseas exposure.",
+  "problem": "The risk policy requires overseas positions to be converted to Chinese yuan before checking the 40% limit. The grader adds US-dollar and yuan amounts without converting, so dollar positions count about seven times too little. A portfolio that breaches the limit can pass: the task's own reference positions exceed 40% on 32 of 1565 days, yet the check reports none.",
+  "effect": "Up to 5 points out of 100, only in the generous direction, and only for submissions holding US-dollar contracts. Compliant portfolios are never penalized.",
+  "action": "Fixed in a new version: dollar positions are converted to yuan at that day's exchange rate before the 40% check. Portfolios in one currency score the same; breaching ones can lose up to 5 points."
+ },
+ "dabic_gravity_inversion": {
+  "headline": "42 points come from the submission's own unchecked self-reported results",
+  "about": "Implement a method that infers underground density from gravity measurements (a D-ABIC gravity inversion), choosing between two equivalent mathematical forms as the task allows.",
+  "problem": "Two parts worth 42 points are taken from results the submission reports about itself; the grader does not recompute them. Also, the grader quietly penalises the 'model-space' form, though the task text allows either form and both give the same result. For the same work at a strong level, this is calculated to give about 89 points in one form and about 43 in the other.",
+  "effect": "42 points cannot be verified, for every submission. The form penalty costs up to about 46 points at a strong level, and 3.2 raw points at every level.",
+  "action": "Removed: 42 points still come from unverified self-reported results. A partial fix removes the hidden form penalty, but that alone does not make the task usable."
+ },
+ "dcss_dungeon_ai": {
+  "headline": "Scoring matches the instructions; one failed game voids the whole submission",
+  "about": "Write a bot in Lua, a scripting language, that plays the dungeon game Dungeon Crawl Stone Soup; it is scored on its mean score over 5 hidden 900-second games.",
+  "problem": "In normal runs the score matches the instructions. Caveats: if one of the five games fails to save its end-of-game record, the whole submission gets no score instead of counting that game as 0 (found in the code, not observed); scores depend on machine speed, by an unmeasured amount; the top of the score scale has not been shown reachable.",
+  "effect": "No effect observed. In the worst case one failed game voids a whole submission; the effect of machine speed is unmeasured.",
+  "action": "Kept, with a note: one missing game record voids the score, scores depend on machine speed with unmeasured noise, and the top of the score scale has not been shown reachable."
+ },
+ "equivalence_class_divide_and_conquer": {
+  "headline": "One sub-problem's grader leaves the last step out of the cost limit check",
+  "about": "Solve six programming-contest problems on tree structures, worth 5, 5, 10, 15, 25 and 40 points; one must keep a total operation cost under a fixed budget.",
+  "problem": "In problem three (10 points), the grader adds the cost of every step except the last one. A solution can thus go over the cost budget by up to the size of its last step, at most 0.04% of the budget, and still pass. Neither the reference nor a simple solution falls in that window on the official inputs.",
+  "effect": "In the worst case a solution could gain up to 5.17 of 100 points. No real gain was shown.",
+  "action": "Fixed in a new version: the grader now counts the last step's cost too. Nothing else changes; the reference solution still scores 100."
+ },
+ "exchange_core_throughput": {
+  "headline": "The correctness check misses wrong fees and lost messages, so broken engines get full credit",
+  "about": "Speed up a stock-exchange order-matching engine (software that pairs buy and sell orders) so it processes as many transactions per second as possible, without changing its behaviour.",
+  "problem": "The grader's correctness test checks only that money balances overall and that order books match. Two single-edit bugs pass it: charging selling traders the wrong fee, and not delivering trade and result messages to users. Both get full credit, though the project's own tests catch both. Offline, the original grader also fails every submission, as some build files are missing.",
+  "effect": "Engines with these bugs get full credit instead of 0; in single runs one scored 24.4 versus 7.1 for the correct engine, a gap within speed noise.",
+  "action": "Fixed in a new version: 33 of the project's own tests must pass before speed is measured, otherwise the score is 0. The missing build files are included, so grading works offline."
+ },
+ "ffmpeg_swscale_reimplementation": {
+  "headline": "Timed speed tests never check output, so failed calls earn speed credit",
+  "about": "Rewrite FFmpeg's image-scaling and format-conversion library (libswscale) in Zig or Rust; the score rewards being correct and faster than the original library.",
+  "problem": "Correctness is checked on 30 conversions; speed is timed on 10 different ones, never checked. A call that fails or does nothing finishes almost instantly and earns a huge 'speedup'. An unfinished conversion returning an error took a score from 0 to 5.39; skipping 3:1 downscaling scored up to 18.93. The unchanged starter code also earns credit for wrong output.",
+  "effect": "Up to 18.93 points out of 100 shown for honest but unfinished submissions whose library fails or does nothing on a timed conversion.",
+  "action": "Fixed in a new version: each timed call's result is checked, and failed or wrong output earns no speed credit. Correct submissions score as before, apart from timing noise."
+ },
+ "flt_regular_formalization": {
+  "headline": "No problem found; the 25 scored proofs match the task's own list",
+  "about": "Finish the missing proofs in a project on Fermat's Last Theorem written in Lean, a language for machine-checked math proofs.",
+  "problem": "No material problem. The grader scores 25 listed statements with weights totalling 87. The list matches the task's unfinished statements exactly and contains none of the automatically generated entries that cause trouble in a related task. No statement was found out of reach. Caveats: the README describes 100 points while weights total 87; only the unchanged starter was scored.",
+  "effect": "No effect found on the scores of honest submissions.",
+  "action": "Kept, with a note: the 25 weighted statements (total weight 87) match the task's list exactly, and none was found out of reach."
+ },
+ "git_rewrite_in_zig": {
+  "headline": "No problem found; a correct program can earn the full 100",
+  "about": "Rewrite git, the widely used version-control tool, in the Zig programming language so it works as a drop-in replacement for the original.",
+  "problem": "No material problem. A real git of the matching version passed all 29,075 counted tests and scored 100. Caveats: the instructions do not explain that scoring uses git's own test suite; a submission must supply its own helper programs; the 120-second limit per test script was only tried on an 8-core machine.",
+  "effect": "No effect found for a correct program on an 8-core machine. Effects on machines with fewer cores were not measured.",
+  "action": "Kept, with a note: scoring uses git's own test suite, submissions must supply their own helper programs, and the per-script time limit was only tested on an 8-core machine."
+ },
+ "graph_node_classification": {
+  "headline": "Non-numeric predictions are silently dropped and the run still counts as valid",
+  "about": "Predict the category of every test node (a point in a network) of a graph, scored on several accuracy measures, with penalties for time and memory use.",
+  "problem": "The grader throws away predictions that are not whole numbers, such as text or blanks, scores only the rest, and still marks the run valid. A test submission we wrote with one real prediction and the rest junk was scored on one node per round and counted as valid. Out-of-range confidence values were also checked and are harmless.",
+  "effect": "Only submissions with missing or non-numeric predictions are affected. It adds chance to their score; no expected gain was shown, and whether it can raise scores was not established.",
+  "action": "Fixed in a new version: every test node must get a whole-number category, otherwise the run is marked invalid. Honest submissions score the same, apart from timing noise of about 0.008 points."
+ },
+ "grid_turing_robot": {
+  "headline": "Scored correctly, but one failed case voids the whole submission unannounced",
+  "about": "Write a rule table that steers a robot across a grid on 50 fixed test cases; lower total cost is better.",
+  "problem": "Scoring rules are correct. Three caveats: one crashed, timed-out or malformed case makes the whole submission unrankable, which the task text does not say; the score scale's starting point is set too high, so a do-nothing solution gets 2.84 instead of 0; and results depend on the grader's CPU count (one test submission passed with 8 CPUs, failed with 2).",
+  "effect": "About 20 points if one case fails; at most 2.84 points from the scale offset; up to the full score on graders with fewer than about 8 CPUs.",
+  "action": "Kept, with a note: one failed case voids the submission, a do-nothing solution scores 2.84 instead of 0, and repeatable results need at least 8 dedicated grader CPUs."
+ },
+ "integer_compression_codec": {
+  "headline": "Scores compare against stored numbers the documented starter cannot produce",
+  "about": "Write a library that compresses lists of integers more tightly and decodes them faster than a supplied simple starter (Varint, which stores each number in whole bytes), on eight datasets.",
+  "problem": "The documentation says the supplied starter scores 1.0. The grader instead compares against stored numbers the starter cannot produce: five are below 8 bits per integer, impossible for this byte-based format, and the speeds were timed on another machine. The starter scores about 0.24, and a simple honest codec 0.76 instead of 6.24. Dataset weights differ from the documentation.",
+  "effect": "All submissions: the starter scores 0.24 instead of 1.0 and a simple honest codec 0.76 instead of 6.24; relative dataset weights are off by up to 6.7 times.",
+  "action": "Fixed in a new version: the grader measures the starter in the same run and compares against it, as documented. The starter now scores about 1.0; scores are not comparable with the original version."
+ },
+ "jagua_nesting_optimization": {
+  "headline": "The grader accepts overlapping shapes as valid layouts",
+  "about": "Pack flat shapes into a strip of fixed height so the strip is as short as possible, like cutting parts from a roll of material.",
+  "problem": "Overlapping shapes are forbidden, but the grader misses many overlaps: two identical shapes in the same place, a shape fully inside another, or one slid halfway over another. It never checks whether a shape was rotated in a way the instance forbids. Because the score depends only on strip length, an overlapping layout can beat every valid one.",
+  "effect": "Layouts with overlaps can score above every valid layout. The size was not measured. Honest layouts without overlaps are unaffected.",
+  "action": "Fixed in a new version: the grader measures the exact overlap area between shapes and rejects real overlaps, while edges that only touch stay allowed. It also rejects forbidden rotations."
+ },
+ "juliet_vulnerability_analyzer": {
+  "headline": "Answer key checks out; public and hidden examples differ in one convention",
+  "about": "Write a static analyzer (a program that inspects code without running it) that finds six kinds of security bug, such as buffer overflows, in Juliet's C test programs.",
+  "problem": "All 723 hidden answers passed consistency checks. But for command-injection bugs, the public examples mark the bug's starting point at the dangerous call, while the hidden answers mark the line that reads the input, as the instructions describe. Also unstated: use-after-free bugs must start at the memory allocation, not the release, and intermediate steps are never required.",
+  "effect": "About 2.5 points out of 100 (an estimate, not measured), only for solvers that copy the public command-injection convention. The use-after-free effect was not measured.",
+  "action": "Kept, with a note: hidden command-injection answers start at the input line, unlike the public examples; use-after-free answers start at the allocation, not the release; intermediate steps are not required."
+ },
+ "k12_math_recommendation": {
+  "headline": "No scoring problem found; shipped example reports are out of date",
+  "about": "Build a system that recommends math learning content for school students (grades K-12), scored on five weighted measures over 100 test scenarios.",
+  "problem": "No scoring defect. Both shipped example solutions score validly (24.7 and 17.6, in the expected order). Caveats: the shipped example reports show 50.4 and 45.292, from an apparently older grader. Under a tight 512 MiB memory limit the grader crashes while loading and reports 0 for everything; with enough memory it used about 520 to 535 MiB.",
+  "effect": "No effect on honest submissions under normal memory limits. Under a tight memory limit every submission gets 0 with an error.",
+  "action": "Kept, with a note: the shipped example reports are out of date, and the grader fails under a tight memory limit."
+ },
+ "lean_analysis_proofs": {
+  "headline": "Two required statements are false; some points depend on proof style",
+  "about": "Fill in missing proofs in a version of Tao's Analysis I textbook written in Lean, a language for machine-checked math proofs; each finished statement earns one of 2901 points.",
+  "problem": "Two statements the solver must prove are false as written, so nobody can earn them. The grader also scores hidden helper entries that Lean creates automatically; whether they earn credit depends on how a proof is written, and some can never be earned. Two correct proofs of the same facts scored 26 and 25 depending on the proof technique.",
+  "effect": "At least 49 of 2901 points (1.69%) are out of reach for any honest, complete solution; up to 466 points could depend on proof style.",
+  "action": "Fixed in a new version: the two false statements are corrected, and automatic helper entries and three placeholder statements are no longer scored, leaving 2338. Scores are not comparable with the original version."
+ },
+ "molecular_self_assembly": {
+  "headline": "The stated 1 GB memory limit is not enforced; no score advantage found",
+  "about": "Write a Python program for an atom-bonding optimization puzzle adapted from an AtCoder programming contest (AHC057), scored on 50 fixed test cases with 30 seconds each.",
+  "problem": "The task allows each solution 1 GB of memory, but the grader does not enforce this. A test submission we wrote using about 1.37 GB per case got full credit. Only an overall limit, shared by up to 8 cases at once, applies; it can fail heavy solutions unpredictably. No way to gain points from extra memory was found.",
+  "effect": "No way found for extra memory to raise a score; this is reasoned, not measured. Solutions using too much memory may lose cases unpredictably.",
+  "action": "Kept, with a note: treat the 1 GB memory limit as advice only. Memory is limited only for the grader as a whole, which can fail memory-heavy solutions unpredictably."
+ },
+ "nethack_dungeon_agent": {
+  "headline": "Game seeding silently fails, so the 20 graded games are random and scores vary",
+  "about": "Write a program that plays NetHack, a classic text-based dungeon exploration game, and earns as high an in-game score as possible.",
+  "problem": "The grader is meant to play 10 fixed games twice each, but its call that fixes each game fails silently, so all 20 games are random, each with a random character type. Two full runs of the same starter program scored 1.0 and 0.8. A 120-second limit per game is enforced but not stated in the instructions.",
+  "effect": "For the starter program, 0.02 points out of 100. The variation for a competent agent was not measured and is likely much larger.",
+  "action": "Kept, with a note: the 20 games are random rather than fixed, scores are not repeatable between runs, and each game is limited to 5,000 steps and 120 seconds, the latter not stated."
+ },
+ "new_foundations_consistency": {
+  "headline": "Grades correctly with internet access; cannot grade offline",
+  "about": "Complete the missing proofs in a Lean project (Lean is a language for machine-checked math proofs) on the consistency of New Foundations, a set theory; credit is the share completed.",
+  "problem": "With internet access the grader builds and gives a valid result. Without it, the build fails and no score is produced, because a bundled dependency does not match the version the project requires and must be downloaded again. Separately, 15 of 2,246 scored items, generated automatically by Lean, could be renamed by an honest proof and then lost (untested).",
+  "effect": "No effect measured. Offline graders give no score at all. The renaming risk is at most 0.67% of the score, an upper bound, not a measured loss.",
+  "action": "Kept, with a note: grading needs internet access to GitHub, and 15 automatically generated items (at most 0.67% of the score) could be lost when honest proofs rename them."
+ },
+ "openrct2_theme_park_ai": {
+  "headline": "Instructions promise about 4 game years; the grader runs about 68 game days",
+  "about": "Write a plugin for OpenRCT2, a theme-park simulation game, that raises each park's company value across three scenarios.",
+  "problem": "The instructions say each scenario runs about 4 game years. The grader stops each scenario after 120 real seconds, which covers 68 to 69 game days at the top speed, about 7% of that target. The score is the company value at this early point. A plugin can also slow the game down, so fewer days pass.",
+  "effect": "Not measured as a score change. It changes what is measured: company value after about 2 months, not 4 years, for solvers who planned for the stated length.",
+  "action": "Fixed in a new version: the instructions now state the real 120-second limit, about 70 game days at speed 4, and that the plugin may set speed 1 to 4. Grading is unchanged."
+ },
+ "openttd_transport_ai": {
+  "headline": "The instructions name a game function that does not exist",
+  "about": "Write a computer player for OpenTTD, a transport-company simulation game, that grows its company's value over 20 game-years on several random maps.",
+  "problem": "The instructions say to maximize the result of a function, AICompany.GetCompanyValue, that does not exist in this game version. A program that calls it crashes at that point, and the company stops acting. The supplied starter program calls it first and scores 0. The grader itself works correctly.",
+  "effect": "Up to the whole score for a submission that follows the instructions and calls the missing function. Submissions that use a different function are not affected.",
+  "action": "Fixed in a new version: the instructions and starter program name the correct function and explain how the score is read. The grader is unchanged, so each submission scores the same."
+ },
+ "order_addition_permutation_optimization": {
+  "headline": "An outdated file check fails every submission, so later improvements are ignored",
+  "about": "Find an ordering of the numbers 1 to 1000 that makes the output of a hidden cost function as small as possible.",
+  "problem": "One grader test compares a helper file against an outdated fingerprint; only the file's comments changed, but the test fails for every submission. Each submission's own score is still correct, yet no submission can pass all tests. Under this task's rule for choosing a run's best result, the run then keeps its first valid submission and ignores better later ones.",
+  "effect": "Each submission's own score is unaffected. A run's reported best score is wrong whenever a later valid submission scores higher; how often this happened was not measured.",
+  "action": "Fixed in a new version: the check uses the current file's fingerprint, so correct submissions pass all five tests and the best submission, not the first, is chosen."
+ },
+ "ordinal_notation_well_foundedness": {
+  "headline": "Grader correct; only the first of nine targets is known to be provable",
+  "about": "Prove nine statements in Coq (a language for machine-checked math proofs) that a step-by-step list-rewriting process always terminates from given starting lists; targets are weighted, maximum 85.",
+  "problem": "No grader defect: an honest proof gets credit; unfinished proofs and proofs using unproven assumptions are rejected. Caveats: targets 2 to 9 have no known proof, so the 85-point maximum is unverified; helper files named test*, check*, debug*, explore*, tmp* or scratch* are silently left out of submissions; each file has an unstated 300-second compile limit.",
+  "effect": "No effect on honest proofs was found. A proof needing a helper file with an excluded name, or taking over 300 seconds to compile, would fail.",
+  "action": "Kept, with a note: targets 2 to 9 are unproven, helper files with certain name prefixes are dropped, and each file has a 300-second compile limit."
+ },
+ "pfr_formalization": {
+  "headline": "No problem found; two proof styles scored the same",
+  "about": "Fill in missing proofs in a project about the PFR conjecture, a mathematics result, written in Lean, a language for machine-checked math proofs.",
+  "problem": "No material problem. The grader also scores 7 helper entries Lean creates automatically, which in a related task makes scores depend on proof style. Here two different honest proofs of one theorem both earned the same 2 of 423 points. Five statements display as unfinished but are not; none was found out of reach. Caveat: only one theorem was tested.",
+  "effect": "No effect found on the scores of honest submissions.",
+  "action": "Kept, with a note: two proof styles scored the same, no statement was found out of reach, and five statements that display as unfinished are not actually unfinished."
+ },
+ "portfolio_risk_calibration": {
+  "headline": "Excess return uses a slightly different formula than the instructions state",
+  "about": "Build an investment portfolio strategy that is tested on past market data and compared with a benchmark index.",
+  "problem": "The instructions define excess return as the strategy's yearly return minus the benchmark's yearly return. The grader instead subtracts the two returns first and then converts the difference to a yearly figure. On the task's test period of about 242 trading days the two results are close, and they rank strategies in the same order.",
+  "effect": "The total score moves by at most about 0.4 of 100 points, for all submissions. The ranking of excess returns does not change.",
+  "action": "Kept, with a note: the grader's excess-return formula differs from the stated one, moving totals by at most about 0.4 points; a two-line fix exists if exact agreement is needed."
+ },
+ "rust_multicrate_reconstruction": {
+  "headline": "A test exemption can forgive one unrelated failure, worth at most 0.1 points",
+  "about": "Complete the missing code in a 14-package Rust project (Rust is a programming language) so it passes hidden tests of its libraries and command-line tool.",
+  "problem": "The grader excuses one known-failing test, but only checks that the test's name appears in the output, not that it actually failed. If that test passes while another test in the same package fails, that failure is counted as a pass. An honest, partly finished solution can trigger this.",
+  "effect": "At most +0.1 points out of 100 per grading, only for solvers whose excused test passes while another test in the same package fails.",
+  "action": "Kept, with a note: scores may be overstated by at most 0.1 points out of 100, because one unrelated failure can be credited as a pass; a one-condition fix is described."
+ },
+ "schemathesis_config_modernization": {
+  "headline": "One test does not check that a function is returned unchanged",
+  "about": "Modernize the configuration code of schemathesis, a tool for testing web APIs, following a written specification; hidden tests grade the result.",
+  "problem": "The specification says the @schemathesis.metric decorator (a function that registers another function) returns the function unchanged. The test only checks that it returns something callable, so a version that returns a wrapper scores the same as a correct one.",
+  "effect": "At most about 1/150 of the total score, only for submissions whose decorator returns something other than the original function.",
+  "action": "Fixed in a new version: one test is added that checks the function comes back unchanged. Scores are identical when that test group is fully passed or fully failed."
+ },
+ "schemathesis_datagen_pipeline": {
+  "headline": "The date test checks only the format, not whether dates are real",
+  "about": "Build test-data generators for schemathesis, a tool that tests web APIs, including one that produces valid dates in the standard web date format.",
+  "problem": "The hidden test checks only that each date has the right pattern of letters and digits. It accepts impossible dates such as 31 April, wrong weekdays, times like 24:00 and made-up month names. A generator that produces impossible dates or wrong weekdays about 90% of the time still passes all 15 tests in its group.",
+  "effect": "At most about 1% of the total score, only for generators that produce invalid dates or times; they get the same credit as correct generators.",
+  "action": "Fixed in a new version: the test now checks real calendar dates, matching weekdays and valid times, and samples 200 dates instead of 50. Correct generators keep their scores; wrong ones lose about 1%."
+ },
+ "schemathesis_reporting_observability": {
+  "headline": "Two hidden tests give credit for wrong or broken output",
+  "about": "Add reporting features to Schemathesis, a tool that automatically tests web services, including writing test reports in JUnit XML, a common report format.",
+  "problem": "One hidden test only checks that two words appear in the report, so broken files and reports missing the error still pass. Another test, for a feature that leaves request bodies out of certain generated tests, can never fail: it looks for the wrong kind of item and always finds nothing. Correct work is never penalized.",
+  "effect": "About 2.4% of the total in all: at most 1/70 (about 1.4%) and 1/100 (1.0%). Only submissions with these mistakes gain.",
+  "action": "Fixed in a new version: the report test reads the file and requires the recorded error; the other test now checks real output. Partial scores are not comparable with the original version."
+ },
+ "smt_solver": {
+  "headline": "The answer checker misreads some valid solutions, so 27 hidden problems cannot be won",
+  "about": "Build an SMT solver: a program that decides whether a set of logical constraints can be satisfied and, if so, prints values that satisfy them.",
+  "problem": "When checking a solver's proposed values, the grader looks up a function's value by its literal text, such as \"(f x)\", ignoring what x currently stands for. If the same text means different things in different places, no answer can pass. 27 satisfiable hidden problems are unwinnable, and on 42 more, answers written as the instructions describe are rejected.",
+  "effect": "A perfect solver's maximum falls from 78.61 to 72.40 (6.21 points). All solvers lose the 27 problems; those following the documented format also lose 42 more.",
+  "action": "Fixed in a new version: the checker works out a function's actual inputs before looking up its value, so correct answers in the documented format are accepted; wrong answers are still rejected."
+ },
+ "sphere_eversion_formalization": {
+  "headline": "No problem found; all scored items reachable by an honest solution",
+  "about": "Complete the missing proofs in a Lean project (Lean is a language for machine-checked math proofs) on sphere eversion, turning a sphere inside out smoothly; credit is the share completed.",
+  "problem": "No material defect. Of 661 scored items, none is out of reach for an honest, complete solution. Items the Lean compiler generates automatically are 18.0% of the score and should come for free once their parent proofs are done. Caveat: this rests on inspection and an unchanged starter; no honest proof was actually scored.",
+  "effect": "No effect measured.",
+  "action": "Kept, with a note: the finding that automatically generated items are stable rests on inspection only; no honest proof was scored."
+ },
+ "treant_forest": {
+  "headline": "The score scale tops out at 21 of 100 for any submission",
+  "about": "Solve 50 fixed cases of a grid puzzle adapted from an AtCoder programming contest; each case scores the number of turns survived, and higher is better.",
+  "problem": "The grader caps each case at 2N² turns, where N is the grid size, so the highest possible total is 92,304. The score scale's reference points were set far above this, up to 330,195 for the top rank, so even a perfect submission scores only 21.02 out of 100. The README does not mention the cap.",
+  "effect": "Every submission's score is squeezed into 0 to 21, with ordering kept. A simple honest test submission scored 3.04.",
+  "action": "Fixed in a new version: only the score scale changes, running straight from the starter's total (3,418) to the maximum possible (92,304). Raw totals are identical; the simple honest test submission now scores 16.36."
+ },
+ "tree_block_partitioning": {
+  "headline": "The supplied grading library miscalculates when a value multiplies itself",
+  "about": "Solve six programming-contest problems on splitting trees into blocks, worth 5, 5, 10, 15, 25 and 40 points, using a library the grader provides.",
+  "problem": "In the second problem, the grader's library gives a wrong answer when a value is multiplied by itself in place (written x *= x). The rules allow this, and local testing cannot reveal it, because the downloadable library is different. A test submission we wrote that does this drops from 5 points to 0.25.",
+  "effect": "At most 5 of 100 points, only for submissions that multiply a value by itself. The other 95 points are unaffected.",
+  "action": "Fixed in a new version: two lines in the grader's library swap order so both old values are read first. The reference solution still scores 100."
+ },
+ "triangulation_coloring_optimization": {
+  "headline": "The grader allows mesh moves the instructions forbid, and its test inputs overlap",
+  "about": "Starting from a triangle mesh (a network of triangles) over 512 points, recolour points and swap shared triangle edges to get the lowest possible score.",
+  "problem": "The instructions allow swapping an edge only when its two triangles form a convex four-sided shape. The grader skips that condition, so it accepts swaps that fold the mesh over itself. The same rule built the hidden inputs: all ten contain overlapping triangles. A forbidden swap can improve the score, as one did on a hidden case.",
+  "effect": "Changes which moves are allowed for every solver. How much a strong solver gains from forbidden moves was not measured.",
+  "action": "Fixed in a new version: forbidden swaps are rejected and the test inputs are rebuilt without overlaps. Scores are not comparable with the original version."
+ },
+ "trinity_text_adventure": {
+  "headline": "No problem found; the score is the game's own, and play is repeatable",
+  "about": "Play the text adventure game Trinity by sending typed commands to it and get the highest in-game score, out of 100.",
+  "problem": "No material defect. The score is the game's own score at the end of the best session; the game behaves identically for the same commands. Caveats: the final score counts, not the highest score reached; sessions close after 600 seconds idle; at most 3 run at once; each step times out after 10 seconds. None is in the task text.",
+  "effect": "No effect on the scores of honest submissions observed. Only an agent that relies on the highest-score-reached figure, or pauses over 10 minutes mid-game, could be affected.",
+  "action": "Kept, with a note: the final score of the best session counts, idle sessions close after 600 seconds, and at most 3 sessions run at once."
+ },
+ "tryst_text_adventure": {
+  "headline": "No problem found; the score is the game's own repeatable score",
+  "about": "Play the text adventure game Tryst of Fate by sending typed commands through a web interface, aiming for the highest in-game score (maximum 350).",
+  "problem": "No material problem. The grader uses the game's own score, which is repeatable for the same commands. Caveats: it counts each session's final score, not its peak, although the interface also reports a peak score; and unstated limits apply: 10 seconds per step, at most 3 sessions at once, and sessions closed after 600 seconds idle.",
+  "effect": "No effect observed. Only an agent relying on the peak score, or pausing over 10 minutes mid-game, could be affected.",
+  "action": "Kept, with a note: the score is the final in-game score of the best session, out of 350, and sessions close after 600 seconds idle, with at most 3 at once."
+ },
+ "vehicle_routing_time_windows": {
+  "headline": "No scoring problem; the checker is built from a file solvers may edit",
+  "about": "Speed up and improve a C++ program that plans delivery routes for vehicles with limited capacity, where each customer must be visited within a time window.",
+  "problem": "No scoring problem. Rounding never changes a verdict. Caveats: the checker is built from a file solvers may edit, so speeding up that file's distance code also changes the checker; all 56 cases count equally and are fixed public examples, unlike the task's description; a declared cost off by exactly 0.05 may be rejected.",
+  "effect": "None for a program that reports its own computed cost. Editing the shared distance file was not tested, so any effect is not measured.",
+  "action": "Kept, with a note: editing the shared distance file also changes the checker; all 56 public cases count equally; report the computed cost exactly. Building the checker from the original file is recommended."
+ },
+ "vibrating_path_graph_coloring": {
+  "headline": "The tester rejects one documented output format, but no score changes",
+  "about": "Solve 50 graph-colouring puzzles (colouring points of a network so linked points differ), outputting a sequence of point \"hits\" and a colour per point, for the lowest total score.",
+  "problem": "The instructions describe a three-line output, even when there are no hits; the tester accepts no-hit answers only in a two-line form. This does not matter: on every official puzzle a no-hit answer is wrong anyway. That is proved for 37 of 50 puzzles and overwhelmingly likely for the other 13, assuming the published puzzle generator.",
+  "effect": "No effect on any score on the official puzzles; a solver using the documented no-hit format only sees a different error message.",
+  "action": "Kept, with a note: the tester accepts no-hit answers only in two lines, not the documented three, but a no-hit answer is wrong on every official puzzle, so no score changes."
+ },
+ "vliw_kernel_optimization": {
+  "headline": "No problem found for honest submissions",
+  "about": "Write a program generator for a simulated processor that runs many instructions at once (a VLIW machine); the program must be correct and is scored on speed.",
+  "problem": "Only ways to deliberately cheat the grader were found; those are outside this audit. The grader scored the correct starter program validly and rejected an empty program.",
+  "effect": "No effect on the scores of honest submissions.",
+  "action": "Kept, with a note: this audit does not cover deliberate attempts to cheat the grader; the two test submissions run were scored correctly."
+ },
+ "warehouse_forklift_routing": {
+  "headline": "Time limit is stricter than promised, and no score can exceed about 30",
+  "about": "Write a program that produces forklift command strings to store and then dispatch goods in a grid warehouse, using as few commands as possible.",
+  "problem": "The instructions promise 30 seconds per test case, 150 seconds per five-case input; the grader allows 60 seconds per input, and one timeout voids the whole submission. Separately, a machine-checked proof shows every valid answer totals at least 712.538, worse than the score scale's top reference points, so no submission can score above about 30.3.",
+  "effect": "A solver taking 60 to 150 seconds on any input loses its whole score; every solver is capped at about 30.3 out of 100.",
+  "action": "Fixed in a new version: the time limit is 150 seconds per input, as promised. The score scale is unchanged, and the ceiling of about 30.3 is documented."
+ },
+ "wesnoth_tactical_ai": {
+  "headline": "The supplied starter program is broken, and repeat games give different results",
+  "about": "Write a computer player in Lua, a scripting language, for the strategy game Battle for Wesnoth that wins matches against the game's built-in opponent.",
+  "problem": "No scoring problem. The supplied starter program uses a setting this game version does not recognize, so it never recruits units and scores 0; the game's own player scored 41. Games are not repeatable even with a fixed random seed. All 60 games must finish within 900 seconds, about 15 seconds per game, which the task does not say.",
+  "effect": "The broken starter scores 0 for anyone who submits or builds on it unchanged. The effect of non-repeatable games on scores was not measured.",
+  "action": "Kept, with a note: the starter's recruiting setting is broken on this game version, games are not repeatable, and 60 games must fit in 900 seconds."
+ },
+ "wireless_electricity_layout": {
+  "headline": "A program that fails to compile can be listed as best, but scores never change",
+  "about": "Improve a provided C++ program for a layout puzzle scored on 50 hidden test cases, where the score is a total cost and lower is better.",
+  "problem": "A program that fails to compile gets one penalty in total, while each failed test case gets the same penalty separately. So a non-compiling program can rank above a poor working one, including the provided starter, and be named the best submission. All such submissions score 0 out of 100 either way, so no score changes.",
+  "effect": "No effect on scores out of 100: every affected submission scores 0 either way, an argument checked on 200,000 random submission histories.",
+  "action": "Kept, with a note: a compile failure is penalized once rather than per test case, so it can be named the best submission, but this never changes a score out of 100."
+ }
+}

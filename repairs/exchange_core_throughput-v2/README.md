@@ -1,25 +1,38 @@
-# exchange_core_throughput v2
+# exchange_core_throughput, fixed version
 
-**Defect** ([review](../../evidence/reviews/exchange_core_throughput-native.md)): the original correctness
+## What this fixes
+
+The original grader's correctness check does not compare fees, balances or messages, so matching engines with simple bugs pass and get full credit. The fixed grader first runs 33 of the project's own integration tests and scores the submission 0 if any fails. It also ships the build files the original image lacks, so grading works without network access.
+
+### The problem in detail
+
+See the [review](../../evidence/reviews/exchange_core_throughput-native.md). The original correctness
 check runs only `testThroughputPeak`, which does not compare fees, balances, positions or emitted
-events. Two plausible one-edit engine bugs (a maker/taker fee swap that keeps the global balance at
-zero; user events not forwarded) passed all 50 asserted rounds and scored higher than the correct
-engine (24.40 and 15.62 vs 7.14 normalized). The project's own integration tests reject both.
+events. Two plausible one-edit engine bugs passed all 50 checked rounds and scored higher than the correct
+engine (24.40 and 15.62 against 7.14 out of 100). The first is a maker/taker fee swap that keeps the global balance at
+zero. The second stops forwarding user events. The project's own integration tests reject both.
 
-**Change** (`files/eval_exchange_core.py`, generated `repair.patch`): before the unchanged timed
-test, the evaluator runs the project's shipped integration tests `ITFeesExchangeBasic` and
-`ITExchangeCoreIntegrationRejectionBasic` (33 tests) in a separate Maven invocation; if they do not
-all pass, the submission scores 0 (`WA`). The timed run itself is unchanged. `files/m2/` pre-seeds
-the public Maven artifacts the original image lacks (7 jars with their POMs, 30 files; listed in `source-lock.json`), so v2 grades offline; v1 needs network.
+## What changes
 
-**Score compatibility:** correct engines score as in v1 (throughput is host-noisy); incorrect
-engines that v1 rewarded now score 0. v2 scores are not comparable with v1 leaderboard entries.
+- **`files/eval_exchange_core.py`** (generated `repair.patch`): before the unchanged timed
+  test, the grader runs the project's shipped integration tests `ITFeesExchangeBasic` and
+  `ITExchangeCoreIntegrationRejectionBasic` (33 tests) in a separate Maven run. If they do not
+  all pass, the submission scores 0 (`WA`, wrong answer). The timed run itself is unchanged.
+- **`files/m2/`** pre-loads the public Maven artifacts the original image lacks (7 jars with their POMs, 30 files; listed in `source-lock.json`). So the fixed grader grades offline; the original grader needs network access.
 
-**Limits:** two integration test classes cover fees, rejections and events, not every engine
-invariant; throughput varies ±~20% run to run on the same worker (control 2,050–2,978 raw).
-Paired evidence: [paired/results.md](paired/results.md).
+**Score compatibility:** correct engines score as under the original version (throughput is noisy from machine to machine). Incorrect
+engines that the original version rewarded now score 0. Fixed-version scores are not comparable with original leaderboard entries.
 
-## Build
+## How it was checked
+
+A side-by-side run of the original and fixed graders on the same submissions: [paired/results.md](paired/results.md). Correct engines pass the integration tests and are timed. The two buggy engines pass the original grader and score 0 under the fixed grader.
+
+## Limits
+
+- The two integration test classes cover fees, rejections and events, not every property a correct engine must keep.
+- Throughput varies ±~20% from run to run on the same cloud machine (correct engine 2,050–2,978 raw).
+
+## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 

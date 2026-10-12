@@ -1,82 +1,86 @@
-# order_addition_permutation_optimization v2: correct the expected helper fingerprint
+# order_addition_permutation_optimization, fixed version: correct the expected helper fingerprint
 
-## Defect
+## What this fixes
+
+One grader test compares a helper file against an outdated sha256 fingerprint, so it fails for every submission, even though only the file's comments changed. Each submission's own score stays correct, but under this task's rule for picking a run's best submission, the run stays on its first valid submission and ignores better later ones. The fixed version expects the current file's fingerprint, so correct submissions pass all five tests and the best submission is chosen.
+
+### The problem in detail
 
 `tests/test_final_result.py::test_private_judge_files_are_available` checks the installed
 private score helper `tests/score_vcpom_result.py` against a hard-coded sha256:
 
-- **Expected:** `3023b9a4…`. This is the hash of an earlier helper with Chinese comments.
+- **Expected:** `3023b9a4…`. This is the fingerprint of an earlier helper with Chinese comments.
 - **Installed:** `337837af…`. A later image layer replaced the helper with an English-comment
-  translation whose code is functionally identical.
+  translation whose code works identically.
 
-As a result, one of the five tests fails for every submission. Per-submission `TOTAL_SCORE`
-values are still correct, but the pass rate is capped at 0.8. Under the task's
-`selection: pass_rate_first`, scores are compared only when both pass rates are 1.0. The
-run-level best therefore stays on the first valid submission, and later improvements are
+As a result, one of the five tests fails for every submission. Each submission's `TOTAL_SCORE`
+is still correct, but the pass rate is capped at 0.8. The task's rule
+`selection: pass_rate_first` keeps the submission that passes the most tests, and compares scores only when both pass rates are 1.0. The
+run's best therefore stays on the first valid submission, and later improvements are
 ignored. Review: `evidence/reviews/order_addition_permutation_optimization.md`.
 
-## Exact change
+## What changes
 
-One literal in one file, shown in `repair.patch` (generated with `diff -u`):
+One value in one file, shown in `repair.patch` (generated with `diff -u`):
 
 ```
 -EXPECTED_SCORE_HELPER_SHA256 = "3023b9a449119e862d4ca86d3ab45599e2496e182be82959a642522f915dbbac"
 +EXPECTED_SCORE_HELPER_SHA256 = "337837af7067b3dae8d4ef068d26d8dd8ff779f9a627d95451af2ca411c99630"
 ```
 
-- The replacement checker `files/home/workspace/complex_job_scheduling/tests/test_final_result.py`
+- The replacement test file `files/home/workspace/complex_job_scheduling/tests/test_final_result.py`
   (6265 bytes, sha256 `37e7bae6…`) is byte-identical to the frozen candidate of the earlier
   reviewed recipe `repairs/order-helper-integrity-v1/`. It was rebuilt here from the original
-  image's checker by changing only this literal.
-- The helper, `.so`, baseline file, prompt, work image, parser, selection and rescale are all
-  unchanged.
+  image's test file by changing only this value.
+- These are all unchanged: the helper, `.so`, baseline file, prompt, agent's working image, parser, the rule for picking the best submission and the
+  score scale.
 - `task.json.in` changes only `judge.image_tag` (`f6f385925889` to `f6f385925889-ebv-v2`).
-- The Dockerfile is `FROM` the pinned original judge digest plus one `COPY`.
+- The Dockerfile is `FROM` the pinned original grader digest plus one `COPY`.
 
 **Why this is minimal.** The other correct fix would revert the helper to its old bytes, which
-would undo the translation. Dropping the hash check would remove an integrity check that does
+would undo the translation. Dropping the fingerprint check would remove an integrity check that does
 work.
 
-## The earlier failed pilot (`evidence/selected/order-repair-failed-pilot.json`)
+### The earlier failed pilot (`evidence/selected/order-repair-failed-pilot.json`)
 
 That pilot recorded "invalid capture with zero tests". The saved records show:
 
-- It was a heavy transport experiment: original work-image collection, then a docker-save /
-  restore of the candidate judge image, then a capped native backend.
-- The judge ran with `timeout=30` and a 1 CPU / 1 GiB, file-capped backend.
+- It was a heavy transport experiment: collection from the original working image, then a docker-save /
+  restore of the candidate grader image, then a capped native backend.
+- The grader ran with `timeout=30` and a 1 CPU / 1 GiB, file-capped backend.
 - The 711-byte capture was never exported, and its cause is recorded as UNKNOWN.
-- Nothing in it points at the checker literal. Zero parsed tests means pytest never produced
+- Nothing in it points at the expected-fingerprint value. Zero parsed tests means pytest never produced
   a test report in that restored container.
 
-This package avoids the failure mode as follows:
+This package avoids that failure as follows:
 
-- The v2 image is built directly in the worker from the pinned base. There is no save/restore.
-- A preflight in each image hashes `tests/*` and checks that `pytest --collect-only` collects
+- The fixed image is built directly on the cloud machine from the pinned base. There is no save/restore.
+- A check in each image, before grading, hashes `tests/*` and confirms that `pytest --collect-only` collects
   5 tests.
-- Each judgement uses the TaskSpec `eval.sh` with the task's own 600 s timeout.
-- Every raw capture is saved and graded afterwards with the repo harness.
+- Each grading uses the TaskSpec `eval.sh` with the task's own 600 s timeout.
+- Every raw capture is saved and graded afterwards with the repository harness.
 
-Both preflights collected 5 tests, and every capture parsed 5 test results.
+Both pre-grading checks collected 5 tests, and every capture parsed 5 test results.
 
-## Score compatibility
+### Score compatibility
 
-Per-submission raw and normalized scores are unchanged, bit for bit. Pass rates change: a
-legal submission now gets 5/5 instead of 4/5. Run-level `best_score` / `best_round` under
-`pass_rate_first` are therefore not comparable with v1 whenever a run had more than one valid
-submission and a later one scored higher. v1 kept the first; v2 keeps the best.
+Each submission's raw result and score out of 100 are unchanged, bit for bit. Pass rates change: a
+legal submission now gets 5/5 instead of 4/5. The run's `best_score` / `best_round` under
+`pass_rate_first` are therefore not comparable with the original version whenever a run had more than one valid
+submission and a later one scored higher. The original version kept the first; the fixed version keeps the best.
 
-## Paired evaluation
+## How it was checked
 
-See `paired/results.md`. **Accepted.**
+A side-by-side run of the original and fixed graders on the same test submissions. See `paired/results.md`. **Accepted.** Correct submissions pass 4 of 5 tests under the original grader and 5 of 5 under the fixed grader, with identical scores.
 
 ## Limits
 
-- The submissions are simple controls (identity, and 60 s of random-swap search), far from
-  the reference cost. The selection effect does not depend on score magnitude.
-- The selection was computed with the repo's `select_best` on the saved reports, not through a
-  live `judge_server` run. The work image was not executed.
+- The submissions are simple test submissions (identity, and 60 s of random-swap search), far from
+  the reference cost. The effect on the choice of best submission does not depend on score size.
+- The choice of best submission was computed with the repository's `select_best` on the saved reports, not through a
+  live `judge_server` run. The agent's working image was not run.
 
-## Build
+## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 

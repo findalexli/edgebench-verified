@@ -15,11 +15,11 @@ def changes(pkg):
     new = json.loads((pkg / 'task.json.in').read_text())
     out = []
     if (pkg / 'Dockerfile').exists() and orig['judge'].get('image_tag') != new['judge'].get('image_tag'):
-        out.append('judge image')
+        out.append('grader')
     if orig['work'].get('image_tag') != new['work'].get('image_tag'):
-        out.append('solver (work) image')
+        out.append("agent's starting files")
     if orig['work'].get('agent_query') != new['work'].get('agent_query'):
-        out.append('task prompt')
+        out.append('task instructions')
     if orig['judge'].get('rescale') != new['judge'].get('rescale'):
         out.append('score scale')
     other = {k for k in set(orig) | set(new) if k not in ('work', 'judge') and orig.get(k) != new.get(k)}
@@ -31,27 +31,35 @@ def changes(pkg):
 
 def main():
     decisions = {r['task_id']: r for r in json.loads((ROOT / 'decisions.json').read_text())}
+    names = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['name'] for f in TASKS.glob('*.json')}
     rows = []
     for pkg in sorted(REPAIRS.glob('*-v2')):
         tid, ch, jt, wt = changes(pkg)
-        status = 'accepted' if decisions[tid]['proposed'] == 'repair-v2' else 'partial (task excluded)'
-        rows.append(f"| [{tid}](repairs/{pkg.name}/README.md) | {', '.join(ch) or '—'} | `{jt}` | {status} |")
+        status = 'fixed and tested' if decisions[tid]['proposed'] == 'repair-v2' else 'partial fix; task removed'
+        rows.append(f"| [{names[tid]}](repairs/{pkg.name}/README.md) | {', '.join(ch) or '—'} | `{jt}` | {status} |")
     doc = f"""# Applying the fixes
 
-Every repair is a new version of an EdgeBench task, packaged in EdgeBench's own format. The
-original task definitions in `tasks/` and the original images are never modified. Each package in
-`repairs/<task_id>-v2/` contains:
+Each fixed task is published as a new version of the original EdgeBench task, in EdgeBench's own
+format. Nothing in the original release is modified: the original task definitions stay in `tasks/`,
+and the original software images are used unchanged as the base of each fix.
 
-| File | Purpose |
+## What a fix contains
+
+Each fix lives in its own folder, `repairs/<task_id>-v2/` ("v2" marks the fixed version).
+
+| File | What it is |
 | --- | --- |
-| `README.md` | The defect, the exact change, score compatibility and limits |
-| `repair.patch` | Our change, as a unified diff against the files in the original image |
-| `materialize.sh` | Pulls the pinned original image, extracts the original files, applies the patch, and checks every result against `source-lock.json` |
-| `Dockerfile` (and `Dockerfile.work` where the solver image changes) | `FROM` the original image digest, then only the changed files |
-| `task.json.in` | The task definition for v2: a copy of `tasks/<task_id>.json` with only the necessary fields changed |
-| `paired/` | The paired evaluation: the same inputs scored by the original and the repaired evaluator |
+| `README.md` | What the fix changes, how it was tested, and its limits |
+| `repair.patch` | The change itself, as a standard diff against the original files |
+| `materialize.sh` | Rebuilds the changed files: downloads the original public image, extracts the original files, applies the patch, and checks every result against the fingerprints in `source-lock.json` |
+| `Dockerfile` (and `Dockerfile.work` when the agent's starting files change) | Builds the fixed image on top of the exact original image, adding only the changed files |
+| `task.json.in` | The fixed task definition: a copy of `tasks/<task_id>.json` with only the necessary fields changed |
+| `paired/` | The side-by-side test: the same test submissions graded by the original and the fixed grader |
 
-## Apply one repair
+Only the patch is distributed, never copies of the original files, so the fixes can be published
+without redistributing EdgeBench's images.
+
+## Build and use one fix
 
 ```bash
 cd repairs/<task_id>-v2
@@ -62,33 +70,39 @@ docker build -t edgebench.judge.<task_id>:$TAG .
 cp task.json.in ../../tasks/<task_id>.json   # the harness resolves edgebench.judge.<task_id>:<image_tag>
 ```
 
-The harness looks up images as `edgebench.judge.<task_id>:<image_tag>` and
-`edgebench.work.<task_id>:<image_tag>`, taking the tags from the task JSON, so no harness change
-is needed. Maintainers who build images from source can apply `repair.patch` to their source tree
-instead; the patch paths are the in-image paths.
+EdgeBench's runner finds images by the names `edgebench.judge.<task_id>:<image_tag>` (the grader)
+and `edgebench.work.<task_id>:<image_tag>` (the agent's environment), reading the tags from the task
+definition. Replacing the task definition is therefore enough; the runner itself does not change.
+Maintainers who build images from source can apply `repair.patch` to their source tree instead.
+The paths in the patch are the paths inside the image.
 
-## Check a repair
+## Test a fix yourself
 
-`paired/run.sh` reruns the paired evaluation (it was run on 8-vCPU / 8 GiB workers). Two packages
-differ: Lean Analysis uses `paired/run_local.sh`, run locally, and OpenRCT2 has no run script because
-nothing executable changed (its controls hold by construction and were not re-run). The
-accepted results are in `paired/results.md` and in [paired-results.csv](paired-results.csv):
-each repair fixes its trigger, keeps valid controls' scores (or explains the change), and still
-rejects invalid controls.
+`paired/run.sh` reruns the side-by-side test. The published runs used machines with 8 virtual CPUs
+and 8 GiB of memory. Two fixes differ:
+- Lean Analysis uses `paired/run_local.sh`, which was run locally.
+- OpenRCT2 has no run script, because only its instructions changed and nothing that runs was
+  modified.
 
-## Score compatibility
+The results are in each `paired/results.md` and together in [paired-results.csv](paired-results.csv).
+Every fix was accepted only if three things held:
+- the test submission that shows the problem is now graded correctly;
+- correct test submissions keep their scores, or the change is explained;
+- wrong test submissions are still rejected.
 
-v2 scores are **not comparable** with v1 leaderboard scores for the same task. Rerun affected
-submissions under v2 rather than mixing versions. Each package README states exactly which
-submissions' scores change.
+## Scores are not comparable across versions
 
-## What each repair changes
+A score from a fixed version cannot be compared with a score from the original task or the original
+leaderboard. Regrade submissions with the fixed version rather than mixing the two. Each fix's
+README says exactly which submissions' scores change.
 
-| Package | Changes | v2 judge image tag | Status |
+## What each fix changes
+
+| Task | What changes | Fixed grader image tag | Status |
 | --- | --- | --- | --- |
 {chr(10).join(rows)}
 
-Tasks retained with a note need no change; their notes are in [FINDINGS.md](FINDINGS.md) and the
+Tasks kept with a note need no change. Their notes are in [FINDINGS.md](FINDINGS.md) and on the
 case pages.
 """
     (ROOT / 'APPLYING-FIXES.md').write_text(doc)

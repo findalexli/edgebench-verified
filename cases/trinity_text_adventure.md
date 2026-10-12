@@ -1,49 +1,47 @@
 # Trinity (`trinity_text_adventure`)
 
-**Decision:** Retain with note. The score is the game's own deterministic score, and no scoring defect was found; the note covers final-versus-peak scoring and undisclosed session limits.
+**Outcome:** Kept, with a note. The score is the game's own repeatable score, and no scoring defect was found; the note covers the use of the final rather than the peak score, and session limits that the task text does not disclose.
 
-## What the task asks for
+## What the task asks
 
-"Play the interactive fiction game *Trinity* by sending commands via an HTTP API and maximize your score." The prompt states no horizon, step cap or number of games. Category: Interactive Games & Simulators.
+The task text says: "Play the interactive fiction game *Trinity* by sending commands via an HTTP API and maximize your score." *Trinity* is a text adventure game. The task text states no time horizon, no cap on steps and no number of games. Category: Interactive Games & Simulators.
 
-## What goes wrong
+## What we checked
 
-No material defect was found. What was checked:
+No defect that changes scores enough to matter was found. These parts were checked:
 
-- **Score definition.** Each step reads `env.get_score()` from Z-machine memory. When a session ends (done, explicit close, idle reap or eviction) the archived score is the *final* score of that session, and the run score is the maximum final score over all sessions. The rescale is linear from 0 (the start score) to 100, which equals Jericho's `max_score` for this game (`trinity.c:71-73`). There is no shipped baseline. Example: a native walkthrough replay scored 100/100, which normalizes to 100.
-- **Repeatability.** `FrotzEnv(rom)` with no seed falls back to the binding seed, which is 0, so the game's random number source does not depend on the time. Six sessions saw identical prefix trajectories. Given the command sequence, the game is fully deterministic.
+- **How the score is defined.** Each step reads `env.get_score()` from the memory of the Z-machine, the virtual machine that runs the game. A session can end in four ways: the game is done, the session is closed explicitly, it is closed after being idle (reaped), or it is pushed out by a newer session (evicted). In each case the stored score is the *final* score of that session. The score for the run is the highest final score over all sessions. The score scale is linear, from 0 (the start score) to 100, which equals the `max_score` that the Jericho game library sets for this game (`trinity.c:71-73`). There is no shipped starting solution. Example: replaying a full walkthrough on the host scored 100/100, which is 100 out of 100.
+- **Repeatability.** `FrotzEnv(rom)` with no seed falls back to the library's default seed, which is 0. The game's random number source therefore does not depend on the time. Six sessions saw identical trajectories over their shared opening commands. Given the sequence of commands, the game is fully deterministic.
 
-Notes (documentation only, not material):
+Notes (documentation only; they do not change scores):
 
-- **Final, not peak, score.** The archived score is the final score, while the API also returns `peak_score`, which could mislead an agent. This matters only if points can be lost during play. In all three supplied trajectories (Anchorhead, Trinity, Tryst) final equalled peak.
-- **Undisclosed session limits.** The harness enforces limits the prompt does not mention: a 10 s HTTP timeout per step, at most 3 concurrent sessions per run (oldest evicted), and reaping after 600 s idle. Reaping and eviction archive the current score, so no score is lost, but an agent that pauses for more than 10 minutes mid-game loses the live game and must replay it. Replay is cheap: the full walkthroughs replayed in about 3 s of engine time.
+- **Final score, not peak score.** The stored score is the final score, while the API also returns `peak_score`, which could mislead an agent. This matters only if points can be lost during play. In all three supplied trajectories (Anchorhead, Trinity, Tryst) the final score equalled the peak.
+- **Undisclosed session limits.** The harness enforces limits that the task text does not mention: a 10 s HTTP timeout per step, at most 3 sessions at once per run (the oldest is evicted), and closing after 600 s idle. Closing and eviction store the current score, so no score is lost. But an agent that pauses for more than 10 minutes in the middle of a game loses the live game and must replay it. Replay is cheap: the full walkthroughs replayed in about 3 s of engine time.
 
 **Note shipped with the task.**
 
 - The score is the final in-game score of the best completed or closed session, out of the game's max_score (100).
 - Sessions are reaped after 600 s idle; at most 3 sessions run concurrently.
 
-## Impact
+## How much it matters
 
-Maximum score effect observed: 0, for both notes. Only an agent that relies on `peak_score`, or pauses for more than 10 minutes mid-game, could be affected.
+The largest effect on scores observed is 0, for both notes. Only an agent that relies on `peak_score`, or pauses for more than 10 minutes in the middle of a game, could be affected.
 
-## Fix (v2)
+No change is made; the note above ships with the task.
 
-No change; the note above ships with the task.
+## How we checked it
 
-## How we know
-
-- **Harness source.** Per-step score reading (`game_server_app.py`), session archiving and limits (`judge_server.py`), best-of-N selection (`selection.py`), validity gate (`grading.py`) and rescale (`score_rescale.py`) were read from the pinned harness. The copies match the hash-pinned copies byte for byte.
-- **Game engine source.** The public Jericho 3.3.1 sdist gives the score source, `max_score` and the default seed.
-- **Native runs.** Six sessions with full walkthrough replays. These ran on the host; no judge image digest is recorded.
+- **Harness source.** These parts were read from the pinned harness: reading the score at each step (`game_server_app.py`), storing sessions and enforcing limits (`judge_server.py`), keeping the best of N sessions (`selection.py`), the validity check (`grading.py`) and the score scale (`score_rescale.py`). The copies match the hash-pinned copies byte for byte.
+- **Game engine source.** The public Jericho 3.3.1 source package (sdist) gives the source of the score, `max_score` and the default seed.
+- **Runs on the host.** Six sessions with full walkthrough replays. These ran on the host; no digest of a grader image is recorded.
 - No formal model applies.
 
 ## Limits
 
-- No model or solver was run. Effects are shown on walkthrough sessions only.
-- No game was run in a pinned judge image.
-- Jericho behavior comes from the upstream 3.3.1 source, not from hashing the installed bytes.
-- Final-versus-peak was not tested in a trajectory where points are lost.
+- No AI model or solver runs were made. Effects are shown only on walkthrough sessions.
+- No game was run in a pinned grader image.
+- Jericho's behaviour comes from the published 3.3.1 source, not from hashing the installed files.
+- The difference between final and peak score was not tested in a trajectory where points are lost.
 
 ## Reproduce
 

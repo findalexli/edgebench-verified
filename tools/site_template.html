@@ -1,4 +1,10 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EdgeBench Verified</title>
+<meta name="description" content="An independent check of the 51 public EdgeBench tasks: which graders score honest work correctly, what goes wrong in the others, and fixed versions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
@@ -120,187 +126,267 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
 .md blockquote { margin: 0 0 12px; padding-left: 12px; border-left: 3px solid var(--rule); color: var(--muted); }
 @media (max-width: 600px) { .strip { grid-template-columns: repeat(10, minmax(0, 1fr)); } nav.top a.l { font-size: 0.82rem; } }
 @media (prefers-reduced-motion: reduce) { .cell:hover { transform: none; } }
-</style>
 
+.vh { position: absolute; left: -9999px; }
+.answer { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; max-width: 72ch; display: grid; gap: 8px; }
+.answer ul { margin: 0; padding-left: 1.2em; }
+.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
+.steps ul { margin: 6px 0 0; padding-left: 1.2em; }
+ul.plain { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+.fgroup { display: grid; gap: 0; margin-top: 18px; }
+.fgroup h3 { font-size: 1.05rem; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+.drawer h2 { font-size: 1.6rem; margin: 4px 0 8px; }
+.kicker { margin: 0 0 14px; }
+dl.card { display: grid; gap: 4px; margin: 0 0 22px; }
+dl.card dt { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
+dl.card dd { margin: 0; font-size: 1rem; line-height: 1.6; }
+figure.fig { margin: 4px 0 18px; display: grid; gap: 6px; }
+figure.fig svg { width: 100%; height: auto; max-width: 720px; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--muted); }
+.finding figure.fig { margin: 8px 0 0; }
+.finding figure.fig svg { max-width: 720px; }
+details.tech { border-top: 1px solid var(--rule); padding-top: 12px; }
+details.tech > summary { cursor: pointer; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+@media (max-width: 640px) { body { padding-inline: 16px; } .paths { grid-template-columns: 1fr; } .paths .eyebrow { margin-top: 8px; } }
+</style>
+</head>
+<body>
 <nav class="top"><div class="wrap">
   <a class="brand" href="#top">EdgeBench Verified</a>
-  <a class="l" href="#findings">Findings</a>
-  <a class="l" href="#impact">Score impact</a>
+  <a class="l" href="#how">How scoring works</a>
+  <a class="l" href="#findings">What we found</a>
+  <a class="l" href="#impact">Effect on the rankings</a>
   <a class="l" href="#tasks">All 51 tasks</a>
-  <a class="l" href="#method">Method</a>
+  <a class="l" href="#method">How we checked</a>
   <a class="l" href="#downloads">Downloads</a>
 </div></nav>
 
 <main class="wrap" id="top">
 <header class="hero">
-  <div class="eyebrow">Version 1.0 · 51 public tasks</div>
+  <div class="eyebrow">Version 1.0 · an independent check of a public AI benchmark</div>
   <h1>EdgeBench Verified</h1>
-  <p class="lede">A benchmark task is only as good as its evaluator. For each of EdgeBench's 51 public tasks we checked, on the original digest-pinned evaluator, whether a good-faith solver gets the score the task promises. Every material defect was repaired as a new task version in EdgeBench's own format and checked against the original on the same inputs, or the task was excluded.</p>
-  <div class="strip" id="strip" aria-label="Decision for each of the 51 tasks"></div>
-  <div class="legend">
-    <span><i class="k-retain"></i>Retain</span>
-    <span><i class="k-retain-with-note"></i>Retain with note</span>
-    <span><i class="k-repair-v2"></i>Repair (v2)</span>
-    <span><i class="k-exclude"></i>Exclude</span>
+  <p class="lede"><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> ranks AI agents on hard, open-ended engineering and science tasks. An agent works on each task for up to 12 hours, and an automatic grader scores its work from 0 to 100. A ranking can only be as trustworthy as those graders.</p>
+  <p class="lede">We examined the grader of every one of the 51 publicly released tasks and asked one question: <b>if an agent does honest, correct work, does it get the score the task promises?</b></p>
+  <div class="answer">
+    <div class="eyebrow">Short answer</div>
+    <p>For 23 of the 51 tasks, the grader has a problem that changes scores. The problems fall into four kinds:</p>
+    <ul>
+      <li>correct work is scored too low;</li>
+      <li>wrong work is accepted;</li>
+      <li>the grader applies a different rule from the one the agent is told;</li>
+      <li>the score scale cannot be reached.</li>
+    </ul>
+    <p>We fixed {{repair-v2}} of these tasks and checked each fix. We removed {{exclude}} that could not be fixed soundly. The other {{retain-with-note}} graders work as intended. Their notes record smaller caveats.</p>
   </div>
+  <div class="strip" id="strip" aria-label="Outcome for each of the 51 tasks"></div>
+  <div class="legend" id="legend"></div>
   <div class="counts">
-    <div><b>{{repair-v2}}</b><span>repaired as v2, each checked on paired before/after runs, repeated three times</span></div>
-    <div><b>{{retain-with-note}}</b><span>retained with a published note</span></div>
-    <div><b>{{exclude}}</b><span>excluded from this release</span></div>
+    <div><b>{{repair-v2}}</b><span>fixed in a new version of the task, each fix tested against the original</span></div>
+    <div><b>{{retain-with-note}}</b><span>kept, with a note about smaller caveats</span></div>
+    <div><b>{{exclude}}</b><span>removed, because no sound fix was possible</span></div>
   </div>
-  <p class="sub">The other 83 advertised EdgeBench tasks were not available and are out of scope. No models were run: defects are shown on authored controls and counterexamples, and their effect on the published leaderboard is recomputed only where it is a pure change of scale.</p>
 </header>
 
+<section id="how">
+  <div class="eyebrow">Background</div>
+  <h2>How EdgeBench scores an agent</h2>
+  <ol class="steps col">
+    <li><b>The task.</b> The agent receives written instructions and starter files. Examples: make a database engine faster, write a game-playing bot, prove a theorem, or infer the source of groundwater pollution from sensor readings.</li>
+    <li><b>The grader.</b> Each submission is checked by a hidden grader program written by the task's authors. It runs the agent's work on hidden test cases and produces a raw result, such as a cost, a speed, or a number of tests passed.</li>
+    <li><b>The 0–100 scale.</b> The raw result is converted to a score from 0 to 100 using reference points the authors chose for that task. These are usually a weak starting solution and a strong expert result.</li>
+    <li><b>Many tries, best one kept.</b> The agent can submit many times in 12 hours and sees each score. A run keeps its best score so far.</li>
+    <li><b>The leaderboard.</b> Each AI model gets three runs per task, and the three scores are averaged. A model's headline number is the average over tasks.</li>
+  </ol>
+  <p class="sub col">A grader can therefore go wrong in four places: what it accepts, what it rejects, how it converts the raw result to 0–100, and which submission it keeps. We found problems in all four.</p>
+</section>
 
 <section id="findings">
-  <div class="eyebrow">Selected findings</div>
-  <h2>Defects a good-faith solver would hit</h2>
-  <div class="findings" id="findinglist"></div>
+  <div class="eyebrow">What we found</div>
+  <h2>Problems an honest agent would run into</h2>
+  <p class="sub col">Selected examples. Select a title to read the full case.</p>
+  <div id="findinglist"></div>
 </section>
 
 <section id="impact">
-  <div class="eyebrow">Score impact</div>
-  <h2>What the defects do to the published means</h2>
-  <p class="sub col">Computed from EdgeBench's own per-task @12h scores for the 51 public tasks. Exact adjustments are pure changes of scale applied to unchanged raw scores: Treant Forest's unreachable anchors, Borden's missing rescale, and Dabic's exclusion. Documented bounds add every repair with a proven or demonstrated maximum effect. The worst case lets each remaining repair take its full range, which is a limit, not a prediction. No submission was re-scored.</p>
+  <div class="eyebrow">Effect on the rankings</div>
+  <h2>What the problems do to the published scores</h2>
+  <p class="sub col">EdgeBench publishes each model's score on every task. Using those numbers, we worked out how the averages over the 51 public tasks change once the problems are corrected. We did not rerun any AI model, and the agents' original submissions are not public, so only part of the effect can be calculated.</p>
   <div class="tablewrap">
     <table class="ledger imp">
-      <thead><tr><th>Model</th><th class="n">Published</th><th class="n">Exact adjustments</th><th class="n">With documented bounds</th><th class="n">Worst case</th></tr></thead>
+      <thead><tr><th>Model</th><th class="n">Published average</th><th class="n">After the corrections we can calculate exactly</th><th class="n">Range, adding fixes with a known maximum effect</th><th class="n">Widest possible range</th></tr></thead>
       <tbody>{{impact_rows}}</tbody>
     </table>
   </div>
-  <p class="sub col">{{impact_note}} Full table: <a href="data/IMPACT.md">IMPACT.md</a> · <a href="data/impact.csv">impact.csv</a>.</p>
+  <ul class="col plain">
+    <li><b>Exact corrections</b> are fixes that only change the 0–100 scale, so a published score can be converted directly. These are mainly Treant Forest, where the old scale capped every score at 21 out of 100, plus removing the one excluded task. They raise every model by {{shift_lo}}–{{shift_hi}} points and leave the order unchanged.</li>
+    <li><b>Fixes with a known maximum effect</b> add a small range. {{fragile_text}}</li>
+    <li><b>The widest range</b> lets each remaining fix take its largest possible effect. Twelve fixed tasks fall in this group, including several large ones. The true effect is somewhere inside the range; finding it would require regrading the original submissions. Read the exact-correction column as a lower limit on the change, not an estimate of it.</li>
+  </ul>
+  <p class="sub col">Details for every task: <a href="data/IMPACT.md">IMPACT.md</a> · <a href="data/impact.csv">impact.csv</a>.</p>
 </section>
 
 <section id="tasks">
-  <div class="eyebrow">Ledger</div>
+  <div class="eyebrow">All tasks</div>
   <h2>All 51 tasks</h2>
-  <p class="sub">Select a row to read the full case: what the task promises, what we ran, what we found, the repair and its paired results, limits, and how to reproduce it.</p>
-  <div class="controls" role="group" aria-label="Filter by decision">
-    <button class="chip" data-f="all" aria-pressed="true">All</button>
-    <button class="chip" data-f="repair-v2" aria-pressed="false">Repair (v2)</button>
-    <button class="chip" data-f="retain-with-note" aria-pressed="false">Retain with note</button>
-    <button class="chip" data-f="retain" aria-pressed="false">Retain</button>
-    <button class="chip" data-f="exclude" aria-pressed="false">Exclude</button>
-    <label for="q" class="eyebrow" style="position:absolute;left:-9999px">Search tasks</label>
-    <input id="q" type="search" placeholder="Search task, category or finding">
-  </div>
+  <p class="sub col">Select a row for a plain summary of the task, what goes wrong, how much it matters and what we did. The full technical case follows underneath.</p>
+  <div class="controls" role="group" aria-label="Filter by outcome" id="chips"></div>
+  <div class="controls"><label for="q" class="vh">Search tasks</label><input id="q" type="search" placeholder="Search by task name, field or problem"></div>
   <div class="tablewrap">
     <table class="ledger">
-      <thead><tr><th style="width:26%">Task</th><th style="width:14%">Decision</th><th>What we found</th><th style="width:18%">Max effect</th></tr></thead>
+      <thead><tr><th style="width:24%">Task</th><th style="width:15%">Outcome</th><th>What we found</th><th style="width:24%">How much it matters</th></tr></thead>
       <tbody id="rows"></tbody>
     </table>
     <div class="empty" id="empty" hidden>No task matches this filter.</div>
   </div>
 </section>
 
+<section id="method" class="method">
+  <div class="eyebrow">How we checked</div>
+  <h2>How a suspicion became a finding</h2>
+  <ol class="steps col">
+    <li><b>Use the original grader.</b> Every check ran on the exact grader software the leaderboard used, pulled from EdgeBench's public images and identified by a cryptographic fingerprint.</li>
+    <li><b>Read what the agent is promised.</b> The instructions and documents the agent receives, quoted rather than paraphrased, next to the grader's code.</li>
+    <li><b>Show it with test submissions.</b> For each suspected problem we wrote three submissions and ran them through the original grader:
+      <ul>
+        <li>a correct one, which must score as promised;</li>
+        <li>one that triggers the problem;</li>
+        <li>a wrong one, which must be rejected.</li>
+      </ul></li>
+    <li><b>Check the maths independently.</b> Where a question is mathematical, we confirmed it a second way: exact arithmetic, a separate program, exhaustive search, or a computer proof checker. The proof checkers were Lean, which machine-checks mathematical proofs, and TLA+, which exhaustively explores every state of a small model.</li>
+    <li><b>Follow it to the final score.</b> A problem counts only if it changes the 0–100 score of honest work. Problems that do not are recorded as notes.</li>
+    <li><b>Test every fix side by side.</b> The same test submissions were graded by the original and the fixed version. The problem had to be gone, correct work had to keep its score, and wrong work had to stay rejected. Each comparison was repeated three times, and no outcome changed.</li>
+  </ol>
+  <p class="sub col"><b>Not covered:</b> deliberate cheating against the grader (how the benchmark isolates the grader is a design choice of its own), EdgeBench's 83 unreleased tasks, and new runs of AI models. The reviews were carried out by AI agents, and every claim is tied to a saved evidence file in the repository.</p>
+  <p class="sub col"><b>Using the fixed tasks.</b> Each fix is a small patch plus a script that rebuilds the fixed task from the original public files, so nothing proprietary is redistributed. Scores from fixed versions are not comparable with the original leaderboard. See <a href="data/APPLYING-FIXES.md">Applying the fixes</a>.</p>
+</section>
+
 <section id="downloads">
   <div class="eyebrow">Downloads</div>
   <h2>Data and documents</h2>
-  <p class="sub col">Machine-readable results and the full documents. The repair packages, evidence and scripts are in the GitHub repository.</p>
   <div class="paths">
-    <span class="eyebrow">Decisions</span><span><a href="data/decisions.csv">decisions.csv</a> · <a href="data/decisions.json">decisions.json</a> (all 51 tasks)</span>
-    <span class="eyebrow">Paired runs</span><span><a href="data/paired-results.csv">paired-results.csv</a> (134 rows, original vs repaired evaluator)</span>
-    <span class="eyebrow">Score impact</span><span><a href="data/impact.csv">impact.csv</a> · <a href="data/IMPACT.md">report</a> (published means, exact and bounded adjustments)</span>
-    <span class="eyebrow">Repeatability</span><span><a href="data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="data/paired-repeatability.md">report</a> (3 runs per arm)</span>
-    <span class="eyebrow">Documents</span><span><a href="data/FINDINGS.md">Findings</a> · <a href="data/METHOD.md">Method</a> · <a href="data/APPLYING-FIXES.md">Applying the fixes</a></span>
-  </div>
-</section>
-
-<section id="method" class="method">
-  <div class="eyebrow">Method</div>
-  <h2>How a claim became a finding</h2>
-  <ol>
-    <li><b>Pin the original.</b> Task JSON from the public release, judge and work images by OCI digest from Docker Hub, sha256 of every file relied on.</li>
-    <li><b>Read the contract first.</b> The prompt, shipped READMEs and evaluator, before any earlier evidence.</li>
-    <li><b>Reproduce on the original evaluator path.</b> The task's own <code>eval_cmd</code> in the pulled image, with a known-good control, the trigger and a known-bad control. Heavy runs used isolated cloud workers, one job per worker.</li>
-    <li><b>Use an independent oracle.</b> Exact rational arithmetic, a second implementation, brute force, or a formal tool: Lean 4 for false theorem statements and a routing lower bound (axioms reported for every proof), TLA+ for aliasing and counting rules, each with a negative control.</li>
-    <li><b>Trace to the reported score.</b> Through the parser, selection policy and rescale. Some real defects are immaterial; one small one froze every run's best score.</li>
-    <li><b>Accept a repair only on paired evidence.</b> The same inputs scored by the original and repaired evaluator in one run: the trigger fixed, valid controls unchanged, invalid controls still rejected.</li>
-    <li><b>Repeat it.</b> Every paired evaluation was run three times on fresh workers. Across 132 executed arms in 22 repairs, no verdict changed between runs; only throughput and timing scores moved.</li>
-  </ol>
-  <p class="sub col">Out of scope: deliberate tampering with the scorer by a malicious submission (an EdgeBench harness design choice), the 83 unreleased tasks, and model runs. Score effects are measured on authored controls and counterexamples. The reviews were carried out by AI agents; every published claim is traced to a saved evidence file.</p>
-  <div class="paths">
-    <span class="eyebrow">Overview</span><code>README.md</code>
-    <span class="eyebrow">Method</span><code>METHOD.md</code>
-    <span class="eyebrow">Decisions</span><code>decisions.csv</code>
-    <span class="eyebrow">Repairs</span><code>repairs/&lt;task&gt;-v2/</code>
-    <span class="eyebrow">Formal</span><code>evidence/formal/</code>
+    <span class="eyebrow">Outcomes</span><span><a href="data/decisions.csv">decisions.csv</a> · <a href="data/decisions.json">decisions.json</a>: the outcome for all 51 tasks</span>
+    <span class="eyebrow">Fix tests</span><span><a href="data/paired-results.csv">paired-results.csv</a>: 134 test submissions graded by the original and fixed versions</span>
+    <span class="eyebrow">Repeat runs</span><span><a href="data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="data/paired-repeatability.md">report</a>: each comparison run three times</span>
+    <span class="eyebrow">Score effect</span><span><a href="data/impact.csv">impact.csv</a> · <a href="data/IMPACT.md">report</a>: effect on the published averages</span>
+    <span class="eyebrow">Documents</span><span><a href="data/FINDINGS.md">All findings</a> · <a href="data/METHOD.md">Method</a> · <a href="data/APPLYING-FIXES.md">Applying the fixes</a></span>
+    <span class="eyebrow">Source</span><span><a href="https://github.com/findalexli/edgebench-verified">GitHub repository</a>: fixes, evidence, proofs and scripts</span>
   </div>
 </section>
 
 <footer>
-  <span>Harness derived from ByteDance Seed EdgeBench (Apache-2.0); task definitions from the public Hugging Face release. Task images are referenced by their public Docker Hub digests.</span>
-  <span>v2 scores are not comparable with v1 leaderboard scores.</span>
+  <span>EdgeBench is by ByteDance Seed. This is an independent check, not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0). Task definitions come from the public Hugging Face release, and task software is referenced by its public fingerprints, not copied.</span>
 </footer>
 </main>
 
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="drawerTitle">
-  <div class="bar"><span class="eyebrow" id="drawerTitle">Case</span><button class="close" id="close">Close</button></div>
-  <div class="md" id="case"></div>
+  <div class="bar"><span class="eyebrow" id="drawerKicker"></span><button class="close" id="close">Close</button></div>
+  <div id="summary"></div>
+  <details class="tech" id="techbox"><summary>Technical details for task maintainers</summary><div class="md" id="case"></div></details>
 </aside>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <script>
 const DATA = /*__DATA__*/null;
-const LABEL = {"retain": "Retain", "retain-with-note": "Retain with note", "repair-v2": "Repair (v2)", "exclude": "Exclude"};
+const LABEL = {"retain": "Kept as is", "retain-with-note": "Kept, with a note", "repair-v2": "Fixed", "exclude": "Removed"};
 const FINDINGS = [
-  ["triangulation_coloring_optimization", "Triangulation Coloring: the flip rule omits the README's convexity condition", "The same rule generated the test cases, so all ten overlap, and it scores submissions. v2 fixes the rule and regenerates valid cases."],
-  ["order_addition_permutation_optimization", "Order Addition: a stale integrity hash freezes every run on its first submission", "Every submission passes at most 4 of 5 tests, and the selection policy then never prefers a later, better submission. One literal fixes it."],
-  ["exchange_core_throughput", "Exchange Core: two plausible engine bugs score higher than the correct engine", "A fee swap and dropped events pass the correctness check. v2 gates scoring on the project's own integration tests."],
-  ["smt_solver", "SMT Solver: 27 satisfiable hidden problems are unwinnable for any solver", "The witness checker keys function values by source text. A perfect solver's ceiling drops from 78.61 to 72.40; v2 keys by evaluated arguments."],
-  ["warehouse_forklift_routing", "Warehouse Routing: the promised time budget is not the one enforced", "30 s per test case is promised, 60 s per five-case input is enforced. A Lean-proved lower bound also shows the top score anchors are unreachable (ceiling ≈30.3)."],
-  ["borden_source_inversion", "Borden Inversion: an honest physics model scores at baseline", "The hidden forward model uses an undocumented, non-physical convention. The same honest fit scores 7.0 under textbook physics and 31.2 under the judge's convention; v2 ships the exact model."],
-  ["lean_analysis_proofs", "Lean Analysis: two required theorems are false", "Refuted in Lean inside the task image. Compiler-generated targets also made scores depend on proof style; v2 fixes both."],
-  ["dabic_gravity_inversion", "Gravity Inversion: 42 points are self-reported and unverifiable", "Excluded from this release. A partial v2 removes an undisclosed penalty on the model-space form the prompt allows.", true]
+  ["Correct work is scored too low", [
+    ["smt_solver", "SMT Solver: correct answers rejected on 27 hidden problems", "The agent builds a solver for logic formulas. When it shows that a formula can be satisfied, it must give an example assignment. The grader compares parts of that example by how they are written rather than by their value, so correct examples are rejected on 27 hidden problems. Even a perfect solver can reach only 72.40 of the 78.61 points those problems are worth."],
+    ["borden_source_inversion", "Borden Inversion: textbook physics scores far below the grader's hidden convention", "The agent works out where groundwater pollution came from. The grader's hidden physics model uses an unusual convention the instructions never mention. The same honest fit scores 7.0 with textbook physics and 31.2 with the grader's convention."]
+  ]],
+  ["Wrong work is accepted", [
+    ["exchange_core_throughput", "Exchange Core: a broken trading engine gets full credit", "The agent speeds up a stock-exchange matching engine. Two realistic bugs pass the grader's correctness check and receive full credit: swapping the buyer's and seller's fees, and dropping event messages."],
+    ["jagua_nesting_optimization", "Jagua Nesting: overlapping shapes count as a valid layout", "The agent packs shapes onto a sheet to waste as little material as possible. The grader accepts layouts in which shapes overlap, which can beat every real layout."]
+  ]],
+  ["The grader applies a different rule from the one the agent is told", [
+    ["triangulation_coloring_optimization", "Triangulation Coloring: the grader drops a rule the instructions state", "The instructions name a geometric condition that a move must meet to be legal. The grader leaves it out, and the same faulty rule was used to generate the test cases."],
+    ["warehouse_forklift_routing", "Warehouse Routing: an agent that uses its promised time scores zero", "The instructions promise 30 seconds per test case. The grader stops after 60 seconds per group of five cases, so a solution that uses the promised time loses its whole score."]
+  ]],
+  ["The score scale cannot be reached", [
+    ["treant_forest", "Treant Forest: no submission can score above 21 out of 100", "The top of the score scale is set beyond what the game's own turn limit allows. A perfect submission scores 21.02."],
+    ["warehouse_forklift_routing", "Warehouse Routing: the best possible score is about 30", "A machine-checked proof shows that no valid solution can reach the reference points at the top of the scale."]
+  ]],
+  ["Small mistakes with large effects", [
+    ["order_addition_permutation_optimization", "Order Addition: every run is frozen at its first submission", "An out-of-date checksum in one test makes every submission fail one of five tests. The grader keeps the submission that passes the most tests and breaks ties in favour of the earliest, so a later, better submission never counts."],
+    ["dabic_gravity_inversion", "Gravity Inversion (removed): 42 points are self-reported", "42 of the points come from numbers the agent reports about its own work, which the grader cannot verify. The task was removed rather than fixed."]
+  ]]
 ];
 const byId = Object.fromEntries(DATA.rows.map(r => [r.task_id, r]));
-const strip = document.getElementById('strip');
 const order = ["repair-v2", "exclude", "retain-with-note", "retain"];
+const present = order.filter(k => DATA.counts[k]);
+function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
+document.getElementById('legend').innerHTML = present.map(k => `<span><i class="k-${k}"></i>${LABEL[k]} (${DATA.counts[k]})</span>`).join('');
+const strip = document.getElementById('strip');
 [...DATA.rows].sort((a, b) => order.indexOf(a.proposed) - order.indexOf(b.proposed) || a.name.localeCompare(b.name)).forEach(r => {
   const b = document.createElement('button');
-  b.className = 'cell k-' + r.proposed; b.title = r.name + ' — ' + LABEL[r.proposed];
+  b.className = 'cell k-' + r.proposed; b.title = r.name + ': ' + LABEL[r.proposed];
   b.setAttribute('aria-label', r.name + ': ' + LABEL[r.proposed]);
   b.onclick = () => openCase(r.task_id); strip.appendChild(b);
 });
+const shownFig = new Set();
+function figHTML(r) { return `<figure class="fig">${r.figure}<figcaption>${esc(r.figcap)}</figcaption></figure>`; }
 const fl = document.getElementById('findinglist');
-FINDINGS.forEach(([id, t, d, x]) => {
-  const el = document.createElement('div'); el.className = 'finding' + (x ? ' x' : '');
-  const inner = document.createElement('div');
-  const btn = document.createElement('button'); btn.textContent = t; btn.onclick = () => openCase(id);
-  const p = document.createElement('p'); p.textContent = d;
-  inner.append(btn, p); el.append(inner); fl.append(el);
+FINDINGS.forEach(([group, items]) => {
+  const g = document.createElement('div'); g.className = 'fgroup';
+  g.innerHTML = `<h3>${esc(group)}</h3>`;
+  items.forEach(([id, t, d]) => {
+    const el = document.createElement('div'); el.className = 'finding' + (byId[id] && byId[id].proposed === 'exclude' ? ' x' : '');
+    const inner = document.createElement('div');
+    const btn = document.createElement('button'); btn.textContent = t; btn.onclick = () => openCase(id);
+    const p = document.createElement('p'); p.textContent = d;
+    inner.append(btn, p);
+    if (byId[id] && byId[id].figure && !shownFig.has(id)) { shownFig.add(id); inner.insertAdjacentHTML('beforeend', figHTML(byId[id])); }
+    el.append(inner); g.append(el);
+  });
+  fl.append(g);
 });
 let filt = 'all';
+const chips = document.getElementById('chips');
+chips.innerHTML = [['all', 'All 51']].concat(present.map(k => [k, LABEL[k] + ' (' + DATA.counts[k] + ')']))
+  .map(([k, l]) => `<button class="chip" data-f="${k}" aria-pressed="${k === 'all'}">${esc(l)}</button>`).join('');
 const tbody = document.getElementById('rows'), q = document.getElementById('q'), empty = document.getElementById('empty');
-function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
 function render() {
   const term = q.value.trim().toLowerCase();
   const rows = DATA.rows.filter(r => (filt === 'all' || r.proposed === filt) &&
-    (!term || [r.name, r.task_id, r.category, r.finding].join(' ').toLowerCase().includes(term)));
+    (!term || [r.name, r.task_id, r.category, r.plain.headline, r.plain.about, r.plain.problem].join(' ').toLowerCase().includes(term)));
   tbody.innerHTML = rows.map(r => `<tr data-id="${r.task_id}" tabindex="0"><td class="task"><b>${esc(r.name)}</b><span>${esc(r.category)}</span></td>` +
-    `<td><span class="pill p-${r.proposed}">${LABEL[r.proposed]}</span></td><td>${esc(r.finding)}</td><td>${esc(r.max_effect)}</td></tr>`).join('');
+    `<td><span class="pill p-${r.proposed}">${LABEL[r.proposed]}</span></td><td>${esc(r.plain.headline)}</td><td>${esc(r.plain.effect)}</td></tr>`).join('');
   empty.hidden = rows.length > 0;
 }
 tbody.addEventListener('click', e => { const tr = e.target.closest('tr'); if (tr) openCase(tr.dataset.id); });
 tbody.addEventListener('keydown', e => { if (e.key === 'Enter') { const tr = e.target.closest('tr'); if (tr) openCase(tr.dataset.id); } });
-document.querySelectorAll('.chip').forEach(c => c.onclick = () => {
-  filt = c.dataset.f; document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === c)); render();
+chips.addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  filt = c.dataset.f; chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === c)); render();
 });
 q.addEventListener('input', render);
 render();
 const drawer = document.getElementById('drawer'), scrim = document.getElementById('scrim'), caseEl = document.getElementById('case');
 function openCase(id) {
-  const md = DATA.cases[id]; if (!md) return;
-  const r = byId[id];
-  document.getElementById('drawerTitle').textContent = (r ? r.category + ' · ' : '') + id;
+  const r = byId[id]; if (!r) return;
+  const p = r.plain;
+  document.getElementById('drawerKicker').textContent = r.category;
+  document.getElementById('summary').innerHTML =
+    `<h2 id="drawerTitle">${esc(r.name)}</h2><p class="kicker"><span class="pill p-${r.proposed}">${LABEL[r.proposed]}</span></p>` +
+    (r.figure ? figHTML(r) : '') +
+    `<dl class="card"><dt>The task</dt><dd>${esc(p.about)}</dd><dt>What goes wrong</dt><dd>${esc(p.problem)}</dd>` +
+    `<dt>How much it matters</dt><dd>${esc(p.effect)}</dd><dt>What we did</dt><dd>${esc(p.action)}</dd></dl>`;
+  const md = DATA.cases[id] || '';
   caseEl.innerHTML = window.marked ? marked.parse(md) : '<pre>' + esc(md) + '</pre>';
-  caseEl.querySelectorAll('a').forEach(a => { if (!/^https?:/.test(a.getAttribute('href') || '')) { a.replaceWith(Object.assign(document.createElement('code'), {textContent: a.textContent})); } else { a.target = '_blank'; a.rel = 'noopener'; } });
+  caseEl.querySelectorAll('a').forEach(a => {
+    const h = a.getAttribute('href') || '';
+    if (/^https?:/.test(h)) { a.target = '_blank'; a.rel = 'noopener'; }
+    else { a.href = 'https://github.com/findalexli/edgebench-verified/blob/main/' + h.replace(/^(\.\.\/)+/, '').replace(/^\.\//, (id && h.startsWith('./') ? 'cases/' : '')); a.target = '_blank'; a.rel = 'noopener'; }
+  });
+  document.getElementById('techbox').open = false;
   drawer.hidden = false; scrim.hidden = false; drawer.scrollTop = 0; document.getElementById('close').focus();
   try { history.replaceState(null, '', '#' + id); } catch (e) {}
 }
 function closeCase() { drawer.hidden = true; scrim.hidden = true; try { history.replaceState(null, '', '#tasks'); } catch (e) {} }
 document.getElementById('close').onclick = closeCase; scrim.onclick = closeCase;
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !drawer.hidden) closeCase(); });
-const h = location.hash.slice(1); if (DATA.cases[h]) openCase(h);
+const h = location.hash.slice(1); if (byId[h]) openCase(h);
 </script>
+
+</body>
+</html>

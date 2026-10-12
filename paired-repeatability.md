@@ -1,4 +1,6 @@
-# Paired evaluation: repeatability study
+# Side-by-side tests: are they repeatable?
+
+**How to read this file.** Each fixed task was tested side by side: the same test submissions were graded by the original grader (**v1**) and the fixed grader (**v2**). One test submission graded by both is an **arm**. A *trigger* shows the problem, a *valid control* is correct work that must keep its score, and an *invalid control* is wrong work that must stay rejected. The CSV columns use the same names.
 
 Every repair's paired evaluation was run three times: run 1 is the published result, runs 2 and 3 are fresh reruns of the same job on new E2B workers (Lean Analysis locally, one container at a time under a 4 GB cap). OpenRCT2 is excluded: its repair changes only the prompt and has nothing to run.
 **Result: 132 executed arms across 22 repair packages, 0 verdict changes.** In all three runs every trigger stayed fixed by v2, every valid control stayed valid, and every invalid control stayed rejected.

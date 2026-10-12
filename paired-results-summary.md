@@ -1,4 +1,6 @@
-# Paired before/after results: summary
+# Side-by-side test results: summary
+
+**How to read this file.** Each fixed task was tested side by side: the same test submissions were graded by the original grader (**v1**) and the fixed grader (**v2**). One test submission graded by both is an **arm**. A *trigger* shows the problem, a *valid control* is correct work that must keep its score, and an *invalid control* is wrong work that must stay rejected. The CSV columns use the same names.
 
 This file summarizes [paired-results.csv](paired-results.csv). The CSV has 134 rows from the 23
 `repairs/*-v2/paired/results.md` files: 22 accepted repairs plus the partial

@@ -1,79 +1,81 @@
-# borden_source_inversion v2: disclose the judge's forward model; add a rescale
+# borden_source_inversion, fixed version: disclose the grader's forward model and add a score scale
 
 Review: [`../../evidence/reviews/borden_source_inversion.md`](../../evidence/reviews/borden_source_inversion.md).
 
-## Defect
+## What this fixes
 
-The judge scores `answer.json` by running a hidden forward model whose parameter convention is
-not disclosed and is not textbook physics:
+The grader predicts well readings with a hidden forward model whose conventions are unstated and not textbook physics. An honest solver that follows the documentation therefore scores at the baseline level (7.03), while the same fit with the grader's convention scores 31.2. The fixed version gives solvers the grader's own forward-model code and an exact description of its conventions, and adds a score scale from 0 to 109.
+
+### The problem in detail
+
+The grader scores `answer.json` by running a hidden forward model (a model that predicts well readings from a proposed source). Its parameter convention is not disclosed and is not textbook physics:
 - each of 225 pulses has amplitude `C0·q·1000/225`;
 - porosity is not used;
 - total mass does not depend on `duration`;
 - mg/m³ is reported as mg/L;
 - with `nz=1` the source plane sits at `z_center − half_length_z`.
 
-An honest solver that builds a textbook ADE model from the docs fits the public data as well as
-the judge's own model does (RMS 0.0079 for both). It still scores 7.03, the baseline level. The
-same least squares run with the judge's convention scores 31.2. The public data cannot tell the
-two conventions apart, so the solver cannot recover the convention from the data.
+An honest solver builds a textbook ADE (advection–dispersion equation) model from the documentation. It fits the public data as well as the grader's own model does (RMS 0.0079 for both). It still scores 7.03, the baseline level. The same least-squares fit run with the grader's convention scores 31.2. The public data cannot tell the two conventions apart, so the solver cannot recover the convention from the data.
 
-Separately, the task had no `rescale`:
+Separately, the task had no score scale (`rescale`):
 - `score_0_100` was `None`;
-- the raw scale ran 0–109.
+- the raw result (before conversion to 0–100) ran 0–109.
 
-## Change (labels, evaluator and judge image unchanged)
+## What changes
 
-1. **Work image** (`Dockerfile`, `FROM` the pinned work digest, `COPY` only):
-   - **adds `forward_model.py`**: the judge's forward model, function bodies byte-identical, with
+The answer key, the grader and the grader image are unchanged.
+
+1. **Agent working image** (`Dockerfile`, `FROM` the pinned working-image digest, `COPY` only):
+   - **adds `forward_model.py`**: the grader's forward model, function bodies byte-identical, with
      only the 2-line header comment replaced. That comment mentioned `scoring/`, a keyword the
-     evaluator flags in submissions.
+     grader flags in submissions.
    - **adds a README section** stating the convention exactly: sub-points and the
-     `z_center − half_length_z` plane, release offsets, pulse amplitude, no porosity, no duration
-     dependence, units as reported.
+     `z_center − half_length_z` plane, release offsets, pulse amplitude, no porosity, no
+     dependence on duration, units as reported.
    - The same section is inserted into `task.json.in` → `work.agent_query`.
 2. **`task.json.in`** adds `judge.rescale = {"kind": "linear", "lower": 0, "upper": 109}`.
-   109 is the evaluator's theoretical maximum (1+1+2+1+2 easy points, 92 metric, 10 region),
+   109 is the grader's theoretical maximum (1+1+2+1+2 easy points, 92 metric, 10 region),
    and the true source reaches it. The map is strictly increasing, so it preserves ordering,
-   including above 100. A clamp at 100 would have tied every score in 100–109. `work.image_tag`
+   including above 100. A cap at 100 would have tied every score in 100–109. `work.image_tag`
    becomes `f389fcf94240-ebv-v2`; `judge.image_tag` stays `cc54d4fd7006`.
 
 **Why ship the function rather than only document it.** Prose can be misread, and the
-`linspace(num=1)` plane quirk alone costs about 18 points (12.9 versus 31.2 in the review). A
-byte-identical function removes any ambiguity, and the paired run shows it reproduces the
-judge's output with diff 0.0. The README text is kept as well, for solvers that write their own
-model. The function holds no secret: no labels, no truth, no hidden wells. The judge never
-imports the solver's copy.
+`linspace(num=1)` plane quirk alone costs about 18 points (12.9 against 31.2 in the review). A
+byte-identical function removes any ambiguity. The side-by-side run shows it reproduces the
+grader's output with diff 0.0. The README text is kept as well, for solvers that write their own
+model. The function holds no secret: no answer key, no true source, no hidden wells. The grader
+never imports the solver's copy.
 
-**Why minimal.** No label, evaluator, judge-image or scoring-rule change. Fixing the z-plane
-quirk or making the model physical would require regenerating the labels, so it is out of scope
-for this version.
+**Why minimal.** There is no change to the answer key, the grader, the grader image or the scoring
+rule. Fixing the z-plane quirk or making the model physical would require regenerating the answer
+key, so it is out of scope for this version.
 
-## Score compatibility
+### Score compatibility
 
-Raw scores are identical v1 → v2 for any given `answer.json`, because the judge is unchanged. v2
-reports `score_0_100 = raw·100/109`, which v1 did not define. v2 scores are **not comparable**
-with v1 *solver runs*: v2 solvers are told the convention, so a v2 run of the same agent can
-score higher (honest fit 7.0 → about 31 raw). Normalised v2 scores are on a 0–100 scale; v1 raw
-scores are on 0–109.
+For any given `answer.json`, raw results are identical under the original and fixed versions, because the grader is unchanged. The fixed version
+reports `score_0_100 = raw·100/109`, which the original version did not define. Agent runs on the fixed version are **not comparable**
+with agent runs on the original version: fixed-version solvers are told the convention, so the same agent can
+score higher (honest fit 7.0 → about 31 raw). Fixed-version scores are out of 100; original raw
+results are on 0–109.
 
-## Status
+## How it was checked
 
-Paired evaluation: **accepted**. See `paired/results.md`.
+A side-by-side run of the original and fixed graders on the same test submissions: **accepted**. See `paired/results.md`.
 
 ## Limits
 
-- The inverse problem stays weakly identified. The best public-data fit with the exact model
-  reaches 31.2 raw (28.6 normalised). The repair removes the hidden-convention penalty, not the
+- The inverse problem is still weakly determined by the data. The best public-data fit with the exact model
+  reaches 31.2 raw (28.6 out of 100). The fix removes the penalty for the hidden convention, not the
   difficulty.
-- `C0` remains an "effective intensity" in an unphysical convention. v2 documents this rather
+- `C0` remains an "effective intensity" in a non-physical convention. The fixed version documents this rather
   than fixing it.
 - One fitting method was used (multi-start least squares, log/hinge loss).
-- The out-of-bounds control is not hard-rejected by the original evaluator: it gets 4 raw and is
+- The original grader does not reject the out-of-bounds test submission outright: it gets 4 raw and is
   capped at 15. That is unchanged and reported as observed.
-- `orig/` holds copies of the original README, task JSON and judge forward model, used to
+- `orig/` holds copies of the original README, task JSON and grader forward model, used to
   generate `repair.patch`. They come from the public images.
 
-## Build
+## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
@@ -92,4 +94,4 @@ Git does not contain any file copied from the EdgeBench images. It holds only ou
 After that, the `Dockerfile` builds without changes. Regenerated files keep the file mode they have in the image.
 See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
-This Dockerfile builds the v2 **work** image. `files/forward_model.py` is produced from the judge image's `/opt/borden_scoring/hidden_forward_model.py` plus the header change in `repair.patch`. `orig/` is regenerated too: `orig/borden_source_inversion.json` comes from the EdgeBench repo's `tasks/` (set `EDGEBENCH_ROOT` if the package is not inside the EdgeBench checkout). The task JSON change is in `task-json.diff`.
+This Dockerfile builds the fixed **working** image (the image the agent works in). `files/forward_model.py` is produced from the grader image's `/opt/borden_scoring/hidden_forward_model.py` plus the header change in `repair.patch`. `orig/` is regenerated too: `orig/borden_source_inversion.json` comes from the EdgeBench repo's `tasks/` (set `EDGEBENCH_ROOT` if the package is not inside the EdgeBench checkout). The task JSON change is in `task-json.diff`.

@@ -1,40 +1,42 @@
-# jagua_nesting_optimization v2: interior-intersection overlap test and allowed orientations
+# Fixed version of `jagua_nesting_optimization`: interior-intersection overlap test and allowed orientations
 
-## Defect
+## What this fixes
 
-The scorer's `polygons_overlap` (in `jagua_task_scorer/evaluate.py`) reports an overlap only
-in two cases: two edges cross properly, or a vertex lies strictly inside the other polygon. It
+The original grader's overlap check misses many overlaps between shapes, such as identical copies in the same place or one shape inside another. Because the score depends only on strip width, an overlapping layout that cannot be cut can beat every valid one. The fixed version measures the exact overlap area between shapes and also rejects rotations an instance forbids.
+
+In detail, the grader's `polygons_overlap` (in `jagua_task_scorer/evaluate.py`) reports an overlap only
+in two cases: two edges cross properly, or a corner lies strictly inside the other polygon. It
 therefore accepts large positive-area overlaps with exact integer coordinates:
 
-- coincident copies;
-- half-slid equal-height items;
-- a rectangle, triangle or diamond contained in a square.
+- copies at the same position;
+- items of the same height slid halfway over each other;
+- a rectangle, triangle or diamond inside a square.
 
-Because the score depends only on strip width, the check cannot guarantee feasible winning
-layouts. `validate_solution` also never reads `allowed_orientations`. Review:
+Because the score depends only on strip width, the check cannot guarantee that winning
+layouts are feasible. `validate_solution` also never reads `allowed_orientations`. Review:
 `evidence/reviews/jagua_nesting_optimization.md`.
 
-## Exact change (`repair.patch`, generated with `diff -u`)
+## What changes
 
-Only `/home/workspace/jagua_task_scorer/evaluate.py` changes.
+`repair.patch` is generated with `diff -u`. Only `/home/workspace/jagua_task_scorer/evaluate.py` changes.
 
-1. **`overlap_area(a, b)`** computes the area of the intersection of two simple polygons by
-   vertical slab decomposition.
-   - Slab boundaries are every vertex x and every crossing x of an a-edge with a b-edge.
-   - Inside a slab, the common cross-section length is linear in x, so the midpoint rule is
+1. **`overlap_area(a, b)`** computes the area where two simple polygons intersect, by
+   cutting the plane into vertical strips (slab decomposition).
+   - Strip boundaries are every corner x and every x where an edge of a crosses an edge of b.
+   - Inside a strip, the length the two polygons share at each x is linear in x, so the midpoint rule is
      exact up to floating-point rounding.
-   - Active edges are maintained by a sweep, so the cost per pair is about linear in the
-     number of vertices.
+   - A sweep keeps track of the edges in the current strip, so the cost per pair is about linear in the
+     number of corners.
    - A malformed (odd) cross-section returns infinity, so it is never accepted.
 2. **`polygons_overlap`** now means `overlap_area > 1e-6 × min(item areas)`. Boundary contact
-   (shared edges or vertices) has zero area and stays legal. Float noise from rotation and
+   (shared edges or corners) has zero area and stays legal. Floating-point noise from rotation and
    translation is far below this tolerance. The tolerance is relative, so it does not depend
    on the instance's units. The most it allows is 1e-6 of an item's area per pair, which is
-   negligible against the scorer's 2.5% improvement deadband.
+   negligible against the grader's 2.5% improvement deadband (the smallest improvement that earns credit).
 3. **`orientation_allowed`**: when an item lists `allowed_orientations`, each placement's
    rotation must equal one of them modulo 360°, within 1e-6°. Otherwise the result is
    `orientation_not_allowed_<idx>`. If the field is absent (as in `swim_cr`, the
-   continuous-rotation instance), any rotation is allowed, as in jagua-rs.
+   instance with free rotation), any rotation is allowed, as in jagua-rs.
 
 Everything else is unchanged:
 
@@ -42,63 +44,53 @@ Everything else is unchanged:
 - the score formula, runtime multiplier, reference checkout, assets and work image.
 
 `task.json.in` changes only `judge.image_tag` (`bba393b2dd53` to `bba393b2dd53-ebv-v2`). The
-Dockerfile is `FROM` the pinned original judge digest plus one `COPY`.
+Dockerfile is `FROM` the pinned original grader digest plus one `COPY`.
 
-## Review of the earlier candidate (`$W/work/task-repairs/jagua-general-polygon-overlap-sol-v1/evaluate.py`)
+### Why an earlier candidate fix was not reused
 
-It was not reused.
+The earlier candidate is `$W/work/task-repairs/jagua-general-polygon-overlap-sol-v1/evaluate.py`.
+It was run in the grader image on the test layouts and on three reference layouts.
 
-I ran the candidate in the judge image on the witnesses and on three reference layouts.
-
-- **Its geometry is correct as a test of the represented coordinates.** It uses exact
-  `Fraction` arithmetic, a proper-crossing test and an interior-interval test at slab
-  midpoints. It rejects all six positive-area overlap witnesses, and it accepts the
-  edge-contact witness and the reference layouts for `swim_cr`, `gardeyn6` and `gardeyn4`.
-- **Problem 1: it has zero tolerance.** It also rejects the 1e-6-shift witness (overlap area
-  1e-5, a relative overlap of 1e-7). So any float-noise overlap of honest reconstructed
-  contacts would zero a case. This did not happen on the three reference layouts checked. Its
+- **Its geometry is correct as a test of the coordinates as written.** It uses exact
+  `Fraction` arithmetic, a proper-crossing test and an interior-interval test at strip
+  midpoints. It rejects all six positive-area overlap test layouts, and it accepts the
+  edge-contact test layout and the reference layouts for `swim_cr`, `gardeyn6` and `gardeyn4`.
+- **Problem 1: it has zero tolerance.** It also rejects the 1e-6-shift test layout (overlap area
+  1e-5, a relative overlap of 1e-7). So any floating-point overlap in honest layouts whose items only touch
+  would zero a case. This did not happen on the three reference layouts checked. Its
   docstring says "This is not a tolerance policy for ideal irrational rotations". To reduce
   the risk it also rewrites quarter-turn rotations to exact cos/sin, which is a second
-  behaviour change.
+  change in behaviour.
 - **Problem 2: it does not enforce `allowed_orientations`.** It accepts `forbidden_rotation_90`.
 - **Cost.** It took 56.6 s on the gardeyn4 reference layout. That is comparable to the
   original's 54 s; this package's version takes 0.2 s.
 
-## Independent checks done before the paired run
+### Score compatibility
 
-- **Oracle comparison** (`evidence/scripts/jagua_nesting_optimization/v2/oracle_area_check.py`).
-  It compares `overlap_area` with an exact rational Sutherland–Hodgman clip of a random simple
-  (possibly concave) polygon against a random convex polygon, both ways round, on integer
-  coordinates. Result: 7526 comparisons, 0 mismatches, max absolute error 3.4e-13. 1112 of the
-  cases were zero-area contacts.
-- **Reference outputs** (`max_overlap.py`). The frozen reference lbf outputs have a largest
-  pairwise relative overlap of exactly 0 under v2 on the instances checked. All 16 scored
-  instances are rechecked in the paired run.
+Valid layouts with no overlap above the tolerance and with allowed rotations pass the check and
+score identically. Scores under the fixed version are not comparable with the original when a layout:
 
-## Score compatibility
-
-Valid layouts with no overlap above the tolerance and with allowed rotations validate and
-score identically. v2 scores are not comparable with v1 when a layout:
-
-- contains a positive-area overlap that v1 missed. Such a case becomes `WA` with score 0;
+- contains a positive-area overlap that the original missed. Such a case becomes `WA` (wrong answer) with score 0;
 - uses a forbidden rotation;
-- contains a sub-tolerance proper crossing that v1's crossing test rejected. v2 accepts it.
+- contains a proper edge crossing below the tolerance that the original's crossing test rejected. The fixed version accepts it.
   This is more lenient, and limited to at most 1e-6 of an item's area.
 
-## Paired evaluation
+## How it was checked
 
-See `paired/results.md`.
+Independent checks before the side-by-side run:
 
-## Limits
+- **Exact comparison** (`evidence/scripts/jagua_nesting_optimization/v2/oracle_area_check.py`).
+  It compares `overlap_area` with an exact rational Sutherland–Hodgman clip (a standard polygon-clipping method) of a random simple
+  (possibly concave) polygon against a random convex polygon, both ways round, on integer
+  coordinates. Result: 7526 comparisons, 0 mismatches, largest absolute error 3.4e-13. 1112 of the
+  cases were contacts with zero area.
+- **Reference outputs** (`max_overlap.py`). The frozen reference lbf outputs have a largest
+  relative overlap between any two items of exactly 0 under the fixed version on the instances checked. All 16 scored
+  instances are rechecked in the side-by-side run.
 
-- The area oracle covers concave-against-convex pairs. Concave-against-concave pairs are
-  covered only by the witnesses and the reference layouts.
-- Floats are used, as in the original. The test is exact only up to rounding, which is far
-  below the tolerance.
-- No adversarial or near-tolerance layouts beyond the witnesses were constructed. Scorer
-  isolation is out of scope.
+The side-by-side run of the original and fixed graders on the same submissions is in `paired/results.md`.
 
-## Build
+## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
@@ -118,3 +110,12 @@ After that, the `Dockerfile` builds without changes. Regenerated files keep the 
 See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
 The task JSON change is in `task-json.diff`.
+
+## Limits
+
+- The exact comparison covers concave polygons against convex ones. Pairs of concave polygons are
+  covered only by the test layouts and the reference layouts.
+- Floating point is used, as in the original. The test is exact only up to rounding, which is far
+  below the tolerance.
+- No adversarial or near-tolerance layouts beyond the test layouts were constructed. Whether the grader is
+  isolated from the submission is out of scope.

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
+<title>Borden Source Inversion scores</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
+  }
+</style>
+
+<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Score on the original grader (raw result)</text>
+<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
+<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
+<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
+<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
+<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
+<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">bound midpoints</text>
+<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
+<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
+<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
+<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
+<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
+<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
+<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
+<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
+<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
+<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
+
+</svg>

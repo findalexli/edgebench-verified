@@ -8,7 +8,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-LABEL = {'retain': 'Retain', 'retain-with-note': 'Retain with note', 'repair-v2': 'Repair', 'exclude': 'Exclude'}
+LABEL = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repair-v2': 'Fixed', 'exclude': 'Removed'}
 problems = []
 
 
@@ -25,8 +25,8 @@ def main():
     # headline tables in README and the site
     readme = (ROOT / 'README.md').read_text()
     for k, n in c.items():
-        lab = {'repair-v2': r'\*\*Repair \(v2\)\*\*', 'retain-with-note': 'Retain with note',
-               'retain': 'Retain', 'exclude': 'Exclude'}[k]
+        lab = {'repair-v2': r'\*\*Fixed\*\*', 'retain-with-note': 'Kept, with a note',
+               'retain': 'Kept as is', 'exclude': 'Removed'}[k]
         need(re.search(rf'\| {lab} \| \**{n}\** \|', readme), f'README count for {k} != {n}')
     site = (ROOT / 'site' / 'index.html').read_text()
     need('{{' not in site, 'site has unfilled placeholders')
@@ -36,6 +36,12 @@ def main():
     rows = list(csv.DictReader((ROOT / 'decisions.csv').open()))
     need({r['task_id']: r['decision'] for r in rows} == {t: r['proposed'] for t, r in d.items()},
          'decisions.csv disagrees with decisions.json')
+    # plain summaries: one per task, action line agrees with the decision
+    plain = json.loads((ROOT / 'cases' / 'plain.json').read_text())
+    need(set(plain) == set(d), 'cases/plain.json does not cover exactly the 51 tasks')
+    pre = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repair-v2': 'Fixed in a new version', 'exclude': 'Removed'}
+    for t, r in d.items():
+        need(plain.get(t, {}).get('action', '').startswith(pre[r['proposed']]), f'{t}: plain action disagrees with decision')
     # case pages: one per task, decision line matches
     for t, r in d.items():
         p = ROOT / 'cases' / f'{t}.md'
@@ -43,7 +49,7 @@ def main():
         if p.exists():
             head = p.read_text()[:1500]
             want = LABEL[r['proposed']]
-            need(re.search(rf'\*\*Decision:\*\*\s*{re.escape(want)}', head),
+            need(re.search(rf'\*\*Outcome:\*\*\s*{re.escape(want)}', head),
                  f'case page {t} decision line does not say "{want}"')
     # repairs: every repair-v2 has an accepted package; FINDINGS covers all 51
     for t, r in d.items():

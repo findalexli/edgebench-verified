@@ -1,77 +1,82 @@
 # College English exam bank (`college_english_exam_bank`)
 
-**Decision:** Repair (v2). The original grader gave full marks for any rubric rule the grading model did not assess, and still reported the result as valid.
+**Outcome:** Fixed. The original grader gave full marks for any rubric rule that the AI grading model did not assess, and still reported the result as valid.
 
-## What the task asks for
+![Bars show the original grader scoring an empty assessment 100, and assessments with one rule left out 81 instead of 77 and 15 instead of 0; the fixed version rejects all three.](figures/college_english_exam_bank.svg)
 
-The solver is told to "Read the complete task instructions in `/home/workspace/task_instruction.md`". Those instructions ask for 22 deliverables: five exam papers (A to E) as Word and PDF, answer keys and scoring guides, a blueprint workbook and a cross-paper repetition-rate workbook. An LLM grading agent scores the work against `rubrics.json`, which has 12 rules (R001 to R012) worth 100 points in total; every rule is `deductive`. The grader's prompt tells the grading model to use the `rules` array strictly as the scoring list and not to add, delete or merge rules. The docstring of its reconciliation step says "Force result coverage/order/max_score to match rubrics.json". Category: Professional Knowledge Work.
+*When the AI grader skipped rules, the original grader gave those rules full marks and called the result valid; the fixed version rejects incomplete assessments.*
+
+## What the task asks
+
+The solver is told to "Read the complete task instructions in `/home/workspace/task_instruction.md`". Those instructions ask for 22 deliverables: five exam papers (A to E) as Word and PDF files, answer keys and scoring guides, a blueprint workbook and a workbook of repetition rates across papers. An AI grading agent (a large language model) scores the work against `rubrics.json`. That file has 12 rules (R001 to R012) worth 100 points in total. Every rule is `deductive`: it starts at full marks and loses points for faults found. The grader's prompt tells the grading model to use the `rules` array strictly as the scoring list and not to add, delete or merge rules. The docstring of the grader's reconciliation step says "Force result coverage/order/max_score to match rubrics.json". Category: Professional Knowledge Work.
 
 ## What goes wrong
 
-**Omitted rules get full marks.** When a rule row is missing from the grading model's JSON, reconciliation finds no recorded deductions. Because every rule is deductive, the rule keeps its full maximum. The grader writes the reason "Missing deductive detail scores; unreported deduction triggers treated as not triggered." and reports `grader_status: ok`, `valid: true`.
+**Rules left out get full marks.** When a rule's row is missing from the grading model's JSON answer, the reconciliation step finds no recorded deductions. Because every rule is deductive, the rule keeps its full maximum. The grader writes the reason "Missing deductive detail scores; unreported deduction triggers treated as not triggered." and reports `grader_status: ok`, `valid: true`.
 
-| Fixed response | Expected | Observed (original grader) |
+| Fixed model response | Expected | Result on the original grader |
 | --- | --- | --- |
 | C: `{"scores": []}` (no rule assessed) | grading failure | valid, **100.0** |
-| D: control A (77.0) with R009 (15 pts) omitted | 77 or failure | valid, **81.0** (R009 → 15/15) |
-| E: control B (0.0) with R009 omitted | 0 or failure | valid, **15.0** (R009 → 15/15) |
+| D: response A (77.0) with R009 (15 pts) left out | 77 or failure | valid, **81.0** (R009 → 15/15) |
+| E: response B (0.0) with R009 left out | 0 or failure | valid, **15.0** (R009 → 15/15) |
 
-**Contradictory row gets full marks.** Case I: a row whose own `score` is 0 but whose checkpoints all report no deduction. The original reconciler trusts the checkpoints and awards the rule full marks (15.0 instead of 0).
+**A self-contradicting row gets full marks.** Case I is a row whose own `score` is 0 but whose checkpoints all report no deduction. The original reconciliation step trusts the checkpoints and awards the rule full marks (15.0 instead of 0).
 
-**When it happens.** The trigger needs the grading model to return parseable JSON that lacks some rule rows, for example a truncated or abandoned assessment of a heavy 22-file submission. The grader's prompt itself anticipates the model running short of time or context. Whether a solver could induce an omission is plausible but not demonstrated. The defect is in deterministic, task-owned post-processing that fails open on incomplete model output.
+**When it happens.** The problem needs the grading model to return JSON that parses but lacks some rule rows. One example is a truncated or abandoned assessment of a heavy 22-file submission. The grader's prompt itself anticipates the model running short of time or context. That a solver could cause an omission is plausible but not demonstrated. The fault is in fixed post-processing code owned by the task, which fails open when the model's output is incomplete.
 
-## Impact
+## How much it matters
 
-Up to the value of the omitted rules; an empty assessment scores 100. The bias only points upward for this task, because its rubric has no additive rules (which would deflate). Any submission can be affected whenever the grading model returns an incomplete assessment.
+A score can rise by up to the value of the rules left out; an empty assessment scores 100. For this task the error only pushes scores up, because its rubric has no additive rules (rules that start at zero, which would push scores down instead). Any submission can be affected whenever the grading model returns an incomplete assessment.
 
-## Fix (v2)
+## The fix
 
-v2 changes only `/home/workspace/scoring/grade_with_codex.py`:
+The fixed version changes only `/home/workspace/scoring/grade_with_codex.py`:
 
-- It rejects score lists that are incomplete, duplicated, unknown or non-numeric. A row may omit the rule-level score when it has a complete numeric checkpoint vector, which v1 scored correctly.
-- It rejects a deductive row whose score contradicts an all-zero checkpoint vector (case I).
-- An incomplete assessment becomes a grading failure (`valid: false`). The harness drops such an entry from selection rather than counting it as the solver's 0. Scoring a missing rule at zero was not chosen, because it would turn an upward bias into a downward one.
-- Because the harness does not retry, v2 re-asks the grading model before giving up. It makes at most `1 + SEBENCH_CODEX_ASSESSMENT_RETRIES` calls (default 2), all within the original timeout budget.
+- It rejects score lists that are incomplete, duplicated, unknown or non-numeric. A row may leave out the rule-level score when it has a complete numeric list of checkpoints, which the original version scored correctly.
+- It rejects a deductive row whose score contradicts an all-zero list of checkpoints (case I).
+- An incomplete assessment becomes a grading failure (`valid: false`). The harness drops such an entry from selection rather than counting it as the solver's 0. Scoring a missing rule at zero was not chosen, because it would turn an upward error into a downward one.
+- Because the harness does not retry, the fixed version asks the grading model again before giving up. It makes at most `1 + SEBENCH_CODEX_ASSESSMENT_RETRIES` calls (default 2), all within the original time budget.
 
 The rubric, reference attachments and work image are unchanged. In `task.json.in` only `judge.image_tag` changes.
 
-| Fixed response | Role | v1 valid | v1 score | v2 valid | v2 score | v2 model calls | v1 = v2 output |
+| Fixed model response | Role | Original: valid | Original: score | Fixed: valid | Fixed: score | Fixed: model calls | Original = fixed output |
 | --- | --- | --- | ---: | --- | ---: | ---: | --- |
-| A all 12 rules, one deduction each | valid control | true | 77 | true | 77 | 1 | byte-identical |
-| B all 12 rules floored to 0 | valid control (bad work) | true | 0 | true | 0 | 1 | byte-identical |
-| F R009 rule-level score 0, no checkpoints | valid control | true | 0 | true | 0 | 1 | byte-identical |
-| L A without any rule-level score (complete checkpoints) | valid control | true | 77 | true | 77 | 1 | byte-identical |
-| C empty `scores` | **trigger** | **true** | **100** | false (grading failure) | – | 2 | – |
-| D A minus R009 | **trigger** | **true** | **81** | false | – | 2 | – |
-| E B minus R009 | **trigger** | **true** | **15** | false | – | 2 | – |
-| G R009 row with no score and no checkpoints | trigger (malformed row) | true | 0 | false | – | 2 | – |
-| I R009 score 0 with all-zero checkpoints | **trigger (caveat b)** | **true** | **15** | false | – | 2 | – |
-| H no JSON | invalid control | false | – | false | – | 2 | same structured result |
-| J D, then A on re-ask | re-ask recovers | true | 81 | true | 77 | 2 | – |
-| K no JSON, then A on re-ask | re-ask recovers | false | – | true | 77 | 2 | – |
+| A all 12 rules, one deduction each | correct test submission | true | 77 | true | 77 | 1 | byte-identical |
+| B all 12 rules floored to 0 | correct test submission (bad work) | true | 0 | true | 0 | 1 | byte-identical |
+| F R009 rule-level score 0, no checkpoints | correct test submission | true | 0 | true | 0 | 1 | byte-identical |
+| L A without any rule-level score (complete checkpoints) | correct test submission | true | 77 | true | 77 | 1 | byte-identical |
+| C empty `scores` | **shows the problem** | **true** | **100** | false (grading failure) | – | 2 | – |
+| D A minus R009 | **shows the problem** | **true** | **81** | false | – | 2 | – |
+| E B minus R009 | **shows the problem** | **true** | **15** | false | – | 2 | – |
+| G R009 row with no score and no checkpoints | shows the problem (malformed row) | true | 0 | false | – | 2 | – |
+| I R009 score 0 with all-zero checkpoints | **shows the problem (caveat b)** | **true** | **15** | false | – | 2 | – |
+| H no JSON | invalid test submission | false | – | false | – | 2 | same structured result |
+| J D, then A when asked again | asking again recovers | true | 81 | true | 77 | 2 | – |
+| K no JSON, then A when asked again | asking again recovers | false | – | true | 77 | 2 | – |
 
-"–" means the harness exposes no score: the entry is invalidated and excluded from selection. Under the harness's `score_first` selection, v1 picks the inflated trigger round (C at 100, D at 81, I at 15) over the honest control. v2 picks the control (77, 77, 0).
+"–" means the harness exposes no score: the entry is marked invalid and left out of selection. The harness uses `score_first` selection: the run keeps the submission with the highest score. Under it, the original version picks the inflated round (C at 100, D at 81, I at 15) over the honest one. The fixed version picks the honest one (77, 77, 0).
 
-**Score compatibility.** v1 and v2 give the same score, from byte-identical structured results and one model call, for complete, internally consistent assessments (rows A, B, F, L). The scores are not comparable when the grading model omits, duplicates or invents a rule, returns a row with neither a score nor a complete checkpoint vector, or returns a deductive row whose score contradicts all-zero checkpoints. v1 filled those cases with full marks; v2 re-asks and otherwise reports a grading failure.
+**Are scores comparable?** The original and fixed versions give the same score for complete, internally consistent assessments (rows A, B, F, L). Those come from byte-identical structured results and one model call. The scores are not comparable when the grading model leaves out, duplicates or invents a rule. They are also not comparable when it returns a row with neither a score nor a complete list of checkpoints, or a deductive row whose score contradicts all-zero checkpoints. The original version filled those cases with full marks. The fixed version asks again and otherwise reports a grading failure.
 
-## How we know
+## How we checked it
 
-- **Original evaluator in the pinned judge image** (`sha256:8e9eec10…`). The original `main()` ran end to end with `--network none --memory 2g --cpus 1`. Only the `codex` executable was replaced, by a stub that prints a fixed model response. No model API or credential was used. Fixed responses were generated from the original `rubrics.json`: valid controls, known-bad controls and the trigger cases (omitted rules, an empty score list, malformed rows). The v2 arms ran the same eval_cmd in the v2 image.
+- **Original grader, from the public image pinned by digest.** The original `main()` ran end to end with `--network none --memory 2g --cpus 1`. Only the `codex` executable was replaced, by a stub that prints a fixed model response. No model API or credential was used. The fixed responses were generated from the original `rubrics.json`. They include correct responses, responses for known-bad work and the responses that show the problem (rules left out, an empty score list, malformed rows). The fixed-version runs used the same eval_cmd in the fixed image.
 - **Harness check.** The repository harness's handling of `valid: false` (`sforge/harness/grading.py`, `selection.py`) was read and used offline to grade and select on the saved results.
-- **Repeatability.** The paired evaluation was repeated three times; no arm changed verdict (see `paired-repeatability.md`).
+- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No response changed its result (see `paired-repeatability.md`).
 
 ## Limits
 
-- No model or solver runs. Effects are shown only on authored fixed responses and counterexamples.
-- No live grading model was used. How often real models omit rows, and whether any historical EdgeBench score was inflated, were not measured. The defect is not evidence of inflated past scores.
+- No AI solver was run. Effects are shown only on the fixed responses and counterexamples we wrote.
+- No live grading model was used. How often real models leave out rows, and whether any past EdgeBench score was inflated, were not measured. The problem is not evidence that past scores were inflated.
 - No real 22-file submission was graded. The fixed responses do not read the submission.
 - The harness `judge_server` was not run live.
-- In production, re-asking may cost extra paid grading calls. Whether a second attempt is usually complete is unknown. A model that keeps returning incomplete output still yields no measurement for that submission.
-- Other LLM-grader risks (prompt injection, grading variance) are out of scope.
+- In production, asking again may cost extra paid grading calls. Whether a second attempt is usually complete is unknown. A model that keeps returning incomplete output still yields no measurement for that submission.
+- Other risks of AI graders (prompt injection, grading variance) are out of scope.
 
 ## Reproduce
 
-- Original-grader fixed-response run: `evidence/scripts/college_english_exam_bank/run_fixed.sh`, with `fake_codex.sh` and `make_responses.py` (log: `run_in_judge_image.log`).
-- Paired v1/v2 run: `repairs/college_english_exam_bank-v2/paired/run.sh`. Results are in `paired/results.md`, and the offline harness grading is in `paired/grade.py`.
-- Repair: `repairs/college_english_exam_bank-v2/repair.patch`, `Dockerfile`, `source-lock.json`.
+- Grader image: `sha256:8e9eec10…`.
+- Fixed-response run on the original grader: `evidence/scripts/college_english_exam_bank/run_fixed.sh`, with `fake_codex.sh` and `make_responses.py` (log: `run_in_judge_image.log`).
+- Side-by-side run of the original and fixed graders: `repairs/college_english_exam_bank-v2/paired/run.sh` (`repairs/college_english_exam_bank-v2/` is the folder holding the fixed version). Results are in `paired/results.md`, and the offline harness grading is in `paired/grade.py`.
+- Fix: `repairs/college_english_exam_bank-v2/repair.patch`, `Dockerfile`, `source-lock.json`.
 - Supporting records: `repairs/college_english_exam_bank-v2/` and `evidence/reviews/college_english_exam_bank.md`.

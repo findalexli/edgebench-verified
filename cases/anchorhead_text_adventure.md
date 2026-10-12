@@ -1,52 +1,64 @@
 # Anchorhead (`anchorhead_text_adventure`)
 
-**Decision:** Retain with note. The score is the game's own deterministic score; the note covers final-versus-peak scoring and undisclosed session limits.
+**Outcome:** Kept, with a note. The score is the game's own score, which is the same every time for the same commands; the note covers final-versus-peak scoring and session limits the task does not state.
 
-## What the task asks for
+## What the task asks
 
-"Play the interactive fiction game *Anchorhead* by sending commands via an HTTP API and maximize your score." The prompt states no horizon, step cap or number of games. Category: Interactive Games & Simulators.
+The prompt says: "Play the interactive fiction game *Anchorhead* by sending commands via an HTTP API and maximize your score." Interactive fiction is a text adventure: the player types commands and the game replies in text. The prompt states no time horizon, step cap or number of games. Category: Interactive Games & Simulators.
 
-## What goes wrong
+EdgeBench gives an AI agent the task, and the agent works for up to 12 hours. A hidden grader program scores the result. Its raw result (before conversion to 0–100) is converted to a score out of 100 using reference points chosen by the task authors.
 
-No scoring defect. What was checked and found correct:
+## What we checked
 
-- **Score definition.** Each step reads `env.get_score()` from Z-machine memory. When a session ends (done, explicit close, idle reap or eviction), the archived score is the *final* score of that session. The run score is the maximum final score over all sessions. The rescale is linear from 0 (the start score) to 100, which equals Jericho's `max_score` for this game (`anchor.c:84-86`). There is no shipped baseline. Example: a walkthrough replay scored 99/100, which normalizes to 99.
-- **Repeatability.** `FrotzEnv(rom)` with no seed falls back to the binding seed, which is 0. So the game's random number source does not depend on the time. Given the command sequence, the game is fully deterministic.
+There is no scoring problem. The following parts were checked and found correct.
+
+- **How the score is defined.** At each step the grader reads `env.get_score()` from the memory of the Z-machine, the virtual machine that runs the game. A session can end in four ways: the game finishes, the agent closes it, it is closed after sitting idle, or it is evicted to make room for a newer session. When a session ends, the grader stores the *final* score of that session. The run's score is the highest final score over all its sessions. The score scale is linear. Its reference point for 0 is the start score. Its reference point for 100 is 100, which equals Jericho's `max_score` for this game (`anchor.c:84-86`). Jericho is the library that runs the game. The task ships no baseline reference point. Example: a replay of the walkthrough scored 99/100, which is 99 out of 100.
+- **Repeatability.** `FrotzEnv(rom)` is called with no seed, so it falls back to the library's default seed, which is 0. The game's random number source therefore does not depend on the clock. For a given sequence of commands, the game plays exactly the same way every time.
 
 Notes:
 
-- **Final, not peak, score.** The archived score is the final score, while the API also returns `peak_score`, which could mislead an agent. This matters only if points can be lost during play. In all three supplied trajectories (Anchorhead, Trinity, Tryst) final equalled peak.
-- **Undisclosed session limits.** The harness enforces limits the prompt does not mention: a 10 s HTTP timeout per step, at most 3 concurrent sessions per run (oldest evicted), and reaping after 600 s idle. Reaping and eviction archive the current score, so no score is lost. But an agent that pauses for more than 10 minutes mid-game loses the live game and must replay it. Replay is cheap: the full walkthroughs replayed in about 3 s of engine time.
-- **Ceiling not demonstrated.** The supplied reference walkthrough ends at 99 with game_over=true and victory=false. Whether 100/100 is reachable in the pinned ROM is unverified.
+- **Final score, not peak score.** The grader stores the final score. The API also returns a `peak_score`, which could mislead an agent into thinking the peak counts. This matters only if points can be lost during play. In all three supplied play recordings (Anchorhead, Trinity, Tryst), the final score equalled the peak.
+- **Session limits the prompt does not state.** The harness enforces three limits:
+  - a 10 s HTTP timeout per step;
+  - at most 3 sessions at once per run (the oldest is evicted);
+  - closing a session after 600 s idle.
+
+  Closing and eviction both store the current score, so no score is lost. But an agent that pauses for more than 10 minutes in the middle of a game loses the live game and must replay it. Replay is cheap: the full walkthroughs replayed in about 3 s of game-engine time.
+- **Full score not shown to be reachable.** The supplied reference walkthrough ends at 99 with game_over=true and victory=false. Whether 100/100 can be reached in the pinned game file is not verified.
 
 The note says:
 
 - The score is the final in-game score of the best completed or closed session, out of the game's max_score (100).
-- Sessions are reaped after 600 s idle; at most 3 sessions run concurrently.
+- Sessions are closed after 600 s idle; at most 3 sessions run at once.
 - Anchorhead's reference walkthrough reaches 99/100; full score was not demonstrated.
 
-## Impact
+## How much it matters
 
-- Final versus peak: maximum score effect observed 0.
-- Session limits: maximum score effect observed 0. Only agents that pause over 10 minutes mid-game must replay.
-- Ceiling: at most 1 normalized point, and only if 100 is unreachable.
+- Final versus peak score: the largest score effect seen is 0.
+- Session limits: the largest score effect seen is 0. Only agents that pause for over 10 minutes in the middle of a game must replay it.
+- Full score: at most 1 point out of 100, and only if 100 cannot be reached.
 
-## Fix (v2)
+There is no code change. The note above ships with the task.
 
-No change; the note above ships with the task.
+## How we checked it
 
-## How we know
+- **Original grader, pinned sources.** We read the code for each part of scoring:
+  - reading the score at each step (`game_server_app.py`);
+  - storing session scores and enforcing session limits (`judge_server.py`);
+  - keeping the best of all sessions (`selection.py`);
+  - the validity check (`grading.py`);
+  - converting to the score scale (`score_rescale.py`).
 
-- **Original harness, pinned sources.** We read the per-step score reading (`game_server_app.py`), session archiving and limits (`judge_server.py`), best-of-N selection (`selection.py`), validity gate (`grading.py`) and rescale (`score_rescale.py`). The repository copies match the hash-pinned copies byte for byte. The judge image digest is not recorded.
-- **Native sessions.** Six host sessions with full walkthrough replays under the original harness saw identical prefix trajectories. The Anchorhead walkthrough scored 99/100.
-- **Upstream engine source.** The score source, `max_score` and the default seed were read from the public Jericho 3.3.1 sdist.
+  The repository copies match the hash-pinned copies byte for byte. The digest of the grader image is not recorded.
+- **Sessions run on the original harness.** Six sessions on the host replayed the full walkthroughs under the original harness. Their play recordings were identical over the shared opening steps. The Anchorhead walkthrough scored 99/100.
+- **Upstream game-engine source.** The score source, `max_score` and the default seed were read from the public Jericho 3.3.1 source package (sdist).
 
 ## Limits
 
-- No model or solver runs. Effects are shown only on the walkthrough sessions.
-- Jericho behaviour comes from the upstream 3.3.1 source, not from hashing the installed bytes in the image.
-- Final versus peak was not tested in a trajectory where points are lost.
-- Whether 100/100 is reachable in Anchorhead was not checked. A command sequence that attains 100 in the pinned ROM would remove that part of the note; it would not change the decision.
+- No AI model or solver was run. Effects are shown only on the walkthrough sessions.
+- Jericho's behaviour comes from the upstream 3.3.1 source. The installed files in the image were not hashed.
+- Final versus peak score was not tested in a play recording where points are lost.
+- Whether 100/100 can be reached in Anchorhead was not checked. A command sequence that reaches 100 in the pinned game file would remove that part of the note. It would not change the outcome.
 
 ## Reproduce
 

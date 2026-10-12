@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+<title>Bar chart: under the original grader, engines with wrong fees (24.40) or dropped events (15.62) outscore the correct engine (7.14); the fixed grader gives both 0.</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
+  }
+</style>
+
+<text x="16" y="30" font-size="18" font-weight="700" class="ink">Broken engines outscore the correct one</text>
+<text x="196" y="68" font-size="14" class="muted">Original grader (score out of 100)</text>
+<text x="528" y="68" font-size="14" class="muted">Fixed version</text>
+<line x1="196" y1="78" x2="196" y2="270" class="rule" stroke-width="1.5"/>
+<text x="16" y="116" font-size="15" class="ink">Correct engine</text>
+<rect x="196" y="96" width="71.4" height="30" class="acc"/>
+<text x="276" y="118" font-size="16" font-weight="700" class="ink">7.14</text>
+<rect x="520" y="96" width="184" height="30" rx="6" class="goodBg"/><text x="612" y="117" font-size="15" text-anchor="middle" class="good">passes</text>
+<text x="16" y="186" font-size="15" class="ink">Wrong fees</text>
+<rect x="196" y="166" width="244" height="30" class="bad"/>
+<text x="450" y="188" font-size="16" font-weight="700" class="ink">24.40</text>
+<rect x="520" y="166" width="184" height="30" rx="6" class="badBg"/><text x="612" y="187" font-size="15" text-anchor="middle" class="bad">rejected: 0</text>
+<text x="16" y="256" font-size="15" class="ink">Dropped events</text>
+<rect x="196" y="236" width="156.2" height="30" class="bad"/>
+<text x="362" y="258" font-size="16" font-weight="700" class="ink">15.62</text>
+<rect x="520" y="236" width="184" height="30" rx="6" class="badBg"/><text x="612" y="257" font-size="15" text-anchor="middle" class="bad">rejected: 0</text>
+</svg>

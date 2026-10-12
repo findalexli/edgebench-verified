@@ -36,7 +36,7 @@
   The local host has 15 GB: one heavy local job at a time, under
   `exec 9>/tmp/ebv-heavy.lock && flock 9`, in a `--memory 4g` container. A ledger "closed" event is
   not completion; check `status: exit=0` and collected results.
-- Before committing, run `python3 tools/make_manifest.py` and commit only the files it lists:
+- Before committing, run `python3 tools/check_publish.py` and stage an explicit file list:
   no image-file copies, no tamper material, no credentials.
 - No paid API fallback, usage resets or third-party contact without the user's authorization.
   Never prune or change global Docker state.

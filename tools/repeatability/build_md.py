@@ -14,7 +14,7 @@ def pct(x):
         return 'inf'
     return f'{100 * x:.2f}%'
 
-L = ['# Paired evaluation: repeatability study', '']
+L = ['# Side-by-side tests: are they repeatable?', '', '**How to read this file.** Each fixed task was tested side by side: the same test submissions were graded by the original grader (**v1**) and the fixed grader (**v2**). One test submission graded by both is an **arm**. A *trigger* shows the problem, a *valid control* is correct work that must keep its score, and an *invalid control* is wrong work that must stay rejected. The CSV columns use the same names.', '']
 L += NOTES['intro'] + ['']
 
 n_arms = n_exec = n_stable = n_3 = 0

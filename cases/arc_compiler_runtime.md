@@ -1,79 +1,84 @@
 # Arc Compiler Runtime (`arc_compiler_runtime`)
 
-**Decision:** Repair (v2). Hidden tests require an undocumented `analyze()` return format, and TASK.md misstates the starter's score; v2 documents both without changing any score.
+**Outcome:** Fixed. Hidden tests require a return format for `analyze()` that no solver-visible file documents, and TASK.md misstates the starter's score; the fixed version documents both without changing any score.
 
-## What the task asks for
+![Two bars show one honest analyzer scoring 69.26 with the array return shape the hidden tests expect and 35.59 with the starter's object shape, which no solver-visible file documents.](figures/arc_compiler_runtime.svg)
 
-The solver must "Implement the missing Arc compiler and runtime modules under compiler/src/" and is told to "Use CHEATSHEET.md, TASK.md, and the public smoke tests as the language contract." TASK.md states "Starter expectation `SCORE=0.00`", and problem.md states "Expected stripped starter score: 0.00". The hidden evaluator has 21 suites, 448 cases and 2970 weight units. Category: Systems & Software Engineering.
+*The hidden tests need a return format that nothing the solver sees describes, so identical logic scores 69.26 or 35.59; the fixed version documents it.*
+
+## What the task asks
+
+The solver must "Implement the missing Arc compiler and runtime modules under compiler/src/". Arc is a small programming language. The solver is told to "Use CHEATSHEET.md, TASK.md, and the public smoke tests as the language contract." TASK.md states "Starter expectation `SCORE=0.00`", and problem.md states "Expected stripped starter score: 0.00". The hidden grader has 21 test suites, 448 cases and 2970 weight units. Category: Systems & Software Engineering.
 
 ## What goes wrong
 
-**Undocumented `analyze()` interface.** The hidden type-system suites call `analyze()` from `compiler/src/semantic.js`. They expect an array of `{level, message}` objects whose messages contain the substrings "Undefined", "Cannot reassign immutable" and "expects 2". The shipped starter returns `{ ok, errors, warnings, program }`. No solver-visible file names the required shape or message texts. These suites carry 1000/2970 weight (33.67 points).
+**The `analyze()` interface is not documented.** The hidden type-system suites call `analyze()` from `compiler/src/semantic.js`. They expect an array of `{level, message}` objects. The messages must contain the substrings "Undefined", "Cannot reassign immutable" and "expects 2". The starter code that ships with the task returns `{ ok, errors, warnings, program }` instead. No solver-visible file names the required shape or the message texts. These suites carry 1000/2970 of the weight (33.67 points).
 
-- Example, original evaluator: the same honest analyzer scores **69.26** when it returns the array shape the hidden tests use, and **35.59** when it keeps the starter's object shape. It earns 128/128 type-system cases in the first form and 0 in the second. The solver gets no signal about which form is right.
+- Example, on the original grader: the same honest analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter's object shape. It passes 128/128 type-system cases in the first form and 0 in the second. The solver gets no signal about which form is right.
 
-**False starter expectation.** TASK.md and problem.md say the starter scores 0.00. In the original work image, the shipped starter scores public `SCORE=100.00` (48/48) and hidden 35.59. This misleads a solver about where it starts but does not change any score.
+**The stated starter score is false.** TASK.md and problem.md say the starter scores 0.00. In the original work image (the container the agent works in), the starter scores `SCORE=100.00` on the public tests (48/48) and 35.59 on the hidden tests. This misleads a solver about where it starts. It does not change any score.
 
-Checked and found correct: exactly 448 cases run, each with one counted outcome; the starter run had zero import failures. Expected values are literals in the test files.
+Checked and found correct: exactly 448 cases run, and each has one counted outcome. The starter run had zero import failures. Expected values are written as literals in the test files.
 
-## Impact
+## How much it matters
 
-Up to 33.67 points (the full type-system weight), lost silently. This affects every solver who keeps the starter's return shape or does not guess the message texts.
+Up to 33.67 points (the full type-system weight) are lost, with no warning. This affects every solver that keeps the starter's return shape or does not guess the message texts.
 
-## Fix (v2)
+## The fix
 
-v2 changes two solver-visible Markdown files in the work image and nothing else:
+The fixed version changes two solver-visible Markdown files in the work image and nothing else:
 
-- `agent-start/TASK.md` replaces the false starter row with the measured `SCORE=100.00` (48/48). It adds a "Semantic analysis interface" section: the return shape (array of `{level, message}`), the three required substrings with the conditions that produce them, and the rule categories the hidden type-system suites check (as rules, not test programs).
+- `agent-start/TASK.md` replaces the false starter row with the measured `SCORE=100.00` (48/48). It adds a "Semantic analysis interface" section. That section gives the return shape (array of `{level, message}`), the three required substrings with the conditions that produce them, and the rule categories the hidden type-system suites check (stated as rules, not as test programs).
 - `agent-start/problem.md` replaces the false "0.00" with the measured value and points to the new section.
 
-The judge image, evaluator, tests, starter code and task prompt are unchanged; `task.json.in` changes only `work.image_tag`. Documentation was chosen over a starter that returns `[]`, because such a starter would raise the baseline from 35.59 to 47.21 and would still leave the message texts undocumented.
+The grader image, grader, tests, starter code and task prompt are unchanged. `task.json.in` changes only `work.image_tag`. Documentation was chosen over a starter that returns `[]`. Such a starter would raise the starting score from 35.59 to 47.21 and would still leave the message texts undocumented.
 
-| Control | Ver | Public smoke | Hidden raw SCORE | Normalized | Pass rate (cases) | valid | exit |
+| Test submission | Version | Public smoke tests | Hidden raw result (`SCORE`) | Score out of 100 | Pass rate (cases) | valid | exit |
 | --- | --- | ---: | ---: | ---: | ---: | --- | ---: |
-| (a) shipped starter | v1 | 100.00 (48/48) | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
-| (a) shipped starter | v2 | 100.00 (48/48) | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
-| (b) starter, `analyze()` returns `[]` (documented shape only) | v1 | 100.00 | 47.21 | 47.21 | 0.4732 (212/448) | true | 0 |
-| (b) | v2 | 100.00 | 47.21 | 47.21 | 0.4732 (212/448) | true | 0 |
-| (c) invalid: codegen emits `var result = null;` | v1 | 83.33 (40/48) | 25.79 | 25.79 | 0.2879 (129/448) | true | 0 |
-| (c) | v2 | 83.33 (40/48) | 25.79 | 25.79 | 0.2879 (129/448) | true | 0 |
-| (d) independent honest analyzer, documented shape | v1 | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
-| (d) | v2 | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
-| (e) same analyzer as (d), starter shape `{ok,errors,warnings,program}` | v1 | 100.00 | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
-| (e) | v2 | 100.00 | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
+| (a) shipped starter | original | 100.00 (48/48) | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
+| (a) shipped starter | fixed | 100.00 (48/48) | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
+| (b) starter, `analyze()` returns `[]` (documented shape only) | original | 100.00 | 47.21 | 47.21 | 0.4732 (212/448) | true | 0 |
+| (b) | fixed | 100.00 | 47.21 | 47.21 | 0.4732 (212/448) | true | 0 |
+| (c) invalid: codegen emits `var result = null;` | original | 83.33 (40/48) | 25.79 | 25.79 | 0.2879 (129/448) | true | 0 |
+| (c) | fixed | 83.33 (40/48) | 25.79 | 25.79 | 0.2879 (129/448) | true | 0 |
+| (d) independent honest analyzer, documented shape | original | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
+| (d) | fixed | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
+| (e) same analyzer as (d), starter shape `{ok,errors,warnings,program}` | original | 100.00 | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
+| (e) | fixed | 100.00 | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
 
-Type-system suites (weight 1000/2970 = 33.67 points):
+Type-system suites (weight 1000/2970 = 33.67 points), cases passed:
 
-| Control | round2-type-system /8 | adversarial-1 /40 | adversarial-2 /40 | adversarial-3 /40 |
+| Test submission | round2-type-system /8 | adversarial-1 /40 | adversarial-2 /40 | adversarial-3 /40 |
 | --- | ---: | ---: | ---: | ---: |
 | (a) starter | 0 | 0 | 0 | 0 |
 | (b) `[]` | 5 | 0 | 0 | 40 |
 | (d) honest, documented shape | 8 | 40 | 40 | 40 |
 | (e) honest, starter shape | 0 | 0 | 0 | 0 |
 
-Per-suite counts are byte-identical between v1 and v2 for every control.
+Per-suite counts are byte-identical between the original and fixed versions for every test submission.
 
-**Score compatibility.** Per-submission scores are comparable: an identical `compiler/src/` scores the same under v1 and v2 (measured for 5 controls), and the rescale (linear 0–100) and anchors are unchanged. Agent-run results are **not** comparable: v2 solvers are told the interface and message texts that v1 solvers lacked, so v1 and v2 agent runs should not be pooled or ranked together.
+**Are scores comparable?** Scores of single submissions are comparable. An identical `compiler/src/` scores the same under the original and fixed versions (measured for 5 test submissions). The score scale (linear 0–100) and its reference points are unchanged. Results of agent runs are **not** comparable. Solvers of the fixed version are told the interface and message texts that solvers of the original lacked. Agent runs on the two versions should not be pooled or ranked together.
 
-## How we know
+## How we checked it
 
-- **Original evaluator in the pinned judge image** (`sha256:00a34432…`, unchanged in v2), with the original `judge.eval_cmd` under `--network none`. Each control was scored once with `compiler/src/` from the v1 work image and once from the v2 work image. The public `score.sh` was also run inside each work image.
-- **Source comparison.** The hidden evaluator (`score_hidden.sh`) and hidden type-system test files were compared with every solver-visible file (TASK.md, problem.md, CHEATSHEET, spec/, docs/, public smoke tests).
-- **Case inventory.** A static inventory of the hidden suites (`case_inventory.py`) gives 21 suites, 448 cases, 2970 weight units.
-- **Repeatability.** The paired evaluation was repeated three times; no arm changed verdict (see `paired-repeatability.md`).
+- **Original grader, from the public image pinned by digest** (unchanged in the fixed version). It ran with the original `judge.eval_cmd` under `--network none`. Each test submission was scored once with `compiler/src/` from the original work image and once from the fixed work image. The public `score.sh` was also run inside each work image.
+- **Source comparison.** The hidden grader (`score_hidden.sh`) and the hidden type-system test files were compared with every solver-visible file (TASK.md, problem.md, CHEATSHEET, spec/, docs/, public smoke tests).
+- **Case inventory.** A static count of the hidden suites (`case_inventory.py`) gives 21 suites, 448 cases and 2970 weight units.
+- **Repeatability.** The side-by-side run of the original and fixed versions was repeated three times. No test submission changed its result (see `paired-repeatability.md`).
 
 ## Limits
 
-- No model or solver runs. Effects are shown only on authored controls and counterexamples.
-- Control (d) was written by someone who had read the hidden tests. It shows the documented contract is sufficient, not how a blind solver would perform.
-- Format-only credit remains: returning `[]` earns +11.62, and a constant one-diagnostic analyzer scored 57.81 (under a stand-in runtime, not in the image), because some cases check only for an empty or non-empty result. Fixing this needs judge changes that would alter what scores mean.
-- The adversarial type-system cases (32% of weight; not re-derived from the inventory) come from 9 templates. v2 does not change this.
-- A rebuild of the v2 image is not claimed bit-identical.
-- Unexplained detail with no effect on the conclusion: under control (c), `round2-codegen` is 5/8 against the starter's 4/8.
+- No AI model or solver was run. Effects are shown only on the test submissions and counterexamples we wrote.
+- Test submission (d) was written by someone who had read the hidden tests. It shows that the documented interface is enough. It does not show how a solver without that knowledge would perform.
+- Some credit for format alone remains. Returning `[]` earns +11.62. A constant analyzer that always returns one diagnostic scored 57.81 (under a stand-in runtime, not in the image). This is because some cases check only whether the result is empty or non-empty. Fixing this needs grader changes that would alter what scores mean.
+- The adversarial type-system cases (32% of the weight; not re-derived from the inventory) come from 9 templates. The fixed version does not change this.
+- A rebuild of the fixed image is not claimed to be bit-identical.
+- One detail is unexplained and has no effect on the conclusion: under test submission (c), `round2-codegen` is 5/8, against the starter's 4/8.
 
 ## Reproduce
 
-- Paired evaluation: `repairs/arc_compiler_runtime-v2/paired/run.sh` (controls in `repairs/arc_compiler_runtime-v2/controls/`; per-suite counts in `paired/suites/`).
+- Grader image: `sha256:00a34432…` (unchanged in the fixed version).
+- Side-by-side run: `repairs/arc_compiler_runtime-v2/paired/run.sh` (test submissions in `repairs/arc_compiler_runtime-v2/controls/`; per-suite counts in `paired/suites/`). `repairs/arc_compiler_runtime-v2/` is the folder holding the fixed version.
 - Case inventory: `python3 -I evidence/scripts/arc_compiler_runtime/case_inventory.py <evaluator-hidden dir>`.
 - Change: `repairs/arc_compiler_runtime-v2/repair.patch`, `Dockerfile`, `task.json.in`.
 - Supporting records: `repairs/arc_compiler_runtime-v2/` (`source-lock.json` holds full hashes).

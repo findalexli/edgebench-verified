@@ -1,107 +1,156 @@
 # EdgeBench Verified
 
-**Version 1.0.** A verified edition of the 51 publicly released
-[EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) tasks.
+**Version 1.0** · Website: **[lishengzhi.com/edgebench-verified](http://lishengzhi.com/edgebench-verified/)**
 
-A benchmark task is only as good as its evaluator: if the evaluator applies a different rule from
-the one the solver is told, accepts wrong work, rejects right work, or cannot deliver what the
-prompt promises, the score stops measuring the skill. For each public EdgeBench task we checked
-whether a good-faith solver gets the score the task promises, reliably. We reproduced every finding
-on the task's original, digest-pinned evaluator. Every material defect was repaired as a new task
-version in EdgeBench's own format, or the task was excluded.
+[EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) ranks AI agents on hard, open-ended
+engineering and science tasks. An agent works on each task for up to 12 hours, and an automatic
+grader scores its work from 0 to 100. A ranking is only as trustworthy as those graders.
 
-| Read | For |
-| --- | --- |
-| [FINDINGS.md](FINDINGS.md) | What is wrong in each task and how much it changes the score |
-| [IMPACT.md](IMPACT.md) · [impact.csv](impact.csv) | How much the defects move the published leaderboard means |
-| [APPLYING-FIXES.md](APPLYING-FIXES.md) | How to build and use the repaired task versions |
-| [DECISIONS.md](DECISIONS.md) · [decisions.csv](decisions.csv) | The decision for all 51 tasks |
-| [cases/](cases/INDEX.md) | One page per task: the problem, its impact, the fix, the evidence |
-| [METHOD.md](METHOD.md) | How findings were established, decision rules, and limits |
-| [site/index.html](site/index.html) | All of the above as one browsable page |
+EdgeBench Verified is an independent check of the grader of every one of the 51 publicly released
+EdgeBench tasks. For each task we asked one question: **if an agent does honest, correct work, does
+it get the score the task promises?**
 
-## Decisions
+## The short answer
 
-| Decision | Tasks | Meaning |
+For 23 of the 51 tasks, the grader has a problem that changes scores.
+
+| Outcome | Tasks | Meaning |
 | --- | ---: | --- |
-| **Repair (v2)** | **22** | Material defect, fixed in a new version |
-| Retain with note | 28 | No defect that materially changes a good-faith solver's score; notes ship with the task |
-| Exclude | 1 | Material defect without a sound repair in this release |
+| **Fixed** | **22** | We publish a fixed version and tested it against the original on the same submissions |
+| Kept, with a note | 28 | The grader works as intended; the note records smaller caveats |
+| Removed | 1 | No sound fix was possible |
 | **Total** | **51** | |
 
-Every repair was checked by scoring the same inputs with the original and the repaired evaluator:
-the defect's trigger is fixed, correct controls keep their scores, and incorrect controls are still
-rejected ([134 paired rows](paired-results.csv)). Each paired evaluation was run three times, and
-none of the 132 executed arms changed verdict ([repeatability](paired-repeatability.md)).
+## How EdgeBench scores an agent
 
-## What the defects look like
+1. The agent receives written instructions and starter files.
+2. It can submit many times. A hidden grader program runs each submission on hidden test cases
+   and produces a raw result, such as a cost, a speed, or the number of tests passed.
+3. The raw result is converted to a 0–100 score using reference points the task's authors chose.
+4. Each run keeps its best submission. Each model gets three runs per task, and the scores are
+   averaged. A model's headline number is the average over tasks.
 
-- **Correct work scored too low.** SMT Solver's witness checker keys function values by their source
-  text, so 27 satisfiable hidden problems are unwinnable for any solver (perfect-solver ceiling
-  78.61 → 72.40). Borden Inversion's hidden physics convention is undocumented: an honest textbook
-  model fits the public data equally well but scores 7.0, against 31.2 under the judge's convention.
-- **Incorrect work accepted.** In Exchange Core, two plausible engine bugs (a fee swap, dropped
-  events) pass the correctness check and get full credit. In Jagua Nesting, overlapping shapes are
-  accepted as valid layouts.
-- **Rules that differ from the prompt.** Triangulation Coloring's flip rule omits the convexity
-  condition the README states, and the same rule generated its test cases. Warehouse Routing
-  promises 30 s per test case but allows 60 s per five-case input.
-- **Scales that cannot be reached.** A Lean-proved lower bound shows Warehouse Routing's top score
-  anchors are unreachable (ceiling ≈30.3/100). Treant Forest's anchors exceed its own turn cap
-  (ceiling 21.02/100).
-- **Small defects with large effects.** In Order Addition, a stale integrity hash caps every
-  submission at 4 of 5 tests, so each run's best score freezes on its first submission.
+A grader can therefore go wrong in four places: what it accepts, what it rejects, how it converts
+the raw result to 0–100, and which submission it keeps. We found problems in all four.
 
-All 51 tasks with their measured impact: [FINDINGS.md](FINDINGS.md).
+## What we found
+
+**Correct work is scored too low.**
+- *SMT Solver.* The agent builds a solver for logic formulas. The grader checks the solver's
+  example answers by how they are written rather than by their value. Correct answers are
+  therefore rejected on 27 hidden problems, and even a perfect solver can reach only 72.40 of
+  78.61 points.
+- *Borden Inversion.* The agent works out where groundwater pollution came from. The grader's
+  hidden physics model uses an unusual convention that the instructions never mention. The same
+  honest fit scores 7.0 with textbook physics and 31.2 with the grader's convention.
+
+**Wrong work is accepted.**
+- *Exchange Core.* The agent speeds up a stock-exchange matching engine. Two realistic bugs pass
+  the correctness check and get full credit: swapping buyer and seller fees, and dropping event
+  messages.
+- *Jagua Nesting.* The agent packs shapes onto a sheet. The grader accepts layouts in which shapes
+  overlap.
+
+**The grader applies a different rule from the one the agent is told.**
+- *Triangulation Coloring.* The grader omits a geometric condition the instructions state, and
+  the same faulty rule generated the test cases.
+- *Warehouse Routing.* The instructions promise 30 seconds per test case. The grader stops after
+  60 seconds per group of five cases, so a solution that uses its promised time scores zero.
+
+**The 0–100 scale cannot be reached.**
+- *Treant Forest.* The top of the scale lies beyond what the game's own turn limit allows, so no
+  submission can score above 21.02.
+- *Warehouse Routing.* A machine-checked proof shows the best possible score is about 30.3.
+
+**Small mistakes with large effects.**
+- *Order Addition.* An out-of-date checksum in one test makes every submission fail one of five
+  tests. The grader then keeps each run's first submission and ignores better later ones.
+
+Every task is listed in [FINDINGS.md](FINDINGS.md), and each has its own page in [cases/](cases/INDEX.md).
 
 ## Effect on the published leaderboard
 
-EdgeBench scores each task–model cell as the mean, over three 12-hour runs, of each run's best-so-far
-score. From the per-task table, only changes of scale can be undone exactly: Treant Forest's
-anchors, Borden's missing rescale and Dabic's exclusion. These raise every model's mean by 1.2–1.9
-points and leave the ranking unchanged. Repairs with a documented maximum effect add at most 0.3
-points down or 1.4 up. That is enough to swap Opus 4.8 (44.2) and GPT-5.5 (43.1). These figures are
-a floor. For 12 of the 23 repaired or excluded tasks, including Integer Codec, OpenTTD, SMT and
-Exchange Core, the effect can only be given a direction, since sizing it requires re-scoring the
-submissions, which are not public. [IMPACT.md](IMPACT.md) gives every figure and its limits.
+EdgeBench publishes each model's score on every task. From those numbers alone we can exactly
+correct the fixes that only change the 0–100 scale (mainly Treant Forest) and remove the excluded
+task. That raises every model's average by 1.2–1.9 points and leaves the order unchanged.
 
-## Formal checks
+Fixes with a known maximum effect add at most 0.3 points down or 1.4 up. That is enough to swap
+Opus 4.8 (44.2) and GPT-5.5 (43.1), so the public tasks alone do not show which of the two is ahead.
 
-Lean 4 (Mathlib) and TLA+ settle questions that testing cannot. They show that two required theorem
-statements are false, prove finance identities and a routing lower bound, and check an aliasing bug
-and a test-credit counting rule. Every Lean proof lists its axioms, and every TLA+ model has a
-negative control. All 21 formal results reproduce with `python3 tools/check_formal.py`
-([log](evidence/formal/RECHECK.md)).
+For 12 more fixed tasks we know only the direction of the effect. Several of them are large, for
+example Integer Codec, OpenTTD and SMT Solver. Sizing these would require regrading the original
+submissions, which are not public. The exact figures are therefore a lower limit on the change,
+not an estimate of it. Details: [IMPACT.md](IMPACT.md).
 
-## Repository layout
+## How we checked
+
+Every finding was established on EdgeBench's own grader software, the exact public images the
+leaderboard used.
+
+1. **Test submissions.** For each suspected problem we wrote a correct submission, one that
+   triggers the problem, and a wrong one, and ran all three through the original grader.
+2. **Independent checks.** Where a question is mathematical, we confirmed it a second way:
+   - **Lean 4**, a proof checker that verifies mathematical proofs by machine:
+     - two theorem statements that Lean Analysis asks agents to prove are false;
+     - a lower bound showing Warehouse Routing's top scores are unreachable;
+     - the arithmetic behind two finance findings.
+   - **TLA+**, a tool that checks every possible state of a small model:
+     - the in-place multiplication bug in Tree Block Partitioning;
+     - the test-credit rule in Rust Multicrate.
+     Each model also has a counter-check that must come out the other way.
+   - **Exact arithmetic, a second implementation, or exhaustive search** for the rest.
+3. **Following each problem to the final score.** A problem counts only if it changes the 0–100
+   score of honest work. Problems that do not are recorded as notes.
+4. **Testing every fix side by side.** The same test submissions were graded by the original and
+   the fixed grader. Each fix had to pass three checks:
+   - the problem is gone;
+   - correct work keeps its score;
+   - wrong work is still rejected.
+   Each comparison was repeated three times on fresh machines; across 132 graded comparisons, no
+   outcome changed.
+
+All 21 formal results rerun with one command (`python3 tools/check_formal.py`). The full method is
+in [METHOD.md](METHOD.md).
+
+## Using the fixed tasks
+
+Each fix is a small patch plus a script that rebuilds the fixed task from the original public
+images. No original files are redistributed. Scores from a fixed task should not be mixed with
+scores from the original. See [APPLYING-FIXES.md](APPLYING-FIXES.md).
+
+## What is in this repository
 
 | Path | Contents |
 | --- | --- |
-| `FINDINGS.md`, `APPLYING-FIXES.md`, `METHOD.md`, `DECISIONS.md`, `cases/` | The publication |
-| `site/` | The browsable page (deployed with GitHub Pages) |
-| `repairs/<task>-v2/` | Repair packages: patch, `materialize.sh`, `Dockerfile` `FROM` the original image digest, `task.json.in`, source lock, paired results |
-| `decisions.json`, `decisions.csv`, `paired-results.csv`, `paired-repeatability.csv`, `impact.csv` | Machine-readable decisions and paired evaluations |
-| `evidence/` | `reviews/` (per-task analyses), `scripts/` (rerunnable checks), `formal/` (Lean, TLA+), `runs/` (native-run jobs and results) |
-| `tools/` | Generators for the tables, findings, guide and site; consistency, publish and formal checks; the E2B runner |
-| `tasks/` | The original public task definitions, unchanged |
-| `sforge/`, `tests/` | The EdgeBench harness and its grading tests |
+| [FINDINGS.md](FINDINGS.md) | Every task, grouped by what goes wrong |
+| [cases/](cases/INDEX.md) | One page per task: the task, the problem, how much it matters, the fix, how it was checked |
+| [IMPACT.md](IMPACT.md) | Effect on the published leaderboard |
+| [METHOD.md](METHOD.md) | How findings were established, and the limits |
+| [APPLYING-FIXES.md](APPLYING-FIXES.md) | How to build and use the fixed tasks |
+| [DECISIONS.md](DECISIONS.md), `decisions.csv`, `decisions.json` | The outcome for every task |
+| `paired-results.csv`, `paired-repeatability.csv` | Every side-by-side test and its three repeats |
+| `repairs/<task>-v2/` | The fixed tasks ("v2" marks the fixed version) |
+| `evidence/` | Detailed reviews, scripts, Lean and TLA+ files, and the logs of every test run |
+| `site/` | The website |
+| `tools/` | Scripts that generate the tables, site and checks |
+| `tasks/`, `sforge/`, `tests/` | EdgeBench's original task definitions and grading software, unchanged |
 
-## Scope and limits
+## Limits
 
-- The 83 unreleased EdgeBench tasks are out of scope.
-- No model runs: score effects are measured on authored controls and counterexamples. Effects on
-  the published leaderboard are recomputed only where they are a pure change of scale, and are
-  otherwise bounded ([IMPACT.md](IMPACT.md)).
-- Deliberate tampering with the scorer by a malicious submission is a harness design choice and is
-  out of scope.
-- v2 scores are not comparable with v1 leaderboard scores.
-
-See [METHOD.md](METHOD.md) for the full list.
+- **Only the 51 public tasks.** EdgeBench has 134 tasks; the other 83 are not released.
+- **No AI models were rerun.** Effects are measured with test submissions we wrote. The effect on
+  the published leaderboard is calculated where possible and otherwise given as a range.
+- **Deliberate cheating is not covered.** A submission written to attack the grader is a separate
+  question about how the benchmark isolates its grader.
+- **One machine type.** Side-by-side tests ran on machines with 8 virtual CPUs and 8 GiB of memory.
+  Speed-based scores may differ elsewhere.
+- **Reviewed by AI agents.** Every claim is tied to a saved evidence file and a rerunnable check.
+  Agreement between agents is not the same as independent human reproduction.
 
 ## Citation and licenses
 
-Cite with [CITATION.cff](CITATION.cff). The harness derives from ByteDance Seed EdgeBench at
-`6e4e5f4aa087a9121aa09a6059e5484e5102c6ff` (Apache-2.0, `LICENSE`). Task definitions derive from the
-public Hugging Face release at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75` (`tasks/LICENSE`). Task
-images are referenced by their public Docker Hub digests and are not redistributed: repair packages
-contain only patches, and `materialize.sh` rebuilds the changed files from the pinned images.
+Cite with [CITATION.cff](CITATION.cff). This is an independent project, not affiliated with
+EdgeBench's authors. The grading software derives from ByteDance Seed EdgeBench at
+`6e4e5f4aa087a9121aa09a6059e5484e5102c6ff` (Apache-2.0, `LICENSE`). Task definitions come from the
+public Hugging Face release at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75` (`tasks/LICENSE`).
+EdgeBench's images are referenced by their public fingerprints and are not redistributed.

@@ -1,68 +1,75 @@
 # Order Addition Permutation Optimization (`order_addition_permutation_optimization`)
 
-**Decision:** Repair (v2). An integrity test expects an outdated helper hash, so every submission is capped at pass rate 0.8, and under the task's `pass_rate_first` policy the run freezes on its first valid submission.
+**Outcome:** Fixed. A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first valid submission and ignores better later ones.
 
-## What the task asks for
+![Two rows showing the same two valid submissions: the original grader keeps the first, lower-scoring one as best, while the fixed version keeps the second, better one.](figures/order_addition_permutation_optimization.svg)
 
-The prompt asks for a permutation of 1..1000 that minimises a black-box response, and lists what "the evaluator will check": no private access; the baseline file is unmodified; `final_result.txt` exists; `final_pai` is a valid permutation; `final_cost` matches the recomputed cost. A continuous score is then "calculated using `score_cost_num(cost, num)` from the evaluator-side private `tests/score_vcpom_result.py`". Nothing in the contract mentions a helper fingerprint, and the solver cannot affect one, because `tests/` is excluded from submissions. Category: Combinatorial Optimization.
+*A stale file fingerprint caps every submission at 4/5 tests, so the original grader keeps a run's first valid submission and ignores better later ones.*
+
+## What the task asks
+
+The prompt asks for a permutation (an ordering) of 1..1000 that minimises a black-box response. It lists what "the evaluator will check": no private access; the baseline file is unmodified; `final_result.txt` exists; `final_pai` is a valid permutation; `final_cost` matches the recomputed cost.
+
+A continuous score is then "calculated using `score_cost_num(cost, num)` from the evaluator-side private `tests/score_vcpom_result.py`". Nothing in the contract mentions a helper fingerprint. The solver cannot affect one, because `tests/` is excluded from submissions. Category: Combinatorial Optimization.
 
 ## What goes wrong
 
-**One test always fails.** `test_private_judge_files_are_available` asserts that the installed helper's sha256 equals `3023b9a4…`. That is the hash of an earlier Chinese-comment helper. A later image layer replaced the helper with an English-comment translation, `337837af…`, and the expected literal was not updated. The two helper versions differ only in comments, a docstring and example labels; `parse_result_file` and `score_cost_num` are functionally identical. The check is unconditional and fails for every submission.
+**One test always fails.** `test_private_judge_files_are_available` asserts that the installed helper's sha256 fingerprint equals `3023b9a4…`. That is the fingerprint of an earlier helper with Chinese comments. A later image layer replaced the helper with an English-comment translation, `337837af…`, and the expected value was not updated. The two helper versions differ only in comments, a docstring and example labels. `parse_result_file` and `score_cost_num` work identically. The check is unconditional and fails for every submission.
 
-- **Per-submission score is correct.** Only this one test fails. The other four still run, and `TOTAL_SCORE` is computed with the installed helper.
+- **Each submission's score is correct.** Only this one test fails. The other four still run, and `TOTAL_SCORE` is computed with the installed helper.
 - **Pass rate is capped.** A fully correct submission gets pass rate 0.8 instead of 1.0.
-- **Selection freezes.** `pass_rate_first` compares scores only when both pass rates are 1.0. Otherwise a later entry wins only with a strictly higher pass rate. Every valid submission is capped at 0.8, so the run's `best_score` / `best_round` stay on the **first** valid submission.
+- **The run's choice of best submission freezes.** This task's rule (`pass_rate_first`) keeps the submission that passes the most tests. It compares scores only when both pass rates are 1.0. Otherwise a later submission wins only with a strictly higher pass rate. Every valid submission is capped at 0.8, so the run's `best_score` / `best_round` stay on the **first** valid submission.
 
-Example under the original evaluator: two valid submissions in the order identity, then search. The identity permutation scores 3.3e-09, and the search result scores higher. Expected: search is selected. Observed: identity is selected, and the better later submission is ignored.
+Example under the original grader: two valid submissions in the order identity, then search. The identity permutation scores 3.3e-09, and the search result scores higher. Expected: search is chosen. Observed: identity is chosen, and the better later submission is ignored.
 
-## Impact
+## How much it matters
 
-Material for any run with more than one valid submission where a later one scores higher: the later improvement is ignored in the run-level best score. Some consumers instead take the maximum over all submissions, which is order-independent, so whether a published number is wrong depends on which consumer produced it. Per-submission scores are unaffected.
+This changes scores enough to matter for any run with more than one valid submission where a later one scores higher. The later improvement is ignored in the run's best score. Some consumers instead take the maximum over all submissions, which does not depend on order. So whether a published number is wrong depends on which consumer produced it. Each submission's own score is unaffected.
 
-## Fix (v2)
+## The fix
 
-v2 changes one literal in `tests/test_final_result.py`: `EXPECTED_SCORE_HELPER_SHA256` becomes the installed helper's hash, `337837af…`. The helper, `.so`, baseline file, prompt, work image, parser, selection and rescale are unchanged. The task JSON changes only `judge.image_tag`.
+The fixed version changes one value in `tests/test_final_result.py`: `EXPECTED_SCORE_HELPER_SHA256` becomes the installed helper's fingerprint, `337837af…`. These are unchanged: the helper, `.so`, baseline file, prompt, agent's working image, parser, the rule for picking the best submission and the score scale. The task JSON changes only `judge.image_tag`.
 
-| Submission | Role | Image | Tests passed | pass_rate | Raw TOTAL_SCORE | Normalized 0–100 | Failing test |
+| Submission | Role | Grader | Tests passed | pass_rate | Raw TOTAL_SCORE | Score out of 100 | Failing test |
 | --- | --- | --- | --- | ---: | ---: | ---: | --- |
-| identity | valid | v1 | 4/5 | 0.80 | 3.3e-09 | 3.3e-09 | fingerprint |
-| identity | valid | v2 | **5/5** | **1.00** | 3.3e-09 | 3.3e-09 | – |
-| search | valid, better | v1 | 4/5 | 0.80 | 0.0093733018 | 0.0093733018 | fingerprint |
-| search | valid, better | v2 | **5/5** | **1.00** | 0.0093733018 | 0.0093733018 | – |
-| badcost (misreported cost) | invalid control | v1 | 3/5 | 0.60 | none | none | fingerprint, cost mismatch |
-| badcost | invalid control | v2 | 4/5 | 0.80 | none | none | cost mismatch |
-| dup (not a permutation) | invalid control | v1 | 3/5 | 0.60 | none | none | fingerprint, permutation |
-| dup | invalid control | v2 | 4/5 | 0.80 | none | none | permutation |
+| identity | valid | Original | 4/5 | 0.80 | 3.3e-09 | 3.3e-09 | fingerprint |
+| identity | valid | Fixed | **5/5** | **1.00** | 3.3e-09 | 3.3e-09 | – |
+| search | valid, better | Original | 4/5 | 0.80 | 0.0093733018 | 0.0093733018 | fingerprint |
+| search | valid, better | Fixed | **5/5** | **1.00** | 0.0093733018 | 0.0093733018 | – |
+| badcost (misreported cost) | invalid test submission | Original | 3/5 | 0.60 | none | none | fingerprint, cost mismatch |
+| badcost | invalid test submission | Fixed | 4/5 | 0.80 | none | none | cost mismatch |
+| dup (not a permutation) | invalid test submission | Original | 3/5 | 0.60 | none | none | fingerprint, permutation |
+| dup | invalid test submission | Fixed | 4/5 | 0.80 | none | none | permutation |
 
-Selection (task policy `pass_rate_first`, repo `select_best`):
+Choice of the run's best submission (task rule `pass_rate_first`, computed with the repository's `select_best`):
 
-| Submission order | v1 selects | v2 selects |
+| Submission order | Original grader picks | Fixed grader picks |
 | --- | --- | --- |
-| identity, search | **identity** (3.3e-09), frozen on the first | **search** (0.00937) |
+| identity, search | **identity** (3.3e-09), stuck on the first | **search** (0.00937) |
 | search, identity | search (0.00937) | search (0.00937) |
 | dup, identity, search | **identity** (3.3e-09) | **search** (0.00937) |
 | badcost, identity, search | **identity** (3.3e-09) | **search** (0.00937) |
 
-**Score compatibility:** per-submission raw and normalized scores are unchanged, bit for bit. Pass rates change: a legal submission now gets 5/5 instead of 4/5. The run-level `best_score` / `best_round` under `pass_rate_first` are not comparable with v1 whenever a run had more than one valid submission and a later one scored higher: v1 kept the first, and v2 keeps the best.
+**Score compatibility:** each submission's raw result and score out of 100 are unchanged, bit for bit. Pass rates change: a legal submission now gets 5/5 instead of 4/5. The run's `best_score` / `best_round` under `pass_rate_first` are not comparable with the original version whenever a run had more than one valid submission and a later one scored higher. The original version kept the first, and the fixed version keeps the best.
 
-## How we know
+## How we checked it
 
-- **Original evaluator in the pinned image.** The installed helper was hashed inside the judge image (`sha256:6d1a1506…`) and compared with the literal the test expects. The original `eval_cmd` (`python -m pytest tests/test_final_result.py -s -v`) ran under `--network none --memory 2g --cpus 2` on valid and invalid controls.
-- **Selection.** The saved logs were fed through the harness's own `grade_output`, `rescale_score` and `select_best`, for both the upstream and the maintained harness versions.
-- **Paired evaluation.** Each submission ran in a fresh `--network none` container through the TaskSpec `eval.sh`; a preflight confirmed that each image collects 5 tests. It was repeated three times with no verdict change ([`paired-repeatability.md`](../paired-repeatability.md)).
+- **Original grader.** The installed helper was hashed inside the original public image, pinned by digest, and compared with the value the test expects. The original `eval_cmd` (`python -m pytest tests/test_final_result.py -s -v`) ran under `--network none --memory 2g --cpus 2` on valid and invalid test submissions.
+- **Choice of best submission.** The saved logs were fed through the harness's own `grade_output`, `rescale_score` and `select_best`, for both the upstream and the maintained harness versions.
+- **Side-by-side run of the original and fixed graders.** Each submission ran in a fresh `--network none` container through the TaskSpec `eval.sh`. A check beforehand confirmed that each image collects 5 tests. It was repeated three times with no verdict change ([`paired-repeatability.md`](../paired-repeatability.md)).
 
 ## Limits
 
-- No model or solver runs. Effects are shown only on authored controls and counterexamples.
-- The submissions are simple controls: the identity permutation, and short random-swap search runs (30 s and 60 s). They are far from the reference cost. The selection effect does not depend on score magnitude.
-- Selection was computed with the repo's `select_best` on saved reports, not through a live `judge_server` run. The work image was not executed.
-- How often historical leaderboard runs had a better later submission was not measured.
-- One harness behaviour is unchanged: `pass_rate_first` reports `best_score = pass_rate` when the chosen entry has no score. So a run with only invalid submissions shows 0.6 under v1, or 0.8 under v2.
+- No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
+- The submissions are simple: the identity permutation, and short random-swap search runs (30 s and 60 s). They are far from the reference cost. The effect on the choice of best submission does not depend on score size.
+- The choice of best submission was computed with the repository's `select_best` on saved reports, not through a live `judge_server` run. The agent's working image was not run.
+- How often past leaderboard runs had a better later submission was not measured.
+- One harness behaviour is unchanged: `pass_rate_first` reports `best_score = pass_rate` when the chosen submission has no score. So a run with only invalid submissions shows 0.6 under the original version, or 0.8 under the fixed version.
 
 ## Reproduce
 
+- Original grader image: `sha256:6d1a1506…`.
 - Scripts: `evidence/scripts/order_addition_permutation_optimization/run_judge.sh`, `make_result.py`, `grade_and_select.py`; saved logs in `observed/`.
-- Paired evaluation: `repairs/order_addition_permutation_optimization-v2/paired/run.sh` (results in `paired/results.md`).
+- Side-by-side run: `repairs/order_addition_permutation_optimization-v2/paired/run.sh` (results in `paired/results.md`).
 - Patch: `repairs/order_addition_permutation_optimization-v2/repair.patch`.
-- Supporting records: `repairs/order_addition_permutation_optimization-v2/` (source-lock.json, paired captures).
+- Supporting records: `repairs/order_addition_permutation_optimization-v2/` (the folder holding the fixed version: source-lock.json, captured outputs of the side-by-side run).

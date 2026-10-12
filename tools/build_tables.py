@@ -1,36 +1,51 @@
 #!/usr/bin/env python3
-"""Generate the release decision table and CSV from decisions.json (single source of counts)."""
+"""Generate DECISIONS.md and decisions.csv from decisions.json and cases/plain.json."""
 import csv
 import json
 from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ORDER = ['retain', 'retain-with-note', 'repair-v2', 'exclude', 'pending']
-LABEL = {'retain': 'Retain', 'retain-with-note': 'Retain with note',
-         'repair-v2': 'Repair (v2)', 'exclude': 'Exclude', 'pending': 'Pending'}
+ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
+LABEL = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repair-v2': 'Fixed', 'exclude': 'Removed'}
+MEANING = {'retain': 'No problem found.',
+           'retain-with-note': 'No problem that changes scores enough to matter; the note records smaller caveats.',
+           'repair-v2': 'A problem that changes scores; a fixed version is published and was tested against the original.',
+           'exclude': 'A problem without a sound fix; the task is not part of the verified set.'}
 
 
 def main():
     rows = sorted(json.loads((ROOT / 'decisions.json').read_text()), key=lambda r: r['task_id'])
-    assert len(rows) == 51, len(rows)
+    plain = json.loads((ROOT / 'cases' / 'plain.json').read_text())
+    names = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['name'] for f in (ROOT / 'tasks').glob('*.json')}
+    assert len(rows) == 51 and set(plain) == {r['task_id'] for r in rows}
     counts = Counter(r['proposed'] for r in rows)
-    assert sum(counts.values()) == 51
     with (ROOT / 'decisions.csv').open('w', newline='') as f:
-        w = csv.writer(f)
-        w.writerow(['task_id', 'decision', 'finding', 'max_effect', 'repair_result', 'package', 'status'])
+        w = csv.writer(f, lineterminator='\n')
+        w.writerow(['task_id', 'name', 'decision', 'outcome', 'summary', 'effect', 'what_we_did',
+                    'technical_finding', 'technical_max_effect', 'fixed_version_folder'])
         for r in rows:
-            w.writerow([r['task_id'], r['proposed'], r['finding'], r.get('max_effect', ''),
-                        r.get('repair', ''), r.get('package', ''), r['status']])
-    lines = ['| Decision | Tasks |', '| --- | ---: |']
-    lines += [f'| {LABEL[k]} | {counts.get(k, 0)} |' for k in ORDER if counts.get(k)]
-    lines += ['| **Total** | **51** |', '', '| Task | Decision | What we found | Max effect | Repair result |',
-              '| --- | --- | --- | --- | --- |']
-    for r in rows:
-        rep = r.get('repair', '—' if r['proposed'] != 'repair-v2' else 'in progress')
-        lines.append(f"| `{r['task_id']}` | {LABEL[r['proposed']]} | {r['finding']} | "
-                     f"{r.get('max_effect', '')} | {rep} |")
+            t = r['task_id']
+            w.writerow([t, names[t], r['proposed'], LABEL[r['proposed']], plain[t]['headline'], plain[t]['effect'],
+                        plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', '')])
+    lines = ['# Outcome for every task', '',
+             'The outcome for each of the 51 public tasks. The same data is in [decisions.csv](decisions.csv); '
+             'the `decision` column there uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` '
+             '(removed).', '', '| Outcome | Tasks | Meaning |', '| --- | ---: | --- |']
+    lines += [f'| {LABEL[k]} | {counts[k]} | {MEANING[k]} |' for k in ORDER if counts.get(k)]
+    lines += ['| **Total** | **51** | |', '', '| Task | Outcome | What we found | How much it matters |',
+              '| --- | --- | --- | --- |']
+    for r in sorted(rows, key=lambda r: names[r['task_id']]):
+        t = r['task_id']
+        lines.append(f"| [{names[t]}](cases/{t}.md) | {LABEL[r['proposed']]} | {plain[t]['headline']} | {plain[t]['effect']} |")
     (ROOT / 'DECISIONS.md').write_text('\n'.join(lines) + '\n')
+    cats = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['category'] for f in (ROOT / 'tasks').glob('*.json')}
+    idx = ['# Case pages', '', 'One page per public EdgeBench task: what the task asks, what goes wrong, how much it '
+           'matters, the fix, how it was checked, the limits, and how to reproduce it.', '',
+           '| Task | Field | Outcome | In one line |', '| --- | --- | --- | --- |']
+    idx += [f"| [{names[t]}]({t}.md) | {cats[t]} | {LABEL[d]} | {plain[t]['headline']} |"
+            for t, d in sorted(((r['task_id'], r['proposed']) for r in rows), key=lambda x: names[x[0]])]
+    (ROOT / 'cases' / 'INDEX.md').write_text('\n'.join(idx) + '\n')
     print(dict(counts))
 
 

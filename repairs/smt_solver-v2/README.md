@@ -1,59 +1,70 @@
-# smt_solver v2: UF witness values keyed by evaluated arguments
+# smt_solver, fixed version: function values in answers are keyed by evaluated arguments
 
-**Defect** ([review](../../evidence/reviews/smt_solver.md)). The SAT-model checker (`WitnessChecker` in
-`/home/workspace/smt_judge/scripts/evaluate.py`) looks up the value of an uninterpreted-function
+## What this fixes
+
+When the grader checks a solver's proposed model (its answer), it looks up a function's value by the literal text of the call, such as `"(f x)"`, and ignores what `x` currently stands for. As a result, 27 satisfiable hidden problems cannot be won, and answers written in the documented format are rejected on 42 more. The fixed checker works out a function's actual inputs before looking up its value; wrong answers are still rejected.
+
+### The problem in detail
+
+See the [review](../../evidence/reviews/smt_solver.md). The SAT-model checker (`WitnessChecker` in
+`/home/workspace/smt_judge/scripts/evaluate.py`) looks up the value of an uninterpreted-function (UF)
 application by the application's source text, for example `"(f x)"`. When the same text appears under
 different `let` bindings, every occurrence has to share one value. On 27 of the 546 hidden satisfiable
-cases, no witness is accepted, not even a correct model. The shipped `smtlib_spec.md` says something
+problems, no answer is accepted, not even a correct model. The shipped `smtlib_spec.md` says something
 different: keys are "SMT-LIB symbols or canonical ground terms", UF values are given "for ground
 applications needed to evaluate the assertions, such as `"(f a)"`", and the evaluator "checks every
 assertion under the witness and enforces congruence". A solver that follows the spec literally and
-supplies ground keys is also rejected on 42 more hidden SAT cases.
+supplies ground keys is also rejected on 42 more hidden SAT problems.
 
-**Change.** One file, `evaluate.py` (`repair.patch`). Every other part of the evaluator is unchanged:
-parsing, perturbation, timeouts, scoring and the rest of the witness format.
-- **Ground keys become a function table.** When the checker is built, each witness key that parses as
+## What changes
+
+One file, `evaluate.py` (`repair.patch`). Every other part of the grader is unchanged:
+parsing, perturbation, timeouts, scoring and the rest of the answer format.
+- **Ground keys become a function table.** When the checker is built, each answer key that parses as
   a ground application of a declared function is evaluated. A ground application is `(g t1 … tn)`
   whose arguments contain only declared constants, ground defines, literals, the core/arithmetic
   operators and nested ground applications. The checker records g's value at the *evaluated* argument
   values. Two such keys that give g different values at the same argument values are rejected as a
-  congruence violation.
+  congruence violation (a function giving two outputs for the same inputs).
 - **Lookup order.** When an assertion applies g, the checker evaluates the arguments in the current
   scope, then uses the table entry for (g, argument values). If no entry exists, it falls back to the
   original textual lookup, so the old key convention still works.
 - **Congruence check.** The final congruence check now starts from the table entries. The function
-  defined by the witness must therefore be single-valued over both the ground keys and every
+  defined by the answer must therefore be single-valued over both the ground keys and every
   application that was evaluated.
-- **Task JSON.** `task.json.in` changes only `judge.image_tag`. The work image and the solver-visible
-  files are unchanged.
+- **Task JSON.** `task.json.in` changes only `judge.image_tag`. The agent's working image and the files the agent can see
+  are unchanged.
 
 **Why minimal and sound.**
-- **Minimal.** The checker already computed `arg_values` for its congruence check, and the repair
+- **Minimal.** The checker already computed `arg_values` for its congruence check, and the fix
   keys values by them. The textual path is kept as a fallback.
-- **Sound.** A witness is accepted only if every assertion evaluates to true under a single-valued
-  interpretation of each function, so an accepted witness is still a genuine model. The paired
-  wrong-model controls test this direction (see results).
+- **Sound.** An answer is accepted only if every assertion evaluates to true under a single-valued
+  interpretation of each function, so an accepted answer is still a genuine model. The
+  wrong-model test submissions in the side-by-side run test this direction (see results).
 
 **Score compatibility.**
-- **Comparable:** v2 scores are comparable with v1 for any solver whose witnesses use only textual
+- **Comparable:** fixed-version scores are comparable with original scores for any solver whose answers use only textual
   keys.
 - **Not comparable:**
-  - for solvers that emit ground-term keys, which v2 accepts where v1 rejected them;
-  - on the 27 multi-context hidden files, which v1 cannot award at all.
-- **Newly rejected:** a witness that v1 accepted but that assigns a function two different values at
-  the same argument values through an unused ground key. That witness does not define a function, so
+  - for solvers that emit ground-term keys, which the fixed version accepts where the original rejected them;
+  - on the 27 hidden files that reuse the same text under different bindings, which the original grader cannot award at all.
+- **Newly rejected:** an answer that the original grader accepted but that assigns a function two different values at
+  the same argument values through an unused ground key. That answer does not define a function, so
   the spec's "enforces congruence" covers this case.
 
-**Paired evaluation:** [paired/results.md](paired/results.md).
+## How it was checked
 
-**Limits.**
-- The corpus witnesses come from z3 models replayed by a stub. No end-to-end solver built for the task
+A side-by-side run of the original and fixed graders on the same answers: [paired/results.md](paired/results.md). Correct answers with ground keys, rejected by the original grader, are accepted by the fixed grader; wrong models are rejected by both.
+
+## Limits
+
+- The answers come from z3 models replayed by a stand-in solver. No complete solver built for the task
   was used.
-- The "z3-proven not a model" status of the wrong-model witnesses depends on z3 4.13.0.0.
+- The "z3-proven not a model" status of the wrong-model answers depends on z3 4.13.0.0.
 - The spec text was not reworded. Its "canonical ground terms" wording now matches the checker.
-- Each arm ran once on one E2B worker.
+- Each test submission ran once on one E2B cloud machine.
 
-## Build
+## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 

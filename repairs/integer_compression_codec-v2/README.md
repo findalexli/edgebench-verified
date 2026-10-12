@@ -1,67 +1,70 @@
-# integer_compression_codec v2: baseline = the shipped Varint starter, measured in the same run
+# Integer compression codec, fixed version: the baseline is the shipped Varint starter, measured in the same run
 
-**Defect** ([review](../../evidence/reviews/integer_compression_codec.md)). The agent-facing documents define
-the per-dataset score relative to "the baseline (official Varint)" and state in `scoring_scheme.md`:
+## What this fixes
+
+The task documents say a submission is scored against the supplied Varint starter, which should score 1.0. The original grader instead divides by stored numbers that the starter cannot produce, so the starter scores about 0.24 and the datasets are weighted differently from what is published. The fixed grader measures the starter in the same run and uses it as the baseline, exactly as documented.
+
+## What changes
+
+### The problem in detail
+
+See the [review](../../evidence/reviews/integer_compression_codec.md). The documents the agent sees define
+the score on each dataset relative to "the baseline (official Varint)" and state in `scoring_scheme.md`:
 "The baseline implementation is the publicly provided Varint starter. Its composite score is
 defined as `1.0`." The grader (`runner_judge.py`) instead divides by constants stored in
-`internal/baseline/baseline_results.json`. Those constants cannot come from the starter: five of
-the stored "Varint" bits-per-integer values are below 8, which no byte-oriented varint can reach,
-and the stored throughputs come from another host. On the judge path the unchanged starter
-therefore scores about 0.24 instead of 1.0, and the effective dataset weights differ from the
+`internal/baseline/baseline_results.json`. Those constants cannot come from the starter. Five of
+the stored "Varint" bits-per-integer values are below 8, which no byte-oriented varint can reach (it needs at least one byte, 8 bits, per value).
+The stored throughputs come from another machine. On the grading path the unchanged starter
+therefore scores about 0.24 instead of 1.0. The effective weights of the datasets differ from the
 published weights by up to 6.7x relative to one another.
 
-**Change.** One file is changed and three pristine files are added in the judge image
+### Exact change
+
+One file is changed and three pristine files are added in the grader image
 (`repair.patch`, generated with `diff -ruN`):
 - `runner_judge.py`: after the submission builds and passes the symbol check, the grader builds the
-  shipped starter from pristine copies into `.judge-bin/starter/` (`make -j4 libintcompress.so`,
-  the shipped Makefile, so the same compiler and flags). On each dataset it then runs the starter and
+  shipped starter from pristine copies into `.judge-bin/starter/` (`make -j4 libintcompress.so`, with
+  the shipped Makefile, so the compiler and flags are the same). On each dataset it then runs the starter and
   the submission back to back through the same `runner_encode` / `runner_decode`. The starter's
-  measured bpi and `decode_gbps` are used as `B_i^0` and `T_i^0`. `load_baseline()` and the read of
+  measured bpi (bits per integer) and `decode_gbps` are used as `B_i^0` and `T_i^0`. `load_baseline()` and the read of
   `baseline_results.json` are removed. The file is left in the image but is no longer read. The
-  output additionally reports `baseline_per_dataset` and `baseline_source`. If the starter itself
-  fails to build or roundtrip, the run reports `status=error` rather than a score.
+  output also reports `baseline_per_dataset` and `baseline_source`. If the starter itself
+  fails to build or to pass the roundtrip check, the run reports `status=error` rather than a score.
 - `internal/baseline/starter/{codec.cpp,intcompress.h,Makefile}`: byte-identical copies of the
   shipped `src/codec.cpp`, `include/intcompress.h` and `Makefile`. These are the same files as in
-  the solver-visible work image (`b6a58b1a…`, checked on the worker; `paired/evidence/work_sha.txt`).
+  the work image the solver sees (`b6a58b1a…`, checked on the cloud worker; `paired/evidence/work_sha.txt`).
   Copies are needed because the submission overwrites `src/`, `include/` and `Makefile`.
-- `task.json.in` changes only `judge.image_tag`. The `eval_cmd`, the parser, the rescale (linear
-  0..100), the caps (8x, 40x), the weights, the datasets, the roundtrip gate and the work image are
+- `task.json.in` changes only `judge.image_tag`. The `eval_cmd`, the parser, the score scale (linear
+  0..100), the caps (8x, 40x), the weights, the datasets, the roundtrip check and the work image are
   unchanged.
 
-**Why minimal.** The scoring formula, caps, weights and gates stay exactly as documented. Only the
-source of `B_i^0` and `T_i^0` changes, from stored constants to the documented starter measured by
-the same runners on the same host in the same container. This is the documented definition, so no
-solver-visible text changes. Measuring per dataset immediately before the submission keeps the two
-timings under the same conditions. The cost is roughly 20 s more per evaluation on the E2B worker
+### Why this is the smallest change
+
+The scoring formula, caps, weights and checks stay exactly as documented. Only the
+source of `B_i^0` and `T_i^0` changes: from stored constants to the documented starter, measured by
+the same runners on the same machine in the same container. This is the documented definition, so no
+text the solver sees changes. Measuring each dataset immediately before the submission keeps the two
+timings under the same conditions. The cost is roughly 20 s more per grading on the E2B cloud worker
 (about 44 s instead of 24 s).
 
-**Score compatibility.** v2 scores are **not comparable** with v1 scores for any submission. For
-every submission each per-dataset score changes by the factor
-`(starter_bpi_measured / stored_bpi) x (stored_gbps / starter_gbps_measured)`, which on the E2B worker
+### Are scores comparable?
+
+Scores from the fixed version are **not comparable** with scores from the original for any submission. For
+every submission, each per-dataset score changes by the factor
+`(starter_bpi_measured / stored_bpi) x (stored_gbps / starter_gbps_measured)`. On the E2B worker this factor
 ranged from about 1.5x (rand) to about 12x (ts_sec), so rankings between solutions that trade off across datasets can
-change. Failing submissions still score 0. The rescale (linear 0..100) is kept: a v2 score of 1.0
-(the starter) normalizes to 1.0, and the maximum possible raw score is 320 (8 x 40), which is clipped
-at 100 as in v1. Re-anchoring the rescale (for example with the starter at 0) is a separate
-benchmark-policy decision and is not part of this repair.
+change. Failing submissions still score 0. The score scale (linear 0..100) is kept: a fixed-version raw result of 1.0
+(the starter) becomes a score of 1.0 out of 100, and the largest possible raw result is 320 (8 x 40), which is capped
+at 100 as in the original. Setting new reference points for the scale (for example with the starter at 0) is a separate
+decision for the benchmark and is not part of this fix.
 
-**Paired evaluation:** [paired/results.md](paired/results.md). The repair is **accepted**.
+## How it was checked
 
-**Limits.**
-- **Host dependence and noise remain.** The speed term is now a same-host ratio, so it no longer
-  depends on an unknown reference host, but it is still a wall-clock measurement. On one 8-vCPU E2B
-  worker the starter scored 0.979 and 1.016 in two v2 runs (per-dataset ratios 0.93 to 1.07), and
-  the honest delta-zigzag-varint codec scored 6.70 and 6.97 (about ±2% around the mean). The
-  starter's own measured throughput moved by up to about 18% between runs (grid 0.789 vs 0.646 GB/s),
-  but the back-to-back pairing cancels most of that. The compression term is exact and repeatable.
-- The starter is measured once per dataset (best of 5 decodes, as for the submission). Taking the
-  median of several baseline runs would cut noise further, at extra cost. That was not done, to keep
-  the change minimal.
-- The image still has g++ 11.4, not the documented 12.2. This is unchanged and affects both
-  versions equally.
-- One E2B host. The honest control is a simple codec, not a strong solution. No expert reference
-  solution is shipped.
+Side-by-side run of the original and fixed graders: [paired/results.md](paired/results.md). The fix is **accepted**.
 
-## Build
+In plain words: the unchanged starter scores 0.2327 on the original grader and 0.9786 on the fixed one (1.0155 on a repeat), close to the documented 1.0. A simple honest codec (delta + zigzag + varint) scores 0.8253 on the original grader and 6.7024 on the fixed one (6.9708 on a repeat). A starter that corrupts one value scores 0 on both.
+
+## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
@@ -81,3 +84,19 @@ After that, the `Dockerfile` builds without changes. Regenerated files keep the 
 See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
 `files/internal/baseline/starter/*` are new image paths whose bytes are unchanged copies of the in-image `Makefile`, `src/codec.cpp` and `include/intcompress.h`; `materialize.sh` copies them from the image.
+
+## Limits
+
+- **Dependence on the machine and timing noise remain.** The speed term is now a ratio of times on the same machine, so it no longer
+  depends on an unknown reference machine. But it is still a wall-clock measurement. On one 8-vCPU E2B
+  worker the starter scored 0.979 and 1.016 in two runs of the fixed version (per-dataset ratios 0.93 to 1.07). The
+  honest delta-zigzag-varint codec scored 6.70 and 6.97 (about ±2% around the mean). The
+  starter's own measured throughput moved by up to about 18% between runs (grid 0.789 vs 0.646 GB/s),
+  but running the two back to back cancels most of that. The compression term is exact and repeatable.
+- The starter is measured once per dataset (best of 5 decodes, as for the submission). Taking the
+  median of several baseline runs would cut noise further, at extra cost. That was not done, to keep
+  the change minimal.
+- The image still has g++ 11.4, not the documented 12.2. This is unchanged and affects both
+  versions equally.
+- Only one E2B machine type was used. The honest test submission is a simple codec, not a strong solution. No expert reference
+  solution ships with the task.
