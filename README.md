@@ -56,13 +56,14 @@ All 51 tasks with their measured impact: [FINDINGS.md](FINDINGS.md).
 
 ## Effect on the published leaderboard
 
-Using EdgeBench's own per-task @12h scores for the 51 public tasks, the changes that are a pure
-change of scale (Treant Forest's anchors, Borden's missing rescale, Dabic's exclusion) raise every
-model's mean by 1.2–1.9 points. The ranking does not change. The repairs with a documented maximum
-effect add at most 0.3 points down or 1.4 up. That is enough to swap Opus 4.8 (44.2) and GPT-5.5
-(43.1), whose order the public tasks therefore do not establish. The other repairs cannot be sized
-without re-scoring the original submissions, which are not public. [IMPACT.md](IMPACT.md) gives
-every figure and its limits.
+EdgeBench scores each task–model cell as the mean, over three 12-hour runs, of each run's best-so-far
+score. From the per-task table, only changes of scale can be undone exactly: Treant Forest's
+anchors, Borden's missing rescale and Dabic's exclusion. These raise every model's mean by 1.2–1.9
+points and leave the ranking unchanged. Repairs with a documented maximum effect add at most 0.3
+points down or 1.4 up. That is enough to swap Opus 4.8 (44.2) and GPT-5.5 (43.1). These figures are
+a floor. For 12 of the 23 repaired or excluded tasks, including Integer Codec, OpenTTD, SMT and
+Exchange Core, the effect can only be given a direction, since sizing it requires re-scoring the
+submissions, which are not public. [IMPACT.md](IMPACT.md) gives every figure and its limits.
 
 ## Formal checks
 
