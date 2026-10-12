@@ -1,0 +1,65 @@
+{
+  "schema": "source-transcript-correspondence-v1",
+  "reviewer": "/root/astra_findings_skeptic",
+  "decision": "CONFIRMED_EXACT_SOURCE_TRANSCRIPT_MATCH_MISSING_SCORE_EVALUATOR_RC_NEGATIVE9",
+  "created_utc": "2026-10-12T00:25:17.293490+00:00",
+  "job_id": "deterministic-8a00ae14133814f4",
+  "attempt_id": "685061d0f7ab48a780443d778a8e5feb",
+  "method": "Five reasons frozen in hypothesis before executing original AST-selected _emit_status/_emit_parseable_failure functions. No search over private input, exception messages or all return codes. Exact byte length and SHA256 compared to preserved native stdout receipt.",
+  "correspondence": {
+    "reason": "missing parseable score; rc=-9",
+    "bytes": 287,
+    "sha256": "d8d52f922f90b2fc556582506612d632020b4847340944657927027e6610b498"
+  },
+  "conclusions": [
+    "The original scorer emitted infra_error with reason missing parseable score; rc=-9. Its direct command is the pinned evaluate.py Python process, whose negative9 return denotes SIGKILL on the Linux subprocess path.",
+    "Original score.py returns0 for this failure branch. Its printed TOTAL_SCORE0 is an infrastructure/failure fallback, not a recovered valid recommendation score; no reference metrics or empty-control result can be inferred.",
+    "Because score.py prints combined child output before its failure transcript, the exact entire-stdout match supports no additional evaluator stdout/stderr bytes being forwarded in this attempt.",
+    "The prior report JSONDecodeError remains consistent with an unusable report after evaluator termination. The report contents were not retained and are not recovered by this match."
+  ],
+  "limits": [
+    "This is deterministic correspondence to a retained cryptographic receipt and verified emitter source, not a native replay or new scoring result.",
+    "Inherited hard CPU120seconds is a concrete possible termination source, but elapsed time and SIGKILL alone do not distinguish CPU enforcement, OOM, external signal or another killer. No definitive resource-cause diagnosis.",
+    "Prior review/root record stays immutable. This additive receipt correspondence resolves the previously unknown status text/return code only; educational validity, upstream defect, score values and report contents remain unestablished."
+  ],
+  "refs": {
+    "hypothesis.json": {
+      "path": "work/reviews/k12-original-full-caller-astra-high-v3-result/receipt-correspondence-v1/hypothesis.json",
+      "bytes": 1715,
+      "sha256": "640f609cbcaccdaab78573aff77d67fd06fe2d3f8356d225273d35bbb682fa0b"
+    },
+    "check.py": {
+      "path": "work/reviews/k12-original-full-caller-astra-high-v3-result/receipt-correspondence-v1/check.py",
+      "bytes": 1606,
+      "sha256": "8afe004c22b80e217d1467934b3aaecbbd62f4c4138c2d6cd35cfd807ba1b464"
+    },
+    "result.json": {
+      "path": "work/reviews/k12-original-full-caller-astra-high-v3-result/receipt-correspondence-v1/result.json",
+      "bytes": 1410,
+      "sha256": "0f880ba8f7161e16f3ccda565a3609d292ad3da47e97f5e5256a2e1825efc07b"
+    },
+    "matched-source-transcript.txt": {
+      "path": "work/reviews/k12-original-full-caller-astra-high-v3-result/receipt-correspondence-v1/matched-source-transcript.txt",
+      "bytes": 287,
+      "sha256": "d8d52f922f90b2fc556582506612d632020b4847340944657927027e6610b498"
+    }
+  },
+  "saved_result": {
+    "path": "work/cloud-queue/exports/deterministic-8a00ae14133814f4/685061d0f7ab48a780443d778a8e5feb/result.json",
+    "bytes": 6129,
+    "sha256": "a3d48874610a441abc369cdc973f84e6dd14ed1b3661c40156bfe07af43ed505"
+  },
+  "previous_root_acceptance": {
+    "path": "edgebenchverified/audit/evidence/k12-original-full-caller-astra-high-v3-root/root-result-review.json",
+    "bytes": 2103,
+    "sha256": "7ee74945e9c2239bb8fc844e28d651526acbcb5c768bd8fef136bac98cb54b6d"
+  },
+  "calls": {
+    "source_emitter_controls": 5,
+    "native": 0,
+    "provider": 0,
+    "auth": 0,
+    "model": 0
+  },
+  "retry_proposed": false
+}

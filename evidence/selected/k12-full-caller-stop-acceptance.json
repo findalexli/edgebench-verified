@@ -1,0 +1,21 @@
+{
+  "certified": false,
+  "closed": true,
+  "conclusion": "Final original source checks and reference training completed. Score CLI returned0 but audit report loading failed with JSONDecodeError. No actual valid metric values or completed100-scenario inference established; empty control unexecuted.",
+  "decision": "ACCEPT_INCOMPLETE_NATIVE_TRAIN_AND_SCORE_ATTEMPT_NO_METRICS",
+  "diagnosis": {
+    "historical_content_and_cause": "Unresolved: the report body, byte/hash receipt and original scorer status text were not exported. Do not label it definitely empty, truncated, CPU-killed, bad JSON formatting by upstream, or failed infer. The precreated blank report is one possibility, not observed fact.",
+    "parser_correctness": "Actual original emitter roundtrips through unchanged adapter structured parser. No evidence supports changing marker parsing or treating malformed/missing reports as valid scores.",
+    "saved_fields_alone": "Ambiguous because report-json, structured-stdout and later hook-json reads share the same phase and only exception class was retained.",
+    "source_and_local_controls": "Original structured emitter always uses json.dumps. Its minimal legitimate five-metric envelope is752bytes before additional success lines, exceeding total saved287stdoutbytes. Exact evaluate/infer do not emit the marker pair independently. Original adapter would raise Stop for missing markers, not JSONDecodeError. Under this verified ordinary source composition the supported failure boundary is report json.loads, before structured parsing and later hook receipt parsing."
+  },
+  "different_review": {
+    "bytes": 5925,
+    "path": "work/reviews/k12-original-full-caller-astra-high-v3-result/review.json",
+    "sha256": "0e9a28c97c0807cd5b5917c588802ea48591ec0e14e20ce5797d39935f220520"
+  },
+  "next": "Keep closed result and unsupported cause explicit. No blind retry or parser relaxation. Unapplied diagnostics-only patch is not a new operational grant.",
+  "original_defect_established": false,
+  "task_id": "k12_math_recommendation",
+  "utc": "2026-10-12T00:23:22.786384+00:00"
+}

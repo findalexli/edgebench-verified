@@ -7,13 +7,13 @@ An independent audit of whether EdgeBench’s tasks, tests and data measure what
 | What we know | Count |
 | --- | ---: |
 | Public tasks acquired | 51 |
-| Tasks with confirmed findings, within the scope stated in each case | 20 |
+| Tasks with confirmed findings, within the scope stated in each case | 21 |
 | Original versions we would withhold from a verified release | 18 |
 | Original task decisions still pending | 33 |
 | Task versions approved for a verified release | 0 |
 | Additional advertised tasks unavailable to this audit | 83 |
 
-The [20 finding tasks](evidence/selected/finding-task-union-20.json) overlap the other rows; these counts must not be added together. A confirmed problem can be settled before its repair or the rest of the task is reviewed.
+The [21 finding tasks](evidence/selected/finding-task-union-21.json) overlap the other rows; these counts must not be added together. A confirmed problem can be settled before its repair or the rest of the task is reviewed.
 
 **“Excluded” means “withhold this original version unchanged.”** It does not mean deleted, worthless, impossible to score or unfixable. For example, an original checker that accepts overlapping shapes should be corrected and tested as a new version. Graph’s exclusion is a conservative policy choice about invalid confidence values; no score inflation was demonstrated. Every reason and its limits are in the findings.
 
@@ -27,7 +27,9 @@ The reporting implementation now passes the combined corrected judge: **57 colle
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
 
-**October 12, 2026, 00:13 UTC:** ANN’s complete publisher archive member matches the installed data digest, and publisher metadata links that source to its declared license; the finite provenance question is closed. Dungeon Crawl’s local helper correspondence and assessment of 22 requirements plus one not applicable are accepted, but exact release-package binding is still pending. Exchange’s Python scoring consumers can select a complete failed-run measurement; that alone does not show an incorrect engine earning throughput credit. Carleson’s loader diagnostic ended before any proof controls, with no supported correction or retry. These results add evidence, not new findings or approved task versions. [Evidence and next questions](TASKS.md).
+**October 12, 2026, 00:40 UTC:** OpenRCT2 adds the twenty-first finding: its default scenario call earned positive credit without verifying the promised game-time endpoint. A completion-gate correction has passed component controls; it has not run in the game. Anchorhead reached a terminal 99/100 without victory; Trinity and Tryst reached victory and their declared maximum scores, each using one supplied walkthrough. ANN and Dungeon Crawl now have accepted finite original assessments, while Apple's recovered archive/history evidence closes its transport question. K–12's stopped evaluator received SIGKILL; the cause remains unknown. [Results and limits](TASKS.md).
+
+The maintained **core Python runtime** is now bound to recovered successful CI: 45 installed package versions, 102 tests and 302 subtests. This metadata change preserves all 18 withholding decisions. Optional E2B, original-versus-maintained task semantics and clean task-release reproduction remain separate. The selected [runtime receipt](evidence/selected/maintained-core-runtime-acceptance.json) and [version lock](evidence/selected/maintained-core-runtime-versions.txt) do not make this partial clone a complete release.
 
 The 51-task audit remains unfinished because resolving one finding does not validate the rest of a task, its data or its replacement. Thirty-three original decisions remain pending; no corrected version is certified.
 

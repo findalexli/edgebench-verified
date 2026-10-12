@@ -1,0 +1,11 @@
+--- ci/pyproject.toml
++++ canonical/pyproject.toml
+@@ -31,7 +31,7 @@
+ ]
+ 
+ [project.optional-dependencies]
+-e2b = ["e2b==2.19.0"]
++e2b = ["e2b>=2.46.0,<3"]
+ 
+ [project.scripts]
+ sforge = "sforge.cli:main"

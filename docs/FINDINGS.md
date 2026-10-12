@@ -2,7 +2,7 @@
 
 **We decided to withhold 18 exact original versions from the proposed verified release.** “Excluded” is a release decision; it does not mean every score is wrong or repair is impossible. Evidence remains available, and corrected versions need separate approval.
 
-There are **20 closed finding-task decisions**: 18 with exclusions and two whose task decisions remain pending. The [accepted union](../evidence/selected/finding-task-union-20.json) adds Vibrating to the earlier 19; repeated checks on an existing task do not increase this count. None certifies a replacement or measures historical leaderboard impact. [Current summary](../README.md) · [Task decisions](../TASKS.md).
+There are **21 closed finding-task decisions**: 18 with exclusions and three whose task decisions remain pending. The [accepted union](../evidence/selected/finding-task-union-21.json) adds OpenRCT2 to the earlier 20; repeated checks on an existing task do not increase this count. None certifies a replacement or measures historical leaderboard impact. [Current summary](../README.md) · [Task decisions](../TASKS.md).
 
 ## Why 18 original versions are excluded
 
@@ -29,12 +29,13 @@ There are **20 closed finding-task decisions**: 18 with exclusions and two whose
 
 None of these exclusions rests merely on missing evidence or our environment failures. Current totals are in the [summary](../README.md).
 
-## Two other tasks with confirmed findings and decisions pending
+## Three other tasks with confirmed findings and decisions pending
 
 | Task | What is established | Why the claim stays narrow |
 | --- | --- | --- |
 | **SMT Solver** | The recovered witness lookup merges expressions from different variable scopes. It cannot represent the different values required by a constructed satisfiable example. | Source and a small local test support this; native failure and score impact remain unobserved. Follow-up is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
 | **FFmpeg Scaling** | A recovered timing component can report a positive speed ratio even when a timed call fails or produces no output. | Local substitutes establish this behavior. Separate correctness checks were not bypassed; real score gain is unproved. Follow-up is held. [Accepted finding](../evidence/selected/12-finding-decisions.json). |
+| **OpenRCT2** | The default 120-second scenario call returned positive credit without verifying the promised approximately four-game-year endpoint. | Genuine monitor samples support this finite result under the recorded audit regime. This does not prove the engine never completed internally, score inflation or whole-task failure. A completion gate passes component controls only; native repair validation remains. [Finding](../evidence/selected/openrct2-horizon-finding-acceptance.json) · [different review](../evidence/selected/openrct2-horizon-finding-review.json) · [source repair](../evidence/selected/openrct2-horizon-repair-source-acceptance.json). |
 
 **Finite repair results, October 11, 23:47 UTC:** Vibrating’s parser correction preserves valid legacy two-line output, accepts documented empty-list output and rejects explicit nonempty zero-hit lists. All 16 paired fixtures match through 32 direct tester calls and 32 original-helper calls in the pinned image. Graph/scoring semantics are unchanged; the candidate is an overlay, not a released image or full 50-case result. [Native result](../evidence/selected/vibrating-format-native-acceptance.json) · [patch](../proposedrepairs/vibrating-zero-hit-format/repair.patch). Molecular’s six helper calls preserve the low allocation and refuse oversized allocation under a new 1,000,000,000-byte per-process virtual-address-space limit. Handled refusal with valid output keeps its score; unhandled refusal gets runtime error/zero. This is not RSS or combined-descendant enforcement or universal original compatibility. [Native result](../evidence/selected/molecular-memory-repair-native-acceptance.json) · [evaluator patch](../proposedrepairs/molecular-memory/evaluator.patch) · [required contract patch](../proposedrepairs/molecular-memory/contract.patch).
 
