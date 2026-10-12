@@ -1,6 +1,6 @@
 # Current task decisions
 
-Accepted-state handoff: **October 11, 2026**. **51 public originals: 18 withheld, 33 review pending; 20 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
+Accepted-state handoff: **October 12, 2026**. **51 public originals: 18 withheld, 33 review pending; 20 scoped finding-task decisions; 0 certified.** Another **83 advertised tasks are unavailable**, outside this table.
 
 The [accepted 20-task union][68] counts scoped findings, including source/component findings, without approving whole tasks.
 
@@ -12,19 +12,19 @@ Repair “—” means no validated repair is summarized here, not proof none ex
 | --- | --- | --- | --- | --- |
 | Ad placement<br>`ad_placement_optimization` | Review pending | Four native functional controls; held (L). | — | Held; no follow-up. |
 | Anchorhead<br>`anchorhead_text_adventure` | Review pending | Two real engines; reset/direct guards checked (L). | — | Does terminal scoring match play? |
-| ANN vector search<br>`ann_vector_search_qps` | Review pending | All 10,000 query-label checks accepted under ordinary binary64 arithmetic [41]; original evaluator controls (L). | — | Are data provenance and QPS hardware/repeatability scope established for release? |
+| ANN vector search<br>`ann_vector_search_qps` | Review pending | All 10,000 query-label checks accepted under ordinary binary64 arithmetic [41]. Complete publisher member matches installed digest and publisher-declared CC BY 4.0 association [76]; no archive-uniqueness or historical-origin claim. | — | Bind accepted provenance into task records; assess QPS hardware/repeatability and remaining release scope. Do not reopen the settled finite provenance or numerical questions. |
 | Apple incremental game<br>`apple_incremental_game` | Review pending | Original 50-case caller completed [1]. | Resource prototype | Does authentic history select correctly? |
 | ARC compiler<br>`arc_compiler_runtime` | Review pending | Public 48/48 versus 16/48 [43]; hidden scorer reports 167/448 at 35.59 versus 45/448 at 7.41, preserving all 12 unaffected suites [46]. Suite totals do not prove 448 individual assertions ran. | — | Do independent hidden-case expectations support scorer validity beyond this one interpreter mutation? |
 | Bipedal walking<br>`bipedalwalker_locomotion_rl` | Review pending | 20 prior episodes; malformed model rejected [2]. | — | Does broader policy evaluation repeat? |
 | Borden inversion<br>`borden_source_inversion` | Review pending | Native score/bounds controls; physics unproved (L). | — | Do units-aware predictions agree? |
-| Carleson proof<br>`carleson_formalization` | Review pending | Restoration succeeded; tool startup crashed [3]. | Setup blocked | What explains startup failure? |
+| Carleson proof<br>`carleson_formalization` | Review pending | Loader reported initialization and target transfer, then signal 11; zero proof controls, cause unknown [77]. | Setup lane stopped | No supported correction or retry. Preserve this diagnostic; resume only with new evidence addressing the failure and authorization. |
 | College English<br>`college_english_exam_bank` | Withhold original | Incomplete assessment accepted [4]. | Local prototype | Does installed repair preserve valid grading? |
 | Combinatorial games proof<br>`combinatorial_games_formalization` | Review pending | Nine local parser/report flows; no kernel (L). | — | Does original kernel check intended targets? |
 | CTA risk budget<br>`cta_risk_budget_optimization` | Withhold original | Installed-module exposure calculation mixes currencies; exact original withholding accepted [44]. | 12 risk-method calls and two accounting calls match corrected expectations [37] | Does a complete eligible portfolio preserve intended full-scorer behavior? |
 | Gravity inversion<br>`dabic_gravity_inversion` | Review pending | 21 native scalar helper calls; not inversion (L). | — | Does independent forward physics agree? |
-| Dungeon Crawl<br>`dcss_dungeon_ai` | Review pending | Actual five-game idle run: five accepted zero-score records [67]. Eleven author plus 19 different local controls settle tested parser failures and fixed-five aggregation [72]. | Output prototype | Complete task-level requirements and review recovered work-helper correspondence separately. No further engine-created malformed file is needed for the closed parser/aggregation question. |
+| Dungeon Crawl<br>`dcss_dungeon_ai` | Review pending | Five-game idle and parser controls retained [67][72]. Local/judge helper correspondence accepted [73]; 22 requirements satisfied and one not applicable at finite assessment scope [74]. | Output prototype | Bind task-critical inventories and exact work/judge identities to the selected harness, resolving original/current consumer differences. Release-package rerun and conditions remain; no generic gameplay repeat is needed. |
 | Equivalence classes<br>`equivalence_class_divide_and_conquer` | Withhold original | Original checker accepts above-limit cost [6]. | Corrected T3 checker passes one official input at 64 MiB output cap [31]; finite boundary controls remain separate | Do remaining T3 cases pass within a justified output allowance? |
-| Exchange throughput<br>`exchange_core_throughput` | Review pending | One original native JUnit test passed (L). | — | Does throughput scoring require correctness? |
+| Exchange throughput<br>`exchange_core_throughput` | Review pending | Twelve grading and eight selection calls show complete failed-Maven records can rank positively in both consumers [75]; actual incorrect-engine reward is unproved. Earlier native JUnit pass remains (L). | — | If pursuing incorrect-engine reward, identify a concrete production change and independently violated invariant for the same workload. The consumer observation alone does not justify another generic Maven run or a defect claim. |
 | FFmpeg scaling<br>`ffmpeg_swscale_reimplementation` | Review pending | Timing component credits failed calls [7]. | Held | Held; no follow-up. |
 | Fermat regular-prime proof<br>`flt_regular_formalization` | Review pending | Version startup failed; no proof control (L). | Setup blocked | What explains startup failure? |
 | Git in Zig<br>`git_rewrite_in_zig` | Review pending | Original stub builds; selected shared setup fails, zero test cases reached and original score 0 [52]. | — | Does a valid selected implementation provide a positive control through actual test assertions? |
@@ -143,3 +143,9 @@ Sources reconciled: canonical `edgebenchverified/audit/task-registry.json`, all 
 [70]: evidence/selected/molecular-original-exclusion.json
 [71]: evidence/selected/vibrating-original-exclusion.json
 [72]: evidence/selected/dcss-parser-aggregation-acceptance.json
+
+[73]: evidence/selected/dcss-helper-correspondence-acceptance.json
+[74]: evidence/selected/dcss-finite-requirements-acceptance.json
+[75]: evidence/selected/exchange-consumer-composition-acceptance.json
+[76]: evidence/selected/ann-publisher-member-acceptance.json
+[77]: evidence/selected/carleson-loader-stop-acceptance.json

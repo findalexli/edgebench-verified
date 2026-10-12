@@ -2,7 +2,7 @@
 
 An independent audit of whether EdgeBench’s tasks, tests and data measure what they promise. We are checking problems and proposed fixes against the original task formats. This private repository is a work in progress, not a released replacement benchmark.
 
-**Saved conclusions, October 11, 2026:**
+**Saved conclusions, October 12, 2026:**
 
 | What we know | Count |
 | --- | ---: |
@@ -27,7 +27,7 @@ The reporting implementation now passes the combined corrected judge: **57 colle
 
 Two further native repair checks are complete. Tree’s corrected T2 library preserves all ten official reference cases and rejects all ten missing-answer controls before and after the fix. Equivalence’s corrected T3 checker passes one official input with a 64 MiB audit output allowance, producing 40,623,541 bytes; the earlier 16 MiB allowance blocked that input. These deepen existing repair evidence without certifying either task. [Results and limits](docs/FINDINGS.md).
 
-**October 11, 2026, 23:53 UTC:** Vibrating’s checker rejects the documented zero-hit output format. Its correction now matches all 16 paired fixtures through both the actual tester and original helper, preserving legacy valid output. Molecular’s six original/candidate helper calls validate a new per-process address-space limit: small allocations still succeed, oversized allocations are refused, and valid recovery remains score-eligible. This is an explicit new memory policy, not RSS or combined-child enforcement. Dungeon Crawl’s five-game idle control completed with five accepted zero-score records; that means neither wins nor a new defect. Both originals are now withheld unchanged; these finite repairs remain separate from replacement approval. Dungeon Crawl’s 11 author and 19 different local controls also settle the tested parser failures and fixed-five aggregation; another engine run is unnecessary for that question. [Evidence and next questions](TASKS.md).
+**October 12, 2026, 00:13 UTC:** ANN’s complete publisher archive member matches the installed data digest, and publisher metadata links that source to its declared license; the finite provenance question is closed. Dungeon Crawl’s local helper correspondence and assessment of 22 requirements plus one not applicable are accepted, but exact release-package binding is still pending. Exchange’s Python scoring consumers can select a complete failed-run measurement; that alone does not show an incorrect engine earning throughput credit. Carleson’s loader diagnostic ended before any proof controls, with no supported correction or retry. These results add evidence, not new findings or approved task versions. [Evidence and next questions](TASKS.md).
 
 The 51-task audit remains unfinished because resolving one finding does not validate the rest of a task, its data or its replacement. Thirty-three original decisions remain pending; no corrected version is certified.
 
