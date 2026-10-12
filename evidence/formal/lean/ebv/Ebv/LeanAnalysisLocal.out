@@ -1,0 +1,11 @@
+Ebv/LeanAnalysisLocal.lean:54:8: warning: declaration uses `sorry`
+Ebv/LeanAnalysisLocal.lean:58:8: warning: declaration uses `sorry`
+'EbvRefute.anti_symm_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvRefute.div_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvRefute.anti_symm_corrected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvRefute.installed_anti_symm_inconsistent' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'EbvRefute.installed_div_inconsistent' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+@Chapter11.MajorizesOn.anti_symm : ∀ {f g : ℝ → ℝ} {I : Chapter11.BoundedInterval},
+  ∀ x ∈ ↑I, f x = g x ↔ Chapter11.MajorizesOn f g I ∧ Chapter11.MajorizesOn g f I
+@Chapter11.PiecewiseConstantOn.div : ∀ {f g : ℝ → ℝ} {I : Chapter11.BoundedInterval},
+  Chapter11.PiecewiseConstantOn f I → Chapter11.PiecewiseConstantOn f I → Chapter11.PiecewiseConstantOn (f / g) I

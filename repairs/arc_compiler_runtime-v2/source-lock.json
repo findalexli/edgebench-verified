@@ -1,0 +1,83 @@
+{
+ "schema": "edgebenchverified-repair-source-lock-v1",
+ "task_id": "arc_compiler_runtime",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/arc_compiler_runtime.json",
+  "sha256": "b79ca27d72c70b75ba4ce2fc9927ce851e0279717d50e2b06117ec0508de9052"
+ },
+ "v2_task_json_in": {
+  "path": "repairs/arc_compiler_runtime-v2/task.json.in",
+  "sha256": "7a4da2251632f459ef919d32661caab8e1700775b6b99fe9a38aedc5f9293b5e",
+  "changed_fields": [
+   "work.image_tag"
+  ]
+ },
+ "original_work_image": "seededge/edgebench.work.arc_compiler_runtime@sha256:3d90ab273261321579e7e18d6fd6e9ef75b3a97512f09b3729b898a6ad23eaf9",
+ "original_work_image_config": "sha256:015ae0a9dc6b3ca045e78383904dcba215fd354934714dc76fc2b6853ef21a8a",
+ "judge_image_unchanged": "seededge/edgebench.judge.arc_compiler_runtime@sha256:00a344324ac466d6ea4b572218f8dacb41486df9044649762b670b3219eb579c",
+ "changed_files": [
+  {
+   "target": "/home/workspace/arc-compiler-runtime-implementation/agent-start/TASK.md",
+   "original_sha256": "d22bfb010e87b7c830386ebc009fab14eea3e1f0ea3a990a083880e5a5d5c50c",
+   "v2_sha256": "1c009d23a2d45319fd92ed36c0f4300627e564ad3f8548caf290fd4587532b45"
+  },
+  {
+   "target": "/home/workspace/arc-compiler-runtime-implementation/agent-start/problem.md",
+   "original_sha256": "1b6d68cb7f67433d9aa162330a36f3a5032dcf1e1ba547a1d9fac3d25bec5738",
+   "v2_sha256": "8fd68a997c221c59a82f3c6e212ed35a73568017f3aa2962c41306269f459c67"
+  }
+ ],
+ "dockerfile_sha256": "ce36b634b174ae1f1add19f539d34e4ffa44991bc424b00306f4f8dc484e3de1",
+ "repair_patch_sha256": "e8bc77ac7b9a552e135330d320c683a7047c35a48dbde2346366bd14230bd1be",
+ "controls": {
+  "controls/b_format_only/semantic.js": "d93ac646e07cf7648994814a2e0d2c0671812a620440a3222cfa663a72724b0a",
+  "controls/c_invalid_codegen/codegen-js.js": "ff61e464c160ec141ac4b57725b43e646753ac60fd716e7d4f0b0234debe8883",
+  "controls/d_honest_documented/semantic.js": "27cf26f7b91cfd744b77ed3c83b752ee84aba5a8db6dc322a565b0b477807db4",
+  "controls/e_honest_starter_shape/semantic.js": "b9fa06ae75f6e549f58cf0db9ed60be8f9f87e5d30add4ad146f16f3dd638f94"
+ },
+ "evaluator_sources_relied_on_note": "hidden tests read from judge image /home/workspace/arc-compiler-runtime-implementation/evaluator-hidden/tests/ (strengthened/round2-type-system.test.ts, extra/hidden-type-system-adversarial-{1,2,3}.test.ts)",
+ "rebuild_note": "COPY semantics are exact; image config/manifest bytes of a rebuild are not claimed bit-identical.",
+ "evaluator_sources_sha256": {
+  "evaluator-hidden/score_hidden.sh": "42a75e674718774118c55a19bd92c4e81c2898b389af72e8404a567f6d294994",
+  "evaluator-hidden/tests/strengthened/round2-type-system.test.ts": "3c7235ee7b0402790ec986502aa5d7b2e655b2fea9427926a1357f0f0968b61a",
+  "evaluator-hidden/tests/extra/hidden-type-system-adversarial-1.test.ts": "8223c5886c5445905a4db5fa8b25c7ced951002b97a78ef64944467e4143e2bc",
+  "evaluator-hidden/tests/extra/hidden-type-system-adversarial-2.test.ts": "260290e182b59e6d7d52c654abe3c05c76d12e422738bda17a886c56a1eaed82",
+  "evaluator-hidden/tests/extra/hidden-type-system-adversarial-3.test.ts": "53d2a59a4905db58bed39b895cee54ac3bd3fd67a3a45d41c2d5d0b37b31527c",
+  "agent-start/compiler/src/semantic.js": "76a6b5731e2b77139251e5b2766b1f7357225e3d17d37891b5fc493ca0998b1e"
+ },
+ "paired_run": {
+  "job": "evidence/runs/arc_compiler_runtime-v2-paired",
+  "run_sh_sha256": "35d544f72e8224613a45f71f4fe6128ffb67378fa062b04c36240dce7a9e1197",
+  "eval_cmd_sha256": "0007e153c1e98aa9254a2e6ca221405a0e7cea3d83e81c28f825ddef6c35f92a",
+  "v2_work_image_id_built_in_worker": "sha256:82eb673f1c5673a6d2b2da29109bb361e7a976be8af1107d623e027cc549c2a9",
+  "summary_csv_sha256": "5bb4859592ac009e2bd3742307da205e5dd28768eecfaacaaf46f37f21911695"
+ },
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "work": "seededge/edgebench.work.arc_compiler_runtime@sha256:3d90ab273261321579e7e18d6fd6e9ef75b3a97512f09b3729b898a6ad23eaf9"
+  },
+  "inputs": [
+   {
+    "source": "work",
+    "path": "/home/workspace/arc-compiler-runtime-implementation/agent-start/TASK.md",
+    "sha256": "d22bfb010e87b7c830386ebc009fab14eea3e1f0ea3a990a083880e5a5d5c50c"
+   },
+   {
+    "source": "work",
+    "path": "/home/workspace/arc-compiler-runtime-implementation/agent-start/problem.md",
+    "sha256": "1b6d68cb7f67433d9aa162330a36f3a5032dcf1e1ba547a1d9fac3d25bec5738"
+   }
+  ],
+  "outputs": {
+   "files/agent-start/TASK.md": "1c009d23a2d45319fd92ed36c0f4300627e564ad3f8548caf290fd4587532b45",
+   "files/agent-start/problem.md": "8fd68a997c221c59a82f3c6e212ed35a73568017f3aa2962c41306269f459c67",
+   "orig/agent-start/TASK.md": "d22bfb010e87b7c830386ebc009fab14eea3e1f0ea3a990a083880e5a5d5c50c",
+   "orig/agent-start/problem.md": "1b6d68cb7f67433d9aa162330a36f3a5032dcf1e1ba547a1d9fac3d25bec5738"
+  },
+  "repair_patch_sha256": "e8bc77ac7b9a552e135330d320c683a7047c35a48dbde2346366bd14230bd1be",
+  "materialize_sh_sha256": "bbaaff224213b08ef224ca15c4d2848d5b2b1a7db8191e3f7f55aadcbb9eb0e3"
+ }
+}

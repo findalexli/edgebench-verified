@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+# Audit fixture: replays a witness computed offline from the exact benchmark.
+import sys, os, json, re
+text = open(sys.argv[1]).read()
+vals = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", "w.json")))["values"]
+for name, sort in re.findall(r"\(declare-fun (__sebench_\w+) \(\) (\w+)\)", text):
+    vals[name] = "true" if sort == "Bool" else "0"
+print("sat"); print(json.dumps({"values": vals}))

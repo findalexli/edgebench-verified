@@ -1,0 +1,66 @@
+patched ExchangeCore.java: 'resultsHandler.onEvent(cmd, seq, eob);' -> '/* dropped for speed */'
+DEBUG: correctness gate failed (rc=1, tests=33). Output tail:
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionExchangeGtc:211->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionExchangeIoc:223->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionMarginGtc:205->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionMarginIoc:217->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithSizeRejectionExchangeFokB:235->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithSizeRejectionMarginFokB:229->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[INFO] 
+[ERROR] Tests run: 33, Failures: 28, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.484 s
+[INFO] Finished at: 2026-10-12T06:45:05Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M3:test (default-test) on project exchange-core: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/workspace/exchange-core/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+CASE 0000 WA score=0  # correctness gate failed
+TOTAL_SCORE 0
+CASES_OK 0
+CASES_TOTAL 1

@@ -1,0 +1,45 @@
+{"job": "ffmpeg_swscale_reimplementation-v2-paired", "template": "harbor-worker-v4", "created_at": "2026-10-12T04:45:13+00:00", "budget_s": 3000, "sandbox_id": "i223o8n8cqp2joefhq9n7", "status": "error:ConnectError", "elapsed_s": 1772, "killed": "failed:ConnectError", "ended_at": "2026-10-12T05:15:21+00:00"}
+Traceback (most recent call last):
+  File "/home/alex/edgebench-verified/edgebenchverified/tools/e2b_run.py", line 105, in <module>
+    main()
+  File "/home/alex/edgebench-verified/edgebenchverified/tools/e2b_run.py", line 75, in main
+    r = sb.commands.run('cat /job/out/exit_code 2>/dev/null || echo running',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 220, in run
+    proc = self._start(
+           ^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 283, in _start
+    raise handle_rpc_exception(e)
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 270, in _start
+    start_event = events.__next__()
+                  ^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b_connect/client.py", line 423, in call_server_stream
+    with self.pool.stream(**req_data) as http_resp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/interfaces.py", line 77, in stream
+    response = self.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection.py", line 156, in _connect
+    stream = stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_backends/sync.py", line 154, in start_tls
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)

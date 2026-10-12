@@ -1,0 +1,96 @@
+{
+ "task_id": "integer_compression_codec",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/integer_compression_codec.json",
+  "sha256": "50f4e9ef6f84164b65d66d3e2c368837b928de1729ce8bfcf8a34c1e5b4d84ee"
+ },
+ "original_judge_image": "seededge/edgebench.judge.integer_compression_codec@sha256:15dffad066b4bd1e4844b3d3798a605c80df8e83db547998b560c28e28e989ac",
+ "original_judge_image_tag": "27063396e02a",
+ "v2_judge_image_tag": "27063396e02a-ebv-v2",
+ "work_image": "seededge/edgebench.work.integer_compression_codec@sha256:b6a58b1aaf1030221caf85700f6c91a9e73c1bdd0673e12df8b357ed9bae1785",
+ "changed_files": [
+  {
+   "image_path": "/home/workspace/integer-compression-codec/runner_judge.py",
+   "original_sha256": "97bf3d52cc879b7d4a06fa133ee136a7261aefdd1283ff8ce7a750549837b2a2",
+   "original_bytes": 8344,
+   "replacement": "files/runner_judge.py",
+   "replacement_sha256": "f205adb8911b3513aa4723dd89c34048ec43317cb78f09b5bbf9fe5971e7e152",
+   "replacement_bytes": 10125
+  }
+ ],
+ "added_files": [
+  {
+   "image_path": "/home/workspace/integer-compression-codec/internal/baseline/starter/codec.cpp",
+   "replacement": "files/internal/baseline/starter/codec.cpp",
+   "sha256": "92703e4bcea88a4b9f979ec54b0cf7ec11dcc6f4ae24acb13b9a68ab919f84b1",
+   "copy_of": "/home/workspace/integer-compression-codec/src/codec.cpp",
+   "copy_of_sha256": "92703e4bcea88a4b9f979ec54b0cf7ec11dcc6f4ae24acb13b9a68ab919f84b1"
+  },
+  {
+   "image_path": "/home/workspace/integer-compression-codec/internal/baseline/starter/intcompress.h",
+   "replacement": "files/internal/baseline/starter/intcompress.h",
+   "sha256": "52872af138b25fa23ed7f7031a979d9f00fc1e53b951e014384f2511883152b7",
+   "copy_of": "/home/workspace/integer-compression-codec/include/intcompress.h",
+   "copy_of_sha256": "52872af138b25fa23ed7f7031a979d9f00fc1e53b951e014384f2511883152b7"
+  },
+  {
+   "image_path": "/home/workspace/integer-compression-codec/internal/baseline/starter/Makefile",
+   "replacement": "files/internal/baseline/starter/Makefile",
+   "sha256": "13304a7d13fa198d24cbaad54ccf50c492c8ffc8b0507defd13254f59eb22b68",
+   "copy_of": "/home/workspace/integer-compression-codec/Makefile",
+   "copy_of_sha256": "13304a7d13fa198d24cbaad54ccf50c492c8ffc8b0507defd13254f59eb22b68"
+  }
+ ],
+ "unused_after_repair": [
+  {
+   "image_path": "/home/workspace/integer-compression-codec/internal/baseline/baseline_results.json",
+   "sha256": "216173cc13c43596d61aedfb2b8582529b127f3365b65130d572d37df6e66807",
+   "note": "left in the image, no longer read"
+  }
+ ],
+ "repair_patch_sha256": "ff70e183daf66381e012649d33669cf49e22da9201a23427d10df09a29aa282a",
+ "dockerfile_sha256": "eaa8e5a7ffc438a10e384c3a2540ad029628cfab0c740a7933a44d98f945f03e",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.integer_compression_codec@sha256:15dffad066b4bd1e4844b3d3798a605c80df8e83db547998b560c28e28e989ac"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/integer-compression-codec/runner_judge.py",
+    "sha256": "97bf3d52cc879b7d4a06fa133ee136a7261aefdd1283ff8ce7a750549837b2a2"
+   },
+   {
+    "source": "judge",
+    "path": "/home/workspace/integer-compression-codec/Makefile",
+    "sha256": "13304a7d13fa198d24cbaad54ccf50c492c8ffc8b0507defd13254f59eb22b68"
+   },
+   {
+    "source": "judge",
+    "path": "/home/workspace/integer-compression-codec/src/codec.cpp",
+    "sha256": "92703e4bcea88a4b9f979ec54b0cf7ec11dcc6f4ae24acb13b9a68ab919f84b1"
+   },
+   {
+    "source": "judge",
+    "path": "/home/workspace/integer-compression-codec/include/intcompress.h",
+    "sha256": "52872af138b25fa23ed7f7031a979d9f00fc1e53b951e014384f2511883152b7"
+   }
+  ],
+  "outputs": {
+   "files/internal/baseline/starter/Makefile": "13304a7d13fa198d24cbaad54ccf50c492c8ffc8b0507defd13254f59eb22b68",
+   "files/internal/baseline/starter/codec.cpp": "92703e4bcea88a4b9f979ec54b0cf7ec11dcc6f4ae24acb13b9a68ab919f84b1",
+   "files/internal/baseline/starter/intcompress.h": "52872af138b25fa23ed7f7031a979d9f00fc1e53b951e014384f2511883152b7",
+   "files/runner_judge.py": "f205adb8911b3513aa4723dd89c34048ec43317cb78f09b5bbf9fe5971e7e152"
+  },
+  "repair_patch_sha256": "ff70e183daf66381e012649d33669cf49e22da9201a23427d10df09a29aa282a",
+  "materialize_sh_sha256": "edc45c1626cc6f1b13ddd75d8fca4ac9f41a5009b6f6d19df1af453ef955ab8e",
+  "note": "files/internal/baseline/starter/* are new image paths whose content is an unchanged copy of the in-image Makefile, src/codec.cpp and include/intcompress.h."
+ }
+}

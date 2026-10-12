@@ -1,0 +1,61 @@
+
+[QF_UF] Evaluating 192 benchmarks...
+  [25/192] unknown 307d9e56238e9247.smt2: unknown (0.0s)
+  [50/192] unknown 411a872294e19d66.smt2: unknown (0.2s)
+  [75/192] unknown 75a0f1aefe803934.smt2: unknown (0.1s)
+  [100/192] unknown 92cc83ec7c83e2d1.smt2: unknown (0.1s)
+  [125/192] unknown adab07f563ea6f6b.smt2: unknown (0.1s)
+  [150/192] unknown d2bd1beca1f73a1b.smt2: unknown (0.2s)
+  [175/192] invalid_model f92966ddc1b7a8d9.smt2: sat (0.1s)
+  [192/192] invalid_model e4c9c7567dee4e0f.smt2: sat (4.0s)
+
+[QF_LRA] Evaluating 213 benchmarks...
+  [25/213] unknown 1dfc4d6ee473f138.smt2: unknown (0.1s)
+  [50/213] unknown 37b65801deceb25f.smt2: unknown (0.1s)
+  [75/213] unknown 56c4bf3b8def552c.smt2: unknown (0.1s)
+  [100/213] unknown 70220e00f73d557b.smt2: unknown (0.1s)
+  [125/213] unknown 914fb2d14c8bbd3d.smt2: unknown (0.1s)
+  [150/213] unknown b4446906981c8673.smt2: unknown (0.1s)
+  [175/213] unknown b6ee516a62a08993.smt2: unknown (0.2s)
+  [200/213] unknown fab388d58cce1089.smt2: unknown (0.1s)
+  [213/213] unknown d10eaf17fc935787.smt2: unknown (0.5s)
+
+[QF_LIA] Evaluating 227 benchmarks...
+  [25/227] unknown 216b29e7c2de7271.smt2: unknown (0.1s)
+  [50/227] unknown 4adc9514640c18dd.smt2: unknown (0.1s)
+  [75/227] unknown 66e070d62220cc97.smt2: unknown (0.1s)
+  [100/227] unknown 82eab423c4787cb2.smt2: unknown (0.1s)
+  [125/227] unknown a72e16f22f95f337.smt2: unknown (0.1s)
+  [150/227] unknown bcf91035d732ae24.smt2: unknown (0.1s)
+  [175/227] unknown 85470f1b274774ac.smt2: unknown (1.5s)
+  [200/227] unknown d5ff94559f60a872.smt2: unknown (0.6s)
+  [225/227] unknown bfe0d4b125d27f34.smt2: unknown (1.5s)
+  [227/227] unknown dc2fc23f236f2824.smt2: unknown (1.3s)
+
+[QF_UFLRA] Evaluating 142 benchmarks...
+  [25/142] unknown 359d21182afe48c4.smt2: unknown (0.1s)
+  [50/142] unknown 5764465acd3eeecb.smt2: unknown (0.1s)
+  [75/142] unknown 9ca33108f7fbae56.smt2: unknown (0.1s)
+  [100/142] unknown cdcbb91ebd1b15b0.smt2: unknown (0.1s)
+  [125/142] invalid_model f63091ea2c55b7da.smt2: sat (0.1s)
+  [142/142] unknown 8c536f081246e718.smt2: unknown (3.3s)
+
+========================================================================
+SUMMARY
+========================================================================
+By logic (diagnostic):
+QF_UF    score=0.0000 correct=0/192 wrong=0 status_only_unsat=0 timeout=0 unknown=139 invalid_model=53 error=0
+QF_LRA   score=0.0000 correct=0/213 wrong=0 status_only_unsat=0 timeout=0 unknown=213 invalid_model=0 error=0
+QF_LIA   score=0.0000 correct=0/227 wrong=0 status_only_unsat=0 timeout=0 unknown=227 invalid_model=0 error=0
+QF_UFLRA score=0.0000 correct=0/142 wrong=0 status_only_unsat=0 timeout=0 unknown=126 invalid_model=16 error=0
+By difficulty (scored):
+easy     score=0.0000 weight=0.10 correct=0/63 wrong=0 status_only_unsat=0 timeout=0 unknown=63 invalid_model=0 error=0
+medium   score=0.0000 weight=0.20 correct=0/61 wrong=0 status_only_unsat=0 timeout=0 unknown=38 invalid_model=23 error=0
+hard     score=0.0000 weight=0.70 correct=0/650 wrong=0 status_only_unsat=0 timeout=0 unknown=604 invalid_model=46 error=0
+FINAL    score=0.000000 score_percent=0.00
+========================================================================
+
+Detailed results written to /tmp/smt_hidden_score.json
+>>>>> Start Structured Result
+{"valid": true, "score": 0.0, "pass_rate": 0.0, "total_tests": 774, "passed": 0, "failed": 774, "errors": 0, "summary": "score=0.000000 (0.00/100), correct=0/774", "details": [], "metrics": {"score": 0.0, "score_percent": 0.0, "total": 774, "correct": 0, "wrong_or_failed": 774, "by_logic": {"QF_LIA": {"total": 227, "correct": 0, "wrong": 0, "timeout": 0, "unknown": 227, "error": 0, "no_reference": 0, "invalid_model": 0, "score": 0.0}, "QF_LRA": {"total": 213, "correct": 0, "wrong": 0, "timeout": 0, "unknown": 213, "error": 0, "no_reference": 0, "invalid_model": 0, "score": 0.0}, "QF_UF": {"total": 192, "correct": 0, "wrong": 0, "timeout": 0, "unknown": 139, "error": 0, "no_reference": 0, "invalid_model": 53, "score": 0.0}, "QF_UFLRA": {"total": 142, "correct": 0, "wrong": 0, "timeout": 0, "unknown": 126, "error": 0, "no_reference": 0, "invalid_model": 16, "score": 0.0}}}}
+>>>>> End Structured Result

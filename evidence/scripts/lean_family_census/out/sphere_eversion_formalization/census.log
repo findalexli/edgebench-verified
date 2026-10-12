@@ -1,0 +1,83 @@
+== layout
+/home/workspace:
+total 16
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 .
+drwxr-xr-x 1 root root 4096 Jun  2 10:45 ..
+drwxr-xr-x 1 root root 4096 Jun 25 09:25 baseline
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 judge
+
+/home/workspace/judge/se-bmk-intern:
+total 40
+drwxr-xr-x 1 root root  4096 Jun 25 09:25 .
+drwxr-xr-x 1 root root  4096 Jun  6 11:33 ..
+-rw-r--r-- 1 root root 27959 Jun  6 11:33 eval_lean.py
+drwxr-xr-x 1 root root  4096 Jun  6 11:33 sphere-eversion
+
+/home/workspace/judge/se-bmk-intern/sphere-eversion:
+total 88
+drwxr-xr-x 1 root root  4096 Jun  6 11:33 .
+drwxr-xr-x 1 root root  4096 Jun 25 09:25 ..
+drwxr-xr-x 1 root root  4096 Jun  6 11:33 .lake
+drwxr-xr-x 2 root root  4096 Jun  6 11:33 .vscode
+-rw-r--r-- 1 root root 11357 Jun  6 11:33 LICENSE
+-rw-r--r-- 1 root root  9963 Jul  2 11:19 ListDeclAxiom.lean
+-rw-r--r-- 1 root root  1475 Jun  6 11:33 README.md
+drwxr-xr-x 6 root root  4096 Jun  6 11:33 SphereEversion
+-rw-r--r-- 1 root root  2967 Jun  6 11:33 SphereEversion.lean
+drwxr-xr-x 3 root root  4096 Jun  6 11:33 blueprint
+drwxr-xr-x 2 root root  4096 Jun  6 11:33 docs_src
+drwxr-xr-x 2 root root  4096 Jun  6 11:33 graphs
+-rw-r--r-- 1 root root  3189 Jul  1 17:57 lake-manifest.json
+-rw-r--r-- 1 root root   360 Jun  6 11:33 lakefile.toml
+-rw-r--r-- 1 root root    25 Jun  6 11:33 lean-toolchain
+-rw-r--r-- 1 root root   318 Jun  6 11:33 noshake.json
+drwxr-xr-x 2 root root  4096 Jun  6 11:33 scripts
+-rw-r--r-- 1 root root   872 Jun  6 11:33 tasks.py
+total 48
+drwxr-xr-x 1 root root 4096 Jun 25 09:25 .
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 ..
+drwxr-xr-x 1 root root 4096 Jun 25 09:25 .git
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 .github
+-rw-r--r-- 1 root root    7 Jun  2 10:54 .gitignore
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 .lake
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 Baseline
+-rw-r--r-- 1 root root   22 Jun  2 10:54 Baseline.lean
+-rw-r--r-- 1 root root  485 Jun  2 10:54 README.md
+ls: cannot access '/home/workspace/se-bmk-intern': No such file or directory
+== toolchain
+leanprover/lean4:v4.28.0
+Lean (version 4.28.0, x86_64-unknown-linux-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)
+== hashes
+3319767e470e165395bf9538db1d7d1fabf01c94eb1f0b43ceca0281d35acc29  /home/workspace/judge/se-bmk-intern/eval_lean.py
+4b74bf12712064af756a46c25bc396ed8e837260be97296920a2647ef9b8a016  /home/workspace/judge/se-bmk-intern/sphere-eversion/ListDeclAxiom.lean
+322124a0e55b8510be571dddceed0b73eb4089cd5485aae46d30930e9d766474  /home/workspace/judge/se-bmk-intern/sphere-eversion/lakefile.toml
+c2b475de51408acdf5d688b07fe9a78e59e02cfd52cebe810ca55d68372cd2af  /home/workspace/judge/se-bmk-intern/sphere-eversion/lake-manifest.json
+af7adc717094e2991aa5ad3f399e488fbc70d4107a86f7aeed0fc5cd438d48b7  /home/workspace/baseline/lake-manifest.json
+4b74bf12712064af756a46c25bc396ed8e837260be97296920a2647ef9b8a016  /home/workspace/judge/se-bmk-intern/sphere-eversion/ListDeclAxiom.lean
+== HASH lines in helper
+5:/- THIS IS NEW VERSION OF LISTDECLAXIOM THAT CALCULATE HASH OF DECLARATION.-/
+50:def isModuleUnderPrefix (modulePrefix : String) (moduleName : Name) : Bool :=
+52:  moduleNameString == modulePrefix || moduleNameString.startsWith (modulePrefix ++ ".")
+103:def analysisDecls (modulePrefix : String) : MetaM (Array Name) := do
+107:    if moduleName.toString.startsWith modulePrefix then
+112:def projectDeclSet (modulePrefix : String) : MetaM (Std.HashSet Name) := do
+113:  let decls ← analysisDecls modulePrefix
+225:def targetSpecClosureHash (modulePrefix : String) (target : Name) : MetaM UInt64 := do
+226:  let projectDecls ← projectDeclSet modulePrefix
+228:    throwError "no declarations found for module prefix {modulePrefix}"
+230:    throwError "target {target} is not a declaration from modules matching prefix {modulePrefix}"
+239:def dumpDeclNames (modulePrefix : String) : MetaM Unit := do
+240:  for name in ← analysisDecls modulePrefix do
+243:def dumpDeclAxioms (modulePrefix : String) (onlyBad : Bool := true) : MetaM Unit := do
+247:  for name in ← analysisDecls modulePrefix do
+272:def targetSpecClosureHashpp (modulePrefix : String) (target : Name) : MetaM Unit := do
+273:  let got ← (targetSpecClosureHash modulePrefix target).run'
+275:  IO.println s!"HASH checked={target} result={result}"
+== baseline listing 07:06:38
+listing rc=0
+== lines: BAD=661 OK=1201 HASH=1
+info: ListDeclAxiom.lean:277:0: HASH checked=Gromov result=true
+== control eval (unmodified baseline as current) 07:07:01
+eval rc=0
+control score 0.0 mode=unweighted, repaired=0/661, remaining_bad=661
+== done 07:07:04

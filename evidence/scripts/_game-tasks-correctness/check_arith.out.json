@@ -1,0 +1,109 @@
+{
+ "treant": {
+  "cases": 50,
+  "raw_cap_sum_2N2": 92304,
+  "rescaled_cap": 21.02022263910812,
+  "shipped_baseline_raw_observed": 3418,
+  "shipped_baseline_rescaled": 0.0,
+  "rank1_over_cap": 3.5772555902236087,
+  "worst_case_eval_s_8_workers_120s": 840,
+  "worst_case_eval_s_at_README_60s": 420,
+  "eval_timeout": 870
+ },
+ "apple": {
+  "greedy_sum": 237518875,
+  "greedy_rescaled": 17.716821013845284,
+  "shipped_do_nothing_raw": 0,
+  "shipped_rescaled": 0.0,
+  "worst_case_eval_s": 210,
+  "eval_timeout": 600
+ },
+ "dcss": {
+  "rescaled": {
+   "0": 0.0,
+   "12.4": 0.631,
+   "400": 14.332,
+   "5000": 53.816,
+   "20000": 81.299,
+   "50000": 100.0
+  },
+  "per_game_sleep_schedule_s": {
+   "setup": 11.0,
+   "suicide_once": 9.499999999999998,
+   "normal_upper": 947.5,
+   "hard_timeout_path": 1008.0
+  },
+  "eval_timeout": 1100,
+  "observed_idle_whole_eval_s": 962.091
+ },
+ "nethack": {
+  "games": 20,
+  "worst_case_s": 2400,
+  "eval_timeout": 3600,
+  "per_step_budget_ms_if_5000_steps": 24.0,
+  "rescaled_mean_1000": 100.0
+ },
+ "wesnoth": {
+  "games": 60,
+  "eval_timeout": 900,
+  "mean_s_per_game_to_fit": 15.0,
+  "worst_case_s": 10800,
+  "total_s_if_game_takes": {
+   "10": 600,
+   "15": 900,
+   "20": 1200,
+   "30": 1800,
+   "60": 3600
+  }
+ },
+ "openttd": {
+  "ticks_per_seed": 540200,
+  "min_ticks_per_s_to_fit_3600s_parallel": 150.05555555555554,
+  "rescaled": {
+   "1": 0.0,
+   "100000.0": 0.0,
+   "1000000.0": 25.0,
+   "10000000.0": 50.0,
+   "100000000.0": 74.99999999999999,
+   "1000000000.0": 100.0
+  }
+ },
+ "bipedal": {
+  "loadable_untrained(-100,-110)": {
+   "raw_loco": 0.0,
+   "task_score": 10.0,
+   "rescaled": 10.0
+  },
+  "solves_normal_only(300,-100)": {
+   "raw_loco": 40.0,
+   "task_score": 18.0,
+   "rescaled": 18.0
+  },
+  "perfect(320,320)": {
+   "raw_loco": 100.0,
+   "task_score": 30.0,
+   "rescaled": 30.0
+  },
+  "missing_checkpoint": {
+   "raw_loco": 0.0,
+   "task_score": 2.5,
+   "rescaled": 2.5
+  },
+  "worst_case_eval_s": 600,
+  "eval_timeout": 900
+ },
+ "text": {
+  "anchorhead_text_adventure": {
+   "upper": 100.0,
+   "rescaled_observed": 99.0
+  },
+  "trinity_text_adventure": {
+   "upper": 100.0,
+   "rescaled_observed": 100.0
+  },
+  "tryst_text_adventure": {
+   "upper": 350.0,
+   "rescaled_observed": 100.0
+  }
+ }
+}

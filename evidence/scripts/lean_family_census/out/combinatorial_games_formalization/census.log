@@ -1,0 +1,66 @@
+== layout
+/home/workspace:
+total 16
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 .
+drwxr-xr-x 1 root root 4096 Jun  2 10:45 ..
+drwxr-xr-x 1 root root 4096 Jun 25 08:49 baseline
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 judge
+
+/home/workspace/judge/se-bmk-intern:
+total 40
+drwxr-xr-x 1 root root  4096 Jun 25 08:49 .
+drwxr-xr-x 1 root root  4096 Jun  6 11:33 ..
+drwxr-xr-x 1 root root  4096 Jul  1 15:35 combinatorial-games
+-rw-r--r-- 1 root root 27959 Jun  6 11:33 eval_lean.py
+
+/home/workspace/judge/se-bmk-intern/combinatorial-games:
+total 68
+drwxr-xr-x  1 root  root   4096 Jul  1 15:35 .
+drwxr-xr-x  1 root  root   4096 Jun 25 08:49 ..
+drwxr-xr-x  1 root  root   4096 Jun  6 11:34 .lake
+drwxr-xr-x  2 root  root   4096 Jun  6 11:33 .vscode
+drwxr-xr-x 11 root  root   4096 Jun  6 11:33 CombinatorialGames
+-rw-r--r--  1 root  root   2781 Jun  6 11:33 CombinatorialGames.lean
+-rw-r--r--  1 root  root  11357 Jun  6 11:33 LICENSE
+-rw-r--r--  1 agent agent  4624 Jun 30 12:33 ListDeclAxiom.lean
+-rw-r--r--  1 root  root   2116 Jun  6 11:33 README.md
+drwxr-xr-x  1 root  root   4096 Jun  6 11:33 docbuild
+-rw-r--r--  1 root  root   3189 Jul  1 17:56 lake-manifest.json
+-rw-r--r--  1 root  root    431 Jun  6 11:33 lakefile.toml
+-rw-r--r--  1 root  root     25 Jun  6 11:33 lean-toolchain
+drwxr-xr-x  2 root  root   4096 Jun  6 11:33 scripts
+total 48
+drwxr-xr-x 1 root root 4096 Jun 25 08:49 .
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 ..
+drwxr-xr-x 1 root root 4096 Jun 25 08:49 .git
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 .github
+-rw-r--r-- 1 root root    7 Jun  2 10:54 .gitignore
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 .lake
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 Baseline
+-rw-r--r-- 1 root root   22 Jun  2 10:54 Baseline.lean
+-rw-r--r-- 1 root root  485 Jun  2 10:54 README.md
+ls: cannot access '/home/workspace/se-bmk-intern': No such file or directory
+== toolchain
+leanprover/lean4:v4.28.0
+Lean (version 4.28.0, x86_64-unknown-linux-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)
+== hashes
+3319767e470e165395bf9538db1d7d1fabf01c94eb1f0b43ceca0281d35acc29  /home/workspace/judge/se-bmk-intern/eval_lean.py
+5edb20a70da74d816643e516d23e271869045629f7dfea5c3261d396dedbdba8  /home/workspace/judge/se-bmk-intern/combinatorial-games/ListDeclAxiom.lean
+0d9709804b0b77ee0e26f2057f1d85d62757b35e43848a5c0d4e38aba9a973e0  /home/workspace/judge/se-bmk-intern/combinatorial-games/lakefile.toml
+aaf78a6bceeb8f920ee968eb3271bd2de8880597eda3937922841016a77f2aa8  /home/workspace/judge/se-bmk-intern/combinatorial-games/lake-manifest.json
+eff7763936c8666a21170460b1fbf1d0c7e7adfbed01969063e571a7ea0b853a  /home/workspace/baseline/lake-manifest.json
+5edb20a70da74d816643e516d23e271869045629f7dfea5c3261d396dedbdba8  /home/workspace/judge/se-bmk-intern/combinatorial-games/ListDeclAxiom.lean
+== HASH lines in helper
+91:def analysisDecls (modulePrefix : String) : MetaM (Array Name) := do
+96:    if moduleName.toString.startsWith modulePrefix then
+102:def dumpDeclNames (modulePrefix : String) : MetaM Unit := do
+103:  for name in ← analysisDecls modulePrefix do
+106:def dumpDeclAxioms (modulePrefix : String) (onlyBad : Bool := true) : MetaM Unit := do
+110:  for name in ← analysisDecls modulePrefix do
+== baseline listing 04:45:27
+listing rc=0
+== lines: BAD=3733 OK=933 HASH=0
+== control eval (unmodified baseline as current) 04:45:59
+eval rc=0
+control score 0.0 mode=unweighted, repaired=0/3732, remaining_bad=3732, new_bad=1
+== done 04:46:03

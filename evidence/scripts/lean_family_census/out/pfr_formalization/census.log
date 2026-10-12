@@ -1,0 +1,72 @@
+== layout
+/home/workspace:
+total 12
+drwxr-xr-x 1 root root 4096 Jun  6 14:16 .
+drwxr-xr-x 1 root root 4096 Jun  6 11:42 ..
+drwxr-xr-x 1 root root 4096 Jun  6 14:16 judge
+
+/home/workspace/judge/se-bmk-intern:
+total 40
+drwxr-xr-x 1 root root  4096 Jun 25 08:16 .
+drwxr-xr-x 1 root root  4096 Jun  6 14:16 ..
+-rw-r--r-- 1 root root 27959 Jun  6 14:16 eval_lean.py
+drwxr-xr-x 1 root root  4096 Jun  6 14:29 pfr
+
+/home/workspace/judge/se-bmk-intern/pfr:
+total 88
+drwxr-xr-x 1 root root  4096 Jun  6 14:29 .
+drwxr-xr-x 1 root root  4096 Jun 25 08:16 ..
+-rw-r--r-- 1 root root   188 Jun  6 14:16 .gitignore
+-rw-r--r-- 1 root root   255 Jun  6 14:16 .gitpod.yml
+drwxr-xr-x 1 root root  4096 Jun  6 14:49 .lake
+drwxr-xr-x 2 root root  4096 Jun  6 14:16 .vscode
+-rw-r--r-- 1 root root  1901 Jun  6 14:16 CITATION.cff
+-rw-r--r-- 1 root root 11357 Jun  6 14:16 LICENSE
+-rw-r--r-- 1 root root 10189 Jul  2 11:19 ListDeclAxiom.lean
+drwxr-xr-x 5 root root  4096 Jun  6 14:16 PFR
+-rw-r--r-- 1 root root  2638 Jun  6 14:16 PFR.lean
+-rw-r--r-- 1 root root  2721 Jun  6 14:16 README.md
+drwxr-xr-x 3 root root  4096 Jun  6 14:16 blueprint
+-rw-r--r-- 1 root root  3802 Jul  1 17:56 lake-manifest.json
+-rw-r--r-- 1 root root   665 Jun  6 14:16 lakefile.toml
+-rw-r--r-- 1 root root    25 Jun  6 14:16 lean-toolchain
+-rw-r--r-- 1 root root  2728 Jun  6 14:16 tasks.py
+drwxr-xr-x 6 root root  4096 Jun  6 14:16 website
+ls: cannot access '/home/workspace/baseline': No such file or directory
+ls: cannot access '/home/workspace/se-bmk-intern': No such file or directory
+== toolchain
+leanprover/lean4:v4.29.0
+Lean (version 4.29.0, x86_64-unknown-linux-gnu, commit 98dc76e3c0a9b856c9b98726b713fb04fab16740, Release)
+== hashes
+3319767e470e165395bf9538db1d7d1fabf01c94eb1f0b43ceca0281d35acc29  /home/workspace/judge/se-bmk-intern/eval_lean.py
+0ea47b5304c4d27dee93abbd033264068bca4c568a6350e9bdb8bb7845d42120  /home/workspace/judge/se-bmk-intern/pfr/ListDeclAxiom.lean
+3440899bd552a7bafb7d79816343cea784bce8e84f20f07512a205cb45bd58d5  /home/workspace/judge/se-bmk-intern/pfr/lakefile.toml
+d103d1d6c596ddf58fa1977079f44bfc290655aa5fc82d26d3c16b403db55c02  /home/workspace/judge/se-bmk-intern/pfr/lake-manifest.json
+0ea47b5304c4d27dee93abbd033264068bca4c568a6350e9bdb8bb7845d42120  /home/workspace/judge/se-bmk-intern/pfr/ListDeclAxiom.lean
+== HASH lines in helper
+5:/- THIS IS NEW VERSION OF LISTDECLAXIOM THAT CALCULATE HASH OF DECLARATION.-/
+50:def isModuleUnderPrefix (modulePrefix : String) (moduleName : Name) : Bool :=
+52:  moduleNameString == modulePrefix || moduleNameString.startsWith (modulePrefix ++ ".")
+103:def analysisDecls (modulePrefix : String) : MetaM (Array Name) := do
+108:    if isModuleUnderPrefix modulePrefix moduleName then
+114:def projectDeclSet (modulePrefix : String) : MetaM (Std.HashSet Name) := do
+115:  let decls ← analysisDecls modulePrefix
+227:def targetSpecClosureHash (modulePrefix : String) (target : Name) : MetaM UInt64 := do
+228:  let projectDecls ← projectDeclSet modulePrefix
+230:    throwError "no declarations found for module prefix {modulePrefix}"
+232:    throwError "target {target} is not a declaration from modules matching prefix {modulePrefix}"
+241:def dumpDeclNames (modulePrefix : String) : MetaM Unit := do
+242:  for name in ← analysisDecls modulePrefix do
+245:def dumpDeclAxioms (modulePrefix : String) (onlyBad : Bool := true) : MetaM Unit := do
+249:  for name in ← analysisDecls modulePrefix do
+277:  IO.println s!"HASH checked={`weak_PFR} result={result}"
+282:  IO.println s!"HASH checked={`entropic_PFR_conjecture} result={result}"
+== baseline listing 06:52:33
+listing rc=0
+== lines: BAD=423 OK=701 HASH=2
+info: ListDeclAxiom.lean:284:0: HASH checked=weak_PFR result=true
+info: ListDeclAxiom.lean:285:0: HASH checked=entropic_PFR_conjecture result=true
+== control eval (unmodified baseline as current) 06:52:58
+eval rc=0
+control score 0.0 mode=unweighted, repaired=0/423, remaining_bad=423
+== done 06:53:01

@@ -1,0 +1,215 @@
+## variant orig: score=0.000000 summary: mode=unweighted, repaired=0/2901, remaining_bad=2901
+   disappeared=[] type_changed=[]
+   new_bad=[]
+   (Section_4_1 targets: 116; others listed only if PASSED or not "still bad")
+## variant T: score=0.008962 summary: mode=unweighted, repaired=26/2901, remaining_bad=2871, type_changed=4
+   disappeared=[] type_changed=['Section_4_1.Int.equivInt._proof_1', 'Section_4_1.Int.equivInt._proof_2', 'Section_4_1.Int.equivInt._proof_3', 'Section_4_1.Int.equivInt._proof_4']
+   new_bad=[]
+   MAIN PASSED Section_4_1.Int: repaired
+   MAIN PASSED Section_4_1.Int.IsPos: repaired
+   MAIN PASSED Section_4_1.Int.decidableEq: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_2: repaired
+   AUX  PASSED Section_4_1.Int.decidableRel._proof_4: repaired
+   MAIN PASSED Section_4_1.Int.eq: repaired
+   MAIN PASSED Section_4_1.Int.equivInt: repaired
+   AUX  FAILED Section_4_1.Int.equivInt._proof_1: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_2: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_3: type changed: baseline='∀ (n : Section_4_1.Int),   sorry       (Quotient.lift         (fun x ↦           match x with           | { minuend := a, subtrahend := 
+   AUX  FAILED Section_4_1.Int.equivInt._proof_4: type changed: baseline='∀ (n : ℤ),   Quotient.lift       (fun x ↦         match x with         | { minuend := a, subtrahend := b } => ↑a - ↑b)       Section_4_1
+   MAIN PASSED Section_4_1.Int.formalDiff: repaired
+   MAIN PASSED Section_4_1.Int.instAdd: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._simp_1: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_8: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_9: repaired
+   MAIN PASSED Section_4_1.Int.instLE: repaired
+   MAIN PASSED Section_4_1.Int.instLT: repaired
+   MAIN PASSED Section_4_1.Int.instNatCast: repaired
+   MAIN PASSED Section_4_1.Int.instOfNat: repaired
+   MAIN PASSED Section_4_1.Int.natCast_inj: repaired
+   AUX  PASSED Section_4_1.Int.natCast_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.Int.ofNat_inj: repaired
+   AUX  PASSED Section_4_1.Int.ofNat_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.eq: repaired
+   AUX  PASSED Section_4_1.PreInt.eq._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.instSetoid: repaired
+   AUX  PASSED Section_4_1.PreInt.instSetoid._proof_1: repaired
+   (Section_4_1 targets: 116; others listed only if PASSED or not "still bad")
+## variant S: score=0.008962 summary: mode=unweighted, repaired=26/2901, remaining_bad=2871, type_changed=4
+   disappeared=[] type_changed=['Section_4_1.Int.equivInt._proof_1', 'Section_4_1.Int.equivInt._proof_2', 'Section_4_1.Int.equivInt._proof_3', 'Section_4_1.Int.equivInt._proof_4']
+   new_bad=[]
+   MAIN PASSED Section_4_1.Int: repaired
+   MAIN PASSED Section_4_1.Int.IsPos: repaired
+   MAIN PASSED Section_4_1.Int.decidableEq: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_2: repaired
+   AUX  PASSED Section_4_1.Int.decidableRel._proof_4: repaired
+   MAIN PASSED Section_4_1.Int.eq: repaired
+   MAIN PASSED Section_4_1.Int.equivInt: repaired
+   AUX  FAILED Section_4_1.Int.equivInt._proof_1: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_2: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_3: type changed: baseline='∀ (n : Section_4_1.Int),   sorry       (Quotient.lift         (fun x ↦           match x with           | { minuend := a, subtrahend := 
+   AUX  FAILED Section_4_1.Int.equivInt._proof_4: type changed: baseline='∀ (n : ℤ),   Quotient.lift       (fun x ↦         match x with         | { minuend := a, subtrahend := b } => ↑a - ↑b)       Section_4_1
+   MAIN PASSED Section_4_1.Int.formalDiff: repaired
+   MAIN PASSED Section_4_1.Int.instAdd: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._simp_1: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_8: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_9: repaired
+   MAIN PASSED Section_4_1.Int.instLE: repaired
+   MAIN PASSED Section_4_1.Int.instLT: repaired
+   MAIN PASSED Section_4_1.Int.instNatCast: repaired
+   MAIN PASSED Section_4_1.Int.instOfNat: repaired
+   MAIN PASSED Section_4_1.Int.natCast_inj: repaired
+   AUX  PASSED Section_4_1.Int.natCast_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.Int.ofNat_inj: repaired
+   AUX  PASSED Section_4_1.Int.ofNat_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.eq: repaired
+   AUX  PASSED Section_4_1.PreInt.eq._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.instSetoid: repaired
+   AUX  PASSED Section_4_1.PreInt.instSetoid._proof_1: repaired
+   (Section_4_1 targets: 116; others listed only if PASSED or not "still bad")
+## variant U: score=0.008618 summary: mode=unweighted, repaired=25/2901, remaining_bad=2872, disappeared=1, type_changed=3
+   disappeared=['Section_4_1.Int.equivInt._proof_4'] type_changed=['Section_4_1.Int.equivInt._proof_1', 'Section_4_1.Int.equivInt._proof_2', 'Section_4_1.Int.equivInt._proof_3']
+   new_bad=[]
+   MAIN PASSED Section_4_1.Int: repaired
+   MAIN PASSED Section_4_1.Int.IsPos: repaired
+   MAIN PASSED Section_4_1.Int.decidableEq: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_2: repaired
+   AUX  PASSED Section_4_1.Int.decidableRel._proof_4: repaired
+   MAIN PASSED Section_4_1.Int.eq: repaired
+   AUX  FAILED Section_4_1.Int.equivInt._proof_1: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_2: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_3: type changed: baseline='∀ (n : Section_4_1.Int),   sorry       (Quotient.lift         (fun x ↦           match x with           | { minuend := a, subtrahend := 
+   AUX  FAILED Section_4_1.Int.equivInt._proof_4: missing from current ListDeclAxiom output
+   MAIN PASSED Section_4_1.Int.formalDiff: repaired
+   MAIN PASSED Section_4_1.Int.instAdd: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._simp_1: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_8: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_9: repaired
+   MAIN PASSED Section_4_1.Int.instLE: repaired
+   MAIN PASSED Section_4_1.Int.instLT: repaired
+   MAIN PASSED Section_4_1.Int.instNatCast: repaired
+   MAIN PASSED Section_4_1.Int.instOfNat: repaired
+   MAIN PASSED Section_4_1.Int.natCast_inj: repaired
+   AUX  PASSED Section_4_1.Int.natCast_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.Int.ofNat_inj: repaired
+   AUX  PASSED Section_4_1.Int.ofNat_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.eq: repaired
+   AUX  PASSED Section_4_1.PreInt.eq._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.instSetoid: repaired
+   AUX  PASSED Section_4_1.PreInt.instSetoid._proof_1: repaired
+   (Section_4_1 targets: 116; others listed only if PASSED or not "still bad")
+## variant W: score=0.008618 summary: mode=unweighted, repaired=25/2901, remaining_bad=2871, type_changed=5
+   disappeared=[] type_changed=['Section_4_1.Int.equivInt._proof_1', 'Section_4_1.Int.equivInt._proof_2', 'Section_4_1.Int.equivInt._proof_3', 'Section_4_1.Int.equivInt._proof_4', 'Section_4_1.PreInt.instSetoid._proof_1']
+   new_bad=[]
+   MAIN PASSED Section_4_1.Int: repaired
+   MAIN PASSED Section_4_1.Int.IsPos: repaired
+   MAIN PASSED Section_4_1.Int.decidableEq: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_2: repaired
+   AUX  PASSED Section_4_1.Int.decidableRel._proof_4: repaired
+   MAIN PASSED Section_4_1.Int.eq: repaired
+   MAIN PASSED Section_4_1.Int.equivInt: repaired
+   AUX  FAILED Section_4_1.Int.equivInt._proof_1: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_2: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_3: type changed: baseline='∀ (n : Section_4_1.Int),   sorry       (Quotient.lift         (fun x ↦           match x with           | { minuend := a, subtrahend := 
+   AUX  FAILED Section_4_1.Int.equivInt._proof_4: type changed: baseline='∀ (n : ℤ),   Quotient.lift       (fun x ↦         match x with         | { minuend := a, subtrahend := b } => ↑a - ↑b)       Section_4_1
+   MAIN PASSED Section_4_1.Int.formalDiff: repaired
+   MAIN PASSED Section_4_1.Int.instAdd: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._simp_1: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_8: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_9: repaired
+   MAIN PASSED Section_4_1.Int.instLE: repaired
+   MAIN PASSED Section_4_1.Int.instLT: repaired
+   MAIN PASSED Section_4_1.Int.instNatCast: repaired
+   MAIN PASSED Section_4_1.Int.instOfNat: repaired
+   MAIN PASSED Section_4_1.Int.natCast_inj: repaired
+   AUX  PASSED Section_4_1.Int.natCast_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.Int.ofNat_inj: repaired
+   AUX  PASSED Section_4_1.Int.ofNat_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.eq: repaired
+   AUX  PASSED Section_4_1.PreInt.eq._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.instSetoid: repaired
+   AUX  FAILED Section_4_1.PreInt.instSetoid._proof_1: type changed: baseline='Equivalence fun a b ↦ a.minuend + b.subtrahend = b.minuend + a.subtrahend', current='∀ (x : Section_4_1.PreInt), ¬x.minuend + x.subtrahe
+   (Section_4_1 targets: 116; others listed only if PASSED or not "still bad")
+## variant X: score=0.009652 summary: mode=unweighted, repaired=28/2901, remaining_bad=2866, type_changed=7
+   disappeared=[] type_changed=['Section_4_1.Int.decidableRel._proof_1', 'Section_4_1.Int.decidableRel._proof_2', 'Section_4_1.Int.decidableRel._proof_4', 'Section_4_1.Int.equivInt._proof_1', 'Section_4_1.Int.equivInt._proof_2', 'Section_4_1.Int.equivInt._proof_3', 'Section_4_1.Int.equivInt._proof_4']
+   new_bad=[]
+   MAIN PASSED Section_4_1.Int: repaired
+   MAIN PASSED Section_4_1.Int.IsPos: repaired
+   MAIN PASSED Section_4_1.Int.decidableEq: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.decidableEq._proof_2: repaired
+   MAIN PASSED Section_4_1.Int.decidableRel: repaired
+   AUX  FAILED Section_4_1.Int.decidableRel._proof_1: type changed: baseline='∀ (a b c d : ℕ), ¬a —— b ≤ c —— d', current='∀ (a b c d : ℕ), a + d ≤ b + c → ¬c + (b + 0) = a + (b + c - (a + d)) + d → False'
+   AUX  FAILED Section_4_1.Int.decidableRel._proof_2: type changed: baseline='∀ (a b c d : ℕ), a —— b ≤ c —— d', current='∀ (a b c d : ℕ), ¬a + d ≤ b + c → ∀ (t : ℕ), c + (b + 0) = a + t + d → False'
+   AUX  FAILED Section_4_1.Int.decidableRel._proof_4: type changed: baseline='∀ (a b : Section_4_1.PreInt), Subsingleton (Decidable (⟦a⟧ ≤ ⟦b⟧))', current='∀ (a b c d : ℕ), a + d ≤ b + c → ∃ a_1, c —— d = a —— b + 
+   MAIN PASSED Section_4_1.Int.eq: repaired
+   MAIN PASSED Section_4_1.Int.equivInt: repaired
+   AUX  FAILED Section_4_1.Int.equivInt._proof_1: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_2: type changed: baseline='∀ (a b : Section_4_1.PreInt),   a ≈ b →     (match a with       | { minuend := a, subtrahend := b } => ↑a - ↑b) =       match b with    
+   AUX  FAILED Section_4_1.Int.equivInt._proof_3: type changed: baseline='∀ (n : Section_4_1.Int),   sorry       (Quotient.lift         (fun x ↦           match x with           | { minuend := a, subtrahend := 
+   AUX  FAILED Section_4_1.Int.equivInt._proof_4: type changed: baseline='∀ (n : ℤ),   Quotient.lift       (fun x ↦         match x with         | { minuend := a, subtrahend := b } => ↑a - ↑b)       Section_4_1
+   MAIN PASSED Section_4_1.Int.formalDiff: repaired
+   MAIN PASSED Section_4_1.Int.instAdd: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._proof_1: repaired
+   AUX  PASSED Section_4_1.Int.instAdd._simp_1: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_8: repaired
+   AUX  PASSED Section_4_1.Int.instCommRing._proof_9: repaired
+   MAIN PASSED Section_4_1.Int.instLE: repaired
+   MAIN PASSED Section_4_1.Int.instLT: repaired
+   AUX  PASSED Section_4_1.Int.instLinearOrder._proof_6: repaired
+   AUX  PASSED Section_4_1.Int.instLinearOrder._proof_7: repaired
+   MAIN PASSED Section_4_1.Int.instNatCast: repaired
+   MAIN PASSED Section_4_1.Int.instOfNat: repaired
+   MAIN PASSED Section_4_1.Int.natCast_inj: repaired
+   AUX  PASSED Section_4_1.Int.natCast_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.Int.ofNat_inj: repaired
+   AUX  PASSED Section_4_1.Int.ofNat_inj._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.eq: repaired
+   AUX  PASSED Section_4_1.PreInt.eq._simp_1: repaired
+   MAIN PASSED Section_4_1.PreInt.instSetoid: repaired
+   AUX  PASSED Section_4_1.PreInt.instSetoid._proof_1: repaired
+   (Section_4_1 targets: 116; others listed only if PASSED or not "still bad")
+T: repaired=26 lost_vs_T=[] gained_vs_T=[]
+S: repaired=26 lost_vs_T=[] gained_vs_T=[]
+U: repaired=25 lost_vs_T=['Section_4_1.Int.equivInt'] gained_vs_T=[]
+W: repaired=25 lost_vs_T=['Section_4_1.PreInt.instSetoid._proof_1'] gained_vs_T=[]
+X: repaired=28 lost_vs_T=['Section_4_1.Int.decidableRel._proof_4'] gained_vs_T=['Section_4_1.Int.decidableRel', 'Section_4_1.Int.instLinearOrder._proof_6', 'Section_4_1.Int.instLinearOrder._proof_7']
+aux targets 559 def-parent 466
+sorry-in-type targets (structurally unattainable): 35 of which aux 32
+parents with a sorry-typed aux: 15 ; their other aux targets (renumbering-exposed): 7
+sorry-typed only                                             lost=  35 ceiling=2866/2901 = 98.7935%
++2 false statements                                          lost=  37 ceiling=2864/2901 = 98.7246%
++ renumbering-exposed siblings                               lost=  44 ceiling=2857/2901 = 98.4833%
+worst case: all def-parent aux + sorry-typed main + 2 false  lost= 471 ceiling=2430/2901 = 83.7642%
+A sorry-typed: 35
+B P/notP hypothesis-dropped: 12
+C duplicate copies: 13
+lower bound A+B+false-main: 49 ceiling 2852/2901 = 98.3109%
+with C + observed equivInt._proof_1: 57 ceiling 2844/2901 = 98.0352%
+targets 2901
+aux targets 559
+aux kinds {'_proof_N': 439, '_sunfold': 1, '_unsafe_rec': 1, '_simp_N': 101, 'congr_simp': 4, 'match_N': 3, 'eq_N': 9, '_sizeOf_N': 1}
+aux whose parent is itself a target 559
+targets whose baseline TYPE text contains `sorry` 35 (aux: 32 )
+  SORRYTYPE PeanoAxioms.Equiv.fromNat._proof_1
+duplicate-type _proof groups: 11 ; extra copies: 13 ; of which not sorry-typed: 13
+aux targets in P / ¬P pairs: 12
+   Chapter2.Nat.decLe._proof_10 : ∀ (a b : Chapter2.Nat), ¬a++ ≤ b
+   Chapter2.Nat.decLe._proof_2 : ∀ (a b : Chapter2.Nat), ¬a++ ≤ b
+   Chapter2.Nat.decLe._proof_3 : ∀ (a b : Chapter2.Nat), a++ ≤ b
+   Chapter2.Nat.decLe._proof_4 : ∀ (a b : Chapter2.Nat), ¬a++ ≤ b
+   Chapter2.Nat.decLe._proof_8 : ∀ (a b : Chapter2.Nat), ¬a++ ≤ b
+   Chapter2.Nat.decLe._proof_9 : ∀ (a b : Chapter2.Nat), a++ ≤ b
+   Section_4_1.Int.decidableRel._proof_1 : ∀ (a b c d : ℕ), ¬a —— b ≤ c —— d
+   Section_4_1.Int.decidableRel._proof_2 : ∀ (a b c d : ℕ), a —— b ≤ c —— d
+   Section_4_2.Rat.decidableRel._proof_1 : ∀ (a b : ℤ) (hb : b ≠ 0) (c d : ℤ) (hd : d ≠ 0), ¬⟦{ numerator := a, denominator := b, nonzero := hb }⟧ ≤ ⟦{ n
+   Section_4_2.Rat.decidableRel._proof_2 : ∀ (a b : ℤ) (hb : b ≠ 0) (c d : ℤ) (hd : d ≠ 0), ⟦{ numerator := a, denominator := b, nonzero := hb }⟧ ≤ ⟦{ nu
+   Section_4_2.Rat.decidableRel._proof_4 : ∀ (a b : ℤ) (hb : b ≠ 0) (c d : ℤ) (hd : d ≠ 0), ¬⟦{ numerator := a, denominator := b, nonzero := hb }⟧ ≤ ⟦{ n
+   Section_4_2.Rat.decidableRel._proof_5 : ∀ (a b : ℤ) (hb : b ≠ 0) (c d : ℤ) (hd : d ≠ 0), ⟦{ numerator := a, denominator := b, nonzero := hb }⟧ ≤ ⟦{ nu

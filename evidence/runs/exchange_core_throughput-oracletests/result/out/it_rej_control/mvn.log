@@ -1,0 +1,327 @@
+[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 1 modules...
+[INFO] Installing Nexus Staging features:
+[INFO]   ... total of 1 executions of maven-deploy-plugin replaced with nexus-staging-maven-plugin
+[INFO] 
+[INFO] --------------------< exchange.core2:exchange-core >--------------------
+[INFO] Building exchange.core2:exchange-core 0.5.4-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- lombok:1.18.20.0:delombok (default) @ exchange-core ---
+[INFO] Delombok complete.
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ exchange-core ---
+[INFO] skip non existing resourceDirectory /home/workspace/exchange-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ exchange-core ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 91 source files with javac [debug target 1.8] to target/classes
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ exchange-core ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ exchange-core ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 55 source files with javac [debug target 1.8] to target/test-classes
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- surefire:3.0.0-M3:test (default-test) @ exchange-core ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running exchange.core2.tests.integration.ITExchangeCoreIntegrationRejectionBasic
+2026-10-12/04:26:36.589/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.691/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:36.820/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:36.821/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:36.838/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.843/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:36.855/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:36.856/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:36.860/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.865/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:36.877/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:36.878/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:36.882/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.894/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:36.909/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:36.910/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:36.915/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.918/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:36.928/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:36.928/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:36.932/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.935/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:36.946/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:36.946/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:36.949/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.952/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:36.962/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:36.962/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:36.966/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.971/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:36.981/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:36.981/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:36.984/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:36.991/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.002/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.003/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.010/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.030/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.044/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.045/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.049/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.052/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.062/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.063/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.067/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.071/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.082/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.083/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.086/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.093/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.106/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.107/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.110/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.113/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.122/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.123/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.126/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.130/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.138/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.139/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.142/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.147/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.156/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.157/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.160/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.164/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.173/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.174/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.177/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.183/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.192/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.192/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.196/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.200/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.211/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.212/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.215/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.217/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.228/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.228/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.231/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.233/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.242/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.243/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.245/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.247/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.256/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.256/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.259/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.264/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.272/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.272/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.275/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.281/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.289/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.289/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.293/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.297/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.306/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.306/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.310/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.314/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.321/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.322/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.325/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.334/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.341/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.342/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:37.345/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007fa36c232a00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007fa36c2352f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007fa36c234160}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007fa36c237898@7d151a)}
+2026-10-12/04:26:37.351/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:37.360/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:37.360/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+[INFO] Tests run: 28, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.395 s - in exchange.core2.tests.integration.ITExchangeCoreIntegrationRejectionBasic
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 28, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.465 s
+[INFO] Finished at: 2026-10-12T04:26:37Z
+[INFO] ------------------------------------------------------------------------

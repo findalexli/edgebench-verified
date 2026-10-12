@@ -1,0 +1,28 @@
++ J=seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8
++ nproc
+8
++ date -u
+Mon Oct 12 04:19:10 UTC 2026
++ docker pull -q seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8
+docker.io/seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8
++ docker create --name jd --network none --memory 6g -v /job/out:/out -v /job/game1.py:/game1.py:ro -v /job/timed_eval.py:/timed_eval.py:ro seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8 sleep 7200
+347b45a9d5abf9ee992a667e87c5ab4bc555a6332ae80713fae676ef9b27e2ac
++ docker start jd
+jd
++ X='docker exec -w /home/wesnoth_agent jd'
++ D=/usr/share/games/wesnoth/1.18/data
++ docker exec -w /home/wesnoth_agent jd bash -c 'ls /usr/share/games/wesnoth/1.18/data/ai/ais/; grep -rn '\''recruitment'\'' /usr/share/games/wesnoth/1.18/data/core/macros/ai_candidate_actions.cfg | head -20; grep -rn '\''aspect_recruitment_phase'\'' /usr/share/games/wesnoth/1.18/data | head; cat /usr/share/games/wesnoth/1.18/data/ai/ais/ai_default_rca.cfg'
++ cp /dev/null /job/out/baseline_cfg_original.txt
++ docker exec -w /home/wesnoth_agent jd cat /home/wesnoth_agent/my_custom_ai.cfg
++ docker exec -w /home/wesnoth_agent jd bash -c 'sed '\''s/^\([[:space:]]*\)id=ai_default_rca/\1id=my_custom_ai/'\'' /usr/share/games/wesnoth/1.18/data/ai/ais/ai_default_rca.cfg > /home/wesnoth_agent/my_custom_ai.cfg; sha256sum /home/wesnoth_agent/my_custom_ai.cfg; grep -n '\''id='\'' /home/wesnoth_agent/my_custom_ai.cfg | head -3'
++ docker exec -w /home/wesnoth_agent jd cp /home/wesnoth_agent/my_custom_ai.cfg /out/control_my_custom_ai.cfg
++ docker exec -w /home/wesnoth_agent jd env TAG=rca python3 /game1.py multiplayer_Weldyn_Channel multiplayer_The_Freelands multiplayer_Fallenstar_Lake
+++ date +%s
++ T0=1791778779
++ docker exec -w /home/wesnoth_agent jd env TAG=rca timeout 900 python3 /timed_eval.py
+++ date +%s
++ echo 'exit=0 wall_s=172'
++ docker rm -f jd
+jd
++ date -u
+Mon Oct 12 04:22:31 UTC 2026

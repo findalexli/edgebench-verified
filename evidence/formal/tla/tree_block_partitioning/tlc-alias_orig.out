@@ -1,0 +1,80 @@
+TLC2 Version 2026.10.06.014338 (rev: 94d0c50)
+Running breadth-first search Model-Checking with fp 18 and seed 6789573937623447062 with 2 workers on 16 cores with 3429MB heap and 64MB offheap memory [pid: 291551] (Linux 6.18.40.1-microsoft-standard-WSL2 amd64, Ubuntu 11.0.14.1 64bit, MSBDiskFPSet, DiskStateQueue).
+Parsing file /home/alex/edgebench-verified/evidence/formal/tla/tree_block_partitioning/DataMul.tla
+Parsing file /tmp/tlc-2171262348511902664/Naturals.tla (jar:file:/home/alex/edgebench-verified/tools/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
+Parsing file /tmp/tlc-2171262348511902664/_TLCTrace.tla (jar:file:/home/alex/edgebench-verified/tools/tla2tools.jar!/tla2sany/StandardModules/_TLCTrace.tla)
+Parsing file /tmp/tlc-2171262348511902664/TLC.tla (jar:file:/home/alex/edgebench-verified/tools/tla2tools.jar!/tla2sany/StandardModules/TLC.tla)
+Parsing file /tmp/tlc-2171262348511902664/TLCExt.tla (jar:file:/home/alex/edgebench-verified/tools/tla2tools.jar!/tla2sany/StandardModules/TLCExt.tla)
+Parsing file /tmp/tlc-2171262348511902664/Sequences.tla (jar:file:/home/alex/edgebench-verified/tools/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
+Parsing file /tmp/tlc-2171262348511902664/FiniteSets.tla (jar:file:/home/alex/edgebench-verified/tools/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
+Parsing file /tmp/tlc-2171262348511902664/Integers.tla (jar:file:/home/alex/edgebench-verified/tools/tla2tools.jar!/tla2sany/StandardModules/Integers.tla)
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module Integers
+Semantic processing of module TLCExt
+Semantic processing of module _TLCTrace
+Semantic processing of module DataMul
+Linting of module TLCExt
+Linting of module _TLCTrace
+Linting of module DataMul
+Starting... (2026-10-11 20:10:01)
+Computing initial states...
+Computed 2 initial states...
+Computed 4 initial states...
+Computed 8 initial states...
+Computed 16 initial states...
+Computed 32 initial states...
+Computed 64 initial states...
+Computed 128 initial states...
+Computed 256 initial states...
+Computed 512 initial states...
+Computed 1024 initial states...
+Computed 2048 initial states...
+Computed 4096 initial states...
+Computed 8192 initial states...
+Computed 16384 initial states...
+Computed 32768 initial states...
+Finished computing initial states: 65536 distinct states generated at 2026-10-11 20:10:02.
+Error: Invariant ResultCorrect is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ init = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ mem = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ pc = "chk_x"
+
+State 2: <Step line 44, col 6 to line 46, col 31 of module DataMul>
+/\ init = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ mem = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ pc = "chk_this"
+
+State 3: <Step line 47, col 6 to line 50, col 22 of module DataMul>
+/\ init = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ mem = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ pc = "a"
+
+State 4: <Step line 51, col 6 to line 58, col 22 of module DataMul>
+/\ init = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ mem = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ pc = "b"
+
+State 5: <Step line 51, col 6 to line 58, col 22 of module DataMul>
+/\ init = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ mem = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ pc = "c"
+
+State 6: <Step line 51, col 6 to line 58, col 22 of module DataMul>
+/\ init = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ mem = <<[a |-> 0, b |-> 0, c |-> 3, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ pc = "d"
+
+State 7: <Step line 51, col 6 to line 58, col 22 of module DataMul>
+/\ init = <<[a |-> 0, b |-> 0, c |-> 1, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ mem = <<[a |-> 0, b |-> 0, c |-> 3, d |-> 1], [a |-> 0, b |-> 0, c |-> 0, d |-> 1]>>
+/\ pc = "done"
+
+393472 states generated, 393216 distinct states found, 65278 states left on queue.
+The depth of the complete state graph search is 7.
+Finished in 03s at (2026-10-11 20:10:05)
+Trace exploration spec path: ./DataMul_TTrace_1791774601.tla

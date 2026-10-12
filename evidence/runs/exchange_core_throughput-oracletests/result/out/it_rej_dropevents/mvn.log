@@ -1,0 +1,760 @@
+[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 1 modules...
+[INFO] Installing Nexus Staging features:
+[INFO]   ... total of 1 executions of maven-deploy-plugin replaced with nexus-staging-maven-plugin
+[INFO] 
+[INFO] --------------------< exchange.core2:exchange-core >--------------------
+[INFO] Building exchange.core2:exchange-core 0.5.4-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- lombok:1.18.20.0:delombok (default) @ exchange-core ---
+[INFO] Delombok complete.
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ exchange-core ---
+[INFO] skip non existing resourceDirectory /home/workspace/exchange-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ exchange-core ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 91 source files with javac [debug target 1.8] to target/classes
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ exchange-core ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ exchange-core ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 55 source files with javac [debug target 1.8] to target/test-classes
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- surefire:3.0.0-M3:test (default-test) @ exchange-core ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running exchange.core2.tests.integration.ITExchangeCoreIntegrationRejectionBasic
+2026-10-12/04:26:47.613/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.722/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.827/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:47.828/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:47.849/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.854/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.864/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:47.865/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:47.869/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.873/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.882/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:47.882/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:47.886/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.894/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.910/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:47.911/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:47.914/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.917/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.926/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:47.927/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:47.930/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.932/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.941/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:47.941/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:47.944/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.948/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.956/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:47.956/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:47.958/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.967/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.976/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:47.984/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:47.987/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:47.989/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:47.999/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.000/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.003/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.006/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.013/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.014/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.016/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.019/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.030/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.031/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.034/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.036/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.045/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.046/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.049/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.051/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.062/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.063/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.065/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.071/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.080/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.081/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.084/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.088/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.098/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.098/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.103/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.108/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.119/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.120/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.123/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.128/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.137/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.138/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.141/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.146/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.158/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.158/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.161/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.164/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.172/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.173/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.175/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.177/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.184/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.185/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.187/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.191/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.198/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.199/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.202/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.206/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.214/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.214/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.216/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.219/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.228/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.228/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.231/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.235/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.241/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.241/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.245/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.248/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.257/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.258/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.261/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.263/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.270/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.271/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.273/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.275/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.282/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.283/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:48.285/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f7ed4232e00, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f7ed42356f0, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f7ed4234560}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f7ed4237c98@7d151a)}
+2026-10-12/04:26:48.290/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:48.296/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:48.297/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+[ERROR] Tests run: 28, Failures: 28, Errors: 0, Skipped: 0, Time elapsed: 1.268 s <<< FAILURE! - in exchange.core2.tests.integration.ITExchangeCoreIntegrationRejectionBasic
+[ERROR] testMultiSellNoRejectionExchangeFokB  Time elapsed: 0.706 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyWithSizeRejectionExchangeFokB  Time elapsed: 0.019 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyNoRejectionExchangeFokB  Time elapsed: 0.016 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyNoRejectionMarginFokB  Time elapsed: 0.027 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyNoRejectionMarginGtc  Time elapsed: 0.015 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyNoRejectionMarginIoc  Time elapsed: 0.013 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellNoRejectionMarginGtc  Time elapsed: 0.014 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellNoRejectionMarginIoc  Time elapsed: 0.028 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellNoRejectionMarginFokB  Time elapsed: 0.015 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyWithBudgetRejectionMarginFokB  Time elapsed: 0.014 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyNoRejectionExchangeGtc  Time elapsed: 0.017 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyNoRejectionExchangeIoc  Time elapsed: 0.014 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellWithSizeRejectionExchangeFokB  Time elapsed: 0.016 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellWithRejectionExchangeGtc  Time elapsed: 0.018 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellWithRejectionExchangeIoc  Time elapsed: 0.018 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyWithRejectionMarginGtc  Time elapsed: 0.019 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyWithRejectionMarginIoc  Time elapsed: 0.018 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyWithRejectionExchangeGtc  Time elapsed: 0.02 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyWithRejectionExchangeIoc  Time elapsed: 0.014 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyWithBudgetRejectionExchangeFokB  Time elapsed: 0.011 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiBuyWithSizeRejectionMarginFokB  Time elapsed: 0.013 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellWithSizeRejectionMarginFokB  Time elapsed: 0.014 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellNoRejectionExchangeGtc  Time elapsed: 0.013 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellNoRejectionExchangeIoc  Time elapsed: 0.012 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellWithRejectionMarginGtc  Time elapsed: 0.014 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellWithRejectionMarginIoc  Time elapsed: 0.012 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellWithExpectationRejectionExchangeFokB  Time elapsed: 0.012 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[ERROR] testMultiSellWithExpectationRejectionMarginFokB  Time elapsed: 0.013 s  <<< FAILURE!
+org.mockito.exceptions.verification.WantedButNotInvoked: 
+
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionExchangeFokB:103->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionExchangeGtc:85->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionExchangeIoc:91->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionMarginFokB:109->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionMarginGtc:79->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionMarginIoc:97->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithBudgetRejectionExchangeFokB:153->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithBudgetRejectionMarginFokB:159->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithRejectionExchangeGtc:123->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithRejectionExchangeIoc:129->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithRejectionMarginGtc:117->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithRejectionMarginIoc:135->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithSizeRejectionExchangeFokB:141->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithSizeRejectionMarginFokB:147->ITExchangeCoreIntegrationRejection.testMultiBuy:288 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiBuy(ITExchangeCoreIntegrationRejection.java:288)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionExchangeFokB:197->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionExchangeGtc:173->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionExchangeIoc:185->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionMarginFokB:191->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionMarginGtc:167->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionMarginIoc:179->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithExpectationRejectionExchangeFokB:247->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithExpectationRejectionMarginFokB:241->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionExchangeGtc:211->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionExchangeIoc:223->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionMarginGtc:205->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionMarginIoc:217->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithSizeRejectionExchangeFokB:235->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithSizeRejectionMarginFokB:229->ITExchangeCoreIntegrationRejection.testMultiSell:375 
+Wanted but not invoked:
+handler.commandResult(<Capturing argument>);
+-> at exchange.core2.tests.integration.ITExchangeCoreIntegrationRejection.testMultiSell(ITExchangeCoreIntegrationRejection.java:375)
+Actually, there were zero interactions with this mock.
+
+[INFO] 
+[ERROR] Tests run: 28, Failures: 28, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.480 s
+[INFO] Finished at: 2026-10-12T04:26:48Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M3:test (default-test) on project exchange-core: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/workspace/exchange-core/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

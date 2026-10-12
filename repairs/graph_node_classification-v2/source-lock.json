@@ -1,0 +1,54 @@
+{
+ "task_id": "graph_node_classification",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/graph_node_classification.json",
+  "sha256": "330c5d616fcdaca2504751e841fb170fad18131d4e6a43dad31e3912fa2b0f84"
+ },
+ "original_judge_image": "seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd",
+ "original_judge_image_tag": "f2ddd52992ae",
+ "v2_judge_image_tag": "f2ddd52992ae-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/home/workspace/045_graph_node_classification/verifier.py",
+   "original_sha256": "044cd50e2e00187adbafc5d0b669af76589fa169578f6e290da39c233c40299e",
+   "original_bytes": 3621,
+   "replacement": "files/home/workspace/045_graph_node_classification/verifier.py",
+   "replacement_sha256": "32caddb12cc8684fce8104133dd07a9c53a9fff9a5be01022d92ff224580d998",
+   "replacement_bytes": 4882
+  }
+ ],
+ "task_json_in_sha256": "aa27942f120758a1795cba69ce0952ec09f1725498bdad131857abfd1fa48393",
+ "repair_patch_sha256": "0981c75b7499b6dd1f7a736cb0362aa7e6eff796c8f971e4d6f4c0247ff70c68",
+ "dockerfile_sha256": "8e9179018de08aea6c70273a4a9b2155f19c72ccb339bde61045ee68163bd0ef",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "unchanged in image": {
+  "runner.py": "2004a53ffbdba3beea5e5fe00398896a121587b2aa7bcc90facde763001a85db",
+  "judge_eval.py": "1a508d716beaaa980691e1db95a60b030cb3b22114e010f59bd8cd52f50a63e9",
+  "config.yaml": "1d04a91523232dfb12c8f7de94a3688c021ed552cc09a1ede7b27ea0f0842789",
+  "solution/solution.py (shipped baseline)": "cde8fb22137c7661b0b9b2d29df8b18923e4a16cb96e1bf826379367a12f2b76"
+ },
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/045_graph_node_classification/verifier.py",
+    "sha256": "044cd50e2e00187adbafc5d0b669af76589fa169578f6e290da39c233c40299e"
+   }
+  ],
+  "outputs": {
+   "files/home/workspace/045_graph_node_classification/verifier.py": "32caddb12cc8684fce8104133dd07a9c53a9fff9a5be01022d92ff224580d998"
+  },
+  "repair_patch_sha256": "0981c75b7499b6dd1f7a736cb0362aa7e6eff796c8f971e4d6f4c0247ff70c68",
+  "materialize_sh_sha256": "8aa0453d45c3e854fae1fddc35e5c4f7ea1594845c3ae243bf1e3cca9bfa710d",
+  "task_json_diff_sha256": "1c4f1108c98a6915404a04452defe3cf7bfde2f88fdcc8965e733850dfc0ce88"
+ }
+}

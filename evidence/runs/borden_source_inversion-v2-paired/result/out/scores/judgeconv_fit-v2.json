@@ -1,0 +1,116 @@
+{
+  "total_score": 31.2,
+  "raw_total_before_cap": 31.19954224176086,
+  "format_score": 1.0,
+  "bounds_score": 1.0,
+  "public_sanity_score": 2.0,
+  "method_workflow_score": 1.0,
+  "transport_equation_score": 2.0,
+  "transport_equation_detail": {
+    "recognized_terms": {
+      "time": true,
+      "advection": true,
+      "dispersion": true,
+      "reaction": true,
+      "source": true
+    },
+    "matched_public_hydro_parameters": 7,
+    "hydro_parameter_feedback": {
+      "velocity_m_per_day": {
+        "value": 0.02777777777777778,
+        "expected": 0.02777777777777778,
+        "status": "near_public_reference",
+        "relative_error": 0.0
+      },
+      "alpha_L_m": {
+        "value": 10.0,
+        "expected": 10.0,
+        "status": "near_public_reference",
+        "relative_error": 0.0
+      },
+      "alpha_TH_m": {
+        "value": 0.5,
+        "expected": 0.5,
+        "status": "near_public_reference",
+        "relative_error": 0.0
+      },
+      "alpha_TV_m": {
+        "value": 0.01,
+        "expected": 0.01,
+        "status": "near_public_reference",
+        "relative_error": 0.0
+      },
+      "porosity": {
+        "value": 0.3,
+        "expected": 0.3,
+        "status": "near_public_reference",
+        "relative_error": 0.0
+      },
+      "retardation_factor": {
+        "value": 1.0,
+        "expected": 1.0,
+        "status": "near_public_reference",
+        "relative_error": 0.0
+      },
+      "lambda_per_day": {
+        "value": 0.0,
+        "expected": 0.0,
+        "status": "near_public_reference",
+        "relative_error": 0.0
+      }
+    },
+    "numerical_approach_status": "describes_optimization",
+    "transport_equation_score_raw": 8.0
+  },
+  "metric_score_linear": 24.19954224176086,
+  "region_physics_score": 0.0,
+  "metric_score_detail": {
+    "hidden_rrmse_coarse": 5.0,
+    "future_rrmse_coarse": 5.0,
+    "hidden_log_coarse": 2.0,
+    "future_log_coarse": 2.0,
+    "hidden_rrmse_precise": 0.0,
+    "future_rrmse_precise": 1.4318830039820887,
+    "hidden_log_precise": 2.2667623060256386,
+    "future_log_precise": 6.500896931753132,
+    "hidden_rrmse_score": 5.0,
+    "future_rrmse_score": 6.4318830039820885,
+    "hidden_log_score": 4.2667623060256386,
+    "future_log_score": 8.500896931753132,
+    "metric_score_linear": 24.19954224176086
+  },
+  "metrics": {
+    "all": {
+      "rmse": 0.024799754037636797,
+      "rRMSE": 0.26788428657425734,
+      "log_rmse": 0.017792166514663036,
+      "log_rRMSE": 0.2289741685147162,
+      "n": 528
+    },
+    "hidden_well": {
+      "rmse": 0.026826902055312744,
+      "rRMSE": 0.5520086314887286,
+      "log_rmse": 0.020917468905619494,
+      "log_rRMSE": 0.49781837740600837,
+      "n": 192
+    },
+    "future_public": {
+      "rmse": 0.02356321318150312,
+      "rRMSE": 0.20018623208838704,
+      "log_rmse": 0.015729912634714377,
+      "log_rRMSE": 0.16035296292144813,
+      "n": 336
+    }
+  },
+  "public_metrics": {
+    "censored_log_rmse": 0.015491210703566316,
+    "above_log_rmse": 0.01640224311597309,
+    "below_excess_rate": 0.010101010101010102,
+    "n": 128
+  },
+  "warnings": [],
+  "errors": [],
+  "region_physics_score_before_gate": 15.0,
+  "region_physics_gate": "blocked_by_hidden_or_future_rrmse",
+  "cap_reason": "cap45_moderate_hidden"
+}

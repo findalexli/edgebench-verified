@@ -1,0 +1,67 @@
+patched processors/RiskEngine.java: 'taker.accounts.addToValue(quoteCurrency, takerSizePriceForThisHandler * spec.quoteScaleK -' -> 'taker.accounts.addToValue(quoteCurrency, takerSizePriceForThisHandler * spec.quoteScaleK -'
+patched processors/RiskEngine.java: 'fees.addToValue(quoteCurrency, spec.takerFee * takerSizeForThisHandler + spec.makerFee * m' -> 'fees.addToValue(quoteCurrency, spec.makerFee * takerSizeForThisHandler + spec.makerFee * m'
+DEBUG: correctness gate failed (rc=1, tests=33). Output tail:
+2026-10-12/06:43:20.455/UTC [Thread-R1_0] WARN  e.core2.core.processors.RiskEngine - 203 risk result=RISK_NSF uid=1440002: Can not place OrderCommand(command=PLACE_ORDER, orderId=203, symbol=9340, price=11400, size=30, reserveBidPrice=11400, action=BID, orderType=GTC, uid=1440002, timestamp=0, userCookie=0, eventsGroup=2, serviceFlags=0, resultCode=NEW, matcherEvent=null, marketData=null)
+2026-10-12/06:43:20.456/UTC [Thread-R1_0] WARN  e.core2.core.processors.RiskEngine - 203 accounts:{4141=3420000000}
+2026-10-12/06:43:20.457/UTC [Thread-R1_0] WARN  e.core2.core.processors.RiskEngine - 203 risk result=RISK_NSF uid=1440002: Can not place OrderCommand(command=PLACE_ORDER, orderId=203, symbol=9340, price=11400, size=30, reserveBidPrice=11400, action=BID, orderType=GTC, uid=1440002, timestamp=0, userCookie=0, eventsGroup=2, serviceFlags=0, resultCode=NEW, matcherEvent=null, marketData=null)
+2026-10-12/06:43:20.457/UTC [Thread-R1_0] WARN  e.core2.core.processors.RiskEngine - 203 accounts:{4141=3420056999}
+2026-10-12/06:43:20.466/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/06:43:20.466/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/06:43:20.468/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$429/0x00007f07d0233cb8, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$434/0x00007f07d02363a8, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$433/0x00007f07d0235418}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$440/0x00007f07d0238858@1a1ed4e5)}
+2026-10-12/06:43:20.471/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/06:43:20.484/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/06:43:20.484/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+[ERROR] Tests run: 5, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.093 s <<< FAILURE! - in exchange.core2.tests.integration.ITFeesExchangeBasic
+[ERROR] shouldProcessFees_BidGtcMaker_AskIocTakerPartial  Time elapsed: 0.021 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected: is <199061711100L>
+     but: was <199063788300L>
+
+[ERROR] shouldProcessFees_BidGtcMakerPartial_AskIocTaker  Time elapsed: 0.018 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected: is <114998100000L>
+     but: was <114999300000L>
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldProcessFees_BidGtcMakerPartial_AskIocTaker:268->ITFeesExchange.lambda$shouldProcessFees_BidGtcMakerPartial_AskIocTaker$11:269 
+Expected: is <114998100000L>
+     but: was <114999300000L>
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldProcessFees_BidGtcMaker_AskIocTakerPartial:187->ITFeesExchange.lambda$shouldProcessFees_BidGtcMaker_AskIocTakerPartial$6:188 
+Expected: is <199061711100L>
+     but: was <199063788300L>
+[INFO] 
+[ERROR] Tests run: 33, Failures: 2, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.606 s
+[INFO] Finished at: 2026-10-12T06:43:20Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M3:test (default-test) on project exchange-core: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/workspace/exchange-core/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+CASE 0000 WA score=0  # correctness gate failed
+TOTAL_SCORE 0
+CASES_OK 0
+CASES_TOTAL 1

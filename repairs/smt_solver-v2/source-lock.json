@@ -1,0 +1,47 @@
+{
+ "task_id": "smt_solver",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/smt_solver.json",
+  "sha256": "3dd31c12948fae9aa6e8d8b599ddc6c4d93348fb1c89301698c9a0dc6043c11f"
+ },
+ "original_judge_image": "seededge/edgebench.judge.smt_solver@sha256:2bf3482a5b2952eeadecf16e33041c13c284b7ce5d93f3491b7cfd5088d91fc6",
+ "original_judge_image_tag": "fdce54253c61",
+ "v2_judge_image_tag": "fdce54253c61-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/home/workspace/smt_judge/scripts/evaluate.py",
+   "original_sha256": "f4be8e8dd0e4d2991189b4a9512504eb7c5db105ffbe4ff2650b7873eb0ece9b",
+   "original_bytes": 38278,
+   "original_copy": "scripts/smt_solver/evaluate_original.py",
+   "replacement": "files/evaluate.py",
+   "replacement_sha256": "bbc730f89b9eb822ebda73f092bbe10beac8662b0f9b44130e0407649d9f2998",
+   "replacement_bytes": 41286
+  }
+ ],
+ "repair_patch_sha256": "facdceeb4d544dc1f5acebdf819dd37d8a18a8a8950cb103bbac851c5e1a6f03",
+ "dockerfile_sha256": "359a5427af4f34b549db5c32c177c6a6c0726c205a1971df11732574df288554",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.smt_solver@sha256:2bf3482a5b2952eeadecf16e33041c13c284b7ce5d93f3491b7cfd5088d91fc6"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/smt_judge/scripts/evaluate.py",
+    "sha256": "f4be8e8dd0e4d2991189b4a9512504eb7c5db105ffbe4ff2650b7873eb0ece9b"
+   }
+  ],
+  "outputs": {
+   "files/evaluate.py": "bbc730f89b9eb822ebda73f092bbe10beac8662b0f9b44130e0407649d9f2998"
+  },
+  "repair_patch_sha256": "facdceeb4d544dc1f5acebdf819dd37d8a18a8a8950cb103bbac851c5e1a6f03",
+  "materialize_sh_sha256": "ea7fb6b41f7426c7c1456243adc461f1a6a72f257841ec5a58bd5cc6be5d643b"
+ }
+}

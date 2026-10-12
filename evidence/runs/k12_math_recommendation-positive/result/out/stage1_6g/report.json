@@ -1,0 +1,98 @@
+{
+  "weights": {
+    "M1": 0.35,
+    "M2": 0.3,
+    "M3": 0.3,
+    "M4": 0.04,
+    "M5": 0.01
+  },
+  "scenarios_total": 100,
+  "scenarios_submitted": 100,
+  "scenarios_matched": 100,
+  "deliverables_completeness": {
+    "checked": true,
+    "deliverables_dir": "/home/workspace",
+    "required": [
+      "train.py",
+      "infer.py",
+      "requirements.txt",
+      "README.md"
+    ],
+    "present": [
+      "train.py",
+      "infer.py",
+      "requirements.txt",
+      "README.md"
+    ],
+    "missing": [],
+    "complete": true
+  },
+  "M1_next_question_auc": {
+    "auc_macro": 0.67715079114785,
+    "n_scenarios_total": 100,
+    "n_scenarios_submitted": 100,
+    "n_scenarios_fully_covered_20": 100,
+    "score": 10.860316459140007
+  },
+  "M2_knowledge_calibration": {
+    "ece_per_student_mean": 0.13578516066082602,
+    "spearman_per_student_mean": 0.3094751064189171,
+    "ece_component": 0.0,
+    "spearman_component": 51.57918440315286,
+    "n_scenarios_total": 100,
+    "score": 25.78959220157643
+  },
+  "M3_learning_gain": {
+    "agent_mean": 0.5205407308049184,
+    "random_mean": 0.5159249982959535,
+    "gain": 0.004615732508964854,
+    "scoring": "piecewise",
+    "anchors": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.005,
+        4.0
+      ],
+      [
+        0.012,
+        15.0
+      ],
+      [
+        0.025,
+        45.0
+      ],
+      [
+        0.04,
+        75.0
+      ],
+      [
+        0.06,
+        100.0
+      ]
+    ],
+    "n_scenarios_total": 100,
+    "score": 3.692586007171883
+  },
+  "M4_constraint_satisfaction": {
+    "per_scenario_mean": 0.9880000000000001,
+    "per_constraint_pass_rate": {
+      "C1": 1.0,
+      "C2": 1.0,
+      "C3": 0.94,
+      "C4": 1.0,
+      "C5": 1.0
+    },
+    "n_scenarios_total": 100,
+    "score": 98.80000000000001
+  },
+  "M5_inference_efficiency": {
+    "infer_time_seconds": 1.651484489440918,
+    "score": 100.0,
+    "deliverables_penalty": -0.0,
+    "deliverables_missing": []
+  },
+  "total_score": 17.598
+}

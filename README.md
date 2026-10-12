@@ -1,46 +1,80 @@
 # EdgeBench Verified
 
-An independent audit of whether EdgeBench’s tasks, tests and data measure what they promise. We are checking problems and proposed fixes against the original task formats. This private repository is a work in progress, not a released replacement benchmark.
+An independent re-verification of the **51 publicly released [EdgeBench](https://github.com/ByteDance-Seed/EdgeBench)
+tasks** (of 134 advertised; the other 83 were not available and are out of scope). For every task
+we asked one question: **is a good-faith solver scored correctly and repeatably for what the task
+promises?** Every claim was reproduced on the task's original, digest-pinned evaluator, and every
+material defect was repaired as a new task version in EdgeBench's own format, accepted only after a
+paired before/after run on the same inputs.
 
-**Saved conclusions, October 12, 2026:**
+**For EdgeBench maintainers:**
+[What is wrong and how much it matters](FINDINGS.md) ·
+[How to apply the fixes](APPLYING-FIXES.md) ·
+[All 51 decisions](DECISIONS.md) ([CSV](decisions.csv)) ·
+[Case page per task](cases/INDEX.md) ·
+[Method and limits](METHOD.md) ·
+browsable version: open [`site/index.html`](site/index.html) in a browser.
 
-| What we know | Count |
-| --- | ---: |
-| Public tasks acquired | 51 |
-| Tasks with confirmed findings, within the scope stated in each case | 21 |
-| Original versions we would withhold from a verified release | 18 |
-| Original task decisions still pending | 32 |
-| Retained task versions under the maintained harness | 1 |
-| Additional advertised tasks unavailable to this audit | 83 |
+Status: release candidate, October 12, 2026. No models were run: score effects are shown on authored
+controls and counterexamples, never estimated for historical leaderboard entries.
 
-The [21 finding tasks](evidence/selected/finding-task-union-21.json) overlap the other rows; these counts must not be added together. A confirmed problem can be settled before its repair or the rest of the task is reviewed.
+## Decisions for all 51 tasks
 
-**“Excluded” means “withhold this original version unchanged.”** It does not mean deleted, worthless, impossible to score or unfixable. For example, an original checker that accepts overlapping shapes should be corrected and tested as a new version. Graph’s exclusion is a conservative policy choice about invalid confidence values; no score inflation was demonstrated. Every reason and its limits are in the findings.
+| Decision | Tasks | Meaning |
+| --- | ---: | --- |
+| Retain | 1 | No defect affecting good-faith solvers found |
+| Retain with note | 28 | Real but immaterial, or disclosed, issue; the note ships with the task |
+| **Repair (v2)** | **21** | Material defect fixed in a new version; every repair passed a paired before/after native run ([129 paired rows](paired-results.csv)) |
+| Exclude | 1 | Material defect without a justified repair in this release |
+| **Total** | **51** | |
 
-## Start here
+## Selected findings
 
-- [Findings](docs/FINDINGS.md): what went wrong, how we checked it and what each conclusion establishes.
-- [Task tracker](TASKS.md): the current decision and next useful question for every public task.
-- [Handoff](HANDOFF.md): where the work stands and how another contributor can continue.
+- **SMT Solver:** the witness checker keys function values by source text, so 27 satisfiable hidden problems are unwinnable for any solver (perfect-solver ceiling 78.61 → 72.40). Fixed; checked with z3.
+- **Exchange Core:** two plausible engine bugs (a fee swap, dropped events) pass the correctness check and score *higher* than the correct engine. v2 gates scoring on the project's own integration tests.
+- **Order Addition:** a stale integrity hash caps every submission at 4/5 tests, which freezes each run's best score on its first submission. A one-literal fix restores selection of later improvements.
+- **Triangulation Coloring:** the flip-legality rule omits the convexity condition the README states; the same rule generated the test cases (all ten overlap) and scores submissions. v2 fixes the rule and regenerates valid cases.
+- **Warehouse Routing:** the prompt promises 30 s per test case but the evaluator allows 60 s per five-case input; a Lean-proved lower bound also shows the top two score anchors are unreachable (ceiling ≈30.3/100).
+- **Borden Inversion:** the hidden physics convention is undocumented and non-physical; an honest textbook solver fits the public data equally well but scores at baseline (7.0 vs 31.2). v2 ships the exact forward model.
+- **Lean Analysis:** two required theorem statements are false (refuted in Lean inside the task image), and compiler-generated targets make ≥1.69% of points unattainable and scores proof-style dependent. v2 fixes both.
 
-## Latest completed work — October 12, 2026
+All defects with their measured impact: [FINDINGS.md](FINDINGS.md).
 
-**ANN is the first retained task.** Its unchanged task, evaluator and fixed corpus pass the five task-specific review requirements under the separately versioned maintained harness. The actual CLI accepted flat search at raw QPS 19 and rejected the empty control. Two different reviewers and root approved the exact bundle; the task checker has no errors. [Decision and limits](evidence/selected/ann-retain-root-review.json) · [Runnable inputs and commands](reproductions/ann-original-cli/README.md).
+## Relation to the earlier audit
 
-**Vehicle routing:** all 56 feasible route witnesses passed the actual original checker and caller. The deployed reference table had all 56 rows, with no fallback. An instruction-only clarification is prepared but not adopted; the separate decimal-boundary question remains. [Accepted result](evidence/selected/vrptw-all56-native-acceptance.json) · [Proposed clarification](reproductions/vrptw-instruction-clarification/README.md).
+An earlier automated audit (October 7–12) had withheld 18 originals, retained 1 and left 21 scoped
+findings. We re-checked every claim from the original bytes. All 18 withheld defects reproduced:
+12 needed repair, and 6 are retained with a note because they cannot materially change a good-faith
+solver's score or concerned only scorer isolation (out of scope). We also found 7 material defects
+the earlier audit had missed. Several earlier "setup blocked" tasks were failures of that audit's own
+tooling. The earlier audit's files are preserved at Git tag `earlier-audit-final`.
 
-**Three adventure games:** six actual host sessions exercised partial/full trajectories, scores, history selection and archive transport. Anchorhead finished at 99/100 without victory; Trinity and Tryst reached their maximum scores. Their inclusion records still need final exact-bundle approvals; the native result is already accepted. [Evidence](evidence/selected/three-adventure-native-release-acceptance.json).
+## Formal checks
 
-**Dungeon Crawl:** the clean CLI run finished all five games with scores 2, 21, 18, 7 and 14, mean 12.4. The result and cleanup are saved; independent result review and repair approval remain. [Collected result](evidence/selected/dcss-cli-result-collection.json).
+Lean 4 (Mathlib) and TLA+ were used where they settle a question exactly: false task statements,
+finance identities, a warehouse-routing lower bound (kernel-checked and independently recompiled),
+an aliasing bug in an in-place multiply, and a test-credit counting rule. Every Lean result lists its
+axioms (`propext`, `Classical.choice`, `Quot.sound` only); every TLA+ model has a negative control.
+See [`evidence/formal/`](evidence/formal/).
 
-Earlier completed repair checks remain available: Reporting passes the combined corrected judge (57 collected tests, 55 reported, score 1.0) plus 24 countercontrols; Tree preserves ten official cases and rejects ten missing answers; Equivalence passes one official T3 input under the disclosed 64 MiB output allowance. These are finite repair results, not completed whole-task reviews. [Findings and limits](docs/FINDINGS.md).
+## Repository layout
 
-**The audit is not finished:** 32 original decisions remain pending, and no repaired task has final inclusion approval. All owned cloud workers are closed. Work is being handed to Claude at the user's request. The [handoff](HANDOFF.md) identifies the saved work to finish first, the interrupted reviews, and the private evidence that a clone does not contain.
+| Path | Contents |
+| --- | --- |
+| `FINDINGS.md`, `APPLYING-FIXES.md`, `METHOD.md`, `DECISIONS.md` | The publication |
+| `site/index.html` | The same content as one browsable page |
+| `cases/` | One page per task: promise, what we ran, findings, repair, paired results, limits, reproduction |
+| `repairs/<task>-v2/` | Repair packages: patch, `materialize.sh`, `Dockerfile` `FROM` the original image digest, `task.json.in`, source lock, paired results |
+| `decisions.json`, `decisions.csv`, `paired-results.csv` | Machine-readable decisions and paired evaluations |
+| `evidence/` | `reviews/` (per-task review records), `scripts/` (rerunnable checks), `formal/` (Lean, TLA+), `runs/` (native-run jobs and results) |
+| `tools/` | Generators for the tables, findings, guide and site; the E2B runner; the pre-commit publish check |
+| `tasks/` | The original public task definitions, unchanged |
+| `sforge/`, `tests/` | The EdgeBench harness and its grading tests |
 
-## What this repository contains
+## Provenance and licenses
 
-Original-format task definitions, the harness, reviewed source, selected evidence and repair/reproduction packages. The [evidence index](docs/EVIDENCE-INDEX.md) identifies supporting records. Private task bodies, large images and the live cloud coordinator are not all included; a clean clone cannot yet reproduce every result. [Contributing](CONTRIBUTING.md) explains how to make a focused change.
-
-`TASKS.md` owns current task decisions. Selected evidence and the partial `audit/task-registry.json` retain their historical dates and counts. Earlier narrative checkpoints remain in Git history; they are not additional current instructions.
-
-The harness derives from ByteDance Seed EdgeBench at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its Apache-2.0 license remains in `LICENSE`. Public task definitions derive from the Hugging Face release at `6cc5a7f1b3288ce52484ad828177b8cc86b05b75`, with a separate license in `tasks/LICENSE`. These notices do not establish redistribution rights for every dataset or dependency inside task images.
+The harness derives from ByteDance Seed EdgeBench at `6e4e5f4aa087a9121aa09a6059e5484e5102c6ff`; its
+Apache-2.0 license is in `LICENSE`. Public task definitions derive from the Hugging Face release at
+`6cc5a7f1b3288ce52484ad828177b8cc86b05b75`, with a separate license in `tasks/LICENSE`. Task images are
+referenced by their public Docker Hub digests and are not redistributed: repair packages contain only
+our patches, and each package's `materialize.sh` regenerates the changed files from the pinned image.

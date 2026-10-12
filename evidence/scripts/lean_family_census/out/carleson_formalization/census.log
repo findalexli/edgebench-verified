@@ -1,0 +1,77 @@
+== layout
+/home/workspace:
+total 12
+drwxr-xr-x 1 root root 4096 Jun  8 07:31 .
+drwxr-xr-x 1 root root 4096 Jun  6 11:42 ..
+drwxr-xr-x 1 root root 4096 Jun  8 07:31 judge
+
+/home/workspace/judge/se-bmk-intern:
+total 40
+drwxr-xr-x 1 root root  4096 Jun 25 09:54 .
+drwxr-xr-x 1 root root  4096 Jun  8 07:31 ..
+drwxr-xr-x 1 root root  4096 Jun  8 07:42 carleson
+-rw-r--r-- 1 root root 27959 Jun  8 07:31 eval_lean.py
+
+/home/workspace/judge/se-bmk-intern/carleson:
+total 128
+drwxr-xr-x 1 root root  4096 Jun  8 07:42 .
+drwxr-xr-x 1 root root  4096 Jun 25 09:54 ..
+drwxr-xr-x 2 root root  4096 Jun  8 07:31 .devcontainer
+drwxr-xr-x 3 root root  4096 Jun  8 07:31 .docker
+-rw-r--r-- 1 root root   508 Jun  8 07:31 .gitignore
+-rw-r--r-- 1 root root   157 Jun  8 07:31 .gitpod.yml
+drwxr-xr-x 1 root root  4096 Jun  8 07:53 .lake
+drwxr-xr-x 2 root root  4096 Jun  8 07:31 .vscode
+-rw-r--r-- 1 root root  5266 Jun  8 07:31 CODE_OF_CONDUCT.md
+-rw-r--r-- 1 root root  5972 Jun  8 07:31 CONTRIBUTING.md
+drwxr-xr-x 9 root root  4096 Jun  8 07:31 Carleson
+-rw-r--r-- 1 root root  6268 Jun  8 07:31 Carleson.lean
+-rw-r--r-- 1 root root 11357 Jun  8 07:31 LICENSE
+-rw-r--r-- 1 root root 10032 Jul  2 11:18 ListDeclAxiom.lean
+-rw-r--r-- 1 root root  6536 Jun  8 07:31 README.md
+drwxr-xr-x 3 root root  4096 Jun  8 07:31 blueprint
+drwxr-xr-x 6 root root  4096 Jun  8 07:31 docs
+-rw-r--r-- 1 root root  3539 Jul  1 17:56 lake-manifest.json
+-rw-r--r-- 1 root root   751 Jun  8 07:31 lakefile.toml
+-rw-r--r-- 1 root root    28 Jun  8 07:31 lean-toolchain
+drwxr-xr-x 2 root root  4096 Jun  8 07:31 paper
+-rw-r--r-- 1 root root   848 Jun  8 07:31 review_checklist.md
+drwxr-xr-x 2 root root  4096 Jun  8 07:31 scripts
+-rw-r--r-- 1 root root   585 Jun  8 07:31 tasks.py
+ls: cannot access '/home/workspace/baseline': No such file or directory
+ls: cannot access '/home/workspace/se-bmk-intern': No such file or directory
+== toolchain
+leanprover/lean4:v4.30.0-rc2Lean (version 4.30.0-rc2, x86_64-unknown-linux-gnu, commit 3dc1a088b6d2d8eafe25a7cd7ec7b58d731bd7cc, Release)
+== hashes
+3319767e470e165395bf9538db1d7d1fabf01c94eb1f0b43ceca0281d35acc29  /home/workspace/judge/se-bmk-intern/eval_lean.py
+7ad881a051e783a2e0eb91330676e8f5a8e84e21327ed70b17326485847c69fa  /home/workspace/judge/se-bmk-intern/carleson/ListDeclAxiom.lean
+14de3f3d30432695bc0dedf53b4cf08883d43df686083db32fc0e52f6ccf1440  /home/workspace/judge/se-bmk-intern/carleson/lakefile.toml
+84b28de41d79c57367aa1bb9a08b0decd1f3ec9da96750740ace92f3fb233cae  /home/workspace/judge/se-bmk-intern/carleson/lake-manifest.json
+7ad881a051e783a2e0eb91330676e8f5a8e84e21327ed70b17326485847c69fa  /home/workspace/judge/se-bmk-intern/carleson/ListDeclAxiom.lean
+== HASH lines in helper
+5:/- THIS IS NEW VERSION OF LISTDECLAXIOM THAT CALCULATE HASH OF DECLARATION.-/
+50:def isModuleUnderPrefix (modulePrefix : String) (moduleName : Name) : Bool :=
+52:  moduleNameString == modulePrefix || moduleNameString.startsWith (modulePrefix ++ ".")
+103:def analysisDecls (modulePrefix : String) : MetaM (Array Name) := do
+108:    if isModuleUnderPrefix modulePrefix moduleName then
+114:def projectDeclSet (modulePrefix : String) : MetaM (Std.HashSet Name) := do
+115:  let decls ← analysisDecls modulePrefix
+227:def targetSpecClosureHash (modulePrefix : String) (target : Name) : MetaM UInt64 := do
+228:  let projectDecls ← projectDeclSet modulePrefix
+230:    throwError "no declarations found for module prefix {modulePrefix}"
+232:    throwError "target {target} is not a declaration from modules matching prefix {modulePrefix}"
+241:def dumpDeclNames (modulePrefix : String) : MetaM Unit := do
+242:  for name in ← analysisDecls modulePrefix do
+245:def dumpDeclAxioms (modulePrefix : String) (onlyBad : Bool := true) : MetaM Unit := do
+249:  for name in ← analysisDecls modulePrefix do
+274:def targetSpecClosureHashpp (modulePrefix : String) (target : Name) : MetaM Unit := do
+275:  let got ← (targetSpecClosureHash modulePrefix target).run'
+277:  IO.println s!"HASH checked={target} result={result}"
+== baseline listing 07:21:49
+listing rc=0
+== lines: BAD=3004 OK=1134 HASH=1
+info: ListDeclAxiom.lean:279:0: HASH checked=classical_carleson_check result=true
+== control eval (unmodified baseline as current) 07:22:13
+eval rc=0
+control score 0.0 mode=unweighted, repaired=0/3004, remaining_bad=3004
+== done 07:22:16

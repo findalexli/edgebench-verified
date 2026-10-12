@@ -1,0 +1,19 @@
+0c57271bd1b05d3cfbb44558fcf2e2770bb020858aa4411eaaa725a89409c982  $SCRATCH/tar/opt/p1_judge/prob/P1/T2_P7881/data/interactive_lib.cpp
+0b30e7e58eaeb3476085c2a510521eca8bc9481655d9a8e4602100ededf49844  $SCRATCH/tar/opt/p1_judge/prob/P1/T2_P7881/data/lib.h
+patched sha256 26c4edc615b1d5c3426fd592a857090210cbbc4179d6582ee160ce128e3ee2ea
+=== orig library
+input mk(1)                  (1,1,1,1238)
+copy  y*=copy                (2,0,3,3714)
+alias x*=x                   (2,0,3,6190)
+spec(mk1,mk1)                (2,0,3,3714)
+random distinct-object products disagreeing with spec: 0/1000000
+random self-products (x*=x) disagreeing with spec:    999566/1000000
+scalar v in [0,1000]: self-product wrong for 1000/1001 values
+=== patched library
+input mk(1)                  (1,1,1,1238)
+copy  y*=copy                (2,0,3,3714)
+alias x*=x                   (2,0,3,3714)
+spec(mk1,mk1)                (2,0,3,3714)
+random distinct-object products disagreeing with spec: 0/1000000
+random self-products (x*=x) disagreeing with spec:    0/1000000
+scalar v in [0,1000]: self-product wrong for 0/1001 values

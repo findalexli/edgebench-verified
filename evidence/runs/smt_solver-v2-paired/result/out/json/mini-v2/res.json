@@ -1,0 +1,297 @@
+{
+  "final_score": 0.3230769230769231,
+  "score_percent": 32.30769230769231,
+  "logic_summary": {
+    "QF_UF": {
+      "score": 0.46153846153846156,
+      "credit": 6.0,
+      "total": 13,
+      "correct": 6,
+      "wrong": 2,
+      "timeout": 0,
+      "unknown": 0,
+      "error": 0,
+      "invalid_model": 5,
+      "status_only_unsat": 0,
+      "no_reference": 0
+    },
+    "QF_LRA": {
+      "score": 0.0,
+      "total": 0,
+      "correct": 0,
+      "wrong": 0,
+      "timeout": 0,
+      "unknown": 0,
+      "error": 0,
+      "invalid_model": 0,
+      "status_only_unsat": 0,
+      "no_reference": 0,
+      "credit": 0.0
+    },
+    "QF_LIA": {
+      "score": 0.0,
+      "total": 0,
+      "correct": 0,
+      "wrong": 0,
+      "timeout": 0,
+      "unknown": 0,
+      "error": 0,
+      "invalid_model": 0,
+      "status_only_unsat": 0,
+      "no_reference": 0,
+      "credit": 0.0
+    },
+    "QF_UFLRA": {
+      "score": 0.0,
+      "total": 0,
+      "correct": 0,
+      "wrong": 0,
+      "timeout": 0,
+      "unknown": 0,
+      "error": 0,
+      "invalid_model": 0,
+      "status_only_unsat": 0,
+      "no_reference": 0,
+      "credit": 0.0
+    }
+  },
+  "difficulty_summary": {
+    "easy": {
+      "score": 0.0,
+      "credit": 0,
+      "total": 0,
+      "correct": 0,
+      "wrong": 0,
+      "timeout": 0,
+      "unknown": 0,
+      "error": 0,
+      "invalid_model": 0,
+      "status_only_unsat": 0,
+      "no_reference": 0
+    },
+    "medium": {
+      "score": 0.0,
+      "credit": 0,
+      "total": 0,
+      "correct": 0,
+      "wrong": 0,
+      "timeout": 0,
+      "unknown": 0,
+      "error": 0,
+      "invalid_model": 0,
+      "status_only_unsat": 0,
+      "no_reference": 0
+    },
+    "hard": {
+      "score": 0.46153846153846156,
+      "credit": 6.0,
+      "total": 13,
+      "correct": 6,
+      "wrong": 2,
+      "timeout": 0,
+      "unknown": 0,
+      "error": 0,
+      "invalid_model": 5,
+      "status_only_unsat": 0,
+      "no_reference": 0
+    }
+  },
+  "weights": {
+    "easy": 0.1,
+    "medium": 0.2,
+    "hard": 0.7
+  },
+  "timeout": 60,
+  "parallel": 2,
+  "perturb": true,
+  "require_sat_model": true,
+  "unsat_status_only_credit": 0.2,
+  "expected_status_summary": {
+    "sat": {
+      "total": 11,
+      "correct": 6,
+      "wrong": 0,
+      "invalid_model": 5
+    },
+    "unsat": {
+      "total": 2,
+      "status_only": 0,
+      "wrong": 2
+    }
+  },
+  "predicted_status_summary": {
+    "sat": 13,
+    "unsat": 0,
+    "unknown": 0,
+    "timeout": 0,
+    "error": 0
+  },
+  "anti_guess_flags": {
+    "mostly_unsat": false,
+    "mostly_unknown": false,
+    "status_only_heavy": false
+  },
+  "solver": "/tmp/sub/solve",
+  "benchmarks": "/tmp/hb",
+  "difficulties": null,
+  "results": {
+    "QF_UF": [
+      {
+        "benchmark": "QF_UF/alias_conflict.smt2",
+        "path": "/tmp/hb/QF_UF/alias_conflict.smt2",
+        "answer": "sat",
+        "model_valid": false,
+        "model_error": "congruence violation for f",
+        "time": 0.022,
+        "expected": "unsat",
+        "credit": 0.0,
+        "verdict": "wrong",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/alias_conflict_let.smt2",
+        "path": "/tmp/hb/QF_UF/alias_conflict_let.smt2",
+        "answer": "sat",
+        "model_valid": false,
+        "model_error": "congruence violation for f",
+        "time": 0.022,
+        "expected": "unsat",
+        "credit": 0.0,
+        "verdict": "wrong",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/define_conflict.smt2",
+        "path": "/tmp/hb/QF_UF/define_conflict.smt2",
+        "answer": "sat",
+        "model_valid": true,
+        "model_error": null,
+        "time": 0.02,
+        "expected": "sat",
+        "credit": 1.0,
+        "verdict": "correct",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/define_conflict_wrong.smt2",
+        "path": "/tmp/hb/QF_UF/define_conflict_wrong.smt2",
+        "answer": "sat",
+        "model_valid": false,
+        "model_error": "assertion is false: (= (g a) a)",
+        "time": 0.02,
+        "expected": "sat",
+        "credit": 0.0,
+        "verdict": "invalid_model",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/ground_control.smt2",
+        "path": "/tmp/hb/QF_UF/ground_control.smt2",
+        "answer": "sat",
+        "model_valid": true,
+        "model_error": null,
+        "time": 0.021,
+        "expected": "sat",
+        "credit": 1.0,
+        "verdict": "correct",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/ground_control_wrong.smt2",
+        "path": "/tmp/hb/QF_UF/ground_control_wrong.smt2",
+        "answer": "sat",
+        "model_valid": false,
+        "model_error": "assertion is false: (= (f b) b)",
+        "time": 0.02,
+        "expected": "sat",
+        "credit": 0.0,
+        "verdict": "invalid_model",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/scope_conflict.smt2",
+        "path": "/tmp/hb/QF_UF/scope_conflict.smt2",
+        "answer": "sat",
+        "model_valid": true,
+        "model_error": null,
+        "time": 0.02,
+        "expected": "sat",
+        "credit": 1.0,
+        "verdict": "correct",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/scope_conflict_textkeys.smt2",
+        "path": "/tmp/hb/QF_UF/scope_conflict_textkeys.smt2",
+        "answer": "sat",
+        "model_valid": true,
+        "model_error": null,
+        "time": 0.021,
+        "expected": "sat",
+        "credit": 1.0,
+        "verdict": "correct",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/scope_conflict_wrong.smt2",
+        "path": "/tmp/hb/QF_UF/scope_conflict_wrong.smt2",
+        "answer": "sat",
+        "model_valid": false,
+        "model_error": "assertion is false: (let ((x b)) (= (f x) b))",
+        "time": 0.022,
+        "expected": "sat",
+        "credit": 0.0,
+        "verdict": "invalid_model",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/single_let.smt2",
+        "path": "/tmp/hb/QF_UF/single_let.smt2",
+        "answer": "sat",
+        "model_valid": true,
+        "model_error": null,
+        "time": 0.021,
+        "expected": "sat",
+        "credit": 1.0,
+        "verdict": "correct",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/single_let_textkey.smt2",
+        "path": "/tmp/hb/QF_UF/single_let_textkey.smt2",
+        "answer": "sat",
+        "model_valid": true,
+        "model_error": null,
+        "time": 0.023,
+        "expected": "sat",
+        "credit": 1.0,
+        "verdict": "correct",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/single_let_wrong.smt2",
+        "path": "/tmp/hb/QF_UF/single_let_wrong.smt2",
+        "answer": "sat",
+        "model_valid": false,
+        "model_error": "assertion is false: (let ((x a)) (= (f x) b))",
+        "time": 0.021,
+        "expected": "sat",
+        "credit": 0.0,
+        "verdict": "invalid_model",
+        "difficulty": "hard"
+      },
+      {
+        "benchmark": "QF_UF/unused_conflict.smt2",
+        "path": "/tmp/hb/QF_UF/unused_conflict.smt2",
+        "answer": "sat",
+        "model_valid": false,
+        "model_error": "congruence violation for f",
+        "time": 0.022,
+        "expected": "sat",
+        "credit": 0.0,
+        "verdict": "invalid_model",
+        "difficulty": "hard"
+      }
+    ]
+  }
+}

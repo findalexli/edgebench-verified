@@ -1,0 +1,34 @@
+childOf start 0 = [0, 1, 0, 2, 0]
+childOf start 1 = [0, 1, 0, 2, 0, 0, 2, 0]
+childOf start 2 = [0, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0]
+childOf start 3 = [0, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0]
+task1 [0, 1] children N=0..2: [[0], [0, 0], [0, 0, 0]]
+task2 [0, 1, 0, 0, 3] children N=0..2: [[0, 1, 0, 0], [0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0]]
+task3 [0, 1, 0, 0, 3, 3] children N=0..2: [[0, 1, 0, 0, 3], [0, 1, 0, 0, 3, 0, 0, 6], [0, 1, 0, 0, 3, 0, 0, 6, 0, 0, 9]]
+task4 [0, 1, 0, 0, 4] children N=0..2: [[0, 1, 0, 0], [0, 1, 0, 0, 3], [0, 1, 0, 0, 3, 3]]
+task5 [0, 1, 0, 1] children N=0..2: [[0, 1, 0], [0, 1, 0, 0, 4, 0], [0, 1, 0, 0, 4, 0, 0, 7, 0]]
+task6 [0, 1, 0, 2] children N=0..2: [[0, 1, 0], [0, 1, 0, 1, 0], [0, 1, 0, 1, 0, 1, 0]]
+task7 [0, 1, 0, 2, 0, 0, 2] children N=0..2: [[0, 1, 0, 2, 0, 0], [0, 1, 0, 2, 0, 0, 1, 0, 7, 0, 0], [0, 1, 0, 2, 0, 0, 1, 0, 7, 0, 0, 1, 0, 12, 0, 0]]
+task8 [0, 1, 0, 2, 0, 0, 2, 0, 0, 2] children N=0..2: [[0, 1, 0, 2, 0, 0, 2, 0, 0], [0, 1, 0, 2, 0, 0, 2, 0, 0, 1, 0, 10, 0, 0, 10, 0, 0], [0, 1, 0, 2, 0, 0, 2, 0, 0, 1, 0, 10, 0, 0, 10, 0, 0, 1, 0, 18, 0, 0, 18, 0, 0]]
+task9 [0, 1, 0, 2, 0, 3] children N=0..2: [[0, 1, 0, 2, 0], [0, 1, 0, 2, 0, 0, 2, 0], [0, 1, 0, 2, 0, 0, 2, 0, 0, 2, 0]]
+
+task1 cycle search (N<=2, len<=24, 200k nodes): ('exhausted', 58)
+task2 cycle search (N<=2, len<=24, 200k nodes): ('exhausted', 47911)
+task3 cycle search (N<=2, len<=24, 200k nodes): ('budget', 200001)
+task4 cycle search (N<=2, len<=24, 200k nodes): ('budget', 200001)
+task5 cycle search (N<=2, len<=24, 200k nodes): ('budget', 200001)
+task6 cycle search (N<=2, len<=24, 200k nodes): ('budget', 200001)
+task7 cycle search (N<=2, len<=24, 200k nodes): ('budget', 200001)
+task8 cycle search (N<=2, len<=24, 200k nodes): ('budget', 200001)
+task9 cycle search (N<=2, len<=24, 200k nodes): ('budget', 200001)
+
+reachable-from-start set size 18560
+task1 reached from start (N<=3, len<=30): True
+task2 reached from start (N<=3, len<=30): True
+task3 reached from start (N<=3, len<=30): True
+task4 reached from start (N<=3, len<=30): True
+task5 reached from start (N<=3, len<=30): True
+task6 reached from start (N<=3, len<=30): True
+task7 reached from start (N<=3, len<=30): True
+task8 reached from start (N<=3, len<=30): True
+task9 reached from start (N<=3, len<=30): True

@@ -1,0 +1,66 @@
+== layout
+/home/workspace:
+total 12
+drwxr-xr-x 1 root root 4096 Jun  8 09:08 .
+drwxr-xr-x 1 root root 4096 Jun  6 11:42 ..
+drwxr-xr-x 1 root root 4096 Jun  8 09:08 judge
+
+/home/workspace/judge/se-bmk-intern:
+total 40
+drwxr-xr-x 1 root root  4096 Jun 25 09:51 .
+drwxr-xr-x 1 root root  4096 Jun  8 09:08 ..
+drwxr-xr-x 1 root root  4096 Jun  8 09:14 con-nf
+-rw-r--r-- 1 root root 27959 Jun  8 09:08 eval_lean.py
+
+/home/workspace/judge/se-bmk-intern/con-nf:
+total 112
+drwxr-xr-x  1 root root 4096 Jun  8 09:14 .
+drwxr-xr-x  1 root root 4096 Jun 25 09:51 ..
+-rw-r--r--  1 root root   40 Jun  8 09:08 .gitignore
+drwxr-xr-x  1 root root 4096 Jun  8 09:25 .lake
+drwxr-xr-x  2 root root 4096 Jun  8 09:08 .vscode
+drwxr-xr-x 13 root root 4096 Jun  8 09:08 ConNF
+-rw-r--r--  1 root root 1940 Jun  8 09:08 ConNF.lean
+-rw-r--r--  1 root root 5085 Jun  8 09:08 DependencyGraph.lean
+-rw-r--r--  1 root root 9723 Jun  8 09:08 LICENSE_APACHE
+-rw-r--r--  1 root root 1023 Jun  8 09:08 LICENSE_MIT
+-rw-r--r--  1 root root 4564 Jul  2 11:18 ListDeclAxiom.lean
+-rw-r--r--  1 root root 7712 Jun  8 09:08 README.md
+drwxr-xr-x  3 root root 4096 Jun  8 09:08 blueprint
+drwxr-xr-x  6 root root 4096 Jun  8 09:08 docs
+drwxr-xr-x  5 root root 4096 Jun  8 09:08 fonts
+-rw-r--r--  1 root root 4414 Jul  1 17:56 lake-manifest.json
+-rw-r--r--  1 root root  446 Jun  8 09:08 lakefile.toml
+drwxr-xr-x  2 root root 4096 Jun  8 09:08 latex
+-rw-r--r--  1 root root   28 Jun  8 09:08 lean-toolchain
+-rw-r--r--  1 root root 1347 Jun  8 09:08 tasks.py
+-rw-r--r--  1 root root  180 Jun  8 09:08 update_mathlib.bat
+-rwxr-xr-x  1 root root  178 Jun  8 09:08 update_mathlib.sh
+ls: cannot access '/home/workspace/baseline': No such file or directory
+ls: cannot access '/home/workspace/se-bmk-intern': No such file or directory
+== toolchain
+leanprover/lean4:v4.21.0-rc3Lean (version 4.21.0-rc3, x86_64-unknown-linux-gnu, commit 6741444a63ee, Release)
+== hashes
+3319767e470e165395bf9538db1d7d1fabf01c94eb1f0b43ceca0281d35acc29  /home/workspace/judge/se-bmk-intern/eval_lean.py
+b585194f5b784c9a6cc389c7bd429445fef73427e3e9b4681fb3eb9737bd9dc2  /home/workspace/judge/se-bmk-intern/con-nf/ListDeclAxiom.lean
+88c4d9bd7d0b1f2506717dab51196bdab73f55e1f7561e17f6615653b7990acc  /home/workspace/judge/se-bmk-intern/con-nf/lakefile.toml
+3e0906e1b9b3b1a811fa637f5b69ad8b127992b60a11b48f88ab78cc0f361acd  /home/workspace/judge/se-bmk-intern/con-nf/lake-manifest.json
+b585194f5b784c9a6cc389c7bd429445fef73427e3e9b4681fb3eb9737bd9dc2  /home/workspace/judge/se-bmk-intern/con-nf/ListDeclAxiom.lean
+== HASH lines in helper
+91:def analysisDecls (modulePrefix : String) : MetaM (Array Name) := do
+96:    if moduleName.toString.startsWith modulePrefix then
+102:def dumpDeclNames (modulePrefix : String) : MetaM Unit := do
+103:  for name in ← analysisDecls modulePrefix do
+106:def dumpDeclAxioms (modulePrefix : String) (onlyBad : Bool := true) : MetaM Unit := do
+110:  for name in ← analysisDecls modulePrefix do
+== baseline listing 07:15:42
+listing rc=1
+info: doc-gen4: URL has changed; deleting '/home/workspace/judge/se-bmk-intern/con-nf/.lake/packages/doc-gen4' and cloning again
+info: doc-gen4: cloning https://github.com/leanprover/doc-gen4
+error: external command 'git' exited with code 128
+== lines: BAD=0 OK=0 HASH=0
+== control eval (unmodified baseline as current) 07:15:42
+eval rc=1
+control score 0.0 eval_lean error: Failed to run ListDeclAxiom.lean in /home/workspace/judge/se-bmk-intern/con-nf: info: doc-gen4: cloning https://github.com/leanprover/doc-gen4
+error: external command 'git' exited with code 128
+== done 07:15:42

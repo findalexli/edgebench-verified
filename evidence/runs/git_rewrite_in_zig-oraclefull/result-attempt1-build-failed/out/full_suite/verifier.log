@@ -1,0 +1,50 @@
+========================================
+  Harbor Git-to-Zig Port Verifier
+========================================
+Start time: Mon Oct 12 04:21:11 Etc 2026
+
+=== Step 1: Anti-cheat ===
+Oracle solution detected — skipping anti-cheat.
+
+=== Step 2: Clean build ===
+Oracle solution — skipping clean build.
+Agent binary: none
+
+=== Step 2.5: Strace smoke test ===
+Oracle — skipping strace check.
+
+=== Step 2.6: Nuke system git ===
+Oracle — skipping nuke.
+
+=== Step 3: Build test helpers ===
+No binary to test — skipping test helper build.
+
+=== Step 4: Run git test suite ===
+Skipping test suite (no working binary or test helpers failed).
+
+=== Step 5: Write evidence ===
+{
+  "timestamp": 1791778871,
+  "is_oracle": true,
+  "anti_cheat": {
+    "result": "oracle_bypass",
+    "violations": "",
+    "c_loc": 0,
+    "strace_cheat": false,
+    "strace_details": ""
+  },
+  "build": {
+    "exit_code": 1,
+    "binary_path": "",
+    "binary_type": "",
+    "links_libgit2": false
+  },
+  "tests_ran": false,
+  "results_dir": "/logs/verifier/test-results"
+}
+
+=== Step 6: Compute reward ===
+Reward: 0.0
+
+End time: Mon Oct 12 04:21:11 Etc 2026
+========================================

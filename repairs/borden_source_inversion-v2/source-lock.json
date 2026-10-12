@@ -1,0 +1,75 @@
+{
+ "task_id": "borden_source_inversion",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/borden_source_inversion.json",
+  "sha256": "9218658263fb2217768ff8c75d06410e9811e5022aa387f88e3c62c3e1457195"
+ },
+ "original_work_image": "seededge/edgebench.work.borden_source_inversion@sha256:e1ec4b80816e46760c226c902817751e9a905395828b777ce20c563d1843826a",
+ "original_work_image_tag": "f389fcf94240",
+ "v2_work_image_tag": "f389fcf94240-ebv-v2",
+ "judge_image_unchanged": "seededge/edgebench.judge.borden_source_inversion@sha256:b1a08348b8257d8bbe8a559d76ca5333afa60ac02a82656724d7406913d16dd8",
+ "judge_image_tag": "cc54d4fd7006",
+ "changed_files": [
+  {
+   "image": "work",
+   "image_path": "/home/workspace/borden_inverse/README.md",
+   "original_sha256": "d19d0c1b5a741c970af859b8412c661903a80b214855bdbb45458bb0b7831982",
+   "replacement": "files/README.md",
+   "replacement_sha256": "70c905d70122ce17584bee336f305c7538ac3e73cceb24a833fafa6cebdcef06"
+  },
+  {
+   "image": "work",
+   "image_path": "/home/workspace/borden_inverse/forward_model.py",
+   "original_sha256": null,
+   "note": "new file; function bodies identical to judge /opt/borden_scoring/hidden_forward_model.py",
+   "judge_model_sha256": "769ac556b86d283044f5b06edb41a25453410c6a2bde19d88632bc47f243dfd3",
+   "replacement": "files/forward_model.py",
+   "replacement_sha256": "2b3efafb91cf1103f7e2246b0b6a4816e3c94a96727a93c29c87c27bdfa62187"
+  }
+ ],
+ "task_json_changes": [
+  "work.image_tag",
+  "work.agent_query (same README section inserted)",
+  "judge.rescale = linear 0..109 (added)"
+ ],
+ "task_json_in_sha256": "0a48dc9f619bba9fd3827e58442eeedfcc832a54dbf9c95b07262a6d54445de0",
+ "repair_patch_sha256": "493467015bf8a0cba3a6f911b61ac094f4ead3ebbb513ea4bbdbcd502935874a",
+ "dockerfile_sha256": "37d6da804a932f8bb616fb569a6a2b90b8318f9b6e69300bc0b46103af1185a8",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.borden_source_inversion@sha256:b1a08348b8257d8bbe8a559d76ca5333afa60ac02a82656724d7406913d16dd8",
+   "work": "seededge/edgebench.work.borden_source_inversion@sha256:e1ec4b80816e46760c226c902817751e9a905395828b777ce20c563d1843826a"
+  },
+  "inputs": [
+   {
+    "source": "work",
+    "path": "/home/workspace/borden_inverse/README.md",
+    "sha256": "d19d0c1b5a741c970af859b8412c661903a80b214855bdbb45458bb0b7831982"
+   },
+   {
+    "source": "judge",
+    "path": "/opt/borden_scoring/hidden_forward_model.py",
+    "sha256": "769ac556b86d283044f5b06edb41a25453410c6a2bde19d88632bc47f243dfd3"
+   },
+   {
+    "source": "taskjson",
+    "path": "tasks/borden_source_inversion.json",
+    "sha256": "9218658263fb2217768ff8c75d06410e9811e5022aa387f88e3c62c3e1457195"
+   }
+  ],
+  "outputs": {
+   "files/README.md": "70c905d70122ce17584bee336f305c7538ac3e73cceb24a833fafa6cebdcef06",
+   "files/forward_model.py": "2b3efafb91cf1103f7e2246b0b6a4816e3c94a96727a93c29c87c27bdfa62187",
+   "orig/README.md": "d19d0c1b5a741c970af859b8412c661903a80b214855bdbb45458bb0b7831982",
+   "orig/borden_source_inversion.json": "9218658263fb2217768ff8c75d06410e9811e5022aa387f88e3c62c3e1457195",
+   "orig/hidden_forward_model.py": "769ac556b86d283044f5b06edb41a25453410c6a2bde19d88632bc47f243dfd3"
+  },
+  "repair_patch_sha256": "493467015bf8a0cba3a6f911b61ac094f4ead3ebbb513ea4bbdbcd502935874a",
+  "materialize_sh_sha256": "f19ab7f9d1a4efbec9f4856d28fb82445b4e69b5302779fe2bec973cef3c5df9",
+  "task_json_diff_sha256": "5d8319372a31f4db670ffbf27d6145f34283613d60cd86f765530c2dd26fbdd9",
+  "note": "files/forward_model.py is new in the work image; its base is the judge's /opt/borden_scoring/hidden_forward_model.py and repair.patch changes only the header."
+ }
+}

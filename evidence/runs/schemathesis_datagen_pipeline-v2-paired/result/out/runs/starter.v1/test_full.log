@@ -1,0 +1,718 @@
+=== Phase 1: Structured Header Generation Strategies ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.14.3, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 15 items
+
+../tests/test_01_header_strategies.py::test_headers_available FAILED     [  6%]
+../tests/test_01_header_strategies.py::test_if_match_values_grammar FAILED [ 13%]
+../tests/test_01_header_strategies.py::test_http_date_values_grammar FAILED [ 20%]
+../tests/test_01_header_strategies.py::test_range_values_grammar FAILED  [ 26%]
+../tests/test_01_header_strategies.py::test_range_slightly_invalid_values_all_patterns FAILED [ 33%]
+../tests/test_01_header_strategies.py::test_known_header_formats_lookup[If-Match-_if_match_header] FAILED [ 40%]
+../tests/test_01_header_strategies.py::test_known_header_formats_lookup[IF-MATCH-_if_match_header] FAILED [ 46%]
+../tests/test_01_header_strategies.py::test_known_header_formats_lookup[if-match-_if_match_header] FAILED [ 53%]
+../tests/test_01_header_strategies.py::test_known_header_formats_lookup[If-None-Match-_if_match_header] FAILED [ 60%]
+../tests/test_01_header_strategies.py::test_known_header_formats_lookup[If-Modified-Since-_http_date_header] FAILED [ 66%]
+../tests/test_01_header_strategies.py::test_known_header_formats_lookup[If-Unmodified-Since-_http_date_header] FAILED [ 73%]
+../tests/test_01_header_strategies.py::test_known_header_formats_lookup[Range-_range_header] FAILED [ 80%]
+../tests/test_01_header_strategies.py::test_known_header_formats_lookup[range-_range_header] FAILED [ 86%]
+../tests/test_01_header_strategies.py::test_positive_mode_range_always_valid FAILED [ 93%]
+../tests/test_01_header_strategies.py::test_negative_mode_range_has_three_tiers FAILED [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_headers_available ____________________________
+/tests/test_01_header_strategies.py:29: in test_headers_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+_________________________ test_if_match_values_grammar _________________________
+/tests/test_01_header_strategies.py:41: in test_if_match_values_grammar
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+________________________ test_http_date_values_grammar _________________________
+/tests/test_01_header_strategies.py:59: in test_http_date_values_grammar
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+__________________________ test_range_values_grammar ___________________________
+/tests/test_01_header_strategies.py:77: in test_range_values_grammar
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+_______________ test_range_slightly_invalid_values_all_patterns ________________
+/tests/test_01_header_strategies.py:95: in test_range_slightly_invalid_values_all_patterns
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+_________ test_known_header_formats_lookup[If-Match-_if_match_header] __________
+/tests/test_01_header_strategies.py:131: in test_known_header_formats_lookup
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+_________ test_known_header_formats_lookup[IF-MATCH-_if_match_header] __________
+/tests/test_01_header_strategies.py:131: in test_known_header_formats_lookup
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+_________ test_known_header_formats_lookup[if-match-_if_match_header] __________
+/tests/test_01_header_strategies.py:131: in test_known_header_formats_lookup
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+_______ test_known_header_formats_lookup[If-None-Match-_if_match_header] _______
+/tests/test_01_header_strategies.py:131: in test_known_header_formats_lookup
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+____ test_known_header_formats_lookup[If-Modified-Since-_http_date_header] _____
+/tests/test_01_header_strategies.py:131: in test_known_header_formats_lookup
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+___ test_known_header_formats_lookup[If-Unmodified-Since-_http_date_header] ____
+/tests/test_01_header_strategies.py:131: in test_known_header_formats_lookup
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+____________ test_known_header_formats_lookup[Range-_range_header] _____________
+/tests/test_01_header_strategies.py:131: in test_known_header_formats_lookup
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+____________ test_known_header_formats_lookup[range-_range_header] _____________
+/tests/test_01_header_strategies.py:131: in test_known_header_formats_lookup
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+____________________ test_positive_mode_range_always_valid _____________________
+/tests/test_01_header_strategies.py:138: in test_positive_mode_range_always_valid
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+___________________ test_negative_mode_range_has_three_tiers ___________________
+/tests/test_01_header_strategies.py:158: in test_negative_mode_range_has_three_tiers
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: No module named 'schemathesis.specs.openapi.headers'
+=========================== short test summary info ============================
+FAILED ../tests/test_01_header_strategies.py::test_headers_available - Failed...
+FAILED ../tests/test_01_header_strategies.py::test_if_match_values_grammar - ...
+FAILED ../tests/test_01_header_strategies.py::test_http_date_values_grammar
+FAILED ../tests/test_01_header_strategies.py::test_range_values_grammar - Fai...
+FAILED ../tests/test_01_header_strategies.py::test_range_slightly_invalid_values_all_patterns
+FAILED ../tests/test_01_header_strategies.py::test_known_header_formats_lookup[If-Match-_if_match_header]
+FAILED ../tests/test_01_header_strategies.py::test_known_header_formats_lookup[IF-MATCH-_if_match_header]
+FAILED ../tests/test_01_header_strategies.py::test_known_header_formats_lookup[if-match-_if_match_header]
+FAILED ../tests/test_01_header_strategies.py::test_known_header_formats_lookup[If-None-Match-_if_match_header]
+FAILED ../tests/test_01_header_strategies.py::test_known_header_formats_lookup[If-Modified-Since-_http_date_header]
+FAILED ../tests/test_01_header_strategies.py::test_known_header_formats_lookup[If-Unmodified-Since-_http_date_header]
+FAILED ../tests/test_01_header_strategies.py::test_known_header_formats_lookup[Range-_range_header]
+FAILED ../tests/test_01_header_strategies.py::test_known_header_formats_lookup[range-_range_header]
+FAILED ../tests/test_01_header_strategies.py::test_positive_mode_range_always_valid
+FAILED ../tests/test_01_header_strategies.py::test_negative_mode_range_has_three_tiers
+============================== 15 failed in 0.48s ==============================
+FAILED
+Phase 1: 0/15 passed
+=== Phase 2: Coverage Phase Hook Support ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.14.3, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 5 items
+
+../tests/test_02_coverage_hooks.py::test_coverage_hooks_available PASSED [ 20%]
+../tests/test_02_coverage_hooks.py::test_filter_case_hook_applied_in_coverage_phase FAILED [ 40%]
+../tests/test_02_coverage_hooks.py::test_map_case_hook_applied_in_coverage_phase FAILED [ 60%]
+../tests/test_02_coverage_hooks.py::test_filter_case_hook_partial_filtering PASSED [ 80%]
+../tests/test_02_coverage_hooks.py::test_map_case_hook_transforms_all_cases FAILED [100%]
+
+=================================== FAILURES ===================================
+_______________ test_filter_case_hook_applied_in_coverage_phase ________________
+/tests/test_02_coverage_hooks.py:75: in test_filter_case_hook_applied_in_coverage_phase
+    assert filtered_cases == [], "filter_case hook should suppress all coverage cases"
+E   AssertionError: filter_case hook should suppress all coverage cases
+E   assert [Case(query={'key': '0'})] == []
+E     
+E     Left contains one more item: Case(query={'key': '0'})
+E     
+E     Full diff:
+E     - []
+E     + [
+E     +     Case(query={'key': '0'}),
+E     + ]
+_________________ test_map_case_hook_applied_in_coverage_phase _________________
+/tests/test_02_coverage_hooks.py:95: in test_map_case_hook_applied_in_coverage_phase
+    assert all(c.query is None or c.query.get("injected") == "yes" for c in cases), (
+E   AssertionError: map_case hook should have injected 'injected' into every query
+E   assert False
+E    +  where False = all(<generator object test_map_case_hook_applied_in_coverage_phase.<locals>.<genexpr> at 0x7f7824976340>)
+___________________ test_map_case_hook_transforms_all_cases ____________________
+/tests/test_02_coverage_hooks.py:138: in test_map_case_hook_transforms_all_cases
+    assert transformed_count[0] == len(cases), "map_case should be called once per case"
+E   AssertionError: map_case should be called once per case
+E   assert 0 == 1
+E    +  where 1 = len([Case(query={'key': '0'})])
+=========================== short test summary info ============================
+FAILED ../tests/test_02_coverage_hooks.py::test_filter_case_hook_applied_in_coverage_phase
+FAILED ../tests/test_02_coverage_hooks.py::test_map_case_hook_applied_in_coverage_phase
+FAILED ../tests/test_02_coverage_hooks.py::test_map_case_hook_transforms_all_cases
+========================= 3 failed, 2 passed in 0.45s ==========================
+FAILED
+Phase 2: 2/5 passed
+=== Phase 3: Multi-Schema Pytest Parametrize ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.14.3, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 7 items
+
+../tests/test_03_pytest_parametrize.py::test_pytest_parametrize_available FAILED [ 14%]
+../tests/test_03_pytest_parametrize.py::test_parametrize_is_callable FAILED [ 28%]
+../tests/test_03_pytest_parametrize.py::test_parametrize_returns_decorator FAILED [ 42%]
+../tests/test_03_pytest_parametrize.py::test_parametrize_decorates_sync_function FAILED [ 57%]
+../tests/test_03_pytest_parametrize.py::test_parametrize_decorates_async_function FAILED [ 71%]
+../tests/test_03_pytest_parametrize.py::test_parametrize_multiple_schemas FAILED [ 85%]
+../tests/test_03_pytest_parametrize.py::test_schema_parametrize_reuse FAILED [100%]
+
+=================================== FAILURES ===================================
+______________________ test_pytest_parametrize_available _______________________
+/tests/test_03_pytest_parametrize.py:20: in test_pytest_parametrize_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'parametrize' from 'schemathesis.pytest' (/app/src/schemathesis/pytest/__init__.py)
+_________________________ test_parametrize_is_callable _________________________
+/tests/test_03_pytest_parametrize.py:26: in test_parametrize_is_callable
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'parametrize' from 'schemathesis.pytest' (/app/src/schemathesis/pytest/__init__.py)
+______________________ test_parametrize_returns_decorator ______________________
+/tests/test_03_pytest_parametrize.py:33: in test_parametrize_returns_decorator
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'parametrize' from 'schemathesis.pytest' (/app/src/schemathesis/pytest/__init__.py)
+___________________ test_parametrize_decorates_sync_function ___________________
+/tests/test_03_pytest_parametrize.py:47: in test_parametrize_decorates_sync_function
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'parametrize' from 'schemathesis.pytest' (/app/src/schemathesis/pytest/__init__.py)
+__________________ test_parametrize_decorates_async_function ___________________
+/tests/test_03_pytest_parametrize.py:66: in test_parametrize_decorates_async_function
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'parametrize' from 'schemathesis.pytest' (/app/src/schemathesis/pytest/__init__.py)
+______________________ test_parametrize_multiple_schemas _______________________
+/tests/test_03_pytest_parametrize.py:85: in test_parametrize_multiple_schemas
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'parametrize' from 'schemathesis.pytest' (/app/src/schemathesis/pytest/__init__.py)
+________________________ test_schema_parametrize_reuse _________________________
+/tests/test_03_pytest_parametrize.py:113: in test_schema_parametrize_reuse
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name 'parametrize' from 'schemathesis.pytest' (/app/src/schemathesis/pytest/__init__.py)
+=========================== short test summary info ============================
+FAILED ../tests/test_03_pytest_parametrize.py::test_pytest_parametrize_available
+FAILED ../tests/test_03_pytest_parametrize.py::test_parametrize_is_callable
+FAILED ../tests/test_03_pytest_parametrize.py::test_parametrize_returns_decorator
+FAILED ../tests/test_03_pytest_parametrize.py::test_parametrize_decorates_sync_function
+FAILED ../tests/test_03_pytest_parametrize.py::test_parametrize_decorates_async_function
+FAILED ../tests/test_03_pytest_parametrize.py::test_parametrize_multiple_schemas
+FAILED ../tests/test_03_pytest_parametrize.py::test_schema_parametrize_reuse
+============================== 7 failed in 0.21s ===============================
+FAILED
+Phase 3: 0/9 passed
+=== Phase 4: Discriminator Response Validation ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.14.3, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 10 items
+
+../tests/test_04_discriminator_validation.py::test_discriminator_validation_available PASSED [ 10%]
+../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[implicit-valid-cat] PASSED [ 20%]
+../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[implicit-valid-dog] PASSED [ 30%]
+../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[implicit-invalid-fish] FAILED [ 40%]
+../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[explicit-valid-feline] PASSED [ 50%]
+../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[explicit-and-implicit-valid-cat] PASSED [ 60%]
+../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[explicit-invalid-fish] FAILED [ 70%]
+../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[missing-property-skip] PASSED [ 80%]
+../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[no-property-name-skip] PASSED [ 90%]
+../tests/test_04_discriminator_validation.py::test_discriminator_boolean_schema_handling FAILED [100%]
+
+=================================== FAILURES ===================================
+____ test_response_schema_conformance_discriminator[implicit-invalid-fish] _____
+/tests/test_04_discriminator_validation.py:155: in test_response_schema_conformance_discriminator
+    with pytest.raises((Failure, BaseException)) as exc_info:
+E   Failed: DID NOT RAISE any of (<class 'schemathesis.core.failures.Failure'>, <class 'BaseException'>)
+____ test_response_schema_conformance_discriminator[explicit-invalid-fish] _____
+/tests/test_04_discriminator_validation.py:155: in test_response_schema_conformance_discriminator
+    with pytest.raises((Failure, BaseException)) as exc_info:
+E   Failed: DID NOT RAISE any of (<class 'schemathesis.core.failures.Failure'>, <class 'BaseException'>)
+__________________ test_discriminator_boolean_schema_handling __________________
+/tests/test_04_discriminator_validation.py:214: in test_discriminator_boolean_schema_handling
+    with pytest.raises((Failure, BaseException)) as exc_info:
+E   Failed: DID NOT RAISE any of (<class 'schemathesis.core.failures.Failure'>, <class 'BaseException'>)
+=========================== short test summary info ============================
+FAILED ../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[implicit-invalid-fish]
+FAILED ../tests/test_04_discriminator_validation.py::test_response_schema_conformance_discriminator[explicit-invalid-fish]
+FAILED ../tests/test_04_discriminator_validation.py::test_discriminator_boolean_schema_handling
+========================= 3 failed, 7 passed in 0.34s ==========================
+FAILED
+Phase 4: 7/10 passed
+=== Phase 5: Discriminator-Aware Data Generation ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.14.3, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 8 items
+
+../tests/test_05_discriminator_generation.py::test_discriminator_generation_available PASSED [ 12%]
+../tests/test_05_discriminator_generation.py::test_discriminator_const_injection[implicit-mapping] FAILED [ 25%]
+../tests/test_05_discriminator_generation.py::test_discriminator_const_injection[explicit-mapping] FAILED [ 37%]
+../tests/test_05_discriminator_generation.py::test_discriminator_const_injection[no-property-name-skip] PASSED [ 50%]
+../tests/test_05_discriminator_generation.py::test_discriminator_const_injection[boolean-schema-skipped] FAILED [ 62%]
+../tests/test_05_discriminator_generation.py::test_discriminator_not_injected_for_response_schema PASSED [ 75%]
+../tests/test_05_discriminator_generation.py::test_discriminator_injection_with_no_refs PASSED [ 87%]
+../tests/test_05_discriminator_generation.py::test_discriminator_injection_preserves_other_schema_properties PASSED [100%]
+
+=================================== FAILURES ===================================
+_____________ test_discriminator_const_injection[implicit-mapping] _____________
+/tests/test_05_discriminator_generation.py:99: in test_discriminator_const_injection
+    assert to_json_schema(schema, nullable_keyword="nullable") == expected
+E   AssertionError: assert {'discriminat...chemas/Dog'}]} == {'discriminat...': {...}}}]}]}
+E     
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'oneOf': [{'$ref': '#/components/schemas/Cat'}, {'$ref': '#/components/schemas/Dog'}]} != {'oneOf': [{'allOf': [{'$ref': '#/components/schemas/Cat'}, {'properties': {'petType': {...}}}]}, {'allOf': [{'$ref': '#/components/schemas/Dog'}, {'properties': {'petType': {...}}}]}]}
+E     
+E     Full diff:
+E       {...
+E     
+E     ...Full output truncated (38 lines hidden), use '-vv' to show
+_____________ test_discriminator_const_injection[explicit-mapping] _____________
+/tests/test_05_discriminator_generation.py:99: in test_discriminator_const_injection
+    assert to_json_schema(schema, nullable_keyword="nullable") == expected
+E   AssertionError: assert {'anyOf': [{'...': 'petType'}} == {'anyOf': [{'...': 'petType'}}
+E     
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'anyOf': [{'$ref': '#/components/schemas/Cat'}, {'$ref': '#/components/schemas/Dog'}]} != {'anyOf': [{'allOf': [{'$ref': '#/components/schemas/Cat'}, {'properties': {'petType': {...}}}]}, {'allOf': [{'$ref': '#/components/schemas/Dog'}, {'properties': {'petType': {...}}}]}]}
+E     
+E     Full diff:
+E       {...
+E     
+E     ...Full output truncated (42 lines hidden), use '-vv' to show
+__________ test_discriminator_const_injection[boolean-schema-skipped] __________
+/tests/test_05_discriminator_generation.py:99: in test_discriminator_const_injection
+    assert to_json_schema(schema, nullable_keyword="nullable") == expected
+E   AssertionError: assert {'anyOf': [{'...': 'petType'}} == {'anyOf': [{'...': 'petType'}}
+E     
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'anyOf': [{'$ref': '#/components/schemas/Cat'}, True]} != {'anyOf': [{'allOf': [{'$ref': '#/components/schemas/Cat'}, {'properties': {'petType': {...}}}]}, True]}
+E     
+E     Full diff:
+E       {...
+E     
+E     ...Full output truncated (23 lines hidden), use '-vv' to show
+=========================== short test summary info ============================
+FAILED ../tests/test_05_discriminator_generation.py::test_discriminator_const_injection[implicit-mapping]
+FAILED ../tests/test_05_discriminator_generation.py::test_discriminator_const_injection[explicit-mapping]
+FAILED ../tests/test_05_discriminator_generation.py::test_discriminator_const_injection[boolean-schema-skipped]
+========================= 3 failed, 5 passed in 0.24s ==========================
+FAILED
+Phase 5: 5/8 passed
+=== Phase 6: Schema Loading 503 Retry ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.14.3, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 5 items
+
+../tests/test_06_schema_503_retry.py::test_503_retry_available FAILED    [ 20%]
+../tests/test_06_schema_503_retry.py::test_wait_for_schema_retries_on_503 FAILED [ 40%]
+../tests/test_06_schema_503_retry.py::test_wait_for_schema_503_exhausted FAILED [ 60%]
+../tests/test_06_schema_503_retry.py::test_without_wait_for_schema_503_not_retried FAILED [ 80%]
+../tests/test_06_schema_503_retry.py::test_503_retry_still_retries_connection_errors FAILED [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_503_retry_available ___________________________
+/tests/test_06_schema_503_retry.py:23: in test_503_retry_available
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name '_ServiceUnavailableError' from 'schemathesis.core.loaders' (/app/src/schemathesis/core/loaders.py)
+_____________________ test_wait_for_schema_retries_on_503 ______________________
+/tests/test_06_schema_503_retry.py:39: in test_wait_for_schema_retries_on_503
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name '_ServiceUnavailableError' from 'schemathesis.core.loaders' (/app/src/schemathesis/core/loaders.py)
+______________________ test_wait_for_schema_503_exhausted ______________________
+/tests/test_06_schema_503_retry.py:83: in test_wait_for_schema_503_exhausted
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name '_ServiceUnavailableError' from 'schemathesis.core.loaders' (/app/src/schemathesis/core/loaders.py)
+_________________ test_without_wait_for_schema_503_not_retried _________________
+/tests/test_06_schema_503_retry.py:115: in test_without_wait_for_schema_503_not_retried
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name '_ServiceUnavailableError' from 'schemathesis.core.loaders' (/app/src/schemathesis/core/loaders.py)
+________________ test_503_retry_still_retries_connection_errors ________________
+/tests/test_06_schema_503_retry.py:152: in test_503_retry_still_retries_connection_errors
+    pytest.fail(f"Import failed: {_IMPORT_ERROR}")
+E   Failed: Import failed: cannot import name '_ServiceUnavailableError' from 'schemathesis.core.loaders' (/app/src/schemathesis/core/loaders.py)
+=========================== short test summary info ============================
+FAILED ../tests/test_06_schema_503_retry.py::test_503_retry_available - Faile...
+FAILED ../tests/test_06_schema_503_retry.py::test_wait_for_schema_retries_on_503
+FAILED ../tests/test_06_schema_503_retry.py::test_wait_for_schema_503_exhausted
+FAILED ../tests/test_06_schema_503_retry.py::test_without_wait_for_schema_503_not_retried
+FAILED ../tests/test_06_schema_503_retry.py::test_503_retry_still_retries_connection_errors
+============================== 5 failed in 0.24s ===============================
+FAILED
+Phase 6: 0/5 passed
+=== Phase 7: Report All Distinct Schema Errors ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.14.3, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 5 items
+
+../tests/test_07_all_errors.py::test_all_errors_reporting_available PASSED [ 20%]
+../tests/test_07_all_errors.py::test_response_schema_conformance_reports_all_errors FAILED [ 40%]
+../tests/test_07_all_errors.py::test_response_schema_conformance_deduplicates_same_path PASSED [ 60%]
+../tests/test_07_all_errors.py::test_header_conformance_reports_multiple_errors FAILED [ 80%]
+../tests/test_07_all_errors.py::test_single_error_still_reported_correctly PASSED [100%]
+
+=================================== FAILURES ===================================
+_____________ test_response_schema_conformance_reports_all_errors ______________
+/tests/test_07_all_errors.py:105: in test_response_schema_conformance_reports_all_errors
+    assert len(failures) >= 2
+E   assert 1 >= 2
+E    +  where 1 = len([JsonSchemaError()])
+_______________ test_header_conformance_reports_multiple_errors ________________
+/tests/test_07_all_errors.py:210: in test_header_conformance_reports_multiple_errors
+    pytest.fail("Expected multiple failures but got single failure")
+E   Failed: Expected multiple failures but got single failure
+=========================== short test summary info ============================
+FAILED ../tests/test_07_all_errors.py::test_response_schema_conformance_reports_all_errors
+FAILED ../tests/test_07_all_errors.py::test_header_conformance_reports_multiple_errors
+========================= 2 failed, 3 passed in 0.37s ==========================
+FAILED
+Phase 7: 3/5 passed
+=== Phase 8: Pattern Quantifier Transform Fix ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.14.3, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 36 items
+
+../tests/test_08_pattern_transform.py::test_pattern_transform_available PASSED [  2%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[a-None-3-a{1,3}] FAILED [  5%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[a-3-3-a{3}] FAILED [  8%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[a-0-3-a{1,3}] FAILED [ 11%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.*-None-3-.{0,3}] FAILED [ 13%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.*-1-None-.{1,}] FAILED [ 16%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.*-1-3-.{1,3}] FAILED [ 19%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.+-None-3-.{1,3}] FAILED [ 22%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.+-1-None-.{1,}] FAILED [ 25%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.+-1-3-.{1,3}] FAILED [ 27%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.?-0-3-.{0,1}] FAILED [ 30%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.{1,5}-None-3-.{1,3}] FAILED [ 33%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.{0,3}-1-None-.{1,3}] FAILED [ 36%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.{2,}-1-3-.{2,3}] FAILED [ 38%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]-None-5-[a-z]{1,5}] FAILED [ 41%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]-3-None-[a-z]{3,}] FAILED [ 44%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]-3-5-[a-z]{3,5}] FAILED [ 47%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]-1-5-[a-z]{1,5}] FAILED [ 50%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]*-None-5-[a-z]{0,5}] FAILED [ 52%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]*-3-None-[a-z]{3,}] FAILED [ 55%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]*-3-5-[a-z]{3,5}] FAILED [ 58%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[(ab)+-2-6-(ab){1,3}] PASSED [ 61%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[(abc)+-3-9-(abc){1,3}] PASSED [ 63%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[^[a-z]$-3-5-^[a-z]{3,5}$] FAILED [ 66%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[^.*$-1-3-^.{1,3}$] FAILED [ 69%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[^.+$-None-5-^.{1,5}$] FAILED [ 72%]
+../tests/test_08_pattern_transform.py::test_converter_pattern_cases[^[abc\\d]$-3-40-^[abc\\d]{3,40}$] FAILED [ 75%]
+../tests/test_08_pattern_transform.py::test_converter_pattern_cases[^[abc\\d]$-None-40-^[abc\\d]{1,40}$] FAILED [ 77%]
+../tests/test_08_pattern_transform.py::test_converter_pattern_cases[^[abc\\d]$-3-None-^[abc\\d]{3,}$] FAILED [ 80%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_produces_valid_regex[.*-1-10] PASSED [ 83%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_produces_valid_regex[[a-z]+-2-5] PASSED [ 86%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_produces_valid_regex[(abc)*-3-12] PASSED [ 88%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_produces_valid_regex[^[0-9]+$-1-20] PASSED [ 91%]
+../tests/test_08_pattern_transform.py::test_update_quantifier_produces_valid_regex[^[abc\\d]$-3-40] PASSED [ 94%]
+../tests/test_08_pattern_transform.py::test_lookahead_pattern_not_corrupted PASSED [ 97%]
+../tests/test_08_pattern_transform.py::test_lookbehind_pattern_not_corrupted PASSED [100%]
+
+=================================== FAILURES ===================================
+________ test_update_quantifier_no_unnecessary_groups[a-None-3-a{1,3}] _________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('a', None, 3) = '(a){1,3}', expected 'a{1,3}'
+E   assert '(a){1,3}' == 'a{1,3}'
+E     
+E     - a{1,3}
+E     + (a){1,3}
+E     ? + +
+___________ test_update_quantifier_no_unnecessary_groups[a-3-3-a{3}] ___________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('a', 3, 3) = '(a){3}', expected 'a{3}'
+E   assert '(a){3}' == 'a{3}'
+E     
+E     - a{3}
+E     + (a){3}
+E     ? + +
+__________ test_update_quantifier_no_unnecessary_groups[a-0-3-a{1,3}] __________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('a', 0, 3) = '(a){1,3}', expected 'a{1,3}'
+E   assert '(a){1,3}' == 'a{1,3}'
+E     
+E     - a{1,3}
+E     + (a){1,3}
+E     ? + +
+________ test_update_quantifier_no_unnecessary_groups[.*-None-3-.{0,3}] ________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.*', None, 3) = '(.){0,3}', expected '.{0,3}'
+E   assert '(.){0,3}' == '.{0,3}'
+E     
+E     - .{0,3}
+E     + (.){0,3}
+E     ? + +
+________ test_update_quantifier_no_unnecessary_groups[.*-1-None-.{1,}] _________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.*', 1, None) = '(.){1,}', expected '.{1,}'
+E   assert '(.){1,}' == '.{1,}'
+E     
+E     - .{1,}
+E     + (.){1,}
+E     ? + +
+_________ test_update_quantifier_no_unnecessary_groups[.*-1-3-.{1,3}] __________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.*', 1, 3) = '(.){1,3}', expected '.{1,3}'
+E   assert '(.){1,3}' == '.{1,3}'
+E     
+E     - .{1,3}
+E     + (.){1,3}
+E     ? + +
+________ test_update_quantifier_no_unnecessary_groups[.+-None-3-.{1,3}] ________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.+', None, 3) = '(.){1,3}', expected '.{1,3}'
+E   assert '(.){1,3}' == '.{1,3}'
+E     
+E     - .{1,3}
+E     + (.){1,3}
+E     ? + +
+________ test_update_quantifier_no_unnecessary_groups[.+-1-None-.{1,}] _________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.+', 1, None) = '(.){1,}', expected '.{1,}'
+E   assert '(.){1,}' == '.{1,}'
+E     
+E     - .{1,}
+E     + (.){1,}
+E     ? + +
+_________ test_update_quantifier_no_unnecessary_groups[.+-1-3-.{1,3}] __________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.+', 1, 3) = '(.){1,3}', expected '.{1,3}'
+E   assert '(.){1,3}' == '.{1,3}'
+E     
+E     - .{1,3}
+E     + (.){1,3}
+E     ? + +
+_________ test_update_quantifier_no_unnecessary_groups[.?-0-3-.{0,1}] __________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.?', 0, 3) = '(.){0,1}', expected '.{0,1}'
+E   assert '(.){0,1}' == '.{0,1}'
+E     
+E     - .{0,1}
+E     + (.){0,1}
+E     ? + +
+______ test_update_quantifier_no_unnecessary_groups[.{1,5}-None-3-.{1,3}] ______
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.{1,5}', None, 3) = '(.){1,3}', expected '.{1,3}'
+E   assert '(.){1,3}' == '.{1,3}'
+E     
+E     - .{1,3}
+E     + (.){1,3}
+E     ? + +
+______ test_update_quantifier_no_unnecessary_groups[.{0,3}-1-None-.{1,3}] ______
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.{0,3}', 1, None) = '(.){1,3}', expected '.{1,3}'
+E   assert '(.){1,3}' == '.{1,3}'
+E     
+E     - .{1,3}
+E     + (.){1,3}
+E     ? + +
+________ test_update_quantifier_no_unnecessary_groups[.{2,}-1-3-.{2,3}] ________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('.{2,}', 1, 3) = '(.){2,3}', expected '.{2,3}'
+E   assert '(.){2,3}' == '.{2,3}'
+E     
+E     - .{2,3}
+E     + (.){2,3}
+E     ? + +
+____ test_update_quantifier_no_unnecessary_groups[[a-z]-None-5-[a-z]{1,5}] _____
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('[a-z]', None, 5) = '([a-z]){1,5}', expected '[a-z]{1,5}'
+E   assert '([a-z]){1,5}' == '[a-z]{1,5}'
+E     
+E     - [a-z]{1,5}
+E     + ([a-z]){1,5}
+E     ? +     +
+_____ test_update_quantifier_no_unnecessary_groups[[a-z]-3-None-[a-z]{3,}] _____
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('[a-z]', 3, None) = '([a-z]){3,}', expected '[a-z]{3,}'
+E   assert '([a-z]){3,}' == '[a-z]{3,}'
+E     
+E     - [a-z]{3,}
+E     + ([a-z]){3,}
+E     ? +     +
+______ test_update_quantifier_no_unnecessary_groups[[a-z]-3-5-[a-z]{3,5}] ______
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('[a-z]', 3, 5) = '([a-z]){3,5}', expected '[a-z]{3,5}'
+E   assert '([a-z]){3,5}' == '[a-z]{3,5}'
+E     
+E     - [a-z]{3,5}
+E     + ([a-z]){3,5}
+E     ? +     +
+______ test_update_quantifier_no_unnecessary_groups[[a-z]-1-5-[a-z]{1,5}] ______
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('[a-z]', 1, 5) = '([a-z]){1,5}', expected '[a-z]{1,5}'
+E   assert '([a-z]){1,5}' == '[a-z]{1,5}'
+E     
+E     - [a-z]{1,5}
+E     + ([a-z]){1,5}
+E     ? +     +
+____ test_update_quantifier_no_unnecessary_groups[[a-z]*-None-5-[a-z]{0,5}] ____
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('[a-z]*', None, 5) = '([a-z]){0,5}', expected '[a-z]{0,5}'
+E   assert '([a-z]){0,5}' == '[a-z]{0,5}'
+E     
+E     - [a-z]{0,5}
+E     + ([a-z]){0,5}
+E     ? +     +
+____ test_update_quantifier_no_unnecessary_groups[[a-z]*-3-None-[a-z]{3,}] _____
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('[a-z]*', 3, None) = '([a-z]){3,}', expected '[a-z]{3,}'
+E   assert '([a-z]){3,}' == '[a-z]{3,}'
+E     
+E     - [a-z]{3,}
+E     + ([a-z]){3,}
+E     ? +     +
+_____ test_update_quantifier_no_unnecessary_groups[[a-z]*-3-5-[a-z]{3,5}] ______
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('[a-z]*', 3, 5) = '([a-z]){3,5}', expected '[a-z]{3,5}'
+E   assert '([a-z]){3,5}' == '[a-z]{3,5}'
+E     
+E     - [a-z]{3,5}
+E     + ([a-z]){3,5}
+E     ? +     +
+____ test_update_quantifier_no_unnecessary_groups[^[a-z]$-3-5-^[a-z]{3,5}$] ____
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('^[a-z]$', 3, 5) = '^([a-z]){3,5}$', expected '^[a-z]{3,5}$'
+E   assert '^([a-z]){3,5}$' == '^[a-z]{3,5}$'
+E     
+E     - ^[a-z]{3,5}$
+E     + ^([a-z]){3,5}$
+E     ?  +     +
+_______ test_update_quantifier_no_unnecessary_groups[^.*$-1-3-^.{1,3}$] ________
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('^.*$', 1, 3) = '^(.){1,3}$', expected '^.{1,3}$'
+E   assert '^(.){1,3}$' == '^.{1,3}$'
+E     
+E     - ^.{1,3}$
+E     + ^(.){1,3}$
+E     ?  + +
+______ test_update_quantifier_no_unnecessary_groups[^.+$-None-5-^.{1,5}$] ______
+/tests/test_08_pattern_transform.py:66: in test_update_quantifier_no_unnecessary_groups
+    assert result == expected, f"update_quantifier({pattern!r}, {min_length}, {max_length}) = {result!r}, expected {expected!r}"
+E   AssertionError: update_quantifier('^.+$', None, 5) = '^(.){1,5}$', expected '^.{1,5}$'
+E   assert '^(.){1,5}$' == '^.{1,5}$'
+E     
+E     - ^.{1,5}$
+E     + ^(.){1,5}$
+E     ?  + +
+________ test_converter_pattern_cases[^[abc\\d]$-3-40-^[abc\\d]{3,40}$] ________
+/tests/test_08_pattern_transform.py:83: in test_converter_pattern_cases
+    assert result == expected
+E   AssertionError: assert '^([abc\\d]){3,40}$' == '^[abc\\d]{3,40}$'
+E     
+E     - ^[abc\d]{3,40}$
+E     + ^([abc\d]){3,40}$
+E     ?  +       +
+______ test_converter_pattern_cases[^[abc\\d]$-None-40-^[abc\\d]{1,40}$] _______
+/tests/test_08_pattern_transform.py:83: in test_converter_pattern_cases
+    assert result == expected
+E   AssertionError: assert '^([abc\\d]){1,40}$' == '^[abc\\d]{1,40}$'
+E     
+E     - ^[abc\d]{1,40}$
+E     + ^([abc\d]){1,40}$
+E     ?  +       +
+________ test_converter_pattern_cases[^[abc\\d]$-3-None-^[abc\\d]{3,}$] ________
+/tests/test_08_pattern_transform.py:83: in test_converter_pattern_cases
+    assert result == expected
+E   AssertionError: assert '^([abc\\d]){3,}$' == '^[abc\\d]{3,}$'
+E     
+E     - ^[abc\d]{3,}$
+E     + ^([abc\d]){3,}$
+E     ?  +       +
+=========================== short test summary info ============================
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[a-None-3-a{1,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[a-3-3-a{3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[a-0-3-a{1,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.*-None-3-.{0,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.*-1-None-.{1,}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.*-1-3-.{1,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.+-None-3-.{1,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.+-1-None-.{1,}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.+-1-3-.{1,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.?-0-3-.{0,1}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.{1,5}-None-3-.{1,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.{0,3}-1-None-.{1,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[.{2,}-1-3-.{2,3}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]-None-5-[a-z]{1,5}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]-3-None-[a-z]{3,}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]-3-5-[a-z]{3,5}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]-1-5-[a-z]{1,5}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]*-None-5-[a-z]{0,5}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]*-3-None-[a-z]{3,}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[[a-z]*-3-5-[a-z]{3,5}]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[^[a-z]$-3-5-^[a-z]{3,5}$]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[^.*$-1-3-^.{1,3}$]
+FAILED ../tests/test_08_pattern_transform.py::test_update_quantifier_no_unnecessary_groups[^.+$-None-5-^.{1,5}$]
+FAILED ../tests/test_08_pattern_transform.py::test_converter_pattern_cases[^[abc\\d]$-3-40-^[abc\\d]{3,40}$]
+FAILED ../tests/test_08_pattern_transform.py::test_converter_pattern_cases[^[abc\\d]$-None-40-^[abc\\d]{1,40}$]
+FAILED ../tests/test_08_pattern_transform.py::test_converter_pattern_cases[^[abc\\d]$-3-None-^[abc\\d]{3,}$]
+======================== 26 failed, 10 passed in 0.35s =========================
+FAILED
+Phase 8: 10/36 passed
+Result: 0/8 phases; 27/93 tests | Reward: 0.323504
+tests/roadmap.py::test_phase_1 FAILED
+tests/roadmap.py::test_phase_2 FAILED
+tests/roadmap.py::test_phase_3 FAILED
+tests/roadmap.py::test_phase_4 FAILED
+tests/roadmap.py::test_phase_5 FAILED
+tests/roadmap.py::test_phase_6 FAILED
+tests/roadmap.py::test_phase_7 FAILED
+tests/roadmap.py::test_phase_8 FAILED
+=== 0 passed, 8 failed in 1.00s ===
+TOTAL_SCORE 0.323504

@@ -1,0 +1,15 @@
+fail_crash.log           valid=False raw=None pass_rate=0.00 normalized=None selected_best=None best_valid=False reason=Invalid evaluation output: Malformed or nonfinite CASE record
+fail_lower.log           valid=False raw=None pass_rate=0.00 normalized=None selected_best=None best_valid=False reason=Invalid evaluation output: Malformed or nonfinite CASE record
+fail_partial.log         valid=True raw=202310.0 pass_rate=1.00 normalized=19.5614 selected_best=202310.0 best_valid=True reason=None
+fail_tle.log             valid=False raw=None pass_rate=0.00 normalized=None selected_best=None best_valid=False reason=Invalid evaluation output: Malformed or nonfinite CASE record
+fail_trunc.log           valid=False raw=None pass_rate=0.00 normalized=None selected_best=None best_valid=False reason=Invalid evaluation output: Malformed or nonfinite CASE record
+good_stepstate.log       valid=True raw=94092.0 pass_rate=1.00 normalized=19.8014 selected_best=94092.0 best_valid=True reason=None
+shipped_baseline.log     valid=True raw=7744909.0 pass_rate=1.00 normalized=2.8401 selected_best=7744909.0 best_valid=True reason=None
+rescale 100 100.0
+rescale 554.75 100.0
+rescale 1575 80.0
+rescale 4490 20.0
+rescale 94092 19.8014
+rescale 7744909 2.8401
+rescale 9025986 0.0
+select_best over all logs as rounds: {'best_score': 94092.0, 'best_pass_rate': 1.0, 'best_round': 'good_stepstate.log', 'best_valid': True}

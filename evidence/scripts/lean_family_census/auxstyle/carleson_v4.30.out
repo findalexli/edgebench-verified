@@ -1,0 +1,8 @@
+Lean (version 4.30.0-rc2, x86_64-unknown-linux-gnu, commit 3dc1a088b6d2d8eafe25a7cd7ec7b58d731bd7cc, Release)
+AUX t_omega._proof_1_1 : ∀ (a b : Nat), ¬2 ≤ a + 2 → False
+AUX t_omega._proof_1_2 : ∀ (a b : Nat), ¬a + b = b + a → False
+AUX t_omega._simp_1 : ∀ (a b : Nat), (a + b = b + a) = (2 ≤ a + 2)
+AUX t_simp._simp_1 : ∀ (a b : Nat), (a + b = b + a) = (3 ≤ a + 3)
+AUX t_sorry._simp_1 : ∀ (a b : Nat), (a + b = b + a) = (0 ≤ a + 0)
+AUX t_term._simp_1 : ∀ (a b : Nat), (a + b = b + a) = (1 ≤ a + 1)
+AuxStyle.lean:4:16: warning: declaration uses `sorry`

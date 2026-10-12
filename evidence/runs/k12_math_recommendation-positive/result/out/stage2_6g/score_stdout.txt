@@ -1,0 +1,106 @@
+[timing] infer.py wall-clock 1.05s
+{
+  "weights": {
+    "M1": 0.35,
+    "M2": 0.3,
+    "M3": 0.3,
+    "M4": 0.04,
+    "M5": 0.01
+  },
+  "scenarios_total": 100,
+  "scenarios_submitted": 100,
+  "scenarios_matched": 100,
+  "deliverables_completeness": {
+    "checked": true,
+    "deliverables_dir": "/home/workspace",
+    "required": [
+      "train.py",
+      "infer.py",
+      "requirements.txt",
+      "README.md"
+    ],
+    "present": [
+      "train.py",
+      "infer.py",
+      "requirements.txt",
+      "README.md"
+    ],
+    "missing": [],
+    "complete": true
+  },
+  "M1_next_question_auc": {
+    "auc_macro": 0.6745207686512835,
+    "n_scenarios_total": 100,
+    "n_scenarios_submitted": 100,
+    "n_scenarios_fully_covered_20": 100,
+    "score": 9.808307460513399
+  },
+  "M2_knowledge_calibration": {
+    "ece_per_student_mean": 0.06837749526084039,
+    "spearman_per_student_mean": 0.23977732014907815,
+    "ece_component": 39.52813092394952,
+    "spearman_component": 39.96288669151303,
+    "n_scenarios_total": 100,
+    "score": 39.74550880773127
+  },
+  "M3_learning_gain": {
+    "agent_mean": 0.5278787107404112,
+    "random_mean": 0.5159249982959535,
+    "gain": 0.011953712444457643,
+    "scoring": "piecewise",
+    "anchors": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.005,
+        4.0
+      ],
+      [
+        0.012,
+        15.0
+      ],
+      [
+        0.025,
+        45.0
+      ],
+      [
+        0.04,
+        75.0
+      ],
+      [
+        0.06,
+        100.0
+      ]
+    ],
+    "n_scenarios_total": 100,
+    "score": 14.927262412719152
+  },
+  "M4_constraint_satisfaction": {
+    "per_scenario_mean": 0.9660000000000001,
+    "per_constraint_pass_rate": {
+      "C1": 1.0,
+      "C2": 1.0,
+      "C3": 0.92,
+      "C4": 0.91,
+      "C5": 1.0
+    },
+    "n_scenarios_total": 100,
+    "score": 96.60000000000001
+  },
+  "M5_inference_efficiency": {
+    "infer_time_seconds": 1.0472490787506104,
+    "score": 100.0,
+    "deliverables_penalty": -0.0,
+    "deliverables_missing": []
+  },
+  "total_score": 24.699
+}
+>>>>> Start Structured Result
+{"valid":true,"score":24.699,"pass_rate":1.0,"metrics":{"M1_next_question_auc":{"score":9.808307460513399,"description":"Next-question answer prediction ranking ability (AUC)."},"M2_knowledge_calibration":{"score":39.74550880773127,"description":"Probability calibration and ranking quality of 50-dim knowledge mastery state."},"M3_recommendation_learning_gain":{"score":14.927262412719152,"description":"Simulated post-test improvement from recommending 10 questions vs random."},"M4_recommendation_constraints":{"score":96.60000000000001,"description":"Whether the recommendation sequence satisfies instructional constraints."},"M5_inference_efficiency":{"score":100.0,"description":"Whether infer.py finishes within time budget and required deliverables exist."}}}
+>>>>> End Structured Result
+SCORER_STATUS_JSON {"status": "ok", "reason": "scored", "score": 24.699}
+tests/score_contract.py::score_output_parseable PASSED
+===== 1 passed in 0.01s =====
+TOTAL_SCORE 24.699

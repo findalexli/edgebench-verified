@@ -1,0 +1,31 @@
+b1c7694b8de3444c0459393b967851ad7d61e38a9a320222ce01ba7a1b446463  ./tools/bin/tester
+934a2b9de14bc1e155adab2a114d3dcf4d6fdbf48bedc860b78ca602ba3e9350  /tmp/eval_vibrating_path.py
+d7a4af29cb6af5158aebaebadc3b7b991c505d3528bf523e715c6e340e719218  README.md
+== authored controls (direct tester)
+/in/bip4.txt /in/bip4.two_line.out:              Score = 0 exit=0
+/in/bip4.txt /in/bip4.three_line.out:            wrong answer: expected 4 colors, got 0 exit=1
+/in/bip4.txt /in/bip4.bad_coloring.out:          wrong answer: edge (1,2) has same color 1 exit=1
+/in/edge2_k1.txt /in/edge2_k1.hit.out:           Score = 9 exit=0
+/in/edge2_k1.txt /in/edge2_k1.nohit.out:         wrong answer: edge (1,2) has same color 1 exit=1
+== official cases: zero-hit baseline-style coloring in both forms (direct tester)
+case 0001 two-line:   wrong answer: edge (132,268) has same color 1 
+case 0001 three-line: wrong answer: expected 1000 colors, got 0 
+case 0002 two-line:   wrong answer: edge (1,751) has same color 1 
+case 0002 three-line: wrong answer: expected 1000 colors, got 0 
+case 0003 two-line:   wrong answer: edge (535,658) has same color 1 
+case 0003 three-line: wrong answer: expected 1000 colors, got 0 
+case 0004 two-line:   wrong answer: edge (35,335) has same color 3 
+case 0004 three-line: wrong answer: expected 1000 colors, got 0 
+case 0007 two-line:   wrong answer: edge (6564,6615) has same color 3 
+case 0007 three-line: wrong answer: expected 10000 colors, got 0 
+case 0008 two-line:   wrong answer: edge (4005,4329) has same color 1 
+case 0008 three-line: wrong answer: expected 10000 colors, got 0 
+== original eval helper on authored corpus {bip4} with two-line vs three-line solution
+CASE 0000 OK score=0
+TOTAL_SCORE 0
+CASES_OK 1
+CASES_TOTAL 1
+CASE 0000 WA score=inf
+TOTAL_SCORE inf
+CASES_OK 0
+CASES_TOTAL 1

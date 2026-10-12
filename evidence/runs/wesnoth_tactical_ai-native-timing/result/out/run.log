@@ -1,0 +1,44 @@
++ J=seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8
++ WI=seededge/edgebench.work.wesnoth_tactical_ai@sha256:4d9b1e6515b2ac2f00c22c3a2537127fd8b0c009cf5f93e747059b1555fe6a67
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         352        7594           0         250        7612
+Swap:              0           0           0
++ date -u
+Mon Oct 12 04:13:08 UTC 2026
++ docker pull -q seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8
+docker.io/seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8
++ docker pull -q seededge/edgebench.work.wesnoth_tactical_ai@sha256:4d9b1e6515b2ac2f00c22c3a2537127fd8b0c009cf5f93e747059b1555fe6a67
+docker.io/seededge/edgebench.work.wesnoth_tactical_ai@sha256:4d9b1e6515b2ac2f00c22c3a2537127fd8b0c009cf5f93e747059b1555fe6a67
++ docker image inspect seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8 --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
+template parsing error: template: :1:17: executing "" at <.Config.User>: map has no entry for key "User"
++ docker create --name wk seededge/edgebench.work.wesnoth_tactical_ai@sha256:4d9b1e6515b2ac2f00c22c3a2537127fd8b0c009cf5f93e747059b1555fe6a67 true
+fd9fbf89c96c24dd02ff9e5b765e7bd37c9dd1ac2bb74cd4af79643b4ae3ea1c
++ mkdir -p /job/sub
++ docker cp wk:/home/wesnoth_agent /job/sub/
++ docker rm wk
+wk
++ rm -rf /job/sub/wesnoth_agent/.git
++ cd /job/sub
++ find . -type f -exec sha256sum '{}' ';'
++ docker create --name jd --network none --memory 6g -v /job/out:/out -v /job/game1.py:/game1.py:ro seededge/edgebench.judge.wesnoth_tactical_ai@sha256:660e126eddcd91464431e83fdc0b432cea8f8e4e4d0a087d356e864460e154c8 sleep 7200
+d1d7a8a5d236358c6e25baad9d527a6f6fc7205e7dbcc4cead11f4f42ce32032
++ docker cp /job/sub/wesnoth_agent/. jd:/home/wesnoth_agent/
++ docker start jd
+jd
++ X='docker exec -w /home/wesnoth_agent jd'
++ docker exec -w /home/wesnoth_agent jd bash -c 'id; echo HOME=$HOME; sha256sum /tmp/eval_wesnoth.py /home/wesnoth_agent/my_custom_ai.cfg; ls -la /home/wesnoth_agent /home/wesnoth_agent/.config 2>&1 | head -40; /usr/games/wesnoth-1.18 --version; /usr/games/wesnoth-1.18 --userdata-path; /usr/games/wesnoth-1.18 --userconfig-path; nproc'
++ docker exec -w /home/wesnoth_agent jd python3 /game1.py multiplayer_Weldyn_Channel multiplayer_The_Freelands multiplayer_Fallenstar_Lake
++ MON=1120
+++ date +%s
++ T0=1791778422
++ docker exec -w /home/wesnoth_agent jd timeout 900 python3 /tmp/eval_wesnoth.py
+++ date +%s
++ echo 'exit=0 wall_s=80'
++ kill 1120
++ docker rm -f jd
+jd
++ date -u
+Mon Oct 12 04:15:02 UTC 2026

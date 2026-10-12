@@ -1,0 +1,22 @@
+af482b7af56a231f1b18400ecb7922fa96016bb9b5407f81526c822f677dfdf1  /home/workspace/judge/se-bmk-intern/analysis/ListDeclAxiom.lean
+3319767e470e165395bf9538db1d7d1fabf01c94eb1f0b43ceca0281d35acc29  /home/workspace/judge/se-bmk-intern/analysis/../eval_lean.py
+72d9935ea0cd42d7c6673aeb9eb24f63e3e46d7f687fb37f7c9e5bbd291bb1f1  /home/workspace/judge/se-bmk-intern/analysis/Analysis/Section_4_1.lean
+=== variant W 04:05:03
+852fa9ddb73504ab06f15bb699a35a5404ebd4298b7455183569ff78e14a9b64  /home/workspace/se-bmk-intern/analysis/Analysis/Section_4_1.lean
+BAD Section_4_1.Int.instCommRing._proof_17 : type=∀ (n : ℕ), (↑n).castDef = (↑n).castDef; unexpected=[sorryAx]; all=[propext, Quot.sound, sorryAx]
+BAD Section_4_1.Int.instCommMonoid._proof_4 : type=∀ (x : Section_4_1.Int), npowRecAuto 0 x = npowRecAuto 0 x; unexpected=[sorryAx]; all=[propext, Quot.sound, sorryAx]
+BAD Section_4_1.Int.instCommMonoid : type=CommMonoid Section_4_1.Int; unexpected=[sorryAx]; all=[propext, Quot.sound, sorryAx]
+OK Section_4_1.PreInt.mk.sizeOf_spec : type=∀ (minuend subtrahend : ℕ),   sizeOf { minuend := minuend, subtrahend := subtrahend } = 1 + sizeOf minuend + sizeOf subtrahend; axioms=[]
+BAD Section_4_1.Int.lt_iff_exists_positive_difference : type=∀ (a b : Section_4_1.Int), a < b ↔ ∃ n, n ≠ 0 ∧ b = a + ↑n; unexpected=[sorryAx]; all=[propext, sorryAx, Quot.sound]
+BAD Section_4_1.Int.is_additive_identity_iff_eq_0 : type=∀ (b : Section_4_1.Int), (∀ (a : Section_4_1.Int), a = a + b) ↔ b = 0; unexpected=[sorryAx]; all=[propext, sorryAx, Quot.sound]
+BAD Section_4_1.Int.not_gt_and_eq : type=∀ (a b : Section_4_1.Int), ¬(a > b ∧ a = b); unexpected=[sorryAx]; all=[propext, sorryAx, Quot.sound]
+OK Section_4_1.PreInt.instSetoid._proof_3 : type=Equivalence fun a b ↦ a.minuend + b.subtrahend = b.minuend + a.subtrahend; axioms=[propext, Quot.sound]
+OK Section_4_1.Int.formalDiff : type=ℕ → ℕ → Section_4_1.Int; axioms=[propext, Quot.sound]
+BAD Section_4_1.Int.instCommRing._proof_1 : type=∀ (a b c : Section_4_1.Int), a * (b + c) = a * b + a * c; unexpected=[sorryAx]; all=[propext, Quot.sound, sorryAx]
+BAD Section_4_1.Int.instCommRing._proof_4 : type=∀ (a : Section_4_1.Int), a * 0 = 0; unexpected=[sorryAx]; all=[propext, Quot.sound, sorryAx]
+BAD Section_4_1.Int.equivInt_ordered_ring : type=Section_4_1.Int ≃+*o ℤ; unexpected=[sorryAx]; all=[propext, sorryAx, Quot.sound]
+BAD Section_4_1.Int.not_pos_zero : type=∀ (x : Section_4_1.Int), x = 0 ∧ x.IsPos → False; unexpected=[sorryAx]; all=[propext, sorryAx, Quot.sound]
+OK Section_4_1.PreInt.instSetoid._proof_2 : type=∀ {x y : Section_4_1.PreInt},   x.minuend + y.subtrahend = y.minuend + x.subtrahend → ¬y.minuend + x.subtrahend = x.minuend + y.subtrahend → False; axioms=[propext, Quot.sound]
+Build completed successfully (8129 jobs).
+144 /out/listdecl_S41_W.txt
+=== done W 04:06:21

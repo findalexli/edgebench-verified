@@ -1,0 +1,9 @@
+nle 1.2.0 gymnasium 1.0.0
+wrapper chain: PassiveEnvChecker -> NetHackChallenge
+env.seed (as evaluator calls it) : RAISED AttributeError - 'PassiveEnvChecker' object has no attribute 'seed'
+env.unwrapped.seed : RAISED RuntimeError - NetHackChallenge doesn't allow seed changes
+env.reset(seed=1729): no error
+plain reset 0 dd25518342f9e435 b'Be careful!  New moon tonight.'
+plain reset 1 dd7455a78c2193ee b'Be careful!  New moon tonight.'
+plain reset 2 76abcc883c44cce5 b'Be careful!  New moon tonight.'
+plain reset 3 4dba9548b7c7e4cd b'Be careful!  New moon tonight.'

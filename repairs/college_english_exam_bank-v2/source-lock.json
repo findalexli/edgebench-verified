@@ -1,0 +1,50 @@
+{
+ "task_id": "college_english_exam_bank",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/college_english_exam_bank.json",
+  "sha256": "93e112ed9d4b899cff8c7f41552e0a35ce6ae2bb0bc45d109706cf39eaf0406f"
+ },
+ "original_judge_image": "seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8",
+ "original_judge_image_tag": "6628b6d3f834",
+ "v2_judge_image_tag": "6628b6d3f834-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/home/workspace/scoring/grade_with_codex.py",
+   "original_sha256": "b8b2824c0d5483f8f433d4fc59e11efb8c7c18d1126b60987c99a1c2cb0e4b3f",
+   "original_bytes": 93823,
+   "replacement": "files/home/workspace/scoring/grade_with_codex.py",
+   "replacement_sha256": "1d941b58853dbd89b490b38029de23f306a4138a7c0949360754e5924bf054a6",
+   "replacement_bytes": 98308
+  }
+ ],
+ "task_json_in_sha256": "c8de372c9e1a93ecec932e37265b59117820f06bb193279e2c68edacc0405819",
+ "repair_patch_sha256": "bcd8b8fd3c07185b3c402cc26f5141b0d58e83310b84ab505645a6baeab8c077",
+ "dockerfile_sha256": "def11012f9e414b204657adf3eab7ecf1f1e6a2c2a9b90e88f0e6eb93438d4a2",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "rubrics.json (unchanged)": "d05f344e0f76ceeda7fb8c1d927df662b3f5f87c91631cd9b3fdebc6162bf603",
+ "earlier_patch (proposedrepairs/college-english-assessment-completeness/patch.diff, applied then extended)": "8560cdf6bd6a961a03f6c3d0127cf582b8b2248e234d8efb1753b35f5eb4d80a",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/scoring/grade_with_codex.py",
+    "sha256": "b8b2824c0d5483f8f433d4fc59e11efb8c7c18d1126b60987c99a1c2cb0e4b3f"
+   }
+  ],
+  "outputs": {
+   "files/home/workspace/scoring/grade_with_codex.py": "1d941b58853dbd89b490b38029de23f306a4138a7c0949360754e5924bf054a6"
+  },
+  "repair_patch_sha256": "bcd8b8fd3c07185b3c402cc26f5141b0d58e83310b84ab505645a6baeab8c077",
+  "materialize_sh_sha256": "899686bfb448b14f6a8bdad5fe1f2bbddd122b9038986739356f3ef5898da5e7",
+  "task_json_diff_sha256": "a9acdebec8748f667288e3455cbedc0504829c77ad0f2d560e553cdca0c4ac89"
+ }
+}

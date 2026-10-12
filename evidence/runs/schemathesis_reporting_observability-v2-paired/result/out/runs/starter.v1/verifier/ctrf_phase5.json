@@ -1,0 +1,143 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T04:17:19.725648+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 2,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791778638392,
+            "stop": 1791778639725
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_05_email_coverage.py::test_email_format_fix_available",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 133,
+                "start": 1791778638412,
+                "stop": 1791778638545,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "trace": "/tests/test_05_email_coverage.py:21: in test_email_format_fix_available\n    pytest.fail(f\"Import failed: {_IMPORT_ERROR}\")\nE   Failed: Import failed: cannot import name '_lowercase_email_domain' from 'schemathesis.specs.openapi.formats' (/app/src/schemathesis/specs/openapi/formats.py)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_lowercase_email_domain_basic",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791778638545,
+                "stop": 1791778638548,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "trace": "/tests/test_05_email_coverage.py:26: in test_lowercase_email_domain_basic\n    result = _lowercase_email_domain(\"user@EXAMPLE.COM\")\n             ^^^^^^^^^^^^^^^^^^^^^^^\nE   NameError: name '_lowercase_email_domain' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_lowercase_email_domain_preserves_local",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791778638548,
+                "stop": 1791778638551,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "trace": "/tests/test_05_email_coverage.py:32: in test_lowercase_email_domain_preserves_local\n    result = _lowercase_email_domain(\"User.Name@Domain.Org\")\n             ^^^^^^^^^^^^^^^^^^^^^^^\nE   NameError: name '_lowercase_email_domain' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_lowercase_email_domain_already_lowercase",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791778638551,
+                "stop": 1791778638554,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "trace": "/tests/test_05_email_coverage.py:38: in test_lowercase_email_domain_already_lowercase\n    result = _lowercase_email_domain(\"test@example.org\")\n             ^^^^^^^^^^^^^^^^^^^^^^^\nE   NameError: name '_lowercase_email_domain' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_lowercase_email_domain_idn",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791778638554,
+                "stop": 1791778638557,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "trace": "/tests/test_05_email_coverage.py:44: in test_lowercase_email_domain_idn\n    result = _lowercase_email_domain(\"user@Xn--nxasmq6b.example\")\n             ^^^^^^^^^^^^^^^^^^^^^^^\nE   NameError: name '_lowercase_email_domain' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_email_format_strategy_registered",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1791778638557,
+                "stop": 1791778638561,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "trace": "/tests/test_05_email_coverage.py:51: in test_email_format_strategy_registered\n    assert \"email\" in strategies\nE   assert 'email' in {'_basic_auth': tuples(text(alphabet=characters(min_codepoint=0, max_codepoint=255)), text(alphabet=characters(min_codepoint=0, max_codepoint=255))).map(make_basic_auth_str), '_bearer_auth': text(alphabet=characters(min_codepoint=0, max_codepoint=255, exclude_characters='\\n\\r')).map(lstrip).map('Bearer {}'.format), '_header_name': text(alphabet=sampled_from(('!', '#', '$', '%', '&', \"'\", '*', '+', '-', '.', '^', '_', '`', '|', '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')), min_size=1), '_header_value': text(alphabet=characters(min_codepoint=0, max_codepoint=255, exclude_characters='\\n\\r')).map(lstrip), ...}",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_email_format_generates_lowercase_domain",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791778638561,
+                "stop": 1791778638564,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "trace": "/tests/test_05_email_coverage.py:60: in test_email_format_generates_lowercase_domain\n    email_strategy = strategies[\"email\"]\n                     ^^^^^^^^^^^^^^^^^^^\nE   KeyError: 'email'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_idn_email_format_generates_lowercase_domain",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791778638564,
+                "stop": 1791778638567,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "trace": "/tests/test_05_email_coverage.py:76: in test_idn_email_format_generates_lowercase_domain\n    email_strategy = strategies[\"idn-email\"]\n                     ^^^^^^^^^^^^^^^^^^^^^^^\nE   KeyError: 'idn-email'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_body_unexpected_parameters_control_deny",
+                "status": "passed",
+                "duration": 1115,
+                "start": 1791778638567,
+                "stop": 1791778639682,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_query_unexpected_parameters_control_deny",
+                "status": "passed",
+                "duration": 43,
+                "start": 1791778639682,
+                "stop": 1791778639725,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            }
+        ]
+    }
+}

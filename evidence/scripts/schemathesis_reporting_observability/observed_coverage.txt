@@ -1,0 +1,8 @@
+--- original coverage tests on UNMODIFIED starter (body fix absent) ---
+..                                                                       [100%]
+2 passed in 3.11s
+--- diagnostic: what cover_schema_iter actually yields on the starter ---
+loc=BODY allow=False: yielded=12 isinstance(negative.GV)=0 isinstance(coverage.GV)=12 OBJECT_UNEXPECTED_PROPERTIES_present=True
+loc=BODY allow=True: yielded=12 isinstance(negative.GV)=0 isinstance(coverage.GV)=12 OBJECT_UNEXPECTED_PROPERTIES_present=True
+loc=QUERY allow=False: yielded=6 isinstance(negative.GV)=0 isinstance(coverage.GV)=6 OBJECT_UNEXPECTED_PROPERTIES_present=False
+loc=QUERY allow=True: yielded=7 isinstance(negative.GV)=0 isinstance(coverage.GV)=7 OBJECT_UNEXPECTED_PROPERTIES_present=True

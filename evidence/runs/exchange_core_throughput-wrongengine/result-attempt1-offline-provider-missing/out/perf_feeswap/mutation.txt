@@ -1,0 +1,2 @@
+patched processors/RiskEngine.java: 'taker.accounts.addToValue(quoteCurrency, takerSizePriceForThisHandler * spec.quoteScaleK -' -> 'taker.accounts.addToValue(quoteCurrency, takerSizePriceForThisHandler * spec.quoteScaleK -'
+patched processors/RiskEngine.java: 'fees.addToValue(quoteCurrency, spec.takerFee * takerSizeForThisHandler + spec.makerFee * m' -> 'fees.addToValue(quoteCurrency, spec.makerFee * takerSizeForThisHandler + spec.makerFee * m'

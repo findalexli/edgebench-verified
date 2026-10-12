@@ -1,0 +1,23 @@
+edge_touch	in_pair.txt	0 0 10 10\n10 0 20 10\n
+corner_touch	in_corner.txt	0 0 10 10\n10 10 20 20\n
+overlap_1x1	in_corner.txt	0 0 10 10\n9 9 20 20\n
+overlap_contained	in_contained.txt	0 0 20 20\n5 5 6 6\n
+identical	in_corner.txt	0 0 20 20\n0 0 20 20\n
+noncontain_overlaps_earlier	in_far.txt	0 0 10 10\n5 5 15 15\n
+noncontain_overlapped_by_later	in_far_rev.txt	5 5 15 15\n0 0 10 10\n
+point_on_right_edge_not_contained	in_corner.txt	0 0 10 10\n0 10 10 20\n
+point_on_left_edge_contained	in_corner.txt	0 0 10 10\n10 10 11 11\n
+max_corner_valid	in_one.txt	9999 9999 10000 10000\n
+oob_x2_10001	in_one.txt	9999 9999 10001 10000\n
+oob_negative	in_pair.txt	-1 0 10 10\n10 0 20 10\n
+zero_area	in_pair.txt	0 0 0 10\n10 0 20 10\n
+reversed_corners	in_pair.txt	10 10 0 0\n20 10 10 0\n
+too_few	in_pair.txt	0 0 10 10\n10 0 20\n
+too_many	in_pair.txt	0 0 10 10\n10 0 20 10\n0\n
+empty	in_pair.txt	
+crlf_tabs_no_final_newline	in_pair.txt	0 0 10 10\r\n\t10  0 20 10  
+plus_sign	in_pair.txt	+0 0 10 10\n10 0 20 10\n
+leading_zero	in_pair.txt	00 0 010 10\n10 0 20 10\n
+decimal_token	in_pair.txt	0 0 10.0 10\n10 0 20 10\n
+full_square_exact	in_full.txt	0 0 10000 10000\n
+non_utf8	in_pair.txt	-

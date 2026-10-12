@@ -1,0 +1,26 @@
+{
+  "x_center": 259.8395383674772,
+  "y_center": 231.54081551218886,
+  "z_center": 221.63798706985853,
+  "half_length_x": 5.000000063757027,
+  "half_length_y": 15.380948894603847,
+  "half_length_z": 2.2937855829746288,
+  "C0": 492.07378091060525,
+  "t_start": 621.5519175233234,
+  "duration": 2710.754614992025,
+  "source_type": "rectangular_region",
+  "dimension": 3,
+  "transport_model": {
+    "equation_type": "advection_dispersion_reaction",
+    "governing_equation": "R*dC/dt = div(D grad C) - v dot grad C - lambda*C + source",
+    "velocity_m_per_day": 0.02777777777777778,
+    "alpha_L_m": 10.0,
+    "alpha_TH_m": 0.5,
+    "alpha_TV_m": 0.01,
+    "porosity": 0.3,
+    "retardation_factor": 1.0,
+    "lambda_per_day": 0.0,
+    "numerical_approach": "superposed point-source ADE pulses over 5x5 sub-points and 9 release times; least squares"
+  },
+  "method": "multi-start bounded least squares on censored log residuals of public monitoring data"
+}

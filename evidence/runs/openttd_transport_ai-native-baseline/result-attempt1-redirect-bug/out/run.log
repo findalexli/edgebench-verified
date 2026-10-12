@@ -1,0 +1,53 @@
++ J=seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c
++ WI=seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         351        7595           0         250        7613
+Swap:              0           0           0
++ date -u
+Mon Oct 12 04:13:08 UTC 2026
++ docker pull -q seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c
+docker.io/seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c
++ docker pull -q seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0
+docker.io/seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0
++ docker image inspect seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
+template parsing error: template: :1:17: executing "" at <.Config.User>: map has no entry for key "User"
++ docker create --name wk seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0 true
+647cca1e6205cc6a103ef84c41aa77debf4fdc61d38e1fc493d2c6d05c92786b
++ mkdir -p /job/sub
++ docker cp wk:/home/workspace/openttd_ai/my_ai /job/sub/
++ docker rm wk
+wk
++ cd /job/sub
++ find . -type f -exec sha256sum '{}' ';'
++ cp -r /job/sub/my_ai /job/out/baseline_my_ai
++ run_eval none offline
++ docker rm -f jd
++ docker create --name jd --network none --memory 6g -v /job/out:/out seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c sleep 7200
+6a922991700ddfec4a31b5b091e206a3aca2a78ee95df2dca5eabf9f292cfca2
++ docker start jd
+jd
++ docker exec jd bash -c 'rm -rf /home/workspace/openttd_ai/my_ai'
++ docker cp /job/sub/my_ai jd:/home/workspace/openttd_ai/my_ai
++ X='docker exec -w /home/workspace/openttd_ai jd'
++ docker exec -w /home/workspace/openttd_ai jd bash -c 'id; echo HOME=$HOME; sha256sum /tmp/eval_openttd.py /tmp/openttd_original_eval.py my_ai/*; pip show openttdlab 2>/dev/null | head -3; python3 -c "import openttdlab,os;print(openttdlab.__file__)"; python3 -c "import os;print(\"cpu_count\",os.cpu_count())"; ls -la ~ ; find / -xdev \( -iname "*openttd*13.4*" -o -iname "*opengfx*" \) 2>/dev/null | head -20'
+run.sh: line 17: /out/diag_offline.txt: No such file or directory
++ MON=1080
+run.sh: line 18: /out/monitor_offline.txt: No such file or directory
+++ date +%s
++ T0=1791778410
++ docker exec -w /home/workspace/openttd_ai jd bash -c 'cd /home/workspace/openttd_ai && OPENTTD_N_SEEDS=5 timeout 2600 python3 /tmp/eval_openttd.py'
+run.sh: line 21: /out/full_eval_offline.txt: No such file or directory
+++ date +%s
++ echo 'exit=1 wall_s=0'
+run.sh: line 22: /out/full_eval_status_offline.txt: No such file or directory
++ kill 1080
+run.sh: line 23: kill: (1080) - No such process
++ docker rm -f jd
+jd
++ grep -qiE 'ConnectError|Name or service|Temporary failure in name|NetworkUnreachable|getaddrinfo|ConnectTimeout|Network is unreachable' /job/out/full_eval_offline.txt
+grep: /job/out/full_eval_offline.txt: No such file or directory
++ date -u
+Mon Oct 12 04:13:30 UTC 2026

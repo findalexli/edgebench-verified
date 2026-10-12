@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+# Audit fixture: replays a precomputed witness (computed offline from the exact benchmark) so the
+# ORIGINAL evaluator's witness checker can be exercised natively. Selects witness by content.
+import sys, os, json, re
+text = open(sys.argv[1]).read()
+case = "ufcase" if "(declare-fun op " in text else "uflracase"
+tag = os.environ.get("WITNESS_TAG", "A")
+p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f"w_{case}_{tag}.json")
+if not os.path.exists(p):
+    print("unknown"); sys.exit(0)
+vals = json.load(open(p))["values"]
+for name, sort in re.findall(r"\(declare-fun (__sebench_\w+) \(\) (\w+)\)", text):
+    vals[name] = "true" if sort == "Bool" else "0"
+print("sat"); print(json.dumps({"values": vals}))

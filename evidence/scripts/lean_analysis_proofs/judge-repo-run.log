@@ -1,0 +1,14 @@
+Lean (version 4.28.0, x86_64-unknown-linux-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)
+e726bcb6689fb8da83d00204d1fcad79c6e7d47d8eda92c92dfb67758c6d2020  Analysis/Section_11_1.lean
+7c33452c76d2cf7c36b92d14b2395a2e6df08ec45cd0b37040fba83e1d8cc12b  Analysis/Section_11_2.lean
+224ae648efa6ca57625be4ef6c62777b86f49e5e080889458d288be69e639e4a  Analysis/Section_11_3.lean
+618d86c4062e5d97a16099c182c136eef70ad11cf7ad6a622ca22e0b274a3261  EbvRefute.lean
+'EbvRefute.anti_symm_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvRefute.div_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvRefute.anti_symm_corrected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvRefute.installed_anti_symm_inconsistent' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'EbvRefute.installed_div_inconsistent' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+@Chapter11.MajorizesOn.anti_symm : ∀ {f g : ℝ → ℝ} {I : Chapter11.BoundedInterval},
+  ∀ x ∈ ↑I, f x = g x ↔ Chapter11.MajorizesOn f g I ∧ Chapter11.MajorizesOn g f I
+@Chapter11.PiecewiseConstantOn.div : ∀ {f g : ℝ → ℝ} {I : Chapter11.BoundedInterval},
+  Chapter11.PiecewiseConstantOn f I → Chapter11.PiecewiseConstantOn f I → Chapter11.PiecewiseConstantOn (f / g) I

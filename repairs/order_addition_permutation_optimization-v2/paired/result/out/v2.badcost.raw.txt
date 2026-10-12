@@ -1,0 +1,50 @@
++ echo '>>>>> Start Test Output'
++ cd /home/workspace/complex_job_scheduling
++ python -m pytest tests/test_final_result.py -s -v
+>>>>> Start Test Output
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /home/workspace/complex_job_scheduling
+collecting ... collected 5 items
+
+tests/test_final_result.py::test_no_private_cost_module_access PASSED
+tests/test_final_result.py::test_private_judge_files_are_available PASSED
+tests/test_final_result.py::test_baseline_file_was_not_modified PASSED
+tests/test_final_result.py::test_final_result_exists_and_has_required_fields PASSED
+tests/test_final_result.py::test_final_result_is_valid_permutation_and_cost FAILED
+
+=================================== FAILURES ===================================
+_______________ test_final_result_is_valid_permutation_and_cost ________________
+
+    def test_final_result_is_valid_permutation_and_cost() -> None:
+        parsed = parse_result_file(RESULT_PATH)
+        final_pai = parsed["final_pai"]
+        final_cost = float(parsed["final_cost"])
+        num = int(parsed["num"])
+    
+        assert len(final_pai) == M, f"final_pai must contain exactly {M} integers"
+        assert sorted(final_pai) == list(range(1, M + 1)), (
+            "final_pai must be a permutation of 1..1000 with no duplicates or missing values"
+        )
+        assert num > 0, "num/final_num/my_num must be a positive integer"
+    
+        recomputed_cost = cost_complex_with_builtin_data(final_pai, m=M, seed=1)
+>       assert math.isclose(final_cost, recomputed_cost, rel_tol=1e-10, abs_tol=1e-3), (
+            f"reported cost {final_cost} does not match recomputed cost {recomputed_cost}"
+        )
+E       AssertionError: reported cost 311885158081.8224 does not match recomputed cost 623770316163.6448
+E       assert False
+E        +  where False = <built-in function isclose>(311885158081.8224, 623770316163.6448, rel_tol=1e-10, abs_tol=0.001)
+E        +    where <built-in function isclose> = math.isclose
+
+tests/test_final_result.py:139: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_result.py::test_final_result_is_valid_permutation_and_cost
+========================= 1 failed, 4 passed in 0.20s ==========================
++ EXIT_CODE=1
++ echo '>>>>> End Test Output'
++ echo 'Exit code: 1'
++ exit 0
+>>>>> End Test Output
+Exit code: 1

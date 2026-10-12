@@ -1,0 +1,27 @@
++ for i in 1 2 3
+++ date +%s%N
++ S=1791778412073131663
++ docker exec -w /home/nethack_agent jd timeout 130 python3 /tmp/eval_nethack.py --run-seed 0
++ tail -1
+SEBENCH_NETHACK_RESULT {"score": 0, "seed": 0, "status": "WA"}
+++ date +%s%N
++ echo game_wall_ms=365
+game_wall_ms=365
++ for i in 1 2 3
+++ date +%s%N
++ S=1791778412439806133
++ tail -1
++ docker exec -w /home/nethack_agent jd timeout 130 python3 /tmp/eval_nethack.py --run-seed 0
+SEBENCH_NETHACK_RESULT {"score": 2, "seed": 0, "status": "OK"}
+++ date +%s%N
++ echo game_wall_ms=442
+game_wall_ms=442
++ for i in 1 2 3
+++ date +%s%N
++ S=1791778412883545969
++ docker exec -w /home/nethack_agent jd timeout 130 python3 /tmp/eval_nethack.py --run-seed 0
++ tail -1
+SEBENCH_NETHACK_RESULT {"score": 0, "seed": 0, "status": "WA"}
+++ date +%s%N
++ echo game_wall_ms=436
+game_wall_ms=436

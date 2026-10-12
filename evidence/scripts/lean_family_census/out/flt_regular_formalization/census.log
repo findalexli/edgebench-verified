@@ -1,0 +1,78 @@
+== layout
+/home/workspace:
+total 16
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 .
+drwxr-xr-x 1 root root 4096 Jun  2 10:45 ..
+drwxr-xr-x 1 root root 4096 Jun 25 09:28 baseline
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 judge
+
+/home/workspace/judge/se-bmk-intern:
+total 44
+drwxr-xr-x 1 root root  4096 Jun 25 09:28 .
+drwxr-xr-x 1 root root  4096 Jun  6 11:33 ..
+drwxr-xr-x 1 root root  4096 Jul  1 15:35 FltRegular
+-rw-r--r-- 1 root root 27959 Jun  6 11:33 eval_lean.py
+drwxr-xr-x 2 root root  4096 Jun 25 09:28 task
+
+/home/workspace/judge/se-bmk-intern/FltRegular:
+total 60
+drwxr-xr-x 1 root  root   4096 Jul  1 15:35 .
+drwxr-xr-x 1 root  root   4096 Jun 25 09:28 ..
+drwxr-xr-x 1 root  root   4096 Jun  6 11:33 .lake
+drwxr-xr-x 7 root  root   4096 Jun  6 11:33 FltRegular
+-rw-r--r-- 1 root  root   1098 Jun  6 11:33 FltRegular.lean
+-rw-r--r-- 1 root  root  11357 Jun  6 11:33 LICENSE
+-rw-r--r-- 1 agent agent 10038 Jun 30 12:33 ListDeclAxiom.lean
+-rw-r--r-- 1 agent agent  2366 Jun 30 12:35 README.md
+-rw-r--r-- 1 root  root   3189 Jul  1 17:56 lake-manifest.json
+-rw-r--r-- 1 root  root    806 Jun  6 11:33 lakefile.toml
+-rw-r--r-- 1 root  root     25 Jun  6 11:33 lean-toolchain
+total 48
+drwxr-xr-x 1 root root 4096 Jun 25 09:28 .
+drwxr-xr-x 1 root root 4096 Jun  6 11:33 ..
+drwxr-xr-x 1 root root 4096 Jun 25 09:28 .git
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 .github
+-rw-r--r-- 1 root root    7 Jun  2 10:54 .gitignore
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 .lake
+drwxr-xr-x 1 root root 4096 Jun  2 10:54 Baseline
+-rw-r--r-- 1 root root   22 Jun  2 10:54 Baseline.lean
+-rw-r--r-- 1 root root  485 Jun  2 10:54 README.md
+ls: cannot access '/home/workspace/se-bmk-intern': No such file or directory
+== toolchain
+leanprover/lean4:v4.28.0
+Lean (version 4.28.0, x86_64-unknown-linux-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)
+== hashes
+3319767e470e165395bf9538db1d7d1fabf01c94eb1f0b43ceca0281d35acc29  /home/workspace/judge/se-bmk-intern/eval_lean.py
+0eee3e926986e4f7d1ca9e147777794f6225165f1ec78b4eaebe5c38a60774c1  /home/workspace/judge/se-bmk-intern/FltRegular/ListDeclAxiom.lean
+e130a1cf5f522dadd7918312eb28184ff0cc63ceeee29c2551a10fe4a429b08e  /home/workspace/judge/se-bmk-intern/FltRegular/lakefile.toml
+880c7aa490f6d92b492572e9a8080368246abb577a3f7eec1269b697388cad4c  /home/workspace/judge/se-bmk-intern/FltRegular/lake-manifest.json
+7758d9215457a43faadd01f3cc5e8e97c37be3f67ddc2ce8f28644c60d42d519  /home/workspace/baseline/lake-manifest.json
+943b624f07da83ff0725944449a7fae88f68f2550a3f30376587dae4a3c515ce  /home/workspace/judge/se-bmk-intern/task/FltRegular_weight.json
+0eee3e926986e4f7d1ca9e147777794f6225165f1ec78b4eaebe5c38a60774c1  /home/workspace/judge/se-bmk-intern/FltRegular/ListDeclAxiom.lean
+== HASH lines in helper
+5:/- THIS IS NEW VERSION OF LISTDECLAXIOM THAT CALCULATE HASH OF DECLARATION.-/
+50:def isModuleUnderPrefix (modulePrefix : String) (moduleName : Name) : Bool :=
+52:  moduleNameString == modulePrefix || moduleNameString.startsWith (modulePrefix ++ ".")
+103:def analysisDecls (modulePrefix : String) : MetaM (Array Name) := do
+108:    if isModuleUnderPrefix modulePrefix moduleName then
+114:def projectDeclSet (modulePrefix : String) : MetaM (Std.HashSet Name) := do
+115:  let decls ← analysisDecls modulePrefix
+227:def targetSpecClosureHash (modulePrefix : String) (target : Name) : MetaM UInt64 := do
+228:  let projectDecls ← projectDeclSet modulePrefix
+230:    throwError "no declarations found for module prefix {modulePrefix}"
+232:    throwError "target {target} is not a declaration from modules matching prefix {modulePrefix}"
+241:def dumpDeclNames (modulePrefix : String) : MetaM Unit := do
+242:  for name in ← analysisDecls modulePrefix do
+245:def dumpDeclAxioms (modulePrefix : String) (onlyBad : Bool := true) : MetaM Unit := do
+249:  for name in ← analysisDecls modulePrefix do
+274:def targetSpecClosureHashpp (modulePrefix : String) (target : Name) : MetaM Unit := do
+275:  let got ← (targetSpecClosureHash modulePrefix target).run'
+277:  IO.println s!"HASH checked={target} result={result}"
+== baseline listing 06:42:25
+listing rc=0
+== lines: BAD=25 OK=546 HASH=1
+info: ListDeclAxiom.lean:279:0: HASH checked=flt_regular result=true
+== control eval (unmodified baseline as current) 06:42:51
+eval rc=0
+control score 0.0 mode=weighted, repaired=0/25, remaining_bad=25
+== done 06:42:54

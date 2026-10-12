@@ -1,0 +1,47 @@
+{
+ "task_id": "tree_block_partitioning",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/tree_block_partitioning.json",
+  "sha256": "44b08d0d5f7bd4660a3d2a073496a820798762724491d6f0bc1fdc7994b51be4"
+ },
+ "original_judge_image": "seededge/edgebench.judge.tree_block_partitioning@sha256:6ebbb44ab188660b15d260143e942ddcf0ba3bceb0bb7d7c78e976b1a36669d2",
+ "original_judge_image_tag": "f74f0ef897ce",
+ "v2_judge_image_tag": "f74f0ef897ce-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/opt/p1_judge/prob/P1/T2_P7881/data/interactive_lib.cpp",
+   "original_sha256": "0c57271bd1b05d3cfbb44558fcf2e2770bb020858aa4411eaaa725a89409c982",
+   "original_bytes": 1225,
+   "replacement": "files/interactive_lib.cpp",
+   "replacement_sha256": "26c4edc615b1d5c3426fd592a857090210cbbc4179d6582ee160ce128e3ee2ea",
+   "replacement_bytes": 1225
+  }
+ ],
+ "repair_patch_sha256": "7c810d8c14acde95987be1fe99e2074d527b4333efec4288b00ed206a9bd0ec9",
+ "dockerfile_sha256": "6b150dcb8ff8fbe55157e0702a0668667c6d9588ebcea6ffb38c462b781d2f4b",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "work_image_note": "The solver-visible T2 library (T2_P7881/down/lib.cpp, a different monoid) is not changed; only the judge-side grading library changes.",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.tree_block_partitioning@sha256:6ebbb44ab188660b15d260143e942ddcf0ba3bceb0bb7d7c78e976b1a36669d2"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/opt/p1_judge/prob/P1/T2_P7881/data/interactive_lib.cpp",
+    "sha256": "0c57271bd1b05d3cfbb44558fcf2e2770bb020858aa4411eaaa725a89409c982"
+   }
+  ],
+  "outputs": {
+   "files/interactive_lib.cpp": "26c4edc615b1d5c3426fd592a857090210cbbc4179d6582ee160ce128e3ee2ea"
+  },
+  "repair_patch_sha256": "7c810d8c14acde95987be1fe99e2074d527b4333efec4288b00ed206a9bd0ec9",
+  "materialize_sh_sha256": "19f2e201b0d661fb4a8f1b4739e34db1380392c5479f6b431b7982115101dd68"
+ }
+}

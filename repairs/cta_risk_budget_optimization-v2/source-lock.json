@@ -1,0 +1,47 @@
+{
+ "task_id": "cta_risk_budget_optimization",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/cta_risk_budget_optimization.json",
+  "sha256": "4681d022290b1809e48481dab632a67e333b099e89cca031b41a57fd385a805c"
+ },
+ "original_judge_image": "seededge/edgebench.judge.cta_risk_budget_optimization@sha256:34258d854f41e9cd5fc179fadbc6348bb8ff4118506b1862273f2a2a6d941b32",
+ "original_judge_image_tag": "a9651058ecef",
+ "v2_judge_image_tag": "a9651058ecef-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/home/workspace/scoring/eval_script.py",
+   "original_sha256": "252f864a1a515fb48283644268938afd75f417fcfe34bba09fc8bab49cd41300",
+   "original_bytes": 104482,
+   "replacement": "files/eval_script.py",
+   "replacement_sha256": "4e0ddc4e0f28fe5e77aca0e65f48c246ef8c5c21bbc3877769e5d79deff7110a",
+   "replacement_bytes": 105274
+  }
+ ],
+ "repair_patch_sha256": "f080b020a7685805d9e6881695ef0a0a1d08f47dffb5bba3f48ffcdf75eba9a6",
+ "dockerfile_sha256": "89efb205ab1e735faeaff66990474141a3e528a492e19fd8cf374372cea49d92",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "work_image_note": "Only the judge-side scoring/eval_script.py changes. The work image was not pulled; whether it ships a copy of eval_script.py was not verified.",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.cta_risk_budget_optimization@sha256:34258d854f41e9cd5fc179fadbc6348bb8ff4118506b1862273f2a2a6d941b32"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/scoring/eval_script.py",
+    "sha256": "252f864a1a515fb48283644268938afd75f417fcfe34bba09fc8bab49cd41300"
+   }
+  ],
+  "outputs": {
+   "files/eval_script.py": "4e0ddc4e0f28fe5e77aca0e65f48c246ef8c5c21bbc3877769e5d79deff7110a"
+  },
+  "repair_patch_sha256": "f080b020a7685805d9e6881695ef0a0a1d08f47dffb5bba3f48ffcdf75eba9a6",
+  "materialize_sh_sha256": "540ef39b546af9bc7e40d7988fa803eaf1c430ad076344976c9212ccb910a9c7"
+ }
+}

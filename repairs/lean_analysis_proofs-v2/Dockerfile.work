@@ -1,0 +1,6 @@
+# lean_analysis_proofs v2 work (solver) image. NOT BUILT OR VERIFIED LOCALLY: the work image was
+# not pulled. The starter path is cwd /home/workspace + submit_paths se-bmk-intern/analysis;
+# the replacement files are the judge-repo sources with the two statement corrections, on the
+# (unverified) assumption that the work starter equals the judge baseline sources.
+FROM seededge/edgebench.work.lean_analysis_proofs@sha256:5b67e0c53a75916896eceb86580a3a1c8e93614f29a7f26418c1f38d445e5d1a
+COPY --chown=agent:agent files/work/Analysis/Section_11_2.lean files/work/Analysis/Section_11_3.lean /home/workspace/se-bmk-intern/analysis/Analysis/

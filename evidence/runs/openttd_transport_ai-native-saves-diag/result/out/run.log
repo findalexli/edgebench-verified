@@ -1,0 +1,31 @@
++ J=seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c
++ WI=seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0
++ nproc
+8
++ date -u
+Mon Oct 12 04:19:11 UTC 2026
++ docker pull -q seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c
+docker.io/seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c
++ docker pull -q seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0
+docker.io/seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0
++ docker create --name wk seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0 true
+304205301b0521ffdbd5485dd715b46a1f67a75f2d240568aefc193a2f305eac
++ mkdir -p /job/sub
++ docker cp wk:/home/workspace/openttd_ai/my_ai /job/sub/
++ docker rm wk
+wk
++ docker create --name jd --network none --memory 6g -v /job/out:/out -v /job/diag1.py:/diag1.py:ro seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c sleep 7200
+ccbdd6889be76d7a972bca1949674dd6ea5082b305503194e66b4f5f95cea844
++ docker start jd
+jd
++ docker exec jd rm -rf /home/workspace/openttd_ai/my_ai
++ docker cp /job/sub/my_ai jd:/home/workspace/openttd_ai/my_ai
++ X='docker exec -w /home/workspace/openttd_ai jd'
++ docker exec -w /home/workspace/openttd_ai jd cat /usr/local/lib/python3.10/site-packages/openttdlab.py
++ docker exec -w /home/workspace/openttd_ai jd sha256sum /usr/local/lib/python3.10/site-packages/openttdlab.py
++ docker exec -w /home/workspace/openttd_ai jd timeout 900 python3 /diag1.py
++ echo exit=0
++ docker rm -f jd
+jd
++ date -u
+Mon Oct 12 04:20:22 UTC 2026

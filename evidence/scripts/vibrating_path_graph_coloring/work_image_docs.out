@@ -1,0 +1,97 @@
+./README.md
+./solution.py
+./tools/src/verifier.py
+./tools/src/gen.py
+./tools/README.md
+./tools/bin/gen
+./tools/bin/tester
+d7a4af29cb6af5158aebaebadc3b7b991c505d3528bf523e715c6e340e719218  README.md
+c119500a177f9d8a7f24ab60ea3e266296355774ca670d62b535dae9267a7689  solution.py
+8e979ee25af7ceac6eb7d3d8c3bf2723d1396372123406ae995fdba0873fa1a9  tools/README.md
+3e738324be0c79b4d8c791e3efe5f725d93f5cd1db72fa713db6f3ed2049266e  tools/bin/gen
+b1c7694b8de3444c0459393b967851ad7d61e38a9a320222ce01ba7a1b446463  tools/bin/tester
+9e996ca2ae907eeb544efcd8b2a068b13735a20d3e8afde1caa6cea39e6f1573  tools/src/gen.py
+3154bdd2d3852861c67db9e8c18a71074befdc67e3ae28ae6d6982631af6d9c2  tools/src/verifier.py
+----
+# Local Testing Tools
+
+## Overview
+
+- **gen**: Input generator (seed-based, deterministic)
+- **tester**: Scoring program (evaluates your solution's output)
+
+## gen -- Input Generator
+
+```bash
+./bin/gen <seed>
+```
+
+Generates a test input. Different seeds produce different (N, K) combinations cycling through 8 configurations.
+
+## tester -- Scoring Program
+
+```bash
+./bin/tester <input_file> <output_file>
+```
+
+- **Success**: stderr outputs `Score = <integer>`, exit code 0
+- **Failure**: stderr outputs `wrong answer: <reason>`, exit code 1
+
+## Testing Loop
+
+```bash
+for seed in $(seq 0 9); do
+    ./bin/gen $seed > input.txt
+    python3 solution.py < input.txt > output.txt
+    echo -n "Seed $seed: "
+    ./bin/tester input.txt output.txt 2>&1 1>/dev/null
+done
+```
+
+## Source Code
+
+- `src/gen.py` -- Generator source
+- `src/verifier.py` -- Tester source
+----
+12-        self.input_file = input_file
+13-
+14:    def verify(self, output_file: str) -> Tuple[bool, Optional[str], float]:
+15-        try:
+16-            with open(self.input_file, 'r') as f:
+17-                data = f.read().split()
+18-            idx = 0
+19-            N = int(data[idx]); idx += 1
+20-            M = int(data[idx]); idx += 1
+21-            K = int(data[idx]); idx += 1
+22-            costs = [int(data[idx + i]) for i in range(N)]
+23-            idx += N
+24-
+25:            with open(output_file, 'r') as f:
+26-                out_lines = f.read().strip().split('\n')
+27-
+28-            Q = int(out_lines[0])
+29-            if Q > 0:
+30-                hit_nodes = list(map(int, out_lines[1].split()))
+31-                colors = list(map(int, out_lines[2].split()))
+32-            else:
+33-                hit_nodes = []
+34-                colors = list(map(int, out_lines[1].split()))
+35-
+36-            total_cost = sum(costs[node-1] for node in hit_nodes)
+37-            return True, None, total_cost
+--
+41-def main():
+42-    if len(sys.argv) < 3:
+43:        print("Usage: python verifier.py <input_file> <output_file>")
+44-        sys.exit(1)
+45-
+46-    verifier = Verifier(sys.argv[1])
+47-    is_valid, error_msg, score = verifier.verify(sys.argv[2])
+48-
+49-    if not is_valid:
+50-        print(f"INVALID: {error_msg}")
+51-        sys.exit(1)
+52-    else:
+53-        print(f"Score: {score:.2f}")
+54-
+55-if __name__ == "__main__":

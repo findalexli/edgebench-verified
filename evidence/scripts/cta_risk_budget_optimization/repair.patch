@@ -1,0 +1,27 @@
+--- a/scoring/eval_script.py
++++ b/scoring/eval_script.py
+@@ -1022,6 +1022,13 @@
+                 mult_lk = {}
+                 if 'specs' in self.raw_data:
+                     for _, r in self.raw_data['specs'].iterrows(): mult_lk[r['ticker']] = float(r['multiplier'])
++                ccy_lk = {}
++                if 'specs' in self.raw_data:
++                    for _, r in self.raw_data['specs'].iterrows(): ccy_lk[r['ticker']] = str(r.get('currency', 'CNY')).upper()
++                fx_s = pd.Series(dtype=float)
++                if 'fx' in self.raw_data and 'USDCNY' in self.raw_data['fx'].columns:
++                    _fx = self.raw_data['fx'].copy(); _fx['date'] = pd.to_datetime(_fx['date'])
++                    fx_s = _fx.drop_duplicates('date').set_index('date')['USDCNY'].astype(float).sort_index()
+ 
+                 violations = 0; days = 0
+                 for date, dg in holdings_df.groupby('dp'):
+@@ -1031,6 +1038,9 @@
+                         t = r[ht[0]]; l = abs(r[hl[0]])
+                         if l == 0: continue
+                         m = mult_lk.get(t, 1); p = price_lk.get((date, t), 0)
+-                        n = l * m * p; tn += n
++                        fx = 1.0
++                        if ccy_lk.get(t, 'CNY') == 'USD':
++                            v = fx_s.asof(pd.Timestamp(date)) if len(fx_s) else float('nan')
++                            fx = 7.0 if pd.isna(v) else float(v)
++                        n = l * m * p * fx; tn += n
+                         if t in OVERSEAS_TICKERS: on += n

@@ -1,0 +1,6 @@
+impl=starter tests=orig :: test_body_unexpected_parameters_control_deny=PASSED test_query_unexpected_parameters_control_deny=PASSED 
+impl=starter tests=repaired :: test_body_unexpected_parameters_control[True]=PASSED test_query_unexpected_parameters_control[False]=PASSED test_query_unexpected_parameters_control[True]=PASSED test_body_unexpected_parameters_control[False]=FAILED 
+impl=correct_fix tests=orig :: test_body_unexpected_parameters_control_deny=PASSED test_query_unexpected_parameters_control_deny=PASSED 
+impl=correct_fix tests=repaired :: test_body_unexpected_parameters_control[False]=PASSED test_body_unexpected_parameters_control[True]=PASSED test_query_unexpected_parameters_control[False]=PASSED test_query_unexpected_parameters_control[True]=PASSED 
+impl=always_suppress tests=orig :: test_body_unexpected_parameters_control_deny=PASSED test_query_unexpected_parameters_control_deny=PASSED 
+impl=always_suppress tests=repaired :: test_body_unexpected_parameters_control[False]=PASSED test_query_unexpected_parameters_control[False]=PASSED test_body_unexpected_parameters_control[True]=FAILED test_query_unexpected_parameters_control[True]=FAILED 

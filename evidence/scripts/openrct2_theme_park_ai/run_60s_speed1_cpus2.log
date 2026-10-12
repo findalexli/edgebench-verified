@@ -1,0 +1,35 @@
+validate_plugin violations: []
+  [scenario_small.park] starting (timeout=60s)
+  [scenario_small.park] judge diagnostics: start companyValue 124,540, final companyValue 124,470, cash 200,000, loan 200,000, rides 1, openRides 1, managedOpenRides 1, staff 0, guests 801, rating 722, seedReady 1, seedFailed 0, samples 2
+  [scenario_small.park] judge maxima: rides 1, openRides 1, managedOpenRides 1, staff 0, guests 802, actionErrors 0
+  [scenario_small.park] judge expansion: expansionRides 0, expansionOpenRides 0
+  [scenario_small.park] judge operation: rideActivity yes, openRideActivity yes, managedOpenRideActivity yes, expansionActivity no, staffActivity no
+  [scenario_small.park] untrusted plugin log sample:
+    [31mFor security reasons, it is not recommended to run OpenRCT2 with elevated permissions.[0m
+    Building object index (2514 items)[0m
+    Finished building object index in 0.32 seconds.[0m
+    Building track design index (0 items)[0m
+    Finished building track design index in 0.00 seconds.[0m
+    Building scenario index (0 items)[0m
+    Finished building scenario index in 0.00 seconds.[0m
+    [31mFailed to download 'https://api.github.com/repos/OpenRCT2/OpenRCT2/releases/latest', cause bad http status[0m
+    Listening for clients on *:11753[0m
+    Registering server on master server...[0m
+    [31mUnable to connect to master server, retrying in 30 seconds[0m
+    [SEBenchJudgeMonitor] Registered[0m
+    [AuditControl] Registered[0m
+    [SEBenchJudgeMonitor] Loaded[0m
+    [AuditControl] Loaded[0m
+    [SEBenchJudgeMonitor] Started[0m
+    [AuditControl] Started[0m
+    [31mError: Invalid action parameters.
+        at executeAction (native)
+        at <anonymous> (/root/.config/OpenRCT2/plugin/zz_submitted_plugin.js:18:21)[0m
+    [31mError: Invalid action parameters.
+        at executeAction (native)
+        at <anonymous> (/root/.config/OpenRCT2/plugin/zz_submitted_plugin.js:18:21)[0m
+    Registering server on master server...[0m
+    [31mUnable to connect to master server, retrying in 30 seconds[0m
+  [scenario_small.park] final company value = 124,470
+{"scenario": "scenario_small.park", "budget_s": 60, "wall_s": 61.4, "samples": 2, "done_seen": false, "first_date": [61, 1, 27], "last_date": [61, 1, 29], "game_days_elapsed": 2, "first_value": 124540, "last_value": 124470, "min_value": 124470, "max_value": 124540, "metrics": {"value": 124470, "max_rides": 1, "max_open_rides": 1, "max_managed_open_rides": 1, "max_expansion_rides": 0, "max_expansion_open_rides": 0, "max_staff": 0, "max_guests": 802, "total_samples": 2, "ride_samples": 2, "open_ride_samples": 2, "managed_open_ride_samples": 2, "expansion_ride_samples": 0, "expansion_open_ride_samples": 0, "staff_samples": 0, "seed_ready_samples": 2, "seed_failed": 0, "action_errors": 0}, "norm": 1.1, "reason": "operation gate failed: staff; partial operation multiplier applied; score capped: expansion missing", "game_days_per_wall_s": 0.077, "trajectory": [[27.2, [61, 1, 27], 124540], [53.0, [61, 1, 29], 124470]]}
+average_normalized: 1.1

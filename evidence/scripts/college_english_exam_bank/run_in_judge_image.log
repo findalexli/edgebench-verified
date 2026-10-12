@@ -1,0 +1,31 @@
+=== ORIGINAL image grader
+A_complete_one_deduction_each	valid=True score=77.0 raw=77.0/100.0
+    R009 -> 11.0 / 15.0 | x
+B_complete_all_zero	valid=True score=0.0 raw=0.0/100.0
+    R009 -> 0.0 / 15.0 | 则得0 Deductive reason declared deductions reach the rule floor; reconciled rule score to 0.
+C_empty_scores	valid=True score=100.0 raw=100.0/100.0
+    R009 -> 15.0 / 15.0 | . Missing deductive detail scores; unreported deduction triggers treated as not triggered.
+D_A_minus_R009	valid=True score=81.0 raw=81.0/100.0
+    R009 -> 15.0 / 15.0 | . Missing deductive detail scores; unreported deduction triggers treated as not triggered.
+E_B_minus_R009	valid=True score=15.0 raw=15.0/100.0
+    R009 -> 15.0 / 15.0 | . Missing deductive detail scores; unreported deduction triggers treated as not triggered.
+F_B_R009_rule_score_only	valid=True score=0.0 raw=0.0/100.0
+    R009 -> 0.0 / 15.0 | poor Missing deductive detail scores; reconciled with rule-level score.
+G_B_R009_no_score_no_checkpoints	valid=True score=0.0 raw=0.0/100.0
+    R009 -> 0.0 / 15.0 | ? Missing deductive detail scores; reconciled with rule-level score.
+H_no_json	valid=False score=0 raw=None/None
+=== PATCHED grader (proposed repair)
+A_complete_one_deduction_each	valid=True score=77.0 raw=77.0/100.0
+    R009 -> 11.0 / 15.0 | x
+B_complete_all_zero	valid=True score=0.0 raw=0.0/100.0
+    R009 -> 0.0 / 15.0 | 则得0 Deductive reason declared deductions reach the rule floor; reconciled rule score to 0.
+C_empty_scores	valid=False score=0 raw=None/None
+D_A_minus_R009	valid=False score=0 raw=None/None
+E_B_minus_R009	valid=False score=0 raw=None/None
+F_B_R009_rule_score_only	valid=True score=0.0 raw=0.0/100.0
+    R009 -> 0.0 / 15.0 | poor Missing deductive detail scores; reconciled with rule-level score.
+G_B_R009_no_score_no_checkpoints	valid=False score=0 raw=None/None
+H_no_json	valid=False score=0 raw=None/None
+[codex-judge] model=fixed, timeout=30s
+[grader] fatal: Codex output did not contain valid scoring JSON
+[codex-judge] model=fixed, timeout=30s

@@ -1,0 +1,2168 @@
+========================================
+  Harbor Git-to-Zig Port Verifier
+========================================
+Start time: Mon Oct 12 04:23:00 Etc 2026
+
+=== Step 1: Anti-cheat ===
+Oracle solution detected — skipping anti-cheat.
+
+=== Step 2: Clean build ===
+Oracle solution — skipping clean build.
+Agent binary: /app/zig-port/zig-out/bin/git
+
+=== Step 2.5: Strace smoke test ===
+Oracle — skipping strace check.
+
+=== Step 2.6: Nuke system git ===
+Oracle — skipping nuke.
+
+=== Step 3: Build test helpers ===
+    LINK t/unit-tests/bin/t-urlmatch-normalization
+    GEN t/unit-tests/clar-decls.h
+    GEN t/unit-tests/clar.suite
+    CC t/unit-tests/ctype.o
+    CC t/unit-tests/strvec.o
+    CC t/unit-tests/clar/clar.o
+    CC t/unit-tests/unit-test.o
+    LINK t/unit-tests/bin/unit-tests
+    GEN gitweb/static/gitweb.js
+    GEN gitweb/gitweb.cgi
+test-tool: OK
+C git binaries removed from test build.
+
+=== Step 4: Run git test suite ===
+Found 1007 test scripts
+Running with 8 parallel workers
+  t0005-signals ... ok:5 fail:0
+0
+  t0004-unwritable ... ok:9 fail:0
+0
+  t0002-gitfile ... ok:14 fail:0
+0
+  t0007-git-var ... ok:27 fail:0
+0
+  t0013-sha1dc ... ok:1 fail:0
+0
+  t0014-alias ... ok:5 fail:0
+0
+  t0006-date ... ok:129 fail:0
+0
+  t0017-env-helper ... ok:5 fail:0
+0
+  t0018-advice ... ok:6 fail:0
+0
+  t0019-json-writer ... ok:16 fail:0
+0
+  t0003-attributes ... ok:54 fail:0
+0
+  t0022-crlf-rename ... ok:2 fail:0
+0
+  t0012-help ... ok:174 fail:0
+0
+  t0023-crlf-am ... ok:2 fail:0
+0
+  t0001-init ... ok:91 fail:0
+0
+  t0020-crlf ... ok:36 fail:0
+0
+  t0024-crlf-archive ... ok:3 fail:0
+0
+  t0025-crlf-renormalize ... ok:3 fail:0
+0
+  t0026-eol-config ... ok:6 fail:0
+0
+  t0029-core-unsetenvvars ... ok:0
+0 fail:0
+0
+  t0028-working-tree-encoding ... ok:22 fail:0
+0
+  t0030-stripspace ... ok:30 fail:0
+0
+  t0033-safe-directory ... ok:22 fail:0
+0
+  t0034-root-safe-directory ... ok:0
+0 fail:0
+0
+  t0035-safe-bare-repository ... ok:12 fail:0
+0
+  t0041-usage ... ok:16 fail:0
+0
+  t0051-windows-named-pipe ... ok:0
+0 fail:0
+0
+  t0040-parse-options ... ok:90 fail:0
+0
+  t0050-filesystem ... ok:11 fail:0
+0
+  t0055-beyond-symlinks ... ok:3 fail:0
+0
+  t0056-git-C ... ok:11 fail:0
+0
+  t0008-ignores ... ok:397 fail:0
+0
+  t0062-revision-walking ... ok:2 fail:0
+0
+  t0021-conversion ... ok:42 fail:0
+0
+  t0061-run-command ... ok:23 fail:0
+0
+  t0063-string-list ... ok:14 fail:0
+0
+  t0066-dir-iterator ... ok:10 fail:0
+0
+  t0067-parse_pathspec_file ... ok:8 fail:0
+0
+  t0070-fundamental ... ok:11 fail:0
+0
+  t0068-for-each-repo ... ok:5 fail:0
+0
+  t0071-sort ... ok:1 fail:0
+0
+  t0060-path-utils ... ok:218 fail:0
+0
+  t0080-unit-test-output ... ok:1 fail:0
+0
+  t0092-diagnose ... ok:4 fail:0
+0
+  t0081-find-pack ... ok:4 fail:0
+0
+  t0091-bugreport ... ok:13 fail:0
+0
+  t0095-bloom ... ok:11 fail:0
+0
+  t0101-at-syntax ... ok:8 fail:0
+0
+  t0100-previous ... ok:6 fail:0
+0
+  t0200-gettext-basic ... ok:16 fail:0
+0
+  t0201-gettext-fallbacks ... ok:8 fail:0
+0
+  t0203-gettext-setlocale-sanity ... ok:2 fail:0
+0
+  t0204-gettext-reencode-sanity ... ok:8 fail:0
+0
+  t0202-gettext-perl ... ok:1 fail:0
+0
+  t0010-racy-git ... ok:10 fail:0
+0
+  t0090-cache-tree ... ok:22 fail:0
+0
+  t0210-trace2-normal ... ok:13 fail:0
+0
+  t0212-trace2-event ... ok:11 fail:0
+0
+  t0211-trace2-perf ... ok:17 fail:0
+0
+  t0300-credentials ... ok:53 fail:0
+0
+  t0000-basic ... ok:92 fail:0
+0
+  t0411-clone-from-partial ... ok:7 fail:0
+0
+  t0302-credential-store ... ok:65 fail:0
+0
+  t0500-progress-display ... ok:16 fail:0
+0
+  t0303-credential-external ... ok:23 fail:0
+0
+  t0602-reffiles-fsck ... ok:2 fail:0
+0
+  t0410-partial-clone ... ok:37 fail:0
+0
+  t0301-credential-cache ... ok:51 fail:0
+0
+  t0611-reftable-httpd ... ok:0
+0 fail:0
+0
+  t0612-reftable-jgit-compatibility ... ok:0
+0 fail:0
+0
+  t0613-reftable-write-options ... ok:11 fail:0
+0
+  t1000-read-tree-m-3way ... ok:83 fail:0
+0
+  t0600-reffiles-backend ... ok:33 fail:0
+0
+  t1001-read-tree-m-2way ... ok:29 fail:0
+0
+  t1003-read-tree-prefix ... ok:3 fail:0
+0
+  t0601-reffiles-pack-refs ... ok:46 fail:0
+0
+  t1005-read-tree-reset ... ok:7 fail:0
+0
+  t1004-read-tree-m-u-wf ... ok:17 fail:0
+0
+  t1008-read-tree-overlay ... ok:2 fail:0
+0
+  t1002-read-tree-m-u-2way ... ok:22 fail:0
+0
+  t1007-hash-object ... ok:41 fail:0
+0
+  t1009-read-tree-new-index ... ok:3 fail:0
+0
+  t1010-mktree ... ok:8 fail:0
+0
+  t1012-read-tree-df ... ok:5 fail:0
+0
+  t1011-read-tree-sparse-checkout ... ok:23 fail:0
+0
+  t0450-txt-doc-vs-help ... ok:656 fail:56
+  t1014-read-tree-confusing ... ok:28 fail:0
+0
+  t1015-read-index-unmerged ... ok:6 fail:0
+0
+  t1020-subdirectory ... ok:15 fail:0
+0
+  t1021-rerere-in-workdir ... ok:2 fail:1
+  t1022-read-tree-partial-clone ... ok:1 fail:0
+0
+  t1006-cat-file ... ok:369 fail:0
+0
+  t1051-large-conversion ... ok:12 fail:0
+0
+  t1016-compatObjectFormat ... ok:202 fail:0
+0
+  t1060-object-corruption ... ok:16 fail:1
+  t1090-sparse-checkout-scope ... ok:7 fail:0
+0
+  t1100-commit-tree-options ... ok:5 fail:0
+0
+  t1050-large ... ok:29 fail:0
+0
+  t1301-shared-repo ... ok:22 fail:0
+0
+  t0610-reftable-basics ... ok:89 fail:0
+0
+  t0052-simple-ipc ... ok:9 fail:0
+0
+  t1303-wacky-config ... ok:11 fail:0
+0
+  t1302-repo-version ... ok:18 fail:0
+0
+  t1304-default-acl ... ok:4 fail:0
+0
+  t1091-sparse-checkout-builtin ... ok:71 fail:1
+  t1307-config-blob ... ok:13 fail:0
+0
+  t1306-xdg-files ... ok:21 fail:0
+0
+  t1310-config-default ... ok:5 fail:0
+0
+  t1305-config-include ... ok:37 fail:0
+0
+  t1309-early-config ... ok:8 fail:2
+  t1308-config-set ... ok:39 fail:0
+0
+  t1350-config-hooks-path ... ok:4 fail:0
+0
+  t1401-symbolic-ref ... ok:25 fail:0
+0
+  t1402-check-ref-format ... ok:99 fail:0
+0
+  t1403-show-ref ... ok:24 fail:0
+0
+  t1406-submodule-ref-store ... ok:15 fail:0
+0
+  t1405-main-ref-store ... ok:16 fail:0
+0
+  t1407-worktree-ref-store ... ok:4 fail:0
+0
+  t1408-packed-refs ... ok:2 fail:0
+0
+  t1404-update-ref-errors ... ok:38 fail:0
+0
+  t1409-avoid-packing-refs ... ok:11 fail:0
+0
+  t1411-reflog-show ... ok:17 fail:0
+0
+  t1412-reflog-loop ... ok:3 fail:0
+0
+  t1413-reflog-detach ... ok:7 fail:0
+0
+  t1414-reflog-walk ... ok:12 fail:0
+0
+  t1415-worktree-refs ... ok:10 fail:0
+0
+  t1410-reflog ... ok:31 fail:1
+  t1416-ref-transaction-hooks ... ok:9 fail:0
+0
+  t1300-config ... ok:480 fail:0
+0
+  t1418-reflog-exists ... ok:6 fail:0
+0
+  t1420-lost-found ... ok:2 fail:0
+0
+  t1419-exclude-refs ... ok:11 fail:0
+0
+  t1417-reflog-updateref ... ok:21 fail:0
+0
+  t1400-update-ref ... ok:278 fail:0
+0
+  t1430-bad-ref-name ... ok:40 fail:2
+  t1451-fsck-buffer ... ok:72 fail:0
+0
+  t1502-rev-parse-parseopt ... ok:37 fail:0
+0
+  t1501-work-tree ... ok:39 fail:0
+0
+  t1503-rev-parse-verify ... ok:12 fail:0
+0
+  t1500-rev-parse ... ok:79 fail:0
+0
+  t1460-refs-migrate ... ok:30 fail:0
+0
+  t1504-ceiling-dirs ... ok:44 fail:0
+0
+  t1505-rev-parse-last ... ok:7 fail:0
+0
+  t1509-root-work-tree ... ok:0
+0 fail:0
+0
+  t1506-rev-parse-diagnosis ... ok:30 fail:0
+0
+  t1508-at-combinations ... ok:35 fail:0
+0
+  t1507-rev-parse-upstream ... ok:29 fail:0
+0
+  t1511-rev-parse-caret ... ok:17 fail:0
+0
+  t1513-rev-parse-prefix ... ok:11 fail:0
+0
+  t1515-rev-parse-outside-repo ... ok:4 fail:0
+0
+  t1514-rev-parse-push ... ok:9 fail:0
+0
+  t1512-rev-parse-disambiguation ... ok:35 fail:3
+  t1601-index-bogus ... ok:4 fail:0
+0
+  t1517-outside-repo ... ok:10 fail:0
+0
+  t1600-index ... ok:7 fail:0
+0
+  t1800-hook ... ok:17 fail:0
+0
+  t1700-split-index ... ok:29 fail:0
+0
+  t2000-conflict-when-checking-files-out ... ok:14 fail:0
+0
+  t2002-checkout-cache-u ... ok:3 fail:0
+0
+  t2003-checkout-cache-mkdir ... ok:10 fail:0
+0
+  t2005-checkout-index-symlinks ... ok:3 fail:0
+0
+  t2004-checkout-cache-temp ... ok:23 fail:0
+0
+  t2006-checkout-index-basic ... ok:8 fail:0
+0
+  t2007-checkout-symlink ... ok:4 fail:0
+0
+  t2008-checkout-subdir ... ok:9 fail:0
+0
+  t2009-checkout-statinfo ... ok:3 fail:0
+0
+  t2010-checkout-ambiguous ... ok:10 fail:0
+0
+  t1450-fsck ... ok:94 fail:0
+0
+  t2011-checkout-invalid-head ... ok:10 fail:0
+0
+  t2014-checkout-switch ... ok:4 fail:0
+0
+  t2015-checkout-unborn ... ok:6 fail:0
+0
+  t2012-checkout-last ... ok:22 fail:0
+0
+  t1013-read-tree-submodule ... ok:58 fail:10
+  t2017-checkout-orphan ... ok:13 fail:0
+0
+  t1510-repo-setup ... ok:109 fail:0
+0
+  t2016-checkout-patch ... ok:19 fail:0
+0
+  t2019-checkout-ambiguous-ref ... ok:9 fail:0
+0
+  t2018-checkout-branch ... ok:25 fail:0
+0
+  t2021-checkout-overwrite ... ok:9 fail:0
+0
+  t2022-checkout-paths ... ok:5 fail:0
+0
+  t2020-checkout-detach ... ok:26 fail:0
+0
+  t2025-checkout-no-overlay ... ok:6 fail:0
+0
+  t2023-checkout-m ... ok:5 fail:0
+0
+  t2027-checkout-track ... ok:4 fail:0
+0
+  t2026-checkout-pathspec-file ... ok:11 fail:0
+0
+  t2050-git-dir-relative ... ok:4 fail:0
+0
+  t2024-checkout-dwim ... ok:23 fail:0
+0
+  t2060-switch ... ok:16 fail:0
+0
+  t2070-restore ... ok:15 fail:0
+0
+  t2030-unresolve-info ... ok:14 fail:0
+0
+  t2072-restore-pathspec-file ... ok:12 fail:0
+0
+  t2071-restore-patch ... ok:15 fail:0
+0
+  t2081-parallel-checkout-collisions ... ok:6 fail:0
+0
+  t2100-update-cache-badpath ... ok:5 fail:0
+0
+  t2101-update-index-reupdate ... ok:7 fail:0
+0
+  t2102-update-index-symlinks ... ok:3 fail:0
+0
+  t2082-parallel-checkout-attributes ... ok:5 fail:0
+0
+  t2103-update-index-ignore-missing ... ok:5 fail:0
+0
+  t2104-update-index-skip-worktree ... ok:7 fail:0
+0
+  t2105-update-index-gitfile ... ok:4 fail:0
+0
+  t2106-update-index-assume-unchanged ... ok:2 fail:0
+0
+  t0027-auto-crlf ... ok:2600 fail:0
+0
+  t2107-update-index-basic ... ok:10 fail:0
+0
+  t2108-update-index-refresh-racy ... ok:6 fail:0
+0
+  t2202-add-addremove ... ok:3 fail:0
+0
+  t2200-add-update ... ok:19 fail:0
+0
+  t2201-add-update-typechange ... ok:6 fail:0
+0
+  t2300-cd-to-toplevel ... ok:5 fail:0
+0
+  t2205-add-worktree-config ... ok:13 fail:0
+0
+  t2204-add-ignored ... ok:47 fail:0
+0
+  t2203-add-intent ... ok:19 fail:0
+0
+  t2401-worktree-prune ... ok:12 fail:0
+0
+  t2404-worktree-config ... ok:12 fail:0
+0
+  t2402-worktree-list ... ok:25 fail:0
+0
+  t2080-parallel-checkout-basics ... ok:11 fail:0
+0
+  t2403-worktree-move ... ok:31 fail:0
+0
+  t2405-worktree-submodule ... ok:10 fail:1
+  t2406-worktree-repair ... ok:20 fail:0
+0
+  t2407-worktree-heads ... ok:12 fail:0
+0
+  t3000-ls-files-others ... ok:16 fail:0
+0
+  t3002-ls-files-dashpath ... ok:6 fail:0
+0
+  t3001-ls-files-others-exclude ... ok:27 fail:0
+0
+  t2500-untracked-overwriting ... ok:8 fail:2
+  t3003-ls-files-exclude ... ok:7 fail:0
+0
+  t3004-ls-files-basic ... ok:5 fail:0
+0
+  t3005-ls-files-relative ... ok:4 fail:0
+0
+  t3006-ls-files-long ... ok:3 fail:0
+0
+  t2501-cwd-empty ... ok:24 fail:0
+0
+  t3008-ls-files-lazy-init-name-hash ... ok:1 fail:0
+0
+  t3009-ls-files-others-nonsubmodule ... ok:2 fail:0
+0
+  t3010-ls-files-killed-modified ... ok:6 fail:0
+0
+  t3011-common-prefixes-and-directory-traversal ... ok:20 fail:1
+  t3012-ls-files-dedup ... ok:3 fail:0
+0
+  t3020-ls-files-error-unmatch ... ok:3 fail:0
+0
+  t3007-ls-files-recurse-submodules ... ok:24 fail:0
+0
+  t3013-ls-files-format ... ok:20 fail:0
+0
+  t3040-subprojects-basic ... ok:11 fail:0
+0
+  t3050-subprojects-fetch ... ok:4 fail:0
+0
+  t3060-ls-files-with-tree ... ok:8 fail:0
+0
+  t3102-ls-tree-wildcards ... ok:3 fail:1
+  t3100-ls-tree-restrict ... ok:14 fail:0
+0
+  t3101-ls-tree-dirname ... ok:19 fail:0
+0
+  t3103-ls-tree-misc ... ok:10 fail:0
+0
+  t3104-ls-tree-format ... ok:19 fail:0
+0
+  t3105-ls-tree-output ... ok:60 fail:0
+0
+  t3201-branch-contains ... ok:24 fail:0
+0
+  t3203-branch-output ... ok:40 fail:0
+0
+  t3202-show-branch ... ok:27 fail:0
+0
+  t3205-branch-color ... ok:4 fail:0
+0
+  t3204-branch-name-interpretation ... ok:16 fail:0
+0
+  t3206-range-diff ... ok:46 fail:0
+0
+  t3211-peel-ref ... ok:8 fail:0
+0
+  t3300-funny-names ... ok:21 fail:0
+0
+  t3200-branch ... ok:166 fail:0
+0
+  t2013-checkout-submodule ... ok:64 fail:10
+  t3302-notes-index-expensive ... ok:12 fail:0
+0
+  t3304-notes-mixed ... ok:6 fail:0
+0
+  t3207-branch-submodule ... ok:20 fail:0
+0
+  t3306-notes-prune ... ok:12 fail:0
+0
+  t3307-notes-man ... ok:3 fail:0
+0
+  t2400-worktree-add ... ok:228 fail:0
+0
+  t3301-notes ... ok:149 fail:0
+0
+  t3308-notes-merge ... ok:19 fail:0
+0
+  t3309-notes-merge-auto-resolve ... ok:31 fail:0
+0
+  t3320-notes-merge-worktrees ... ok:9 fail:0
+0
+  t3310-notes-merge-manual-resolve ... ok:22 fail:0
+0
+  t3321-notes-stripspace ... ok:27 fail:0
+0
+  t3401-rebase-and-am-rename ... ok:8 fail:2
+  t3400-rebase ... ok:38 fail:0
+0
+  t3402-rebase-merge ... ok:13 fail:0
+0
+  t3403-rebase-skip ... ok:20 fail:0
+0
+  t3405-rebase-malformed ... ok:5 fail:0
+0
+  t3303-notes-subtrees ... ok:23 fail:0
+0
+  t3070-wildmatch ... ok:1851 fail:40
+  t3408-rebase-multi-line ... ok:2 fail:0
+0
+  t3409-rebase-environ ... ok:3 fail:0
+0
+  t3407-rebase-abort ... ok:17 fail:0
+0
+  t3412-rebase-root ... ok:25 fail:0
+0
+  t3406-rebase-message ... ok:32 fail:0
+0
+  t3413-rebase-hook ... ok:15 fail:0
+0
+  t1701-racy-split-index ... ok:31 fail:0
+0
+  t3417-rebase-whitespace-fix ... ok:4 fail:0
+0
+  t3416-rebase-onto-threedots ... ok:18 fail:0
+0
+  t3419-rebase-patch-id ... ok:8 fail:0
+0
+  t3311-notes-merge-fanout ... ok:24 fail:0
+0
+  t3415-rebase-autosquash ... ok:27 fail:0
+0
+  t3422-rebase-incompatible-options ... ok:52 fail:0
+0
+  t3418-rebase-continue ... ok:29 fail:0
+0
+  t3423-rebase-reword ... ok:3 fail:0
+0
+  t3424-rebase-empty ... ok:19 fail:1
+  t3425-rebase-topology-merges ... ok:13 fail:0
+0
+  t3420-rebase-autostash ... ok:52 fail:0
+0
+  t3427-rebase-subtree ... ok:3 fail:0
+0
+  t1092-sparse-checkout-compatibility ... ok:96 fail:2
+  t3421-rebase-topology-linear ... ok:63 fail:1
+  t3428-rebase-signoff ... ok:7 fail:0
+0
+  t3429-rebase-edit-todo ... ok:7 fail:0
+0
+  t3434-rebase-i18n ... ok:6 fail:0
+0
+  t3435-rebase-gpg-sign ... ok:0
+0 fail:0
+0
+  t3431-rebase-fork-point ... ok:26 fail:0
+0
+  t3305-notes-fanout ... ok:7 fail:0
+0
+  t3438-rebase-broken-files ... ok:9 fail:0
+0
+  t3436-rebase-more-options ... ok:19 fail:0
+0
+  t3437-rebase-fixup-options ... ok:12 fail:0
+0
+  t3500-cherry ... ok:4 fail:0
+0
+  t3404-rebase-interactive ... ok:131 fail:0
+0
+  t3503-cherry-pick-root ... ok:6 fail:0
+0
+  t3433-rebase-across-mode-change ... ok:4 fail:0
+0
+  t3502-cherry-pick-merge ... ok:12 fail:0
+0
+  t3430-rebase-merges ... ok:33 fail:0
+0
+  t3501-revert-cherry-pick ... ok:20 fail:0
+0
+  t3504-cherry-pick-rerere ... ok:9 fail:0
+0
+  t3506-cherry-pick-ff ... ok:11 fail:0
+0
+  t3505-cherry-pick-empty ... ok:17 fail:0
+0
+  t3509-cherry-pick-merge-df ... ok:9 fail:0
+0
+  t3508-cherry-pick-many-commits ... ok:14 fail:0
+0
+  t3514-cherry-pick-revert-gpg ... ok:0
+0 fail:0
+0
+  t3511-cherry-pick-x ... ok:22 fail:0
+0
+  t3507-cherry-pick-conflict ... ok:44 fail:0
+0
+  t3601-rm-pathspec-file ... ok:5 fail:0
+0
+  t3602-rm-sparse-checkout ... ok:13 fail:0
+0
+  t3650-replay-basics ... ok:14 fail:0
+0
+  t3510-cherry-pick-sequence ... ok:52 fail:3
+  t3700-add ... ok:57 fail:0
+0
+  t3703-add-magic-pathspec ... ok:6 fail:0
+0
+  t3702-add-edit ... ok:3 fail:0
+0
+  t3704-add-pathspec-file ... ok:11 fail:0
+0
+  t3426-rebase-submodule ... ok:25 fail:4
+  t3705-add-sparse-checkout ... ok:20 fail:0
+0
+  t3512-cherry-pick-submodule ... ok:13 fail:2
+  t3902-quoted ... ok:13 fail:0
+0
+  t3900-i18n-commit ... ok:38 fail:0
+0
+  t3513-revert-submodule ... ok:12 fail:2
+  t3701-add-interactive ... ok:85 fail:0
+0
+  t3901-i18n-patch ... ok:20 fail:0
+0
+  t3904-stash-patch ... ok:8 fail:0
+0
+  t3908-stash-in-worktree ... ok:2 fail:0
+0
+  t3800-mktag ... ok:151 fail:0
+0
+  t3907-stash-show-config ... ok:10 fail:0
+0
+  t3910-mac-os-precompose ... ok:0
+0 fail:0
+0
+  t3905-stash-include-untracked ... ok:34 fail:0
+0
+  t3909-stash-pathspec-file ... ok:5 fail:0
+0
+  t4000-diff-format ... ok:41 fail:0
+0
+  t3920-crlf-messages ... ok:18 fail:0
+0
+  t3432-rebase-fast-forward ... ok:219 fail:6
+  t4003-diff-rename-1 ... ok:7 fail:0
+0
+  t4004-diff-rename-symlink ... ok:4 fail:0
+0
+  t4001-diff-rename ... ok:23 fail:0
+0
+  t4005-diff-rename-2 ... ok:4 fail:0
+0
+  t4002-diff-basic ... ok:63 fail:0
+0
+  t4006-diff-mode ... ok:7 fail:0
+0
+  t4007-rename-3 ... ok:8 fail:0
+0
+  t4008-diff-break-rewrite ... ok:14 fail:0
+0
+  t4009-diff-rename-4 ... ok:7 fail:0
+0
+  t4011-diff-symlink ... ok:8 fail:0
+0
+  t4010-diff-pathspec ... ok:17 fail:0
+0
+  t4012-diff-binary ... ok:13 fail:0
+0
+  t3600-rm ... ok:81 fail:1
+  t4016-diff-quote ... ok:5 fail:0
+0
+  t4017-diff-retval ... ok:38 fail:0
+0
+  t4019-diff-wserror ... ok:21 fail:0
+0
+  t3906-stash-submodule ... ok:6 fail:10
+  t4021-format-patch-numbered ... ok:14 fail:0
+0
+  t4022-diff-rewrite ... ok:11 fail:0
+0
+  t4023-diff-rename-typechange ... ok:4 fail:0
+0
+  t4024-diff-optimize-common ... ok:2 fail:0
+0
+  t4025-hunk-header ... ok:2 fail:0
+0
+  t4020-diff-external ... ok:71 fail:0
+0
+  t4026-color ... ok:34 fail:0
+0
+  t4028-format-patch-mime-headers ... ok:3 fail:0
+0
+  t4029-diff-trailing-space ... ok:1 fail:0
+0
+  t3903-stash ... ok:125 fail:2
+  t4027-diff-submodule ... ok:20 fail:0
+0
+  t4031-diff-rewrite-binary ... ok:8 fail:0
+0
+  t4015-diff-whitespace ... ok:131 fail:0
+0
+  t4030-diff-textconv ... ok:19 fail:0
+0
+  t4033-diff-patience ... ok:11 fail:0
+0
+  t4035-diff-quiet ... ok:22 fail:0
+0
+  t4036-format-patch-signer-mime ... ok:5 fail:0
+0
+  t4037-diff-r-t-dirs ... ok:2 fail:0
+0
+  t4032-diff-inter-hunk-context ... ok:37 fail:0
+0
+  t4039-diff-assume-unchanged ... ok:4 fail:0
+0
+  t4040-whitespace-status ... ok:11 fail:0
+0
+  t4043-diff-rename-binary ... ok:3 fail:0
+0
+  t4042-diff-textconv-caching ... ok:8 fail:0
+0
+  t4044-diff-index-unique-abbrev ... ok:2 fail:0
+0
+  t4046-diff-unmerged ... ok:8 fail:0
+0
+  t4034-diff-words ... ok:64 fail:0
+0
+  t4041-diff-submodule-option ... ok:45 fail:0
+0
+  t4049-diff-stat-count ... ok:4 fail:0
+0
+  t4045-diff-relative ... ok:38 fail:1
+  t4038-diff-combined ... ok:25 fail:1
+  t4048-diff-combined-binary ... ok:14 fail:0
+0
+  t4050-diff-histogram ... ok:10 fail:0
+0
+  t4014-format-patch ... ok:207 fail:5
+  t4013-diff-various ... ok:227 fail:0
+0
+  t4054-diff-bogus-tree ... ok:14 fail:0
+0
+  t4055-diff-context ... ok:9 fail:0
+0
+  t4018-diff-funcname ... ok:270 fail:0
+0
+  t4051-diff-function-context ... ok:42 fail:0
+0
+  t4053-diff-no-index ... ok:25 fail:0
+0
+  t4047-diff-dirstat ... ok:41 fail:0
+0
+  t4056-diff-order ... ok:23 fail:0
+0
+  t4062-diff-pickaxe ... ok:3 fail:0
+0
+  t4058-diff-duplicates ... ok:10 fail:6
+  t4063-diff-blobs ... ok:18 fail:0
+0
+  t4057-diff-combined-paths ... ok:4 fail:0
+0
+  t4052-stat-output ... ok:88 fail:0
+0
+  t4065-diff-anchored ... ok:7 fail:0
+0
+  t4059-diff-submodule-not-initialized ... ok:8 fail:0
+0
+  t4066-diff-emit-delay ... ok:2 fail:0
+0
+  t4064-diff-oidfind ... ok:10 fail:0
+0
+  t4061-diff-indent ... ok:33 fail:0
+0
+  t4100-apply-stat ... ok:18 fail:0
+0
+  t4101-apply-nonl ... ok:12 fail:0
+0
+  t4102-apply-rename ... ok:5 fail:0
+0
+  t4105-apply-fuzz ... ok:9 fail:0
+0
+  t4068-diff-symmetric-merge-base ... ok:36 fail:0
+0
+  t4106-apply-stdin ... ok:3 fail:0
+0
+  t4069-remerge-diff ... ok:15 fail:0
+0
+  t4067-diff-partial-clone ... ok:7 fail:0
+0
+  t4109-apply-multifrag ... ok:3 fail:0
+0
+  t4103-apply-binary ... ok:23 fail:0
+0
+  t4104-apply-boundary ... ok:24 fail:0
+0
+  t4107-apply-ignore-whitespace ... ok:11 fail:0
+0
+  t4110-apply-scan ... ok:1 fail:0
+0
+  t4060-diff-submodule-option-diff-format ... ok:50 fail:0
+0
+  t4113-apply-ending ... ok:3 fail:0
+0
+  t4112-apply-renames ... ok:2 fail:0
+0
+  t4115-apply-symlink ... ok:8 fail:0
+0
+  t4117-apply-reject ... ok:8 fail:0
+  t4118-apply-empty-context ... ok:3 fail:0
+0
+0
+  t4116-apply-reverse ... ok:7 fail:0
+0
+  t4114-apply-typechange ... ok:12 fail:0
+0
+  t4111-apply-subdir ... ok:10 fail:0
+0
+  t4119-apply-config ... ok:11 fail:0
+0
+  t4120-apply-popt ... ok:8 fail:0
+0
+  t4123-apply-shrink ... ok:2 fail:0
+0
+  t4121-apply-diffs ... ok:2 fail:0
+0
+  t4125-apply-ws-fuzz ... ok:4 fail:0
+0
+  t4122-apply-symlink-inside ... ok:7 fail:0
+0
+  t4126-apply-empty ... ok:8 fail:0
+0
+  t4108-apply-threeway ... ok:18 fail:0
+0
+  t4128-apply-root ... ok:7 fail:0
+0
+  t4130-apply-criss-cross-rename ... ok:7 fail:0
+0
+  t4127-apply-same-fn ... ok:7 fail:0
+0
+  t4133-apply-filenames ... ok:4 fail:0
+0
+  t4134-apply-submodule ... ok:2 fail:0
+0
+  t4131-apply-fake-ancestor ... ok:3 fail:0
+0
+  t4129-apply-samemode ... ok:14 fail:0
+0
+  t4136-apply-check ... ok:6 fail:0
+0
+  t4132-apply-removal ... ok:14 fail:0
+0
+  t4138-apply-ws-expansion ... ok:5 fail:0
+0
+  t4140-apply-ita ... ok:5 fail:0
+0
+  t4141-apply-too-large ... ok:1 fail:0
+0
+  t4139-apply-escape ... ok:12 fail:0
+0
+  t4135-apply-weird-filenames ... ok:19 fail:1
+  t4152-am-subjects ... ok:13 fail:0
+0
+  t4153-am-resume-override-opts ... ok:6 fail:0
+0
+  t4201-shortlog ... ok:31 fail:0
+0
+  t4124-apply-ws-rule ... ok:78 fail:0
+0
+  t4151-am-abort ... ok:20 fail:0
+0
+  t4206-log-follow-harder-copies ... ok:5 fail:0
+0
+  t4207-log-decoration-colors ... ok:4 fail:0
+0
+  t4204-patch-id ... ok:25 fail:1
+  t4200-rerere ... ok:36 fail:0
+0
+  t4208-log-magic-pathspec ... ok:21 fail:0
+0
+  t4203-mailmap ... ok:71 fail:0
+0
+  t4210-log-i18n ... ok:21 fail:0
+0
+  t4209-log-pickaxe ... ok:47 fail:0
+0
+  t4212-log-corrupt ... ok:13 fail:0
+0
+  t4205-log-pretty-formats ... ok:123 fail:2
+  t4211-line-log ... ok:51 fail:0
+0
+  t4214-log-graph-octopus ... ok:17 fail:0
+0
+  t4202-log ... ok:148 fail:0
+0
+  t4217-log-limit ... ok:3 fail:0
+0
+  t4252-am-options ... ok:8 fail:0
+0
+  t4254-am-corrupt ... ok:4 fail:0
+0
+  t4213-log-tabexpand ... ok:9 fail:0
+0
+  t4150-am ... ok:87 fail:0
+0
+  t4253-am-keep-cr-dos ... ok:7 fail:0
+0
+  t4256-am-format-flowed ... ok:2 fail:0
+0
+  t4258-am-quoted-cr ... ok:4 fail:0
+0
+  t4257-am-interactive ... ok:4 fail:0
+0
+  t5001-archive-attr ... ok:44 fail:0
+0
+  t5002-archive-attr-pattern ... ok:19 fail:0
+0
+  t4300-merge-tree ... ok:22 fail:0
+0
+  t4215-log-skewed-merges ... ok:10 fail:0
+0
+  t5003-archive-zip ... ok:77 fail:0
+0
+  t5000-tar-tree ... ok:90 fail:0
+0
+  t5004-archive-corner-cases ... ok:14 fail:0
+0
+  t4301-merge-tree-write-tree ... ok:40 fail:0
+0
+  t5200-update-server-info ... ok:6 fail:0
+0
+  t5100-mailinfo ... ok:52 fail:0
+0
+  t5301-sliding-window ... ok:6 fail:0
+0
+  t4137-apply-submodule ... ok:24 fail:4
+  t5305-include-tag ... ok:15 fail:0
+0
+  t5150-request-pull ... ok:10 fail:0
+0
+  t5303-pack-corruption-resilience ... ok:36 fail:0
+0
+  t5306-pack-nobase ... ok:4 fail:0
+0
+  t5307-pack-missing-commit ... ok:5 fail:0
+0
+  t5308-pack-detect-duplicates ... ok:6 fail:0
+0
+  t5309-pack-delta-cycles ... ok:6 fail:0
+0
+  t5304-prune ... ok:31 fail:0
+0
+  t5312-prune-corruption ... ok:11 fail:0
+0
+  t5311-pack-bitmaps-shallow ... ok:6 fail:0
+0
+  t5313-pack-bounds-checks ... ok:9 fail:0
+0
+  t5314-pack-cycle-detection ... ok:2 fail:0
+0
+  t5315-pack-objects-compression ... ok:9 fail:0
+0
+  t5316-pack-delta-depth ... ok:5 fail:0
+0
+  t4216-log-bloom ... ok:165 fail:0
+0
+  t5317-pack-objects-filter-objects ... ok:33 fail:0
+0
+  t5321-pack-large-objects ... ok:2 fail:0
+0
+  t5320-delta-islands ... ok:15 fail:0
+0
+  t5322-pack-objects-sparse ... ok:11 fail:0
+0
+  t5323-pack-redundant ... ok:17 fail:0
+0
+  t5302-pack-index ... ok:35 fail:0
+0
+  t5325-reverse-index ... ok:16 fail:0
+0
+  t4255-am-submodule ... ok:27 fail:6
+  t5328-commit-graph-64bit-time ... ok:6 fail:0
+0
+  t5318-commit-graph ... ok:108 fail:0
+0
+  t5330-no-lazy-fetch-with-commit-graph ... ok:4 fail:0
+0
+  t5300-pack-object ... ok:56 fail:0
+0
+  t5319-multi-pack-index ... ok:93 fail:0
+0
+  t5331-pack-objects-stdin ... ok:10 fail:0
+0
+  t5332-multi-pack-reuse ... ok:13 fail:0
+0
+  t5334-incremental-multi-pack-index ... ok:4 fail:0
+0
+  t5351-unpack-large-objects ... ok:7 fail:0
+0
+  t5329-pack-objects-cruft ... ok:33 fail:0
+0
+  t5401-update-hooks ... ok:13 fail:0
+0
+  t5402-post-merge-hook ... ok:7 fail:0
+0
+  t5310-pack-bitmaps ... ok:227 fail:0
+0
+  t5404-tracking-branches ... ok:7 fail:0
+0
+  t5405-send-pack-rewind ... ok:3 fail:0
+0
+  t5333-pseudo-merge-bitmaps ... ok:17 fail:0
+0
+  t5403-post-checkout-hook ... ok:14 fail:0
+0
+  t5406-remote-rejects ... ok:3 fail:0
+0
+  t5324-split-commit-graph ... ok:42 fail:0
+0
+  t5410-receive-pack-alternates ... ok:3 fail:0
+0
+  t5409-colorize-remote-messages ... ok:11 fail:0
+0
+  t5408-send-pack-stdin ... ok:9 fail:0
+0
+  t5400-send-pack ... ok:16 fail:0
+0
+  t5503-tagfollow ... ok:11 fail:0
+0
+  t5502-quickfetch ... ok:7 fail:0
+0
+  t5407-post-rewrite-hook ... ok:17 fail:0
+0
+  t5506-remote-groups ... ok:9 fail:0
+0
+  t5501-fetch-push-alternates ... ok:3 fail:0
+0
+  t5507-remote-environment ... ok:5 fail:0
+0
+  t5504-fetch-receive-strict ... ok:28 fail:0
+0
+  t5327-multi-pack-bitmaps-rev ... ok:314 fail:0
+0
+  t5509-fetch-push-namespaces ... ok:15 fail:0
+0
+  t5513-fetch-track ... ok:2 fail:0
+0
+  t5511-refspec ... ok:47 fail:0
+0
+  t5512-ls-remote ... ok:40 fail:0
+0
+  t5411-proc-receive-hook ... ok:178 fail:0
+0
+  t5514-fetch-multiple ... ok:25 fail:0
+0
+  t5505-remote ... ok:112 fail:1
+  t5518-fetch-exit-status ... ok:3 fail:0
+0
+  t5326-multi-pack-bitmaps ... ok:357 fail:0
+0
+  t5519-push-alternates ... ok:8 fail:0
+0
+  t5522-pull-symlink ... ok:4 fail:0
+0
+  t5517-push-mirror ... ok:13 fail:0
+0
+  t5523-push-upstream ... ok:17 fail:0
+0
+  t5524-pull-msg ... ok:3 fail:0
+0
+  t5521-pull-options ... ok:22 fail:0
+0
+  t5525-fetch-tagopt ... ok:5 fail:0
+0
+  t5527-fetch-odd-refs ... ok:5 fail:0
+0
+  t5529-push-errors ... ok:8 fail:0
+0
+  t5530-upload-pack-error ... ok:12 fail:0
+0
+  t5515-fetch-merge-logic ... ok:65 fail:0
+0
+  t5532-fetch-proxy ... ok:5 fail:0
+0
+  t5528-push-default ... ok:31 fail:1
+  t5534-push-signed ... ok:13 fail:0
+0
+  t5520-pull ... ok:72 fail:0
+0
+  t5500-fetch-pack ... ok:375 fail:0
+0
+  t5535-fetch-push-symref ... ok:3 fail:0
+0
+  t5536-fetch-conflicts ... ok:7 fail:0
+0
+  t5539-fetch-http-shallow ... ok:0
+0 fail:0
+0
+  t5540-http-push-webdav ... ok:0
+0 fail:0
+0
+  t5538-push-shallow ... ok:6 fail:0
+0
+  t5541-http-push-smart ... ok:0
+0 fail:0
+0
+  t5542-push-http-shallow ... ok:0
+0 fail:0
+0
+  t5537-fetch-shallow ... ok:15 fail:0
+0
+  t5544-pack-objects-hook ... ok:7 fail:0
+0
+  t5546-receive-limits ... ok:17 fail:0
+0
+  t5531-deep-submodule-push ... ok:29 fail:0
+0
+  t5547-push-quarantine ... ok:6 fail:0
+0
+  t5549-fetch-push-http ... ok:0
+0 fail:0
+0
+  t5543-atomic-push ... ok:11 fail:0
+0
+  t5548-push-porcelain ... ok:7 fail:0
+0
+  t5550-http-fetch-dumb ... ok:0
+0 fail:0
+0
+  t5551-http-fetch-smart ... ok:0
+0 fail:0
+0
+  t5545-push-options ... ok:10 fail:0
+0
+  t5554-noop-fetch-negotiator ... ok:1 fail:0
+0
+  t5557-http-get ... ok:0
+0 fail:0
+0
+  t5555-http-smart-common ... ok:10 fail:0
+0
+  t5559-http-fetch-smart-http2 ... ok:0
+0 fail:0
+0
+  t5553-set-upstream ... ok:21 fail:0
+0
+  t5561-http-backend ... ok:0
+0 fail:0
+0
+  t5533-push-cas ... ok:23 fail:0
+0
+  t5558-clone-bundle-uri ... ok:19 fail:0
+0
+  t5560-http-backend-noserver ... ok:14 fail:0
+0
+  t5563-simple-http-auth ... ok:0
+0 fail:0
+0
+  t5564-http-proxy ... ok:0
+0 fail:0
+0
+  t5562-http-backend-content-length ... ok:16 fail:0
+0
+  t5573-pull-verify-signatures ... ok:16 fail:0
+0
+  t5571-pre-push-hook ... ok:11 fail:0
+0
+  t5580-unc-paths ... ok:0
+0 fail:0
+0
+  t5570-git-daemon ... ok:22 fail:0
+0
+  t5581-http-curl-verbose ... ok:0
+0 fail:0
+0
+  t5574-fetch-output ... ok:14 fail:0
+0
+  t5583-push-branches ... ok:8 fail:0
+0
+  t5510-fetch ... ok:187 fail:0
+0
+  t5600-clone-fail-cleanup ... ok:14 fail:0
+0
+  t5602-clone-remote-exec ... ok:3 fail:0
+0
+  t5582-fetch-negative-refspec ... ok:15 fail:0
+0
+  t5526-fetch-submodules ... ok:54 fail:0
+0
+  t5603-clone-dirname ... ok:47 fail:0
+0
+  t5516-fetch-push ... ok:120 fail:0
+0
+  t5605-clone-local ... ok:22 fail:0
+0
+  t5608-clone-2gb ... ok:0
+0 fail:0
+0
+  t5609-clone-branch ... ok:7 fail:0
+0
+  t5552-skipping-fetch-negotiator ... ok:6 fail:0
+0
+  t5607-clone-bundle ... ok:15 fail:0
+0
+  t5610-clone-detached ... ok:12 fail:1
+  t5606-clone-options ... ok:21 fail:0
+0
+  t5604-clone-reference ... ok:34 fail:0
+0
+  t5611-clone-config ... ok:13 fail:0
+0
+  t5615-alternate-env ... ok:9 fail:0
+0
+  t5613-info-alternate ... ok:13 fail:0
+0
+  t5618-alternate-refs ... ok:6 fail:0
+0
+  t5619-clone-local-ambiguous-transport ... ok:0
+0 fail:0
+0
+  t5612-clone-refspec ... ok:13 fail:0
+0
+  t5701-git-serve ... ok:24 fail:0
+0
+  t5617-clone-submodules-remote ... ok:9 fail:0
+0
+  t5614-clone-submodules-shallow ... ok:9 fail:0
+0
+  t5700-protocol-v1 ... ok:18 fail:0
+0
+  t5704-protocol-violations ... ok:3 fail:0
+0
+  t5601-clone ... ok:109 fail:0
+0
+  t5730-protocol-v2-bundle-uri-file ... ok:8 fail:0
+0
+  t5732-protocol-v2-bundle-uri-http ... ok:0
+0 fail:0
+0
+  t5750-bundle-uri-parse ... ok:11 fail:0
+0
+  t5703-upload-pack-ref-in-want ... ok:20 fail:0
+0
+  t5705-session-id-in-capabilities ... ok:17 fail:0
+0
+  t5802-connect-helper ... ok:8 fail:0
+0
+  t5731-protocol-v2-bundle-uri-git ... ok:8 fail:0
+0
+  t5812-proto-disable-http ... ok:0
+0 fail:0
+0
+  t5810-proto-disable-local ... ok:54 fail:0
+0
+  t5814-proto-disable-ext ... ok:27 fail:0
+0
+  t5702-protocol-v2 ... ok:50 fail:0
+0
+  t5811-proto-disable-git ... ok:26 fail:0
+0
+  t5813-proto-disable-ssh ... ok:81 fail:0
+0
+  t5801-remote-helpers ... ok:34 fail:1
+  t5815-submodule-protos ... ok:8 fail:0
+0
+  t6000-rev-list-misc ... ok:18 fail:0
+0
+  t6001-rev-list-graft ... ok:14 fail:0
+0
+  t5900-repo-selection ... ok:8 fail:0
+0
+  t6004-rev-list-path-optim ... ok:7 fail:0
+0
+  t6005-rev-list-count ... ok:6 fail:0
+0
+  t6008-rev-list-submodule ... ok:2 fail:0
+0
+  t6007-rev-list-cherry-pick-file ... ok:23 fail:0
+0
+  t6006-rev-list-format ... ok:80 fail:0
+0
+  t6011-rev-list-with-bad-commit ... ok:6 fail:0
+0
+  t6013-rev-list-reverse-parents ... ok:3 fail:0
+0
+  t6002-rev-list-bisect ... ok:52 fail:0
+0
+  t6003-rev-list-topo-order ... ok:36 fail:0
+0
+  t6014-rev-list-all ... ok:4 fail:0
+0
+  t6009-rev-list-parent ... ok:15 fail:0
+0
+  t6010-merge-base ... ok:12 fail:0
+0
+  t5616-partial-clone ... ok:43 fail:0
+0
+  t6016-rev-list-graph-simplify-history ... ok:12 fail:0
+0
+  t6012-rev-list-simplify ... ok:42 fail:0
+0
+  t6021-rev-list-exclude-hidden ... ok:62 fail:0
+0
+  t6019-rev-list-ancestry-path ... ok:18 fail:0
+0
+  t6018-rev-list-glob ... ok:91 fail:4
+  t6017-rev-list-stdin ... ok:37 fail:0
+0
+  t6022-rev-list-missing ... ok:34 fail:0
+0
+  t6040-tracking-info ... ok:23 fail:0
+0
+  t6060-merge-index ... ok:7 fail:0
+0
+  t6100-rev-list-in-order ... ok:3 fail:0
+0
+  t6110-rev-list-sparse ... ok:2 fail:0
+0
+  t6102-rev-list-unexpected-objects ... ok:22 fail:0
+0
+  t6020-bundle-misc ... ok:30 fail:0
+0
+  t6050-replace ... ok:37 fail:0
+0
+  t6101-rev-parse-parents ... ok:38 fail:0
+0
+  t6114-keep-packs ... ok:3 fail:0
+0
+  t6113-rev-list-bitmap-filters ... ok:14 fail:0
+0
+  t6115-rev-list-du ... ok:17 fail:0
+0
+  t6111-rev-list-treesame ... ok:65 fail:0
+0
+  t6130-pathspec-noglob ... ok:21 fail:0
+0
+  t6112-rev-list-filters-objects ... ok:55 fail:0
+0
+  t6131-pathspec-icase ... ok:9 fail:0
+0
+  t6133-pathspec-rev-dwim ... ok:6 fail:0
+0
+  t6134-pathspec-in-submodule ... ok:3 fail:0
+0
+  t6136-pathspec-in-bare ... ok:3 fail:0
+0
+  t6132-pathspec-exclude ... ok:31 fail:0
+0
+  t6135-pathspec-with-attrs ... ok:37 fail:0
+0
+  t6301-for-each-ref-errors ... ok:6 fail:0
+0
+  t6030-bisect-porcelain ... ok:96 fail:0
+0
+  t6400-merge-df ... ok:7 fail:0
+0
+  t6302-for-each-ref-filter ... ok:47 fail:0
+0
+  t6200-fmt-merge-msg ... ok:37 fail:0
+0
+  t6401-merge-criss-cross ... ok:4 fail:0
+0
+  t6403-merge-file ... ok:35 fail:2
+  t6405-merge-symlinks ... ok:7 fail:0
+0
+  t6404-recursive-merge ... ok:6 fail:0
+0
+  t6041-bisect-submodule ... ok:12 fail:2
+  t6407-merge-binary ... ok:3 fail:0
+0
+  t6408-merge-up-to-date ... ok:7 fail:0
+0
+  t6120-describe ... ok:94 fail:0
+0
+  t6406-merge-attr ... ok:12 fail:0
+0
+  t6409-merge-subtree ... ok:12 fail:0
+0
+  t6413-merge-crlf ... ok:3 fail:0
+0
+  t6414-merge-rename-nocruft ... ok:3 fail:0
+0
+  t6411-merge-filemode ... ok:19 fail:0
+0
+  t5572-pull-submodule ... ok:59 fail:8
+  t6419-merge-ignorecase ... ok:0
+0 fail:0
+0
+  t6412-merge-large-rename ... ok:10 fail:0
+0
+  t6418-merge-text-auto ... ok:11 fail:0
+0
+  t6417-merge-ours-theirs ... ok:7 fail:0
+0
+  t6415-merge-dir-to-symlink ... ok:23 fail:1
+  t6425-merge-rename-delete ... ok:1 fail:0
+0
+  t6300-for-each-ref ... ok:427 fail:0
+0
+  t6402-merge-rename ... ok:46 fail:0
+0
+  t6421-merge-partial-clone ... ok:3 fail:0
+0
+  t6428-merge-conflicts-sparse ... ok:2 fail:0
+0
+  t6427-diff3-conflict-markers ... ok:9 fail:0
+0
+  t6424-merge-unrelated-index-changes ... ok:19 fail:0
+0
+  t6431-merge-criscross ... ok:2 fail:0
+0
+  t6432-merge-recursive-space-options ... ok:11 fail:0
+0
+  t6429-merge-sequence-rename-caching ... ok:10 fail:0
+0
+  t6426-merge-skip-unneeded-updates ... ok:13 fail:0
+0
+  t6435-merge-sparse ... ok:6 fail:0
+0
+  t6430-merge-recursive ... ok:37 fail:0
+0
+  t6422-merge-rename-corner-cases ... ok:18 fail:7
+  t6434-merge-recursive-rename-options ... ok:27 fail:0
+0
+  t6436-merge-overwrite ... ok:18 fail:0
+0
+  t6416-recursive-corner-cases ... ok:37 fail:3
+  t6439-merge-co-error-msgs ... ok:6 fail:0
+0
+  t6433-merge-toplevel ... ok:15 fail:0
+0
+  t6501-freshen-objects ... ok:42 fail:0
+0
+  t6700-tree-depth ... ok:10 fail:0
+0
+  t6437-submodule-merge ... ok:20 fail:2
+  t7002-mv-sparse-checkout ... ok:22 fail:0
+0
+  t7005-editor ... ok:16 fail:0
+0
+  t6500-gc ... ok:31 fail:0
+0
+  t7006-pager ... ok:109 fail:0
+0
+  t7007-show ... ok:17 fail:0
+0
+  t7010-setup ... ok:16 fail:0
+0
+  t7011-skip-worktree-reading ... ok:15 fail:0
+0
+  t7008-filter-branch-null-sha1 ... ok:6 fail:0
+0
+  t7030-verify-tag ... ok:15 fail:0
+0
+  t7001-mv ... ok:52 fail:0
+0
+  t7012-skip-worktree-writing ... ok:11 fail:0
+0
+  t7031-verify-tag-signed-ssh ... ok:14 fail:0
+0
+  t7062-wtstatus-ignorecase ... ok:1 fail:0
+0
+  t6600-test-reach ... ok:44 fail:0
+0
+  t7061-wtstatus-ignore ... ok:25 fail:0
+0
+  t7060-wtstatus ... ok:17 fail:0
+0
+  t7101-reset-empty-subdirs ... ok:10 fail:0
+0
+  t7103-reset-bare ... ok:13 fail:0
+0
+  t7004-tag ... ok:228 fail:0
+0
+  t7104-reset-hard ... ok:3 fail:0
+0
+  t7106-reset-unborn-branch ... ok:7 fail:0
+0
+  t7064-wtstatus-pv2 ... ok:28 fail:0
+0
+  t7105-reset-patch ... ok:13 fail:0
+0
+  t7107-reset-pathspec-file ... ok:11 fail:0
+0
+  t7102-reset ... ok:38 fail:0
+0
+  t7110-reset-merge ... ok:21 fail:0
+0
+  t7113-post-index-change-hook ... ok:4 fail:0
+0
+  t6423-merge-rename-directories ... ok:74 fail:2
+  t7111-reset-table ... ok:42 fail:0
+0
+  t7301-clean-interactive ... ok:23 fail:0
+0
+  t7300-clean ... ok:53 fail:2
+  t7201-co ... ok:46 fail:0
+0
+  t7402-submodule-rebase ... ok:6 fail:0
+0
+  t7401-submodule-summary ... ok:23 fail:0
+0
+  t7403-submodule-sync ... ok:18 fail:0
+0
+  t6438-submodule-directory-file-conflicts ... ok:48 fail:8
+  t7409-submodule-detached-work-tree ... ok:3 fail:0
+0
+  t7003-filter-branch ... ok:48 fail:0
+0
+  t7408-submodule-reference ... ok:16 fail:0
+0
+  t7411-submodule-config ... ok:20 fail:0
+0
+  t7414-submodule-mistakes ... ok:5 fail:0
+0
+  t7413-submodule-is-active ... ok:9 fail:0
+0
+  t7417-submodule-path-url ... ok:5 fail:0
+0
+  t7407-submodule-foreach ... ok:23 fail:0
+0
+  t7412-submodule-absorbgitdirs ... ok:12 fail:0
+0
+  t7416-submodule-dash-url ... ok:18 fail:0
+0
+  t7420-submodule-set-url ... ok:3 fail:0
+0
+  t7418-submodule-sparse-gitmodules ... ok:9 fail:0
+0
+  t7419-submodule-set-branch ... ok:9 fail:0
+0
+  t7423-submodule-symlinks ... ok:6 fail:0
+0
+  t7421-submodule-summary-add ... ok:5 fail:0
+0
+  t7424-submodule-mixed-ref-formats ... ok:7 fail:0
+0
+  t7422-submodule-output ... ok:18 fail:0
+0
+  t7450-bad-git-dotfiles ... ok:49 fail:0
+0
+  t7500-commit-template-squash-signoff ... ok:54 fail:0
+0
+  t7503-pre-commit-and-pre-merge-commit-hooks ... ok:22 fail:0
+0
+  t7504-commit-msg-hook ... ok:29 fail:1
+  t7501-commit-basic-functionality ... ok:77 fail:0
+0
+  t7406-submodule-update ... ok:68 fail:0
+0
+  t7502-commit-porcelain ... ok:81 fail:0
+0
+  t7063-status-untracked-cache ... ok:58 fail:0
+0
+  t7505-prepare-commit-msg-hook ... ok:23 fail:0
+0
+  t7507-commit-verbose ... ok:45 fail:0
+0
+  t7506-status-submodule ... ok:40 fail:0
+0
+  t7509-commit-authorship ... ok:12 fail:0
+0
+  t7510-signed-commit ... ok:27 fail:0
+0
+  t7511-status-index ... ok:24 fail:0
+0
+  t7514-commit-patch ... ok:3 fail:0
+0
+  t7515-status-symlinks ... ok:3 fail:0
+0
+  t7518-ident-corner-cases ... ok:5 fail:0
+0
+  t7516-commit-races ... ok:2 fail:0
+0
+  t7520-ignored-hook-warning ... ok:5 fail:0
+0
+  t7517-per-repo-email ... ok:16 fail:0
+0
+  t7524-commit-summary ... ok:2 fail:0
+0
+  t7521-ignored-mode ... ok:12 fail:0
+0
+  t7525-status-rename ... ok:15 fail:0
+0
+  t7526-commit-pathspec-file ... ok:11 fail:0
+0
+  t7527-builtin-fsmonitor ... ok:0
+0 fail:0
+0
+  t7400-submodule-basic ... ok:121 fail:0
+0
+  t7528-signed-commit-ssh ... ok:29 fail:0
+0
+  t7513-interpret-trailers ... ok:99 fail:0
+0
+  t7112-reset-submodule ... ok:70 fail:12
+  t7512-status-help ... ok:46 fail:0
+0
+  t7604-merge-custom-message ... ok:8 fail:0
+0
+  t7605-merge-resolve ... ok:4 fail:0
+0
+  t7606-merge-custom ... ok:4 fail:0
+0
+  t7607-merge-state ... ok:1 fail:0
+0
+  t7603-merge-reduce-heads ... ok:13 fail:0
+0
+  t7602-merge-octopus-many ... ok:5 fail:0
+0
+  t7608-merge-messages ... ok:5 fail:0
+0
+  t7612-merge-verify-signatures ... ok:16 fail:0
+0
+  t7611-merge-abort ... ok:19 fail:0
+0
+  t7614-merge-signoff ... ok:4 fail:0
+0
+  t7615-diff-algo-with-mergy-operations ... ok:7 fail:0
+0
+  t7601-merge-pull-config ... ok:65 fail:0
+0
+  t7702-repack-cyclic-alternate ... ok:2 fail:0
+0
+  t7701-repack-unpack-unreachable ... ok:8 fail:0
+0
+  t7600-merge ... ok:79 fail:0
+0
+  t7609-mergetool--lib ... ok:1 fail:0
+0
+  t7508-status ... ok:125 fail:0
+0
+  t7811-grep-open ... ok:10 fail:0
+0
+  t7812-grep-icase-non-ascii ... ok:18 fail:0
+0
+  t7813-grep-icase-iso ... ok:2 fail:0
+0
+  t7703-repack-geometric ... ok:15 fail:0
+0
+  t7815-grep-binary ... ok:21 fail:1
+  t7700-repack ... ok:45 fail:0
+0
+  t7704-repack-cruft ... ok:11 fail:0
+0
+  t7817-grep-sparse-checkout ... ok:8 fail:0
+0
+  t7810-grep ... ok:261 fail:0
+0
+  t7816-grep-binary-pattern ... ok:145 fail:0
+0
+  t7519-status-fsmonitor ... ok:33 fail:0
+0
+  t8003-blame-corner-cases ... ok:30 fail:0
+0
+  t8005-blame-i18n ... ok:5 fail:0
+0
+  t8004-blame-with-conflicts ... ok:3 fail:0
+0
+  t8007-cat-file-textconv ... ok:15 fail:0
+0
+  t8001-annotate ... ok:117 fail:0
+0
+  t7814-grep-recurse-submodules ... ok:27 fail:7
+  t8006-blame-textconv ... ok:16 fail:0
+0
+  t8008-blame-formats ... ok:5 fail:0
+0
+  t8010-cat-file-filters ... ok:9 fail:0
+0
+  t8009-blame-vs-topicbranches ... ok:2 fail:0
+0
+  t8002-blame ... ok:131 fail:0
+0
+  t8011-blame-split-file ... ok:10 fail:0
+0
+  t9002-column ... ok:16 fail:0
+0
+  t7900-maintenance ... ok:53 fail:0
+0
+  t8013-blame-ignore-revs ... ok:15 fail:0
+0
+  t9100-git-svn-basic ... ok:0
+0 fail:0
+0
+  t9003-help-autocorrect ... ok:6 fail:0
+0
+  t9101-git-svn-props ... ok:0
+0 fail:0
+0
+  t9103-git-svn-tracked-directory-removed ... ok:0
+0 fail:0
+0
+  t9102-git-svn-deep-rmdir ... ok:0
+0 fail:0
+0
+  t9104-git-svn-follow-parent ... ok:0
+0 fail:0
+0
+  t9105-git-svn-commit-diff ... ok:0
+0 fail:0
+0
+  t9106-git-svn-commit-diff-clobber ... ok:0
+0 fail:0
+0
+  t9107-git-svn-migrate ... ok:0
+0 fail:0
+0
+  t9109-git-svn-multi-glob ... ok:0
+0 fail:0
+0
+  t9108-git-svn-glob ... ok:0
+0 fail:0
+0
+  t7800-difftool ... ok:93 fail:0
+0
+  t9110-git-svn-use-svm-props ... ok:0
+0 fail:0
+0
+  t9111-git-svn-use-svnsync-props ... ok:0
+0 fail:0
+0
+  t9112-git-svn-md5less-file ... ok:0
+0 fail:0
+0
+  t9113-git-svn-dcommit-new-file ... ok:0
+0 fail:0
+0
+  t9114-git-svn-dcommit-merge ... ok:0
+0 fail:0
+0
+  t9115-git-svn-dcommit-funky-renames ... ok:0
+0 fail:0
+0
+  t9116-git-svn-log ... ok:0
+0 fail:0
+0
+  t8014-blame-ignore-fuzzy ... ok:16 fail:0
+0
+  t9117-git-svn-init-clone ... ok:0
+0 fail:0
+0
+  t9118-git-svn-funky-branch-names ... ok:0
+0 fail:0
+0
+  t9121-git-svn-fetch-renamed-dir ... ok:0
+0 fail:0
+0
+  t9120-git-svn-clone-with-percent-escapes ... ok:0
+0 fail:0
+0
+  t9119-git-svn-info ... ok:0
+0 fail:0
+0
+  t8012-blame-colors ... ok:119 fail:0
+0
+  t9122-git-svn-author ... ok:0
+0 fail:0
+0
+  t9123-git-svn-rebuild-with-rewriteroot ... ok:0
+0 fail:0
+0
+  t9124-git-svn-dcommit-auto-props ... ok:0
+0 fail:0
+0
+  t9125-git-svn-multi-glob-branch-names ... ok:0
+0 fail:0
+0
+  t9126-git-svn-follow-deleted-readded-directory ... ok:0
+0 fail:0
+0
+  t9127-git-svn-partial-rebuild ... ok:0
+0 fail:0
+0
+  t9128-git-svn-cmd-branch ... ok:0
+0 fail:0
+0
+  t9129-git-svn-i18n-commitencoding ... ok:0
+0 fail:0
+0
+  t9130-git-svn-authors-file ... ok:0
+0 fail:0
+0
+  t9131-git-svn-empty-symlink ... ok:0
+0 fail:0
+0
+  t9132-git-svn-broken-symlink ... ok:0
+0 fail:0
+0
+  t9133-git-svn-nested-git-repo ... ok:0
+0 fail:0
+0
+  t9134-git-svn-ignore-paths ... ok:0
+0 fail:0
+0
+  t9135-git-svn-moved-branch-empty-file ... ok:0
+0 fail:0
+0
+  t9136-git-svn-recreated-branch-empty-file ... ok:0
+0 fail:0
+0
+  t9138-git-svn-authors-prog ... ok:0
+0 fail:0
+0
+  t9137-git-svn-dcommit-clobber-series ... ok:0
+0 fail:0
+0
+  t9139-git-svn-non-utf8-commitencoding ... ok:0
+0 fail:0
+0
+  t9140-git-svn-reset ... ok:0
+0 fail:0
+0
+  t9141-git-svn-multiple-branches ... ok:0
+0 fail:0
+0
+  t9142-git-svn-shallow-clone ... ok:0
+0 fail:0
+0
+  t9143-git-svn-gc ... ok:0
+0 fail:0
+0
+  t9144-git-svn-old-rev_map ... ok:0
+0 fail:0
+0
+  t9145-git-svn-master-branch ... ok:0
+0 fail:0
+0
+  t9146-git-svn-empty-dirs ... ok:0
+0 fail:0
+0
+  t9147-git-svn-include-paths ... ok:0
+0 fail:0
+0
+  t9148-git-svn-propset ... ok:0
+0 fail:0
+0
+  t9150-svk-mergetickets ... ok:0
+0 fail:0
+0
+  t9151-svn-mergeinfo ... ok:0
+0 fail:0
+0
+  t9152-svn-empty-dirs-after-gc ... ok:0
+0 fail:0
+0
+  t9153-git-svn-rewrite-uuid ... ok:0
+0 fail:0
+0
+  t9154-git-svn-fancy-glob ... ok:0
+0 fail:0
+0
+  t9156-git-svn-fetch-deleted-tag-2 ... ok:0
+0 fail:0
+0
+  t9155-git-svn-fetch-deleted-tag ... ok:0
+0 fail:0
+0
+  t9157-git-svn-fetch-merge ... ok:0
+0 fail:0
+0
+  t9158-git-svn-mergeinfo ... ok:0
+0 fail:0
+0
+  t9159-git-svn-no-parent-mergeinfo ... ok:0
+0 fail:0
+0
+  t9160-git-svn-preserve-empty-dirs ... ok:0
+0 fail:0
+0
+  t9161-git-svn-mergeinfo-push ... ok:0
+0 fail:0
+0
+  t9162-git-svn-dcommit-interactive ... ok:0
+0 fail:0
+0
+  t9163-git-svn-reset-clears-caches ... ok:0
+0 fail:0
+0
+  t9164-git-svn-dcommit-concurrent ... ok:0
+0 fail:0
+0
+  t9165-git-svn-fetch-merge-branch-of-branch ... ok:0
+0 fail:0
+0
+  t9166-git-svn-fetch-merge-branch-of-branch2 ... ok:0
+0 fail:0
+0
+  t9167-git-svn-cmd-branch-subproject ... ok:0
+0 fail:0
+0
+  t9169-git-svn-dcommit-crlf ... ok:0
+0 fail:0
+0
+  t9168-git-svn-partially-globbed-names ... ok:0
+0 fail:0
+0
+  t9200-git-cvsexportcommit ... ok:0
+0 fail:0
+0
+  t9303-fast-import-compression ... ok:16 fail:0
+0
+  t9211-scalar-clone ... ok:13 fail:0
+0
+  t9302-fast-import-unpack-limit ... ok:3 fail:0
+0
+  t9304-fast-import-marks ... ok:8 fail:0
+0
+  t9400-git-cvsserver-server ... ok:0
+0 fail:0
+0
+  t9351-fast-export-anonymize ... ok:17 fail:0
+0
+  t9401-git-cvsserver-crlf ... ok:0
+0 fail:0
+0
+  t9402-git-cvsserver-refs ... ok:0
+0 fail:0
+0
+  t9210-scalar ... ok:21 fail:0
+0
+  t9500-gitweb-standalone-no-errors ... ok:0
+0 fail:0
+0
+  t9501-gitweb-standalone-http-status ... ok:0
+0 fail:0
+0
+  t9600-cvsimport ... ok:0
+0 fail:0
+0
+  t9502-gitweb-standalone-parse-output ... ok:0
+0 fail:0
+0
+  t9601-cvsimport-vendor-branch ... ok:0
+0 fail:0
+0
+  t9602-cvsimport-branches-tags ... ok:0
+0 fail:0
+0
+  t9603-cvsimport-patchsets ... ok:0
+0 fail:0
+0
+  t9604-cvsimport-timestamps ... ok:0
+0 fail:0
+0
+  t9800-git-p4-basic ... ok:0
+0 fail:0
+0
+  t9801-git-p4-branch ... ok:0
+0 fail:0
+0
+  t9802-git-p4-filetype ... ok:0
+0 fail:0
+0
+  t9803-git-p4-shell-metachars ... ok:0
+0 fail:0
+0
+  t9700-perl-git ... ok:3 fail:0
+0
+  t9804-git-p4-label ... ok:0
+0 fail:0
+0
+  t9805-git-p4-skip-submit-edit ... ok:0
+0 fail:0
+0
+  t9806-git-p4-options ... ok:0
+0 fail:0
+0
+  t9807-git-p4-submit ... ok:0
+0 fail:0
+0
+  t9808-git-p4-chdir ... ok:0
+0 fail:0
+0
+  t9809-git-p4-client-view ... ok:0
+0 fail:0
+0
+  t9350-fast-export ... ok:51 fail:1
+  t9810-git-p4-rcs ... ok:0
+0 fail:0
+0
+  t9811-git-p4-label-import ... ok:0
+0 fail:0
+0
+  t9813-git-p4-preserve-users ... ok:0
+0 fail:0
+0
+  t9812-git-p4-wildcards ... ok:0
+0 fail:0
+0
+  t9814-git-p4-rename ... ok:0
+0 fail:0
+0
+  t9815-git-p4-submit-fail ... ok:0
+0 fail:0
+0
+  t9817-git-p4-exclude ... ok:0
+0 fail:0
+0
+  t9816-git-p4-locked ... ok:0
+0 fail:0
+0
+  t9818-git-p4-block ... ok:0
+0 fail:0
+0
+  t9819-git-p4-case-folding ... ok:0
+0 fail:0
+0
+  t9820-git-p4-editor-handling ... ok:0
+0 fail:0
+0
+  t9822-git-p4-path-encoding ... ok:0
+0 fail:0
+0
+  t9821-git-p4-path-variations ... ok:0
+0 fail:0
+0
+  t9823-git-p4-mock-lfs ... ok:0
+0 fail:0
+0
+  t9824-git-p4-git-lfs ... ok:0
+0 fail:0
+0
+  t9825-git-p4-handle-utf16-without-bom ... ok:0
+0 fail:0
+0
+  t9826-git-p4-keep-empty-commits ... ok:0
+0 fail:0
+0
+  t9300-fast-import ... ok:250 fail:0
+0
+  t9827-git-p4-change-filetype ... ok:0
+0 fail:0
+0
+  t9829-git-p4-jobs ... ok:0
+0 fail:0
+0
+  t9828-git-p4-map-user ... ok:0
+0 fail:0
+0
+  t9830-git-p4-symlink-dir ... ok:0
+0 fail:0
+0
+  t9831-git-p4-triggers ... ok:0
+0 fail:0
+0
+  t9832-unshelve ... ok:0
+0 fail:0
+0
+  t9833-errors ... ok:0
+0 fail:0
+0
+  t9834-git-p4-file-dir-bug ... ok:0
+0 fail:0
+0
+  t9835-git-p4-metadata-encoding-python2 ... ok:0
+0 fail:0
+0
+  t9836-git-p4-metadata-encoding-python3 ... ok:0
+0 fail:0
+0
+  t9850-shell ... ok:5 fail:0
+0
+  t9901-git-web--browse ... ok:5 fail:0
+0
+  t9301-fast-import-notes ... ok:17 fail:0
+0
+  t9903-bash-prompt ... ok:67 fail:0
+0
+  t7610-mergetool ... ok:30 fail:0
+0
+  t9902-completion ... ok:253 fail:3
+  t9001-send-email ... ok:215 fail:0
+0
+
+Ran 1007 of 1007 test scripts, 860 had at least one pass
+
+=== Step 5: Write evidence ===
+{
+  "timestamp": 1791779135,
+  "is_oracle": true,
+  "anti_cheat": {
+    "result": "oracle_bypass",
+    "violations": "",
+    "c_loc": 0,
+    "strace_cheat": false,
+    "strace_details": ""
+  },
+  "build": {
+    "exit_code": 0,
+    "binary_path": "/app/zig-port/zig-out/bin/git",
+    "binary_type": "",
+    "links_libgit2": false
+  },
+  "tests_ran": true,
+  "results_dir": "/logs/verifier/test-results"
+}
+
+=== Step 6: Compute reward ===
+Reward: 1.0
+
+End time: Mon Oct 12 04:25:35 Etc 2026
+========================================

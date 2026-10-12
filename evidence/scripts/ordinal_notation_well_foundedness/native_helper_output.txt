@@ -1,0 +1,94 @@
+CASE task1 PASSED score=1
+CASE task2 FAILED score=0
+CASE task3 FAILED score=0
+CASE task4 FAILED score=0
+CASE task5 FAILED score=0
+CASE task6 FAILED score=0
+CASE task7 FAILED score=0
+CASE task8 FAILED score=0
+CASE task9 FAILED score=0
+>>>>> Start Structured Result
+{
+  "valid": true,
+  "score": 1,
+  "pass_rate": 0.1111111111111111,
+  "passed": 1,
+  "failed": 8,
+  "errors": 0,
+  "total_tests": 9,
+  "summary": "1/9 proof targets closed; weighted score 1/85.",
+  "details": [
+    {
+      "name": "task1",
+      "status": "PASSED",
+      "score": 1,
+      "weight": 1,
+      "message": "Closed under the global context."
+    },
+    {
+      "name": "task2",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 2,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask2.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 0; 3]"
+    },
+    {
+      "name": "task3",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 2,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask3.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 0; 3; 3]"
+    },
+    {
+      "name": "task4",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 4,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask4.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 0; 4]"
+    },
+    {
+      "name": "task5",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 4,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask5.WF :\n  Acc (fun child parent : list nat => child_step parent child) [0; 1; 0; 1]"
+    },
+    {
+      "name": "task6",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 8,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask6.WF :\n  Acc (fun child parent : list nat => child_step parent child) [0; 1; 0; 2]"
+    },
+    {
+      "name": "task7",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 16,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask7.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 2; 0; 0; 2]"
+    },
+    {
+      "name": "task8",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 16,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask8.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 2; 0; 0; 2; 0; 0; 2]"
+    },
+    {
+      "name": "task9",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 32,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask9.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 2; 0; 3]"
+    }
+  ],
+  "metrics": {
+    "weighted_score": 1,
+    "max_score": 85,
+    "passed_count": 1,
+    "failed_count": 8,
+    "error_count": 0,
+    "total_count": 9
+  }
+}
+>>>>> End Structured Result

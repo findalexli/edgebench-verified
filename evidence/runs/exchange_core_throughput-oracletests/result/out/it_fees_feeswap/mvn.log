@@ -1,0 +1,132 @@
+[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 1 modules...
+[INFO] Installing Nexus Staging features:
+[INFO]   ... total of 1 executions of maven-deploy-plugin replaced with nexus-staging-maven-plugin
+[INFO] 
+[INFO] --------------------< exchange.core2:exchange-core >--------------------
+[INFO] Building exchange.core2:exchange-core 0.5.4-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- lombok:1.18.20.0:delombok (default) @ exchange-core ---
+[INFO] Delombok complete.
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ exchange-core ---
+[INFO] skip non existing resourceDirectory /home/workspace/exchange-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ exchange-core ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 91 source files with javac [debug target 1.8] to target/classes
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ exchange-core ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ exchange-core ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 55 source files with javac [debug target 1.8] to target/test-classes
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- surefire:3.0.0-M3:test (default-test) @ exchange-core ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running exchange.core2.tests.integration.ITFeesExchangeBasic
+2026-10-12/04:26:26.145/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$399/0x00007f3670137ba8, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$404/0x00007f3670131340, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$403/0x00007f3670133340}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$410/0x00007f36701394f8@2dc9b0f5)}
+2026-10-12/04:26:26.257/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:26.384/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:26.385/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:26.392/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$399/0x00007f3670137ba8, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$404/0x00007f3670131340, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$403/0x00007f3670133340}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$410/0x00007f36701394f8@2dc9b0f5)}
+2026-10-12/04:26:26.398/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:26.409/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:26.410/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:26.417/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$399/0x00007f3670137ba8, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$404/0x00007f3670131340, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$403/0x00007f3670133340}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$410/0x00007f36701394f8@2dc9b0f5)}
+2026-10-12/04:26:26.423/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:26.436/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:26.437/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:26.439/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$399/0x00007f3670137ba8, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$404/0x00007f3670131340, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$403/0x00007f3670133340}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$410/0x00007f36701394f8@2dc9b0f5)}
+2026-10-12/04:26:26.446/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:26.449/UTC [Thread-R1_0] WARN  e.core2.core.processors.RiskEngine - 203 risk result=RISK_NSF uid=1440002: Can not place OrderCommand(command=PLACE_ORDER, orderId=203, symbol=9340, price=11400, size=30, reserveBidPrice=11400, action=BID, orderType=GTC, uid=1440002, timestamp=0, userCookie=0, eventsGroup=2, serviceFlags=0, resultCode=NEW, matcherEvent=null, marketData=null)
+2026-10-12/04:26:26.450/UTC [Thread-R1_0] WARN  e.core2.core.processors.RiskEngine - 203 accounts:{4141=3420000000}
+2026-10-12/04:26:26.450/UTC [Thread-R1_0] WARN  e.core2.core.processors.RiskEngine - 203 risk result=RISK_NSF uid=1440002: Can not place OrderCommand(command=PLACE_ORDER, orderId=203, symbol=9340, price=11400, size=30, reserveBidPrice=11400, action=BID, orderType=GTC, uid=1440002, timestamp=0, userCookie=0, eventsGroup=2, serviceFlags=0, resultCode=NEW, matcherEvent=null, marketData=null)
+2026-10-12/04:26:26.450/UTC [Thread-R1_0] WARN  e.core2.core.processors.RiskEngine - 203 accounts:{4141=3420056999}
+2026-10-12/04:26:26.459/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:26.459/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-10-12/04:26:26.462/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=16384, matchingEnginesNum=1, riskEnginesNum=1, msgsInGroupLimit=256, maxGroupDurationNs=10000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=PerformanceConfiguration$$Lambda$399/0x00007f3670137ba8, waitStrategy=BLOCKING, orderBookFactory=PerformanceConfiguration$$Lambda$404/0x00007f3670131340, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$403/0x00007f3670133340}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$410/0x00007f36701394f8@2dc9b0f5)}
+2026-10-12/04:26:26.474/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-10-12/04:26:26.490/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-10-12/04:26:26.490/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+[ERROR] Tests run: 5, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.597 s <<< FAILURE! - in exchange.core2.tests.integration.ITFeesExchangeBasic
+[ERROR] shouldProcessFees_BidGtcMaker_AskIocTakerPartial  Time elapsed: 0.024 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected: is <199061711100L>
+     but: was <199063788300L>
+
+[ERROR] shouldProcessFees_BidGtcMakerPartial_AskIocTaker  Time elapsed: 0.022 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected: is <114998100000L>
+     but: was <114999300000L>
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldProcessFees_BidGtcMakerPartial_AskIocTaker:268->ITFeesExchange.lambda$shouldProcessFees_BidGtcMakerPartial_AskIocTaker$11:269 
+Expected: is <114998100000L>
+     but: was <114999300000L>
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldProcessFees_BidGtcMaker_AskIocTakerPartial:187->ITFeesExchange.lambda$shouldProcessFees_BidGtcMaker_AskIocTakerPartial$6:188 
+Expected: is <199061711100L>
+     but: was <199063788300L>
+[INFO] 
+[ERROR] Tests run: 5, Failures: 2, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.546 s
+[INFO] Finished at: 2026-10-12T04:26:26Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M3:test (default-test) on project exchange-core: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/workspace/exchange-core/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

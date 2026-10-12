@@ -1,0 +1,47 @@
++ J=seededge/edgebench.judge.nethack_dungeon_agent@sha256:2917aca0e831dd91e88d8c40a453b73d0080230cdf4d9824291b0b601c08f1e0
++ WI=seededge/edgebench.work.nethack_dungeon_agent@sha256:6adeba51c22d1bbc412a4d7926428424cdf467cd4f6f897d90b623ca1587c9cd
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         351        7594           0         250        7613
+Swap:              0           0           0
++ date -u
+Mon Oct 12 04:13:08 UTC 2026
++ docker pull -q seededge/edgebench.judge.nethack_dungeon_agent@sha256:2917aca0e831dd91e88d8c40a453b73d0080230cdf4d9824291b0b601c08f1e0
+docker.io/seededge/edgebench.judge.nethack_dungeon_agent@sha256:2917aca0e831dd91e88d8c40a453b73d0080230cdf4d9824291b0b601c08f1e0
++ docker pull -q seededge/edgebench.work.nethack_dungeon_agent@sha256:6adeba51c22d1bbc412a4d7926428424cdf467cd4f6f897d90b623ca1587c9cd
+docker.io/seededge/edgebench.work.nethack_dungeon_agent@sha256:6adeba51c22d1bbc412a4d7926428424cdf467cd4f6f897d90b623ca1587c9cd
++ docker image inspect seededge/edgebench.judge.nethack_dungeon_agent@sha256:2917aca0e831dd91e88d8c40a453b73d0080230cdf4d9824291b0b601c08f1e0 --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
+template parsing error: template: :1:17: executing "" at <.Config.User>: map has no entry for key "User"
++ docker create --name wk seededge/edgebench.work.nethack_dungeon_agent@sha256:6adeba51c22d1bbc412a4d7926428424cdf467cd4f6f897d90b623ca1587c9cd true
+22564e5f81c046d12babd3659fd02ab68808aed88a9490ea8017bc94ca9842b5
++ mkdir -p /job/sub
++ docker cp wk:/home/nethack_agent/agent.py /job/sub/
++ docker rm wk
+wk
++ sha256sum /job/sub/agent.py
++ docker create --name jd --network none --memory 6g -v /job/out:/out -v /job/diag.py:/diag.py:ro -v /job/evalpath_fp.py:/evalpath_fp.py:ro seededge/edgebench.judge.nethack_dungeon_agent@sha256:2917aca0e831dd91e88d8c40a453b73d0080230cdf4d9824291b0b601c08f1e0 sleep 7200
+2e77b5675849f4adad40a623f33e3a1406440cf3f3fbcce7f9d07de496a03963
++ docker cp /job/sub/agent.py jd:/home/nethack_agent/agent.py
++ docker start jd
+jd
++ X='docker exec -w /home/nethack_agent jd'
++ docker exec -w /home/nethack_agent jd bash -c 'id; sha256sum /tmp/eval_nethack.py /home/nethack_agent/agent.py; pip show nle gymnasium 2>/dev/null | grep -E "^(Name|Version)"; nproc'
++ docker exec -w /home/nethack_agent jd timeout 300 python3 /diag.py
++ for r in 1 2
+++ date +%s
++ T0=1791778413
++ docker exec -w /home/nethack_agent jd timeout 1100 python3 /tmp/eval_nethack.py
+++ date +%s
++ echo 'exit=0 wall_s=5'
++ for r in 1 2
+++ date +%s
++ T0=1791778418
++ docker exec -w /home/nethack_agent jd timeout 1100 python3 /tmp/eval_nethack.py
+++ date +%s
++ echo 'exit=0 wall_s=5'
++ docker rm -f jd
+jd
++ date -u
+Mon Oct 12 04:13:43 UTC 2026

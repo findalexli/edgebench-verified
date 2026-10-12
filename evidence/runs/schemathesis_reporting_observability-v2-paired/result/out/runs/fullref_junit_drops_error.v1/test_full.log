@@ -1,0 +1,133 @@
+=== Phase 1: Post-Validation Hook System ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 12 items
+
+../tests/test_01_hooks.py::test_hook_system_available PASSED             [  8%]
+../tests/test_01_hooks.py::test_check_result_dataclass PASSED            [ 16%]
+../tests/test_01_hooks.py::test_check_result_exported_from_top_level PASSED [ 25%]
+../tests/test_01_hooks.py::test_hook_dispatcher_defines_method PASSED    [ 33%]
+../tests/test_01_hooks.py::test_hook_dispatcher_defines_false_after_unregister PASSED [ 41%]
+../tests/test_01_hooks.py::test_global_defines_function PASSED           [ 50%]
+../tests/test_01_hooks.py::test_after_validate_hook_spec_registered PASSED [ 58%]
+../tests/test_01_hooks.py::test_after_network_error_hook_spec_registered PASSED [ 66%]
+../tests/test_01_hooks.py::test_after_validate_hook_fires_on_success PASSED [ 75%]
+../tests/test_01_hooks.py::test_after_validate_hook_fires_on_failure PASSED [ 83%]
+../tests/test_01_hooks.py::test_after_validate_global_hook PASSED        [ 91%]
+../tests/test_01_hooks.py::test_flatmap_hook_negative_mode PASSED        [100%]
+
+============================== 12 passed in 3.31s ==============================
+PASSED
+Phase 1: 12/12 passed
+=== Phase 2: Reporting Writers Module ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 14 items
+
+../tests/test_02_reporting.py::test_reporting_module_available PASSED    [  7%]
+../tests/test_02_reporting.py::test_ndjson_writer_context_manager PASSED [ 14%]
+../tests/test_02_reporting.py::test_ndjson_writer_context_manager_closes_file PASSED [ 21%]
+../tests/test_02_reporting.py::test_junitxml_writer_context_manager PASSED [ 28%]
+../tests/test_02_reporting.py::test_vcr_writer_context_manager_no_error PASSED [ 35%]
+../tests/test_02_reporting.py::test_har_writer_context_manager_no_error PASSED [ 42%]
+../tests/test_02_reporting.py::test_vcr_writer_open_writes_header PASSED [ 50%]
+../tests/test_02_reporting.py::test_get_command_representation_exists PASSED [ 57%]
+../tests/test_02_reporting.py::test_report_format_allure_enum PASSED     [ 64%]
+../tests/test_02_reporting.py::test_reports_config_allure_field PASSED   [ 71%]
+../tests/test_02_reporting.py::test_reports_config_update_allure_path PASSED [ 78%]
+../tests/test_02_reporting.py::test_reports_config_get_stable_path PASSED [ 85%]
+../tests/test_02_reporting.py::test_reports_config_get_stable_path_with_suffix PASSED [ 92%]
+../tests/test_02_reporting.py::test_reports_config_get_stable_path_allure PASSED [100%]
+
+============================== 14 passed in 0.21s ==============================
+PASSED
+Phase 2: 14/14 passed
+=== Phase 3: Pytest Plugin Report Integration ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 8 items
+
+../tests/test_03_pytest_reporting.py::test_pytest_reporting_available PASSED [ 12%]
+../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_registers_hooks PASSED [ 25%]
+../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_pop_recorder_none PASSED [ 37%]
+../tests/test_03_pytest_reporting.py::test_pytest_report_dispatcher_accumulates_data PASSED [ 50%]
+../tests/test_03_pytest_reporting.py::test_vcr_report_written_via_config PASSED [ 62%]
+../tests/test_03_pytest_reporting.py::test_har_report_written_via_config PASSED [ 75%]
+../tests/test_03_pytest_reporting.py::test_xdist_module_exports_serialization PASSED [ 87%]
+../tests/test_03_pytest_reporting.py::test_stateful_callback_mark_exists PASSED [100%]
+
+============================== 8 passed in 1.31s ===============================
+PASSED
+Phase 3: 8/8 passed
+=== Phase 4: Examples Phase Enhancement ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 11 items
+
+../tests/test_04_examples.py::test_examples_phase_available PASSED       [  9%]
+../tests/test_04_examples.py::test_property_without_example_is_generated_optional PASSED [ 18%]
+../tests/test_04_examples.py::test_property_without_example_is_generated_required PASSED [ 27%]
+../tests/test_04_examples.py::test_gate_preserved_when_no_explicit_examples[plain] PASSED [ 36%]
+../tests/test_04_examples.py::test_gate_preserved_when_no_explicit_examples[oneof] PASSED [ 45%]
+../tests/test_04_examples.py::test_branch_required_yields_disjoint_sets[oneOf] PASSED [ 54%]
+../tests/test_04_examples.py::test_branch_required_yields_disjoint_sets[anyOf] PASSED [ 63%]
+../tests/test_04_examples.py::test_oneof_branch_isolation_own_properties PASSED [ 72%]
+../tests/test_04_examples.py::test_oneof_branch_isolation_shared_property PASSED [ 81%]
+../tests/test_04_examples.py::test_anyof_with_required_constraints_per_branch PASSED [ 90%]
+../tests/test_04_examples.py::test_optional_properties_included_in_extraction PASSED [100%]
+
+============================== 11 passed in 0.36s ==============================
+PASSED
+Phase 4: 9/9 passed
+=== Phase 5: Email Format & Coverage Fixes ===
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /tests
+plugins: anyio-4.13.0, hypothesis-6.155.2, asyncio-1.4.0, pytest_httpserver-1.1.5, json-ctrf-0.5.2, mock-3.15.1, trio-0.8.0, xdist-3.8.0, schemathesis-4.13.0, syrupy-5.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 10 items
+
+../tests/test_05_email_coverage.py::test_email_format_fix_available PASSED [ 10%]
+../tests/test_05_email_coverage.py::test_lowercase_email_domain_basic PASSED [ 20%]
+../tests/test_05_email_coverage.py::test_lowercase_email_domain_preserves_local PASSED [ 30%]
+../tests/test_05_email_coverage.py::test_lowercase_email_domain_already_lowercase PASSED [ 40%]
+../tests/test_05_email_coverage.py::test_lowercase_email_domain_idn PASSED [ 50%]
+../tests/test_05_email_coverage.py::test_email_format_strategy_registered PASSED [ 60%]
+../tests/test_05_email_coverage.py::test_email_format_generates_lowercase_domain PASSED [ 70%]
+../tests/test_05_email_coverage.py::test_idn_email_format_generates_lowercase_domain PASSED [ 80%]
+../tests/test_05_email_coverage.py::test_body_unexpected_parameters_control_deny PASSED [ 90%]
+../tests/test_05_email_coverage.py::test_query_unexpected_parameters_control_deny PASSED [100%]
+
+============================== 10 passed in 0.86s ==============================
+PASSED
+Phase 5: 10/10 passed
+Result: 5/5 phases; 53/53 tests | Reward: 1.000000
+tests/roadmap.py::test_phase_1 PASSED
+tests/roadmap.py::test_phase_2 PASSED
+tests/roadmap.py::test_phase_3 PASSED
+tests/roadmap.py::test_phase_4 PASSED
+tests/roadmap.py::test_phase_5 PASSED
+=== 5 passed, 0 failed in 1.00s ===
+TOTAL_SCORE 1.000000

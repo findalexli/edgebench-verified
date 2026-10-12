@@ -1,0 +1,14 @@
+variant=correct tests=orig :: 15 passed in 1.82s
+variant=correct tests=repaired :: 15 passed in 1.06s
+variant=independent_fields tests=orig :: 15 passed in 1.12s
+variant=independent_fields tests=repaired :: 1 failed, 14 passed in 2.34s
+variant=off_by_one_clock tests=orig :: 15 passed in 1.11s
+variant=off_by_one_clock tests=repaired :: 15 passed in 1.12s
+variant=garbage_shape tests=orig :: 15 passed in 1.19s
+variant=garbage_shape tests=repaired :: 1 failed, 14 passed in 1.67s
+variant=rfc850 tests=orig :: 1 failed, 14 passed in 1.66s
+variant=rfc850 tests=repaired :: 1 failed, 14 passed in 1.88s
+draws variant=correct: n=50 orig_accepts=50 repaired_accepts=50 rejected_examples=[]
+draws variant=independent_fields: n=50 orig_accepts=50 repaired_accepts=5 rejected_examples=['Mon, 01 Jan 1970 00:00:00 GMT', 'Tue, 01 Jan 1970 00:00:00 GMT', 'Tue, 08 Oct 2064 07:32:13 GMT']
+draws variant=off_by_one_clock: n=50 orig_accepts=50 repaired_accepts=48 rejected_examples=['Tue, 16 Jul 2019 11:60:00 GMT', 'Tue, 16 May 1972 24:19:00 GMT']
+draws variant=garbage_shape: n=50 orig_accepts=50 repaired_accepts=0 rejected_examples=['999, 99 888 0000 99:99:99 GMT', '_x_, 99 888 0000 99:99:99 GMT', '_x_, 99 R_q 0000 99:99:99 GMT']

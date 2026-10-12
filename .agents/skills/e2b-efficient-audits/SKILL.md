@@ -15,7 +15,7 @@ Report how many original task checks actually ran and what they established. If 
 
 ## Start from one current state
 
-Resolve current authority/state from the designated coordinator. Repository copies use `HANDOFF.md` to locate it; workspace paths and historical receipt links below are locally available provenance, not required archive contents in Git. Obtain the current handoff/authority from that coordinator rather than substitute an old packet when a link is absent.
+Resolve current state from `AGENTS.md` and the E2B ledger `evidence/runs/ledger.jsonl` (the earlier coordinator and `HANDOFF.md` are preserved at Git tag `earlier-audit-final`); workspace paths and historical receipt links below are locally available provenance, not required archive contents in Git. Obtain the current handoff/authority from that coordinator rather than substitute an old packet when a link is absent.
 
 Read the coordinator's dated `audit/AUDIT-BRIEF.md`, compact current handoff and later steering. Follow only the historical archive keys needed for the current question; preserve the full archive without repeatedly loading it. Bind authorization, user deadline, local guards, ownership and task/runner holds; historical packets are not current authority. Never retry or reroute automatic-review holds. A separate model-runner hold does not block unrelated unheld native/data lanes.
 
@@ -51,6 +51,18 @@ For long native runs, compare CPU-seconds with allowed parallelism and wall time
 Bind final serialized job, controls digest, grant, worker identity and actual runtime consumers before credentials. Use the supported coordinator interpreter/SDK; scientific interpreter/ABI is separate. Check policy loaders/imported constants when renewing deadlines. Keep credentials in the authorized coordinator or isolated account service, outside native actors and evidence. Secure staging of the authorized Codex-plan cache does not authorize unrelated keys; native actors retain their network/filesystem restrictions.
 
 The user removed the $15 ceiling/$5 reserve: record actual/committed usage and forecasts without a replacement ceiling. Resolve new reviewer and E2B model settings from the current model policy and latest direct user steering. Frozen attempts retain their regime; a preference change does not authorize retrying a hold. Resets, paid fallback, publication and unrelated work need applicable authorization.
+
+## Lessons from the Claude re-verification (2026-10-12)
+
+- **Closed is not completed.** A ledger "closed"/killed event only proves cleanup. Treat a job as
+  finished only if its record shows `status: exit=0` **and** the collected `result/out/` exists;
+  a host restart left three paired jobs killed with `ReadTimeout`/`ConnectError` and no results.
+- **Keep heavy local work off the host.** Three concurrent Lean builds (two 33 GB-image containers
+  plus an uncapped host Mathlib compile) exhausted a 15 GB host and forced a restart. Use a
+  machine-wide `flock` for heavy local jobs, cap host compiles, and send everything that fits
+  (≤ ~18 GB disk, ≤ 8 GB RAM per worker on this account) to E2B.
+- The minimal runner `tools/e2b_run.py` (one job per worker, exact kill in
+  `finally`, append-only ledger) replaced the earlier multi-file coordinator for routine jobs.
 
 ## Collect and conclude
 
