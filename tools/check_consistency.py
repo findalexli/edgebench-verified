@@ -60,6 +60,13 @@ def main():
     pairs = {r['task_id'] for r in csv.DictReader((ROOT / 'paired-results.csv').open())}
     need(pairs <= {t for t in d if (ROOT / 'repairs' / f'{t}-v2').is_dir()}, 'paired-results.csv has a task without a package')
     need({t for t, r in d.items() if r['proposed'] == 'repair-v2'} <= pairs, 'a repair has no paired rows')
+    # README impact sentence agrees with impact.csv
+    imp = list(csv.DictReader((ROOT / 'impact.csv').open()))
+    sh = [float(r['exact_adjusted_mean']) - float(r['recomputed_mean']) for r in imp]
+    dn = max(float(r['exact_adjusted_mean']) - float(r['bounded_low']) for r in imp)
+    up = max(float(r['bounded_high']) - float(r['exact_adjusted_mean']) for r in imp)
+    for txt in (f'{min(sh):.1f}–{max(sh):.1f} points', f'at most {dn:.1f} points down or {up:.1f} up'):
+        need(txt in ' '.join(readme.split()), f'README impact text missing "{txt}"')
     for m in problems:
         print('MISMATCH:', m)
     print(f'{dict(c)}; {len(problems)} problems')

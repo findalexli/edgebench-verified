@@ -13,6 +13,7 @@ version in EdgeBench's own format, or the task was excluded.
 | Read | For |
 | --- | --- |
 | [FINDINGS.md](FINDINGS.md) | What is wrong in each task and how much it changes the score |
+| [IMPACT.md](IMPACT.md) · [impact.csv](impact.csv) | How much the defects move the published leaderboard means |
 | [APPLYING-FIXES.md](APPLYING-FIXES.md) | How to build and use the repaired task versions |
 | [DECISIONS.md](DECISIONS.md) · [decisions.csv](decisions.csv) | The decision for all 51 tasks |
 | [cases/](cases/INDEX.md) | One page per task: the problem, its impact, the fix, the evidence |
@@ -53,6 +54,16 @@ none of the 132 executed arms changed verdict ([repeatability](paired-repeatabil
 
 All 51 tasks with their measured impact: [FINDINGS.md](FINDINGS.md).
 
+## Effect on the published leaderboard
+
+Using EdgeBench's own per-task @12h scores for the 51 public tasks, the changes that are a pure
+change of scale (Treant Forest's anchors, Borden's missing rescale, Dabic's exclusion) raise every
+model's mean by 1.2–1.9 points. The ranking does not change. The repairs with a documented maximum
+effect add at most 0.3 points down or 1.4 up. That is enough to swap Opus 4.8 (44.2) and GPT-5.5
+(43.1), whose order the public tasks therefore do not establish. The other repairs cannot be sized
+without re-scoring the original submissions, which are not public. [IMPACT.md](IMPACT.md) gives
+every figure and its limits.
+
 ## Formal checks
 
 Lean 4 (Mathlib) and TLA+ settle questions that testing cannot. They show that two required theorem
@@ -68,7 +79,7 @@ negative control. All 21 formal results reproduce with `python3 tools/check_form
 | `FINDINGS.md`, `APPLYING-FIXES.md`, `METHOD.md`, `DECISIONS.md`, `cases/` | The publication |
 | `site/` | The browsable page (deployed with GitHub Pages) |
 | `repairs/<task>-v2/` | Repair packages: patch, `materialize.sh`, `Dockerfile` `FROM` the original image digest, `task.json.in`, source lock, paired results |
-| `decisions.json`, `decisions.csv`, `paired-results.csv`, `paired-repeatability.csv` | Machine-readable decisions and paired evaluations |
+| `decisions.json`, `decisions.csv`, `paired-results.csv`, `paired-repeatability.csv`, `impact.csv` | Machine-readable decisions and paired evaluations |
 | `evidence/` | `reviews/` (per-task analyses), `scripts/` (rerunnable checks), `formal/` (Lean, TLA+), `runs/` (native-run jobs and results) |
 | `tools/` | Generators for the tables, findings, guide and site; consistency, publish and formal checks; the E2B runner |
 | `tasks/` | The original public task definitions, unchanged |
@@ -77,8 +88,9 @@ negative control. All 21 formal results reproduce with `python3 tools/check_form
 ## Scope and limits
 
 - The 83 unreleased EdgeBench tasks are out of scope.
-- No model runs: score effects are measured on authored controls and counterexamples, not on
-  historical leaderboard submissions.
+- No model runs: score effects are measured on authored controls and counterexamples. Effects on
+  the published leaderboard are recomputed only where they are a pure change of scale, and are
+  otherwise bounded ([IMPACT.md](IMPACT.md)).
 - Deliberate tampering with the scorer by a malicious submission is a harness design choice and is
   out of scope.
 - v2 scores are not comparable with v1 leaderboard scores.

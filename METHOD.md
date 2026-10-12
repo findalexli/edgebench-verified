@@ -70,7 +70,8 @@ are in [paired-repeatability.md](paired-repeatability.md).
 ## Limits
 
 - **No model runs.** Score effects are measured on authored controls and counterexamples, not on
-  historical leaderboard submissions or fresh model attempts.
+  historical leaderboard submissions or fresh model attempts. [IMPACT.md](IMPACT.md) applies them to
+  the publisher's per-task scores: exactly for pure changes of scale, and as bounds otherwise.
 - **One hardware class.** Paired evaluations ran on 8-vCPU / 8 GiB workers. Timing-based scores may
   move further on other hardware.
 - **Partial checks.** Some findings rest on source reading or exact arithmetic rather than a full
@@ -83,7 +84,7 @@ are in [paired-repeatability.md](paired-repeatability.md).
 All tables, the findings list, the guide and the site are generated from `decisions.json`:
 
 ```bash
-python3 tools/build_tables.py && python3 tools/build_findings.py && python3 tools/build_applying.py && python3 tools/build_site.py
+python3 tools/build_tables.py && python3 tools/build_findings.py && python3 tools/build_applying.py && python3 tools/estimate_impact.py && python3 tools/build_site.py
 python3 tools/check_consistency.py   # every published count agrees with decisions.json
 python3 tools/check_formal.py        # TLA+ models and Lean proofs reproduce their published outcomes
 ```

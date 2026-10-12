@@ -94,6 +94,9 @@ table.ledger { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-w
 .empty { padding: 24px; color: var(--muted); }
 /* method */
 .method ol { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 72ch; }
+.imp tbody tr { cursor: default; }
+.imp tbody tr:hover td { background: none; }
+.imp td.n, .imp th.n { text-align: right; font-variant-numeric: tabular-nums; }
 .paths { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 0.92rem; }
 .paths code { color: var(--accent); }
 footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.85rem; display: grid; gap: 6px; }
@@ -122,6 +125,7 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
 <nav class="top"><div class="wrap">
   <a class="brand" href="#top">EdgeBench Verified</a>
   <a class="l" href="#findings">Findings</a>
+  <a class="l" href="#impact">Score impact</a>
   <a class="l" href="#tasks">All 51 tasks</a>
   <a class="l" href="#method">Method</a>
   <a class="l" href="#downloads">Downloads</a>
@@ -144,7 +148,7 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
     <div><b>{{retain-with-note}}</b><span>retained with a published note</span></div>
     <div><b>{{exclude}}</b><span>excluded from this release</span></div>
   </div>
-  <p class="sub">The other 83 advertised EdgeBench tasks were not available and are out of scope. No models were run: score effects are shown on authored controls and counterexamples, never estimated for historical leaderboard entries.</p>
+  <p class="sub">The other 83 advertised EdgeBench tasks were not available and are out of scope. No models were run: defects are shown on authored controls and counterexamples, and their effect on the published leaderboard is recomputed only where it is a pure change of scale.</p>
 </header>
 
 
@@ -152,6 +156,19 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
   <div class="eyebrow">Selected findings</div>
   <h2>Defects a good-faith solver would hit</h2>
   <div class="findings" id="findinglist"></div>
+</section>
+
+<section id="impact">
+  <div class="eyebrow">Score impact</div>
+  <h2>What the defects do to the published means</h2>
+  <p class="sub col">Computed from EdgeBench's own per-task @12h scores for the 51 public tasks. Exact adjustments are pure changes of scale applied to unchanged raw scores: Treant Forest's unreachable anchors, Borden's missing rescale, and Dabic's exclusion. Documented bounds add every repair with a proven or demonstrated maximum effect. The worst case lets each remaining repair take its full range, which is a limit, not a prediction. No submission was re-scored.</p>
+  <div class="tablewrap">
+    <table class="ledger imp">
+      <thead><tr><th>Model</th><th class="n">Published</th><th class="n">Exact adjustments</th><th class="n">With documented bounds</th><th class="n">Worst case</th></tr></thead>
+      <tbody>{{impact_rows}}</tbody>
+    </table>
+  </div>
+  <p class="sub col">{{impact_note}} Full table: <a href="data/IMPACT.md">IMPACT.md</a> · <a href="data/impact.csv">impact.csv</a>.</p>
 </section>
 
 <section id="tasks">
@@ -183,6 +200,7 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
   <div class="paths">
     <span class="eyebrow">Decisions</span><span><a href="data/decisions.csv">decisions.csv</a> · <a href="data/decisions.json">decisions.json</a> (all 51 tasks)</span>
     <span class="eyebrow">Paired runs</span><span><a href="data/paired-results.csv">paired-results.csv</a> (134 rows, original vs repaired evaluator)</span>
+    <span class="eyebrow">Score impact</span><span><a href="data/impact.csv">impact.csv</a> · <a href="data/IMPACT.md">report</a> (published means, exact and bounded adjustments)</span>
     <span class="eyebrow">Repeatability</span><span><a href="data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="data/paired-repeatability.md">report</a> (3 runs per arm)</span>
     <span class="eyebrow">Documents</span><span><a href="data/FINDINGS.md">Findings</a> · <a href="data/METHOD.md">Method</a> · <a href="data/APPLYING-FIXES.md">Applying the fixes</a></span>
   </div>

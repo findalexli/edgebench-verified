@@ -28,7 +28,7 @@ jobs:
       - name: Add downloadable data next to the page
         run: |
           mkdir -p site/data
-          cp decisions.csv decisions.json paired-results.csv paired-repeatability.csv paired-repeatability.md FINDINGS.md METHOD.md APPLYING-FIXES.md site/data/
+          cp decisions.csv decisions.json paired-results.csv paired-repeatability.csv paired-repeatability.md FINDINGS.md METHOD.md APPLYING-FIXES.md IMPACT.md impact.csv site/data/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
