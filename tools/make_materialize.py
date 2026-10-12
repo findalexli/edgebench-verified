@@ -22,7 +22,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]          # EdgeBench repo root
+ROOT = Path(__file__).resolve().parents[1]          # EdgeBench Verified repo root
 REPAIRS = ROOT / 'edgebenchverified' / 'repairs'
 if os.environ.get('EBV_REPO'):                       # standalone EdgeBench Verified checkout
     ROOT = Path(os.environ['EBV_REPO']).resolve()

@@ -44,7 +44,7 @@ MAVEN=(
 LEAN_BUILD=1
 cd "$(dirname "${BASH_SOURCE[0]}")"
 PKG_DIR=$(pwd)
-EDGEBENCH_ROOT="${EDGEBENCH_ROOT:-$PKG_DIR/../../..}"
+EDGEBENCH_ROOT="${EDGEBENCH_ROOT:-$PKG_DIR/../..}"
 LOCK="$PKG_DIR/source-lock.json"
 
 log() { echo "materialize[$PKG_NAME]: $*" >&2; }
