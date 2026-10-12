@@ -22,7 +22,7 @@ from dotenv import dotenv_values
 from e2b import Sandbox
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / 'e2b' / 'ledger.jsonl'
+LEDGER = ROOT / 'evidence' / 'runs' / 'ledger.jsonl'
 TEMPLATE = 'harbor-worker-v4'
 
 

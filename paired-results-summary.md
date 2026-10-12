@@ -1,7 +1,7 @@
 # Paired before/after results: summary
 
-This file summarizes [paired-results.csv](paired-results.csv). The CSV has 129 rows from the 22
-`repairs/*-v2/paired/results.md` files: 21 accepted repairs plus the partial
+This file summarizes [paired-results.csv](paired-results.csv). The CSV has 134 rows from the 23
+`repairs/*-v2/paired/results.md` files: 22 accepted repairs plus the partial
 `dabic_gravity_inversion` repair, which is **excluded** from the release. Row numbers below are CSV
 line numbers; the header is line 1.
 
@@ -67,6 +67,7 @@ expectation that the results.md file states for each control.
 | jagua_nesting_optimization | 6 | 5 | 2 | – | yes (65–69, 72) | yes (64, 71, 73–75) | yes (70, 76) |
 | lean_analysis_proofs | 1 | 4 | 1 | – | yes (78) | yes per file (77; 80–82). Scores change because of the intended denominator change and the removal of auxiliary credit | yes (79) |
 | openrct2_theme_park_ai | 1 | 0 | 0 | – | yes (83), prompt text only | not run (holds by construction) | not run (holds by construction) |
+| openttd_transport_ai | 1 | 2 | 0 | 2 baseline | yes (131): the shipped starter dies in v1 and not in v2. Added at the end of the CSV so earlier line numbers are unchanged | yes (133, 135). One judge serves both versions, so scores are identical by construction | n/a. No invalid arm; the v1 starter (132) is the crashing case |
 | order_addition_permutation_optimization | 3 | 3 | 2 | – | yes (88, 90, 91) | yes (84, 85, 89) | yes (86–87). They have no score in either version; the pass count rises from 3/5 to 4/5 |
 | schemathesis_config_modernization | 1 | 1 | 1 | 1 baseline | yes (94) | yes (93) | yes (95) |
 | schemathesis_datagen_pipeline | 2 | 3 | 2 | 1 baseline | yes (99–100) | yes (96–98) | **no** in the strict sense. garbage_shape (101) is accepted by v1, at the same score as correct, and rejected only by v2; the file counts this as the fix. rfc850 (102) is rejected by both |
@@ -77,20 +78,20 @@ expectation that the results.md file states for each control.
 | triangulation_coloring_optimization | 1 | 2 | 1 | – | yes (124) | yes (122–123), within 0.08 normalized | yes (125) |
 | warehouse_forklift_routing | 2 | 1 | 2 | – | yes (129–130) | yes (126) | yes (127–128) |
 
-## Totals (22 packages, 129 rows)
+## Totals (23 packages, 134 rows)
 
 | Role | Rows | changed=yes | changed=no |
 |---|---:|---:|---:|
-| trigger | 45 | 43 | 2 (arc rows 5–6, docs-only) |
-| valid | 47 | 17 | 30 |
+| trigger | 46 | 44 | 2 (arc rows 5–6, docs-only) |
+| valid | 49 | 17 | 32 |
 | invalid | 27 | 8 | 19 |
-| baseline | 8 | 2 | 6 |
+| baseline | 10 | 2 | 8 |
 | setup | 2 | 1 | 1 |
 
-By score kind, 95 rows are `raw`, 21 are `verdict` and 13 are `normalized`.
+By score kind, 100 rows are `raw`, 21 are `verdict` and 13 are `normalized`.
 
 **By task:**
-- **Triggers.** 21 tasks have at least one trigger row, and in 20 of them every trigger changed.
+- **Triggers.** 22 tasks have at least one trigger row, and in 21 of them every trigger changed.
   The exception is arc, a docs-only repair. borden has no trigger row.
 - **Valid controls.** Every task with valid rows behaves as its file expects. 17 valid rows
   change, all of them noise or intended rescaling that the file documents.
@@ -101,7 +102,7 @@ By score kind, 95 rows are `raw`, 21 are `verdict` and 13 are `normalized`.
 ## Verification
 
 An automated re-read compared each CSV row with its own results.md: the arm, both results,
-both scores and the source heading. All 129 rows pass after `**` is removed and whitespace is
+both scores and the source heading. All 134 rows pass after `**` is removed and whitespace is
 normalized. 24 values match only after the bold markers are removed.
 
 A stricter check required each value to sit on the arm's own line or on the next line. Only

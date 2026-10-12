@@ -24,8 +24,8 @@ controls and counterexamples, never estimated for historical leaderboard entries
 | Decision | Tasks | Meaning |
 | --- | ---: | --- |
 | Retain | 0 | No defect and nothing to note (every retained task carries at least one note) |
-| Retain with note | 29 | Real but immaterial, or disclosed, issue, or a usage note only where no good-faith defect was found; the note ships with the task |
-| **Repair (v2)** | **21** | Material defect fixed in a new version; every repair passed a paired before/after check, a native run for all but the prompt-only OpenRCT2 repair ([129 paired rows](paired-results.csv), 4 of them for the excluded task's partial repair) |
+| Retain with note | 28 | Real but immaterial, or disclosed, issue, or a usage note only where no good-faith defect was found; the note ships with the task |
+| **Repair (v2)** | **22** | Material defect fixed in a new version; every repair passed a paired before/after check, a native run for all but the prompt-only OpenRCT2 repair ([134 paired rows](paired-results.csv), 4 of them for the excluded task's partial repair) |
 | Exclude | 1 | Material defect without a justified repair in this release |
 | **Total** | **51** | |
 
@@ -46,7 +46,7 @@ All defects with their measured impact: [FINDINGS.md](FINDINGS.md).
 An earlier automated audit (October 7–12) had withheld 18 originals, retained 1 and left 21 scoped
 findings. We re-checked every claim from the original bytes. All 18 withheld defects reproduced:
 12 needed repair, and 6 are retained with a note because they cannot materially change a good-faith
-solver's score or concerned only scorer isolation (out of scope). We also found 7 material defects
+solver's score or concerned only scorer isolation (out of scope). We also found 8 material defects
 the earlier audit had missed. Several earlier "setup blocked" tasks were failures of that audit's own
 tooling. The earlier audit's files are preserved at Git tag `earlier-audit-final`.
 

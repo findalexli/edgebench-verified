@@ -61,6 +61,7 @@ submissions' scores change.
 | [jagua_nesting_optimization](repairs/jagua_nesting_optimization-v2/README.md) | judge image | `bba393b2dd53-ebv-v2` | accepted |
 | [lean_analysis_proofs](repairs/lean_analysis_proofs-v2/README.md) | judge image, solver (work) image | `lean_analysis_proofs-v2-judge` | accepted |
 | [openrct2_theme_park_ai](repairs/openrct2_theme_park_ai-v2/README.md) | task prompt | `80316ccd77ae` | accepted |
+| [openttd_transport_ai](repairs/openttd_transport_ai-v2/README.md) | solver (work) image, task prompt | `d8e83be4044e` | accepted |
 | [order_addition_permutation_optimization](repairs/order_addition_permutation_optimization-v2/README.md) | judge image | `f6f385925889-ebv-v2` | accepted |
 | [schemathesis_config_modernization](repairs/schemathesis_config_modernization-v2/README.md) | judge image | `function-identity-v2` | accepted |
 | [schemathesis_datagen_pipeline](repairs/schemathesis_datagen_pipeline-v2/README.md) | judge image | `http-date-v2` | accepted |

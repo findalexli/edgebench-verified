@@ -24,6 +24,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]          # EdgeBench repo root
 REPAIRS = ROOT / 'edgebenchverified' / 'repairs'
+if os.environ.get('EBV_REPO'):                       # standalone EdgeBench Verified checkout
+    ROOT = Path(os.environ['EBV_REPO']).resolve()
+    REPAIRS = ROOT / 'repairs'
 
 R = 'seededge/edgebench.'
 SPEC = {}
@@ -116,6 +119,15 @@ spec('openrct2_theme_park_ai-v2',
      taskjson=[('tasks/openrct2_theme_park_ai.json', 'work.agent_query', 'files/agent_query.md'),
                ('tasks/openrct2_theme_park_ai.json', 'work.agent_query', 'orig/agent_query.md')],
      note='Prompt-only repair: the base text is work.agent_query of the public task JSON; no image is pulled.')
+
+spec('openttd_transport_ai-v2',
+     {'work': R + 'work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0'},
+     base=[('work', '/home/workspace/openttd_ai/my_ai/main.nut', 'files/my_ai/main.nut')],
+     orig=[('work', '/home/workspace/openttd_ai/my_ai/main.nut', 'orig/main.nut')],
+     taskjson=[('tasks/openttd_transport_ai.json', 'work.agent_query', 'files/agent_query.md'),
+               ('tasks/openttd_transport_ai.json', 'work.agent_query', 'orig/agent_query.md')],
+     note='Prompt plus starter fix: work.agent_query comes from the public task JSON; the baseline '
+          'main.nut comes from the pinned work image. The judge image is unchanged.')
 
 spec('order_addition_permutation_optimization-v2',
      {'judge': R + 'judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8'},

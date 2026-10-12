@@ -44,7 +44,7 @@ The evaluator runs something different from what the solver is told.
 | Task | Decision | What is wrong | Max effect |
 | --- | --- | --- | --- |
 | [Openrct2 Theme Park Ai](cases/openrct2_theme_park_ai.md) | Repair (v2) | Promised ~4 game years cannot run in the 120 s budget (~68 game days observed); score is an early snapshot | material: prompt/horizon mismatch |
-| [Openttd Transport Ai](cases/openttd_transport_ai.md) | Retain with note | Prompt goal names a non-existent API (GetCompanyValue) that crashes a solver's AI; scorer itself works | whole score for prompt-following solvers (v2 prompt fix optional) |
+| [Openttd Transport Ai](cases/openttd_transport_ai.md) | Repair (v2) | Prompt goal names a non-existent API (AICompany.GetCompanyValue); a script that calls it dies, and the shipped baseline dies on its first statement; scorer itself works | whole score for prompt-following solvers (script dies at the call; score is 0 or an earlier quarter's value) |
 
 ## Real but immaterial, or disclosed, issues (retained with a note)
 

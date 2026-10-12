@@ -3,7 +3,7 @@
 Status: reviewed by the coordinator, 2026-10-12
 
 - **Domain:** Interactive Games & Simulators
-- **Decision:** Retain with note — the prompt's stated goal names an API function, `AICompany.GetCompanyValue`, that does not exist in the pinned engine. A script that calls it crashes. On the do-nothing baseline, the scorer behaved as read from source; no positive-score control was run.
+- **Decision:** Repair v2 (prompt and starter fix). The prompt's stated goal names an API function, `AICompany.GetCompanyValue`, that does not exist in the pinned engine; a script that calls it dies, and the shipped baseline dies on its first statement. v2 names `AICompany.GetQuarterlyCompanyValue`, fixes the starter and states how the score is read. The scorer is unchanged.
 
 ## What the task promises
 
@@ -45,23 +45,46 @@ Full original evaluation of the baseline: wall time **63 s**, exit 0, all 5/5 re
 
 **Runtime is not a concern for this run.** One seed alone took 55.4 s, about **9,750 ticks/s**, far above the roughly 150 ticks/s needed. The 5-seed evaluation took 63 s against `eval_timeout` 3600 s. An AI running many vehicles will be slower; that was not measured.
 
-## Note for users
+## Repair
 
-No repair. The note says:
+Package: `repairs/openttd_transport_ai-v2/`.
 
-- The prompt's named goal function, `AICompany.GetCompanyValue`, is not in the OpenTTD 13.4 API. Calling it kills the script.
-- The scored quantity is the last quarterly `company_value` read from the saves.
+- **Prompt.** The Goal paragraph of `work.agent_query` now says that OpenTTD 13.4 has no `AICompany.GetCompanyValue` and that calling it stops the script. It names `AICompany.GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, AICompany.CURRENT_QUARTER)` for the running value and quarter `1` for the value recorded at the start of the current quarter. It corrects the formula: stations count, other infrastructure does not, and the floor is 1. It states how the score is read: per seed, the value at the most recent quarter boundary before the game ends (falling back to an earlier quarter above 1, or 0), averaged over the 5 seeds.
+- **Starter.** `my_ai/main.nut` line 5 calls `GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, AICompany.CURRENT_QUARTER)`. `Dockerfile.work` builds the v2 work image from the v1 digest (image about 0.46 GB compressed); `work.image_tag` becomes `f2e9a9fb0fff-ebv-v2`.
+- **API evidence.** The OpenTTD 13.4 source defines `GetQuarterlyCompanyValue` as `CalculateCompanyValue(c)` for `CURRENT_QUARTER` and `old_economy[quarter - 1].company_value` otherwise. The cached 13.4 binary contains the name `GetQuarterlyCompanyValue` and not `GetCompanyValue`. A probe script reported `has_GetCompanyValue=false has_GetQuarterlyCompanyValue=true`.
+- The judge image, `eval_cmd`, parser and rescale anchors (`log_max`, 1e5 to 1e9) are unchanged, so each submission scores the same under v1 and v2.
 
-The review suggests an optional v2 prompt and starter fix that names the quarterly company value, for example `AICompany.GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, AICompany.CURRENT_QUARTER)`, and fixes the baseline's logging call. Whether that function exists in 13.4 was not verified.
+Paired check (one E2B job, exact original `eval_cmd`, 5 seeds, 20 game years; copied from `paired/results.md`):
+
+| Submission | Task version it ships with | Script died? | `TOTAL_SCORE` v1 | `TOTAL_SCORE` v2 | Per-seed company value (scorer) | Error flag (5 seeds) |
+|---|---|---|---|---|---|---|
+| baseline_v1 (shipped starter) | v1 | yes, at `main.nut` line 5 | 0 | 0 | 0 on all 5 seeds | 5/5 YES |
+| probe_min (calls corrected API monthly) | follows v2 prompt | no | 0 | 0 | 0 on all 5 seeds | 0/5 |
+| baseline_v2 (fixed starter) | v2 | no | 0 | 0 | 0 on all 5 seeds | 0/5 |
+| probe_value (positive-value control) | follows v2 prompt | no | 4975 | 4975 | 4,975 on all 5 seeds | 0/5 |
+
+Trigger, the shipped starter on the same judge:
+
+| Starter | Script died? (v1) | Script died? (v2) | `TOTAL_SCORE` v1 | `TOTAL_SCORE` v2 |
+|---|---|---|---|---|
+| shipped starter (v1 work image vs v2 work image) | yes, at `main.nut` line 5 | no | 0 | 0 |
+
+- The idle probes score 0 because an idle company's value stays at the floor of 1 (cash minus a 100,000 loan is negative), which the scorer counts as 0. They show the script survives, not a positive score.
+- For both probes, on every seed, the last logged `GetQuarterlyCompanyValue(SELF, 1)` equals the `old_economy[0].company_value` the scorer used. For `probe_value` that is 4,975, while the running `CURRENT_QUARTER` value at the end was 4,858.
+- **Verdict: accepted.**
+
+**Score compatibility.** Scores are comparable as measurements of the same harness. They are not comparable as measures of solver ability where a v1 solver followed the prompt and called the missing function.
 
 ## Limits and what was not run
 
-- No model or solver re-runs. Effects are shown on the shipped baseline only.
-- Only the crashing do-nothing baseline was run. There is no positive-score control, so neither the reachability of the 1e9 upper anchor nor run-to-run determinism was tested.
+- No model or solver re-runs. Effects are shown on the shipped baseline and on audit probes only.
+- The only positive-score control is an audit probe (4,975, far below the 1e5 lower anchor). The reachability of the 1e9 upper anchor was not tested. The v1 baseline reproduced the earlier run exactly.
+- The prompt's docs path (`docs/noai_api_docs/`) differs from the real one (`docs/openttd_reference_docs/noai_api_docs/`), and the shipped HTML docs appear to be from a later OpenTTD than 13.4. Both are noted in the package README and not changed.
 - One run only. The ticks/s figure is for an idle script on this host.
 
 ## Reproduce
 
 - `evidence/runs/openttd_transport_ai-native-baseline/run.sh` (full evaluation) and `evidence/runs/openttd_transport_ai-native-saves-diag/run.sh` (with `diag1.py`). They need a Docker host that can pull the pinned images.
 - Review: `evidence/reviews/openttd_transport_ai-native.md`.
+- Repair and paired run: `repairs/openttd_transport_ai-v2/` (`paired/stage.sh` then `tools/e2b_run.py`).
 

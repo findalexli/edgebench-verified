@@ -45,6 +45,7 @@ The E2B jobs started with no images on the worker, so they also exercised `docke
 | jagua_nesting_optimization-v2 | yes (1) | local clean copy + docker build | |
 | lean_analysis_proofs-v2 | yes (5 text files + 3 orig + artifact tar) | local clean copy under `/tmp/ebv-heavy.lock`, rebuild in the original judge image (`--network none --memory 4g --cpus 2`, 440 s) + docker build | See the lean section below. |
 | openrct2_theme_park_ai-v2 | yes (1 + 1 orig) | E2B + local clean copy | No image is involved: the base is `work.agent_query` from `tasks/openrct2_theme_park_ai.json`. The Dockerfile is a no-op. |
+| openttd_transport_ai-v2 | yes (2 + 2 orig) | local clean copy + docker build of `Dockerfile.work`; E2B (fresh pulls) inside the paired run | `files/my_ai/main.nut` comes from the work image; `files/agent_query.md` from `work.agent_query` of `tasks/openttd_transport_ai.json`. Added 2026-10-12 with the v2 package. |
 | order_addition_permutation_optimization-v2 | yes (1) | local clean copy + docker build | |
 | schemathesis_config_modernization-v2 | yes (2) | local clean copy + docker build | |
 | schemathesis_datagen_pipeline-v2 | yes (1) | local clean copy + docker build | |

@@ -234,10 +234,12 @@
  },
  {
   "task_id": "openttd_transport_ai",
-  "proposed": "retain-with-note",
-  "finding": "Prompt goal names a non-existent API (GetCompanyValue) that crashes a solver's AI; scorer itself works",
-  "max_effect": "whole score for prompt-following solvers (v2 prompt fix optional)",
-  "status": "final (release candidate 2026-10-12)"
+  "proposed": "repair-v2",
+  "finding": "Prompt goal names a non-existent API (AICompany.GetCompanyValue); a script that calls it dies, and the shipped baseline dies on its first statement; scorer itself works",
+  "max_effect": "whole score for prompt-following solvers (script dies at the call; score is 0 or an earlier quarter's value)",
+  "status": "final (release candidate 2026-10-12)",
+  "repair": "accepted: prompt and starter name AICompany.GetQuarterlyCompanyValue and state how the score is read; v1 baseline dies on 5/5 seeds, v2 baseline and a corrected-API probe run with no error; scorer unchanged",
+  "package": "repairs/openttd_transport_ai-v2/"
  },
  {
   "task_id": "order_addition_permutation_optimization",

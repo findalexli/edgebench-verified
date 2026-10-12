@@ -128,3 +128,8 @@ warehouse_forklift_routing,one honest bug,invalid,49 OK + 1 WA → inf,49 OK + 1
 warehouse_forklift_routing,shipped starter,invalid,50 WA → inf,50 WA → inf,,,raw,no,"Re-run after host restart (coordinator, 2026-10-12)"
 warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,"Re-run after host restart (coordinator, 2026-10-12)"
 warehouse_forklift_routing,near the 150 s per-input limit,trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,"Re-run after host restart (coordinator, 2026-10-12)"
+openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,"yes, at `main.nut` line 5",no,,,raw,yes,Paired table
+openttd_transport_ai,baseline_v1 (shipped starter),baseline,"yes, at `main.nut` line 5","yes, at `main.nut` line 5",0,0,raw,no,Paired table
+openttd_transport_ai,probe_min (calls corrected API monthly),valid,no,no,0,0,raw,no,Paired table
+openttd_transport_ai,baseline_v2 (fixed starter),baseline,no,no,0,0,raw,no,Paired table
+openttd_transport_ai,probe_value (positive-value control),valid,no,no,4975,4975,raw,no,Paired table

@@ -1,7 +1,7 @@
 | Decision | Tasks |
 | --- | ---: |
-| Retain with note | 29 |
-| Repair (v2) | 21 |
+| Retain with note | 28 |
+| Repair (v2) | 22 |
 | Exclude | 1 |
 | **Total** | **51** |
 
@@ -36,7 +36,7 @@
 | `nethack_dungeon_agent` | Retain with note | Seeding silently fails: the 20 graded games are unseeded and random (run-to-run variance unmeasured for scoring agents); 120 s per-game limit not stated in the prompt | variance unmeasured for scoring agents | — |
 | `new_foundations_consistency` | Retain with note | Grades correctly with the judge's network (Lake re-clones doc-gen4 at the manifest-pinned commit 86d735ec, valid result); cannot be graded offline; 15 of 370 aux targets exposed to renumbering (≤0.67%), untested | 0 measured | — |
 | `openrct2_theme_park_ai` | Repair (v2) | Promised ~4 game years cannot run in the 120 s budget (~68 game days observed); score is an early snapshot | material: prompt/horizon mismatch | accepted (prompt correction): states the real ~68-game-day horizon and speed rule; no executable change |
-| `openttd_transport_ai` | Retain with note | Prompt goal names a non-existent API (GetCompanyValue) that crashes a solver's AI; scorer itself works | whole score for prompt-following solvers (v2 prompt fix optional) | — |
+| `openttd_transport_ai` | Repair (v2) | Prompt goal names a non-existent API (AICompany.GetCompanyValue); a script that calls it dies, and the shipped baseline dies on its first statement; scorer itself works | whole score for prompt-following solvers (script dies at the call; score is 0 or an earlier quarter's value) | accepted: prompt and starter name AICompany.GetQuarterlyCompanyValue and state how the score is read; v1 baseline dies on 5/5 seeds, v2 baseline and a corrected-API probe run with no error; scorer unchanged |
 | `order_addition_permutation_optimization` | Repair (v2) | Integrity test expects a stale helper hash; every submission capped at pass rate 0.8, so pass_rate_first freezes the run on its first valid submission | material: later improvements ignored | accepted: 5/5 tests for valid submissions; better later submission now selected; invalid controls rejected |
 | `ordinal_notation_well_foundedness` | Retain with note | Grader correct on honest/Admitted/axiom controls; helper file-name filter undisclosed; targets 2–9 unproven | 0 found | — |
 | `pfr_formalization` | Retain with note | Census: honest proofs in two styles score identically (2/423); 0 unattainable; 5 autoParam types print as sorry but are not holes | 0 measured | — |

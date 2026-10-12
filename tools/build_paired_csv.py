@@ -236,6 +236,16 @@ add("warehouse_forklift_routing", "Re-run after host restart (coordinator, 2026-
  ("near the 150 s per-input limit", "trigger", "50 TLE → inf", "50 OK, TOTAL 46676.8", "", "46676.8"),
 ])
 
+# openttd (added last so earlier CSV line numbers stay stable): one judge for v1 and v2, so each
+# submission scores the same under both; the trigger row compares the shipped starters.
+add("openttd_transport_ai", "Paired table", "raw", [
+ ("shipped starter (v1 work image vs v2 work image)", "trigger", "yes, at `main.nut` line 5", "no", "", ""),
+ ("baseline_v1 (shipped starter)", "baseline", "yes, at `main.nut` line 5", "yes, at `main.nut` line 5", "0", "0"),
+ ("probe_min (calls corrected API monthly)", "valid", "no", "no", "0", "0"),
+ ("baseline_v2 (fixed starter)", "baseline", "no", "no", "0", "0"),
+ ("probe_value (positive-value control)", "valid", "no", "no", "4975", "4975"),
+])
+
 def changed(v1r, v2r, v1s, v2s):
     if (v1r, v2r) == ("accept", "accept (below the 1e-6 relative tolerance)"):
         return "no"  # same verdict; v2 cell only adds an explanation

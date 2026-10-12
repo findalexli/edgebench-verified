@@ -35,7 +35,7 @@ One row and one case page for each of the 51 public tasks. Decisions follow `dec
 | `nethack_dungeon_agent` | Interactive Games & Simulators | Retain with note | [nethack_dungeon_agent](nethack_dungeon_agent.md) |
 | `new_foundations_consistency` | Formal Math & Theorem Proving | Retain with note | [new_foundations_consistency](new_foundations_consistency.md) |
 | `openrct2_theme_park_ai` | Interactive Games & Simulators | Repair v2 | [openrct2_theme_park_ai](openrct2_theme_park_ai.md) |
-| `openttd_transport_ai` | Interactive Games & Simulators | Retain with note | [openttd_transport_ai](openttd_transport_ai.md) |
+| `openttd_transport_ai` | Interactive Games & Simulators | Repair v2 | [openttd_transport_ai](openttd_transport_ai.md) |
 | `order_addition_permutation_optimization` | Combinatorial Optimization | Repair v2 | [order_addition_permutation_optimization](order_addition_permutation_optimization.md) |
 | `ordinal_notation_well_foundedness` | Formal Math & Theorem Proving | Retain with note | [ordinal_notation_well_foundedness](ordinal_notation_well_foundedness.md) |
 | `pfr_formalization` | Formal Math & Theorem Proving | Retain with note | [pfr_formalization](pfr_formalization.md) |
@@ -58,4 +58,4 @@ One row and one case page for each of the 51 public tasks. Decisions follow `dec
 | `wesnoth_tactical_ai` | Interactive Games & Simulators | Retain with note | [wesnoth_tactical_ai](wesnoth_tactical_ai.md) |
 | `wireless_electricity_layout` | Combinatorial Optimization | Retain with note | [wireless_electricity_layout](wireless_electricity_layout.md) |
 
-Totals: Exclude 1, Repair v2 21, Retain 1, Retain with note 28 (51 tasks).
+Totals: Exclude 1, Repair v2 22, Retain 1, Retain with note 27 (51 tasks).
