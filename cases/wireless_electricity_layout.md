@@ -1,6 +1,6 @@
 # Wireless Electricity Layout (`wireless_electricity_layout`)
 
-**Outcome:** Kept, with a note. Under the upstream harness, a program that fails to compile can be reported as the best submission by raw result, but this can never change a score out of 100.
+**Outcome:** Kept, with a note. <mark>Under the upstream harness, a program that fails to compile can be reported as the best submission by raw result, but this can never change a score out of 100.</mark>
 
 ## What the task asks
 

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>Bar chart: under the original grader, engines with wrong fees (24.40) or dropped events (15.62) outscore the correct engine (7.14); the fixed grader gives both 0.</title>
+<title>Bar chart: under the original grader, engines with wrong fees (24.40) or dropped events (15.62) receive full credit, as does the correct engine (7.14); the differences are within speed noise. The fixed grader gives both broken engines 0.</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -14,8 +14,8 @@
   }
 </style>
 
-<text x="16" y="30" font-size="18" font-weight="700" class="ink">Broken engines outscore the correct one</text>
-<text x="196" y="68" font-size="14" class="muted">Original grader (score out of 100)</text>
+<text x="16" y="30" font-size="18" font-weight="700" class="ink">Broken engines pass the correctness check</text>
+<text x="196" y="68" font-size="14" class="muted">Original grader, score out of 100 (single runs)</text>
 <text x="528" y="68" font-size="14" class="muted">Fixed version</text>
 <line x1="196" y1="78" x2="196" y2="270" class="rule" stroke-width="1.5"/>
 <text x="16" y="116" font-size="15" class="ink">Correct engine</text>

@@ -6,11 +6,11 @@ EdgeBench publishes each model's score on every task. This page uses those numbe
 
 | Model | Published average | After the corrections we can calculate exactly | Range, adding fixes with a known maximum effect | Widest possible range |
 | --- | ---: | ---: | :---: | :---: |
-| Opus 4.8 | 44.2 | **46.0** (+1.9) | 45.7 – 47.2 | 38.2 – 56.0 |
-| GPT-5.5 | 43.1 | **44.8** (+1.6) | 44.5 – 45.8 | 37.7 – 55.3 |
-| GPT-5.4 | 34.2 | **35.6** (+1.4) | 35.4 – 37.0 | 29.5 – 49.1 |
-| GLM-5.1 | 30.4 | **31.9** (+1.5) | 31.6 – 33.2 | 26.2 – 45.4 |
-| DS-V4-Pro | 25.7 | **26.8** (+1.2) | 26.6 – 28.2 | 21.4 – 40.3 |
+| Opus 4.8 | 44.2 | **46.0** (+1.9) | 45.7 – 47.2 | 36.7 – 56.0 |
+| GPT-5.5 | 43.1 | **44.8** (+1.6) | 44.5 – 45.8 | 36.2 – 55.3 |
+| GPT-5.4 | 34.2 | **35.6** (+1.4) | 35.4 – 37.0 | 28.7 – 49.1 |
+| GLM-5.1 | 30.4 | **31.9** (+1.5) | 31.6 – 33.2 | 25.7 – 45.4 |
+| DS-V4-Pro | 25.7 | **26.8** (+1.2) | 26.6 – 28.2 | 21.0 – 40.3 |
 
 - **Calculated exactly.** Some fixes change only how a raw result is converted to 0–100, so a published score can be converted directly. They raise every model's average by 1.2 to 1.9 points. Most of this comes from Treant Forest, where the old scale capped every score at 21.02 out of 100. The order of the models does not change: Opus 4.8 > GPT-5.5 > GPT-5.4 > GLM-5.1 > DS-V4-Pro.
 - **Known maximum.** For 8 fixed tasks we proved or demonstrated the largest possible effect. Together they can move an average by at most 0.3 points down or 1.4 points up. That is enough to swap Opus 4.8 and GPT-5.5, so the 51 public tasks alone do not show which of them is ahead.
@@ -24,10 +24,10 @@ Two neighbouring models can swap if the most one can fall plus the most the othe
 
 | Models | Gap after exact corrections | Largest swing with known maximums | Largest swing in the widest range |
 | --- | ---: | ---: | ---: |
-| Opus 4.8 vs GPT-5.5 | 1.2 | 1.3 | 18.3 |
-| GPT-5.5 vs GPT-5.4 | 9.1 | 1.7 | 20.5 |
-| GPT-5.4 vs GLM-5.1 | 3.8 | 1.7 | 19.6 |
-| GLM-5.1 vs DS-V4-Pro | 5.0 | 1.7 | 19.1 |
+| Opus 4.8 vs GPT-5.5 | 1.2 | 1.3 | 19.8 |
+| GPT-5.5 vs GPT-5.4 | 9.1 | 1.7 | 22.0 |
+| GPT-5.4 vs GLM-5.1 | 3.8 | 1.7 | 20.4 |
+| GLM-5.1 vs DS-V4-Pro | 5.0 | 1.7 | 19.7 |
 
 No order is guaranteed in the widest range. Settling it requires regrading the original submissions with the fixed tasks.
 
@@ -49,11 +49,27 @@ Three consequences:
 
 Of the 23 tasks fixed or removed, 3 can be corrected exactly, 8 have a known maximum effect, and 12 (plus part of Borden Inversion) have a known direction only. The largest of these:
 
-- **Integer Compression Codec.** Every original score is measured against stored reference numbers that the documented starting program cannot reach. In our tests the fix raises scores about 4 times (starting program) to 8 times (a simple honest codec). The published 75.3 and 74.4 could reach the maximum of 100, but per-dataset caps make the factor for strong codecs uncertain.
+- **Integer Compression Codec.** Every original score is measured against stored reference numbers that the documented starting program cannot reach, which understates raw results about four- to eightfold. The fixed version also needs a new 0–100 scale (Section "A check against real agent runs"), so the direction of the change depends on the submission.
 - **OpenTTD.** A program that follows the instructions calls a function that does not exist and stops working. GLM-5.1's 0.0 fits this.
 - **SMT Solver.** Correct answers are rejected on some hidden problems, so every model's score goes up by an amount that depends on how it writes its answers.
 - **Lean Analysis Proofs.** The set of scored items changes from 2,901 to 2,338, so every score moves, in a direction that depends on which proofs each run completed.
 - **Exchange Core, Jagua, FFmpeg, College English.** These accept wrong work. Because a run keeps its best submission, any over-credited submission sets the run's score.
+
+## A check against real agent runs
+
+EdgeBench has not released its runs. A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, four hours each, with every submission and its original score (`adafadaq/edgebench-opus-5-5-xhigh-rollouts` on Hugging Face). Seven of those tasks are ones we fixed. We read every submission history and regraded the decisive submissions with both graders (`evidence/runs/opus55-rollouts-meta/`, `evidence/runs/opus55-regrade/`).
+
+| Task | Original grader | Fixed grader | What it shows |
+| --- | --- | --- | --- |
+| Order Addition | Every submission fails 1 of 5 tests; the run keeps its first agent submission, score 3.79, and ignores a later 41.24 | All submissions pass 5 of 5; the run keeps 41.24 | The defect occurs in practice: +37.45 points on this task for this run |
+| Integer Codec | Best submission: raw 66.31 (75.72 on the run's own machine) | Raw 160.76; 50.08 on the fixed scale | The original 0–100 scale would clip the fixed result to 100, so the fix now uses a scale from 1.0 to 320 |
+| Borden Inversion | Best submission: 60.10, reached by iterating against the grader's scores | Not regraded (raw results are identical for the same answer) | An agent that iterates can partly learn the hidden convention; the one-shot 7.0 vs 31.2 gap overstates the effect for such agents |
+| Tree Block Partitioning | 100 | Not regraded | No self-multiplication; no effect in this run |
+| Graph Node Classification | Every submission scored as a normal prediction file | Not regraded | No sign of the defect in this run |
+| Schemathesis Config | Full marks | Not regraded | Unknown whether the decorator returns the function unchanged |
+| Lean Analysis Proofs | 2,810 of 2,901 targets | Not regraded (needs the 33 GB task image) | Unknown |
+
+This is one model, one run per task and four hours instead of twelve. It shows that the problems occur in real runs and that one of our fixes needed a correction; it does not measure the leaderboard effect.
 
 ## The exact corrections
 
@@ -69,7 +85,7 @@ These fixes change only how a raw result is converted to 0–100, so each publis
 
 - **Treant Forest.** The raw result (the total number of turns) is unchanged. The original scale gives 20 points at 88,189 turns, 80 points at 330,195 and 100 points at 451,198, far above the maximum possible 92,304, so no score can exceed 21.02. The fixed scale runs straight from the starting program's 3,418 turns (0 points) to the maximum 92,304 (100 points). Every published score is below 20, where the original scale is a straight line from 5,369 turns (0 points) to 88,189 turns (20 points), so each converts exactly: turns = 5,369 + score/20 × 82,820. This also holds for an average of runs, because the conversion is a straight line. The one exception would be a run between 20 and 21.02, which falls on the next segment.
 - **Borden Inversion.** The original task had no 0–100 conversion, so the published value is the raw result, which runs from 0 to 109. The fixed version reports raw × 100/109. This is only the change of scale. The fix also gives agents the grader's physics convention, which raises honest fits (7.0 → 31.2 raw in our tests). That part needs new runs and is not included.
-- **Dabic Gravity Inversion** is removed, so the average is taken over 50 tasks (49 for Opus 4.8, which has no valid result on Rust Multicrate).
+- **D-ABIC Gravity Inversion** is removed, so the average is taken over 50 tasks (49 for Opus 4.8, which has no valid result on Rust Multicrate).
 
 ## Every fixed or removed task
 
@@ -84,12 +100,12 @@ These fixes change only how a raw result is converted to 0–100, so each publis
 | [exchange_core_throughput](cases/exchange_core_throughput.md) | down: incorrect engines can get full credit | direction only |  | 59.7 | 53.2 | 47.3 | 52.6 | 48.6 |
 | [ffmpeg_swscale_reimplementation](cases/ffmpeg_swscale_reimplementation.md) | down: incomplete libraries over-credited (18.9 points shown) | direction only |  | 21.1 | 15.3 | 13.9 | 2.2 | 3.8 |
 | [graph_node_classification](cases/graph_node_classification.md) | down: a one-node gamble adds variance, which best-so-far selection turns into expected gain | direction only |  | 66.6 | 56.0 | 57.6 | 52.3 | 51.8 |
-| [integer_compression_codec](cases/integer_compression_codec.md) | up: every score deflated against an unreachable baseline | direction only |  | 75.3 | 74.4 | 42.3 | 28.9 | 16.2 |
+| [integer_compression_codec](cases/integer_compression_codec.md) | either: raw results were understated four- to eightfold, and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320); a real best submission moves from 66.31 to 50.08 | direction only |  | 75.3 | 74.4 | 42.3 | 28.9 | 16.2 |
 | [jagua_nesting_optimization](cases/jagua_nesting_optimization.md) | down, only for layouts with overlaps | direction only |  | 44.2 | 21.6 | 24.1 | 12.4 | 28.4 |
 | [lean_analysis_proofs](cases/lean_analysis_proofs.md) | either: scored set changes from 2901 to 2338 targets | direction only |  | 33.0 | 42.5 | 16.4 | 5.9 | 9.5 |
 | [openrct2_theme_park_ai](cases/openrct2_theme_park_ai.md) | either: a different horizon is measured | direction only |  | 27.5 | 37.6 | 23.1 | 36.2 | 26.0 |
 | [openttd_transport_ai](cases/openttd_transport_ai.md) | up: prompt-following scripts die at the named call | direction only |  | 52.0 | 28.1 | 11.9 | 0.0 | 15.2 |
-| [order_addition_permutation_optimization](cases/order_addition_permutation_optimization.md) | up: later improvements ignored (depends on the consumer) | direction only |  | 36.4 | 23.3 | 14.3 | 33.2 | 30.8 |
+| [order_addition_permutation_optimization](cases/order_addition_permutation_optimization.md) | up: later improvements ignored; seen in a real run (3.79 kept instead of 41.24) | direction only |  | 36.4 | 23.3 | 14.3 | 33.2 | 30.8 |
 | [schemathesis_config_modernization](cases/schemathesis_config_modernization.md) | down: one weak test item | known maximum | 0.67 | 87.7 | 84.0 | 71.9 | 61.7 | 55.6 |
 | [schemathesis_datagen_pipeline](cases/schemathesis_datagen_pipeline.md) | down: one weak test item | known maximum | 1.03 | 70.2 | 56.7 | 56.6 | 67.0 | 52.3 |
 | [schemathesis_reporting_observability](cases/schemathesis_reporting_observability.md) | down: two weak test items | known maximum | 2.43 | 76.2 | 77.1 | 76.2 | 61.9 | 65.0 |

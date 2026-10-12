@@ -1,6 +1,6 @@
 # Ordinal Notation Well-Foundedness (`ordinal_notation_well_foundedness`)
 
-**Outcome:** Kept, with a note. The Coq grader credits honest complete proofs and rejects `Admitted` and axiom-based proofs, but two limits are not documented (the filter on helper file names and the 300 s compile limit), and targets 2–9 remain unproven.
+**Outcome:** Kept, with a note. <mark>The Coq grader credits honest complete proofs and rejects `Admitted` and axiom-based proofs, but two limits are not documented (the filter on helper file names and the 300 s compile limit), and targets 2–9 remain unproven.</mark>
 
 ## What the task asks
 

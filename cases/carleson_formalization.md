@@ -1,6 +1,6 @@
 # Carleson Formalization (`carleson_formalization`)
 
-**Outcome:** Kept, with a note. A count of every scored item inside the grader image finds none that an honest, complete solution cannot reach; the note covers one placeholder data definition and the unfinished source project.
+**Outcome:** Kept, with a note. <mark>A count of every scored item inside the grader image finds none that an honest, complete solution cannot reach; the note covers one placeholder data definition and the unfinished source project.</mark>
 
 ## What the task asks
 

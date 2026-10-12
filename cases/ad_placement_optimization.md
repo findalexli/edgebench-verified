@@ -1,6 +1,6 @@
 # Ad Placement Optimization (`ad_placement_optimization`)
 
-**Outcome:** Kept, with a note. The original grader applies the rules of the AtCoder contest AHC001 correctly, and no problem found can score an honest solver wrongly.
+**Outcome:** Kept, with a note. <mark>The original grader applies the rules of the AtCoder contest AHC001 correctly, and no problem found can score an honest solver wrongly.</mark>
 
 ## What the task asks
 

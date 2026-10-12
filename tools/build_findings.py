@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Generate FINDINGS.md: every task, grouped by what goes wrong, in plain language (from cases/plain.json)."""
 import json
+import sys
 from pathlib import Path
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parent))
+from names import names as task_names  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -46,8 +49,7 @@ LABEL = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repai
 def main():
     d = {r['task_id']: r for r in json.loads((ROOT / 'data/decisions.json').read_text())}
     plain = json.loads((ROOT / 'cases' / 'plain.json').read_text())
-    names = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['name']
-             for f in (ROOT / 'tasks').glob('*.json')}
+    names = task_names()
     seen = set()
     out = ["# Findings", "",
            "All 51 public EdgeBench tasks, grouped by what goes wrong. Each row gives the problem in one line and "

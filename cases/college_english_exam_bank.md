@@ -1,6 +1,6 @@
 # College English exam bank (`college_english_exam_bank`)
 
-**Outcome:** Fixed. The original grader gave full marks for any rubric rule that the AI grading model did not assess, and still reported the result as valid.
+**Outcome:** Fixed. <mark>The original grader gave full marks for any rubric rule that the AI grading model did not assess, and still reported the result as valid.</mark>
 
 ![Bars show the original grader scoring an empty assessment 100, and assessments with one rule left out 81 instead of 77 and 15 instead of 0; the fixed version rejects all three.](figures/college_english_exam_bank.svg)
 

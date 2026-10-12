@@ -38,8 +38,8 @@ the raw result to 0–100, and which submission it keeps. We found problems in a
 **Correct work is scored too low.**
 - *SMT Solver.* The agent builds a solver for logic formulas. The grader checks the solver's
   example answers by how they are written rather than by their value. Correct answers are
-  therefore rejected on 27 hidden problems, and even a perfect solver can reach only 72.40 of
-  78.61 points.
+  therefore rejected on 27 hidden problems, and a perfect solver's score falls from 78.61 to
+  72.40.
 - *Borden Inversion.* The agent works out where groundwater pollution came from. The grader's
   hidden physics model uses an unusual convention that the instructions never mention. The same
   honest fit scores 7.0 with textbook physics and 31.2 with the grader's convention.
@@ -80,7 +80,12 @@ Opus 4.8 (44.2) and GPT-5.5 (43.1), so the public tasks alone do not show which 
 For 12 more fixed tasks we know only the direction of the effect. Several of them are large, for
 example Integer Codec, OpenTTD and SMT Solver. Sizing these would require regrading the original
 submissions, which are not public. The exact figures are therefore a lower limit on the change,
-not an estimate of it. Details: [IMPACT.md](IMPACT.md).
+not an estimate of it.
+
+A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, with every
+submission. Regrading it confirmed the Order Addition defect in practice: the run kept its first
+submission, 3.79, instead of a later 41.24. It also showed that our first Integer Codec fix needed a
+new 0–100 scale, because real submissions saturated the old one. Details: [IMPACT.md](IMPACT.md).
 
 ## How we checked
 

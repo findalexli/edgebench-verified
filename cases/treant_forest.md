@@ -1,6 +1,6 @@
 # Treant's Forest (`treant_forest`)
 
-**Outcome:** Fixed. The original score scale puts its reference points above the most turns the grader allows, so no submission can score above 21.02/100; the fixed version changes only the score scale.
+**Outcome:** Fixed. <mark>The original score scale puts its reference points above the most turns the grader allows, so no submission can score above 21.02/100; the fixed version changes only the score scale.</mark>
 
 ![Number line of the original 0 to 100 score scale, where everything above 21.02, the score of the maximum possible 92,304 turns, is unreachable, compared with a fixed scale running from 3,418 to 92,304.](figures/treant_forest.svg)
 

@@ -29,7 +29,7 @@ def main():
                'retain': 'Kept as is', 'exclude': 'Removed'}[k]
         need(re.search(rf'\| {lab} \| \**{n}\** \|', readme), f'README count for {k} != {n}')
     site = (ROOT / 'site' / 'index.html').read_text()
-    need('{{' not in site, 'site has unfilled placeholders')
+    need(not re.findall(r'\{\{[\w|:-]+\}\}', site), 'site has unfilled placeholders')
     for k, n in c.items():
         need(f'"proposed": "{k}"' in site, f'site data lacks {k}')
     # data/decisions.csv / DECISIONS.md

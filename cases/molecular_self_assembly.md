@@ -1,6 +1,6 @@
 # Molecular Self Assembly (`molecular_self_assembly`)
 
-**Outcome:** Kept, with a note. The grader does not enforce the per-solution memory limit stated in the README, but no way was found for extra memory to raise scores.
+**Outcome:** Kept, with a note. <mark>The grader does not enforce the per-solution memory limit stated in the README, but no way was found for extra memory to raise scores.</mark>
 
 ## What the task asks
 

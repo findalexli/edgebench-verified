@@ -1,6 +1,6 @@
 # Triangulation Coloring Optimization (`triangulation_coloring_optimization`)
 
-**Outcome:** Fixed. The grader's rule for legal edge flips leaves out the README's convexity condition; the same rule generated all ten hidden inputs, which contain overlapping or folded triangles, and it also decides which submitted moves are accepted.
+**Outcome:** Fixed. <mark>The grader's rule for legal edge flips leaves out the README's convexity condition; the same rule generated all ten hidden inputs, which contain overlapping or folded triangles, and it also decides which submitted moves are accepted.</mark>
 
 ![A dart-shaped four-point shape where flipping its inner edge makes two triangles overlap; the original grader accepts the flip with Score = 41 and the fixed version rejects it as an invalid flip.](figures/triangulation_coloring_optimization.svg)
 

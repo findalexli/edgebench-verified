@@ -1,6 +1,6 @@
 # Rust Multicrate Reconstruction (`rust_multicrate_reconstruction`)
 
-**Outcome:** Kept, with a note. When an excused test passes, one unrelated failure can be credited as a pass, which raises the score by at most 0.1 points out of 100.
+**Outcome:** Kept, with a note. <mark>When an excused test passes, one unrelated failure can be credited as a pass, which raises the score by at most 0.1 points out of 100.</mark>
 
 ## What the task asks
 

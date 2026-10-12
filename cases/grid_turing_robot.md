@@ -1,6 +1,6 @@
 # Grid Turing Robot (`grid_turing_robot`)
 
-**Outcome:** Kept, with a note. Honest solutions are scored correctly, but three conditions need a note: an offset in the score scale's starting point (2.84 points), the unstated rule that one failed case voids the submission (about 20 points), and dependence on the grader's CPU count (up to the full score on a grader with fewer than about 8 CPUs).
+**Outcome:** Kept, with a note. <mark>Honest solutions are scored correctly, but three conditions need a note: an offset in the score scale's starting point (2.84 points), the unstated rule that one failed case voids the submission (about 20 points), and dependence on the grader's CPU count (up to the full score on a grader with fewer than about 8 CPUs).</mark>
 
 ## What the task asks
 

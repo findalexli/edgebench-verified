@@ -1,6 +1,6 @@
 # DCSS Dungeon Crawl Stone Soup AI (`dcss_dungeon_ai`)
 
-**Outcome:** Kept, with a note. In normal runs the score matches what the task promises; the note covers the rule that all five end-of-game records must exist, the dependence on wall-clock speed and an unchecked top reference point.
+**Outcome:** Kept, with a note. <mark>In normal runs the score matches what the task promises; the note covers the rule that all five end-of-game records must exist, the dependence on wall-clock speed and an unchecked top reference point.</mark>
 
 ## What the task asks
 

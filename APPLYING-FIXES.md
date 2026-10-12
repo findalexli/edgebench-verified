@@ -64,22 +64,22 @@ README says exactly which submissions' scores change.
 | [Arc Compiler Runtime](repairs/arc_compiler_runtime-v2/README.md) | agent's starting files | `200e176a8e30` | fixed and tested |
 | [Borden Source Inversion](repairs/borden_source_inversion-v2/README.md) | agent's starting files, task instructions, score scale | `cc54d4fd7006` | fixed and tested |
 | [College English Exam Bank](repairs/college_english_exam_bank-v2/README.md) | grader | `6628b6d3f834-ebv-v2` | fixed and tested |
-| [Cta Risk Budget Optimization](repairs/cta_risk_budget_optimization-v2/README.md) | grader | `a9651058ecef-ebv-v2` | fixed and tested |
-| [Dabic Gravity Inversion](repairs/dabic_gravity_inversion-v2/README.md) | grader | `517eb738b87b-ebv-v2` | partial fix; task removed |
-| [Equivalence Class Divide And Conquer](repairs/equivalence_class_divide_and_conquer-v2/README.md) | grader | `de7206e7e06d-ebv-v2` | fixed and tested |
+| [CTA Risk Budget Optimization](repairs/cta_risk_budget_optimization-v2/README.md) | grader | `a9651058ecef-ebv-v2` | fixed and tested |
+| [D-ABIC Gravity Inversion](repairs/dabic_gravity_inversion-v2/README.md) | grader | `517eb738b87b-ebv-v2` | partial fix; task removed |
+| [Equivalence Class Divide and Conquer](repairs/equivalence_class_divide_and_conquer-v2/README.md) | grader | `de7206e7e06d-ebv-v2` | fixed and tested |
 | [Exchange Core Throughput](repairs/exchange_core_throughput-v2/README.md) | grader | `2cbf65650b3c-ebv-v2` | fixed and tested |
-| [Ffmpeg Swscale Reimplementation](repairs/ffmpeg_swscale_reimplementation-v2/README.md) | grader | `d3c0aa3fa987-ebv-v2` | fixed and tested |
+| [FFmpeg swscale Reimplementation](repairs/ffmpeg_swscale_reimplementation-v2/README.md) | grader | `d3c0aa3fa987-ebv-v2` | fixed and tested |
 | [Graph Node Classification](repairs/graph_node_classification-v2/README.md) | grader | `f2ddd52992ae-ebv-v2` | fixed and tested |
-| [Integer Compression Codec](repairs/integer_compression_codec-v2/README.md) | grader | `27063396e02a-ebv-v2` | fixed and tested |
+| [Integer Compression Codec](repairs/integer_compression_codec-v2/README.md) | grader, score scale | `27063396e02a-ebv-v2` | fixed and tested |
 | [Jagua Nesting Optimization](repairs/jagua_nesting_optimization-v2/README.md) | grader | `bba393b2dd53-ebv-v2` | fixed and tested |
 | [Lean Analysis Proofs](repairs/lean_analysis_proofs-v2/README.md) | grader, agent's starting files | `lean_analysis_proofs-v2-judge` | fixed and tested |
-| [Openrct2 Theme Park Ai](repairs/openrct2_theme_park_ai-v2/README.md) | task instructions | `80316ccd77ae` | fixed and tested |
-| [Openttd Transport Ai](repairs/openttd_transport_ai-v2/README.md) | agent's starting files, task instructions | `d8e83be4044e` | fixed and tested |
+| [OpenRCT2 Theme Park AI](repairs/openrct2_theme_park_ai-v2/README.md) | task instructions | `80316ccd77ae` | fixed and tested |
+| [OpenTTD Transport AI](repairs/openttd_transport_ai-v2/README.md) | agent's starting files, task instructions | `d8e83be4044e` | fixed and tested |
 | [Order Addition Permutation Optimization](repairs/order_addition_permutation_optimization-v2/README.md) | grader | `f6f385925889-ebv-v2` | fixed and tested |
 | [Schemathesis Config Modernization](repairs/schemathesis_config_modernization-v2/README.md) | grader | `function-identity-v2` | fixed and tested |
 | [Schemathesis Datagen Pipeline](repairs/schemathesis_datagen_pipeline-v2/README.md) | grader | `http-date-v2` | fixed and tested |
 | [Schemathesis Reporting Observability](repairs/schemathesis_reporting_observability-v2/README.md) | grader | `junit-coverage-v2` | fixed and tested |
-| [Smt Solver](repairs/smt_solver-v2/README.md) | grader | `fdce54253c61-ebv-v2` | fixed and tested |
+| [SMT Solver](repairs/smt_solver-v2/README.md) | grader | `fdce54253c61-ebv-v2` | fixed and tested |
 | [Treant Forest](repairs/treant_forest-v2/README.md) | score scale | `d47dc1a7da74` | fixed and tested |
 | [Tree Block Partitioning](repairs/tree_block_partitioning-v2/README.md) | grader | `f74f0ef897ce-ebv-v2` | fixed and tested |
 | [Triangulation Coloring Optimization](repairs/triangulation_coloring_optimization-v2/README.md) | grader, agent's starting files | `convex-flip-v2` | fixed and tested |

@@ -1,6 +1,6 @@
 # Tryst of Fate (`tryst_text_adventure`)
 
-**Outcome:** Kept, with a note. The score is the game's own repeatable score, and no scoring problem was found; the note says that a session's final score counts, not its peak, and lists session limits the prompt does not state.
+**Outcome:** Kept, with a note. <mark>The score is the game's own repeatable score, and no scoring problem was found; the note says that a session's final score counts, not its peak, and lists session limits the prompt does not state.</mark>
 
 ## What the task asks
 

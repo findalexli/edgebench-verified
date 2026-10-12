@@ -1,6 +1,6 @@
 # K-12 Math Recommendation (`k12_math_recommendation`)
 
-**Outcome:** Kept, with a note. The original grader gives valid positive scores to both shipped reference solutions, but the shipped example reports are out of date and the grader fails under a tight memory limit.
+**Outcome:** Kept, with a note. <mark>The original grader gives valid positive scores to both shipped reference solutions, but the shipped example reports are out of date and the grader fails under a tight memory limit.</mark>
 
 ## What the task asks
 

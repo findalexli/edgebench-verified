@@ -1,6 +1,6 @@
 # Integer compression codec (`integer_compression_codec`)
 
-**Outcome:** Fixed. The grader compares submissions against stored baseline numbers that the documented Varint starter cannot produce, so the starter scores about 0.24 instead of the documented 1.0 and the datasets are in effect weighted differently from what is published.
+**Outcome:** Fixed. <mark>The grader compares submissions against stored baseline numbers that the documented Varint starter cannot produce, so the starter scores about 0.24 instead of the documented 1.0 and the datasets are in effect weighted differently from what is published.</mark>
 
 ![The unchanged starter scores 0.24 on the original grader against a documented 1.0 and 0.98 on the fixed grader, because the stored baseline of 5.13 bits per integer is below the 8-bit minimum and far from the measured 38.98.](figures/integer_compression_codec.svg)
 
@@ -53,17 +53,20 @@ The fixed version implements the documented definition: the grader measures the 
 - Three pristine starter files are added under `internal/baseline/starter/`. They are byte-identical to the starter the solver sees.
 - The stored `baseline_results.json` is no longer read.
 - If the starter itself fails to build or to pass the roundtrip check, the run reports an error instead of a score.
-- The formula, the caps (8×, 40×), the weights, the datasets, the roundtrip check, the score scale (linear 0..100), the work image and all text the solver sees are unchanged. In the task JSON, only `judge.image_tag` changes.
+- The score scale changes from linear 0..100 to linear 1.0..320: the starter (documented score 1.0) maps to 0 and the largest result the formula allows (8 × 40 = 320) maps to 100. Without this, real submissions saturate the scale (see "How much it matters" below and the real-run check).
+- The formula, the caps (8×, 40×), the weights, the datasets, the roundtrip check, the work image and all text the solver sees are unchanged. In the task JSON, `judge.image_tag` and the score scale change.
 
 | Role | Submission | Original grader: raw / out of 100 | Fixed grader: raw / out of 100 | Datasets passed, original / fixed | Exit code, original / fixed | Expected | As expected |
 |---|---|---|---|---|---|---|---|
-| Shows the problem; also a correct test submission | shipped Varint starter (unchanged) | **0.2327 / 0.2327** | **0.9786 / 0.9786** (repeat **1.0155**) | 8/8 / 8/8 | 0 / 0 | original ≠ 1.0, fixed ≈ 1.0 (documented) | yes |
-| Honest test submission | delta + zigzag + varint | **0.8253 / 0.8253** | **6.7024 / 6.7024** (repeat **6.9708**) | 8/8 / 8/8 | 0 / 0 | fixed = documented definition (offline rescore of the original grader's logs against its own starter run: 7.43; separate run of the original grader: 6.24) | yes |
+| Shows the problem; also a correct test submission | shipped Varint starter (unchanged) | **0.2327 / 0.2327** | **0.9786 / 0.00** (repeat **1.0155 / 0.00**) | 8/8 / 8/8 | 0 / 0 | original ≠ 1.0, fixed ≈ 1.0 (documented) | yes |
+| Honest test submission | delta + zigzag + varint | **0.8253 / 0.8253** | **6.7024 / 1.79** (repeat **6.9708 / 1.87**) | 8/8 / 8/8 | 0 / 0 | fixed = documented definition (offline rescore of the original grader's logs against its own starter run: 7.43; separate run of the original grader: 6.24) | yes |
 | Invalid test submission | starter with one corrupted value | **0 / 0** | **0 / 0** | 0/8 / 0/8 (`roundtrip mismatch`) | 0 / 0 | 0 in both | yes |
 
 Under the fixed version the starter's compression ratio is exactly 1.0 on every dataset, and its speed ratios per dataset range from 0.93 to 1.07. The remaining distance from 1.0 is timing noise. The honest codec's compression terms are exact; for example, ts_sec is 40.00 / 8.00 bpi = 5.0×. The original-grader values in this table differ slightly from those in "What goes wrong" because the speed term varies between runs. The fixed version adds about 20 s per grading (44 s instead of 24 s of wall time).
 
-**Are scores comparable?** Scores from the fixed version are not comparable with scores from the original for any submission. Each per-dataset score changes by the ratio of the measured starter to the stored constants. On the test machine that ratio ranged from about 1.5× (rand) to about 12× (ts_sec), so rankings between solutions that trade off across datasets can change. Failing submissions still score 0. The score scale is kept. Setting new reference points for it, for example with the starter at 0, is a separate decision for the benchmark.
+**Are scores comparable?** Scores from the fixed version are not comparable with scores from the original for any submission. Each per-dataset score changes by the ratio of the measured starter to the stored constants. On the test machine that ratio ranged from about 1.5× (rand) to about 12× (ts_sec), so rankings between solutions that trade off across datasets can change. Failing submissions still score 0. The fixed grader's scores out of 100 in the table use the fixed score scale (1.0..320), computed from the recorded raw results.
+
+**Real agent submissions.** Two submissions from a public Claude Opus 5.5 run (16 tasks, 4 hours each, published on Hugging Face as `adafadaq/edgebench-opus-5-5-xhigh-rollouts`) were regraded with both graders on one machine. The run's best submission scores raw 66.31 on the original grader and 160.76 on the fixed one; an earlier submission scores 31.11 and 114.19. On the original 0..100 scale both fixed results would clip to 100, which is why the scale changes; on the fixed scale they score 50.08 and 35.48 (`evidence/runs/opus55-regrade/`).
 
 ## How we checked it
 

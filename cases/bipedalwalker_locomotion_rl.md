@@ -1,6 +1,6 @@
 # BipedalWalker Locomotion RL (`bipedalwalker_locomotion_rl`)
 
-**Outcome:** Kept, with a note. The task caps its score at 30 by a design it states, so scores run from 0 to 30 out of 100, and a checkpoint that only partly matches the grader's network loads partly without an error.
+**Outcome:** Kept, with a note. <mark>The task caps its score at 30 by a design it states, so scores run from 0 to 30 out of 100, and a checkpoint that only partly matches the grader's network loads partly without an error.</mark>
 
 ## What the task asks
 

@@ -1,6 +1,6 @@
 # Schemathesis data-generation pipeline (`schemathesis_datagen_pipeline`)
 
-**Outcome:** Fixed. The hidden test for HTTP dates checks only the shape of the string, so generators that emit impossible dates and clock times pass; the gap is worth about 1% of the score.
+**Outcome:** Fixed. <mark>The hidden test for HTTP dates checks only the shape of the string, so generators that emit impossible dates and clock times pass; the gap is worth about 1% of the score.</mark>
 
 ![The original date test accepts a nonsense date string and accepts 50 of 50 generated impossible dates; the fixed test accepts only 5 of 50.](figures/schemathesis_datagen_pipeline.svg)
 

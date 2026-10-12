@@ -1,6 +1,6 @@
 # Dabic Gravity Inversion (`dabic_gravity_inversion`)
 
-**Outcome:** Removed. 42 points come from results the submission reports about itself, which the grader cannot verify; a partial fix removes a second, undisclosed penalty on one of two allowed forms, but does not make the task usable.
+**Outcome:** Removed. <mark>42 points come from results the submission reports about itself, which the grader cannot verify; a partial fix removes a second, undisclosed penalty on one of two allowed forms, but does not make the task usable.</mark>
 
 ![Bars show the same work scoring 88.92 in the data form and 42.86 in the model form on the original grader, with a note that 42 points are self-reported.](figures/dabic_gravity_inversion.svg)
 

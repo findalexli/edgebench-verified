@@ -1,6 +1,6 @@
 # FFmpeg Swscale Reimplementation (`ffmpeg_swscale_reimplementation`)
 
-**Outcome:** Fixed. The timed speed tests were never checked for correctness, so failed or empty calls earned speed credit; the fixed version checks each timed call's return code and output.
+**Outcome:** Fixed. <mark>The timed speed tests were never checked for correctness, so failed or empty calls earned speed credit; the fixed version checks each timed call's return code and output.</mark>
 
 ![Bars show an honest but unfinished library scoring 5.39, 18.93 and 17.87 out of 100 on the original grader because failed calls counted as fast; the fixed version scores 0.](figures/ffmpeg_swscale_reimplementation.svg)
 

@@ -1,6 +1,6 @@
 # PFR Formalization (`pfr_formalization`)
 
-**Outcome:** Kept, with a note. Honest proofs of one theorem in two styles score identically, and no target was found that an honest, complete solution cannot reach.
+**Outcome:** Kept, with a note. <mark>Honest proofs of one theorem in two styles score identically, and no target was found that an honest, complete solution cannot reach.</mark>
 
 ## What the task asks
 

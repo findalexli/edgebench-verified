@@ -1,0 +1,19 @@
+# Regrading real agent submissions
+
+Source: a third-party run of Claude Opus 5.5 on 16 public EdgeBench tasks, 4 hours each, published at
+`huggingface.co/datasets/adafadaq/edgebench-opus-5-5-xhigh-rollouts` (archive sha256 in
+`result/out/archive.sha256`). The archive is downloaded on the cloud worker and is not redistributed here.
+
+`run.sh` regrades real submissions with the original grader (pinned public image) and the fixed grader
+(rebuilt on the worker with each package's `materialize.sh`; the job copied `repairs/integer_compression_codec-v2`
+and `repairs/order_addition_permutation_optimization-v2` from this repository into `repairs/`). Every grading uses
+the submission's own recorded `eval.sh` and `judge_one.sh`, with `--network none`.
+
+| Task | Submission | Original grader | Fixed grader |
+| --- | --- | --- | --- |
+| Integer Codec | agent-20 (the run's best) | raw 66.31 | raw 160.76 (50.08 on the fixed 1.0..320 scale) |
+| Integer Codec | agent-3 | raw 31.11 | raw 114.19 (35.48) |
+| Order Addition | agent-1, auto-6, agent-2 | 4 of 5 tests each (stale checksum) | 5 of 5 tests each |
+
+Raw outputs: `result/out/logs/`. The run's own submission histories for all seven fixed tasks are summarised in
+`../opus55-rollouts-meta/submission-histories.json`.

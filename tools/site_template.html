@@ -4,389 +4,411 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EdgeBench Verified</title>
-<meta name="description" content="An independent check of the 51 public EdgeBench tasks: which graders score honest work correctly, what goes wrong in the others, and fixed versions.">
+<meta name="description" content="An audit of the graders behind the 51 public EdgeBench tasks: what goes wrong, how much it changes scores, and tested fixes.">
+<meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
-/* Layout: one report column (~72ch) with a full-width task ledger; a drawer opens each case. */
 :root {
-  --bg: #f4f6f7; --surface: #ffffff; --ink: #14212b; --muted: #566773; --rule: #d3dbe0;
-  --accent: #0f5c78; --accent-soft: #e3eff4;
-  --retain: #2c7a57; --note: #9a6510; --repair: #2453a6; --exclude: #ad3528;
-  --retain-bg: #e4f2ea; --note-bg: #f6ecda; --repair-bg: #e2eaf8; --exclude-bg: #f6e2df;
-  --display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
-  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --ink: #1b1f23; --soft: #3c4043; --muted: #5f6368; --faint: #80868b;
+  --rule: #dadce0; --rule-strong: #1b1f23; --paper: #ffffff; --tint: #f6f7f9;
+  --link: #1a4f8b; --fixed: #1a4f8b; --removed: #9b2c2c; --kept: #5f6368;
+  --mark: #fff0a6;
+  --serif: "Source Serif 4", "Iowan Old Style", Charter, Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #0e151a; --surface: #152029; --ink: #e2e9ed; --muted: #95a6b1; --rule: #2a3843;
-  --accent: #6cb6d3; --accent-soft: #16303c;
-  --retain: #6cc79a; --note: #e0a64a; --repair: #8fb1f0; --exclude: #f08a7c;
-  --retain-bg: #15302a; --note-bg: #352a16; --repair-bg: #1a2742; --exclude-bg: #3a1f1c; color-scheme: dark; } }
-:root[data-theme="dark"] {
-  --bg: #0e151a; --surface: #152029; --ink: #e2e9ed; --muted: #95a6b1; --rule: #2a3843;
-  --accent: #6cb6d3; --accent-soft: #16303c;
-  --retain: #6cc79a; --note: #e0a64a; --repair: #8fb1f0; --exclude: #f08a7c;
-  --retain-bg: #15302a; --note-bg: #352a16; --repair-bg: #1a2742; --exclude-bg: #3a1f1c; color-scheme: dark; }
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); padding-inline: 20px; padding-block: 0 64px; }
-.wrap { max-width: 1040px; margin: 0 auto; }
-.col { max-width: 72ch; }
-h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
-h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 700; letter-spacing: -0.01em; }
-h2 { font-size: 1.7rem; font-weight: 600; }
-h3 { font-size: 1.15rem; font-weight: 600; }
-p { margin: 0; }
-a { color: var(--accent); text-underline-offset: 2px; }
-a:focus-visible, button:focus-visible, input:focus-visible, .cell:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.mono, code { font-family: var(--mono); font-size: 0.88em; }
-.eyebrow { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-nav.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule); }
-nav.top .wrap { display: flex; gap: 20px; align-items: center; padding-block: 12px; flex-wrap: wrap; }
-nav.top .brand { font: 600 1rem var(--display); color: var(--ink); text-decoration: none; margin-right: auto; }
-nav.top a.l { font-size: 0.9rem; color: var(--muted); text-decoration: none; }
-nav.top a.l:hover { color: var(--ink); }
-section { padding-block: 56px 8px; display: grid; gap: 20px; }
-header.hero { padding-block: 56px 8px; display: grid; gap: 22px; }
-.lede { font-size: 1.15rem; color: var(--ink); max-width: 64ch; }
-.sub { color: var(--muted); max-width: 70ch; }
-/* 51-cell strip */
-.strip { display: grid; grid-template-columns: repeat(17, minmax(0, 1fr)); gap: 4px; max-width: 680px; }
-.cell { aspect-ratio: 1; border-radius: 3px; border: 0; padding: 0; cursor: pointer; }
-.cell:hover { transform: scale(1.12); }
-.k-retain { background: var(--retain); } .k-retain-with-note { background: var(--note); }
-.k-repair-v2 { background: var(--repair); } .k-exclude { background: var(--exclude); }
-.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 0.92rem; }
-.legend span { display: inline-flex; align-items: center; gap: 8px; }
-.legend i { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
-.counts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-.counts div { padding: 14px 16px 14px 0; display: grid; gap: 2px; }
-.counts b { font: 600 2rem/1 var(--display); font-variant-numeric: tabular-nums; }
-.counts span { font-size: 0.85rem; color: var(--muted); }
-/* funnel */
-.funnel { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-.funnel th, .funnel td { text-align: left; vertical-align: top; padding: 12px 14px 12px 0; border-bottom: 1px solid var(--rule); }
-.funnel th { font: 500 0.72rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.funnel td:first-child { white-space: nowrap; font-weight: 600; }
-/* findings */
-.findings { display: grid; gap: 0; }
-.finding { display: grid; grid-template-columns: 4px 1fr; gap: 0 18px; padding-block: 16px; border-bottom: 1px solid var(--rule); }
-.finding::before { content: ""; background: var(--repair); border-radius: 2px; }
-.finding.x::before { background: var(--exclude); }
-.finding div { display: grid; gap: 4px; min-width: 0; }
-.finding button { all: unset; cursor: pointer; font: 600 1.05rem var(--display); color: var(--ink); }
-.finding button:hover { color: var(--accent); }
-.finding p { color: var(--muted); }
-/* ledger */
-.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.chip { font: 500 0.82rem var(--body); border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
-.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-input#q { font: 0.95rem var(--body); padding: 8px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); color: var(--ink); min-width: 0; flex: 1 1 220px; }
-.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
-table.ledger { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 760px; }
-.ledger th { position: sticky; top: 0; background: var(--surface); text-align: left; font: 500 0.7rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--rule); }
-.ledger td { padding: 11px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
-.ledger tr:last-child td { border-bottom: 0; }
-.ledger tbody tr { cursor: pointer; }
-.ledger tbody tr:hover td { background: var(--accent-soft); }
-.ledger .task b { display: block; font-weight: 600; }
-.ledger .task span { font: 0.78rem var(--mono); color: var(--muted); }
-.pill { display: inline-block; font: 500 0.75rem var(--body); padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
-.p-retain { background: var(--retain-bg); color: var(--retain); }
-.p-retain-with-note { background: var(--note-bg); color: var(--note); }
-.p-repair-v2 { background: var(--repair-bg); color: var(--repair); }
-.p-exclude { background: var(--exclude-bg); color: var(--exclude); }
-.empty { padding: 24px; color: var(--muted); }
-/* method */
-.method ol { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 72ch; }
-.imp tbody tr { cursor: default; }
-.imp tbody tr:hover td { background: none; }
-.imp td.n, .imp th.n { text-align: right; font-variant-numeric: tabular-nums; }
-.paths { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 0.92rem; }
-.paths code { color: var(--accent); }
-footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.85rem; display: grid; gap: 6px; }
-/* drawer */
-.scrim { position: fixed; inset: 0; background: rgba(8, 14, 18, 0.45); z-index: 20; }
-.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(760px, 100%); background: var(--surface); z-index: 21; overflow-y: auto; border-left: 1px solid var(--rule);
-  padding: calc(18px + env(safe-area-inset-top, 0px)) 24px calc(40px + env(safe-area-inset-bottom, 0px)); }
-.drawer .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
-.drawer .close { font: 500 0.9rem var(--body); background: var(--bg); color: var(--ink); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
-.md { font-size: 0.95rem; line-height: 1.65; overflow-wrap: anywhere; }
-.md h1 { font-size: 1.6rem; margin: 6px 0 14px; }
-.md h2 { font-size: 1.2rem; margin: 26px 0 10px; padding-top: 14px; border-top: 1px solid var(--rule); }
-.md h3 { font-size: 1.02rem; margin: 18px 0 8px; }
-.md p, .md ul, .md ol { margin: 0 0 12px; }
-.md ul, .md ol { padding-left: 1.3em; }
-.md table { border-collapse: collapse; font-size: 0.84rem; display: block; overflow-x: auto; margin: 0 0 14px; }
-.md th, .md td { border: 1px solid var(--rule); padding: 6px 9px; text-align: left; vertical-align: top; }
-.md th { background: var(--bg); }
-.md code { background: var(--bg); padding: 1px 4px; border-radius: 3px; }
-.md pre { background: var(--bg); padding: 12px; border-radius: 6px; overflow-x: auto; }
-.md blockquote { margin: 0 0 12px; padding-left: 12px; border-left: 3px solid var(--rule); color: var(--muted); }
-@media (max-width: 600px) { .strip { grid-template-columns: repeat(10, minmax(0, 1fr)); } nav.top a.l { font-size: 0.82rem; } }
-@media (prefers-reduced-motion: reduce) { .cell:hover { transform: none; } }
+html { background: var(--paper); scroll-padding-top: 64px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.65 var(--serif);
+  font-optical-sizing: auto; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+p { margin: 0 0 1em; }
+code { font: 0.86em var(--mono); background: var(--tint); padding: 0.05em 0.3em; border-radius: 3px; }
+mark { background: linear-gradient(180deg, transparent 8%, var(--mark) 8%, var(--mark) 92%, transparent 92%);
+  color: inherit; padding: 0 0.12em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
-.vh { position: absolute; left: -9999px; }
-.answer { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; max-width: 72ch; display: grid; gap: 8px; }
-.answer ul { margin: 0; padding-left: 1.2em; }
-.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
-.steps ul { margin: 6px 0 0; padding-left: 1.2em; }
-ul.plain { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
-.fgroup { display: grid; gap: 0; margin-top: 18px; }
-.fgroup h3 { font-size: 1.05rem; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
-.drawer h2 { font-size: 1.6rem; margin: 4px 0 8px; }
-.kicker { margin: 0 0 14px; }
-dl.card { display: grid; gap: 4px; margin: 0 0 22px; }
-dl.card dt { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
-dl.card dd { margin: 0; font-size: 1rem; line-height: 1.6; }
-figure.fig { margin: 4px 0 18px; display: grid; gap: 6px; }
-figure.fig svg { width: 100%; height: auto; max-width: 720px; display: block; }
-figure.fig figcaption { font-size: 0.88rem; color: var(--muted); }
-.finding figure.fig { margin: 8px 0 0; }
-.finding figure.fig svg { max-width: 720px; }
-details.tech { border-top: 1px solid var(--rule); padding-top: 12px; }
-details.tech > summary { cursor: pointer; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
-@media (max-width: 640px) { body { padding-inline: 16px; } .paths { grid-template-columns: 1fr; } .paths .eyebrow { margin-top: 8px; } }
+/* Top bar */
+.bar { position: sticky; top: 0; z-index: 5; background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--rule); font: 14px/1 var(--sans); }
+.bar .in { max-width: 1040px; margin: 0 auto; padding: 14px 24px; display: flex; gap: 22px; align-items: center; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+.bar .in::-webkit-scrollbar { display: none; }
+.bar .home { color: var(--ink); text-decoration: none; font-weight: 600; margin-right: auto; }
+.bar a.l { color: var(--muted); text-decoration: none; }
+.bar a.l:hover { color: var(--ink); }
+
+/* Columns */
+main { padding: 0 24px 96px; }
+.col { max-width: 700px; margin: 0 auto; }
+.wide { max-width: 980px; margin: 0 auto; }
+
+/* Title block */
+header.title { max-width: 700px; margin: 0 auto; padding: 64px 0 8px; }
+h1 { font: 700 46px/1.08 var(--serif); letter-spacing: -0.015em; margin: 0 0 14px; }
+.subtitle { font: italic 400 22px/1.4 var(--serif); color: var(--soft); margin: 0 0 22px; }
+.meta { font: 14px/1.6 var(--sans); color: var(--muted); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 10px 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.meta a { color: var(--muted); }
+.abstract { margin: 30px 0 8px; }
+.abstract h2 { font: 600 13px/1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.abstract p { font-size: 17.5px; line-height: 1.62; }
+
+/* Sections */
+section { padding-top: 34px; }
+h2.sec { font: 600 27px/1.25 var(--serif); margin: 26px 0 14px; letter-spacing: -0.005em; }
+h2.sec .num { color: var(--faint); font-weight: 400; margin-right: 0.45em; }
+h3 { font: 600 19.5px/1.35 var(--serif); margin: 32px 0 8px; }
+h3 .num { color: var(--faint); font-weight: 400; margin-right: 0.4em; }
+.lead-in { font-weight: 600; }
+ol.steps { padding-left: 1.3em; margin: 0 0 1em; }
+ol.steps > li { margin-bottom: 0.6em; padding-left: 0.2em; }
+ul.tight { padding-left: 1.2em; margin: 0 0 1em; }
+ul.tight > li { margin-bottom: 0.45em; }
+.note { font: 14.5px/1.55 var(--sans); color: var(--muted); }
+
+/* Figures */
+figure.fig { margin: 24px 0 30px; }
+figure.fig .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+figure.fig svg { display: block; width: 100%; height: auto; }
+figcaption { font: 14.5px/1.55 var(--sans); color: var(--soft); margin-top: 10px; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.case-link { white-space: nowrap; margin-left: 0.35em; }
+.case-link::after { content: " \2192"; }
+
+/* Tables: booktabs */
+.tcap { font: 14.5px/1.55 var(--sans); color: var(--soft); margin: 26px 0 8px; }
+.tcap b { color: var(--ink); font-weight: 600; }
+.tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.bt { width: 100%; border-collapse: collapse; font: 15px/1.45 var(--sans); border-top: 1.5px solid var(--rule-strong); border-bottom: 1.5px solid var(--rule-strong); }
+table.bt th { text-align: left; font-weight: 600; padding: 9px 10px; border-bottom: 1px solid var(--rule-strong); vertical-align: bottom; }
+table.bt td { padding: 8px 10px; vertical-align: top; border-bottom: 1px solid #eceef0; }
+table.bt tr:last-child td { border-bottom: 0; }
+table.bt .n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.bt td:first-child, table.bt th:first-child { padding-left: 2px; }
+table.bt td.nw { white-space: nowrap; }
+.o-repair-v2 { color: var(--fixed); font-weight: 500; }
+.o-exclude { color: var(--removed); font-weight: 500; }
+.o-retain-with-note, .o-retain { color: var(--kept); }
+
+/* Task table */
+.controls { font: 14.5px/1.4 var(--sans); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; margin: 18px 0 2px; }
+.controls button { all: unset; cursor: pointer; color: var(--muted); padding-bottom: 2px; border-bottom: 1.5px solid transparent; }
+.controls button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.controls button:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+.controls input { font: 14.5px var(--sans); border: 0; border-bottom: 1px solid var(--rule); border-radius: 0; padding: 4px 2px; min-width: 0; flex: 1 1 180px; background: transparent; color: var(--ink); }
+.controls input:focus { outline: none; border-bottom-color: var(--ink); }
+#tasktable tbody tr { cursor: pointer; }
+#tasktable tbody tr:hover td { background: #fafbfc; }
+#tasktable td.name a { color: var(--ink); text-decoration: none; font-weight: 500; }
+#tasktable td.name a:hover { text-decoration: underline; }
+#tasktable td.field { color: var(--muted); }
+.empty { font: 15px var(--sans); color: var(--muted); padding: 14px 2px; }
+
+/* Data and citation */
+dl.data { font: 15.5px/1.55 var(--sans); display: grid; grid-template-columns: 10em 1fr; gap: 8px 18px; margin: 0 0 1em; }
+dl.data dt { color: var(--muted); }
+dl.data dd { margin: 0; }
+pre.bib { font: 13.5px/1.55 var(--mono); background: var(--tint); border: 1px solid var(--rule); border-radius: 4px; padding: 14px 16px; overflow-x: auto; }
+footer { max-width: 700px; margin: 56px auto 0; padding-top: 16px; border-top: 1px solid var(--rule); font: 14px/1.6 var(--sans); color: var(--muted); }
+
+/* Case panel */
+.scrim { position: fixed; inset: 0; background: rgba(27,31,35,0.28); z-index: 20; }
+.panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(780px, 100%); background: var(--paper); z-index: 21; overflow-y: auto;
+  border-left: 1px solid var(--rule); box-shadow: -18px 0 40px rgba(27,31,35,0.10);
+  padding: calc(20px + env(safe-area-inset-top, 0px)) 36px calc(48px + env(safe-area-inset-bottom, 0px)); }
+.panel .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font: 14px var(--sans); color: var(--muted); }
+.panel .close { all: unset; cursor: pointer; font: 500 14px var(--sans); color: var(--ink); padding: 4px 2px; border-bottom: 1px solid var(--ink); }
+.panel .close:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+.panel h2 { font: 700 30px/1.15 var(--serif); margin: 14px 0 6px; }
+.panel h2:focus { outline: none; }
+.panel .outcome { font: 15px var(--sans); margin: 0 0 18px; }
+.panel figure.fig { margin: 18px 0 24px; }
+.panel dl.sum { margin: 0 0 24px; }
+.panel dl.sum dt { font: 600 12.5px/1 var(--sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin: 22px 0 7px; }
+.panel dl.sum dd { margin: 0; font-size: 17.5px; line-height: 1.62; }
+.panel .more { font: 14.5px var(--sans); margin: 0 0 18px; }
+details.tech { border-top: 1px solid var(--rule); padding-top: 14px; }
+details.tech > summary { cursor: pointer; font: 600 15px var(--sans); color: var(--ink); }
+.md { font-size: 16.5px; line-height: 1.6; margin-top: 14px; overflow-wrap: anywhere; }
+.md h1 { display: none; }
+.md h2 { font: 600 19px/1.3 var(--serif); margin: 26px 0 8px; }
+.md h3 { font: 600 17px/1.3 var(--serif); margin: 20px 0 6px; }
+.md table { border-collapse: collapse; font: 13.5px/1.45 var(--sans); display: block; overflow-x: auto; margin: 0 0 14px;
+  border-top: 1.5px solid var(--rule-strong); border-bottom: 1.5px solid var(--rule-strong); }
+.md th { text-align: left; font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--rule-strong); vertical-align: bottom; }
+.md td { padding: 6px 8px; border-bottom: 1px solid #eceef0; vertical-align: top; }
+.md pre { background: var(--tint); padding: 12px; border-radius: 4px; overflow-x: auto; font-size: 13px; }
+.md pre code { background: none; padding: 0; }
+.md img { display: none; }
+
+@media (max-width: 720px) {
+  body { font-size: 17px; }
+  main { padding: 0 16px 72px; }
+  .bar .in { padding: 13px 16px; gap: 16px; }
+  header.title { padding-top: 40px; }
+  h1 { font-size: 36px; }
+  .subtitle { font-size: 19px; }
+  h2.sec { font-size: 23px; }
+  dl.data { grid-template-columns: 1fr; gap: 2px 0; }
+  dl.data dd { margin-bottom: 10px; }
+  .panel { padding-left: 18px; padding-right: 18px; }
+  .panel h2 { font-size: 25px; }
+  #tasktable td.field, #tasktable th.field { display: none; }
+  figure.fig .scroll svg { min-width: 560px; }
+}
+@media print { .bar, .controls, .scrim, .panel { display: none !important; } }
 </style>
 </head>
 <body>
-<nav class="top"><div class="wrap">
-  <a class="brand" href="#top">EdgeBench Verified</a>
-  <a class="l" href="#how">How scoring works</a>
-  <a class="l" href="#findings">What we found</a>
-  <a class="l" href="#impact">Effect on the rankings</a>
-  <a class="l" href="#tasks">All 51 tasks</a>
-  <a class="l" href="#method">How we checked</a>
-  <a class="l" href="#downloads">Downloads</a>
+<nav class="bar" aria-label="Sections"><div class="in">
+  <a class="home" href="#top">EdgeBench Verified</a>
+  <a class="l" href="#background">1&ensp;Background</a>
+  <a class="l" href="#findings">2&ensp;Findings</a>
+  <a class="l" href="#impact">3&ensp;Leaderboard</a>
+  <a class="l" href="#tasks">4&ensp;All tasks</a>
+  <a class="l" href="#method">5&ensp;Method</a>
+  <a class="l" href="#data">Data and code</a>
 </div></nav>
 
-<main class="wrap" id="top">
-<header class="hero">
-  <div class="eyebrow">Version 1.0 · an independent check of a public AI benchmark</div>
+<main id="top">
+<header class="title">
   <h1>EdgeBench Verified</h1>
-  <p class="lede"><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> ranks AI agents on hard, open-ended engineering and science tasks. An agent works on each task for up to 12 hours, and an automatic grader scores its work from 0 to 100. A ranking can only be as trustworthy as those graders.</p>
-  <p class="lede">We examined the grader of every one of the 51 publicly released tasks and asked one question: <b>if an agent does honest, correct work, does it get the score the task promises?</b></p>
-  <div class="answer">
-    <div class="eyebrow">Short answer</div>
-    <p>For 23 of the 51 tasks, the grader has a problem that changes scores. The problems fall into four kinds:</p>
-    <ul>
-      <li>correct work is scored too low;</li>
-      <li>wrong work is accepted;</li>
-      <li>the grader applies a different rule from the one the agent is told;</li>
-      <li>the score scale cannot be reached.</li>
-    </ul>
-    <p>We fixed {{repair-v2}} of these tasks and checked each fix. We removed {{exclude}} that could not be fixed soundly. The other {{retain-with-note}} graders work as intended. Their notes record smaller caveats.</p>
+  <p class="subtitle">An audit of the graders behind the 51 public EdgeBench tasks</p>
+  <div class="meta">
+    <span>Version 1.0</span><span>12 October 2026</span>
+    <a href="https://github.com/findalexli/edgebench-verified">Code, data and fixes on GitHub</a>
+    <a href="#cite">How to cite</a>
   </div>
-  <div class="strip" id="strip" aria-label="Outcome for each of the 51 tasks"></div>
-  <div class="legend" id="legend"></div>
-  <div class="counts">
-    <div><b>{{repair-v2}}</b><span>fixed in a new version of the task, each fix tested against the original</span></div>
-    <div><b>{{retain-with-note}}</b><span>kept, with a note about smaller caveats</span></div>
-    <div><b>{{exclude}}</b><span>removed, because no sound fix was possible</span></div>
+  <div class="abstract">
+    <h2>Abstract</h2>
+    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> ranks AI agents on long, open-ended engineering and science tasks. Each agent works on a task for up to twelve hours, and a hidden grader program scores its work from 0 to 100. We examined the grader of each of the 51 publicly released tasks and asked whether an agent doing honest, correct work receives the score the task promises. <mark>For 23 of the 51 tasks it does not:</mark> correct work is scored too low, wrong work is accepted, the grader applies a rule the agent was never told, the score scale cannot be reached, or the wrong submission is kept. Every finding was reproduced on EdgeBench's own grading software, and mathematical claims were confirmed independently, in several cases with the proof checker Lean&nbsp;4 or the model checker TLA+. We publish fixed versions of {{repair-v2}} tasks in EdgeBench's own format and remove {{exclude}}; each fix was tested side by side against the original grader on the same submissions, three times over. Applied to EdgeBench's published scores, the corrections that can be computed exactly raise every model's average by {{shift_lo}}–{{shift_hi}} points, and <mark>the public tasks alone do not establish whether Opus&nbsp;4.8 or GPT-5.5 ranks first.</mark></p>
   </div>
+  <p class="tcap"><b>Table 1.</b> Outcome for the 51 public tasks.</p>
+  <div class="tablewrap"><table class="bt">
+    <thead><tr><th>Outcome</th><th class="n">Tasks</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td class="o-repair-v2">Fixed</td><td class="n">{{repair-v2}}</td><td>A problem that changes scores; a fixed version is published and tested against the original</td></tr>
+      <tr><td class="o-retain-with-note nw">Kept, with a note</td><td class="n">{{retain-with-note}}</td><td>The grader works as intended; the note records smaller caveats</td></tr>
+      <tr><td class="o-exclude">Removed</td><td class="n">{{exclude}}</td><td>A problem without a sound fix</td></tr>
+    </tbody>
+  </table></div>
 </header>
 
-<section id="how">
-  <div class="eyebrow">Background</div>
-  <h2>How EdgeBench scores an agent</h2>
-  <ol class="steps col">
-    <li><b>The task.</b> The agent receives written instructions and starter files. Examples: make a database engine faster, write a game-playing bot, prove a theorem, or infer the source of groundwater pollution from sensor readings.</li>
-    <li><b>The grader.</b> Each submission is checked by a hidden grader program written by the task's authors. It runs the agent's work on hidden test cases and produces a raw result, such as a cost, a speed, or a number of tests passed.</li>
-    <li><b>The 0–100 scale.</b> The raw result is converted to a score from 0 to 100 using reference points the authors chose for that task. These are usually a weak starting solution and a strong expert result.</li>
-    <li><b>Many tries, best one kept.</b> The agent can submit many times in 12 hours and sees each score. A run keeps its best score so far.</li>
-    <li><b>The leaderboard.</b> Each AI model gets three runs per task, and the three scores are averaged. A model's headline number is the average over tasks.</li>
-  </ol>
-  <p class="sub col">A grader can therefore go wrong in four places: what it accepts, what it rejects, how it converts the raw result to 0–100, and which submission it keeps. We found problems in all four.</p>
+<section id="background" class="col">
+  <h2 class="sec"><span class="num">1</span>How EdgeBench scores an agent</h2>
+  <p>An EdgeBench task gives the agent written instructions and starter files: make a trading engine faster, write a bot for a strategy game, finish the proofs in a mathematics library, infer the source of groundwater pollution from sensor readings. The agent can submit as often as it likes during its twelve hours, and it sees each score. A hidden grader program, written by the task's authors, runs every submission on hidden test cases and produces a raw result, such as a cost, a speed or a count of passed tests. The raw result is converted to a score from 0 to 100 using reference points the authors chose for that task. Each run keeps its best score; each model has three runs per task, which are averaged; and a model's headline number is the average over tasks.</p>
+  <p>A score can therefore go wrong at four points (Figure&nbsp;1): the grader can accept wrong work; it can reject correct work or apply a rule the agent was not told; the conversion to 0–100 can be unreachable or mismeasured; and the run can keep the wrong submission. We found each of the four.</p>
+  {{fig:scoring-pipeline}}
 </section>
 
-<section id="findings">
-  <div class="eyebrow">What we found</div>
-  <h2>Problems an honest agent would run into</h2>
-  <p class="sub col">Selected examples. Select a title to read the full case.</p>
-  <div id="findinglist"></div>
+<section id="findings" class="col">
+  <h2 class="sec"><span class="num">2</span>What goes wrong</h2>
+  <p>The examples below are representative. Every task is listed in Section&nbsp;4, and each has a full case with the test submissions, the independent checks and the fix.</p>
+
+  <h3><span class="num">2.1</span>Correct work is scored too low</h3>
+  <p><span class="lead-in">SMT Solver.</span> The agent builds a solver for logic formulas. When a formula can be satisfied, the solver must give an example assignment, which the grader checks. The checker looks up a function's value by how the call is written, not by what its arguments evaluate to, so the same written call can stand for two different values. <mark>Correct answers are therefore rejected on 27 hidden problems, and a perfect solver's score falls from 78.61 to 72.40.</mark></p>
+  {{fig:smt_solver|smt_solver}}
+  <p><span class="lead-in">Borden Inversion.</span> The agent infers the location, size and timing of an underground pollution source from monitoring wells. The grader predicts the hidden readings with a physics model whose conventions the instructions never state: among other things, it ignores soil porosity, treats a rate as a total amount and places the source at the bottom of its region. <mark>An honest fit built from textbook physics scores 7.0; the same fitting method using the grader's conventions scores 31.2.</mark> The fixed version gives agents the grader's model. An agent that iterates against the grader's scores can partly learn the convention instead (Section&nbsp;3.3).</p>
+  {{fig:borden_source_inversion|borden_source_inversion}}
+
+  <h3><span class="num">2.2</span>Wrong work is accepted</h3>
+  <p><span class="lead-in">Exchange Core.</span> The agent speeds up a stock-exchange matching engine without changing its behaviour. The grader's correctness check confirms only that money balances overall and that the order books match. <mark>Two realistic one-edit bugs, charging sellers the wrong fee and not delivering trade messages, pass the check and receive full credit</mark>, although the project's own test suite catches both. The fixed version requires those tests to pass before speed is measured.</p>
+  {{fig:exchange_core_throughput|exchange_core_throughput}}
+  <p><span class="lead-in">Jagua Nesting.</span> The agent packs flat shapes into a strip as tightly as possible. The grader misses many overlaps, such as one shape slid halfway over another, <mark>so an infeasible layout can beat every feasible one.</mark></p>
+  {{fig:jagua_nesting_optimization|jagua_nesting_optimization}}
+
+  <h3><span class="num">2.3</span>The grader applies a rule the agent was not told</h3>
+  <p><span class="lead-in">Triangulation Coloring.</span> The instructions allow an edge flip only when the two triangles form a convex shape. <mark>The grader omits that condition, and the same faulty rule generated the hidden test cases:</mark> all ten contain overlapping triangles, and a forbidden flip improved the score on one of them.</p>
+  {{fig:triangulation_coloring_optimization|triangulation_coloring_optimization}}
+  <p><span class="lead-in">Warehouse Routing.</span> The instructions promise 30 seconds per test case, or 150 seconds for each input of five cases. <mark>The grader stops each input after 60 seconds, and one time-out voids the whole submission</mark>, so a solution that uses the time it was promised scores zero.</p>
+  {{fig:warehouse_forklift_routing|warehouse_forklift_routing}}
+
+  <h3><span class="num">2.4</span>The 0–100 scale cannot be reached</h3>
+  <p><span class="lead-in">Treant Forest.</span> Each test case is scored by the number of turns survived, and the grader caps turns, so the largest possible total is 92,304. The reference points of the 0–100 scale were set far above that cap. <mark>Even a perfect submission scores 21.02 out of 100.</mark> The fixed scale runs from the starter program's total to the true maximum. Warehouse Routing has the same problem, established by proof rather than measurement: a lower bound checked in Lean shows that no valid answer can score above about 30.3.</p>
+  {{fig:treant_forest|treant_forest}}
+
+  <h3><span class="num">2.5</span>The wrong submission is kept</h3>
+  <p><span class="lead-in">Order Addition.</span> One of the five grader tests compares a helper file against an out-of-date checksum, so every submission fails it. The run keeps the submission that passes the most tests and, among ties, the earliest. <mark>Every run's reported best is therefore frozen at its first valid submission, and later improvements never count.</mark> Section&nbsp;3.3 shows this happening in a real agent run.</p>
+  {{fig:order_addition_permutation_optimization|order_addition_permutation_optimization}}
+
+  <h3><span class="num">2.6</span>A task without a sound fix</h3>
+  <p><span class="lead-in">D-ABIC Gravity Inversion.</span> <mark>Forty-two of the task's points come from numbers the submission reports about its own work, which the grader cannot check.</mark> The grader also quietly penalises one of two mathematically equivalent forms that the instructions explicitly allow. We fixed the second problem, but the first has no fix that preserves the task, so the task is removed.</p>
+  {{fig:dabic_gravity_inversion|dabic_gravity_inversion}}
 </section>
 
-<section id="impact">
-  <div class="eyebrow">Effect on the rankings</div>
-  <h2>What the problems do to the published scores</h2>
-  <p class="sub col">EdgeBench publishes each model's score on every task. Using those numbers, we worked out how the averages over the 51 public tasks change once the problems are corrected. We did not rerun any AI model, and the agents' original submissions are not public, so only part of the effect can be calculated.</p>
-  <div class="tablewrap">
-    <table class="ledger imp">
-      <thead><tr><th>Model</th><th class="n">Published average</th><th class="n">After the corrections we can calculate exactly</th><th class="n">Range, adding fixes with a known maximum effect</th><th class="n">Widest possible range</th></tr></thead>
-      <tbody>{{impact_rows}}</tbody>
-    </table>
-  </div>
-  <ul class="col plain">
-    <li><b>Exact corrections</b> are fixes that only change the 0–100 scale, so a published score can be converted directly. These are mainly Treant Forest, where the old scale capped every score at 21 out of 100, plus removing the one excluded task. They raise every model by {{shift_lo}}–{{shift_hi}} points and leave the order unchanged.</li>
-    <li><b>Fixes with a known maximum effect</b> add a small range. {{fragile_text}}</li>
-    <li><b>The widest range</b> lets each remaining fix take its largest possible effect. Twelve fixed tasks fall in this group, including several large ones. The true effect is somewhere inside the range; finding it would require regrading the original submissions. Read the exact-correction column as a lower limit on the change, not an estimate of it.</li>
+<section id="impact" class="col">
+  <h2 class="sec"><span class="num">3</span>Effect on the published leaderboard</h2>
+  <p>EdgeBench publishes each model's score on every task: the mean, over three twelve-hour runs, of each run's best score. Starting from those numbers, we asked how each model's average over the 51 public tasks changes once the problems are corrected. No model was rerun, and EdgeBench has not released the agents' submissions, so the effect can be computed only in part.</p>
+
+  <h3><span class="num">3.1</span>What can and cannot be computed</h3>
+  <ul class="tight">
+    <li><b>Exact.</b> Three corrections only change how a raw result maps to 0–100, so each published score converts directly: the Treant Forest scale, the scale Borden Inversion lacked, and the removal of D-ABIC Gravity Inversion. Together they raise every model by {{shift_lo}}–{{shift_hi}} points and leave the order unchanged.</li>
+    <li><b>Known maximum.</b> For eight fixed tasks we proved or demonstrated the largest possible effect. Together they move an average by at most {{bound_down}} points down or {{bound_up}} up. {{fragile_text}}</li>
+    <li><b>Direction only.</b> For twelve fixed tasks we know whether scores rise or fall, but not by how much. The widest range in Table&nbsp;2 lets each take its largest possible effect. It is an outer limit, not a prediction.</li>
   </ul>
-  <p class="sub col">Details for every task: <a href="data/IMPACT.md">IMPACT.md</a> · <a href="data/impact.csv">impact.csv</a>.</p>
+  <p class="tcap"><b>Table 2.</b> Average score over the 51 public tasks at twelve hours: as published, after the exact corrections, and the ranges allowed by the remaining fixes.</p>
+  <div class="tablewrap"><table class="bt">
+    <thead><tr><th>Model</th><th class="n">Published</th><th class="n">Exact corrections</th><th class="n">With known maximums</th><th class="n">Widest range</th></tr></thead>
+    <tbody>{{impact_rows}}</tbody>
+  </table></div>
+  <p class="note" style="margin-top:10px">Averages are over 50 tasks once D-ABIC is removed (49 for Opus 4.8, which has no valid Rust Multicrate result). Recomputing the published averages from EdgeBench's per-task table reproduces them to within 0.06.</p>
+
+  <h3><span class="num">3.2</span>Why the exact column is a floor</h3>
+  <p>Several of the largest effects fall in the direction-only group. Integer Compression Codec measures every submission against stored reference numbers that the documented starter cannot reach, which understates raw results roughly four- to eightfold. In OpenTTD, a program that follows the instructions calls a function that does not exist and stops. Two features of EdgeBench's scoring make such effects larger rather than smaller. <mark>Because each run keeps its best score, a check that only sometimes over-credits still raises the run's result</mark>, and an agent that sees its scores for twelve hours is well placed to find a lenient check and keep using it. And because only valid runs are averaged, a run that a defect kills may be dropped rather than counted as zero.</p>
+
+  <h3><span class="num">3.3</span>A check against real agent runs</h3>
+  <p>EdgeBench has not released its runs. A third party has, however, published one run of Claude Opus&nbsp;5.5 on 16 of the public tasks, four hours each, with every submission and its original score. Seven of those tasks are ones we fixed, so we read every submission history and regraded the decisive submissions with both graders.</p>
+  <ul class="tight">
+    <li><b>Order Addition.</b> Every submission failed one of the five tests, so the run kept its first agent submission, scoring 3.79, and ignored a later one scoring 41.24. <mark>Under the fixed grader every submission passes, and the run keeps 41.24.</mark></li>
+    <li><b>Integer Compression Codec.</b> The run's best submission scores 66.31 (raw) on the original grader and 160.76 on the fixed one. <mark>The original 0–100 scale would clip that to 100, so this check exposed a flaw in our first fix:</mark> the fixed task now uses a scale running from the starter's documented score (1.0) to the formula's maximum (320), on which the submission scores 50.08.</li>
+    <li><b>Borden Inversion.</b> The agent reached 60.10 on the original grader by iterating against its scores, far above the 7.0 of a one-shot textbook fit. For agents that iterate, the effect is smaller than our one-shot comparison suggests.</li>
+    <li><b>Tree Block Partitioning</b> scored 100 and <b>Graph Node Classification</b> showed no malformed predictions, so neither defect affected this run. Schemathesis Config and Lean Analysis were not regraded.</li>
+  </ul>
+  <p>One model, one run per task and four hours rather than twelve cannot measure the leaderboard effect, but it shows that the problems occur in practice.</p>
+  <p class="note">Full figures, task by task: <a href="data/IMPACT.md">IMPACT.md</a> and <a href="data/impact.csv">impact.csv</a>.</p>
 </section>
 
-<section id="tasks">
-  <div class="eyebrow">All tasks</div>
-  <h2>All 51 tasks</h2>
-  <p class="sub col">Select a row for a plain summary of the task, what goes wrong, how much it matters and what we did. The full technical case follows underneath.</p>
-  <div class="controls" role="group" aria-label="Filter by outcome" id="chips"></div>
-  <div class="controls"><label for="q" class="vh">Search tasks</label><input id="q" type="search" placeholder="Search by task name, field or problem"></div>
-  <div class="tablewrap">
-    <table class="ledger">
-      <thead><tr><th style="width:24%">Task</th><th style="width:15%">Outcome</th><th>What we found</th><th style="width:24%">How much it matters</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table>
-    <div class="empty" id="empty" hidden>No task matches this filter.</div>
-  </div>
+<section id="tasks" class="wide">
+  <h2 class="sec"><span class="num">4</span>All 51 tasks</h2>
+  <p style="max-width:700px">Select a task to read a short summary, its figure where it has one, and the full technical case.</p>
+  <div class="controls" role="group" aria-label="Filter tasks" id="filters"></div>
+  <p class="tcap"><b>Table 3.</b> Every public task, its outcome and the finding in one line.</p>
+  <div class="tablewrap"><table class="bt" id="tasktable">
+    <thead><tr><th style="width:24%">Task</th><th class="field" style="width:19%">Field</th><th style="width:14%">Outcome</th><th>Finding</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <div class="empty" id="empty" hidden>No task matches.</div>
 </section>
 
-<section id="method" class="method">
-  <div class="eyebrow">How we checked</div>
-  <h2>How a suspicion became a finding</h2>
-  <ol class="steps col">
-    <li><b>Use the original grader.</b> Every check ran on the exact grader software the leaderboard used, pulled from EdgeBench's public images and identified by a cryptographic fingerprint.</li>
-    <li><b>Read what the agent is promised.</b> The instructions and documents the agent receives, quoted rather than paraphrased, next to the grader's code.</li>
-    <li><b>Show it with test submissions.</b> For each suspected problem we wrote three submissions and ran them through the original grader:
-      <ul>
-        <li>a correct one, which must score as promised;</li>
-        <li>one that triggers the problem;</li>
-        <li>a wrong one, which must be rejected.</li>
-      </ul></li>
-    <li><b>Check the maths independently.</b> Where a question is mathematical, we confirmed it a second way: exact arithmetic, a separate program, exhaustive search, or a computer proof checker. The proof checkers were Lean, which machine-checks mathematical proofs, and TLA+, which exhaustively explores every state of a small model.</li>
-    <li><b>Follow it to the final score.</b> A problem counts only if it changes the 0–100 score of honest work. Problems that do not are recorded as notes.</li>
-    <li><b>Test every fix side by side.</b> The same test submissions were graded by the original and the fixed version. The problem had to be gone, correct work had to keep its score, and wrong work had to stay rejected. Each comparison was repeated three times, and no outcome changed.</li>
+<section id="method" class="col">
+  <h2 class="sec"><span class="num">5</span>Method</h2>
+  <ol class="steps">
+    <li><b>Use the original grader.</b> Every check ran on EdgeBench's published grading software, pulled from its public images and identified by a cryptographic fingerprint, with network access switched off.</li>
+    <li><b>Quote the promise.</b> What a task promises is taken verbatim from the instructions and documents the agent receives, and read next to the grader's code.</li>
+    <li><b>Show the problem with test submissions.</b> For each suspected problem we wrote three submissions and ran them through the original grader: a correct one, which must score as promised; one that triggers the problem; and a wrong one, which must be rejected.</li>
+    <li><b>Confirm it independently.</b> Mathematical claims were checked a second way, with exact arithmetic, a separate implementation, exhaustive search or a formal tool. Lean&nbsp;4 shows that two theorem statements in Lean Analysis are false, and proves the Warehouse Routing lower bound and the arithmetic behind two finance findings. TLA+ checks the multiplication bug in Tree Block Partitioning and the test-credit rule in Rust Multicrate, each with a counter-check that must come out the other way. All 21 formal results rerun with one command.</li>
+    <li><b>Follow it to the final score.</b> A problem counts only if it changes the 0–100 score of honest work; problems that do not are recorded as notes.</li>
+    <li><b>Test every fix side by side.</b> The same test submissions were graded by the original and the fixed grader. A fix is accepted only if the problem disappears, correct work keeps its score and wrong work is still rejected. Each comparison was repeated three times on fresh machines; across 132 comparisons, no outcome changed.</li>
   </ol>
-  <p class="sub col"><b>Not covered:</b> deliberate cheating against the grader (how the benchmark isolates the grader is a design choice of its own), EdgeBench's 83 unreleased tasks, and new runs of AI models. The reviews were carried out by AI agents, and every claim is tied to a saved evidence file in the repository.</p>
-  <p class="sub col"><b>Using the fixed tasks.</b> Each fix is a small patch plus a script that rebuilds the fixed task from the original public files, so nothing proprietary is redistributed. Scores from fixed versions are not comparable with the original leaderboard. See <a href="data/APPLYING-FIXES.md">Applying the fixes</a>.</p>
+  <h3>Limitations</h3>
+  <ul class="tight">
+    <li>Only the 51 public tasks are covered; EdgeBench's other 83 tasks are unreleased.</li>
+    <li>No model was rerun. Effects on the leaderboard are computed where possible and bounded otherwise.</li>
+    <li>Deliberate attacks on the grader by a malicious submission concern how the benchmark isolates its grader, and are out of scope.</li>
+    <li>Side-by-side tests ran on one machine type (8 virtual CPUs, 8&nbsp;GiB of memory); speed-based scores may differ elsewhere.</li>
+    <li>The reviews were carried out by AI agents. Every claim is tied to a saved evidence file and a rerunnable check, which is not the same as independent human reproduction.</li>
+  </ul>
 </section>
 
-<section id="downloads">
-  <div class="eyebrow">Downloads</div>
-  <h2>Data and documents</h2>
-  <div class="paths">
-    <span class="eyebrow">Outcomes</span><span><a href="data/decisions.csv">decisions.csv</a> · <a href="data/decisions.json">decisions.json</a>: the outcome for all 51 tasks</span>
-    <span class="eyebrow">Fix tests</span><span><a href="data/paired-results.csv">paired-results.csv</a>: 134 test submissions graded by the original and fixed versions</span>
-    <span class="eyebrow">Repeat runs</span><span><a href="data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="data/paired-repeatability.md">report</a>: each comparison run three times</span>
-    <span class="eyebrow">Score effect</span><span><a href="data/impact.csv">impact.csv</a> · <a href="data/IMPACT.md">report</a>: effect on the published averages</span>
-    <span class="eyebrow">Documents</span><span><a href="data/FINDINGS.md">All findings</a> · <a href="data/METHOD.md">Method</a> · <a href="data/APPLYING-FIXES.md">Applying the fixes</a></span>
-    <span class="eyebrow">Source</span><span><a href="https://github.com/findalexli/edgebench-verified">GitHub repository</a>: fixes, evidence, proofs and scripts</span>
-  </div>
+<section id="data" class="col">
+  <h2 class="sec">Data and code</h2>
+  <dl class="data">
+    <dt>Repository</dt><dd><a href="https://github.com/findalexli/edgebench-verified">github.com/findalexli/edgebench-verified</a>: fixes, case pages, evidence, Lean and TLA+ files</dd>
+    <dt>Outcomes</dt><dd><a href="data/decisions.csv">decisions.csv</a> · <a href="data/decisions.json">decisions.json</a></dd>
+    <dt>Fix tests</dt><dd><a href="data/paired-results.csv">paired-results.csv</a>: 134 test submissions, original and fixed grader</dd>
+    <dt>Repeat runs</dt><dd><a href="data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="data/paired-repeatability.md">report</a></dd>
+    <dt>Leaderboard effect</dt><dd><a href="data/impact.csv">impact.csv</a> · <a href="data/IMPACT.md">report</a></dd>
+    <dt>Documents</dt><dd><a href="data/FINDINGS.md">Findings</a> · <a href="data/METHOD.md">Method</a> · <a href="data/APPLYING-FIXES.md">Applying the fixes</a></dd>
+  </dl>
+  <h3 id="cite">How to cite</h3>
+<pre class="bib">@misc{edgebenchverified2026,
+  title        = {{EdgeBench Verified}: An Audit of the Graders Behind
+                  the 51 Public {EdgeBench} Tasks},
+  author       = {{EdgeBench Verified contributors}},
+  year         = {2026},
+  note         = {Version 1.0},
+  howpublished = {\url{https://github.com/findalexli/edgebench-verified}}
+}</pre>
 </section>
 
 <footer>
-  <span>EdgeBench is by ByteDance Seed. This is an independent check, not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0). Task definitions come from the public Hugging Face release, and task software is referenced by its public fingerprints, not copied.</span>
+  EdgeBench is developed by ByteDance Seed. This audit is independent and not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0); task definitions come from the public Hugging Face release; EdgeBench's images are referenced by their public fingerprints and are not redistributed.
 </footer>
 </main>
 
 <div class="scrim" id="scrim" hidden></div>
-<aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="drawerTitle">
-  <div class="bar"><span class="eyebrow" id="drawerKicker"></span><button class="close" id="close">Close</button></div>
-  <div id="summary"></div>
-  <details class="tech" id="techbox"><summary>Technical details for task maintainers</summary><div class="md" id="case"></div></details>
+<aside class="panel" id="panel" hidden role="dialog" aria-modal="true" aria-labelledby="pTitle">
+  <div class="top"><span id="pField"></span><button class="close" id="close">Close</button></div>
+  <div id="pBody"></div>
+  <details class="tech" id="pTech"><summary>Full technical case</summary><div class="md" id="pCase"></div></details>
 </aside>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <script>
 const DATA = /*__DATA__*/null;
 const LABEL = {"retain": "Kept as is", "retain-with-note": "Kept, with a note", "repair-v2": "Fixed", "exclude": "Removed"};
-const FINDINGS = [
-  ["Correct work is scored too low", [
-    ["smt_solver", "SMT Solver: correct answers rejected on 27 hidden problems", "The agent builds a solver for logic formulas. When it shows that a formula can be satisfied, it must give an example assignment. The grader compares parts of that example by how they are written rather than by their value, so correct examples are rejected on 27 hidden problems. Even a perfect solver can reach only 72.40 of the 78.61 points those problems are worth."],
-    ["borden_source_inversion", "Borden Inversion: textbook physics scores far below the grader's hidden convention", "The agent works out where groundwater pollution came from. The grader's hidden physics model uses an unusual convention the instructions never mention. The same honest fit scores 7.0 with textbook physics and 31.2 with the grader's convention."]
-  ]],
-  ["Wrong work is accepted", [
-    ["exchange_core_throughput", "Exchange Core: a broken trading engine gets full credit", "The agent speeds up a stock-exchange matching engine. Two realistic bugs pass the grader's correctness check and receive full credit: swapping the buyer's and seller's fees, and dropping event messages."],
-    ["jagua_nesting_optimization", "Jagua Nesting: overlapping shapes count as a valid layout", "The agent packs shapes onto a sheet to waste as little material as possible. The grader accepts layouts in which shapes overlap, which can beat every real layout."]
-  ]],
-  ["The grader applies a different rule from the one the agent is told", [
-    ["triangulation_coloring_optimization", "Triangulation Coloring: the grader drops a rule the instructions state", "The instructions name a geometric condition that a move must meet to be legal. The grader leaves it out, and the same faulty rule was used to generate the test cases."],
-    ["warehouse_forklift_routing", "Warehouse Routing: an agent that uses its promised time scores zero", "The instructions promise 30 seconds per test case. The grader stops after 60 seconds per group of five cases, so a solution that uses the promised time loses its whole score."]
-  ]],
-  ["The score scale cannot be reached", [
-    ["treant_forest", "Treant Forest: no submission can score above 21 out of 100", "The top of the score scale is set beyond what the game's own turn limit allows. A perfect submission scores 21.02."],
-    ["warehouse_forklift_routing", "Warehouse Routing: the best possible score is about 30", "A machine-checked proof shows that no valid solution can reach the reference points at the top of the scale."]
-  ]],
-  ["Small mistakes with large effects", [
-    ["order_addition_permutation_optimization", "Order Addition: every run is frozen at its first submission", "An out-of-date checksum in one test makes every submission fail one of five tests. The grader keeps the submission that passes the most tests and breaks ties in favour of the earliest, so a later, better submission never counts."],
-    ["dabic_gravity_inversion", "Gravity Inversion (removed): 42 points are self-reported", "42 of the points come from numbers the agent reports about its own work, which the grader cannot verify. The task was removed rather than fixed."]
-  ]]
-];
+const ORDER = ["repair-v2", "exclude", "retain-with-note", "retain"];
+const REPO = "https://github.com/findalexli/edgebench-verified/blob/main/";
 const byId = Object.fromEntries(DATA.rows.map(r => [r.task_id, r]));
-const order = ["repair-v2", "exclude", "retain-with-note", "retain"];
-const present = order.filter(k => DATA.counts[k]);
-function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
-document.getElementById('legend').innerHTML = present.map(k => `<span><i class="k-${k}"></i>${LABEL[k]} (${DATA.counts[k]})</span>`).join('');
-const strip = document.getElementById('strip');
-[...DATA.rows].sort((a, b) => order.indexOf(a.proposed) - order.indexOf(b.proposed) || a.name.localeCompare(b.name)).forEach(r => {
-  const b = document.createElement('button');
-  b.className = 'cell k-' + r.proposed; b.title = r.name + ': ' + LABEL[r.proposed];
-  b.setAttribute('aria-label', r.name + ': ' + LABEL[r.proposed]);
-  b.onclick = () => openCase(r.task_id); strip.appendChild(b);
-});
-const shownFig = new Set();
-function figHTML(r) { return `<figure class="fig">${r.figure}<figcaption>${esc(r.figcap)}</figcaption></figure>`; }
-const fl = document.getElementById('findinglist');
-FINDINGS.forEach(([group, items]) => {
-  const g = document.createElement('div'); g.className = 'fgroup';
-  g.innerHTML = `<h3>${esc(group)}</h3>`;
-  items.forEach(([id, t, d]) => {
-    const el = document.createElement('div'); el.className = 'finding' + (byId[id] && byId[id].proposed === 'exclude' ? ' x' : '');
-    const inner = document.createElement('div');
-    const btn = document.createElement('button'); btn.textContent = t; btn.onclick = () => openCase(id);
-    const p = document.createElement('p'); p.textContent = d;
-    inner.append(btn, p);
-    if (byId[id] && byId[id].figure && !shownFig.has(id)) { shownFig.add(id); inner.insertAdjacentHTML('beforeend', figHTML(byId[id])); }
-    el.append(inner); g.append(el);
-  });
-  fl.append(g);
-});
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+// Highlight the first sentence of "What goes wrong": the one a reader should not miss.
+function markFirst(s) {
+  const m = String(s).match(/^(.+?[.!?])(?=\s+[A-Z0-9"“(]|$)/);
+  return m ? `<mark>${esc(m[1])}</mark>${esc(s.slice(m[1].length))}` : esc(s);
+}
 let filt = 'all';
-const chips = document.getElementById('chips');
-chips.innerHTML = [['all', 'All 51']].concat(present.map(k => [k, LABEL[k] + ' (' + DATA.counts[k] + ')']))
-  .map(([k, l]) => `<button class="chip" data-f="${k}" aria-pressed="${k === 'all'}">${esc(l)}</button>`).join('');
+const filters = document.getElementById('filters');
+const present = ORDER.filter(k => DATA.counts[k]);
+filters.innerHTML = [['all', `All (${DATA.rows.length})`]].concat(present.map(k => [k, `${LABEL[k]} (${DATA.counts[k]})`]))
+  .map(([k, l]) => `<button type="button" data-f="${k}" aria-pressed="${k === 'all'}">${esc(l)}</button>`).join('') +
+  '<label for="q" style="position:absolute;left:-9999px">Search tasks</label><input id="q" type="search" placeholder="Search tasks">';
 const tbody = document.getElementById('rows'), q = document.getElementById('q'), empty = document.getElementById('empty');
 function render() {
   const term = q.value.trim().toLowerCase();
   const rows = DATA.rows.filter(r => (filt === 'all' || r.proposed === filt) &&
-    (!term || [r.name, r.task_id, r.category, r.plain.headline, r.plain.about, r.plain.problem].join(' ').toLowerCase().includes(term)));
-  tbody.innerHTML = rows.map(r => `<tr data-id="${r.task_id}" tabindex="0"><td class="task"><b>${esc(r.name)}</b><span>${esc(r.category)}</span></td>` +
-    `<td><span class="pill p-${r.proposed}">${LABEL[r.proposed]}</span></td><td>${esc(r.plain.headline)}</td><td>${esc(r.plain.effect)}</td></tr>`).join('');
+    (!term || [r.name, r.task_id, r.category, r.plain.headline, r.plain.about].join(' ').toLowerCase().includes(term)))
+    .sort((a, b) => ORDER.indexOf(a.proposed) - ORDER.indexOf(b.proposed) || a.name.localeCompare(b.name));
+  tbody.innerHTML = rows.map(r => `<tr data-id="${r.task_id}"><td class="name"><a href="#${r.task_id}">${esc(r.name)}</a></td>` +
+    `<td class="field">${esc(r.category)}</td><td class="o-${r.proposed}">${LABEL[r.proposed]}</td><td>${esc(r.plain.headline)}</td></tr>`).join('');
   empty.hidden = rows.length > 0;
 }
-tbody.addEventListener('click', e => { const tr = e.target.closest('tr'); if (tr) openCase(tr.dataset.id); });
-tbody.addEventListener('keydown', e => { if (e.key === 'Enter') { const tr = e.target.closest('tr'); if (tr) openCase(tr.dataset.id); } });
-chips.addEventListener('click', e => {
-  const c = e.target.closest('.chip'); if (!c) return;
-  filt = c.dataset.f; chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === c)); render();
+filters.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  filt = b.dataset.f; filters.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); render();
 });
 q.addEventListener('input', render);
+tbody.addEventListener('click', e => { const tr = e.target.closest('tr'); if (tr) { e.preventDefault(); openCase(tr.dataset.id); } });
+document.addEventListener('click', e => { const a = e.target.closest('a.case-link'); if (a) { e.preventDefault(); openCase(a.dataset.case); } });
 render();
-const drawer = document.getElementById('drawer'), scrim = document.getElementById('scrim'), caseEl = document.getElementById('case');
+
+const panel = document.getElementById('panel'), scrim = document.getElementById('scrim');
+let lastFocus = null;
 function openCase(id) {
   const r = byId[id]; if (!r) return;
   const p = r.plain;
-  document.getElementById('drawerKicker').textContent = r.category;
-  document.getElementById('summary').innerHTML =
-    `<h2 id="drawerTitle">${esc(r.name)}</h2><p class="kicker"><span class="pill p-${r.proposed}">${LABEL[r.proposed]}</span></p>` +
-    (r.figure ? figHTML(r) : '') +
-    `<dl class="card"><dt>The task</dt><dd>${esc(p.about)}</dd><dt>What goes wrong</dt><dd>${esc(p.problem)}</dd>` +
-    `<dt>How much it matters</dt><dd>${esc(p.effect)}</dd><dt>What we did</dt><dd>${esc(p.action)}</dd></dl>`;
+  lastFocus = document.activeElement;
+  document.getElementById('pField').textContent = r.category;
+  document.getElementById('pBody').innerHTML =
+    `<h2 id="pTitle" tabindex="-1">${esc(r.name)}</h2><p class="outcome o-${r.proposed}">${LABEL[r.proposed]}</p>` +
+    (r.figure ? `<figure class="fig"><div class="scroll">${r.figure}</div><figcaption>${esc(r.figcap)}</figcaption></figure>` : '') +
+    `<dl class="sum"><dt>The task</dt><dd>${esc(p.about)}</dd><dt>What goes wrong</dt><dd>${markFirst(p.problem)}</dd>` +
+    `<dt>How much it matters</dt><dd>${esc(p.effect)}</dd><dt>What we did</dt><dd>${esc(p.action)}</dd></dl>` +
+    `<p class="more"><a href="${REPO}cases/${r.task_id}.md" target="_blank" rel="noopener">Case page on GitHub</a>` +
+    (r.proposed !== 'retain-with-note' ? ` · <a href="${REPO}repairs/${r.task_id}-v2/README.md" target="_blank" rel="noopener">The fix</a>` : '') + `</p>`;
+  const el = document.getElementById('pCase');
   const md = DATA.cases[id] || '';
-  caseEl.innerHTML = window.marked ? marked.parse(md) : '<pre>' + esc(md) + '</pre>';
-  caseEl.querySelectorAll('a').forEach(a => {
+  el.innerHTML = window.marked ? marked.parse(md) : '<pre>' + esc(md) + '</pre>';
+  el.querySelectorAll('a').forEach(a => {
     const h = a.getAttribute('href') || '';
-    if (/^https?:/.test(h)) { a.target = '_blank'; a.rel = 'noopener'; }
-    else { a.href = 'https://github.com/findalexli/edgebench-verified/blob/main/' + h.replace(/^(\.\.\/)+/, '').replace(/^\.\//, (id && h.startsWith('./') ? 'cases/' : '')); a.target = '_blank'; a.rel = 'noopener'; }
+    if (!/^(https?:|#)/.test(h)) a.href = REPO + 'cases/' + h;
+    a.target = '_blank'; a.rel = 'noopener';
   });
-  document.getElementById('techbox').open = false;
-  drawer.hidden = false; scrim.hidden = false; drawer.scrollTop = 0; document.getElementById('close').focus();
+  document.getElementById('pTech').open = false;
+  panel.hidden = false; scrim.hidden = false; panel.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  document.getElementById('pTitle').focus({preventScroll: true});
   try { history.replaceState(null, '', '#' + id); } catch (e) {}
 }
-function closeCase() { drawer.hidden = true; scrim.hidden = true; try { history.replaceState(null, '', '#tasks'); } catch (e) {} }
+function closeCase() {
+  panel.hidden = true; scrim.hidden = true; document.body.style.overflow = '';
+  try { history.replaceState(null, '', '#tasks'); } catch (e) {}
+  if (lastFocus) lastFocus.focus();
+}
 document.getElementById('close').onclick = closeCase; scrim.onclick = closeCase;
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && !drawer.hidden) closeCase(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) closeCase(); });
 const h = location.hash.slice(1); if (byId[h]) openCase(h);
 </script>
-
 </body>
 </html>

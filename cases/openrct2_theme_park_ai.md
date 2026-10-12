@@ -1,6 +1,6 @@
 # OpenRCT2 Theme Park AI (`openrct2_theme_park_ai`)
 
-**Outcome:** Fixed. The prompt promises about 4 game years per scenario, but the 120 s time budget covers about 68 game days, so the score is a snapshot taken early in the game; the fix corrects the prompt.
+**Outcome:** Fixed. <mark>The prompt promises about 4 game years per scenario, but the 120 s time budget covers about 68 game days, so the score is a snapshot taken early in the game; the fix corrects the prompt.</mark>
 
 ![Two bars show 69 of the promised 992 game days reached in the 120 s budget, and 120 s against the 1,667 s that 992 days would need.](figures/openrct2_theme_park_ai.svg)
 

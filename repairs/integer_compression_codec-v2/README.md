@@ -34,9 +34,11 @@ One file is changed and three pristine files are added in the grader image
   shipped `src/codec.cpp`, `include/intcompress.h` and `Makefile`. These are the same files as in
   the work image the solver sees (`b6a58b1a…`, checked on the cloud worker; `paired/evidence/work_sha.txt`).
   Copies are needed because the submission overwrites `src/`, `include/` and `Makefile`.
-- `task.json.in` changes only `judge.image_tag`. The `eval_cmd`, the parser, the score scale (linear
-  0..100), the caps (8x, 40x), the weights, the datasets, the roundtrip check and the work image are
-  unchanged.
+- `task.json.in` changes `judge.image_tag` and the score scale. The scale becomes linear from 1.0
+  (the documented score of the starter) to 320 (the largest possible result, 8 x 40), so the starter
+  scores 0 and a perfect codec 100. Both end points are exact quantities of the documented formula.
+  The `eval_cmd`, the parser, the caps (8x, 40x), the weights, the datasets, the roundtrip check and
+  the work image are unchanged.
 
 ### Why this is the smallest change
 
@@ -53,10 +55,16 @@ Scores from the fixed version are **not comparable** with scores from the origin
 every submission, each per-dataset score changes by the factor
 `(starter_bpi_measured / stored_bpi) x (stored_gbps / starter_gbps_measured)`. On the E2B worker this factor
 ranged from about 1.5x (rand) to about 12x (ts_sec), so rankings between solutions that trade off across datasets can
-change. Failing submissions still score 0. The score scale (linear 0..100) is kept: a fixed-version raw result of 1.0
-(the starter) becomes a score of 1.0 out of 100, and the largest possible raw result is 320 (8 x 40), which is capped
-at 100 as in the original. Setting new reference points for the scale (for example with the starter at 0) is a separate
-decision for the benchmark and is not part of this fix.
+change. Failing submissions still score 0.
+
+### Why the score scale changes
+
+Keeping the original scale (linear 0..100) would make the fixed task useless for strong solutions. Once the
+baseline is measured as documented, raw results run up to 320, and real agent submissions exceed 100: two
+submissions from a public Claude Opus 5.5 run regrade to raw 114.19 and 160.76, which the original scale would
+both clip to 100 (`../../evidence/runs/opus55-regrade/`). The fixed scale therefore runs from 1.0, the
+documented score of the starter, to 320, the largest result the formula allows. Under it those two submissions
+score 35.48 and 50.08, the starter scores 0 and the honest codec in the side-by-side test scores 1.79.
 
 ## How it was checked
 

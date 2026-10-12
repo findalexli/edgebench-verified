@@ -1,6 +1,6 @@
 # Equivalence Class Divide And Conquer (`equivalence_class_divide_and_conquer`)
 
-**Outcome:** Fixed. The grader for sub-problem T3 leaves the last step out of its cost total, so it accepts costs up to the limit plus the size of the last step; the excess is small (at most 0.04%), no score gain is shown, and a three-token fix closes it.
+**Outcome:** Fixed. <mark>The grader for sub-problem T3 leaves the last step out of its cost total, so it accepts costs up to the limit plus the size of the last step; the excess is small (at most 0.04%), no score gain is shown, and a three-token fix closes it.</mark>
 
 ![A cost scale with the 2.5·10⁹ limit and a tiny gap above it where the original checker wrongly accepts an over-limit answer of 2.501·10⁹; the fixed checker rejects it.](figures/equivalence_class_divide_and_conquer.svg)
 

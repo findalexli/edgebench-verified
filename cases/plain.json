@@ -144,7 +144,7 @@
   "about": "Write a library that compresses lists of integers more tightly and decodes them faster than a supplied simple starter (Varint, which stores each number in whole bytes), on eight datasets.",
   "problem": "The documentation says the supplied starter scores 1.0. The grader instead compares against stored numbers the starter cannot produce: five are below 8 bits per integer, impossible for this byte-based format, and the speeds were timed on another machine. The starter scores about 0.24, and a simple honest codec 0.76 instead of 6.24. Dataset weights differ from the documentation.",
   "effect": "All submissions: the starter scores 0.24 instead of 1.0 and a simple honest codec 0.76 instead of 6.24; relative dataset weights are off by up to 6.7 times.",
-  "action": "Fixed in a new version: the grader measures the starter in the same run and compares against it, as documented. The starter now scores about 1.0; scores are not comparable with the original version."
+  "action": "Fixed in a new version: the grader measures the starter in the same run, as documented, and the 0–100 scale runs from the starter (0) to the formula's maximum (100). Scores are not comparable with the original version."
  },
  "jagua_nesting_optimization": {
   "headline": "The grader accepts overlapping shapes as valid layouts",

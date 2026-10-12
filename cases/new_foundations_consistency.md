@@ -1,6 +1,6 @@
 # New Foundations Consistency (`new_foundations_consistency`)
 
-**Outcome:** Kept, with a note. With network access, the original grader builds the project and returns a valid result for the unmodified starting project, but it cannot grade offline, and 15 compiler-generated scored items have an untested exposure of at most 0.67%.
+**Outcome:** Kept, with a note. <mark>With network access, the original grader builds the project and returns a valid result for the unmodified starting project, but it cannot grade offline, and 15 compiler-generated scored items have an untested exposure of at most 0.67%.</mark>
 
 ## What the task asks
 

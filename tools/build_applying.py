@@ -3,6 +3,8 @@
 import json
 import sys
 from pathlib import Path
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parent))
+from names import names as task_names  # noqa: E402
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
 REPAIRS = ROOT / 'repairs'
@@ -31,7 +33,7 @@ def changes(pkg):
 
 def main():
     decisions = {r['task_id']: r for r in json.loads((ROOT / 'data/decisions.json').read_text())}
-    names = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['name'] for f in TASKS.glob('*.json')}
+    names = task_names()
     rows = []
     for pkg in sorted(REPAIRS.glob('*-v2')):
         tid, ch, jt, wt = changes(pkg)

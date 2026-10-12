@@ -2,8 +2,11 @@
 """Generate DECISIONS.md and data/decisions.csv from data/decisions.json and cases/plain.json."""
 import csv
 import json
+import sys
 from collections import Counter
 from pathlib import Path
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parent))
+from names import names as task_names  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
@@ -17,7 +20,7 @@ MEANING = {'retain': 'No problem found.',
 def main():
     rows = sorted(json.loads((ROOT / 'data/decisions.json').read_text()), key=lambda r: r['task_id'])
     plain = json.loads((ROOT / 'cases' / 'plain.json').read_text())
-    names = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['name'] for f in (ROOT / 'tasks').glob('*.json')}
+    names = task_names()
     assert len(rows) == 51 and set(plain) == {r['task_id'] for r in rows}
     counts = Counter(r['proposed'] for r in rows)
     with (ROOT / 'data/decisions.csv').open('w', newline='') as f:

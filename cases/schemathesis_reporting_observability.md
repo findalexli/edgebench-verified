@@ -1,6 +1,6 @@
 # Schemathesis reporting and observability (`schemathesis_reporting_observability`)
 
-**Outcome:** Fixed. The hidden test for the JUnit report writer accepts broken output, and the test for leaving request bodies out of certain generated scenarios can never fail; together the two gaps give wrong credit for about 2.4% of the score.
+**Outcome:** Fixed. <mark>The hidden test for the JUnit report writer accepts broken output, and the test for leaving request bodies out of certain generated scenarios can never fail; together the two gaps give wrong credit for about 2.4% of the score.</mark>
 
 ![Two panels: the original JUnit test and the original body-suppression test both pass broken work, while the fixed tests fail it.](figures/schemathesis_reporting_observability.svg)
 

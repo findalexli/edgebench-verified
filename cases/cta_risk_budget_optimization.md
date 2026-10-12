@@ -1,6 +1,6 @@
 # CTA risk budget optimization (`cta_risk_budget_optimization`)
 
-**Outcome:** Fixed. The 40% overseas-exposure check adds US-dollar (USD) and Chinese-yuan (CNY) position values without converting currency, so overseas USD positions count about seven times too little; the error only ever helps a submission and is worth at most 5 points out of 100.
+**Outcome:** Fixed. <mark>The 40% overseas-exposure check adds US-dollar (USD) and Chinese-yuan (CNY) position values without converting currency, so overseas USD positions count about seven times too little; the error only ever helps a submission and is worth at most 5 points out of 100.</mark>
 
 ![Bars show an overseas share of 0.175 as the original grader reads it, passing the 0.40 limit, against 0.595 once US-dollar positions are converted to yuan, which breaches it.](figures/cta_risk_budget_optimization.svg)
 

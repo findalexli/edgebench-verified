@@ -1,6 +1,6 @@
 # Portfolio Risk Calibration (`portfolio_risk_calibration`)
 
-**Outcome:** Kept, with a note. The grader computes yearly excess return by converting the difference of the two returns to a yearly figure, instead of taking the difference of the two yearly returns as the instructions state, but on the real test period the effect is at most about 0.4 points and the order of excess returns is unchanged.
+**Outcome:** Kept, with a note. <mark>The grader computes yearly excess return by converting the difference of the two returns to a yearly figure, instead of taking the difference of the two yearly returns as the instructions state, but on the real test period the effect is at most about 0.4 points and the order of excess returns is unchanged.</mark>
 
 ## What the task asks
 

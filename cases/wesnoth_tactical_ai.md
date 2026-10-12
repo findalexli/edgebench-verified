@@ -1,6 +1,6 @@
 # Wesnoth Tactical AI (`wesnoth_tactical_ai`)
 
-**Outcome:** Kept, with a note. The full grading run fits its time budget on one 8-vCPU host (80–172 s against 900 s), but the supplied starter's recruiting setting is broken on the pinned game version, so it scores 0, and games are not repeatable.
+**Outcome:** Kept, with a note. <mark>The full grading run fits its time budget on one 8-vCPU host (80–172 s against 900 s), but the supplied starter's recruiting setting is broken on the pinned game version, so it scores 0, and games are not repeatable.</mark>
 
 ## What the task asks
 

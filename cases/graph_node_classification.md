@@ -1,6 +1,6 @@
 # Graph Node Classification (`graph_node_classification`)
 
-**Outcome:** Fixed. The original grader silently drops predictions that are not whole numbers and still marks the run valid.
+**Outcome:** Fixed. <mark>The original grader silently drops predictions that are not whole numbers and still marks the run valid.</mark>
 
 ![Original grader scores a prediction list that is mostly "x" on a single node and calls it valid; the fixed version rejects it.](figures/graph_node_classification.svg)
 

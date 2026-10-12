@@ -1,6 +1,6 @@
 # Warehouse Forklift Routing (`warehouse_forklift_routing`)
 
-**Outcome:** Fixed. The grader gives 60 s per five-case input while the prompt promises 30 s per test case; the fixed version raises the limit to the promised 150 s per input, keeps the score scale unchanged and documents a proven ceiling of about 30.3 points out of 100.
+**Outcome:** Fixed. <mark>The grader gives 60 s per five-case input while the prompt promises 30 s per test case; the fixed version raises the limit to the promised 150 s per input, keeps the score scale unchanged and documents a proven ceiling of about 30.3 points out of 100.</mark>
 
 ![Time bar from 0 to 150 seconds per input showing the enforced 60 s limit, the promised 150 s, and the zone between marked as promised but scored 0.](figures/warehouse_forklift_routing.svg)
 

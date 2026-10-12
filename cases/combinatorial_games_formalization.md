@@ -1,6 +1,6 @@
 # Combinatorial Games Formalization (`combinatorial_games_formalization`)
 
-**Outcome:** Kept, with a note. Honest proofs in two styles earn the same credit in a test on the original grader, and a full count inside the grader image finds no graded item out of reach for an honest, complete solution.
+**Outcome:** Kept, with a note. <mark>Honest proofs in two styles earn the same credit in a test on the original grader, and a full count inside the grader image finds no graded item out of reach for an honest, complete solution.</mark>
 
 ## What the task asks
 

@@ -1,6 +1,6 @@
 # VLIW Kernel Optimization (`vliw_kernel_optimization`)
 
-**Outcome:** Kept, with a note. The only issue found concerns scorer isolation, which is outside this release's scope; the two honest test submissions that were run were scored correctly.
+**Outcome:** Kept, with a note. <mark>The only issue found concerns scorer isolation, which is outside this release's scope; the two honest test submissions that were run were scored correctly.</mark>
 
 ## What the task asks
 

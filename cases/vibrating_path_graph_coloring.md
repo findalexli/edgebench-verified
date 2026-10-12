@@ -1,6 +1,6 @@
 # Vibrating Path Graph Coloring (`vibrating_path_graph_coloring`)
 
-**Outcome:** Kept, with a note. The tester rejects the README's three-line form for an answer with no hits, but a no-hit answer is wrong on every official case (proved for 37 of 50; overwhelmingly likely for the other 13, assuming the published generator), so no score can change.
+**Outcome:** Kept, with a note. <mark>The tester rejects the README's three-line form for an answer with no hits, but a no-hit answer is wrong on every official case (proved for 37 of 50; overwhelmingly likely for the other 13, assuming the published generator), so no score can change.</mark>
 
 ## What the task asks
 

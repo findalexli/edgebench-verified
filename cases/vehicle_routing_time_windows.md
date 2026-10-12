@@ -1,6 +1,6 @@
 # Vehicle Routing Time Windows (`vehicle_routing_time_windows`)
 
-**Outcome:** Kept, with a note. The concern about the decimal tolerance does not change scores under an exact check; the note explains the weighting and the fixed test set, and says that the checker is compiled from the submitted `include/types.h`.
+**Outcome:** Kept, with a note. <mark>The concern about the decimal tolerance does not change scores under an exact check; the note explains the weighting and the fixed test set, and says that the checker is compiled from the submitted `include/types.h`.</mark>
 
 ## What the task asks
 

@@ -1,6 +1,6 @@
 # Borden Source Inversion (`borden_source_inversion`)
 
-**Outcome:** Fixed. The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so an honest solver using a textbook model scores at the baseline level.
+**Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so an honest solver using a textbook model scores at the baseline level.</mark>
 
 ![Bars of raw scores on the original grader: the textbook fit 7.03 and the midpoint baseline 7.01 versus 31.2 for a fit using the grader's hidden convention.](figures/borden_source_inversion.svg)
 

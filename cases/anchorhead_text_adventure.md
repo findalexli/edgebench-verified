@@ -1,6 +1,6 @@
 # Anchorhead (`anchorhead_text_adventure`)
 
-**Outcome:** Kept, with a note. The score is the game's own score, which is the same every time for the same commands; the note covers final-versus-peak scoring and session limits the task does not state.
+**Outcome:** Kept, with a note. <mark>The score is the game's own score, which is the same every time for the same commands; the note covers final-versus-peak scoring and session limits the task does not state.</mark>
 
 ## What the task asks
 

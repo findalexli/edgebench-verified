@@ -1,6 +1,6 @@
 # Apple Incremental Game (`apple_incremental_game`)
 
-**Outcome:** Kept, with a note. The score scale agrees with an independent simulation of honest play, but the 1 GB memory limit stated in the task text is not enforced for each solution.
+**Outcome:** Kept, with a note. <mark>The score scale agrees with an independent simulation of honest play, but the 1 GB memory limit stated in the task text is not enforced for each solution.</mark>
 
 ## What the task asks
 

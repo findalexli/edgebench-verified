@@ -1,6 +1,6 @@
 # Arc Compiler Runtime (`arc_compiler_runtime`)
 
-**Outcome:** Fixed. Hidden tests require a return format for `analyze()` that no solver-visible file documents, and TASK.md misstates the starter's score; the fixed version documents both without changing any score.
+**Outcome:** Fixed. <mark>Hidden tests require a return format for `analyze()` that no solver-visible file documents, and TASK.md misstates the starter's score; the fixed version documents both without changing any score.</mark>
 
 ![Two bars show one honest analyzer scoring 69.26 with the array return shape the hidden tests expect and 35.59 with the starter's object shape, which no solver-visible file documents.](figures/arc_compiler_runtime.svg)
 

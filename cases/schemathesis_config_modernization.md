@@ -1,6 +1,6 @@
 # Schemathesis config modernization (`schemathesis_config_modernization`)
 
-**Outcome:** Fixed. The Phase 3 tests check only that `@schemathesis.metric` returns something callable, not that it returns the function unchanged; the gap is one test item, about 1/150 of the score.
+**Outcome:** Fixed. <mark>The Phase 3 tests check only that `@schemathesis.metric` returns something callable, not that it returns the function unchanged; the gap is one test item, about 1/150 of the score.</mark>
 
 ![Phase 3 test results: the original tests pass both a correct decorator and a wrapper at 15/15; the fixed tests fail the wrapper at 15/16.](figures/schemathesis_config_modernization.svg)
 

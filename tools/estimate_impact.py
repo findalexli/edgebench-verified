@@ -67,7 +67,7 @@ def main():
     for m in MODELS:
         v1 = {t: lb[t][m] for t in lb}
         base = mean(v1.values())
-        # exact: Treant and Borden rescaled, Dabic excluded
+        # exact: Treant and Borden rescaled, D-ABIC excluded
         v2 = dict(v1)
         v2["treant_forest"] = treant_v2(v1["treant_forest"])
         v2["borden_source_inversion"] = borden_v2(v1["borden_source_inversion"])
@@ -190,9 +190,9 @@ def main():
              f"a known maximum effect, and {n_open} (plus part of Borden Inversion) have a known direction only. "
              "The largest of these:\n")
     L.append("- **Integer Compression Codec.** Every original score is measured against stored reference numbers "
-             "that the documented starting program cannot reach. In our tests the fix raises scores about 4 times "
-             "(starting program) to 8 times (a simple honest codec). The published 75.3 and 74.4 could reach the "
-             "maximum of 100, but per-dataset caps make the factor for strong codecs uncertain.")
+             "that the documented starting program cannot reach, which understates raw results about four- to "
+             "eightfold. The fixed version also needs a new 0–100 scale (Section \"A check against real agent runs\"), "
+             "so the direction of the change depends on the submission.")
     L.append("- **OpenTTD.** A program that follows the instructions calls a function that does not exist and stops "
              "working. GLM-5.1's 0.0 fits this.")
     L.append("- **SMT Solver.** Correct answers are rejected on some hidden problems, so every model's score goes "
@@ -202,6 +202,25 @@ def main():
     L.append("- **Exchange Core, Jagua, FFmpeg, College English.** These accept wrong work. Because a run keeps "
              "its best submission, any over-credited submission sets the run's score.\n")
 
+    L.append("## A check against real agent runs\n")
+    L.append("EdgeBench has not released its runs. A third party has published one run of Claude Opus 5.5 on 16 of "
+             "the public tasks, four hours each, with every submission and its original score "
+             "(`adafadaq/edgebench-opus-5-5-xhigh-rollouts` on Hugging Face). Seven of those tasks are ones we fixed. "
+             "We read every submission history and regraded the decisive submissions with both graders "
+             "(`evidence/runs/opus55-rollouts-meta/`, `evidence/runs/opus55-regrade/`).\n")
+    L.append("| Task | Original grader | Fixed grader | What it shows |")
+    L.append("| --- | --- | --- | --- |")
+    L.append("| Order Addition | Every submission fails 1 of 5 tests; the run keeps its first agent submission, score 3.79, and ignores a later 41.24 | All submissions pass 5 of 5; the run keeps 41.24 | The defect occurs in practice: +37.45 points on this task for this run |")
+    L.append("| Integer Codec | Best submission: raw 66.31 (75.72 on the run's own machine) | Raw 160.76; 50.08 on the fixed scale | The original 0–100 scale would clip the fixed result to 100, so the fix now uses a scale from 1.0 to 320 |")
+    L.append("| Borden Inversion | Best submission: 60.10, reached by iterating against the grader's scores | Not regraded (raw results are identical for the same answer) | An agent that iterates can partly learn the hidden convention; the one-shot 7.0 vs 31.2 gap overstates the effect for such agents |")
+    L.append("| Tree Block Partitioning | 100 | Not regraded | No self-multiplication; no effect in this run |")
+    L.append("| Graph Node Classification | Every submission scored as a normal prediction file | Not regraded | No sign of the defect in this run |")
+    L.append("| Schemathesis Config | Full marks | Not regraded | Unknown whether the decorator returns the function unchanged |")
+    L.append("| Lean Analysis Proofs | 2,810 of 2,901 targets | Not regraded (needs the 33 GB task image) | Unknown |")
+    L.append("")
+    L.append("This is one model, one run per task and four hours instead of twelve. It shows that the problems "
+             "occur in real runs and that one of our fixes needed a correction; it does not measure the "
+             "leaderboard effect.\n")
     L.append("## The exact corrections\n")
     L.append("These fixes change only how a raw result is converted to 0–100, so each published score converts "
              "directly.\n")
@@ -224,7 +243,7 @@ def main():
              "raw result, which runs from 0 to 109. The fixed version reports raw × 100/109. This is only the "
              "change of scale. The fix also gives agents the grader's physics convention, which raises honest "
              "fits (7.0 → 31.2 raw in our tests). That part needs new runs and is not included.")
-    L.append("- **Dabic Gravity Inversion** is removed, so the average is taken over 50 tasks (49 for Opus 4.8, "
+    L.append("- **D-ABIC Gravity Inversion** is removed, so the average is taken over 50 tasks (49 for Opus 4.8, "
              "which has no valid result on Rust Multicrate).\n")
 
     L.append("## Every fixed or removed task\n")

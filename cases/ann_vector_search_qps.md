@@ -1,6 +1,6 @@
 # ANN Vector Search QPS (`ann_vector_search_qps`)
 
-**Outcome:** Kept, with a note. Honest submissions are scored as documented, but the measured speed depends on the machine the grader runs on.
+**Outcome:** Kept, with a note. <mark>Honest submissions are scored as documented, but the measured speed depends on the machine the grader runs on.</mark>
 
 ## What the task asks
 

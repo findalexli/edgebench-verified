@@ -1,6 +1,6 @@
 # FLT Regular Formalization (`flt_regular_formalization`)
 
-**Outcome:** Kept, with a note. The weighted list of scored statements matches the task's own list exactly and contains no compiler-generated names, so no statement was found out of reach for an honest, complete solution.
+**Outcome:** Kept, with a note. <mark>The weighted list of scored statements matches the task's own list exactly and contains no compiler-generated names, so no statement was found out of reach for an honest, complete solution.</mark>
 
 ## What the task asks
 

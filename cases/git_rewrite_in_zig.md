@@ -1,6 +1,6 @@
 # Git Rewrite in Zig (`git_rewrite_in_zig`)
 
-**Outcome:** Kept, with a note. A correct `git` of the matching version earns the full score through the original grader: 29,075 of 29,075 tests credited, reward 1.000000, 100 out of 100.
+**Outcome:** Kept, with a note. <mark>A correct `git` of the matching version earns the full score through the original grader: 29,075 of 29,075 tests credited, reward 1.000000, 100 out of 100.</mark>
 
 ## What the task asks
 

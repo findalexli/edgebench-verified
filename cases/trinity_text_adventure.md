@@ -1,6 +1,6 @@
 # Trinity (`trinity_text_adventure`)
 
-**Outcome:** Kept, with a note. The score is the game's own repeatable score, and no scoring defect was found; the note covers the use of the final rather than the peak score, and session limits that the task text does not disclose.
+**Outcome:** Kept, with a note. <mark>The score is the game's own repeatable score, and no scoring defect was found; the note covers the use of the final rather than the peak score, and session limits that the task text does not disclose.</mark>
 
 ## What the task asks
 

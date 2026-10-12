@@ -1,6 +1,6 @@
 # Exchange Core Throughput (`exchange_core_throughput`)
 
-**Outcome:** Fixed. The original correctness check does not catch wrong fees or lost messages, so incorrect engines receive full credit; the fixed version requires the project's own integration tests to pass and grades without network access.
+**Outcome:** Fixed. <mark>The original correctness check does not catch wrong fees or lost messages, so incorrect engines receive full credit; the fixed version requires the project's own integration tests to pass and grades without network access.</mark>
 
 ![Bars show the original grader scoring an engine with wrong fees 24.40 and one with dropped events 15.62, above the correct engine at 7.14, while the fixed version rejects both broken engines with 0.](figures/exchange_core_throughput.svg)
 

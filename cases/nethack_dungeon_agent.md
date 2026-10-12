@@ -1,6 +1,6 @@
 # NetHack Dungeon Agent (`nethack_dungeon_agent`)
 
-**Outcome:** Kept, with a note. The grader's call that should fix each game's random seed silently fails, so the 20 graded games are random and scores are not repeatable from run to run.
+**Outcome:** Kept, with a note. <mark>The grader's call that should fix each game's random seed silently fails, so the 20 graded games are random and scores are not repeatable from run to run.</mark>
 
 ## What the task asks
 

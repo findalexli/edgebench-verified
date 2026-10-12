@@ -1,6 +1,6 @@
 # Sphere Eversion Formalization (`sphere_eversion_formalization`)
 
-**Outcome:** Kept, with a note. No scored item is out of reach for an honest, complete solution, and the compiler-generated items are stable; this rests on test submissions and inspection only, and no honest proof was scored.
+**Outcome:** Kept, with a note. <mark>No scored item is out of reach for an honest, complete solution, and the compiler-generated items are stable; this rests on test submissions and inspection only, and no honest proof was scored.</mark>
 
 ## What the task asks
 

@@ -1,6 +1,6 @@
 # Order Addition Permutation Optimization (`order_addition_permutation_optimization`)
 
-**Outcome:** Fixed. A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first valid submission and ignores better later ones.
+**Outcome:** Fixed. <mark>A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first valid submission and ignores better later ones.</mark>
 
 ![Two rows showing the same two valid submissions: the original grader keeps the first, lower-scoring one as best, while the fixed version keeps the second, better one.](figures/order_addition_permutation_optimization.svg)
 

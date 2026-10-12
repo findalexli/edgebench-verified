@@ -1,6 +1,6 @@
 # Tree Block Partitioning (`tree_block_partitioning`)
 
-**Outcome:** Fixed. In sub-problem T2, the grader's library computes an in-place multiply wrongly when a value is multiplied by itself (`v *= v`); the effect is at most 5/100 points, only for solvers that do this, and swapping two lines fixes it.
+**Outcome:** Fixed. <mark>In sub-problem T2, the grader's library computes an in-place multiply wrongly when a value is multiplied by itself (`v *= v`); the effect is at most 5/100 points, only for solvers that do this, and swapping two lines fixes it.</mark>
 
 ![Two cards compare a product of a value with a copy, which is correct at 3714, and a product of a value with itself, which gives 6190; bars show a sub-problem 2 score of 0.25 on the original library and 5.00 on the fixed one.](figures/tree_block_partitioning.svg)
 
