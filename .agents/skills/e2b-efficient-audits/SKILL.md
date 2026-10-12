@@ -32,6 +32,8 @@ Reuse unchanged sources, reviews, controls, collectors and resource/lifecycle ev
 
 Choose a supported bounded local diagnostic, admitted native container or E2B heavy job. Ordinary reversible diagnostics need no invented approval chain; fragile frozen workers retain their actual root/grant, intake and ownership gates. Source GO is not launch authority.
 
+A missing cached interpreter or previously built environment is a provisioning need, not proof the task is blocked. When owned cloud setup is authorized, try a bounded standard image/bootstrap with the required versions before declaring them unavailable. Record the actual runtime and any compatibility differences; never silently substitute a different interpreter or retry a held path.
+
 Pilot the **original task path** on useful actual inputs before repeating it at scale. Fixtures, dependency censuses and launcher success do not establish evaluator behavior. Freeze the finite hypothesis, exact inputs/sources, bounds, observables, typed failures and owned cleanup. Prefer the maintained runner and small inputs over copied controller ancestry. After one evidence-based setup correction, reassess at roughly 15 minutes: report the concrete blocker and choose a supported environment or another runnable lane.
 
 Run independent task/data/review lanes together. Reuse collectors/reviewers across waves. Read-only adjudication of a closed batch can use its saved history while a separately admitted batch runs; preserve that run's handle instead of restoring a stale current-batch pointer. Whole-drain requirements for new launch/runtime replacement do not automatically block adjudication. Use `followup_task` to start an idle agent's new assignment.
@@ -43,6 +45,8 @@ When direct user steering changes a deadline, budget, model or schedule, reconci
 ## Preserve execution boundaries
 
 This audit permits up to **50 useful owned workers**, including unresolved reservations, and useful CPU/memory increases under reviewed resource/cost envelopes. Capacity is not a target. Bound CPU, memory, wall time, disk, expansion, output and cleanup. Honor host/headroom guards and **four staging slots totaling 64 MiB**, releasing bytes after verified upload; keep the independent coordinator address-space cap. Scale with runnable work, observed throughput and cost, not submitted threads.
+
+For long native runs, compare CPU-seconds with allowed parallelism and wall time. A per-process CPU cap can end a multi-threaded program before its wall budget; size it for the intended observation or explicitly limit the claim. Keep wall, memory, ownership and cleanup bounds intact.
 
 Bind final serialized job, controls digest, grant, worker identity and actual runtime consumers before credentials. Use the supported coordinator interpreter/SDK; scientific interpreter/ABI is separate. Check policy loaders/imported constants when renewing deadlines. Keep credentials in the authorized coordinator or isolated account service, outside native actors and evidence. Secure staging of the authorized Codex-plan cache does not authorize unrelated keys; native actors retain their network/filesystem restrictions.
 
