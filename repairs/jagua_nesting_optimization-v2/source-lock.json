@@ -7,20 +7,22 @@
  },
  "original_judge_image": "seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466",
  "original_judge_image_tag": "bba393b2dd53",
- "v2_judge_image_tag": "bba393b2dd53-ebv-v2",
+ "v2_judge_image_tag": "bba393b2dd53-ebv-v2.1",
+ "superseded_judge_image_tag (v2 package, 2026-10-13: orientation tolerance 1e-6 deg rejected f32-derived angles such as 90.0000025)": "bba393b2dd53-ebv-v2",
  "changed_files": [
   {
    "image_path": "/home/workspace/jagua_task_scorer/evaluate.py",
    "original_sha256": "08159f8e3a59648460d8cd352ff3b71908763d9a521b41b95c90ba443f35cbe1",
    "original_bytes": 16960,
    "replacement": "files/home/workspace/jagua_task_scorer/evaluate.py",
-   "replacement_sha256": "df296c8714ed444317f5269be898993e533813ef7dba8327d8dad9832046622d",
-   "replacement_bytes": 21211
+   "replacement_sha256": "2c3c189ea0d14f717a7aaf12bd4a4f055ba0f0a075d2c17f56ab8a3c5de13f98",
+   "previous_replacement_sha256 (superseded 2026-10-13: orientation tolerance 1e-6 deg)": "df296c8714ed444317f5269be898993e533813ef7dba8327d8dad9832046622d",
+   "replacement_bytes": 21619
   }
  ],
- "task_json_in_sha256": "c199b35112aaebdc2554ad2c8c9e7b3aa245e5152149847774dea1e7acfc7f17",
- "repair_patch_sha256": "7e4d922bdfa6b64560384dbf6363fe8a510ba24856365371731f9316563ca7d2",
- "dockerfile_sha256": "269e2b2dbe38d8d28663e6c5172a66298da15834e5238a50eac4d7810ae9f52d",
+ "task_json_in_sha256": "b7863506446fbb470b589306a89eaeb238548e29dec2e58bcf73afcdcfd81c93",
+ "repair_patch_sha256": "b36a6ce7ccdf647957befcb4b5d841c3817561f3dedbb5dec5a1d04d19f998ce",
+ "dockerfile_sha256": "f324f10d723df7993d64301a3f4100a174b2bf6067ea804fbdea22b2f1bd2129",
  "work_image_changed": false,
  "task_json_fields_changed": [
   "judge.image_tag"
@@ -42,10 +44,10 @@
    }
   ],
   "outputs": {
-   "files/home/workspace/jagua_task_scorer/evaluate.py": "df296c8714ed444317f5269be898993e533813ef7dba8327d8dad9832046622d"
+   "files/home/workspace/jagua_task_scorer/evaluate.py": "2c3c189ea0d14f717a7aaf12bd4a4f055ba0f0a075d2c17f56ab8a3c5de13f98"
   },
-  "repair_patch_sha256": "7e4d922bdfa6b64560384dbf6363fe8a510ba24856365371731f9316563ca7d2",
+  "repair_patch_sha256": "b36a6ce7ccdf647957befcb4b5d841c3817561f3dedbb5dec5a1d04d19f998ce",
   "materialize_sh_sha256": "284e9de5743df7e0c95693647066ad4efdbc854afc751ec8c8dd45d5172238bb",
-  "task_json_diff_sha256": "7ff05a3d672e285b851c89cb4126b7578f228019b3ff6f8c8f9f27c2fd3fb902"
+  "task_json_diff_sha256": "ce65a0df5701681f08076c5b6d5427a5f1d01e65f0b30c462220407b4f55a3f2"
  }
 }

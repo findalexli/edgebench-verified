@@ -5,7 +5,7 @@
 # files/home/workspace/jagua_task_scorer/evaluate.py <- judge:/home/workspace/jagua_task_scorer/evaluate.py
 --- a/files/home/workspace/jagua_task_scorer/evaluate.py
 +++ b/files/home/workspace/jagua_task_scorer/evaluate.py
-@@ -125,17 +125,127 @@
+@@ -125,17 +125,134 @@
      return inside
  
  
@@ -130,6 +130,13 @@
 +    return overlap_area(a, b, stop_above=limit) > limit
 +
 +
++# v2.1: an allowed angle may arrive in any faithful decimal form, including f32 radians
++# converted to degrees in f64 (90 -> 90.0000025). One f32 ulp at 360 degrees is 3.05e-5 deg;
++# 1e-3 deg allows ~30 ulps of conversion error and is 90 000 times smaller than the closest
++# distinct allowed angles (90 deg apart). Geometry is still checked at the reported angle.
++ORIENTATION_TOL_DEG = 1e-3
++
++
 +def orientation_allowed(rotation: float, allowed) -> bool:
 +    """allowed_orientations absent means free rotation (as in jagua-rs instances)."""
 +    if allowed is None:
@@ -137,12 +144,12 @@
 +    r = rotation % 360.0
 +    for o in allowed:
 +        d = abs(r - float(o) % 360.0)
-+        if min(d, 360.0 - d) <= 1e-6:
++        if min(d, 360.0 - d) <= ORIENTATION_TOL_DEG:
 +            return True
      return False
  
  
-@@ -199,6 +309,8 @@
+@@ -199,6 +316,8 @@
          counts[item_id] += 1
          trans = placed_item.get("transformation", {})
          rot = float(trans.get("rotation", 0.0))

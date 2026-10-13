@@ -34,22 +34,54 @@ layouts are feasible. `validate_solution` also never reads `allowed_orientations
    on the instance's units. The most it allows is 1e-6 of an item's area per pair, which is
    negligible against the grader's 2.5% improvement deadband (the smallest improvement that earns credit).
 3. **`orientation_allowed`**: when an item lists `allowed_orientations`, each placement's
-   rotation must equal one of them modulo 360°, within 1e-6°. Otherwise the result is
-   `orientation_not_allowed_<idx>`. If the field is absent (as in `swim_cr`, the
-   instance with free rotation), any rotation is allowed, as in jagua-rs.
+   rotation must equal one of them modulo 360°, within 1e-3° (`ORIENTATION_TOL_DEG`; v2.1,
+   see below). Otherwise the result is `orientation_not_allowed_<idx>`. If the field is absent
+   (as in `swim_cr`, the instance with free rotation), any rotation is allowed, as in jagua-rs.
+   The overlap and strip checks still use the rotation exactly as reported; the tolerance only
+   decides whether that rotation counts as an allowed one.
 
 Everything else is unchanged:
 
 - the existing bounding-box prefilter, strip bounds, demand and zero-area checks;
 - the score formula, runtime multiplier, reference checkout, assets and work image.
 
-`task.json.in` changes only `judge.image_tag` (`bba393b2dd53` to `bba393b2dd53-ebv-v2`). The
-Dockerfile is `FROM` the pinned original grader digest plus one `COPY`.
+`task.json.in` changes only `judge.image_tag` (`bba393b2dd53` to `bba393b2dd53-ebv-v2.1`). Tag
+`bba393b2dd53-ebv-v2` (the first fixed version) is superseded; rebuild. The Dockerfile is `FROM`
+the pinned original grader digest plus one `COPY`.
+
+### Revision v2.1 (2026-10-13): orientation tolerance 1e-3°
+
+The first fixed version (`evaluate.py` `df296c87…`, tag `bba393b2dd53-ebv-v2`) accepted an
+allowed angle only within 1e-6°. That value was ours: the original grader never reads
+`allowed_orientations` and accepts every rotation. The task asks only for "geometrically valid"
+outputs and does not fix how an angle is written. 1e-6° is below the resolution of the f32
+angles jagua-rs uses. A solver that keeps its angle in f32 radians and prints it in f64 degrees
+writes 90.00000250447816 for 90° and 180.00000500895632 for 180°. v2 rejected such a layout on
+every case with an allowed-orientation list, a false rejection that v1 did not make.
+
+v2.1 changes only that constant, to 1e-3° (`files/` sha256 `2c3c189e…`):
+
+- **f32 resolution.** One f32 ulp is 3.05e-5° at 360° and 2.73e-5° at 2π rad. Over every
+  allowed angle in [−720°, 720°] and every 0.001° in [−360°, 360°], the f32 conversion paths
+  (f32 radians to f64 degrees, f64 radians stored as f32, f32 `to_degrees`) differ from the exact
+  angle by at most 6.1e-5° (`evidence/scripts/jagua_nesting_optimization/v2/f32_angles.py`).
+  1e-3° leaves a margin of more than 16 times.
+- **Distinct angles stay distinct.** The closest allowed angles in the scored instances are 90°
+  apart, 90 000 times the tolerance.
+- **Geometry.** Overlap, strip bounds and width are computed at the reported angle, not at a
+  snapped one, so a near-allowed angle cannot hide an overlap. The most a 1e-3° deviation
+  moves a point is 1.75e-5 × its distance from the rotation centre: 0.28 units at 16 000 units
+  (the largest `gardeyn6` coordinate is 16 132), against strip widths of 20 000 units and more
+  on that instance and the 2.5% deadband.
+
+Paired evidence for the revision (original, v2 and v2.1 on the same inputs, three runs) is in
+`paired/results.md`, section "Revision v2.1".
 
 ### Why an earlier candidate fix was not reused
 
-The earlier candidate is `$W/work/task-repairs/jagua-general-polygon-overlap-sol-v1/evaluate.py`.
-It was run in the grader image on the test layouts and on three reference layouts.
+The earlier candidate (`jagua-general-polygon-overlap-sol-v1/evaluate.py`, from an earlier
+working tree, kept outside the repository) was run in the grader image on the test layouts and
+on three reference layouts.
 
 - **Its geometry is correct as a test of the coordinates as written.** It uses exact
   `Fraction` arithmetic, a proper-crossing test and an interior-interval test at strip
@@ -71,7 +103,7 @@ Valid layouts with no overlap above the tolerance and with allowed rotations pas
 score identically. Scores under the fixed version are not comparable with the original when a layout:
 
 - contains a positive-area overlap that the original missed. Such a case becomes `WA` (wrong answer) with score 0;
-- uses a forbidden rotation;
+- uses a forbidden rotation (more than 1e-3° from every allowed angle);
 - contains a proper edge crossing below the tolerance that the original's crossing test rejected. The fixed version accepts it.
   This is more lenient, and limited to at most 1e-6 of an item's area.
 
@@ -119,3 +151,5 @@ The task JSON change is in `task-json.diff`.
   below the tolerance.
 - No adversarial or near-tolerance layouts beyond the test layouts were constructed. Whether the grader is
   isolated from the submission is out of scope.
+- The f32-angle submission in the revision run rewrites the angles of an honest LBF layout after
+  it is solved. No solver whose search itself works on f32-derived angles was run.
