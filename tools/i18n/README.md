@@ -75,3 +75,12 @@ For each page of a language other than English the builder records what came fro
 The language switch in the header links each page to the same page in the other language
 (`site/index.html` and `site/zh/index.html`, `site/tasks/smt_solver.html` and
 `site/zh/tasks/smt_solver.html`, and so on).
+
+## Stale translations
+
+`pending-<lang>.json` explicitly withholds older translations after an English
+conclusion changes. `sources` lists English source paths relative to the repository;
+`plain` and `formal` list task IDs. The builder preserves translated source files,
+uses current English for these entries, and shows its existing translation-pending
+notice (with noindex when the page's main text falls back). Remove an entry only
+after reviewing and updating its translation.

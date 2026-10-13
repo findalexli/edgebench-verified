@@ -17,15 +17,14 @@ grader or the task can correct.
 
 | Outcome | Tasks | Meaning |
 | --- | ---: | --- |
-| **Fixed** | **31** | The grader's logic, data or setup can be corrected. We publish a fixed version, tested against the original on the same submissions where the fix changes something that runs |
+| **Fixed** | **31** | Historical repair disposition: versioned patches with task-specific evidence. This count is not 31 fully validated releases; current integration limits are listed below and in APPLYING-FIXES.md |
 | Kept, with a note | 19 | No correctable problem found. The note records caveats that no change to the grader removes, such as variation between runs or machines. These are not always small: in ANN Vector Search the measured speed varies between gradings on one machine by about ±7 of 100 points per grading |
 | Removed | 1 | No sound fix was possible |
 | **Total** | **51** | |
 
-The rule is the same for every task. A task is fixed when its grader's logic or setup can be
-corrected, however small the effect: the fix with the smallest bounded effect, Portfolio Risk, moves a score by at most
-0.39 points up or 0.10 down (from a decimal sweep, not a proof). A task is kept, with a note, when what varies is run-to-run or machine noise that no
-change to the grader removes, or when nothing is wrong.
+The repair count describes task dispositions, not 31 fully certified releases. Current evidence has different scopes. Datagen's year-domain correction passes paired native evaluator controls. FFmpeg's per-call output checks and exact-zero failure rule pass paired native scorer controls, while its submission-build path remains unverified. CTA now checks overseas CNY exposure against fund NAV; its paired helper controls cover score changes in both directions. Warehouse requires a separate host-side drain repair so late evaluations are included or the run fails visibly. Its backend integration, Lean/PFR's complete image paths and Triangulation's hull coverage remain unresolved. [APPLYING-FIXES.md](APPLYING-FIXES.md) gives the per-package evidence and remaining requirements.
+
+The impact analysis uses intervals for Treant Forest because published averages do not identify individual clipped scores. Portfolio Risk's restricted numerical sweep is a sensitivity scenario, not a global bound. Formal models cover specified mechanisms and assumptions; historical proof results do not certify revised implementations.
 
 ## How EdgeBench scores an agent
 
@@ -48,13 +47,13 @@ give each grader 4 CPUs unless the task overrides it
 ([evidence/impact/edgebench-leaderboard-config.md](evidence/impact/edgebench-leaderboard-config.md)).
 Six graders that have no override run 8 test cases at once under the promised time limit per case,
 so each case gets about half a CPU. (Treant Forest also runs 8 at once, but its limit is twice the
-promised time.) The instructions never state the grader's CPU count.
+promised time.) The instructions never state the grader's CPU count; a wall-clock limit alone does not promise dedicated CPU seconds. These repairs choose a more consistent resource policy.
 - *Grid Robot* and *Vibrating Path.* The instructions promise 30 seconds per test case. A solution
   that computes for 16 seconds per case (Grid) or 20 seconds (Vibrating) times out on 48 of 50
   cases at 4 CPUs, and one
   timeout voids the whole submission. With 8 CPUs it passes every case.
-- *Molecular Assembly, Apple Game, Triangulation, Warehouse Routing.* The same mechanism: honest
-  solutions inside the stated limit lose most cases, or the whole score, at 4 CPUs. The fixes run no
+- *Molecular Assembly, Apple Game, Triangulation, Warehouse Routing.* The same mechanism: CPU-budgeted
+  solutions lose most cases, or the whole score, at 4 CPUs. The fixes run no
   more cases at once than the grader has CPUs.
 - SMT Solver runs 16 solver processes at once, but the settings give its grader 16 CPUs, so the
   problem does not arise there.
@@ -100,7 +99,7 @@ promised time.) The instructions never state the grader's CPU count.
   60 seconds per group of five cases, so a solution that uses its promised time scores zero.
 - *Portfolio Risk.* The instructions define excess return as the difference of two yearly returns;
   the grader converts the difference of the two period returns to a yearly figure instead. The
-  effect is small: at most 0.39 points up or 0.10 down (a decimal sweep, not a proof).
+  restricted decimal sweep gives a sensitivity envelope of 0.3921 points up or 0.10 down; this is not a global bound.
 
 **The 0–100 scale cannot be reached.**
 - *Treant Forest.* The top of the scale lies beyond what the game's own turn limit allows, so no
@@ -122,24 +121,9 @@ would require rerunning the models on the fixed tasks, which this audit did not 
 the grader alone, regrading the agents' original submissions, which EdgeBench has not released. What
 can be stated precisely, assuming no fix turns a failed run into a scored one or the reverse:
 
-- **Largest possible change.** Letting every fix take its largest possible effect moves a model's
-  average by as much as 9.4 points down or 23.1 up. For 18 fixed tasks only the direction of the
-  effect is known; with the open part of Borden Inversion they account for up to 9.0 down or 21.1
-  up. This is a limit, not a
-  prediction.
-- **Proven limit.** For 11 fixed tasks the task's own scoring bounds the effect (computed from the
-  grader; for PFR inferred from its rule; for Portfolio Risk from a decimal sweep, not a proof).
-  Together they move an average by at most 0.4 points down or 2.0 up. That is already enough to
-  swap the top two models, Claude Opus 4.8 and GPT-5.5, which are 1.2 points apart after the exact
-  corrections, while these fixes could move that gap by up to 1.8 points: the 51 public tasks alone
-  do not show which of them is ahead. No single task decides this: without Rust Multicrate, where
-  GPT-5.5 can gain up to 29.2 points, the largest swing is still 1.25 points, more than the gap of
-  1.19. It assumes every bounded effect at its extreme at once.
-- **Exactly computable part.** Where a fix only changes how a raw result becomes 0–100, or removes
-  a task, each published score can be recomputed directly. Together these raise every average by
-  1.2–1.9 points: the Treant Forest scale by 1.0 to 1.4, the removal of D-ABIC by 0.2 to 0.5, and
-  the Borden Inversion scale by −0.01 to −0.08. This is only the part we can calculate; the other
-  fixes can still push an average up or down.
+- **Conditional intervals.** [IMPACT.md](IMPACT.md) and [data/impact.csv](data/impact.csv) include public-score rounding, Treant's piecewise scale, and stated assumptions about which runs remain valid. Interval midpoints are descriptive, not identified corrected means.
+- **Scope of bounds.** Component-level limits apply only to the named defects. Portfolio's 0.3921-point upper estimate belongs to its restricted numerical sweep and is excluded from the global bounded-effects calculation.
+- **Ranking.** Overlapping intervals mean the available evidence does not certify an ordering. They do not establish that any attainable submissions reverse that ordering.
 
 A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, with every
 submission. Nine of those tasks are ones we fixed. Where a fix changes only the grader, we regraded
@@ -158,9 +142,7 @@ cannot measure the leaderboard effect. Details: [IMPACT.md](IMPACT.md),
 
 ## How we checked
 
-The mechanism of every finding was demonstrated on EdgeBench's own grader software, the exact public
-images the leaderboard used. Some score effects are computed or inferred rather than measured; each
-case page says which.
+Evidence ranges from source inspection and original-helper controls to full native grader runs. Each case states its level; component controls and formal models do not establish complete image integration. Some score effects are computed or inferred rather than measured.
 
 1. **Test submissions.** For each suspected problem we wrote a correct submission, one that
    triggers the problem, and a wrong one, and ran them through the original grader.
@@ -180,8 +162,7 @@ case page says which.
    Every result and its limits: [evidence/formal/SUMMARY.md](evidence/formal/SUMMARY.md).
 3. **Following each problem to the final score.** A problem counts only if it changes the 0–100
    score of honest work; problems that change no score are recorded as notes.
-4. **Testing every fix side by side.** The same test submissions were graded by the original and
-   the fixed grader. Each fix had to pass three checks:
+4. **Historical paired checks.** Original and repaired components or graders were compared on the same inputs. The intended acceptance checks were:
    - the problem is gone;
    - correct work keeps its score;
    - wrong work is still rejected.
@@ -189,7 +170,7 @@ case page says which.
    removed task's partial fix; 205 of them run three times; 2 setup runs that prepare inputs are not
    counted), one outcome changed, under the original grader: at 4 CPUs, Vibrating Path's valid deadline-based test submission timed out on 14 cases in one of its nine original-grader gradings, the timing problem the fix removes. No fixed-grader outcome changed. Exceptions: OpenRCT2's fix changes only its instructions and has nothing to run; Lean Analysis repeats ran locally rather than on fresh machines; Integer Codec's final 0–100 scale was applied to the recorded raw results; the revised College English grader was itself run three times; and the Rust starter's fixed-version score was run once, because each run takes about 40 minutes and nearly fills the machine's disk.
 
-All formal results rerun with one command (`python3 tools/check_formal.py`). The full method is in
+The formal runner (`python3 tools/check_formal.py`) reruns supported checks when the required tools are installed; its regression tests validate result parsing separately from recompiling proofs. The full method is in
 [METHOD.md](METHOD.md).
 
 ## Using the fixed tasks

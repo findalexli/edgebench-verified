@@ -12,8 +12,9 @@ rows = json.loads((ROOT / 'evidence/formal/summary.json').read_text())['rows']
 n = names()
 L = ['# Formal results', '',
      'Every task with a Lean 4 or TLA+ result. Each row links to a note that states the claim, the model and its link to '
-     'the grader code, the counter-check that must fail, and the limits. All results rerun with '
-     '`python3 tools/check_formal.py` (log: [RECHECK.md](RECHECK.md)).', '',
+     'the grader code, the counter-check that must fail, and the limits. Saved historical reruns are in '
+     '[RECHECK.md](RECHECK.md). Recheck the published sources with `python3 tools/check_formal.py`; '
+     'those records do not verify later repair candidates.', '',
      '| Task | Tool | Result | Covers | What is proved or checked | Limit |', '| --- | --- | --- | --- | --- | --- |']
 for r in rows:
     L.append(f"| [{n[r['task']]}](notes/{r['task']}.md) | {r['tool']} | {r['result']} | {r['covers']} | {r['what']} | {r['limit']} |")

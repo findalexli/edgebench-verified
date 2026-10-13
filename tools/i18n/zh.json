@@ -1,6 +1,5 @@
 {
   "_comment": "网站的界面字符串和生成文本，简体中文。键保持不变，只翻译值；值可以包含 HTML。{name} 由 tools/build_site.py 填入，翻译中必须原样保留。见 tools/i18n/README.md。",
-
   "site.name": "EdgeBench Verified",
   "site.description": "对 51 个公开 EdgeBench 任务背后评分器的审计：哪里出了问题，对分数影响多大，以及经过测试的修复。",
   "nav.label": "站点",
@@ -15,7 +14,6 @@
   "lang.zh": "中文",
   "pending_note": "翻译尚未完成：在译文加入之前，本页以英文显示。",
   "footer.text": "EdgeBench 由字节跳动 Seed 团队开发。本审计是独立进行的，与其作者没有关联。评分软件源自 EdgeBench（Apache-2.0）；任务定义和任务说明来自 Hugging Face 上的公开发布版本（CC BY 4.0）；EdgeBench 的镜像仅以其公开指纹引用，本站不重新分发这些镜像。",
-
   "page.overview.title": "EdgeBench Verified",
   "page.tasks.title": "全部 51 个任务 · EdgeBench Verified",
   "page.tasks.description": "每个公开的 EdgeBench 任务：要求智能体做什么，EdgeBench 如何评分，以及审计发现了什么。",
@@ -24,12 +22,10 @@
   "page.leaderboard.title": "对排行榜的影响 · EdgeBench Verified",
   "page.leaderboard.description": "修正后的评分器可能使已发布的 EdgeBench 排行榜改变多少，以及哪些问题无法从公开数据中确定。",
   "page.task.title": "{name} · EdgeBench Verified",
-
   "outcome.repair-v2": "已修复",
   "outcome.exclude": "已移除",
   "outcome.retain-with-note": "保留（附说明）",
   "outcome.retain": "原样保留",
-
   "tasks.kicker": "逐个任务",
   "tasks.h1": "全部 51 个任务",
   "tasks.intro": "每个公开的 EdgeBench 任务都有自己的页面。每个页面列出智能体收到的任务说明、EdgeBench 如何对工作评分，以及我们的发现：测试提交、独立检验，对于已修复的任务还有修复本身。<b>选择任意任务即可打开。</b>",
@@ -42,7 +38,6 @@
   "tasks.empty": "没有匹配的任务。",
   "tasks.open": "打开任务",
   "tasks.legend": "<b>已修复</b>：评分器存在一个可以纠正、且会改变分数的问题；我们发布新版本，并与原版对照测试。<b>保留（附说明）</b>：没有可纠正的问题；运行间波动等注意事项均已记录。<b>已移除</b>：不存在可靠的修复。",
-
   "task.back": "全部任务",
   "task.field": "领域：{field}",
   "task.toc.summary": "摘要",
@@ -83,17 +78,14 @@
   "task.grading.hours": "{n} 小时",
   "task.grading.hour": "1 小时",
   "task.grading.source": "来源：{src}",
-
   "parser.score_sum": "评分器为每个测试用例输出一行结果，最后输出一行 <code>TOTAL_SCORE</code>；该数字就是原始结果（解析器 <code>score_sum</code>）。",
   "parser.structured_json": "评分器输出一份 JSON 报告；其中的 <code>score</code> 是原始结果，报告还可以给出通过率，并可将提交标记为无效（解析器 <code>structured_json</code>）。",
   "parser.pytest_v": "评分器运行一套测试；通过率是通过的测试所占的比例，原始结果是评分器输出的 <code>TOTAL_SCORE</code> 行上的数字（解析器 <code>pytest_v</code>）。",
   "parser.game": "通过游戏服务器进行的每次游戏会话由游戏本身计分；会话的分数就是原始结果。",
   "parser.other": "解析器 <code>{parser}</code>。",
-
   "direction.maximize": "越高越好。",
   "direction.maximize_default": "越高越好（EdgeBench 的默认值；任务未设定方向）。",
   "direction.minimize": "越低越好。",
-
   "rescale.linear": "直线换算：原始结果为 {lower} 时得 0 分，为 {upper} 时得 100 分，中间的值按线性插值。超出这一范围的结果被截断为 0 或 100。",
   "rescale.min_linear": "越低越好的直线换算：原始结果为 {baseline}（基线）时得 0 分，为 {expert}（专家水平）时得 100 分。结果被截断到 0–100。",
   "rescale.min_linear_positive": "越低越好的直线换算：原始结果为 {baseline}（基线）时得 0 分，为 {expert}（专家水平）时得 100 分。结果被截断到 0–100，原始结果小于或等于 0 时得 0 分。",
@@ -110,22 +102,18 @@
   "rescale.unknown": "换算方式 <code>{kind}</code>；对于未知的换算方式，EdgeBench 的 <code>score_rescale.py</code> 把原始结果截断到 0–100。",
   "rescale.nonfinite": "不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。",
   "rescale.kind": "（<code>rescale.kind</code> = <code>{kind}</code>）",
-
   "selection.score_first": "原始结果最好（{best}）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。",
   "selection.valid_then_score": "被评分器标记为无效的提交被舍弃；在其余提交中，取原始结果最好（{best}）的一份，分数相同时取较早的一份（<code>valid_then_score</code>）。",
   "selection.pass_rate_first": "通过测试比例最高的提交。只有当后来的提交通过的比例严格更高时，才会替换它；只有当两者都通过全部测试时，才比较原始结果（{best}）。比例相同时保留较早的提交，一个测试都没有通过的提交永远不会被保留（<code>pass_rate_first</code>）。",
   "selection.default": "任务没有设定规则，因此适用 EdgeBench 评测框架的默认值（<code>sforge/harness/task_spec.py</code>）：",
   "selection.best.maximize": "最高",
   "selection.best.minimize": "最低",
-
   "internet.false": "否：智能体的环境与网络隔离（<code>internet: false</code>）。",
   "internet.true": "是（<code>internet: true</code>）。",
-
   "machine.default": "EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。",
   "machine.lean": "EdgeBench 官方排行榜设置中为 8 个 CPU 和 16 GB 内存：这是 Lean 任务的单独设定。",
   "machine.smt": "EdgeBench 官方排行榜设置中为 16 个 CPU 和 16 GB 内存：这是该任务的单独设定。",
   "machine.source": "<a href=\"{url}\">设置原文引录</a>。",
-
   "task.found.h2": "我们的发现",
   "task.found.intro": "完整案例：测试提交、独立检验和修复。文件路径指向<a href=\"{repo}\">代码仓库</a>中的位置；链接在 GitHub 上打开。",
   "task.found.lang_note": "案例译自英文原文；如有出入，以英文原文为准。",
@@ -142,17 +130,15 @@
   "task.prev": "上一个",
   "task.next": "下一个",
   "task.all": "全部任务",
-
   "fig.label": "图 {n}",
   "fig.read_case": "阅读案例",
-
-  "gen.fragile": "<mark>这足以使 {a} 和 {b} 的顺序颠倒：两者相差 {gap} 分，而仅这些修复就可能使差距变动最多 {swing} 分。</mark>因此，51 个公开任务不能确定两者中谁领先。",
-  "gen.rests_on": "这一结论主要依赖 {task}：在该任务上，{b} 最多可多得 {gain} 分；如果不计这个任务，最大变动为 {swing} 分，小于两者的差距，因此 {b} 至少需要其中的 {need} 分。这一结论还假定其他所有可界定的影响同时取到极值。",
-  "gen.not_fragile": "这不足以使任何两个相邻模型的顺序颠倒。",
-  "gen.rank_fragile": "<mark>即使只计入我们能够界定的影响，公开任务也已不能确定 {pairs} 的先后顺序。</mark>",
+  "gen.fragile": "<mark>{a} 和 {b} 的条件区间相互重叠。</mark>这些界限无法确认两者的先后顺序，但重叠不证明排名颠倒可以实现。",
+  "gen.rests_on": "该计算使用 {task} 的单任务上限，包括 {b} 最多增加 {gain} 分的假设。合计值 {swing} 和阈值 {need} 不证明这些极值可以同时达到。",
+  "gen.not_fragile": "在所列假设成立时，计入已记录影响上限的区间可以确认相邻模型的先后顺序。",
+  "gen.rank_fragile": "<mark>这些条件界限无法确认 {pairs} 的先后顺序；区间重叠不证明排名颠倒可以实现。</mark>",
   "gen.pair": "{a} 与 {b}",
   "gen.pair_join": "，以及 ",
-  "gen.rank_none": "<mark>影响大小可以界定的修复不会使任何一对相邻模型的顺序颠倒；排名是否改变，取决于那些影响大小未知的修复。</mark>",
+  "gen.rank_none": "<mark>计入已记录上限的区间只在所列假设下确认相邻模型顺序；未定量的影响仍未解决。</mark>",
   "verif.lead": "<b>证据：</b>已在原始评分器上复现",
   "verif.join": " · ",
   "verif.formal": "{tool}：{what}",
@@ -172,7 +158,6 @@
   "formal.result.model-checked": "已模型检验",
   "formal.result.partly proved": "部分证明",
   "formal.result.partly model-checked": "部分模型检验",
-
   "category.Combinatorial Optimization": "组合优化",
   "category.Formal Math & Theorem Proving": "形式化数学与定理证明",
   "category.Interactive Games & Simulators": "交互式游戏与模拟器",

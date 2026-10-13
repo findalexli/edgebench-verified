@@ -22,7 +22,7 @@
   <span class="lang" aria-label="语言"><a href="../leaderboard.html" hreflang="en" lang="en">EN</a> / <a href="../zh/leaderboard.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
   <nav class="tabs" aria-label="站点"><a href="index.html">概览</a><a href="tasks/index.html">任务</a><a href="method.html">方法</a><a href="leaderboard.html" aria-current="page">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
 </div></header>
-
+<div class="pending" role="note"><div class="in">翻译尚未完成：在译文加入之前，本页以英文显示。</div></div>
 <main id="content">
 <header class="title">
   <p class="kicker">排行榜</p>
@@ -31,22 +31,23 @@
 </header>
 
 <section id="summary" class="col">
-  <p>EdgeBench 公布每个模型在每个任务上的分数：三次十二小时运行中各次运行最佳分数的平均值。我们问的是，一旦问题得到纠正，每个模型在 51 个公开任务上的平均分会如何变化。<mark>如实的回答是：这无法从公开数据中确定。</mark>要测量它，要么需要对智能体的原始提交重新评分，而 EdgeBench 没有公开这些提交；要么需要在修复后的任务上重新运行这些模型，而本次审计没有这样做。可以精确陈述的是：最大可能变化；由影响有已证明上限的修复给出的一个更窄的范围；以及可精确计算的部分（表&nbsp;3）。这三者都假定没有任何修复会把一次失败的运行变成有分数的运行，或者反过来。</p>
+  <p>EdgeBench 先对各次运行的最佳提交进行归一化，再对有效运行求平均。<mark>公开的平均分无法确定修正后的排行榜。</mark>各次运行的原始分数和提交未公开。表&nbsp;3 给出的是有条件的外包区间，不是估计值，也不说明端点可以实现。所有区间都固定有效运行集合，将保留的任务视为不变，并以所列影响方向和上限为假设。失败率或求解器行为的变化需要新的证据。</p>
 </section>
 
 <section id="bounds" class="col">
-  <h2 class="sec"><span class="num">1</span>能说什么，不能说什么</h2>
+  <h2 class="sec"><span class="num">1</span>能够和不能够确定的内容</h2>
   <ul class="tight">
-    <li><b>最大可能变化。</b>让每项修复都取其最大可能的影响，一个模型的平均分最多下降 9.4 分或上升 23.1 分。对 18 个已修复任务，我们只知道方向，即分数是上升还是下降；连同 <a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> 中尚无定论的部分，它们至多贡献 9.0 分的下降或 21.1 分的上升。这是一个界限，而不是预测；只要没有任何修复改变哪些运行被算作有效，真实的变化就落在这个界限之内。</li>
-    <li><b>已证明的上限。</b>对 11 个已修复任务，任务自身的计分方式为最大可能的影响给出了上限（由评分器计算得出；<a class="task-link" href="tasks/pfr_formalization.html">PFR</a> 的上限由其规则推断；<a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk</a> 的上限来自高精度十进制数值扫描，而非证明）。它们合计使平均分至多下降 0.4 分或上升 2.0 分。<mark>这足以使 Opus 4.8 和 GPT-5.5 的顺序颠倒：两者相差 1.2 分，而仅这些修复就可能使差距变动最多 1.8 分。</mark>因此，51 个公开任务不能确定两者中谁领先。</li>
-    <li><b>可精确计算的部分。</b>有两项修复只改变原始结果换算为 0–100 分的方式，另有一个任务被移除，因此每个已发布的分数都可以直接重新计算。它们合计使每个平均分提高 1.2–1.9 分：<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a> 的刻度增加 1.0 到 1.4 分，移除 <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a> 增加 0.2 到 0.5 分，而 <a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> 原先缺少的刻度减去 0.01 到 0.08 分。这只是我们能够计算的部分；其他修复仍可能使平均分上升或下降。换算继承了 EdgeBench 表格中保留一位小数的舍入。</li>
+    <li><b>刻度区间。</b>移除 <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC</a>，按仿射刻度换算 <a class="task-link" href="tasks/borden_source_inversion.html">Borden</a>，并用求平均后仍然成立的逐次运行仿射上下界包围 <a class="task-link" href="tasks/treant_forest.html">Treant</a>。Treant 的平均分低于 20，不表示每次运行都处在同一线性区段；零分截断和第二区段使精确反推不成立。每个保留任务都计入公开分数 ±0.05 的舍入不确定性。区间中点不是推断出的得分。</li>
+    <li><b>已记录的上限。</b>下一列再计入 10 个单任务条件上限，包括从规则推断的 <a class="task-link" href="tasks/pfr_formalization.html">PFR</a> 得分，并不说明实际目标已被证明。区间以这些上限为条件，不声称所有极值可以同时出现。<mark>Opus 4.8 和 GPT-5.5 的条件区间相互重叠。</mark>这些界限无法确认两者的先后顺序，但重叠不证明排名颠倒可以实现。</li>
+    <li><b>Portfolio 敏感性假设。</b>单独一列对 <a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk</a> 假设 +0.3921/−0.10 的变化。有限十进制扫描只覆盖 242 或 243 个共同日期及 −30% 到 +100% 的策略收益；最大采样联合增分为 0.3913，加余量后的采样包络为 0.3921。网格扫描和 Lean 都没有证明全局上限。</li>
+    <li><b>完整分数域包络。</b>最宽区间让未定量的影响在所列方向上覆盖剩余分数范围。此列将 Portfolio 按完整的 0–100 分范围处理。这些是有条件的外界，不是置信区间或预测。</li>
   </ul>
-  <p class="tcap"><b>表 3.</b> 十二小时时在公开任务上的平均分：已发布值、所有修复所允许的最大可能变化、由有已证明上限的修复给出的范围，以及仅计入可精确计算的修正。模型：Claude Opus 4.8、GPT-5.5、GPT-5.4、GLM-5.1 和 DeepSeek-V4-Pro（DS-V4-Pro），名称与 EdgeBench 一致。</p>
+  <p class="tcap"><b>表 3.</b>十二小时公开任务平均分及有条件外包区间。保留 EdgeBench 的模型名称，区间端点向外舍入。</p>
   <div class="tablewrap"><table class="bt">
-    <thead><tr><th>模型</th><th class="n">已发布</th><th class="n">最大可能变化</th><th class="n">计入已证明的上限</th><th class="n">精确修正</th></tr></thead>
-    <tbody><tr><td>Opus 4.8</td><td class="n">44.2</td><td class="n"><b>36.6–63.6</b></td><td class="n">45.6–47.1</td><td class="n">46.0</td></tr><tr><td>GPT-5.5</td><td class="n">43.1</td><td class="n"><b>36.1–63.7</b></td><td class="n">44.4–46.2</td><td class="n">44.8</td></tr><tr><td>GPT-5.4</td><td class="n">34.2</td><td class="n"><b>28.6–58.1</b></td><td class="n">35.2–37.6</td><td class="n">35.6</td></tr><tr><td>GLM-5.1</td><td class="n">30.4</td><td class="n"><b>25.5–54.9</b></td><td class="n">31.5–33.9</td><td class="n">31.9</td></tr><tr><td>DS-V4-Pro</td><td class="n">25.7</td><td class="n"><b>21.0–49.9</b></td><td class="n">26.5–28.8</td><td class="n">26.8</td></tr></tbody>
+    <thead><tr><th>模型</th><th class="n">已发布</th><th class="n">完整分数域包络</th><th class="n">已记录上限</th><th class="n">再加 Portfolio 敏感性假设</th><th class="n">刻度区间</th></tr></thead>
+    <tbody><tr><td>Opus 4.8</td><td class="n">44.2</td><td class="n"><b>36.01–65.31</b></td><td class="n">45.49–47.30</td><td class="n">45.49–47.30</td><td class="n">45.92–46.05</td></tr><tr><td>GPT-5.5</td><td class="n">43.1</td><td class="n"><b>35.54–65.36</b></td><td class="n">44.30–46.35</td><td class="n">44.30–46.36</td><td class="n">44.73–44.86</td></tr><tr><td>GPT-5.4</td><td class="n">34.2</td><td class="n"><b>28.27–60.00</b></td><td class="n">35.15–37.71</td><td class="n">35.15–37.71</td><td class="n">35.57–35.71</td></tr><tr><td>GLM-5.1</td><td class="n">30.4</td><td class="n"><b>25.29–56.84</b></td><td class="n">31.39–34.00</td><td class="n">31.38–34.01</td><td class="n">31.81–31.94</td></tr><tr><td>DS-V4-Pro</td><td class="n">25.7</td><td class="n"><b>20.45–51.58</b></td><td class="n">26.48–28.98</td><td class="n">26.47–28.99</td><td class="n">26.77–26.91</td></tr></tbody>
   </table></div>
-  <p class="note" style="margin-top:10px">移除 D-ABIC 之后，平均分按 50 个任务计算（Opus 4.8 按 49 个，因为它没有有效的 Rust Multicrate 结果）。根据 EdgeBench 的逐任务表格重新计算已发布的平均分，与已发布值的差距在 0.06 以内。</p>
+  <p class="note" style="margin-top:10px">移除 D-ABIC 后剩 50 个任务；Opus 4.8 没有有效 Rust 结果，因此为 49 个。区间重叠说明这些界限无法确认排名，并不证明排名颠倒可以实现。Treant 原始总分上限是已记录的界限，不是已证明可达到的最优值。完整推导与假设见 <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a>。</p>
 </section>
 
 <section id="large" class="col">

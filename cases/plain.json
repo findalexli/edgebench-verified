@@ -72,9 +72,9 @@
  "cta_risk_budget_optimization": {
   "headline": "The overseas-exposure limit check skips currency conversion, so dollar positions are undercounted",
   "about": "Build a backtesting engine (a simulator that replays past prices) for futures in several currencies and markets, keeping the portfolio within risk limits such as at most 40% overseas exposure.",
-  "problem": "The risk policy requires overseas positions to be converted to Chinese yuan before checking the 40% limit. The grader adds US-dollar and yuan amounts without converting, so dollar positions count about seven times too little. A portfolio that breaches the limit can pass: the task's own reference positions exceed 40% on 32 of 1565 days, yet the check reports none.",
-  "effect": "Up to 5 points out of 100, only in the generous direction, and only for submissions holding US-dollar contracts. Compliant portfolios are never penalized.",
-  "action": "Fixed in a new version: dollar positions are converted to yuan at that day's exchange rate before the 40% check. Portfolios in one currency score the same; breaching ones can lose up to 5 points."
+  "problem": "The risk policy requires overseas positions to be converted to Chinese yuan before checking the 40% limit. The grader adds US-dollar and yuan amounts without converting, so dollar positions count about seven times too little. A portfolio that breaches the limit can pass: the task's own reference positions exceed 40% on 32 of 1565 days, yet the check reports none. A separate mismatch remains: the policy divides exposure by fund NAV, while the repaired check still divides by gross exposure.",
+  "effect": "The combined currency/NAV correction can change the 5-point component in either direction. Earlier full-score controls hit a veto first, so they do not demonstrate this final-score change.",
+  "action": "The v2.1 candidate converts overseas exposure to CNY and divides by same-date total CNY NAV. Paired original-helper controls pass; native full-score validation is pending."
  },
  "dabic_gravity_inversion": {
   "headline": "42 points come from the submission's own unchecked self-reported results",
@@ -94,8 +94,8 @@
   "headline": "One sub-problem's grader leaves the last state's size out of the cost limit check",
   "about": "Solve six programming-contest problems on tree structures, worth 5, 5, 10, 15, 25 and 40 points; one must keep a total operation cost under a fixed budget.",
   "problem": "In problem three (10 points), the grader leaves the size of the last neighbourhood reached out of its cost total. A solution can thus go over the cost budget by up to that size, at most 0.04% of the budget, and still pass. Neither the reference nor a simple solution falls in that window on the official inputs.",
-  "effect": "At most 9.67 of 100 points, for a solution inside the window on all 28 large official inputs (5.17 if on one). No real gain was shown.",
-  "action": "Fixed in a new version: the grader now counts the whole cost. Nothing else changes; the reference solution still scores 100."
+  "effect": "An upper bound is 9.67 of 100 points if all 28 large official inputs are affected (5.17 for one). No solution attaining these changes on the official inputs was demonstrated.",
+  "action": "The grader now counts the final state in the cost total. Paired crafted cases confirm the fix and the official reference still scores 100; no official-corpus score gain from the defect was demonstrated."
  },
  "exchange_core_throughput": {
   "headline": "The correctness check misses wrong fees and lost messages, so broken engines get full credit",
@@ -109,7 +109,7 @@
   "about": "Rewrite FFmpeg's image-scaling and format-conversion library (libswscale) in Zig or Rust; the score rewards being correct and faster than the original library.",
   "problem": "Correctness is checked on 30 conversions; speed is timed on 10 different ones, never checked. A call that fails or does nothing finishes almost instantly and earns a huge 'speedup'. An unfinished conversion returning an error took a score from 0 to 5.39; skipping 3:1 downscaling scored up to 18.93. The unchanged starter code also earns credit for wrong output.",
   "effect": "Up to 18.93 points out of 100 shown for honest but unfinished submissions whose library fails or does nothing on a timed conversion.",
-  "action": "Fixed in a new version: each timed call's result is checked, and failed or wrong output earns no speed credit. Correct submissions score as before, apart from timing noise."
+  "action": "The v2.2 judge checks every warmup/timed output and return code, clears buffers, and forces exactly zero on any failed workload. Three paired native scorer controls pass; the valid control completes in 43 seconds versus 38 originally. Full solver-build eval_cmd integration remains unverified."
  },
  "flt_regular_formalization": {
   "headline": "No problem found; the 25 scored proofs match the task's own list",
@@ -172,7 +172,7 @@
   "about": "Fill in missing proofs in a Lean version of Tao's Analysis I textbook (Lean checks proofs by machine); each graded declaration, hidden Lean helpers included, earns one of 2901 points.",
   "problem": "Two statements the solver must prove are false as written, so nobody can earn them. The grader also scores hidden helper entries that Lean creates automatically; whether they earn credit depends on how a proof is written, and some can never be earned. Two correct proofs of the same facts scored 26 and 25 depending on the proof technique.",
   "effect": "At least 49 of 2901 points (1.69%) are out of reach for any honest, complete solution; up to 466 points could depend on proof style.",
-  "action": "Fixed in a new version: the two false statements are corrected, and automatic helper entries and three placeholder statements are no longer scored, leaving 2338. Scores are not comparable with the original version."
+  "action": "Repair candidate: two false statements are corrected and helper/placeholder targets removed, leaving 2338 targets. Component checks pass, but the actual grading dependency path and final image builds remain unverified; scores use a new denominator."
  },
  "molecular_self_assembly": {
   "headline": "On the publisher's 4-CPU grader, cases within the 30-second limit time out and score 0",
@@ -227,15 +227,15 @@
   "headline": "Five statements could never be earned because their type contained a hidden `sorry`",
   "about": "Fill in missing proofs in a project about the PFR conjecture, a mathematics result, written in Lean, a language for machine-checked math proofs.",
   "problem": "Five of 423 scored statements carried a real `sorry` in their type. Lean adds it without any error because of how an automatic argument was declared. The grader counts it, so no proof could earn them, and a later proof that used one of them also lost its point. Two honest proofs of one theorem in different styles earned the same points.",
-  "effect": "No solver could earn 5 statements (1.18 points out of 100, measured), or up to 9 (2.13 points) when later proofs used them (inferred from the upstream proofs). Only a solver that would have proved them loses points, so rankings could change. Re-scoring existing submissions with the fix changes nothing; new runs can gain up to 2.13 points.",
-  "action": "Fixed in a new version: the automatic argument is written into the five statements, so their type no longer contains `sorry`; nothing else changes."
+  "effect": "Five targets cannot be earned (1.18 points); up to nine are affected when downstream proofs use them (2.13 points, inferred). The resulting 98.82 ceiling is an upper bound, not an attained score. Recovery on the actual targets and leaderboard impact have not been measured.",
+  "action": "Repair candidate: automatic arguments move into the five statements, removing sorry from their types. Analogous lemma controls pass; no proof of the five actual targets was run and the solver image was not built."
  },
  "portfolio_risk_calibration": {
   "headline": "Excess return uses a slightly different formula than the instructions state",
   "about": "Build an investment portfolio strategy that is tested on past market data and compared with a benchmark index.",
   "problem": "The instructions define excess return as the strategy's yearly return minus the benchmark's yearly return. The original grader instead subtracts the two returns over the test period first and then converts the difference to a yearly figure, so a solver checking its own excess by the instructions sees a slightly different number from the grader's.",
-  "effect": "The total score moves by at most about 0.4 of 100 points: up by at most 0.39 for positive excess returns, down by at most 0.10 for negative ones (a 50-digit decimal sweep over the test data, not a proof). The order and sign of excess returns do not change (proved in Lean).",
-  "action": "Fixed in a new version: the grader converts the strategy's return to a yearly figure the same way it already does for the benchmark, and subtracts. A test strategy following the instructions gains 0.07 points (32.45 to 32.52), and wrong submissions still score 0."
+  "effect": "A restricted numerical sweep gives an envelope of +0.3921 and −0.10 points under its assumptions, not a universal score bound. The paired full-score change is +0.07 points. Lean preserves excess-return sign and order within the stated domain.",
+  "action": "The grader now subtracts annualized returns as instructed. A paired strategy gains 0.07 points and tested wrong submissions remain at zero. The numerical sensitivity sweep and Lean ordering result have explicit domain assumptions."
  },
  "rust_multicrate_reconstruction": {
   "headline": "Hidden tests that cannot compile zero two packages; fixed",
@@ -256,7 +256,7 @@
   "about": "Build test-data generators for schemathesis, a tool that tests web APIs, including one that produces valid dates in the standard web date format.",
   "problem": "The hidden test checks only that each date has the right pattern of letters and digits. It accepts impossible dates such as 31 April, wrong weekdays, times like 24:00 and made-up month names. A generator that produces impossible dates or wrong weekdays about 90% of the time still passes all 15 tests in its group.",
   "effect": "At most about 1% of the total score, only for generators that produce invalid dates or times; they get the same credit as correct generators.",
-  "action": "Fixed in a new version: the test now checks real calendar dates, matching weekdays and valid times, and samples 200 dates instead of 50. Correct generators keep their scores; wrong ones lose about 1%."
+  "action": "The v2.1 judge checks calendar validity, weekday and time, and restricts years to 1900 or later. Three paired native eval_cmd controls pass: valid-generator score unchanged, pre-1900 and malformed-date generators lose the intended test credit. The old Lean proof has not been revised."
  },
  "schemathesis_reporting_observability": {
   "headline": "Two hidden tests give credit for wrong or broken output",
@@ -270,7 +270,7 @@
   "about": "Build an SMT solver: a program that decides whether a set of logical constraints can be satisfied and, if so, prints values that satisfy them.",
   "problem": "When checking a solver's proposed values, the grader looks up a function's value by its literal text, such as \"(f x)\", ignoring what x currently stands for. If the same text means different things in different places, no answer can pass. 27 satisfiable hidden problems are unwinnable, and on 42 more, answers written as the instructions describe are rejected. A note, not part of the fix: the grader runs 16 solver processes at once. The official leaderboard gives it 16 CPUs, one per process; on a grader with fewer CPUs, such as 4, each process gets less, and a solver needing 20 seconds of computing per problem timed out.",
   "effect": "A perfect solver's maximum falls from 78.61 to 72.40 (6.21 points). All solvers lose the 27 problems; those following the documented format also lose 42 more.",
-  "action": "Fixed in a new version: the checker works out a function's actual inputs before looking up its value, so correct answers in the documented format are accepted; wrong answers are still rejected."
+  "action": "The repaired checker accepts the tested valid ground-key answers on all 69 affected hidden files and rejects the tested wrong answers. Lean soundness covers a restricted modeled fragment, not every feature of the evaluator; textual-key compatibility has documented exceptions."
  },
  "sphere_eversion_formalization": {
   "headline": "No problem found; no scored item found out of reach because of generated names",
@@ -298,7 +298,7 @@
   "about": "Starting from a triangle mesh (a network of triangles) over 512 points, recolour points and swap shared triangle edges to get the lowest possible score.",
   "problem": "The instructions allow swapping an edge only when its two triangles form a convex four-sided shape. The grader skips that condition, so it accepts swaps that fold the mesh over itself. The same rule built the hidden inputs: all ten contain overlapping triangles. A forbidden swap can improve the score, as one did on a hidden case. Separately, the grader runs 8 cases at once under a 30-second wall-clock limit; on the publisher's 4-CPU setting a valid solution using 20 seconds of CPU per case timed out on 8 of 10 cases, which leaves the submission without a score.",
   "effect": "Changes which moves are allowed for every solver; how much a strong solver gains from forbidden moves was not measured. On a 4-CPU grader, solutions using about 15 to 30 seconds of CPU per case lost their whole score.",
-  "action": "Fixed in a new version: forbidden swaps are rejected, the test inputs are rebuilt without overlaps, and the grader runs at most as many cases at once as it has CPUs. Scores are not comparable with the original version."
+  "action": "The package rejects forbidden flips, regenerates non-overlapping inputs and limits CPU parallelism. It does not fully restore convex-hull triangulations: 12 of 13 regenerated files still leave gaps. Scores are not comparable with the original."
  },
  "trinity_text_adventure": {
   "headline": "No problem found; the score is the game's own, and play is repeatable",
@@ -324,9 +324,9 @@
  "vibrating_path_graph_coloring": {
   "headline": "On the publisher's 4-CPU grader, a solution within the 30-second limit can leave the whole submission without a score",
   "about": "Solve 50 graph-colouring puzzles (colouring points of a network so linked points differ), outputting a sequence of point \"hits\" and a colour per point, for the lowest total score.",
-  "problem": "The grader runs 8 cases at once under a 30-second wall-clock limit. On the publisher's 4-CPU setting each case gets half a CPU, so a valid solution using 20 seconds of CPU per case timed out on 48 of 50 cases, and one timeout leaves the whole submission without a score. Separately, the tester accepts a no-hit answer only in two lines, not the documented three; that cannot change any official score.",
-  "effect": "Up to the full score for solutions using about 14 to 30 seconds of CPU per case on a 4-CPU grader; solutions that stop at a deadline got half the computing time. The format mismatch changes no score.",
-  "action": "Fixed in a new version: the grader runs at most as many cases at once as it has CPUs, so each case keeps its 30 seconds, and the whole run may take 900 seconds instead of 600. One failed case still voids the submission, and the two-line format note stays."
+  "problem": "The grader runs 8 cases at once under a 30-second wall-clock limit. On the publisher's 4-CPU setting each case gets half a CPU, so a valid solution using 20 seconds of CPU per case timed out on 48 of 50 cases, and one timeout leaves the whole submission without a score. Separately, the tester accepts a no-hit answer only in two lines, not the documented three; zero-hit answers are proved invalid on 37 cases, but the format effect remains unresolved on the other 13.",
+  "effect": "Up to the full score for solutions using about 14 to 30 seconds of CPU per case on a 4-CPU grader; solutions that stop at a deadline got half the computing time. The format mismatch has zero effect on 37 certified cases; its effect on the other 13 is unresolved.",
+  "action": "CPU parallelism is limited to available CPUs and grading gets 900 seconds. The zero-hit format mismatch remains: its effect is ruled out on 37 certified cases but unresolved on 13. One failed case still voids the submission."
  },
  "vliw_kernel_optimization": {
   "headline": "No problem found for honest submissions",
@@ -340,7 +340,7 @@
   "about": "Write a program that produces forklift command strings to store and then dispatch goods in a grid warehouse, using as few commands as possible.",
   "problem": "The instructions promise 30 seconds per test case, 150 per five-case input; the grader allows 60 seconds per input, and one timeout voids the whole submission. Separately, a machine-checked proof shows every valid answer totals at least 712.538, worse than the scale's top reference points, so no score can exceed about 30.6 (30.3 before display rounding); the best reachable is unknown. On the publisher's 4-CPU grader, running 8 inputs at once also halved each input's computing time.",
   "effect": "A solver taking 60 to 150 seconds on any input, or more than about 30 seconds of CPU per input on the publisher's 4-CPU grader (half a CPU each under the 60-second limit), loses its whole score; every solver is capped at about 30.6 out of 100 (30.3 before display rounding).",
-  "action": "Fixed in a new version: the time limit is 150 seconds per input, as promised, and the grader runs at most as many inputs at once as it has CPUs. The score scale is unchanged, and the ceiling of about 30.6 (30.3 before display rounding) is documented."
+  "action": "The grader repair increases each input limit to 150 seconds and limits parallelism to available CPUs. It also requires the supplied harness wait overlay so late valid results are collected; end-to-end integration remains pending. The documented score ceiling remains."
  },
  "wesnoth_tactical_ai": {
   "headline": "The supplied starter program is broken, and repeat games give different results",
