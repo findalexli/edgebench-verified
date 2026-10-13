@@ -2,6 +2,8 @@
 
 **Outcome:** Fixed. <mark>The grader's rule for legal edge flips leaves out the README's convexity condition; the same rule generated all ten hidden inputs, which contain overlapping or folded triangles, and it also decides which submitted moves are accepted. Separately, on the publisher's 4-CPU grader a valid solution using more than about 15 s of CPU per case times out, although the README promises 30 s per case, and one timeout leaves the submission without a score; the fixed version also runs at most as many cases at once as the grader has CPUs.</mark>
 
+The convexity and CPU repairs do not establish complete input validity. The saved exact-geometry census finds missing convex-hull coverage in 12 of 13 regenerated inputs. This remains an unresolved repair requirement, not a new measured score effect; see the geometry records and limits below.
+
 ![Sketch of a dart-shaped four-sided shape with a dent, where flipping its inner edge makes the two new triangles overlap; the original grader accepts the flip and scores it (41 on the four-point test input) and the fixed version rejects it as an invalid flip. On real hidden case 0009 one forbidden flip lowers (improves) the score from 644,809 to 641,611.](figures/triangulation_coloring_optimization.svg)
 
 *The original grader accepts flips the rules forbid, and one even improves the score (lower is better: 644,809 to 641,611 on hidden case 0009); the fixed version rejects them.*
