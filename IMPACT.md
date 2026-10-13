@@ -14,7 +14,7 @@ All intervals hold the valid-run set fixed and treat retained tasks as unchanged
 | GLM-5.1 | 30.4 | 31.81–31.94 | 31.39–34.00 | 31.38–34.01 | 25.29–56.84 |
 | DS-V4-Pro | 25.7 | 26.77–26.91 | 26.48–28.98 | 26.47–28.99 | 20.45–51.58 |
 
-`scale_midpoint_mean` in the CSV is only a display midpoint, not an inferred corrected mean. The full-domain envelope allows open effects to span the remaining score range in their stated directions; Portfolio receives the full 0–100 range because its sweep does not establish a global bound.
+`scale_midpoint_mean` in the CSV is only a display midpoint, not an inferred corrected mean. The CSV interval endpoints are the exact rational endpoints rounded outward to 9 decimals, so each CSV interval encloses the exact one. The full-domain envelope allows open effects to span the remaining score range in their stated directions; Portfolio receives the full 0–100 range because its sweep does not establish a global bound.
 
 ## What can be recovered from an average
 

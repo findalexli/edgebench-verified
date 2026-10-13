@@ -73,13 +73,16 @@ exchange_core_throughput,"unmodified engine, 4 CPUs run 3",valid,OK 972,"gate OK
 exchange_core_throughput,"`topo21`, 4 CPUs run 1",valid,OK 1644,"gate OK (33 tests), OK 1687",1644,1687,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
 exchange_core_throughput,"`topo21`, 4 CPUs run 2",valid,OK 1994,"gate OK (33 tests), OK 1684",1994,1684,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
 exchange_core_throughput,"`topo21`, 4 CPUs run 3",valid,OK 1894,"gate OK (33 tests), OK 1832",1894,1832,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
-ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,,,0.967353,0.980056,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,,,0.509049,0.507032,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,shipped scaffold,baseline,,,0.447819,0.012416,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,,,2.881761,0.000464,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,,,2.884506,0.000463,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,,,1.305860,0.000451,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,0.0 (28/30),0.0 (28/30),0.0,0.0,raw,no,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,,,0.967353,0.980056,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,,,0.509049,0.507032,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,shipped scaffold,baseline,,,0.447819,0.012416,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,,,2.881761,0.000464,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,,,2.884506,0.000463,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,,,1.305860,0.000451,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,0.0 (28/30),0.0 (28/30),0.0,0.0,raw,no,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,Forward every call to FFmpeg,valid,30/30,30/30,1.056386,1.020061,raw,yes,v2.2 native result (2026-10-13),2
+ffmpeg_swscale_reimplementation,Skip second call of each context,trigger,30/30,30/30,1.038559,0.000000,raw,yes,v2.2 native result (2026-10-13),2
+ffmpeg_swscale_reimplementation,Always return an error,invalid,0/30,0/30,0.000000,0.000000,raw,no,v2.2 native result (2026-10-13),2
 git_rewrite_in_zig,`control`: unmodified starter,baseline,2,2,0.000069,0.000069,raw,no,Paired table,8
 git_rewrite_in_zig,"`zig_build_exe`: starter after `zig build-exe src/main.zig -lc -lz` (leaves `main`, `main.o`)",trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
 git_rewrite_in_zig,"`obj_only`: as above, only `main.o` left",trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
@@ -95,8 +98,8 @@ graph_node_classification,"neighbor (honest neighbour-vote solver, int ids)",val
 graph_node_classification,"nanconf (baseline predictions, NaN confidences)",valid,true,true,27.147,27.143,normalized,yes,Paired table,4
 graph_node_classification,"shrink (one real prediction, rest `""x""`)",trigger,true,false,16.026,,normalized,yes,Paired table,4
 graph_node_classification,missing_half (half the test nodes),invalid,false,false,,,normalized,no,Paired table,4
-integer_compression_codec,shipped Varint starter (unchanged),trigger,0.2327 / 0.2327,0.9786 / 0.9786 (repeat 1.0155),0.2327,0.9786,raw,yes,Paired v1/v2 results: integer_compression_codec,4
-integer_compression_codec,delta + zigzag + varint,valid,0.8253 / 0.8253,6.7024 / 6.7024 (repeat 6.9708),0.8253,6.7024,raw,yes,Paired v1/v2 results: integer_compression_codec,4
+integer_compression_codec,shipped Varint starter (unchanged),trigger,0.2327 / 0.2327,0.9786 / 0.00 (repeat 1.0155 / 0.00),0.2327,0.9786,raw,yes,Paired v1/v2 results: integer_compression_codec,4
+integer_compression_codec,delta + zigzag + varint,valid,0.8253 / 0.8253,6.7024 / 1.79 (repeat 6.9708 / 1.87),0.8253,6.7024,raw,yes,Paired v1/v2 results: integer_compression_codec,4
 integer_compression_codec,starter with one corrupted value,invalid,0 / 0,0 / 0,0,0,raw,no,Paired v1/v2 results: integer_compression_codec,4
 jagua_nesting_optimization,valid_adjacent_squares (shared edge),valid,accept,accept,,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
 jagua_nesting_optimization,coincident_squares,trigger,accept,reject `overlap_0_1`,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
@@ -216,13 +219,13 @@ vibrating_path_graph_coloring,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE,
 vibrating_path_graph_coloring,`wall25` (works until 25 s wall clock),valid,"36 OK, 14 TLE, TOTAL inf","50 OK, TOTAL 24,650,014",,,raw,yes,vibrating_path_graph_coloring v2: paired results,4
 vibrating_path_graph_coloring,"`wall25`, repeat 1 / repeat 2",valid,"50 OK, 24,650,014","50 OK, 24,650,014",,,raw,no,vibrating_path_graph_coloring v2: paired results,4
 vibrating_path_graph_coloring,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL inf","0 OK, 50 TLE, TOTAL inf",,,raw,no,vibrating_path_graph_coloring v2: paired results,4
-vibrating_path_graph_coloring,`cpu20` (20 s CPU per case) | 8,valid,"50 OK, TOTAL 24,650,014","50 OK, TOTAL 24,650,014",,,raw,no,vibrating_path_graph_coloring v2: paired results,8
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case),valid,"50 OK, TOTAL 24,650,014","50 OK, TOTAL 24,650,014",,,raw,no,vibrating_path_graph_coloring v2: paired results,8
 apple_incremental_game,`cpu0` (honest control alone),baseline,"50 OK, TOTAL 99,714,418 (5.04)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,no,apple_incremental_game v2: paired results,4
 apple_incremental_game,`cpu20` (20 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 3,955,266 (0.00)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,yes,apple_incremental_game v2: paired results,4
 apple_incremental_game,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 3,955,266 (0.00)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,yes,apple_incremental_game v2: paired results,4
 apple_incremental_game,`wall25` (works until 25 s wall clock),valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,4
 apple_incremental_game,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL 0","0 OK, 50 TLE, TOTAL 0",,,raw,no,apple_incremental_game v2: paired results,4
-apple_incremental_game,`cpu20` (20 s CPU per case) | 8,valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,8
+apple_incremental_game,`cpu20` (20 s CPU per case),valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,8
 triangulation_coloring_optimization,`cpu0` (control alone),baseline,"10 OK, 866,166","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
 triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,"2 OK, 8 TLE, inf (no score)","10 OK, 874,742 (48.66)",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
 triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,"2 OK, 8 TLE, inf","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4

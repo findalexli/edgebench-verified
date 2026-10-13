@@ -22,7 +22,7 @@
   <span class="lang" aria-label="语言"><a href="../index.html" hreflang="en" lang="en">EN</a> / <a href="../zh/index.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
   <nav class="tabs" aria-label="站点"><a href="index.html" aria-current="page">概览</a><a href="tasks/index.html">任务</a><a href="method.html">方法</a><a href="leaderboard.html">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
 </div></header>
-<div class="pending" role="note"><div class="in">翻译尚未完成：在译文加入之前，本页以英文显示。</div></div>
+
 <main id="content">
 <header class="title">
   <h1>EdgeBench Verified</h1>
@@ -38,14 +38,14 @@
   </div>
   <div class="abstract">
     <h2>摘要</h2>
-    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 对工程与科学任务中的智能体进行评分。本审计检查了全部 51 个公开任务。历史处置为 31 个修复包、19 个附说明保留的任务和 1 个移除的任务。<mark>修复包不等于整个任务已经获得验证。</mark>证据包括原始辅助函数测试、原生评分器运行和形式化模型，各有其适用范围。Datagen 的年份范围修正通过了原生评分器对照，FFmpeg 的输出检查和失败归零规则通过了原生计分程序对照。Warehouse 需要独立的主机端等待修复；组件测试不能证明后端集成已经完成。Lean/PFR 的镜像集成和 Triangulation 的凸包覆盖仍需进一步工作。CTA 已有使用净资产分母的候选修复，辅助函数对照通过，原生集成验证仍待完成。公开平均分不能确定修正后的排行榜：Treant 需要区间，Portfolio 的扫描只是敏感性情景，区间重叠也不能证明排名能够反转。参见<a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">当前修复包状态</a>及<a href="leaderboard.html">影响分析</a>。</p>
+    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 对工程与科学任务中的智能体进行评分。本审计检查了全部 51 个公开任务。历史处置为 31 个修复包、19 个附说明保留的任务和 1 个移除的任务。<mark>修复包不等于整个任务已经获得验证。</mark>证据包括原始辅助函数测试、原生评分器运行和形式化模型，各有其适用范围。Datagen 的年份范围修正通过了原生评分器对照，FFmpeg 的输出检查和失败归零规则通过了原生计分程序对照。CTA 以基金净资产为分母的修正，在原始评分命令下通过了原生并排对照运行。Warehouse 需要独立的主机端等待修复。32 个修复包中有 31 个在一台干净的机器上从零重建成功；Lean Analysis 的评分器镜像约需 45 GB 磁盘空间，未能重建。尚待完成的检验：FFmpeg 的提交构建路径；Warehouse 的等待修复在真实后端上的集成；Lean Analysis 的镜像构建和实际评分路径；PFR 在五个实际目标上的得分恢复，这需要真实的证明；Equivalence 在全部六道题上的逐题检查；以及 Vibrating Path 零命中格式问题的影响，在 50 个用例中有 13 个仍未解决。Triangulation 重新生成的输入现在恰好覆盖其凸包（v2.2）。公开平均分不能确定修正后的排行榜：Treant 需要区间，Portfolio 的扫描只是敏感性情景，区间重叠也不能证明排名能够反转。参见<a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">当前修复包状态</a>及<a href="leaderboard.html">影响分析</a>。</p>
   </div>
   <p class="tcap"><b>表 1.</b> 审计的主要数字。</p>
   <div class="tablewrap"><table class="bt">
     <tbody>
       <tr><td>检查的公开任务</td><td class="n">51</td><td></td></tr>
       <tr><td>评分器存在可纠正、且会改变分数的问题的任务</td><td class="n">32</td><td></td></tr>
-      <tr><td style="padding-left:1.4em" class="o-repair-v2">在新版本中修复，并与原版对照测试</td><td class="n">31</td><td class="note">OpenRCT2 的修复只改变任务说明，没有可运行的内容</td></tr>
+      <tr><td style="padding-left:1.4em" class="o-repair-v2">有版本号的修复包；验证范围因包而异</td><td class="n">31</td><td class="note">当前的集成局限按修复包分别列出</td></tr>
       <tr><td style="padding-left:1.4em" class="o-exclude">已移除，不存在可靠的修复</td><td class="n">1</td><td></td></tr>
       <tr><td>保留（附说明）的任务：没有可纠正的问题；任何运行间或机器之间的波动均已记录</td><td class="n">19</td><td class="note">最大：每次评分约 ±7 分（ANN Vector Search）</td></tr>
       <tr><td>在 Lean&nbsp;4 或 TLA+ 中有形式化结果的任务</td><td class="n">26</td><td class="note">286 个 Lean 定理，20 次 TLA+ 模型检验运行</td></tr>
@@ -115,7 +115,7 @@
     <li><b class="o-exclude">已移除（1 个任务）。</b>不存在可靠的修复。</li>
   </ul>
   <figure class="fig" id="fig-evidence-layers"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">
-<title>Four layers of evidence: findings reproduced on the original grader, claims proved in Lean 4 or TLA+, fixes tested side by side against the original, and fixes checked on a real agent run.</title>
+<title>Four evidence layers with different scope: tasks examined in the original code and images, models proved in Lean 4 or checked in TLA+, historical paired comparisons of saved versions, and fixed tasks covered by one public agent run.</title>
 <style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} .num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}</style>
 <rect class="box" x="0.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="16" y="36" font-size="26" font-weight="600">1</text>
@@ -147,7 +147,7 @@
 <text class="ink" x="598" y="172" font-size="14">both graders;</text>
 <text class="ink" x="598" y="196" font-size="14">Lean computed</text>
 </svg>
-</div><figcaption><b>图 2</b> 四个相互独立的证据层次。每项发现的机制都在原始评分器上得到演示；凡是能够精确表述的结论，还在 Lean 4 中证明或在 TLA+ 中进行了模型检验；修复经过并排对照测试，几乎每项对照都运行三次（例外列在“我们如何验证”中）；一次真实的智能体运行覆盖了九个已修复任务：其中七个用两种评分器重新评分（314 份提交），Lean Analysis 的影响则根据原始评分器的判定计算得出。</figcaption></figure>
+</div><figcaption><b>图 2</b> 四个证据层次，各有其适用范围。历史上的源代码与辅助函数对照、原生运行和形式化模型不能相互替代，也不是彼此独立、经过认证的复现。成对对照针对的是保存下来的版本，不能为较新的候选版本提供认证。真实智能体记录覆盖九个任务：其中七个用两种评分器重新评分，Lean Analysis 则根据保存的判定计算得出。</figcaption></figure>
 </section>
 
 <section id="findings" class="col">
@@ -596,7 +596,7 @@
   <dl class="data">
     <dt>代码仓库</dt><dd><a href="https://github.com/findalexli/edgebench-verified">github.com/findalexli/edgebench-verified</a>：修复、案例页、证据、Lean 和 TLA+ 文件</dd>
     <dt>结果</dt><dd><a href="../data/decisions.csv">decisions.csv</a> · <a href="../data/decisions.json">decisions.json</a></dd>
-    <dt>修复测试</dt><dd><a href="../data/paired-results.csv">paired-results.csv</a>：覆盖 32 个任务的 210 行，原始评分器与修复版评分器：206 项评分对照，2 行准备性运行，1 行推导得出的分数上限（Treant Forest，未执行），以及 1 项仅涉及任务说明的检查（OpenRCT2，没有可运行的内容）</dd>
+    <dt>修复测试</dt><dd><a href="../data/paired-results.csv">paired-results.csv</a>：覆盖 32 个任务的 256 行，原始评分器与修复版评分器：206 项评分对照，2 行准备性运行，1 行推导得出的分数上限（Treant Forest，未执行），以及 47 项仅涉及任务说明的检查（OpenRCT2，没有可运行的内容）</dd>
     <dt>重复运行</dt><dd><a href="../data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/data/paired-repeatability.md">报告</a></dd>
     <dt>排行榜影响</dt><dd><a href="../data/impact.csv">impact.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">报告</a></dd>
     <dt>文档</dt><dd><a href="https://github.com/findalexli/edgebench-verified/blob/main/FINDINGS.md">发现</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/METHOD.md">方法</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">应用修复</a></dd>
