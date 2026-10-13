@@ -51,7 +51,7 @@
       <tr><td>在 Lean&nbsp;4 或 TLA+ 中有形式化结果的任务</td><td class="n">26</td><td class="note">286 个 Lean 定理，20 次 TLA+ 模型检验运行</td></tr>
       <tr><td>历史修复模型中的已验证性质</td><td class="n">10</td><td class="note">另有 4 项部分证明</td></tr>
       <tr><td>历史形式化检验；重跑需要对应工具链</td><td class="n">45</td><td class="note">历史结果；当前候选版本需另行验证</td></tr>
-      <tr><td>原版与修复版本的历史对照</td><td class="n">206</td><td class="note">205 项运行 3 次（仅一项例外）；有一个原始评分器的结果发生变化，修复版评分器的结果没有变化；详见<a href="method.html#procedure">方法</a>页</td></tr>
+      <tr><td>原版与修复版本的历史对照</td><td class="n">254</td><td class="note">240 项运行 3 次，14 项只运行一次；有一个原始评分器的结果发生变化，修复版评分器的结果没有变化；详见<a href="method.html#procedure">方法</a>页</td></tr>
     </tbody>
   </table></div>
 </header>
@@ -136,7 +136,7 @@
 <text class="ink" x="404" y="66" font-size="16.5" font-weight="600">Historical pairs</text>
 <text class="muted" x="404" y="87" font-size="14">components and graders</text>
 <text class="ink" x="404" y="124" font-size="14">30 fixes + 1 partial fix</text>
-<text class="ink" x="404" y="148" font-size="14">206 comparisons</text>
+<text class="ink" x="404" y="148" font-size="14">254 comparisons</text>
 <text class="ink" x="404" y="172" font-size="14">nearly all run 3 times</text>
 <rect class="box" x="582.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="598" y="36" font-size="26" font-weight="600">4</text>
@@ -212,7 +212,7 @@
 
   <h3 id="too-low"><span class="num">3.2</span>正确的工作得分过低</h3>
   <p><span class="lead-in"><a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>。</span>智能体要重建一个大型 Rust 项目。评分器以无法编译的方式把隐藏测试插入项目的两个部分，<mark>因此对每个遵守“不得修改测试”这一规则的智能体，这两个部分（共 100 分中的 22 分）都得 0 分。</mark>一个完整的解法得 73.99 分，而不是 94.70 分。（公开的归档还缺少四个库文件；恢复这些文件后，初始文件能够精确复现发布方记录的分数，因此发布方自己的评分很可能具备这些文件，这第二个问题只影响使用公开镜像评分的人。）</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：部分模型检验 · 修复经并排对照测试，三次运行（其中一项对照只运行一次）</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：部分模型检验 · 修复经并排对照测试，三次运行（4 项对照中有 1 项只运行一次）</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>。</span>智能体要用 Zig 语言重写 git。有几项任务说明从未提到的检查：只要项目中含有一个普通的构建文件（例如一条常用的 Zig 构建命令留下的文件），或含有一个把智能体的输出与真实 git 相比较的测试（而任务说明恰恰鼓励写这种测试），整个分数就会被设为 0。修复会删除遗留的构建文件，并取消对测试代码的检查，而不是把分数清零。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>。</span>智能体要在一个数学库中补全证明。在 423 条命题中，有五条在命题本身内部藏有一个缺口标记（Lean 的 <code>sorry</code>），这是由文件声明默认参数的方式引入的，因此任何证明都无法获得这些分数；任何使用了它们的后续证明也会被拒绝。这五条共占 100 分中的 1.18 分，连同使用它们的后续证明最多为 2.13 分（推断所得）。只有本来能证明它们的智能体才会失分，因此这一缺陷也可能掩盖智能体之间的差异。</p>
@@ -300,7 +300,7 @@
 
   <h3 id="accepted"><span class="num">3.3</span>错误的工作被接受</h3>
   <p><span class="lead-in"><a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>。</span>智能体要在不改变行为的前提下加速一个证券交易所撮合引擎。评分器的正确性检查只确认资金总体平衡、订单簿一致。<mark>两个现实中可能出现、只需改动一处的缺陷——向卖方吃单者收取挂单手续费而非吃单手续费，以及不发送成交消息——都能通过检查并获得满分</mark>，而项目自带的测试套件能发现这两个缺陷。修复版要求先通过这些测试，再测量速度。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：发现：部分证明 · 修复经并排对照测试，三次运行</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：发现：部分证明 · 修复经并排对照测试，三次运行（13 项对照中有 6 项只运行一次）</p>
   <figure class="fig" id="fig-exchange_core_throughput"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
 <title>Bar chart: under the original grader, engines with wrong fees (24.40) or dropped events (15.62) receive full credit, as does the correct engine (7.14); the differences are within speed noise. The fixed grader gives both broken engines 0.</title>
 <style>
@@ -571,7 +571,7 @@
     <li><b>用测试提交展示问题：</b>一份正确的提交，必须得到所承诺的分数；一份触发问题的提交；以及一份错误的提交，必须被拒绝。</li>
     <li><b>独立确认，</b>通过精确算术、另一个独立实现、穷尽搜索，或在 Lean&nbsp;4 或 TLA+ 中的形式化证明。</li>
     <li><b>追踪到最终分数。</b>只有改变了诚实工作的 0–100 分的问题才被计入。</li>
-    <li><b>对原版和修复版本进行对照，</b>使用相同的测试提交：共 206 项评分对照，其中 205 项运行三次。</li>
+    <li><b>对原版和修复版本进行对照，</b>使用相同的测试提交：共 254 项评分对照，其中 240 项运行三次。</li>
   </ol>
   <p>51 个任务中有 26 个有形式化结果，包括 286 个 Lean 定理和 20 次 TLA+ 模型检验运行。<mark>历史形式化结果在明确模型内覆盖 10 项修复机制，另有 4 项部分证明。它们不验证改动后的候选版本、完整评分器行为或镜像集成。</mark>形式化检验也纠正了我们：有一项已发布的修复覆盖范围比所说的窄，现已修订。</p>
   <p class="more-link"><a href="method.html">完整的方法：每个步骤、形式化结果表&nbsp;2，以及局限</a></p>
@@ -596,7 +596,7 @@
   <dl class="data">
     <dt>代码仓库</dt><dd><a href="https://github.com/findalexli/edgebench-verified">github.com/findalexli/edgebench-verified</a>：修复、案例页、证据、Lean 和 TLA+ 文件</dd>
     <dt>结果</dt><dd><a href="../data/decisions.csv">decisions.csv</a> · <a href="../data/decisions.json">decisions.json</a></dd>
-    <dt>修复测试</dt><dd><a href="../data/paired-results.csv">paired-results.csv</a>：覆盖 32 个任务的 256 行，原始评分器与修复版评分器：206 项评分对照，2 行准备性运行，1 行推导得出的分数上限（Treant Forest，未执行），以及 47 项仅涉及任务说明的检查（OpenRCT2，没有可运行的内容）</dd>
+    <dt>修复测试</dt><dd><a href="../data/paired-results.csv">paired-results.csv</a>：覆盖 32 个任务的 258 行，原始评分器与修复版评分器：254 项评分对照，2 行准备性运行，1 行推导得出的分数上限（Treant Forest，未执行），以及 1 项仅涉及任务说明的检查（OpenRCT2，没有可运行的内容）</dd>
     <dt>重复运行</dt><dd><a href="../data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/data/paired-repeatability.md">报告</a></dd>
     <dt>排行榜影响</dt><dd><a href="../data/impact.csv">impact.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">报告</a></dd>
     <dt>文档</dt><dd><a href="https://github.com/findalexli/edgebench-verified/blob/main/FINDINGS.md">发现</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/METHOD.md">方法</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">应用修复</a></dd>

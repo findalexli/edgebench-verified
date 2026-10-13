@@ -55,7 +55,7 @@
 <text class="ink" x="404" y="66" font-size="16.5" font-weight="600">Historical pairs</text>
 <text class="muted" x="404" y="87" font-size="14">components and graders</text>
 <text class="ink" x="404" y="124" font-size="14">30 fixes + 1 partial fix</text>
-<text class="ink" x="404" y="148" font-size="14">206 comparisons</text>
+<text class="ink" x="404" y="148" font-size="14">254 comparisons</text>
 <text class="ink" x="404" y="172" font-size="14">nearly all run 3 times</text>
 <rect class="box" x="582.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="598" y="36" font-size="26" font-weight="600">4</text>
@@ -74,7 +74,7 @@
     <li><b>追踪到最终分数。</b>区分实测的变化、上限和受限的数值估计。一个上限不一定能达到，而组件层面的差异可能被评分过程中更早的否决所掩盖。</li>
     <li><b>验证修改后的版本。</b>成对对照应当表明：触发问题的提交得到纠正，正确的工作保持其分数或其变化得到解释，错误的工作仍被拒绝。历史结果不能用来接受后来的修订版本。完整的发布验收还要求实际的任务命令、依赖、工作镜像与评分器镜像以及结果收集评测框架能在预算之内协同工作。</li>
   </ol>
-  <p><b>历史上的可重复性：</b>保存下来的清单中有 206 项评分对照，覆盖 30 个已修复任务以及被移除任务的部分修复；其中 205 项对照运行了三次，不计 2 次准备性运行。它描述的是当时记录的版本，而不是 Datagen v2.1 或 FFmpeg v2.2。Lean Analysis 使用的依赖路径与其实际评分命令不同；PFR 没有展示五个实际目标的得分恢复；Warehouse 需要一个评测框架的等待叠加层，其端到端集成尚待完成。参见每个修复包的验证状态。</p>
+  <p><b>历史上的可重复性：</b>保存下来的清单中有 254 项评分对照，覆盖 30 个已修复任务以及被移除任务的部分修复；其中 240 项对照运行了三次，不计 2 次准备性运行。其余 14 项只运行了一次：Datagen v2.1 和 FFmpeg v2.2 各三个对照、Exchange Core 在 4 个 CPU 下的六行（每行即一次运行）、CTA v2.1 的标准答案，以及 Rust 初始代码在修复版下的得分。Lean Analysis 使用的依赖路径与其实际评分命令不同；PFR 没有展示五个实际目标的得分恢复；Warehouse 需要一个评测框架的等待叠加层，其端到端集成尚待完成。参见每个修复包的验证状态。</p>
 </section>
 
 <section id="formal" class="col">

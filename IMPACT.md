@@ -8,11 +8,11 @@ All intervals hold the valid-run set fixed and treat retained tasks as unchanged
 
 | Model | Published mean | Scale changes and removal | Plus documented limits | Plus Portfolio sensitivity assumption | Full-domain outer envelope |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Opus 4.8 | 44.2 | 45.92–46.05 | 45.49–47.30 | 45.49–47.30 | 36.01–65.31 |
-| GPT-5.5 | 43.1 | 44.73–44.86 | 44.30–46.35 | 44.30–46.36 | 35.54–65.36 |
-| GPT-5.4 | 34.2 | 35.57–35.71 | 35.15–37.71 | 35.15–37.71 | 28.27–60.00 |
-| GLM-5.1 | 30.4 | 31.81–31.94 | 31.39–34.00 | 31.38–34.01 | 25.29–56.84 |
-| DS-V4-Pro | 25.7 | 26.77–26.91 | 26.48–28.98 | 26.47–28.99 | 20.45–51.58 |
+| Opus 4.8 | 44.2 | 45.92–46.05 | 45.49–47.30 | 45.49–47.30 | 36.01–65.99 |
+| GPT-5.5 | 43.1 | 44.73–44.86 | 44.30–46.35 | 44.30–46.36 | 35.54–66.24 |
+| GPT-5.4 | 34.2 | 35.57–35.71 | 35.15–37.71 | 35.15–37.71 | 28.27–60.85 |
+| GLM-5.1 | 30.4 | 31.81–31.94 | 31.39–34.00 | 31.38–34.01 | 25.29–57.80 |
+| DS-V4-Pro | 25.7 | 26.77–26.91 | 26.48–28.98 | 26.47–28.99 | 20.45–52.55 |
 
 `scale_midpoint_mean` in the CSV is only a display midpoint, not an inferred corrected mean. The CSV interval endpoints are the exact rational endpoints rounded outward to 9 decimals, so each CSV interval encloses the exact one. The full-domain envelope allows open effects to span the remaining score range in their stated directions; Portfolio receives the full 0–100 range because its sweep does not establish a global bound.
 
@@ -52,7 +52,7 @@ The saved decimal sweep covers only N=242 or 243 shared dates and strategy perio
 | [exchange_core_throughput](cases/exchange_core_throughput.md) | down: incorrect engines can get full credit | open | — |
 | [ffmpeg_swscale_reimplementation](cases/ffmpeg_swscale_reimplementation.md) | down: incomplete libraries over-credited (18.9 points shown) | open | — |
 | [git_rewrite_in_zig](cases/git_rewrite_in_zig.md) | up, only for runs the original zeroed for a leftover build file or a git call in src/ (up to the whole run's score); how often real runs tripped a check is unknown | open | — |
-| [graph_node_classification](cases/graph_node_classification.md) | down: invalid prediction files were scored; under best-so-far selection the added variance can raise a run's score (a general lemma), but no gain for a real solver was established | open | — |
+| [graph_node_classification](cases/graph_node_classification.md) | either: an honest run whose prediction file is keyed by integer node IDs scores 0 under the original verifier and moves up under the fix (neighbor_intkeys: 0 to 24.089 of 100); a run that violates the output contract (non-numeric or missing predictions, or keys that collide under str()) was scored by the original and moves down, and under best-so-far selection the added variance can raise a run's score (a general lemma); none of the real runs regraded was integer-keyed, and no gain for a real solver was established | open | — |
 | [grid_turing_robot](cases/grid_turing_robot.md) | up: on the publisher's 4-CPU grader, solutions using ~15–30 s CPU per case were voided and deadline-based solvers got half the CPU; size needs regrading or new runs | open | — |
 | [integer_compression_codec](cases/integer_compression_codec.md) | either: raw results were understated by a factor that depends on the submission (2.4 and 3.7 for two real submissions, 7–9 for a simple honest codec), and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320); a real best submission moves from 66.31 to 50.08 | open | — |
 | [jagua_nesting_optimization](cases/jagua_nesting_optimization.md) | down, only for layouts with overlaps | open | — |

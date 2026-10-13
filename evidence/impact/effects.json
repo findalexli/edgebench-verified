@@ -61,9 +61,9 @@
  },
  "graph_node_classification": {
   "kind": "open",
-  "direction": "down",
+  "direction": "either",
   "bound": null,
-  "text": "down: invalid prediction files were scored; under best-so-far selection the added variance can raise a run's score (a general lemma), but no gain for a real solver was established"
+  "text": "either: an honest run whose prediction file is keyed by integer node IDs scores 0 under the original verifier and moves up under the fix (neighbor_intkeys: 0 to 24.089 of 100); a run that violates the output contract (non-numeric or missing predictions, or keys that collide under str()) was scored by the original and moves down, and under best-so-far selection the added variance can raise a run's score (a general lemma); none of the real runs regraded was integer-keyed, and no gain for a real solver was established"
  },
  "grid_turing_robot": {
   "kind": "open",
