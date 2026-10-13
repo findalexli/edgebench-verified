@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schemathesis Reporting Observability · EdgeBench Verified</title>
+<meta name="description" content="两项隐藏测试会给错误或损坏的输出计分">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/schemathesis_reporting_observability.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/schemathesis_reporting_observability.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">跳到正文</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="语言"><a href="../../tasks/schemathesis_reporting_observability.html" hreflang="en" lang="en">EN</a> / <a href="../../zh/tasks/schemathesis_reporting_observability.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
+  <nav class="tabs" aria-label="站点"><a href="../index.html">概览</a><a href="../tasks/index.html" aria-current="page">任务</a><a href="../method.html">方法</a><a href="../leaderboard.html">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：系统与软件工程</span></div><header class="task-head"><h1>Schemathesis Reporting Observability</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <span class="id">schemathesis_reporting_observability</span><p class="summary">两项隐藏测试会给错误或损坏的输出计分。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>为自动测试 Web 服务的工具 Schemathesis 添加报告功能，包括以常见报告格式 JUnit XML 写出测试报告。</dd><dt>问题所在</dt><dd>一项隐藏测试只检查报告中是否出现两个词，因此损坏的文件和缺少错误信息的报告也能通过。另一项测试针对的功能是在某些生成的测试中省略请求体，但它永远不会失败：它查找的条目类型不对，总是什么也找不到。报告测试还会让一个正确的报告写出器失败，只要其测试套件的名称不是 &quot;schemathesis&quot;，而任务说明并没有这样要求。</dd><dt>影响有多大</dt><dd>错误给分约为总分的 2.4%：1/70（约 1.4%）和 1/100（1.0%）；一个使用其他套件名称的正确写出器会损失 1/70。修复版使分数至多下降 4.76 分，或上升 2.76 分（只有当一份提交使 GeneratedValue 类无法导入时，才可能最多上升 4.76 分）。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：报告测试会读取文件，并要求其中记录了错误，套件名称不限；另一项测试现在检查真实的输出。部分得分与原版本不可比较。</dd><dt>形式化检验</dt><dd>在 Lean 4 中部分证明。基于初始文件的已观察行为（12 次运行中 12 次只有一种值类），原始的请求体省略测试永远不会失败；每一个已公布的分数变化都是精确的。 局限：报告格式测试依赖一个 XML 解析器。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 282" role="img"><title>Two panels: the original JUnit test and the original body-suppression test both pass broken work, while the fixed tests fail it.</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px}
+  .t{font-size:17px;font-weight:600} .b{font-weight:600}
+  
+</style>
+<text class="t ink" x="16" y="30">Two hidden tests that give credit for broken work</text>
+<rect class="accBg accS" x="16" y="46" width="338" height="220" rx="8" stroke-width="1.5"/>
+<text class="acc t" x="32" y="74">1. Error report</text>
+<text class="ink" x="32" y="104">Report leaves out the error:</text>
+<text class="bad b" x="32" y="140">Original test: passed ✓</text>
+<text class="good b" x="32" y="172">Fixed test: failed ✗</text>
+<text class="muted" x="32" y="206">A failed test is reported as passed.</text>
+<text class="muted" x="32" y="248">Up to 1/70 of the score</text>
+<rect class="accBg accS" x="366" y="46" width="338" height="220" rx="8" stroke-width="1.5"/>
+<text class="acc t" x="382" y="74">2. Leave bodies out</text>
+<text class="ink" x="382" y="104">Starter still makes the unwanted case:</text>
+<text class="bad b" x="382" y="140">Original test: passed ✓</text>
+<text class="good b" x="382" y="172">Fixed test: failed ✗</text>
+<text class="muted" x="382" y="206">Looks for the wrong type: finds nothing.</text>
+<text class="muted" x="382" y="248">Up to 1/100 of the score</text>
+</svg>
+</div><figcaption>两项隐藏测试给有缺陷的工作计了分，合计约占分数的 2.4%；修复版测试让有缺陷的版本失败。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_reporting_observability.json">tasks/schemathesis_reporting_observability.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-role">Role</h4>
+<p>You are an expert software engineer implementing a roadmap task in the current repository.</p>
+<h4 id="prompt-task-document">Task Document</h4>
+<p>Read <code>/app/TODO.md</code> completely before editing code. It contains the full project overview, goals, target requirements, and completion criteria.</p>
+<h4 id="prompt-workflow">Workflow</h4>
+<ol><li>Read the task document before making code changes.</li><li>Implement all requested roadmap targets.</li><li>Preserve existing public APIs unless <code>/app/TODO.md</code> explicitly requires a change.</li><li>Use local tests or submission feedback to iterate when available.</li></ol>
+<h4 id="prompt-rules">Rules</h4>
+<ul><li>Treat <code>/app/TODO.md</code> as the authoritative task specification.</li><li>Do not modify hidden tests.</li><li>Do not rely on external task text beyond the task document.</li></ul></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_reporting_observability.json">tasks/schemathesis_reporting_observability.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>set +x; cd /app &amp;&amp; bash /tests/test.sh &gt; /tmp/test_full.log 2&gt;&amp;1; python3 - &gt; /tmp/structured_result.log 2&gt;&amp;1 &lt;&lt;&#x27;PY&#x27; …</code></pre><details class="longcmd"><summary>显示完整命令（211 行）</summary><pre class="long"><code>set +x; cd /app &amp;&amp; bash /tests/test.sh &gt; /tmp/test_full.log 2&gt;&amp;1; python3 - &gt; /tmp/structured_result.log 2&gt;&amp;1 &lt;&lt;&#x27;PY&#x27;
+import json
+import re
+from pathlib import Path
+
+PASSED = &quot;PASSED&quot;
+FAILED = &quot;FAILED&quot;
+ERROR = &quot;ERROR&quot;
+
+
+def read_text(path):
+    p = Path(path)
+    if not p.exists():
+        return &quot;&quot;
+    return p.read_text(errors=&quot;replace&quot;)
+
+
+def parse_weights(script_text, phase_count):
+    patterns = [
+        r&quot;weights\s*=\s*\[([0-9,\s]+)\]&quot;,
+        r&quot;PHASE_WEIGHTS\s*=\s*\(([0-9\s]+)\)&quot;,
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, script_text)
+        if m:
+            raw = re.split(r&quot;[,\s]+&quot;, m.group(1).strip())
+            weights = [float(x) for x in raw if x]
+            if len(weights) &gt;= phase_count:
+                return weights[:phase_count]
+
+    m = re.search(r&quot;PHASES\s*=\s*\((.*?)\n\)&quot;, script_text, re.S)
+    if m:
+        weights = []
+        for line in m.group(1).splitlines():
+            line = line.strip()
+            if not line or line.startswith(&quot;#&quot;):
+                continue
+            line = line.strip(&quot;\&quot;&#x27;&quot;)
+            parts = line.split()
+            if parts and re.fullmatch(r&quot;\d+(?:\.\d+)?&quot;, parts[-1]):
+                weights.append(float(parts[-1]))
+        if len(weights) &gt;= phase_count:
+            return weights[:phase_count]
+
+    reward_json = Path(&quot;/logs/verifier/reward.json&quot;)
+    if reward_json.exists():
+        try:
+            data = json.loads(reward_json.read_text(errors=&quot;replace&quot;))
+            phases = data.get(&quot;phases&quot;)
+            if isinstance(phases, dict):
+                weights = []
+                for phase in phases.values():
+                    if isinstance(phase, dict) and &quot;weight&quot; in phase:
+                        weights.append(float(phase[&quot;weight&quot;]))
+                if len(weights) &gt;= phase_count:
+                    return weights[:phase_count]
+        except Exception:
+            pass
+
+    return [1.0] * phase_count
+
+
+def parse_statuses(output):
+    results = []
+    seen = set()
+    pattern = re.compile(r&quot;^(tests/roadmap\.py::\S+)\s+(PASSED|FAILED|ERROR)\s*$&quot;, re.M)
+    for name, status in pattern.findall(output):
+        if name in seen:
+            continue
+        seen.add(name)
+        results.append((name, status))
+    return results
+
+
+def parse_phase_number(name, fallback):
+    m = re.search(r&quot;(?:test_)?phase_?0*(\d+)\b&quot;, name)
+    if m:
+        return int(m.group(1))
+    return fallback
+
+
+def parse_phase_ratios(output):
+    ratios = {}
+    counts = {}
+    pattern = re.compile(r&quot;^Phase\s+0*(\d+):\s+(\d+)\s*/\s*(\d+)\s+passed\s*$&quot;, re.M)
+    for n, passed, total in pattern.findall(output):
+        n_i = int(n)
+        passed_i = int(passed)
+        total_i = int(total)
+        counts[n_i] = (passed_i, total_i)
+        ratios[n_i] = passed_i / total_i if total_i else 0.0
+
+    weighted_pattern = re.compile(
+        r&quot;^\s*Phase\s+0*(\d+)\s+\(weight\s*=\s*([0-9.]+)\):\s*([0-9.]+)\s*$&quot;,
+        re.M,
+    )
+    inline_weights = {}
+    for n, weight, score in weighted_pattern.findall(output):
+        n_i = int(n)
+        inline_weights[n_i] = float(weight)
+        ratios[n_i] = float(score)
+
+    return ratios, counts, inline_weights
+
+
+def parse_total_score(output):
+    m = re.search(r&quot;TOTAL_SCORE\s+([0-9]+(?:\.[0-9]+)?)&quot;, output)
+    if m:
+        return float(m.group(1))
+    reward_path = Path(&quot;/logs/verifier/reward.txt&quot;)
+    if reward_path.exists():
+        try:
+            return float(reward_path.read_text(errors=&quot;replace&quot;).strip())
+        except Exception:
+            pass
+    return None
+
+
+def main():
+    output = read_text(&quot;/tmp/test_full.log&quot;)
+    script = read_text(&quot;/tests/test.sh&quot;)
+
+    statuses = parse_statuses(output)
+    if not statuses:
+        statuses = [(&quot;tests/roadmap.py::unknown&quot;, ERROR)]
+
+    ratios, counts, inline_weights = parse_phase_ratios(output)
+    weights = parse_weights(script, len(statuses))
+    for idx, weight in inline_weights.items():
+        if 1 &lt;= idx &lt;= len(weights):
+            weights[idx - 1] = weight
+
+    details = []
+    weighted_total = 0.0
+    weight_total = 0.0
+    failed_names = []
+
+    for pos, (name, status) in enumerate(statuses, start=1):
+        phase_num = parse_phase_number(name, pos)
+        weight = weights[pos - 1] if pos - 1 &lt; len(weights) else 1.0
+        if phase_num in ratios:
+            ratio = ratios[phase_num]
+        else:
+            ratio = 1.0 if status == PASSED else 0.0
+        contribution = weight * ratio
+        weighted_total += contribution
+        weight_total += weight
+
+        if phase_num in counts:
+            phase_passed, phase_total = counts[phase_num]
+            message = (
+                f&quot;Phase {phase_num}: {phase_passed}/{phase_total} checks passed; &quot;
+                f&quot;weighted contribution {contribution:.6f}/{weight:.6f}&quot;
+            )
+        else:
+            message = (
+                f&quot;Phase {phase_num}: status {status}; &quot;
+                f&quot;weighted contribution {contribution:.6f}/{weight:.6f}&quot;
+            )
+
+        if status != PASSED:
+            failed_names.append(name)
+
+        details.append(
+            {
+                &quot;name&quot;: name,
+                &quot;status&quot;: status,
+                &quot;message&quot;: message,
+                &quot;score&quot;: contribution,
+                &quot;weight&quot;: weight,
+            }
+        )
+
+    passed_count = sum(1 for _, status in statuses if status == PASSED)
+    total_count = len(statuses)
+    pass_rate = passed_count / total_count if total_count else 0.0
+    total_score = parse_total_score(output)
+    if total_score is None:
+        total_score = weighted_total / weight_total if weight_total else 0.0
+
+    summary = (
+        f&quot;{passed_count}/{total_count} phases passed; &quot;
+        f&quot;weighted score {total_score:.6f}&quot;
+    )
+    if failed_names:
+        summary += &quot;. Failed: &quot; + &quot;, &quot;.join(failed_names[:10])
+        if len(failed_names) &gt; 10:
+            summary += f&quot; (+{len(failed_names) - 10} more)&quot;
+
+    result = {
+        &quot;valid&quot;: True,
+        &quot;score&quot;: total_score,
+        &quot;pass_rate&quot;: pass_rate,
+        &quot;summary&quot;: summary,
+        &quot;details&quot;: details,
+        &quot;metrics&quot;: {
+            &quot;phase_weighted_total&quot;: weighted_total,
+            &quot;phase_weight_total&quot;: weight_total,
+            &quot;source&quot;: &quot;roadmap_structured_json&quot;,
+        },
+    }
+
+    print(&quot;&gt;&gt;&gt;&gt;&gt; Start Structured Result&quot;)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    print(&quot;&gt;&gt;&gt;&gt;&gt; End Structured Result&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+PY
+cat /tmp/structured_result.log</code></pre></details></dd><dt>时限</dt><dd>整个评分运行限时 30 分钟（1,800 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>.</code> 不计入提交：<code>.git</code>, <code>__pycache__</code>, <code>*.pyc</code>, <code>*.egg-info</code>, <code>.eggs</code>, <code>*.so</code>, <code>TODO.md</code>。</dd><dt>原始结果</dt><dd>评分器输出一份 JSON 报告；其中的 <code>score</code> 是原始结果，报告还可以给出通过率，并可将提交标记为无效（解析器 <code>structured_json</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好（EdgeBench 的默认值；任务未设定方向）。</dd><dt>从原始结果到 0–100 分</dt><dd>直线换算：原始结果为 0 时得 0 分，为 1 时得 100 分，中间的值按线性插值。超出这一范围的结果被截断为 0 或 100。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>linear</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>原始结果最好（最高）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>结论：</strong> 已修复。<mark>针对 JUnit 报告写入器的隐藏测试会接受损坏的输出，而针对在某些生成场景中省略请求体的测试永远不会失败；这两个漏洞合计给出约占分数 2.4% 的错误得分。</mark></p>
+<h3 id="case-任务要求">任务要求</h3>
+<p>Schemathesis 是一个自动测试 Web API 的工具。解题者扩展 schemathesis 4.13.0 中的报告和可观测性功能，并被要求 "Treat <code>/app/TODO.md</code> as the authoritative task specification."（把该文件视为权威的任务规格。）评分器用隐藏测试为工作评分。这里涉及两个目标：</p>
+<ul><li>Target 2：一个 "<strong><code>JunitXmlWriter</code></strong>: A context-manager class that writes JUnit XML reports"（写出 JUnit XML 报告的上下文管理器类），带有一个 "records a test error"（记录测试错误）的 <code>record_error</code> 方法。JUnit XML 是 CI（持续集成）系统读取的一种常见测试报告格式。</li><li>Target 5 的第 2 项修复："The <code>allow-extra-parameters = false</code> configuration suppresses unexpected-properties coverage scenarios for query, header, and cookie parameters, but not for request bodies. Bodies should be included in this suppression."（该配置会为 query、header 和 cookie 参数抑制"意外属性"覆盖场景，但不会为请求体抑制；请求体也应纳入这一抑制。）</li></ul>
+<p>类别：系统与软件工程。</p>
+<h3 id="case-问题出在哪里">问题出在哪里</h3>
+<h4 id="case-1-junit-测试接受损坏或不完整的报告">1. JUnit 测试接受损坏或不完整的报告</h4>
+<p><strong>规则。</strong> <code>record_error</code> 必须在 JUnit XML 报告中记录一个错误。原始测试只检查字符串 <code>"schemathesis"</code> 和 <code>"test_label"</code> 是否出现在输出中的某处。</p>
+<p><strong>例子。</strong> 四个测试用写入器：<code>correct</code>（基于初始文件的命令行工具已在使用的 <code>junit_xml</code> 库）、<code>drops_error</code>（格式良好的 XML，但没有 <code>&lt;error&gt;</code>）、<code>unterminated</code>（格式错误的 XML）和 <code>plaintext</code>（根本不是 XML）。预期：只有 <code>correct</code> 通过。在原始测试（"orig"）和修复版测试（"repaired"）下的实际结果：</p>
+<pre><code>correct      orig: 1 passed   repaired: 1 passed
+drops_error  orig: 1 passed   repaired: 1 failed
+unterminated orig: 1 passed   repaired: 1 failed
+plaintext    orig: 1 passed   repaired: 1 failed</code></pre>
+<p><strong>为什么重要。</strong> 一个丢掉 <code>&lt;error&gt;</code> 的写入器会让一次失败的操作在 CI 中看起来像是通过了，而它仍然拿到这项测试的分数。反方向上，一个正确的写入器如果把测试套件命名为 <code>schemathesis</code> 以外的名称，就会在原始测试中失败，因为此时字符串 <code>schemathesis</code> 在其输出中根本不出现（见下文在 E2B 上的修订运行）；而 <code>TODO.md</code> 并没有规定套件的名称。</p>
+<h4 id="case-2-省略请求体的测试永远不会失败">2. 省略请求体的测试永远不会失败</h4>
+<p><strong>规则。</strong> 在 <code>allow-extra-parameters = false</code> 下，请求体不得产生"意外属性"场景（带有额外的、未声明字段的生成测试输入）。</p>
+<p><strong>例子。</strong> 未改动的初始文件缺少请求体修复。在它上面，若要求抑制请求体，<code>cover_schema_iter</code> 会产生 12 个值，而且其中出现了不应有的 <code>OBJECT_UNEXPECTED_PROPERTIES</code> 场景。这 12 个值全部属于覆盖模块中的 <code>GeneratedValue</code> 类。测试却按另一个同名的类过滤，因此它得到的场景集合总是空的，其检查永远不会失败。预期：如测试自己的头部注释所说，该测试在初始文件上失败。实际：它在初始文件上通过。它在一个忽略该标志、总是省略请求体的实现上也通过。</p>
+<p><strong>为什么重要。</strong> 该测试为缺失或错误的行为给分。针对查询参数的对应测试同样永远不会失败，但它守护的只是初始文件已有的行为。</p>
+<h3 id="case-影响有多大">影响有多大</h3>
+<p>分数为五个阶段上的 Σ wᵢ·passedᵢ/totalᵢ / 10，权重为 2、2、3、2、1（<code>/tests/test.sh</code>）。Phase 2 中一项测试价值总分的 2/(14·10) = 1/70；Phase 5 中一项测试在原始版中价值 1/100，在修复版中价值 1/120。</p>
+<ul><li>原始版中的错误得分：JUnit 测试至多给出 1/70（100 分制下约 1.4 分），请求体测试至多给出 1/100（1.0 分）。</li><li>原始版中的错误扣分：对于输出不含字符串 <code>schemathesis</code> 的正确写入器，JUnit 测试扣去 1/70（约 1.4 分）。</li><li>修复版下的最大降幅：4.76 分。一份在原始版下全部通过、但在修复版 JUnit 测试和全部四项新覆盖测试中失败的提交，在 Phase 2 失去 1/70，在 Phase 5 失去 10·(1 − 8/12)/100 = 1/30，合计 1/70 + 1/30 = 4.76 分。所测的改动版本分别失去 1.43、0.83 和 1.67 分。</li><li>修复版下的最大升幅：2.76 分。修订后的 JUnit 测试可能在原始测试失败的地方通过：一个输出中从不含字符串 <code>schemathesis</code> 的正确写入器（例如套件用了别的名称），在原始测试中失败、在修订后的测试中通过，即 1/70 或 1.43 分。在 Phase 5 中，只要覆盖生成器能运行，两项原有的覆盖测试在任何提交上都会通过，因此在没有通过其他 Phase 5 测试的情况下，所占份额从 2/10 变为至多 4/12，即 1.33 分；合计 2.76 分。初始文件和桩实现增加 0.5 分。只有当一份提交从 <code>schemathesis.specs.openapi.negative</code> 中删除了 <code>GeneratedValue</code> 类（原有覆盖测试导入了这个类）时，升幅才可能达到 4.76 分。</li><li>所测的错误实现中，没有一个得分高于正确实现；所测的唯一一个正确实现保持 1.0。</li></ul>
+<h3 id="case-修复">修复</h3>
+<p>修复版改动三个评分器文件：</p>
+<ul><li><code>/tests/test_02_reporting.py</code> 会解析 XML。它接受 <code>testsuite</code> 或 <code>testsuites</code> 作为根元素，并要求有一个名为 <code>test_label</code>（即传给 <code>record_error</code> 的标签）的测试用例，其中包含一个以文本或属性形式携带消息的 <code>&lt;error&gt;</code>。这些正是 <code>TODO.md</code> 所述的要点：一份 JUnit XML 报告，以及 <code>record_error</code> "records a test error"（记录测试错误）。测试名称和测试数量都不变。</li><li><code>/tests/test_05_email_coverage.py</code> 使用正确的 <code>GeneratedValue</code> 类，并要求得到正确类型的非空值流。它还为请求体和查询参数分别添加了允许额外参数和拒绝额外参数的用例。</li><li><code>/tests/test.sh</code> 把 Phase 5 的测试数从 10 提高到 12。权重不变。</li></ul>
+<p>在 <code>task.json.in</code> 中，只有 <code>judge.image_tag</code> 改变。</p>
+<p>下表中，<code>fullref</code> 是一个完整的参考实现，用作正确的测试提交。<code>fullref_*</code> 各行分别改动它的一行，<code>stub_*</code> 各行使用一个最小的桩实现。分数为 0–1 刻度上的原始结果（换算为 0–100 分之前）。</p>
+<div class="tablewrap"><table><thead><tr><th>测试提交</th><th>角色</th><th>原始评分器</th><th>修复版评分器</th><th>变化</th><th>通过的测试，P2 = Phase 2，P5 = Phase 5（原始 → 修复）</th></tr></thead><tbody><tr><td>fullref</td><td>正确的完整实现</td><td>1.000000</td><td>1.000000</td><td><strong>0</strong></td><td>P2 14/14 → 14/14；P5 10/10 → 12/12</td></tr><tr><td>fullref_junit_drops_error</td><td>看似合理的错误：<code>record_error</code> 创建了测试用例但丢掉 <code>&lt;error&gt;</code></td><td>1.000000</td><td>0.985714</td><td><strong>−0.014286 (−1/70)</strong></td><td>P2 14/14 → 13/14</td></tr><tr><td>fullref_no_body_fix</td><td>看似合理的错误：省略了 Target 5 的第 2 项修复（BODY 未被抑制）</td><td>1.000000</td><td>0.991667</td><td><strong>−0.008333</strong></td><td>P5 10/10 → 11/12</td></tr><tr><td>fullref_always_suppress</td><td>看似合理的错误：抑制时忽略 <code>allow_extra_parameters</code></td><td>1.000000</td><td>0.983333</td><td><strong>−0.016667</strong></td><td>P5 10/10 → 10/12</td></tr><tr><td>stub_junit_correct</td><td>审查者编写的桩，基于 <code>junit_xml</code> 的写入器</td><td>0.091429</td><td>0.096429</td><td>+0.005000</td><td>P2 5/14 → 5/14；P5 2/10 → 3/12</td></tr><tr><td>stub_junit_drops_error</td><td>审查者编写的桩，丢掉错误</td><td>0.091429</td><td>0.082143</td><td>−0.009286</td><td>P2 5/14 → 4/14；P5 2/10 → 3/12</td></tr><tr><td>starter</td><td>未改动的初始文件</td><td>0.020000</td><td>0.025000</td><td>+0.005000</td><td>P2 0/14 → 0/14；P5 2/10 → 3/12</td></tr></tbody></table></div>
+<p>对每份测试提交，Phase 1、3 和 4 的结果都相同。只有以下各项改变：</p>
+<ul><li>JUnit 测试；</li><li>原先两项只测拒绝情形的覆盖测试，它们被替换为四项允许/拒绝测试；</li><li>那些现在在 Phase 2 和 Phase 5 中失败的改动版本的阶段汇总项（<code>test_phase_2</code>、<code>test_phase_5</code>）。</li></ul>
+<p>三个看似合理的错误版本在原始评分器下都得 1.0，但在修复版评分器下失分。正确的测试提交保持 1.0。</p>
+<p><strong>修复的修订（2026-10-12）。</strong> 第一次发布的修复版还要求套件名称恰为 <code>schemathesis</code>、恰好一个测试用例和一个 <code>&lt;error&gt;</code>，并且没有 <code>&lt;failure&gt;</code> 或 <code>&lt;skipped&gt;</code> 元素。<code>TODO.md</code> 对这些都没有规定；<code>schemathesis</code> 只是初始文件的命令行 JUnit 处理程序所用的套件名称。修订后的测试去掉了这些要求。原始评分器、第一版修复和修订版修复的并排对照运行在全新的工作节点上做了三次，对之前的每份提交都得到与上表相同的结果。另外新增了三份提交：</p>
+<div class="tablewrap"><table><thead><tr><th>测试提交</th><th>角色</th><th>原始评分器</th><th>第一版修复</th><th>修订版修复</th></tr></thead><tbody><tr><td>fullref_junit_other_suite</td><td>正确：套件名为 <code>api-report</code></td><td>0.985714</td><td>0.985714</td><td>1.000000</td></tr><tr><td>stub_junit_other_suite</td><td>正确的桩写入器，套件名为 <code>api-report</code></td><td>0.077143</td><td>0.082143</td><td>0.096429</td></tr><tr><td>stub_junit_unterminated</td><td>错误：格式错误的 XML</td><td>0.091429</td><td>0.082143</td><td>0.082143</td></tr></tbody></table></div>
+<p>原始测试也会让套件名称不同的正确写入器失败，因为其输出中不含字符串 <code>schemathesis</code>；第一版修复也是如此。修订版让它通过。丢掉 <code>&lt;error&gt;</code> 或写出格式错误 XML 的写入器，在两个修复版本下都失败。</p>
+<p><strong>分数兼容性。</strong> 完全正确的提交在两个版本中都得 1.0。当 Phase 2 或 Phase 5 只部分通过时，原始分数与修复版分数不可比，因为 Phase 5 有 12 项测试而不是 10 项。在修复版下，未改动的初始文件和桩提交增加 +0.005。新增的允许用例和查询参数的拒绝用例检查的是初始文件的生成器已有的行为。因此，初始文件在 Phase 5 的得分，从那项永远不会失败的请求体测试，转移到了真实有效的检查上。一个更小的替代方案是只改动 <code>GeneratedValue</code> 的导入、保留 10 项测试，但它无法发现一个总是省略请求体的实现。</p>
+<h3 id="case-我们如何检查">我们如何检查</h3>
+<ul><li><strong>在按摘要固定的原始镜像中运行原始评分器。</strong> 评分器镜像中保存了未经修改的 schemathesis 4.13.0 初始文件。每份测试提交都在全新的 <code>--network none</code> 容器中，分别通过完整的原始 <code>judge.eval_cmd</code> 和修复版评分器运行。</li><li><strong>直接检查。</strong> 检查了 <code>cover_schema_iter</code> 在初始文件上产生的每个值的类，这说明了原始覆盖过滤为何总是为空。修复版覆盖测试在初始文件、一个正确的修复和一个总是省略请求体的修复上运行。</li><li><strong>可重复性。</strong> 原始版和修复版评分器的并排对照运行做了三次，结论没有变化（<code>data/paired-repeatability.md</code>）。这些重复使用的是第一版修复。使用修订版修复的运行也做了三次（<code>evidence/runs/schemathesis_reporting_observability-v2-paired-rev2</code>、<code>-rev2-rep2</code>、<code>-rev2-rep3</code>），分数和每项测试的结果都相同。</li></ul>
+<h3 id="case-局限">局限</h3>
+<ul><li>没有运行任何 AI 模型或求解器。影响只在我们编写的测试提交和改动版本上展示。</li><li>作为正确的测试提交，只有一个完整实现可用，而且尝试过的每个正确 JUnit 写入器都基于 <code>junit_xml</code>。修订后的 JUnit 测试仍然假定通常的 JUnit 形式：错误是 <code>&lt;testcase&gt;</code> 中的一个 <code>&lt;error&gt;</code> 元素，且该测试用例的 <code>name</code> 就是标签。一个把错误记录为 <code>&lt;failure&gt;</code>、或只把标签放在 <code>classname</code> 中的写入器会失败；<code>TODO.md</code> 对这两点都没有明确说明。</li><li>Phase 4 的测试计数有一处反常（预期 9 项，收集到 11 项）未作改动，不在范围之内。</li><li>更广泛的集成行为（xdist、有状态运行、一处 55/53 的测试计数反常）没有检查。</li><li><code>TODO.md</code> 取自工作目录树的云端导出（sha256 <code>097166d3…</code>），而不是从工作镜像中重新提取。</li><li>隐藏测试没有保存在本仓库中。重新运行检查时，会从固定的评分器镜像中提取它们。</li></ul>
+<h3 id="case-复现">复现</h3>
+<ul><li>原始评分器镜像：<code>sha256:b1e16633…</code>。</li><li><strong>原始测试与修复版测试的对照。</strong> 先运行 <code>evidence/scripts/schemathesis_reporting_observability/fetch_tests.sh</code>。然后运行 <code>run_junit_in_judge.sh</code>（配合 <code>reporting_overlay/</code>）、<code>run_coverage_in_judge.sh</code> 和 <code>run_coverage_variants.sh</code>。保存的输出在 <code>observed_junit.txt</code>、<code>observed_coverage.txt</code> 和 <code>observed_coverage_variants.txt</code> 中。</li><li><strong>原始版和修复版评分器的并排对照运行。</strong> <code>repairs/schemathesis_reporting_observability-v2/paired/run.sh</code>。结果在 <code>paired/results.md</code> 和 <code>paired/raw-summary.md</code> 中。</li><li><strong>修复。</strong> <code>repairs/schemathesis_reporting_observability-v2/repair.patch</code>、<code>Dockerfile</code> 和 <code>source-lock.json</code>。</li></ul>
+<p>支撑记录：<code>repairs/schemathesis_reporting_observability-v2/</code>（存放修复版的文件夹）和 <code>evidence/reviews/schemathesis_reporting_observability.md</code>。</p></div></section><section id="files"><h2 class="sec">文件</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/schemathesis_reporting_observability.md">GitHub 上的本案例</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_reporting_observability.json">原始任务定义（tasks/schemathesis_reporting_observability.json）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/schemathesis_reporting_observability-v2">修复包（补丁、Dockerfile、任务定义）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/schemathesis_reporting_observability-v2/paired/results.md">并排对照结果：原始评分器与修复版评分器</a></li><li><a href="../../data/paired-results.csv">全部并排对照结果（paired-results.csv）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/schemathesis_reporting_observability.md">审查记录 (<code>schemathesis_reporting_observability.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/schemathesis_reporting_observability">证据脚本</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/notes/schemathesis_reporting_observability.md">形式化验证说明</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">证据索引</a></li></ul></section><nav class="pager" aria-label="全部任务"><a class="prev" href="schemathesis_datagen_pipeline.html" rel="prev"><small>&larr; 上一个</small>Schemathesis Datagen Pipeline</a><a class="all" href="index.html">全部任务</a><a class="next" href="smt_solver.html" rel="next"><small>下一个 &rarr;</small>SMT Solver</a></nav></div>
+</main>
+<footer class="">EdgeBench 由字节跳动 Seed 团队开发。本审计是独立进行的，与其作者没有关联。评分软件源自 EdgeBench（Apache-2.0）；任务定义和任务说明来自 Hugging Face 上的公开发布版本（CC BY 4.0）；EdgeBench 的镜像仅以其公开指纹引用，本站不重新分发这些镜像。</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

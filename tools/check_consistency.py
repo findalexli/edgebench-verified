@@ -28,10 +28,30 @@ def main():
         lab = {'repair-v2': r'\*\*Fixed\*\*', 'retain-with-note': 'Kept, with a note',
                'retain': 'Kept as is', 'exclude': 'Removed'}[k]
         need(re.search(rf'\| {lab} \| \**{n}\** \|', readme), f'README count for {k} != {n}')
-    site = (ROOT / 'site' / 'index.html').read_text()
-    need(not re.findall(r'\{\{[\w|:-]+\}\}', site), 'site has unfilled placeholders')
+    # the website (tools/build_site.py): no unfilled placeholder on any page; the task list and every
+    # task page show each task's decision; the Overview's headline counts match
+    pages = sorted((ROOT / 'site').rglob('*.html'))
+    need(pages, 'site/ has no pages; run tools/build_site.py')
+    for p in pages:
+        left = re.findall(r'\{\{[\w|:-]+\}\}', p.read_text())
+        need(not left, f'{p.relative_to(ROOT)} has unfilled placeholders {left[:3]}')
+    for prefix in ('', 'zh/'):
+        index = ROOT / 'site' / prefix / 'tasks' / 'index.html'
+        if prefix and not index.exists():
+            continue
+        need(index.exists(), f'site/{prefix}tasks/index.html missing')
+        listed = dict(re.findall(r'data-task="(\w+)" data-outcome="([\w-]+)"', index.read_text())) if index.exists() else {}
+        need(listed == {t: r['proposed'] for t, r in d.items()}, f'site/{prefix}tasks/index.html outcomes disagree with data/decisions.json')
+        for t, r in d.items():
+            tp = ROOT / 'site' / prefix / 'tasks' / f'{t}.html'
+            need(tp.exists() and f'data-outcome="{r["proposed"]}"' in tp.read_text(),
+                 f'site/{prefix}tasks/{t}.html missing or its outcome is not {r["proposed"]}')
+    site = (ROOT / 'site' / 'index.html').read_text() if (ROOT / 'site' / 'index.html').exists() else ''
     for k, n in c.items():
-        need(f'"proposed": "{k}"' in site, f'site data lacks {k}')
+        lab = {'repair-v2': 'fixed in a new version', 'exclude': 'removed, no sound fix',
+               'retain-with-note': 'Tasks kept with a note'}.get(k)
+        if lab:
+            need(re.search(rf'{re.escape(lab)}[^<]*</td><td class="n">{n}</td>', site), f'site Table 1 count for {k} != {n}')
     # data/decisions.csv / DECISIONS.md
     rows = list(csv.DictReader((ROOT / 'data/decisions.csv').open()))
     need({r['task_id']: r['decision'] for r in rows} == {t: r['proposed'] for t, r in d.items()},

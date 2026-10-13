@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FFmpeg swscale Reimplementation · EdgeBench Verified</title>
+<meta name="description" content="Timed speed tests never check output, so failed calls earn speed credit">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/ffmpeg_swscale_reimplementation.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/ffmpeg_swscale_reimplementation.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+
+<link rel="stylesheet" href="../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="Language"><a href="../tasks/ffmpeg_swscale_reimplementation.html" hreflang="en" lang="en" aria-current="true">EN</a> / <a href="../zh/tasks/ffmpeg_swscale_reimplementation.html" hreflang="zh-CN" lang="zh-CN">中文</a></span>
+  <nav class="tabs" aria-label="Site"><a href="../index.html">Overview</a><a href="../tasks/index.html" aria-current="page">Tasks</a><a href="../method.html">Method</a><a href="../leaderboard.html">Leaderboard</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Systems &amp; Software Engineering</span></div><header class="task-head"><h1>FFmpeg swscale Reimplementation</h1><span class="badge b-repair-v2" data-outcome="repair-v2">Fixed</span> <span class="id">ffmpeg_swscale_reimplementation</span><p class="summary">Timed speed tests never check output, so failed calls earn speed credit.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Rewrite FFmpeg&#x27;s image-scaling and format-conversion library (libswscale) in Zig or Rust; the score rewards being correct and faster than the original library.</dd><dt>What goes wrong</dt><dd>Correctness is checked on 30 conversions; speed is timed on 10 different ones, never checked. A call that fails or does nothing finishes almost instantly and earns a huge &#x27;speedup&#x27;. An unfinished conversion returning an error took a score from 0 to 5.39; skipping 3:1 downscaling scored up to 18.93. The unchanged starter code also earns credit for wrong output.</dd><dt>How much it matters</dt><dd>Up to 18.93 points out of 100 shown for honest but unfinished submissions whose library fails or does nothing on a timed conversion.</dd><dt>What we did</dt><dd>Fixed in a new version: each timed call&#x27;s result is checked, and failed or wrong output earns no speed credit. Correct submissions score as before, apart from timing noise.</dd><dt>Formal check</dt><dd>Proved in Lean 4. Under the fixed grader a failing or unverified timed call never raises the score, and submissions whose timed calls all verify score exactly as before. The original pays a failed call as if it succeeded. Limit: Real arithmetic rather than IEEE doubles; image quality treated as pass or fail.</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+<title>Bars show an honest but unfinished library scoring 5.39, 18.93 and 17.87 out of 100 on the original grader because failed calls counted as fast; the fixed version scores 0.</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text class="ink" x="16" y="30" font-size="18" font-weight="600">Broken code scored as fast code</text>
+<text class="muted" x="200" y="62" font-size="14">score out of 100, original grader</text><text class="muted" x="704" y="62" font-size="14" text-anchor="end">fixed grader</text>
+<text class="ink" x="16" y="102" font-size="15">Errors on RGBA→RGB24</text>
+<rect class="badBg" x="200" y="80" width="400" height="30"/><rect class="bad" x="200" y="80" width="21.56" height="30"/>
+<text class="bad" x="229.56" y="102" font-size="15" font-weight="600">5.39</text>
+<text class="good" x="704" y="102" font-size="15" font-weight="600" text-anchor="end">0</text>
+<text class="ink" x="16" y="152" font-size="15">Errors on 3:1 shrink</text>
+<rect class="badBg" x="200" y="130" width="400" height="30"/><rect class="bad" x="200" y="130" width="75.72" height="30"/>
+<text class="bad" x="283.72" y="152" font-size="15" font-weight="600">18.93</text>
+<text class="good" x="704" y="152" font-size="15" font-weight="600" text-anchor="end">0</text>
+<text class="ink" x="16" y="202" font-size="15">No output on 3:1 shrink</text>
+<rect class="badBg" x="200" y="180" width="400" height="30"/><rect class="bad" x="200" y="180" width="71.48" height="30"/>
+<text class="bad" x="279.48" y="202" font-size="15" font-weight="600">17.87</text>
+<text class="good" x="704" y="202" font-size="15" font-weight="600" text-anchor="end">0</text>
+<line class="rule" x1="200" y1="76" x2="200" y2="226" stroke-width="1.5"/>
+<text class="muted" x="200" y="246" font-size="14" text-anchor="middle">0</text><text class="muted" x="600" y="246" font-size="14" text-anchor="middle">100</text>
+<text class="muted" x="16" y="280" font-size="14">A call that returned an error was timed as a 16,469× speedup.</text>
+</svg>
+</div><figcaption>Calls that failed or did nothing finished instantly, so the original grader paid up to 18.93 points for unfinished code; the fixed version checks each timed call&#x27;s result and pays nothing for these.</figcaption></figure></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/ffmpeg_swscale_reimplementation.json">tasks/ffmpeg_swscale_reimplementation.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h3 id="prompt-ffmpeg-libswscale-re-implementation">FFmpeg libswscale Re-implementation</h3>
+<p>You are a systems engineer. Your goal is to re-implement FFmpeg's <strong>libswscale</strong> image scaling and pixel-format conversion library in <strong>Zig or Rust</strong>, producing a C-compatible shared library that matches or exceeds FFmpeg's C scalar reference performance using portable SIMD.</p>
+<h4 id="prompt-setup">Setup</h4>
+<ol><li>FFmpeg source (libswscale + libavutil) is at <code>/reference/ffmpeg-src/</code>. Study the scalar C implementation — this is what you are reimplementing.</li><li>A full FFmpeg binary (with ASM optimisations) is at <code>/reference/ffmpeg</code>. Use it to generate test inputs/outputs and verify your understanding.</li><li>The public performance baseline library is at <code>/home/workspace/libswscale_public_baseline.so</code>. This wraps FFmpeg's C-only code (compiled with <code>--disable-asm</code>). Your implementation is benchmarked against this baseline.</li><li>Your workspace is <code>/home/workspace/swscale-impl/</code>. Scaffold templates for both Zig and Rust are provided — pick one and build from there.</li><li>The C API you must implement is defined in <code>/home/workspace/swscale_api.h</code>.</li></ol>
+<h4 id="prompt-deliverable">Deliverable</h4>
+<p>Source code at <code>/home/workspace/swscale-impl/</code> that compiles to a shared library named <code>libswscale_candidate.so</code>, exporting these three C-linkage functions:</p>
+<pre><code class="language-c">void *swscale_create(int src_w, int src_h, int src_fmt,
+                     int dst_w, int dst_h, int dst_fmt, int algo);
+int   swscale_process(void *ctx,
+                      const uint8_t *const src[4], const int src_stride[4],
+                      uint8_t *const dst[4], const int dst_stride[4]);
+void  swscale_destroy(void *ctx);</code></pre>
+<p>The verifier will <strong>rebuild your library from source</strong> before testing. Pre-built binaries without source will be rejected.</p>
+<h5 id="prompt-build-commands-the-verifier-tries-in-order">Build commands the verifier tries (in order):</h5>
+<ol><li>If <code>build.zig</code> exists: <code>zig build -Doptimize=ReleaseFast</code></li><li>If <code>Cargo.toml</code> exists: <code>cargo build --release</code></li><li>If <code>Makefile</code> exists: <code>make release</code></li></ol>
+<p>The output library must be discoverable at one of:</p>
+<ul><li><code>zig-out/lib/libswscale_candidate.so</code></li><li><code>target/release/libswscale_candidate.so</code></li><li><code>./libswscale_candidate.so</code></li></ul>
+<h4 id="prompt-supported-pixel-formats">Supported Pixel Formats</h4>
+<p>Your library must handle conversions between any pair of these formats:</p>
+<div class="tablewrap"><table><thead><tr><th>ID</th><th>Name</th><th>Layout</th></tr></thead><tbody><tr><td>0</td><td>YUV420P</td><td>Planar YUV 4:2:0 (3 planes)</td></tr><tr><td>1</td><td>YUV422P</td><td>Planar YUV 4:2:2 (3 planes)</td></tr><tr><td>2</td><td>YUV444P</td><td>Planar YUV 4:4:4 (3 planes)</td></tr><tr><td>3</td><td>NV12</td><td>Semi-planar Y + UV (2 planes)</td></tr><tr><td>4</td><td>NV21</td><td>Semi-planar Y + VU (2 planes)</td></tr><tr><td>5</td><td>RGB24</td><td>Packed R,G,B (1 plane)</td></tr><tr><td>6</td><td>BGR24</td><td>Packed B,G,R (1 plane)</td></tr><tr><td>7</td><td>RGBA</td><td>Packed R,G,B,A (1 plane)</td></tr><tr><td>8</td><td>BGRA</td><td>Packed B,G,R,A (1 plane)</td></tr><tr><td>9</td><td>GRAY8</td><td>Single-plane grayscale</td></tr></tbody></table></div>
+<h4 id="prompt-supported-scaling-algorithms">Supported Scaling Algorithms</h4>
+<div class="tablewrap"><table><thead><tr><th>ID</th><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>0</td><td>Nearest</td><td>Nearest-neighbour sampling</td></tr><tr><td>1</td><td>Bilinear</td><td>Bilinear interpolation</td></tr><tr><td>2</td><td>Bicubic</td><td>Bicubic interpolation</td></tr></tbody></table></div>
+<p>When <code>src_w == dst_w</code> and <code>src_h == dst_h</code>, only pixel-format conversion is needed (no scaling). This is the most common fast path.</p>
+<p><strong>Buffer alignment</strong>: The verifier allocates all source and destination plane buffers with 32-byte alignment. You may assume aligned loads/stores in your SIMD code. All dimensions for subsampled formats (YUV420P, YUV422P, NV12, NV21) will have even width and height.</p>
+<h4 id="prompt-what-has-to-stay-correct">What Has to Stay Correct</h4>
+<p>The verifier checks output quality on hidden workloads:</p>
+<ul><li><strong>Format-only conversion</strong> (same dimensions): PSNR &gt;= 60 dB per plane, or exact byte match for mathematically lossless paths (e.g. RGB&lt;-&gt;BGR channel swap).</li><li><strong>Scaling conversion</strong> (different dimensions): PSNR &gt;= 40 dB per plane.</li><li>If correctness fails on any hidden workload, the score is <strong>zero</strong>.</li></ul>
+<h4 id="prompt-scoring">Scoring</h4>
+<pre><code>if not build_ok or not correctness_ok or anti_cheat_violated:
+    reward = 0.0
+else:
+    reward = geometric_mean(baseline_time / candidate_time)</code></pre>
+<p>A reward of 1.0 means you match FFmpeg's C scalar speed exactly. Above 1.0 means you are faster. The SIMD opportunity is significant — FFmpeg's own recent swscale rewrite achieved 2.6x overall speedup through x86 SIMD backends.</p>
+<h4 id="prompt-how-to-work">How to Work</h4>
+<h5 id="prompt-starting-codebase-guidance">Starting Codebase Guidance</h5>
+<p>The Rust scaffold is already pre-populated in <code>/home/workspace/swscale-impl/</code> with a working baseline implementation. It includes exact stride-safe copy paths, packed RGB/BGR/RGBA/BGRA conversion helpers with alpha preservation, GRAY8 replication, YUV420P&lt;-&gt;NV12/NV21 split/interleave helpers, format metadata, and a generic conversion/scaling framework.</p>
+<p>Do not restart from the empty stub and do not switch to Zig. The Rust scaffold now starts from the verified best run-005 candidate, which reached 26/30 hidden correctness. It already fixes the broad conversion coverage: YUV420P/YUV422P/NV12/NV21 -&gt; RGB/BGRA, RGB/RGBA/BGR -&gt; YUV420P/YUV422P/NV12/NV21, YUV444P -&gt; YUV420P, YUV420P -&gt; GRAY8, bicubic upscale, RGBA bilinear resize, and exact copy/channel paths. Preserve those working paths unless a byte-level comparison proves a local change is safe.</p>
+<p>Focus only on these four remaining hidden failures from the 26/30 candidate:</p>
+<ul><li><code>yuv444p -&gt; rgb24 352x288</code> same-size conversion: current PSNR is about 31.86. YUV444P does not use the same unscaled fast path as YUV420P/YUV422P in FFmpeg; compare against the generic <code>output.c</code>/<code>yuv2rgb.c</code> path, including YUV table lookup, limited-range rounding, vertical filter selection, and RGB24 packed write behavior. Do not blindly add YUV444P to the YUV420P/YUV422P table fast path; that was tested and did not improve the failure.</li><li><code>rgb24 -&gt; rgb24 1280x720 -&gt; 640x360 bilinear</code>: current PSNR is about 28.91. The remaining gap is FFmpeg's default <code>SWS_BILINEAR</code> downscale filter construction from <code>utils.c::initFilter</code>, not a naive center bilinear formula. Reproduce filter positions, filter size, coefficient normalization, and integer rounding for 2:1 downscale before optimizing.</li><li><code>yuv420p -&gt; rgb24 1280x720 -&gt; 640x360 bilinear</code>: current PSNR is about 16.04. Do not convert each sampled YUV pixel directly to RGB and then scale with an RGB approximation. FFmpeg scales luma and chroma planes through separate horizontal/vertical filter chains and then performs YUV-&gt;RGB table output. Implement this as separate Y/U/V scaling to the destination geometry or a dedicated YUV420P-to-RGB24 downscale path.</li><li><code>rgb24 -&gt; rgb24 720x576 -&gt; 360x288 nearest</code>: current PSNR is about 14.92. A coordinate-only encoded probe can match <code>(1,1),(3,1),...</code>, but random inputs still fail, so the issue is not just <code>floor(out*src/dst)</code>. Compare against FFmpeg's <code>SWS_POINT</code> path with real random data and preserve its internal pipeline/filter/rounding behavior.</li></ul>
+<p>Your first action should be <code>cargo build --release &amp;&amp; python3 /home/workspace/verify_correctness.py</code>, then inspect <code>/app/results/correctness.json</code> and fix one of the four workload families above at a time. Submit after a meaningful correctness improvement.</p>
+<p>Important scaffold details already applied before you start:</p>
+<ul><li><code>scale_nearest_pos</code> is center-positioned and matches a coordinate-encoded 2:1 probe; do not revert it to floor(out*src/dst) without real random-data evidence.</li><li>YUV420P/YUV422P/NV12/NV21 -&gt; RGB uses a FFmpeg-like table path and currently passes hidden conversion checks exactly; avoid changing those paths globally.</li><li>YUV-&gt;GRAY8 uses limited-range luma expansion through <code>yuv_luma_to_gray</code>; do not copy raw Y for gray output.</li><li>RGB-&gt;YUV chroma handling has special cases that make hidden RGB/BGR/RGBA-to-YUV checks pass; validate U/V planes before changing it.</li></ul>
+<h5 id="prompt-correctness-first-implementation-plan">Correctness-first implementation plan</h5>
+<p>Correctness is the hard gate. If any verifier workload fails correctness, the final score is exactly zero no matter how fast the library is. Do not spend time on SIMD or benchmark tuning until <code>verify_correctness.py</code> is clean for all visible workloads and every failure has been reduced with byte/plane diffs.</p>
+<p>Work in this order:</p>
+<ol><li>Keep the project buildable after every edit. Prefer the scaffold/language you can finish fastest.</li><li>Implement exact lossless paths first:
+<ul><li>same-format copy, plane by plane, respecting strides</li><li>RGB24&lt;-&gt;BGR24 channel swap</li><li>RGB24/BGR24 to RGBA/BGRA with A=255 when alpha is introduced</li><li>RGBA&lt;-&gt;BGRA and RGBA/BGRA to RGB24/BGR24 while preserving existing alpha when the destination has alpha</li><li>GRAY8 to RGB/BGR/RGBA/BGRA by byte replication</li><li>YUV420P&lt;-&gt;NV12 and YUV420P&lt;-&gt;NV21 split/interleave with exact UV/VU order</li></ul></li><li>Then make same-size YUV/RGB conversions match FFmpeg scalar behavior. Avoid broad approximate BT.601 formulas unless byte-level validation proves they meet PSNR &gt;= 60 dB. Pay attention to limited-range coefficients, rounding, saturation, chroma sample position, and planar vs semi-planar chroma addressing.</li><li>For RGB/RGBA/BGRA to YUV420P/YUV422P/NV12/NV21, validate chroma planes separately. Most near-miss failures come from U/V downsampling, not the Y plane. Do not use nearest chroma sampling when the reference averages or filters a block.</li><li>For the remaining scaling failures, follow FFmpeg's actual filter generation. For <code>SWS_POINT</code>, verify random-data output, not only coordinate-coded probes. For <code>SWS_BILINEAR</code> 2:1 downscale, implement the <code>initFilter</code>-style wider downscale kernel and fixed-point normalization/rounding rather than a two-tap center bilinear approximation.</li><li>For <code>yuv420p -&gt; rgb24</code> downscale, keep color conversion and scaling isolated in the FFmpeg order: scale Y, U, and V planes with their own luma/chroma filters, then run the YUV-&gt;RGB table output.</li><li>Only after correctness passes should you run <code>run_dev_bench.py</code> and optimize hot loops.</li></ol>
+<h5 id="prompt-debugging-recipe-for-each-failing-workload">Debugging recipe for each failing workload</h5>
+<p>Use the development tools to compare against the reference before changing formulas globally:</p>
+<pre><code class="language-bash">cd /home/workspace/swscale-impl
+cargo build --release || zig build -Doptimize=ReleaseFast
+python3 /home/workspace/verify_correctness.py</code></pre>
+<p>For each failure, inspect <code>/app/results/correctness.json</code> and compare per-plane PSNR. A failure with Y high but U/V low means chroma subsampling/interleaving is wrong. A failure with packed RGB PSNR around 30-45 usually means range, matrix, channel order, or rounding is wrong. Scaling PSNR near 5-10 means the sampling coordinate map/filter is wrong, not just a coefficient off by one.</p>
+<p>Prefer tiny focused probes over guessing: generate a small raw frame with <code>/reference/ffmpeg</code>, run your candidate through <code>/home/workspace/pixel_formats.py</code>, and print first differing bytes plus per-plane max/mean error. Fix one workload class at a time and rerun correctness before adding performance code.</p>
+<h5 id="prompt-build-and-test-cycle">Build and test cycle:</h5>
+<pre><code class="language-bash"># Pick your language and start from the scaffold
+cp -r /home/workspace/scaffold/zig/* /home/workspace/swscale-impl/   # or /home/workspace/scaffold/rust/*
+
+# Build
+cd /home/workspace/swscale-impl
+zig build -Doptimize=ReleaseFast               # or: cargo build --release
+
+# Test correctness against FFmpeg reference
+python3 /home/workspace/verify_correctness.py
+
+# Benchmark against the public baseline
+python3 /home/workspace/run_dev_bench.py</code></pre>
+<h5 id="prompt-pre-generated-test-media">Pre-generated test media:</h5>
+<p>Test images are pre-generated at <code>/home/workspace/media/</code> in various formats and sizes (gradients, colour bars, noise). Use these for quick iteration:</p>
+<pre><code class="language-bash">ls /home/workspace/media/             # See available test images
+cat /home/workspace/media/manifest.json  # Format, size, path metadata</code></pre>
+<h5 id="prompt-use-the-reference-ffmpeg-binary-for-experiments">Use the reference FFmpeg binary for experiments:</h5>
+<pre><code class="language-bash"># Generate a test pattern
+/reference/ffmpeg -f lavfi -i testsrc=duration=1:size=1920x1080:rate=1 \
+    -frames:v 1 -f rawvideo -pix_fmt yuv420p /tmp/test_yuv420p.raw
+
+# Convert between formats (use pre-generated media or your own)
+/reference/ffmpeg -f rawvideo -pix_fmt yuv420p -s 640x480 \
+    -i /home/workspace/media/gradient_640x480_yuv420p.raw \
+    -f rawvideo -pix_fmt rgb24 /tmp/gradient_rgb24.raw</code></pre>
+<p><strong>Note:</strong> <code>verify_correctness.py</code> is a development-only tool that uses <code>/reference/ffmpeg</code> to generate golden outputs. The reference binary is deleted before final scoring — the actual verifier compares your output against the baseline library instead.</p>
+<h5 id="prompt-study-the-ffmpeg-source">Study the FFmpeg source:</h5>
+<pre><code class="language-bash"># The scalar C implementation you are competing against
+ls /reference/ffmpeg-src/libswscale/
+# Start with: swscale.c (entry point), swscale_internal.h (structures)
+# Look for the pixel conversion and scaling functions in the directory</code></pre>
+<h5 id="prompt-key-reference-files">Key reference files:</h5>
+<ul><li><code>/home/workspace/swscale_api.h</code> — The C API your library must export</li><li><code>/home/workspace/pixel_formats.py</code> — Pixel format metadata, plane geometry helpers, and the ctypes loading code the verifier uses to call your library</li></ul>
+<h4 id="prompt-constraints">Constraints</h4>
+<p>You CAN:</p>
+<ul><li>Use Zig's <code>@Vector</code> SIMD or Rust's <code>std::simd</code> / <code>std::arch</code> intrinsics</li><li>Use any algorithm or data structure for the conversion</li><li>Create helper files and modules</li><li>Pre-compute lookup tables and filter coefficients in <code>swscale_create</code></li></ul>
+<p>You CANNOT:</p>
+<ul><li>Wrap, exec, or dlopen the reference FFmpeg binary or its libraries (the reference is <strong>deleted before verification</strong>)</li><li>Access <code>/tests/</code> or any hidden verifier files</li><li>Use inline assembly (the task tests portable SIMD, not hand-tuned ASM)</li><li>Download external code (no internet access)</li></ul>
+<h5 id="prompt-suggested-phases">Suggested phases:</h5>
+<ul><li>Study FFmpeg scalar source, understand YUV&lt;-&gt;RGB maths and scaling filter generation, and set up your project scaffold.</li><li>Implement core format conversions (YUV420P&lt;-&gt;RGB24 first) and get <code>verify_correctness.py</code> passing for basic cases.</li><li>Add scaling (bilinear at minimum), then SIMD optimisation of hot conversion loops.</li><li>Expand format coverage and benchmark against the baseline.</li><li>Finish with a final correctness sweep, edge cases, and cleanup.</li></ul>
+<p>Keep a <strong>building and working</strong> library at all times. A library that handles 60% of conversions correctly at 1.2x speed is much better than one that doesn't compile.</p>
+<h4 id="prompt-behavioral-rules">Behavioral Rules</h4>
+<ul><li>Never stop to ask. Work autonomously until interrupted.</li><li>Check time regularly before starting large refactors.</li><li>Keep your library buildable at all times.</li><li>Test against the reference FFmpeg frequently.</li><li>Optimise for breadth of format coverage first, then depth of SIMD optimisation.</li></ul>
+<h4 id="prompt-current-scaffold-baseline">Current Scaffold Baseline</h4>
+<p>The Rust scaffold already matches the hidden correctness suite at 30/30 when built and judged against the current verifier. It scored 0.506321 in local hidden-judge validation. Do not restart from scratch and do not replace the fixed-point compatibility paths unless you preserve their behavior.</p>
+<p>Known correctness-critical paths already covered:</p>
+<ul><li><code>yuv444p -&gt; rgb24</code> same-size conversion uses FFmpeg's full-chroma <code>yuv2rgb_write_full</code> style fixed-point coefficients and signed 30-bit clipping behavior.</li><li><code>rgb24 -&gt; rgb24</code> 2:1 nearest and bilinear downscale use FFmpeg's internal RGB-to-Y/UV pipeline, including half-width RGB chroma input and the observed libswscale h/v filter coefficients.</li><li><code>yuv420p -&gt; rgb24</code> 2:1 bilinear downscale scales Y and chroma planes separately with the observed libswscale 4-tap filters before RGB output.</li></ul>
+<p>Your priority is performance improvement while keeping all public and hidden correctness passing. Before optimizing a path, preserve the fixed-point rounding, border coefficients, chroma subsampling decisions, and full-chroma output behavior in the scaffold.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="Show the full instructions" data-less="Show less">Show the full instructions</button></div></section><section id="grading"><h2 class="sec">How EdgeBench grades it</h2><p class="note">In plain words, from the task's definition file (<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/ffmpeg_swscale_reimplementation.json">tasks/ffmpeg_swscale_reimplementation.json</a>) and EdgeBench's harness code. This describes the original task; a fixed version may change the grader, as the case below states.</p><dl class="grade"><dt>Grader command</dt><dd><pre><code>mkdir -p /logs/verifier /tmp/verifier &amp;&amp; ln -sfn /home/workspace /app &amp;&amp; ln -sfn /opt/tests /tests &amp;&amp; ln -sfn /tmp/verifier /logs/verifier 2&gt;/dev/null; export APP_DIR=/home/workspace VERIFIER_DIR=/logs/verifier PYTHONPATH=/opt/tests:/tmp:${PYTHONPATH:-} PATH=/usr/local/cargo/bin:$PATH CARGO_HOME=/usr/local/cargo RUSTUP_HOME=/usr/local/rustup &amp;&amp; bash /opt/tests/test.sh &gt;/tmp/verifier.log 2&gt;&amp;1 || true; cat /tmp/verifier.log &gt;&amp;2; bash /opt/tests/pytest_shim.sh &quot;/logs/verifier/reward.json&quot;; python3 - &quot;/logs/verifier/reward.json&quot; &lt;&lt;&#x27;PY&#x27; &gt;&amp;2 …</code></pre><details class="longcmd"><summary>Show the full command (128 lines)</summary><pre class="long"><code>mkdir -p /logs/verifier /tmp/verifier &amp;&amp; ln -sfn /home/workspace /app &amp;&amp; ln -sfn /opt/tests /tests &amp;&amp; ln -sfn /tmp/verifier /logs/verifier 2&gt;/dev/null; export APP_DIR=/home/workspace VERIFIER_DIR=/logs/verifier PYTHONPATH=/opt/tests:/tmp:${PYTHONPATH:-} PATH=/usr/local/cargo/bin:$PATH CARGO_HOME=/usr/local/cargo RUSTUP_HOME=/usr/local/rustup &amp;&amp; bash /opt/tests/test.sh &gt;/tmp/verifier.log 2&gt;&amp;1 || true; cat /tmp/verifier.log &gt;&amp;2; bash /opt/tests/pytest_shim.sh &quot;/logs/verifier/reward.json&quot;; python3 - &quot;/logs/verifier/reward.json&quot; &lt;&lt;&#x27;PY&#x27; &gt;&amp;2
+import json
+import re
+import sys
+
+try:
+    data = json.load(open(sys.argv[1]))
+except Exception:
+    sys.exit(0)
+
+score = float(data.get(&quot;score&quot;) or data.get(&quot;reward&quot;) or 0.0)
+additional = data.get(&quot;additional_data&quot;) or {}
+passed = additional.get(&quot;correctness_passed&quot;)
+total = additional.get(&quot;correctness_total&quot;)
+results = additional.get(&quot;correctness_results&quot;) or []
+
+def as_int(value):
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+passed = as_int(passed)
+total = as_int(total)
+if passed is None or total is None:
+    for sub in data.get(&quot;subscores&quot;) or []:
+        text = f&quot;{sub.get(&#x27;name&#x27;, &#x27;&#x27;)} {sub.get(&#x27;subtask&#x27;, &#x27;&#x27;)} {sub.get(&#x27;stdout&#x27;, &#x27;&#x27;)}&quot;
+        if &quot;correct&quot; not in text.lower():
+            continue
+        match = re.search(r&quot;(\d+)\s*/\s*(\d+)&quot;, text)
+        if match:
+            passed = int(match.group(1))
+            total = int(match.group(2))
+            break
+
+if passed is None or total is None or passed &gt;= total or score &gt; 0:
+    sys.exit(0)
+
+yuv_formats = (&quot;yuv420p&quot;, &quot;yuv422p&quot;, &quot;yuv444p&quot;, &quot;nv12&quot;, &quot;nv21&quot;)
+rgb_formats = (&quot;rgb24&quot;, &quot;bgr24&quot;, &quot;rgba&quot;, &quot;bgra&quot;)
+
+def first(item, *keys):
+    for key in keys:
+        value = item.get(key)
+        if value not in (None, &quot;&quot;):
+            return str(value)
+    return &quot;&quot;
+
+def failed(item):
+    if not isinstance(item, dict):
+        return False
+    for key in (&quot;passed&quot;, &quot;pass&quot;, &quot;ok&quot;, &quot;success&quot;):
+        if key in item:
+            return item.get(key) is False
+    status = str(item.get(&quot;status&quot;, &quot;&quot;)).lower()
+    if status in (&quot;fail&quot;, &quot;failed&quot;, &quot;error&quot;):
+        return True
+    psnr = item.get(&quot;psnr&quot;)
+    threshold = item.get(&quot;threshold&quot;)
+    return isinstance(psnr, (int, float)) and isinstance(threshold, (int, float)) and psnr &lt; threshold
+
+def dim(item, *keys):
+    for key in keys:
+        value = as_int(item.get(key))
+        if value is not None:
+            return value
+    return None
+
+def category(item):
+    src = first(item, &quot;src_fmt&quot;, &quot;src_format&quot;, &quot;src_pix_fmt&quot;, &quot;source_format&quot;).lower().replace(&quot;_&quot;, &quot;&quot;)
+    dst = first(item, &quot;dst_fmt&quot;, &quot;dst_format&quot;, &quot;dst_pix_fmt&quot;, &quot;dest_format&quot;, &quot;destination_format&quot;).lower().replace(&quot;_&quot;, &quot;&quot;)
+    algo = first(item, &quot;algo&quot;, &quot;algorithm&quot;, &quot;scaler&quot;, &quot;scale_algo&quot;).lower().replace(&quot;_&quot;, &quot;&quot;)
+    label = first(item, &quot;label&quot;, &quot;workload&quot;, &quot;name&quot;, &quot;case&quot;, &quot;description&quot;).lower().replace(&quot;_&quot;, &quot;&quot;)
+    text = &quot; &quot;.join(part for part in (src, dst, algo, label) if part)
+
+    src_w = dim(item, &quot;src_w&quot;, &quot;source_w&quot;, &quot;src_width&quot;, &quot;source_width&quot;)
+    src_h = dim(item, &quot;src_h&quot;, &quot;source_h&quot;, &quot;src_height&quot;, &quot;source_height&quot;)
+    dst_w = dim(item, &quot;dst_w&quot;, &quot;dest_w&quot;, &quot;dst_width&quot;, &quot;dest_width&quot;)
+    dst_h = dim(item, &quot;dst_h&quot;, &quot;dest_h&quot;, &quot;dst_height&quot;, &quot;dest_height&quot;)
+    same_size = src_w is not None and src_h is not None and dst_w is not None and dst_h is not None and src_w == dst_w and src_h == dst_h
+    if not same_size and (&quot;same-size&quot; in text or &quot;samesize&quot; in text or &quot;same dimensions&quot; in text):
+        same_size = True
+
+    src_yuv = any(fmt in src for fmt in yuv_formats) or any(fmt in text for fmt in yuv_formats)
+    dst_rgb = any(fmt in dst for fmt in rgb_formats) or any(fmt in text for fmt in rgb_formats)
+    src_rgb = any(fmt in src for fmt in rgb_formats) or any(fmt in text for fmt in rgb_formats)
+    dst_rgb_exact = any(fmt in dst for fmt in rgb_formats)
+    bilinear = &quot;bilinear&quot; in algo or &quot;bilinear&quot; in text
+    nearest = &quot;nearest&quot; in algo or &quot;point&quot; in algo or &quot;nearest&quot; in text or &quot;point&quot; in text
+
+    if same_size and src_yuv and dst_rgb:
+        return &quot;same-size YUV -&gt; RGB conversion&quot;
+    if src == &quot;yuv420p&quot; and dst == &quot;rgb24&quot; and bilinear:
+        return &quot;YUV420P -&gt; RGB24 bilinear downscale&quot;
+    if src_rgb and (dst_rgb_exact or &quot;rgb24&quot; in text) and bilinear:
+        return &quot;RGB bilinear downscale&quot;
+    if src_rgb and (dst_rgb_exact or &quot;rgb24&quot; in text) and nearest:
+        return &quot;RGB nearest downscale&quot;
+    if src_yuv and dst_rgb and bilinear:
+        return &quot;YUV -&gt; RGB bilinear scaling&quot;
+    if src_yuv and dst_rgb:
+        return &quot;YUV -&gt; RGB conversion&quot;
+    if bilinear:
+        return &quot;bilinear scaling&quot;
+    if nearest:
+        return &quot;nearest scaling&quot;
+    if same_size:
+        return &quot;format conversion&quot;
+    return &quot;scaling&quot;
+
+categories = []
+for item in results:
+    if failed(item):
+        name = category(item)
+        if name not in categories:
+            categories.append(name)
+
+print(&quot;&quot;)
+print(&quot;Submission failed correctness gate.&quot;)
+print(f&quot;Correctness: {passed}/{total} passed.&quot;)
+if categories:
+    print(&quot;Failed categories:&quot;)
+    for name in categories:
+        print(f&quot;- {name}&quot;)
+else:
+    print(&quot;Failed categories: unavailable from reward.json&quot;)
+print(&quot;Benchmark not run because correctness failed.&quot;)
+PY</code></pre></details></dd><dt>Time limit</dt><dd>90 minutes for the whole grading run (5,400 seconds, <code>eval_timeout</code>).</dd><dt>What is submitted</dt><dd><code>.</code> Left out of the submission: <code>.git</code>, <code>zig-cache</code>, <code>zig-out</code>, <code>target</code>.</dd><dt>Raw result</dt><dd>The grader runs a test suite; the pass rate is the share of tests passed, and the raw result is the number on the <code>TOTAL_SCORE</code> line the grader prints (parser <code>pytest_v</code>).</dd><dt>Better raw result</dt><dd>Higher is better.</dd><dt>From raw result to 0–100</dt><dd>Logarithmic: the score is 43 × ln(raw) ÷ ln(14.155). A raw result of 1 or less scores 0, a raw result of 14.155 scores 43, and the score reaches 100 at a raw result of about 474.8; anything higher is clipped to 100. A raw result that is not a finite number (for example <code>inf</code>) gets no 0–100 score. (<code>rescale.kind</code> = <code>log_anchor</code>)<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>Which submission a run keeps</dt><dd>The submission with the best raw result (highest). Only the score is compared; a submission without a score is skipped, and on a tie the earlier submission stays (<code>score_first</code>).<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>Internet for the agent</dt><dd>No: the agent's environment is network-isolated (<code>internet: false</code>).</dd><dt>Grader machine</dt><dd>4 CPUs and 8 GB of memory in EdgeBench's official leaderboard settings: the default, since the task has no override. <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">The settings, quoted</a>.</dd></dl></section><section id="found"><h2 class="sec">What we found</h2><p class="note">The full case: the test submissions, the independent checks and the fix. File paths refer to the <a href="https://github.com/findalexli/edgebench-verified">repository</a>; links open on GitHub.</p><div class="md"><p><strong>Outcome:</strong> Fixed. <mark>The timed speed tests were never checked for correctness, so failed or empty calls earned speed credit; the fixed version checks each timed call's return code and output.</mark></p>
+<h3 id="case-what-the-task-asks">What the task asks</h3>
+<p>The solver re-implements FFmpeg's libswscale, its image-scaling and pixel-format-conversion library, in Zig or Rust as a C-compatible shared library. The task text says the library "must handle conversions between any pair of these formats". It also says: "If correctness fails on any hidden workload, the score is <strong>zero</strong>." Otherwise <code>reward = geometric_mean(baseline_time / candidate_time)</code>, the geometric mean of the speedups over the original library.</p>
+<p>The raw result (before conversion to 0–100) is converted with the <code>log_anchor</code> score scale, a logarithmic scale with one reference point: a raw result of 14.155 (anchor_raw) maps to 43 (anchor_score). A raw result of 1 or less becomes 0. Category: Systems &amp; Software Engineering.</p>
+<h3 id="case-what-goes-wrong">What goes wrong</h3>
+<p><strong>Timed workloads earn speed credit without any correctness check.</strong> The score is computed in two stages:</p>
+<ul><li><strong>Correctness check.</strong> 30 fixed workloads are compared with the original library using per-plane PSNR (peak signal-to-noise ratio, measured for each colour plane). The threshold is at least 60 dB for same-size conversion and at least 40 dB for scaling.</li><li><strong>Timing.</strong> 10 <em>different</em> workloads are timed. The timing loop ignores the return value of <code>swscale_process</code> and never reads the output buffer.</li></ul>
+<p>Several timed configurations never appear in the correctness set: RGBA→RGB24, RGB24→BGRA, 3:1 downscales, a 1.5× bicubic upscale, and 1080p and 4K sizes. A call that returns an error, or does nothing, finishes almost instantly. It therefore gets a very large "speedup".</p>
+<p>Each variant below models ordinary step-by-step development: a path that is not written yet, or a plain bug. Results on the original grader:</p>
+<div class="tablewrap"><table><thead><tr><th>Variant (honest behaviour modelled)</th><th>Correctness</th><th>Raw result</th><th>Score out of 100 (<code>log_anchor</code>)</th><th>Workload driving the change</th></tr></thead><tbody><tr><td>Variant 0: shipped starting code, unchanged</td><td>30/30</td><td>0.4585</td><td>0</td><td>n/a</td></tr><tr><td>Variant 1: returns error -3 for RGBA→RGB24 ("not implemented yet")</td><td>30/30</td><td><strong>1.3938</strong></td><td><strong>5.39</strong></td><td>rgba→rgb24 4K: 16,469×</td></tr><tr><td>Variant 2: returns error -3 for 3:1 downscale</td><td>30/30</td><td><strong>3.2112</strong></td><td><strong>18.93</strong></td><td>3:1 bilinear 23,856×, 3:1 nearest 7,032×</td></tr><tr><td>Variant 3: returns success but writes nothing for 3:1 downscale</td><td>30/30</td><td><strong>3.0083</strong></td><td><strong>17.87</strong></td><td>23,864× / 4,467×</td></tr></tbody></table></div>
+<p>Example: for Variant 1 the expected outcome is no speed credit on RGBA→RGB24, because the call fails. The original grader instead recorded a 16,469× speedup on that workload. That raised the score out of 100 from 0 to 5.39. Timings vary by about ±20% from run to run. The shifts above, of 3 to 7× in raw result, are far larger.</p>
+<p><strong>The shipped starting code already gets credit for wrong output.</strong> On the timed workload <code>rgb24 1080p→360p nearest</code>, the unchanged starting code produces <strong>14.91 dB PSNR, against the 40 dB threshold</strong>. That same workload gives the starting code its largest speedup, 4.65×.</p>
+<p>Crashes are handled differently. A Python exception or a NULL context gives that workload 0, and a segfault makes <code>test.sh</code> write reward 0. Only error returns and silent no-ops are rewarded. The correctness workloads themselves are checked as stated. They simply never cover the configurations that are timed.</p>
+<p>A point that does not change scores: the task text says the starting code "already matches the hidden correctness suite at 30/30", and elsewhere describes it as a candidate "which reached 26/30". The runs on the original grader measured 30/30.</p>
+<h3 id="case-how-much-it-matters">How much it matters</h3>
+<p>Up to 18.93 points out of 100 are shown for an honest but unfinished variant. Any solver whose library fails or does nothing on a timed configuration outside the correctness set receives too much credit.</p>
+<h3 id="case-the-fix">The fix</h3>
+<p>The fixed version changes only <code>compute_reward.py</code>:</p>
+<ul><li>It checks the return code of each timed call.</li><li>It compares the timed output with the original library's output, using the correctness workloads' per-plane PSNR thresholds: 40 dB for scaling and 60 dB for same-size conversions. The output of the last timed call of each workload is compared; the return code of every timed call is checked.</li><li>A failing timed workload is treated the way the original grader already treats a crashed workload: its speedup is 0, and it stays in the geometric mean.</li></ul>
+<p>Nothing else changes.</p>
+<div class="tablewrap"><table><thead><tr><th>Submission</th><th>Role</th><th>Original grader</th><th>Fixed grader</th><th>Note on the fixed grader</th></tr></thead><tbody><tr><td>shim forwarding to the original library (each frame once)</td><td>correct</td><td>0.967353</td><td>0.980056</td><td>30/30, no timed errors</td></tr><tr><td>shim forwarding to the original library (each frame twice)</td><td>correct, about 2× slower</td><td>0.509049</td><td>0.507032</td><td>30/30, no timed errors</td></tr><tr><td>shipped starting code</td><td>starting point</td><td>0.447819</td><td>0.012416</td><td>its 1080p→360p nearest output is below 40 dB</td></tr><tr><td>errors on 3:1 downscale</td><td><strong>shows the problem</strong></td><td><strong>2.881761</strong></td><td><strong>0.000464</strong></td><td>two timed workloads return -3</td></tr><tr><td>silent no-op on 3:1 downscale</td><td><strong>shows the problem</strong></td><td><strong>2.884506</strong></td><td><strong>0.000463</strong></td><td>two timed outputs below 40 dB</td></tr><tr><td>errors on RGBA→RGB24</td><td><strong>shows the problem</strong></td><td><strong>1.305860</strong></td><td><strong>0.000451</strong></td><td>timed error + PSNR failure</td></tr><tr><td>unsupported yuv420p→rgb24</td><td>invalid</td><td>0.0 (28/30)</td><td>0.0 (28/30)</td><td>correctness check fails in both</td></tr></tbody></table></div>
+<p>The values in this table are raw geometric-mean speedups, before conversion to the 0–100 scale. The two shim rows are a thin C wrapper (<code>ref_shim.c</code>, source in <code>repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md</code>) that forwards every call to the original FFmpeg library, so its output is correct by construction. It is built twice: once processing each frame once, and once processing each frame twice, which is correct but about 2× slower. The two rows are two different correct test submissions, not two runs of one; they are passed to <code>compute_reward.py</code> directly, not through <code>eval_cmd</code>, and neither is a real solution. This table ran on a different host from the first table, so its raw values for the original grader differ; both are quoted as recorded. The starting code's drop on the fixed grader is correct, because its output on one timed workload really is wrong.</p>
+<p>The three variants that show the problem are one-line edits of the starting code, so they inherit its wrong <code>rgb24 1080p→360p nearest</code> output, and the starting code alone already scores 0.012416 raw (0 out of 100) on the fixed grader. Their fixed-grader score of 0 therefore does not by itself show that the fix catches the edited workloads. The fixed grader's per-workload errors do: it reports <code>candidate process returned -3</code> on <code>rgba→rgb24 4K</code> for the RGBA→RGB24 variant and on both 3:1 workloads for the 3:1 error variant, and <code>timed output below PSNR threshold 40.0</code> on <code>rgb24→yuv420p 1080p→360p bilinear</code> for the silent no-op, each with speedup 0 (<code>evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/result/out/summary_parsed.txt</code>). No variant was built on a base whose timed outputs are all correct.</p>
+<p><strong>Score compatibility:</strong> correct implementations score as on the original grader, apart from timing noise. Implementations that produce wrong output, or no output, on a timed workload lose that credit. Scores from the fixed grader are not comparable with scores from the original grader.</p>
+<h3 id="case-how-we-checked-it">How we checked it</h3>
+<ul><li><strong>Original grader in the original public image, pinned by digest.</strong> Four submissions were built from the shipped Rust starting code, each changing a single line of <code>swscale_process</code>. They ran through the task's exact <code>eval_cmd</code> with <code>--network none --memory 2g --cpus 2</code>. That path covers <code>test.sh</code>, the source scan, the <code>cargo build --release</code> rebuild, <code>compute_reward.py</code> and <code>pytest_shim.sh</code>.</li><li><strong>Independent output check.</strong> The original <code>check_correctness</code> routine was applied to the 10 timed workloads, with the same PSNR thresholds and the same random-number sequence. The grader itself never runs this check on those workloads.</li><li><strong>Side-by-side run of the original and fixed graders</strong> on the same submissions, with <code>--network none --memory 4g --cpus 4</code>. It was repeated three times. No test submission changed outcome, and the test submissions that show the problem stayed near 0 on the fixed grader in every run (see <code>data/paired-repeatability.md</code>).</li></ul>
+<h3 id="case-limits">Limits</h3>
+<ul><li>No AI model or solver runs were made. Effects are shown only on test submissions and counterexamples that we wrote.</li><li>On the fixed grader, a single zero factor pulls the geometric mean close to 0. This follows the original convention for crashes and is not a graded penalty.</li><li>The timed set still differs from the correctness set. The fixed version checks timed outputs but does not add the timed configurations to the 30 correctness workloads.</li><li>Timings depend on the host: the first table ran on a local host in containers limited to 2 CPUs, the side-by-side table on an 8-CPU E2B host in containers limited to 4 CPUs (<code>env.txt</code>, <code>run.sh</code>).</li><li>The reference point of the score scale (14.155 → 43) should be derived again after the fix. No newly derived reference point is recorded.</li><li>Only the shipped starting code, three one-line variants, one invalid test submission and the wrapper that forwards to the original library were tested. No independent full implementation was built.</li><li>Scorer isolation is outside this release's scope (EdgeBench design choice). The finding above does not depend on it.</li></ul>
+<h3 id="case-reproduce">Reproduce</h3>
+<ul><li>Grader image digest: <code>sha256:38b256686afe…</code>.</li><li>Variants on the original grader:
+<ul><li>Build the variants with <code>evidence/scripts/ffmpeg_swscale_reimplementation/make_variants.py</code>.</li><li>Run them with <code>run_variant.sh</code>, which uses the exact <code>eval_cmd.sh</code>.</li><li>Outputs are in <code>results_local/&lt;variant&gt;/</code>.</li></ul></li><li>Output check on the timed workloads: <code>evidence/scripts/ffmpeg_swscale_reimplementation/check_bench_outputs.py</code>. The recorded outputs are <code>bench_outputs_v0_scaffold.txt</code> and <code>bench_outputs_v1_rgba_rgb24_unsupported.txt</code>.</li><li>Side-by-side run of the original and fixed graders: <code>repairs/ffmpeg_swscale_reimplementation-v2/paired/run.sh</code>, with <code>make_variants.py</code> in the same folder. <code>run.sh</code> compiles <code>/job/tools/ref_shim.c</code>; that file is not in the repository, and its source is quoted in <code>paired/results.md</code>. The executed job and its outputs are in <code>evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/</code> (<code>result/out/</code>).</li><li>Fixed version: <code>repairs/ffmpeg_swscale_reimplementation-v2/</code> (the folder holding the fixed version), which contains <code>Dockerfile</code>, <code>repair.patch</code>, <code>materialize.sh</code> and <code>source-lock.json</code>. <code>files/compute_reward.py</code> is generated by <code>materialize.sh</code>.</li><li>Supporting records: <code>repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md</code> and <code>evidence/reviews/ffmpeg_swscale_reimplementation.md</code>.</li></ul></div></section><section id="files"><h2 class="sec">Files</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/ffmpeg_swscale_reimplementation.md">This case on GitHub</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/ffmpeg_swscale_reimplementation.json">The original task definition (tasks/ffmpeg_swscale_reimplementation.json)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/ffmpeg_swscale_reimplementation-v2">The fix package (patch, Dockerfile, task definition)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md">Side-by-side results, original against fixed grader</a></li><li><a href="../data/paired-results.csv">All side-by-side results (paired-results.csv)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/ffmpeg_swscale_reimplementation.md">Review notes (<code>ffmpeg_swscale_reimplementation.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/ffmpeg_swscale_reimplementation">Evidence scripts</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/notes/ffmpeg_swscale_reimplementation.md">Formal-verification note</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">Evidence index</a></li></ul></section><nav class="pager" aria-label="All tasks"><a class="prev" href="exchange_core_throughput.html" rel="prev"><small>&larr; Previous</small>Exchange Core Throughput</a><a class="all" href="index.html">All tasks</a><a class="next" href="git_rewrite_in_zig.html" rel="next"><small>Next &rarr;</small>Git Rewrite in Zig</a></nav></div>
+</main>
+<footer class="">EdgeBench is developed by ByteDance Seed. This audit is independent and not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0); task definitions and task instructions come from the public Hugging Face release (CC BY 4.0); EdgeBench's images are referenced by their public fingerprints and are not redistributed.</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

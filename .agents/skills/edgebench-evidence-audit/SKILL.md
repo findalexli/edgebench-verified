@@ -36,9 +36,8 @@ several decisions disproportionate. Apply these before proposing any disposition
   case), *repair as vN* (material and fixable: the original is superseded, not "withheld" as a
   separate finding), *exclude* (material and no justified repair). "Withhold original" alone
   conflates the last two and hides immaterial cases.
-- **Check exploitability before retaining.** Ask whether submitted code can read hidden answers,
-  share a process with the scorer, write files the scorer trusts, escape timing, or print parser
-  markers. [scorer-isolation note removed]
+- **Scorer isolation is out of scope.** Attacks by a deliberately malicious submission are an
+  EdgeBench design question; keep any such notes in `.internal/` and never in published files.
 - **Witnesses must be realistic and controls must exercise the trigger.** Prefer a plausible
   solver implementation over a singleton fixture; a "wrong" control that never hits the defective
   path does not test a repair (Tree's missing-answer control).

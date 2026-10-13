@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schemathesis Config Modernization · EdgeBench Verified</title>
+<meta name="description" content="One test does not check that a function is returned unchanged">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/schemathesis_config_modernization.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/schemathesis_config_modernization.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+
+<link rel="stylesheet" href="../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="Language"><a href="../tasks/schemathesis_config_modernization.html" hreflang="en" lang="en" aria-current="true">EN</a> / <a href="../zh/tasks/schemathesis_config_modernization.html" hreflang="zh-CN" lang="zh-CN">中文</a></span>
+  <nav class="tabs" aria-label="Site"><a href="../index.html">Overview</a><a href="../tasks/index.html" aria-current="page">Tasks</a><a href="../method.html">Method</a><a href="../leaderboard.html">Leaderboard</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Systems &amp; Software Engineering</span></div><header class="task-head"><h1>Schemathesis Config Modernization</h1><span class="badge b-repair-v2" data-outcome="repair-v2">Fixed</span> <span class="id">schemathesis_config_modernization</span><p class="summary">One test does not check that a function is returned unchanged.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Modernize the configuration code of schemathesis, a tool for testing web APIs, following a written specification; hidden tests grade the result.</dd><dt>What goes wrong</dt><dd>The specification says the @schemathesis.metric decorator (a function that registers another function) returns the function unchanged. The test only checks that it returns something callable, so a version that returns a wrapper scores the same as a correct one.</dd><dt>How much it matters</dt><dd>At most 1/160 of the total (0.625 points) per run, either way: a wrapper decorator loses up to that; a correct one with that test group partly passed gains up to that.</dd><dt>What we did</dt><dd>Fixed in a new version: one test is added that checks the function comes back unchanged. Scores are identical when all 16 tests of the fixed test group are passed, or all are failed.</dd><dt>Formal check</dt><dd>Partly proved in Lean 4. Every published score change is exact, and fully passed or fully failed test groups score the same in both versions. Limit: The identity test itself is not formalized.</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 264" role="img"><title>Phase 3 test results: the original tests pass both a correct decorator and a wrapper at 15/15; the fixed tests fail the wrapper at 15/16.</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px}
+  .t{font-size:17px;font-weight:600} .b{font-weight:600}
+  
+</style>
+<text class="t ink" x="16" y="30">Does @schemathesis.metric return the function unchanged?</text>
+<text class="muted b" x="250" y="66">Original tests</text>
+<text class="muted b" x="480" y="66">Fixed tests</text>
+<text class="ink" x="16" y="105">Correct decorator</text>
+<rect class="goodBg goodS" x="250" y="84" width="190" height="30" rx="4" stroke-width="1.5"/><text class="good b" x="345" y="105" text-anchor="middle">15/15 ✓</text>
+<rect class="goodBg goodS" x="480" y="84" width="190" height="30" rx="4" stroke-width="1.5"/><text class="good b" x="575" y="105" text-anchor="middle">16/16 ✓</text>
+<text class="ink" x="16" y="153">Wrapper (wrong)</text>
+<rect class="goodBg goodS" x="250" y="132" width="190" height="30" rx="4" stroke-width="1.5"/><text class="good b" x="345" y="153" text-anchor="middle">15/15 ✓</text>
+<rect class="badBg badS" x="480" y="132" width="190" height="30" rx="4" stroke-width="1.5"/><text class="bad b" x="575" y="153" text-anchor="middle">15/16 ✗</text>
+<text class="bad b" x="16" y="214">Original: a wrong wrapper scores the same as the correct decorator.</text>
+<text class="muted" x="16" y="244">Worth one test: 1/160 of the score.</text>
+</svg>
+</div><figcaption>The original tests could not tell a wrapper from the correct decorator; the fixed tests add one test, worth 1/160 of the score.</figcaption></figure></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_config_modernization.json">tasks/schemathesis_config_modernization.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-role">Role</h4>
+<p>You are an expert software engineer implementing a roadmap task in the current repository.</p>
+<h4 id="prompt-task-document">Task Document</h4>
+<p>Read <code>/app/TODO.md</code> completely before editing code. It contains the full project overview, goals, target requirements, and completion criteria.</p>
+<h4 id="prompt-workflow">Workflow</h4>
+<ol><li>Read the task document before making code changes.</li><li>Implement all requested roadmap targets.</li><li>Preserve existing public APIs unless <code>/app/TODO.md</code> explicitly requires a change.</li><li>Use local tests or submission feedback to iterate when available.</li></ol>
+<h4 id="prompt-rules">Rules</h4>
+<ul><li>Treat <code>/app/TODO.md</code> as the authoritative task specification.</li><li>Do not modify hidden tests.</li><li>Do not rely on external task text beyond the task document.</li></ul></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="Show the full instructions" data-less="Show less">Show the full instructions</button></div></section><section id="grading"><h2 class="sec">How EdgeBench grades it</h2><p class="note">In plain words, from the task's definition file (<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_config_modernization.json">tasks/schemathesis_config_modernization.json</a>) and EdgeBench's harness code. This describes the original task; a fixed version may change the grader, as the case below states.</p><dl class="grade"><dt>Grader command</dt><dd><pre><code>set +x; cd /app &amp;&amp; bash /tests/test.sh &gt; /tmp/test_full.log 2&gt;&amp;1; python3 - &gt; /tmp/structured_result.log 2&gt;&amp;1 &lt;&lt;&#x27;PY&#x27; …</code></pre><details class="longcmd"><summary>Show the full command (211 lines)</summary><pre class="long"><code>set +x; cd /app &amp;&amp; bash /tests/test.sh &gt; /tmp/test_full.log 2&gt;&amp;1; python3 - &gt; /tmp/structured_result.log 2&gt;&amp;1 &lt;&lt;&#x27;PY&#x27;
+import json
+import re
+from pathlib import Path
+
+PASSED = &quot;PASSED&quot;
+FAILED = &quot;FAILED&quot;
+ERROR = &quot;ERROR&quot;
+
+
+def read_text(path):
+    p = Path(path)
+    if not p.exists():
+        return &quot;&quot;
+    return p.read_text(errors=&quot;replace&quot;)
+
+
+def parse_weights(script_text, phase_count):
+    patterns = [
+        r&quot;weights\s*=\s*\[([0-9,\s]+)\]&quot;,
+        r&quot;PHASE_WEIGHTS\s*=\s*\(([0-9\s]+)\)&quot;,
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, script_text)
+        if m:
+            raw = re.split(r&quot;[,\s]+&quot;, m.group(1).strip())
+            weights = [float(x) for x in raw if x]
+            if len(weights) &gt;= phase_count:
+                return weights[:phase_count]
+
+    m = re.search(r&quot;PHASES\s*=\s*\((.*?)\n\)&quot;, script_text, re.S)
+    if m:
+        weights = []
+        for line in m.group(1).splitlines():
+            line = line.strip()
+            if not line or line.startswith(&quot;#&quot;):
+                continue
+            line = line.strip(&quot;\&quot;&#x27;&quot;)
+            parts = line.split()
+            if parts and re.fullmatch(r&quot;\d+(?:\.\d+)?&quot;, parts[-1]):
+                weights.append(float(parts[-1]))
+        if len(weights) &gt;= phase_count:
+            return weights[:phase_count]
+
+    reward_json = Path(&quot;/logs/verifier/reward.json&quot;)
+    if reward_json.exists():
+        try:
+            data = json.loads(reward_json.read_text(errors=&quot;replace&quot;))
+            phases = data.get(&quot;phases&quot;)
+            if isinstance(phases, dict):
+                weights = []
+                for phase in phases.values():
+                    if isinstance(phase, dict) and &quot;weight&quot; in phase:
+                        weights.append(float(phase[&quot;weight&quot;]))
+                if len(weights) &gt;= phase_count:
+                    return weights[:phase_count]
+        except Exception:
+            pass
+
+    return [1.0] * phase_count
+
+
+def parse_statuses(output):
+    results = []
+    seen = set()
+    pattern = re.compile(r&quot;^(tests/roadmap\.py::\S+)\s+(PASSED|FAILED|ERROR)\s*$&quot;, re.M)
+    for name, status in pattern.findall(output):
+        if name in seen:
+            continue
+        seen.add(name)
+        results.append((name, status))
+    return results
+
+
+def parse_phase_number(name, fallback):
+    m = re.search(r&quot;(?:test_)?phase_?0*(\d+)\b&quot;, name)
+    if m:
+        return int(m.group(1))
+    return fallback
+
+
+def parse_phase_ratios(output):
+    ratios = {}
+    counts = {}
+    pattern = re.compile(r&quot;^Phase\s+0*(\d+):\s+(\d+)\s*/\s*(\d+)\s+passed\s*$&quot;, re.M)
+    for n, passed, total in pattern.findall(output):
+        n_i = int(n)
+        passed_i = int(passed)
+        total_i = int(total)
+        counts[n_i] = (passed_i, total_i)
+        ratios[n_i] = passed_i / total_i if total_i else 0.0
+
+    weighted_pattern = re.compile(
+        r&quot;^\s*Phase\s+0*(\d+)\s+\(weight\s*=\s*([0-9.]+)\):\s*([0-9.]+)\s*$&quot;,
+        re.M,
+    )
+    inline_weights = {}
+    for n, weight, score in weighted_pattern.findall(output):
+        n_i = int(n)
+        inline_weights[n_i] = float(weight)
+        ratios[n_i] = float(score)
+
+    return ratios, counts, inline_weights
+
+
+def parse_total_score(output):
+    m = re.search(r&quot;TOTAL_SCORE\s+([0-9]+(?:\.[0-9]+)?)&quot;, output)
+    if m:
+        return float(m.group(1))
+    reward_path = Path(&quot;/logs/verifier/reward.txt&quot;)
+    if reward_path.exists():
+        try:
+            return float(reward_path.read_text(errors=&quot;replace&quot;).strip())
+        except Exception:
+            pass
+    return None
+
+
+def main():
+    output = read_text(&quot;/tmp/test_full.log&quot;)
+    script = read_text(&quot;/tests/test.sh&quot;)
+
+    statuses = parse_statuses(output)
+    if not statuses:
+        statuses = [(&quot;tests/roadmap.py::unknown&quot;, ERROR)]
+
+    ratios, counts, inline_weights = parse_phase_ratios(output)
+    weights = parse_weights(script, len(statuses))
+    for idx, weight in inline_weights.items():
+        if 1 &lt;= idx &lt;= len(weights):
+            weights[idx - 1] = weight
+
+    details = []
+    weighted_total = 0.0
+    weight_total = 0.0
+    failed_names = []
+
+    for pos, (name, status) in enumerate(statuses, start=1):
+        phase_num = parse_phase_number(name, pos)
+        weight = weights[pos - 1] if pos - 1 &lt; len(weights) else 1.0
+        if phase_num in ratios:
+            ratio = ratios[phase_num]
+        else:
+            ratio = 1.0 if status == PASSED else 0.0
+        contribution = weight * ratio
+        weighted_total += contribution
+        weight_total += weight
+
+        if phase_num in counts:
+            phase_passed, phase_total = counts[phase_num]
+            message = (
+                f&quot;Phase {phase_num}: {phase_passed}/{phase_total} checks passed; &quot;
+                f&quot;weighted contribution {contribution:.6f}/{weight:.6f}&quot;
+            )
+        else:
+            message = (
+                f&quot;Phase {phase_num}: status {status}; &quot;
+                f&quot;weighted contribution {contribution:.6f}/{weight:.6f}&quot;
+            )
+
+        if status != PASSED:
+            failed_names.append(name)
+
+        details.append(
+            {
+                &quot;name&quot;: name,
+                &quot;status&quot;: status,
+                &quot;message&quot;: message,
+                &quot;score&quot;: contribution,
+                &quot;weight&quot;: weight,
+            }
+        )
+
+    passed_count = sum(1 for _, status in statuses if status == PASSED)
+    total_count = len(statuses)
+    pass_rate = passed_count / total_count if total_count else 0.0
+    total_score = parse_total_score(output)
+    if total_score is None:
+        total_score = weighted_total / weight_total if weight_total else 0.0
+
+    summary = (
+        f&quot;{passed_count}/{total_count} phases passed; &quot;
+        f&quot;weighted score {total_score:.6f}&quot;
+    )
+    if failed_names:
+        summary += &quot;. Failed: &quot; + &quot;, &quot;.join(failed_names[:10])
+        if len(failed_names) &gt; 10:
+            summary += f&quot; (+{len(failed_names) - 10} more)&quot;
+
+    result = {
+        &quot;valid&quot;: True,
+        &quot;score&quot;: total_score,
+        &quot;pass_rate&quot;: pass_rate,
+        &quot;summary&quot;: summary,
+        &quot;details&quot;: details,
+        &quot;metrics&quot;: {
+            &quot;phase_weighted_total&quot;: weighted_total,
+            &quot;phase_weight_total&quot;: weight_total,
+            &quot;source&quot;: &quot;roadmap_structured_json&quot;,
+        },
+    }
+
+    print(&quot;&gt;&gt;&gt;&gt;&gt; Start Structured Result&quot;)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    print(&quot;&gt;&gt;&gt;&gt;&gt; End Structured Result&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+PY
+cat /tmp/structured_result.log</code></pre></details></dd><dt>Time limit</dt><dd>30 minutes for the whole grading run (1,800 seconds, <code>eval_timeout</code>).</dd><dt>What is submitted</dt><dd><code>.</code> Left out of the submission: <code>.git</code>, <code>__pycache__</code>, <code>*.pyc</code>, <code>*.egg-info</code>, <code>.eggs</code>, <code>*.so</code>, <code>TODO.md</code>.</dd><dt>Raw result</dt><dd>The grader prints a JSON report; its <code>score</code> is the raw result, and the report can also give a pass rate and mark the submission invalid (parser <code>structured_json</code>).</dd><dt>Better raw result</dt><dd>Higher is better (EdgeBench's default; the task sets no direction).</dd><dt>From raw result to 0–100</dt><dd>A straight line: a raw result of 0 scores 0 and 1 scores 100, with values in between interpolated linearly. Results outside that range are clipped to 0 or 100. A raw result that is not a finite number (for example <code>inf</code>) gets no 0–100 score. (<code>rescale.kind</code> = <code>linear</code>)<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>Which submission a run keeps</dt><dd>The submission with the best raw result (highest). Only the score is compared; a submission without a score is skipped, and on a tie the earlier submission stays (<code>score_first</code>).<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>Internet for the agent</dt><dd>No: the agent's environment is network-isolated (<code>internet: false</code>).</dd><dt>Grader machine</dt><dd>4 CPUs and 8 GB of memory in EdgeBench's official leaderboard settings: the default, since the task has no override. <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">The settings, quoted</a>.</dd></dl></section><section id="found"><h2 class="sec">What we found</h2><p class="note">The full case: the test submissions, the independent checks and the fix. File paths refer to the <a href="https://github.com/findalexli/edgebench-verified">repository</a>; links open on GitHub.</p><div class="md"><p><strong>Outcome:</strong> Fixed. <mark>The Phase 3 tests check only that <code>@schemathesis.metric</code> returns something callable, not that it returns the function unchanged; under the fixed tests a wrapper loses one test item, 1/160 of the score (0.625 points out of 100).</mark></p>
+<h3 id="case-what-the-task-asks">What the task asks</h3>
+<p>The solver modernizes the configuration layer of schemathesis 3.39.16, a tool for testing web APIs. Hidden tests, grouped into phases, grade the result. The task text tells the solver to "Treat <code>/app/TODO.md</code> as the authoritative task specification." <code>TODO.md</code> Target 3 states that the "<strong><code>@schemathesis.metric</code> decorator</strong>: Registers a metric function into a registry. Returns the function unchanged." A decorator is a function that takes another function and returns a function in its place. <code>TODO.md</code> uses the same wording for <code>@schemathesis.check</code>. Category: Systems &amp; Software Engineering.</p>
+<h3 id="case-what-goes-wrong">What goes wrong</h3>
+<p><strong>Rule.</strong> The decorator must return the function unchanged. The original test <code>test_metric_decorator_returns_function</code> only asserts <code>callable(another_metric)</code>. A wrapper that forwards calls to the function therefore scores the same as a correct decorator.</p>
+<p><strong>Example.</strong> Three variants of <code>metric</code> were tested on a minimal implementation of Target 3:</p>
+<ul><li><code>identity</code> registers the function and returns it. This is correct.</li><li><code>wrapper</code> returns a forwarding wrapper built with <code>functools.wraps</code>. This is plausibly wrong.</li><li><code>no_register</code> never registers the function. This is clearly wrong.</li></ul>
+<p>Phase 3 results under the original tests (<code>orig</code>) and the fixed tests (<code>repaired</code>):</p>
+<pre><code>variant=identity    tests=orig     :: 15 passed
+variant=identity    tests=repaired :: 16 passed
+variant=wrapper     tests=orig     :: 15 passed
+variant=wrapper     tests=repaired :: 1 failed, 15 passed
+variant=no_register tests=orig     :: 3 failed, 12 passed
+variant=no_register tests=repaired :: 4 failed, 12 passed</code></pre>
+<p>Expected under the specification: the wrapper should lose the test item that checks identity. Observed on the original grader: the wrapper passes 15/15, the same as the correct decorator.</p>
+<p><strong>Why it matters, and why only slightly.</strong> In behaviour, the wrapper is almost equivalent to the correct decorator. It keeps <code>__name__</code>, registers under the right name, returns the same values, and works with the collector and with <code>hypothesis.target</code>. The only differences are <code>decorated is original</code> and the presence of <code>__wrapped__</code>. The wrong implementation gains no advantage over a correct one; it only avoids losing one item. The authors probably intended identity: the Phase 6 test asserts <code>result is my_func</code> for <code>@check</code>, but Phase 3 has no such check.</p>
+<h3 id="case-how-much-it-matters">How much it matters</h3>
+<p>At most 1/160 of the total, 0.625 points out of 100. The score is Σ(weight × passed/total)/10 over six phases, and Phase 3 has weight 1. With the fixed version's 16 Phase 3 tests, a wrapper that passes k of the 15 original tests drops from k/15 to k/16 of the Phase 3 weight, a loss of k/2400; at k = 15 that is 1/160, the measured −0.006250. (In the original 15-test phase, one test is worth 1/15 × 1/10 = 1/150.)</p>
+<p>The score scale is not a pure penalty. A submission whose decorator returns the function unchanged but passes only k &lt; 15 of the original Phase 3 tests rises from k/15 to (k+1)/16, a gain of (15 − k)/2400. Either change is at most 1/160 per run. Only submissions with a wrapper decorator, or with a partly passed Phase 3, score differently.</p>
+<h3 id="case-the-fix">The fix</h3>
+<ul><li><code>/tests/test_03_metric_system.py</code> gains <code>test_metric_decorator_preserves_exact_function_identity</code>. The test asserts <code>metric(f) is f</code> and unregisters the function afterwards.</li><li><code>/tests/test.sh</code> changes <code>PHASE3_TOTAL</code> and <code>PHASE3_EXPECTED</code> from 15 to 16.</li></ul>
+<p>The weights, the parser, the score scale and the 126 original tests are unchanged. In <code>task.json.in</code>, only <code>judge.image_tag</code> changes.</p>
+<div class="tablewrap"><table><thead><tr><th>Variant</th><th>Role</th><th>Original grader (raw)</th><th>Fixed grader (raw)</th><th>Change</th><th>Phase 3, original → fixed</th></tr></thead><tbody><tr><td>starter</td><td>untouched starting <code>/app</code></td><td>0.031466</td><td>0.031466</td><td>0</td><td>0/15 → 0/16</td></tr><tr><td>identity</td><td>reviewer's correct Target 3 overlay (<code>metric</code> returns <code>func</code>)</td><td>0.135313</td><td>0.135313</td><td><strong>0</strong></td><td>15/15 → 16/16</td></tr><tr><td>wrapper</td><td>plausibly wrong: returns a <code>functools.wraps</code> forwarding wrapper</td><td>0.135313</td><td>0.129063</td><td><strong>−0.006250 (−1/160)</strong></td><td>15/15 → 15/16</td></tr><tr><td>no_register</td><td>invalid test submission: never registers</td><td>0.115313</td><td>0.110313</td><td>−0.005000</td><td>12/15 → 12/16</td></tr></tbody></table></div>
+<p>In every variant, the only test items whose results differ are the added identity test and, for the wrapper, the Phase 3 "all passed" item (<code>test_phase_3</code>), which flips from passed to failed. The other 131 original items keep their result from the original grader. Scores are raw values on a 0–1 scale; the task's <code>linear</code> 0..1 scale gives the score out of 100 as 100 × raw (0.135313 is 13.53). Scores are partial because the overlay implements Target 3 only, not the whole task.</p>
+<p><strong>Score compatibility.</strong> Scores from the original and fixed graders are identical when the submission passes all 16 tests of the fixed Phase 3, or fails all of them. When Phase 3 is partly passed they are not comparable, because the phase has 16 tests instead of 15, and an imperfect phase yields a different fraction.</p>
+<h3 id="case-how-we-checked-it">How we checked it</h3>
+<ul><li><strong>Original grader in the original public image, pinned by digest.</strong> The grader image holds the unmodified schemathesis 3.39.16 starting code in <code>/app</code> and no reference solution. Each variant and the untouched starting code ran through the full original <code>judge.eval_cmd</code> (<code>bash /tests/test.sh</code> plus the structured parser), in a fresh <code>--network none</code> container, under both the original and the fixed tests.</li><li><strong>Independent check.</strong> The sentence of the specification in <code>TODO.md</code> ("Returns the function unchanged") is the reference, and the added test checks it directly. No formal model applies.</li><li><strong>Repeatability.</strong> The side-by-side run of the original and fixed graders was repeated three times, and no outcome changed (<code>data/paired-repeatability.md</code>).</li></ul>
+<h3 id="case-limits">Limits</h3>
+<ul><li>No AI model or solver runs were made. Effects are shown only on test submissions that we wrote.</li><li>The overlay is a minimal implementation of Target 3, not a complete solution to the task, so the absolute scores are partial.</li><li>No historical submissions were examined, so how often real solvers write wrapper decorators is unknown.</li><li><code>TODO.md</code> was not extracted again from the pinned work image.</li><li>The hidden tests are not stored in this repository. They are extracted from the pinned grader image when the check is rerun.</li></ul>
+<h3 id="case-reproduce">Reproduce</h3>
+<ul><li>Grader image digest: <code>sha256:ff71a766…</code>.</li></ul>
+<ol><li>Run <code>evidence/scripts/schemathesis_config_modernization/fetch_tests.sh</code>. It extracts the hidden tests from the pinned grader image and applies the patch.</li><li>Run <code>evidence/scripts/schemathesis_config_modernization/run_in_judge.sh</code> with <code>metrics_base.py</code>. The saved output is <code>observed_output.txt</code>.</li></ol>
+<p>The side-by-side run of the original and fixed graders is <code>repairs/schemathesis_config_modernization-v2/paired/run.sh</code>, with results in <code>paired/results.md</code> and <code>paired/raw-summary.md</code>. The fix itself is in <code>repairs/schemathesis_config_modernization-v2/repair.patch</code>, <code>Dockerfile</code> and <code>source-lock.json</code>.</p>
+<p>Supporting records: <code>repairs/schemathesis_config_modernization-v2/</code> (the folder holding the fixed version) and <code>evidence/reviews/schemathesis_config_modernization.md</code>.</p></div></section><section id="files"><h2 class="sec">Files</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/schemathesis_config_modernization.md">This case on GitHub</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_config_modernization.json">The original task definition (tasks/schemathesis_config_modernization.json)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/schemathesis_config_modernization-v2">The fix package (patch, Dockerfile, task definition)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/schemathesis_config_modernization-v2/paired/results.md">Side-by-side results, original against fixed grader</a></li><li><a href="../data/paired-results.csv">All side-by-side results (paired-results.csv)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/schemathesis_config_modernization.md">Review notes (<code>schemathesis_config_modernization.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/schemathesis_config_modernization">Evidence scripts</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/notes/schemathesis_config_modernization.md">Formal-verification note</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">Evidence index</a></li></ul></section><nav class="pager" aria-label="All tasks"><a class="prev" href="rust_multicrate_reconstruction.html" rel="prev"><small>&larr; Previous</small>Rust Multicrate Reconstruction</a><a class="all" href="index.html">All tasks</a><a class="next" href="schemathesis_datagen_pipeline.html" rel="next"><small>Next &rarr;</small>Schemathesis Datagen Pipeline</a></nav></div>
+</main>
+<footer class="">EdgeBench is developed by ByteDance Seed. This audit is independent and not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0); task definitions and task instructions come from the public Hugging Face release (CC BY 4.0); EdgeBench's images are referenced by their public fingerprints and are not redistributed.</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

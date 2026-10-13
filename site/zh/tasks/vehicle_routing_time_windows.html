@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vehicle Routing Time Windows · EdgeBench Verified</title>
+<meta name="description" content="检查器使用了解题者可以编辑的文件；每个实例的时间参数与总时间不匹配">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/vehicle_routing_time_windows.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/vehicle_routing_time_windows.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">跳到正文</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="语言"><a href="../../tasks/vehicle_routing_time_windows.html" hreflang="en" lang="en">EN</a> / <a href="../../zh/tasks/vehicle_routing_time_windows.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
+  <nav class="tabs" aria-label="站点"><a href="../index.html">概览</a><a href="../tasks/index.html" aria-current="page">任务</a><a href="../method.html">方法</a><a href="../leaderboard.html">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：组合优化</span></div><header class="task-head"><h1>Vehicle Routing Time Windows</h1><span class="badge b-retain-with-note" data-outcome="retain-with-note">保留（附说明）</span> <span class="id">vehicle_routing_time_windows</span><p class="summary">检查器使用了解题者可以编辑的文件；每个实例的时间参数与总时间不匹配。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>加速并改进一个 C++ 程序，它为载重有限的车辆规划配送路线，且每个客户都必须在一个时间窗口内被访问。</dd><dt>问题所在</dt><dd>在文档所述的限制之内没有计分问题；使用原始的头文件和编译选项时，舍入从不改变判定结果。附带说明：检查器是用提交的头文件和 Makefile 构建的，因此修改它们也会改变检查器；每个实例有 60 秒，但全部 56 个实例必须在 20 分钟内完成；56 个公开用例权重相同；成本恰好相差 0.05 时可能判为失败。</dd><dt>影响有多大</dt><dd>对一个自行报告成本、并为每个实例预留约 20 秒的程序，没有影响。用满 60 秒会使分数上限接近 37（计算所得）。修改头文件或编译选项的情况未经测试。</dd><dt>我们的处理</dt><dd>保留（附说明）：修改距离头文件或编译器选项也会改变检查器；56 个公开用例权重相同；应精确报告计算出的成本；每个实例预留约 20 秒。</dd></dl></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/vehicle_routing_time_windows.json">tasks/vehicle_routing_time_windows.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p>Read README.md, then optimize the C++17 CVRPTW solver. Modify only src/, include/, and Makefile. Preserve the cvrptw_solver binary name and CLI: ./cvrptw_solver &lt;input.txt&gt; &lt;output.txt&gt; &lt;time_budget_sec&gt;. Do not read hidden instances, internal judge files, BKS tables, reference solutions, or evaluator internals. Hidden judge submissions have a 20-minute total wall-clock budget; keep the solver efficient.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/vehicle_routing_time_windows.json">tasks/vehicle_routing_time_windows.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>cd /home/workspace/task_cvrptw_905da6dd/workspace &amp;&amp; { …</code></pre><details class="longcmd"><summary>显示完整命令（241 行）</summary><pre class="long"><code>cd /home/workspace/task_cvrptw_905da6dd/workspace &amp;&amp; {
+python - &lt;&lt;&#x27;PY&#x27;
+import csv, json, os, re, subprocess, time, traceback
+from pathlib import Path
+
+ROOT = Path(&#x27;/home/workspace/task_cvrptw_905da6dd&#x27;)
+TOTAL_JUDGE_TIMEOUT_SEC = 20 * 60
+COMPILE_TIMEOUT_SEC = 300
+PER_INSTANCE_BUDGET_SEC = 60
+VERIFIER_TIMEOUT_SEC = 30
+DEADLINE_GRACE_SEC = 5
+
+started = time.monotonic()
+deadline = started + TOTAL_JUDGE_TIMEOUT_SEC
+compile_output = &#x27;&#x27;
+details = []
+metrics = {
+    &#x27;judge_time_limit_sec&#x27;: TOTAL_JUDGE_TIMEOUT_SEC,
+    &#x27;per_instance_budget_sec&#x27;: PER_INSTANCE_BUDGET_SEC,
+    &#x27;compile_timeout_sec&#x27;: COMPILE_TIMEOUT_SEC,
+    &#x27;score&#x27;: 0.0,
+    &#x27;compile_returncode&#x27;: None,
+    &#x27;cases&#x27;: 0,
+    &#x27;timeout_count&#x27;: 0,
+    &#x27;no_pass_count&#x27;: 0,
+    &#x27;judge_time_exceeded&#x27;: False,
+    &#x27;compile_timed_out&#x27;: False,
+}
+
+
+def remaining() -&gt; float:
+    return deadline - time.monotonic()
+
+
+def safe_text(x) -&gt; str:
+    if x is None:
+        return &#x27;&#x27;
+    if isinstance(x, bytes):
+        return x.decode(errors=&#x27;replace&#x27;)
+    return str(x)
+
+
+def add_detail(name: str, status: str, score: float = 0.0, message: str = &#x27;&#x27;, **extra) -&gt; None:
+    item = {&#x27;name&#x27;: name, &#x27;status&#x27;: status, &#x27;score&#x27;: float(score), &#x27;message&#x27;: (message or &#x27;&#x27;)[-1000:]}
+    item.update(extra)
+    details.append(item)
+
+
+def compute(nv, td, bnv, btd):
+    gap_nv = max(0, nv - bnv)
+    gap_td = max(0.0, (td - btd) / btd * 100.0) if btd &gt; 0 else 0.0
+    s = max(0.0, 100.0 - 30.0 * gap_nv - 0.5 * gap_td)
+    if nv &lt; bnv:
+        s += 30.0 * (bnv - nv)
+    if nv &lt;= bnv and td &lt; btd:
+        s += min(30.0, (btd - td) / btd * 100.0)
+    return min(s, 160.0)
+
+
+def load_bks():
+    bks = {}
+    for bp in [ROOT / &#x27;internal/cases/bks_snapshot.csv&#x27;]:
+        if bp.exists():
+            with open(bp, newline=&#x27;&#x27;) as f:
+                for row in csv.DictReader(f):
+                    bks[row[&#x27;name&#x27;]] = (int(row[&#x27;nv&#x27;]), float(row[&#x27;td&#x27;]))
+    return bks
+
+
+def case_files():
+    case_dir = ROOT / &#x27;internal/cases/raw&#x27;
+    return sorted(case_dir.glob(&#x27;*.txt&#x27;))[:56] if case_dir.exists() else []
+
+
+def emit(valid: bool, score: float, summary: str):
+    passed = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;PASSED&#x27;)
+    failed = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;FAILED&#x27;)
+    errors = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;ERROR&#x27;)
+    total = len(details) or 1
+    metrics[&#x27;score&#x27;] = float(score)
+    metrics[&#x27;cases&#x27;] = metrics.get(&#x27;cases&#x27;) or len([d for d in details if d.get(&#x27;name&#x27;) != &#x27;compile&#x27;])
+    metrics[&#x27;timeout_count&#x27;] = sum(1 for d in details if d.get(&#x27;reason&#x27;) in (&#x27;solver_timeout&#x27;, &#x27;judge_time_limit&#x27;, &#x27;verifier_timeout&#x27;))
+    metrics[&#x27;no_pass_count&#x27;] = failed
+    metrics[&#x27;runtime_seconds&#x27;] = time.monotonic() - started
+    if metrics[&#x27;timeout_count&#x27;]:
+        metrics[&#x27;judge_time_exceeded&#x27;] = any(d.get(&#x27;reason&#x27;) == &#x27;judge_time_limit&#x27; for d in details)
+    report = {
+        &#x27;valid&#x27;: valid,
+        &#x27;score&#x27;: float(score),
+        &#x27;pass_rate&#x27;: passed / total if total else 0.0,
+        &#x27;total_tests&#x27;: total,
+        &#x27;passed&#x27;: passed,
+        &#x27;failed&#x27;: failed,
+        &#x27;errors&#x27;: errors,
+        &#x27;summary&#x27;: summary,
+        &#x27;details&#x27;: details[:100],
+        &#x27;metrics&#x27;: metrics,
+    }
+    print(&#x27;&gt;&gt;&gt;&gt;&gt; Start Structured Result&#x27;)
+    print(json.dumps(report, ensure_ascii=False))
+    print(&#x27;&gt;&gt;&gt;&gt;&gt; End Structured Result&#x27;)
+
+
+try:
+    bks = load_bks()
+    cases = case_files()
+    metrics[&#x27;cases&#x27;] = len(cases)
+
+    compile_timeout = max(1, min(COMPILE_TIMEOUT_SEC, int(remaining() - DEADLINE_GRACE_SEC)))
+    if compile_timeout &lt;= 0:
+        for inp in cases or [Path(&#x27;compile&#x27;)]:
+            add_detail(inp.stem, &#x27;ERROR&#x27;, 0.0, &#x27;judge global time limit reached before compilation&#x27;, reason=&#x27;judge_time_limit&#x27;)
+        emit(False, 0.0, f&#x27;Judge timed out before compilation: 0 passed, {len(details)} timed out/no result&#x27;)
+    else:
+        try:
+            proc = subprocess.run(
+                [&#x27;bash&#x27;, &#x27;-lc&#x27;, &#x27;rm -f cvrptw_solver tools/verify &amp;&amp; make -j4&#x27;],
+                text=True,
+                capture_output=True,
+                timeout=compile_timeout,
+            )
+            compile_output = (proc.stdout or &#x27;&#x27;) + (proc.stderr or &#x27;&#x27;)
+            metrics[&#x27;compile_returncode&#x27;] = proc.returncode
+            compiled = proc.returncode == 0 and Path(&#x27;cvrptw_solver&#x27;).exists()
+        except subprocess.TimeoutExpired as ex:
+            compile_output = safe_text(ex.stdout) + safe_text(ex.stderr) + &#x27;\nCOMPILE_TIMEOUT&#x27;
+            metrics[&#x27;compile_returncode&#x27;] = -9
+            metrics[&#x27;compile_timed_out&#x27;] = True
+            compiled = False
+
+        print(compile_output, end=&#x27;&#x27;)
+
+        if not compiled:
+            status = &#x27;ERROR&#x27; if metrics[&#x27;compile_timed_out&#x27;] else &#x27;FAILED&#x27;
+            reason = &#x27;compile_timeout&#x27; if metrics[&#x27;compile_timed_out&#x27;] else &#x27;compile_failed&#x27;
+            msg = compile_output[-1000:] or reason
+            if cases:
+                for inp in cases:
+                    add_detail(inp.stem, status, 0.0, msg, reason=reason)
+            else:
+                add_detail(&#x27;compile&#x27;, status, 0.0, msg, reason=reason)
+            emit(False, 0.0, f&#x27;Compilation did not pass ({reason}); score=0. Timeouts: {metrics[&quot;compile_timed_out&quot;]}&#x27;)
+        else:
+            bks = bks or {}
+            score_sum = 0.0
+            for idx, inp in enumerate(cases):
+                name = inp.stem
+                rem = remaining()
+                if rem &lt;= DEADLINE_GRACE_SEC + 1:
+                    add_detail(name, &#x27;ERROR&#x27;, 0.0, &#x27;judge global time limit reached before this instance could finish&#x27;, reason=&#x27;judge_time_limit&#x27;)
+                    continue
+
+                budget = min(PER_INSTANCE_BUDGET_SEC, max(1, int(rem - DEADLINE_GRACE_SEC - 1)))
+                out = Path(f&#x27;out_{name}.sol&#x27;)
+                try:
+                    out.unlink(missing_ok=True)
+                except OSError:
+                    pass
+
+                try:
+                    run = subprocess.run(
+                        [&#x27;./cvrptw_solver&#x27;, str(inp), str(out), str(budget)],
+                        text=True,
+                        capture_output=True,
+                        timeout=budget + DEADLINE_GRACE_SEC,
+                    )
+                    run_txt = (run.stdout or &#x27;&#x27;) + (run.stderr or &#x27;&#x27;)
+                    solver_timed_out = False
+                except subprocess.TimeoutExpired as ex:
+                    run = None
+                    run_txt = safe_text(ex.stdout) + safe_text(ex.stderr) + &#x27;\nSOLVER_TIMEOUT&#x27;
+                    solver_timed_out = True
+
+                if solver_timed_out:
+                    add_detail(name, &#x27;ERROR&#x27;, 0.0, run_txt, reason=&#x27;solver_timeout&#x27;, budget_sec=budget)
+                    continue
+                if run is None or run.returncode != 0:
+                    rc = getattr(run, &#x27;returncode&#x27;, &#x27;unknown&#x27;)
+                    add_detail(name, &#x27;FAILED&#x27;, 0.0, f&#x27;solver exited without a passing solution: exit_code={rc}\n{run_txt}&#x27;, reason=&#x27;no_pass&#x27;, budget_sec=budget)
+                    continue
+                if not out.exists():
+                    add_detail(name, &#x27;FAILED&#x27;, 0.0, &#x27;solver produced no output file&#x27;, reason=&#x27;no_pass&#x27;, budget_sec=budget)
+                    continue
+
+                v_rem = remaining()
+                if v_rem &lt;= 2:
+                    add_detail(name, &#x27;ERROR&#x27;, 0.0, &#x27;judge global time limit reached before verification&#x27;, reason=&#x27;judge_time_limit&#x27;, budget_sec=budget)
+                    continue
+                v_timeout = max(1, min(VERIFIER_TIMEOUT_SEC, int(v_rem - 1)))
+                try:
+                    ver = subprocess.run(
+                        [&#x27;./tools/verify&#x27;, str(inp), str(out)],
+                        text=True,
+                        capture_output=True,
+                        timeout=v_timeout,
+                    )
+                    ver_txt = (ver.stdout or &#x27;&#x27;) + (ver.stderr or &#x27;&#x27;)
+                    verifier_timed_out = False
+                except subprocess.TimeoutExpired as ex:
+                    ver = None
+                    ver_txt = safe_text(ex.stdout) + safe_text(ex.stderr) + &#x27;\nVERIFIER_TIMEOUT&#x27;
+                    verifier_timed_out = True
+
+                if verifier_timed_out:
+                    add_detail(name, &#x27;ERROR&#x27;, 0.0, ver_txt, reason=&#x27;verifier_timeout&#x27;, budget_sec=budget)
+                    continue
+
+                feasible = ver is not None and ver.returncode == 0 and &#x27;feasible: true&#x27; in (ver.stdout or &#x27;&#x27;)
+                nv_m = re.search(r&#x27;NV:\s*(\d+)&#x27;, ver.stdout if ver else &#x27;&#x27;)
+                td_m = re.search(r&#x27;TD:\s*([0-9.]+)&#x27;, ver.stdout if ver else &#x27;&#x27;)
+                nv = int(nv_m.group(1)) if nv_m else 10**9
+                td = float(td_m.group(1)) if td_m else 1e18
+                bnv, btd = bks.get(name, (nv, td))
+                si = compute(nv, td, bnv, btd) if feasible else 0.0
+                score_sum += si
+                if feasible:
+                    msg = f&#x27;feasible; NV={nv}; TD={td}; BKS_NV={bnv}; BKS_TD={btd}; budget_sec={budget}&#x27;
+                    add_detail(name, &#x27;PASSED&#x27;, si, msg, reason=&#x27;passed&#x27;, budget_sec=budget, NV=nv, TD=td, BKS_NV=bnv, BKS_TD=btd)
+                else:
+                    msg = (run_txt + &#x27;\n&#x27; + ver_txt)[-1000:] or &#x27;solution did not pass feasibility/cost verification&#x27;
+                    add_detail(name, &#x27;FAILED&#x27;, 0.0, msg, reason=&#x27;no_pass&#x27;, budget_sec=budget, NV=nv, TD=td, BKS_NV=bnv, BKS_TD=btd)
+
+            total_cases = len(cases) or 1
+            final_score = score_sum / total_cases * 100.0
+            pass_cnt = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;PASSED&#x27;)
+            fail_cnt = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;FAILED&#x27;)
+            timeout_cnt = sum(1 for d in details if d.get(&#x27;reason&#x27;) in (&#x27;solver_timeout&#x27;, &#x27;judge_time_limit&#x27;, &#x27;verifier_timeout&#x27;))
+            summary = (
+                f&#x27;Score: {final_score:.6f} over {len(cases)} cases; &#x27;
+                f&#x27;passed={pass_cnt}, no_pass={fail_cnt}, timeout={timeout_cnt}, &#x27;
+                f&#x27;runtime={time.monotonic() - started:.2f}s/{TOTAL_JUDGE_TIMEOUT_SEC}s&#x27;
+            )
+            emit(True, final_score, summary)
+except Exception:
+    err = traceback.format_exc()
+    print(err)
+    if not details:
+        add_detail(&#x27;judge_exception&#x27;, &#x27;ERROR&#x27;, 0.0, err, reason=&#x27;judge_exception&#x27;)
+    emit(False, 0.0, &#x27;Judge exception before normal completion; see details&#x27;)
+PY
+}</code></pre></details></dd><dt>时限</dt><dd>整个评分运行限时 20 分钟（1,200 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>src/</code>, <code>include/</code>, <code>Makefile</code> 不计入提交：<code>instances/</code>, <code>internal/</code>, <code>__MACOSX/</code>, <code>.DS_Store</code>。</dd><dt>原始结果</dt><dd>评分器输出一份 JSON 报告；其中的 <code>score</code> 是原始结果，报告还可以给出通过率，并可将提交标记为无效（解析器 <code>structured_json</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好。</dd><dt>从原始结果到 0–100 分</dt><dd>直线换算：原始结果为 0 时得 0 分，为 10,000 时得 100 分，中间的值按线性插值。超出这一范围的结果被截断为 0 或 100。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>linear</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>原始结果最好（最高）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>结论：</strong> 保留（附说明）。<mark>关于小数容差的疑虑，在精确检验下不会改变分数；说明解释了权重和固定的测试集，指出检查器是由提交中的 <code>include/types.h</code> 和 <code>Makefile</code> 编译而成的，并指出在 20 分钟的总时限内，无法在每个实例上都用满 60 秒的时间参数。</mark></p>
+<h3 id="case-任务要求">任务要求</h3>
+<p>任务要求解题者 "optimize the C++17 CVRPTW solver"（优化该 CVRPTW 求解器），"Modify only src/, include/, and Makefile"（只修改这几个目录和文件），并 "Preserve the cvrptw_solver binary name and CLI"（保留该二进制名称和命令行接口）。CVRPTW 是带时间窗的有容量车辆路径问题：为容量有限的车辆规划路线，使每个客户都在规定的时间窗内被访问。任务 README 描述了把实例分为三组加权，以及每次部署时打乱节点以 "防硬编码答案"。它规定的成本容差为 "≤ 0.05"。类别：组合优化。</p>
+<h3 id="case-我们检查了什么">我们检查了什么</h3>
+<p>对于遵守文档所述时限的解题者，没有发现会改变分数的计分问题。有四点需要说明；第三点（触及检查器的求解器改动）的影响没有测量。</p>
+<p><strong>1. 小数容差（已检查；不改变分数）。</strong> README 规定了包含端点的 "≤ 0.05" 成本容差。检查器用 binary64（标准双精度浮点数）检验它。</p>
+<ul><li>56 个实例中的所有坐标、时间窗和服务时间都是整数。在 282,800 对节点上，任务四舍五入后的 binary64 距离每次都等于精确的整数计算结果（0 处不一致）。因此每个距离和到达时间都恰好是 0.1 的整数倍。</li><li>在 20,000 次随机试验中（每次对 120 个十分之一的整数倍求和），binary64 的最大漂移为 1.13e-11。检查器的时间窗检验使用 1e-6 的余量，因此它给出的判定与精确有理数算术的判定完全相同。没有任何可行/不可行的判定依赖于浮点误差。</li><li><strong>例子。</strong> 在恰好相差 0.05 时，对申报成本的检查表现不一致。真实成本为 12 时，它拒绝申报的 12.05 或 11.95；但真实成本为 4 时，它接受 4.05 和 3.95。</li><li>只有当求解器申报的成本恰好偏差 0.05 时，这一点才有影响。一个打印自己求和结果的求解器，与检查器的总和相差约 1e-11 以内。计分使用的距离是检查器自己重新计算的，而不是申报的成本。</li></ul>
+<p><strong>2. README 描述了评分器并未实现的计分方式（仅涉及文档）。</strong> README 描述了分三组加权和每次部署时打乱节点，一份内部 README 还描述了用例的打乱副本。评分器在一个固定的、未打乱的测试集上对全部 56 个用例等权平均。分数没有变化。</p>
+<p><strong>3. 检查器由提交的头文件和 Makefile 编译而成。</strong> <code>tools/verify.cpp</code> 包含 <code>../include/types.h</code>。该文件位于解题者可以修改的路径中，它定义了 <code>dist_x10</code> 以及 <code>Node</code>/<code>Instance</code> 结构体。评分器还用提交的 <code>Makefile</code> 运行 <code>make -j4</code>，而随附的 <code>Makefile</code> 用与求解器相同的 <code>CXXFLAGS</code> 构建 <code>tools/verify</code>。因此，一个为了提速、并无作弊意图而修改距离代码、改变 <code>Node</code> 字段类型或改变编译参数（例如加上 <code>-ffast-math</code>）的求解器，也会改变检查器计算可行性和距离的方式。第 1 点中的精确算术结论只对原始头文件和原始编译参数成立。建议的加固措施：在提交代码之外，用评分器自己持有的原始头文件和编译参数构建检查器。</p>
+<p><strong>4. 无法在每个实例上都用满 60 秒的时间参数。</strong> 求解器以 <code>./cvrptw_solver &lt;input&gt; &lt;output&gt; &lt;time_budget_sec&gt;</code> 的方式调用。评分器传入 <code>min(60, max(1, int(remaining − 6)))</code> 秒，并在开始 20 分钟后停止一切工作（<code>TOTAL_JUDGE_TIMEOUT_SEC = 20 * 60</code>，<code>PER_INSTANCE_BUDGET_SEC = 60</code>）；来不及开始的实例记 0 分（<code>judge_time_limit</code>）。56 × 60 s = 3,360 s，是 1,200 s 总时限的 2.8 倍。</p>
+<ul><li>解题者被告知的内容：任务说明写道 "Hidden judge submissions have a 20-minute total wall-clock budget; keep the solver efficient."（隐藏评测的提交有总的墙钟预算，请保持求解器高效。）README §8 列出 "时间预算（单实例）：60 秒"（即每个实例的时间预算为 60 s）和 "总评测预算上限：20 分钟；每实例最多 60 秒，并受剩余总时限截断"（即总预算 20 分钟；每个实例至多 60 s，并被剩余的总时限截断）。其最后一行用英文重复了这一点。<code>tools/bench.sh</code> 对 100 个客户的实例传入 60 s。因此上限是有文档的，但没有任何文档说明在总时限内每个实例能分到多少秒（1,200 / 56 ≈ 21 s）。</li><li><strong>例子。</strong> 一个像随时可停（anytime）搜索通常那样、一直运行到所给时间参数用完的求解器，在 56 个实例中只有约 20 个被计分；其余记 0 分。在参考质量（每个实例 100）下，其分数至多为 21 × 100 / 56 = 37.5 分（满分 100；如果构建耗时约一分钟，则为 20 个实例、35.7 分）；即使在每个实例 160 的上限下，也至多为 21 × 160 / 56 = 60 分。一个自行为每个实例预算约 20 s 的求解器，全部 56 个实例都会被计分。</li><li>测试框架的时限（<code>eval_timeout</code> 1,200 s）等于评分器自己 20 分钟的截止时间。在这个例子中，评分器在截止时间前约 5 s 完成，因此结果仍会被报告，但这一余量取决于容器启动所需的时间。</li></ul>
+<p><strong>随任务发布的说明。</strong> 检查器由提交的 <code>include/types.h</code> 和提交的 <code>Makefile</code> 编译而成，因此求解器对距离代码、节点类型或编译参数的改动也会改变检查器；建议的加固措施是用原始头文件和编译参数构建检查器。60 秒的时间参数受 20 分钟总时限的约束：56 个实例各用 60 s 需要 3,360 s，因此用满全部时间参数的求解器只有约 20 个实例被计分；请为每个实例预算约 20 s。分数对全部 56 个实例等权平均，已安装的实例是固定的，其节点没有被打乱（README 中的三组加权和打乱都没有实现）。尽管 README 写的是包含端点的 "≤ 0.05"，与检查器总和恰好相差 0.05 的申报成本仍可能被拒绝；申报计算出的成本即可避免这一点。由于测试集是固定的、公开的 Solomon 集（一个标准基准），实例可以被识别出来，而且存在已发表的参考路线；这是披露和数据污染的问题，不是检查器的缺陷。</p>
+<h3 id="case-影响有多大">影响有多大</h3>
+<ul><li>容差：对申报自己计算出的成本的求解器没有影响。在申报成本恰好偏差 0.05 的假设情形下，会有一个实例得 0 分，因此影响至多为一个实例的贡献（边界情形见 <code>evidence/scripts/vehicle_routing_time_windows/exact_checks.out</code>）。</li><li>关于加权和打乱的文字：分数没有变化。</li><li>头文件和编译参数：只影响修改 <code>include/types.h</code> 中距离代码或节点类型、或修改 <code>Makefile</code> 中编译参数的求解器。没有运行这样的情形，因此没有测得分数影响。</li><li>时间参数：对于像任务说明和 README §8 所说的那样按 20 分钟总时限做预算的求解器，没有影响。一个在每个实例上都用满 60 秒参数的求解器，会失去 56 个实例中的约 36 个（根据评分器的循环计算得出；没有实际运行）。本任务已记录的五个模型的智能体运行得分为 74.0–90.8 分（满分 100，见 <code>tasks/README.md</code>），高于 21 个实例被计分时 60 分的上限，因此这些运行确实按总时限做了预算。</li></ul>
+<p>没有代码改动。上述说明随任务一起发布。</p>
+<h3 id="case-我们如何检查">我们如何检查</h3>
+<ul><li><strong>原始评分器。</strong> 我们针对按摘要固定的原始评分器镜像，阅读了原始评测命令（构建、求解、检查、计分）、<code>tools/verify.cpp</code>、<code>include/types.h</code> 和任务 README 的源码。全部 56 条示例路线都通过了原始检查器及调用它的代码，使用的是已安装的 56 行参考表。我们不对不可行性或最优性作任何论断。</li><li><strong>独立的精确检查。</strong> 一个精确算术程序（<code>exact_checks.py</code>，使用整数和 <code>Fraction</code> 算术）覆盖了全部 56 个已安装实例。它检查了距离是否定义良好、每个实例字段的取值范围、时间窗比较，以及成本容差的边界。</li><li><strong>漂移上界。</strong> 用 20,000 次随机试验（每次对 120 个十分之一的整数倍求和）给出 binary64 漂移的上界。</li><li>这里不适用形式化模型。</li></ul>
+<h3 id="case-局限">局限</h3>
+<ul><li>没有运行任何 AI 模型或解题者；影响只在我们编写的测试提交和反例上展示。</li><li>精确检查使用本地 Python。求解器是在本地用 g++ 9.4（<code>-march=haswell</code>）构建的，而不是在固定的评分器镜像中。</li><li>提取的内容中没有已安装的参考（BKS，即已知最优解）CSV；已安装的表记录为 56 行。评分器会给没有参考行的实例记 100 分（<code>bks.get(name, (nv, td))</code>）。早先的审计记录显示，已安装的 56 行表为每个实例都提供了参考值，没有用到回退（Git 标签 <code>earlier-audit-final</code>，<code>evidence/selected/vrptw-all56-native-acceptance.json</code>）；这一点没有重新检查。</li><li>时间参数的影响是根据评分器的循环计算得出的；没有运行用满全部时间参数的求解器。</li><li>对任务说明的澄清尚未加入任务说明本身，相关文件也不在本仓库中。</li><li>关于头文件的说明来自阅读源码；没有构建或评分任何修改了 <code>types.h</code> 的求解器。</li></ul>
+<h3 id="case-复现">复现</h3>
+<ul><li>精确检查：<code>python3 -I evidence/scripts/vehicle_routing_time_windows/exact_checks.py &lt;internal/cases/raw dir&gt;</code>。</li><li>固定标识：评分器镜像 <code>seededge/edgebench.judge.vehicle_routing_time_windows@sha256:5582f7ec…</code>；<code>tools/verify.cpp</code> 的 sha256 为 <code>0adb0ac0…c5e5</code>，<code>include/types.h</code> 为 <code>9fe467dc…74f1</code>，<code>README.md</code> 为 <code>26641154…4cda</code>。</li></ul></div></section><section id="files"><h2 class="sec">文件</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/vehicle_routing_time_windows.md">GitHub 上的本案例</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/vehicle_routing_time_windows.json">原始任务定义（tasks/vehicle_routing_time_windows.json）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/vehicle_routing_time_windows">证据脚本</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">证据索引</a></li></ul></section><nav class="pager" aria-label="全部任务"><a class="prev" href="tryst_text_adventure.html" rel="prev"><small>&larr; 上一个</small>Tryst Text Adventure</a><a class="all" href="index.html">全部任务</a><a class="next" href="vliw_kernel_optimization.html" rel="next"><small>下一个 &rarr;</small>VLIW Kernel Optimization</a></nav></div>
+</main>
+<footer class="">EdgeBench 由字节跳动 Seed 团队开发。本审计是独立进行的，与其作者没有关联。评分软件源自 EdgeBench（Apache-2.0）；任务定义和任务说明来自 Hugging Face 上的公开发布版本（CC BY 4.0）；EdgeBench 的镜像仅以其公开指纹引用，本站不重新分发这些镜像。</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

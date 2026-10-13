@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schemathesis Reporting Observability · EdgeBench Verified</title>
+<meta name="description" content="Two hidden tests give credit for wrong or broken output">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/schemathesis_reporting_observability.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/schemathesis_reporting_observability.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+
+<link rel="stylesheet" href="../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="Language"><a href="../tasks/schemathesis_reporting_observability.html" hreflang="en" lang="en" aria-current="true">EN</a> / <a href="../zh/tasks/schemathesis_reporting_observability.html" hreflang="zh-CN" lang="zh-CN">中文</a></span>
+  <nav class="tabs" aria-label="Site"><a href="../index.html">Overview</a><a href="../tasks/index.html" aria-current="page">Tasks</a><a href="../method.html">Method</a><a href="../leaderboard.html">Leaderboard</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Systems &amp; Software Engineering</span></div><header class="task-head"><h1>Schemathesis Reporting Observability</h1><span class="badge b-repair-v2" data-outcome="repair-v2">Fixed</span> <span class="id">schemathesis_reporting_observability</span><p class="summary">Two hidden tests give credit for wrong or broken output.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Add reporting features to Schemathesis, a tool that automatically tests web services, including writing test reports in JUnit XML, a common report format.</dd><dt>What goes wrong</dt><dd>One hidden test only checks that two words appear in the report, so broken files and reports missing the error still pass. Another test, for a feature that leaves request bodies out of certain generated tests, can never fail: it looks for the wrong kind of item and always finds nothing. The report test also fails a correct writer whose test suite has a name other than &quot;schemathesis&quot;, which the instructions do not require.</dd><dt>How much it matters</dt><dd>Wrong credit of about 2.4% of the total: 1/70 (about 1.4%) and 1/100 (1.0%); a correct writer with another suite name loses 1/70. The fixed version moves a score at most 4.76 points down, or 2.76 up (up to 4.76 only if a submission makes the GeneratedValue class unimportable).</dd><dt>What we did</dt><dd>Fixed in a new version: the report test reads the file and requires the recorded error, under any suite name; the other test now checks real output. Partial scores are not comparable with the original version.</dd><dt>Formal check</dt><dd>Partly proved in Lean 4. Given the observed behaviour of the starter (one value class in 12 of 12 runs), the original body-suppression test can never fail; every published score change is exact. Limit: The report-format test depends on an XML parser.</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 282" role="img"><title>Two panels: the original JUnit test and the original body-suppression test both pass broken work, while the fixed tests fail it.</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px}
+  .t{font-size:17px;font-weight:600} .b{font-weight:600}
+  
+</style>
+<text class="t ink" x="16" y="30">Two hidden tests that give credit for broken work</text>
+<rect class="accBg accS" x="16" y="46" width="338" height="220" rx="8" stroke-width="1.5"/>
+<text class="acc t" x="32" y="74">1. Error report</text>
+<text class="ink" x="32" y="104">Report leaves out the error:</text>
+<text class="bad b" x="32" y="140">Original test: passed ✓</text>
+<text class="good b" x="32" y="172">Fixed test: failed ✗</text>
+<text class="muted" x="32" y="206">A failed test is reported as passed.</text>
+<text class="muted" x="32" y="248">Up to 1/70 of the score</text>
+<rect class="accBg accS" x="366" y="46" width="338" height="220" rx="8" stroke-width="1.5"/>
+<text class="acc t" x="382" y="74">2. Leave bodies out</text>
+<text class="ink" x="382" y="104">Starter still makes the unwanted case:</text>
+<text class="bad b" x="382" y="140">Original test: passed ✓</text>
+<text class="good b" x="382" y="172">Fixed test: failed ✗</text>
+<text class="muted" x="382" y="206">Looks for the wrong type: finds nothing.</text>
+<text class="muted" x="382" y="248">Up to 1/100 of the score</text>
+</svg>
+</div><figcaption>Two hidden tests gave credit to broken work, about 2.4% of the score together; the fixed tests fail the broken versions.</figcaption></figure></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_reporting_observability.json">tasks/schemathesis_reporting_observability.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-role">Role</h4>
+<p>You are an expert software engineer implementing a roadmap task in the current repository.</p>
+<h4 id="prompt-task-document">Task Document</h4>
+<p>Read <code>/app/TODO.md</code> completely before editing code. It contains the full project overview, goals, target requirements, and completion criteria.</p>
+<h4 id="prompt-workflow">Workflow</h4>
+<ol><li>Read the task document before making code changes.</li><li>Implement all requested roadmap targets.</li><li>Preserve existing public APIs unless <code>/app/TODO.md</code> explicitly requires a change.</li><li>Use local tests or submission feedback to iterate when available.</li></ol>
+<h4 id="prompt-rules">Rules</h4>
+<ul><li>Treat <code>/app/TODO.md</code> as the authoritative task specification.</li><li>Do not modify hidden tests.</li><li>Do not rely on external task text beyond the task document.</li></ul></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="Show the full instructions" data-less="Show less">Show the full instructions</button></div></section><section id="grading"><h2 class="sec">How EdgeBench grades it</h2><p class="note">In plain words, from the task's definition file (<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_reporting_observability.json">tasks/schemathesis_reporting_observability.json</a>) and EdgeBench's harness code. This describes the original task; a fixed version may change the grader, as the case below states.</p><dl class="grade"><dt>Grader command</dt><dd><pre><code>set +x; cd /app &amp;&amp; bash /tests/test.sh &gt; /tmp/test_full.log 2&gt;&amp;1; python3 - &gt; /tmp/structured_result.log 2&gt;&amp;1 &lt;&lt;&#x27;PY&#x27; …</code></pre><details class="longcmd"><summary>Show the full command (211 lines)</summary><pre class="long"><code>set +x; cd /app &amp;&amp; bash /tests/test.sh &gt; /tmp/test_full.log 2&gt;&amp;1; python3 - &gt; /tmp/structured_result.log 2&gt;&amp;1 &lt;&lt;&#x27;PY&#x27;
+import json
+import re
+from pathlib import Path
+
+PASSED = &quot;PASSED&quot;
+FAILED = &quot;FAILED&quot;
+ERROR = &quot;ERROR&quot;
+
+
+def read_text(path):
+    p = Path(path)
+    if not p.exists():
+        return &quot;&quot;
+    return p.read_text(errors=&quot;replace&quot;)
+
+
+def parse_weights(script_text, phase_count):
+    patterns = [
+        r&quot;weights\s*=\s*\[([0-9,\s]+)\]&quot;,
+        r&quot;PHASE_WEIGHTS\s*=\s*\(([0-9\s]+)\)&quot;,
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, script_text)
+        if m:
+            raw = re.split(r&quot;[,\s]+&quot;, m.group(1).strip())
+            weights = [float(x) for x in raw if x]
+            if len(weights) &gt;= phase_count:
+                return weights[:phase_count]
+
+    m = re.search(r&quot;PHASES\s*=\s*\((.*?)\n\)&quot;, script_text, re.S)
+    if m:
+        weights = []
+        for line in m.group(1).splitlines():
+            line = line.strip()
+            if not line or line.startswith(&quot;#&quot;):
+                continue
+            line = line.strip(&quot;\&quot;&#x27;&quot;)
+            parts = line.split()
+            if parts and re.fullmatch(r&quot;\d+(?:\.\d+)?&quot;, parts[-1]):
+                weights.append(float(parts[-1]))
+        if len(weights) &gt;= phase_count:
+            return weights[:phase_count]
+
+    reward_json = Path(&quot;/logs/verifier/reward.json&quot;)
+    if reward_json.exists():
+        try:
+            data = json.loads(reward_json.read_text(errors=&quot;replace&quot;))
+            phases = data.get(&quot;phases&quot;)
+            if isinstance(phases, dict):
+                weights = []
+                for phase in phases.values():
+                    if isinstance(phase, dict) and &quot;weight&quot; in phase:
+                        weights.append(float(phase[&quot;weight&quot;]))
+                if len(weights) &gt;= phase_count:
+                    return weights[:phase_count]
+        except Exception:
+            pass
+
+    return [1.0] * phase_count
+
+
+def parse_statuses(output):
+    results = []
+    seen = set()
+    pattern = re.compile(r&quot;^(tests/roadmap\.py::\S+)\s+(PASSED|FAILED|ERROR)\s*$&quot;, re.M)
+    for name, status in pattern.findall(output):
+        if name in seen:
+            continue
+        seen.add(name)
+        results.append((name, status))
+    return results
+
+
+def parse_phase_number(name, fallback):
+    m = re.search(r&quot;(?:test_)?phase_?0*(\d+)\b&quot;, name)
+    if m:
+        return int(m.group(1))
+    return fallback
+
+
+def parse_phase_ratios(output):
+    ratios = {}
+    counts = {}
+    pattern = re.compile(r&quot;^Phase\s+0*(\d+):\s+(\d+)\s*/\s*(\d+)\s+passed\s*$&quot;, re.M)
+    for n, passed, total in pattern.findall(output):
+        n_i = int(n)
+        passed_i = int(passed)
+        total_i = int(total)
+        counts[n_i] = (passed_i, total_i)
+        ratios[n_i] = passed_i / total_i if total_i else 0.0
+
+    weighted_pattern = re.compile(
+        r&quot;^\s*Phase\s+0*(\d+)\s+\(weight\s*=\s*([0-9.]+)\):\s*([0-9.]+)\s*$&quot;,
+        re.M,
+    )
+    inline_weights = {}
+    for n, weight, score in weighted_pattern.findall(output):
+        n_i = int(n)
+        inline_weights[n_i] = float(weight)
+        ratios[n_i] = float(score)
+
+    return ratios, counts, inline_weights
+
+
+def parse_total_score(output):
+    m = re.search(r&quot;TOTAL_SCORE\s+([0-9]+(?:\.[0-9]+)?)&quot;, output)
+    if m:
+        return float(m.group(1))
+    reward_path = Path(&quot;/logs/verifier/reward.txt&quot;)
+    if reward_path.exists():
+        try:
+            return float(reward_path.read_text(errors=&quot;replace&quot;).strip())
+        except Exception:
+            pass
+    return None
+
+
+def main():
+    output = read_text(&quot;/tmp/test_full.log&quot;)
+    script = read_text(&quot;/tests/test.sh&quot;)
+
+    statuses = parse_statuses(output)
+    if not statuses:
+        statuses = [(&quot;tests/roadmap.py::unknown&quot;, ERROR)]
+
+    ratios, counts, inline_weights = parse_phase_ratios(output)
+    weights = parse_weights(script, len(statuses))
+    for idx, weight in inline_weights.items():
+        if 1 &lt;= idx &lt;= len(weights):
+            weights[idx - 1] = weight
+
+    details = []
+    weighted_total = 0.0
+    weight_total = 0.0
+    failed_names = []
+
+    for pos, (name, status) in enumerate(statuses, start=1):
+        phase_num = parse_phase_number(name, pos)
+        weight = weights[pos - 1] if pos - 1 &lt; len(weights) else 1.0
+        if phase_num in ratios:
+            ratio = ratios[phase_num]
+        else:
+            ratio = 1.0 if status == PASSED else 0.0
+        contribution = weight * ratio
+        weighted_total += contribution
+        weight_total += weight
+
+        if phase_num in counts:
+            phase_passed, phase_total = counts[phase_num]
+            message = (
+                f&quot;Phase {phase_num}: {phase_passed}/{phase_total} checks passed; &quot;
+                f&quot;weighted contribution {contribution:.6f}/{weight:.6f}&quot;
+            )
+        else:
+            message = (
+                f&quot;Phase {phase_num}: status {status}; &quot;
+                f&quot;weighted contribution {contribution:.6f}/{weight:.6f}&quot;
+            )
+
+        if status != PASSED:
+            failed_names.append(name)
+
+        details.append(
+            {
+                &quot;name&quot;: name,
+                &quot;status&quot;: status,
+                &quot;message&quot;: message,
+                &quot;score&quot;: contribution,
+                &quot;weight&quot;: weight,
+            }
+        )
+
+    passed_count = sum(1 for _, status in statuses if status == PASSED)
+    total_count = len(statuses)
+    pass_rate = passed_count / total_count if total_count else 0.0
+    total_score = parse_total_score(output)
+    if total_score is None:
+        total_score = weighted_total / weight_total if weight_total else 0.0
+
+    summary = (
+        f&quot;{passed_count}/{total_count} phases passed; &quot;
+        f&quot;weighted score {total_score:.6f}&quot;
+    )
+    if failed_names:
+        summary += &quot;. Failed: &quot; + &quot;, &quot;.join(failed_names[:10])
+        if len(failed_names) &gt; 10:
+            summary += f&quot; (+{len(failed_names) - 10} more)&quot;
+
+    result = {
+        &quot;valid&quot;: True,
+        &quot;score&quot;: total_score,
+        &quot;pass_rate&quot;: pass_rate,
+        &quot;summary&quot;: summary,
+        &quot;details&quot;: details,
+        &quot;metrics&quot;: {
+            &quot;phase_weighted_total&quot;: weighted_total,
+            &quot;phase_weight_total&quot;: weight_total,
+            &quot;source&quot;: &quot;roadmap_structured_json&quot;,
+        },
+    }
+
+    print(&quot;&gt;&gt;&gt;&gt;&gt; Start Structured Result&quot;)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    print(&quot;&gt;&gt;&gt;&gt;&gt; End Structured Result&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+PY
+cat /tmp/structured_result.log</code></pre></details></dd><dt>Time limit</dt><dd>30 minutes for the whole grading run (1,800 seconds, <code>eval_timeout</code>).</dd><dt>What is submitted</dt><dd><code>.</code> Left out of the submission: <code>.git</code>, <code>__pycache__</code>, <code>*.pyc</code>, <code>*.egg-info</code>, <code>.eggs</code>, <code>*.so</code>, <code>TODO.md</code>.</dd><dt>Raw result</dt><dd>The grader prints a JSON report; its <code>score</code> is the raw result, and the report can also give a pass rate and mark the submission invalid (parser <code>structured_json</code>).</dd><dt>Better raw result</dt><dd>Higher is better (EdgeBench's default; the task sets no direction).</dd><dt>From raw result to 0–100</dt><dd>A straight line: a raw result of 0 scores 0 and 1 scores 100, with values in between interpolated linearly. Results outside that range are clipped to 0 or 100. A raw result that is not a finite number (for example <code>inf</code>) gets no 0–100 score. (<code>rescale.kind</code> = <code>linear</code>)<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>Which submission a run keeps</dt><dd>The submission with the best raw result (highest). Only the score is compared; a submission without a score is skipped, and on a tie the earlier submission stays (<code>score_first</code>).<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>Internet for the agent</dt><dd>No: the agent's environment is network-isolated (<code>internet: false</code>).</dd><dt>Grader machine</dt><dd>4 CPUs and 8 GB of memory in EdgeBench's official leaderboard settings: the default, since the task has no override. <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">The settings, quoted</a>.</dd></dl></section><section id="found"><h2 class="sec">What we found</h2><p class="note">The full case: the test submissions, the independent checks and the fix. File paths refer to the <a href="https://github.com/findalexli/edgebench-verified">repository</a>; links open on GitHub.</p><div class="md"><p><strong>Outcome:</strong> Fixed. <mark>The hidden test for the JUnit report writer accepts broken output, and the test for leaving request bodies out of certain generated scenarios can never fail; together the two gaps give wrong credit for about 2.4% of the score.</mark></p>
+<h3 id="case-what-the-task-asks">What the task asks</h3>
+<p>Schemathesis is a tool that automatically tests web APIs. The solver extends reporting and observability in schemathesis 4.13.0 and is told to "Treat <code>/app/TODO.md</code> as the authoritative task specification." The grader scores the work with hidden tests. Two targets matter here:</p>
+<ul><li>Target 2: a "<strong><code>JunitXmlWriter</code></strong>: A context-manager class that writes JUnit XML reports", with a <code>record_error</code> method that "records a test error". JUnit XML is a common test-report format read by CI (continuous integration) systems.</li><li>Target 5, fix 2: "The <code>allow-extra-parameters = false</code> configuration suppresses unexpected-properties coverage scenarios for query, header, and cookie parameters, but not for request bodies. Bodies should be included in this suppression."</li></ul>
+<p>Category: Systems &amp; Software Engineering.</p>
+<h3 id="case-what-goes-wrong">What goes wrong</h3>
+<h4 id="case-1-the-junit-test-accepts-broken-or-incomplete-reports">1. The JUnit test accepts broken or incomplete reports</h4>
+<p><strong>Rule.</strong> <code>record_error</code> must record an error in a JUnit XML report. The original test only checks that the strings <code>"schemathesis"</code> and <code>"test_label"</code> appear somewhere in the output.</p>
+<p><strong>Example.</strong> Four test writers: <code>correct</code> (built on the <code>junit_xml</code> library that the starter's command-line tool already uses), <code>drops_error</code> (well-formed XML, no <code>&lt;error&gt;</code>), <code>unterminated</code> (malformed XML) and <code>plaintext</code> (no XML at all). Expected: only <code>correct</code> passes. Observed, with the original test ("orig") and the fixed test ("repaired"):</p>
+<pre><code>correct      orig: 1 passed   repaired: 1 passed
+drops_error  orig: 1 passed   repaired: 1 failed
+unterminated orig: 1 passed   repaired: 1 failed
+plaintext    orig: 1 passed   repaired: 1 failed</code></pre>
+<p><strong>Why it matters.</strong> A writer that drops the <code>&lt;error&gt;</code> makes a failed operation look like a pass in CI, and it still earns the test's credit. In the other direction, a correct writer that names its suite something other than <code>schemathesis</code> fails the original test, because the string <code>schemathesis</code> then appears nowhere in its output (shown on E2B in the revision runs below); <code>TODO.md</code> does not name the suite.</p>
+<h4 id="case-2-the-test-for-leaving-bodies-out-can-never-fail">2. The test for leaving bodies out can never fail</h4>
+<p><strong>Rule.</strong> With <code>allow-extra-parameters = false</code>, request bodies must not produce unexpected-properties scenarios (generated test inputs with extra, undeclared fields).</p>
+<p><strong>Example.</strong> On the untouched starter, which lacks the body fix, <code>cover_schema_iter</code> produces 12 values when body suppression is requested, and the unwanted <code>OBJECT_UNEXPECTED_PROPERTIES</code> scenario is present. All 12 values belong to the coverage module's <code>GeneratedValue</code> class. The test filters on a different class of the same name, so its set of scenarios is always empty and its check can never fail. Expected: the test fails on the starter, as its own header comment says. Observed: it passes on the starter. It also passes on an implementation that ignores the flag and always leaves bodies out.</p>
+<p><strong>Why it matters.</strong> The test gives credit for missing or incorrect behaviour. The matching test for query parameters can never fail either, but it only guards behaviour the starter already has.</p>
+<h3 id="case-how-much-it-matters">How much it matters</h3>
+<p>The score is Σ wᵢ·passedᵢ/totalᵢ / 10 over five phases with weights 2, 2, 3, 2, 1 (<code>/tests/test.sh</code>). One Phase 2 test is worth 2/(14·10) = 1/70 of the total; one Phase 5 test is worth 1/100 in the original and 1/120 in the fixed version.</p>
+<ul><li>Wrong credit in the original: the JUnit test gives at most 1/70 (about 1.4 points out of 100), and the body test at most 1/100 (1.0 point).</li><li>Wrong deduction in the original: the JUnit test takes 1/70 (about 1.4 points) from a correct writer whose output does not contain the string <code>schemathesis</code>.</li><li>Largest drop under the fixed version: 4.76 points. A submission that passes everything under the original but fails the fixed JUnit test and all four new coverage tests loses 1/70 in Phase 2 and 10·(1 − 8/12)/100 = 1/30 in Phase 5, together 1/70 + 1/30 = 4.76 points. The tested changed versions lose 1.43, 0.83 and 1.67 points.</li><li>Largest rise under the fixed version: 2.76 points. The revised JUnit test can pass where the original fails: a correct writer whose output never contains the string <code>schemathesis</code> (for example, a suite with another name) fails the original test and passes the revised one, 1/70 or 1.43 points. In Phase 5 the two original coverage tests pass on any submission whose coverage generator runs, so with no other Phase 5 test passed the share moves from 2/10 to at most 4/12, which is 1.33 points; together 2.76 points. The starter and the stubs gain 0.5 points. The rise could reach 4.76 points only if a submission removed the <code>GeneratedValue</code> class from <code>schemathesis.specs.openapi.negative</code>, which the original coverage tests import.</li><li>No wrong implementation tested scores above a correct one, and the one correct implementation tested keeps 1.0.</li></ul>
+<h3 id="case-the-fix">The fix</h3>
+<p>The fixed version changes three grader files:</p>
+<ul><li><code>/tests/test_02_reporting.py</code> parses the XML. It accepts either a <code>testsuite</code> or a <code>testsuites</code> root and requires a test case named <code>test_label</code> (the label passed to <code>record_error</code>) holding an <code>&lt;error&gt;</code> that carries the message, as text or in an attribute. These are the points <code>TODO.md</code> states: a JUnit XML report, and <code>record_error</code> "records a test error". Test names and the number of tests are unchanged.</li><li><code>/tests/test_05_email_coverage.py</code> uses the correct <code>GeneratedValue</code> class and requires a non-empty stream of values of the correct type. It also adds cases where extra parameters are allowed and where they are denied, for both body and query.</li><li><code>/tests/test.sh</code> raises the Phase 5 test count from 10 to 12. Weights are unchanged.</li></ul>
+<p>In <code>task.json.in</code>, only <code>judge.image_tag</code> changes.</p>
+<p>In the table below, <code>fullref</code> is a complete reference implementation used as a correct test submission. The <code>fullref_*</code> rows each change one line of it, and the <code>stub_*</code> rows use a minimal stub. Scores are raw results (before conversion to 0–100) on a 0–1 scale.</p>
+<div class="tablewrap"><table><thead><tr><th>Test submission</th><th>Role</th><th>Original grader</th><th>Fixed grader</th><th>Change</th><th>Tests passed, P2 = Phase 2, P5 = Phase 5 (original → fixed)</th></tr></thead><tbody><tr><td>fullref</td><td>correct complete implementation</td><td>1.000000</td><td>1.000000</td><td><strong>0</strong></td><td>P2 14/14 → 14/14; P5 10/10 → 12/12</td></tr><tr><td>fullref_junit_drops_error</td><td>plausibly wrong: <code>record_error</code> creates the test case but drops <code>&lt;error&gt;</code></td><td>1.000000</td><td>0.985714</td><td><strong>−0.014286 (−1/70)</strong></td><td>P2 14/14 → 13/14</td></tr><tr><td>fullref_no_body_fix</td><td>plausibly wrong: Target 5 fix 2 left out (BODY not suppressed)</td><td>1.000000</td><td>0.991667</td><td><strong>−0.008333</strong></td><td>P5 10/10 → 11/12</td></tr><tr><td>fullref_always_suppress</td><td>plausibly wrong: suppression ignores <code>allow_extra_parameters</code></td><td>1.000000</td><td>0.983333</td><td><strong>−0.016667</strong></td><td>P5 10/10 → 10/12</td></tr><tr><td>stub_junit_correct</td><td>reviewer stub, <code>junit_xml</code>-based writer</td><td>0.091429</td><td>0.096429</td><td>+0.005000</td><td>P2 5/14 → 5/14; P5 2/10 → 3/12</td></tr><tr><td>stub_junit_drops_error</td><td>reviewer stub, error dropped</td><td>0.091429</td><td>0.082143</td><td>−0.009286</td><td>P2 5/14 → 4/14; P5 2/10 → 3/12</td></tr><tr><td>starter</td><td>untouched starter</td><td>0.020000</td><td>0.025000</td><td>+0.005000</td><td>P2 0/14 → 0/14; P5 2/10 → 3/12</td></tr></tbody></table></div>
+<p>Phases 1, 3 and 4 give identical results for every test submission. The only items that change are:</p>
+<ul><li>the JUnit test;</li><li>the two former deny-only coverage tests, which are replaced by four allow/deny tests;</li><li>the Phase 2 and Phase 5 summary items (<code>test_phase_2</code>, <code>test_phase_5</code>) of the changed versions that now fail those phases.</li></ul>
+<p>All three plausibly wrong versions score 1.0 under the original grader but lose points under the fixed grader. The correct test submission stays at 1.0.</p>
+<p><strong>Revision of the fix (2026-10-12).</strong> The first published fixed version also required the suite to be named exactly <code>schemathesis</code>, exactly one test case and one <code>&lt;error&gt;</code>, and no <code>&lt;failure&gt;</code> or <code>&lt;skipped&gt;</code> element. <code>TODO.md</code> states none of these; <code>schemathesis</code> is only the suite name the starter's command-line JUnit handler uses. The revised test drops them. A side-by-side run of the original grader, the first fixed version and the revised one, three times on fresh workers, gave the same results as the table above for every earlier submission. Three submissions were added:</p>
+<div class="tablewrap"><table><thead><tr><th>Test submission</th><th>Role</th><th>Original grader</th><th>First fixed version</th><th>Revised fixed version</th></tr></thead><tbody><tr><td>fullref_junit_other_suite</td><td>correct: suite named <code>api-report</code></td><td>0.985714</td><td>0.985714</td><td>1.000000</td></tr><tr><td>stub_junit_other_suite</td><td>correct stub writer, suite named <code>api-report</code></td><td>0.077143</td><td>0.082143</td><td>0.096429</td></tr><tr><td>stub_junit_unterminated</td><td>wrong: malformed XML</td><td>0.091429</td><td>0.082143</td><td>0.082143</td></tr></tbody></table></div>
+<p>The original test also fails a correct writer with another suite name, because its output does not contain the string <code>schemathesis</code>; so does the first fixed version. The revised version passes it. Writers that drop the <code>&lt;error&gt;</code> or write malformed XML fail under both fixed versions.</p>
+<p><strong>Score compatibility.</strong> Fully correct submissions score 1.0 in both versions. When Phase 2 or Phase 5 is only partly passed, original and fixed scores are not comparable, because Phase 5 has 12 tests instead of 10. Under the fixed version the untouched starter and the stub submissions gain +0.005. The new allow cases and the query deny case check behaviour the starter's generator already has. So the starter's Phase 5 credit moves from the body test that could never fail to checks that are real. A smaller alternative would change only the <code>GeneratedValue</code> import and keep 10 tests, but it would not catch an implementation that always leaves bodies out.</p>
+<h3 id="case-how-we-checked-it">How we checked it</h3>
+<ul><li><strong>Original grader in the original image, pinned by digest.</strong> The grader image holds the unmodified schemathesis 4.13.0 starter. Every test submission ran through the full original <code>judge.eval_cmd</code> and through the fixed grader, in fresh <code>--network none</code> containers.</li><li><strong>Direct inspection.</strong> The class of every value produced by <code>cover_schema_iter</code> on the starter was inspected. This shows why the original coverage filter is always empty. The fixed coverage tests were run against the starter, a correct fix and a fix that always leaves bodies out.</li><li><strong>Repeatability.</strong> The side-by-side run of the original and fixed graders was run three times; no verdict changed (<code>data/paired-repeatability.md</code>). These repeats used the first fixed version. The run with the revised fixed version was also done three times (<code>evidence/runs/schemathesis_reporting_observability-v2-paired-rev2</code>, <code>-rev2-rep2</code>, <code>-rev2-rep3</code>), with identical scores and per-test outcomes.</li></ul>
+<h3 id="case-limits">Limits</h3>
+<ul><li>No AI model or solver was run. Effects are shown only on test submissions and changed versions we wrote.</li><li>Only one complete implementation was available as a correct test submission, and every correct JUnit writer tried is built on <code>junit_xml</code>. The revised JUnit test still assumes the usual JUnit form: the error is an <code>&lt;error&gt;</code> element in a <code>&lt;testcase&gt;</code> whose <code>name</code> is the label. A writer that recorded it as <code>&lt;failure&gt;</code>, or put the label only in <code>classname</code>, would fail it; <code>TODO.md</code> does not spell out either detail.</li><li>A count quirk in Phase 4 (9 expected, 11 collected) is unchanged and out of scope.</li><li>Broader integration behaviour (xdist, stateful runs, a 55/53 test-count quirk) was not checked.</li><li><code>TODO.md</code> was taken from the cloud export of the work tree (sha256 <code>097166d3…</code>), not re-extracted from the work image.</li><li>The hidden tests are not stored in this repository. They are extracted from the pinned grader image when the checks are rerun.</li></ul>
+<h3 id="case-reproduce">Reproduce</h3>
+<ul><li>Original grader image: <code>sha256:b1e16633…</code>.</li><li><strong>Original vs fixed tests.</strong> First run <code>evidence/scripts/schemathesis_reporting_observability/fetch_tests.sh</code>. Then run <code>run_junit_in_judge.sh</code> (with <code>reporting_overlay/</code>), <code>run_coverage_in_judge.sh</code> and <code>run_coverage_variants.sh</code>. Saved outputs are in <code>observed_junit.txt</code>, <code>observed_coverage.txt</code> and <code>observed_coverage_variants.txt</code>.</li><li><strong>Side-by-side run of the original and fixed graders.</strong> <code>repairs/schemathesis_reporting_observability-v2/paired/run.sh</code>. Results are in <code>paired/results.md</code> and <code>paired/raw-summary.md</code>.</li><li><strong>Fix.</strong> <code>repairs/schemathesis_reporting_observability-v2/repair.patch</code>, <code>Dockerfile</code> and <code>source-lock.json</code>.</li></ul>
+<p>Supporting records: <code>repairs/schemathesis_reporting_observability-v2/</code> (the folder holding the fixed version) and <code>evidence/reviews/schemathesis_reporting_observability.md</code>.</p></div></section><section id="files"><h2 class="sec">Files</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/schemathesis_reporting_observability.md">This case on GitHub</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/schemathesis_reporting_observability.json">The original task definition (tasks/schemathesis_reporting_observability.json)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/schemathesis_reporting_observability-v2">The fix package (patch, Dockerfile, task definition)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/schemathesis_reporting_observability-v2/paired/results.md">Side-by-side results, original against fixed grader</a></li><li><a href="../data/paired-results.csv">All side-by-side results (paired-results.csv)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/schemathesis_reporting_observability.md">Review notes (<code>schemathesis_reporting_observability.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/schemathesis_reporting_observability">Evidence scripts</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/notes/schemathesis_reporting_observability.md">Formal-verification note</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">Evidence index</a></li></ul></section><nav class="pager" aria-label="All tasks"><a class="prev" href="schemathesis_datagen_pipeline.html" rel="prev"><small>&larr; Previous</small>Schemathesis Datagen Pipeline</a><a class="all" href="index.html">All tasks</a><a class="next" href="smt_solver.html" rel="next"><small>Next &rarr;</small>SMT Solver</a></nav></div>
+</main>
+<footer class="">EdgeBench is developed by ByteDance Seed. This audit is independent and not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0); task definitions and task instructions come from the public Hugging Face release (CC BY 4.0); EdgeBench's images are referenced by their public fingerprints and are not redistributed.</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NetHack Dungeon Agent · EdgeBench Verified</title>
+<meta name="description" content="游戏种子设置悄然失败，因此 20 局计分游戏是随机的，分数会波动">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/nethack_dungeon_agent.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/nethack_dungeon_agent.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">跳到正文</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="语言"><a href="../../tasks/nethack_dungeon_agent.html" hreflang="en" lang="en">EN</a> / <a href="../../zh/tasks/nethack_dungeon_agent.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
+  <nav class="tabs" aria-label="站点"><a href="../index.html">概览</a><a href="../tasks/index.html" aria-current="page">任务</a><a href="../method.html">方法</a><a href="../leaderboard.html">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：交互式游戏与模拟器</span></div><header class="task-head"><h1>NetHack Dungeon Agent</h1><span class="badge b-retain-with-note" data-outcome="retain-with-note">保留（附说明）</span> <span class="id">nethack_dungeon_agent</span><p class="summary">游戏种子设置悄然失败，因此 20 局计分游戏是随机的，分数会波动。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>编写一个程序玩经典文字地牢探索游戏 NetHack，并尽可能获得高的游戏内分数。</dd><dt>问题所在</dt><dd>评分器本应把 10 局固定的游戏各玩两次，但它用于固定每局游戏的调用悄然失败，因此全部 20 局都是随机的，每局的角色类型也是随机的。对同一个初始程序进行两次完整运行，得分分别为 1.0 和 0.8。每局 120 秒的时限会被执行，但任务说明中没有写明。</dd><dt>影响有多大</dt><dd>对初始程序，为 100 分中的 0.02 分。对水平较高的智能体（记录中最高 41.9 分），波动未作测量，因此是否重要尚不清楚。一局超过 120 秒的游戏得 0 分。</dd><dt>我们的处理</dt><dd>保留（附说明）：20 局游戏是随机的而非固定的，分数在不同运行之间不可重复；每局限制为 5,000 步和 120 秒，后者没有写明。</dd></dl></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/nethack_dungeon_agent.json">tasks/nethack_dungeon_agent.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-nethack-dungeon-adventure-agent">NetHack Dungeon Adventure Agent</h4>
+<p>Write <code>agent.py</code> in <code>/home/nethack_agent/</code> that plays NetHack via the NLE Python environment and maximizes game score.</p>
+<hr>
+<h4 id="prompt-problem">Problem</h4>
+<p>NetHack is a classic hardcore Roguelike dungeon crawler (1987). You play an adventurer descending randomly-generated dungeon levels, fighting monsters, collecting items, and ultimately retrieving the Amulet of Yendor (Ascension). Every death permanently ends the game.</p>
+<p><strong>Goal:</strong> play effectively by surviving, exploring, fighting monsters, collecting useful items, and descending deeper into the dungeon.</p>
+<hr>
+<h4 id="prompt-interface">Interface</h4>
+<p>Your <code>agent.py</code> <strong>must</strong> export a function:</p>
+<pre><code class="language-python">def get_action(obs: dict, info: dict, step: int) -&gt; int:
+    """Return an integer action for the current game state."""
+    ...</code></pre>
+<p>The evaluation system calls <code>get_action(obs, info, step)</code> each step and feeds the returned action into the NLE environment. <strong>Do NOT</strong> create the environment yourself in <code>get_action</code> — the evaluation system controls the game loop.</p>
+<p>You may also include an <code>if __name__ == "__main__":</code> block for local testing (see skeleton below).</p>
+<hr>
+<h4 id="prompt-environment">Environment</h4>
+<ul><li>Python 3.10</li><li><code>nle==1.2.0</code> (NetHack Learning Environment, Gymnasium-style)</li><li><code>gymnasium</code></li><li><strong>Note:</strong> <code>nle-language-wrapper</code> is NOT available. Use the <code>nle</code> native API with integer actions and numeric observations.</li></ul>
+<h5 id="prompt-observation-space">Observation Space</h5>
+<p><code>obs</code> is a dict with the following keys (all numpy arrays):</p>
+<ul><li><code>glyphs</code> — (21, 79) integer array of tile glyph IDs (0–5991)</li><li><code>chars</code> — (21, 79) byte array of ASCII characters displayed on screen</li><li><code>colors</code> — (21, 79) integer array of colors (0–15)</li><li><code>specials</code> — (21, 79) integer array of highlight flags</li><li><code>blstats</code> — (27,) integer array of bottom-line stats such as position, attributes, health, energy, armor, experience, dungeon depth, inventory load, hunger, alignment, and conditions.</li><li><code>message</code> — (256,) byte array of the last game message</li><li><code>inv_glyphs</code>, <code>inv_strs</code>, <code>inv_letters</code>, <code>inv_oclasses</code> — inventory info</li></ul>
+<h5 id="prompt-action-space">Action Space</h5>
+<p>Actions are integers in [0, 120]. The NLE action space maps action indices to NetHack key codes. <strong>Use the <code>nle.nethack</code> constants</strong> to get correct action indices — do NOT hardcode them, as the mapping is non-obvious.</p>
+<pre><code class="language-python">from nle.nethack import (
+    ACTIONS, CompassDirection, CompassDirectionLonger,
+    MiscDirection, MiscAction, Command,
+)
+
+ACTIONS_LIST = list(ACTIONS)
+def action_index(key_code):
+    return ACTIONS_LIST.index(key_code)</code></pre>
+<p>Common action indices (verified for nle==1.2.0):</p>
+<div class="tablewrap"><table><thead><tr><th>Action</th><th>Constant</th><th>Index</th></tr></thead><tbody><tr><td>north</td><td>CompassDirection.N</td><td>0</td></tr><tr><td>east</td><td>CompassDirection.E</td><td>1</td></tr><tr><td>south</td><td>CompassDirection.S</td><td>2</td></tr><tr><td>west</td><td>CompassDirection.W</td><td>3</td></tr><tr><td>northeast</td><td>CompassDirection.NE</td><td>4</td></tr><tr><td>southeast</td><td>CompassDirection.SE</td><td>5</td></tr><tr><td>southwest</td><td>CompassDirection.SW</td><td>6</td></tr><tr><td>northwest</td><td>CompassDirection.NW</td><td>7</td></tr><tr><td>run north</td><td>CompassDirectionLonger.N</td><td>8</td></tr><tr><td>run east</td><td>CompassDirectionLonger.E</td><td>9</td></tr><tr><td>run south</td><td>CompassDirectionLonger.S</td><td>10</td></tr><tr><td>run west</td><td>CompassDirectionLonger.W</td><td>11</td></tr><tr><td>go up stairs</td><td>MiscDirection.UP</td><td>16</td></tr><tr><td>go down stairs</td><td>MiscDirection.DOWN</td><td>17</td></tr><tr><td>wait</td><td>MiscDirection.WAIT</td><td>18</td></tr><tr><td>more/continue</td><td>MiscAction.MORE</td><td>19</td></tr><tr><td>kick</td><td>Command.KICK</td><td>48</td></tr><tr><td>pickup</td><td>Command.PICKUP</td><td>61</td></tr><tr><td>open</td><td>Command.OPEN</td><td>57</td></tr><tr><td>close</td><td>Command.CLOSE</td><td>30</td></tr><tr><td>eat</td><td>Command.EAT</td><td>35</td></tr><tr><td>search</td><td>Command.SEARCH</td><td>75</td></tr><tr><td>pray</td><td>Command.PRAY</td><td>62</td></tr><tr><td>apply</td><td>Command.APPLY</td><td>24</td></tr><tr><td>zap</td><td>Command.ZAP</td><td>104</td></tr><tr><td>throw</td><td>Command.THROW</td><td>91</td></tr><tr><td>fire</td><td>Command.FIRE</td><td>40</td></tr><tr><td>drop</td><td>Command.DROP</td><td>33</td></tr><tr><td>wield</td><td>Command.WIELD</td><td>102</td></tr><tr><td>wear</td><td>Command.WEAR</td><td>99</td></tr><tr><td>read</td><td>Command.READ</td><td>67</td></tr><tr><td>quaff</td><td>Command.QUAFF</td><td>64</td></tr><tr><td>esc</td><td>Command.ESC</td><td>38</td></tr></tbody></table></div>
+<p><strong>Important:</strong> The action indices are NOT sequential or intuitive. Always use <code>action_index(Command.XXX)</code> to get the correct index.</p>
+<h5 id="prompt-skeleton-code">Skeleton Code</h5>
+<pre><code class="language-python">from nle.nethack import (
+    ACTIONS, CompassDirection, CompassDirectionLonger,
+    MiscDirection, MiscAction, Command,
+)
+
+ACTIONS_LIST = list(ACTIONS)
+def action_index(key_code):
+    return ACTIONS_LIST.index(key_code)
+
+N = action_index(CompassDirection.N)
+E = action_index(CompassDirection.E)
+S = action_index(CompassDirection.S)
+W = action_index(CompassDirection.W)
+WAIT = action_index(MiscDirection.WAIT)
+MORE = action_index(MiscAction.MORE)
+UP = action_index(MiscDirection.UP)
+DOWN = action_index(MiscDirection.DOWN)
+PICKUP = action_index(Command.PICKUP)
+OPEN = action_index(Command.OPEN)
+CLOSE = action_index(Command.CLOSE)
+EAT = action_index(Command.EAT)
+SEARCH = action_index(Command.SEARCH)
+PRAY = action_index(Command.PRAY)
+
+def get_action(obs, info, step):
+    return WAIT
+
+if __name__ == "__main__":
+    import argparse, gymnasium as gym, nle, numpy as np
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--max-steps", type=int, default=5000)
+    args = parser.parse_args()
+    env = gym.make("NetHackChallenge-v0")
+    try:
+        env.seed(args.seed)
+    except Exception:
+        pass
+    obs, info = env.reset(), {}
+    if isinstance(obs, tuple):
+        obs, info = obs[0], obs[1] if len(obs) &gt; 1 else {}
+    for step in range(args.max_steps):
+        action = get_action(obs, info, step)
+        result = env.step(action)
+        if len(result) == 5:
+            obs, reward, terminated, truncated, info = result
+            done = terminated or truncated
+        else:
+            obs, reward, done, info = result
+        if done:
+            break
+    env.close()</code></pre>
+<hr>
+<h4 id="prompt-evaluation">Evaluation</h4>
+<p>Your agent is evaluated by running it over multiple NetHack games under the official judge. Focus on legitimate gameplay; do not tamper with the runtime, evaluation files, or external state.</p>
+<hr>
+<h4 id="prompt-tips">Tips</h4>
+<ul><li>Start simple: random walk → explore aggressively → fight monsters → manage inventory</li><li>Use <code>blstats</code>, <code>chars</code>, <code>message</code>, and inventory observations to infer the game state.</li><li><code>chars</code> array gives you the ASCII screen — parse it for terrain and monster info</li><li><code>message</code> tells you what just happened (e.g., "You kill the jackal!")</li><li>Common strategy: explore rooms, pick up items, descend stairs to go deeper</li><li>The game is extremely punishing — a simple survival strategy already scores well</li><li><strong>Always use <code>nle.nethack</code> constants</strong> for action indices, never hardcode them</li></ul></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/nethack_dungeon_agent.json">tasks/nethack_dungeon_agent.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>python3 /tmp/eval_nethack.py</code></pre></dd><dt>时限</dt><dd>整个评分运行限时 1 小时（3,600 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>agent.py</code></dd><dt>原始结果</dt><dd>评分器为每个测试用例输出一行结果，最后输出一行 <code>TOTAL_SCORE</code>；该数字就是原始结果（解析器 <code>score_sum</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好。</dd><dt>从原始结果到 0–100 分</dt><dd>直线换算：原始结果为 0 时得 0 分，为 1,000 时得 100 分，中间的值按线性插值。超出这一范围的结果被截断为 0 或 100。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>linear</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>原始结果最好（最高）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>结论：</strong> 保留（附说明）。<mark>评分器本应为每局游戏固定随机种子，但这一调用静默失败，因此 20 局计分游戏都是随机的，分数在不同运行之间不可重复。</mark></p>
+<h3 id="case-任务要求">任务要求</h3>
+<p>智能体编写 <code>agent.py</code>，它 "plays NetHack via the NLE Python environment and maximizes game score"（通过 NLE Python 环境玩 NetHack 并使游戏得分最大化）。NetHack 是一款经典的文字地牢游戏，NLE（NetHack Learning Environment）把它封装成程序可调用的环境。评分器在每一步调用智能体的 <code>get_action(obs, info, step)</code>。</p>
+<p>默认情况下，评分器运行 10 个种子 x 2 次重复（共 20 局）。种子是本应固定一局游戏随机布局的数字。评分器在每局 5,000 步后停止该局；任务说明只在本地测试骨架中把 5,000 作为 <code>--max-steps</code> 的默认值给出，并未说明这是评分器的上限。评分器还强制执行每局 120 s 的时限，任务说明没有提到这一点。类别：交互式游戏与模拟器。</p>
+<h3 id="case-我们检查了什么">我们检查了什么</h3>
+<p><strong>设置种子没有任何效果。</strong> 评分器在 <code>gym.make</code> 返回的对象上调用 <code>env.seed(seed)</code>。在 gymnasium 1.0 下，该对象是一个 <code>PassiveEnvChecker</code> 包装器，没有 <code>seed</code> 属性，因此调用会抛出 <code>AttributeError</code>。评分器吞掉这个错误，然后不带种子调用 <code>env.reset()</code>。（再深一层，<code>env.unwrapped.seed</code> 会抛出 NLE 的 <code>RuntimeError</code>，即 "NetHackChallenge doesn't allow seed changes"，但评分器根本走不到这一步。）</p>
+<p>例子：评分器的 "seed 0" 开局在 3 个进程中运行，得到 3 局不同的游戏，每局的初始角色（职业）都不同。预期结果是三次相同的游戏。</p>
+<div class="tablewrap"><table><thead><tr><th>进程</th><th>开局指纹</th><th>初始物品（前几件）</th></tr></thead><tbody><tr><td>1</td><td><code>d032b1011fd60c20</code></td><td>1234 金币，祝福的 +0 手术刀（Healer）</td></tr><tr><td>2</td><td><code>3075b9dff32a9560</code></td><td>+0 战斧、短剑、环甲（Barbarian 类装备）</td></tr><tr><td>3</td><td><code>28304be1bd905af7</code></td><td>+1 匕首、+1 弓、52 支箭（Ranger 类装备）</td></tr></tbody></table></div>
+<p>原始的 <code>--run-seed 0</code> 子进程运行 3 次，分别返回 WA/0、OK/2 和 WA/0。对同一个基线做两次完整的默认评分，结果不同：</p>
+<div class="tablewrap"><table><thead><tr><th></th><th>运行 1</th><th>运行 2</th></tr></thead><tbody><tr><td>非零用例（用例：得分）</td><td>0007: 3, 0010: 7, 0012: 2, 0018: 8</td><td>0009: 7, 0015: 4, 0018: 5</td></tr><tr><td>其余所有用例</td><td>0 (WA)</td><td>0 (WA)</td></tr><tr><td><code>TOTAL_SCORE</code></td><td><strong>1.000000</strong></td><td><strong>0.800000</strong></td></tr><tr><td><code>CASES_OK</code></td><td>4/20</td><td>3/20</td></tr><tr><td>100 分制得分（线性刻度，原始结果 /1000 x 100）</td><td>0.10</td><td>0.08</td></tr><tr><td>墙钟时间</td><td>5 s</td><td>5 s</td></tr></tbody></table></div>
+<p>同一种子的两次"重复"（用例 2k 和 2k+1）结果也不一致。例如，运行 1 中用例 0010 = 7，而用例 0011 = 0。所谓重复，不过是另一局随机游戏。</p>
+<p>为什么重要：同一个智能体每次评分都可能得到不同分数，"10 seeds x 2 repeats" 的设计并不成立。</p>
+<p>随任务发布的说明：</p>
+<ul><li>20 局计分游戏都没有设置种子，每局的角色随机。"10 seeds x 2 repeats" 实际上是 20 局相互独立的随机游戏。</li><li>分数不可重复：对同一基线的两次评分得到的 <code>TOTAL_SCORE</code> 分别为 1.000000 和 0.800000。</li><li>每局的限制是 5,000 步（任务说明只在本地测试骨架中把它作为 <code>--max-steps</code> 的默认值给出）和每局 120 s（任务说明未提及）。运行超过 120 s 的一局得 0 分，包括它此前已获得的分数：评分器的 <code>run_seed_subprocess</code> 在 <code>TimeoutExpired</code> 时返回 <code>TLE</code> 和 0 分，而游戏只在结束时报告其最佳得分。120 s 分摊到 5,000 步，即每步 24 ms，其中包括 NLE 自身的步进时间。</li></ul>
+<h3 id="case-影响有多大">影响有多大</h3>
+<p>运行间波动影响所有解题者。对基线而言，差异为 0.2 个原始分，即 100 分制下的 0.02 分，在这个水平上无关紧要。有能力的智能体的波动没有测量，因此其大小未知。本任务已记录的智能体运行最高得分为 41.9 分（满分 100，见 <code>tasks/README.md</code>），远高于基线。NetHack 的分数呈重尾分布（少数几局的分数远高于其他各局），因此在这个水平上，波动的绝对值很可能大得多，但现有运行无法估计其大小。该任务的选取规则（<code>score_first</code>）保留最佳提交，因此不同评分之间的随机波动可能抬高一次运行记录下的最佳成绩。</p>
+<p>一局基线游戏（含启动）耗时 0.37-0.44 s，每次 20 局的评分约耗时 5 s，远低于每局 120 s 的时限。在完整的 5,000 步游戏中平均每步超过约 24 ms 的智能体会触及时限，该局得 0 分。较慢的、带规划的智能体是否会触及这一时限，我们没有测试。</p>
+<p>任务本身不作改动；上述说明随任务一起发布。对评分器做一个小修复或许能让种子真正起作用，但我们没有在 NLE 1.2 / <code>NetHackChallenge</code> 中验证出一条可用的设置种子的路径。<code>env.reset(seed=...)</code> 没有报错，但没有测试它是否真的为 NetHack 核心设置了种子。</p>
+<h3 id="case-我们如何检查">我们如何检查</h3>
+<ul><li><strong>原始评分器。</strong> 在按摘要固定的原始公开镜像中，以默认环境变量运行未经修改的 <code>python3 /tmp/eval_nethack.py</code>。机器有 8 个 vCPU 和 7.9 GB 内存，容器以 <code>--network none --memory 6g</code> 运行，没有 CPU 限制。提交是智能体工作镜像中随附的基线 <code>agent.py</code>。共进行了两次完整的默认评分，每次都包在 <code>timeout 1100</code> 中。</li><li><strong>种子诊断。</strong> 一个脚本按评分器的方式调用 <code>env.seed()</code>，并检查包装器链。评分器自己的 <code>seed_process(0)</code> 和 <code>reset_env(env, 0)</code> 在 3 个独立进程中运行。开局状态取指纹（reset 时 <code>glyphs</code>、<code>blstats</code> 和 <code>inv_strs</code> 的哈希）。</li><li>已安装的软件包：<code>nle 1.2.0</code>、<code>gymnasium 1.0.0</code>、Python 3.10。</li></ul>
+<h3 id="case-局限">局限</h3>
+<ul><li>没有运行任何 AI 模型或解题者。影响只在随附的基线和我们编写的诊断脚本上展示。</li><li>只运行了随附的随机游走基线。没有可供比较的有能力的智能体，因此能得分的智能体的波动没有测量，波动的大小也没有测量。</li><li>只使用了一台没有 CPU 限制的机器。计时结果只适用于这台机器。</li><li>开局状态指纹只对 reset 时的 <code>glyphs</code>、<code>blstats</code> 和 <code>inv_strs</code> 取哈希。</li></ul>
+<h3 id="case-复现">复现</h3>
+<ul><li>原始评分器镜像：<code>sha256:2917aca0e831…</code>。</li><li><code>evidence/runs/nethack_dungeon_agent-native-variance/run.sh</code>（配合 <code>diag.py</code> 和 <code>evalpath_fp.py</code>）。需要一台能拉取固定镜像的 Docker 主机。输出位于同一文件夹的 <code>result/out/</code> 中。</li><li>审查：<code>evidence/reviews/nethack_dungeon_agent-native.md</code>。</li></ul></div></section><section id="files"><h2 class="sec">文件</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/nethack_dungeon_agent.md">GitHub 上的本案例</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/nethack_dungeon_agent.json">原始任务定义（tasks/nethack_dungeon_agent.json）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/nethack_dungeon_agent-native.md">审查记录 (<code>nethack_dungeon_agent-native.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">证据索引</a></li></ul></section><nav class="pager" aria-label="全部任务"><a class="prev" href="k12_math_recommendation.html" rel="prev"><small>&larr; 上一个</small>K-12 Math Recommendation</a><a class="all" href="index.html">全部任务</a><a class="next" href="new_foundations_consistency.html" rel="next"><small>下一个 &rarr;</small>New Foundations Consistency</a></nav></div>
+</main>
+<footer class="">EdgeBench 由字节跳动 Seed 团队开发。本审计是独立进行的，与其作者没有关联。评分软件源自 EdgeBench（Apache-2.0）；任务定义和任务说明来自 Hugging Face 上的公开发布版本（CC BY 4.0）；EdgeBench 的镜像仅以其公开指纹引用，本站不重新分发这些镜像。</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

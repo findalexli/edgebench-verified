@@ -107,8 +107,10 @@ public.
 ## Limits
 
 - **No AI models were rerun.** Effects are measured with test submissions we wrote. The only real
-  agent submissions used are from one third-party run of one model: for 2 fixed tasks they were
-  regraded with both graders (`evidence/runs/opus55-regrade/`). The leaderboard's own submissions
+  agent submissions used are from one third-party run of one model: for 7 fixed tasks whose fix
+  changes only the grader, 314 of them were regraded with both graders
+  (`evidence/runs/opus55-regrade2-summary/`; an earlier, smaller regrade is in
+  `evidence/runs/opus55-regrade/`). The leaderboard's own submissions
   are not public.
 - **Machines.** Most side-by-side tests ran on E2B cloud sandboxes with 8 virtual CPUs and 8 GiB of
   memory; Lean Analysis ran on a local host with 16 CPUs and 15 GB. The grader was limited to the

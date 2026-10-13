@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Borden Source Inversion · EdgeBench Verified</title>
+<meta name="description" content="隐藏的评分模型使用未说明且不符合物理的约定，因此一次性的教科书式解法得分接近基线">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/borden_source_inversion.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/borden_source_inversion.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">跳到正文</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="语言"><a href="../../tasks/borden_source_inversion.html" hreflang="en" lang="en">EN</a> / <a href="../../zh/tasks/borden_source_inversion.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
+  <nav class="tabs" aria-label="站点"><a href="../index.html">概览</a><a href="../tasks/index.html" aria-current="page">任务</a><a href="../method.html">方法</a><a href="../leaderboard.html">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：科学问题与机器学习</span></div><header class="task-head"><h1>Borden Source Inversion</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <span class="id">borden_source_inversion</span><p class="summary">隐藏的评分模型使用未说明且不符合物理的约定，因此一次性的教科书式解法得分接近基线。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>根据地下水监测井的读数，推断一个隐藏的地下污染源的位置、规模、时间和强度。</dd><dt>问题所在</dt><dd>评分器用一个隐藏模型预测监测井读数；文档给出了模型的组成部分，却没有说明它们如何组合。该模型把速率当作总量，忽略孔隙度和污染源持续时间，标错单位，并把污染源放在其区域的底部而不是中心。教科书模型对公开数据的拟合同样好，得分却更低。</dd><dt>影响有多大</dt><dd>对一次性的诚实拟合，约为原始 109 分中的 24 分（100 分中的 22 分）：教科书模型得 7.0 分，使用隐藏约定得 31.2 分。对根据反馈学习的智能体，影响更小，幅度未测量（其中一个达到 60.10 分）。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：解题者会拿到评分器自己的预测代码及其约定的准确描述，分数刻度从 0 到真实污染源的得分 109。</dd><dt>形式化检验</dt><dd>在 Lean 4 中已证明。修复后的刻度和每一个换算后的排行榜数值都由已发布的（一位小数的）分数精确推出。 局限：只涵盖刻度的改变；物理约定无法形式化。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
+<title>Borden Source Inversion scores</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+
+<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Original grader score (the true source scores 109)</text>
+<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
+<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
+<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
+<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
+<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
+<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">middle of each range</text>
+<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
+<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
+<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
+<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
+<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
+<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
+<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
+<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
+<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
+<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
+
+</svg>
+</div><figcaption>评分器使用未说明且不符合物理的约定，因此一次性地用教科书方法诚实拟合公开数据，只能得到基线水平的分数，比使用隐藏约定的同一拟合低约 24 分。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/borden_source_inversion.json">tasks/borden_source_inversion.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h3 id="prompt-borden-3d-groundwater-contaminant-source-inversion">Borden 3D Groundwater Contaminant Source Inversion</h3>
+<h4 id="prompt-task">Task</h4>
+<p>You are given a Borden-style 3D groundwater contaminant migration scene derived from a Borden-AdePy reproduction workflow. Your task is to infer a <strong>finite-duration rectangular-region contaminant source</strong> from public monitoring-well readings.</p>
+<p>This is not a point-source task. A point-source answer or the old <code>x0,y0,z0,C0</code> schema is accepted only as a degenerate fallback and cannot receive full credit.</p>
+<h4 id="prompt-required-source-parameterization">Required source parameterization</h4>
+<p>Create <code>answer.json</code> in the task root using this schema:</p>
+<pre><code class="language-json">{
+  "source_type": "rectangular_region",
+  "dimension": 3,
+  "x_center": 0.0,
+  "y_center": 0.0,
+  "z_center": 0.0,
+  "half_length_x": 0.0,
+  "half_length_y": 0.0,
+  "half_length_z": 0.0,
+  "C0": 0.0,
+  "t_start": 0.0,
+  "duration": 0.0,
+  "transport_model": {
+    "equation_type": "advection_dispersion_reaction",
+    "governing_equation": "R*dC/dt = div(D grad C) - v dot grad C - lambda*C + source",
+    "velocity_m_per_day": 0.0,
+    "alpha_L_m": 0.0,
+    "alpha_TH_m": 0.0,
+    "alpha_TV_m": 0.0,
+    "porosity": 0.0,
+    "retardation_factor": 1.0,
+    "lambda_per_day": 0.0,
+    "numerical_approach": "brief description of forward model and optimization"
+  },
+  "method": "brief description of your inversion method"
+}</code></pre>
+<ul><li><code>x_center,y_center,z_center</code>: center of the rectangular source region, in meters.</li><li><code>half_length_x,half_length_y,half_length_z</code>: half sizes of the rectangular source region, in meters.</li><li><code>C0</code>: effective source concentration/intensity, in mg/L.</li><li><code>t_start</code>: release start time in days.</li><li><code>duration</code>: release duration in days.</li><li><code>transport_model</code>: your groundwater solute transport construction. Include the ADE/reaction governing equation, public hydrogeologic parameters used, and the numerical or analytical approximation used to predict concentrations.</li></ul>
+<p>All parameters must stay within <code>public_problem_config.json</code> → <code>source_search_bounds_for_agent</code>.</p>
+<h4 id="prompt-provided-files">Provided files</h4>
+<ul><li><code>public_problem_config.json</code>: Borden grid, hydrogeological parameters, source prior bounds, and column definitions.</li><li><code>public_source_prior.json</code>: explicit range summary for the finite-duration rectangular-region source parameters.</li><li><code>borden_grid.npz</code>: grid arrays exported from the Borden-AdePy scene, including x/y grid and bottom profile.</li><li><code>public_wells.csv</code>: public monitoring-well coordinates.</li><li><code>public_monitoring_data.csv</code>: noisy, censored public monitoring observations. Clean generated concentrations are not provided to the agent.</li><li><code>baseline_solver.py</code>: writes a legal low-quality baseline <code>answer.json</code> from the center of the parameter bounds.</li><li><code>answer_template.json</code>: required output schema.</li></ul>
+<p>No runnable scientific starter solver is provided. You should write your own Python code to read files, construct the groundwater solute transport equation, build an ADE/AdePy or equivalent forward approximation, optimize the source parameters, and update <code>answer.json</code>.</p>
+<h4 id="prompt-mandatory-baseline-workflow">Mandatory baseline workflow</h4>
+<p>Before implementing a complex inversion algorithm, first ensure that a valid <code>answer.json</code> exists:</p>
+<pre><code class="language-bash">python baseline_solver.py</code></pre>
+<p>Then iteratively improve <code>answer.json</code> using public monitoring data. Missing <code>answer.json</code> gives zero.</p>
+<h4 id="prompt-scoring-policy">Scoring policy</h4>
+<p>The judge does not grade old point-source location error directly. It evaluates whether your finite-duration rectangular-region source predicts withheld monitoring readings:</p>
+<ol><li>Read <code>answer.json</code>.</li><li>Check required finite-region fields and parameter bounds.</li><li>Use a hidden Borden-ADE region-source forward model to predict concentrations at hidden monitoring wells and hidden future times.</li><li>Compare predictions with hidden readings using relative RMSE and log-scale metrics.</li><li>Hidden prediction dominates the score. Easy format/prior/method/transport-equation points are capped and cannot exceed the hidden-quality caps.</li><li>Region-shape and physical-consistency points are gated by hidden prediction quality.</li><li>Very poor hidden/future prediction is capped at 15 points; poor-but-improving prediction is capped at 30 points; moderate prediction is capped at 45 points.</li></ol>
+<p>If hidden monitoring prediction is poor, the final score is capped. This makes early baseline or shallow point-source fits low-scoring, while still allowing genuine improvement through better region-source inversion.</p>
+<h4 id="prompt-rules">Rules</h4>
+<ul><li>Do not read or reference hidden scoring files.</li><li>Do not hard-code hidden monitoring readings.</li><li>Do not modify judge files.</li><li>Do not call FloPy, MODFLOW, MT3DMS, or external groundwater executables.</li><li>You may use Python libraries such as NumPy, SciPy, pandas, matplotlib, pymoo, and AdePy if available.</li><li>Submit all scripts/results needed to reproduce your <code>answer.json</code>.</li></ul>
+<h4 id="prompt-critical-submission-rule">Critical submission rule</h4>
+<p>The judge only reads answer.json in the task root.</p>
+<p>It does not automatically run inverse_solver.py, run_checks.py, write_fit_report.py, write_public_predictions.py, or any other script during scoring.</p>
+<p>Therefore, after every meaningful inversion or optimization step, you must immediately overwrite the task-root answer.json with the best current source parameters.</p>
+<p>If answer.json is unchanged, the score and all METRICS will remain unchanged, even if you create new Python scripts, reports, or prediction files.</p>
+<p>Recommended workflow:</p>
+<ol><li>Run python baseline_solver.py only as an initial fallback.</li><li>Implement and run your inversion script.</li><li>After each improved parameter set is found, write it to answer.json.</li><li>Run python validate_answer.py if available.</li><li>Submit only after confirming that answer.json has changed.</li></ol></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/borden_source_inversion.json">tasks/borden_source_inversion.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>python /opt/borden_scoring/evaluate.py --submission_dir /home/workspace/borden_inverse --case_dir /home/workspace/borden_inverse --scoring_dir /opt/borden_scoring --output /home/workspace/borden_inverse/score.json</code></pre></dd><dt>时限</dt><dd>整个评分运行限时 10 分钟（600 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>.</code> 不计入提交：<code>scoring/</code>, <code>__pycache__/</code>, <code>.pytest_cache/</code>, <code>*.pyc</code>, <code>private_generation_record_not_for_agent.json</code>, <code>score.json</code>。</dd><dt>原始结果</dt><dd>评分器输出一份 JSON 报告；其中的 <code>score</code> 是原始结果，报告还可以给出通过率，并可将提交标记为无效（解析器 <code>structured_json</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好。</dd><dt>从原始结果到 0–100 分</dt><dd>未配置：任务没有定义换算，因此评分器自身的原始结果就是分数。EdgeBench 的 <code>score_rescale.py</code> 说明此时原始结果被截断到 0–100。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>原始结果最好（最高）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>结论：</strong> 已修复。<mark>评分器用一个隐藏模型预测观测井读数，该模型的约定没有写明，而且不符合物理；因此用教科书模型一次性做出的诚实拟合只能得到基线水平的分数。</mark></p>
+<h3 id="case-任务要求">任务要求</h3>
+<p>智能体拿到地下水监测井的读数，必须推断出一个隐藏的污染源。任务说明要求解题者 "infer a <strong>finite-duration rectangular-region contaminant source</strong> from public monitoring-well readings"（根据公开的监测井读数，推断一个持续时间有限的矩形区域污染源）。它把 <code>C0</code> 定义为 "effective source concentration/intensity, in mg/L"（有效源浓度/强度，单位 mg/L）。它给出了控制方程 <code>R*dC/dt = div(D grad C) - v dot grad C - lambda*C + source</code>。这就是对流–弥散方程（ADE），即描述溶解物质在地下水中流动和扩散的教科书模型。</p>
+<p>README 要求 "construct the groundwater solute transport equation, build an ADE/AdePy or equivalent forward approximation"（建立地下水溶质运移方程，构建 ADE/AdePy 或等价的正演近似）。它还说评分器将 "Use a hidden Borden-ADE region-source forward model"（使用一个隐藏的 Borden-ADE 区域源正演模型）。正演模型根据给定的污染源预测井的读数。类别：科学问题与机器学习。</p>
+<h3 id="case-问题出在哪里">问题出在哪里</h3>
+<p><strong>评分器的正演模型使用了没有写明、不符合物理的约定。</strong> 这个隐藏模型：</p>
+<ul><li>给 225 个脉冲中的每一个赋予幅值 <code>C0·q·1000/225</code>，把质量速率（mg/d）当作质量来用；</li><li>不使用孔隙度（土壤体积中容纳水的比例）；</li><li>无论 <code>duration</code> 是多少，都给出相同的总质量；</li><li>把 mg/m³ 当作 mg/L 报告；</li><li>在 <code>nz=1</code> 时，把源平面放在 <code>z_center − half_length_z</code>，而不是盒子中心（这看起来是 <code>linspace(num=1)</code> 造成的无意结果）。</li></ul>
+<p>文档给出了各个组成部分，但没有说明它们如何组合。<code>public_problem_config.json</code> 列出了 q（<code>q_source_m3_per_day</code>）、一个 1000 的系数（<code>fallback_source_scale_factor</code>）、一个由子点组成的 5×5×1 网格及 9 个释放步，并注明评分器会叠加点源响应。它没有给出每个脉冲的归一化方式、孔隙度的缺失、与持续时间无关的质量、单位的解读方式，以及由此得到的平面位置。在真实污染源处，在 24 个高于 0.01 mg/L 的公开读数上，教科书 ADE 模型与评分器模型相差 10.9× 到 323×（中位数 33×）。差别来自真实污染源处约为 duration/(1000·n) ≈ 8.5 的幅值系数，加上平面偏移。然而公开数据无法区分这些约定。教科书模型和评分器的约定对公开数据拟合得一样好（两者的对数残差 RMS 都是 0.0079）。</p>
+<ul><li>原始评分器上的例子：诚实的教科书 ADE 拟合得 <strong>7.03</strong> 分。基线以每个参数取值范围的中点作答，得 7.01 分。使用评分器精确约定的同一个最小二乘拟合得 <strong>31.2</strong> 分。除源平面外都采用评分器约定（源平面放在 <code>z_center</code>，即自然的理解）得 12.9 分。所以仅平面位置一项就损失约 18 分。</li></ul>
+<p><strong>原始结果没有定义满分 100 的分数（报告上的不一致）。</strong> 真实污染源的原始结果（换算到 0–100 之前）是 109。任务没有分数刻度，因此 <code>score_0_100</code> 没有定义，原始结果按 0–109 报告。没有任何已记录的提交达到 100 的原始结果：我们基于公开数据的最佳拟合达到 31.2，一次第三方 Claude Opus 5.5 运行中的最佳提交达到 60.10（见下文）。所以缺少上限并没有截断任何已记录的分数；它只是让结果停留在 0–109 的刻度上。</p>
+<p>经检查是正确的：智能体的工作文件中没有 <code>scoring/</code> 目录，也没有隐藏文件。</p>
+<h3 id="case-影响有多大">影响有多大</h3>
+<p>对于用一种教科书模型变体对公开数据做一次性最小二乘拟合的情形，在 0–109 的原始刻度上约差 24 分（7.0 对 31.2）。其他教科书变体没有测试。</p>
+<p>对于反复提交的智能体，影响更小，其大小没有测量。评分器的逐测试输出以 <code>CASE feedback_…</code> 行的形式包含隐藏井和未来读数的 rRMSE，因此智能体可以朝隐藏约定调整。在原始评分器上的一次第三方 Claude Opus 5.5 运行中（4 小时内 36 次提交），最佳提交 <code>agent-23</code> 把自己的模型描述为教科书点源 ADE 解，原始结果为 60.10，隐藏井 rRMSE 为 0.223，未来读数 rRMSE 为 0.101（<code>evidence/runs/opus55-rollouts-meta/result/meta/opus-16x4h-1009-0036-w1/borden_source_inversion/final_result.json</code> 和 <code>submissions/agent-23/test_output.txt</code>）。我们采用评分器约定的拟合分别为 0.552 和 0.200。本任务已发布的 12 小时结果中，三个模型分别为 48.4、38.5 和 38.2，另外两个为 8.0 和 15.1（<code>evidence/impact/leaderboard_12h.json</code>）。</p>
+<h3 id="case-修复">修复</h3>
+<p>修复版只改动智能体的工作镜像和任务 JSON。答案、评分器和评分器镜像都没有改变。</p>
+<ul><li>工作镜像新增 <code>forward_model.py</code>。这就是评分器的正演模型，函数体逐字节相同，只替换了 2 行的头部注释。</li><li>README 新增一节，精确说明约定：子点和 <code>z_center − half_length_z</code> 平面、释放时间偏移、脉冲幅值、不使用孔隙度、与持续时间无关、单位按报告值解读。同一节也插入到 <code>work.agent_query</code> 中。一次修订（2026-10-12）还在文件列表、评分步骤和规则中说明 <code>forward_model.py</code> 是评分器模型的精确副本，可以自由使用；最初发布的修复版任务说明仍把该模型称为"隐藏"的，并在没有这一说明的情况下禁止阅读隐藏的评分文件。在最初和修订后的修复版工作目录中为同样七个测试提交评分，结果逐字节相同（<code>evidence/runs/borden_source_inversion-v2-paired-r3</code>）。</li><li><code>task.json.in</code> 新增 <code>judge.rescale = {"kind": "linear", "lower": 0, "upper": 109}</code>。这设定了分数刻度：0 对应 0，109 对应 100。高于 100 的结果仍保持其先后顺序，而不是在上限处并列。</li></ul>
+<p>表中"上限"是评分器对该提交施加的分数封顶；它在两个评分器下相同。最后一列是隐藏井和未来读数上的相对 RMS 误差。</p>
+<div class="tablewrap"><table><thead><tr><th>测试提交</th><th>类型</th><th>原始评分器，原始结果</th><th>修复版评分器，原始结果</th><th>原始评分器，满分 100</th><th>修复版评分器，满分 100</th><th>上限（两者）</th><th>隐藏井 / 未来 rRMSE</th></tr></thead><tbody><tr><td>教科书 ADE 拟合（审查中的回归用例）</td><td>诚实，约定错误</td><td>7.031</td><td>7.031</td><td>None</td><td>6.45</td><td>cap15</td><td>2.583 / 1.852</td></tr><tr><td>评分器约定拟合（审查中，我们自己的重新实现）</td><td>诚实</td><td>31.200</td><td>31.200</td><td>None</td><td>28.62</td><td>cap45</td><td>0.552 / 0.200</td></tr><tr><td><strong>只使用随附 <code>forward_model.py</code> 的修复版拟合</strong>（在修复版工作镜像内拟合）</td><td>诚实</td><td>31.199</td><td>31.199</td><td>None</td><td>28.62</td><td>cap45</td><td>0.552 / 0.200</td></tr><tr><td>取值范围中点基线</td><td>随任务提供的基线</td><td>7.012</td><td>7.012</td><td>None</td><td>6.43</td><td>cap15</td><td>2.622 / 1.925</td></tr><tr><td>隐藏的真实污染源</td><td>100 分的参考点（不是诚实的提交）</td><td>109.000</td><td>109.000</td><td>None</td><td>100.00</td><td>无</td><td>0 / 0</td></tr><tr><td>越界答案（C0=5000，half_length_x=500）</td><td>无效</td><td>4.000</td><td>4.000</td><td>None</td><td>3.67</td><td>cap15</td><td>9.265 / 2.671</td></tr><tr><td>没有 <code>answer.json</code></td><td>无效</td><td>0</td><td>0</td><td>None</td><td>0.00</td><td>—</td><td>—</td></tr></tbody></table></div>
+<p>随附的 <code>forward_model.py</code> 与评分器模型在全部 656 行答案上一致，max |diff| = 0.0。修复版上的求解程序在修复版工作镜像中无网络运行，只使用智能体能看到的文件。它收敛到与评分器约定拟合相同的点。</p>
+<p><strong>分数兼容性。</strong> 对任何给定的 <code>answer.json</code>，原始结果在原版和修复版下完全相同。修复版报告 <code>score_0_100 = raw·100/109</code>，而原版没有定义它。原版的原始结果在 0–109 上。修复版上的智能体运行与原版上的智能体运行<strong>不</strong>可比，因为修复版把约定告诉了解题者（诚实拟合从 7.0 → 约 31 的原始结果）。</p>
+<h3 id="case-我们如何检查">我们如何检查</h3>
+<ul><li><strong>原始评分器。</strong> 所有测试提交都在原始公开镜像上运行，该镜像按摘要固定，修复版中未改动。每个提交都以 <code>--network none</code> 运行原始评分命令，分别针对原版和修复版的工作目录。</li><li><strong>独立的正演模型。</strong> 一个独立实现（5×5×1 子点、9 个脉冲、高斯核）从隐藏的真实污染源重现了全部 656 个无噪声答案读数（用 <code>evidence/scripts/borden_source_inversion/forward_check.py</code> 重新运行）。评分器自己的模型在评分器镜像中运行，与存储的读数相对误差在 8.9e-13 以内。</li><li><strong>诚实解法实验。</strong> 这些实验只在公开的含噪声、截尾数据上使用多起点有界最小二乘（60–80 个起点）。一次使用根据文档构建的教科书 ADE 模型，另一次使用评分器的精确约定。原始 <code>evaluate.py</code> 以原始参数为每个拟合得到的 <code>answer.json</code> 评分（本地 Python；numpy 1.24.4、scipy 1.10.1、pandas 2.0.3）。</li><li><strong>可重复性。</strong> 原始评分器与修复版评分器的并排对照测试重复了三次。没有任何测试提交的判定发生变化（见 <code>data/paired-repeatability.md</code>）。</li></ul>
+<h3 id="case-局限">局限</h3>
+<ul><li>我们没有运行任何 AI 模型。并排对照测试使用的是我们编写的测试提交和拟合。原始评分器上的一次第三方 Claude Opus 5.5 运行经过阅读，但没有重新评分（对同一答案，原始结果在两个评分器下完全相同）；它表明迭代的智能体可以部分学到这一约定，但它并没有检验修复。</li><li>数据对这个反问题的约束仍然很弱。使用精确模型的最佳公开数据拟合达到原始结果 31.2（28.6 分，满分 100）。修复去掉的是隐藏约定带来的扣分，而不是问题本身的难度。</li><li><code>C0</code> 仍是一种不符合物理的约定下的 "effective intensity"（有效强度）。修复版把它写进文档而不是修正它，因为修正物理需要重新生成答案。</li><li>只使用了一种拟合方法（多起点最小二乘、log/hinge 损失、一次带种子的 60 或 80 个起点的运行）和一种教科书模型变体。24 分的差距针对的是该变体。</li><li>任务说明说参数 "must stay within"（必须保持在）取值范围内，但原始评分器并没有直接拒绝越界的测试提交（原始结果 4，封顶 15）。这一点没有改变。</li><li>隐藏文件检查只列出了 <code>/home/workspace</code> 中的工作文件。</li></ul>
+<h3 id="case-复现">复现</h3>
+<ul><li>原始评分器镜像：<code>sha256:b1a08348…</code>（修复版中未改动）。</li><li>诚实解法实验：<code>python3 evidence/scripts/borden_source_inversion/textbook_solver_check.py &lt;judge_root&gt; &lt;out_dir&gt;</code>（同一文件夹中还有 <code>judge_convention_solver_check.py</code>、<code>judge_convention_truthstart.py</code>、<code>variant_zmid_solver_check.py</code>、<code>textbook_own_prediction.py</code>、<code>forward_check.py</code>）。</li><li>并排对照测试：<code>repairs/borden_source_inversion-v2/paired/run.sh</code>（输入在 <code>paired/inputs/</code>，求解程序在 <code>paired/tools/v2_solver.py</code>）。</li><li>改动：<code>repairs/borden_source_inversion-v2/repair.patch</code>、<code>Dockerfile</code>、<code>task.json.in</code>。</li><li>支持记录：<code>repairs/borden_source_inversion-v2/</code>（存放修复版的文件夹；<code>source-lock.json</code> 中有完整哈希）。</li></ul></div></section><section id="files"><h2 class="sec">文件</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/borden_source_inversion.md">GitHub 上的本案例</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/borden_source_inversion.json">原始任务定义（tasks/borden_source_inversion.json）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/borden_source_inversion-v2">修复包（补丁、Dockerfile、任务定义）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/borden_source_inversion-v2/paired/results.md">并排对照结果：原始评分器与修复版评分器</a></li><li><a href="../../data/paired-results.csv">全部并排对照结果（paired-results.csv）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/borden_source_inversion.md">审查记录 (<code>borden_source_inversion.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/borden_source_inversion">证据脚本</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/notes/borden_source_inversion.md">形式化验证说明</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">证据索引</a></li></ul></section><nav class="pager" aria-label="全部任务"><a class="prev" href="arc_compiler_runtime.html" rel="prev"><small>&larr; 上一个</small>Arc Compiler Runtime</a><a class="all" href="index.html">全部任务</a><a class="next" href="college_english_exam_bank.html" rel="next"><small>下一个 &rarr;</small>College English Exam Bank</a></nav></div>
+</main>
+<footer class="">EdgeBench 由字节跳动 Seed 团队开发。本审计是独立进行的，与其作者没有关联。评分软件源自 EdgeBench（Apache-2.0）；任务定义和任务说明来自 Hugging Face 上的公开发布版本（CC BY 4.0）；EdgeBench 的镜像仅以其公开指纹引用，本站不重新分发这些镜像。</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

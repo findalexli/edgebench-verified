@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenTTD Transport AI · EdgeBench Verified</title>
+<meta name="description" content="任务说明提到了一个并不存在的游戏函数">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/openttd_transport_ai.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/openttd_transport_ai.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">跳到正文</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="语言"><a href="../../tasks/openttd_transport_ai.html" hreflang="en" lang="en">EN</a> / <a href="../../zh/tasks/openttd_transport_ai.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
+  <nav class="tabs" aria-label="站点"><a href="../index.html">概览</a><a href="../tasks/index.html" aria-current="page">任务</a><a href="../method.html">方法</a><a href="../leaderboard.html">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：交互式游戏与模拟器</span></div><header class="task-head"><h1>OpenTTD Transport AI</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <span class="id">openttd_transport_ai</span><p class="summary">任务说明提到了一个并不存在的游戏函数。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>为运输公司模拟游戏 OpenTTD 编写一个电脑玩家，在若干张随机地图上用 20 个游戏年提高其公司的价值。</dd><dt>问题所在</dt><dd>任务说明要求使一个函数 AICompany.GetCompanyValue 的结果最大化，但该函数在这个游戏版本中并不存在；调用它的程序会在那里崩溃。所提供的初始程序在其主循环中调用了它，什么也没建造，因此在两个版本中都得 0 分。任务说明还称所有基础设施都会增加价值；而游戏只计算车站。评分器本身工作正常。</dd><dt>影响有多大</dt><dd>对一份遵循任务说明并调用了这个不存在的函数的提交，损失可达全部分数。使用其他函数的提交不受影响。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：任务说明和初始程序给出了正确的函数，并解释了分数是如何读取的。评分器不变，因此每份提交的得分相同。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+<title>OpenTTD missing function</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="muted"/></marker></defs>
+<text x="16" y="30" font-size="18" font-weight="700" class="ink">The instructions name a function that is missing</text>
+<text x="16" y="62" font-size="14" font-weight="700" class="bad">Original</text>
+<rect x="16" y="72" width="190" height="64" rx="8" class="accBg"/>
+<text x="111" y="98" font-size="14" text-anchor="middle" class="muted">Instructions say</text>
+<text x="111" y="122" font-size="15" text-anchor="middle" class="ink">GetCompanyValue</text>
+<line x1="208" y1="104" x2="248" y2="104" class="inkS" stroke-width="2" marker-end="url(#a)"/>
+<rect x="252" y="72" width="210" height="64" rx="8" class="badBg"/>
+<text x="357" y="98" font-size="14" text-anchor="middle" class="muted">OpenTTD 13.4</text>
+<text x="357" y="122" font-size="15" text-anchor="middle" class="bad">function does not exist</text>
+<line x1="464" y1="104" x2="504" y2="104" class="inkS" stroke-width="2" marker-end="url(#a)"/>
+<rect x="508" y="72" width="196" height="64" rx="8" class="badBg"/>
+<text x="606" y="98" font-size="14" text-anchor="middle" class="muted">Script dies at that call</text>
+<text x="606" y="122" font-size="15" text-anchor="middle" class="bad">company stops acting</text>
+<text x="16" y="186" font-size="14" font-weight="700" class="good">Fixed</text>
+<rect x="16" y="196" width="250" height="64" rx="8" class="accBg"/>
+<text x="141" y="222" font-size="14" text-anchor="middle" class="muted">Instructions and starter say</text>
+<text x="141" y="246" font-size="14" text-anchor="middle" class="ink">GetQuarterlyCompanyValue</text>
+<line x1="268" y1="228" x2="308" y2="228" class="inkS" stroke-width="2" marker-end="url(#a)"/>
+<rect x="312" y="196" width="200" height="64" rx="8" class="goodBg"/>
+<text x="412" y="222" font-size="14" text-anchor="middle" class="muted">OpenTTD 13.4</text>
+<text x="412" y="246" font-size="15" text-anchor="middle" class="good">function exists</text>
+<line x1="514" y1="228" x2="554" y2="228" class="inkS" stroke-width="2" marker-end="url(#a)"/>
+<rect x="558" y="196" width="146" height="64" rx="8" class="goodBg"/>
+<text x="631" y="234" font-size="14" text-anchor="middle" class="good">script keeps running</text>
+<text x="16" y="288" font-size="14" class="muted">The grader is unchanged. The starter builds nothing, so it scores 0 in both versions.</text>
+</svg>
+</div><figcaption>任务要求解题者调用一个并不存在的游戏函数，因此初始程序在第一次调用它时就崩溃了；修复改变了任务说明和初始程序。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/openttd_transport_ai.json">tasks/openttd_transport_ai.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-role">Role</h4>
+<p>You are an expert OpenTTD AI script developer. Write a <strong>Squirrel</strong> AI in <code>my_ai/</code> that maximizes <strong>company value</strong> over 20 game-years, averaged across multiple random seed maps.</p>
+<hr>
+<h4 id="prompt-files">Files</h4>
+<ul><li><code>my_ai/info.nut</code> — AI metadata (class <code>MyAI extends AIInfo</code>, <code>GetAPIVersion()</code> returns "13")</li><li><code>my_ai/main.nut</code> — AI controller (class <code>MyAI extends AIController</code>, implements <code>Start()</code>, <code>Save()</code>, <code>Load()</code>)</li><li><code>docs/squirrel_reference.html</code> — Squirrel 2.2 language reference (offline)</li><li><code>docs/noai_tutorial.html</code> — NoAI introductory tutorial (offline)</li><li><code>docs/noai_api_docs/</code> — full NoAI API (115 classes, offline HTML)</li></ul>
+<hr>
+<h4 id="prompt-game-background">Game Background</h4>
+<p>OpenTTD (Transport Tycoon Deluxe clone) simulates a transport company: build roads / rails / airports / ships, connect towns and industries, buy vehicles, manage finances. The NoAI framework runs Squirrel scripts to control a company headlessly. Your AI is the only company on the map (no competitors).</p>
+<h4 id="prompt-goal">Goal</h4>
+<p>Maximize <strong><code>AICompany.GetCompanyValue(AICompany.COMPANY_SELF)</code></strong> (= vehicle value at 1.5× purchase + infrastructure value + cash − loans). Use <code>AILog.Info(...)</code> / <code>AILog.Warning(...)</code> for debugging.</p>
+<h4 id="prompt-local-testing">Local Testing</h4>
+<p>Install OpenTTDLab (already installed). Run locally with:</p>
+<pre><code class="language-python">from openttdlab import run_experiments, local_folder
+results = run_experiments(openttd_version='13.4', opengfx_version='7.1',
+    experiments=({'seed': s, 'ais': (local_folder('my_ai/', ai_name='MyAI'),),
+                  'days': 365*20} for s in range(5)))</code></pre>
+<h4 id="prompt-rules">Rules</h4>
+<ul><li>Write only in <code>my_ai/</code> (info.nut + main.nut + optional sub-squirrel files)</li><li><code>CreateInstance()</code> in info.nut must return "MyAI" (matching main.nut's class name)</li><li><code>GetAPIVersion()</code> must return <code>"13"</code> for OpenTTD 13.x compatibility</li><li>Do NOT modify anything under <code>docs/</code> — it's reference material</li><li>A baseline AI that just logs company value is already in <code>my_ai/</code>; improve it</li></ul></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/openttd_transport_ai.json">tasks/openttd_transport_ai.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>cd /home/workspace/openttd_ai &amp;&amp; OPENTTD_N_SEEDS=5 python3 /tmp/eval_openttd.py</code></pre></dd><dt>时限</dt><dd>整个评分运行限时 1 小时（3,600 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>my_ai/</code></dd><dt>原始结果</dt><dd>评分器为每个测试用例输出一行结果，最后输出一行 <code>TOTAL_SCORE</code>；该数字就是原始结果（解析器 <code>score_sum</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好。</dd><dt>从原始结果到 0–100 分</dt><dd>对数换算：分数为 100 × ln(raw ÷ 100,000) ÷ ln(1,000,000,000 ÷ 100,000)。原始结果为 100,000（基线）时得 0 分，为 1,000,000,000（专家水平）时得 100 分，原始结果每翻一倍，分数增加相同的分值。结果被截断到 0–100，原始结果小于或等于 0 时得 0 分。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>log_max</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>原始结果最好（最高）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>结论：</strong> 已修复。<mark>任务说明要求解题者最大化一个游戏函数 <code>AICompany.GetCompanyValue</code>，但它在固定的游戏版本中并不存在，因此调用它的脚本会崩溃，随附的初始程序也在第一次调用它时崩溃；修复改的是任务说明和初始程序，而不是评分器。</mark></p>
+<h3 id="case-任务要求">任务要求</h3>
+<p>OpenTTD 是一款开源的运输公司模拟游戏。解题者编写 "a <strong>Squirrel</strong> AI in <code>my_ai/</code> that maximizes <strong>company value</strong> over 20 game-years, averaged across multiple random seed maps."（大意：在指定目录中编写一个 <strong>Squirrel</strong> AI，在多张随机种子地图上平均，使一段游戏年限内的<strong>公司价值</strong>最大化。）Squirrel 是 OpenTTD 为电脑玩家使用的脚本语言。任务说明的目标一行写道："Maximize <strong><code>AICompany.GetCompanyValue(AICompany.COMPANY_SELF)</code></strong>"。它还说 "A baseline AI that just logs company value is already in <code>my_ai/</code>; improve it"（大意：目录中已有一个只记录公司价值的基线 AI，请改进它）。类别：交互式游戏与模拟器。</p>
+<h3 id="case-问题出在哪里">问题出在哪里</h3>
+<p><strong>任务说明指定了一个不存在的函数。</strong> <code>AICompany.GetCompanyValue</code> 不在 OpenTTD 13.4 的 NoAI API 中，而该 API 是游戏提供给电脑玩家的接口。随附的初始程序记录一行日志后，就在主循环中（<code>main.nut</code> 第 5 行）调用它，随即崩溃：</p>
+<pre><code>dbg: [script] [0] [S] Your script made an error: the index 'GetCompanyValue' does not exist
+dbg: [script] [0] [S] *FUNCTION [Start()] myai/main.nut line [5]
+dbg: [script] The script died unexpectedly.</code></pre>
+<p>原始评分器在初始程序上的完整运行：墙钟时间 <strong>63 s</strong>，退出码 0，请求的 5/5 个种子全部返回。</p>
+<div class="tablewrap"><table><thead><tr><th>种子</th><th>公司价值</th><th>公司价值对应日期</th><th>资金</th><th>贷款</th><th>净资产</th><th>错误</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>N/A</td><td>54,191</td><td>100,000</td><td>-45,809</td><td>YES</td></tr><tr><td>1</td><td>0</td><td>N/A</td><td>54,191</td><td>100,000</td><td>-45,809</td><td>YES</td></tr><tr><td>2</td><td>0</td><td>N/A</td><td>54,191</td><td>100,000</td><td>-45,809</td><td>YES</td></tr><tr><td>3</td><td>0</td><td>N/A</td><td>54,191</td><td>100,000</td><td>-45,809</td><td>YES</td></tr><tr><td>4</td><td>0</td><td>N/A</td><td>54,191</td><td>100,000</td><td>-45,809</td><td>YES</td></tr></tbody></table></div>
+<p>包装脚本打印出 <code>CASE 0000 WA score=0</code> 和 <code>TOTAL_SCORE 0</code>。</p>
+<ul><li><strong>预期与实际：</strong> 遵循任务说明、调用指定函数的解题者，预期能读到自己的公司价值。实际上，脚本在这次调用处被终止，公司停止行动。分数是其最后一个为正的季度价值，或者 0。</li><li>这个问题可以通过任务提供的本地测试发现。它是误导性的任务说明，而不是评分器错误。</li></ul>
+<p><strong>任务说明还错误描述了计分内容。</strong> 目标一行把目标定义为 "vehicle value at 1.5× purchase + infrastructure value + cash − loans"（即车辆价值按购买价的一定倍数计，加上基础设施价值和现金，再减去贷款）。评分器读取的是游戏自身的公司价值。在 OpenTTD 13.4 源码中，这个值把车辆按其价值的 1.5× 计入，并计入车站，再加上现金减去贷款，下限为 1；道路、铁轨和其他基础设施不计入。下表中的探测提交与此一致：它有 8 个站点、没有车辆、现金减贷款为负，得分为 4,975。按 <a href="https://github.com/findalexli/edgebench-verified/blob/main/METHOD.md"><code>METHOD.md</code></a> 中的判据，这属于告诉智能体的规则与实际应用的规则不同的情形。一个修建铁轨或道路、期待它们增加价值的解题者，计分时不会算上它们。其影响大小没有测量，而关于铁轨的部分依据的是阅读源码，而不是一次运行。</p>
+<p><strong>评分器本身行为正确。</strong> 它从游戏每月的存档文件中读取公司价值。在一次种子 0 的运行中，共有 239 个月度存档，从 1950-02-01 到 1969-12-01，因此游戏完整运行了 7,300 天。<code>old_economy[0].company_value</code> 在每个存档中都是 1，评分器的 <code>&gt; 1</code> 过滤把它变成 0，所以什么都不做的公司得 0 分。有 239 个存档、最终日期为 1969-12-01 时，"最后的季度价值"对应 1969-10 这一季度。OpenTTDLab（运行游戏的库）给出的 <code>error</code> 标志会被打印出来，但不影响分数。</p>
+<p><strong>这次运行不存在运行时间问题。</strong> 单个种子耗时 55.4 s，约 <strong>9,750 ticks/s</strong>，远高于所需的约 150 ticks/s。5 个种子的运行耗时 63 s，而 <code>eval_timeout</code> 为 3600 s。</p>
+<h3 id="case-影响有多大">影响有多大</h3>
+<p>对于遵循任务说明、调用指定函数的解题者，影响可达全部分数。在本地测试并改用其他函数的解题者不受影响。</p>
+<h3 id="case-修复">修复</h3>
+<p>修复版位于 <code>repairs/openttd_transport_ai-v2/</code>（存放修复版的文件夹）。</p>
+<ul><li><strong>任务说明。</strong> <code>work.agent_query</code> 的目标段落现在写明：OpenTTD 13.4 没有 <code>AICompany.GetCompanyValue</code>，调用它会使脚本停止。它指定用 <code>AICompany.GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, AICompany.CURRENT_QUARTER)</code> 获取当前值，用季度 <code>1</code> 获取当前季度开始时记录的值。它更正了公式：车站计入，其他基础设施不计入，下限为 1。它说明了分数的读取方式：对每个种子，取游戏结束前最近一个季度边界处的值（否则退回到更早的一个大于 1 的季度，或取 0），再对 5 个种子取平均。</li><li><strong>初始程序。</strong> <code>my_ai/main.nut</code> 第 5 行改为调用 <code>GetQuarterlyCompanyValue(AICompany.COMPANY_SELF, AICompany.CURRENT_QUARTER)</code>。<code>Dockerfile.work</code> 以原始工作镜像的摘要为基础构建修复版工作镜像（压缩后约 0.46 GB）；<code>work.image_tag</code> 变为 <code>f2e9a9fb0fff-ebv-v2</code>。</li><li><strong>在游戏代码中的依据。</strong> OpenTTD 13.4 源码中，<code>GetQuarterlyCompanyValue</code> 在 <code>CURRENT_QUARTER</code> 时定义为 <code>CalculateCompanyValue(c)</code>，否则为 <code>old_economy[quarter - 1].company_value</code>。缓存的 13.4 程序中包含名称 <code>GetQuarterlyCompanyValue</code>，不包含 <code>GetCompanyValue</code>。一个探测脚本报告 <code>has_GetCompanyValue=false has_GetQuarterlyCompanyValue=true</code>。</li><li>评分器镜像、<code>eval_cmd</code>、解析器和分数刻度（<code>log_max</code>，参考点为 1e5 到 1e9）都不变，因此每份提交在原始版和修复版下得分相同。</li></ul>
+<p>并排对照运行（完全按原始 <code>eval_cmd</code>，5 个种子，20 个游戏年；摘自 <code>paired/results.md</code>）。<code>TOTAL_SCORE</code> 是原始结果（换算为 0–100 分之前）。</p>
+<div class="tablewrap"><table><thead><tr><th>测试提交</th><th>随附于哪个任务版本</th><th>脚本是否崩溃？</th><th><code>TOTAL_SCORE</code>，原始版</th><th><code>TOTAL_SCORE</code>，修复版</th><th>每个种子的公司价值（评分器读到的）</th><th>错误标志（5 个种子）</th></tr></thead><tbody><tr><td>baseline_v1（随附的初始程序）</td><td>原始版</td><td>是，在 <code>main.nut</code> 第 5 行</td><td>0</td><td>0</td><td>5 个种子均为 0</td><td>5/5 YES</td></tr><tr><td>probe_min（每月调用正确的函数）</td><td>遵循修复版任务说明</td><td>否</td><td>0</td><td>0</td><td>5 个种子均为 0</td><td>0/5</td></tr><tr><td>baseline_v2（修复版初始程序）</td><td>修复版</td><td>否</td><td>0</td><td>0</td><td>5 个种子均为 0</td><td>0/5</td></tr><tr><td>probe_value（价值为正的测试提交）</td><td>遵循修复版任务说明</td><td>否</td><td>4975</td><td>4975</td><td>5 个种子均为 4,975</td><td>0/5</td></tr></tbody></table></div>
+<p>展示问题的测试提交，即随附的初始程序，在同一评分器上的结果：</p>
+<div class="tablewrap"><table><thead><tr><th>初始程序</th><th>脚本是否崩溃？（原始版）</th><th>脚本是否崩溃？（修复版）</th><th><code>TOTAL_SCORE</code>，原始版</th><th><code>TOTAL_SCORE</code>，修复版</th></tr></thead><tbody><tr><td>随附的初始程序（原始工作镜像 vs 修复版工作镜像）</td><td>是，在 <code>main.nut</code> 第 5 行</td><td>否</td><td>0</td><td>0</td></tr></tbody></table></div>
+<ul><li>空闲的探测提交得 0 分，因为空闲公司的价值停留在下限 1（现金减去 100,000 的贷款为负），而评分器把它计为 0。它们表明脚本得以存活，并不代表得到正分。</li><li>对两个探测提交，在每个种子上，最后记录的 <code>GetQuarterlyCompanyValue(SELF, 1)</code> 都等于评分器所用的 <code>old_economy[0].company_value</code>。对 <code>probe_value</code> 而言该值为 4,975，而结束时 <code>CURRENT_QUARTER</code> 的当前值为 4,858。</li></ul>
+<p><strong>分数兼容性：</strong> 作为同一测试框架的测量结果，分数可比。但如果原始版的解题者遵循了任务说明并调用了那个不存在的函数，那么作为解题者能力的度量，分数不可比。</p>
+<h3 id="case-我们如何检查">我们如何检查</h3>
+<ul><li><strong>在按摘要固定的原始镜像中运行原始评分器。</strong> 完全按原样的 eval_cmd，即 <code>cd /home/workspace/openttd_ai &amp;&amp; OPENTTD_N_SEEDS=5 python3 /tmp/eval_openttd.py</code>，在评分器镜像中、<code>timeout 2600</code> 的限制下离线运行（<code>--network none --memory 6g</code>）；主机有 8 个 vCPU，因此 5 个种子并行运行。提交是工作镜像中随附的初始程序 <code>my_ai/</code>。OpenTTD 13.4 和 OpenGFX 7.1（游戏的图形素材集）已预先缓存在镜像中。</li><li><strong>存档文件检查。</strong> 一个种子 0 的诊断脚本（<code>diag1.py</code>）以评分器自己的参数调用 <code>run_experiments</code>，并打印每一行存档记录。</li><li><strong>原始版与修复版的并排对照运行。</strong> 即上面的表格。共重复三次，结论没有变化（<a href="https://github.com/findalexli/edgebench-verified/blob/main/data/paired-repeatability.md"><code>data/paired-repeatability.md</code></a>）。</li></ul>
+<h3 id="case-局限">局限</h3>
+<ul><li>没有运行任何 AI 模型或解题者。影响只在随附的初始程序和我们编写的探测提交上展示。</li><li>在并排对照运行中，每份测试提交只评分一次，因为两个版本的评分器镜像相同；原始版和修复版的 <code>TOTAL_SCORE</code> 两列重复的是同一个分数。两个版本只在解题者收到的初始程序和任务说明上不同。</li><li>唯一原始结果为正的测试提交是一个探测提交（4,975，远低于分数刻度的下参考点 1e5，因此在 100 分制下为 0 分）。所有不超过 1e5 的公司价值在 100 分制下都是 0 分，因此 0 分无法区分崩溃的脚本和较弱的脚本。上参考点 1e9 能否达到，没有测试。</li><li>任务说明中的文档路径（<code>docs/noai_api_docs/</code>）与实际路径（<code>docs/openttd_reference_docs/noai_api_docs/</code>）不同，随附的 HTML 文档似乎来自比 13.4 更新的 OpenTTD 版本。这两点都已在修复包的 README 中注明，未作改动。</li><li>ticks/s 数值是一台主机上空闲脚本的结果。运营大量车辆的 AI 会更慢；这一点没有测量。</li></ul>
+<h3 id="case-复现">复现</h3>
+<ul><li>原始评分器镜像：<code>sha256:27167956fd00…</code>。</li><li><code>evidence/runs/openttd_transport_ai-native-baseline/run.sh</code>（完整运行）和 <code>evidence/runs/openttd_transport_ai-native-saves-diag/run.sh</code>（配合 <code>diag1.py</code>）。需要一台能拉取固定镜像的 Docker 主机。</li><li>审查：<code>evidence/reviews/openttd_transport_ai-native.md</code>。</li><li>修复与并排对照运行：<code>repairs/openttd_transport_ai-v2/</code>（先运行 <code>paired/stage.sh</code>，再运行 <code>tools/e2b_run.py</code>）。</li></ul></div></section><section id="files"><h2 class="sec">文件</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/openttd_transport_ai.md">GitHub 上的本案例</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/openttd_transport_ai.json">原始任务定义（tasks/openttd_transport_ai.json）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/openttd_transport_ai-v2">修复包（补丁、Dockerfile、任务定义）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/openttd_transport_ai-v2/paired/results.md">并排对照结果：原始评分器与修复版评分器</a></li><li><a href="../../data/paired-results.csv">全部并排对照结果（paired-results.csv）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/openttd_transport_ai-native.md">审查记录 (<code>openttd_transport_ai-native.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">证据索引</a></li></ul></section><nav class="pager" aria-label="全部任务"><a class="prev" href="openrct2_theme_park_ai.html" rel="prev"><small>&larr; 上一个</small>OpenRCT2 Theme Park AI</a><a class="all" href="index.html">全部任务</a><a class="next" href="order_addition_permutation_optimization.html" rel="next"><small>下一个 &rarr;</small>Order Addition Permutation Optimization</a></nav></div>
+</main>
+<footer class="">EdgeBench 由字节跳动 Seed 团队开发。本审计是独立进行的，与其作者没有关联。评分软件源自 EdgeBench（Apache-2.0）；任务定义和任务说明来自 Hugging Face 上的公开发布版本（CC BY 4.0）；EdgeBench 的镜像仅以其公开指纹引用，本站不重新分发这些镜像。</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

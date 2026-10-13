@@ -2,7 +2,8 @@
 """Pre-commit publication check: scan every file Git would commit and fail on anything unpublishable.
 
 Checks (on `git ls-files --cached --others --exclude-standard`, i.e. tracked + untracked-not-ignored):
-  1. no verbatim copy of a task-image file (sha256 against .internal/image-file-hashes.txt, if present)
+  1. no verbatim copy of a task-image file (sha256 against .internal/image-file-hashes.txt, if present),
+     including files inside .tar/.tgz/.zip archives
   2. no scorer-tampering counterexample markers (internal-only material)
   3. no credential patterns, and not the local E2B key (from $E2B_API_KEY, or the .env file named by
      $EBV_E2B_ENV or by the one-line file .internal/e2b-env-path)
@@ -34,6 +35,7 @@ TAMPER_OK = re.compile(rb'(?i)('
                        rb'|no tamper(ing)? (analysis|or exploit submissions)'
                        rb'|tampering is out of scope'
                        rb'|tamper with the game, runtime, scoring'   # EdgeBench's own task prompt
+                       rb'|do not tamper with the runtime, evaluation files'   # EdgeBench's NetHack prompt, shown on its site page
                        rb')')
 TAMPER_SKIP = ('tasks/', 'sforge/', 'evidence/runs/')   # original task text, harness and raw run records
 # /home/workspace and /home/nethack_agent are paths inside the task images, not local paths.
@@ -48,6 +50,25 @@ def e2b_env_file():
     return Path(p).expanduser() if p else None
 # Lake's project template ships the same boilerplate as the task images' Lean projects.
 TEMPLATE_OK = ('evidence/formal/lean/ebv/.github/', 'evidence/formal/lean/ebv/Ebv/Basic.lean')
+
+
+def archive_members(path):
+    """Yield (name, bytes) for each regular file in a tar or zip archive; nothing if unreadable."""
+    import tarfile
+    import zipfile
+    try:
+        if zipfile.is_zipfile(path):
+            with zipfile.ZipFile(path) as z:
+                for n in z.namelist():
+                    if not n.endswith('/'):
+                        yield n, z.read(n)
+        else:
+            with tarfile.open(path) as t:
+                for m in t.getmembers():
+                    if m.isfile():
+                        yield m.name, t.extractfile(m).read()
+    except (tarfile.TarError, zipfile.BadZipFile, OSError):
+        return
 
 
 def main():
@@ -73,6 +94,10 @@ def main():
         if image and hashlib.sha256(data).hexdigest() in image and not f.startswith(TEMPLATE_OK) \
                 and not f.startswith(('tasks/', 'sforge/')) and Path(f).name not in ('LICENSE', 'LICENSE.md', 'LICENSE.txt'):
             bad.append((f, 'verbatim task-image file'))
+        if image and f.endswith(('.tar', '.tgz', '.tar.gz', '.zip')):
+            for name, member in archive_members(ROOT / f):
+                if hashlib.sha256(member).hexdigest() in image and Path(name).name not in ('LICENSE', 'LICENSE.md', 'LICENSE.txt'):
+                    bad.append((f'{f}:{name}', 'verbatim task-image file inside an archive'))
         if f not in SELF and TAMPER.search(data):
             bad.append((f, 'internal-only tamper marker'))
         if SECRET.search(data) or any(k in data for k in keys):

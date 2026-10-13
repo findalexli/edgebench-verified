@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NetHack Dungeon Agent · EdgeBench Verified</title>
+<meta name="description" content="Game seeding silently fails, so the 20 graded games are random and scores vary">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/nethack_dungeon_agent.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/nethack_dungeon_agent.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+
+<link rel="stylesheet" href="../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="Language"><a href="../tasks/nethack_dungeon_agent.html" hreflang="en" lang="en" aria-current="true">EN</a> / <a href="../zh/tasks/nethack_dungeon_agent.html" hreflang="zh-CN" lang="zh-CN">中文</a></span>
+  <nav class="tabs" aria-label="Site"><a href="../index.html">Overview</a><a href="../tasks/index.html" aria-current="page">Tasks</a><a href="../method.html">Method</a><a href="../leaderboard.html">Leaderboard</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Interactive Games &amp; Simulators</span></div><header class="task-head"><h1>NetHack Dungeon Agent</h1><span class="badge b-retain-with-note" data-outcome="retain-with-note">Kept, with a note</span> <span class="id">nethack_dungeon_agent</span><p class="summary">Game seeding silently fails, so the 20 graded games are random and scores vary.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Write a program that plays NetHack, a classic text-based dungeon exploration game, and earns as high an in-game score as possible.</dd><dt>What goes wrong</dt><dd>The grader is meant to play 10 fixed games twice each, but its call that fixes each game fails silently, so all 20 games are random, each with a random character type. Two full runs of the same starter program scored 1.0 and 0.8. A 120-second limit per game is enforced but not stated in the instructions.</dd><dt>How much it matters</dt><dd>For the starter, 0.02 points out of 100. For competent agents (up to 41.9 recorded) the variation was not measured, so whether it matters is unknown. A game over 120 seconds scores 0.</dd><dt>What we did</dt><dd>Kept, with a note: the 20 games are random rather than fixed, scores are not repeatable between runs, and each game is limited to 5,000 steps and 120 seconds, the latter not stated.</dd></dl></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/nethack_dungeon_agent.json">tasks/nethack_dungeon_agent.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-nethack-dungeon-adventure-agent">NetHack Dungeon Adventure Agent</h4>
+<p>Write <code>agent.py</code> in <code>/home/nethack_agent/</code> that plays NetHack via the NLE Python environment and maximizes game score.</p>
+<hr>
+<h4 id="prompt-problem">Problem</h4>
+<p>NetHack is a classic hardcore Roguelike dungeon crawler (1987). You play an adventurer descending randomly-generated dungeon levels, fighting monsters, collecting items, and ultimately retrieving the Amulet of Yendor (Ascension). Every death permanently ends the game.</p>
+<p><strong>Goal:</strong> play effectively by surviving, exploring, fighting monsters, collecting useful items, and descending deeper into the dungeon.</p>
+<hr>
+<h4 id="prompt-interface">Interface</h4>
+<p>Your <code>agent.py</code> <strong>must</strong> export a function:</p>
+<pre><code class="language-python">def get_action(obs: dict, info: dict, step: int) -&gt; int:
+    """Return an integer action for the current game state."""
+    ...</code></pre>
+<p>The evaluation system calls <code>get_action(obs, info, step)</code> each step and feeds the returned action into the NLE environment. <strong>Do NOT</strong> create the environment yourself in <code>get_action</code> — the evaluation system controls the game loop.</p>
+<p>You may also include an <code>if __name__ == "__main__":</code> block for local testing (see skeleton below).</p>
+<hr>
+<h4 id="prompt-environment">Environment</h4>
+<ul><li>Python 3.10</li><li><code>nle==1.2.0</code> (NetHack Learning Environment, Gymnasium-style)</li><li><code>gymnasium</code></li><li><strong>Note:</strong> <code>nle-language-wrapper</code> is NOT available. Use the <code>nle</code> native API with integer actions and numeric observations.</li></ul>
+<h5 id="prompt-observation-space">Observation Space</h5>
+<p><code>obs</code> is a dict with the following keys (all numpy arrays):</p>
+<ul><li><code>glyphs</code> — (21, 79) integer array of tile glyph IDs (0–5991)</li><li><code>chars</code> — (21, 79) byte array of ASCII characters displayed on screen</li><li><code>colors</code> — (21, 79) integer array of colors (0–15)</li><li><code>specials</code> — (21, 79) integer array of highlight flags</li><li><code>blstats</code> — (27,) integer array of bottom-line stats such as position, attributes, health, energy, armor, experience, dungeon depth, inventory load, hunger, alignment, and conditions.</li><li><code>message</code> — (256,) byte array of the last game message</li><li><code>inv_glyphs</code>, <code>inv_strs</code>, <code>inv_letters</code>, <code>inv_oclasses</code> — inventory info</li></ul>
+<h5 id="prompt-action-space">Action Space</h5>
+<p>Actions are integers in [0, 120]. The NLE action space maps action indices to NetHack key codes. <strong>Use the <code>nle.nethack</code> constants</strong> to get correct action indices — do NOT hardcode them, as the mapping is non-obvious.</p>
+<pre><code class="language-python">from nle.nethack import (
+    ACTIONS, CompassDirection, CompassDirectionLonger,
+    MiscDirection, MiscAction, Command,
+)
+
+ACTIONS_LIST = list(ACTIONS)
+def action_index(key_code):
+    return ACTIONS_LIST.index(key_code)</code></pre>
+<p>Common action indices (verified for nle==1.2.0):</p>
+<div class="tablewrap"><table><thead><tr><th>Action</th><th>Constant</th><th>Index</th></tr></thead><tbody><tr><td>north</td><td>CompassDirection.N</td><td>0</td></tr><tr><td>east</td><td>CompassDirection.E</td><td>1</td></tr><tr><td>south</td><td>CompassDirection.S</td><td>2</td></tr><tr><td>west</td><td>CompassDirection.W</td><td>3</td></tr><tr><td>northeast</td><td>CompassDirection.NE</td><td>4</td></tr><tr><td>southeast</td><td>CompassDirection.SE</td><td>5</td></tr><tr><td>southwest</td><td>CompassDirection.SW</td><td>6</td></tr><tr><td>northwest</td><td>CompassDirection.NW</td><td>7</td></tr><tr><td>run north</td><td>CompassDirectionLonger.N</td><td>8</td></tr><tr><td>run east</td><td>CompassDirectionLonger.E</td><td>9</td></tr><tr><td>run south</td><td>CompassDirectionLonger.S</td><td>10</td></tr><tr><td>run west</td><td>CompassDirectionLonger.W</td><td>11</td></tr><tr><td>go up stairs</td><td>MiscDirection.UP</td><td>16</td></tr><tr><td>go down stairs</td><td>MiscDirection.DOWN</td><td>17</td></tr><tr><td>wait</td><td>MiscDirection.WAIT</td><td>18</td></tr><tr><td>more/continue</td><td>MiscAction.MORE</td><td>19</td></tr><tr><td>kick</td><td>Command.KICK</td><td>48</td></tr><tr><td>pickup</td><td>Command.PICKUP</td><td>61</td></tr><tr><td>open</td><td>Command.OPEN</td><td>57</td></tr><tr><td>close</td><td>Command.CLOSE</td><td>30</td></tr><tr><td>eat</td><td>Command.EAT</td><td>35</td></tr><tr><td>search</td><td>Command.SEARCH</td><td>75</td></tr><tr><td>pray</td><td>Command.PRAY</td><td>62</td></tr><tr><td>apply</td><td>Command.APPLY</td><td>24</td></tr><tr><td>zap</td><td>Command.ZAP</td><td>104</td></tr><tr><td>throw</td><td>Command.THROW</td><td>91</td></tr><tr><td>fire</td><td>Command.FIRE</td><td>40</td></tr><tr><td>drop</td><td>Command.DROP</td><td>33</td></tr><tr><td>wield</td><td>Command.WIELD</td><td>102</td></tr><tr><td>wear</td><td>Command.WEAR</td><td>99</td></tr><tr><td>read</td><td>Command.READ</td><td>67</td></tr><tr><td>quaff</td><td>Command.QUAFF</td><td>64</td></tr><tr><td>esc</td><td>Command.ESC</td><td>38</td></tr></tbody></table></div>
+<p><strong>Important:</strong> The action indices are NOT sequential or intuitive. Always use <code>action_index(Command.XXX)</code> to get the correct index.</p>
+<h5 id="prompt-skeleton-code">Skeleton Code</h5>
+<pre><code class="language-python">from nle.nethack import (
+    ACTIONS, CompassDirection, CompassDirectionLonger,
+    MiscDirection, MiscAction, Command,
+)
+
+ACTIONS_LIST = list(ACTIONS)
+def action_index(key_code):
+    return ACTIONS_LIST.index(key_code)
+
+N = action_index(CompassDirection.N)
+E = action_index(CompassDirection.E)
+S = action_index(CompassDirection.S)
+W = action_index(CompassDirection.W)
+WAIT = action_index(MiscDirection.WAIT)
+MORE = action_index(MiscAction.MORE)
+UP = action_index(MiscDirection.UP)
+DOWN = action_index(MiscDirection.DOWN)
+PICKUP = action_index(Command.PICKUP)
+OPEN = action_index(Command.OPEN)
+CLOSE = action_index(Command.CLOSE)
+EAT = action_index(Command.EAT)
+SEARCH = action_index(Command.SEARCH)
+PRAY = action_index(Command.PRAY)
+
+def get_action(obs, info, step):
+    return WAIT
+
+if __name__ == "__main__":
+    import argparse, gymnasium as gym, nle, numpy as np
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--max-steps", type=int, default=5000)
+    args = parser.parse_args()
+    env = gym.make("NetHackChallenge-v0")
+    try:
+        env.seed(args.seed)
+    except Exception:
+        pass
+    obs, info = env.reset(), {}
+    if isinstance(obs, tuple):
+        obs, info = obs[0], obs[1] if len(obs) &gt; 1 else {}
+    for step in range(args.max_steps):
+        action = get_action(obs, info, step)
+        result = env.step(action)
+        if len(result) == 5:
+            obs, reward, terminated, truncated, info = result
+            done = terminated or truncated
+        else:
+            obs, reward, done, info = result
+        if done:
+            break
+    env.close()</code></pre>
+<hr>
+<h4 id="prompt-evaluation">Evaluation</h4>
+<p>Your agent is evaluated by running it over multiple NetHack games under the official judge. Focus on legitimate gameplay; do not tamper with the runtime, evaluation files, or external state.</p>
+<hr>
+<h4 id="prompt-tips">Tips</h4>
+<ul><li>Start simple: random walk → explore aggressively → fight monsters → manage inventory</li><li>Use <code>blstats</code>, <code>chars</code>, <code>message</code>, and inventory observations to infer the game state.</li><li><code>chars</code> array gives you the ASCII screen — parse it for terrain and monster info</li><li><code>message</code> tells you what just happened (e.g., "You kill the jackal!")</li><li>Common strategy: explore rooms, pick up items, descend stairs to go deeper</li><li>The game is extremely punishing — a simple survival strategy already scores well</li><li><strong>Always use <code>nle.nethack</code> constants</strong> for action indices, never hardcode them</li></ul></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="Show the full instructions" data-less="Show less">Show the full instructions</button></div></section><section id="grading"><h2 class="sec">How EdgeBench grades it</h2><p class="note">In plain words, from the task's definition file (<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/nethack_dungeon_agent.json">tasks/nethack_dungeon_agent.json</a>) and EdgeBench's harness code. This describes the original task; a fixed version may change the grader, as the case below states.</p><dl class="grade"><dt>Grader command</dt><dd><pre><code>python3 /tmp/eval_nethack.py</code></pre></dd><dt>Time limit</dt><dd>1 hour for the whole grading run (3,600 seconds, <code>eval_timeout</code>).</dd><dt>What is submitted</dt><dd><code>agent.py</code></dd><dt>Raw result</dt><dd>The grader prints a result line for each test case and a final <code>TOTAL_SCORE</code> line; that number is the raw result (parser <code>score_sum</code>).</dd><dt>Better raw result</dt><dd>Higher is better.</dd><dt>From raw result to 0–100</dt><dd>A straight line: a raw result of 0 scores 0 and 1,000 scores 100, with values in between interpolated linearly. Results outside that range are clipped to 0 or 100. A raw result that is not a finite number (for example <code>inf</code>) gets no 0–100 score. (<code>rescale.kind</code> = <code>linear</code>)<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>Which submission a run keeps</dt><dd>The submission with the best raw result (highest). Only the score is compared; a submission without a score is skipped, and on a tie the earlier submission stays (<code>score_first</code>).<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>Internet for the agent</dt><dd>No: the agent's environment is network-isolated (<code>internet: false</code>).</dd><dt>Grader machine</dt><dd>4 CPUs and 8 GB of memory in EdgeBench's official leaderboard settings: the default, since the task has no override. <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">The settings, quoted</a>.</dd></dl></section><section id="found"><h2 class="sec">What we found</h2><p class="note">The full case: the test submissions, the independent checks and the fix. File paths refer to the <a href="https://github.com/findalexli/edgebench-verified">repository</a>; links open on GitHub.</p><div class="md"><p><strong>Outcome:</strong> Kept, with a note. <mark>The grader's call that should fix each game's random seed silently fails, so the 20 graded games are random and scores are not repeatable from run to run.</mark></p>
+<h3 id="case-what-the-task-asks">What the task asks</h3>
+<p>The agent writes <code>agent.py</code>, which "plays NetHack via the NLE Python environment and maximizes game score". NetHack is a classic text-based dungeon game, and NLE (the NetHack Learning Environment) wraps it for programs. The grader calls the agent's <code>get_action(obs, info, step)</code> at each step.</p>
+<p>By default the grader plays 10 seeds x 2 repeats (20 games). A seed is the number that should fix a game's random layout. The grader stops each game after 5,000 steps; the prompt shows 5,000 only as the default of <code>--max-steps</code> in its local-testing skeleton, not as the grader's limit. The grader also enforces a 120 s per-game limit, which the prompt does not state. Category: Interactive Games &amp; Simulators.</p>
+<h3 id="case-what-we-checked">What we checked</h3>
+<p><strong>Seeding has no effect.</strong> The grader calls <code>env.seed(seed)</code> on the object returned by <code>gym.make</code>. Under gymnasium 1.0 that object is a <code>PassiveEnvChecker</code> wrapper with no <code>seed</code> attribute, so the call raises <code>AttributeError</code>. The grader swallows the error and calls <code>env.reset()</code> with no seed. (One level deeper, <code>env.unwrapped.seed</code> would raise an NLE <code>RuntimeError</code>, "NetHackChallenge doesn't allow seed changes", but the grader never reaches it.)</p>
+<p>Example: the grader's "seed 0" start, run in 3 processes, gave 3 different games, each with a different starting role (character class). Expected: the same game three times.</p>
+<div class="tablewrap"><table><thead><tr><th>Process</th><th>Start fingerprint</th><th>Starting inventory (first items)</th></tr></thead><tbody><tr><td>1</td><td><code>d032b1011fd60c20</code></td><td>1234 gold, blessed +0 scalpel (Healer)</td></tr><tr><td>2</td><td><code>3075b9dff32a9560</code></td><td>+0 battle-axe, short sword, ring mail (Barbarian-type kit)</td></tr><tr><td>3</td><td><code>28304be1bd905af7</code></td><td>+1 dagger, +1 bow, 52 arrows (Ranger-type kit)</td></tr></tbody></table></div>
+<p>The original <code>--run-seed 0</code> child process, run 3 times, returned WA/0, OK/2 and WA/0. Two full default gradings of the same baseline gave different results:</p>
+<div class="tablewrap"><table><thead><tr><th></th><th>Run 1</th><th>Run 2</th></tr></thead><tbody><tr><td>Nonzero cases (case: score)</td><td>0007: 3, 0010: 7, 0012: 2, 0018: 8</td><td>0009: 7, 0015: 4, 0018: 5</td></tr><tr><td>All other cases</td><td>0 (WA)</td><td>0 (WA)</td></tr><tr><td><code>TOTAL_SCORE</code></td><td><strong>1.000000</strong></td><td><strong>0.800000</strong></td></tr><tr><td><code>CASES_OK</code></td><td>4/20</td><td>3/20</td></tr><tr><td>Score out of 100 (linear scale, raw result /1000 x 100)</td><td>0.10</td><td>0.08</td></tr><tr><td>Wall time</td><td>5 s</td><td>5 s</td></tr></tbody></table></div>
+<p>The two "repeats" of the same seed (cases 2k and 2k+1) also disagree. For example, run 1 has case 0010 = 7 but case 0011 = 0. A repeat is just another random game.</p>
+<p>Why it matters: the same agent can score differently on each grading, and the "10 seeds x 2 repeats" design does not hold.</p>
+<p>The note that ships with the task:</p>
+<ul><li>The 20 graded games are unseeded, with a random role each game. The "10 seeds x 2 repeats" are in effect 20 independent random games.</li><li>Scores are not repeatable: two gradings of the same baseline gave <code>TOTAL_SCORE</code> 1.000000 and 0.800000.</li><li>The per-game limits are 5,000 steps (shown in the prompt only as the default of <code>--max-steps</code> in the local-testing skeleton) and 120 s per game (not stated in the prompt). A game that runs past 120 s scores 0, including any points it had already earned: the grader's <code>run_seed_subprocess</code> returns <code>TLE</code> with score 0 on <code>TimeoutExpired</code>, and the game reports its best score only when it finishes. 120 s over 5,000 steps is 24 ms per step, including NLE's own stepping.</li></ul>
+<h3 id="case-how-much-it-matters">How much it matters</h3>
+<p>Run-to-run variation affects all solvers. For the baseline, the difference is 0.2 raw points, or 0.02 points out of 100, which does not matter at that level. The variation for a competent agent was not measured, so its size at that level is unknown. Recorded agent runs on this task score up to 41.9 out of 100 (<code>tasks/README.md</code>), far above the baseline. NetHack scores are heavy-tailed (a few games score far more than the rest), so the spread at that level is likely much larger in absolute terms, but these runs cannot size it. The task's selection rule (<code>score_first</code>) keeps the best submission, so random variation between gradings can raise a run's recorded best.</p>
+<p>One baseline game took 0.37-0.44 s, including start-up, and each 20-game grading took about 5 s. That is far from the 120 s per-game limit. An agent that averages more than about 24 ms per step over a full 5,000-step game hits the limit and scores 0 for that game. Whether a slower, planning agent hits that limit was not tested.</p>
+<p>The task does not change; the note above ships with it. A small grader fix could make the seeds meaningful, but no working seeding path in NLE 1.2 / <code>NetHackChallenge</code> was verified. <code>env.reset(seed=...)</code> did not raise an error, but it was not tested whether it actually seeds the NetHack core.</p>
+<h3 id="case-how-we-checked-it">How we checked it</h3>
+<ul><li><strong>Original grader.</strong> <code>python3 /tmp/eval_nethack.py</code>, unmodified with default environment variables, ran in the original public image, pinned by digest. The machine had 8 vCPU and 7.9 GB, and the container ran with <code>--network none --memory 6g</code> and no CPU limit. The submission was the shipped baseline <code>agent.py</code> from the agent's working image. Two full default gradings were run, each wrapped in <code>timeout 1100</code>.</li><li><strong>Seeding diagnostic.</strong> A script calls <code>env.seed()</code> the same way the grader does and checks the chain of wrappers. The grader's own <code>seed_process(0)</code> and <code>reset_env(env, 0)</code> ran in 3 separate processes. The start state was fingerprinted (hash of <code>glyphs</code>, <code>blstats</code> and <code>inv_strs</code> at reset).</li><li>Installed packages: <code>nle 1.2.0</code>, <code>gymnasium 1.0.0</code>, Python 3.10.</li></ul>
+<h3 id="case-limits">Limits</h3>
+<ul><li>No AI model or solver was run. Effects are shown only on the shipped baseline and diagnostics we wrote.</li><li>Only the shipped random-walk baseline was run. There is no competent agent to compare, so the variation for a scoring agent is unmeasured, and so is the size of that variation.</li><li>One machine with no CPU limit was used. The timings apply to this machine only.</li><li>Start-state fingerprints hash <code>glyphs</code>, <code>blstats</code> and <code>inv_strs</code> at reset only.</li></ul>
+<h3 id="case-reproduce">Reproduce</h3>
+<ul><li>Original grader image: <code>sha256:2917aca0e831…</code>.</li><li><code>evidence/runs/nethack_dungeon_agent-native-variance/run.sh</code> (with <code>diag.py</code> and <code>evalpath_fp.py</code>). It needs a Docker host that can pull the pinned images. Outputs are in <code>result/out/</code> in the same folder.</li><li>Review: <code>evidence/reviews/nethack_dungeon_agent-native.md</code>.</li></ul></div></section><section id="files"><h2 class="sec">Files</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/nethack_dungeon_agent.md">This case on GitHub</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/nethack_dungeon_agent.json">The original task definition (tasks/nethack_dungeon_agent.json)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/nethack_dungeon_agent-native.md">Review notes (<code>nethack_dungeon_agent-native.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">Evidence index</a></li></ul></section><nav class="pager" aria-label="All tasks"><a class="prev" href="k12_math_recommendation.html" rel="prev"><small>&larr; Previous</small>K-12 Math Recommendation</a><a class="all" href="index.html">All tasks</a><a class="next" href="new_foundations_consistency.html" rel="next"><small>Next &rarr;</small>New Foundations Consistency</a></nav></div>
+</main>
+<footer class="">EdgeBench is developed by ByteDance Seed. This audit is independent and not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0); task definitions and task instructions come from the public Hugging Face release (CC BY 4.0); EdgeBench's images are referenced by their public fingerprints and are not redistributed.</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

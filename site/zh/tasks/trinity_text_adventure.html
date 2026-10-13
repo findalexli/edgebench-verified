@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trinity Text Adventure · EdgeBench Verified</title>
+<meta name="description" content="未发现问题；分数是游戏自身的分数，游戏过程可重复">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/trinity_text_adventure.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/trinity_text_adventure.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">跳到正文</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="语言"><a href="../../tasks/trinity_text_adventure.html" hreflang="en" lang="en">EN</a> / <a href="../../zh/tasks/trinity_text_adventure.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
+  <nav class="tabs" aria-label="站点"><a href="../index.html">概览</a><a href="../tasks/index.html" aria-current="page">任务</a><a href="../method.html">方法</a><a href="../leaderboard.html">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：交互式游戏与模拟器</span></div><header class="task-head"><h1>Trinity Text Adventure</h1><span class="badge b-retain-with-note" data-outcome="retain-with-note">保留（附说明）</span> <span class="id">trinity_text_adventure</span><p class="summary">未发现问题；分数是游戏自身的分数，游戏过程可重复。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>通过向文字冒险游戏 Trinity 发送输入的命令来游玩，并获得尽可能高的游戏内分数（满分 100）。</dd><dt>问题所在</dt><dd>没有实质性缺陷。分数是最佳会话结束时游戏自身的分数；同样的命令下游戏的表现完全相同。附带说明：计入的是最终分数，而不是达到过的最高分；会话空闲 600 到 660 秒后关闭；同时最多运行 3 个会话；每一步 10 秒后超时。这些都没有写在任务文本中。</dd><dt>影响有多大</dt><dd>未观察到对诚实提交分数的影响。只有依赖“达到过的最高分”这一数字、或在游戏中途暂停超过 10 分钟的智能体才可能受影响。</dd><dt>我们的处理</dt><dd>保留（附说明）：计入的是最佳会话的最终分数；空闲会话在 600 到 660 秒后关闭；同时最多运行 3 个会话。</dd></dl></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/trinity_text_adventure.json">tasks/trinity_text_adventure.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-trinity--jericho-text-adventure">Trinity — Jericho Text Adventure</h4>
+<p>Play the interactive fiction game <em>Trinity</em> by sending commands via an HTTP API and maximize your score.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/trinity_text_adventure.json">tasks/trinity_text_adventure.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>游戏服务器</dt><dd>智能体通过 EdgeBench 的游戏服务器进行游戏，服务器的启动命令为：<pre><code>python /tmp/game_server_app.py --rom /home/roms/trinity.z4</code></pre></dd><dt>时限</dt><dd>整个评分运行限时 10 分钟（600 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd></dd><dt>原始结果</dt><dd>通过游戏服务器进行的每次游戏会话由游戏本身计分；会话的分数就是原始结果。</dd><dt>原始结果的优劣方向</dt><dd>越高越好（EdgeBench 的默认值；任务未设定方向）。</dd><dt>从原始结果到 0–100 分</dt><dd>直线换算：原始结果为 0 时得 0 分，为 100 时得 100 分，中间的值按线性插值。超出这一范围的结果被截断为 0 或 100。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>linear</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>原始结果最好（最高）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>结论：</strong> 保留（附说明）。<mark>分数是游戏自身可重复的分数，没有发现评分缺陷；说明涉及两点：计分使用最终分数而非峰值分数，以及任务文本没有披露的会话限制。</mark></p>
+<h3 id="case-任务要求">任务要求</h3>
+<p>任务文本写道："Play the interactive fiction game <em>Trinity</em> by sending commands via an HTTP API and maximize your score."（通过 HTTP API 发送命令来玩互动小说游戏 <em>Trinity</em>，并使你的分数最大化。）<em>Trinity</em> 是一款文字冒险游戏。任务文本没有规定时间范围、步数上限或游戏局数。类别：交互式游戏与模拟器。</p>
+<h3 id="case-我们检查了什么">我们检查了什么</h3>
+<p>没有发现会改变分数的缺陷。检查了以下部分：</p>
+<ul><li><strong>分数如何定义。</strong> 每一步都从 Z-machine（运行该游戏的虚拟机）的内存中读取 <code>env.get_score()</code>。会话有四种结束方式：游戏结束、被显式关闭、空闲后被关闭（回收），或被更新的会话挤掉（驱逐）。在每种情况下，保存的分数都是该会话的<strong>最终</strong>分数。一次运行的分数是所有会话最终分数中的最高者。分数刻度是线性的，从 0（起始分数）到 100，后者等于 Jericho 游戏库为该游戏设定的 <code>max_score</code>（<code>trinity.c:71-73</code>）。没有随附的初始解法。例子：在主机上回放 610 条命令的通关流程，得到 100/100，即 100 分制下的 100 分。</li><li><strong>可重复性。</strong> 不带种子的 <code>FrotzEnv(rom)</code> 会退回到库的默认种子，即 0。因此游戏的随机数来源不依赖于时间。我们运行了两个 Trinity 会话：一个 25 条命令的部分会话，以及 610 条命令的完整通关流程（三款 Jericho 游戏共六个会话）。它们在共同的 25 条命令前缀上分数相同（<code>prefix_numeric_equal: true</code>）。给定命令序列，游戏是完全确定性的。</li></ul>
+<p>说明（仅涉及文档，不改变分数）：</p>
+<ul><li><strong>最终分数，而非峰值分数。</strong> 保存的是最终分数，而 API 还会返回 <code>peak_score</code>，这可能误导智能体。只有当游戏过程中可能失分时，这一点才有影响。在全部三条随附的轨迹（Anchorhead、Trinity、Tryst）中，最终分数都等于峰值。</li><li><strong>未披露的会话限制。</strong> 测试框架强制执行一些任务文本没有提到的限制：每一步 10 s 的 HTTP 超时，每次运行同时至多 3 个会话（最旧的会被驱逐），以及空闲 600 到 660 s 后关闭（空闲检查每 60 s 运行一次，<code>judge_server.py:156,159</code>）。关闭和驱逐都会保存当前分数，因此不会丢分。但是，在游戏中途暂停超过 10 分钟的智能体会失去正在进行的游戏，必须重新回放。回放代价很小：610 条命令的 Trinity 通关流程的 HTTP 回放记录耗时 29.3 s（<code>elapsed_seconds: 29.325236</code>）。</li></ul>
+<p><strong>随任务发布的说明。</strong></p>
+<ul><li>分数是最佳的已完成或已关闭会话的最终游戏内分数，以游戏的 max_score（100）为满分。</li><li>会话在空闲 600 到 660 s 后关闭；同时至多运行 3 个会话。</li></ul>
+<h3 id="case-影响有多大">影响有多大</h3>
+<p>对两条说明而言，观察到的最大分数影响都是 0。只有依赖 <code>peak_score</code> 的智能体，或在游戏中途暂停超过 10 分钟的智能体，才可能受影响。</p>
+<p>不作改动；上述说明随任务一起发布。</p>
+<h3 id="case-我们如何检查">我们如何检查</h3>
+<ul><li><strong>测试框架源码。</strong> 从固定的测试框架中阅读了以下部分：每一步读取分数（<code>game_server_app.py</code>）、保存会话和强制执行限制（<code>judge_server.py</code>）、保留 N 个会话中的最佳者（<code>selection.py</code>）、有效性检查（<code>grading.py</code>）以及分数刻度（<code>score_rescale.py</code>）。这些副本与按哈希固定的副本逐字节一致。</li><li><strong>游戏引擎源码。</strong> 公开的 Jericho 3.3.1 源码包（sdist）给出了分数的来源、<code>max_score</code> 和默认种子。</li><li><strong>在主机上运行。</strong> 两个 Trinity 会话（一个 25 条命令的部分会话，一个 610 条命令的完整通关流程），属于 Anchorhead、Trinity 和 Tryst 上六个会话的一部分。它们在一个本地构建的镜像上运行（<code>built_image_id sha256:a197e54f…</code>）；没有记录公开评分器镜像的摘要。</li><li>这里不适用形式化模型。</li></ul>
+<h3 id="case-局限">局限</h3>
+<ul><li>没有运行任何 AI 模型或解题者。影响只在通关流程会话上展示。</li><li>没有在固定的评分器镜像中运行任何游戏。</li><li>Jericho 的行为依据的是已发布的 3.3.1 源码，而不是对已安装文件取哈希。</li><li>最终分数与峰值分数的差异没有在会失分的轨迹中测试。</li><li>可重复性只在 25 条命令的共同前缀上做了比较。</li></ul>
+<h3 id="case-复现">复现</h3>
+<ul><li>审查和固定哈希：<code>evidence/reviews/_game-tasks-correctness.md</code>，第 1-3 节。</li><li>会话记录（保存在 Git 标签 <code>earlier-audit-final</code> 下）：<code>git show earlier-audit-final:evidence/selected/three-adventure-native-release-acceptance.json</code>（六个会话，Trinity 部分会话 25 条命令得 7 分，完整的 610 条命令得 100 分，前缀一致）和 <code>git show earlier-audit-final:evidence/selected/trinity-tryst-terminal-acceptance.json</code>（Trinity HTTP 回放，29.3 s）。</li><li>固定的测试框架源码：<code>sforge/harness/judge_server.py</code>、<code>sforge/harness/game_server_app.py</code>、<code>sforge/harness/selection.py</code>、<code>sforge/harness/score_rescale.py</code>。</li><li>固定标识：任务 JSON 的 sha256 为 <code>7364a012…c0ee</code>；<code>judge_server.py</code> 的 sha256 为 <code>77410d7e…</code>，<code>game_server_app.py</code> 的 sha256 为 <code>379572e9…</code>，<code>score_rescale.py</code> 的 sha256 为 <code>98feb630…</code>；Jericho 3.3.1 的 <code>jericho.py</code> 的 sha256 为 <code>94f2e745…</code>。</li></ul></div></section><section id="files"><h2 class="sec">文件</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/trinity_text_adventure.md">GitHub 上的本案例</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/trinity_text_adventure.json">原始任务定义（tasks/trinity_text_adventure.json）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">证据索引</a></li></ul></section><nav class="pager" aria-label="全部任务"><a class="prev" href="sphere_eversion_formalization.html" rel="prev"><small>&larr; 上一个</small>Sphere Eversion Formalization</a><a class="all" href="index.html">全部任务</a><a class="next" href="tryst_text_adventure.html" rel="next"><small>下一个 &rarr;</small>Tryst Text Adventure</a></nav></div>
+</main>
+<footer class="">EdgeBench 由字节跳动 Seed 团队开发。本审计是独立进行的，与其作者没有关联。评分软件源自 EdgeBench（Apache-2.0）；任务定义和任务说明来自 Hugging Face 上的公开发布版本（CC BY 4.0）；EdgeBench 的镜像仅以其公开指纹引用，本站不重新分发这些镜像。</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

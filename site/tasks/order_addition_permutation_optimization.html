@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Addition Permutation Optimization · EdgeBench Verified</title>
+<meta name="description" content="An outdated file check fails every submission, so later improvements are ignored">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/order_addition_permutation_optimization.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/order_addition_permutation_optimization.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+
+<link rel="stylesheet" href="../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="Language"><a href="../tasks/order_addition_permutation_optimization.html" hreflang="en" lang="en" aria-current="true">EN</a> / <a href="../zh/tasks/order_addition_permutation_optimization.html" hreflang="zh-CN" lang="zh-CN">中文</a></span>
+  <nav class="tabs" aria-label="Site"><a href="../index.html">Overview</a><a href="../tasks/index.html" aria-current="page">Tasks</a><a href="../method.html">Method</a><a href="../leaderboard.html">Leaderboard</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Combinatorial Optimization</span></div><header class="task-head"><h1>Order Addition Permutation Optimization</h1><span class="badge b-repair-v2" data-outcome="repair-v2">Fixed</span> <span class="id">order_addition_permutation_optimization</span><p class="summary">An outdated file check fails every submission, so later improvements are ignored.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Find an ordering of the numbers 1 to 1000 that makes the output of a hidden cost function as small as possible.</dd><dt>What goes wrong</dt><dd>One grader test compares a helper file against an outdated fingerprint; only the file&#x27;s comments changed, but the test fails for every submission. Each submission&#x27;s own score is still correct, yet no submission can pass all tests. Under this task&#x27;s rule for choosing a run&#x27;s best result, the run then keeps its first valid submission and ignores better later ones.</dd><dt>How much it matters</dt><dd>Each submission&#x27;s own score is unaffected. A run&#x27;s reported best score is wrong whenever a later valid submission scores higher; how often this happened was not measured.</dd><dt>What we did</dt><dd>Fixed in a new version: the check uses the current file&#x27;s fingerprint, so correct submissions pass all five tests and the best submission, not the first, is chosen.</dd><dt>Formal check</dt><dd>Model-checked in TLA+. With the original checksum a run always keeps its first valid submission (under the task&#x27;s highest-pass-rate-first rule); with the fixed one it keeps the highest-scoring valid submission. Checked over 5.4 million states, and against the real selection code on 112,944 runs. Limit: Runs of up to four submissions and three score values.</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 268" role="img">
+<title>Order Addition best submission</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+
+<text x="40" y="26" class="muted" font-size="15" text-anchor="start" font-weight="400">Two valid submissions, in order</text>
+<text x="16" y="96" class="ink" font-size="15" text-anchor="start" font-weight="600">Original</text>
+<text x="16" y="115" class="ink" font-size="15" text-anchor="start" font-weight="600">grader</text>
+<rect x="120" y="46" width="230" height="92" rx="6" class="warnBg" />
+<rect x="120" y="46" width="230" height="92" rx="6" fill="none" class="warnS" stroke-width="3"/>
+<text x="132" y="70" class="ink" font-size="15" text-anchor="start" font-weight="600">1st: order 1, 2, …, 1000</text>
+<text x="132" y="90" class="ink" font-size="14" text-anchor="start" font-weight="400">score 3.3 × 10⁻⁹</text>
+<text x="132" y="108" class="muted" font-size="14" text-anchor="start" font-weight="400">4/5 tests (one always fails)</text>
+<text x="132" y="128" class="warn" font-size="14" text-anchor="start" font-weight="600">kept as best (stuck)</text>
+<rect x="420" y="46" width="230" height="92" rx="6" class="badBg" />
+<rect x="420" y="46" width="230" height="92" rx="6" fill="none" class="badS" stroke-width="3"/>
+<text x="432" y="70" class="ink" font-size="15" text-anchor="start" font-weight="600">2nd: order found by search</text>
+<text x="432" y="90" class="ink" font-size="14" text-anchor="start" font-weight="400">score 0.0093733018</text>
+<text x="432" y="108" class="muted" font-size="14" text-anchor="start" font-weight="400">4/5 tests (one always fails)</text>
+<text x="432" y="128" class="bad" font-size="14" text-anchor="start" font-weight="600">better, but ignored</text>
+<path d="M358 92 L406 92 M398 86 L407 92 L398 98" fill="none" class="inkS" stroke-width="2"/>
+<text x="16" y="212" class="ink" font-size="15" text-anchor="start" font-weight="600">Fixed</text>
+<text x="16" y="231" class="ink" font-size="15" text-anchor="start" font-weight="600">version</text>
+<rect x="120" y="162" width="230" height="92" rx="6" class="accBg" />
+<rect x="120" y="162" width="230" height="92" rx="6" fill="none" class="rule" stroke-width="1.5"/>
+<text x="132" y="186" class="ink" font-size="15" text-anchor="start" font-weight="600">1st: order 1, 2, …, 1000</text>
+<text x="132" y="206" class="ink" font-size="14" text-anchor="start" font-weight="400">score 3.3 × 10⁻⁹</text>
+<text x="132" y="224" class="muted" font-size="14" text-anchor="start" font-weight="400">5/5 tests</text>
+<text x="132" y="244" class="muted" font-size="14" text-anchor="start" font-weight="600">earlier, beaten</text>
+<rect x="420" y="162" width="230" height="92" rx="6" class="goodBg" />
+<rect x="420" y="162" width="230" height="92" rx="6" fill="none" class="goodS" stroke-width="3"/>
+<text x="432" y="186" class="ink" font-size="15" text-anchor="start" font-weight="600">2nd: order found by search</text>
+<text x="432" y="206" class="ink" font-size="14" text-anchor="start" font-weight="400">score 0.0093733018</text>
+<text x="432" y="224" class="muted" font-size="14" text-anchor="start" font-weight="400">5/5 tests</text>
+<text x="432" y="244" class="good" font-size="14" text-anchor="start" font-weight="600">kept as best</text>
+<path d="M358 208 L406 208 M398 202 L407 208 L398 214" fill="none" class="inkS" stroke-width="2"/>
+
+</svg>
+</div><figcaption>A stale file fingerprint caps every submission at 4/5 tests, so the original grader keeps a run&#x27;s first valid submission and ignores better later ones.</figcaption></figure></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/order_addition_permutation_optimization.json">tasks/order_addition_permutation_optimization.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p><strong>Role Setting</strong></p>
+<p>You are an expert in black-box combinatorial optimization algorithms. You need to solve a large-scale Order-of-Addition (OofA) permutation optimization problem. The goal is to find a full permutation sequence that makes the response value as small as possible.</p>
+<p>This is a scientific problem in the field of statistical experimental design. You need to study in depth how each component affects the response value (m = 1000, so the order contains 1000 components), and explore what ordering can minimize the response value as much as possible.</p>
+<p><strong>Black-Box Evaluation Interface</strong></p>
+<p>You do not need to know the specific business scenario or cost calculation formula. The only available response-value calculation interface is the Cython extension in the current directory:</p>
+<pre><code class="language-python">from cost_complex_cy import cost_complex_with_builtin_data
+
+m = 1000
+pai = list(range(1, m + 1))
+cost = cost_complex_with_builtin_data(pai, m=m, seed=1)</code></pre>
+<ul><li>Input: an integer array of length <code>m = 1000</code>, which must be a permutation of <code>1..1000</code>.</li><li>Output: a floating-point number representing the total cost/response value of that permutation; lower is better.</li><li>Example calling file: <code>test_cost_complex_cython.py</code>.</li></ul>
+<p><strong>Mandatory Black-Box Constraints</strong></p>
+<p>You may only pass candidate permutations to the public function <code>cost_complex_with_builtin_data(pai, m=1000, seed=1)</code> and read the response value it returns.</p>
+<p>It is forbidden to use, call, probe, or reflectively access any internal attributes, private functions, or private data structures of the <code>cost_complex_cy</code> module, including but not limited to:</p>
+<pre><code class="language-python">cost_complex_cy._build_ctx(...)
+cost_complex_cy._build*
+cost_complex_cy._ctx*
+cost_complex_cy._data*
+cost_complex_cy._cache*
+getattr(cost_complex_cy, ...)
+dir(cost_complex_cy)
+cost_complex_cy.__dict__</code></pre>
+<p>It is also forbidden to reproduce the cost function using the internal data above, bypass the black-box interaction, or export the internal data and then search with it. The evaluator will statically scan submitted code; if this kind of internal access is found, it will directly output <code>TOTAL_SCORE 0</code> and mark the submission as violating the rules.</p>
+<p><strong>Evaluation Isolation Notice</strong></p>
+<p>The files <code>cost_complex_cy.cpython-311-x86_64-linux-gnu.so</code> and <code>score_vcpom_result.py</code> in the root directory are provided for you to run search algorithms and local score estimates. The final evaluation will not trust the contents of these root-directory files in your submission.</p>
+<p>The evaluator will use private copies from a hidden test directory:</p>
+<pre><code class="language-text">tests/cost_complex_cy.cpython-311-x86_64-linux-gnu.so
+tests/score_vcpom_result.py</code></pre>
+<p>The work environment deletes the <code>tests/</code> directory, so the agent cannot see these tests or private copies; <code>tests/</code> will also not be archived when submitting. Therefore, modifying the root-directory <code>.so</code> file or scoring function will not improve the score. The final result is determined only by the permutation, cost, and call count in <code>final_result.txt</code>.</p>
+<p><strong>Reference Result</strong></p>
+<p>A reference result file is provided in the directory:</p>
+<pre><code class="language-text">vcpom_m1000_final_result.txt</code></pre>
+<p>This file may only be read; it must not be modified, deleted, or overwritten. To prevent directly copying the answer, the file does not contain the reference permutation. It contains only the reference cost and reference search count:</p>
+<pre><code class="language-text">my_cost=200690260.6677975
+my_num=200000</code></pre>
+<p>It may only be used as a comparison for result quality and call count, and must not be used as a permutation starting point.</p>
+<p><strong>Final Submission Requirements</strong></p>
+<p>You must generate a new result file:</p>
+<pre><code class="language-text">final_result.txt</code></pre>
+<p>Do not write the result back to <code>vcpom_m1000_final_result.txt</code>.</p>
+<p><code>final_result.txt</code> must use the following key-value format:</p>
+<pre><code class="language-text">final_pai=3,1,4,2,...
+final_cost=123456789.0
+final_num=1000</code></pre>
+<p>Field requirements:</p>
+<ol><li><code>final_pai</code>: a permutation of length 1000. It must contain exactly <code>1..1000</code>, separated by English commas, without square brackets.</li><li><code>final_cost</code>: the response value you report for <code>final_pai</code>. The evaluator will recompute and verify it using <code>cost_complex_with_builtin_data(final_pai, m=1000, seed=1)</code>.</li><li><code>final_num</code>: the number of times your algorithm calls the public black-box function <code>cost_complex_with_builtin_data(...)</code>. You may also use the field name <code>num</code> or <code>my_num</code>, but <code>final_num</code> is recommended. Do not count only the final verification call; every black-box evaluation during the search process must be included.</li></ol>
+<p><strong>Task Goals</strong></p>
+<ol><li>Design and implement an efficient heuristic search / combinatorial optimization algorithm.</li><li>Find a permutation with as low a cost as possible within a limited number of black-box evaluations.</li><li>You may use genetic algorithms, simulated annealing, local search, tabu search, ALNS, PSO, CMA-ES, Bayesian optimization, or hybrid strategies.</li><li>The final result is determined by the contents of <code>final_result.txt</code>.</li></ol>
+<p><strong>Scoring Method</strong></p>
+<p>The evaluator will check that:</p>
+<ol><li>The submitted code does not call or probe internal attributes, private functions, or private data structures of <code>cost_complex_cy</code>; if such access is found, it will output <code>TOTAL_SCORE 0</code>.</li><li><code>vcpom_m1000_final_result.txt</code> has not been modified and does not contain <code>final_pai</code>.</li><li><code>final_result.txt</code> exists and contains the required fields.</li><li><code>final_pai</code> is a valid permutation of <code>1..1000</code>.</li><li><code>final_cost</code> matches the cost recomputed by the black-box function.</li><li>The continuous score is computed using <code>score_cost_num(cost, num)</code> from the evaluator-side private <code>tests/score_vcpom_result.py</code>.</li></ol>
+<p>Lower cost and fewer calls give a higher score.</p>
+<p>The scoring function uses the reference cost and reference call count from <code>vcpom_m1000_final_result.txt</code>:</p>
+<pre><code class="language-python">score_cost_num(
+    cost,
+    num,
+    cost_ref=200690260.6677975,
+    num_ref=200000,
+    cost_weight=3.0,
+    num_weight=0.5,
+)</code></pre>
+<p>The scoring first caps both subscores:</p>
+<pre><code class="language-python">cost_sub = min(1.0, cost_ref / cost)
+num_sub = min(1.0, num_ref / num)
+score = 100 * (cost_sub ** 3.0) * (num_sub ** 0.5)</code></pre>
+<p>If <code>final_cost &lt;= cost_ref</code> and <code>final_num &lt;= num_ref</code>, the score is the full 100. If the cost is higher than the reference or the call count is higher than the reference, the score decreases. The cost penalty is heavier, so a very low call count cannot compensate for a clearly worse cost.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="Show the full instructions" data-less="Show less">Show the full instructions</button></div></section><section id="grading"><h2 class="sec">How EdgeBench grades it</h2><p class="note">In plain words, from the task's definition file (<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/order_addition_permutation_optimization.json">tasks/order_addition_permutation_optimization.json</a>) and EdgeBench's harness code. This describes the original task; a fixed version may change the grader, as the case below states.</p><dl class="grade"><dt>Grader command</dt><dd><pre><code>cd /home/workspace/complex_job_scheduling &amp;&amp; python -m pytest tests/test_final_result.py -s -v</code></pre></dd><dt>Time limit</dt><dd>10 minutes for the whole grading run (600 seconds, <code>eval_timeout</code>).</dd><dt>What is submitted</dt><dd><code>.</code> Left out of the submission: <code>tests/</code>.</dd><dt>Raw result</dt><dd>The grader runs a test suite; the pass rate is the share of tests passed, and the raw result is the number on the <code>TOTAL_SCORE</code> line the grader prints (parser <code>pytest_v</code>).</dd><dt>Better raw result</dt><dd>Higher is better.</dd><dt>From raw result to 0–100</dt><dd>A straight line: a raw result of 0 scores 0 and 100 scores 100, with values in between interpolated linearly. Results outside that range are clipped to 0 or 100. A raw result that is not a finite number (for example <code>inf</code>) gets no 0–100 score. (<code>rescale.kind</code> = <code>linear</code>)<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>Which submission a run keeps</dt><dd>The submission that passes the largest share of tests. A later submission replaces it only if it passes a strictly larger share; only when both pass every test is the raw result compared (highest). Ties keep the earlier submission, and a submission that passes no test is never kept (<code>pass_rate_first</code>).<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>Internet for the agent</dt><dd>No: the agent's environment is network-isolated (<code>internet: false</code>).</dd><dt>Grader machine</dt><dd>4 CPUs and 8 GB of memory in EdgeBench's official leaderboard settings: the default, since the task has no override. <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">The settings, quoted</a>.</dd></dl></section><section id="found"><h2 class="sec">What we found</h2><p class="note">The full case: the test submissions, the independent checks and the fix. File paths refer to the <a href="https://github.com/findalexli/edgebench-verified">repository</a>; links open on GitHub.</p><div class="md"><p><strong>Outcome:</strong> Fixed. <mark>A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first valid submission and ignores better later ones.</mark></p>
+<h3 id="case-what-the-task-asks">What the task asks</h3>
+<p>The prompt asks for a permutation (an ordering) of 1..1000 that minimises a black-box response. It lists what "the evaluator will check": no private access; the baseline file is unmodified; <code>final_result.txt</code> exists; <code>final_pai</code> is a valid permutation; <code>final_cost</code> matches the recomputed cost.</p>
+<p>A continuous score is then "calculated using <code>score_cost_num(cost, num)</code> from the evaluator-side private <code>tests/score_vcpom_result.py</code>". Nothing in the contract mentions a helper fingerprint. The solver cannot affect one, because <code>tests/</code> is excluded from submissions. Category: Combinatorial Optimization.</p>
+<h3 id="case-what-goes-wrong">What goes wrong</h3>
+<p><strong>One test always fails.</strong> <code>test_private_judge_files_are_available</code> asserts that the installed helper's sha256 fingerprint equals <code>3023b9a4…</code>. That is the fingerprint of an earlier helper with Chinese comments. A later image layer replaced the helper with an English-comment translation, <code>337837af…</code>, and the expected value was not updated. The two helper versions differ only in comments, a docstring and example labels. <code>parse_result_file</code> and <code>score_cost_num</code> work identically. The check is unconditional and fails for every submission.</p>
+<ul><li><strong>Each submission's score is correct.</strong> Only this one test fails. The other four still run, and <code>TOTAL_SCORE</code> is computed with the installed helper.</li><li><strong>Pass rate is capped.</strong> A fully correct submission gets pass rate 0.8 instead of 1.0.</li><li><strong>The run's choice of best submission freezes.</strong> This task's rule (<code>pass_rate_first</code>) keeps the submission that passes the most tests. It compares scores only when both pass rates are 1.0. Otherwise a later submission wins only with a strictly higher pass rate. Every valid submission is capped at 0.8, so the run's <code>best_score</code> / <code>best_round</code> stay on the <strong>first</strong> valid submission.</li></ul>
+<p>Example under the original grader: two valid submissions in the order identity, then search. The identity permutation scores 3.3e-09, and the search result scores higher. Expected: search is chosen. Observed: identity is chosen, and the better later submission is ignored.</p>
+<h3 id="case-how-much-it-matters">How much it matters</h3>
+<p>This changes the recorded score of any run with more than one valid submission where a later one scores higher. The later improvement is ignored in the run's best score. Some consumers instead take the maximum over all submissions, which does not depend on order. So whether a published number is wrong depends on which consumer produced it. Each submission's own score is unaffected.</p>
+<h3 id="case-the-fix">The fix</h3>
+<p>The fixed version changes one value in <code>tests/test_final_result.py</code>: <code>EXPECTED_SCORE_HELPER_SHA256</code> becomes the installed helper's fingerprint, <code>337837af…</code>. These are unchanged: the helper, <code>.so</code>, baseline file, prompt, agent's working image, parser, the rule for picking the best submission and the score scale. The task JSON changes only <code>judge.image_tag</code>.</p>
+<div class="tablewrap"><table><thead><tr><th>Submission</th><th>Role</th><th>Grader</th><th>Tests passed</th><th style="text-align:right">pass_rate</th><th style="text-align:right">Raw TOTAL_SCORE</th><th style="text-align:right">Score out of 100</th><th>Failing test</th></tr></thead><tbody><tr><td>identity</td><td>valid</td><td>Original</td><td>4/5</td><td style="text-align:right">0.80</td><td style="text-align:right">3.3e-09</td><td style="text-align:right">3.3e-09</td><td>fingerprint</td></tr><tr><td>identity</td><td>valid</td><td>Fixed</td><td><strong>5/5</strong></td><td style="text-align:right"><strong>1.00</strong></td><td style="text-align:right">3.3e-09</td><td style="text-align:right">3.3e-09</td><td>–</td></tr><tr><td>search</td><td>valid, better</td><td>Original</td><td>4/5</td><td style="text-align:right">0.80</td><td style="text-align:right">0.0093733018</td><td style="text-align:right">0.0093733018</td><td>fingerprint</td></tr><tr><td>search</td><td>valid, better</td><td>Fixed</td><td><strong>5/5</strong></td><td style="text-align:right"><strong>1.00</strong></td><td style="text-align:right">0.0093733018</td><td style="text-align:right">0.0093733018</td><td>–</td></tr><tr><td>badcost (misreported cost)</td><td>invalid test submission</td><td>Original</td><td>3/5</td><td style="text-align:right">0.60</td><td style="text-align:right">none</td><td style="text-align:right">none</td><td>fingerprint, cost mismatch</td></tr><tr><td>badcost</td><td>invalid test submission</td><td>Fixed</td><td>4/5</td><td style="text-align:right">0.80</td><td style="text-align:right">none</td><td style="text-align:right">none</td><td>cost mismatch</td></tr><tr><td>dup (not a permutation)</td><td>invalid test submission</td><td>Original</td><td>3/5</td><td style="text-align:right">0.60</td><td style="text-align:right">none</td><td style="text-align:right">none</td><td>fingerprint, permutation</td></tr><tr><td>dup</td><td>invalid test submission</td><td>Fixed</td><td>4/5</td><td style="text-align:right">0.80</td><td style="text-align:right">none</td><td style="text-align:right">none</td><td>permutation</td></tr></tbody></table></div>
+<p>Choice of the run's best submission (task rule <code>pass_rate_first</code>, computed with EdgeBench's <code>select_best</code>):</p>
+<div class="tablewrap"><table><thead><tr><th>Submission order</th><th>Original grader picks</th><th>Fixed grader picks</th></tr></thead><tbody><tr><td>identity, search</td><td><strong>identity</strong> (3.3e-09), stuck on the first</td><td><strong>search</strong> (0.00937)</td></tr><tr><td>search, identity</td><td>search (0.00937)</td><td>search (0.00937)</td></tr><tr><td>dup, identity, search</td><td><strong>identity</strong> (3.3e-09)</td><td><strong>search</strong> (0.00937)</td></tr><tr><td>badcost, identity, search</td><td><strong>identity</strong> (3.3e-09)</td><td><strong>search</strong> (0.00937)</td></tr></tbody></table></div>
+<p><strong>Score compatibility:</strong> each submission's raw result and score out of 100 are unchanged, bit for bit. Pass rates change: a legal submission now gets 5/5 instead of 4/5. The run's <code>best_score</code> / <code>best_round</code> under <code>pass_rate_first</code> are not comparable with the original version whenever a run had more than one valid submission and a later one scored higher. The original version kept the first, and the fixed version keeps the best.</p>
+<h3 id="case-how-we-checked-it">How we checked it</h3>
+<ul><li><strong>Original grader.</strong> The installed helper was hashed inside the original public image, pinned by digest, and compared with the value the test expects. The original <code>eval_cmd</code> (<code>python -m pytest tests/test_final_result.py -s -v</code>) ran under <code>--network none --memory 2g --cpus 2</code> on valid and invalid test submissions.</li><li><strong>Choice of best submission.</strong> The saved logs were fed through the harness's own <code>grade_output</code>, <code>rescale_score</code> and <code>select_best</code>, from EdgeBench's harness (<code>sforge</code> at <code>6e4e5f4</code>).</li><li><strong>Formal check (TLA+).</strong> A bounded model of the selection rule, tied to <code>selection.py</code> and <code>grading.py</code> line by line, was model-checked: 5,421,361 states with no violation; three further configurations (<code>k1</code>–<code>k3</code>) are violated as the note states (<code>evidence/formal/tla/order_addition_permutation_optimization/</code>, <code>evidence/formal/notes/order_addition_permutation_optimization.md</code>).</li><li><strong>Side-by-side run of the original and fixed graders.</strong> Each submission ran in a fresh <code>--network none</code> container through the TaskSpec <code>eval.sh</code>. A check beforehand confirmed that each image collects 5 tests. It was repeated three times with no verdict change (<a href="https://github.com/findalexli/edgebench-verified/blob/main/data/paired-repeatability.md"><code>data/paired-repeatability.md</code></a>).</li></ul>
+<h3 id="case-limits">Limits</h3>
+<ul><li>No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.</li><li>The submissions are simple: the identity permutation, and short random-swap search runs (30 s and 60 s). They are far from the reference cost. The effect on the choice of best submission does not depend on score size.</li><li>The choice of best submission was computed with EdgeBench's <code>select_best</code> on saved reports, not through a live <code>judge_server</code> run. The agent's working image was not run.</li><li>How often past leaderboard runs had a better later submission was not measured.</li><li>The fix also changes one harness fallback. <code>pass_rate_first</code> reports <code>best_score = pass_rate</code> when the chosen submission has no score (<code>sforge/harness/selection.py</code>, <code>_pass_rate_first</code>). A run with only invalid submissions (for example badcost) therefore reports 0.6 under the original version and 0.8 under the fixed version. In both versions that value is above every valid submission's score measured here (3.3e-09 to 0.0094 out of 100, table above), so an all-invalid run reports a higher <code>best_score</code> than these valid runs.</li></ul>
+<h3 id="case-reproduce">Reproduce</h3>
+<ul><li>Original grader image: <code>sha256:6d1a1506…</code>.</li><li>Scripts: <code>evidence/scripts/order_addition_permutation_optimization/run_judge.sh</code>, <code>make_result.py</code>, <code>grade_and_select.py</code>; saved logs in <code>observed/</code>.</li><li>Side-by-side run: <code>repairs/order_addition_permutation_optimization-v2/paired/run.sh</code> (results in <code>paired/results.md</code>).</li><li>Patch: <code>repairs/order_addition_permutation_optimization-v2/repair.patch</code>.</li><li>Supporting records: <code>repairs/order_addition_permutation_optimization-v2/</code> (the folder holding the fixed version: source-lock.json, captured outputs of the side-by-side run).</li></ul></div></section><section id="files"><h2 class="sec">Files</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/order_addition_permutation_optimization.md">This case on GitHub</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/order_addition_permutation_optimization.json">The original task definition (tasks/order_addition_permutation_optimization.json)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/order_addition_permutation_optimization-v2">The fix package (patch, Dockerfile, task definition)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/order_addition_permutation_optimization-v2/paired/results.md">Side-by-side results, original against fixed grader</a></li><li><a href="../data/paired-results.csv">All side-by-side results (paired-results.csv)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/order_addition_permutation_optimization.md">Review notes (<code>order_addition_permutation_optimization.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/order_addition_permutation_optimization">Evidence scripts</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/notes/order_addition_permutation_optimization.md">Formal-verification note</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">Evidence index</a></li></ul></section><nav class="pager" aria-label="All tasks"><a class="prev" href="openttd_transport_ai.html" rel="prev"><small>&larr; Previous</small>OpenTTD Transport AI</a><a class="all" href="index.html">All tasks</a><a class="next" href="pfr_formalization.html" rel="next"><small>Next &rarr;</small>PFR Formalization</a></nav></div>
+</main>
+<footer class="">EdgeBench is developed by ByteDance Seed. This audit is independent and not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0); task definitions and task instructions come from the public Hugging Face release (CC BY 4.0); EdgeBench's images are referenced by their public fingerprints and are not redistributed.</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

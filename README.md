@@ -142,10 +142,19 @@ can be stated precisely, assuming no fix turns a failed run into a scored one or
   fixes can still push an average up or down.
 
 A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, with every
-submission. We read its histories for the seven fixed tasks it covers and regraded submissions of
-two. This confirmed the Order Addition defect in practice: the run kept its first agent submission,
-3.79, instead of a later 41.24. It also showed that our first Integer Codec fix needed a
-new 0–100 scale, because real submissions saturated the old one. Details: [IMPACT.md](IMPACT.md).
+submission. Nine of those tasks are ones we fixed. Where a fix changes only the grader, we regraded
+the run's saved submissions with both graders: 7 tasks, 314 submissions (349 paired gradings with
+repeats). Where a fix changes what the agent sees, regrading old answers would measure nothing,
+because the agent would have worked differently; that rules out Borden Inversion. Lean Analysis was
+not run, because its grader needs more memory than our machines have; its effect was computed
+instead (96.86 → 98.42). Order Addition changes the most: the original grader kept the run's first
+agent submission, 3.79, while the fixed grader keeps a later one, 41.24. Integer Codec scores 1.7–4×
+higher in raw terms (about 50–54 on the fixed scale, against 75.72 on the old one). On Juliet, the
+agent's early submissions lost up to 25 points but its best did not. Tree Block, Graph Node and
+Schemathesis show no sign of their defects in this run, and Molecular stays at the top of its scale.
+This is one model and one four-hour run per task, so it shows the problems occur in practice but
+cannot measure the leaderboard effect. Details: [IMPACT.md](IMPACT.md),
+`evidence/runs/opus55-regrade2-summary/`.
 
 ## How we checked
 

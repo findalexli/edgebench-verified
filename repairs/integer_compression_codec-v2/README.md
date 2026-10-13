@@ -96,6 +96,12 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
 ## Limits
 
+- **Timing noise on real submissions.** Regrading the 37 submissions of a third-party Claude Opus 5.5 run (top 6
+  three times on separate E2B workers), the same submission's raw score varied by up to ±20% between machines,
+  because decoding is timed over only a few milliseconds per dataset (about 3 to 35 ms). This holds for both
+  graders, comes from the grader's timing method, and is unchanged by the fix; every submission still scored 1.7
+  to 4 times higher under the fixed grader (`../../evidence/runs/opus55-regrade2-codec-a/`, `-codec-b/`,
+  `-reps2/`, `-reps3/`; combined in `../../evidence/runs/opus55-regrade2-summary/summary.json`).
 - **Dependence on the machine and timing noise remain.** The speed term is now a ratio of times on the same machine, so it no longer
   depends on an unknown reference machine. But it is still a wall-clock measurement. Over six runs of the fixed
   version in three separate E2B jobs, the starter scored 0.97 to 1.06 (per-dataset ratios 0.84 to 1.14) and the

@@ -59,19 +59,21 @@ Of the 32 tasks fixed or removed, 3 can be corrected exactly, 11 have a known ma
 
 ## A check against real agent runs
 
-EdgeBench has not released its runs. A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, four hours each, with every submission and its original score (`adafadaq/edgebench-opus-5-5-xhigh-rollouts` on Hugging Face). Seven of those tasks are ones we fixed. We read the submission histories of all seven, and regraded submissions of two of them (Order Addition and Integer Codec) with both graders (`evidence/runs/opus55-rollouts-meta/`, `evidence/runs/opus55-regrade/`).
+EdgeBench has not released its runs. A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, four hours each, with every submission and its original score (`adafadaq/edgebench-opus-5-5-xhigh-rollouts` on Hugging Face). Nine of those tasks are ones we fixed. A saved submission can test a fix only if the fix changes the grader alone: if it changes what the agent sees, the agent would have worked differently. Seven fixes are grader-only, and we regraded 314 of their submissions with both graders (349 paired gradings with repeats; timing-dependent graders three times for the submissions that decide the score), at the official 4 CPUs, with the run's own grading script and EdgeBench's best-so-far rule. The original grader reproduced the run's recorded result exactly for all 144 submissions of the three tasks whose graders do not depend on timing (`evidence/runs/opus55-regrade2-summary/summary.json`; an earlier two-task regrade is in `evidence/runs/opus55-regrade/`).
 
-| Task | Original grader | Fixed grader | What it shows |
-| --- | --- | --- | --- |
-| Order Addition | Every submission that produced a result passes 4 of 5 tests (five earlier automatic snapshots without a result pass 2); the run keeps its first agent submission, score 3.79, and ignores a later 41.24 | The three regraded submissions pass 5 of 5, so the run would keep 41.24 | The defect occurs in practice: +37.45 points on this task for this run, because the task keeps the submission that passes the most tests (if you instead keep the highest score, nothing changes) |
-| Integer Codec | Best submission: raw 66.31 (75.72 on the run's own machine) | Raw 160.76; 50.08 on the fixed scale | The original 0–100 scale would clip the fixed result to 100, so the fix now uses a scale from 1.0 to 320 |
-| Borden Inversion | Best submission: 60.10, reached by iterating against the grader's scores | Not regraded (raw results are identical for the same answer) | An agent that iterates can partly learn the hidden convention; the one-shot 7.0 vs 31.2 gap overstates the effect for such agents |
-| Tree Block Partitioning | 100 | Not regraded | No program multiplies a value by itself in place (`v *= v`); no effect in this run |
-| Graph Node Classification | Every submission scored as a normal prediction file | Not regraded | No sign of the defect in this run |
-| Schemathesis Config | Full marks | Not regraded | Unknown whether the decorator returns the function unchanged |
-| Lean Analysis Proofs | 2,810 of 2,901 targets | Not regraded (needs the 33 GB task image) | Unknown |
+| Task | Fix changes | Submissions graded | Run's score: original → fixed | What it shows |
+| --- | --- | --- | --- | --- |
+| Order Addition | grader | 9 of 9 | 3.79 → **41.24** | The stale checksum fails every result, so the run kept its first agent submission; the fixed grader keeps a later one (+37.45) |
+| Integer Codec | grader and scale | 37 of 37 (top 6 three times) | 75.72 → **about 50–54** | Every raw result rises 1.7–4×; the original grader on our machines gives 71.9–73.0. The same submission varies by up to ±20% between machines under both graders (decode timed over a few milliseconds) |
+| Juliet Analyzer | grader | 105 of 105 | 99.66 → 99.66 | 14 early submissions lost up to 25 points to the hidden trace form; the agent then switched to it, so the final score is unchanged |
+| Molecular Self-Assembly | grader (CPU count) | 8 of 13 (best and final three times) | 100 → 100 | Every graded submission +3–4% raw; the run is above the top of the scale either way (original grader on our machines: 95.9–100) |
+| Tree Block Partitioning | grader | 13 of 25 (best and final three times) | 100 → 100 | The affected sub-task scores the same under both graders; no effect in this run |
+| Graph Node Classification | grader | 112 of 118 (6 missing from the archive; top 6 three times) | 90.85 → 90.43–90.60 | All valid under both; differences are timing noise (original grader on our machines: 90.44–90.60) |
+| Schemathesis Config | grader | 30 of 30 | 100 → 100 | Every submission scores the same under both; no effect in this run |
+| Borden Inversion | instructions and starter file | not regradable | 60.10 → 55.14 (scale only) | The agent learned part of the hidden convention by iterating (first submissions about 7); the fix's effect on its work cannot be measured from saved answers |
+| Lean Analysis Proofs | grader and two statements | not run (33 GB image, 16 GiB grader) | 96.86 → 98.42 (computed) | The original per-target verdicts counted against the fixed target list |
 
-This is one model, one run per task and four hours instead of twelve. It shows that the problems occur in real runs and that one of our fixes needed a correction; it does not measure the leaderboard effect.
+This is one model, one run per task and four hours instead of twelve. It shows that the problems occur in real runs; it does not measure the leaderboard effect.
 
 ## The exact corrections
 

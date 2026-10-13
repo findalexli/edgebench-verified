@@ -59,6 +59,7 @@ The incorrect test submission has a logic error that exercises the merge code pa
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on test submissions we wrote.
+- **Host speed near the 12 s limit.** In a regrade of a third-party Claude Opus 5.5 run (13 submissions with both graders, T2 identical in both), the run's final submission took 12.003 s on one T6 case against its 12 s limit in one of three original-grader gradings, losing 22 of 100 points (`evidence/runs/opus55-regrade2-tree-b/`). This is timing sensitivity shared by both graders, not the T2 defect, and the run's score stays 100.
 - The test submission that shows the problem is built from `std.cpp`. How often real solvers multiply a value by itself is unknown, and probably low.
 - A hidden signed-`int` overflow in the c/d products is present in both the original and fixed versions and is not addressed. No effect on scores was seen.
 - The TLA+ model is bounded: fields are modulo 4 rather than 2^16. It leaves out the call counter and the overflow behaviour.

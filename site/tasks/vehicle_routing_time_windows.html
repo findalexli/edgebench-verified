@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vehicle Routing Time Windows · EdgeBench Verified</title>
+<meta name="description" content="Checker uses files solvers may edit; per-instance time argument does not fit the total">
+<meta name="color-scheme" content="light">
+<link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/tasks/vehicle_routing_time_windows.html">
+<link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/tasks/vehicle_routing_time_windows.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+
+<link rel="stylesheet" href="../assets/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="bar"><div class="in">
+  <a class="home" href="../index.html">EdgeBench Verified</a>
+  <span class="lang" aria-label="Language"><a href="../tasks/vehicle_routing_time_windows.html" hreflang="en" lang="en" aria-current="true">EN</a> / <a href="../zh/tasks/vehicle_routing_time_windows.html" hreflang="zh-CN" lang="zh-CN">中文</a></span>
+  <nav class="tabs" aria-label="Site"><a href="../index.html">Overview</a><a href="../tasks/index.html" aria-current="page">Tasks</a><a href="../method.html">Method</a><a href="../leaderboard.html">Leaderboard</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+</div></header>
+
+<main id="content">
+<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Combinatorial Optimization</span></div><header class="task-head"><h1>Vehicle Routing Time Windows</h1><span class="badge b-retain-with-note" data-outcome="retain-with-note">Kept, with a note</span> <span class="id">vehicle_routing_time_windows</span><p class="summary">Checker uses files solvers may edit; per-instance time argument does not fit the total.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Speed up and improve a C++ program that plans delivery routes for vehicles with limited capacity, where each customer must be visited within a time window.</dd><dt>What goes wrong</dt><dd>No scoring problem within the documented limits; with the original header and flags, rounding never changes a verdict. Caveats: the checker is built from the submitted header and Makefile, so changing them changes it; each instance gets 60 seconds, but all 56 must fit in 20 minutes; the 56 public cases count equally; a cost off by exactly 0.05 may fail.</dd><dt>How much it matters</dt><dd>None for a program reporting its own cost and budgeting about 20 seconds per instance. Using the full 60 seconds caps the score near 37 (computed). Editing the header or flags was not tested.</dd><dt>What we did</dt><dd>Kept, with a note: editing the distance header or compiler flags also changes the checker; the 56 public cases count equally; report the computed cost exactly; budget about 20 seconds per instance.</dd></dl></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/vehicle_routing_time_windows.json">tasks/vehicle_routing_time_windows.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p>Read README.md, then optimize the C++17 CVRPTW solver. Modify only src/, include/, and Makefile. Preserve the cvrptw_solver binary name and CLI: ./cvrptw_solver &lt;input.txt&gt; &lt;output.txt&gt; &lt;time_budget_sec&gt;. Do not read hidden instances, internal judge files, BKS tables, reference solutions, or evaluator internals. Hidden judge submissions have a 20-minute total wall-clock budget; keep the solver efficient.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="Show the full instructions" data-less="Show less">Show the full instructions</button></div></section><section id="grading"><h2 class="sec">How EdgeBench grades it</h2><p class="note">In plain words, from the task's definition file (<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/vehicle_routing_time_windows.json">tasks/vehicle_routing_time_windows.json</a>) and EdgeBench's harness code. This describes the original task; a fixed version may change the grader, as the case below states.</p><dl class="grade"><dt>Grader command</dt><dd><pre><code>cd /home/workspace/task_cvrptw_905da6dd/workspace &amp;&amp; { …</code></pre><details class="longcmd"><summary>Show the full command (241 lines)</summary><pre class="long"><code>cd /home/workspace/task_cvrptw_905da6dd/workspace &amp;&amp; {
+python - &lt;&lt;&#x27;PY&#x27;
+import csv, json, os, re, subprocess, time, traceback
+from pathlib import Path
+
+ROOT = Path(&#x27;/home/workspace/task_cvrptw_905da6dd&#x27;)
+TOTAL_JUDGE_TIMEOUT_SEC = 20 * 60
+COMPILE_TIMEOUT_SEC = 300
+PER_INSTANCE_BUDGET_SEC = 60
+VERIFIER_TIMEOUT_SEC = 30
+DEADLINE_GRACE_SEC = 5
+
+started = time.monotonic()
+deadline = started + TOTAL_JUDGE_TIMEOUT_SEC
+compile_output = &#x27;&#x27;
+details = []
+metrics = {
+    &#x27;judge_time_limit_sec&#x27;: TOTAL_JUDGE_TIMEOUT_SEC,
+    &#x27;per_instance_budget_sec&#x27;: PER_INSTANCE_BUDGET_SEC,
+    &#x27;compile_timeout_sec&#x27;: COMPILE_TIMEOUT_SEC,
+    &#x27;score&#x27;: 0.0,
+    &#x27;compile_returncode&#x27;: None,
+    &#x27;cases&#x27;: 0,
+    &#x27;timeout_count&#x27;: 0,
+    &#x27;no_pass_count&#x27;: 0,
+    &#x27;judge_time_exceeded&#x27;: False,
+    &#x27;compile_timed_out&#x27;: False,
+}
+
+
+def remaining() -&gt; float:
+    return deadline - time.monotonic()
+
+
+def safe_text(x) -&gt; str:
+    if x is None:
+        return &#x27;&#x27;
+    if isinstance(x, bytes):
+        return x.decode(errors=&#x27;replace&#x27;)
+    return str(x)
+
+
+def add_detail(name: str, status: str, score: float = 0.0, message: str = &#x27;&#x27;, **extra) -&gt; None:
+    item = {&#x27;name&#x27;: name, &#x27;status&#x27;: status, &#x27;score&#x27;: float(score), &#x27;message&#x27;: (message or &#x27;&#x27;)[-1000:]}
+    item.update(extra)
+    details.append(item)
+
+
+def compute(nv, td, bnv, btd):
+    gap_nv = max(0, nv - bnv)
+    gap_td = max(0.0, (td - btd) / btd * 100.0) if btd &gt; 0 else 0.0
+    s = max(0.0, 100.0 - 30.0 * gap_nv - 0.5 * gap_td)
+    if nv &lt; bnv:
+        s += 30.0 * (bnv - nv)
+    if nv &lt;= bnv and td &lt; btd:
+        s += min(30.0, (btd - td) / btd * 100.0)
+    return min(s, 160.0)
+
+
+def load_bks():
+    bks = {}
+    for bp in [ROOT / &#x27;internal/cases/bks_snapshot.csv&#x27;]:
+        if bp.exists():
+            with open(bp, newline=&#x27;&#x27;) as f:
+                for row in csv.DictReader(f):
+                    bks[row[&#x27;name&#x27;]] = (int(row[&#x27;nv&#x27;]), float(row[&#x27;td&#x27;]))
+    return bks
+
+
+def case_files():
+    case_dir = ROOT / &#x27;internal/cases/raw&#x27;
+    return sorted(case_dir.glob(&#x27;*.txt&#x27;))[:56] if case_dir.exists() else []
+
+
+def emit(valid: bool, score: float, summary: str):
+    passed = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;PASSED&#x27;)
+    failed = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;FAILED&#x27;)
+    errors = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;ERROR&#x27;)
+    total = len(details) or 1
+    metrics[&#x27;score&#x27;] = float(score)
+    metrics[&#x27;cases&#x27;] = metrics.get(&#x27;cases&#x27;) or len([d for d in details if d.get(&#x27;name&#x27;) != &#x27;compile&#x27;])
+    metrics[&#x27;timeout_count&#x27;] = sum(1 for d in details if d.get(&#x27;reason&#x27;) in (&#x27;solver_timeout&#x27;, &#x27;judge_time_limit&#x27;, &#x27;verifier_timeout&#x27;))
+    metrics[&#x27;no_pass_count&#x27;] = failed
+    metrics[&#x27;runtime_seconds&#x27;] = time.monotonic() - started
+    if metrics[&#x27;timeout_count&#x27;]:
+        metrics[&#x27;judge_time_exceeded&#x27;] = any(d.get(&#x27;reason&#x27;) == &#x27;judge_time_limit&#x27; for d in details)
+    report = {
+        &#x27;valid&#x27;: valid,
+        &#x27;score&#x27;: float(score),
+        &#x27;pass_rate&#x27;: passed / total if total else 0.0,
+        &#x27;total_tests&#x27;: total,
+        &#x27;passed&#x27;: passed,
+        &#x27;failed&#x27;: failed,
+        &#x27;errors&#x27;: errors,
+        &#x27;summary&#x27;: summary,
+        &#x27;details&#x27;: details[:100],
+        &#x27;metrics&#x27;: metrics,
+    }
+    print(&#x27;&gt;&gt;&gt;&gt;&gt; Start Structured Result&#x27;)
+    print(json.dumps(report, ensure_ascii=False))
+    print(&#x27;&gt;&gt;&gt;&gt;&gt; End Structured Result&#x27;)
+
+
+try:
+    bks = load_bks()
+    cases = case_files()
+    metrics[&#x27;cases&#x27;] = len(cases)
+
+    compile_timeout = max(1, min(COMPILE_TIMEOUT_SEC, int(remaining() - DEADLINE_GRACE_SEC)))
+    if compile_timeout &lt;= 0:
+        for inp in cases or [Path(&#x27;compile&#x27;)]:
+            add_detail(inp.stem, &#x27;ERROR&#x27;, 0.0, &#x27;judge global time limit reached before compilation&#x27;, reason=&#x27;judge_time_limit&#x27;)
+        emit(False, 0.0, f&#x27;Judge timed out before compilation: 0 passed, {len(details)} timed out/no result&#x27;)
+    else:
+        try:
+            proc = subprocess.run(
+                [&#x27;bash&#x27;, &#x27;-lc&#x27;, &#x27;rm -f cvrptw_solver tools/verify &amp;&amp; make -j4&#x27;],
+                text=True,
+                capture_output=True,
+                timeout=compile_timeout,
+            )
+            compile_output = (proc.stdout or &#x27;&#x27;) + (proc.stderr or &#x27;&#x27;)
+            metrics[&#x27;compile_returncode&#x27;] = proc.returncode
+            compiled = proc.returncode == 0 and Path(&#x27;cvrptw_solver&#x27;).exists()
+        except subprocess.TimeoutExpired as ex:
+            compile_output = safe_text(ex.stdout) + safe_text(ex.stderr) + &#x27;\nCOMPILE_TIMEOUT&#x27;
+            metrics[&#x27;compile_returncode&#x27;] = -9
+            metrics[&#x27;compile_timed_out&#x27;] = True
+            compiled = False
+
+        print(compile_output, end=&#x27;&#x27;)
+
+        if not compiled:
+            status = &#x27;ERROR&#x27; if metrics[&#x27;compile_timed_out&#x27;] else &#x27;FAILED&#x27;
+            reason = &#x27;compile_timeout&#x27; if metrics[&#x27;compile_timed_out&#x27;] else &#x27;compile_failed&#x27;
+            msg = compile_output[-1000:] or reason
+            if cases:
+                for inp in cases:
+                    add_detail(inp.stem, status, 0.0, msg, reason=reason)
+            else:
+                add_detail(&#x27;compile&#x27;, status, 0.0, msg, reason=reason)
+            emit(False, 0.0, f&#x27;Compilation did not pass ({reason}); score=0. Timeouts: {metrics[&quot;compile_timed_out&quot;]}&#x27;)
+        else:
+            bks = bks or {}
+            score_sum = 0.0
+            for idx, inp in enumerate(cases):
+                name = inp.stem
+                rem = remaining()
+                if rem &lt;= DEADLINE_GRACE_SEC + 1:
+                    add_detail(name, &#x27;ERROR&#x27;, 0.0, &#x27;judge global time limit reached before this instance could finish&#x27;, reason=&#x27;judge_time_limit&#x27;)
+                    continue
+
+                budget = min(PER_INSTANCE_BUDGET_SEC, max(1, int(rem - DEADLINE_GRACE_SEC - 1)))
+                out = Path(f&#x27;out_{name}.sol&#x27;)
+                try:
+                    out.unlink(missing_ok=True)
+                except OSError:
+                    pass
+
+                try:
+                    run = subprocess.run(
+                        [&#x27;./cvrptw_solver&#x27;, str(inp), str(out), str(budget)],
+                        text=True,
+                        capture_output=True,
+                        timeout=budget + DEADLINE_GRACE_SEC,
+                    )
+                    run_txt = (run.stdout or &#x27;&#x27;) + (run.stderr or &#x27;&#x27;)
+                    solver_timed_out = False
+                except subprocess.TimeoutExpired as ex:
+                    run = None
+                    run_txt = safe_text(ex.stdout) + safe_text(ex.stderr) + &#x27;\nSOLVER_TIMEOUT&#x27;
+                    solver_timed_out = True
+
+                if solver_timed_out:
+                    add_detail(name, &#x27;ERROR&#x27;, 0.0, run_txt, reason=&#x27;solver_timeout&#x27;, budget_sec=budget)
+                    continue
+                if run is None or run.returncode != 0:
+                    rc = getattr(run, &#x27;returncode&#x27;, &#x27;unknown&#x27;)
+                    add_detail(name, &#x27;FAILED&#x27;, 0.0, f&#x27;solver exited without a passing solution: exit_code={rc}\n{run_txt}&#x27;, reason=&#x27;no_pass&#x27;, budget_sec=budget)
+                    continue
+                if not out.exists():
+                    add_detail(name, &#x27;FAILED&#x27;, 0.0, &#x27;solver produced no output file&#x27;, reason=&#x27;no_pass&#x27;, budget_sec=budget)
+                    continue
+
+                v_rem = remaining()
+                if v_rem &lt;= 2:
+                    add_detail(name, &#x27;ERROR&#x27;, 0.0, &#x27;judge global time limit reached before verification&#x27;, reason=&#x27;judge_time_limit&#x27;, budget_sec=budget)
+                    continue
+                v_timeout = max(1, min(VERIFIER_TIMEOUT_SEC, int(v_rem - 1)))
+                try:
+                    ver = subprocess.run(
+                        [&#x27;./tools/verify&#x27;, str(inp), str(out)],
+                        text=True,
+                        capture_output=True,
+                        timeout=v_timeout,
+                    )
+                    ver_txt = (ver.stdout or &#x27;&#x27;) + (ver.stderr or &#x27;&#x27;)
+                    verifier_timed_out = False
+                except subprocess.TimeoutExpired as ex:
+                    ver = None
+                    ver_txt = safe_text(ex.stdout) + safe_text(ex.stderr) + &#x27;\nVERIFIER_TIMEOUT&#x27;
+                    verifier_timed_out = True
+
+                if verifier_timed_out:
+                    add_detail(name, &#x27;ERROR&#x27;, 0.0, ver_txt, reason=&#x27;verifier_timeout&#x27;, budget_sec=budget)
+                    continue
+
+                feasible = ver is not None and ver.returncode == 0 and &#x27;feasible: true&#x27; in (ver.stdout or &#x27;&#x27;)
+                nv_m = re.search(r&#x27;NV:\s*(\d+)&#x27;, ver.stdout if ver else &#x27;&#x27;)
+                td_m = re.search(r&#x27;TD:\s*([0-9.]+)&#x27;, ver.stdout if ver else &#x27;&#x27;)
+                nv = int(nv_m.group(1)) if nv_m else 10**9
+                td = float(td_m.group(1)) if td_m else 1e18
+                bnv, btd = bks.get(name, (nv, td))
+                si = compute(nv, td, bnv, btd) if feasible else 0.0
+                score_sum += si
+                if feasible:
+                    msg = f&#x27;feasible; NV={nv}; TD={td}; BKS_NV={bnv}; BKS_TD={btd}; budget_sec={budget}&#x27;
+                    add_detail(name, &#x27;PASSED&#x27;, si, msg, reason=&#x27;passed&#x27;, budget_sec=budget, NV=nv, TD=td, BKS_NV=bnv, BKS_TD=btd)
+                else:
+                    msg = (run_txt + &#x27;\n&#x27; + ver_txt)[-1000:] or &#x27;solution did not pass feasibility/cost verification&#x27;
+                    add_detail(name, &#x27;FAILED&#x27;, 0.0, msg, reason=&#x27;no_pass&#x27;, budget_sec=budget, NV=nv, TD=td, BKS_NV=bnv, BKS_TD=btd)
+
+            total_cases = len(cases) or 1
+            final_score = score_sum / total_cases * 100.0
+            pass_cnt = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;PASSED&#x27;)
+            fail_cnt = sum(1 for d in details if d.get(&#x27;status&#x27;) == &#x27;FAILED&#x27;)
+            timeout_cnt = sum(1 for d in details if d.get(&#x27;reason&#x27;) in (&#x27;solver_timeout&#x27;, &#x27;judge_time_limit&#x27;, &#x27;verifier_timeout&#x27;))
+            summary = (
+                f&#x27;Score: {final_score:.6f} over {len(cases)} cases; &#x27;
+                f&#x27;passed={pass_cnt}, no_pass={fail_cnt}, timeout={timeout_cnt}, &#x27;
+                f&#x27;runtime={time.monotonic() - started:.2f}s/{TOTAL_JUDGE_TIMEOUT_SEC}s&#x27;
+            )
+            emit(True, final_score, summary)
+except Exception:
+    err = traceback.format_exc()
+    print(err)
+    if not details:
+        add_detail(&#x27;judge_exception&#x27;, &#x27;ERROR&#x27;, 0.0, err, reason=&#x27;judge_exception&#x27;)
+    emit(False, 0.0, &#x27;Judge exception before normal completion; see details&#x27;)
+PY
+}</code></pre></details></dd><dt>Time limit</dt><dd>20 minutes for the whole grading run (1,200 seconds, <code>eval_timeout</code>).</dd><dt>What is submitted</dt><dd><code>src/</code>, <code>include/</code>, <code>Makefile</code> Left out of the submission: <code>instances/</code>, <code>internal/</code>, <code>__MACOSX/</code>, <code>.DS_Store</code>.</dd><dt>Raw result</dt><dd>The grader prints a JSON report; its <code>score</code> is the raw result, and the report can also give a pass rate and mark the submission invalid (parser <code>structured_json</code>).</dd><dt>Better raw result</dt><dd>Higher is better.</dd><dt>From raw result to 0–100</dt><dd>A straight line: a raw result of 0 scores 0 and 10,000 scores 100, with values in between interpolated linearly. Results outside that range are clipped to 0 or 100. A raw result that is not a finite number (for example <code>inf</code>) gets no 0–100 score. (<code>rescale.kind</code> = <code>linear</code>)<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>Which submission a run keeps</dt><dd>The submission with the best raw result (highest). Only the score is compared; a submission without a score is skipped, and on a tie the earlier submission stays (<code>score_first</code>).<div class="src">Source: <a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>Internet for the agent</dt><dd>No: the agent's environment is network-isolated (<code>internet: false</code>).</dd><dt>Grader machine</dt><dd>4 CPUs and 8 GB of memory in EdgeBench's official leaderboard settings: the default, since the task has no override. <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">The settings, quoted</a>.</dd></dl></section><section id="found"><h2 class="sec">What we found</h2><p class="note">The full case: the test submissions, the independent checks and the fix. File paths refer to the <a href="https://github.com/findalexli/edgebench-verified">repository</a>; links open on GitHub.</p><div class="md"><p><strong>Outcome:</strong> Kept, with a note. <mark>The concern about the decimal tolerance does not change scores under an exact check; the note explains the weighting and the fixed test set, says that the checker is compiled from the submitted <code>include/types.h</code> and <code>Makefile</code>, and says that the 60-second time argument cannot be used on every instance within the 20-minute total.</mark></p>
+<h3 id="case-what-the-task-asks">What the task asks</h3>
+<p>The solver is asked to "optimize the C++17 CVRPTW solver", to "Modify only src/, include/, and Makefile" and to "Preserve the cvrptw_solver binary name and CLI". CVRPTW is the capacitated vehicle routing problem with time windows: plan routes for vehicles of limited capacity so that each customer is visited within a set time window. The task README describes weighting the instances in three groups and scrambling the nodes for each deployment "防硬编码答案" (to prevent hard-coded answers). It states a cost tolerance of "≤ 0.05". Category: Combinatorial Optimization.</p>
+<h3 id="case-what-we-checked">What we checked</h3>
+<p>No scoring problem that changes scores was found for a solver that follows the documented time limits. Four points are noted; the effect of the third (solver edits that reach the checker) is not measured.</p>
+<p><strong>1. Decimal tolerance (checked; does not change scores).</strong> The README states an inclusive "≤ 0.05" cost tolerance. The checker tests it in binary64 (standard double-precision floating point).</p>
+<ul><li>All coordinates and time-window and service values in the 56 instances are integers. Across 282,800 pairs of nodes, the task's rounded binary64 distance equals an exact integer calculation every time (0 mismatches). So every distance and arrival time is exactly a multiple of 0.1.</li><li>The largest binary64 drift seen in 20,000 random trials of 120-term sums of tenths was 1.13e-11. The checker's time-window test uses a 1e-6 margin, so it returns exactly the verdict that exact rational arithmetic gives. No feasible/infeasible verdict depends on floating point.</li><li><strong>Example.</strong> The check of the declared cost behaves inconsistently at exactly 0.05. It rejects a declared 12.05 or 11.95 against a true 12, but accepts 4.05 and 3.95 against 4.</li><li>This matters only if a solver declares a cost off by exactly 0.05. A solver that prints its own sum is within about 1e-11 of the checker's total. The distance used for scoring is the checker's own recomputation, not the declared cost.</li></ul>
+<p><strong>2. The README describes scoring the grader does not implement (documentation only).</strong> The README describes weighting in three groups and scrambling for each deployment, and an internal README describes a scrambled copy of the cases. The grader averages all 56 cases equally over a fixed, unscrambled test set. No score changes.</p>
+<p><strong>3. The checker is compiled from the submitted header and Makefile.</strong> <code>tools/verify.cpp</code> includes <code>../include/types.h</code>. That file is in a path the solver may modify, and it defines <code>dist_x10</code> and the <code>Node</code>/<code>Instance</code> structs. The grader also runs <code>make -j4</code> with the submitted <code>Makefile</code>, and the shipped <code>Makefile</code> builds <code>tools/verify</code> with the same <code>CXXFLAGS</code> as the solver. A solver that edits the distance code, changes <code>Node</code> field types, or changes compiler flags (for example adding <code>-ffast-math</code>) for speed, with no intent to cheat, therefore also changes how the checker computes feasibility and distance. The exact-arithmetic result in point 1 holds for the original header and flags only. Recommended hardening: build the checker from the original header and flags owned by the grader, outside the submitted code.</p>
+<p><strong>4. The 60-second time argument cannot be used on every instance.</strong> The solver is called as <code>./cvrptw_solver &lt;input&gt; &lt;output&gt; &lt;time_budget_sec&gt;</code>. The grader passes <code>min(60, max(1, int(remaining − 6)))</code> seconds and stops all work 20 minutes after it starts (<code>TOTAL_JUDGE_TIMEOUT_SEC = 20 * 60</code>, <code>PER_INSTANCE_BUDGET_SEC = 60</code>); instances it cannot start are scored 0 (<code>judge_time_limit</code>). 56 × 60 s = 3,360 s, which is 2.8 times the 1,200 s total.</p>
+<ul><li>What the solver is told: the prompt says "Hidden judge submissions have a 20-minute total wall-clock budget; keep the solver efficient." README §8 lists "时间预算（单实例）：60 秒" (time budget per instance: 60 s) and "总评测预算上限：20 分钟；每实例最多 60 秒，并受剩余总时限截断" (total budget 20 minutes; at most 60 s per instance, cut short by the remaining total). Its last line repeats this in English. <code>tools/bench.sh</code> passes 60 s for 100-customer instances. So the cap is documented, but no document says how many seconds per instance fit in the total (1,200 / 56 ≈ 21 s).</li><li><strong>Example.</strong> A solver that runs until the time argument it is given, as anytime search usually does, is scored on about 20 of the 56 instances; the rest score 0. At reference quality (100 per instance) its score is at most 21 × 100 / 56 = 37.5 out of 100 (20 instances and 35.7 if the build takes about a minute), and at most 21 × 160 / 56 = 60 even at the per-instance cap of 160. A solver that budgets about 20 s per instance itself is scored on all 56.</li><li>The harness limit (<code>eval_timeout</code> 1,200 s) equals the grader's own 20-minute deadline. In this example the grader finishes about 5 s before its deadline, so the result is still reported, but the margin depends on how long the container takes to start.</li></ul>
+<p><strong>Note shipped with the task.</strong> The checker is compiled from the submitted <code>include/types.h</code> with the submitted <code>Makefile</code>, so solver edits to the distance code, node types or compiler flags also change the checker; the recommended hardening is to build the checker from the original header and flags. The 60-second time argument is capped by the 20-minute total: 56 instances at 60 s would take 3,360 s, so a solver that uses its full argument is scored on only about 20 instances; budget about 20 s per instance. The score averages all 56 instances equally, and the installed instances are fixed and their nodes are not scrambled (the README's three-group weighting and scrambling are not implemented). Despite the README's inclusive "≤ 0.05", a declared cost that differs from the checker's total by exactly 0.05 may be rejected; declaring the computed cost avoids this. Because the test set is the fixed, public Solomon set (a standard benchmark), instances can be identified and published reference routes exist; this is a matter of disclosure and contamination, not a checker defect.</p>
+<h3 id="case-how-much-it-matters">How much it matters</h3>
+<ul><li>Tolerance: no effect for a solver that declares its computed cost. In the hypothetical case of a declared cost off by exactly 0.05, one instance would score 0, so the effect is at most one instance's contribution (see <code>evidence/scripts/vehicle_routing_time_windows/exact_checks.out</code> for the boundary cases).</li><li>Text about weighting and scrambling: no score change.</li><li>Header and flags: affect only solvers that edit the distance code or node types in <code>include/types.h</code>, or the compiler flags in the <code>Makefile</code>. No such case was run, so no score effect is measured.</li><li>Time argument: no effect on a solver that budgets for the 20-minute total, as the prompt and README §8 say. A solver that uses the full 60-second argument on every instance loses about 36 of 56 instances (computed from the grader's loop; not run). The recorded agent runs on this task score 74.0–90.8 out of 100 for the five models (<code>tasks/README.md</code>), above the 60-point maximum for 21 scored instances, so those runs did budget for the total.</li></ul>
+<p>There is no code change. The note above ships with the task.</p>
+<h3 id="case-how-we-checked-it">How we checked it</h3>
+<ul><li><strong>Original grader.</strong> We read the source of the original evaluation command (build, solve, check, score), <code>tools/verify.cpp</code>, <code>include/types.h</code> and the task README, for the original grader image, pinned by digest. All 56 example routes passed the original checker and the code that calls it, with the installed 56-row reference table. No claim is made about infeasibility or optimality.</li><li><strong>Independent exact check.</strong> An exact-arithmetic program (<code>exact_checks.py</code>, using integer and <code>Fraction</code> arithmetic) covered all 56 installed instances. It checked that distances are well defined, the range of values of every instance field, the time-window comparisons, and the boundary of the cost tolerance.</li><li><strong>Drift bound.</strong> 20,000 random trials of 120-term sums of tenths bound the binary64 drift.</li><li>No formal model applies.</li></ul>
+<h3 id="case-limits">Limits</h3>
+<ul><li>No AI model or solver was run; effects are shown only on test submissions and counterexamples we wrote.</li><li>The exact checks used local Python. The solver was built locally with g++ 9.4 (<code>-march=haswell</code>), not in the pinned grader image.</li><li>The installed reference (BKS, best known solutions) CSV was absent from the extract; the installed table is recorded as 56 rows. The grader scores an instance with no reference row as 100 (<code>bks.get(name, (nv, td))</code>). The earlier audit recorded that the installed 56-row table supplies every instance with no fallback (Git tag <code>earlier-audit-final</code>, <code>evidence/selected/vrptw-all56-native-acceptance.json</code>); this was not re-checked.</li><li>The time-argument effect is computed from the grader's loop; no solver that uses the full argument was run.</li><li>The clarification of the instructions is not yet part of the task prompt, and its files are not included in this repository.</li><li>The header note comes from reading the source; no solver with a modified <code>types.h</code> was built or scored.</li></ul>
+<h3 id="case-reproduce">Reproduce</h3>
+<ul><li>Exact checks: <code>python3 -I evidence/scripts/vehicle_routing_time_windows/exact_checks.py &lt;internal/cases/raw dir&gt;</code>.</li><li>Pinned identity: grader image <code>seededge/edgebench.judge.vehicle_routing_time_windows@sha256:5582f7ec…</code>; <code>tools/verify.cpp</code> sha256 <code>0adb0ac0…c5e5</code>, <code>include/types.h</code> <code>9fe467dc…74f1</code>, <code>README.md</code> <code>26641154…4cda</code>.</li></ul></div></section><section id="files"><h2 class="sec">Files</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/vehicle_routing_time_windows.md">This case on GitHub</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/vehicle_routing_time_windows.json">The original task definition (tasks/vehicle_routing_time_windows.json)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/vehicle_routing_time_windows">Evidence scripts</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">Evidence index</a></li></ul></section><nav class="pager" aria-label="All tasks"><a class="prev" href="tryst_text_adventure.html" rel="prev"><small>&larr; Previous</small>Tryst Text Adventure</a><a class="all" href="index.html">All tasks</a><a class="next" href="vliw_kernel_optimization.html" rel="next"><small>Next &rarr;</small>VLIW Kernel Optimization</a></nav></div>
+</main>
+<footer class="">EdgeBench is developed by ByteDance Seed. This audit is independent and not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0); task definitions and task instructions come from the public Hugging Face release (CC BY 4.0); EdgeBench's images are referenced by their public fingerprints and are not redistributed.</footer>
+<script>
+(function () {
+  [].forEach.call(document.querySelectorAll('.prompt'), function (box) {
+    var body = box.querySelector('.prompt-body'), b = box.querySelector('.prompt-toggle');
+    if (body.scrollHeight <= body.clientHeight + 40) { box.classList.remove('clamped'); b.parentNode.removeChild(b); return; }
+    b.addEventListener('click', function () {
+      var open = box.classList.toggle('clamped') === false;
+      b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+      b.setAttribute('aria-expanded', String(open));
+      if (!open) box.scrollIntoView({block: 'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,9 @@
 # Regrading real agent submissions
 
+**Superseded in scope by the second regrade:** `../opus55-regrade2-summary/` (all 7 fixed tasks whose fix
+changes only the grader, 314 submissions, 349 paired gradings with repeats, at the official 4 CPUs). This folder
+keeps the first, smaller regrade (two tasks, five submissions) described below.
+
 Source: a third-party run of Claude Opus 5.5 on 16 public EdgeBench tasks, 4 hours each, published at
 `huggingface.co/datasets/adafadaq/edgebench-opus-5-5-xhigh-rollouts` (archive sha256 in
 `result/out/archive.sha256`). The archive is downloaded on the cloud worker and is not redistributed here.
