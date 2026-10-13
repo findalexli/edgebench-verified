@@ -98,6 +98,8 @@ graph_node_classification,"neighbor (honest neighbour-vote solver, int ids)",val
 graph_node_classification,"nanconf (baseline predictions, NaN confidences)",valid,true,true,27.147,27.143,normalized,yes,Paired table,4
 graph_node_classification,"shrink (one real prediction, rest `""x""`)",trigger,true,false,16.026,,normalized,yes,Paired table,4
 graph_node_classification,missing_half (half the test nodes),invalid,false,false,,,normalized,no,Paired table,4
+graph_node_classification,neighbor_intkeys,trigger,true,true,0.000,24.089,normalized,yes,Revision v2.1 (2026-10-13): integer node-id keys,4
+graph_node_classification,dupkeys_after_str,invalid,true,false,19.896,,normalized,yes,Revision v2.1 (2026-10-13): integer node-id keys,4
 integer_compression_codec,shipped Varint starter (unchanged),trigger,0.2327 / 0.2327,0.9786 / 0.00 (repeat 1.0155 / 0.00),0.2327,0.9786,raw,yes,Paired v1/v2 results: integer_compression_codec,4
 integer_compression_codec,delta + zigzag + varint,valid,0.8253 / 0.8253,6.7024 / 1.79 (repeat 6.9708 / 1.87),0.8253,6.7024,raw,yes,Paired v1/v2 results: integer_compression_codec,4
 integer_compression_codec,starter with one corrupted value,invalid,0 / 0,0 / 0,0,0,raw,no,Paired v1/v2 results: integer_compression_codec,4

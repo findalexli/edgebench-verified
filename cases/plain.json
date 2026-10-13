@@ -128,9 +128,9 @@
  "graph_node_classification": {
   "headline": "Non-numeric predictions are silently dropped and the run still counts as valid",
   "about": "Predict the category of every test node (a point in a network) of a graph, scored on several accuracy measures, with penalties for time and memory use.",
-  "problem": "The grader throws away predictions that are not whole numbers, such as text or blanks, pairs the remaining predictions with the first labels in order, and still marks the run valid. A test submission we wrote with one real prediction and the rest junk was scored on one node per round and counted as valid. Out-of-range confidence values were also checked and are harmless.",
-  "effect": "Only submissions with missing or non-numeric predictions are affected. The added chance can raise a run's kept best score (general proof), but no gain for a real solver was shown.",
-  "action": "Fixed in a new version: every test node must get a whole-number category, otherwise the run is marked invalid. Honest submissions score the same, apart from timing noise of about 0.008 points."
+  "problem": "The grader throws away predictions that are not whole numbers, such as text or blanks, pairs the remaining predictions with the first labels in order, and still marks the run valid. A test submission we wrote with one real prediction and the rest junk was scored on one node per round and counted as valid. Out-of-range confidence values were also checked and are harmless. Separately, predictions keyed by whole-number node IDs, which the instructions allow, match no node: such a run scores 0 and still counts as valid.",
+  "effect": "Submissions with missing or non-numeric predictions: the added chance can raise a run's kept best score (general proof), but no gain for a real solver was shown. A submission keyed by whole-number node IDs loses its whole score; none of the real solver submissions we regraded was keyed that way.",
+  "action": "Fixed in a new version: node IDs are matched as text, so whole-number IDs work, and every test node must get a whole-number category, otherwise the run is marked invalid. Honest submissions score the same, apart from timing noise of about 0.008 points."
  },
  "grid_turing_robot": {
   "headline": "On the publisher's 4-CPU grader, a solution within the 30-second limit can void the whole submission",

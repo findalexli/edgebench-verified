@@ -158,10 +158,10 @@
  {
   "task_id": "graph_node_classification",
   "proposed": "repair-v2",
-  "finding": "Non-integer predictions silently dropped and run marked valid; (NaN-confidence clipping is score-neutral)",
-  "max_effect": "variance only; no expected gain shown",
+  "finding": "Non-integer predictions silently dropped and run marked valid; predictions keyed by integer node ids (allowed by the prompt) match no node and score 0 while valid; (NaN-confidence clipping is score-neutral)",
+  "max_effect": "integer-keyed honest run: whole score lost (scored 0, valid); junk values: variance only, no expected gain shown",
   "status": "final (v1.0)",
-  "repair": "accepted: junk/non-integer predictions now invalid (v1 valid 0.20 → v2 invalid); baseline, honest and NaN-confidence quality identical; final score differs ≤8.1e-5 (wall-time penalty)",
+  "repair": "accepted: junk/non-integer predictions now invalid (v1 valid 0.20 → v2 invalid); baseline, honest and NaN-confidence quality identical; final score differs ≤8.1e-5 (wall-time penalty); v2.1 matches keys by str() and rejects keys that collide after str(): integer-keyed honest solver v1 valid overall 0.000000 → v2.1 0.281108, equal to its string-keyed twin (3 paired runs with the original and the first fixed verifier)",
   "package": "repairs/graph_node_classification-v2/"
  },
  {

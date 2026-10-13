@@ -164,6 +164,11 @@ add("graph_node_classification", "Paired table", "normalized", [
  ("shrink (one real prediction, rest `\"x\"`)", "trigger", "true", "false", "16.026", ""),
  ("missing_half (half the test nodes)", "invalid", "false", "false", "", ""),
 ])
+# graph revision v2.1: original (v1) against the current fixed verifier v2.1 (the first fixed verifier is in results.md)
+add("graph_node_classification", "Revision v2.1 (2026-10-13): integer node-id keys", "normalized", [
+ ("neighbor_intkeys", "trigger", "true", "true", "0.000", "24.089"),
+ ("dupkeys_after_str", "invalid", "true", "false", "19.896", ""),
+])
 
 # integer compression: result = raw / normalized on the current linear 1..320 scale (results.md, "Score scale revision")
 add("integer_compression_codec", "Paired v1/v2 results: integer_compression_codec", "raw", [
