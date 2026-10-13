@@ -1,5 +1,7 @@
 # Materialize check (2026-10-12)
 
+> **Clean-machine rebuild, 2026-10-13.** All 32 packages as committed at 83181b7f were copied to fresh E2B workers (21 GB disk, no images at start); `materialize.sh` ran unchanged, an independent script rechecked every locked output, both Dockerfiles were built and every copied file was hashed inside the built images. 31 of 32 passed; `lean_analysis_proofs-v2` could not be checked because its grader image (about 33 GB unpacked) does not fit, and the rebuild needs about 45 GB of free disk. PFR passed with its work-image check moved after the grader steps, which its `materialize.sh` now does itself. Results: [`evidence/runs/materialize-check-summary/README.md`](../evidence/runs/materialize-check-summary/README.md). Packages revised after 83181b7f (CTA v2.1, Datagen v2.1, FFmpeg v2.2, Jagua v2.1 and later revisions) are covered only by their own later runs. The rows below record the earlier 2026-10-12 check.
+
 **Policy.** Repair packages in Git contain no files copied from the EdgeBench Docker images. Each `*-v2` package ships the following:
 
 - `repair.patch`: a `diff -u` from each in-image original to the v2 file, with paths `a/files/…` → `b/files/…` and a `# <dst> <- <image>:<path>` line above each file.
