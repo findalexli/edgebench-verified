@@ -1,0 +1,110 @@
+{
+  "scope": "Actual risk helper; participation stubbed; one-day NAV avoids volatility veto; no end-to-end score claim",
+  "source_sha256": {
+    "original": "252f864a1a515fb48283644268938afd75f417fcfe34bba09fc8bab49cd41300",
+    "fx_only_v2": "4e0ddc4e0f28fe5e77aca0e65f48c246ef8c5c21bbc3877769e5d79deff7110a",
+    "nav_v2_1": "9f5149da74fea3113f01d67ec70000b6fda152cedb045be8ab33a41c6acac8dd"
+  },
+  "controls": [
+    {
+      "control": "leveraged_overseas_breach",
+      "overseas_cny_over_nav": "7/10",
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "unleveraged_compliant",
+      "overseas_cny_over_nav": "7/25",
+      "ratio_credit_expected": 1,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 0,
+        "nav_v2_1": 1
+      }
+    },
+    {
+      "control": "compliant_both",
+      "overseas_cny_over_nav": "7/50",
+      "ratio_credit_expected": 1,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1": 1
+      }
+    },
+    {
+      "control": "bad_both",
+      "overseas_cny_over_nav": "7/5",
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 0,
+        "fx_only_v2": 0,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "domestic_only",
+      "overseas_cny_over_nav": "0",
+      "ratio_credit_expected": 1,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1": 1
+      }
+    },
+    {
+      "control": "at_boundary",
+      "overseas_cny_over_nav": "2/5",
+      "ratio_credit_expected": 1,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1": 1
+      }
+    },
+    {
+      "control": "missing_nav",
+      "overseas_cny_over_nav": null,
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "missing_same_date",
+      "overseas_cny_over_nav": null,
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "zero_nav",
+      "overseas_cny_over_nav": null,
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "nonfinite_nav",
+      "overseas_cny_over_nav": null,
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1": 0
+      }
+    }
+  ]
+}

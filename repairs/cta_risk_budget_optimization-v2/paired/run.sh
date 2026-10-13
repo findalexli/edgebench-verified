@@ -1,5 +1,11 @@
 #!/bin/bash
 # Paired v1/v2 evaluation for cta_risk_budget_optimization-v2 (E2B worker, root, /job), --network none.
+# Historical FX-only recipe: current package is a distinct NAV candidate.
+# Do not run it as evidence for the current candidate; restore the historical package first.
+if [ "${EBV_RUN_HISTORICAL_FX_ONLY:-0}" != 1 ]; then
+  echo 'Historical FX-only recipe; restore the v2 package and explicitly set EBV_RUN_HISTORICAL_FX_ONLY=1.' >&2
+  exit 2
+fi
 set -uo pipefail
 V1=seededge/edgebench.judge.cta_risk_budget_optimization@sha256:34258d854f41e9cd5fc179fadbc6348bb8ff4118506b1862273f2a2a6d941b32
 V2=ebv/cta_risk_budget_optimization:v2

@@ -1,3 +1,5 @@
+> Historical FX-only v2 evidence. The current v2.1 NAV-denominator candidate has separate component results in `nav-candidate-results.json`; these native runs do not validate that candidate.
+
 # Paired v1/v2 results: cta_risk_budget_optimization
 
 - **Job:** one E2B worker. Job ID `cta_risk_budget_optimization-v2-paired`, sandbox

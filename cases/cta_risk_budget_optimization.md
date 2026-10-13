@@ -1,6 +1,6 @@
 # CTA risk budget optimization (`cta_risk_budget_optimization`)
 
-**Outcome:** Fixed. <mark>The 40% overseas-exposure check adds US-dollar (USD) and Chinese-yuan (CNY) position values without converting currency, so overseas USD positions count about seven times too little; the error only ever helps a submission and is worth at most 5 points out of 100.</mark>
+**Outcome:** FX defect confirmed; v2.1 NAV-denominator candidate component-tested, full release validation pending. <mark>The candidate converts overseas positions to CNY and compares them with same-date total fund NAV, as the policy requires. Ten paired source/helper controls pass; no current-candidate full evaluator run is claimed.</mark>
 
 ![Bars show an overseas share of 0.175 as the original grader reads it, passing the 0.40 limit, against 0.595 once US-dollar positions are converted to yuan, which breaches it.](figures/cta_risk_budget_optimization.svg)
 
@@ -12,6 +12,18 @@ The agent builds a backtesting engine (a simulator that replays past prices) for
 
 The input risk policy (`risk_policy_doc.docx`, in Chinese) sets the overseas limit at 40% ("境外投资比例不超过基金净值的40%"). It also requires that "所有境外品种的仓位计算必须使用实时汇率折算为人民币等值": every overseas position must be converted to its RMB (yuan) equivalent at the live exchange rate. Category: Professional Knowledge Work.
 
+## Current candidate: correct the denominator as well
+
+The grader's `_check_schema_compliance` requires submitted NAV to be total CNY capital (approximately 1.5 billion), not unit NAV. Its `_compute_exposure_stats` already uses the `date` and `nav` fields. The v2.1 candidate uses same-date total CNY NAV for the overseas limit. Missing, nonfinite or nonpositive daily NAV prevents ratio credit; no denominator is invented or forward-filled. Existing accounting and PnL replay checks remain unchanged.
+
+Ten paired controls execute the genuine original, historical FX-only and current risk helper after applying the actual patches. The independent oracle uses exact rational arithmetic. A leveraged portfolio with overseas/gross = 1/3 but overseas/NAV = 70% now loses ratio credit; an unleveraged portfolio with overseas/gross = 42/57 but overseas/NAV = 28% now earns it. Valid, bad, domestic-only, exact-boundary and missing/invalid-NAV controls also pass. See [candidate results](../repairs/cta_risk_budget_optimization-v2/paired/nav-candidate-results.json) and [package instructions](../repairs/cta_risk_budget_optimization-v2/README.md).
+
+These are local source/helper controls with participation stubbed and one-day NAV avoiding volatility veto. A rebuilt image and full evaluator run remain pending. The original FX-only score-direction claim does not apply to the combined correction: the NAV change can move credit in either direction, by at most five normalized cross-border points before other gates/caps.
+
+## Historical FX-only finding and evidence
+
+The remainder of this page records the earlier FX-only repair and its evidence. Its “fixed grader” is the superseded `a9651058ecef-ebv-v2`, not the current `v2.1` candidate. Earlier tests omitted NAV and do not validate the new denominator.
+
 ## What goes wrong
 
 **The overseas check skips currency conversion.** The grader recomputes each position's notional value (its face value) as `lots × multiplier × close` from the raw price sheets. All 12 overseas tickers are priced in USD. The grader converts with the USDCNY exchange rate in its profit-and-loss replay and in `_compute_exposure_stats`. The cross-border block leaves the conversion out. This contradicts the policy document's rule that positions be counted in RMB. USDCNY in the data runs from 6.757 to 7.157 (mean 7.004).
@@ -20,13 +32,13 @@ The input risk policy (`risk_policy_doc.docx`, in Chinese) sets the overseas lim
 - Real data, 2021-06-01: 10 lots CU.SHF plus 8 lots GC.CME give an overseas share in CNY of 0.595. The grader reads 0.175, so this case also passes.
 - The task's own reference: converted at USDCNY, the shipped standard-answer positions exceed 40% on 32 of 1565 days, with a maximum of 52.1%. The original check reports 0 violations and full ratio credit.
 
-A separate observation, not fixed: the policy states the limit as "40% of fund NAV" (net asset value). The grader instead uses the overseas share of gross notional value. This is a separate question from the currency issue.
+A separate observation, not fixed by historical v2 (addressed by the current candidate above): the policy states the limit as "40% of fund NAV" (net asset value). The grader instead uses the overseas share of gross notional value. This is a separate question from the currency issue.
 
-## How much it matters
+## Historical FX-only score effect
 
 Up to 5 points out of 100 (4 of 80 raw points), and only in the generous direction. Because USDCNY is above 1, the bug can award ratio credit to a portfolio that breaches the limit. It never penalizes a compliant one. Only solvers holding USD contracts are affected. Other checks can cap or cancel the risk part of the score and hide the swing.
 
-## The fix
+## The historical FX-only fix
 
 The fixed version changes one file, `/home/workspace/scoring/eval_script.py` (+11/−1 lines). Inside the cross-border block, USD-priced tickers are multiplied by USDCNY from the grader's own `fx` data, looked up as of the date. The fallback is 7.0. This is the same series and fallback the existing `fx_for` helper uses.
 
@@ -61,7 +73,7 @@ Row 3 changes as intended. 32/1565 is not below the 2% day-count allowance, so t
 - The test submission that shows the problem was run through the installed grader's `_evaluate_risk_constraints`, with the participation check stubbed and NAV left out. It was not run end to end through `score.py`. The only complete submission in the image is the standard answer, and its risk part is cancelled before the cross-border block.
 - How often real solver submissions are affected was not measured.
 - The agent's working image was not inspected for a copy of `eval_script.py`.
-- The separate "% of NAV vs % of gross notional" deviation was not fixed.
+- The historical FX-only version did not fix the NAV denominator; the current candidate addresses it with the separate component evidence above.
 
 ## Reproduce
 
