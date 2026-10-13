@@ -23,6 +23,8 @@ FORMAL = ROOT / 'evidence' / 'formal'
 JAR_URL = 'https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar'
 JAR_SHA = '7beec0f04818732a62fa193731711a99aa4f11279499b2360a7d156c519ea78d'
 LEAN_IMAGE = 'python:3.11.14-slim'
+# Verified with a two-state violation using JAR_SHA above.
+TLC_INVARIANT_VIOLATION_EXIT = 12
 # Lake template and dependency smoke test, not published axiom-audited results.
 LEAN_SETUP_FILES = {'Basic.lean', 'Smoke.lean'}
 
@@ -74,9 +76,10 @@ def check_tla():
                                cwd=d, capture_output=True, text=True, timeout=900)
         got = tlc_class(r.stdout + r.stderr)
         want = tlc_class(saved.read_text()) if saved else 'unknown'
-        ok = got == want and got != 'unknown' and (got.startswith('violated:') or r.returncode == 0)
+        expected_exit = TLC_INVARIANT_VIOLATION_EXIT if got.startswith('violated:') else 0
+        ok = got == want and got != 'unknown' and r.returncode == expected_exit
         n += 1; bad += not ok
-        print(f"{'OK ' if ok else 'BAD'} TLA+ {d.name}/{name}: {got} (published: {want})")
+        print(f"{'OK ' if ok else 'BAD'} TLA+ {d.name}/{name}: {got} (published: {want}, exit: {r.returncode})")
     return n, bad
 
 

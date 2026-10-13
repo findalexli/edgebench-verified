@@ -1,5 +1,6 @@
 """Regression checks for formal-result admission; no Lean/Docker/Java execution."""
 import importlib.util
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -21,6 +22,25 @@ class ResultAdmissionTests(unittest.TestCase):
             self.assertEqual(formal.tlc_class(output), 'unknown')
         self.assertEqual(formal.tlc_class('No error has been found'), 'no-error')
         self.assertEqual(formal.tlc_class('Error: Invariant Sound is violated.\nError: The behavior up to this point is:'), 'violated:Sound')
+
+    def test_tlc_requires_exit_status_for_the_observed_result(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            model = root / 'tla' / 'example'
+            model.mkdir(parents=True)
+            (model / 'Example.cfg').write_text('INVARIANT Sound\n')
+            (model / 'Example.tla').write_text('---- MODULE Example ----\n====\n')
+            saved = model / 'tlc-Example.out'
+            for output, valid_exit in (
+                ('Error: Invariant Sound is violated.\n', 12),
+                ('No error has been found\n', 0),
+            ):
+                saved.write_text(output)
+                for exit_code in (-9, 1, 0, 12):
+                    with self.subTest(output=output, exit_code=exit_code):
+                        result = subprocess.CompletedProcess([], exit_code, output, '')
+                        with patch.object(formal, 'FORMAL', root), patch.object(formal, 'jar', return_value='unused'), patch.object(formal.subprocess, 'run', return_value=result):
+                            self.assertEqual(formal.check_tla(), (1, int(exit_code != valid_exit)))
 
     def test_lean_reports_must_cover_requested_declarations(self):
         source = '#print axioms Example.first\n#print axioms Example.second\n'
