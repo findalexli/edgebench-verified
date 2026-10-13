@@ -124,6 +124,9 @@ schemathesis_datagen_pipeline,off_by_one_clock,trigger,0/20,20/20,0.477350,0.467
 schemathesis_datagen_pipeline,garbage_shape,invalid,,,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed),2
 schemathesis_datagen_pipeline,rfc850 (invalid),invalid,,,0.467094,0.467094,raw,no,Final paired run (year ≥ 1900 floor removed),2
 schemathesis_datagen_pipeline,starter,baseline,,,0.323504,0.323504,raw,no,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,"stdlib_1900 (`email.utils.format_datetime`, years 1900–9999)",valid,,,0.477350,0.477350,raw,no,"v2.1 native rerun (2026-10-13, year ≥ 1900 restored)",2
+schemathesis_datagen_pipeline,"stdlib_any_year (same formatter, years 0001–9999)",invalid,,,0.477350,0.467094,raw,yes,"v2.1 native rerun (2026-10-13, year ≥ 1900 restored)",2
+schemathesis_datagen_pipeline,"garbage_shape (`999, 99 888 0000 99:99:99 GMT`)",invalid,,,0.477350,0.467094,raw,yes,"v2.1 native rerun (2026-10-13, year ≥ 1900 restored)",2
 schemathesis_reporting_observability,fullref,valid,,,1.000000,1.000000,raw,no,Paired v1/v2 results: schemathesis_reporting_observability,2
 schemathesis_reporting_observability,fullref_junit_drops_error,trigger,,,1.000000,0.985714,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
 schemathesis_reporting_observability,fullref_no_body_fix,trigger,,,1.000000,0.991667,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2

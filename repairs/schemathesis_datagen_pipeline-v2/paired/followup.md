@@ -22,6 +22,10 @@ The two invalid controls lose exactly the one HTTP-date test (rounded reward dif
 
 This establishes finite native repair controls, not whole-task certification or universal sampling behavior. The historical v2 Lean model is still not a proof of v2.1. Local Docker was unavailable; these runs used one owned E2B worker with 683 seconds elapsed across both tasks.
 
+## Clean rerun (exit=0)
+
+A Datagen-only rerun, `evidence/runs/schemathesis_datagen_pipeline-v2.1-native-20261013b`, ended with ledger `status: exit=0` (141 s, worker `im3or4jytzt58g4m89m92`). It built the v2.1 image in the worker from the committed package with `materialize.sh` (pinned image pull, extraction, `repair.patch`, sha256 `875c05f1…` verified) and `docker build`, then ran the same six arms with the original `judge.eval_cmd`. Rewards: `stdlib_1900` 0.477350 / 0.477350, `stdlib_any_year` 0.477350 / 0.467094, `garbage_shape` 0.477350 / 0.467094, identical to the slices above. Its `run.sh` is the recipe for this repair's native check; see [results.md](results.md).
+
 ## Reconstruct the native inputs
 
 The exact authored input is committed at `evidence/scripts/validator_followup/datagen_headers_overlay.py`; stage it as `headers_overlay.py`. Extract `judge.eval_cmd` from `tasks/schemathesis_datagen_pipeline.json` into `datagen-eval.sh`. The image/package inputs and environment variants are specified in `evidence/scripts/validator_followup/run_native.sh`; that file records the historical combined Datagen/FFmpeg v2.1 experiment, including its timeout limitation. Use only its Datagen arm for this repair. The FFmpeg v2.2 follow-up has a separate maintained preparation recipe. These input files are audit-authored controls, not a complete task solution.

@@ -214,6 +214,12 @@ add("schemathesis_datagen_pipeline", "Final paired run (year ≥ 1900 floor remo
  ("rfc850 (invalid)", "invalid", "", "", "0.467094", "0.467094"),
  ("starter", "baseline", "", "", "0.323504", "0.323504"),
 ])
+# schemathesis datagen v2.1 (current fix): clean native rerun, original eval_cmd
+add("schemathesis_datagen_pipeline", "v2.1 native rerun (2026-10-13, year ≥ 1900 restored)", "raw", [
+ ("stdlib_1900 (`email.utils.format_datetime`, years 1900–9999)", "valid", "", "", "0.477350", "0.477350"),
+ ("stdlib_any_year (same formatter, years 0001–9999)", "invalid", "", "", "0.477350", "0.467094"),
+ ("garbage_shape (`999, 99 888 0000 99:99:99 GMT`)", "invalid", "", "", "0.477350", "0.467094"),
+])
 
 # schemathesis reporting
 add("schemathesis_reporting_observability", "Paired v1/v2 results: schemathesis_reporting_observability", "raw", [

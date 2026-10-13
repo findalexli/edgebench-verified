@@ -26,11 +26,13 @@ Scores from the fixed version are not comparable with the original for submissio
 
 ## How it was checked
 
-Historical v2 side-by-side run (not validation of v2.1): [paired/results.md](paired/results.md). The two historical controls keep their score in v2, and a run over 20 random seeds found no honest generator wrongly rejected. Both plausible but wrong generators, and a garbage test submission that only has the right shape, lose exactly 1/15 of Phase 1.
+v2.1 native run: `evidence/runs/schemathesis_datagen_pipeline-v2.1-native-20261013b` (ledger `exit=0`). The image was built in the worker with `materialize.sh` and `docker build`, and the original `judge.eval_cmd` scored three controls on the original and v2.1 images: the valid `stdlib_1900` generator keeps 0.477350; the pre-1900 `stdlib_any_year` and the `garbage_shape` generators fall from 0.477350 to 0.467094. See the top of [paired/results.md](paired/results.md).
+
+Historical v2 side-by-side run (not validation of v2.1): the rest of [paired/results.md](paired/results.md). The two historical controls keep their score in v2, and a run over 20 random seeds found no honest generator wrongly rejected. Both plausible but wrong generators, and a garbage test submission that only has the right shape, lose exactly 1/15 of Phase 1.
 
 ## Build and use
 
-Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
+Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`, a hand-written v2.1 diff against the pinned original) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
 ./materialize.sh && docker build -t ebv/schemathesis_datagen_pipeline-judge:v2.1 .

@@ -256,7 +256,7 @@
   "about": "Build test-data generators for schemathesis, a tool that tests web APIs, including one that produces valid dates in the standard web date format.",
   "problem": "The hidden test checks only that each date has the right pattern of letters and digits. It accepts impossible dates such as 31 April, wrong weekdays, times like 24:00 and made-up month names. A generator that produces impossible dates or wrong weekdays about 90% of the time still passes all 15 tests in its group.",
   "effect": "At most about 1% of the total score, only for generators that produce invalid dates or times; they get the same credit as correct generators.",
-  "action": "The v2.1 judge checks calendar validity, weekday and time, and restricts years to 1900 or later. Three paired native eval_cmd controls pass: valid-generator score unchanged, pre-1900 and malformed-date generators lose the intended test credit. The old Lean proof has not been revised."
+  "action": "The v2.1 judge checks calendar validity, weekday and time, and restricts years to 1900 or later. Three paired native eval_cmd controls pass in a clean run (exit 0): valid-generator score unchanged (0.477350), pre-1900 and malformed-date generators lose the one date test (0.477350 to 0.467094). The old Lean proof has not been revised."
  },
  "schemathesis_reporting_observability": {
   "headline": "Two hidden tests give credit for wrong or broken output",

@@ -1,7 +1,7 @@
 # Schemathesis data-generation pipeline (`schemathesis_datagen_pipeline`)
 
 
-**2026-10-13 revision:** v2.1 restores the RFC year floor. Six native arms of the original evaluation command passed: the valid generator retained reward 0.477350, while the pre-1900 and garbage generators fell to 0.467094. The older results below describe historical v2; these finite controls do not certify the whole task. See [follow-up](../repairs/schemathesis_datagen_pipeline-v2/paired/followup.md).
+**2026-10-13 revision:** v2.1 restores the RFC year floor (year ≥ 1900). A clean native run (`schemathesis_datagen_pipeline-v2.1-native-20261013b`, ledger `exit=0`) built the v2.1 image from the package and ran the original evaluation command on six arms: the valid generator kept reward 0.477350, while the pre-1900 and garbage generators fell to 0.467094. These finite controls do not certify the whole task. See [follow-up](../repairs/schemathesis_datagen_pipeline-v2/paired/followup.md).
 
 **Outcome:** Original defect confirmed; v2.1 repair validated on paired native controls. <mark>The hidden test for HTTP dates checks only the shape of the string, so generators that emit impossible dates and clock times pass; the gap is worth about 1% of the score.</mark>
 
@@ -32,11 +32,19 @@ At most about 1% of the total. The date test is 1 of 15 Phase 1 tests, and Phase
 
 ## The fix
 
-The fixed version changes one file, `/tests/test_01_header_strategies.py`. The pattern that checks only the shape is replaced by the check `is_imf_fixdate`. That check covers the IMF-fixdate grammar, a real Gregorian date, agreement of the weekday and clock bounds, and allows `:60` only at 23:59. It requires only a year that can be represented (≥ 1), because `TODO.md` states no lowest year. The one date test's `max_examples` goes from 50 to 200. With 50 examples, rare clock defects (hour 24) were caught in only 15/20 random seeds; with 200 they were caught in 20/20. The number of tests, `test.sh`, the weights and the parser are unchanged. In `task.json.in`, only `judge.image_tag` changes.
+The fixed version changes one file, `/tests/test_01_header_strategies.py`. The pattern that checks only the shape is replaced by the check `is_imf_fixdate`. That check covers the IMF-fixdate grammar, a real Gregorian date, agreement of the weekday and clock bounds, and allows `:60` only at 23:59. It requires a year of 1900 or later: `TODO.md` asks for valid HTTP-date values, and RFC 9110 §5.6.7 takes date semantics from RFC 5322 §3.3 ("any numeric year 1900 or later"). An earlier v2 dropped this floor (year ≥ 1); v2.1 restores it. The one date test's `max_examples` goes from 50 to 200. With 50 examples, rare clock defects (hour 24) were caught in only 15/20 random seeds; with 200 they were caught in 20/20. The number of tests, `test.sh`, the weights and the parser are unchanged. In `task.json.in`, only `judge.image_tag` changes.
 
-Test generators: `correct` (`st.datetimes(1970..2100)`); `stdlib_1900` and `stdlib_any_year` (honest generators based on `email.utils.format_datetime`); `independent_fields` and `off_by_one_clock` (plausible but wrong; the latter draws hour 0–24 and minute 0–60); `garbage_shape` (invalid test submission, `"999, 99 888 0000 99:99:99 GMT"`); `rfc850` (test submission in the wrong format); and the untouched starter.
+The current v2.1 result (native run, original `judge.eval_cmd`, `--cpus 2 --memory 4g --network none`):
 
-| Generator | Score, original grader | Score, fixed grader | Failures in 20 seeds, original / fixed |
+| Generator | Role | Score, original grader | Score, fixed grader (v2.1) |
+| --- | --- | --- | --- |
+| stdlib_1900 | valid | 0.477350 | 0.477350 |
+| stdlib_any_year (years before 1900) | invalid | 0.477350 | **0.467094** |
+| garbage_shape | invalid | 0.477350 | **0.467094** |
+
+The longer table below is the **historical v2** run (year ≥ 1 predicate). Its test generators: `correct` (`st.datetimes(1970..2100)`); `stdlib_1900` and `stdlib_any_year` (generators based on `email.utils.format_datetime`; the second also emits years before 1900, which v2.1 rejects); `independent_fields` and `off_by_one_clock` (plausible but wrong; the latter draws hour 0–24 and minute 0–60); `garbage_shape` (invalid test submission, `"999, 99 888 0000 99:99:99 GMT"`); `rfc850` (test submission in the wrong format); and the untouched starter.
+
+| Generator | Score, original grader | Score, historical v2 | Failures in 20 seeds, original / v2 |
 | --- | --- | --- | --- |
 | correct | 0.477350 | 0.477350 | — |
 | stdlib_1900 | 0.477350 | 0.477350 | 0/20 / 0/20 |
@@ -47,9 +55,9 @@ Test generators: `correct` (`st.datetimes(1970..2100)`); `stdlib_1900` and `stdl
 | rfc850 (invalid) | 0.467094 | 0.467094 | — |
 | starter | 0.323504 | 0.323504 | — |
 
-Across all generators, `test_http_date_values_grammar` is the only test whose result changes. For the three rejected generators, the `test_phase_1` summary item also flips from passed to failed. All other 97 items are unchanged. Scores are partial because the other targets stay at the starter. No honest generator loses points. Every plausible but wrong generator, and the garbage that only has the right shape, loses 1/15 of Phase 1. The test submission in the wrong format is rejected in both versions.
+Across all generators, `test_http_date_values_grammar` is the only test whose result changes. For the three rejected generators, the `test_phase_1` summary item also flips from passed to failed. All other 97 items are unchanged. Scores are partial because the other targets stay at the starter. In historical v2 no generator with in-range years lost points; under v2.1 `stdlib_any_year` also loses 1/15 of Phase 1, because it emits years before 1900. Every plausible but wrong generator, and the garbage that only has the right shape, loses 1/15 of Phase 1. The test submission in the wrong format is rejected in both versions.
 
-**Are scores comparable?** The fixed version differs from the original only for submissions whose `http_date_values` emits invalid dates or clock times that the test's 200 sampled examples hit. Those lose 1/15 of Phase 1 (−2/195 of the total). All other submissions score identically.
+**Are scores comparable?** The fixed version (v2.1) differs from the original only for submissions whose `http_date_values` emits invalid dates, years before 1900 or invalid clock times that the test's 200 sampled examples hit. Those lose 1/15 of Phase 1 (−2/195 of the total). All other submissions score identically.
 
 ## How we checked it
 
@@ -71,6 +79,7 @@ Across all generators, `test_http_date_values_grammar` is the only test whose re
 - Original vs fixed test: first run `evidence/scripts/schemathesis_datagen_pipeline/fetch_tests.sh`, which extracts the hidden tests from the pinned image.
 - Then run `run_in_judge.sh` with `headers_overlay.py`, `run_seed_sweep.sh` and `check_witnesses.py` from the same folder. Saved outputs: `observed_output.txt`, `observed_seed_sweep.txt` and `observed_witnesses.txt`.
 - Side-by-side run of the original and fixed graders: run `repairs/schemathesis_datagen_pipeline-v2/paired/run.sh` and `paired/extra.sh` (`repairs/schemathesis_datagen_pipeline-v2/` is the folder holding the fixed version). Results are in `paired/results.md`. The table above is the final run, `evidence/runs/schemathesis_datagen_pipeline-v2-paired-b/result/out/summary.md` (seed sweep in `result/out/extra.log`); `paired/raw-summary.md` and `paired/seed-sweep.txt` record an earlier run with a year ≥ 1900 floor in the fixed check and are superseded.
+- v2.1 native run (current fix): `evidence/runs/schemathesis_datagen_pipeline-v2.1-native-20261013b/run.sh`, results in `result/out/summary.txt` and at the top of `paired/results.md`.
 - Fix: `repairs/schemathesis_datagen_pipeline-v2/repair.patch`, `Dockerfile`, `source-lock.json`.
 
 Supporting records: `repairs/schemathesis_datagen_pipeline-v2/` and `evidence/reviews/schemathesis_datagen_pipeline.md`.
