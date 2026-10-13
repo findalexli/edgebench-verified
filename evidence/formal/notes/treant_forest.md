@@ -7,8 +7,7 @@
    2543510/121003 ≈ 21.02 to any reachable total; the fixed `linear(3418, 92304)` maps
    3,418 → 0 and 92,304 → 100.
 3. IMPACT.md inversion: for s in (0, 20), the unique raw total with original score s is
-   5369 + s/20·82820, and its fixed score is 100(1951 + 4141 s)/88886. The five published
-   values 18.0, 15.6, 13.3, 16.9, 13.5 become 86.05, 74.87, 64.16, 80.93, 65.09.
+   5369 + s/20·82820, and its fixed score is 100(1951 + 4141 s)/88886. Applied to individual scores 18.0, 15.6, 13.3, 16.9, 13.5, this gives 86.05, 74.87, 64.16, 80.93, 65.09. It does not establish those as conversions of published run averages.
 
 ## Model and link to the code
 
@@ -39,7 +38,7 @@ above 20. `counter_inv_at_zero`: the formula also fails for a run whose original
 ## Limits
 
 - **Caveat for IMPACT.md.** The inversion of an average of runs is exact only if every run's raw
-  total lies in (5369, 88189]. IMPACT.md names only the 20–21.02 exception. A run with raw
+  total lies in (5369, 88189]. The current IMPACT.md instead propagates an outer interval covering both exceptions and published rounding. A run with raw
   ≤ 5,369 also scores 0 on the original scale, but between 0 and 2.19 on the fixed one.
   Treating it as raw 5,369 overstates the fixed average by up to 2.19/k points (k = number of
   valid runs). The other exception, a run in 20–21.02, overstates by at most about 0.12/k.
@@ -54,3 +53,16 @@ above 20. `counter_inv_at_zero`: the formula also fails for a run whose original
   submission is shown to reach.
 - The proofs use exact rationals, while the grader uses doubles.
 - The tester's movement rules are abstracted away. Only the counter bound is used.
+
+## Current impact calculation
+
+`tools/estimate_impact.py` now bounds the repaired mean using the lower chord
+`100*s/C` (C is the original-score cap) and upper affine line
+`100*(1951+4141*s)/88886`, with clipping and ±0.05 publication rounding. Both
+per-run affine bounds survive averaging; a published mean below 20 no longer
+implies that all constituent runs occupy the first segment. These intervals
+are conservative and do not assert that their endpoints are attainable.
+`tests/test_impact_intervals.py` independently checks the envelopes using exact
+rational scale values at every linear breakpoint, and tests mixed clipped and
+second-segment run averages. This is a Python rational-arithmetic check, not a
+new Lean theorem. The documented raw-total cap remains a named assumption.

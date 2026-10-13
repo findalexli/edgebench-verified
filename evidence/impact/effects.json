@@ -15,7 +15,7 @@
   "kind": "open",
   "direction": "up",
   "bound": null,
-  "text": "scale ×100/109 applied exactly; up for honest fits once the convention is documented (24 raw points for a one-shot fit; less for agents that iterate on the grader's feedback)"
+  "text": "scale ×100/109 applied with published rounding uncertainty; up for honest fits once the convention is documented (24 raw points for a one-shot fit; less for agents that iterate on the grader's feedback)"
  },
  "college_english_exam_bank": {
   "kind": "open",
@@ -25,9 +25,9 @@
  },
  "cta_risk_budget_optimization": {
   "kind": "bounded",
-  "direction": "down",
+  "direction": "either",
   "bound": 5,
-  "text": "down: lenient ratio credit for USD positions"
+  "text": "Combined currency/NAV candidate: up to the 5-point overseas-ratio component in either direction. Paired actual-helper controls only; native full-score integration pending. Historical FX-only proof and controls apply to the previous denominator."
  },
  "dabic_gravity_inversion": {
   "kind": "excluded",
@@ -123,16 +123,16 @@
   "kind": "bounded",
   "direction": "up",
   "bound": 2.13,
-  "text": "up, new runs only: 5 statements whose type contained a hidden sorry become reachable (1.18 points, measured), plus up to 4 later weak_PFR targets proved through them (2.13 points in all; the 4 are inferred from the measured rule and the upstream proof structure); re-scoring existing submissions changes nothing"
+  "text": "up, new runs only: rule arithmetic allows 1.18 points for five targets and at most 2.13 with four downstream targets. The actual five targets were not proved; component controls and inferred upstream dependencies support only a conditional limit, not measured recovery."
  },
  "portfolio_risk_calibration": {
-  "kind": "bounded",
+  "kind": "sensitivity",
   "direction": "either",
-  "bound": 0.39,
-  "bound_up": 0.39,
+  "bound": 0.3921,
+  "bound_up": 0.3921,
   "bound_down": 0.1,
-  "basis": "decimal sweep, not proved",
-  "text": "either: the fixed excess is slightly higher when positive and slightly lower when negative; at most 0.39 up (a joint bound over the excess, information-ratio and Sortino parts at the same strategy return, with the grader's 4-decimal rounding; the parts' own maxima, 0.18, 0.11 and 0.10, are not additive) and 0.10 down (excess part only), from a 50-digit decimal sweep on the fixed test data, not a proof"
+  "basis": "restricted decimal sweep, not a global bound",
+  "text": "Sensitivity assumption only: +0.3921 / −0.10 from a finite sweep at N=242/243, strategy return −30% to +100%; largest sampled joint rise 0.3913. No proved bound for all valid submissions."
  },
  "rust_multicrate_reconstruction": {
   "kind": "bounded",
@@ -167,10 +167,10 @@
   "text": "up: correct witnesses rejected (ceiling 72.40 → 78.61)"
  },
  "treant_forest": {
-  "kind": "exact",
+  "kind": "scale",
   "direction": "up",
   "bound": null,
-  "text": "scale change applied exactly"
+  "text": "Scale interval from rounded average, allowing zero-score clipping and second-segment runs; no exact inversion from the public mean."
  },
  "tree_block_partitioning": {
   "kind": "bounded",

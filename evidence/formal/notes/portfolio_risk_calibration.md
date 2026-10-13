@@ -6,8 +6,7 @@
 > fixed excess rises strictly with the strategy return), `same_order` (the fix never reorders
 > strategies against the original for a fixed benchmark) and `same_sign` (the fix keeps the sign, so
 > the 0% deduction line is unchanged) are statements about the fixed formula. Summary row: covers
-> "note" (score compatibility), proved: the theorems show that old and new scores are compatible, not
-> that the fix is correct, since nothing formal links the model to the patched code. Still not proved: the size of the change (at most 0.39 up, 0.10 down, from a
+> "note" (score compatibility), proved: the theorems preserve excess-value order and sign under fixed-benchmark and domain assumptions, not total-score compatibility or correctness of the implemented repair, since nothing formal links the model to the patched code. Still not proved: a global bound on the size of the change (sampled joint rise 0.3913, sampled envelope 0.3921 and fall 0.10, from a restricted N=242/243, return −30% to +100%
 > 50-digit decimal sweep, `repairs/portfolio_risk_calibration-v2/paired/bound.out`), its direction
 > (fixed above original for a > b), and the link from the model to the fixed code beyond the
 > source-line note. No new Lean was written.
@@ -30,13 +29,13 @@ Lean 4: `evidence/formal/lean/ebv/Ebv/PortfolioOrderRealExp.lean` (output
   `excess_annual`, with k = 252/len(common_idx).
 
 ## Result
-**Proved for order and sign (score compatibility); the size of the change is not proved.**
+**Proved for excess-value order and sign under the stated hypotheses; total-score compatibility and the size of the change are not proved.**
 - `same_order`: for a fixed benchmark return b, the grader and contract formulas rank any two
   strategies identically, for any k, k₁ > 0, when 1+a > 0 and 1+a-b > 0.
 - `same_sign`: both formulas are positive exactly when a > b, with the same k.
 - `k_real_pos` checks the instances 252/242 and 252/241 (the latter is the exported `annual_return`'s exponent, which no score uses). The fixed grader's exponents, 252/242 and 252/243, are covered because the theorems hold for every k > 0.
 - **Not proved:** the magnitude claims, namely a gap of at most ~0.56–0.71 pp, at most 0.18
-  excess-score points, and at most 0.39 total points (a joint bound with the grader's 4-decimal rounding). They need certified enclosures of
+  excess-score points, and a global total-score bound (the restricted sweep reports joint rise 0.3913 and envelope 0.3921 with rounding slack). They need certified enclosures of
   x^(126/121), for which there is no light tactic. They remain sweeps (float64 `sensitivity.out`; 50-digit decimal `repairs/portfolio_risk_calibration-v2/paired/bound.out`).
 
 ## Counter-check
