@@ -1,6 +1,6 @@
 # Vibrating Path Graph Coloring (`vibrating_path_graph_coloring`)
 
-**Outcome:** Fixed. <mark>On the publisher's 4-CPU grader, a valid solution using more than about 14 s of CPU per case times out, although the README promises 30 s per case, and one timeout leaves the whole submission without a score. The fixed version runs at most as many cases at once as the grader has CPUs and allows 900 s instead of 600 s for the whole run. The tester's rejection of the README's three-line zero-hit form remains as a note; it cannot change any official score.</mark>
+**Outcome:** Fixed. <mark>On the publisher's 4-CPU grader, a valid solution using more than about 14 s of CPU per case times out, although the README promises 30 s per case, and one timeout leaves the whole submission without a score. The fixed version runs at most as many cases at once as the grader has CPUs and allows 900 s instead of 600 s for the whole run. The tester's rejection of the README's three-line zero-hit form remains as a note; its score effect is ruled out on 37 certified cases and remains unresolved on 13 cases.</mark>
 
 ## What the task asks
 
@@ -27,7 +27,7 @@ The README gives no exception for the case with no hits. `tools/README.md` conta
 | official cases 0001,0002,0003,0004,0007,0008 | Q=0, baseline coloring, **two-line** | WA "edge (...) has same color" in every case |
 | same cases | Q=0, same coloring, **three-line** | WA "expected N colors, got 0" in every case |
 
-**Why it does not matter for scores.** On 37 of the 50 official cases, the input graph provably cannot be coloured with K colours without hits. On the other 13 this holds with overwhelming probability, assuming the published generator. A zero-hit answer is therefore wrong in either format. The mismatch changes only the reason given for the wrong answer.
+**What the evidence establishes.** On 37 of the 50 official cases, the input graph provably cannot be coloured with K colours without hits. A zero-hit answer on those cases is wrong in either format. The remaining 13 fixed graphs have no certificate here; a probability bound under an assumed generator does not establish their actual colourability. A solver can use hits on the certified cases and zero hits elsewhere, so the 37 certificates do not establish zero effect on a complete submission.
 
 - **37/50 cases have exact certificates** (short proofs that the graph cannot be coloured with K colours):
   - 13 cases with K=1: any edge;
@@ -50,13 +50,13 @@ Measured on the original grader at `--cpus 4` (`evidence/runs/vibrating_path_gra
 
 In one more original-grader run at 4 CPUs (`evidence/runs/vibrating_path_graph_coloring-v2-paired-b`), the 25 s deadline solution lost 14 cases (36 OK, 14 TLE, TOTAL `inf`). Every solution process in that run ended at most 27.14 s after its start, and all 14 timed-out cases are among the 25 cases with the slowest tester. The evaluator reports a timeout of the tester (its own `timeout=60`) with the same `TLE` label as a timeout of the solution. The likely cause is therefore the tester reaching its 60 s timeout with about half a CPU. This cause is inferred, not observed: that run did not log tester starts, and a repeat on another worker that did (`vibrating_path_graph_coloring-v2-paired-c`) passed 50/50 twice. Across all nine original-grader gradings of this solution (three runs each of `-b` and `-c`, the latter grading it twice per run), it failed only this once; under the fixed version it passed all six of its gradings ([repeatability](../repairs/vibrating_path_graph_coloring-v2/paired/results.md)).
 
-**Note shipped with the task.** For zero hits, the tester accepts a two-line output and rejects the README's three-line form with an empty hit line. On every official case a zero-hit answer is wrong anyway (proved for 37 of 50, overwhelmingly likely for the other 13), so the mismatch cannot change any score. A parser patch that accepts both forms gives identical scores on the official cases and could be adopted as an optional clean-up.
+**Note shipped with the task.** For zero hits, the tester accepts a two-line output and rejects the README's three-line form with an empty hit line. Zero-hit answers are proved invalid for 37 official cases; the other 13 remain unresolved. Accepting both forms would remove the format mismatch, but such a parser repair is not part of this package and identical official scores have not been demonstrated.
 
 ## How much it matters
 
 - **CPU count.** On the original grader at the publisher's 4 CPUs, any valid solution using about 14–30 s of CPU per case loses its whole score (measured with 20 and 28 s per case); under the fixed version these solutions are scored. A solution that stops at a wall-clock deadline gets about twice the CPU per case under the fixed version (mean 12.84 s → 24.98 s for the 25 s deadline solution, `vibrating_path_graph_coloring-v2-paired-b`); how much that changes its score is not measured. A solver sees the per-case TLE results after each submission, and the run keeps its best valid submission, so a run loses its score only if it never submits a faster valid solution.
 - **One failed case.** The all-or-nothing rule is unchanged and still undisclosed.
-- **Zero-hit format.** Largest score effect: 0 on the official cases. Only a solver that outputs zero hits in the README form would see a different error message.
+- **Zero-hit format.** Score effect is zero on the 37 certified cases. On the other 13 it is unresolved: a valid zero-hit answer rejected for formatting would make the whole submission nonfinite. No such official-case witness or universal zero-effect proof is available.
 
 ## The fix
 
@@ -82,7 +82,7 @@ Under the fixed version the slowest 28 s case took 28.12 s from start to end. Gr
 
 These notes still ship with the fixed version:
 
-1. For zero hits, the tester accepts only the two-line form, not the README's three-line form. A zero-hit answer is wrong on every official case, so no score changes.
+1. For zero hits, the tester accepts only the two-line form, not the README's three-line form. A zero-hit answer is proved wrong on 37 official cases; score effects on the other 13 are unresolved.
 2. One crashed, timed-out or malformed case makes the total `inf`, so the whole submission gets no score.
 
 ## How we checked it
