@@ -1,0 +1,84 @@
+{
+ "schema": "edgebenchverified-repair-source-lock-v1",
+ "task_id": "openrct2_theme_park_ai",
+ "version": "v2",
+ "status": "accepted-candidate (not yet adopted into tasks/)",
+ "change": "work.agent_query only (one Rules bullet replaced by two). No image file changes.",
+ "original_task_json": {
+  "path": "tasks/openrct2_theme_park_ai.json",
+  "sha256": "09e2a4d83cb14b735a04f43a40764806d05cadc4206d293c5bd3f211cc051449"
+ },
+ "v2_task_json_in": {
+  "path": "repairs/openrct2_theme_park_ai-v2/task.json.in",
+  "sha256": "d84f3378b8f35bf323a577fc53c08e4dcd33d6babfa4e6385a89ead2902b5d00"
+ },
+ "original_agent_query": {
+  "path": "orig/agent_query.md",
+  "sha256": "00cf3133295efdd71bd0184e4b6c084f60cbda75b7040f1724c920e68ae3a273"
+ },
+ "v2_agent_query": {
+  "path": "files/agent_query.md",
+  "sha256": "c64ec46eb671ae591acd1d9cd91750d062ee8feaac3e5fb48e4bc70d3d25ecf7"
+ },
+ "judge_image": {
+  "reference": "seededge/edgebench.judge.openrct2_theme_park_ai@sha256:a5263578c1d4b1cf1c693d182254fdbd7f0bd07631edadf3523467b1cfd43c7f",
+  "image_tag": "80316ccd77ae",
+  "changed": false
+ },
+ "work_image": {
+  "reference": "seededge/edgebench.work.openrct2_theme_park_ai@sha256:ddc3b9f15e9e48780f83a6df9cc633c953c5e7edb848b2ae1de3521d998deecf",
+  "image_tag": "7283790ee698",
+  "changed": false
+ },
+ "evaluator_files_unchanged": {
+  "/tmp/eval_openrct2.py": "7fdde3e0fe0e2fbdc06cb03fa792552ac17e92901a3e75d5b015cf46778d133c",
+  "/tmp/openrct2_original_eval.py": "bfcf7ab998eb1136e5e54f52416c47f3c9b659fa72c5c5c2044b3a88859c155b"
+ },
+ "solver_visible_docs_checked": {
+  "/home/workspace/openrct2/openrct2.d.ts (work image)": "0db2664c2565bf72223659cfd2dc3b047b5ca5ceaa920e5c365328ed4bd902f0",
+  "note": "Work image /home and /tmp contain only my_plugin.js, openrct2.d.ts, samples/*.js and agent dotfiles; no README. None states a game horizon. Judge image has no solver-facing README (only OpenRCT2's own doc/ files)."
+ },
+ "evidence": {
+  "scripts/openrct2_theme_park_ai/run_120s_cpus2.log": "062b223f00627aeef49e981c318bacfcceb5a1f28039aa209433ec9e1c9a845d",
+  "scripts/openrct2_theme_park_ai/run_60s_speed4_cpus2.log": "517ab1a9f7137098f69410a4147844e4626425c801634c42c5c9831938224528",
+  "scripts/openrct2_theme_park_ai/run_60s_speed4_cpus0.25.log": "0f648e720e8d92d4057ba7a93f5f6a8c6252a0264f321d09390a44bc203f58b0",
+  "scripts/openrct2_theme_park_ai/run_60s_speed1_cpus2.log": "c4142f87a72b15f7140a0ed60fd40e8cbb9d535291ba82cee36b4360cabd6fb9",
+  "scripts/openrct2_theme_park_ai/driver.py": "7aff521399d9d4e2327b763472d3d6e05b37b23a0b06b8117b4d293758727e51",
+  "paired/logs/run_60s_speed3.log": "f58534995fa698ec427f3e19902484c6d4eabf908f93b7edda081f0dfffebe64",
+  "paired/logs/run_60s_speed8.log": "8e8390533d88a1ad504bed114d523fdc8d105206e8900fa831af91417b6930f4",
+  "paired/logs/plugin_speed3.js": "8496d82efe96a6a564f27193b4c687a50125bb2ae07511333e36e4088930384f",
+  "paired/logs/plugin_speed8.js": "353dd73240bddf3e35228c9b1d466287c21b8ef214b897bfc0e5df244f2f9e72",
+  "paired/check_horizon.py": "aff3ea334f190d716f587dca1071d143af110969b3f9344d7d394bf52bf89767"
+ },
+ "rescale_anchors": {
+  "kind": "linear",
+  "lower": 0.0,
+  "upper": 40000.0,
+  "changed": false
+ },
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {},
+  "inputs": [
+   {
+    "source": "taskjson",
+    "path": "tasks/openrct2_theme_park_ai.json#work.agent_query",
+    "sha256": "00cf3133295efdd71bd0184e4b6c084f60cbda75b7040f1724c920e68ae3a273"
+   },
+   {
+    "source": "taskjson",
+    "path": "tasks/openrct2_theme_park_ai.json#work.agent_query",
+    "sha256": "00cf3133295efdd71bd0184e4b6c084f60cbda75b7040f1724c920e68ae3a273"
+   }
+  ],
+  "outputs": {
+   "files/agent_query.md": "c64ec46eb671ae591acd1d9cd91750d062ee8feaac3e5fb48e4bc70d3d25ecf7",
+   "orig/agent_query.md": "00cf3133295efdd71bd0184e4b6c084f60cbda75b7040f1724c920e68ae3a273"
+  },
+  "repair_patch_sha256": "2e6bad8de3dac571074d533c030cf9a8d9616a7d41aeab87d697a73b019f5b24",
+  "materialize_sh_sha256": "381e42546b81dd7b565af06acf33480de4bc5ed76cbe84d6708810c1d7be616d",
+  "task_json_diff_sha256": "78d1eab4cbe1b40f3e8a146a5f317f09c4c7a790835fe4684ebbde637963f653",
+  "note": "Prompt-only repair: the base text is work.agent_query of the public task JSON; no image is pulled."
+ }
+}

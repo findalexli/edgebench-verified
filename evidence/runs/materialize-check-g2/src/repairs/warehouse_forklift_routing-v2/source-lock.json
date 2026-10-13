@@ -1,0 +1,54 @@
+{
+ "task_id": "warehouse_forklift_routing",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/warehouse_forklift_routing.json",
+  "sha256": "780025706c0b3201025f240e25b742f179c32c25be487d4802f074264b8cbd1c"
+ },
+ "original_judge_image": "seededge/edgebench.judge.warehouse_forklift_routing@sha256:ac7fdf03bb73d0f9ded21662c7c3ac246ce521ee5e6b237978a2799c7bc29cb3",
+ "original_judge_image_tag": "d342863c29cc",
+ "v2_judge_image_tag": "d342863c29cc-ebv-v2.1",
+ "superseded_judge_image_tag (v1.0 package)": "d342863c29cc-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/tmp/eval_warehouse_manager.py",
+   "original_sha256": "c5ff0c26ef5d42603926874630d573d4466adfeb117eaede3abca0fe846682fb",
+   "original_bytes": 2339,
+   "replacement": "files/eval_warehouse_manager.py",
+   "replacement_sha256": "afccb3bb0cf0db22b691e3d67cebf24978ad488fbf3ff7b524daa2e688eb5a76",
+   "replacement_bytes": 3247,
+   "mode": "0755",
+   "previous_replacement_sha256": "eff6a69b5bea0ccbddb62633a08b18ad931b8b01188731595c8935fa7c537b95",
+   "previous_replacement_bytes": 2340,
+   "previous_note": "2026-10-12: earlier fixed version changed only TIME_LIMIT 60 -> 150; this version also limits parallelism to the grader CPU quota"
+  }
+ ],
+ "repair_patch_sha256": "3389e760d0f56bead35b540651af151e180172172c0dc6822bf013da6e41774c",
+ "dockerfile_sha256": "5407b804dde9c69b107ac8f6eccf8ed7561c0925dfa5e5f570f3643f3c505f93",
+ "work_image": "seededge/edgebench.work.warehouse_forklift_routing@sha256:05dd02447c1d1d93201e4567f9591dcdd27a09b7f03794bd5f393b64aaeb5929",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "rescale_changed": false,
+ "rescale_note": "piecewise_log_min anchors kept unchanged by decision (2026-10-12); a kernel-checked Lean lower bound (reviews/warehouse_lower_bound_lean.md) shows rank1/super_anchor are unreachable, capping normalized scores at about 30.3; documented, not re-anchored",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.warehouse_forklift_routing@sha256:ac7fdf03bb73d0f9ded21662c7c3ac246ce521ee5e6b237978a2799c7bc29cb3"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/tmp/eval_warehouse_manager.py",
+    "sha256": "c5ff0c26ef5d42603926874630d573d4466adfeb117eaede3abca0fe846682fb"
+   }
+  ],
+  "outputs": {
+   "files/eval_warehouse_manager.py": "afccb3bb0cf0db22b691e3d67cebf24978ad488fbf3ff7b524daa2e688eb5a76"
+  },
+  "repair_patch_sha256": "3389e760d0f56bead35b540651af151e180172172c0dc6822bf013da6e41774c",
+  "materialize_sh_sha256": "b3c6fca6d2bccdbf4493638f717e1370fe980f3dead1359f9f1b2f70e820304b"
+ }
+}

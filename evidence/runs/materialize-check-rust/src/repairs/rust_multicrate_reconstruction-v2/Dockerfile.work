@@ -1,0 +1,6 @@
+# rust_multicrate_reconstruction v2 WORK image: adds the four files of the vendored cc 1.2.55 crate
+# that the original starter omits (vendor-deps/cc/src/target/*.rs, from crates.io cc-1.2.55.crate,
+# checked against vendor-deps/cc/.cargo-checksum.json). Without them Cargo rejects the vendored cc
+# source, so the solver cannot build or test 9 of the 14 crates offline. Nothing else changes.
+FROM seededge/edgebench.work.rust_multicrate_reconstruction@sha256:5d0f52e7ea32ea08090978f2df812d27303b2ab59a266c0c736cfd7c68a3eced
+COPY --chown=agent:agent files/vendor-deps/cc/src/target/ /home/workspace/cas_rust_benchmark/agent-start/vendor-deps/cc/src/target/

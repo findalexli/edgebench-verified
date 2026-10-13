@@ -1,0 +1,18 @@
+# Task JSON change (tasks/<id>.json -> task.json.in), moved verbatim from the earlier repair.patch.
+--- a/tasks/treant_forest.json
++++ b/task.json.in
+@@ -22,11 +22,9 @@
+     "score_direction": "maximize",
+     "selection": "score_first",
+     "rescale": {
+-      "kind": "piecewise_max",
+-      "baseline": 5369.0,
+-      "rank30": 88189.0,
+-      "rank1": 330195.0,
+-      "super_anchor": 451198.0
++      "kind": "linear",
++      "lower": 3418.0,
++      "upper": 92304.0
+     }
+   }
+ }

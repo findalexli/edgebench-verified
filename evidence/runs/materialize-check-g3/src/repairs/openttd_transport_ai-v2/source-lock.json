@@ -1,0 +1,91 @@
+{
+ "schema": "edgebenchverified-repair-source-lock-v1",
+ "task_id": "openttd_transport_ai",
+ "version": "v2",
+ "status": "accepted-candidate (not yet adopted into tasks/)",
+ "change": "work.agent_query Goal paragraph; work image my_ai/main.nut line 5 (GetCompanyValue -> GetQuarterlyCompanyValue(COMPANY_SELF, CURRENT_QUARTER)); work.image_tag += -ebv-v2. Judge unchanged.",
+ "original_task_json": {
+  "path": "tasks/openttd_transport_ai.json",
+  "sha256": "7ec35c5f0065dd4b2e621077cc38491382899611a4c5fee9398dc62148bb0bd5"
+ },
+ "v2_task_json_in": {
+  "path": "repairs/openttd_transport_ai-v2/task.json.in",
+  "sha256": "1ff672dc6e4335bb818a1bdf5e92ede7f35b59d47db5a032abb6abf9a4096686"
+ },
+ "work_image": {
+  "reference": "seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0",
+  "image_tag": "f2e9a9fb0fff",
+  "v2_image_tag": "f2e9a9fb0fff-ebv-v2",
+  "changed": true,
+  "dockerfile": "Dockerfile.work",
+  "dockerfile_sha256": "6bae65516dd4a3beccd3039a7b9ec3cf804d72389fe94c9e0825e6bff6e4ed1c",
+  "changed_files": {
+   "/home/workspace/openttd_ai/my_ai/main.nut": {
+    "original_sha256": "77e77c13ae0ff527ad8fe6b9d25c9a079c8ee625a5bcdf8173abb1e9248eb768",
+    "v2_sha256": "c24f71b3d844c09d6165c804b2a2185f5cb11bf67183e69731a6fdf79fccf92f"
+   }
+  },
+  "unchanged": {
+   "/home/workspace/openttd_ai/my_ai/info.nut": "891c4c91dab3ab7a57e58c8546708cf60684d172f9e4ecbefbcec88de0141624"
+  }
+ },
+ "judge_image": {
+  "reference": "seededge/edgebench.judge.openttd_transport_ai@sha256:27167956fd001115b0f6bb3e39e2e220ecd84e053dc3624d2fc3bc07bc9fc09c",
+  "image_tag": "d8e83be4044e",
+  "changed": false
+ },
+ "evaluator_files_unchanged": {
+  "/tmp/eval_openttd.py": "167e480ac2046406999b297a122c196d28160748942aba9a35f622cefb70ba56",
+  "/tmp/openttd_original_eval.py": "76dae84357c7cf0baf1d712bd88086ce12c0475129d29c9daa1656cb6b123634",
+  "openttdlab.py (0.0.75)": "5017fa28a5629acc73c50e09a9893307eff9f159acd5795a746308282594d8a2"
+ },
+ "engine": {
+  "openttd-13.4-linux-generic-amd64/openttd": "cb5d145b2a795c7ea77196f50af72d046d8508fe5f213c00a4f5abfd9991b22b",
+  "api_source": "https://github.com/OpenTTD/OpenTTD/blob/13.4/src/script/api/script_company.cpp (GetQuarterlyCompanyValue)"
+ },
+ "rescale_anchors": {
+  "kind": "log_max",
+  "baseline": 100000.0,
+  "expert": 1000000000.0,
+  "changed": false
+ },
+ "paired_run": {
+  "job": "openttd_transport_ai-v2-paired",
+  "worker": "ifja0zbkv63ca6whxt8m7",
+  "results": "paired/results.md"
+ },
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "work": "seededge/edgebench.work.openttd_transport_ai@sha256:8c1921e643eda26524123b772dd3b6c637566f39f4dddb99ccea6db3e68627e0"
+  },
+  "inputs": [
+   {
+    "source": "work",
+    "path": "/home/workspace/openttd_ai/my_ai/main.nut",
+    "sha256": "77e77c13ae0ff527ad8fe6b9d25c9a079c8ee625a5bcdf8173abb1e9248eb768"
+   },
+   {
+    "source": "taskjson",
+    "path": "tasks/openttd_transport_ai.json#work.agent_query",
+    "sha256": "cf18bedcf5dbd75ea09b09beb22c0e82551556a656a8fbd9a1a742787a5b458f"
+   },
+   {
+    "source": "taskjson",
+    "path": "tasks/openttd_transport_ai.json#work.agent_query",
+    "sha256": "cf18bedcf5dbd75ea09b09beb22c0e82551556a656a8fbd9a1a742787a5b458f"
+   }
+  ],
+  "outputs": {
+   "files/agent_query.md": "07f8cd17323eb9698a9689ed65972ed83f6281149619c657c15fe89d1d92bff7",
+   "files/my_ai/main.nut": "c24f71b3d844c09d6165c804b2a2185f5cb11bf67183e69731a6fdf79fccf92f",
+   "orig/agent_query.md": "cf18bedcf5dbd75ea09b09beb22c0e82551556a656a8fbd9a1a742787a5b458f",
+   "orig/main.nut": "77e77c13ae0ff527ad8fe6b9d25c9a079c8ee625a5bcdf8173abb1e9248eb768"
+  },
+  "repair_patch_sha256": "1e583b772363a23dd2b36466dcf06dc9eac1cbb2180137c61bcd92e134bfb49b",
+  "materialize_sh_sha256": "603251d8291eb445dc3b307622a58be1468beaf91ce57ae9275a44462d7d7b99",
+  "task_json_diff_sha256": "76e9645bbfcbf334f5febfd6c62e1617e6126faa8b546c4327148ed55da98990",
+  "note": "Prompt plus starter fix: work.agent_query comes from the public task JSON; the baseline main.nut comes from the pinned work image. The judge image is unchanged."
+ }
+}

@@ -1,0 +1,43 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 494B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633e75b2a21ef805961bb190c0a71afb75225986997340185eb7d67fc54
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 21.29kB done
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633e75b2a21ef805961bb190c0a71afb75225986997340185eb7d67fc54
+#5 resolve docker.io/seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633e75b2a21ef805961bb190c0a71afb75225986997340185eb7d67fc54 done
+#5 DONE 0.1s
+
+#6 [2/4] COPY files/tests/test.sh /tests/test.sh
+#6 DONE 0.0s
+
+#7 [3/4] COPY files/tests/test_02_reporting.py /tests/test_02_reporting.py
+#7 DONE 0.0s
+
+#8 [4/4] COPY files/tests/test_05_email_coverage.py /tests/test_05_email_coverage.py
+#8 DONE 0.0s
+
+#9 exporting to image
+#9 exporting layers 0.0s done
+#9 exporting manifest sha256:a76ef91fb2b1bb04a12bf22dc21b39db8924cf92ef504b80e6ecc722e35a443c done
+#9 exporting config sha256:41909820c27d5c956b5c7c00cf393546cd6856dd26173bff34618f6e295c96ac done
+#9 exporting attestation manifest sha256:627a52a7a10059d8812a498eba315687f157693cf52ee17e87e0d66e6a2c0364 done
+#9 exporting manifest list sha256:668f8683f17a27aafaf3044f62c98837ad8b416aac6c2f2f7bfa3e5003509d07 done
+#9 naming to docker.io/seededge/edgebench.judge.schemathesis_reporting_observability:junit-coverage-v2.1 done
+#9 unpacking to docker.io/seededge/edgebench.judge.schemathesis_reporting_observability:junit-coverage-v2.1 0.0s done
+#9 DONE 0.1s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)

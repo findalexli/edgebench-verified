@@ -1,0 +1,64 @@
+{
+ "task_id": "schemathesis_datagen_pipeline",
+ "version": "v2",
+ "original_judge_image": "seededge/edgebench.judge.schemathesis_datagen_pipeline@sha256:16b21364d67906d802e24d0b3b4505c42a6ac0f91cd5b382bb4c9d1d20224d37",
+ "original_task_json": {
+  "path": "tasks/schemathesis_datagen_pipeline.json",
+  "sha256": "446b568d02621af5b9edd567fb806f32ed009bbc5308b7e7cb547bf1b851a4e5",
+  "judge.image_tag": "c4be4b8d9369"
+ },
+ "candidate_task_json": {
+  "path": "task.json.in",
+  "sha256": "1ab37188a189e6ab48ff9e9e1c18936bed1844bf8c298a001ec218a3bbf40121",
+  "judge.image_tag": "http-date-v2",
+  "only_field_changed": "judge.image_tag"
+ },
+ "files": [
+  {
+   "target": "/tests/test_01_header_strategies.py",
+   "original_sha256": "f2bf937f58549d6a82468883cf5a199357cef2caaf5dc9da865f962648bdeec6",
+   "original_bytes": 5899,
+   "replacement": "files/tests/test_01_header_strategies.py",
+   "replacement_sha256": "07848bce6266964ba7d09b57b55af4f719b7ff6935dbe73287f2d39017f9f830",
+   "replacement_bytes": 7137
+  }
+ ],
+ "unchanged_judge_tests_sha256": {
+  "/tests/test.sh": "82939a75d3ce1f9a7ef4f74420975e673cef8e4d8ed57085b9f468c6e0cfbf84",
+  "/tests/test_02_coverage_hooks.py": "bf80a89c59b454151ece6daac364075ce979e0124b4db1c6fef9cf36c3088463",
+  "/tests/test_03_pytest_parametrize.py": "0e31b9bf6a0b1f870c2cf2fe879aa7e61390da9582b3524f8b577b6285673bcc",
+  "/tests/test_04_discriminator_validation.py": "838a934245e02aae123c01f966e7dc82a6be4057f42f3c74c615d002ce15c57e",
+  "/tests/test_05_discriminator_generation.py": "7aae25cdb52e0d219a26aabf0d6188bc56160e6a51ffbf87b0fc189809e17b98",
+  "/tests/test_06_schema_503_retry.py": "2f3ba6b8f04f3e79cd4ffc30443b40560d116bb7dd594ed1205b02b4256a6e6f",
+  "/tests/test_07_all_errors.py": "369794a2ee9cb9b15b2510cb58b980a0d64ee2ed595e8c00bd4757f60a89429d",
+  "/tests/test_08_pattern_transform.py": "4d16cd8c516daa4c1d1a29485b497a2b23d2ee7d8de5c54eaf2ad0d3e75fc210"
+ },
+ "repair_patch_sha256": "f603cacabd2abc3a08f13734e189b3dde742197911a8d26b9d3d710edca86dcf",
+ "dockerfile_sha256": "ec1da6c345c5e7bb97d6d4e47aa3ff9cfa782aa9f7e6717c03d990adb43d1152",
+ "derivation": {
+  "base_patch": "proposedrepairs/datagen-http-date/repair.patch (accepted V2 predicate; intermediate sha256 b5ae22f45cd7e7a2cb9f74979fa599cfdb97d672ca1d971682416871dd94261d)",
+  "additional_change": "test_http_date_values_grammar max_examples 50 -> 200 (review suggestion)"
+ },
+ "amendments": [
+  "2026-10-12 coordinator: removed unstated year>=1900 floor (now year>=1); patch regenerated"
+ ],
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.schemathesis_datagen_pipeline@sha256:16b21364d67906d802e24d0b3b4505c42a6ac0f91cd5b382bb4c9d1d20224d37"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/tests/test_01_header_strategies.py",
+    "sha256": "f2bf937f58549d6a82468883cf5a199357cef2caaf5dc9da865f962648bdeec6"
+   }
+  ],
+  "outputs": {
+   "files/tests/test_01_header_strategies.py": "07848bce6266964ba7d09b57b55af4f719b7ff6935dbe73287f2d39017f9f830"
+  },
+  "repair_patch_sha256": "f603cacabd2abc3a08f13734e189b3dde742197911a8d26b9d3d710edca86dcf",
+  "materialize_sh_sha256": "aeaa1699d864ba2963a2f4862ea7756b64bf178361d9e83503c4878f8ea74f4c"
+ }
+}

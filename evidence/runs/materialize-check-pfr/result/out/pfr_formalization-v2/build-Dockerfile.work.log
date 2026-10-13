@@ -1,0 +1,33 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.work
+#1 transferring dockerfile: 644B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.work.pfr_formalization@sha256:3be95d28524d9bad61f82306b6448fe3d0fc2dff66fd285d62bfa057bf047c86
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 11.00kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.work.pfr_formalization@sha256:3be95d28524d9bad61f82306b6448fe3d0fc2dff66fd285d62bfa057bf047c86
+#5 resolve docker.io/seededge/edgebench.work.pfr_formalization@sha256:3be95d28524d9bad61f82306b6448fe3d0fc2dff66fd285d62bfa057bf047c86 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY --chown=agent:agent files/work/PFR/WeakPFR.lean /home/workspace/se-bmk-intern/pfr/PFR/WeakPFR.lean
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:d7246b6e68229371b45bc5f5d348816732682e617fc204ab3b6de2e15368cc71 done
+#7 exporting config sha256:e9c86fe2192e1f9636fbce004385286a7ecad9da4bc544c07fd9b30e71f27407 done
+#7 exporting attestation manifest sha256:def8c3dbc546fbc1b6567f3c85ee16f7c6c3e333298143f36d7c3f1f6a3ce61a 0.0s done
+#7 exporting manifest list sha256:63aee091c9bbf03ec1c783f18ffd10498a33c11f1ea4683a4428610ebe177195 done
+#7 naming to docker.io/seededge/edgebench.work.pfr_formalization:pfr_formalization-v2-work done
+#7 unpacking to docker.io/seededge/edgebench.work.pfr_formalization:pfr_formalization-v2-work 0.0s done
+#7 DONE 0.1s

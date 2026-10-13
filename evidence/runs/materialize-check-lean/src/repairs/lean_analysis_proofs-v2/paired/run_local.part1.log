@@ -1,0 +1,69 @@
+Lean (version 4.28.0, x86_64-unknown-linux-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)
+leanprover/lean4:v4.28.0
+[04:20:16] v1 listing
+SUMMARY checked=4743 bad=2901
+Build completed successfully (8128 jobs).
+[04:21:34] v2 rebuild + listing
+  [NormedAddCommGroup F] [NormedSpace 𝕜 F] {f : 𝕜 → F} {x : 𝕜} {s : Set 𝕜} (h : DifferentiableWithinAt 𝕜 f s x) :
+  [Module 𝕜 E] [TopologicalSpace E] {F : Type u_3} [AddCommGroup F] [Module 𝕜 F] [TopologicalSpace F] (f : E → F)
+⚠ [8118/8128] Built Analysis.Section_11_2 (8.1s)
+⚠ [8119/8128] Built Analysis.Section_11_3 (3.8s)
+⚠ [8120/8128] Built Analysis.Section_11_4 (3.3s)
+⚠ [8121/8128] Built Analysis.Section_11_5 (3.3s)
+⚠ [8122/8128] Built Analysis.Section_11_7 (3.3s)
+⚠ [8123/8128] Built Analysis.Section_11_6 (3.0s)
+⚠ [8124/8128] Built Analysis.Section_11_8 (3.2s)
+⚠ [8125/8128] Built Analysis.Section_11_9 (3.5s)
+⚠ [8126/8128] Built Analysis.Section_11_10 (3.2s)
+✔ [8127/8128] Built Analysis (59s)
+ℹ [8128/8128] Built ListDeclAxiom (59s)
+Build completed successfully (8128 jobs).
+Build completed successfully (8129 jobs).
+[04:24:23] export rebuilt artifacts
+90 /out/v2-changed-files.txt
+'EbvV2.inter'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvV2.div_corrected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EbvV2.anti_symm_corrected' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Chapter11.MajorizesOn.anti_symm : ∀ {f g : ℝ → ℝ} {I : Chapter11.BoundedInterval},
+  (∀ x ∈ ↑I, f x = g x) ↔ Chapter11.MajorizesOn f g I ∧ Chapter11.MajorizesOn g f I
+@Chapter11.PiecewiseConstantOn.div : ∀ {f g : ℝ → ℝ} {I : Chapter11.BoundedInterval},
+  Chapter11.PiecewiseConstantOn f I → Chapter11.PiecewiseConstantOn g I → Chapter11.PiecewiseConstantOn (f / g) I
+=== [04:24:32] case v1 orig
+lake build rc=0
+eval rc=0
+  "summary": "mode=unweighted, repaired=0/2901, remaining_bad=2901",
+=== [04:24:53] case v2 orig
+lake build rc=0
+eval rc=0
+  "summary": "mode=unweighted, repaired=0/2338, remaining_bad=2338",
+=== [04:25:10] case v1 A
+c61044f768d33a84f574ce53b066cf214fa9bb78c5a41aef42670c9c5713ffd6  /variants/Section_11_2.A.lean
+4ef533a15082e93b3414d8c08fb92fda4052c21f8651125876d97e4f2f2b1410  /variants/Section_11_3.A.lean
+lake build rc=0
+eval rc=0
+  "summary": "mode=unweighted, repaired=1/2901, remaining_bad=2898, type_changed=2",
+=== [04:29:07] case v2 A
+c61044f768d33a84f574ce53b066cf214fa9bb78c5a41aef42670c9c5713ffd6  /variants/Section_11_2.A.lean
+4ef533a15082e93b3414d8c08fb92fda4052c21f8651125876d97e4f2f2b1410  /variants/Section_11_3.A.lean
+lake build rc=0
+eval rc=0
+  "summary": "mode=unweighted, repaired=3/2338, remaining_bad=2335",
+=== [04:34:49] case v1 BAD
+7a18337c35c7679bf90839aac8e7d854160332ac99963bbeb8a4663ea9d825ab  /variants/Section_11_3.BAD.lean
+lake build rc=1
+error: Analysis/Section_11_3.lean:76:40: Application type mismatch: The argument
+error: Lean exited with code 1
+error: build failed
+=== [04:35:04] case v2 BAD
+7a18337c35c7679bf90839aac8e7d854160332ac99963bbeb8a4663ea9d825ab  /variants/Section_11_3.BAD.lean
+lake build rc=1
+error: Analysis/Section_11_3.lean:76:40: Application type mismatch: The argument
+error: Lean exited with code 1
+error: build failed
+=== [04:35:11] case v1 T
+3c7b39d1b47e26406c4bc154d85b9f6ac52bf80843cdab59eb2791ae8451d181  /variants/Section_4_1.T.lean
+lake build rc=0
+eval rc=0
+  "summary": "mode=unweighted, repaired=26/2901, remaining_bad=2871, type_changed=4",
+=== [04:47:28] case v2 T
+3c7b39d1b47e26406c4bc154d85b9f6ac52bf80843cdab59eb2791ae8451d181  /variants/Section_4_1.T.lean

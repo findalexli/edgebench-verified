@@ -1,0 +1,1 @@
+export PKG_TIMEOUT=900

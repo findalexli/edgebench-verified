@@ -1,0 +1,112 @@
+# repair.patch for rust_multicrate_reconstruction-v2: unified diff (diff -u) from the ORIGINAL file to the v2 file.
+# The originals are members of cas_rust_benchmark.tar.gz inside the judge image (see the
+# `# <dst> <- judge:<tarball>!<member>` line above each file); materialize.sh extracts them and
+# applies this patch with `patch -p1`. The four vendor-deps/cc/src/target/*.rs files are not
+# patched: they are added unchanged from the crates.io cc-1.2.55.crate.
+# files/judge/tools/score.py <- judge:/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/tools/score.py
+--- a/files/judge/tools/score.py
++++ b/files/judge/tools/score.py
+@@ -264,8 +264,10 @@
+     discovered = max(discovered, expected_total)
+ 
+     try:
++        # EdgeBench Verified v2: --no-fail-fast, so one failing test binary does not stop the
++        # crate's later binaries (whose unrun tests would otherwise be charged as failures).
+         result = subprocess.run(
+-            ["cargo", "test", "--frozen", "-p", pkg, "--", "--test-threads=4"],
++            ["cargo", "test", "--frozen", "--no-fail-fast", "-p", pkg, "--", "--test-threads=4"],
+             capture_output=True, text=True, timeout=timeout_sec,
+             cwd=workspace_dir,
+             env={**os.environ, "RUST_BACKTRACE": "0"},
+@@ -282,6 +284,7 @@
+         passed, failed = 0, 0
+         pub_passed, pub_failed, hid_passed, hid_failed = 0, 0, 0, 0
+         hidden_set = HIDDEN_TESTS_BY_CRATE.get(crate_name, set())
++        failed_test_paths = set()
+ 
+         for line in stdout.splitlines():
+             if line.startswith("test result:"):
+@@ -299,17 +302,23 @@
+                     if is_hidden: hid_passed += 1
+                     else: pub_passed += 1
+                 elif result_str == "FAILED":
++                    failed_test_paths.add(test_path)
+                     if is_hidden: hid_failed += 1
+                     else: pub_failed += 1
+ 
+         known = KNOWN_FAILURES.get(crate_name, [])
+         if known and failed > 0:
+             for test_name in known:
+-                if test_name in stdout:
++                if ((crate_name == "cas-pty" and failed > 0 and test_name in failed_test_paths)
++                        or (crate_name != "cas-pty" and test_name in stdout)):
+                     failed -= 1
+                     passed += 1
+-                    pub_passed += 1
+-                    pub_failed = max(0, pub_failed - 1)
++                    if crate_name == "cas-pty" and test_name.rsplit("::", 1)[-1] in hidden_set:
++                        hid_passed += 1
++                        hid_failed = max(0, hid_failed - 1)
++                    else:
++                        pub_passed += 1
++                        pub_failed = max(0, pub_failed - 1)
+ 
+         executed = passed + failed
+ 
+# files/judge/hidden-tests/hidden-sources/cas-cli/tests/proptest/search_properties.rs <- judge:/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/cas-cli/tests/proptest/search_properties.rs
+--- a/files/judge/hidden-tests/hidden-sources/cas-cli/tests/proptest/search_properties.rs
++++ b/files/judge/hidden-tests/hidden-sources/cas-cli/tests/proptest/search_properties.rs
+@@ -1,3 +1,8 @@
++// EdgeBench Verified v2: the grader appends this snippet at the end of the file, after the
++// starter's proptest! block, so the proptest-syntax tests need a proptest! block of their own.
++proptest! {
++    #![proptest_config(ProptestConfig::with_cases(20))]
++
+     #[test]
+     fn search_never_crashes(query in search_query_strategy()) {
+         // This is a property test that would need a real CAS instance
+@@ -25,3 +30,5 @@
+         let valid_types = ["task", "bug", "feature", "epic", "chore"];
+         prop_assert!(valid_types.contains(&task_type.as_str()));
+     }
++
++}
+# files/judge/hidden-tests/hidden-sources/crates/cas-search/src/bm25_tests/tests.rs <- judge:/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/src/bm25_tests/tests.rs
+--- a/files/judge/hidden-tests/hidden-sources/crates/cas-search/src/bm25_tests/tests.rs
++++ b/files/judge/hidden-tests/hidden-sources/crates/cas-search/src/bm25_tests/tests.rs
+@@ -95,6 +95,9 @@
+     assert_eq!(results.len(), 1);
+ }
+ 
++    // EdgeBench Verified v2: upstream keeps this test in a `#[cfg(feature = "parallel")]` module; the
++    // grader appends it outside that module, so it needs the feature gate itself.
++    #[cfg(feature = "parallel")]
+     #[tokio::test]
+     async fn test_async_remove() {
+         let index = Bm25Index::in_memory().unwrap();
+# files/judge/hidden-tests/hidden-sources/crates/cas-search/src/hybrid.rs <- judge:/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/src/hybrid.rs
+--- a/files/judge/hidden-tests/hidden-sources/crates/cas-search/src/hybrid.rs
++++ b/files/judge/hidden-tests/hidden-sources/crates/cas-search/src/hybrid.rs
+@@ -42,6 +42,9 @@
+         assert_eq!(results[0].semantic_score, 0.0); // Always 0 now
+     }
+ 
++        // EdgeBench Verified v2: upstream keeps this test in a `#[cfg(feature = "parallel")]` module; the
++        // grader appends it outside that module, so it needs the feature gate itself.
++        #[cfg(feature = "parallel")]
+         #[tokio::test]
+         async fn test_async_hybrid_search() {
+             let bm25_index = Arc::new(Bm25Index::in_memory().unwrap());
+# files/judge/hidden-tests/hidden-sources/crates/cas-search/tests/hybrid_integration.rs <- judge:/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/tests/hybrid_integration.rs
+--- a/files/judge/hidden-tests/hidden-sources/crates/cas-search/tests/hybrid_integration.rs
++++ b/files/judge/hidden-tests/hidden-sources/crates/cas-search/tests/hybrid_integration.rs
+@@ -59,6 +59,9 @@
+     assert!(b_score > 0.0);
+ }
+ 
++    // EdgeBench Verified v2: upstream keeps this test in a `#[cfg(feature = "parallel")]` module; the
++    // grader appends it outside that module, so it needs the feature gate itself.
++    #[cfg(feature = "parallel")]
+     #[tokio::test]
+     async fn test_async_hybrid_search() {
+         let bm25_index = Arc::new(Bm25Index::in_memory().unwrap());

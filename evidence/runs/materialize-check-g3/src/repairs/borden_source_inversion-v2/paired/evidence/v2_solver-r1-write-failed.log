@@ -1,0 +1,11 @@
+wrapper_vs_simulate_from_answer max_rel_diff 0.0
+best {'x_center': np.float64(259.8395), 'y_center': np.float64(231.5409), 'z_center': np.float64(221.6378), 'half_length_x': np.float64(5.0), 'half_length_y': np.float64(15.381), 'half_length_z': np.float64(2.2936), 'C0': np.float64(492.0749), 't_start': np.float64(621.5519), 'duration': np.float64(2710.7547)} public_RMS 0.007921058463816274 wall_s 194
+Traceback (most recent call last):
+  File "/tools/v2_solver.py", line 74, in <module>
+    Path(sys.argv[2]).write_text(json.dumps(a, indent=2))
+  File "/usr/local/lib/python3.10/pathlib.py", line 1154, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+  File "/usr/local/lib/python3.10/pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+PermissionError: [Errno 13] Permission denied: '/w/answer_v2_fit.json'
+v2_solver exit=1 wall=196s
