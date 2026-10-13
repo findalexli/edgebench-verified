@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+# EBV CPU-measurement stand-in solver. Every benchmark in this job's subset is expected-unsat (QF_LIA, hard),
+# so "unsat" is the correct answer for all of them; the stand-in models an honest solver that needs a fixed
+# amount of work to decide: MODE 'cpu' = W CPU-seconds, MODE 'wall' = give up at a W-second wall deadline.
+import os, sys, time
+MODE, W = 'cpu', 50.0
+w0 = time.time(); c0 = time.process_time()
+try:
+    lg = open('/ebvtiming/%d.txt' % os.getpid(), 'w'); lg.write('start %.3f\n' % w0); lg.flush()
+except Exception:
+    lg = None
+if MODE == 'cpu':
+    while time.process_time() - c0 < W:
+        pass
+else:
+    while time.time() - w0 < W:
+        pass
+print('unsat'); sys.stdout.flush()
+if lg:
+    lg.write('end %.3f wall %.3f cpu %.3f\n' % (time.time(), time.time() - w0, time.process_time() - c0)); lg.close()

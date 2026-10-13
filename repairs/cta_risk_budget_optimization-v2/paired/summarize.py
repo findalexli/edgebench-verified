@@ -1,6 +1,6 @@
 """Summarize paired logs with the harness parsers. Usage: summ.py <task_json> <log>..."""
 import sys, re, json
-sys.path.insert(0, '/home/alex/edgebench-verified')
+sys.path.insert(0, __import__('os').environ.get('EBV_REPO') or str(__import__('pathlib').Path(__file__).resolve().parents[3]))
 from sforge.harness.log_parsers.score_sum import parse_score_sum
 from sforge.harness.log_parsers.structured_json import parse_structured_json
 from sforge.harness.grading import extract_score

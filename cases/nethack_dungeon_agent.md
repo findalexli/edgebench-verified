@@ -6,7 +6,7 @@
 
 The agent writes `agent.py`, which "plays NetHack via the NLE Python environment and maximizes game score". NetHack is a classic text-based dungeon game, and NLE (the NetHack Learning Environment) wraps it for programs. The grader calls the agent's `get_action(obs, info, step)` at each step.
 
-By default the grader plays 10 seeds x 2 repeats (20 games). A seed is the number that should fix a game's random layout. The prompt's local-testing skeleton shows `--max-steps 5000`. The grader also enforces a 120 s per-game limit, which the prompt does not state. Category: Interactive Games & Simulators.
+By default the grader plays 10 seeds x 2 repeats (20 games). A seed is the number that should fix a game's random layout. The grader stops each game after 5,000 steps; the prompt shows 5,000 only as the default of `--max-steps` in its local-testing skeleton, not as the grader's limit. The grader also enforces a 120 s per-game limit, which the prompt does not state. Category: Interactive Games & Simulators.
 
 ## What we checked
 
@@ -39,13 +39,13 @@ The note that ships with the task:
 
 - The 20 graded games are unseeded, with a random role each game. The "10 seeds x 2 repeats" are in effect 20 independent random games.
 - Scores are not repeatable: two gradings of the same baseline gave `TOTAL_SCORE` 1.000000 and 0.800000.
-- The per-game limits are 5,000 steps (stated in the prompt as `--max-steps 5000`) and 120 s per game (not stated in the prompt).
+- The per-game limits are 5,000 steps (shown in the prompt only as the default of `--max-steps` in the local-testing skeleton) and 120 s per game (not stated in the prompt). A game that runs past 120 s scores 0, including any points it had already earned: the grader's `run_seed_subprocess` returns `TLE` with score 0 on `TimeoutExpired`, and the game reports its best score only when it finishes. 120 s over 5,000 steps is 24 ms per step, including NLE's own stepping.
 
 ## How much it matters
 
-Run-to-run variation affects all solvers. For the baseline, the difference is 0.2 raw points, or 0.02 points out of 100, which does not matter at that level. The variation for a competent agent was not measured. NetHack scores are heavy-tailed (a few games score far more than the rest), so the spread for a scoring agent is likely much larger in absolute terms, but these runs cannot size it.
+Run-to-run variation affects all solvers. For the baseline, the difference is 0.2 raw points, or 0.02 points out of 100, which does not matter at that level. The variation for a competent agent was not measured, so its size at that level is unknown. Recorded agent runs on this task score up to 41.9 out of 100 (`tasks/README.md`), far above the baseline. NetHack scores are heavy-tailed (a few games score far more than the rest), so the spread at that level is likely much larger in absolute terms, but these runs cannot size it. The task's selection rule (`score_first`) keeps the best submission, so random variation between gradings can raise a run's recorded best.
 
-One baseline game took 0.37-0.44 s, including start-up, and each 20-game grading took about 5 s. That is far from the 120 s per-game limit. Whether a slower, planning agent hits that limit was not tested.
+One baseline game took 0.37-0.44 s, including start-up, and each 20-game grading took about 5 s. That is far from the 120 s per-game limit. An agent that averages more than about 24 ms per step over a full 5,000-step game hits the limit and scores 0 for that game. Whether a slower, planning agent hits that limit was not tested.
 
 The task does not change; the note above ships with it. A small grader fix could make the seeds meaningful, but no working seeding path in NLE 1.2 / `NetHackChallenge` was verified. `env.reset(seed=...)` did not raise an error, but it was not tested whether it actually seeds the NetHack core.
 
@@ -58,7 +58,7 @@ The task does not change; the note above ships with it. A small grader fix could
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on the shipped baseline and diagnostics we wrote.
-- Only the shipped random-walk baseline was run. There is no competent agent to compare, so the variation for a scoring agent is unmeasured.
+- Only the shipped random-walk baseline was run. There is no competent agent to compare, so the variation for a scoring agent is unmeasured, and so is the size of that variation.
 - One machine with no CPU limit was used. The timings apply to this machine only.
 - Start-state fingerprints hash `glyphs`, `blstats` and `inv_strs` at reset only.
 

@@ -1,0 +1,33 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 483B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.grid_turing_robot@sha256:f67864ad75a3a2af0f7904a05a30b888f66ce2ed5c1f3cac7d7482e578a296c3
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 3.53kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.grid_turing_robot@sha256:f67864ad75a3a2af0f7904a05a30b888f66ce2ed5c1f3cac7d7482e578a296c3
+#5 resolve docker.io/seededge/edgebench.judge.grid_turing_robot@sha256:f67864ad75a3a2af0f7904a05a30b888f66ce2ed5c1f3cac7d7482e578a296c3 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/eval_grid_turing_robot.py /tmp/eval_grid_turing_robot.py
+#6 DONE 0.5s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:3c7dc138611cbaf9d4648d1ca35e7efbbc8a4a0762dc221e25deeea125a61975 done
+#7 exporting config sha256:954c7e992c3d3dd260e377d78c72902e156c6d975a409978720e9278047ec232 done
+#7 exporting attestation manifest sha256:3c2f1396a54e4eaa8c15999664680d18007d1163212bade03b8376029a60c4c9 0.0s done
+#7 exporting manifest list sha256:463d3d209dfd7d2b3bca05c91d438c36f1cde2163c92ab5c5ff40d0facc35c79 done
+#7 naming to docker.io/ebv/grid_turing_robot:v2 done
+#7 unpacking to docker.io/ebv/grid_turing_robot:v2 0.0s done
+#7 DONE 0.2s

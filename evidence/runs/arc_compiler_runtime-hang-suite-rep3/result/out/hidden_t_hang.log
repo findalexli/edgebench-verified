@@ -1,0 +1,21 @@
+patched t_hang
+96e9539def3ac6dee6249e62b2bb646c8c414364c12b8f44c998775d514028a3  /home/workspace/arc-compiler-runtime-implementation/agent-start/compiler/src/runtime.js
+=== Arc Hidden Evaluator ===
+SUBMISSION_INPUT=agent-start
+SUBMISSION_AGENT_START=/home/workspace/arc-compiler-runtime-implementation/agent-start
+TMP_WORK=/tmp/arc-hidden-eval-1wkxbg
+EXPECTED_TOTAL=448
+EXPECTED_WEIGHTED_TOTAL=2970
+SCORE_STATUS=INFRA_FAIL
+Running hidden strengthened/round2-lexer-parser...
+  strengthened/round2-lexer-parser             1 /   8
+Running hidden strengthened/round2-type-system...
+  strengthened/round2-type-system              0 /   8
+Running hidden strengthened/round2-interpreter...
+Round2 Strengthened Interpreter Tests:
+  FAIL: recursive factorial with nested branch — Unexpected identifier 'fact'
+  FAIL: closure captures outer parameter — Unexpected identifier 'add_b'
+HIDDEN_INFRA_ERROR: suite strengthened/round2-interpreter runner exited 124 before reporting valid counters
+>>>>> Start Structured Result
+{"valid": false, "score": 0.0, "pass_rate": 0.0, "total_tests": 1, "passed": 0, "failed": 1, "errors": 1, "summary": "Score: 0.00, raw: 0/1, weighted: 0/1", "details": [{"name": "hidden_score", "status": "FAILED", "score": 0.0, "message": "=== Arc Hidden Evaluator ===\nSUBMISSION_INPUT=agent-start\nSUBMISSION_AGENT_START=/home/workspace/arc-compiler-runtime-implementation/agent-start\nTMP_WORK=/tmp/arc-hidden-eval-1wkxbg\nEXPECTED_TOTAL=448\nEXPECTED_WEIGHTED_TOTAL=2970\nSCORE_STATUS=INFRA_FAIL\nRunning hidden strengthened/round2-lexer-parser...\n  strengthened/round2-lexer-parser             1 /   8\nRunning hidden strengthened/round2-type-system...\n  strengthened/round2-type-system              0 /   8\nRunning hidden strengthened/round2-interpreter...\nRound2 Strengthened Interpreter Tests:\n  FAIL: recursive factorial with nested branch — Unexpected identifier 'fact'\n  FAIL: closure captures outer parameter — Unexpected identifier 'add_b'\nHIDDEN_INFRA_ERROR: suite strengthened/round2-interpreter runner exited 124 before reporting valid counters\n"}], "metrics": {"score": 0.0, "raw_passed": 0, "raw_total": 1, "weighted_passed": 0, "weighted_total": 1, "runner_returncode": 70}}
+>>>>> End Structured Result

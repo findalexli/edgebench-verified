@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
 LABEL = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repair-v2': 'Fixed', 'exclude': 'Removed'}
 MEANING = {'retain': 'No problem found.',
-           'retain-with-note': 'No problem that changes scores enough to matter; the note records smaller caveats.',
-           'repair-v2': 'A problem that changes scores; a fixed version is published and was tested against the original.',
+           'retain-with-note': 'No correctable problem found. The note records caveats that no change to the grader removes, including run-to-run or machine-dependent variation, with its size stated or marked unmeasured. These are not always small: the largest, ANN Vector Search, is about ±7 of 100 points per grading.',
+           'repair-v2': 'A problem in the grader\'s logic, data or setup that changes scores and can be corrected, however small the effect (the smallest bounded effect, Portfolio Risk, is at most 0.39 points up or 0.10 down, from a decimal sweep, not a proof); a fixed version is published and was tested against the original.',
            'exclude': 'A problem without a sound fix; the task is not part of the verified set.'}
 
 

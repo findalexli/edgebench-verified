@@ -1,0 +1,2 @@
+cargo test --frozen -p cas-types -- --list
+rc=0 sec=12.5

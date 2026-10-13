@@ -45,3 +45,8 @@ global sum by `(makerFee − takerFee)·T ≠ 0`, so the gate fails. This matche
 - Java `long` overflow is not modelled. Hold-release and order-balance amounts are free parameters.
 - Base-currency legs are not modelled (they carry no fee).
 - The integration tests themselves are opaque (`it : Bool`).
+- The model covers the verdict, not the score. The fixed evaluator also sets the score to 0 when the
+  timed run's status is not `OK` (`repair.patch`), where the original printed the throughput as
+  `TOTAL_SCORE` with status `WA`. For an engine that passes the tests, `fixed_eq_orig_of_it` gives
+  the same verdict, but in that path the score differs (0 instead of the throughput). This change is
+  not modelled.

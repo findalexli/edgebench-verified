@@ -1,0 +1,9 @@
+control v1 exit=0 wall=71s CASE 0000 OK score=3356  # Average=3.356 MT/s  TOTAL_SCORE 3356 CASES_OK 1 
+control v2 exit=0 wall=71s GATE OK ITFeesExchangeBasic,ITExchangeCoreIntegrationRejectionBasic tests=33 CASE 0000 OK score=3565  # Average=3.565 MT/s  TOTAL_SCORE 3565 CASES_OK 1 
+shutdownbusy v1 exit=0 wall=76s CASE 0000 WA score=2939  # Average=2.939 MT/s  TOTAL_SCORE 2939 CASES_OK 0 
+shutdownbusy v2 exit=0 wall=74s GATE OK ITFeesExchangeBasic,ITExchangeCoreIntegrationRejectionBasic tests=33 CASE 0000 WA score=0  # Average=3.505 MT/s  TOTAL_SCORE 0 CASES_OK 0 
+shutdownall v1 exit=0 wall=69s CASE 0000 WA score=3382  # Average=3.382 MT/s  TOTAL_SCORE 3382 CASES_OK 0 
+shutdownall v2 exit=0 wall=10s CASE 0000 WA score=0  # correctness gate failed  TOTAL_SCORE 0 CASES_OK 0 
+shutdownbusy v1 exit=0 wall=71s CASE 0000 WA score=2943  # Average=2.943 MT/s  TOTAL_SCORE 2943 CASES_OK 0 
+shutdownbusy v2 exit=0 wall=69s GATE OK ITFeesExchangeBasic,ITExchangeCoreIntegrationRejectionBasic tests=33 CASE 0000 WA score=0  # Average=3.917 MT/s  TOTAL_SCORE 0 CASES_OK 0 
+done

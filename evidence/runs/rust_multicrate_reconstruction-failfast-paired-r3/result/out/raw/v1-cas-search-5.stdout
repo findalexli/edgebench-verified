@@ -1,0 +1,146 @@
+bm25::tests::test_batch_delete: test
+bm25::tests::test_batch_index: test
+bm25::tests::test_bm25_scoring: test
+bm25::tests::test_concurrent_reads: test
+bm25::tests::test_delete: test
+bm25::tests::test_empty_query: test
+bm25::tests::test_index_and_search: test
+bm25::tests::test_rebuild_atomic_disk: test
+bm25::tests::test_rebuild_atomic_in_memory: test
+bm25::tests::test_search_10k_documents: test
+bm25::tests::test_search_with_tags: test
+bm25::tests::test_search_with_type_filter: test
+bm25::tests::test_title_search: test
+bm25::tests::test_update_document: test
+code_search::tests::test_code_search_options_default: test
+code_search::tests::test_code_search_stats_default: test
+code_search::tests::test_create_snippet: test
+code_search::tests::test_no_n_plus_1_with_1000_symbols: test
+code_search::tests::test_semantic_search_batch_fetching: test
+code_search::tests::test_shared_embedder_no_loading: test
+document::tests::test_code_symbol_embedding_text: test
+document::tests::test_code_symbol_search_document: test
+document::tests::test_entry_embedding_text: test
+document::tests::test_entry_search_document: test
+document::tests::test_index_and_search_all_types: test
+document::tests::test_rule_search_document: test
+document::tests::test_skill_embedding_text: test
+document::tests::test_skill_search_document: test
+document::tests::test_spec_content_fallback_to_title: test
+document::tests::test_spec_embedding_text: test
+document::tests::test_spec_search_document: test
+document::tests::test_task_embedding_text: test
+document::tests::test_task_search_document: test
+error::tests::test_error_constructors: test
+error::tests::test_error_display: test
+error::tests::test_io_error_conversion: test
+grep::tests::test_grep_case_insensitive: test
+grep::tests::test_grep_empty_pattern_error: test
+grep::tests::test_grep_invalid_regex_error: test
+grep::tests::test_grep_limit: test
+grep::tests::test_grep_options_default: test
+grep::tests::test_grep_path_glob: test
+grep::tests::test_grep_regex_pattern: test
+grep::tests::test_grep_simple_pattern: test
+grep::tests::test_grep_with_context: test
+hybrid::tests::test_empty_query_returns_empty: test
+hybrid::tests::test_has_semantic_returns_false: test
+hybrid::tests::test_hybrid_search_bm25_only: test
+hybrid::tests::test_hybrid_search_options_default: test
+hybrid::tests::test_hybrid_search_result_fields: test
+lmdb_store::tests::test_10k_vectors_benchmark: test
+lmdb_store::tests::test_batch_delete: test
+lmdb_store::tests::test_batch_store: test
+lmdb_store::tests::test_concurrent_reads: test
+lmdb_store::tests::test_count: test
+lmdb_store::tests::test_delete: test
+lmdb_store::tests::test_dimension_mismatch: test
+lmdb_store::tests::test_dimension_stored_in_metadata: test
+lmdb_store::tests::test_embedding_byte_conversion: test
+lmdb_store::tests::test_get_nonexistent: test
+lmdb_store::tests::test_list_ids: test
+lmdb_store::tests::test_metadata: test
+lmdb_store::tests::test_persistence: test
+lmdb_store::tests::test_store_and_get: test
+metrics::tests::test_generate_event_id: test
+metrics::tests::test_get_recent_events: test
+metrics::tests::test_latency_timer: test
+metrics::tests::test_method_comparison: test
+metrics::tests::test_method_metrics_calculations: test
+metrics::tests::test_metrics_store: test
+metrics::tests::test_search_method_display: test
+metrics::tests::test_search_method_parse: test
+parallel::tests::test_channel_timer: test
+parallel::tests::test_coordinator_combine: test
+parallel::tests::test_parallel_coordinator: test
+parallel::tests::test_parallel_coordinator_failure: test
+parallel::tests::test_parallel_result_fields: test
+parallel::tests::test_parallel_stats_speedup: test
+parallel::tests::test_timed_search: test
+scorer::tests::test_apply_multi_channel_boost: test
+scorer::tests::test_calibrate: test
+scorer::tests::test_combine_weighted: test
+scorer::tests::test_cosine_similarity: test
+scorer::tests::test_cosine_similarity_edge_cases: test
+scorer::tests::test_distance_to_similarity: test
+scorer::tests::test_euclidean_distance: test
+scorer::tests::test_normalize_min_max: test
+scorer::tests::test_normalize_min_max_empty: test
+scorer::tests::test_normalize_min_max_uniform: test
+scorer::tests::test_normalize_percentile: test
+scorer::tests::test_reciprocal_rank_fusion: test
+scorer::tests::test_reciprocal_rank_fusion_empty: test
+traits::tests::test_score_source_equality: test
+traits::tests::test_search_document_embedding_text: test
+traits::tests::test_search_document_trait: test
+traits::tests::test_search_result: test
+
+96 tests, 0 benchmarks
+test_bm25_1k_documents_keyword_search: test
+test_bm25_concurrent_searches: test
+test_bm25_delete_documents: test
+test_bm25_empty_query_returns_empty: test
+test_bm25_large_documents: test
+test_bm25_persistence: test
+test_bm25_rebuild_atomic: test
+test_bm25_scoring_term_frequency: test
+test_bm25_search_performance_10k: test
+test_bm25_special_characters_handled: test
+test_bm25_tag_filter: test
+test_bm25_type_filter: test
+test_bm25_update_document: test
+
+13 tests, 0 benchmarks
+tests::test_code_search_1k_symbols_no_n_plus_1: test
+tests::test_code_search_empty_query: test
+tests::test_code_search_filters: test
+tests::test_code_search_no_n_plus_1: test
+tests::test_code_search_result_from_symbol: test
+tests::test_code_search_semantic_fallback: test
+tests::test_code_search_semantic_similarity: test
+tests::test_code_search_snippet_creation: test
+tests::test_code_search_stats: test
+tests::test_code_search_symbol_by_name: test
+
+10 tests, 0 benchmarks
+test_combine_weighted_merges_channels: test
+test_hybrid_bm25_search: test
+test_hybrid_empty_query: test
+test_hybrid_scores_normalized: test
+test_hybrid_search_options_defaults: test
+test_hybrid_search_result_structure: test
+test_rrf_combines_rankings: test
+test_score_normalization_range: test
+
+8 tests, 0 benchmarks
+crates/cas-search/src/bm25.rs - bm25 (line 15): test
+crates/cas-search/src/code_search.rs - code_search (line 14): test
+crates/cas-search/src/hybrid.rs - hybrid (line 8): test
+crates/cas-search/src/lib.rs - (line 24): test
+crates/cas-search/src/lmdb_store.rs - lmdb_store (line 21): test
+crates/cas-search/src/parallel.rs - parallel (line 16): test
+crates/cas-search/src/scorer.rs - scorer (line 15): test
+crates/cas-search/src/traits.rs - traits::SearchDocument (line 20): test
+crates/cas-search/src/traits.rs - traits::VectorStore (line 89): test
+
+9 tests, 0 benchmarks

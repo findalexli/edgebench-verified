@@ -14,7 +14,7 @@ The solver writes a plugin for OpenRCT2, a theme-park simulation game, that "max
 
 **The promised length of play cannot be reached.** The wrapper script sets `OPENRCT2_TIMEOUT=120` per scenario and caps the whole run at 1,800 s. The task manifest's `eval_timeout` is 2,400 s. The grader's monitor has `targetDays = 992` and emits `DONE` only at that date. The scoring code uses the last monitor sample and never checks whether `DONE` was reached.
 
-- At speed 4 the engine advances 0.593 to 0.597 game days per wall-clock second. The rate is limited by real time, not by the host's CPU: cutting to 0.25 CPU changed it by about 2%.
+- With 2 CPUs and speed 4 the engine advances 0.593 to 0.597 game days per wall-clock second (0.602 when speed 8 was requested, which runs as speed 4). The rate is limited by real time, not by the host's CPU: at 0.25 CPU it was 0.582, about 2% lower. Start-up is CPU-bound, though: at 0.25 CPU the first sample arrived at 11.5 s instead of 4.6 s, so a 60 s run reached 27 game days instead of 33 (`paired/check_horizon.out`).
 - Each 120 s scenario covered 68 to 69 game days, about 7% of the 992-day target, and `DONE` was never seen.
 - Reaching 992 days would take about 1,667 s per scenario, far beyond the 120 s scenario budget. For all three scenarios together (about 83 minutes) it would also exceed the 1,800 s wrapper cap and the 2,400 s manifest timeout.
 
@@ -24,7 +24,7 @@ Example on the original grader (120 s, speed 4, medium scenario):
 - Observed: the game ran from date 8,4,25 to 8,7,2, which is 69 game days. Company value went from 198,010 to 133,260, and the normalized company value (the task's per-scenario result) was 0.915.
 - The average over the three scenarios was 1.038, which the wrapper would print as `TOTAL_SCORE 10384` (computed; the wrapper itself was not run).
 
-**The solver controls the game speed.** `gamesetspeed` is on the list of allowed calls, and the submission's later call overrides the monitor's speed 4. Speed 1 ran at 0.077 days/s and speed 3 at 0.291 days/s. Speed 8 is rejected. A slower game can hold company value near its starting value. In these runs the cap of 1.10 hid this.
+**The solver controls the game speed.** `gamesetspeed` is on the list of allowed calls, and the submission's later call overrides the monitor's speed 4. Speed 1 ran at 0.077 days/s (2 game days from 2 samples over 25.8 s; it agrees with the model's 0.075) and speed 3 at 0.291 days/s. Speed 8 is rejected. A slower game can hold company value near its starting value. In these runs the cap of 1.10 hid this.
 
 Why it matters: the task measures company value after about 2 months, not about 4 years. A solver that plans for the stated length of play is optimizing the wrong thing.
 

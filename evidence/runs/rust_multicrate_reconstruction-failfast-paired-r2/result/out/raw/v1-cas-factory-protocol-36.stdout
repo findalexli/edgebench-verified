@@ -1,0 +1,113 @@
+
+running 47 tests
+test codec::tests::test_large_message_compressed ... ok
+test codec::tests::test_framed_encoding ... ok
+test codec::tests::test_compression_reduces_size ... ok
+test codec::tests::test_binary_data_roundtrip ... ok
+test codec::tests::test_raw_encode_decode ... ok
+test codec::tests::test_roundtrip_client_message ... ok
+test codec::tests::test_small_message_uncompressed ... ok
+test codec::tests::test_roundtrip_server_message ... ok
+test compression::tests::test_decompress_empty_fails ... ok
+test compression::tests::test_decompress_invalid_prefix ... ok
+test compression::tests::test_empty_data ... ok
+test compression::tests::test_incompressible_data_stays_uncompressed ... ok
+test compression::tests::test_large_data_compressed ... ok
+test compression::tests::test_roundtrip_random_data ... ok
+test compression::tests::test_roundtrip_small ... ok
+test compression::tests::test_small_data_not_compressed ... ok
+test compression::tests::test_roundtrip_large ... ok
+test compression::tests::test_threshold_boundary ... ok
+test messages::tests::cases::test_batch_empty ... ok
+test messages::tests::cases::test_boot_complete_serde ... ok
+test messages::tests::cases::test_batch_message_serde ... ok
+test messages::tests::cases::test_boot_agent_progress_serde ... ok
+test messages::tests::cases::test_boot_progress_serde ... ok
+test messages::tests::cases::test_cache_row_serde ... ok
+test messages::tests::cases::test_client_message_serde ... ok
+test messages::tests::cases::test_client_message_with_auth_token ... ok
+test messages::tests::cases::test_client_pong_serde ... ok
+test messages::tests::cases::test_connection_health_message_serde ... ok
+test messages::tests::cases::test_connection_quality_serde ... ok
+test messages::tests::cases::test_pane_rows_update_serde ... ok
+test messages::tests::cases::test_pane_snapshot_without_cache_rows_backward_compatible ... ok
+test messages::tests::cases::test_reconnect_accepted_message_serde ... ok
+test messages::tests::cases::test_reconnect_message_serde ... ok
+test messages::tests::cases::test_row_data_serde ... ok
+test messages::tests::cases::test_scroll_with_cache_window ... ok
+test messages::tests::cases::test_scroll_without_cache_window_backward_compatible ... ok
+test messages::tests::cases::test_scroll_zero_cache_window_skipped ... ok
+test messages::tests::cases::test_server_message_serde ... ok
+test messages::tests::cases::test_server_ping_serde ... ok
+test messages::tests::cases::test_style_run_helpers ... ok
+test messages::tests::cases::test_terminal_snapshot_empty ... ok
+test transport::tests::test_binary_data_transport ... ok
+test transport::tests::test_protocol_handshake ... ok
+test transport::tests::test_unsplit_send_recv ... ok
+test transport::tests::test_send_recv_roundtrip ... ok
+test codec::tests::test_playback_message_roundtrip ... ok
+test messages::tests::cases::test_pane_snapshot_with_cache_rows ... ok
+
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 45 tests
+test edge_cases::test_empty_string_fields ... ok
+test edge_cases::test_empty_snapshots_map ... ok
+test edge_cases::test_empty_terminal_snapshot ... ok
+test edge_cases::test_empty_vec_fields ... ok
+test edge_cases::test_many_worker_names ... ok
+test edge_cases::test_terminal_escape_sequences ... ok
+test edge_cases::test_large_prompt_text ... ok
+test edge_cases::test_unicode_codepoints_in_cells ... ok
+test edge_cases::test_unicode_strings ... ok
+test enums_and_nested::test_all_client_type_variants ... ok
+test enums_and_nested::test_all_error_code_variants ... ok
+test enums_and_nested::test_all_pane_kind_variants ... ok
+test enums_and_nested::test_all_session_mode_variants ... ok
+test enums_and_nested::test_all_style_flag_combinations ... ok
+test enums_and_nested::test_full_director_data ... ok
+test enums_and_nested::test_full_session_state ... ok
+test enums_and_nested::test_playback_metadata ... ok
+test errors_and_boundaries::test_decode_empty_bytes ... ok
+test errors_and_boundaries::test_decode_extra_bytes_appended ... ok
+test errors_and_boundaries::test_decode_invalid_msgpack ... ok
+test errors_and_boundaries::test_decode_truncated_message ... ok
+test errors_and_boundaries::test_decode_wrong_message_type ... ok
+test errors_and_boundaries::test_extreme_color_values ... ok
+test errors_and_boundaries::test_max_u16_dimensions ... ok
+test errors_and_boundaries::test_max_u32_ping_id ... ok
+test errors_and_boundaries::test_max_u64_timestamp ... ok
+test errors_and_boundaries::test_playback_speed_edge_values ... ok
+test framed_and_rows::test_frame_length_accuracy ... ok
+test framed_and_rows::test_framed_encoding_all_message_types ... ok
+test framed_and_rows::test_pane_rows_update_incremental ... ok
+test framed_and_rows::test_pane_rows_update_unicode_styles ... ok
+test framed_and_rows::test_pane_rows_update_with_styles ... ok
+test framed_and_rows::test_protocol_version_constant ... ok
+test web_flow::test_batch_mixed_messages ... ok
+test web_flow::test_batch_with_pane_output ... ok
+test web_flow::test_client_capabilities_raw_pty ... ok
+test web_flow::test_connection_health_message ... ok
+test web_flow::test_ping_pong_keepalive ... ok
+test web_flow::test_raw_pty_output_large_compressed ... ok
+test web_flow::test_raw_pty_output_small ... ok
+test web_flow::test_raw_pty_output_with_ansi_codes ... ok
+test web_flow::test_reconnect_flow ... ok
+test enums_and_nested::test_multiple_pane_snapshots ... ok
+test edge_cases::test_large_terminal_snapshot ... ok
+test edge_cases::test_large_terminal_data ... ok
+
+test result: ok. 45 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+
+running 6 tests
+test crates/cas-factory-protocol/src/codec.rs - codec::encode (line 40) ... ok
+test crates/cas-factory-protocol/src/compression.rs - compression::compress (line 56) ... ok
+test crates/cas-factory-protocol/src/transport.rs - transport (line 7) ... ignored
+test crates/cas-factory-protocol/src/compression.rs - compression::decompress (line 101) ... ok
+test crates/cas-factory-protocol/src/codec.rs - codec::decode (line 58) ... ok
+test crates/cas-factory-protocol/src/lib.rs - (line 16) ... ok
+
+test result: ok. 5 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -20,8 +20,10 @@ as quoted on the case page.
 ## Result
 
 **Proved** as arithmetic. All the published numbers (150, 60, 1,260 and 3,600) reproduce. The
-≈30.3 ceiling involves logarithms and is covered by the existing `WarehouseBound.lean` and its
-related files, not here.
+ceiling on the 0–100 score is not proved here. `WarehouseBound.lean` and `WarehouseData.lean` prove
+only the lower bound on the raw total (712.538, and 395.80 < the bound − 2.5 after display rounding);
+the step to ≈30.3 (≈30.6 after display rounding) uses the harness's floating-point rescale
+(`evidence/scripts/warehouse_forklift_routing/lean_bound/recompute_total.out.txt`).
 
 ## Counter-check
 

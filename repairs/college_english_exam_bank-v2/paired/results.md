@@ -19,8 +19,8 @@
 - **Responses:** generated from the in-image `rubrics.json` by the reviewer's
   `make_responses.py` (A–I), plus `make_responses_v2.py` (L).
 - **J and K** are two-call sequences that test the re-ask path.
-- **Grading:** the captures were graded offline by `grade.py` with this repo's
-  `sforge/harness/grading.py` and `selection.py`. This task has no `rescale`, so the
+- **Grading:** the captures were graded offline by `grade.py` with EdgeBench's
+  `sforge/harness/grading.py` and `selection.py` (`6e4e5f4`). This task has no `rescale`, so the
   normalized score is the raw 0–100 score.
 
 ## Paired table
@@ -40,8 +40,9 @@
 | J D, then A on re-ask | re-ask recovers | true | 81 | true | 77 | 2 | – |
 | K no JSON, then A on re-ask | re-ask recovers | false | – | true | 77 | 2 | – |
 
-"–" means the harness exposes no score: `_invalidate` sets `score=None` and the entry is
-excluded from selection.
+"–" marks a grading failure: the grader reports `valid: false` with score 0 (shown as 0 in
+`graded.md`). EdgeBench's `score_first` does not read `valid` and ranks that 0, which never beats a
+graded submission.
 
 ## Selection effect (harness `score_first`)
 
@@ -58,8 +59,8 @@ history ['B_complete_all_zero', 'I_B_R009_score0_zero_checkpoints'] v2 (score_fi
 
 - **Triggers.** Under v1, omitted or contradictory rows silently become full marks: C gives 100,
   D gives 81 instead of 77, E and I give 15 instead of 0. Each is reported valid and wins
-  selection. Under v2 each of these is re-asked once and then reported `valid=false`, which
-  the harness excludes rather than counting as the solver's 0. When the re-ask returns a
+  selection. Under v2 each of these is re-asked once and then reported `valid=false` with score
+  0, which never beats the honest round under `score_first`. When the re-ask returns a
   complete assessment, v2 scores it (J, K).
 - **Valid controls.** A, B, F and L give byte-identical structured results and identical scores,
   with one model call in v1 and v2.
@@ -82,7 +83,8 @@ the raw row, while reconciliation scores the normalised row from `_validate_resu
 rows that report a deduction therefore still got full marks: (A) the veto stated only in
 `veto_reason` with `rule_veto_triggered=false`; (B) the deduction in an extra checkpoint
 beyond the rubric's details; (C) `rule_veto_triggered=true` on a rule without
-`veto_conditions`; (D) the floor wording after character 200 of `reason`.
+`veto_conditions`; (D) the floor wording after character 200 of `reason`. A–C were found in the
+Lean model; D only by the probe of the real code (`probe.out`).
 
 **Change.** `_require_recorded_deductions` now runs at the end of `_validate_result`: it
 reconciles the normalised rows with the unchanged `reconcile_result_with_rubrics` and rejects
@@ -143,3 +145,23 @@ Selection (`score_first`) on history [B, GA]: v1 and v2prev pick GA at 3.0; v2 p
 The revised side-by-side job was run three times on fresh E2B workers (`evidence/runs/college_english_exam_bank-v2-paired-fix2`,
 `-fix2-rep2`, `-fix2-rep3`). The graded results (`graded.json`) are identical in all three runs, apart from timing fields:
 every arm keeps its validity and score under the original, the earlier fixed and the revised grader.
+
+## Appendix: several JSON blocks in one model output (2026-10-12)
+
+E2B job `evidence/runs/college_english_exam_bank-v2-paired-multiblock` (exit 0). Same harness and graders as
+`-fix2` (pins: v1 `b8b2824c…`, v2prev `1d941b58…`, v2 `87f0e340…`). New responses come from `make_responses_multiblock.py`.
+
+| Fixed response | v1 valid | v1 score | v2prev valid | v2prev score | v2 valid | v2 score | v2 model calls | v1 = v2 output |
+| --- | --- | ---: | --- | ---: | --- | ---: | ---: | --- |
+| A (control) | true | 77 | true | 77 | true | 77 | 1 | byte-identical |
+| D (control) | true | 81 | false | – | false | – | 2 | – |
+| **N** A's block, then D's block, one output | **true** | **81** | true | 77 | true | 77 | 1 | – |
+| O D's block, then A's block, one output | true | 77 | true | 77 | true | 77 | 1 | byte-identical |
+| P A's block, then a truncated block, one output | true | 77 | true | 77 | true | 77 | 1 | byte-identical |
+
+The original grader scores the last block with `scores`. Both fixed graders skip a block that fails their checks and fall
+back to the earlier complete block. The result is the honest 77, with no extra model call.
+
+## Repeatability of the multi-block job (2026-10-13)
+
+`evidence/runs/college_english_exam_bank-v2-paired-multiblock` was run three times on fresh E2B workers (`-rep2`, `-rep3`) with the same `run.sh`, responses and stand-in `codex`. Every run has `status: exit=0`. Each rerun's `graded.json` and `graded.md` were produced by the job's `grade.py` from that run's own `result/out/`. All 15 results (5 responses × original, earlier fixed and fixed grader) are identical to run 1's, and so are both files. The staged grader files (`v2ctx/files/`, sha256 `87f0e340…`; `v2prevctx/files/`, `1d941b58…`) were removed after collection.

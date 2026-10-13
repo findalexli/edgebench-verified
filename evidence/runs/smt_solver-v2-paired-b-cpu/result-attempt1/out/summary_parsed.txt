@@ -1,0 +1,57 @@
+ground        v1 multi_context_27   {'unknown': 27}
+ground        v1 single_context_42  {'unknown': 42}
+ground        v1 final_score 0.0
+ground        v2 multi_context_27   {'unknown': 27}
+ground        v2 single_context_42  {'unknown': 42}
+ground        v2 final_score 0.0
+textual       v1 multi_context_27   {'unknown': 27}
+textual       v1 single_context_42  {'unknown': 42}
+textual       v1 final_score 0.0
+textual       v2 multi_context_27   {'unknown': 27}
+textual       v2 single_context_42  {'unknown': 42}
+textual       v2 final_score 0.0
+textual_true  v1 multi_context_27   {'unknown': 27}
+textual_true  v1 single_context_42  {'unknown': 42}
+textual_true  v1 final_score 0.0
+textual_true  v2 multi_context_27   {'unknown': 27}
+textual_true  v2 single_context_42  {'unknown': 42}
+textual_true  v2 final_score 0.0
+ground_wrong  v1 multi_context_27   {'unknown': 27}
+ground_wrong  v1 single_context_42  {'unknown': 42}
+ground_wrong  v1 final_score 0.0
+ground_wrong  v2 multi_context_27   {'unknown': 27}
+ground_wrong  v2 single_context_42  {'unknown': 42}
+ground_wrong  v2 final_score 0.0
+flips ground: {}
+flips textual: {}
+flips textual_true: {}
+flips ground_wrong: {}
+mini v1 QF_UF/alias_conflict.smt2                wrong          congruence violation for f
+mini v1 QF_UF/alias_conflict_let.smt2            wrong          missing model value for (f x)
+mini v1 QF_UF/define_conflict.smt2               invalid_model  missing model value for (f y)
+mini v1 QF_UF/define_conflict_wrong.smt2         invalid_model  missing model value for (f y)
+mini v1 QF_UF/ground_control.smt2                correct        
+mini v1 QF_UF/ground_control_wrong.smt2          invalid_model  assertion is false: (= (f b) b)
+mini v1 QF_UF/scope_conflict.smt2                invalid_model  missing model value for (f x)
+mini v1 QF_UF/scope_conflict_textkeys.smt2       invalid_model  assertion is false: (let ((x b)) (= (f x) b))
+mini v1 QF_UF/scope_conflict_wrong.smt2          invalid_model  missing model value for (f x)
+mini v1 QF_UF/single_let.smt2                    invalid_model  missing model value for (f x)
+mini v1 QF_UF/single_let_textkey.smt2            correct        
+mini v1 QF_UF/single_let_wrong.smt2              invalid_model  missing model value for (f x)
+mini v1 QF_UF/unused_conflict.smt2               correct        
+mini v1 final_score 0.16153846153846155
+mini v2 QF_UF/alias_conflict.smt2                wrong          congruence violation for f
+mini v2 QF_UF/alias_conflict_let.smt2            wrong          congruence violation for f
+mini v2 QF_UF/define_conflict.smt2               correct        
+mini v2 QF_UF/define_conflict_wrong.smt2         invalid_model  assertion is false: (= (g a) a)
+mini v2 QF_UF/ground_control.smt2                correct        
+mini v2 QF_UF/ground_control_wrong.smt2          invalid_model  assertion is false: (= (f b) b)
+mini v2 QF_UF/scope_conflict.smt2                correct        
+mini v2 QF_UF/scope_conflict_textkeys.smt2       correct        
+mini v2 QF_UF/scope_conflict_wrong.smt2          invalid_model  assertion is false: (let ((x b)) (= (f x) b))
+mini v2 QF_UF/single_let.smt2                    correct        
+mini v2 QF_UF/single_let_textkey.smt2            correct        
+mini v2 QF_UF/single_let_wrong.smt2              invalid_model  assertion is false: (let ((x a)) (= (f x) b))
+mini v2 QF_UF/unused_conflict.smt2               invalid_model  congruence violation for f
+mini v2 final_score 0.3230769230769231
+oracle C verdicts {} Cw built 0 of 0

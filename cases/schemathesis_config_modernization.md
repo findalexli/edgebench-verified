@@ -1,10 +1,10 @@
 # Schemathesis config modernization (`schemathesis_config_modernization`)
 
-**Outcome:** Fixed. <mark>The Phase 3 tests check only that `@schemathesis.metric` returns something callable, not that it returns the function unchanged; the gap is one test item, about 1/150 of the score.</mark>
+**Outcome:** Fixed. <mark>The Phase 3 tests check only that `@schemathesis.metric` returns something callable, not that it returns the function unchanged; under the fixed tests a wrapper loses one test item, 1/160 of the score (0.625 points out of 100).</mark>
 
 ![Phase 3 test results: the original tests pass both a correct decorator and a wrapper at 15/15; the fixed tests fail the wrapper at 15/16.](figures/schemathesis_config_modernization.svg)
 
-*The original tests could not tell a wrapper from the correct decorator; the fixed tests add one test, worth about 1/150 of the score.*
+*The original tests could not tell a wrapper from the correct decorator; the fixed tests add one test, worth 1/160 of the score.*
 
 ## What the task asks
 
@@ -37,25 +37,27 @@ Expected under the specification: the wrapper should lose the test item that che
 
 ## How much it matters
 
-At most about 1/150 of the total. Phase 3 has weight 1 of 10 and 15 tests, so one test is worth 1/15 × 1/10. Only solvers whose `metric` decorator returns something other than the original function are affected.
+At most 1/160 of the total, 0.625 points out of 100. The score is Σ(weight × passed/total)/10 over six phases, and Phase 3 has weight 1. With the fixed version's 16 Phase 3 tests, a wrapper that passes k of the 15 original tests drops from k/15 to k/16 of the Phase 3 weight, a loss of k/2400; at k = 15 that is 1/160, the measured −0.006250. (In the original 15-test phase, one test is worth 1/15 × 1/10 = 1/150.)
+
+The score scale is not a pure penalty. A submission whose decorator returns the function unchanged but passes only k < 15 of the original Phase 3 tests rises from k/15 to (k+1)/16, a gain of (15 − k)/2400. Either change is at most 1/160 per run. Only submissions with a wrapper decorator, or with a partly passed Phase 3, score differently.
 
 ## The fix
 
 - `/tests/test_03_metric_system.py` gains `test_metric_decorator_preserves_exact_function_identity`. The test asserts `metric(f) is f` and unregisters the function afterwards.
 - `/tests/test.sh` changes `PHASE3_TOTAL` and `PHASE3_EXPECTED` from 15 to 16.
 
-The weights, the parser, the score scale and the other 131 tests are unchanged. In `task.json.in`, only `judge.image_tag` changes.
+The weights, the parser, the score scale and the 126 original tests are unchanged. In `task.json.in`, only `judge.image_tag` changes.
 
-| Variant | Role | Original grader | Fixed grader | Change | Phase 3, original → fixed |
+| Variant | Role | Original grader (raw) | Fixed grader (raw) | Change | Phase 3, original → fixed |
 |---|---|---|---|---|---|
 | starter | untouched starting `/app` | 0.031466 | 0.031466 | 0 | 0/15 → 0/16 |
 | identity | reviewer's correct Target 3 overlay (`metric` returns `func`) | 0.135313 | 0.135313 | **0** | 15/15 → 16/16 |
 | wrapper | plausibly wrong: returns a `functools.wraps` forwarding wrapper | 0.135313 | 0.129063 | **−0.006250 (−1/160)** | 15/15 → 15/16 |
 | no_register | invalid test submission: never registers | 0.115313 | 0.110313 | −0.005000 | 12/15 → 12/16 |
 
-In every variant, the only test items whose results differ are the added identity test and, for the wrapper, the Phase 3 "all passed" item (`test_phase_3`), which flips from passed to failed. The other 131 original items keep their result from the original grader. Scores are partial because the overlay implements Target 3 only, not the whole task.
+In every variant, the only test items whose results differ are the added identity test and, for the wrapper, the Phase 3 "all passed" item (`test_phase_3`), which flips from passed to failed. The other 131 original items keep their result from the original grader. Scores are raw values on a 0–1 scale; the task's `linear` 0..1 scale gives the score out of 100 as 100 × raw (0.135313 is 13.53). Scores are partial because the overlay implements Target 3 only, not the whole task.
 
-**Score compatibility.** Scores from the original and fixed graders are identical when Phase 3 is fully passed or fully failed. When Phase 3 is partly passed they are not comparable, because the phase has 16 tests instead of 15, and an imperfect phase yields a different fraction.
+**Score compatibility.** Scores from the original and fixed graders are identical when the submission passes all 16 tests of the fixed Phase 3, or fails all of them. When Phase 3 is partly passed they are not comparable, because the phase has 16 tests instead of 15, and an imperfect phase yields a different fraction.
 
 ## How we checked it
 

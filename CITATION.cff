@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "EdgeBench Verified: a re-verification of the 51 public EdgeBench tasks"
+title: "EdgeBench Verified: An Audit of the Graders Behind the 51 Public EdgeBench Tasks"
 message: "If you use these decisions, findings or repaired task versions, please cite this repository and the original EdgeBench."
 type: dataset
 version: "1.0"
@@ -9,10 +9,11 @@ authors:
 repository-code: "https://github.com/findalexli/edgebench-verified"
 license: Apache-2.0
 abstract: >-
-  An independent re-verification of the 51 publicly released EdgeBench tasks. Every task has a
-  decision (retain with note, repair as a new version, or exclude), every repair passed paired
-  before/after runs of the original and repaired evaluator on the same inputs (repeated three
-  times, no verdict changes), and formal checks (Lean 4, TLA+) back several findings.
+  An independent audit of the graders of the 51 publicly released EdgeBench tasks. Every task has an
+  outcome (kept with a note, fixed in a new version, or removed). Fixes were tested on paired
+  before/after runs of the original and fixed grader on the same inputs (repeated three
+  times; no fixed-grader verdict changed; exceptions are listed in METHOD.md), and formal checks in Lean 4 and
+  TLA+ cover 26 tasks, proving or model-checking 10 of the 31 fixes within their models.
 references:
   - type: software
     title: "EdgeBench"

@@ -1,5 +1,11 @@
 # integer_compression_codec: fresh good-faith triage
 
+> **Note (2026-10-12).** Superseded statement: "effective dataset weights are distorted by up to
+> 6.7× relative to one another". 6.7× is the compression term alone. With the speed term, the
+> unchanged starter's per-dataset scores on the original grader span 0.078–0.647 in the paired run
+> (8.3×; 8.9× and 7.5× in the repeats). The single-run honest-codec value 6.237 varies with timing:
+> the fixed version gives 6.70–8.27 over six runs. See `cases/integer_compression_codec.md`.
+
 ## Claim under review
 
 Earlier state (TASKS.md): "Review pending | Metadata/arithmetic controls only (L). | Held | Held; no

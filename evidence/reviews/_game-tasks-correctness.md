@@ -1,8 +1,16 @@
 # Game tasks: good-faith scoring correctness (10 tasks)
 
+> **Note (2026-10-12): superseded or unsourced statements.**
+> - Sections 1-3, "replayed in about 3 s of engine time": no saved record gives this figure. The
+>   recorded Trinity HTTP replay of 610 commands took 29.3 s (`git show
+>   earlier-audit-final:evidence/selected/trinity-tryst-terminal-acceptance.json`).
+> - Section 9 (Apple), "Deterministic": the tester binary was not available, so this covers the
+>   evaluator code only. Only the lower anchor was checked against the greedy simulator; the upper
+>   anchors' source and reachability were not checked.
+
 Reviewer: Claude (critical re-verification). Date: 2026-10-11. Scope: does the original task score an
-**honest** solver correctly and repeatably? This review does not cover ways a submission could
-tamper with or bypass the scorer. Scorer isolation: see the separate robustness review.
+**honest** solver correctly and repeatably? This review does not cover deliberate attacks on the
+grader, which are out of scope; scorer-isolation notes are kept internally.
 
 Method: I read the sources first. I made no image pulls and started no cloud or native game runs.
 Local checks were small (less than 2 GB, under `timeout`). I reused accepted earlier native results
@@ -28,8 +36,8 @@ All copies under `$W/work/task-sources/merged/<id>/` match, byte for byte, the h
 |---|---|
 | `sforge/harness/game_server_app.py` | `379572e99bbff5f89dbad92b81b88093a79a5fcee34ddefe809e821b01d8b983` |
 | `sforge/harness/judge_server.py` | `77410d7e4705df03418d0676ddbb74241da7746190807cb073fbcdae3edf4e04` |
-| `sforge/harness/grading.py` | `b3eeac727152eee941dc892a49aaaa7ba68ed9b249b1eb74076b2c511b6d04d7` |
-| `sforge/harness/selection.py` | `3338ed2461118d22cf0b6f9d9b01b77a0255561ca01b3827a426c1cc585e2fba` |
+| `sforge/harness/grading.py` (EdgeBench `6e4e5f4`) | `ba15c46d073889858bd9005f598a782b3b0c9de8b00c72eea9c98502ca0eac56` |
+| `sforge/harness/selection.py` (EdgeBench `6e4e5f4`) | `abb55b7b0466f73e4fab248dfed31ad89b1caec19b1a8117edcbf2429571cf0a` |
 | `sforge/harness/score_rescale.py` | `98feb630390f217cb67e21315b5ca8a4f2eb6d1bb28cc9822152b3ed58be4b19` |
 | `tmp/eval_dcss.py` | `101e8858c5c952bf8cd8b4ae1d4889420b0e35448522e42e2f29b85607ad2218` |
 | `tmp/eval_nethack.py` | `5bd47b4f4eea5d15b4033a1a11d4fde1eede800af5e61d4aa4468d6fd4514787` |
@@ -48,12 +56,15 @@ per-task sections.
 
 Harness facts used throughout:
 
-- **Best-of-N selection.** `score_first` takes the maximum valid score over every submission or game
-  (`selection.py:106-117`).
-- **Validity gate.** A result marked `valid:false`, or one where the harness timed out, gets no score
-  (`grading.py:292-293,314-315`; `selection.py:64`).
-- **`score_sum` parser.** The score is the `TOTAL_SCORE` line. A failed case does not invalidate the
-  result (`grading.py:138-200`).
+- **Best-of-N selection.** `score_first` takes the best non-null score over every completed submission
+  or game, and does not read `valid` (`selection.py:83-103`).
+- **Validity flag.** Only the `valid_then_score` policy drops a result marked `valid:false`
+  (`selection.py:106-122`). Grading does not check the harness-timeout flag (`grading.py:224-241`); an
+  evaluator killed by the harness timeout usually prints no `TOTAL_SCORE`, so the entry has no score and
+  selection skips it.
+- **`score_sum` parser.** The score is the first `TOTAL_SCORE` value (`grading.py:74-77`). A failed case does
+  not invalidate the result (`grading.py:104-154`).
+- Line numbers refer to EdgeBench's `sforge` at `6e4e5f4` (hashes above).
 - **No task-level CPU limit.** None of the ten task JSONs sets `cpu_limit`, so the CPU allocation is
   whatever the operator configures (`task_spec.py:231`).
 
@@ -188,18 +199,19 @@ positive five-game run and no repeat.
 **(4) Honest-play scoring issue (conditional).**
 
 The prompt says the score is the "mean score across all 5 games" and calls Pass rate "a validity
-check". However, the evaluator sets `valid = ok == total` (`:218`), and the harness voids invalid
-results (`grading.py:292`, `selection.py:64`).
+check". The evaluator sets `valid = ok == total` (`:218`), but it also emits the mean of all 5 games
+as the score, with a failed game counted as 0 (`:210-221`). EdgeBench's harness keeps that score
+(`grading.py:200-217`), and `score_first` does not read `valid` (`selection.py:83-103`).
 
-So if a single game fails to produce a morgue, the whole submission gets no score, rather than that
-game counting as 0. A game fails this way when the forced-quit sequence fails twice (`pkill` at
-`:135`, then `WA`).
+So if a single game fails to produce a morgue, that game counts as 0 in the mean, as the prompt
+implies. A game fails this way when the forced-quit sequence fails twice (`pkill` at `:135`, then
+`WA`). No defect. (Corrected 2026-10-12: an earlier version of this review read a locally modified
+harness that voided `valid:false` results; EdgeBench's harness does not.)
 
-This path was not observed in the accepted runs ("No missing-morgue case was observed"). Best-of-N
-selection softens the impact.
+This path was not observed in the accepted runs ("No missing-morgue case was observed").
 
-**Recommendation: retain with a note.** The notes cover wall-clock dependence, the all-5-morgues
-validity rule, and the fact that the 50,000 anchor is unverified.
+**Recommendation: retain with a note.** The notes cover wall-clock dependence and the fact that the
+50,000 anchor is unverified.
 
 Decisive remaining check: rerun the same positive bot through the same five-game evaluation twice on
 one fixed CPU allocation of at least 5 cores, and once on half that. If the run-to-run spread is
@@ -299,7 +311,7 @@ reachable is **unverified**.
 
 This is not an OpenRCT2-class problem, but no native run has measured it. Note that
 `os.cpu_count()` sees the host's CPUs, not the cgroup's. Also, the wrapper's internal `TIMEOUT=3600`
-equals the harness `eval_timeout` 3600, so a slow run ends as a harness timeout (invalid), not as
+equals the harness `eval_timeout` 3600, so a slow run ends as a harness timeout (no score), not as
 `TLE`.
 
 **(3) Repeatability.** Good in principle. OpenTTD is deterministic (lockstep multiplayer design), and
@@ -352,7 +364,7 @@ requires a **mean of ≤ 15 s per game, including Wesnoth start-up**.
 | 180 s (worst case) | 10,800 s |
 
 A headless default-RCA-versus-RCA game of about 15-20 turns on these maps very plausibly takes more
-than 15 s. If it does, every evaluation hits the harness timeout and is invalid, and no score can be
+than 15 s. If it does, every evaluation hits the harness timeout and prints no score, and no score can be
 obtained.
 
 Not measured: both earlier engine attempts failed during setup, so there is no valid game timing.
@@ -537,10 +549,10 @@ policy confirms the reward-to-score mapping natively.
 | anchorhead_text_adventure | final in-game score of best session / 100 (Jericho max) | no horizon; 600 s idle reap undisclosed (no score loss) | deterministic (binding seed 0) | final not peak (doc only); 100/100 not demonstrated (walkthrough 99) | **retain with note** | none for disposition; a 100-point command sequence only removes the note |
 | trinity_text_adventure | same / 100 | same | deterministic | none (100/100 observed) | **retain with note** | none |
 | tryst_text_adventure | same / 350 | same | deterministic | none (350/350 observed) | **retain with note** | none |
-| dcss_dungeon_ai | mean of 5 morgue scores, log1p(raw/400) to 50k | 900 s/game parallel; normal path ≤ ~948 s, worst ≤ ~1008 s vs 1100 s; fits | fixed seeds but wall-clock / CPU dependent; 1.5 s key injection; noise never measured | a single missing morgue voids the whole submission (`valid=ok==total`) despite "mean of 5" wording; 50k anchor unverified | **retain with note** | 2× repeat of one positive bot on fixed ≥5-CPU allocation (+ one half-CPU run) to size noise |
+| dcss_dungeon_ai | mean of 5 morgue scores, log1p(raw/400) to 50k | 900 s/game parallel; normal path ≤ ~948 s, worst ≤ ~1008 s vs 1100 s; fits | fixed seeds but wall-clock / CPU dependent; 1.5 s key injection; noise never measured | none (a missing morgue counts as 0 in the mean, as the prompt implies; `valid=ok==total` is not read by `score_first`); 50k anchor unverified | **retain with note** | 2× repeat of one positive bot on fixed ≥5-CPU allocation (+ one half-CPU run) to size noise |
 | nethack_dungeon_agent | mean of 20 games' peak `blstats[9]`, linear /1000 | undisclosed 5,000 steps & 120 s/game (~24 ms/step); TLE zeroes whole game; 2,400 s ≤ 3,600 s | **unseeded**: NLE Challenge forbids seeding, exception swallowed → 20 random games, random role | non-reproducible scores; hidden TLE cliff | **retain with note** (or repair evaluator) | default 20-game eval of a simple positive agent, twice: spread of mean + per-step time |
 | openttd_transport_ai | mean over *returned* seeds (0-4) of last quarterly company value > 1; log 1e5→1e9 | 540,200 ticks/seed, needs ~150 ticks/s; likely fits 3,600 s (unmeasured); inner timeout = harness timeout | deterministic engine (unmeasured) | mean divides by returned seeds; value ≤ 1 → last positive quarter (minor) | **retain with note** (provisional) | one native 5-seed baseline + simple AI: wall time, ~240 saves/seed, nonzero score |
-| wesnoth_tactical_ai | int(80·win_rate + 20·eff), identity rescale | **60 sequential games in 900 s → ≤ 15 s/game incl. start-up**; likely exceeded → invalid | fixed rng-seed; repeats likely redundant | budget (likely unscoreable at defaults); subdir Lua not installed | **pending → withhold original if timing fails; small repair available** | time one original baseline `run_game` in judge image (> ~14 s ⇒ cannot finish) |
+| wesnoth_tactical_ai | int(80·win_rate + 20·eff), identity rescale | **60 sequential games in 900 s → ≤ 15 s/game incl. start-up**; likely exceeded → no score | fixed rng-seed; repeats likely redundant | budget (likely unscoreable at defaults); subdir Lua not installed | **pending → withhold original if timing fails; small repair available** | time one original baseline `run_game` in judge image (> ~14 s ⇒ cannot finish) |
 | treant_forest | sum of 50 case turns, piecewise anchors | 7 waves×120 s = 840 s vs 870 s (tight); README 60 s → 420 s | deterministic tester; time-budgeted solutions CPU dependent | **anchors unreachable: tester cap Σ2N² = 92,304 → max 21.02/100** (rank1 = 3.58× cap); cap undisclosed; movement semantics still open | **repair rescale anchors** (or note "max 21") | recover anchor provenance (scorer/case set they were computed on) |
 | apple_incremental_game | sum of 50 × round(1e5·log2 S), piecewise anchors | 210 s ≤ 600 s | deterministic | none; greedy gets 17.7 (anchors consistent) | **retain** (note 1 GB not enforced) | score one greedy output with pinned tester to confirm simulator parity |
 | bipedalwalker_locomotion_rl | min(30, eng bonus + 0.2·raw), linear /100 | ~36k steps vs 2×300 s; fits | fixed seeds, deterministic action | normalized range only 0-30 (10 free for loading); silent `strict=False` partial loads | **retain with note** (or repair upper→30) | none for correctness |
@@ -557,7 +569,7 @@ Counts:
   - NetHack seeding is ineffective.
   - Bipedal's normalized ceiling is 30.
 - **Conditional findings: 2.**
-  - DCSS: one missing morgue invalidates the submission.
+  - DCSS: withdrawn (a missing morgue counts as 0, as the prompt implies).
   - Wesnoth: the time budget, which is arithmetic plus an unmeasured game time.
 - **Local tests actually run: 3.**
   - Original Treant evaluator with the original tester and shipped baseline: 3,418, 50/50 OK.

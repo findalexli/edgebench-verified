@@ -3,9 +3,14 @@
   "path": "tasks/triangulation_coloring_optimization.json",
   "sha256": "4def4778920ad41c00f14a01c17ccbe2d749431fe835917806c6f5274b8621b7"
  },
- "v2_task_json_in": "bb976d0c425a552b5825f705a287d2d5efe023d8a5629e12af88090d839a52d5",
+ "v2_task_json_in": "d71029a4e6fa05546485755081238ace586331a97034c2a9bfdbc122830abf68",
  "original_judge_image": "seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671",
  "original_work_image": "seededge/edgebench.work.triangulation_coloring_optimization@sha256:618da32c3f4d3b8a79ba840ab7c5d3dc75b42e755ca61c575b784d3976c7cd1f",
+ "original_judge_image_tag": "568aa1a5a8ff",
+ "original_work_image_tag": "d3af8893fa81",
+ "v2_judge_image_tag": "convex-flip-v2.1",
+ "superseded_judge_image_tag (v1.0 package)": "convex-flip-v2",
+ "v2_work_image_tag (unchanged since the v1.0 package)": "convex-flip-v2",
  "original_files": {
   "judge:cases/0000.txt": "8e0c5efc1861caca38ff57a8990e52df7f1c4dfec2ead349ba2283d0831f64c1",
   "judge:cases/0001.txt": "fba99ccec0ee9435eafc479f637ae41aad4ff4b385aaebba0fd017ac6b65b2c1",
@@ -43,7 +48,8 @@
   "sample_data/0000.txt": "eed87ba88b2e8b9c926b6d6161ca2f140eae84431aefec1f116160bff3f55ebd",
   "sample_data/0001.txt": "f721dc0758f51401c51ce5bafcafd1fa91f5d30fed8dea9a22f3bfd5572095de",
   "sample_data/0002.txt": "809341326717dcafc4cd3bc3c45fb8d1c3b337fce5020dd9cfa7bc854c6b003a",
-  "tools/src/triangulation.py": "8b5b9cbbae071206b3ac8cb08f6f02030186c60e197755c4f8de4ccad9d86bbd"
+  "tools/src/triangulation.py": "8b5b9cbbae071206b3ac8cb08f6f02030186c60e197755c4f8de4ccad9d86bbd",
+  "/tmp/eval_triangulation_coloring.py": "082d72b27df0f570a884952c7b175df079b84ba87643b4ad4f452fb10c4facb1"
  },
  "unchanged_files_used_to_generate": {
   "tools/src/gen.py": "67201f1e234b42128864bef12e5eedd7e219777473042a69eaf392c838602d90",
@@ -137,6 +143,11 @@
     "sha256": "ea69321d3c965aba2f8bd88fb87cd3aed2afc92317ce015678a653c9544efdcd"
    },
    {
+    "source": "judge",
+    "path": "/tmp/eval_triangulation_coloring.py",
+    "sha256": "1c5100f5b1477a063a62ede0682c08b0f5fe490fd1f4ec532eb17c4089bfc009"
+   },
+   {
     "source": "work",
     "path": "/home/workspace/triangulation_coloring/tools/src/triangulation.py",
     "sha256": "32862fe50b439836bc6c32e09d08568ff2a9884745b17b6259652fd641c1a844",
@@ -154,12 +165,25 @@
    "files/cases/0007.txt": "acacdd57408a200fefdd53daf5ff1c2338afa6092bac6a34f1277bf43d4a15c7",
    "files/cases/0008.txt": "0b8721c050ff0de5aeb8ae4be0620569dcb6d81acf938678d2f0e2ffcdf4725d",
    "files/cases/0009.txt": "b660eb3f4b98202c5541e6f1ec6bccc4e808c4073bb5aa9e6f467378c2fe0053",
+   "files/eval_triangulation_coloring.py": "082d72b27df0f570a884952c7b175df079b84ba87643b4ad4f452fb10c4facb1",
    "files/sample_data/0000.txt": "eed87ba88b2e8b9c926b6d6161ca2f140eae84431aefec1f116160bff3f55ebd",
    "files/sample_data/0001.txt": "f721dc0758f51401c51ce5bafcafd1fa91f5d30fed8dea9a22f3bfd5572095de",
    "files/sample_data/0002.txt": "809341326717dcafc4cd3bc3c45fb8d1c3b337fce5020dd9cfa7bc854c6b003a",
    "files/tools/src/triangulation.py": "8b5b9cbbae071206b3ac8cb08f6f02030186c60e197755c4f8de4ccad9d86bbd"
   },
-  "repair_patch_sha256": "6c64fddcc19820d93b728b0d1381b7f7f7f373abcbf141d87b9d019e94c2716b",
-  "materialize_sh_sha256": "9ee9a8dc07f983e72d5a76f4e67ff291cf638ef964aa86819fa248fdf1d3245f"
+  "repair_patch_sha256": "edbe73e66e9f44c07d579a5c0dc16dac3f2e2e8e5a3ee9273fd16fc1d342d8b2",
+  "materialize_sh_sha256": "3e82eadc2b5865aee11a9b1f9c8ff522c55399c30d568db7960bd0613065de4d"
+ },
+ "dockerfile_sha256": "2db6795e539f2f9427569c8a6811dfa95fc8b9a8e63b4e8305698aa77ff7256f",
+ "cpu_quota_cap": {
+  "image_path": "/tmp/eval_triangulation_coloring.py",
+  "original_sha256": "1c5100f5b1477a063a62ede0682c08b0f5fe490fd1f4ec532eb17c4089bfc009",
+  "original_bytes": 2479,
+  "replacement_sha256": "082d72b27df0f570a884952c7b175df079b84ba87643b4ad4f452fb10c4facb1",
+  "replacement_bytes": 3386,
+  "mode": "0755",
+  "change": "ProcessPoolExecutor(max_workers=min(cpu_quota_workers(), len(case_files))) instead of min(8, len(case_files)); cpu_quota_workers() as in grid_turing_robot-v2",
+  "previous_version": "kept internally, not published: flip rule and regenerated inputs only",
+  "built_judge_image_id_in_paired_run (not a registry digest)": "sha256:cd10c09ae5b3f147b1eb5769164c1bb947d09d0b1c4f46ab90d06fabc3c2e476"
  }
 }

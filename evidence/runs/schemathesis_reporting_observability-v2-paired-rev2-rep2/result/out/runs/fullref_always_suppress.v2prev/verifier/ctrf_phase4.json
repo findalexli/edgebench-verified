@@ -1,0 +1,140 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T22:29:51.222109+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791844191030,
+            "stop": 1791844191222
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_04_examples.py::test_examples_phase_available",
+                "status": "passed",
+                "duration": 30,
+                "start": 1791844191131,
+                "stop": 1791844191161,
+                "retries": 0,
+                "file_path": "test_04_examples.py"
+            },
+            {
+                "name": "test_04_examples.py::test_property_without_example_is_generated_optional",
+                "status": "passed",
+                "duration": 24,
+                "start": 1791844191162,
+                "stop": 1791844191186,
+                "retries": 0,
+                "file_path": "test_04_examples.py"
+            },
+            {
+                "name": "test_04_examples.py::test_property_without_example_is_generated_required",
+                "status": "passed",
+                "duration": 2,
+                "start": 1791844191187,
+                "stop": 1791844191189,
+                "retries": 0,
+                "file_path": "test_04_examples.py"
+            },
+            {
+                "name": "test_04_examples.py::test_gate_preserved_when_no_explicit_examples",
+                "status": "passed",
+                "duration": 2,
+                "start": 1791844191189,
+                "stop": 1791844191191,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "tags": [
+                    "parametrize::body_schema::[{'type': 'object', 'properties': {'name': {'type': 'string'}, 'age': {'type': 'integer'}}, 'required': ['name']}, {'type': 'object', 'properties': {'credit_card': {'type': 'string'}, 'paypal_email': {'type': 'string'}}, 'oneOf': [{'required': ['credit_card']}, {'required': ['paypal_email']}]}]::ids_['plain', 'oneof']"
+                ]
+            },
+            {
+                "name": "test_04_examples.py::test_gate_preserved_when_no_explicit_examples",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844191191,
+                "stop": 1791844191192,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "tags": [
+                    "parametrize::body_schema::[{'type': 'object', 'properties': {'name': {'type': 'string'}, 'age': {'type': 'integer'}}, 'required': ['name']}, {'type': 'object', 'properties': {'credit_card': {'type': 'string'}, 'paypal_email': {'type': 'string'}}, 'oneOf': [{'required': ['credit_card']}, {'required': ['paypal_email']}]}]::ids_['plain', 'oneof']"
+                ]
+            },
+            {
+                "name": "test_04_examples.py::test_branch_required_yields_disjoint_sets",
+                "status": "passed",
+                "duration": 3,
+                "start": 1791844191193,
+                "stop": 1791844191196,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "tags": [
+                    "parametrize::keyword::['oneOf', 'anyOf']"
+                ]
+            },
+            {
+                "name": "test_04_examples.py::test_branch_required_yields_disjoint_sets",
+                "status": "passed",
+                "duration": 4,
+                "start": 1791844191196,
+                "stop": 1791844191200,
+                "retries": 0,
+                "file_path": "test_04_examples.py",
+                "tags": [
+                    "parametrize::keyword::['oneOf', 'anyOf']"
+                ]
+            },
+            {
+                "name": "test_04_examples.py::test_oneof_branch_isolation_own_properties",
+                "status": "passed",
+                "duration": 3,
+                "start": 1791844191201,
+                "stop": 1791844191204,
+                "retries": 0,
+                "file_path": "test_04_examples.py"
+            },
+            {
+                "name": "test_04_examples.py::test_oneof_branch_isolation_shared_property",
+                "status": "passed",
+                "duration": 4,
+                "start": 1791844191204,
+                "stop": 1791844191208,
+                "retries": 0,
+                "file_path": "test_04_examples.py"
+            },
+            {
+                "name": "test_04_examples.py::test_anyof_with_required_constraints_per_branch",
+                "status": "passed",
+                "duration": 11,
+                "start": 1791844191208,
+                "stop": 1791844191219,
+                "retries": 0,
+                "file_path": "test_04_examples.py"
+            },
+            {
+                "name": "test_04_examples.py::test_optional_properties_included_in_extraction",
+                "status": "passed",
+                "duration": 2,
+                "start": 1791844191219,
+                "stop": 1791844191221,
+                "retries": 0,
+                "file_path": "test_04_examples.py"
+            }
+        ]
+    }
+}

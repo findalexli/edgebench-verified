@@ -2,6 +2,8 @@
 
 Reviewer: Claude (critical re-verification pass), 2026-10-11. Independent rerun in the pulled original judge and work images; no E2B or cloud.
 
+> **Note (2026-10-12).** Superseded below: the recommendation to retain with a note. The grader's dependence on CPU count (8 cases at once under a 30 s wall-clock limit; the publisher's leaderboard setting, `examples/all-tasks-k8s/experiment.yaml` sha256 `d9d29979…43be`, gives it 4 CPUs) is now measured and fixed in a new version (`repairs/vibrating_path_graph_coloring-v2/`), which also raises `eval_timeout` from 600 to 900 s. Measured at 4 and 8 CPUs (`evidence/runs/vibrating_path_graph_coloring-cpu4v8-a`, `-b`, `vibrating_path_graph_coloring-v2-paired-a`, `-b`, `-c`). The zero-hit format findings below are unchanged and still ship as a note. See `cases/vibrating_path_graph_coloring.md`.
+
 ## Claim under review
 
 Earlier claim: "Conservative interface-consistency decision: the tester rejects the visible README's three-line zero-hit output while accepting the same coloring in two lines. The unrecovered detailed README could establish an exception and warrant reconsideration. Its absence and unresolved graph-rule differences are not exclusion grounds; historical incidence is unknown."

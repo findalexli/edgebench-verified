@@ -72,7 +72,7 @@ add("dabic_gravity_inversion", "Paired v1/v2 results: dabic_gravity_inversion", 
 add("equivalence_class_divide_and_conquer", "Paired v1/v2 results: equivalence_class_divide_and_conquer", "raw", [
  ("`naive.cpp` on crafted B (star, n=10⁶, m=2501; true cost 2.501·10⁹ > limit)", "trigger", "AC, raw 10 (T3 1/1)", "WA \"Operation cost exceeded\", raw 0", "10", "0"),
  ("`naive.cpp` on crafted A (m=2500; true cost exactly 2.5·10⁹)", "valid", "AC, raw 10", "AC, raw 10", "10", "10"),
- ("official `std.cpp` for T1–T6", "valid", "raw 100 / norm 100; T1 5/5, T2 10/10, T3 30/30, T4 25/25, T5 20/20, T6 30/30; exit 0; pass rate 1.000", "raw 100 / norm 100; identical per-subtask counts; exit 0; pass rate 1.000", "100", "100"),
+ ("official `std.cpp` for T1–T6", "valid", "raw 100 / norm 100; T1 5/5, T2 10/10, T3 30/30, T4 25/25, T5 20/20, T6 30/30 (cases passed); exit 0; pass rate 1.000", "raw 100 / norm 100; identical per-subtask counts; exit 0; pass rate 1.000", "100", "100"),
  ("`naive.cpp` as T3, others empty, on the 30 official inputs", "invalid", "raw 1 / norm 1; T3 6 AC / 24 WA (cost exceeded); exit 1; pass rate 0.020", "raw 1 / norm 1; the same 6 AC / 24 WA, case by case; exit 1; pass rate 0.020", "1", "1"),
 ])
 
@@ -90,13 +90,27 @@ add("exchange_core_throughput", "Paired results: exchange_core_throughput v1 vs 
 
 # ffmpeg (-b run, only table in file)
 add("ffmpeg_swscale_reimplementation", "Paired results: ffmpeg_swscale_reimplementation v1 vs v2", "raw", [
- ("reference implementation (run 1)", "valid", "", "", "0.967353", "0.980056"),
- ("reference implementation (run 2)", "valid", "", "", "0.509049", "0.507032"),
+ ("forwarding shim, each frame once (`ref_r1`)", "valid", "", "", "0.967353", "0.980056"),
+ ("forwarding shim, each frame twice (`ref_r2`, about 2× slower)", "valid", "", "", "0.509049", "0.507032"),
  ("shipped scaffold", "baseline", "", "", "0.447819", "0.012416"),
  ("errors on 3:1 downscale", "trigger", "", "", "2.881761", "0.000464"),
  ("silent no-op on 3:1 downscale", "trigger", "", "", "2.884506", "0.000463"),
  ("errors on RGBA→RGB24", "trigger", "", "", "1.305860", "0.000451"),
  ("unsupported yuv420p→rgb24", "invalid", "0.0 (28/30)", "0.0 (28/30)", "0.0", "0.0"),
+])
+
+# git: reward 0-1 (score = reward x 100); result = tests passed ("–": tests ran, reward ignores them)
+add("git_rewrite_in_zig", "Paired table", "raw", [
+ ("`control`: unmodified starter", "baseline", "2", "2", "0.000069", "0.000069"),
+ ("`zig_build_exe`: starter after `zig build-exe src/main.zig -lc -lz` (leaves `main`, `main.o`)", "trigger", "–", "2", "0.0", "0.000069"),
+ ("`obj_only`: as above, only `main.o` left", "trigger", "–", "2", "0.0", "0.000069"),
+ ("`elf_only`: as above, only `main` left", "trigger", "–", "2", "0.0", "0.000069"),
+ ("`exec_git`: `test` block in `src/main.zig` runs system git (`zig test` passes 1/1)", "trigger", "–", "2", "0.0", "0.000069"),
+ ("`exec_git_helper`: `src/difftest.zig` helper runs system git, used only by a `test` block (`zig test` passes 1/1)", "trigger", "–", "2", "0.0", "0.000069"),
+ ("oracle: real git v2.47.0 in `zig-out/bin`, `HARBOR_ORACLE_MODE=1`", "valid", "29,075", "29,075", "1.000000", "1.000000"),
+ ("`bad_wrap_cgit`: `main.zig` execs `./cgit`, a C git v2.47.0 in the project folder", "invalid", "–", "0", "0.0", "0.0"),
+ ("`bad_shell_git`: `main.zig` forwards every call to the system `git`", "invalid", "2", "2", "0.000069", "0.000069"),
+ ("`bad_shell_git_oneline`: the same, with `\"git\"` on the `std.process.Child` line", "invalid", "–", "2", "0.0", "0.000069"),
 ])
 
 # graph: Normalized 0-100; result = harness valid
@@ -156,7 +170,7 @@ add("order_addition_permutation_optimization", "Paired table", "raw", [
  ("badcost (misreported cost)", "invalid", "3/5", "4/5", "", ""),
  ("dup (not a permutation)", "invalid", "3/5", "4/5", "", ""),
 ])
-add("order_addition_permutation_optimization", "Selection (task policy `pass_rate_first`, repo `select_best`)", "verdict", [
+add("order_addition_permutation_optimization", "Selection (task policy `pass_rate_first`, EdgeBench `select_best`)", "verdict", [
  ("identity, search", "trigger", "identity (3.3e-09), frozen on the first", "search (0.00937)", "", ""),
  ("search, identity", "valid", "search (0.00937)", "search (0.00937)", "", ""),
  ("dup, identity, search", "trigger", "identity (3.3e-09)", "search (0.00937)", "", ""),
@@ -246,6 +260,171 @@ add("openttd_transport_ai", "Paired table", "raw", [
  ("probe_value (positive-value control)", "valid", "no", "no", "4975", "4975"),
 ])
 
+# pfr (added after openttd so earlier CSV line numbers stay stable): every score is 0.0 because no
+# real proof of the five targets was run; the trigger rows compare the status of the added lemmas.
+src = "Paired table"
+add("pfr_formalization", src, "raw", [
+ ("starter", "baseline", "0/423", "0/423", "0.0", "0.0"),
+])
+add("pfr_formalization", src, "verdict", [
+ ("T (trigger)", "trigger", "both BAD `unexpected=[sorryAx]`", "both OK `[propext, Classical.choice, Quot.sound]`", "", ""),
+ ("D (downstream)", "trigger", "all three BAD `unexpected=[sorryAx]`", "all three OK", "", ""),
+])
+add("pfr_formalization", src, "raw", [
+ ("BAD (bad control)", "invalid", "`app_ent_PFR` BAD, `ebv_bad_sorry` BAD", "`app_ent_PFR` BAD, `ebv_bad_sorry` BAD", "0.0", "0.0"),
+])
+
+# grid / molecular / warehouse CPU share (added last so earlier CSV line numbers stay stable). Score
+# columns are left empty for grid and molecular: their results.md gives TOTAL with thousands separators,
+# which is kept verbatim in the result columns.
+add("grid_turing_robot", "grid_turing_robot v2: paired results", "raw", [
+ ("`baseline_good` (no extra work)", "baseline", "50 OK, TOTAL 94,092 (19.80)", "50 OK, TOTAL 94,092 (19.80)", "", ""),
+ ("`cpu12` (12 s CPU per case)", "valid", "50 OK, TOTAL 94,092", "50 OK, TOTAL 94,092", "", ""),
+ ("`cpu16` (16 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL inf (invalid)", "50 OK, TOTAL 94,092 (19.80)", "", ""),
+ ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL inf (invalid)", "50 OK, TOTAL 94,092 (19.80)", "", ""),
+ ("`wall25` (works until 25 s wall clock)", "valid", "50 OK, TOTAL 94,092", "50 OK, TOTAL 94,092", "", ""),
+ ("`spin40` (bad control, 40 s CPU per case)", "invalid", "0 OK, 50 TLE, TOTAL inf", "0 OK, 50 TLE, TOTAL inf", "", ""),
+ ("`cpu20` (20 s CPU per case)", "valid", "50 OK, TOTAL 94,092", "50 OK, TOTAL 94,092", "", ""),
+])
+add("molecular_self_assembly", "molecular_self_assembly v2: paired results", "raw", [
+ ("`baseline` (shipped baseline, no extra work)", "baseline", "50 OK, TOTAL 69,280,072", "50 OK, TOTAL 69,280,072", "", ""),
+ ("`cpu12` (12 s CPU per case)", "valid", "50 OK, TOTAL 69,280,072", "50 OK, TOTAL 69,280,072", "", ""),
+ ("`cpu16` (16 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL 2,849,909", "50 OK, TOTAL 69,280,072", "", ""),
+ ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL 2,849,909", "50 OK, TOTAL 69,280,072", "", ""),
+ ("`wall25` (works until 25 s wall clock)", "valid", "50 OK, TOTAL 69,280,072", "50 OK, TOTAL 69,280,072", "", ""),
+ ("`spin40` (bad control, 40 s CPU per case)", "invalid", "0 OK, 50 TLE, TOTAL 0", "0 OK, 50 TLE, TOTAL 0", "", ""),
+ ("`cpu20` (20 s CPU per case)", "valid", "50 OK, TOTAL 69,280,072", "50 OK, TOTAL 69,280,072", "", ""),
+])
+# warehouse at 4 CPUs: v1 = original grader, v2 = current fixed version (the earlier, limit-only fixed
+# version gave 2 OK + 48 TLE -> inf for both arms; see results.md).
+add("warehouse_forklift_routing", "CPU share at 4 CPUs (current fixed version, 2026-10-12)", "raw", [
+ ("`cpu80` (80 s CPU per input)", "trigger", "50 TLE → inf", "50 OK, TOTAL 46676.8", "", "46676.8"),
+ ("`cpu140` (140 s CPU per input)", "trigger", "50 TLE → inf", "50 OK, TOTAL 46676.8", "", "46676.8"),
+])
+
+# vibrating / apple / triangulation CPU share (added 2026-10-12, after rust in the CSV so earlier
+# line numbers stay stable). v1 = original grader, v2 = fixed version, at 4 grader CPUs unless the arm
+# ends in "| 8" (the 8-CPU row of the results.md table). Score columns are left empty where results.md
+# gives TOTAL with thousands separators, which is kept verbatim in the result columns.
+CPU_ROWS = []
+CPU_ROWS.append(("vibrating_path_graph_coloring", "vibrating_path_graph_coloring v2: paired results", "raw", [
+ ("`cpu0` (honest control alone)", "baseline", "50 OK, TOTAL 24,650,014 (2.06)", "50 OK, TOTAL 24,650,014 (2.06)", "", ""),
+ ("`cpu20` (20 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL inf (no score)", "50 OK, TOTAL 24,650,014 (2.06)", "", ""),
+ ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL inf (no score)", "50 OK, TOTAL 24,650,014 (2.06)", "", ""),
+ ("`wall25` (works until 25 s wall clock)", "valid", "36 OK, 14 TLE, TOTAL inf", "50 OK, TOTAL 24,650,014", "", ""),
+ ("`wall25`, repeat 1 / repeat 2", "valid", "50 OK, 24,650,014", "50 OK, 24,650,014", "", ""),
+ ("`spin40` (bad control, 40 s CPU per case)", "invalid", "0 OK, 50 TLE, TOTAL inf", "0 OK, 50 TLE, TOTAL inf", "", ""),
+ ("`cpu20` (20 s CPU per case) | 8", "valid", "50 OK, TOTAL 24,650,014", "50 OK, TOTAL 24,650,014", "", ""),
+]))
+CPU_ROWS.append(("apple_incremental_game", "apple_incremental_game v2: paired results", "raw", [
+ ("`cpu0` (honest control alone)", "baseline", "50 OK, TOTAL 99,714,418 (5.04)", "50 OK, TOTAL 99,714,418 (5.04)", "", ""),
+ ("`cpu20` (20 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL 3,955,266 (0.00)", "50 OK, TOTAL 99,714,418 (5.04)", "", ""),
+ ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL 3,955,266 (0.00)", "50 OK, TOTAL 99,714,418 (5.04)", "", ""),
+ ("`wall25` (works until 25 s wall clock)", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
+ ("`spin40` (bad control, 40 s CPU per case)", "invalid", "0 OK, 50 TLE, TOTAL 0", "0 OK, 50 TLE, TOTAL 0", "", ""),
+ ("`cpu20` (20 s CPU per case) | 8", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
+]))
+# triangulation: the original grader scores the original cases, the fixed version the regenerated ones,
+# so valid totals differ (866,166 against 863,058), as in its existing rows.
+CPU_ROWS.append(("triangulation_coloring_optimization", "CPU-quota parallelism (added 2026-10-12)", "raw", [
+ ("`cpu0` (control alone)", "baseline", "10 OK, 866,166", "10 OK, 863,058", "", ""),
+ ("`cpu20` (20 s CPU per case)", "trigger", "2 OK, 8 TLE, inf (no score)", "10 OK, 863,058 (48.95)", "", ""),
+ ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 8 TLE, inf", "10 OK, 863,058", "", ""),
+ ("`wall25` (works until 25 s wall clock)", "valid", "10 OK, 866,166", "10 OK, 863,058", "", ""),
+ ("`spin40` (bad control, 40 s CPU per case)", "invalid", "10 TLE, inf", "10 TLE, inf", "", ""),
+ ("`cpu20` | 8", "valid", "10 OK, 866,166", "10 OK, 863,058", "", ""),
+]))
+
+# rust: verbatim eval_cmd, score out of 100; v1 = original grader as shipped, v2 = fixed version.
+# The middle image (original grader + the 4 cc files, the publisher's environment) is in results.md:
+# starter 3.8189, reference/partial 73.9926, bad 73.8926 (data/README.md says so). The arms are the
+# rows of the summary table at the top of the Results section.
+add("rust_multicrate_reconstruction", "rust_multicrate_reconstruction v2: paired results", "normalized", [
+ ("starter", "baseline", "", "", "1.4711", "5.7236"),
+ ("reference", "trigger", "", "", "27.6091", "94.7022"),
+ ("partial", "trigger", "", "", "27.6091", "93.9963"),
+ ("bad", "invalid", "", "", "27.5091", "94.6022"),
+])
+
+for _t, _src, _kind, _rows in CPU_ROWS:
+    add(_t, _src, _kind, _rows)
+
+# portfolio (added 2026-10-13, after the CPU rows so earlier CSV line numbers stay stable).
+# Full grader: score = TOTAL_SCORE out of 100; result = yearly excess return as the grader prints it.
+# Installed functions on authored NAV paths: verdict rows; result = the excess part of the score (of 20).
+add("portfolio_risk_calibration", "Full grader (`score.py`)", "raw", [
+ ("(a) instructions' formula", "trigger", "3.44%", "3.47%", "32.45", "32.52"),
+ ("(b) grader's formula", "valid", "3.44%", "3.47%", "32.45", "32.52"),
+ ("(c) wrong", "invalid", "−21.14%", "−21.33%", "0", "0"),
+ ("(d) starter", "baseline", "missing submission files: portfolio_optimizer.py",
+  "missing submission files: portfolio_optimizer.py", "0", "0"),
+ ("(e) image example", "baseline", "−9.28%", "−9.37%", "0", "0"),
+])
+add("portfolio_risk_calibration", "Near the 12% full-marks line (installed functions)", "verdict", [
+ ("T1 instructions' formula gives exactly 12%", "trigger", "19.85", "20.00", "", ""),
+ ("T2 original grader's formula gives exactly 12%", "valid", "20.00", "20.00", "", ""),
+ ("T3 equal to the benchmark", "valid", "0", "0", "", ""),
+ ("T4", "valid", "9.90", "9.98", "", ""),
+ ("T5", "valid", "−4.43", "−4.47", "", ""),
+])
+
+# juliet (added 2026-10-13): score = the wrapper's `score` (linear 0-100); result = trace quality
+# (share of true positives whose trace is accepted), or status for submissions with no findings.
+add("juliet_vulnerability_analyzer", "Hidden grading (task `eval_cmd`)", "raw", [
+ ("a78_public (public form)", "trigger", "0.0000", "1.0000", "45.66", "60.66"),
+ ("a78_input (hidden form)", "valid", "1.0000", "1.0000", "60.66", "60.66"),
+ ("a78_wrong (wrong source)", "invalid", "0.0000", "0.0000", "45.66", "45.66"),
+ ("r_hidden", "valid", "1.0000", "1.0000", "100.00", "100.00"),
+ ("r_public78 (public form)", "trigger", "0.8340", "1.0000", "97.51", "100.00"),
+ ("r_sinkonly (wrong in other CWEs)", "invalid", "0.3237", "0.4896", "70.00", "70.00"),
+ ("r_wrong78_tr", "invalid", "0.8340", "0.8340", "97.51", "97.51"),
+ ("r_wrong78_src", "invalid", "0.8340", "0.8340", "97.51", "97.51"),
+ ("starter", "baseline", "— (no findings)", "— (no findings)", "10.00", "10.00"),
+ ("crash", "baseline", "`valid: false`", "`valid: false`", "10.00", "10.00"),
+])
+add("juliet_vulnerability_analyzer", "Public data (same `score.py`, public answers)", "raw", [
+ ("a78_public", "valid", "1.0000", "1.0000", "51.17", "51.17"),
+ ("a78_input", "valid", "0.0000", "0.0000", "36.17", "36.17"),
+ ("a78_wrong", "invalid", "0.0000", "0.0000", "36.17", "36.17"),
+])
+
+# Grader CPU count (`docker run --cpus`) of the job that produced each row, from the job's run.sh
+# (repairs/<task>-v2/paired/*.sh and evidence/runs/<job>/run.sh, or the per-arm `cpus=` field of the
+# job's summary.txt). Empty where no run script states it or nothing ran.
+TASK_CPUS = {
+    "arc_compiler_runtime": 2, "borden_source_inversion": 2,   # Borden: grading at 2; fitting runs at 8
+    "college_english_exam_bank": 2, "cta_risk_budget_optimization": 2, "dabic_gravity_inversion": 8,
+    "equivalence_class_divide_and_conquer": 3, "exchange_core_throughput": 8,
+    "ffmpeg_swscale_reimplementation": 4, "git_rewrite_in_zig": 8, "graph_node_classification": 4,
+    "integer_compression_codec": 4, "jagua_nesting_optimization": 3, "lean_analysis_proofs": 2,
+    "order_addition_permutation_optimization": 2, "pfr_formalization": 4,
+    "schemathesis_config_modernization": 2, "schemathesis_datagen_pipeline": 2,
+    "schemathesis_reporting_observability": 2, "tree_block_partitioning": 2, "treant_forest": 8,
+    "portfolio_risk_calibration": 2, "juliet_vulnerability_analyzer": 2,
+}
+SOURCE_CPUS = {
+    ("smt_solver", "Corpus: 69 scoped hidden files (verdict counts)"): 4,
+    ("warehouse_forklift_routing", "Paired run"): 2,
+    ("triangulation_coloring_optimization", "Full judge (`eval_cmd`, 10 hidden cases)"): 8,
+}
+CPU_SHARE = {"apple_incremental_game", "vibrating_path_graph_coloring", "triangulation_coloring_optimization",
+             "grid_turing_robot", "molecular_self_assembly"}   # summary.txt: c4-* rows cpus=4, c8-* rows cpus=8
+
+
+def cpus(task, arm, src, v1r):
+    if src == "Anchor endpoints":   # Treant's score cap, computed, not run
+        return ""
+    if src.startswith("CPU share at 4 CPUs") and task == "warehouse_forklift_routing":
+        return 4
+    if (task, src) in SOURCE_CPUS:
+        return SOURCE_CPUS[(task, src)]
+    if task in CPU_SHARE and src != "Full judge (`eval_cmd`, 10 hidden cases)":
+        if arm.endswith("| 8") or (task in ("grid_turing_robot", "molecular_self_assembly") and arm.startswith("`cpu20`")):
+            return 8
+        return 4
+    return TASK_CPUS.get(task, "")
+
+
 def changed(v1r, v2r, v1s, v2s):
     if (v1r, v2r) == ("accept", "accept (below the 1e-6 relative tolerance)"):
         return "no"  # same verdict; v2 cell only adds an explanation
@@ -255,7 +434,7 @@ def changed(v1r, v2r, v1s, v2s):
 
 with open(OUT, "w", newline="") as f:
     w = csv.writer(f)
-    w.writerow(["task_id","arm","role","v1_result","v2_result","v1_score","v2_score","score_kind","changed","source"])
+    w.writerow(["task_id","arm","role","v1_result","v2_result","v1_score","v2_score","score_kind","changed","source","cpus"])
     for t, arm, role, v1r, v2r, v1s, v2s, kind, src in R:
-        w.writerow([t, arm, role, v1r, v2r, v1s, v2s, kind, changed(v1r, v2r, v1s, v2s), src])
+        w.writerow([t, arm, role, v1r, v2r, v1s, v2s, kind, changed(v1r, v2r, v1s, v2s), src, cpus(t, arm, src, v1r)])
 print(len(R))

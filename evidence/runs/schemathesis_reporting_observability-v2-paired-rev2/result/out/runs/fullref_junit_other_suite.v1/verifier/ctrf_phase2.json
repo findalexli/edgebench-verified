@@ -1,0 +1,158 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T22:30:29.661472+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 14,
+            "passed": 13,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791844229483,
+            "stop": 1791844229661
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_02_reporting.py::test_reporting_module_available",
+                "status": "passed",
+                "duration": 94,
+                "start": 1791844229524,
+                "stop": 1791844229618,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_ndjson_writer_context_manager",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229618,
+                "stop": 1791844229619,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_ndjson_writer_context_manager_closes_file",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229619,
+                "stop": 1791844229620,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_junitxml_writer_context_manager",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 32,
+                "start": 1791844229621,
+                "stop": 1791844229653,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:55: in test_junitxml_writer_context_manager\n    assert \"schemathesis\" in content\nE   assert 'schemathesis' in '<?xml version=\"1.0\" encoding=\"utf-8\"?>\\n<testsuites disabled=\"0\" errors=\"1\" failures=\"0\" tests=\"1\" time=\"0.0\">\\n\\t<testsuite disabled=\"0\" errors=\"1\" failures=\"0\" name=\"api-report\" skipped=\"0\" tests=\"1\" time=\"0\" hostname=\"dddc406871dc\">\\n\\t\\t<testcase name=\"test_label\">\\n\\t\\t\\t<error type=\"error\">something went wrong</error>\\n\\t\\t</testcase>\\n\\t</testsuite>\\n</testsuites>\\n'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_vcr_writer_context_manager_no_error",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229653,
+                "stop": 1791844229654,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_har_writer_context_manager_no_error",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229654,
+                "stop": 1791844229655,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_vcr_writer_open_writes_header",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229655,
+                "stop": 1791844229656,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_get_command_representation_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844229656,
+                "stop": 1791844229656,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_report_format_allure_enum",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229656,
+                "stop": 1791844229657,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_allure_field",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229657,
+                "stop": 1791844229658,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_update_allure_path",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229658,
+                "stop": 1791844229659,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844229659,
+                "stop": 1791844229659,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path_with_suffix",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229659,
+                "stop": 1791844229660,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path_allure",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844229660,
+                "stop": 1791844229661,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            }
+        ]
+    }
+}

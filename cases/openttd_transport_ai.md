@@ -1,10 +1,10 @@
 # OpenTTD Transport AI (`openttd_transport_ai`)
 
-**Outcome:** Fixed. <mark>The instructions tell the solver to maximize a game function, `AICompany.GetCompanyValue`, that does not exist in the pinned game version, so a script that calls it crashes, and the supplied starter program crashes on its first statement; the fix changes the instructions and the starter, not the grader.</mark>
+**Outcome:** Fixed. <mark>The instructions tell the solver to maximize a game function, `AICompany.GetCompanyValue`, that does not exist in the pinned game version, so a script that calls it crashes, and the supplied starter program crashes at its first call to it; the fix changes the instructions and the starter, not the grader.</mark>
 
 ![A flow shows the original instructions naming GetCompanyValue, which does not exist in OpenTTD 13.4, so a script that calls it dies at that call and its company stops acting, while the fixed instructions and starter name GetQuarterlyCompanyValue, which exists, so the script keeps running; a note says the grader is unchanged and the starter scores 0 in both versions.](figures/openttd_transport_ai.svg)
 
-*The task told solvers to call a game function that does not exist, so the starter crashed on its first statement; the fix changes the instructions and starter.*
+*The task told solvers to call a game function that does not exist, so the starter crashed at its first call to it; the fix changes the instructions and starter.*
 
 ## What the task asks
 
@@ -12,7 +12,7 @@ OpenTTD is an open-source transport-company simulation game. The solver writes "
 
 ## What goes wrong
 
-**The instructions name a function that does not exist.** `AICompany.GetCompanyValue` is not in the OpenTTD 13.4 NoAI API, the interface the game offers to computer players. The supplied starter calls it as its first statement and crashes:
+**The instructions name a function that does not exist.** `AICompany.GetCompanyValue` is not in the OpenTTD 13.4 NoAI API, the interface the game offers to computer players. The supplied starter logs one line and then calls it, in its main loop at `main.nut` line 5, and crashes:
 
 ```
 dbg: [script] [0] [S] Your script made an error: the index 'GetCompanyValue' does not exist
@@ -34,6 +34,8 @@ The wrapper printed `CASE 0000 WA score=0` and `TOTAL_SCORE 0`.
 
 - **Expected and observed:** a solver that follows the instructions and calls the named function expects to read its company value. Instead its script is killed at that call, and the company stops acting. The score is its last positive quarterly value, or 0.
 - The problem can be found by local testing, which the task provides. It is a misleading instruction, not a grader error.
+
+**The instructions also misstate what is scored.** The Goal line defines the target as "vehicle value at 1.5× purchase + infrastructure value + cash − loans". The grader reads the game's own company value. In the OpenTTD 13.4 source that value counts vehicles at 1.5× their value and stations, plus cash minus loan, with a floor of 1; roads, rails and other infrastructure do not count. The probe in the table below is consistent with this: with 8 stops, no vehicles and cash minus loan negative, it is scored 4,975. Under the test in [`METHOD.md`](../METHOD.md), this is a case of the agent being told a different rule from the one applied. A solver that builds track or roads expecting them to add value is scored without them. Its size was not measured, and the rails part rests on reading the source, not on a run.
 
 **The grader itself behaves correctly.** It reads company value from the game's monthly save files. In a seed-0 run there are 239 monthly saves, from 1950-02-01 to 1969-12-01, so the game runs the full 7,300 days. `old_economy[0].company_value` is 1 in every save, and the grader's `> 1` filter turns that into 0, so a company that does nothing scores 0. With 239 saves and a final date of 1969-12-01, the "last quarterly value" is the 1969-10 quarter. The `error` flag from OpenTTDLab (the library that runs the games) is printed but does not affect the score.
 
@@ -81,7 +83,8 @@ The test submission that shows the problem, the supplied starter, on the same gr
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on the supplied starter and probes we wrote.
-- The only test submission with a positive score is a probe (4,975, far below 1e5, the lower reference point of the score scale). Whether 1e9, the upper reference point, can be reached was not tested.
+- In the side-by-side run each test submission was graded once, because the grader image is the same in both versions; the original and fixed `TOTAL_SCORE` columns repeat that score. The versions differ only in the starter and instructions the solver receives.
+- The only test submission with a positive raw result is a probe (4,975, far below 1e5, the lower reference point of the score scale, so 0 out of 100). Every company value up to 1e5 scores 0 out of 100, so a score of 0 does not tell a crashed script from a weak one. Whether 1e9, the upper reference point, can be reached was not tested.
 - The documentation path in the instructions (`docs/noai_api_docs/`) differs from the real one (`docs/openttd_reference_docs/noai_api_docs/`), and the supplied HTML documentation appears to be from a later OpenTTD than 13.4. Both are noted in the package README and not changed.
 - The ticks/s figure is for an idle script on one host. An AI running many vehicles will be slower; that was not measured.
 

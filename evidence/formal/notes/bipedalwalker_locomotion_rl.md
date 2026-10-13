@@ -2,14 +2,15 @@
 
 ## Claim
 For every pair of mean rewards and every outcome of the four engineering checks, the score out of
-100 lies in [0, 30]. 30 is attained. With three or fewer checks passing the score is at most 27.5.
+100 lies in [0, 30]. 30 is the formula's maximum, attained when all four checks pass and both mean rewards are at least 300; whether any policy reaches those rewards is not shown. With three or fewer checks passing the score is at most 27.5.
 The `min(30, …)` in the code never binds, because 10 points for checks plus 20 points for reward
 already make 30. The case-table values are 2.5, 10, 18 and 30.
 
 ## Model and link to the code
 Lean 4: `evidence/formal/lean/ebv/Ebv/BipedalCap.lean` (output `BipedalCap.out`).
-- Source: work-image `loco-rl/sebench_eval.py`, sha256 9bb2f8bf…838a (the hash cited in
-  `_game-tasks-correctness.md` §10).
+- Source: `loco-rl/sebench_eval.py`, sha256 9bb2f8bf…838a (the hash cited in
+  `_game-tasks-correctness.md` §10), a copy taken from the task's source files. Which image it was
+  taken from is not recorded.
   - Lines 39-48 give the reward scores; lines 122-126 give `strict_score`.
   - Lines 148-204 append exactly one detail per engineering name, so `e ≤ 4`.
   - Lines 169-173 and 197-198 give the not-evaluated defaults.
@@ -33,4 +34,5 @@ Lean 4: `evidence/formal/lean/ebv/Ebv/BipedalCap.lean` (output `BipedalCap.out`)
 - `round(score, 2)` is not modelled.
 - The silent partial-loading note (`strict=False`) is not formalizable as a scoring rule: it is a
   property of PyTorch state-dict loading.
-- The grader image digest is not recorded. The source is the work-image copy.
+- The grader image digest is not recorded, nor is the image the source copy came from. The copy
+  is not published in this repository.

@@ -31,6 +31,8 @@ JOB = {
     'tree_block_partitioning': 'tree_block_partitioning-v2-paired',
     'triangulation_coloring_optimization': 'triangulation-v2-paired',
     'warehouse_forklift_routing': 'warehouse_forklift_routing-v2-paired-b',
+    'portfolio_risk_calibration': 'portfolio_risk_calibration-v2-paired',
+    'juliet_vulnerability_analyzer': 'juliet_vulnerability_analyzer-v2-paired',
 }
 INPKG = ['college_english_exam_bank', 'graph_node_classification', 'jagua_nesting_optimization',
          'order_addition_permutation_optimization', 'treant_forest', 'openttd_transport_ai']
@@ -251,6 +253,46 @@ def p_warehouse(o):
     return {i: (d[(a, 'v1')][0], d[(a, 'v2')][0], d[(a, 'v1')][1], d[(a, 'v2')][1]) for i, a in enumerate(arms)}
 
 
+def p_portfolio(o):
+    """Full-grader arms: TOTAL_SCORE (summary.txt) and the printed excess (score_report.json);
+    T rows: excess part and the three-part sum from the installed functions (logs/threshold-v*.log)."""
+    tot = {(n, v): fnum(x) for n, v, x in re.findall(r'^(\w+) (v[12]) exit=\d+ cpus=\d+ secs=\d+ TOTAL_SCORE (\S+)', rd(o / 'summary.txt'), re.M)}
+    def res(a, v):
+        f = o / 'reports' / f'{a}-{v}' / 'score_report.json'
+        j = json.load(open(f)) if f.exists() else {}
+        x = j.get('calculated_metrics', {}).get('excess_return_annual')
+        if x is None:
+            m = re.search(r'summary="([^"]*)"', [l for l in rd(o / 'summary_parsed.txt').splitlines() if l.startswith(f'{a}-{v}.log')][0])
+            return m.group(1)
+        return f'excess {100 * x:.2f}%; excess part {j["scores"]["excess_return"]}'
+    out = {}
+    for i, a in enumerate(['a_instructions', 'b_grader', 'c_wrong', 'd_starter', 'e_example']):
+        out[i] = (res(a, 'v1'), res(a, 'v2'), tot[(a, 'v1')], tot[(a, 'v2')])
+    th = {}
+    for v in ('v1', 'v2'):
+        for l in rd(o / f'logs/threshold-{v}.log').splitlines():
+            if l.startswith('{') and '"row"' in l:
+                x = json.loads(l)
+                th[(x['row'].split()[0], v)] = f"excess part {x['score_excess']:.2f}; three parts {x['score_three_parts']:.4f}"
+    for i, r in enumerate(['T1', 'T2', 'T3', 'T4', 'T5'], start=5):
+        out[i] = (th[(r, 'v1')], th[(r, 'v2')], None, None)
+    return out
+
+
+def p_juliet(o):
+    """summary.md table: score, status/valid, trace quality and rejection reasons per set, arm and version."""
+    d = {}
+    for l in rd(o / 'summary.md').splitlines():
+        c = [x.strip() for x in l.strip().strip('|').split('|')]
+        if len(c) == 11 and c[0] in ('hidden', 'public'):
+            st, arm, s1, s2, v1, v2, q1, q2, _, r1, r2 = c
+            d[(st, arm)] = (f'{v1}; trace {q1}; {r1}', f'{v2}; trace {q2}; {r2}', fnum(s1), fnum(s2))
+    arms = [('hidden', a) for a in ['a78_public', 'a78_input', 'a78_wrong', 'r_hidden', 'r_public78', 'r_sinkonly',
+                                     'r_wrong78_tr', 'r_wrong78_src', 'starter', 'crash']] \
+        + [('public', a) for a in ['a78_public', 'a78_input', 'a78_wrong']]
+    return {i: d[k] for i, k in enumerate(arms)}
+
+
 def graded(task, run):
     """Run the package's own grade.py on this run's result/out in a scratch copy; return (graded.json, stdout)."""
     d = S / 'grade' / f'{task}-run{run}'
@@ -387,6 +429,236 @@ def p_openttd(run):
     return out
 
 
+# ---------------------------------------------------------------- arms added 2026-10-12 (one row = one arm)
+# Each spec gives, per version, (job, label or [labels], parser). Run k of an arm reads job (k = 1),
+# job-rep2 or job-rep3. Arms whose jobs were not repeated simply have fewer runs.
+def _games(o):
+    d = {}
+    for lab, ok, tle, wa, re_, tot in re.findall(r'^(\S+) cpus=\d+ ver=\S+ sol=\S+ exit=\d+ wall=\S+ OK=(\d+) TLE=(\d+) WA=(\d+) RE=(\d+)(?: TOTAL_SCORE (\S+))?', rd(o / 'summary.txt'), re.M):
+        d[lab] = (f'OK {ok} TLE {tle} WA {wa} RE {re_}' + ('' if tot else '; no TOTAL'), fnum(tot) if tot else None)
+    return d
+
+
+def _smtcpu(o):
+    d = {}
+    for lab, verd, fs in re.findall(r'^(\S+) cpus=\d+ ver=\S+ sol=\S+ exit=\d+ wall=\S+ eval_rc=\d+ parallel=\d+ verdicts=(\{.*?\}) final_score=(\S+)', rd(o / 'summary.txt'), re.M):
+        d[lab] = (f'verdicts {verd}', round(float(fs), 6))
+    return d
+
+
+def _git(o):
+    d = {}
+    for name, v, br, tot in re.findall(r'^(\w+) (v[12]) rc=\d+ wall=\d+s \S+=\[(.*?)\] TOTAL_SCORE (\S+)', rd(o / 'summary.txt'), re.M):
+        d[f'{name}-{v}'] = (f'[{br.strip()}]', float(tot))
+    return d
+
+
+def _pfr(o):
+    d = {}
+    for f in sorted(o.glob('report_v*_*.json')):
+        v, var = re.match(r'report_(v[12])_(\w+)\.json', f.name).groups()
+        t = rd(f).split('>>>>> Start Structured Result')[-1].split('>>>>> End Structured Result')[0]
+        j = json.loads(t[t.index('{'):t.rindex('}') + 1]) if '{' in t else {}
+        lst = rd(o / f'listdecl_{v}_{var}.txt')
+        st = {n: s for s, n in re.findall(r'^(OK|BAD) (ebv_\w+|app_ent_PFR) :', lst, re.M)}
+        m = re.search(r'repaired=(\d+/\d+)', j.get('summary', ''))
+        d[f'{var}-{v}'] = (f"valid {str(j.get('valid')).lower()}; repaired {m.group(1) if m else '?'}; "
+                           + ', '.join(f'{n} {st[n]}' for n in sorted(st)), j.get('score'))
+    return d
+
+
+def _rust(o):
+    d = {}
+    for img in ('orig', 'v2'):
+        f = o / img / 'score-results.json'
+        if not f.exists():
+            continue
+        j = json.load(open(f))
+        cr = '; '.join(f"{c.get('crate_name', k)} {c.get('passed')}/{c.get('total')} {c.get('status')}"
+                       for k, c in (sorted(j['crates'].items()) if isinstance(j['crates'], dict) else enumerate(j['crates'])))
+        d[img] = (f"{j['score_status']}; passed {j['raw_passed']}/{j['raw_total']}; {cr}", float(j['total_score']))
+    return d
+
+
+WH = 'warehouse_forklift_routing-v2-cpu4-'
+VIB = 'vibrating_path_graph_coloring-v2-paired-'
+GAMES6 = [('c4-base', 'c4-base'), ('c4-cpu20', None), ('c4-cpu28', None), ('c4-wall25', None), ('c4-spin40', None), ('c8-cpu20', None)]
+
+
+def _pair(job, a, b=None, parser=_games, job2=None):
+    return ((job, a, parser), (job2 or job, b if b is not None else a.replace('-v1', '-v2'), parser))
+
+
+MULTI = {
+    'git_rewrite_in_zig': [_pair('git_rewrite_in_zig-v2-paired-gates-b', f'{n}-v1', parser=_git) for n in
+                           ['control', 'zig_build_exe', 'obj_only', 'elf_only', 'exec_git', 'exec_git_helper']]
+    + [_pair('git_rewrite_in_zig-v2-paired-oracle-b', 'oracle-v1', parser=_git),
+       _pair('git_rewrite_in_zig-v2-paired-gates-b', 'bad_wrap_cgit-v1', parser=_git)]
+    + [_pair('git_rewrite_in_zig-v2-paired-oracle-b', f'{n}-v1', parser=_git) for n in ['bad_shell_git', 'bad_shell_git_oneline']],
+    'pfr_formalization': [(('pfr_formalization-v2-paired-v1', f'{n}-v1', _pfr), ('pfr_formalization-v2-paired-v2', f'{n}-v2', _pfr))
+                          for n in ['starter', 'T', 'D', 'BAD']],
+    'rust_multicrate_reconstruction': [((f'rust_multicrate_reconstruction-v2-paired-r2-{s}', 'orig', _rust),
+                                        (f'rust_multicrate_reconstruction-v2-paired-r2-{s}', 'v2', _rust))
+                                       for s in ['starter', 'reference', 'partial', 'bad']],
+    'grid_turing_robot': [_pair('grid_turing_robot-v2-paired', f'{n}-v1') for n in
+                          ['c4-baseline', 'c4-cpu12', 'c4-cpu16', 'c4-cpu28', 'c4-wall25', 'c4-spin40', 'c8-cpu20']],
+    'molecular_self_assembly': [_pair('molecular_self_assembly-v2-paired', f'{n}-v1') for n in
+                                ['c4-baseline', 'c4-cpu12', 'c4-cpu16', 'c4-cpu28', 'c4-wall25', 'c4-spin40', 'c8-cpu20']],
+    'apple_incremental_game': [_pair('apple_incremental_game-v2-paired', f'{n}-v1') for n in
+                               ['c4-base', 'c4-cpu20', 'c4-cpu28', 'c4-wall25', 'c4-spin40', 'c8-cpu20']],
+    'vibrating_path_graph_coloring': [_pair(VIB + 'a', f'{n}-v1') for n in ['c4-base', 'c4-cpu20', 'c4-cpu28']]
+    + [_pair(VIB + 'b', 'c4-wall25-v1'),
+       ((VIB + 'c', ['c4-wall25-v1-r1', 'c4-wall25-v1-r2'], _games), (VIB + 'c', 'c4-wall25-v2', _games))]
+    + [_pair(VIB + 'b', f'{n}-v1') for n in ['c4-spin40', 'c8-cpu20']],
+    'triangulation_coloring_optimization': [_pair('triangulation-v2-paired-cpu', f'{n}-v1') for n in
+                                            ['c4-base', 'c4-cpu20', 'c4-cpu28', 'c4-wall25', 'c4-spin40', 'c8-cpu20']],
+    'warehouse_forklift_routing': [_pair(WH + 'b', 'c4-cpu80-v1'),
+                                   ((WH + 'c', 'c4-cpu140-v1', _games), (WH + 'a', 'c4-cpu140-v2', _games))],
+}
+# rows of data/paired-results.csv that come before the MULTI rows (handled by the per-task parsers above)
+MULTI_OFFSET = {'triangulation_coloring_optimization': 4, 'warehouse_forklift_routing': 5}
+
+
+# rows of data/paired-results.csv that are not counted as fix repeats (index -> reason)
+NOT_COUNTED = {'smt_solver': {i: 'CPU-quota cap arm; that part of the SMT fix was withdrawn (the official configs give SMT 16 grader CPUs), so these single-run measurements are not counted as fix repeats' for i in range(4, 11)}}
+
+
+def job_out(job, run):
+    o = EV / (job if run == 1 else f'{job}-rep{run}') / 'result'
+    w = o / 'worker.json'
+    if run > 1 and not (w.exists() and json.load(open(w)).get('status') == 'exit=0' and (o / 'out').is_dir()):
+        return None
+    return o / 'out' if (o / 'out').is_dir() else None
+
+
+def extract_multi(task, run):
+    out, cache = {}, {}
+    for i, spec in enumerate(MULTI[task], start=MULTI_OFFSET.get(task, 0)):
+        vals = []
+        for job, lab, parser in spec:
+            o = job_out(job, run)
+            if o is None:
+                break
+            key = (job, parser.__name__)
+            if key not in cache:
+                cache[key] = parser(o)
+            d = cache[key]
+            labs = lab if isinstance(lab, list) else [lab]
+            if not all(l in d for l in labs):
+                break
+            vals.append((' | '.join(d[l][0] for l in labs), d[labs[0]][1] if len(labs) == 1 else
+                         (d[labs[0]][1] if len({d[l][1] for l in labs}) == 1 else None)))
+        if len(vals) == 2:
+            out[i] = (vals[0][0], vals[1][0], vals[0][1], vals[1][1])
+    if not out:
+        raise RuntimeError(f'run {run}: no MULTI arm collected')
+    return out
+
+
+# ---------------------------------------------------------------- supplementary jobs (not rows of paired-results.csv)
+# Each returns {label: (result, score)} for one run's result/out; build_report compares the labels across runs.
+def _x_games(o):
+    return _games(o)
+
+
+def _x_tri_controls(o):
+    d = {}
+    for c in ('c8', 'c4'):
+        x = p_tri(o / c)
+        for i, s in enumerate(['donothing', 'greedy', 'nonconvex_flip', 'wrong_count']):
+            d[f'{c} {s} v1'] = (x[i][0], x[i][2]); d[f'{c} {s} v2'] = (x[i][1], x[i][3])
+    return d
+
+
+def _x_smt_lines(o):
+    d = {}
+    for l in rd(o / 'summary_parsed.txt').splitlines():
+        k = l.split()
+        if len(k) >= 3:
+            d[' '.join(k[:3])] = (' '.join(k[3:]), None)
+    return d
+
+
+def _x_exchange(o):
+    d, seen = {}, {}
+    for name, v, rest in re.findall(r'^(\w+) (v[12]) exit=\d+ wall=\d+s (.*)$', rd(o / 'summary.txt'), re.M):
+        seen[(name, v)] = seen.get((name, v), 0) + 1
+        m = re.search(r'CASE 0000 (\w+) score=(\d+)', rest)
+        sig = ('gate OK; ' if 'GATE OK' in rest else ('gate failed; ' if 'gate failed' in rest else '')) + (m.group(1) if m else 'no-case')
+        d[f'{name}#{seen[(name, v)]} {v}'] = (sig, float(m.group(2)) if m else None)
+    return d
+
+
+def _x_arc(o):
+    d = {}
+    for r in csv.DictReader(open(o / 'summary.csv')):
+        j = json.loads(r['structured'].replace(';', ',')) if r['structured'].startswith('{') else {}
+        d[r['arm']] = (f"docker_exit {r['docker_exit']}; valid {str(j.get('valid')).lower()}; passed {j.get('passed')}; runner_rc {j.get('runner_returncode')}", j.get('score'))
+    return d
+
+
+def _x_borden(o):
+    d = {}
+    for name, v, ex, rest in re.findall(r'^(\S+) (v2prev|v[12]) (exit=\d+) (.*)$', rd(o / 'summary.txt'), re.M):
+        m = re.search(r'TOTAL_SCORE (\S+)\s*$', rest)
+        d[f'{name} {v}'] = (ex, fnum(m.group(1)) if m else None)
+    return d
+
+
+def _x_college(o):
+    job = o.parent.parent
+    src = EV / 'college_english_exam_bank-v2-paired-multiblock'
+    r = subprocess.run([PY, 'grade.py', str(o)], cwd=src, capture_output=True, text=True)
+    if r.returncode:
+        raise RuntimeError(r.stderr[-500:])
+    g = json.load(open(job / 'graded.json'))
+    return {f'{n} {v}': (f"valid {str(x['valid']).lower()}", x['score']) for n, a in g.items() for v, x in a.items()}
+
+
+def _x_schem(o):
+    j = json.load(open(o / 'summary.json'))
+    sig = lambda x: '; '.join(p.split(':')[0] + ':' + p.split(':')[1].split()[0] for p in x['phases']) or 'no phases'
+    return {f'{a} {v}': (sig(x[v]), x[v]['score']) for a, x in j.items() for v in ('v1', 'v2')}
+
+
+EXTRA = [  # (task, job, what it adds, parser)
+    ('schemathesis_reporting_observability', 'schemathesis_reporting_observability-v2-paired-rev2', 'revised fixed version, all arms incl. the added other-suite and unterminated arms', _x_schem),
+    ('warehouse_forklift_routing', 'warehouse_forklift_routing-v2-cpu4-a', 'cpu140 at 4 CPUs (fixed and earlier fixed version)', _x_games),
+    ('warehouse_forklift_routing', 'warehouse_forklift_routing-v2-cpu4-b', 'cpu80 at 4 CPUs (all three versions)', _x_games),
+    ('warehouse_forklift_routing', 'warehouse_forklift_routing-v2-cpu4-c', 'earlier controls at 4 CPUs; cpu80 at 8 CPUs; cpu140 original', _x_games),
+    ('warehouse_forklift_routing', 'warehouse_forklift_routing-v2-cpu4-d', 'near-limit control at 4 CPUs', _x_games),
+    ('triangulation_coloring_optimization', 'triangulation-v2-paired-cpu', 'CPU arms incl. earlier fixed version', _x_games),
+    ('triangulation_coloring_optimization', 'triangulation-v2-paired-cpu-controls', 'flip-rule controls vs the current fixed version, 8 and 4 CPUs', _x_tri_controls),
+    ('vibrating_path_graph_coloring', 'vibrating_path_graph_coloring-v2-paired-c', 'wall25 with tester-start logging', _x_games),
+    ('exchange_core_throughput', 'exchange_core_throughput-v2-paired-shutdownfail', 'shutdown-failure triggers', _x_exchange),
+    ('college_english_exam_bank', 'college_english_exam_bank-v2-paired-multiblock', 'multi-block responses (v1, earlier fixed, fixed)', _x_college),
+    ('arc_compiler_runtime', 'arc_compiler_runtime-hang-suite', 'one hidden suite hangs (original grader only)', _x_arc),
+    ('borden_source_inversion', 'borden_source_inversion-v2-paired-r3', 'controls vs v1, earlier fixed and fixed work image', _x_borden),
+    ('rust_multicrate_reconstruction', 'rust_multicrate_reconstruction-v2-paired-r2-reference', 'reference (original, + cc files, fixed)', None),
+]
+
+
+def _x_rust(o):
+    d = {}
+    for line in rd(o / 'summary.txt').splitlines():
+        m = re.match(r'^(\w+) exit=(\d+) wall=\d+s RAW_PASSED=(\d+) SCORE=(\S+) SCORE_STATUS=(\S+)', line)
+        if m:
+            d[m.group(1)] = (f'exit {m.group(2)}; passed {m.group(3)}; {m.group(5)}', float(m.group(4)))
+    return d
+
+
+EXTRA = [e if e[3] else (e[0], e[1], e[2], _x_rust) for e in EXTRA if not e[1].startswith('rust')] + [
+    ('rust_multicrate_reconstruction', f'rust_multicrate_reconstruction-v2-paired-r2-{s}', f'{s}: original, original + cc files, fixed', _x_rust)
+    for s in ('reference', 'partial', 'bad')]
+
+
+def extract_extra(job, parser, run):
+    o = job_out(job, run)
+    if o is None:
+        raise RuntimeError(f'run {run} not completed')
+    return parser(o)
+
+
 def completed(task, run):
     """rep runs count only when worker.json says exit=0 and result/out exists (lean: local.txt exit=0)"""
     if run == 1:
@@ -404,7 +676,17 @@ def completed(task, run):
 
 
 def extract(task, run):
+    if task in MULTI and task not in JOB and task not in ('smt_solver',):
+        return extract_multi(task, run)
+    base = {}
+    if task in MULTI_OFFSET:
+        try:
+            base = extract_multi(task, run)
+        except RuntimeError:
+            base = {}
     if not completed(task, run):
+        if base:
+            return base
         raise RuntimeError(f'run {run} not completed')
     if task in JOB:
         o = outdir(task, run)
@@ -415,11 +697,14 @@ def extract(task, run):
          'schemathesis_config_modernization': lambda: p_schem(o, task), 'schemathesis_datagen_pipeline': lambda: p_schem(o, task),
          'schemathesis_reporting_observability': lambda: p_schem(o, task), 'tree_block_partitioning': lambda: p_tree(o),
          'triangulation_coloring_optimization': lambda: p_tri(o), 'warehouse_forklift_routing': lambda: p_warehouse(o),
+         'portfolio_risk_calibration': lambda: p_portfolio(o), 'juliet_vulnerability_analyzer': lambda: p_juliet(o),
          'smt_solver': lambda: p_smt(outdir('smt_solver', run, 'smt_solver-v2-paired-b'), outdir('smt_solver', run, 'smt_solver-v2-paired-c')),
          'college_english_exam_bank': lambda: p_college(run), 'graph_node_classification': lambda: p_graph(run),
          'jagua_nesting_optimization': lambda: p_jagua(run), 'order_addition_permutation_optimization': lambda: p_order(run),
          'treant_forest': lambda: p_treant(run), 'lean_analysis_proofs': lambda: p_lean(run), 'openttd_transport_ai': lambda: p_openttd(run)}[task]
-    return f()
+    r = f()
+    r.update(base)
+    return r
 
 
 if __name__ == '__main__':

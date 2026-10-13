@@ -8,9 +8,10 @@
 
 ## Setup
 
-**Runs.** Two E2B jobs ran on 2026-10-12. Both exited 0, and both workers were killed.
-- **`e2b/jobs/smt_solver-v2-paired-b/`** ran every arm, the mini cases and the full `eval_cmd`.
-- **`e2b/jobs/smt_solver-v2-paired-c/`** reran only the wrong-model arm, after a fix to the
+**Runs.** Two E2B jobs ran on 2026-10-12. Both exited 0, and both workers were killed. Each was run
+three times on fresh workers (`-rep2`, `-rep3`); see Repeatability below.
+- **`evidence/runs/smt_solver-v2-paired-b/`** ran every arm, the mini cases and the full `eval_cmd`.
+- **`evidence/runs/smt_solver-v2-paired-c/`** reran only the wrong-model arm, after a fix to the
   witness-building oracle described below.
 - **First attempt** (`smt_solver-v2-paired/`). Its corpus arms never reached scoring. The submission
   preflight rejected the replay stub, because a comment contained the word "z3", and rejected the
@@ -61,8 +62,8 @@ selected by a content hash that ignores the perturbation lines.
 **Other observations.**
 - **No arm went from correct to rejected.** Verdict changes between v1 and v2 run only from
   invalid_model to correct: ground 69, textual_true 27.
-- **Subset scores** (raw = normalized; the rescale is linear 0..1, and there are no easy files in the
-  subset, so the maximum is 0.9):
+- **Subset scores**, raw on the 0–1 scale (the rescale is linear 0..1, so the score out of 100 is
+  100 × raw; there are no easy files in the subset, so the raw maximum is 0.9):
 
   | arm | v1 | v2 |
   | --- | --- | --- |
@@ -79,10 +80,13 @@ selected by a content hash that ignores the perturbation lines.
 
 The stub answers `unknown` on the 705 files that have no witness.
 
-| version | score | normalized | pass | exit |
+| version | raw score (0–1) | out of 100 | pass | exit |
 | --- | --- | --- | --- | --- |
-| v1 | 0.0000 | 0.0000 | 0/774 | 0 |
-| v2 | 0.1249 | 0.1249 | 69/774 | 0 |
+| v1 | 0.0000 | 0.00 | 0/774 | 0 |
+| v2 | 0.1249 | 12.49 | 69/774 | 0 |
+
+The grader's own summary lines (`evidence/b/fulleval_lines.txt`) read `score=0.000000 (0.00/100)` and
+`score=0.124948 (12.49/100), correct=69/774`.
 
 ## Mini cases (reviewer's fixed-witness stub, 13 cases)
 
@@ -102,13 +106,19 @@ The stub answers `unknown` on the 705 files that have no witness.
 | alias_conflict_let (unsat, "sat" answer) | wrong | wrong (congruence) | rejected | yes |
 | unused_conflict (f gets 2 values at one argument, through an unused key) | **correct** | invalid_model (congruence) | v2 rejects a witness that is not a function | yes (intended change) |
 
-Mini final score: v1 0.1615, v2 0.3231.
+Mini final score, raw on the 0–1 scale: v1 0.1615, v2 0.3231 (16.15 and 32.31 out of 100).
 
 ## Limits
 
 - **Witness source.** The witnesses are z3 models replayed by a stub, not output from an end-to-end
   solver built for the task.
-- **Single run.** Each arm ran once, on one worker. The verdicts are deterministic, so timing does not
-  matter here.
+- **Repeatability.** Both jobs were run three times on fresh workers
+  (`evidence/runs/smt_solver-v2-paired-{b,c}{,-rep2,-rep3}/`). Each run's `result/out/summary_parsed.txt`
+  is identical to its first run's, so every verdict and score above is the same in all three runs. The
+  first attempt of `-b-rep2` failed on the image pull (`result-attempt1/`, exit 2) and was retried.
 - **Wrong-model controls.** Each wrong witness changes one UF value. The controls do not cover every
   possible wrong-model shape.
+
+## Repeatability (2026-10-13)
+
+The corpus, mini and full-`eval_cmd` arms were run three times (`-b`, `-c`, each with `-rep2` and `-rep3`; see Limits), with identical results. The CPU-quota arms (`smt_solver-v2-paired-cpu`) and the re-runs of `-b`/`-c` against the CPU-capped version (`-b-cpu`, `-c-cpu`) were **not** repeated. That part of the SMT fix was withdrawn, because the official configs give SMT 16 grader CPUs. Those three jobs remain single-run measurements and are not counted as repeats of the fix.

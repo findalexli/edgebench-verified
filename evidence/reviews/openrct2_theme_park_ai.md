@@ -1,5 +1,7 @@
 # Review: `openrct2_theme_park_ai`
 
+> Note added 2026-10-12: the statement below that about 1,667 s per scenario is "far beyond the 120 s scenario budget, the 1,800 s wrapper cap and the 2,400 s manifest timeout" is superseded. One scenario at 1,661 to 1,673 s fits under 1,800 s and 2,400 s; only the three-scenario total (about 83 min) exceeds them (`evidence/formal/notes/openrct2_theme_park_ai.md`, `counter_single_scenario_fits`). The case page states this.
+
 ## Claim under review
 
 > "The default 120-second scenario call returned positive credit without verifying the promised approximately four-game-year endpoint. Genuine monitor samples support this finite result. This does not prove the engine never completed internally, score inflation or whole-task failure."

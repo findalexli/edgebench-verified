@@ -1,0 +1,55 @@
+{
+ "task_id": "vibrating_path_graph_coloring",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/vibrating_path_graph_coloring.json",
+  "sha256": "d3bba05490f7a44245ed836c4efc6e2723399a40ffecaee39c47cdf9d29dc9a8"
+ },
+ "original_judge_image": "seededge/edgebench.judge.vibrating_path_graph_coloring@sha256:db8a9741831762040afb7e9819f997eb5f5293641fd5cd97d27fce3880ce084e",
+ "original_judge_image_tag": "eb22343ce84e",
+ "v2_judge_image_tag": "eb22343ce84e-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/tmp/eval_vibrating_path.py",
+   "original_sha256": "934a2b9de14bc1e155adab2a114d3dcf4d6fdbf48bedc860b78ca602ba3e9350",
+   "original_bytes": 2523,
+   "replacement": "files/eval_vibrating_path.py",
+   "replacement_sha256": "3b72b9ed51e24cb618f37ebebafede47997dc6176accc6eca1676e612aa3bd23",
+   "replacement_bytes": 3430,
+   "mode": "0755"
+  }
+ ],
+ "repair_patch_sha256": "eb0aa78fab2b80e5797dfc5c004d40703c153baab1f03926c4e79a3cbdab2f5c",
+ "dockerfile_sha256": "504df2eb3991cfe567d2debff06b92141a867ac45e2c7f738e4ae062ab5fb8c6",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag",
+  "judge.eval_timeout"
+ ],
+ "rescale_changed": false,
+ "rescale_note": "score scale unchanged; this version changes only how many cases the evaluator runs at once",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.vibrating_path_graph_coloring@sha256:db8a9741831762040afb7e9819f997eb5f5293641fd5cd97d27fce3880ce084e"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/tmp/eval_vibrating_path.py",
+    "sha256": "934a2b9de14bc1e155adab2a114d3dcf4d6fdbf48bedc860b78ca602ba3e9350"
+   }
+  ],
+  "outputs": {
+   "files/eval_vibrating_path.py": "3b72b9ed51e24cb618f37ebebafede47997dc6176accc6eca1676e612aa3bd23"
+  },
+  "repair_patch_sha256": "eb0aa78fab2b80e5797dfc5c004d40703c153baab1f03926c4e79a3cbdab2f5c",
+  "materialize_sh_sha256": "5146c6a46a39e7ca9d6f3b25fdfb656d1fcee7efb12ffdb11da5f2349da0ba82"
+ },
+ "eval_timeout": {
+  "original": 600,
+  "v2": 900,
+  "note": "worst case at 4 grader CPUs with the cap: 50 cases x 30 s solution plus the pinned Python tester (579.6 s in total over the 50 cases on the honest control output at 1 CPU, max 19.0 s per case; paired/tester_time.out) = 2,080 CPU-s / 4 = 520 s, plus at most 3/4 x 49 s list-scheduling tail = 557 s; 600 s left about 7% margin, 900 s leaves 38%"
+ }
+}

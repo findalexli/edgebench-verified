@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 416" role="img">
+<title>Wall time per test case against CPU work per case, at 4 and 8 CPUs</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
+  }
+</style>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">8 test cases run at once, each limited to 30 s</text>
+<text x="16" y="44" class="muted" font-size="14">4 CPUs: half a CPU per case, so the clock runs twice as long as the work.</text>
+<line x1="80" y1="300.0" x2="660" y2="300.0" class="rule" stroke-width="1"/>
+<text x="70" y="305.0" class="muted" font-size="14" text-anchor="end">0</text>
+<line x1="80" y1="235.0" x2="660" y2="235.0" class="rule" stroke-width="1"/>
+<text x="70" y="240.0" class="muted" font-size="14" text-anchor="end">10</text>
+<line x1="80" y1="170.0" x2="660" y2="170.0" class="rule" stroke-width="1"/>
+<text x="70" y="175.0" class="muted" font-size="14" text-anchor="end">20</text>
+<text x="16" y="69.0" class="muted" font-size="14">Wall time per case (s)</text>
+<line x1="80" y1="105.0" x2="660" y2="105.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="660" y="97.0" class="bad" font-size="14" font-weight="600" text-anchor="end">30 s limit</text>
+<polyline points="138,221.4 196,208.4 254,195.3 370,169.3 486,143.3 602,116.7" fill="none" class="goodS" stroke-width="2"/>
+<circle cx="138" cy="221.4" r="5" class="good"/>
+<circle cx="196" cy="208.4" r="5" class="good"/>
+<circle cx="254" cy="195.3" r="5" class="good"/>
+<circle cx="370" cy="169.3" r="5" class="good"/>
+<circle cx="486" cy="143.3" r="5" class="good"/>
+<circle cx="602" cy="116.7" r="5" class="good"/>
+<polyline points="138,142.7 196,116.7" fill="none" class="accS" stroke-width="2"/>
+<circle cx="138" cy="142.7" r="5" class="acc"/>
+<circle cx="196" cy="116.7" r="5" class="acc"/>
+<path d="M248,99.0 L260,111.0 M260,99.0 L248,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M364,99.0 L376,111.0 M376,99.0 L364,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M480,99.0 L492,111.0 M492,99.0 L480,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M596,99.0 L608,111.0 M608,99.0 L596,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<text x="312" y="133.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">48 of 50 cases timed out</text>
+<text x="312" y="151.0" class="bad" font-size="14" text-anchor="middle">whole submission voided</text>
+<text x="126" y="150" class="acc" font-size="14" font-weight="600" text-anchor="end">4 CPUs: 24 s</text>
+<text x="208" y="122" class="acc" font-size="14" font-weight="600">28 s</text>
+<text x="378" y="191" class="good" font-size="14" font-weight="600">8 CPUs: wall time = work</text>
+<text x="138" y="322.0" class="ink" font-size="14" text-anchor="middle">12</text>
+<text x="196" y="322.0" class="ink" font-size="14" text-anchor="middle">14</text>
+<text x="254" y="322.0" class="ink" font-size="14" text-anchor="middle">16</text>
+<text x="370" y="322.0" class="ink" font-size="14" text-anchor="middle">20</text>
+<text x="486" y="322.0" class="ink" font-size="14" text-anchor="middle">24</text>
+<text x="602" y="322.0" class="ink" font-size="14" text-anchor="middle">28</text>
+<text x="370" y="342.0" class="muted" font-size="14" text-anchor="middle">CPU work per case (s)</text>
+<text x="16" y="362" class="ink" font-size="14">A solution that stops at a 25 s clock deadline passes at both settings.</text>
+<text x="16" y="382" class="ink" font-size="14">The fixed version runs 4 cases at once on 4 CPUs, so all 50 pass.</text>
+<text x="16" y="400" class="muted" font-size="13">Slowest case shown. Timed-out cases were stopped at 30 s.</text>
+</svg>

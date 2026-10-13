@@ -1,0 +1,177 @@
+======================================================================
+Dynamic Portfolio Optimization Strategy - Auto-Scoring (final)
+======================================================================
+  eval period: 2025-01-01 ~ 2025-12-31(no warmup window)
+  benchmark config: equity60% / bond30% / commodity10%
+  NAV rebuild tolerance: 0.05
+======================================================================
+  file mapping: true_risk_events.json → .risk_events_for_eval.json
+
+======================================================================
+[0/13] static code analysis
+======================================================================
+  ✓ no violations found
+
+======================================================================
+[1/13] prepare eval data and run strategy
+======================================================================
+  ✓ strategy ran successfully, elapsed 2.0 sec
+
+======================================================================
+[2/13] verify output file format
+======================================================================
+  ✓ fileformatcorrect
+  ✓ dailyNAV: 242  records | position: 242  records | trade: 26  trades
+
+======================================================================
+[3/13] load evaluation data
+======================================================================
+  ✓ pricedata: 2430  records
+  ✓ 60/30/10benchmarkcompute
+  ✓ risk eventconfig: load
+
+======================================================================
+[4/13] checkoutputdatadate range
+======================================================================
+  ✓ date range: allpass
+
+======================================================================
+[5/13] NAVdualverification(independentrebuildincludingcost + internalself-consistent)
+======================================================================
+  ✓ independentrebuild(includingcost): NAVandweight/priceconsistent: 1.1587 vs rebuild 1.1936
+  ✓ internalself-consistent: NAVinternalconsistent: 1.158700 vs rebuild 1.158700
+  ✓ NAVpath: normal
+
+======================================================================
+[6/13] positionweightcomplete + traderecordsfieldcomplete
+======================================================================
+  Weights Completeness Penalty: 0
+  weight: complete | trade field: basiccomplete | extendedcomplete
+
+======================================================================
+[7/13] recalculatedperformancemetric + dualVaR verification
+======================================================================
+  ✓ recalculateddone(formaleval period 241  validtradeday)
+  Agent VaR breachrate: 0.9917 | independent VaR breachrate: 0.029
+
+  【self-reported vs recalculated comparison】
+  sharpe_ratio: 2.1237 vs 2.1237 ✓
+  max_drawdown: -0.0511 vs -0.0511 ✓
+
+======================================================================
+[8/13] fullverificationtradepricerange
+======================================================================
+  ✓ →  deduct  0 pts
+
+======================================================================
+[9/13] coreconstraint check
+======================================================================
+  ⚠ not detectiontoriskscaling factortriggeradditionalrebalance(risk_scale_change)
+  → constraintpenalty: 5
+
+  violationaccumulatedpenalty(limit before):
+    risk_scale_change not triggered: 5.00 pts(limit afteractual deduct  5.00 pts)
+
+======================================================================
+[10/13] short effectiveness check
+======================================================================
+  daily avgshortexposure: 0.00% | noshortexposure
+  → shortpenalty: -10.0
+
+======================================================================
+[11/13] anti-fraud check
+======================================================================
+  ⚠ Agent VaRbreachrate0.9917abnormal, triggers core return score zeroed
+  ⚠ full eval periodnevershort(allweight≥0)
+  ⚠ leverage ratioconsecutive38 trading daysnot change
+  ⚠ Turnover Ratedeviation1.2192>50%
+  ⚠ NAVconsecutive20 days unchanged, suspectedfabricateddata
+  → triggers core return score zeroed
+  → Anti-fraud Penalty: 28
+
+======================================================================
+[12/13] volatility change detectionbonus
+======================================================================
+  ✗ volatilityratebonus: scaling factorresponseinsufficient: 1.20→1.46 (absolutechange0.26, need>=0.3) → +0
+
+======================================================================
+[13/13] final scoring results
+======================================================================
+
+  constraintviolationdetail(for reference only, not duplicatepenalty):
+    risk_scale_change not triggered: violationaccumulated 5.00 pts, actual deduct  5.00 pts(setlimit)
+
+======================================================================
+performancescoresummary
+======================================================================
+  Sharpe Ratio: 9.90 / 30
+  Max Drawdown: 8.67 / 15
+  Excess Return: -9.37 / 20
+  Information Ratio: 0.00 / 10
+  Sortino Ratio: 0.00 / 10
+  Agent VaR: 0.00 / 5
+  independent VaR: 0.00 / 5
+  Turnover Rate: 5.00 / 5
+  --------------------------------------------------
+  performancesubtotal: 5.00 / 100
+
+======================================================================
+strategy vs benchmark performance comparison
+======================================================================
+  strategyannualizedreturn: 16.65%
+  benchmarkannualizedreturn: 25.95%
+  excessannualizedreturn: -9.37%
+  Information Ratio: -1.823
+  Sortino Ratio: -2.644
+
+======================================================================
+penalty itemssummary(total score in deduct )
+======================================================================
+  shortvalid: -10.00
+  constraint check(position/leverage/revaluation etc):  -5.00
+  otherverification: -28.00
+  --------------------------------------------------
+  penaltysubtotal: -43.00
+
+======================================================================
+finalscore
+======================================================================
+  Performance score: 5.00 / 100
+  penalty: -43.00
+  ==================================================
+  Final total score: 0.00 / 100
+======================================================================
+
+======================================================================
+Dynamic Portfolio Optimization Strategy Evaluation Results
+======================================================================
+  eval period: 2025-01-01 ~ 2025-12-31
+  benchmark config: equity60% / bond30% / commodity10%
+  Sharpe Ratio: 2.1237 | Max Drawdown: -5.11%
+  Excess Return: -9.37% | Information Ratio: -1.823 | Sortino Ratio: -2.644
+  Agent VaRbreachrate: 0.9917 | Independent VaRbreachrate: 0.029
+  Turnover Rate: 0.8804
+  ⚠ antifraudtriggers core return score zeroed
+  Final total score: 0.00 / 100
+======================================================================
+
+⚠ warningsummary:
+  - not detectiontoriskscaling factortriggeradditionalrebalance(risk_scale_change)
+  - Agent VaRbreachrate0.9917abnormal, triggers core return score zeroed
+  - full eval periodnevershort(allweight≥0)
+  - leverage ratioconsecutive38 trading daysnot change
+  - Turnover Ratedeviation1.2192>50%
+  - NAVconsecutive20 days unchanged, suspectedfabricateddata
+
+✓ scoring reportsave to : score_report.json
+
+======================================================================
+evaluationdone
+======================================================================
+>>>>> Start Structured Result
+{"valid": true, "score": 0.0, "pass_rate": 1.0, "summary": "Sharpe Ratio:9.9/30; Max Drawdown:8.7/15; Excess Return:-9.4/20; Information Ratio:0.0/10; Sortino Ratio:0.0/10; Agent VaR Calibration:0.0/5; Independent VaR Calibration:0.0/5; Turnover Rate:5.0/5; Constraint Violation Penalty:5; Anti-fraud Penalty:28; Short Effectiveness Penalty:10.0; Core return score zeroed", "details": [{"name": "tests/score_contract.py::score_output_parseable", "status": "PASSED"}], "metrics": {"Sharpe Ratio": "2.1237 → 9.9/30pts", "Max Drawdown": "-5.11% → 8.7/15pts", "Excess Return": "-9.37% → -9.4/20pts", "Information Ratio": "-1.8228 → 0.0/10pts", "Sortino Ratio": "-2.6440 → 0.0/10pts", "Agent VaR Calibration": "breach rate99.2% → 0.0/5pts", "Independent VaR Calibration": "breach rate2.9% → 0.0/5pts", "Turnover Rate": "88% → 5.0/5pts", "Constraint Violation Penalty": 5, "Anti-fraud Penalty": 28, "Short Effectiveness Penalty": 10.0, "Anti-fraud triggered zero": true, "Performance score": "5.0/100", "Warning": ["not detectiontoriskscaling factortriggeradditionalrebalance(risk_scale_change)", "Agent VaRbreachrate0.9917abnormal, triggers core return score zeroed", "full eval periodnevershort(allweight≥0)", "leverage ratioconsecutive38 trading daysnot change", "Turnover Ratedeviation too large", "NAVconsecutive20 days unchanged, suspectedfabricateddata"]}}
+>>>>> End Structured Result
+SCORER_STATUS_JSON {"status": "ok", "reason": "scored", "score": 0.0, "metrics": {"Sharpe Ratio": "2.1237 → 9.9/30pts", "Max Drawdown": "-5.11% → 8.7/15pts", "Excess Return": "-9.37% → -9.4/20pts", "Information Ratio": "-1.8228 → 0.0/10pts", "Sortino Ratio": "-2.6440 → 0.0/10pts", "Agent VaR Calibration": "breach rate99.2% → 0.0/5pts", "Independent VaR Calibration": "breach rate2.9% → 0.0/5pts", "Turnover Rate": "88% → 5.0/5pts", "Constraint Violation Penalty": 5, "Anti-fraud Penalty": 28, "Short Effectiveness Penalty": 10.0, "Anti-fraud triggered zero": true, "Performance score": "5.0/100", "Warning": ["not detectiontoriskscaling factortriggeradditionalrebalance(risk_scale_change)", "Agent VaRbreachrate0.9917abnormal, triggers core return score zeroed", "full eval periodnevershort(allweight≥0)", "leverage ratioconsecutive38 trading daysnot change", "Turnover Ratedeviation too large", "NAVconsecutive20 days unchanged, suspectedfabricateddata"]}, "summary": "Sharpe Ratio:9.9/30; Max Drawdown:8.7/15; Excess Return:-9.4/20; Information Ratio:0.0/10; Sortino Ratio:0.0/10; Agent VaR Calibration:0.0/5; Independent VaR Calibration:0.0/5; Turnover Rate:5.0/5; Constraint Violation Penalty:5; Anti-fraud Penalty:28; Short Effectiveness Penalty:10.0; Core return score zeroed"}
+tests/score_contract.py::score_output_parseable PASSED
+===== 1 passed in 0.01s =====
+TOTAL_SCORE 0

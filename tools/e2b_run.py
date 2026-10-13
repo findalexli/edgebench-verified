@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 """Run one bounded native job on one owned E2B worker, then kill it.
 
-Usage (coordinator interpreter with the e2b SDK):
-  /home/alex/agentsmd-rl/.venv/bin/python tools/e2b_run.py \
+Usage (an interpreter with the e2b SDK and python-dotenv):
+  python3 tools/e2b_run.py \
       --job evidence/runs/<name> [--lifetime 3600] [--budget 3000]
 
 A job directory contains `run.sh` (executed as root in /job inside the worker, which has
 Docker) plus any small inputs. `run.sh` must write everything worth keeping under /job/out/.
-The E2B key is read locally from /home/alex/agentsmd-rl/.env and never sent to the worker.
+The E2B key is read locally ($E2B_API_KEY, or the .env file named by $EBV_E2B_ENV or by the one-line
+file .internal/e2b-env-path) and never sent to the worker.
 Every worker is recorded in evidence/runs/ledger.jsonl and killed by exact ID.
 """
 import argparse
 import io
+import os
 import json
 import tarfile
 import time
@@ -52,7 +54,12 @@ def main():
     job = a.job.resolve()
     assert (job / 'run.sh').is_file(), 'job needs run.sh'
     assert a.budget + 300 <= a.lifetime <= 3600, 'budget must leave 5 min for collection'
-    key = dotenv_values('/home/alex/agentsmd-rl/.env')['E2B_API_KEY']
+    env = os.environ.get('EBV_E2B_ENV')
+    cfg = ROOT / '.internal' / 'e2b-env-path'
+    if not env and cfg.exists():
+        env = cfg.read_text().strip()
+    key = os.environ.get('E2B_API_KEY') or (dotenv_values(os.path.expanduser(env)).get('E2B_API_KEY') if env else None)
+    assert key, 'no E2B key: set E2B_API_KEY or EBV_E2B_ENV, or write .internal/e2b-env-path'
     out = job / 'result'
     out.mkdir(exist_ok=False)
     entry = {'job': job.name, 'template': TEMPLATE, 'created_at': now(), 'budget_s': a.budget}

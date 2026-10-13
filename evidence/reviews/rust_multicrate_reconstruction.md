@@ -1,5 +1,9 @@
 # Review: `rust_multicrate_reconstruction`
 
+> **Note (2026-10-12, repair).** The dispositions below are superseded: the task is now fixed in a new version (`repairs/rust_multicrate_reconstruction-v2/`). Paired runs of the task's `eval_cmd` found three larger defects that this review did not cover: hidden tests placed where they do not compile (cas-search and cas-cli score 0 for every solver who leaves the tests unchanged), Cargo stopping at the first failing test binary (measured 0.43 to 3.26 points), and four vendored `cc` files missing from the published images. The exemption fix reviewed here is kept unchanged in the fixed version. See `cases/rust_multicrate_reconstruction.md`.
+
+> **Note (2026-10-12).** Superseded or incomplete statements below: the maximum effect of the exemption rule is about 0.11 points (0.100 from cas-pty plus 0.0074 from cas-cli), not 0.1; and per-crate totals include tests and doctests a solver adds and charge as failed any test binary that `cargo test` skips after an earlier binary fails (`cargo test` runs without `--no-fail-fast`). See `cases/rust_multicrate_reconstruction.md`. `proposedrepairs/rust-known-failure-credit/repair.patch` is not in this repository.
+
 Reviewer: Claude (critical re-verification), 2026-10-11. Scripts are in
 `evidence/scripts/rust_multicrate_reconstruction/`. The model is in
 `evidence/formal/tla/rust_multicrate_reconstruction/`.

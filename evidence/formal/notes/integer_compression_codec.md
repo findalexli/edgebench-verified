@@ -44,5 +44,8 @@ The formula and weights are the same as in the original. The scale functions mod
   ratios are assumed non-negative.
 - The proofs do not cover the timing noise of the measured starter baseline, or whether 320
   can be reached in practice.
+- The fix's main change, taking `B_i^0` and `T_i^0` from the starter measured in the same run
+  instead of from `baseline_results.json`, is not modelled. The theorems hold equally for the
+  original grader with the new scale. That change rests on the paired runs.
 - Any composite below 1.0 (worse than the starter) is clipped to 0 on the fixed scale. This is
   by design, not a defect.

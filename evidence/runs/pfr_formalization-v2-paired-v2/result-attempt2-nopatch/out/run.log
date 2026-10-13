@@ -1,0 +1,22 @@
+/dev/root        21G   13G  7.4G  64% /
+=== materialize 22:59:20
+materialize rc=1
+materialize[pfr_formalization-v2]: ERROR: missing required tool: patch
+find: 'files': No such file or directory
+find: 'orig': No such file or directory
+/dev/root        21G   13G  7.4G  64% /
+=== docker build 22:59:20
+docker build rc=1
+  11 |     
+--------------------
+ERROR: failed to build: failed to solve: failed to compute cache key: failed to calculate checksum of ref vk1i1ode7a9lrwvgkhnyvqkm2::0tkx13vmtu2ad7u3i6dc7m8wv: "/files/judge/v2-build-artifacts.tar": not found
+Unable to find image 'ebv/pfr_formalization-judge:v2' locally
+docker: Error response from daemon: pull access denied for ebv/pfr_formalization-judge, repository does not exist or may require 'docker login'
+/job/out/v2-image-listing.txt pkg/paired/out/v2-listing.txt differ: char 1, line 1
+=== grade 22:59:23
+Error response from daemon: No such image: ebv/pfr_formalization-judge:v2
+Unable to find image 'ebv/pfr_formalization-judge:v2' locally
+docker: Error response from daemon: pull access denied for ebv/pfr_formalization-judge, repository does not exist or may require 'docker login'
+
+Run 'docker run --help' for more information
+container rc=125

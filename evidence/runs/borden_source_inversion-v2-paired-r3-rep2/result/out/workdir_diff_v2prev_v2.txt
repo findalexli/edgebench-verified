@@ -1,0 +1,13 @@
+diff -r /job/wd/v2prev/README.md /job/wd/v2/README.md
+62c62
+< - `forward_model.py`: exact copy of the judge's forward model (see below).
+---
+> - `forward_model.py`: exact copy of the judge's forward model (see below). You may read, run and import it freely.
+112c112
+< 3. Use a hidden Borden-ADE region-source forward model to predict concentrations at hidden monitoring wells and hidden future times.
+---
+> 3. Use the Borden-ADE region-source forward model shipped as `forward_model.py` to predict concentrations at hidden monitoring wells and hidden future times.
+122c122
+< - Do not read or reference hidden scoring files.
+---
+> - Do not read or reference hidden scoring files. `forward_model.py` is not one of them: it is an exact copy of the judge's model and may be used freely.

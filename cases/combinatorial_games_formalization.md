@@ -1,6 +1,6 @@
 # Combinatorial Games Formalization (`combinatorial_games_formalization`)
 
-**Outcome:** Kept, with a note. <mark>Honest proofs in two styles earn the same credit in a test on the original grader, and a full count inside the grader image finds no graded item out of reach for an honest, complete solution.</mark>
+**Outcome:** Kept, with a note. <mark>Honest proofs in two styles earn the same credit in a test on the original grader, and a full count inside the grader image finds no graded item out of reach for an honest, complete solution (lower bound 0; two kinds of failure counted).</mark>
 
 ## What the task asks
 
@@ -10,9 +10,9 @@ The grader starts from the list of declarations that depend on `sorry` in the st
 
 ## What we checked
 
-There is no problem that changes scores enough to matter. The checks:
+There is no problem that changes scores. The checks:
 
-- **Helper items.** When Lean compiles a definition, it can create helper declarations of its own (`X._proof_N`, `X._simp_N`, …). The grader shared by EdgeBench's Lean tasks credits these helper items only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 49/2901 (1.69%) of graded items out of reach for any honest complete solution, and scores depend on proof style. That does not happen here:
+- **Helper items.** When Lean compiles a definition, it can create helper declarations of its own (`X._proof_N`, `X._simp_N`, …). The grader shared by EdgeBench's Lean tasks credits these helper items only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, at least 44 helper items are out of reach for any honest complete solution (49 of 2901 items in total, 1.69%, counting also 3 placeholder statements and 2 false statements; `cases/lean_analysis_proofs.md`), and scores depend on proof style. That does not happen here:
 
 | Graded items | Helper items | Helper share of score | Fragile helper items | `sorry` in type | Statement/negation (P/¬P) pairs | Lower bound on items out of reach |
 |---|---|---|---|---|---|---|
@@ -24,11 +24,11 @@ There is no problem that changes scores enough to matter. The checks:
 
 Note: helper items are 25.1% of the score. They are earned automatically once the items they depend on are proved, so this skews the weighting but is not unfair.
 
-The note says: "Shared Lean grader: native census shows honest term- and tactic-style proofs earn identical credit (16/3732); 0 targets unattainable; aux targets 25.1% of weight but stable".
+The note says: "Shared Lean grader: native census shows honest term- and tactic-style proofs earn identical credit (16/3732); 0 targets found unattainable (lower bound); aux targets 25.1% of weight but stable".
 
 ## How much it matters
 
-No graded item is out of reach for an honest, complete solution (lower bound on items out of reach: 0). Proof style did not change credit in the test on the original grader.
+No graded item was found out of reach for an honest, complete solution. The lower bound of 0 counts two kinds of failure only: `sorry` in the recorded type, and helper pairs of the same parent whose types are P and ¬P (`classify.txt`). Whether every statement is true, and whether edits to definition bodies renumber helpers, was not checked (see Limits). Proof style did not change credit in the test on the original grader.
 
 There is no code change. The note above ships with the task.
 
@@ -42,7 +42,7 @@ There is no code change. The note above ships with the task.
 | style A (term mode) | 16/3732 |
 | style B (tactic mode) | 16/3732, same set of items credited |
 
-  - The 16 items are the 6 theorems, `copy`, `instBoundedOrder`, and 7 helper items (`copy._proof_1`, `instBoundedOrder._proof_1/_2`, `instCompleteLinearOrder._proof_1…5`). No item changed type or disappeared.
+  - The 16 items are the 6 theorems, `copy`, `instBoundedOrder`, and 8 helper items (`copy._proof_1`, `instBoundedOrder._proof_1/_2`, `instCompleteLinearOrder._proof_1…5`). No item changed type or disappeared.
   - The starter's score of 0 also holds after `eval_cmd` swaps in the shared baseline `.lake` and rebuilds the whole project. That `.lake` holds a Mathlib (Lean's main mathematics library) that differs from the one in the grader's repository.
 - **Count inside the image.** We recorded the grader files actually in use and built the baseline `ListDeclAxiom` listing (it prints no HASH lines). We then classified every graded item with the same rule for graded items and the same helper-name pattern as the `lean_analysis_proofs` study. A probe inside the image checked whether each helper item holds a `sorry` of its own ("fragile") or reaches `sorry` only through other constants.
 - **Axioms.** Credit requires axiom-clean declarations, checked through `ListDeclAxiom`.

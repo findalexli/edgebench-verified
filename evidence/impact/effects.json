@@ -1,15 +1,21 @@
 {
- "arc_compiler_runtime": {
-  "kind": "bounded",
+ "apple_incremental_game": {
+  "kind": "open",
   "direction": "up",
-  "bound": 33.67,
-  "text": "up: the type-system weight is lost when the undocumented interface is missed"
+  "bound": null,
+  "text": "up: on the publisher's 4-CPU grader, cases using ~15–30 s CPU scored 0 and deadline-based solvers got half the CPU; size needs regrading or new runs"
+ },
+ "arc_compiler_runtime": {
+  "kind": "open",
+  "direction": "up",
+  "bound": null,
+  "text": "up: the fix only documents the required interface, so its effect depends on how agents respond; measurable only by new runs"
  },
  "borden_source_inversion": {
   "kind": "open",
   "direction": "up",
   "bound": null,
-  "text": "scale ×100/109 applied exactly; up for honest fits once the convention is documented"
+  "text": "scale ×100/109 applied exactly; up for honest fits once the convention is documented (24 raw points for a one-shot fit; less for agents that iterate on the grader's feedback)"
  },
  "college_english_exam_bank": {
   "kind": "open",
@@ -32,8 +38,8 @@
  "equivalence_class_divide_and_conquer": {
   "kind": "bounded",
   "direction": "down",
-  "bound": 5.17,
-  "text": "down, worst case only; no gain demonstrated"
+  "bound": 9.67,
+  "text": "down, only for outputs inside the acceptance window; at most 9.67 points if every large official input falls in it"
  },
  "exchange_core_throughput": {
   "kind": "open",
@@ -47,17 +53,29 @@
   "bound": null,
   "text": "down: incomplete libraries over-credited (18.9 points shown)"
  },
+ "git_rewrite_in_zig": {
+  "kind": "open",
+  "direction": "up",
+  "bound": null,
+  "text": "up, only for runs the original zeroed for a leftover build file or a git call in src/ (up to the whole run's score); how often real runs tripped a check is unknown"
+ },
  "graph_node_classification": {
   "kind": "open",
   "direction": "down",
   "bound": null,
-  "text": "down: a one-node gamble adds variance, which best-so-far selection turns into expected gain"
+  "text": "down: invalid prediction files were scored; under best-so-far selection the added variance can raise a run's score (a general lemma), but no gain for a real solver was established"
+ },
+ "grid_turing_robot": {
+  "kind": "open",
+  "direction": "up",
+  "bound": null,
+  "text": "up: on the publisher's 4-CPU grader, solutions using ~15–30 s CPU per case were voided and deadline-based solvers got half the CPU; size needs regrading or new runs"
  },
  "integer_compression_codec": {
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: raw results were understated four- to eightfold, and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320); a real best submission moves from 66.31 to 50.08"
+  "text": "either: raw results were understated by a factor that depends on the submission (2.4 and 3.7 for two real submissions, 7–9 for a simple honest codec), and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320); a real best submission moves from 66.31 to 50.08"
  },
  "jagua_nesting_optimization": {
   "kind": "open",
@@ -65,17 +83,29 @@
   "bound": null,
   "text": "down, only for layouts with overlaps"
  },
+ "juliet_vulnerability_analyzer": {
+  "kind": "bounded",
+  "direction": "up",
+  "bound": 26.47,
+  "text": "up, only for submissions that report CWE-78 findings with source = sink and trace [sink], the form of all 38 public answers: +600/241 = 2.49 for complete detection with every other trace accepted (measured 97.51 → 100.00), +15.00 for a CWE-78-only analyzer (measured 45.66 → 60.66); at most 6380/241 = 26.47 when the change lifts trace quality across the 0.60 cap (exact, from score.py:163-176; computed, not run)"
+ },
  "lean_analysis_proofs": {
   "kind": "open",
   "direction": "either",
   "bound": null,
   "text": "either: scored set changes from 2901 to 2338 targets"
  },
+ "molecular_self_assembly": {
+  "kind": "open",
+  "direction": "up",
+  "bound": null,
+  "text": "up: on the publisher's 4-CPU grader, cases using ~15–30 s CPU scored 0 and deadline-based solvers got half the CPU; size needs regrading or new runs"
+ },
  "openrct2_theme_park_ai": {
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: a different horizon is measured"
+  "text": "either: the game is scored after about 68 game days instead of the promised ~4 years"
  },
  "openttd_transport_ai": {
   "kind": "open",
@@ -87,13 +117,36 @@
   "kind": "open",
   "direction": "up",
   "bound": null,
-  "text": "up: later improvements ignored; seen in a real run (3.79 kept instead of 41.24)"
+  "text": "up: later improvements ignored when the run keeps its best by pass rate; seen in a real run (3.79 kept instead of 41.24)"
+ },
+ "pfr_formalization": {
+  "kind": "bounded",
+  "direction": "up",
+  "bound": 2.13,
+  "text": "up, new runs only: 5 statements whose type contained a hidden sorry become reachable (1.18 points, measured), plus up to 4 later weak_PFR targets proved through them (2.13 points in all; the 4 are inferred from the measured rule and the upstream proof structure); re-scoring existing submissions changes nothing"
+ },
+ "portfolio_risk_calibration": {
+  "kind": "bounded",
+  "direction": "either",
+  "bound": 0.39,
+  "bound_up": 0.39,
+  "bound_down": 0.1,
+  "basis": "decimal sweep, not proved",
+  "text": "either: the fixed excess is slightly higher when positive and slightly lower when negative; at most 0.39 up (a joint bound over the excess, information-ratio and Sortino parts at the same strategy return, with the grader's 4-decimal rounding; the parts' own maxima, 0.18, 0.11 and 0.10, are not additive) and 0.10 down (excess part only), from a 50-digit decimal sweep on the fixed test data, not a proof"
+ },
+ "rust_multicrate_reconstruction": {
+  "kind": "bounded",
+  "direction": "either",
+  "bound": 29.22,
+  "text": "up: two packages' hidden tests do not compile and score 0 for every run that leaves the tests unchanged (cas-search 12 points, cas-cli 10); stopping at the first failing test file can cost up to 7.22 more; total at most 29.22 (28.42 when cas-mux crashes, as it did for every complete solution measured); measured +20.71 for a complete solution (73.99 to 94.70) in the publisher's inferred grading environment (the original grader plus four restored library files, which reproduces the publisher's starter score exactly); down by at most 0.10 from the stricter exemption",
+  "bound_down": 0.1,
+  "bound_up": 29.22
  },
  "schemathesis_config_modernization": {
   "kind": "bounded",
-  "direction": "down",
-  "bound": 0.67,
-  "text": "down: one weak test item"
+  "direction": "either",
+  "bound": 0.625,
+  "text": "either: one weak test item; a wrapper loses up to 0.625 points and a partly passing correct decorator gains up to 0.625"
  },
  "schemathesis_datagen_pipeline": {
   "kind": "bounded",
@@ -103,9 +156,9 @@
  },
  "schemathesis_reporting_observability": {
   "kind": "bounded",
-  "direction": "down",
-  "bound": 2.43,
-  "text": "down: two weak test items"
+  "direction": "either",
+  "bound": 4.76,
+  "text": "either: two weak test items; a submission can lose up to 4.76 points (wrong report writer and wrong coverage output); good-faith work can gain up to 2.76 (a correct report writer whose suite has another name, plus coverage tests), and a rise reaches 4.76 only if a submission makes the `GeneratedValue` class that the original coverage tests import unimportable, so 4.76 is used as the bound in both directions"
  },
  "smt_solver": {
   "kind": "open",
@@ -123,19 +176,25 @@
   "kind": "bounded",
   "direction": "up",
   "bound": 5,
-  "text": "up, only for solvers that alias operands"
+  "text": "up, only for programs that multiply a value by itself in place (`v *= v`)"
  },
  "triangulation_coloring_optimization": {
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: a different flip rule"
+  "text": "either: a different flip rule; plus up for solutions voided by the CPU share on the publisher's 4-CPU grader, and deadline-based solvers got about half a CPU"
+ },
+ "vibrating_path_graph_coloring": {
+  "kind": "open",
+  "direction": "up",
+  "bound": null,
+  "text": "up: on the publisher's 4-CPU grader, solutions using ~14–30 s CPU per case got no score and deadline-based solvers got half the CPU; size needs regrading or new runs"
  },
  "warehouse_forklift_routing": {
   "kind": "bounded",
   "direction": "up",
-  "bound": 30.3,
-  "ceiling": 30.3,
-  "text": "up, only for runs over the 60 s limit; ceiling ≈30.3"
+  "bound": 30.586,
+  "ceiling": 30.586,
+  "text": "up: runs over 60 s on any input, or over about 30 s of CPU per input on the publisher's 4-CPU grader, were voided, and deadline-based solvers got about half a CPU; ceiling ≈30.6 (30.3 before display rounding)"
  }
 }

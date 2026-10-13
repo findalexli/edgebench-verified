@@ -37,6 +37,7 @@ BASE=(
   "work|/home/workspace/triangulation_coloring/sample_data/0000.txt|files/sample_data/0000.txt"
   "work|/home/workspace/triangulation_coloring/sample_data/0001.txt|files/sample_data/0001.txt"
   "work|/home/workspace/triangulation_coloring/sample_data/0002.txt|files/sample_data/0002.txt"
+  "judge|/tmp/eval_triangulation_coloring.py|files/eval_triangulation_coloring.py"
 )
 ORIG=(
 )

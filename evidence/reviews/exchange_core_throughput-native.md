@@ -1,5 +1,9 @@
 # exchange_core_throughput: native addendum (wrong engines through the original correctness check)
 
+> **Note (2026-10-12).** The 2.704 vs 2.254 MT/s difference below is within run-to-run throughput noise: across the three side-by-side runs the unmodified engine ran at 2.008–3.105 MT/s (`repairs/exchange_core_throughput-v2/paired/results.md`).
+
+> **Note (2026-10-12, later).** All runs below used `--cpus 8`. At the publisher's leaderboard setting of 4 grader CPUs the shipped engine scores 939–1,033 raw, below the 0-point reference 2,090.6, so 0 out of 100 (`evidence/runs/exchange_core_throughput-cpu4v8-a`, `-b`). See `cases/exchange_core_throughput.md`.
+
 **Question.** Suppose an engine has honest-looking but **wrong** behaviour. Does the
 original eval still pass its functional assertions and award throughput credit?
 

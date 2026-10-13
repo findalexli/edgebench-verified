@@ -1,0 +1,185 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T22:32:42.618382+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 14,
+            "passed": 4,
+            "failed": 10,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791844362427,
+            "stop": 1791844362618
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_02_reporting.py::test_reporting_module_available",
+                "status": "passed",
+                "duration": 91,
+                "start": 1791844362450,
+                "stop": 1791844362541,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_ndjson_writer_context_manager",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 24,
+                "start": 1791844362542,
+                "stop": 1791844362566,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:33: in test_ndjson_writer_context_manager\n    assert '\"Initialize\"' in content\nE   assert '\"Initialize\"' in ''",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_ndjson_writer_context_manager_closes_file",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844362567,
+                "stop": 1791844362570,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:44: in test_ndjson_writer_context_manager_closes_file\n    assert path.stat().st_size > 0\nE   AssertionError: assert 0 > 0\nE    +  where 0 = os.stat_result(st_mode=33152, st_ino=568932, st_dev=38, st_nlink=1, st_uid=0, st_gid=0, st_size=0, st_atime=1791844362, st_mtime=1791844362, st_ctime=1791844362).st_size\nE    +    where os.stat_result(st_mode=33152, st_ino=568932, st_dev=38, st_nlink=1, st_uid=0, st_gid=0, st_size=0, st_atime=1791844362, st_mtime=1791844362, st_ctime=1791844362) = stat()\nE    +      where stat = PosixPath('/tmp/tmpq4zeyp2_.ndjson').stat",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_02_reporting.py::test_junitxml_writer_context_manager",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 26,
+                "start": 1791844362570,
+                "stop": 1791844362596,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:55: in test_junitxml_writer_context_manager\n    assert \"schemathesis\" in content\nE   assert 'schemathesis' in '<?xml version=\"1.0\" encoding=\"utf-8\"?>\\n<testsuites disabled=\"0\" errors=\"1\" failures=\"0\" tests=\"1\" time=\"0.0\">\\n\\t<testsuite disabled=\"0\" errors=\"1\" failures=\"0\" name=\"api-report\" skipped=\"0\" tests=\"1\" time=\"0\" hostname=\"f6b19cd6e9f6\">\\n\\t\\t<testcase name=\"test_label\">\\n\\t\\t\\t<error type=\"error\" message=\"something went wrong\"/>\\n\\t\\t</testcase>\\n\\t</testsuite>\\n</testsuites>\\n'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_vcr_writer_context_manager_no_error",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844362596,
+                "stop": 1791844362596,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_har_writer_context_manager_no_error",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844362597,
+                "stop": 1791844362597,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_vcr_writer_open_writes_header",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844362597,
+                "stop": 1791844362600,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:80: in test_vcr_writer_open_writes_header\n    assert \"command:\" in content\nE   AssertionError: assert 'command:' in ''",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_02_reporting.py::test_get_command_representation_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844362600,
+                "stop": 1791844362601,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_report_format_allure_enum",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844362601,
+                "stop": 1791844362603,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:95: in test_report_format_allure_enum\n    assert hasattr(ReportFormat, \"ALLURE\")\nE   AssertionError: assert False\nE    +  where False = hasattr(<enum 'ReportFormat'>, 'ALLURE')",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_allure_field",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844362604,
+                "stop": 1791844362607,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:103: in test_reports_config_allure_field\n    assert hasattr(config, \"allure\")\nE   AssertionError: assert False\nE    +  where False = hasattr(ReportsConfig(), 'allure')",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_update_allure_path",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844362607,
+                "stop": 1791844362609,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:111: in test_reports_config_update_allure_path\n    config.update(allure_path=\"/tmp/allure-results\")\nE   TypeError: ReportsConfig.update() got an unexpected keyword argument 'allure_path'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844362610,
+                "stop": 1791844362612,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:119: in test_reports_config_get_stable_path\n    path = config.get_stable_path(ReportFormat.VCR)\n           ^^^^^^^^^^^^^^^^^^^^^^\nE   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path_with_suffix",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844362612,
+                "stop": 1791844362615,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:129: in test_reports_config_get_stable_path_with_suffix\n    path = config.get_stable_path(ReportFormat.VCR, suffix=\"abc12345\")\n           ^^^^^^^^^^^^^^^^^^^^^^\nE   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path_allure",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844362615,
+                "stop": 1791844362618,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:137: in test_reports_config_get_stable_path_allure\n    path = config.get_stable_path(ReportFormat.ALLURE)\n           ^^^^^^^^^^^^^^^^^^^^^^\nE   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

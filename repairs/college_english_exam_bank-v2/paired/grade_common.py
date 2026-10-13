@@ -1,8 +1,8 @@
-"""Shared offline grading of saved paired-run captures with this repo's sforge harness.
+"""Shared offline grading of saved paired-run captures with EdgeBench's sforge harness (this repo's sforge/, 6e4e5f4).
 grade(task_id, pkg_dir, version, name) -> dict (grade_output + rescale_score, as judge_submission does)."""
 import json, sys
 from pathlib import Path
-REPO = Path(__file__).resolve().parents[4] if False else Path("/home/alex/edgebench-verified")
+REPO = Path(__import__('os').environ.get('EBV_REPO') or Path(__file__).resolve().parents[3])  # repo root; set EBV_REPO when run from a copy
 sys.path.insert(0, str(REPO))
 from sforge.harness.benchmark import load_benchmark
 from sforge.harness.task_spec import make_task_spec

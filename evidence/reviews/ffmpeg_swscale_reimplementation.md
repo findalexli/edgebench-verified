@@ -1,5 +1,7 @@
 # ffmpeg_swscale_reimplementation: critical re-verification
 
+> **Note (2026-10-12).** "one local WSL host with 2 CPUs" below: the variants ran in containers limited to 2 CPUs (`run_variant.sh`, `--cpus 2`); the host's own CPU count was not recorded. The later side-by-side run used an 8-CPU E2B host with containers limited to 4 CPUs (`evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/result/out/env.txt`).
+
 ## Claim under review
 
 Earlier finding (`docs/FINDINGS.md`, "FFmpeg Scaling"; `evidence/selected/12-finding-decisions.json`,
@@ -155,5 +157,5 @@ with unvalidated timing may be inflated.
   3 to 7× raw shifts are not noise.
 - Only one shipped scaffold and four one-line variants were tested. No independent full
   implementation was built.
-- Scorer isolation (`compute_reward.py` imports `pixel_formats` from `/app`, the submission
-  directory) is out of scope under the good-faith rule and was not analysed.
+- Scorer isolation is out of scope under the good-faith rule and was not analysed; scorer-isolation
+  notes are kept internally.

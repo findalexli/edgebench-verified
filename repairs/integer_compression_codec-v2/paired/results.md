@@ -12,11 +12,11 @@
   `cd /home/workspace/integer-compression-codec && python3 runner_judge.py`, with
   `--network none --cpus 4 --memory 6g`, one container at a time. Arms alternate v1 and v2 for the
   same submission. The variant `codec.cpp` was copied over `src/codec.cpp` (variants reused from
-  `e2b/jobs/integer_compression_codec-native-controls/`; hashes in `evidence/variants_sha.txt`).
+  `evidence/runs/integer_compression_codec-native-controls/`; hashes in `evidence/variants_sha.txt`).
 - **Scores:** raw = structured-result `score`. Normalized = `score_rescale` linear 0..100
   (= raw here). Pass rate = datasets with roundtrip OK and no error, out of 8. Exit = container exit.
 
-| Arm | Submission | v1 raw / norm | v2 raw / norm | Pass v1 / v2 | Exit v1 / v2 | Expected | OK |
+| Arm | Submission | v1 raw / norm | v2 raw / norm (superseded 0..100 scale; see below) | Pass v1 / v2 | Exit v1 / v2 | Expected | OK |
 |---|---|---|---|---|---|---|---|
 | Trigger / valid control | shipped Varint starter (unchanged) | **0.2327 / 0.2327** | **0.9786 / 0.9786** (repeat **1.0155**) | 8/8 / 8/8 | 0 / 0 | v1 ≠ 1.0, v2 ≈ 1.0 (documented) | yes |
 | Honest control | delta + zigzag + varint | **0.8253 / 0.8253** | **6.7024 / 6.7024** (repeat **6.9708**) | 8/8 / 8/8 | 0 / 0 | v2 = documented definition (offline rescore of the v1 logs against the v1 starter run: 7.43; earlier review: 6.24) | yes |
@@ -25,7 +25,7 @@
 **Reading the table.**
 - The starter now scores about 1.0, as documented. The residual is timing noise: the compression
   ratio is exactly 1.0 on every dataset, and the per-dataset speed ratios range from 0.93 to 1.07
-  (`evidence/summary.txt`).
+  (`evidence/summary.txt`). Over the six v2 starter runs in this job and the `-rep2` and `-rep3` jobs, they range from 0.84 to 1.14, and the honest codec scores 6.70 to 8.27.
 - The honest codec's v2 score follows the documented definition. Its compression terms are exact
   (for example ts_sec 40.00 / 8.00 bpi = 5.0x). The speed terms are same-host ratios. The offline
   rescore (7.43) uses a starter measured in a different container run (r1), so it differs from the

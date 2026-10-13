@@ -42,11 +42,13 @@ No change is made; the note above ships with the task.
 - No AI model or solver runs were made. Effects are shown only on the shipped reference solutions and one run under tight limits.
 - Each test submission ran once. Scoring is deterministic given the `infer` output.
 - Memory figures are cgroup totals that include page cache, not the memory of each process (RSS).
-- Behaviour under other tight-limit setups (other core counts or wrappers) was not tested.
+- Behaviour under other tight-limit setups (other core counts or wrappers) was not tested. A container memory (cgroup) limit near 512 MiB was not tested; the failing run used an address-space limit.
+- Published leaderboard averages for this task (44.3 for Opus 4.8 and 44.0 for GPT-5.5, `evidence/impact/leaderboard_12h.json`) are well above the authors' advanced reference solution, which scores 24.7 under this grader. Where that gap comes from was not examined.
 
 ## Reproduce
 
 - Grader image digest: `sha256:6489d4ea0e48…`.
 - `evidence/runs/k12_math_recommendation-positive/run.sh`. It needs a Docker host that can pull the pinned image. Outputs are in `result/out/<arm>/`.
-- `evidence/scripts/k12_math_recommendation/measure_evaluate.sh` and `measure_evaluate_limited.sh`.
+- The tight-limit arm (`stage2_audit_envelope`, `prlimit --as=536870912 --cpu=120:120`) is in the same `run.sh`.
+- `evidence/scripts/k12_math_recommendation/measure_evaluate.sh` is an earlier measurement script. It needs stub libraries that are not published and uses older directory names, so it does not run as published.
 - Review: `evidence/reviews/k12_math_recommendation-native.md`.

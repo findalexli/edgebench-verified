@@ -1,4 +1,4 @@
-"""Grade saved paired captures (result/out) with this repo's sforge harness, then apply the
+"""Grade saved paired captures (result/out) with EdgeBench's sforge harness (this repo's sforge/, 6e4e5f4), then apply the
 task's selection (pass_rate_first) to submission histories. Run from this directory."""
 import json
 from pathlib import Path

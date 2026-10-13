@@ -1,5 +1,33 @@
 # Census: does the auxiliary-name scoring defect affect the six other Lean tasks?
 
+> **Note added 2026-10-12 (later review).** Superseded statements below:
+> - PFR note, "The real-hole probe (`type_sorry`) is false for them": the probe read only
+>   `aux_targets.txt` (the 7 `_simp` helpers; `out/pfr_formalization/aux_probe.out`). The five
+>   `autoParam (…) sorry` targets were classified by the text rule in `classify.py` only. Whether their
+>   types contain `sorryAx` is untested; see `cases/pfr_formalization.md`.
+> - **Later still (2026-10-12):** that question is now settled against this census. All five types
+>   contain a real `sorryAx` (probe `evidence/runs/pfr_formalization-autoparam-probe/`), the task's own
+>   grader cannot credit them, and the task is fixed (`repairs/pfr_formalization-v2/`). The PFR row
+>   below ("No", "autoParam rendering", lower bound 0) and the summary's "no unattainable target" are
+>   wrong for PFR: 5 of 423 targets are unattainable on the original grader.
+> - "These starters were made by replacing *theorem* bodies with `sorry`": mostly theorem bodies.
+>   Carleson also has the sorried data definition `C_LorentzInterpolation`.
+> - "the shared baseline `.lake` (Mathlib `3203991…`)": that revision was recorded for
+>   `lean_analysis_proofs`. For FLT and sphere only manifest hashes were recorded, and they differ per
+>   task (FLT baseline `7758d921…` vs repo `880c7aa4…`; sphere baseline `af7adc71…` vs repo
+>   `c2b475de…`; `out/<task>/census.log`). The Mathlib revisions themselves were not recorded.
+
+> **Note (2026-10-12): superseded statements.**
+> - combinatorial_games_formalization: the repaired set is the 6 theorems, `copy`, `instBoundedOrder`
+>   and **8** auxiliaries, not 7 (`out/combinatorial_games_formalization/native/repaired.txt`; 6 + 2 + 8 = 16).
+> - new_foundations_consistency, proof-style check: the four styles prove four different theorems.
+>   Each gets a helper named `_proof_1` whose type is its own statement as an equality, and the
+>   `omega` proof adds `_proof_1_1` and `_proof_1_2` (`auxstyle/nf_v4.21.out`). The types are not
+>   "the same every time".
+> - new_foundations_consistency: the doc-gen4 HEAD `0ee5b43…` and "no `origin` remote" have no saved
+>   raw log. The saved offline log shows `doc-gen4: URL has changed; deleting … and cloning again`
+>   (`out/new_foundations_consistency/native/build_orig.err`).
+
 ## Question
 
 `reviews/lean_aux_name_scoring.md` showed, natively for lean_analysis_proofs, that the shared grader
@@ -206,7 +234,7 @@ It is not needed to fix unattainable ceilings in these six.
 
 ## Networked judge run (new_foundations_consistency, follow-up)
 
-The coordinator reports that the maintained harness gives the judge container network access.
+The coordinator reports that EdgeBench's harness gives the judge container network access.
 `internet:false` applies only to the agent container (`sforge/harness/run_evaluation.py`). To check what
 happens in that setting, I re-pulled the image by digest and ran the verbatim `eval_cmd` on the
 unmodified starter (the judge baseline sources) **with network**.
@@ -235,5 +263,5 @@ unmodified starter (the judge baseline sources) **with network**.
 
 **Conclusion.** With network access, grading works today and is reproducible: the clone is pinned to
 the manifest commit. The offline failure recorded above affects only network-isolated judges. It is not a
-production defect under the maintained harness. One residual dependency remains: grading needs GitHub to
+production defect under EdgeBench's harness. One residual dependency remains: grading needs GitHub to
 be reachable and to keep serving commit `86d735ec`.

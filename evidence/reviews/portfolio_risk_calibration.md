@@ -1,5 +1,20 @@
 # Review: portfolio_risk_calibration (annualized excess return formula)
 
+> **Note (2026-10-13): decision changed to Fixed.** The "Disposition assessment" and "Repair note"
+> below recommend "retain with a note". They are superseded: the two-line formula fix is now a
+> published fixed version (`repairs/portfolio_risk_calibration-v2/`), accepted on a side-by-side run
+> of the original grader and the fixed version, three times on fresh workers
+> (`repairs/portfolio_risk_calibration-v2/paired/results.md`): a test strategy following the
+> instructions goes from 32.45 to 32.52, and the excess part at the stated 12% line from 19.85 to
+> 20.00. The size bound (at most 0.39 up, 0.10 down) comes from a 50-digit decimal sweep
+> (`paired/bound.out`), not a proof. `PortfolioOrderRealExp.lean` covers the fixed formula (the
+> stated one, `eC k k`) for order and sign only.
+
+> **Note (2026-10-12): superseded statement.** "Lean proves this for k = 2; numerically it holds for
+> k = 1.041" (section on rankings) is superseded: `evidence/formal/lean/ebv/Ebv/PortfolioOrderRealExp.lean`
+> proves strict monotonicity, same order and same sign for every real k > 0 (given 1+a > 0 and
+> 1+a−b > 0), which includes 252/242. Only the size of the gap rests on float64 sweeps.
+
 ## Claim under review
 
 Earlier claim (verbatim): "The evaluator annualizes the period-return difference instead of

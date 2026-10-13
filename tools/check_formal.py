@@ -71,7 +71,7 @@ def check_tla():
 
 
 def axioms(text):
-    return sorted(set(re.findall(r"^'[^']+' depends on axioms: \[[^\]]*\]", text, flags=re.M)))
+    return sorted(set(re.findall(r"^'[^']+' (?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)", text, flags=re.M)))
 
 
 def check_lean():

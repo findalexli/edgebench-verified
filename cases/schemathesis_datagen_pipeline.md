@@ -67,7 +67,7 @@ Across all generators, `test_http_date_values_grammar` is the only test whose re
 - Grader image: `sha256:16b21364…`.
 - Original vs fixed test: first run `evidence/scripts/schemathesis_datagen_pipeline/fetch_tests.sh`, which extracts the hidden tests from the pinned image.
 - Then run `run_in_judge.sh` with `headers_overlay.py`, `run_seed_sweep.sh` and `check_witnesses.py` from the same folder. Saved outputs: `observed_output.txt`, `observed_seed_sweep.txt` and `observed_witnesses.txt`.
-- Side-by-side run of the original and fixed graders: run `repairs/schemathesis_datagen_pipeline-v2/paired/run.sh` and `paired/extra.sh` (`repairs/schemathesis_datagen_pipeline-v2/` is the folder holding the fixed version). Results are in `paired/results.md`, `paired/raw-summary.md` and `paired/seed-sweep.txt`. The `stdlib_any_year` row above is the amended result recorded in `paired/results.md`.
+- Side-by-side run of the original and fixed graders: run `repairs/schemathesis_datagen_pipeline-v2/paired/run.sh` and `paired/extra.sh` (`repairs/schemathesis_datagen_pipeline-v2/` is the folder holding the fixed version). Results are in `paired/results.md`. The table above is the final run, `evidence/runs/schemathesis_datagen_pipeline-v2-paired-b/result/out/summary.md` (seed sweep in `result/out/extra.log`); `paired/raw-summary.md` and `paired/seed-sweep.txt` record an earlier run with a year ≥ 1900 floor in the fixed check and are superseded.
 - Fix: `repairs/schemathesis_datagen_pipeline-v2/repair.patch`, `Dockerfile`, `source-lock.json`.
 
 Supporting records: `repairs/schemathesis_datagen_pipeline-v2/` and `evidence/reviews/schemathesis_datagen_pipeline.md`.

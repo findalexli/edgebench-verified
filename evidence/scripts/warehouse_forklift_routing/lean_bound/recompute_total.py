@@ -36,7 +36,7 @@ for f in files:
 print("files", len(files), "| cases", sum(len(d) for d in dims_all), "| cases failing Lean hypotheses", hyp_fail)
 print("exact TOTAL lower bound:", total, "=", "%.6f" % float(total))
 print("lower bound on TOTAL_SCORE as actually summed from 1-dp displayed values:", float(total_disp_lb))
-sys.path.insert(0, '/home/alex/edgebench-verified')
+sys.path.insert(0, __import__('os').environ.get('EBV_REPO') or str(__import__('pathlib').Path(__file__).resolve().parents[4]))
 from sforge.harness.score_rescale import parse_rescale_spec, rescale_score
 spec_d = json.load(open(task_json))['judge']['rescale']; spec = parse_rescale_spec(spec_d)
 print("rescale spec", spec_d)

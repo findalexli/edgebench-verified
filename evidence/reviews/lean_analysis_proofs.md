@@ -1,5 +1,7 @@
 # Review: lean_analysis_proofs
 
+> **Note (2026-10-12).** Superseded statements below: (1) The corrected `div` statement is now kernel-proved without `sorry` (`EbvV2.div_corrected`, `repairs/lean_analysis_proofs-v2/paired/lean/EbvV2Proofs.lean`, axioms in `paired/out/v2-proofs.out`). (2) "caps the score at 99.93%" and "All other targets are unaffected" hold for the false statements alone; compiler-generated helper targets put at least 49 of 2901 points out of reach, a ceiling of at most 2852/2901 = 98.31% (`lean_aux_name_scoring.md`). (3) `evidence/selected/…` is not in this repository. Formal summary: `evidence/formal/notes/lean_analysis_proofs.md`.
+
 ## Claim under review
 
 Earlier claim (verbatim): "Two required statements in the acquired source are mathematically

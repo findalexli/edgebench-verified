@@ -16,6 +16,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -60,6 +61,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -104,6 +106,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -148,6 +151,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -192,6 +196,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -246,6 +251,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -290,6 +296,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -334,6 +341,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -378,6 +386,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -422,6 +431,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -466,6 +476,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -510,6 +521,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -548,143 +560,551 @@
   ]
  },
  "college_english_exam_bank": {
-  "runs_ok": [],
-  "errors": {
-   "1": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/college_english_exam_bank-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/college_english_exam_bank-run1/']' returned non-zero exit statu",
-   "2": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/college_english_exam_bank-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/college_english_exam_bank-run2/']' returned non-zero exit statu",
-   "3": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/college_english_exam_bank-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/college_english_exam_bank-run3/']' returned non-zero exit statu"
-  },
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
   "arms": [
    {
     "arm": "A all 12 rules, one deduction each",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "77",
+      "77"
+     ],
+     "2": [
+      "true",
+      "true",
+      "77",
+      "77"
+     ],
+     "3": [
+      "true",
+      "true",
+      "77",
+      "77"
+     ]
+    },
+    "v1_spread": {
+     "min": 77.0,
+     "max": 77.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 77.0,
+     "max": 77.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "B all 12 rules floored to 0",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "0",
+      "0"
+     ],
+     "2": [
+      "true",
+      "true",
+      "0",
+      "0"
+     ],
+     "3": [
+      "true",
+      "true",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "F R009 rule-level score 0, no checkpoints",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "0",
+      "0"
+     ],
+     "2": [
+      "true",
+      "true",
+      "0",
+      "0"
+     ],
+     "3": [
+      "true",
+      "true",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "L A without any rule-level score (complete checkpoints)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "77",
+      "77"
+     ],
+     "2": [
+      "true",
+      "true",
+      "77",
+      "77"
+     ],
+     "3": [
+      "true",
+      "true",
+      "77",
+      "77"
+     ]
+    },
+    "v1_spread": {
+     "min": 77.0,
+     "max": 77.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 77.0,
+     "max": 77.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "C empty `scores`",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "false",
+      "100",
+      "0"
+     ],
+     "2": [
+      "true",
+      "false",
+      "100",
+      "0"
+     ],
+     "3": [
+      "true",
+      "false",
+      "100",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 100.0,
+     "max": 100.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0,
+     "max": 0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "D A minus R009",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "false",
+      "81",
+      "0"
+     ],
+     "2": [
+      "true",
+      "false",
+      "81",
+      "0"
+     ],
+     "3": [
+      "true",
+      "false",
+      "81",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 81.0,
+     "max": 81.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0,
+     "max": 0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "E B minus R009",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "false",
+      "15",
+      "0"
+     ],
+     "2": [
+      "true",
+      "false",
+      "15",
+      "0"
+     ],
+     "3": [
+      "true",
+      "false",
+      "15",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 15.0,
+     "max": 15.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0,
+     "max": 0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "G R009 row with no score and no checkpoints",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "false",
+      "0",
+      "0"
+     ],
+     "2": [
+      "true",
+      "false",
+      "0",
+      "0"
+     ],
+     "3": [
+      "true",
+      "false",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0,
+     "max": 0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "I R009 score 0 with all-zero checkpoints",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "false",
+      "15",
+      "0"
+     ],
+     "2": [
+      "true",
+      "false",
+      "15",
+      "0"
+     ],
+     "3": [
+      "true",
+      "false",
+      "15",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 15.0,
+     "max": 15.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0,
+     "max": 0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "H no JSON",
     "role": "invalid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "false",
+      "false",
+      "0",
+      "0"
+     ],
+     "2": [
+      "false",
+      "false",
+      "0",
+      "0"
+     ],
+     "3": [
+      "false",
+      "false",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0,
+     "max": 0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0,
+     "max": 0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "J D, then A on re-ask",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "81",
+      "77"
+     ],
+     "2": [
+      "true",
+      "true",
+      "81",
+      "77"
+     ],
+     "3": [
+      "true",
+      "true",
+      "81",
+      "77"
+     ]
+    },
+    "v1_spread": {
+     "min": 81.0,
+     "max": 81.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 77.0,
+     "max": 77.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "K no JSON, then A on re-ask",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "false",
+      "true",
+      "0",
+      "77"
+     ],
+     "2": [
+      "false",
+      "true",
+      "0",
+      "77"
+     ],
+     "3": [
+      "false",
+      "true",
+      "0",
+      "77"
+     ]
+    },
+    "v1_spread": {
+     "min": 0,
+     "max": 0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 77.0,
+     "max": 77.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    }
   ]
@@ -706,6 +1126,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -740,6 +1161,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -774,6 +1196,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -808,6 +1231,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -842,6 +1266,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -876,6 +1301,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -910,6 +1336,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -964,6 +1391,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1008,6 +1436,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1052,6 +1481,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1096,6 +1526,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1150,6 +1581,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1194,6 +1626,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1238,6 +1671,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1282,6 +1716,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1336,6 +1771,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1375,6 +1811,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1419,6 +1856,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1463,6 +1901,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1507,6 +1946,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1551,6 +1991,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1595,6 +2036,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1639,6 +2081,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1685,7 +2128,7 @@
   "errors": {},
   "arms": [
    {
-    "arm": "reference implementation (run 1)",
+    "arm": "forwarding shim, each frame once (`ref_r1`)",
     "role": "valid",
     "runs": [
      1,
@@ -1693,6 +2136,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1729,7 +2173,7 @@
     "timing": true
    },
    {
-    "arm": "reference implementation (run 2)",
+    "arm": "forwarding shim, each frame twice (`ref_r2`, about 2\u00d7 slower)",
     "role": "valid",
     "runs": [
      1,
@@ -1737,6 +2181,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1781,6 +2226,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1825,6 +2271,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1869,6 +2316,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1913,6 +2361,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1957,6 +2406,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -1994,65 +2444,680 @@
    }
   ]
  },
+ "git_rewrite_in_zig": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "`control`: unmodified starter",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[6.9e-05 2]",
+      "[6.9e-05 2]",
+      "6.9e-05",
+      "6.9e-05"
+     ],
+     "2": [
+      "[6.9e-05 2]",
+      "[6.9e-05 2]",
+      "6.9e-05",
+      "6.9e-05"
+     ],
+     "3": [
+      "[6.9e-05 2]",
+      "[6.9e-05 2]",
+      "6.9e-05",
+      "6.9e-05"
+     ]
+    },
+    "v1_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`zig_build_exe`: starter after `zig build-exe src/main.zig -lc -lz` (leaves `main`, `main.o`)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[0.0 None anti_cheat_failed: precompiled_objects;stray_elf_binaries;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "2": [
+      "[0.0 None anti_cheat_failed: precompiled_objects;stray_elf_binaries;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "3": [
+      "[0.0 None anti_cheat_failed: precompiled_objects;stray_elf_binaries;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`obj_only`: as above, only `main.o` left",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[0.0 None anti_cheat_failed: precompiled_objects;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "2": [
+      "[0.0 None anti_cheat_failed: precompiled_objects;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "3": [
+      "[0.0 None anti_cheat_failed: precompiled_objects;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`elf_only`: as above, only `main` left",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[0.0 None anti_cheat_failed: stray_elf_binaries;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "2": [
+      "[0.0 None anti_cheat_failed: stray_elf_binaries;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "3": [
+      "[0.0 None anti_cheat_failed: stray_elf_binaries;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`exec_git`: `test` block in `src/main.zig` runs system git (`zig test` passes 1/1)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "2": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "3": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`exec_git_helper`: `src/difftest.zig` helper runs system git, used only by a `test` block (`zig test` passes 1/1)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "2": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "3": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "oracle: real git v2.47.0 in `zig-out/bin`, `HARBOR_ORACLE_MODE=1`",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[1.0 29075 0 1007]",
+      "[1.0 29075 0 1007]",
+      "1",
+      "1"
+     ],
+     "2": [
+      "[1.0 29075 0 1007]",
+      "[1.0 29075 0 1007]",
+      "1",
+      "1"
+     ],
+     "3": [
+      "[1.0 29075 0 1007]",
+      "[1.0 29075 0 1007]",
+      "1",
+      "1"
+     ]
+    },
+    "v1_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 1.0,
+     "max": 1.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`bad_wrap_cgit`: `main.zig` execs `./cgit`, a C git v2.47.0 in the project folder",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[0.0 None anti_cheat_failed: stray_elf_binaries;]",
+      "[0.0 0]",
+      "0",
+      "0"
+     ],
+     "2": [
+      "[0.0 None anti_cheat_failed: stray_elf_binaries;]",
+      "[0.0 0]",
+      "0",
+      "0"
+     ],
+     "3": [
+      "[0.0 None anti_cheat_failed: stray_elf_binaries;]",
+      "[0.0 0]",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`bad_shell_git`: `main.zig` forwards every call to the system `git`",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[6.9e-05 2]",
+      "[6.9e-05 2]",
+      "6.9e-05",
+      "6.9e-05"
+     ],
+     "2": [
+      "[6.9e-05 2]",
+      "[6.9e-05 2]",
+      "6.9e-05",
+      "6.9e-05"
+     ],
+     "3": [
+      "[6.9e-05 2]",
+      "[6.9e-05 2]",
+      "6.9e-05",
+      "6.9e-05"
+     ]
+    },
+    "v1_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`bad_shell_git_oneline`: the same, with `\"git\"` on the `std.process.Child` line",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "2": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ],
+     "3": [
+      "[0.0 None anti_cheat_failed: shells_out_to_git;]",
+      "[6.9e-05 2]",
+      "0",
+      "6.9e-05"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 6.9e-05,
+     "max": 6.9e-05,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
  "graph_node_classification": {
-  "runs_ok": [],
-  "errors": {
-   "1": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/graph_node_classification-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/graph_node_classification-run1/']' returned non-zero exit statu",
-   "2": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/graph_node_classification-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/graph_node_classification-run2/']' returned non-zero exit statu",
-   "3": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/graph_node_classification-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/graph_node_classification-run3/']' returned non-zero exit statu"
-  },
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
   "arms": [
    {
     "arm": "baseline (shipped solution.py)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "29.27832597",
+      "29.27023467"
+     ],
+     "2": [
+      "true",
+      "true",
+      "29.2412547",
+      "29.2709693"
+     ],
+     "3": [
+      "true",
+      "true",
+      "29.17798219",
+      "29.19055028"
+     ]
+    },
+    "v1_spread": {
+     "min": 29.17798219104753,
+     "max": 29.278325966899555,
+     "rel": 0.003432607677363893,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 29.190550278231843,
+     "max": 29.270969301652993,
+     "rel": 0.0027499401136595594,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "neighbor (honest neighbour-vote solver, int ids)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "24.10019512",
+      "24.10438617"
+     ],
+     "2": [
+      "true",
+      "true",
+      "24.11019477",
+      "24.08480617"
+     ],
+     "3": [
+      "true",
+      "true",
+      "24.00170058",
+      "24.01940179"
+     ]
+    },
+    "v1_spread": {
+     "min": 24.001700583817062,
+     "max": 24.1101947692509,
+     "rel": 0.004507313860993183,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 24.019401786892303,
+     "max": 24.104386166701193,
+     "rel": 0.003530786639838476,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "nanconf (baseline predictions, NaN confidences)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "true",
+      "27.14649555",
+      "27.1431187"
+     ],
+     "2": [
+      "true",
+      "true",
+      "27.16689382",
+      "27.1393734"
+     ],
+     "3": [
+      "true",
+      "true",
+      "27.08711461",
+      "27.07935437"
+     ]
+    },
+    "v1_spread": {
+     "min": 27.087114605905814,
+     "max": 27.166893820978533,
+     "rel": 0.0029402477077813687,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 27.079354365668223,
+     "max": 27.143118696831635,
+     "rel": 0.0023511387931546453,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "shrink (one real prediction, rest `\"x\"`)",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
+    "per": {
+     "1": [
+      "true",
+      "false",
+      "16.0264378",
+      ""
+     ],
+     "2": [
+      "true",
+      "false",
+      "15.98522763",
+      ""
+     ],
+     "3": [
+      "true",
+      "false",
+      "15.91200212",
+      ""
+     ]
+    },
+    "v1_spread": {
+     "min": 15.912002119900304,
+     "max": 16.026437802192216,
+     "rel": 0.00716362216030271,
+     "n": 3
+    },
     "v2_spread": null,
     "timing": false
    },
    {
     "arm": "missing_half (half the test nodes)",
     "role": "invalid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "false",
+      "false",
+      "",
+      ""
+     ],
+     "2": [
+      "false",
+      "false",
+      "",
+      ""
+     ],
+     "3": [
+      "false",
+      "false",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2076,6 +3141,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2120,6 +3186,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2164,6 +3231,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2216,20 +3284,44 @@
   }
  },
  "jagua_nesting_optimization": {
-  "runs_ok": [],
-  "errors": {
-   "1": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/jagua_nesting_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/jagua_nesting_optimization-run1/']' returned non-zero exit sta",
-   "2": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/jagua_nesting_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/jagua_nesting_optimization-run2/']' returned non-zero exit sta",
-   "3": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/jagua_nesting_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/jagua_nesting_optimization-run3/']' returned non-zero exit sta"
-  },
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
   "arms": [
    {
     "arm": "valid_adjacent_squares (shared edge)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2237,10 +3329,34 @@
    {
     "arm": "coincident_squares",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2248,10 +3364,34 @@
    {
     "arm": "half_slid_squares",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2259,10 +3399,34 @@
    {
     "arm": "rect_inside_square",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2270,10 +3434,34 @@
    {
     "arm": "triangle_inside_square",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2281,10 +3469,34 @@
    {
     "arm": "diamond_inside_square",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "reject overlap_0_1",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2292,10 +3504,34 @@
    {
     "arm": "diag_shift_squares (proper crossings)",
     "role": "invalid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "reject overlap_0_1",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "2": [
+      "reject overlap_0_1",
+      "reject overlap_0_1",
+      "",
+      ""
+     ],
+     "3": [
+      "reject overlap_0_1",
+      "reject overlap_0_1",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2303,10 +3539,34 @@
    {
     "arm": "tiny_overlap_1e-6 (relative overlap 1e-7)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2314,10 +3574,34 @@
    {
     "arm": "forbidden_rotation_90 (allowed [0])",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "reject orientation_not_allowed_0",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "reject orientation_not_allowed_0",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "reject orientation_not_allowed_0",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2325,10 +3609,34 @@
    {
     "arm": "allowed_rotation_minus180 (allowed [0, 180])",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ],
+     "2": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ],
+     "3": [
+      "accept",
+      "accept",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2336,34 +3644,136 @@
    {
     "arm": "Shipped baseline (candidate = reference)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "valid true; 0 / 16 / 0",
+      "valid true; 0 / 16 / 0",
+      "0",
+      "0"
+     ],
+     "2": [
+      "valid true; 0 / 16 / 0",
+      "valid true; 0 / 16 / 0",
+      "0",
+      "0"
+     ],
+     "3": [
+      "valid true; 0 / 16 / 0",
+      "valid true; 0 / 16 / 0",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "seed_shift (honest: same LBF, different PRNG stream)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "valid true; 6 / 10 / 0",
+      "valid true; 6 / 10 / 0",
+      "1.644419",
+      "1.644419"
+     ],
+     "2": [
+      "valid true; 6 / 10 / 0",
+      "valid true; 6 / 10 / 0",
+      "1.644419",
+      "1.644419"
+     ],
+     "3": [
+      "valid true; 6 / 10 / 0",
+      "valid true; 6 / 10 / 0",
+      "1.644419",
+      "1.644419"
+     ]
+    },
+    "v1_spread": {
+     "min": 1.644419,
+     "max": 1.644419,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 1.644419,
+     "max": 1.644419,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "drop_last_item (one item missing)",
     "role": "invalid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "valid true; 0 / 16 / 0",
+      "valid true; 0 / 16 / 0",
+      "0",
+      "0"
+     ],
+     "2": [
+      "valid true; 0 / 16 / 0",
+      "valid true; 0 / 16 / 0",
+      "0",
+      "0"
+     ],
+     "3": [
+      "valid true; 0 / 16 / 0",
+      "valid true; 0 / 16 / 0",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    }
   ]
@@ -2385,6 +3795,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2429,6 +3840,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2473,6 +3885,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2507,6 +3920,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2551,6 +3965,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2595,6 +4010,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2642,42 +4058,134 @@
   ]
  },
  "order_addition_permutation_optimization": {
-  "runs_ok": [],
-  "errors": {
-   "1": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/order_addition_permutation_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/order_addition_permutation_optimization-run1/']' ",
-   "2": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/order_addition_permutation_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/order_addition_permutation_optimization-run2/']' ",
-   "3": "CalledProcessError: Command '['rsync', '-a', '--exclude', '/paired/result', '--exclude', '/paired/result-*', '/home/alex/edgebench-verified/repairs/order_addition_permutation_optimization-v2/', '/home/alex/edgebench-verified/tools/repeatability/grade/order_addition_permutation_optimization-run3/']' "
-  },
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
   "arms": [
    {
     "arm": "identity",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "4/5",
+      "5/5",
+      "3.3e-09",
+      "3.3e-09"
+     ],
+     "2": [
+      "4/5",
+      "5/5",
+      "3.3e-09",
+      "3.3e-09"
+     ],
+     "3": [
+      "4/5",
+      "5/5",
+      "3.3e-09",
+      "3.3e-09"
+     ]
+    },
+    "v1_spread": {
+     "min": 3.3e-09,
+     "max": 3.3e-09,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 3.3e-09,
+     "max": 3.3e-09,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "search",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "4/5",
+      "5/5",
+      "0.0093733018",
+      "0.0093733018"
+     ],
+     "2": [
+      "4/5",
+      "5/5",
+      "0.0003106985",
+      "0.0003106985"
+     ],
+     "3": [
+      "4/5",
+      "5/5",
+      "0.0004940978",
+      "0.0004940978"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0003106985,
+     "max": 0.0093733018,
+     "rel": 2.6712072955948423,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0003106985,
+     "max": 0.0093733018,
+     "rel": 2.6712072955948423,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "badcost (misreported cost)",
     "role": "invalid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "3/5",
+      "4/5",
+      "",
+      ""
+     ],
+     "2": [
+      "3/5",
+      "4/5",
+      "",
+      ""
+     ],
+     "3": [
+      "3/5",
+      "4/5",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2685,10 +4193,34 @@
    {
     "arm": "dup (not a permutation)",
     "role": "invalid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "3/5",
+      "4/5",
+      "",
+      ""
+     ],
+     "2": [
+      "3/5",
+      "4/5",
+      "",
+      ""
+     ],
+     "3": [
+      "3/5",
+      "4/5",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -2696,45 +4228,181 @@
    {
     "arm": "identity, search",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0093733018"
+     ],
+     "2": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0003106985"
+     ],
+     "3": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0004940978"
+     ]
+    },
+    "v1_spread": {
+     "min": 3.3e-09,
+     "max": 3.3e-09,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0003106985,
+     "max": 0.0093733018,
+     "rel": 2.6712072955948423,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "search, identity",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "best search",
+      "best search",
+      "0.0093733018",
+      "0.0093733018"
+     ],
+     "2": [
+      "best search",
+      "best search",
+      "0.0003106985",
+      "0.0003106985"
+     ],
+     "3": [
+      "best search",
+      "best search",
+      "0.0004940978",
+      "0.0004940978"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0003106985,
+     "max": 0.0093733018,
+     "rel": 2.6712072955948423,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0003106985,
+     "max": 0.0093733018,
+     "rel": 2.6712072955948423,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "dup, identity, search",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0093733018"
+     ],
+     "2": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0003106985"
+     ],
+     "3": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0004940978"
+     ]
+    },
+    "v1_spread": {
+     "min": 3.3e-09,
+     "max": 3.3e-09,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0003106985,
+     "max": 0.0093733018,
+     "rel": 2.6712072955948423,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "badcost, identity, search",
     "role": "trigger",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0093733018"
+     ],
+     "2": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0003106985"
+     ],
+     "3": [
+      "best identity",
+      "best search",
+      "3.3e-09",
+      "0.0004940978"
+     ]
+    },
+    "v1_spread": {
+     "min": 3.3e-09,
+     "max": 3.3e-09,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0003106985,
+     "max": 0.0093733018,
+     "rel": 2.6712072955948423,
+     "n": 3
+    },
     "timing": false
    }
   ]
@@ -2756,6 +4424,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2800,6 +4469,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2844,6 +4514,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2888,6 +4559,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2942,6 +4614,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -2986,6 +4659,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3030,6 +4704,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3074,6 +4749,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3118,6 +4794,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3162,6 +4839,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3206,6 +4884,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3250,6 +4929,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3304,6 +4984,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3348,6 +5029,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3392,6 +5074,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3436,6 +5119,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3480,6 +5164,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3524,6 +5209,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3568,6 +5254,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3622,6 +5309,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3666,6 +5354,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3710,6 +5399,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3754,6 +5444,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3792,53 +5483,179 @@
   ]
  },
  "treant_forest": {
-  "runs_ok": [],
-  "errors": {
-   "1": "RuntimeError: /home/alex/agentsmd-rl/.venv/bin/python: can't open file '/home/alex/edgebench-verified/tools/repeatability/bin/treant_normalize.py': [Errno 2] No such file or directory",
-   "2": "RuntimeError: /home/alex/agentsmd-rl/.venv/bin/python: can't open file '/home/alex/edgebench-verified/tools/repeatability/bin/treant_normalize.py': [Errno 2] No such file or directory",
-   "3": "RuntimeError: /home/alex/agentsmd-rl/.venv/bin/python: can't open file '/home/alex/edgebench-verified/tools/repeatability/bin/treant_normalize.py': [Errno 2] No such file or directory"
-  },
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
   "arms": [
    {
     "arm": "Shipped baseline (`0`, `-1`)",
     "role": "baseline",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "50/50 OK; raw 3418",
+      "50/50 OK; raw 3418",
+      "0",
+      "0"
+     ],
+     "2": [
+      "50/50 OK; raw 3418",
+      "50/50 OK; raw 3418",
+      "0",
+      "0"
+     ],
+     "3": [
+      "50/50 OK; raw 3418",
+      "50/50 OK; raw 3418",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "Honest greedy (grid-only maze lengthening)",
     "role": "valid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "50/50 OK; raw 17960",
+      "50/50 OK; raw 17960",
+      "3.04",
+      "16.36"
+     ],
+     "2": [
+      "50/50 OK; raw 17960",
+      "50/50 OK; raw 17960",
+      "3.04",
+      "16.36"
+     ],
+     "3": [
+      "50/50 OK; raw 17960",
+      "50/50 OK; raw 17960",
+      "3.04",
+      "16.36"
+     ]
+    },
+    "v1_spread": {
+     "min": 3.04,
+     "max": 3.04,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 16.36,
+     "max": 16.36,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "Invalid: treant on the revealed entrance",
     "role": "invalid",
-    "runs": [],
+    "runs": [
+     1,
+     2,
+     3
+    ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
-    "per": {},
-    "v1_spread": null,
-    "v2_spread": null,
+    "per": {
+     "1": [
+      "0/50 WA; raw 0",
+      "0/50 WA; raw 0",
+      "0",
+      "0"
+     ],
+     "2": [
+      "0/50 WA; raw 0",
+      "0/50 WA; raw 0",
+      "0",
+      "0"
+     ],
+     "3": [
+      "0/50 WA; raw 0",
+      "0/50 WA; raw 0",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
     "timing": false
    },
    {
     "arm": "92304 (= \u03a3 2N\u00b2, the score cap)",
     "role": "trigger",
-    "runs": [],
-    "derived": false,
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": true,
+    "not_counted": null,
     "stable": true,
-    "per": {},
+    "per": {
+     "1": [
+      "derived (no execution)",
+      "derived (no execution)",
+      "",
+      ""
+     ],
+     "2": [
+      "derived (no execution)",
+      "derived (no execution)",
+      "",
+      ""
+     ],
+     "3": [
+      "derived (no execution)",
+      "derived (no execution)",
+      "",
+      ""
+     ]
+    },
     "v1_spread": null,
     "v2_spread": null,
     "timing": false
@@ -3862,6 +5679,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3906,6 +5724,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -3950,6 +5769,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4004,6 +5824,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4048,6 +5869,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4092,25 +5914,26 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
       "cases_ok 10/10; valid true",
-      "cases_ok 0/10; valid false",
+      "cases_ok 0/10; valid true",
       "0.05159561496",
-      "0"
+      ""
      ],
      "2": [
       "cases_ok 10/10; valid true",
-      "cases_ok 0/10; valid false",
+      "cases_ok 0/10; valid true",
       "0.05159561496",
-      "0"
+      ""
      ],
      "3": [
       "cases_ok 10/10; valid true",
-      "cases_ok 0/10; valid false",
+      "cases_ok 0/10; valid true",
       "0.05159561496",
-      "0"
+      ""
      ]
     },
     "v1_spread": {
@@ -4119,12 +5942,7 @@
      "rel": 0.0,
      "n": 3
     },
-    "v2_spread": {
-     "min": 0.0,
-     "max": 0.0,
-     "rel": 0.0,
-     "n": 3
-    },
+    "v2_spread": null,
     "timing": false
    },
    {
@@ -4136,36 +5954,277 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
-      "cases_ok 0/10; valid false",
-      "cases_ok 0/10; valid false",
-      "0",
-      "0"
+      "cases_ok 0/10; valid true",
+      "cases_ok 0/10; valid true",
+      "",
+      ""
      ],
      "2": [
-      "cases_ok 0/10; valid false",
-      "cases_ok 0/10; valid false",
-      "0",
-      "0"
+      "cases_ok 0/10; valid true",
+      "cases_ok 0/10; valid true",
+      "",
+      ""
      ],
      "3": [
-      "cases_ok 0/10; valid false",
-      "cases_ok 0/10; valid false",
-      "0",
-      "0"
+      "cases_ok 0/10; valid true",
+      "cases_ok 0/10; valid true",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "`cpu0` (control alone)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
+     ],
+     "2": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
+     ],
+     "3": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
      ]
     },
     "v1_spread": {
-     "min": 0.0,
-     "max": 0.0,
+     "min": 866166.0,
+     "max": 866166.0,
      "rel": 0.0,
      "n": 3
     },
     "v2_spread": {
-     "min": 0.0,
-     "max": 0.0,
+     "min": 863058.0,
+     "max": 863058.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu20` (20 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 8 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "inf",
+      "863058"
+     ],
+     "2": [
+      "OK 2 TLE 8 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "inf",
+      "863058"
+     ],
+     "3": [
+      "OK 2 TLE 8 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "inf",
+      "863058"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 863058.0,
+     "max": 863058.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu28` (28 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 8 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "inf",
+      "863058"
+     ],
+     "2": [
+      "OK 2 TLE 8 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "inf",
+      "863058"
+     ],
+     "3": [
+      "OK 2 TLE 8 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "inf",
+      "863058"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 863058.0,
+     "max": 863058.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`wall25` (works until 25 s wall clock)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
+     ],
+     "2": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
+     ],
+     "3": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
+     ]
+    },
+    "v1_spread": {
+     "min": 866166.0,
+     "max": 866166.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 863058.0,
+     "max": 863058.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`spin40` (bad control, 40 s CPU per case)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 10 WA 0 RE 0",
+      "OK 0 TLE 10 WA 0 RE 0",
+      "inf",
+      "inf"
+     ],
+     "2": [
+      "OK 0 TLE 10 WA 0 RE 0",
+      "OK 0 TLE 10 WA 0 RE 0",
+      "inf",
+      "inf"
+     ],
+     "3": [
+      "OK 0 TLE 10 WA 0 RE 0",
+      "OK 0 TLE 10 WA 0 RE 0",
+      "inf",
+      "inf"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "`cpu20` | 8",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
+     ],
+     "2": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
+     ],
+     "3": [
+      "OK 10 TLE 0 WA 0 RE 0",
+      "OK 10 TLE 0 WA 0 RE 0",
+      "866166",
+      "863058"
+     ]
+    },
+    "v1_spread": {
+     "min": 866166.0,
+     "max": 866166.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 863058.0,
+     "max": 863058.0,
      "rel": 0.0,
      "n": 3
     },
@@ -4190,6 +6249,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4234,6 +6294,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4268,6 +6329,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4302,6 +6364,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4341,6 +6404,87 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ],
+     "2": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ],
+     "3": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 46676.80000000002,
+     "max": 46676.80000000002,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu80` (80 s CPU per input)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ],
+     "2": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ],
+     "3": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "46676.8"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 46676.80000000002,
+     "max": 46676.80000000002,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu140` (140 s CPU per input)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4390,6 +6534,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4434,6 +6579,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4478,6 +6624,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4522,6 +6669,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4566,6 +6714,7 @@
      3
     ],
     "derived": false,
+    "not_counted": null,
     "stable": true,
     "per": {
      "1": [
@@ -4602,5 +6751,2824 @@
     "timing": false
    }
   ]
- }
+ },
+ "pfr_formalization": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "starter",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid true; repaired 0/423; app_ent_PFR BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD",
+      "0",
+      "0"
+     ],
+     "2": [
+      "valid true; repaired 0/423; app_ent_PFR BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD",
+      "0",
+      "0"
+     ],
+     "3": [
+      "valid true; repaired 0/423; app_ent_PFR BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "T (trigger)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 OK, ebv_trig_torsion OK",
+      "0",
+      "0"
+     ],
+     "2": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 OK, ebv_trig_torsion OK",
+      "0",
+      "0"
+     ],
+     "3": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 OK, ebv_trig_torsion OK",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "D (downstream)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 OK, ebv_trig_f2 OK, ebv_trig_torsion OK",
+      "0",
+      "0"
+     ],
+     "2": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 OK, ebv_trig_f2 OK, ebv_trig_torsion OK",
+      "0",
+      "0"
+     ],
+     "3": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 OK, ebv_trig_f2 OK, ebv_trig_torsion OK",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "BAD (bad control)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",
+      "0",
+      "0"
+     ],
+     "2": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",
+      "0",
+      "0"
+     ],
+     "3": [
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",
+      "valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "grid_turing_robot": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "`baseline_good` (no extra work)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ]
+    },
+    "v1_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu12` (12 s CPU per case)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ]
+    },
+    "v1_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu16` (16 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "94092"
+     ],
+     "2": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "94092"
+     ],
+     "3": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "94092"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu28` (28 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "94092"
+     ],
+     "2": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "94092"
+     ],
+     "3": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "94092"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`wall25` (works until 25 s wall clock)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ]
+    },
+    "v1_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`spin40` (bad control, 40 s CPU per case)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "inf",
+      "inf"
+     ],
+     "2": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "inf",
+      "inf"
+     ],
+     "3": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "inf",
+      "inf"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "`cpu20` (20 s CPU per case)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "94092",
+      "94092"
+     ]
+    },
+    "v1_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 94092.0,
+     "max": 94092.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "molecular_self_assembly": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "`baseline` (shipped baseline, no extra work)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ]
+    },
+    "v1_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu12` (12 s CPU per case)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ]
+    },
+    "v1_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu16` (16 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "2849909",
+      "69280072"
+     ],
+     "2": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "2849909",
+      "69280072"
+     ],
+     "3": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "2849909",
+      "69280072"
+     ]
+    },
+    "v1_spread": {
+     "min": 2849909.0,
+     "max": 2849909.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu28` (28 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "2849909",
+      "69280072"
+     ],
+     "2": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "2849909",
+      "69280072"
+     ],
+     "3": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "2849909",
+      "69280072"
+     ]
+    },
+    "v1_spread": {
+     "min": 2849909.0,
+     "max": 2849909.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`wall25` (works until 25 s wall clock)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ]
+    },
+    "v1_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`spin40` (bad control, 40 s CPU per case)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "0",
+      "0"
+     ],
+     "2": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "0",
+      "0"
+     ],
+     "3": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu20` (20 s CPU per case)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "69280072",
+      "69280072"
+     ]
+    },
+    "v1_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 69280072.0,
+     "max": 69280072.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "rust_multicrate_reconstruction": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "starter",
+    "role": "baseline",
+    "runs": [
+     1
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK; passed 27/2611; cas-types 1/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 13/98 TEST_FAIL; cas-diffs 12/98 TEST_FAIL; cas-pty 1/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 0/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 177/2611; cas-types 1/136 TEST_FAIL; cas-code 0/50 TEST_FAIL; cas-factory-protocol 14/98 TEST_FAIL; cas-diffs 12/98 TEST_FAIL; cas-pty 2/11 TEST_FAIL; cas-recording 1/29 TEST_FAIL; cas-store 2/216 TEST_FAIL; cas-search 7/136 TEST_FAIL; cas-core 18/201 TEST_FAIL; cas-mux 0/37 TEST_FAIL; cas-factory 11/134 TEST_FAIL; cas-mcp 14/16 TEST_FAIL; cas-tui-test 3/105 TEST_FAIL; cas-cli 92/1344 TEST_FAIL",
+      "1.4711",
+      "5.7236"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "reference",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2442/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.6091",
+      "94.7022"
+     ],
+     "2": [
+      "OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2442/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.6091",
+      "94.7022"
+     ],
+     "3": [
+      "OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2442/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.6091",
+      "94.7022"
+     ]
+    },
+    "v1_spread": {
+     "min": 27.6091,
+     "max": 27.6091,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 94.7022,
+     "max": 94.7022,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "partial",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2434/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 120/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.6091",
+      "93.9963"
+     ],
+     "2": [
+      "OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2434/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 120/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.6091",
+      "93.9963"
+     ],
+     "3": [
+      "OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2434/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 120/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.6091",
+      "93.9963"
+     ]
+    },
+    "v1_spread": {
+     "min": 27.6091,
+     "max": 27.6091,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 93.9963,
+     "max": 93.9963,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "bad",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK; passed 432/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 9/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2441/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.5091",
+      "94.6022"
+     ],
+     "2": [
+      "OK; passed 432/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 9/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2441/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.5091",
+      "94.6022"
+     ],
+     "3": [
+      "OK; passed 432/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 9/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH",
+      "OK; passed 2441/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL",
+      "27.5091",
+      "94.6022"
+     ]
+    },
+    "v1_spread": {
+     "min": 27.5091,
+     "max": 27.5091,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 94.6022,
+     "max": 94.6022,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "vibrating_path_graph_coloring": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "`cpu0` (honest control alone)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ]
+    },
+    "v1_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu20` (20 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "24650014"
+     ],
+     "2": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "24650014"
+     ],
+     "3": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "24650014"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu28` (28 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "24650014"
+     ],
+     "2": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "24650014"
+     ],
+     "3": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "24650014"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`wall25` (works until 25 s wall clock)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": false,
+    "per": {
+     "1": [
+      "OK 36 TLE 14 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "inf",
+      "24650014"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ]
+    },
+    "v1_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 2
+    },
+    "v2_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`wall25`, repeat 1 / repeat 2",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0 | OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0 | OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0 | OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ]
+    },
+    "v1_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`spin40` (bad control, 40 s CPU per case)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "inf",
+      "inf"
+     ],
+     "2": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "inf",
+      "inf"
+     ],
+     "3": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "inf",
+      "inf"
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "`cpu20` (20 s CPU per case) | 8",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "24650014",
+      "24650014"
+     ]
+    },
+    "v1_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 24650014.0,
+     "max": 24650014.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "apple_incremental_game": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "`cpu0` (honest control alone)",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ]
+    },
+    "v1_spread": {
+     "min": 99714418.0,
+     "max": 99714418.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 99714418.0,
+     "max": 99714418.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu20` (20 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "3955266",
+      "99714418"
+     ],
+     "2": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "3955266",
+      "99714418"
+     ],
+     "3": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "3955266",
+      "99714418"
+     ]
+    },
+    "v1_spread": {
+     "min": 3955266.0,
+     "max": 3955266.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 99714418.0,
+     "max": 99714418.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu28` (28 s CPU per case)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "3955266",
+      "99714418"
+     ],
+     "2": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "3955266",
+      "99714418"
+     ],
+     "3": [
+      "OK 2 TLE 48 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "3955266",
+      "99714418"
+     ]
+    },
+    "v1_spread": {
+     "min": 3955266.0,
+     "max": 3955266.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 99714418.0,
+     "max": 99714418.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`wall25` (works until 25 s wall clock)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ]
+    },
+    "v1_spread": {
+     "min": 99714418.0,
+     "max": 99714418.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 99714418.0,
+     "max": 99714418.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`spin40` (bad control, 40 s CPU per case)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "0",
+      "0"
+     ],
+     "2": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "0",
+      "0"
+     ],
+     "3": [
+      "OK 0 TLE 50 WA 0 RE 0",
+      "OK 0 TLE 50 WA 0 RE 0",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "`cpu20` (20 s CPU per case) | 8",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ],
+     "2": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ],
+     "3": [
+      "OK 50 TLE 0 WA 0 RE 0",
+      "OK 50 TLE 0 WA 0 RE 0",
+      "99714418",
+      "99714418"
+     ]
+    },
+    "v1_spread": {
+     "min": 99714418.0,
+     "max": 99714418.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 99714418.0,
+     "max": 99714418.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "portfolio_risk_calibration": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "(a) instructions' formula",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess 3.44%; excess part 5.73",
+      "excess 3.47%; excess part 5.78",
+      "32.45",
+      "32.52"
+     ],
+     "2": [
+      "excess 3.44%; excess part 5.73",
+      "excess 3.47%; excess part 5.78",
+      "32.45",
+      "32.52"
+     ],
+     "3": [
+      "excess 3.44%; excess part 5.73",
+      "excess 3.47%; excess part 5.78",
+      "32.45",
+      "32.52"
+     ]
+    },
+    "v1_spread": {
+     "min": 32.45,
+     "max": 32.45,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 32.52,
+     "max": 32.52,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "(b) grader's formula",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess 3.44%; excess part 5.73",
+      "excess 3.47%; excess part 5.78",
+      "32.45",
+      "32.52"
+     ],
+     "2": [
+      "excess 3.44%; excess part 5.73",
+      "excess 3.47%; excess part 5.78",
+      "32.45",
+      "32.52"
+     ],
+     "3": [
+      "excess 3.44%; excess part 5.73",
+      "excess 3.47%; excess part 5.78",
+      "32.45",
+      "32.52"
+     ]
+    },
+    "v1_spread": {
+     "min": 32.45,
+     "max": 32.45,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 32.52,
+     "max": 32.52,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "(c) wrong",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess -21.14%; excess part -10.0",
+      "excess -21.33%; excess part -10.0",
+      "0",
+      "0"
+     ],
+     "2": [
+      "excess -21.14%; excess part -10.0",
+      "excess -21.33%; excess part -10.0",
+      "0",
+      "0"
+     ],
+     "3": [
+      "excess -21.14%; excess part -10.0",
+      "excess -21.33%; excess part -10.0",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "(d) starter",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "missing submission files: portfolio_optimizer.py",
+      "missing submission files: portfolio_optimizer.py",
+      "0",
+      "0"
+     ],
+     "2": [
+      "missing submission files: portfolio_optimizer.py",
+      "missing submission files: portfolio_optimizer.py",
+      "0",
+      "0"
+     ],
+     "3": [
+      "missing submission files: portfolio_optimizer.py",
+      "missing submission files: portfolio_optimizer.py",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "(e) image example",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess -9.28%; excess part -9.28",
+      "excess -9.37%; excess part -9.37",
+      "0",
+      "0"
+     ],
+     "2": [
+      "excess -9.28%; excess part -9.28",
+      "excess -9.37%; excess part -9.37",
+      "0",
+      "0"
+     ],
+     "3": [
+      "excess -9.28%; excess part -9.28",
+      "excess -9.37%; excess part -9.37",
+      "0",
+      "0"
+     ]
+    },
+    "v1_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 0.0,
+     "max": 0.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "T1 instructions' formula gives exactly 12%",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess part 19.85; three parts 26.4706",
+      "excess part 20.00; three parts 26.7019",
+      "",
+      ""
+     ],
+     "2": [
+      "excess part 19.85; three parts 26.4706",
+      "excess part 20.00; three parts 26.7019",
+      "",
+      ""
+     ],
+     "3": [
+      "excess part 19.85; three parts 26.4706",
+      "excess part 20.00; three parts 26.7019",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "T2 original grader's formula gives exactly 12%",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess part 20.00; three parts 26.7019",
+      "excess part 20.00; three parts 26.7835",
+      "",
+      ""
+     ],
+     "2": [
+      "excess part 20.00; three parts 26.7019",
+      "excess part 20.00; three parts 26.7835",
+      "",
+      ""
+     ],
+     "3": [
+      "excess part 20.00; three parts 26.7019",
+      "excess part 20.00; three parts 26.7835",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "T3 equal to the benchmark",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess part 0.00; three parts 0.0000",
+      "excess part 0.00; three parts 0.0000",
+      "",
+      ""
+     ],
+     "2": [
+      "excess part 0.00; three parts 0.0000",
+      "excess part 0.00; three parts 0.0000",
+      "",
+      ""
+     ],
+     "3": [
+      "excess part 0.00; three parts 0.0000",
+      "excess part 0.00; three parts 0.0000",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "T4",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess part 9.90; three parts 11.2296",
+      "excess part 9.98; three parts 11.3546",
+      "",
+      ""
+     ],
+     "2": [
+      "excess part 9.90; three parts 11.2296",
+      "excess part 9.98; three parts 11.3546",
+      "",
+      ""
+     ],
+     "3": [
+      "excess part 9.90; three parts 11.2296",
+      "excess part 9.98; three parts 11.3546",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   },
+   {
+    "arm": "T5",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "excess part -4.43; three parts -4.4300",
+      "excess part -4.47; three parts -4.4700",
+      "",
+      ""
+     ],
+     "2": [
+      "excess part -4.43; three parts -4.4300",
+      "excess part -4.47; three parts -4.4700",
+      "",
+      ""
+     ],
+     "3": [
+      "excess part -4.43; three parts -4.4300",
+      "excess part -4.47; three parts -4.4700",
+      "",
+      ""
+     ]
+    },
+    "v1_spread": null,
+    "v2_spread": null,
+    "timing": false
+   }
+  ]
+ },
+ "juliet_vulnerability_analyzer": {
+  "runs_ok": [
+   1,
+   2,
+   3
+  ],
+  "errors": {},
+  "arms": [
+   {
+    "arm": "a78_public (public form)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "OK/True; trace 1.0000; {}",
+      "45.66",
+      "60.66"
+     ],
+     "2": [
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "OK/True; trace 1.0000; {}",
+      "45.66",
+      "60.66"
+     ],
+     "3": [
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "OK/True; trace 1.0000; {}",
+      "45.66",
+      "60.66"
+     ]
+    },
+    "v1_spread": {
+     "min": 45.66,
+     "max": 45.66,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 60.66,
+     "max": 60.66,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "a78_input (hidden form)",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "60.66",
+      "60.66"
+     ],
+     "2": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "60.66",
+      "60.66"
+     ],
+     "3": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "60.66",
+      "60.66"
+     ]
+    },
+    "v1_spread": {
+     "min": 60.66,
+     "max": 60.66,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 60.66,
+     "max": 60.66,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "a78_wrong (wrong source)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "45.66",
+      "45.66"
+     ],
+     "2": [
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "45.66",
+      "45.66"
+     ],
+     "3": [
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "OK/True; trace 0.0000; {\"wrong_source\": 120}",
+      "45.66",
+      "45.66"
+     ]
+    },
+    "v1_spread": {
+     "min": 45.66,
+     "max": 45.66,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 45.66,
+     "max": 45.66,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "r_hidden",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "100",
+      "100"
+     ],
+     "2": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "100",
+      "100"
+     ],
+     "3": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "100",
+      "100"
+     ]
+    },
+    "v1_spread": {
+     "min": 100.0,
+     "max": 100.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 100.0,
+     "max": 100.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "r_public78 (public form)",
+    "role": "trigger",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 1.0000; {}",
+      "97.51",
+      "100"
+     ],
+     "2": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 1.0000; {}",
+      "97.51",
+      "100"
+     ],
+     "3": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 1.0000; {}",
+      "97.51",
+      "100"
+     ]
+    },
+    "v1_spread": {
+     "min": 97.51,
+     "max": 97.51,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 100.0,
+     "max": 100.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "r_sinkonly (wrong in other CWEs)",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 0.3237; {\"wrong_source\": 489}",
+      "OK/True; trace 0.4896; {\"wrong_source\": 369}",
+      "70",
+      "70"
+     ],
+     "2": [
+      "OK/True; trace 0.3237; {\"wrong_source\": 489}",
+      "OK/True; trace 0.4896; {\"wrong_source\": 369}",
+      "70",
+      "70"
+     ],
+     "3": [
+      "OK/True; trace 0.3237; {\"wrong_source\": 489}",
+      "OK/True; trace 0.4896; {\"wrong_source\": 369}",
+      "70",
+      "70"
+     ]
+    },
+    "v1_spread": {
+     "min": 70.0,
+     "max": 70.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 70.0,
+     "max": 70.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "r_wrong78_tr",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "97.51",
+      "97.51"
+     ],
+     "2": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "97.51",
+      "97.51"
+     ],
+     "3": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "97.51",
+      "97.51"
+     ]
+    },
+    "v1_spread": {
+     "min": 97.51,
+     "max": 97.51,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 97.51,
+     "max": 97.51,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "r_wrong78_src",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "97.51",
+      "97.51"
+     ],
+     "2": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "97.51",
+      "97.51"
+     ],
+     "3": [
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "OK/True; trace 0.8340; {\"wrong_source\": 120}",
+      "97.51",
+      "97.51"
+     ]
+    },
+    "v1_spread": {
+     "min": 97.51,
+     "max": 97.51,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 97.51,
+     "max": 97.51,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "starter",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "10",
+      "10"
+     ],
+     "2": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "10",
+      "10"
+     ],
+     "3": [
+      "OK/True; trace 1.0000; {}",
+      "OK/True; trace 1.0000; {}",
+      "10",
+      "10"
+     ]
+    },
+    "v1_spread": {
+     "min": 10.0,
+     "max": 10.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 10.0,
+     "max": 10.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "crash",
+    "role": "baseline",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "INFRA_FAIL/False; trace 1.0000; {}",
+      "INFRA_FAIL/False; trace 1.0000; {}",
+      "10",
+      "10"
+     ],
+     "2": [
+      "INFRA_FAIL/False; trace 1.0000; {}",
+      "INFRA_FAIL/False; trace 1.0000; {}",
+      "10",
+      "10"
+     ],
+     "3": [
+      "INFRA_FAIL/False; trace 1.0000; {}",
+      "INFRA_FAIL/False; trace 1.0000; {}",
+      "10",
+      "10"
+     ]
+    },
+    "v1_spread": {
+     "min": 10.0,
+     "max": 10.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 10.0,
+     "max": 10.0,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "a78_public",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/; trace 1.0000; {}",
+      "OK/; trace 1.0000; {}",
+      "51.17",
+      "51.17"
+     ],
+     "2": [
+      "OK/; trace 1.0000; {}",
+      "OK/; trace 1.0000; {}",
+      "51.17",
+      "51.17"
+     ],
+     "3": [
+      "OK/; trace 1.0000; {}",
+      "OK/; trace 1.0000; {}",
+      "51.17",
+      "51.17"
+     ]
+    },
+    "v1_spread": {
+     "min": 51.17,
+     "max": 51.17,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 51.17,
+     "max": 51.17,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "a78_input",
+    "role": "valid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "36.17",
+      "36.17"
+     ],
+     "2": [
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "36.17",
+      "36.17"
+     ],
+     "3": [
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "36.17",
+      "36.17"
+     ]
+    },
+    "v1_spread": {
+     "min": 36.17,
+     "max": 36.17,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 36.17,
+     "max": 36.17,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   },
+   {
+    "arm": "a78_wrong",
+    "role": "invalid",
+    "runs": [
+     1,
+     2,
+     3
+    ],
+    "derived": false,
+    "not_counted": null,
+    "stable": true,
+    "per": {
+     "1": [
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "36.17",
+      "36.17"
+     ],
+     "2": [
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "36.17",
+      "36.17"
+     ],
+     "3": [
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "OK/; trace 0.0000; {\"wrong_source\": 12}",
+      "36.17",
+      "36.17"
+     ]
+    },
+    "v1_spread": {
+     "min": 36.17,
+     "max": 36.17,
+     "rel": 0.0,
+     "n": 3
+    },
+    "v2_spread": {
+     "min": 36.17,
+     "max": 36.17,
+     "rel": 0.0,
+     "n": 3
+    },
+    "timing": false
+   }
+  ]
+ },
+ "_extra": [
+  {
+   "task": "schemathesis_reporting_observability",
+   "job": "schemathesis_reporting_observability-v2-paired-rev2",
+   "what": "revised fixed version, all arms incl. the added other-suite and unterminated arms",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 20,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "warehouse_forklift_routing",
+   "job": "warehouse_forklift_routing-v2-cpu4-a",
+   "what": "cpu140 at 4 CPUs (fixed and earlier fixed version)",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 2,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "warehouse_forklift_routing",
+   "job": "warehouse_forklift_routing-v2-cpu4-b",
+   "what": "cpu80 at 4 CPUs (all three versions)",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 3,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "warehouse_forklift_routing",
+   "job": "warehouse_forklift_routing-v2-cpu4-c",
+   "what": "earlier controls at 4 CPUs; cpu80 at 8 CPUs; cpu140 original",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 11,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "warehouse_forklift_routing",
+   "job": "warehouse_forklift_routing-v2-cpu4-d",
+   "what": "near-limit control at 4 CPUs",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 2,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "triangulation_coloring_optimization",
+   "job": "triangulation-v2-paired-cpu",
+   "what": "CPU arms incl. earlier fixed version",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 18,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "triangulation_coloring_optimization",
+   "job": "triangulation-v2-paired-cpu-controls",
+   "what": "flip-rule controls vs the current fixed version, 8 and 4 CPUs",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 16,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "vibrating_path_graph_coloring",
+   "job": "vibrating_path_graph_coloring-v2-paired-c",
+   "what": "wall25 with tester-start logging",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 3,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "exchange_core_throughput",
+   "job": "exchange_core_throughput-v2-paired-shutdownfail",
+   "what": "shutdown-failure triggers",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 8,
+   "changed": [],
+   "spread": [
+    {
+     "label": "control#1 v1",
+     "min": 2813.0,
+     "max": 3356.0,
+     "rel": 0.1792079207920792
+    },
+    {
+     "label": "control#1 v2",
+     "min": 2422.0,
+     "max": 3565.0,
+     "rel": 0.3876766534765404
+    },
+    {
+     "label": "shutdownbusy#1 v1",
+     "min": 2586.0,
+     "max": 2939.0,
+     "rel": 0.12985898221949724
+    },
+    {
+     "label": "shutdownall#1 v1",
+     "min": 2560.0,
+     "max": 3382.0,
+     "rel": 0.28344827586206894
+    },
+    {
+     "label": "shutdownbusy#2 v1",
+     "min": 2354.0,
+     "max": 2943.0,
+     "rel": 0.2159090909090909
+    }
+   ]
+  },
+  {
+   "task": "college_english_exam_bank",
+   "job": "college_english_exam_bank-v2-paired-multiblock",
+   "what": "multi-block responses (v1, earlier fixed, fixed)",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 15,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "arc_compiler_runtime",
+   "job": "arc_compiler_runtime-hang-suite",
+   "what": "one hidden suite hangs (original grader only)",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 4,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "borden_source_inversion",
+   "job": "borden_source_inversion-v2-paired-r3",
+   "what": "controls vs v1, earlier fixed and fixed work image",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 21,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "job": "rust_multicrate_reconstruction-v2-paired-r2-reference",
+   "what": "reference: original, original + cc files, fixed",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 3,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "job": "rust_multicrate_reconstruction-v2-paired-r2-partial",
+   "what": "partial: original, original + cc files, fixed",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 3,
+   "changed": [],
+   "spread": []
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "job": "rust_multicrate_reconstruction-v2-paired-r2-bad",
+   "what": "bad: original, original + cc files, fixed",
+   "runs_ok": [
+    1,
+    2,
+    3
+   ],
+   "errors": {},
+   "labels": 3,
+   "changed": [],
+   "spread": []
+  }
+ ]
 }

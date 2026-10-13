@@ -1,5 +1,7 @@
 # Review: schemathesis_config_modernization
 
+> **Note (2026-10-12).** Superseded statements below: (1) "1/150 of the total" is the value of one test in the original 15-test Phase 3. Under the fixed version's 16-test Phase 3 a wrapper loses 1/160 (0.625 points out of 100), as measured (0.135313 → 0.129063, `repairs/schemathesis_config_modernization-v2/paired/results.md`); an identity-preserving decorator that passes only part of Phase 3 can instead gain up to 1/160. (2) The original suite has 126 tests (30+26+15+19+18+18); the 132 parser items add 6 `test_phase_N` items. (3) `evidence/selected/…` and `proposedrepairs/schemathesis-config-function-identity/` are not in this repository.
+
 ## Claim under review
 
 > "Explicit release-policy choice: its metric phase omits the required exact returned-function identity. Reference and wrapper received equal partial scores, with no wrapper advantage. A prior reviewer preferred repair without exclusion."

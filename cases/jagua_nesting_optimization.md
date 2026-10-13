@@ -22,15 +22,15 @@ Examples under the original grader (integer coordinates, rotation 0, strip heigh
 - Two squares shifted diagonally, where edges cross properly: rejected, as expected.
 - A pair sharing an edge (legal contact): accepted, as expected.
 
-Each accepted overlap above is 50–100% of an item's area, about 10^6 times the validity check's tolerance (`EPS = 1e-5`).
+Each accepted overlap above is 50–100% of an item's area (areas 50–100 on items of area 100), orders of magnitude above any rounding tolerance.
 
 **Forbidden rotations are not checked.** `validate_solution` never reads `allowed_orientations`, so it accepts rotations that an instance forbids.
 
-Why it matters: the score depends only on strip width, and every hidden instance has items needed more than once (demand above 1). A layout with overlapping items can report a smaller width than any feasible packing.
+Why it matters: the score depends on strip width (times a runtime multiplier, `evaluate_case`: `score = raw * rt_mult`), not on overlap, and every hidden instance has items needed more than once (demand above 1). A layout with overlapping items can report a smaller width than any feasible packing.
 
 ## How much it matters
 
-This changes scores enough to matter for any submission whose layout contains such an overlap. Infeasible layouts are accepted as valid and can beat every feasible one. This score effect is inferred from the code. It was not measured through the full grader with a submission that uses overlaps. Honest layouts without overlaps are unaffected.
+This changes the score of any submission whose layout contains such an overlap. Infeasible layouts are accepted as valid and can beat every feasible one. This score effect is inferred from the code. It was not measured through the full grader with a submission that uses overlaps. Honest layouts without overlaps are unaffected.
 
 ## The fix
 

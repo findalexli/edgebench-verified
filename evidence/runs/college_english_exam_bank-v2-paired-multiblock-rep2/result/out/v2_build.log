@@ -1,0 +1,38 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 728B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 6)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 98.69kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8
+#5 resolve docker.io/seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8 0.0s done
+#5 DONE 0.2s
+
+#6 [2/2] COPY files/home/workspace/scoring/grade_with_codex.py /home/workspace/scoring/grade_with_codex.py
+#6 DONE 0.5s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:0658e5d14628db0011d661f7f950be69f114f7c305a1d061647e270026aa6c89 done
+#7 exporting config sha256:baa1938e6109f26358f0f911b72e46a3085db88173042429fa4339fd17dd4bdb done
+#7 exporting attestation manifest sha256:64ea3e2995c46ab5a999ae89395c8451fefa59ba89f17789d00751dd7d296982 done
+#7 exporting manifest list sha256:325d9c479f00dafd9ca6be5506b921ac435c2a1b1d0a8d4646a130370fd05c5c done
+#7 naming to docker.io/library/college_v2:latest done
+#7 unpacking to docker.io/library/college_v2:latest 0.0s done
+#7 DONE 0.1s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 6)
+build_rc=0

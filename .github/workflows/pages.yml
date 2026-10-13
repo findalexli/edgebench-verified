@@ -3,7 +3,7 @@ name: Publish site
 on:
   push:
     branches: [main]
-    paths: ['site/**', '.github/workflows/pages.yml']
+    paths: ['site/**', 'data/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -25,10 +25,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      # Only data files are copied; the site links the Markdown documents on GitHub, where their relative links work.
       - name: Add downloadable data next to the page
         run: |
           mkdir -p site/data
-          cp data/decisions.csv data/decisions.json data/paired-results.csv data/paired-repeatability.csv data/paired-repeatability.md FINDINGS.md METHOD.md APPLYING-FIXES.md IMPACT.md data/impact.csv site/data/
+          cp data/decisions.csv data/decisions.json data/paired-results.csv data/paired-repeatability.csv data/impact.csv site/data/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

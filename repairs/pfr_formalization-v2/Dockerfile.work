@@ -1,0 +1,6 @@
+# pfr_formalization v2 work (solver) image. NOT BUILT: only the starter files were extracted from
+# the pinned work image. Its PFR/*.lean files are byte-identical to the judge baseline sources
+# (sha256 of all of them compared), and the starter is owned by agent:agent. The solver's first
+# `lake build` rebuilds PFR.WeakPFR and the modules that import it (PFR.Examples, PFR).
+FROM seededge/edgebench.work.pfr_formalization@sha256:3be95d28524d9bad61f82306b6448fe3d0fc2dff66fd285d62bfa057bf047c86
+COPY --chown=agent:agent files/work/PFR/WeakPFR.lean /home/workspace/se-bmk-intern/pfr/PFR/WeakPFR.lean

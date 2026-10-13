@@ -6,8 +6,8 @@ The original `polygons_overlap` accepts the published positive-area overlaps: co
 squares, a half-slide, and a rectangle, triangle or diamond inside a square. The fixed rule
 rejects a pair exactly when the intersection area exceeds 1e-6 × the smaller item's area. On
 axis-aligned rectangles, a positive intersection area is equivalent to the interiors
-intersecting. Touching rectangles have area 0. The fixed rule never rejects a pair whose
-interiors do not meet.
+intersecting. Touching rectangles have area 0. The fixed rule's criterion never rejects a pair
+of rectangles whose interiors do not meet.
 
 ## Model and link to the code
 
@@ -31,7 +31,10 @@ and rationals agree on the witnesses.
   cases: the fixed rule rejects exactly the positive-area cases, and the algorithm's area equals
   (10−|dx|)(10−|dy|). The original misses every positive-area case with dx = 0 or dy = 0.
 - Rectangles: area > 0 ⇔ the interiors intersect (`interArea_pos_iff`); touching gives area 0;
-  the fixed rule is sound (`fixed_sound`). Half-slide area = 50.
+  the fixed rule's criterion is sound (`fixed_sound`). Half-slide area = 50. These theorems are
+  stated about `fixedRejectsRect` (closed-form `interArea` > 1e-6 × the smaller area), not about the
+  modelled slab algorithm (`overlapArea` / `rejectFixed`); `fixed_rejects_squares` covers only two
+  area-100 rectangles and follows from the definition.
 
 ## Counter-check
 
@@ -43,6 +46,9 @@ accepted. The fix allows a relative 1e-6 overlap by design, as the v2 README sta
 ## Limits
 
 General polygons are not covered: the general theorems are about axis-aligned rectangles only.
+No theorem states that the slab algorithm computes `interArea` for arbitrary rectangles; the
+algorithm and the criterion are linked only by `decide` checks on the seven witnesses, the
+441-case family and `tiny_fixed_accepts`.
 The polygon algorithm is checked only on the witnesses and the 441-case family, in exact
 arithmetic rather than IEEE floats. Rotation is limited to 0. The model drops the `stop_above`
 early exit and the incremental active-edge list; the header explains why the verdict does not

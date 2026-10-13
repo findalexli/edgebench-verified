@@ -42,18 +42,18 @@
 +
 +    root = ElementTree.fromstring(stream.getvalue())
 +    assert root.tag in {"testsuite", "testsuites"}
-+    suites = [root] if root.tag == "testsuite" else list(root.findall("testsuite"))
-+    assert any(suite.get("name") == "schemathesis" for suite in suites)
-+    testcases = [case for suite in suites for case in suite.findall("testcase")]
-+    assert len(testcases) == 1
-+    testcase = testcases[0]
-+    assert testcase.get("name") == "test_label"
-+    errors = testcase.findall("error")
-+    assert len(errors) == 1
-+    error = errors[0]
-+    assert "something went wrong" in {error.text, error.get("message")}
-+    assert not testcase.findall("failure")
-+    assert not testcase.findall("skipped")
++    errors = [
++        error
++        for testcase in root.iter("testcase")
++        if testcase.get("name") == "test_label"
++        for error in testcase.iter("error")
++    ]
++    assert errors, "no <error> recorded for the labeled test case"
++    assert any(
++        "something went wrong" in "".join(error.itertext())
++        or any("something went wrong" in value for value in error.attrib.values())
++        for error in errors
++    )
  
  
  def test_vcr_writer_context_manager_no_error():

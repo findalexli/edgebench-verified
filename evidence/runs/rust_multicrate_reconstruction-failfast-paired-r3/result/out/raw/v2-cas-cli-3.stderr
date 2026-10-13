@@ -1,0 +1,54 @@
+   Compiling cas v1.0.0 (/tmp/cas-hidden-inject-rplmodu3/ws/cas-cli)
+warning: method `window_id_path` is never used
+   --> crates/cas-tui-test/src/pty_runner.rs:206:8
+    |
+152 | impl HeadfulConfig {
+    | ------------------ method in this implementation
+...
+206 |     fn window_id_path(&self) -> PathBuf {
+    |        ^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: function `escape_applescript_string` is never used
+   --> crates/cas-tui-test/src/pty_runner.rs:737:4
+    |
+737 | fn escape_applescript_string(value: &str) -> String {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `cas-tui-test` (lib) generated 2 warnings
+warning: unused import: `cas_instance::new_cas_instance`
+  --> cas-cli/tests/fixtures/mod.rs:10:9
+   |
+10 | pub use cas_instance::new_cas_instance;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: `cas` (test "e2e_test") generated 1 warning (run `cargo fix --test "e2e_test"` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.63s
+     Running unittests src/lib.rs (target/debug/deps/cas-b61cb33a9efaf965)
+     Running unittests src/main.rs (target/debug/deps/cas-d5c36b2b38965170)
+     Running tests/auth_integration_test.rs (target/debug/deps/auth_integration_test-9be9b93449477f2a)
+     Running tests/blame_attribution_test.rs (target/debug/deps/blame_attribution_test-aa92108f89b015f5)
+     Running tests/bridge_server_sse_test.rs (target/debug/deps/bridge_server_sse_test-a9fc1124d70ab538)
+     Running tests/bridge_server_test.rs (target/debug/deps/bridge_server_test-859bb6e3befd85e0)
+     Running tests/cli_test.rs (target/debug/deps/cli_test-635e803e42f9637a)
+     Running tests/component_output_test.rs (target/debug/deps/component_output_test-dc5caa36cf172534)
+     Running tests/distributed_factory_test.rs (target/debug/deps/distributed_factory_test-b72a81338cbb1c5d)
+     Running tests/e2e_test.rs (target/debug/deps/e2e_test-059125fc43d8a0cc)
+     Running tests/factory_codex_skill_guardrails.rs (target/debug/deps/factory_codex_skill_guardrails-500572e7c2f8162a)
+     Running tests/factory_latency_test.rs (target/debug/deps/factory_latency_test-bb170226185301c0)
+     Running tests/factory_mcp_ops_test.rs (target/debug/deps/factory_mcp_ops_test-32004cbc41efcac1)
+     Running tests/factory_server_test.rs (target/debug/deps/factory_server_test-14ca07860ff087df)
+     Running tests/loop_test.rs (target/debug/deps/loop_test-fed78988b115ad08)
+     Running tests/mcp_protocol_test.rs (target/debug/deps/mcp_protocol_test-ed94f09a207cfade)
+     Running tests/mcp_tools_test.rs (target/debug/deps/mcp_tools_test-b2394616cf87f5e9)
+     Running tests/multi_agent_test.rs (target/debug/deps/multi_agent_test-b85f80b0877fda8a)
+     Running tests/openclaw_bridge_test.rs (target/debug/deps/openclaw_bridge_test-5b3b8e5a6e4ca11a)
+     Running tests/proptest_test.rs (target/debug/deps/proptest_test-4311a4db1158fdee)
+     Running tests/search_scoring_test.rs (target/debug/deps/search_scoring_test-18d96fc793437fd4)
+     Running tests/service_tools_test.rs (target/debug/deps/service_tools_test-6a26df4f9dda786b)
+     Running tests/verification_test.rs (target/debug/deps/verification_test-aaeed6926b851947)
+     Running tests/worktree_test.rs (target/debug/deps/worktree_test-efc253670ac0ab55)
+   Doc-tests cas

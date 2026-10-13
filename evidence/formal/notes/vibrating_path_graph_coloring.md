@@ -39,3 +39,7 @@ grader.
   enters Lean as hypothesis `hsub`. The case data is not embedded in Lean.
 - The published K=2 certificates are odd cycles; we used triangles, a special case.
 - The 13 large cases are not covered.
+- The fixed version (added 2026-10-12) changes how many cases the grader runs at once and the
+  whole-run `eval_timeout`. That is a timing condition of the execution environment, not a scoring
+  rule, and it is not formalized; it is checked by paired runs
+  (`cases/vibrating_path_graph_coloring.md`). The proof covers only the zero-hit note.

@@ -1,0 +1,18 @@
+N=243 k=252/243 b=0.24275476264749218: a*=0.35735123 eG(a*)=0.1190841879 peak_excess_score_diff=0.152635 (4dp-rounded installed: 0.1500)
+   grid max |score diff| over a in [-0.30,1.00] step 0.0005: 0.152189 at a=0.3570
+   max eC/eG on grid, a in (b, 1.00]: 1.00808087; limit a->b: 1.00808176
+   IR-score change <= 0.1010; Sortino-score change <= 0.0924; sum with peak: 0.3460
+N=242 k=252/242 b=0.24802604023906616: a*=0.36200483 eG(a*)=0.1189585119 peak_excess_score_diff=0.173581 (4dp-rounded installed: 0.1667)
+   grid max |score diff| over a in [-0.30,1.00] step 0.0005: 0.173574 at a=0.3620
+   max eC/eG on grid, a in (b, 1.00]: 1.00919558; limit a->b: 1.00919754
+   IR-score change <= 0.1150; Sortino-score change <= 0.1051; sum with peak: 0.3937
+N=243: largest fall of the excess part for negative excess, a in [-0.30, b) step 0.0001: 0.083779 at a=0.1470
+N=242: largest fall of the excess part for negative excess, a in [-0.30, b) step 0.0001: 0.095161 at a=0.1528
+N=243 with 4-dp rounding, a in [-0.30,1.00] step 0.00001:
+   excess part: largest rise 0.1667 at a=0.35597 (exact peak at a=0.35730355: 0.1667); largest fall 0.0900 at a=0.14698
+   per-part maxima (not additive): excess 0.1667, IR 0.1002, Sortino 0.0916
+   joint rise (all three parts at the same a): 0.3493 at a=0.35597 with the risk measures at the full-marks lines; upper bound with any risk measures 0.3494 + rounding slack 0.0008 = 0.3502
+N=242 with 4-dp rounding, a in [-0.30,1.00] step 0.00001:
+   excess part: largest rise 0.1833 at a=0.35807 (exact peak at a=0.36195742: 0.1833); largest fall 0.1000 at a=0.15272
+   per-part maxima (not additive): excess 0.1833, IR 0.1139, Sortino 0.1042
+   joint rise (all three parts at the same a): 0.3913 at a=0.35807 with the risk measures at the full-marks lines; upper bound with any risk measures 0.3914 + rounding slack 0.0008 = 0.3921

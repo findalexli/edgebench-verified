@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Grade native evaluator logs with the repository harness (grading -> rescale -> selection).
+"""Grade native evaluator logs with EdgeBench's harness in sforge/ (grading -> rescale -> selection).
 Usage (from repo root on PYTHONPATH): grade.py <task.json> <log>..."""
 import sys, json, types
 from sforge.harness.grading import grade_output

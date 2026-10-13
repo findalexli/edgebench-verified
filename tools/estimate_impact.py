@@ -54,6 +54,41 @@ def borden_v2(s):
     return 100.0 * s / 109.0
 
 
+def adjusted(lb, m, steps=("dabic", "treant", "borden")):
+    """Per-model scores after the exact corrections named in steps (applied in this order)."""
+    v2 = {t: lb[t][m] for t in lb}
+    if "dabic" in steps:
+        del v2["dabic_gravity_inversion"]
+    if "treant" in steps:
+        v2["treant_forest"] = treant_v2(lb["treant_forest"][m])
+    if "borden" in steps:
+        v2["borden_source_inversion"] = borden_v2(lb["borden_source_inversion"][m])
+    return v2
+
+
+def decomposition(lb, m):
+    """Split the exact shift into D-ABIC removal, Treant scale and Borden scale (applied in that order)."""
+    base = mean(lb[t][m] for t in lb)
+    a = mean(adjusted(lb, m, ("dabic",)).values())
+    b = mean(adjusted(lb, m, ("dabic", "treant")).values())
+    c = mean(adjusted(lb, m).values())
+    return {"dabic": a - base, "treant": b - a, "borden": c - b}
+
+
+def bounded_parts(v2, effects):
+    """Largest possible rise and fall per bounded task, in points on that task."""
+    up, down = {}, {}
+    for t, e in effects.items():
+        if e["kind"] != "bounded" or v2.get(t) is None:
+            continue
+        s, b = v2[t], e["bound"]
+        if e["direction"] in ("up", "either"):
+            up[t] = max(0.0, min(e.get("bound_up", b), e.get("ceiling", 100.0) - s))
+        if e["direction"] in ("down", "either"):
+            down[t] = min(e.get("bound_down", b), s)
+    return up, down
+
+
 def main():
     lb = parse_leaderboard()
     effects = json.loads((ROOT / "evidence/impact/effects.json").read_text())
@@ -74,17 +109,9 @@ def main():
         del v2["dabic_gravity_inversion"]
         exact = mean(v2.values())
         n = len([v for v in v2.values() if v is not None])
-        up = down = 0.0
-        for t, e in effects.items():
-            if e["kind"] != "bounded" or v2.get(t) is None:
-                continue
-            s = v2[t]
-            b = e["bound"]
-            if e["direction"] in ("up", "either"):
-                cap = e.get("ceiling", 100.0)
-                up += max(0.0, min(b, cap - s))
-            if e["direction"] in ("down", "either"):
-                down += min(b, s)
+        ups, downs = bounded_parts(v2, effects)
+        up, down = sum(ups.values()), sum(downs.values())
+        assert v2 == adjusted(lb, m)
         out[m] = dict(published=PUBLISHED[m], recomputed=base, exact=exact,
                       treant_v1=v1["treant_forest"], treant_v2=v2["treant_forest"],
                       borden_v1=v1["borden_source_inversion"], borden_v2=v2["borden_source_inversion"],
@@ -101,10 +128,10 @@ def main():
                     "bounded_low", "bounded_high", "worst_case_low", "worst_case_high", "tasks_in_mean"])
         for m in MODELS:
             o = out[m]
-            w.writerow([m, o["published"], f"{o['recomputed']:.2f}", f"{o['exact']:.2f}",
-                        f"{o['exact'] - o['bounded_down']:.2f}", f"{o['exact'] + o['bounded_up']:.2f}",
-                        f"{o['exact'] - o['bounded_down'] - o['open_down']:.2f}",
-                        f"{o['exact'] + o['bounded_up'] + o['open_up']:.2f}", o["n"]])
+            w.writerow([m, o["published"], f"{o['recomputed']:.4f}", f"{o['exact']:.4f}",
+                        f"{o['exact'] - o['bounded_down']:.4f}", f"{o['exact'] + o['bounded_up']:.4f}",
+                        f"{o['exact'] - o['bounded_down'] - o['open_down']:.4f}",
+                        f"{o['exact'] + o['bounded_up'] + o['open_up']:.4f}", o["n"]])
 
     def rank(key):
         return [m for m, _ in sorted(out.items(), key=lambda kv: -kv[1][key])]
@@ -120,19 +147,24 @@ def main():
     n_exact = sum(e["kind"] in ("exact", "excluded") for e in effects.values()) + 1
     n_bound = sum(e["kind"] == "bounded" for e in effects.values())
     n_open = sum(e["kind"] == "open" for e in effects.values()) - 1
-    KIND = {"exact": "calculated exactly", "excluded": "task removed", "bounded": "known maximum",
-            "open": "direction only"}
+    # An effect's optional "basis" overrides the Kind label, e.g. for a limit computed by a sweep, not proved.
+    KIND = {"exact": "calculated exactly", "excluded": "task removed", "bounded": "proven limit",
+            "open": "direction known, size unknown"}
 
     L.append("# Effect on the published leaderboard\n")
     L.append("EdgeBench publishes each model's score on every task. This page uses those numbers to work out "
              "how the problems we found change each model's average over the 51 public tasks. No AI model "
              "was rerun, and the agents' original submissions are not public. Only part of the effect can "
              "therefore be calculated. **The total change cannot be determined from public data**: it would "
-             "require regrading the original submissions or rerunning the models. What follows is an outer range, "
-             "a range from fixes with a known maximum, and a lower limit. Generated by `tools/estimate_impact.py`; "
+             "require rerunning the models on the fixed tasks, or, for some fixes, regrading the original submissions. "
+             "What follows is the largest possible change, a range from fixes with a proven limit, and the corrections that can "
+             "be computed exactly. All ranges assume that no fix turns a failed run into a scored one or the reverse; a fix that "
+             "does can move a task's average further. Kept tasks are treated as unchanged, "
+             "including those whose run-to-run variation for scoring agents is unmeasured (ANN, NetHack, Wesnoth). Generated by `tools/estimate_impact.py`; "
              "the numbers are in [data/impact.csv](data/impact.csv).\n")
     L.append("## Summary\n")
-    L.append("| Model | Published average | After the corrections we can calculate exactly | Range, adding fixes with a known maximum effect | Widest possible range |")
+    L.append("Models as EdgeBench names them: Claude Opus 4.8, GPT-5.5, GPT-5.4, GLM-5.1 and DeepSeek-V4-Pro (DS-V4-Pro).\n")
+    L.append("| Model | Published average | After the corrections we can calculate exactly | Range, adding fixes with a proven limit | Largest possible change |")
     L.append("| --- | ---: | ---: | :---: | :---: |")
     for m in MODELS:
         o = out[m]
@@ -140,36 +172,57 @@ def main():
                  f"{o['exact'] - o['bounded_down']:.1f} – {o['exact'] + o['bounded_up']:.1f} | "
                  f"{o['exact'] - o['bounded_down'] - o['open_down']:.1f} – {o['exact'] + o['bounded_up'] + o['open_up']:.1f} |")
     L.append("")
-    L.append(f"- **Calculated exactly.** Some fixes change only how a raw result is converted to 0–100, so a "
-             f"published score can be converted directly. They raise every model's average by "
-             f"{min(shifts):.1f} to {max(shifts):.1f} points. Most of this comes from Treant Forest, where "
-             "the old scale capped every score at 21.02 out of 100. The order of the models does not change: "
+    dec = {m: decomposition(lb, m) for m in MODELS}
+    rng = lambda k, f="{:.1f}": f"{f.format(min(abs(d[k]) for d in dec.values()))} to {f.format(max(abs(d[k]) for d in dec.values()))}"
+    L.append(f"- **Calculated exactly.** Where a fix only changes how a raw result becomes 0–100, or removes a task, "
+             f"each published score can be recomputed directly. Together these raise every model's average by "
+             f"{min(shifts):.1f} to {max(shifts):.1f} points: the Treant Forest scale adds {rng('treant')}, where "
+             f"the old scale capped every score at 21.02 out of 100; the removal of D-ABIC adds {rng('dabic')}; and "
+             f"the Borden Inversion scale subtracts {rng('borden', '{:.2f}')}. The order of the models does not change: "
              + " > ".join(order) + ".")
-    L.append(f"- **Known maximum.** For {n_bound} fixed tasks we proved or demonstrated the largest possible effect. "
+    L.append(f"- **Proven limit.** For {n_bound} fixed tasks the largest possible effect is bounded by the task's own scoring "
+             "(proved or computed from the grader; for PFR partly inferred from its rule; for Portfolio Risk from a "
+             "decimal sweep, not a proof). "
              f"Together they can move an average by at most {max(out[m]['bounded_down'] for m in MODELS):.1f} "
              f"points down or {max(out[m]['bounded_up'] for m in MODELS):.1f} points up. "
              + (f"That is enough to swap {', '.join(fragile)}, so the 51 public tasks alone do not show which "
-                "of them is ahead." if fragile else "That is not enough to swap any two neighbouring models."))
-    L.append(f"- **Direction only.** For {n_open} fixed tasks we know whether scores go up or down, but not by "
-             "how much. Finding out would require regrading the original submissions. The widest range lets each "
-             "of these take its largest possible effect: a score that goes down could fall to 0, and one that goes "
-             "up could rise to 100. The true values lie inside this range. It is an outer limit, not a prediction.")
+                "of them is ahead." if fragile else "That is not enough to reverse any two neighbouring models; whether "
+                "the order changes depends on the fixes whose effect size is unknown."))
+    L.append(f"- **Direction known, size unknown.** For {n_open} fixed tasks we know whether scores go up or down, but not by "
+             "how much. Finding out would require new runs (for fixes that change only instructions or inputs) or "
+             "regrading the original submissions (for fixes to the grader). The largest possible change lets every fix, "
+             "these and the ones with a proven limit, take its largest possible effect: a score that goes down could fall to 0, "
+             "and one that goes up could rise to 100. These tasks, with the open part of Borden Inversion, account for up to "
+             f"{max(out[m]['open_down'] for m in MODELS):.1f} points down or {max(out[m]['open_up'] for m in MODELS):.1f} up. "
+             "It is an outer limit, not a prediction.")
     L.append("")
-    L.append("Read the exact column as the part of the change that is certain, not as the size of the "
-             "problem. Several of the largest effects are in the direction-only group.\n")
+    L.append("The recomputed average is only the part we can calculate; the other fixes can still push it up or down. "
+             "Several of the largest effects are in the group whose size is unknown.\n")
     L.append("## Can two models swap places?\n")
     L.append("Two neighbouring models can swap if the most one can fall plus the most the other can rise is "
              "at least the gap between them.\n")
-    L.append("| Models | Gap after exact corrections | Largest swing with known maximums | Largest swing in the widest range |")
+    L.append("| Models | Gap after exact corrections | Largest swing with proven limits | Largest swing within the largest possible change |")
     L.append("| --- | ---: | ---: | ---: |")
     for hi, lo, g, bb, ww in gaps:
         L.append(f"| {hi} vs {lo} | {g:.1f} | {bb:.1f} | {ww:.1f} |")
     L.append("")
-    L.append("No order is guaranteed in the widest range. Settling it requires regrading the original submissions "
-             "with the fixed tasks.\n")
+    for hi, lo, g, bb, ww in gaps:
+        if bb < g:
+            continue
+        uh, dh = bounded_parts(adjusted(lb, hi), effects)
+        ul, dl = bounded_parts(adjusted(lb, lo), effects)
+        nh, nl = out[hi]["n"], out[lo]["n"]
+        parts = {t: dh.get(t, 0) / nh + ul.get(t, 0) / nl for t in set(dh) | set(ul)}
+        top = max(parts, key=parts.get)
+        if bb - parts[top] < g:
+            L.append(f"The swap of {hi} and {lo} rests mainly on `{top}`, where {lo} can gain up to {ul.get(top, 0):.1f} "
+                     f"points: without it the largest swing is {bb - parts[top]:.2f}, less than the gap of {g:.2f}, so {lo} "
+                     f"would need at least {(g - bb + parts[top]) * nl:.1f} of those points. It also assumes every other "
+                     "bounded effect at its extreme at once.\n")
+    L.append("No order is guaranteed within the largest possible change. Settling it requires rerunning the models on the fixed tasks.\n")
 
     L.append("## How EdgeBench computes a published score\n")
-    L.append("From the EdgeBench technical report (arXiv 2607.05155, Appendices B and G):\n")
+    L.append("From the EdgeBench technical report (arXiv 2607.05155, Appendices B and G) and its evaluation platform; the quoted passages are in [evidence/impact/edgebench-scoring-method.md](evidence/impact/edgebench-scoring-method.md):\n")
     L.append("- Each model gets **three 12-hour runs** per task. The published task score is the **average over "
              "the valid runs**; if a run fails, the average uses the runs that remain.")
     L.append("- Each run is scored by its **best submission so far** at the time limit (2 h, 4 h, … 12 h). Each "
@@ -178,7 +231,9 @@ def main():
              "per-task table gives the published values to within rounding.\n")
     L.append("Three consequences:\n")
     L.append("1. **Only changes of scale can be undone from published numbers.** Any other fix changes which "
-             "submissions score what, and only the hidden submissions can show that.")
+             "submissions score what. Only regrading the hidden submissions can show that for fixes to the grader, "
+             "and only new runs for fixes that change instructions or inputs (ARC, OpenRCT2, OpenTTD, the Borden "
+             "convention, Triangulation's inputs).")
     L.append("2. **Keeping the best submission magnifies over-crediting.** A run keeps its highest score, so a "
              "problem that only sometimes over-credits (noise, a lucky gamble, a lenient check) still raises the "
              "run's score. The agents also see their scores and keep trying for 12 hours, so they are more likely "
@@ -192,13 +247,13 @@ def main():
              f"a known maximum effect, and {n_open} (plus part of Borden Inversion) have a known direction only. "
              "The largest of these:\n")
     L.append("- **Integer Compression Codec.** Every original score is measured against stored reference numbers "
-             "that the documented starting program cannot reach, which understates raw results about four- to "
-             "eightfold. The fixed version also needs a new 0–100 scale (Section \"A check against real agent runs\"), "
+             "that the documented starting program cannot reach. On real submissions the original raw result was "
+             "2.4 to 3.7 times lower than the documented definition gives (up to about 9 times for a simple honest codec). The fixed version also needs a new 0–100 scale (Section \"A check against real agent runs\"), "
              "so the direction of the change depends on the submission.")
     L.append("- **OpenTTD.** A program that follows the instructions calls a function that does not exist and stops "
-             "working. GLM-5.1's 0.0 fits this.")
-    L.append("- **SMT Solver.** Correct answers are rejected on some hidden problems, so every model's score goes "
-             "up by an amount that depends on how it writes its answers.")
+             "working. Its effect depends on how often agents followed that instruction, which only new runs can show.")
+    L.append("- **SMT Solver.** Correct answers are rejected on some hidden problems, so a model's score can only rise "
+             "or stay the same, by an amount that depends on how it writes its answers.")
     L.append("- **Lean Analysis Proofs.** The set of scored items changes from 2,901 to 2,338, so every score "
              "moves, in a direction that depends on which proofs each run completed.")
     L.append("- **Exchange Core, Jagua, FFmpeg, College English.** These accept wrong work. Because a run keeps "
@@ -208,14 +263,15 @@ def main():
     L.append("EdgeBench has not released its runs. A third party has published one run of Claude Opus 5.5 on 16 of "
              "the public tasks, four hours each, with every submission and its original score "
              "(`adafadaq/edgebench-opus-5-5-xhigh-rollouts` on Hugging Face). Seven of those tasks are ones we fixed. "
-             "We read every submission history and regraded the decisive submissions with both graders "
+             "We read the submission histories of all seven, and regraded submissions of two of them (Order Addition "
+             "and Integer Codec) with both graders "
              "(`evidence/runs/opus55-rollouts-meta/`, `evidence/runs/opus55-regrade/`).\n")
     L.append("| Task | Original grader | Fixed grader | What it shows |")
     L.append("| --- | --- | --- | --- |")
-    L.append("| Order Addition | Every submission fails 1 of 5 tests; the run keeps its first agent submission, score 3.79, and ignores a later 41.24 | All submissions pass 5 of 5; the run keeps 41.24 | The defect occurs in practice: +37.45 points on this task for this run |")
+    L.append("| Order Addition | Every submission that produced a result passes 4 of 5 tests (five earlier automatic snapshots without a result pass 2); the run keeps its first agent submission, score 3.79, and ignores a later 41.24 | The three regraded submissions pass 5 of 5, so the run would keep 41.24 | The defect occurs in practice: +37.45 points on this task for this run, because the task keeps the submission that passes the most tests (if you instead keep the highest score, nothing changes) |")
     L.append("| Integer Codec | Best submission: raw 66.31 (75.72 on the run's own machine) | Raw 160.76; 50.08 on the fixed scale | The original 0–100 scale would clip the fixed result to 100, so the fix now uses a scale from 1.0 to 320 |")
     L.append("| Borden Inversion | Best submission: 60.10, reached by iterating against the grader's scores | Not regraded (raw results are identical for the same answer) | An agent that iterates can partly learn the hidden convention; the one-shot 7.0 vs 31.2 gap overstates the effect for such agents |")
-    L.append("| Tree Block Partitioning | 100 | Not regraded | No self-multiplication; no effect in this run |")
+    L.append("| Tree Block Partitioning | 100 | Not regraded | No program multiplies a value by itself in place (`v *= v`); no effect in this run |")
     L.append("| Graph Node Classification | Every submission scored as a normal prediction file | Not regraded | No sign of the defect in this run |")
     L.append("| Schemathesis Config | Full marks | Not regraded | Unknown whether the decorator returns the function unchanged |")
     L.append("| Lean Analysis Proofs | 2,810 of 2,901 targets | Not regraded (needs the 33 GB task image) | Unknown |")
@@ -226,7 +282,7 @@ def main():
     L.append("## The exact corrections\n")
     L.append("These fixes change only how a raw result is converted to 0–100, so each published score converts "
              "directly.\n")
-    L.append("| Model | Treant Forest: original → fixed | Borden Inversion: original → fixed | Average over 51 → 50 tasks |")
+    L.append("| Model | Treant Forest: original → fixed | Borden Inversion: original → fixed | Average over 51 → 50 tasks (50 → 49 for Opus 4.8) |")
     L.append("| --- | ---: | ---: | ---: |")
     for m in MODELS:
         o = out[m]
@@ -235,34 +291,37 @@ def main():
     L.append("")
     L.append("- **Treant Forest.** The raw result (the total number of turns) is unchanged. The original scale "
              "gives 20 points at 88,189 turns, 80 points at 330,195 and 100 points at 451,198, far above the "
-             "maximum possible 92,304, so no score can exceed 21.02. The fixed scale runs straight from the starting program's "
-             "3,418 turns (0 points) to the maximum 92,304 (100 points). Every published score is below 20, "
+             "turn cap of 92,304, so no score can exceed 21.02. The fixed scale runs straight from the starting program's "
+             "3,418 turns (0 points) to the cap, 92,304 (100 points). Every published score is below 20, "
              "where the original scale is a straight line from 5,369 turns (0 points) to 88,189 turns (20 points), "
              "so each converts exactly: turns = 5,369 + score/20 × 82,820. This also holds for an average of "
-             "runs, because the conversion is a straight line, with two exceptions (proved in Lean, "
-             "`evidence/formal/notes/treant_forest.md`). A run that scored 0 had a raw result of at most "
+             "runs, because the conversion is a straight line, with two exceptions (Lean shows the formula fails there, "
+             "`evidence/formal/notes/treant_forest.md`; the sizes below are computed, not proved). A run that scored 0 had a raw result of at most "
              "5,369 turns and scores between 0 and 2.19 on the fixed scale, so the formula can overstate the fixed "
              "average by up to 2.19 points divided by the number of runs. A run between 20 and 21.02 falls on the "
              "next segment and shifts the result by at most about 0.12 divided by the number of runs.")
     L.append("- **Borden Inversion.** The original task had no 0–100 conversion, so the published value is the "
              "raw result, which runs from 0 to 109. The fixed version reports raw × 100/109. This is only the "
              "change of scale. The fix also gives agents the grader's physics convention, which raises honest "
-             "fits (7.0 → 31.2 raw in our tests). That part needs new runs and is not included.")
+             "one-shot fits (7.0 → 31.2 raw in our tests; an agent iterating on the grader's feedback can already learn "
+             "part of it). That part needs new runs and is not included.")
     L.append("- **D-ABIC Gravity Inversion** is removed, so the average is taken over 50 tasks (49 for Opus 4.8, "
              "which has no valid result on Rust Multicrate).\n")
 
     L.append("## Every fixed or removed task\n")
-    L.append("| Task | Effect on the original scores | Kind | Known maximum (points) | Opus 4.8 | GPT-5.5 | GPT-5.4 | GLM-5.1 | DS-V4-Pro |")
+    L.append("| Task | Effect on the original scores | Kind | Proven limit (points) | Opus 4.8 | GPT-5.5 | GPT-5.4 | GLM-5.1 | DS-V4-Pro |")
     L.append("| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |")
     for t in sorted(effects):
         e = effects[t]
-        b = "" if e.get("bound") is None else f"{e['bound']:g}"
+        b = ("" if e.get("bound") is None else f"{e['bound']:g}" if "bound_up" not in e and "bound_down" not in e
+             else f"{e.get('bound_up', e['bound']):g} up, {e.get('bound_down', e['bound']):g} down")
         cells = " | ".join("—" if lb[t][m] is None else f"{lb[t][m]:.1f}" for m in MODELS)
-        L.append(f"| [{t}](cases/{t}.md) | {e['text']} | {KIND[e['kind']]} | {b} | {cells} |")
+        kind = KIND[e['kind']] if "basis" not in e else f"limit from a {e['basis']}"
+        L.append(f"| [{t}](cases/{t}.md) | {e['text']} | {kind} | {b} | {cells} |")
     L.append("")
     L.append("*Up* means the original grader gave correct work too little credit, so the fix raises scores. "
-             "*Down* means it gave wrong work too much credit, so the fix lowers scores. A known maximum is "
-             "limited by each model's score (a score cannot fall below 0) and by any proven ceiling. The five "
+             "*Down* means it gave wrong work too much credit, so the fix lowers scores. A proven limit is "
+             "capped by each model's score (a score cannot fall below 0) and by any proven ceiling. The five "
              "right-hand columns are the published 12-hour scores.\n")
 
     L.append("## Limits\n")
@@ -270,8 +329,8 @@ def main():
              "regraded.")
     L.append("- **Only the 51 public tasks are covered.** EdgeBench's full leaderboard also includes 83 "
              "unreleased tasks.")
-    L.append("- **The ranges are not estimates.** The known-maximum range is the largest movement we proved or "
-             "demonstrated, and the widest range lets every direction-only fix take its largest possible effect.")
+    L.append("- **The ranges are not estimates.** The proven-limit range is the largest movement we proved, computed or "
+             "(for PFR) inferred, and the largest possible change lets every fix take its largest possible effect.")
     L.append("- **Rounding.** Recomputed averages differ from the published ones by at most "
              f"{max(abs(o['recomputed'] - o['published']) for o in out.values()):.2f}, because the per-task table "
              "is rounded to one decimal. All corrections are applied to the recomputed averages.")

@@ -1,0 +1,33 @@
+
+running 10 tests
+test pty::tests::test_pty_config_claude_with_cas_root ... ok
+test pty::tests::test_pty_config_claude ... ok
+test pty::tests::test_pty_config_claude_with_supervisor ... ok
+test pty::tests::test_pty_config_claude_with_model ... ok
+test pty::tests::test_pty_config_claude_with_teams_lead ... ok
+test pty::tests::test_pty_config_claude_with_teams ... FAILED
+test pty::tests::test_pty_config_default ... ok
+test pty::tests::test_pty_config_codex_with_model ... ok
+test pty::tests::test_pty_config_sets_clone_path ... ok
+test pty::tests::test_pty_config_claude_without_model ... ok
+
+failures:
+
+---- pty::tests::test_pty_config_claude_with_teams stdout ----
+
+thread 'pty::tests::test_pty_config_claude_with_teams' panicked at crates/cas-pty/src/pty.rs:772:9:
+assertion failed: !config.args.contains(&"--session-id".to_string())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    pty::tests::test_pty_config_claude_with_teams
+
+test result: FAILED. 9 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test crates/cas-pty/src/lib.rs - (line 11) - compile ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

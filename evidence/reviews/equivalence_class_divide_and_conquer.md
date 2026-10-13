@@ -1,5 +1,13 @@
 # Review: equivalence_class_divide_and_conquer
 
+> **Note (2026-10-12).** Superseded statement: "up to +5.17 of 100 points in the worst case"
+> (Refutation attempts). 5.17 is the effect of one official case falling in the window. T3 scores
+> its full 10 points only when all 30 cases pass, and the window exists on each of cases 1–28
+> (cases 29 and 30 cannot exceed the limit), so the largest possible difference is
+> 10 − 0.5·2/30·10 = 9.67 points. Also, the undercount is the size of the last operation's target,
+> |N_last|, which is larger than the last step's cost whenever that step starts from a non-empty
+> neighbourhood. See `cases/equivalence_class_divide_and_conquer.md`.
+
 ## Claim under review
 
 Earlier claim (docs/FINDINGS.md): "An original checker accepts output whose operation cost exceeds the stated limit. An at-limit control passed; no score gain was established."

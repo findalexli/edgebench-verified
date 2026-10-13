@@ -1,13 +1,13 @@
 TLC2 Version 2026.10.06.014338 (rev: 94d0c50)
-Running breadth-first search Model-Checking with fp 19 and seed 8152826629814303058 with 2 workers on 16 cores with 3429MB heap and 64MB offheap memory [pid: 568171] (Linux 6.18.40.1-microsoft-standard-WSL2 amd64, Ubuntu 11.0.14.1 64bit, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 105 and seed -8413617811893198951 with 2 workers on 16 cores with 3429MB heap and 64MB offheap memory [pid: 1067206] (Linux 6.18.40.1-microsoft-standard-WSL2 amd64, Ubuntu 11.0.14.1 64bit, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/alex/edgebench-verified/evidence/formal/tla/order_addition_permutation_optimization/OrderSelection.tla
-Parsing file /tmp/tlc-10918260325379124795/Integers.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Integers.tla)
-Parsing file /tmp/tlc-10918260325379124795/FiniteSets.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
-Parsing file /tmp/tlc-10918260325379124795/Sequences.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
-Parsing file /tmp/tlc-10918260325379124795/_TLCTrace.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/_TLCTrace.tla)
-Parsing file /tmp/tlc-10918260325379124795/Naturals.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
-Parsing file /tmp/tlc-10918260325379124795/TLC.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/TLC.tla)
-Parsing file /tmp/tlc-10918260325379124795/TLCExt.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/TLCExt.tla)
+Parsing file /tmp/tlc-7770310418887091780/Integers.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Integers.tla)
+Parsing file /tmp/tlc-7770310418887091780/FiniteSets.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
+Parsing file /tmp/tlc-7770310418887091780/Sequences.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
+Parsing file /tmp/tlc-7770310418887091780/_TLCTrace.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/_TLCTrace.tla)
+Parsing file /tmp/tlc-7770310418887091780/Naturals.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
+Parsing file /tmp/tlc-7770310418887091780/TLC.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/TLC.tla)
+Parsing file /tmp/tlc-7770310418887091780/TLCExt.tla (jar:file:/tmp/tla2tools.jar!/tla2sany/StandardModules/TLCExt.tla)
 Semantic processing of module Naturals
 Semantic processing of module Integers
 Semantic processing of module Sequences
@@ -19,9 +19,9 @@ Semantic processing of module OrderSelection
 Linting of module TLCExt
 Linting of module _TLCTrace
 Linting of module OrderSelection
-Starting... (2026-10-12 10:28:00)
+Starting... (2026-10-12 15:57:14)
 Computing initial states...
-Finished computing initial states: 1 distinct state generated at 2026-10-12 10:28:00.
+Finished computing initial states: 1 distinct state generated at 2026-10-12 15:57:14.
 Error: Invariant OrigPicksBestValid is violated.
 Error: The behavior up to this point is:
 State 1: <Initial predicate>
@@ -32,24 +32,33 @@ State 1: <Initial predicate>
 /\ mixed = FALSE
 /\ hist = <<>>
 
-State 2: <Submit line 92, col 11 to line 103, col 56 of module OrderSelection>
-/\ sf1 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 1], round |-> 1]
-/\ sf2 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 1], round |-> 1]
-/\ prf1 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 1], round |-> 1]
-/\ prf2 = [valid |-> TRUE, k |-> 5, bs |-> [rate |-> FALSE, v |-> 1], round |-> 1]
+State 2: <Submit line 93, col 11 to line 104, col 56 of module OrderSelection>
+/\ sf1 = [valid |-> TRUE, k |-> 0, bs |-> [rate |-> FALSE, v |-> 0], round |-> 1]
+/\ sf2 = [valid |-> TRUE, k |-> 0, bs |-> [rate |-> FALSE, v |-> 0], round |-> 1]
+/\ prf1 = [valid |-> FALSE, k |-> 0, bs |-> [rate |-> FALSE, v |-> -1], round |-> 0]
+/\ prf2 = [valid |-> TRUE, k |-> 1, bs |-> [rate |-> FALSE, v |-> 0], round |-> 1]
 /\ mixed = FALSE
-/\ hist = <<[p |-> {"T1", "T3", "T4", "T5"}, sc |-> 1]>>
+/\ hist = <<[p |-> {}, sc |-> 1]>>
 
-State 3: <Submit line 92, col 11 to line 103, col 56 of module OrderSelection>
-/\ sf1 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 2], round |-> 2]
-/\ sf2 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 2], round |-> 2]
-/\ prf1 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 1], round |-> 1]
-/\ prf2 = [valid |-> TRUE, k |-> 5, bs |-> [rate |-> FALSE, v |-> 2], round |-> 2]
+State 3: <Submit line 93, col 11 to line 104, col 56 of module OrderSelection>
+/\ sf1 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 1], round |-> 2]
+/\ sf2 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 1], round |-> 2]
+/\ prf1 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 1], round |-> 2]
+/\ prf2 = [valid |-> TRUE, k |-> 5, bs |-> [rate |-> FALSE, v |-> 1], round |-> 2]
 /\ mixed = FALSE
-/\ hist = << [p |-> {"T1", "T3", "T4", "T5"}, sc |-> 1],
+/\ hist = <<[p |-> {}, sc |-> 1], [p |-> {"T1", "T3", "T4", "T5"}, sc |-> 1]>>
+
+State 4: <Submit line 93, col 11 to line 104, col 56 of module OrderSelection>
+/\ sf1 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 2], round |-> 3]
+/\ sf2 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 2], round |-> 3]
+/\ prf1 = [valid |-> TRUE, k |-> 4, bs |-> [rate |-> FALSE, v |-> 1], round |-> 2]
+/\ prf2 = [valid |-> TRUE, k |-> 5, bs |-> [rate |-> FALSE, v |-> 2], round |-> 3]
+/\ mixed = FALSE
+/\ hist = << [p |-> {}, sc |-> 1],
+   [p |-> {"T1", "T3", "T4", "T5"}, sc |-> 1],
    [p |-> {"T1", "T3", "T4", "T5"}, sc |-> 2] >>
 
-4464 states generated, 4464 distinct states found, 4369 states left on queue.
+4416 states generated, 4416 distinct states found, 4322 states left on queue.
 The depth of the complete state graph search is 4.
-Finished in 00s at (2026-10-12 10:28:00)
-Trace exploration spec path: ./OrderSelection_TTrace_1791826079.tla
+Finished in 00s at (2026-10-12 15:57:14)
+Trace exploration spec path: ./OrderSelection_TTrace_1791845833.tla

@@ -1,0 +1,6 @@
+5494c3433511ff0c27af7fd831e2dd2c36d448c4bd97132f84ba5478bfe6829a  /home/workspace/scoring/eval_script.py
+-rw-r--r-- 1 agent agent 94460 Oct 13 09:24 /home/workspace/scoring/eval_script.py
+                # Excess Return(annualized)
+                agent_total = agent_aligned.iloc[-1] / agent_aligned.iloc[0] - 1
+                agent_annual_aligned = (1 + agent_total) ** (252 / len(common_idx)) - 1
+                excess_annual = agent_annual_aligned - benchmark_annual_return

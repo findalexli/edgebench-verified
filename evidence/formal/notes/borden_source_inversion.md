@@ -29,8 +29,11 @@ clip(raw, 0, 100) reading would tie 100 with 109, while the fixed scale separate
 ## Limits
 
 - The proof covers the change of scale only. The larger part of the fix, documenting the
-  convention so that honest fits rise from about 7 to about 31, cannot be formalised from
+  convention so that one-shot honest fits rise from about 7 to about 31, cannot be formalised from
   published numbers.
 - That 109 is the maximum raw score is not proved. 109 is the true source's score according
   to the case page.
 - The proofs use exact rationals, while the grader uses doubles.
+- The conversion is exact for the published values, which are averages rounded to one decimal.
+  An input known to ±0.05 gives a converted value known to ±0.05·100/109 = ±0.046, so the
+  converted values are exact only for the rounded inputs.

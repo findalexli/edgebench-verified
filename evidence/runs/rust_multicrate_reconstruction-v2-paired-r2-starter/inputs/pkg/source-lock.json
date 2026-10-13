@@ -1,0 +1,178 @@
+{
+ "task_id": "rust_multicrate_reconstruction",
+ "version": "v2",
+ "task_json_in_sha256": "f9bc02671f0e2eb3c25ae84aba294f1fd6793ef6d0f7af28823ca319dc75efd2",
+ "task_json_diff_sha256": "e6b15d62ce0513769e1379e01f60b3acf212e703cb5c44ff5dd6e1dce38ff87a",
+ "original_task_json": {
+  "path": "tasks/rust_multicrate_reconstruction.json",
+  "sha256": "9c6823f5874adf3b0a8d810b6801eda901f799cd0f5c964616010e61d8505173"
+ },
+ "original_judge_image": "seededge/edgebench.judge.rust_multicrate_reconstruction@sha256:d1d18aed02e81e5f09938de0272a76a72fab174a784613aefa3eb51443f6e408",
+ "original_judge_image_tag": "b749374fe7bc",
+ "v2_judge_image_tag": "b749374fe7bc-ebv-v2",
+ "original_work_image": "seededge/edgebench.work.rust_multicrate_reconstruction@sha256:5d0f52e7ea32ea08090978f2df812d27303b2ab59a266c0c736cfd7c68a3eced",
+ "original_work_image_tag": "7f639fc9d090",
+ "v2_work_image_tag": "7f639fc9d090-ebv-v2",
+ "original_tarball": {
+  "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz",
+  "sha256": "5e2fb3e39b3a815a47e9aa144397d6a70415e12df0d5d88e598d8783f0294e4e"
+ },
+ "previous_fix": {
+  "file": "files/judge/tools/score.py",
+  "sha256": "a28b312497bae34b8c4730452c57f005c6867bb2f23102ad2bcbf4e5d5444b69",
+  "note": "one-condition cas-pty exemption fix (earlier corrected grader); v2 keeps it and adds --no-fail-fast"
+ },
+ "changed_files": [
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/tools/score.py",
+   "original_sha256": "d725dd934a01e40948267131d8ae91a075b4217d8012b41468cc9b38bb782b35",
+   "original_bytes": 25616,
+   "replacement": "files/judge/tools/score.py",
+   "replacement_sha256": "50707cd4d7e7256777fa806ba450d7185cd2d872806c4c915bd4bc119d09b545",
+   "replacement_bytes": 26273
+  },
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/cas-cli/tests/proptest/search_properties.rs",
+   "original_sha256": "70a3813f31bb672782473bf3b3d00008eb4282895ace1813573b256b4bb17bf3",
+   "original_bytes": 950,
+   "replacement": "files/judge/hidden-tests/hidden-sources/cas-cli/tests/proptest/search_properties.rs",
+   "replacement_sha256": "bf93bf484c9dbb9dc7e91b4d60f199b48777bb6a9c43458b9c7814ef19eed4c2",
+   "replacement_bytes": 1210
+  },
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/src/bm25_tests/tests.rs",
+   "original_sha256": "661104adfcd90131946bf9ad571d192e12d94ae5f6f73dbc63ec7424fc573514",
+   "original_bytes": 3705,
+   "replacement": "files/judge/hidden-tests/hidden-sources/crates/cas-search/src/bm25_tests/tests.rs",
+   "replacement_sha256": "f92e7d432d1c35f77513a28d6dc442bff73257f79bdda51bf03b57a3e3e7654e",
+   "replacement_bytes": 3924
+  },
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/src/hybrid.rs",
+   "original_sha256": "8d73cc2a03b049372aab0fe18d46af24669473555f6b0fa24e577185ab75ec28",
+   "original_bytes": 2308,
+   "replacement": "files/judge/hidden-tests/hidden-sources/crates/cas-search/src/hybrid.rs",
+   "replacement_sha256": "4bc21d20174b89260c079a9a81d62d5a6b8ee79023f574b691eaf86d12734dcd",
+   "replacement_bytes": 2539
+  },
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/tests/hybrid_integration.rs",
+   "original_sha256": "4af2bf2e1dd5fd498bd0a01242a6923276ebdf2f23e8641ed24145f6b9aedad0",
+   "original_bytes": 2447,
+   "replacement": "files/judge/hidden-tests/hidden-sources/crates/cas-search/tests/hybrid_integration.rs",
+   "replacement_sha256": "f31c2517fbc98ae6a1ccf6b6587d5ca49b58fcce612bd846e1ba7654a2183256",
+   "replacement_bytes": 2666
+  }
+ ],
+ "added_files": [
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/workspace/agent-start/vendor-deps/cc/src/target/apple.rs",
+   "work_image_path": "/home/workspace/cas_rust_benchmark/agent-start/vendor-deps/cc/src/target/apple.rs",
+   "replacement": "files/vendor-deps/cc/src/target/apple.rs",
+   "sha256": "da9411b2c4db419e0fa39f765ee53b8665b3837fb39827679a53238734a4a1c1",
+   "bytes": 3159,
+   "original": "absent",
+   "source": "https://static.crates.io/crates/cc/cc-1.2.55.crate (member cc-1.2.55/src/target/apple.rs)",
+   "checked_against": "vendor-deps/cc/.cargo-checksum.json in the original tarball"
+  },
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/workspace/agent-start/vendor-deps/cc/src/target/generated.rs",
+   "work_image_path": "/home/workspace/cas_rust_benchmark/agent-start/vendor-deps/cc/src/target/generated.rs",
+   "replacement": "files/vendor-deps/cc/src/target/generated.rs",
+   "sha256": "13cd01e01ea13c706a1f5a852cba1bfb6a09fc3b96c316972121896afea6077c",
+   "bytes": 19325,
+   "original": "absent",
+   "source": "https://static.crates.io/crates/cc/cc-1.2.55.crate (member cc-1.2.55/src/target/generated.rs)",
+   "checked_against": "vendor-deps/cc/.cargo-checksum.json in the original tarball"
+  },
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/workspace/agent-start/vendor-deps/cc/src/target/llvm.rs",
+   "work_image_path": "/home/workspace/cas_rust_benchmark/agent-start/vendor-deps/cc/src/target/llvm.rs",
+   "replacement": "files/vendor-deps/cc/src/target/llvm.rs",
+   "sha256": "190fe8d2b204cd4a6e68f2a1aada17ecd6390799564ed25792fcc08ab34710ba",
+   "bytes": 10356,
+   "original": "absent",
+   "source": "https://static.crates.io/crates/cc/cc-1.2.55.crate (member cc-1.2.55/src/target/llvm.rs)",
+   "checked_against": "vendor-deps/cc/.cargo-checksum.json in the original tarball"
+  },
+  {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/workspace/agent-start/vendor-deps/cc/src/target/parser.rs",
+   "work_image_path": "/home/workspace/cas_rust_benchmark/agent-start/vendor-deps/cc/src/target/parser.rs",
+   "replacement": "files/vendor-deps/cc/src/target/parser.rs",
+   "sha256": "0b901fbc3d18f663cb00741fcac6dc390b28c5286c99c1c8ec1727b44563e529",
+   "bytes": 23208,
+   "original": "absent",
+   "source": "https://static.crates.io/crates/cc/cc-1.2.55.crate (member cc-1.2.55/src/target/parser.rs)",
+   "checked_against": "vendor-deps/cc/.cargo-checksum.json in the original tarball"
+  }
+ ],
+ "crate_source": {
+  "url": "https://static.crates.io/crates/cc/cc-1.2.55.crate",
+  "sha256": "47b26a0954ae34af09b50f0de26458fa95369a0d478d8236d3f93082b219bd29",
+  "checked_against": "package sha256 in vendor-deps/cc/.cargo-checksum.json (original tarball)"
+ },
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned judge image, extracts the inputs from the tarball inside it, applies repair.patch, downloads the public cc-1.2.55.crate and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.rust_multicrate_reconstruction@sha256:d1d18aed02e81e5f09938de0272a76a72fab174a784613aefa3eb51443f6e408"
+  },
+  "tarball": {
+   "image_path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz",
+   "sha256": "5e2fb3e39b3a815a47e9aa144397d6a70415e12df0d5d88e598d8783f0294e4e"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/tools/score.py",
+    "sha256": "d725dd934a01e40948267131d8ae91a075b4217d8012b41468cc9b38bb782b35"
+   },
+   {
+    "source": "judge",
+    "path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/cas-cli/tests/proptest/search_properties.rs",
+    "sha256": "70a3813f31bb672782473bf3b3d00008eb4282895ace1813573b256b4bb17bf3"
+   },
+   {
+    "source": "judge",
+    "path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/src/bm25_tests/tests.rs",
+    "sha256": "661104adfcd90131946bf9ad571d192e12d94ae5f6f73dbc63ec7424fc573514"
+   },
+   {
+    "source": "judge",
+    "path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/src/hybrid.rs",
+    "sha256": "8d73cc2a03b049372aab0fe18d46af24669473555f6b0fa24e577185ab75ec28"
+   },
+   {
+    "source": "judge",
+    "path": "/home/workspace/cas_rust_benchmark/cas_rust_benchmark.tar.gz!cas_rust_benchmark/judge/hidden-tests/hidden-sources/crates/cas-search/tests/hybrid_integration.rs",
+    "sha256": "4af2bf2e1dd5fd498bd0a01242a6923276ebdf2f23e8641ed24145f6b9aedad0"
+   }
+  ],
+  "crates": [
+   {
+    "url": "https://static.crates.io/crates/cc/cc-1.2.55.crate",
+    "sha256": "47b26a0954ae34af09b50f0de26458fa95369a0d478d8236d3f93082b219bd29",
+    "members": {
+     "cc-1.2.55/src/target/apple.rs": "files/vendor-deps/cc/src/target/apple.rs",
+     "cc-1.2.55/src/target/generated.rs": "files/vendor-deps/cc/src/target/generated.rs",
+     "cc-1.2.55/src/target/llvm.rs": "files/vendor-deps/cc/src/target/llvm.rs",
+     "cc-1.2.55/src/target/parser.rs": "files/vendor-deps/cc/src/target/parser.rs"
+    }
+   }
+  ],
+  "outputs": {
+   "files/judge/hidden-tests/hidden-sources/cas-cli/tests/proptest/search_properties.rs": "bf93bf484c9dbb9dc7e91b4d60f199b48777bb6a9c43458b9c7814ef19eed4c2",
+   "files/judge/hidden-tests/hidden-sources/crates/cas-search/src/bm25_tests/tests.rs": "f92e7d432d1c35f77513a28d6dc442bff73257f79bdda51bf03b57a3e3e7654e",
+   "files/judge/hidden-tests/hidden-sources/crates/cas-search/src/hybrid.rs": "4bc21d20174b89260c079a9a81d62d5a6b8ee79023f574b691eaf86d12734dcd",
+   "files/judge/hidden-tests/hidden-sources/crates/cas-search/tests/hybrid_integration.rs": "f31c2517fbc98ae6a1ccf6b6587d5ca49b58fcce612bd846e1ba7654a2183256",
+   "files/judge/tools/score.py": "50707cd4d7e7256777fa806ba450d7185cd2d872806c4c915bd4bc119d09b545",
+   "files/vendor-deps/cc/src/target/apple.rs": "da9411b2c4db419e0fa39f765ee53b8665b3837fb39827679a53238734a4a1c1",
+   "files/vendor-deps/cc/src/target/generated.rs": "13cd01e01ea13c706a1f5a852cba1bfb6a09fc3b96c316972121896afea6077c",
+   "files/vendor-deps/cc/src/target/llvm.rs": "190fe8d2b204cd4a6e68f2a1aada17ecd6390799564ed25792fcc08ab34710ba",
+   "files/vendor-deps/cc/src/target/parser.rs": "0b901fbc3d18f663cb00741fcac6dc390b28c5286c99c1c8ec1727b44563e529"
+  },
+  "repair_patch_sha256": "f071ca51e32a9c2cd39d487bc382cd4c27d1bb6d48636f3b5cbbe025270d7f9d",
+  "materialize_sh_sha256": "597f1b30db26cd95a824fec1c53ccb026362d542302d400a99cba30a2ec9f7b7",
+  "note": "Written by hand in the layout of tools/make_materialize.py, which has no step for tarball members or crates.io files."
+ }
+}

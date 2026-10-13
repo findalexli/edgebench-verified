@@ -1,0 +1,42 @@
+cargo 1.88.0 (873a06493 2025-05-10)
+rustc 1.88.0 (6b00bc388 2025-06-23)
+Loaded manifest: 795 hidden test names across 14 crates
+CAS Benchmark Scorer
+Workspace: agent-start
+Hidden sources: /tmp/cas_eval/run/hidden-tests/hidden-sources
+Timeout: 1800s/crate, 14400s total
+
+
+=== Public Tests (agent workspace) ===
+  [public] Testing cas-types... TEST_FAIL (96/136) in 13.4s
+  [public] Testing cas-code... TEST_FAIL (35/50) in 12.9s
+  [public] Testing cas-factory-protocol... TEST_FAIL (66/98) in 29.9s
+  [public] Testing cas-diffs... TEST_FAIL (76/98) in 22.6s
+  [public] Testing cas-pty... TEST_FAIL (6/11) in 13.3s
+  [public] Testing cas-recording... TEST_FAIL (20/29) in 13.9s
+  [public] Testing cas-store... TEST_FAIL (152/216) in 35.4s
+  [public] Testing cas-search... TEST_FAIL (91/136) in 61.6s
+  [public] Testing cas-core... TEST_FAIL (135/201) in 25.4s
+  [public] Testing cas-mux... TEST_CRASH (0/37) in 24.4s
+  [public] Testing cas-factory... TEST_FAIL (94/134) in 32.1s
+  [public] Testing cas-mcp... TEST_FAIL (10/16) in 30.4s
+  [public] Testing cas-tui-test... TEST_FAIL (74/105) in 9.1s
+  [public] Testing cas-cli... COMPILE_FAIL_ROOT (0/1344) in 170.1s
+
+=== Creating hidden-test workspace at /tmp/cas-hidden-inject-nfawae71/ws ===
+Traceback (most recent call last):
+  File "/tmp/cas_eval/run/tools/score.py", line 586, in <module>
+    main()
+  File "/tmp/cas_eval/run/tools/score.py", line 571, in main
+    result = score_workspace(args.workspace, original_dir=args.original_dir,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/cas_eval/run/tools/score.py", line 488, in score_workspace
+    copy_workspace_tree(workspace_dir, combined_ws, share_vendor=True)
+  File "/tmp/cas_eval/run/tools/score.py", line 135, in copy_workspace_tree
+    shutil.copytree(src_path, dst_path, symlinks=False,
+  File "/usr/lib/python3.11/shutil.py", line 561, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/shutil.py", line 515, in _copytree
+    raise Error(errors)
+shutil.Error: [('agent-start/casdemo.png', '/tmp/cas-hidden-inject-nfawae71/ws/casdemo.png', "[Errno 28] No space left on device: 'agent-start/casdemo.png' -> '/tmp/cas-hidden-inject-nfawae71/ws/casdemo.png'"), ('agent-start/.mcp.json', '/tmp/cas-hidden-inject-nfawae71/ws/.mcp.json', "[Errno 28] No space left on device: 'agent-start/.mcp.json' -> '/tmp/cas-hidden-inject-nfawae71/ws/.mcp.json'"), ('agent-start/score.sh', '/tmp/cas-hidden-inject-nfawae71/ws/score.sh', "[Errno 28] No space left on device: 'agent-start/score.sh' -> '/tmp/cas-hidden-inject-nfawae71/ws/score.sh'"), ('agent-start/LICENSE', '/tmp/cas-hidden-inject-nfawae71/ws/LICENSE', "[Errno 28] No space left on device: 'agent-start/LICENSE' -> '/tmp/cas-hidden-inject-nfawae71/ws/LICENSE'"), ('agent-start/CHANGELOG.md', '/tmp/cas-hidden-inject-nfawae71/ws/CHANGELOG.md', "[Errno 28] No space left on device: 'agent-start/CHANGELOG.md' -> '/tmp/cas-hidden-inject-nfawae71/ws/CHANGELOG.md'"), ('agent-start/SPEC.md', '/tmp/cas-hidden-inject-nfawae71/ws/SPEC.md', "[Errno 28] No space left on device: 'agent-start/SPEC.md' -> '/tmp/cas-hidden-inject-nfawae71/ws/SPEC.md'"), ('agent-start/Cargo.toml', '/tmp/cas-hidden-inject-nfawae71/ws/Cargo.toml', "[Errno 28] No space left on device: 'agent-start/Cargo.toml' -> '/tmp/cas-hidden-inject-nfawae71/ws/Cargo.toml'"), ('agent-start/CLAUDE.md', '/tmp/cas-hidden-inject-nfawae71/ws/CLAUDE.md', "[Errno 28] No space left on device: 'agent-start/CLAUDE.md' -> '/tmp/cas-hidden-inject-nfawae71/ws/CLAUDE.md'"), ('agent-start/.ghostty-stub', '/tmp/cas-hidden-inject-nfawae71/ws/.ghostty-stub', "[Errno 28] No space left on device: '/tmp/cas-hidden-inject-nfawae71/ws/.ghostty-stub'"), ('agent-start/cas-cli', '/tmp/cas-hidden-inject-nfawae71/ws/cas-cli', "[Errno 28] No space left on device: '/tmp/cas-hidden-inject-nfawae71/ws/cas-cli'"), ('agent-start/scripts', '/tmp/cas-hidden-inject-nfawae71/ws/scripts', "[Errno 28] No space left on devic

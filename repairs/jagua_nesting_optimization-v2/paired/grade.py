@@ -1,4 +1,4 @@
-"""Grade saved paired captures (result/out) with this repo's sforge harness. Run from this directory."""
+"""Grade saved paired captures (result/out) with EdgeBench's sforge harness (this repo's sforge/, 6e4e5f4). Run from this directory."""
 import json, re
 from pathlib import Path
 from grade_common import specs, grade

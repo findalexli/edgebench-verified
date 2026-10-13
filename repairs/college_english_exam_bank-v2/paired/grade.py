@@ -1,4 +1,4 @@
-"""Grade the saved paired captures with this repo's sforge harness.
+"""Grade the saved paired captures with EdgeBench's sforge harness (this repo's sforge/, 6e4e5f4).
 Usage: python3 grade.py [OUT_DIR]   (run from this directory; default OUT_DIR = result/out)
 Arms: v1 (original), v2 (fixed) and, when its captures exist, v2prev (earlier fixed grader,
 superseded 2026-10-12). graded.json goes to this directory, or to OUT_DIR/../.. when given."""

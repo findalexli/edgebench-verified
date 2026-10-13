@@ -51,3 +51,6 @@ passes (`shadow_ground_ok`), so the formula is not unwinnable. A scan of the 774
 - An undeclared, unbound symbol is an error in the model but an atom in the real code.
 - Keys are modelled as parsed terms, not as their spacing.
 - That a finite G with the coverage property exists is not proved. It holds for finite models.
+- `fixed_sound` and `orig_sound` state that a model *exists* when the checker accepts. They do not
+  state that the submitted witness is itself a model; the file's docstring says more than the
+  statement. The original accepts `unused_conflict`, whose witness is not a function.

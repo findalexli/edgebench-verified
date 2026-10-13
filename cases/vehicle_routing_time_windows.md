@@ -1,6 +1,6 @@
 # Vehicle Routing Time Windows (`vehicle_routing_time_windows`)
 
-**Outcome:** Kept, with a note. <mark>The concern about the decimal tolerance does not change scores under an exact check; the note explains the weighting and the fixed test set, and says that the checker is compiled from the submitted `include/types.h`.</mark>
+**Outcome:** Kept, with a note. <mark>The concern about the decimal tolerance does not change scores under an exact check; the note explains the weighting and the fixed test set, says that the checker is compiled from the submitted `include/types.h` and `Makefile`, and says that the 60-second time argument cannot be used on every instance within the 20-minute total.</mark>
 
 ## What the task asks
 
@@ -8,7 +8,7 @@ The solver is asked to "optimize the C++17 CVRPTW solver", to "Modify only src/,
 
 ## What we checked
 
-No scoring problem that changes scores enough to matter was found. Three points are noted.
+No scoring problem that changes scores was found for a solver that follows the documented time limits. Four points are noted; the effect of the third (solver edits that reach the checker) is not measured.
 
 **1. Decimal tolerance (checked; does not change scores).** The README states an inclusive "≤ 0.05" cost tolerance. The checker tests it in binary64 (standard double-precision floating point).
 
@@ -19,15 +19,22 @@ No scoring problem that changes scores enough to matter was found. Three points 
 
 **2. The README describes scoring the grader does not implement (documentation only).** The README describes weighting in three groups and scrambling for each deployment, and an internal README describes a scrambled copy of the cases. The grader averages all 56 cases equally over a fixed, unscrambled test set. No score changes.
 
-**3. The checker is compiled from the submitted header.** `tools/verify.cpp` includes `../include/types.h`. That file is in a path the solver may modify, and it defines `dist_x10` and the `Node`/`Instance` structs. A solver that edits the distance code or changes `Node` field types for speed, with no intent to cheat, therefore also changes how the checker computes feasibility and distance. Recommended hardening: build the checker from the original header owned by the grader, outside the submitted code.
+**3. The checker is compiled from the submitted header and Makefile.** `tools/verify.cpp` includes `../include/types.h`. That file is in a path the solver may modify, and it defines `dist_x10` and the `Node`/`Instance` structs. The grader also runs `make -j4` with the submitted `Makefile`, and the shipped `Makefile` builds `tools/verify` with the same `CXXFLAGS` as the solver. A solver that edits the distance code, changes `Node` field types, or changes compiler flags (for example adding `-ffast-math`) for speed, with no intent to cheat, therefore also changes how the checker computes feasibility and distance. The exact-arithmetic result in point 1 holds for the original header and flags only. Recommended hardening: build the checker from the original header and flags owned by the grader, outside the submitted code.
 
-**Note shipped with the task.** The checker is compiled from the submitted `include/types.h`, so solver edits to the distance code or node types also change the checker; the recommended hardening is to build the checker from the original header. The score averages all 56 instances equally, and the installed instances are fixed and their nodes are not scrambled (the README's three-group weighting and scrambling are not implemented). Despite the README's inclusive "≤ 0.05", a declared cost that differs from the checker's total by exactly 0.05 may be rejected; declaring the computed cost avoids this. Because the test set is the fixed, public Solomon set (a standard benchmark), instances can be identified and published reference routes exist; this is a matter of disclosure and contamination, not a checker defect.
+**4. The 60-second time argument cannot be used on every instance.** The solver is called as `./cvrptw_solver <input> <output> <time_budget_sec>`. The grader passes `min(60, max(1, int(remaining − 6)))` seconds and stops all work 20 minutes after it starts (`TOTAL_JUDGE_TIMEOUT_SEC = 20 * 60`, `PER_INSTANCE_BUDGET_SEC = 60`); instances it cannot start are scored 0 (`judge_time_limit`). 56 × 60 s = 3,360 s, which is 2.8 times the 1,200 s total.
+
+- What the solver is told: the prompt says "Hidden judge submissions have a 20-minute total wall-clock budget; keep the solver efficient." README §8 lists "时间预算（单实例）：60 秒" (time budget per instance: 60 s) and "总评测预算上限：20 分钟；每实例最多 60 秒，并受剩余总时限截断" (total budget 20 minutes; at most 60 s per instance, cut short by the remaining total). Its last line repeats this in English. `tools/bench.sh` passes 60 s for 100-customer instances. So the cap is documented, but no document says how many seconds per instance fit in the total (1,200 / 56 ≈ 21 s).
+- **Example.** A solver that runs until the time argument it is given, as anytime search usually does, is scored on about 20 of the 56 instances; the rest score 0. At reference quality (100 per instance) its score is at most 21 × 100 / 56 = 37.5 out of 100 (20 instances and 35.7 if the build takes about a minute), and at most 21 × 160 / 56 = 60 even at the per-instance cap of 160. A solver that budgets about 20 s per instance itself is scored on all 56.
+- The harness limit (`eval_timeout` 1,200 s) equals the grader's own 20-minute deadline. In this example the grader finishes about 5 s before its deadline, so the result is still reported, but the margin depends on how long the container takes to start.
+
+**Note shipped with the task.** The checker is compiled from the submitted `include/types.h` with the submitted `Makefile`, so solver edits to the distance code, node types or compiler flags also change the checker; the recommended hardening is to build the checker from the original header and flags. The 60-second time argument is capped by the 20-minute total: 56 instances at 60 s would take 3,360 s, so a solver that uses its full argument is scored on only about 20 instances; budget about 20 s per instance. The score averages all 56 instances equally, and the installed instances are fixed and their nodes are not scrambled (the README's three-group weighting and scrambling are not implemented). Despite the README's inclusive "≤ 0.05", a declared cost that differs from the checker's total by exactly 0.05 may be rejected; declaring the computed cost avoids this. Because the test set is the fixed, public Solomon set (a standard benchmark), instances can be identified and published reference routes exist; this is a matter of disclosure and contamination, not a checker defect.
 
 ## How much it matters
 
 - Tolerance: no effect for a solver that declares its computed cost. In the hypothetical case of a declared cost off by exactly 0.05, one instance would score 0, so the effect is at most one instance's contribution (see `evidence/scripts/vehicle_routing_time_windows/exact_checks.out` for the boundary cases).
 - Text about weighting and scrambling: no score change.
-- Header: affects only solvers that edit the distance code or node types in `include/types.h`. No such case was run, so no score effect is measured.
+- Header and flags: affect only solvers that edit the distance code or node types in `include/types.h`, or the compiler flags in the `Makefile`. No such case was run, so no score effect is measured.
+- Time argument: no effect on a solver that budgets for the 20-minute total, as the prompt and README §8 say. A solver that uses the full 60-second argument on every instance loses about 36 of 56 instances (computed from the grader's loop; not run). The recorded agent runs on this task score 74.0–90.8 out of 100 for the five models (`tasks/README.md`), above the 60-point maximum for 21 scored instances, so those runs did budget for the total.
 
 There is no code change. The note above ships with the task.
 
@@ -42,8 +49,8 @@ There is no code change. The note above ships with the task.
 
 - No AI model or solver was run; effects are shown only on test submissions and counterexamples we wrote.
 - The exact checks used local Python. The solver was built locally with g++ 9.4 (`-march=haswell`), not in the pinned grader image.
-- The output of `exact_checks.py` is not saved in this repository.
-- The installed reference (BKS, best known solutions) CSV was absent from the extract; the installed table is recorded as 56 rows.
+- The installed reference (BKS, best known solutions) CSV was absent from the extract; the installed table is recorded as 56 rows. The grader scores an instance with no reference row as 100 (`bks.get(name, (nv, td))`). The earlier audit recorded that the installed 56-row table supplies every instance with no fallback (Git tag `earlier-audit-final`, `evidence/selected/vrptw-all56-native-acceptance.json`); this was not re-checked.
+- The time-argument effect is computed from the grader's loop; no solver that uses the full argument was run.
 - The clarification of the instructions is not yet part of the task prompt, and its files are not included in this repository.
 - The header note comes from reading the source; no solver with a modified `types.h` was built or scored.
 

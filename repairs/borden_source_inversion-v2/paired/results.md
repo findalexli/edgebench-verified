@@ -56,3 +56,49 @@ and v2 (14 evaluations, all exit 0). The regression case (textbook ADE fit) stay
 honest fit built only from the shipped v2 `forward_model.py` reaches 31.199 raw (28.62 normalized),
 which shows the convention can now be reproduced. The out-of-bounds and missing-answer controls stay
 at 4.000 and 0.
+
+## Revision (2026-10-12): the prompt says `forward_model.py` may be used
+
+**Why.** The fixed prompt kept the original scoring step "Use a hidden Borden-ADE region-source
+forward model" and the rule "Do not read or reference hidden scoring files", without saying that the
+shipped `forward_model.py` may be used. A careful solver could read the two together as forbidding it.
+
+**Change.** Three lines, identical in the work-image `README.md` and in `task.json.in` →
+`work.agent_query`:
+- the `forward_model.py` entry under "Provided files" adds "You may read, run and import it freely.";
+- scoring step 3 becomes "Use the Borden-ADE region-source forward model shipped as `forward_model.py` to
+  predict concentrations at hidden monitoring wells and hidden future times.";
+- the rule becomes "Do not read or reference hidden scoring files. `forward_model.py` is not one of them:
+  it is an exact copy of the judge's model and may be used freely."
+
+Nothing else changes: `forward_model.py`, the grader, the grader image, the answer key and the
+`rescale` block are as before. Revised `README.md`: `bcd35189…` (was `70c905d7…`); `task.json.in`:
+`65928330…` (was `0a48dc9f…`). `repair.patch`, `materialize.sh`, `source-lock.json` and `task-json.diff`
+were regenerated (`tools/make_materialize.py`; `task-json.diff` with the same re-serialised `diff -u` as
+before), and a clean-copy `./materialize.sh` reproduced every output byte for byte.
+
+**Job.** `evidence/runs/borden_source_inversion-v2-paired-r3`: one E2B worker
+(`ic41z0ndpo77solwxjefe`), `status: exit=0` in 61 s, killed. It built the first fixed work image
+(v2prev) and the revised one (v2) from the same `Dockerfile`, and graded the seven submissions of r2
+(r2's `answer_v2_fit.json` as `v2_fit`; no solver was rerun) in the original, v2prev and v2 work
+directories with the unchanged judge image and the original command (21 evaluations, all exit 0).
+
+| Arm | v1 raw | v2prev raw | v2 raw |
+|---|---|---|---|
+| textbook_fit | 7.031 | 7.031 | 7.031 |
+| judgeconv_fit | 31.200 | 31.200 | 31.200 |
+| baseline_mid | 7.012 | 7.012 | 7.012 |
+| truth | 109.000 | 109.000 | 109.000 |
+| v2_fit | 31.199 | 31.199 | 31.199 |
+| invalid_oob | 4.000 | 4.000 | 4.000 |
+| invalid_missing | 0 | 0 | 0 |
+
+Every `score.json` is byte-identical across the three working directories, `warnings` is empty in
+all of them, and the only work-directory difference between v2prev and v2 is the three README lines
+(`result/out/workdir_diff_v2prev_v2.txt`). The scores equal those of r2.
+
+**Verdict:** **accepted** (prompt text only; scores unchanged).
+
+## Repeatability (2026-10-13)
+
+The revision's job was run three times on fresh E2B workers (`evidence/runs/borden_source_inversion-v2-paired-r3`, `-rep2`, `-rep3`) with the same `run.sh` and `inputs/`. Every run has `status: exit=0`, and its worker was killed. All seven submissions under the original, earlier fixed and current fixed work image (21 results) give the same exit status and TOTAL_SCORE in all three runs (`result/out/summary.txt`). The staged `pkg/files/` and `pkgprev/files/` (README sha256 `bcd35189…` and `70c905d7…`, `forward_model.py` `2b3efafb…`, as in run 1's `workdir_*.txt`) were removed after collection. The earlier `-paired-r2` job was already run three times.

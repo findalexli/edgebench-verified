@@ -1,0 +1,55 @@
+MODE=symlinked-packages (eval_cmd's cp -r .lake replaced)
+cd /home/workspace/se-bmk-intern/pfr && mkdir -p .lake && cp -r /home/workspace/judge/se-bmk-intern/pfr/.lake/build .lake/ && ln -s /home/workspace/judge/se-bmk-intern/pfr/.lake/packages .lake/packages && cp /home/workspace/judge/se-bmk-intern/pfr/lake-manifest.json . && lake build && cp /home/workspace/judge/se-bmk-intern/pfr/ListDeclAxiom.lean . && cd /home/workspace/judge/se-bmk-intern && python3 eval_lean.py --baseline-repo /home/workspace/judge/se-bmk-intern/pfr --current-repo /home/workspace/se-bmk-intern/pfr
+=== eval 22:36:00
+=== variant orig 22:36:01
+overlay          21G   13G  7.4G  64% /
+7b70ca6caf0223726d605699b784b78014d7d03fe081c2aada6beefa304e7b8b  /home/workspace/se-bmk-intern/pfr/PFR/WeakPFR.lean
+eval_cmd rc=0
+SCORE orig 0.0 mode=unweighted, repaired=0/423, remaining_bad=423
+BAD PFR_projection unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD PFR_projection' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD torsion_free_doubling unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD torsion_dist_shrinking unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD app_ent_PFR unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD app_ent_PFR' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+=== done orig 22:36:46
+=== variant probe 22:36:46
+overlay          21G   13G  7.4G  64% /
+0b01442d7018b428288cecbbb7bd5681b3fac543dce7e6ac7188650f5fe85dc0  /home/workspace/se-bmk-intern/pfr/PFR/WeakPFR.lean
+eval_cmd rc=0
+SCORE probe 0.0 mode=unweighted, repaired=0/423, remaining_bad=423, new_bad=2
+BAD PFR_projection unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK ebv_probe_sig._auto_1 : type=Syntax; axioms=[]
+BAD PFR_projection' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD torsion_free_doubling unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK ebv_probe_sig : type=∀ {Ω₀ : Type u_4} [inst : MeasurableSpace Ω₀] (ν : autoParam (MeasureTheory.Measure Ω₀) ebv_probe_sig._auto_1), ν = ν; axioms=[propext, Classical.choice, Quot.sound]
+BAD ebv_probe_f2 unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD torsion_dist_shrinking unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD ebv_probe_torsion unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD app_ent_PFR unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD app_ent_PFR' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+subprobe rc=0
+EBV ebv_probe_torsion type_sorry=true own_value_sorry=true type_axioms=#[propext, Quot.sound, Classical.choice, sorryAx] all_axioms=#[propext, Quot.sound, Classical.choice, sorryAx]
+EBV   autoParam_arg sorry=true consts=#[sorryAx, Unit, Lean.Syntax, Bool.true, Function.const, Lean.Name, Unit.unit, Lean.Name.num, Lean.Name.str, Lean.Name.anonymous, OfNat.ofNat, Nat, instOfNatNat] raw=sorryAx.{1} (Unit -> Lean.Syntax) Bool.true (Function.const.{1, 1} Unit Lean.Name Unit.unit (Lea
+EBV   autoParam_arg sorry=true consts=#[sorryAx, Unit, Lean.Syntax, Bool.true, Function.const, Lean.Name, Unit.unit, Lean.Name.num, Lean.Name.str, Lean.Name.anonymous, OfNat.ofNat, Nat, instOfNatNat] raw=sorryAx.{1} (Unit -> Lean.Syntax) Bool.true (Function.const.{1, 1} Unit Lean.Name Unit.unit (Lea
+EBV ebv_probe_f2 type_sorry=true own_value_sorry=true type_axioms=#[propext, Quot.sound, Classical.choice, sorryAx] all_axioms=#[propext, Quot.sound, Classical.choice, sorryAx]
+EBV   autoParam_arg sorry=true consts=#[sorryAx, Unit, Lean.Syntax, Bool.true, Function.const, Lean.Name, Unit.unit, Lean.Name.num, Lean.Name.str, Lean.Name.anonymous, OfNat.ofNat, Nat, instOfNatNat] raw=sorryAx.{1} (Unit -> Lean.Syntax) Bool.true (Function.const.{1, 1} Unit Lean.Name Unit.unit (Lea
+EBV   autoParam_arg sorry=true consts=#[sorryAx, Unit, Lean.Syntax, Bool.true, Function.const, Lean.Name, Unit.unit, Lean.Name.num, Lean.Name.str, Lean.Name.anonymous, OfNat.ofNat, Nat, instOfNatNat] raw=sorryAx.{1} (Unit -> Lean.Syntax) Bool.true (Function.const.{1, 1} Unit Lean.Name Unit.unit (Lea
+EBV ebv_probe_sig type_sorry=false own_value_sorry=false type_axioms=#[propext, Quot.sound, Classical.choice] all_axioms=#[propext, Quot.sound, Classical.choice]
+EBV   autoParam_arg sorry=false consts=#[ebv_probe_sig._auto_1] raw=ebv_probe_sig._auto_1
+EBV   autoParam_arg sorry=false consts=#[ebv_probe_sig._auto_1] raw=ebv_probe_sig._auto_1
+EBV torsion_free_doubling type_sorry=true own_value_sorry=true type_axioms=#[propext, Quot.sound, Classical.choice, sorryAx] all_axioms=#[propext, Quot.sound, Classical.choice, sorryAx]
+EBV   autoParam_arg sorry=true consts=#[sorryAx, Unit, Lean.Syntax, Bool.true, Function.const, Lean.Name, Unit.unit, Lean.Name.num, Lean.Name.str, Lean.Name.anonymous, OfNat.ofNat, Nat, instOfNatNat] raw=sorryAx.{1} (Unit -> Lean.Syntax) Bool.true (Function.const.{1, 1} Unit Lean.Name Unit.unit (Lea
+EBV   autoParam_arg sorry=true consts=#[sorryAx, Unit, Lean.Syntax, Bool.true, Function.const, Lean.Name, Unit.unit, Lean.Name.num, Lean.Name.str, Lean.Name.anonymous, OfNat.ofNat, Nat, instOfNatNat] raw=sorryAx.{1} (Unit -> Lean.Syntax) Bool.true (Function.const.{1, 1} Unit Lean.Name Unit.unit (Lea
+EBV app_ent_PFR type_sorry=true own_value_sorry=true type_axioms=#[propext, Quot.sound, Classical.choice, sorryAx] all_axioms=#[propext, Quot.sound, Classical.choice, sorryAx]
+EBV   autoParam_arg sorry=true consts=#[sorryAx, Unit, Lean.Syntax, Bool.true, Function.const, Lean.Name, Unit.unit, Lean.Name.num, Lean.Name.str, Lean.Name.anonymous, OfNat.ofNat, Nat, instOfNatNat] raw=sorryAx.{1} (Unit -> Lean.Syntax) Bool.true (Function.const.{1, 1} Unit Lean.Name Unit.unit (Lea
+EBV   autoParam_arg sorry=true consts=#[sorryAx, Unit, Lean.Syntax, Bool.true, Function.const, Lean.Name, Unit.unit, Lean.Name.num, Lean.Name.str, Lean.Name.anonymous, OfNat.ofNat, Nat, instOfNatNat] raw=sorryAx.{1} (Unit -> Lean.Syntax) Bool.true (Function.const.{1, 1} Unit Lean.Name Unit.unit (Lea
+EBV ebvVarAuto type_sorry=false own_value_sorry=false type_axioms=#[propext, Quot.sound, Classical.choice] all_axioms=#[propext, Quot.sound, Classical.choice]
+EBV   autoParam_arg sorry=false consts=#[_private.EbvProbe.0._auto_8] raw=_private.EbvProbe.0._auto_8
+EBV   autoParam_arg sorry=false consts=#[_private.EbvProbe.0._auto_8] raw=_private.EbvProbe.0._auto_8
+EBV ebvSigAuto type_sorry=false own_value_sorry=false type_axioms=#[propext, Quot.sound, Classical.choice] all_axioms=#[propext, Quot.sound, Classical.choice]
+EBV   autoParam_arg sorry=false consts=#[ebvSigAuto._auto_1] raw=ebvSigAuto._auto_1
+EBV   autoParam_arg sorry=false consts=#[ebvSigAuto._auto_1] raw=ebvSigAuto._auto_1
+EBV ebvPlain type_sorry=false own_value_sorry=false type_axioms=#[propext, Quot.sound, Classical.choice] all_axioms=#[propext, Quot.sound, Classical.choice]
+=== done probe 22:37:26
+eval rc=0

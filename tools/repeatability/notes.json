@@ -1,24 +1,36 @@
 {
  "intro": [
-  "Every repair's paired evaluation was run three times: run 1 is the published result, runs 2 and 3 are fresh reruns of the same job on new E2B workers (Lean Analysis locally, one container at a time under a 4 GB cap). OpenRCT2 is excluded: its repair changes only the prompt and has nothing to run.",
-  "**Result: 132 executed arms across 22 repair packages, 0 verdict changes.** In all three runs every trigger stayed fixed by v2, every valid control stayed valid, and every invalid control stayed rejected."
+  "All but one arm of every repair's paired evaluation was run three times: run 1 is the published result, runs 2 and 3 are fresh reruns of the same job on new E2B workers (Lean Analysis locally, one container at a time under a 4 GB cap). OpenRCT2 is excluded: its repair changes only the prompt and has nothing to run.",
+  "**Result: 208 executed arms across 31 repair packages (30 fixed tasks and the removed task's partial fix): 206 graded comparisons and 2 setup runs that prepare inputs. 207 of the 208 have three runs (205 of the 206 graded comparisons), and 1 arm changed its verdict between runs.** The change is Vibrating Path's `wall25` valid control under the *original* grader at 4 CPUs: 36 OK and 14 TLE in run 1, 50/50 in runs 2 and 3 (details below). No verdict under any fixed grader changed. The Rust starter's fixed-version score has one run: that job was not repeated (cost). In every other arm, all three runs kept the outcome recorded in the package's results: triggers stayed in the state the results describe (for ARC they are unchanged by design, because that fix only adds documentation), valid controls stayed valid, and invalid controls kept their recorded verdict (the datagen `garbage_shape` arm is accepted by the original grader, and the Schemathesis Reporting starter rises from 0.020 to 0.025 under the fixed grader, in every run).",
+  "Arms added on 2026-10-12 (Git, PFR, Rust, Grid Turing, Molecular, Vibrating Path, Apple, and the CPU arms of Triangulation and Warehouse) were repeated on 2026-10-13 with each job's own `run.sh` and inputs. Smaller jobs that are not rows of `data/paired-results.csv` are compared under Supplementary jobs. The Portfolio Risk and Juliet arms (added 2026-10-13) were each run three times on fresh E2B workers by their own `run.sh`."
  ],
  "task": {
   "exchange_core_throughput": "Throughput (MT/s) varies up to 38% between runs on the same worker type; the correctness-gate verdicts never change.",
   "integer_compression_codec": "The speed term varies up to 25% between runs; the starter's v2 score stays near 1 and the corrupting codec stays at 0.",
   "ffmpeg_swscale_reimplementation": "Speedups vary up to 4%; trigger arms stay near 0 under v2 in every run.",
-  "order_addition_permutation_optimization": "The 'search' control is a time-limited random search, so its own score differs between runs (relative spread 2.67); pass rates, verdicts and v2's selection of the better submission are stable."
+  "order_addition_permutation_optimization": "The 'search' control is a time-limited random search, so its own score differs between runs (relative spread 2.67); pass rates, verdicts and v2's selection of the better submission are stable.",
+  "vibrating_path_graph_coloring": "One valid-control arm (`wall25` at 4 CPUs) changed its original-grader verdict between runs; see Arms whose verdict changed.",
+  "rust_multicrate_reconstruction": "The starter's job (`-paired-r2-starter`) was not repeated (about 40 min and up to 19.9 GB disk per run); its original-grader scores are reproduced by round 1. Reference, partial and bad: three runs each."
  },
  "totals_extra": [
-  "Score spread is reported per arm (min, max, relative spread). Deterministic evaluators reproduce exactly; timing-based scores move as noted, without changing any verdict."
+  "Score spread is reported per arm (min, max, relative spread). Deterministic evaluators reproduce exactly. Timing-based scores move as noted without changing a verdict. The one verdict change, a wall-clock timeout under the original grader, is listed under Arms whose verdict changed."
  ],
  "jobs": [
   "44 E2B reruns (22 jobs × 2), all exit 0 with collected results; each worker was killed by exact ID (see evidence/runs/ledger.jsonl). Lean Analysis: 2 local reruns of all 12 cases, exit 0.",
-  "Three packages (CTA, Equivalence, Tree) had their parsed summaries regenerated with the package's own summarize.py; that script reproduces run 1's published summary byte for byte."
+  "2026-10-13: 46 further E2B reruns (23 jobs × 2: Git ×2 jobs, PFR ×2, Rust ×3, Grid Turing, Molecular, Warehouse CPU ×4, Vibrating Path ×3, Apple, Triangulation CPU ×2, Borden r3, Exchange shutdown-failure, College English multi-block, ARC hang suite), at most 4 workers at a time. Each has `status: exit=0` on its first attempt and collected `result/out/`, and its worker was killed. Inputs that are image files or materialized grader files were put in the rerun directories from the internal copies, with sha256 checked against run 1's records, and removed after collection.",
+  "Three packages (CTA, Equivalence, Tree) had their parsed summaries regenerated with the package's own summarize.py; that script reproduces run 1's published summary byte for byte.",
+  "2026-10-13: Portfolio Risk (`portfolio_risk_calibration-v2-paired`, `-rep2`, `-rep3`) and Juliet (`juliet_vulnerability_analyzer-v2-paired`, `-rep2`, `-rep3`): 6 E2B jobs, each with `status: exit=0` and collected `result/out/`. Each Portfolio job also keeps a first attempt (`attempt1-no-patch/`) that stopped before grading because GNU `patch` was missing on the worker; it is not counted."
  ],
  "limits": [
-  "Three runs per arm, on one worker type (8 vCPU, 8 GiB). Different hardware may move timing scores further.",
+  "Three runs per arm, on one worker type (8 vCPU, 8 GiB). Different hardware may move timing scores further, and may move wall-clock verdicts near a limit, as the Vibrating Path `wall25` arm shows.",
+  "Not repeated: the Rust starter's fixed-version run (1 run), and SMT's CPU-quota measurements (a withdrawn part of the fix).",
   "Reruns repeat the authored controls, not model submissions.",
   "College English: after a formal check found gaps in its first fix, the grader was revised (repairs/college_english_exam_bank-v2/paired/results.md). The tables above describe the first fixed version. The revised side-by-side job was itself run three times on fresh workers (evidence/runs/college_english_exam_bank-v2-paired-fix2, -fix2-rep2, -fix2-rep3), with identical graded results apart from timing."
- ]
+ ],
+ "flip": {
+  "vibrating_path_graph_coloring|`wall25` (works until 25 s wall clock)": [
+   "Same solution, same job (`vibrating_path_graph_coloring-v2-paired-b`), fresh 8-vCPU workers. This solution was graded 9 times by the original grader at 4 CPUs (3 runs of `-b`, plus 2 per run of `-c`), and lost cases only once. The fixed version passed 50/50 in all 6 of its gradings. The package's results attribute the 14 TLE to the tester being starved of CPU next to 7 busy cases (an inference, not observed directly). This is an original-grader outcome that is not repeatable. No fixed-version verdict changed, so the fix's acceptance is unaffected (`repairs/vibrating_path_graph_coloring-v2/paired/results.md`, Repeatability)."
+  ]
+ },
+ "extra_intro": "These jobs add arms beyond `data/paired-results.csv` (extra grader versions, CPU counts, or follow-up checks). Each was run three times like the main jobs, and every label of its own summary is compared across the runs. Throughput numbers (Exchange Core) move between runs, as in the main table. SMT's CPU-quota jobs (`smt_solver-v2-paired-cpu`, `-b-cpu`, `-c-cpu`) are not repeated and not listed: that part of the SMT fix was withdrawn, because the official configs give SMT 16 grader CPUs."
 }

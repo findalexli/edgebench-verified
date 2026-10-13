@@ -41,6 +41,6 @@ plus one failure give a product of 1000 and a positive score.
 
 - Real arithmetic, not IEEE doubles. `round(geo, 6)` is omitted. PSNR, timing and the libraries are abstract.
 - Only the **last** timed call's output is checked. Return codes are checked on all 110 calls.
-- **Wording discrepancy:** the case and the README say the fix uses "the same 40 dB" threshold. The
-  code uses 40 dB for scaling and **60 dB for same-size conversions** (l.578-579, the
-  `check_correctness` thresholds). Same-size workloads such as rgba→rgb24 4K are therefore held to 60 dB.
+- The code uses 40 dB for scaling and **60 dB for same-size conversions** (l.578-579, the
+  `check_correctness` thresholds), so same-size workloads such as rgba→rgb24 4K are held to 60 dB.
+  The case page and the README state both thresholds.

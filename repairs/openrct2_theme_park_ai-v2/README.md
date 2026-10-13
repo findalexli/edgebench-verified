@@ -44,7 +44,7 @@ A search of the solver-visible files for other statements of the length of play 
 
 ### Why a prompt fix, not a larger time budget
 
-Reaching 992 days at the measured rate takes about 1,660 s per scenario, about 83 minutes for
+Reaching 992 days at the measured rate (0.595 days/s) takes about 1,667 s per scenario, about 83 minutes for
 three. That exceeds the 120 s scenario budget by 14×, the wrapper's 1,800 s `TOTAL_TIMEOUT`
 and the manifest's 2,400 s `eval_timeout`. Raising all three would multiply grading cost
 about 14×. It would also change what is measured: value after about 4 years instead of about

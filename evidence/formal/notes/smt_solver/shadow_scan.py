@@ -2,7 +2,8 @@
 # symbol (the shadowing pattern of SmtWitness.shadow_textual_regression).
 # Usage: python3 -I shadow_scan.py <dir with QF_*/ subfolders>
 import importlib.util, sys, glob, os
-spec = importlib.util.spec_from_file_location("v1", "/home/alex/edgebench-verified/.internal/evidence/scripts/smt_solver/evaluate_original.py")
+R = __import__('os').environ.get('EBV_REPO') or str(__import__('pathlib').Path(__file__).resolve().parents[4])
+spec = importlib.util.spec_from_file_location("v1", R + "/.internal/evidence/scripts/smt_solver/evaluate_original.py")
 v1 = importlib.util.module_from_spec(spec); spec.loader.exec_module(v1)
 root = sys.argv[1]; hits = 0; n = 0
 def walk(t, decl, acc):

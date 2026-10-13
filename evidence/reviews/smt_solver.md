@@ -1,5 +1,9 @@
 # smt_solver: critical re-verification
 
+> **Note (2026-10-12).** Two statements below are superseded. (1) "6.21 points (0.0621 normalized)": 0.0621 is the raw score on the 0–1 scale; normalized (out of 100) it is 6.21. (2) "an accepted witness is a genuine model": Lean proves only that a model exists when the checker accepts; the original grader accepts `unused_conflict`, whose witness is not a function (`repairs/smt_solver-v2/paired/results.md`, mini cases).
+
+> **Note (2026-10-12, later).** Superseded below: "timeouts … were only spot-checked". The grader runs 16 solver processes at once under a 60 s wall-clock timeout. The official leaderboard configs give the smt_solver grader 16 CPUs (`judge_cpu_limit: 16`), one per process; on a grader with fewer CPUs each problem gets proportionally less CPU, and at 4 CPUs a solver needing 20 s of CPU per problem timed out on a 32-problem subset (`evidence/runs/smt_solver-cpu4v8-a`, `-b`). This is recorded as a note on `cases/smt_solver.md`, not as part of the fix.
+
 ## Claim under review
 
 Earlier finding (`docs/FINDINGS.md`, "SMT Solver"; `evidence/selected/12-finding-decisions.json`,

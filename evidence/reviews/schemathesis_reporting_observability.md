@@ -1,5 +1,16 @@
 # Review: schemathesis_reporting_observability
 
+> **Note (2026-10-12).** "Correct solutions are never penalized" holds for the implementations tested
+> (one complete implementation and two `junit_xml`-based writers). The fixed JUnit test also
+> requires a suite named exactly `schemathesis`, exactly one test case and no `<failure>` or
+> `<skipped>`, and `TODO.md` does not name the suite. The 2.4% is the original's wrong credit; the
+> fixed version can move one submission's score by up to 4.76 points down or 1.33 up (superseded: see the later note below). See
+> `cases/schemathesis_reporting_observability.md`.
+>
+> **Note (2026-10-12, later).** The fixed JUnit test was revised: it no longer requires the suite
+> name, a single test case, or the absence of `<failure>`/`<skipped>`. The original test also fails
+> a correct writer whose suite has another name. The rise bound is now 2.76 points for good-faith work; a rise reaches 4.76 only if a submission makes `GeneratedValue` unimportable.
+
 ## Claim under review
 
 > "The JUnit check accepts malformed output, and the coverage filter can miss forced wrong generation behavior."

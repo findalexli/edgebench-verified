@@ -56,17 +56,20 @@ kernel accepts a claim only with a complete proof, and which lists the axioms ea
 the real grader code by a source-line mapping and the file's fingerprint, is checked against saved
 outputs of the real code wherever possible, has a counter-check that must fail, and states its limits.
 
-26 of the 51 tasks have formal results. For 12 of the 22 fixes the fix itself is proved correct within
-its model, and one more is partly proved. The formal checks found that the first College English fix was
-narrower than published (since revised, re-proved and re-tested) and led to eight wording corrections.
+26 of the 51 tasks have formal results. For 10 of the 31 fixes the fix itself is proved correct, or
+exhaustively model-checked within stated bounds, within its model; four more are partly proved. The CPU limits added to several fixes are checked
+by runs, not formally. The
+formal checks found that the first College English fix was narrower than published (since revised,
+re-proved and re-tested) and led to eight corrections
+([evidence/formal/CORRECTIONS.md](evidence/formal/CORRECTIONS.md)).
 Every result, its limit and its note: [evidence/formal/SUMMARY.md](evidence/formal/SUMMARY.md).
 
 ## Outcomes
 
 | Outcome | Meaning |
 | --- | --- |
-| **Kept, with a note** | No problem that changes an honest agent's score enough to matter. Smaller issues, openly stated design choices and run conditions are recorded in a note. |
-| **Fixed** | A problem that changes scores and can be fixed. A new version of the task is published in EdgeBench's own format. Scores from it are not comparable with the original. |
+| **Kept, with a note** | No correctable problem. What varies is run-to-run or machine noise that no change to the grader removes, or an issue too small to change a score; it is recorded in a note with its size, or marked unmeasured. The largest is ANN Vector Search, about ±7 of 100 points per grading. |
+| **Fixed** | A problem in the grader's logic, data or setup that changes scores and can be corrected, however small the effect (the smallest bounded effect, Portfolio Risk, is at most 0.39 points up or 0.10 down, from a decimal sweep, not a proof). A new version of the task is published in EdgeBench's own format. Scores from it are not comparable with the original. |
 | **Removed** | A problem that changes scores and has no sound fix. |
 
 ## How a fix is accepted
@@ -89,23 +92,34 @@ such as the maximum possible raw result.
 
 ## Repeatability
 
-Every side-by-side test was run three times on fresh machines. Across 132 graded comparisons in 22
-fixed tasks, no outcome changed. Graders without randomness or timing reproduce exactly. Scores
+All but one side-by-side comparison were run three times. Across 206 graded comparisons, covering 30
+fixed tasks and the removed task's partial fix (205 of them run three times; 2 setup runs that prepare
+inputs are not counted), one outcome changed, under the original grader: at 4 CPUs, Vibrating Path's valid deadline-based test submission timed out on 14 cases in one of its nine original-grader gradings, the timing problem the fix removes. No fixed-grader outcome changed. Exceptions: OpenRCT2's fix changes only its instructions and has nothing to run; Lean Analysis repeats ran locally rather than on fresh machines; Integer Codec's final 0–100 scale was applied to the recorded raw results; the revised College English grader was itself run three times; and the Rust starter's fixed-version score was run once, because each run takes about 40 minutes and nearly fills the machine's disk. Graders without randomness or timing reproduce exactly. Scores
 based on speed move between runs, by up to 38% for Exchange Core, but no outcome changed. Details:
 [data/paired-repeatability.md](data/paired-repeatability.md).
 
 ## Effect on the published leaderboard
 
-[IMPACT.md](IMPACT.md) applies the findings to EdgeBench's published per-task scores. It corrects
-changes of scale exactly, and gives the rest as a range, because the original submissions are not
+[IMPACT.md](IMPACT.md) applies the findings to EdgeBench's published per-task scores. It recomputes
+exactly the two changes of scale and the removal of D-ABIC, and gives the rest as a range, because the original submissions are not
 public.
 
 ## Limits
 
-- **No AI models were rerun.** Effects are measured with test submissions we wrote, not with
-  historical leaderboard submissions or new model runs.
-- **One machine type.** Side-by-side tests ran on machines with 8 virtual CPUs and 8 GiB of memory.
+- **No AI models were rerun.** Effects are measured with test submissions we wrote. The only real
+  agent submissions used are from one third-party run of one model: for 2 fixed tasks they were
+  regraded with both graders (`evidence/runs/opus55-regrade/`). The leaderboard's own submissions
+  are not public.
+- **Machines.** Most side-by-side tests ran on E2B cloud sandboxes with 8 virtual CPUs and 8 GiB of
+  memory; Lean Analysis ran on a local host with 16 CPUs and 15 GB. The grader was limited to the
+  CPU count each case page states, from 1 to 8. Where the grader's CPU count was varied (4 against
+  8), the case page reports both. The CPU count EdgeBench's leaderboard gives each grader is quoted
+  in [evidence/impact/edgebench-leaderboard-config.md](evidence/impact/edgebench-leaderboard-config.md).
   Speed-based scores may move further on other hardware.
+- **The harness is EdgeBench's.** The grading code in `sforge/` is EdgeBench's, byte for byte
+  (`tools/check_upstream.py`). Two of its three rules for picking a run's best submission
+  (`score_first` and `pass_rate_first`) ignore whether a result was marked invalid; only the third
+  (`valid_then_score`) drops results marked `valid: false`.
 - **Partial checks.** Some findings rest on reading the grader's code or on exact arithmetic,
   rather than a full run of the grader. Their case pages say so.
 - **Reviewed by AI agents.** Every published claim is tied to a saved evidence file, but agreement

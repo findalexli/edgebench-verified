@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # new_foundations_consistency: verbatim eval_cmd on the unmodified starter WITH network (default bridge),
-# as the maintained harness runs the judge container. One container, 4g/2cpu, timeout 3600.
+# as EdgeBench's harness runs the judge container (run_evaluation.py applies no network restriction). One container, 4g/2cpu, timeout 3600.
 set -uo pipefail
 exec 9>/tmp/ebv-heavy.lock && flock -w 7200 9 || { echo "LOCK TIMEOUT"; exit 5; }
 export DOCKER_CONFIG="${DOCKER_CONFIG_EMPTY:?}"

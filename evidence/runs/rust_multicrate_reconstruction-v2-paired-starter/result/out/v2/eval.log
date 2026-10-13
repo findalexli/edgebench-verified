@@ -1,0 +1,510 @@
+cargo 1.88.0 (873a06493 2025-05-10)
+rustc 1.88.0 (6b00bc388 2025-06-23)
+Loaded manifest: 795 hidden test names across 14 crates
+CAS Benchmark Scorer
+Workspace: agent-start
+Hidden sources: /tmp/cas_eval/run/hidden-tests/hidden-sources
+Timeout: 1800s/crate, 14400s total
+
+
+=== Public Tests (agent workspace) ===
+  [public] Testing cas-types... TEST_FAIL (1/136) in 11.1s
+  [public] Testing cas-code... TEST_FAIL (0/50) in 10.2s
+  [public] Testing cas-factory-protocol... TEST_FAIL (10/98) in 22.6s
+  [public] Testing cas-diffs... TEST_FAIL (9/98) in 18.2s
+  [public] Testing cas-pty... TEST_FAIL (1/11) in 11.1s
+  [public] Testing cas-recording... TEST_FAIL (0/29) in 11.3s
+  [public] Testing cas-store... TEST_FAIL (2/216) in 26.4s
+  [public] Testing cas-search... TEST_FAIL (5/136) in 47.2s
+  [public] Testing cas-core... TEST_FAIL (14/201) in 19.5s
+  [public] Testing cas-mux... TEST_FAIL (0/37) in 19.4s
+  [public] Testing cas-factory... TEST_FAIL (7/134) in 25.2s
+  [public] Testing cas-mcp... TEST_FAIL (9/16) in 25.6s
+  [public] Testing cas-tui-test... TEST_FAIL (3/105) in 6.5s
+  [public] Testing cas-cli... TEST_FAIL (65/1344) in 140.7s
+
+=== Creating hidden-test workspace at /tmp/cas-hidden-inject-9ly32kvf/ws ===
+  Injected 833 hidden test snippets
+
+=== Combined Tests (agent code + public and hidden tests) ===
+  [combined] Testing cas-types... TEST_FAIL (1/136) in 11.7s
+  [combined] Testing cas-code... TEST_FAIL (0/50) in 13.6s
+  [combined] Testing cas-factory-protocol... TEST_FAIL (14/98) in 23.4s
+  [combined] Testing cas-diffs... TEST_FAIL (12/98) in 18.3s
+  [combined] Testing cas-pty... TEST_FAIL (2/11) in 11.1s
+  [combined] Testing cas-recording... TEST_FAIL (1/29) in 11.4s
+  [combined] Testing cas-store... TEST_FAIL (2/216) in 24.9s
+  [combined] Testing cas-search... COMPILE_FAIL_ROOT (0/136) in 41.9s
+  [combined] Testing cas-core... TEST_FAIL (18/201) in 18.4s
+  [combined] Testing cas-mux... TEST_FAIL (0/37) in 17.3s
+  [combined] Testing cas-factory... TEST_FAIL (11/134) in 22.0s
+  [combined] Testing cas-mcp... TEST_FAIL (14/16) in 24.6s
+  [combined] Testing cas-tui-test... TEST_FAIL (3/105) in 6.0s
+  [combined] Testing cas-cli... TEST_FAIL (92/1344) in 139.0s
+
+Results written to /tmp/cas_eval/run/score-results.json
+
+Final Score: 5.1059/100.0
+RAW_PASSED=170
+RAW_TOTAL=2611
+WEIGHTED_PASSED=5.1059
+WEIGHTED_TOTAL=100.0
+SCORE=5.1059
+SCORE_STATUS=OK
+>>>>> Start Structured Result
+{
+  "details": [
+    {
+      "message": "score=5.1059; status=OK; raw_passed=170; raw_total=2611; pass_rate=0.065109",
+      "name": "overall_score",
+      "score": 5.1059,
+      "status": "PASSED",
+      "weight": 1.0
+    },
+    {
+      "message": "raw_passed=170; raw_total=2611; pass_rate=0.065109",
+      "name": "raw_test_pass_rate",
+      "score": 6.510915358100345,
+      "status": "FAILED",
+      "weight": 1.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=1; total=136; crates=cas-types",
+      "name": "layer_L0",
+      "score": 0.0956,
+      "status": "FAILED",
+      "weight": 13.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=0; total=50; crates=cas-code",
+      "name": "layer_L1",
+      "score": 0.0,
+      "status": "FAILED",
+      "weight": 8.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=26; total=196; crates=cas-factory-protocol, cas-diffs",
+      "name": "layer_L2",
+      "score": 1.3265,
+      "status": "FAILED",
+      "weight": 10.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=3; total=40; crates=cas-pty, cas-recording",
+      "name": "layer_L3",
+      "score": 0.3,
+      "status": "FAILED",
+      "weight": 4.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=2; total=216; crates=cas-store",
+      "name": "layer_L4",
+      "score": 0.1389,
+      "status": "FAILED",
+      "weight": 15.0
+    },
+    {
+      "message": "status=COMPILE_FAIL_ROOT; passed=0; total=136; crates=cas-search",
+      "name": "layer_L5",
+      "score": 0.0,
+      "status": "FAILED",
+      "weight": 12.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=18; total=201; crates=cas-core",
+      "name": "layer_L6",
+      "score": 1.3433,
+      "status": "FAILED",
+      "weight": 15.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=11; total=171; crates=cas-mux, cas-factory",
+      "name": "layer_L7",
+      "score": 0.5146,
+      "status": "FAILED",
+      "weight": 8.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=17; total=121; crates=cas-mcp, cas-tui-test",
+      "name": "layer_L8",
+      "score": 0.7025,
+      "status": "FAILED",
+      "weight": 5.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=92; total=1344; crates=cas-cli",
+      "name": "layer_L9",
+      "score": 0.6845,
+      "status": "FAILED",
+      "weight": 10.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=1; total=136; public_passed=1; public_failed=95; hidden_passed=0; hidden_failed=39",
+      "name": "crate_cas-types",
+      "score": 0.7352941176470589,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=0; total=50; public_passed=0; public_failed=35; hidden_passed=0; hidden_failed=14",
+      "name": "crate_cas-code",
+      "score": 0.0,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=14; total=98; public_passed=10; public_failed=56; hidden_passed=4; hidden_failed=27",
+      "name": "crate_cas-factory-protocol",
+      "score": 14.285714285714286,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=12; total=98; public_passed=9; public_failed=67; hidden_passed=3; hidden_failed=10",
+      "name": "crate_cas-diffs",
+      "score": 12.244897959183673,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=2; total=11; public_passed=1; public_failed=5; hidden_passed=1; hidden_failed=4",
+      "name": "crate_cas-pty",
+      "score": 18.181818181818183,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=1; total=29; public_passed=0; public_failed=20; hidden_passed=1; hidden_failed=4",
+      "name": "crate_cas-recording",
+      "score": 3.4482758620689653,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=2; total=216; public_passed=2; public_failed=150; hidden_passed=0; hidden_failed=64",
+      "name": "crate_cas-store",
+      "score": 0.9259259259259259,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=COMPILE_FAIL_ROOT; passed=0; total=136; public_passed=0; public_failed=0; hidden_passed=0; hidden_failed=0",
+      "name": "crate_cas-search",
+      "score": 0.0,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=18; total=201; public_passed=14; public_failed=121; hidden_passed=4; hidden_failed=52",
+      "name": "crate_cas-core",
+      "score": 8.955223880597014,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=0; total=37; public_passed=0; public_failed=26; hidden_passed=0; hidden_failed=11",
+      "name": "crate_cas-mux",
+      "score": 0.0,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=11; total=134; public_passed=7; public_failed=87; hidden_passed=4; hidden_failed=33",
+      "name": "crate_cas-factory",
+      "score": 8.208955223880597,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=14; total=16; public_passed=9; public_failed=1; hidden_passed=5; hidden_failed=1",
+      "name": "crate_cas-mcp",
+      "score": 87.5,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=3; total=105; public_passed=3; public_failed=71; hidden_passed=0; hidden_failed=28",
+      "name": "crate_cas-tui-test",
+      "score": 2.857142857142857,
+      "status": "FAILED",
+      "weight": 0.0
+    },
+    {
+      "message": "status=TEST_FAIL; passed=92; total=1344; public_passed=65; public_failed=821; hidden_passed=27; hidden_failed=344",
+      "name": "crate_cas-cli",
+      "score": 6.845238095238095,
+      "status": "FAILED",
+      "weight": 0.0
+    }
+  ],
+  "metrics": {
+    "crates": [
+      {
+        "crate": "cas-types",
+        "hidden_failed": 39,
+        "hidden_passed": 0,
+        "passed": 1,
+        "public_failed": 95,
+        "public_passed": 1,
+        "status": "TEST_FAIL",
+        "total": 136
+      },
+      {
+        "crate": "cas-code",
+        "hidden_failed": 14,
+        "hidden_passed": 0,
+        "passed": 0,
+        "public_failed": 35,
+        "public_passed": 0,
+        "status": "TEST_FAIL",
+        "total": 50
+      },
+      {
+        "crate": "cas-factory-protocol",
+        "hidden_failed": 27,
+        "hidden_passed": 4,
+        "passed": 14,
+        "public_failed": 56,
+        "public_passed": 10,
+        "status": "TEST_FAIL",
+        "total": 98
+      },
+      {
+        "crate": "cas-diffs",
+        "hidden_failed": 10,
+        "hidden_passed": 3,
+        "passed": 12,
+        "public_failed": 67,
+        "public_passed": 9,
+        "status": "TEST_FAIL",
+        "total": 98
+      },
+      {
+        "crate": "cas-pty",
+        "hidden_failed": 4,
+        "hidden_passed": 1,
+        "passed": 2,
+        "public_failed": 5,
+        "public_passed": 1,
+        "status": "TEST_FAIL",
+        "total": 11
+      },
+      {
+        "crate": "cas-recording",
+        "hidden_failed": 4,
+        "hidden_passed": 1,
+        "passed": 1,
+        "public_failed": 20,
+        "public_passed": 0,
+        "status": "TEST_FAIL",
+        "total": 29
+      },
+      {
+        "crate": "cas-store",
+        "hidden_failed": 64,
+        "hidden_passed": 0,
+        "passed": 2,
+        "public_failed": 150,
+        "public_passed": 2,
+        "status": "TEST_FAIL",
+        "total": 216
+      },
+      {
+        "crate": "cas-search",
+        "hidden_failed": 0,
+        "hidden_passed": 0,
+        "passed": 0,
+        "public_failed": 0,
+        "public_passed": 0,
+        "status": "COMPILE_FAIL_ROOT",
+        "total": 136
+      },
+      {
+        "crate": "cas-core",
+        "hidden_failed": 52,
+        "hidden_passed": 4,
+        "passed": 18,
+        "public_failed": 121,
+        "public_passed": 14,
+        "status": "TEST_FAIL",
+        "total": 201
+      },
+      {
+        "crate": "cas-mux",
+        "hidden_failed": 11,
+        "hidden_passed": 0,
+        "passed": 0,
+        "public_failed": 26,
+        "public_passed": 0,
+        "status": "TEST_FAIL",
+        "total": 37
+      },
+      {
+        "crate": "cas-factory",
+        "hidden_failed": 33,
+        "hidden_passed": 4,
+        "passed": 11,
+        "public_failed": 87,
+        "public_passed": 7,
+        "status": "TEST_FAIL",
+        "total": 134
+      },
+      {
+        "crate": "cas-mcp",
+        "hidden_failed": 1,
+        "hidden_passed": 5,
+        "passed": 14,
+        "public_failed": 1,
+        "public_passed": 9,
+        "status": "TEST_FAIL",
+        "total": 16
+      },
+      {
+        "crate": "cas-tui-test",
+        "hidden_failed": 28,
+        "hidden_passed": 0,
+        "passed": 3,
+        "public_failed": 71,
+        "public_passed": 3,
+        "status": "TEST_FAIL",
+        "total": 105
+      },
+      {
+        "crate": "cas-cli",
+        "hidden_failed": 344,
+        "hidden_passed": 27,
+        "passed": 92,
+        "public_failed": 821,
+        "public_passed": 65,
+        "status": "TEST_FAIL",
+        "total": 1344
+      }
+    ],
+    "layers": [
+      {
+        "crates": [
+          "cas-types"
+        ],
+        "layer": "L0",
+        "passed": 1,
+        "score": 0.0956,
+        "status": "TEST_FAIL",
+        "total": 136
+      },
+      {
+        "crates": [
+          "cas-code"
+        ],
+        "layer": "L1",
+        "passed": 0,
+        "score": 0.0,
+        "status": "TEST_FAIL",
+        "total": 50
+      },
+      {
+        "crates": [
+          "cas-factory-protocol",
+          "cas-diffs"
+        ],
+        "layer": "L2",
+        "passed": 26,
+        "score": 1.3265,
+        "status": "TEST_FAIL",
+        "total": 196
+      },
+      {
+        "crates": [
+          "cas-pty",
+          "cas-recording"
+        ],
+        "layer": "L3",
+        "passed": 3,
+        "score": 0.3,
+        "status": "TEST_FAIL",
+        "total": 40
+      },
+      {
+        "crates": [
+          "cas-store"
+        ],
+        "layer": "L4",
+        "passed": 2,
+        "score": 0.1389,
+        "status": "TEST_FAIL",
+        "total": 216
+      },
+      {
+        "crates": [
+          "cas-search"
+        ],
+        "layer": "L5",
+        "passed": 0,
+        "score": 0.0,
+        "status": "COMPILE_FAIL_ROOT",
+        "total": 136
+      },
+      {
+        "crates": [
+          "cas-core"
+        ],
+        "layer": "L6",
+        "passed": 18,
+        "score": 1.3433,
+        "status": "TEST_FAIL",
+        "total": 201
+      },
+      {
+        "crates": [
+          "cas-mux",
+          "cas-factory"
+        ],
+        "layer": "L7",
+        "passed": 11,
+        "score": 0.5146,
+        "status": "TEST_FAIL",
+        "total": 171
+      },
+      {
+        "crates": [
+          "cas-mcp",
+          "cas-tui-test"
+        ],
+        "layer": "L8",
+        "passed": 17,
+        "score": 0.7025,
+        "status": "TEST_FAIL",
+        "total": 121
+      },
+      {
+        "crates": [
+          "cas-cli"
+        ],
+        "layer": "L9",
+        "passed": 92,
+        "score": 0.6845,
+        "status": "TEST_FAIL",
+        "total": 1344
+      }
+    ],
+    "raw_passed": 170,
+    "raw_total": 2611,
+    "score_lines": [
+      "RAW_PASSED=170",
+      "RAW_TOTAL=2611",
+      "WEIGHTED_PASSED=5.1059",
+      "WEIGHTED_TOTAL=100.0",
+      "SCORE=5.1059",
+      "SCORE_STATUS=OK"
+    ],
+    "score_status": "OK",
+    "total_duration_sec": 383.68,
+    "weighted_passed": 5.1059,
+    "weighted_total": 100.0
+  },
+  "pass_rate": 0.06510915358100344,
+  "score": 5.1059,
+  "summary": "score=5.1059; status=OK; raw_passed=170; raw_total=2611; pass_rate=0.065109",
+  "valid": true
+}
+>>>>> End Structured Result
+EVAL_CMD_EXIT=0

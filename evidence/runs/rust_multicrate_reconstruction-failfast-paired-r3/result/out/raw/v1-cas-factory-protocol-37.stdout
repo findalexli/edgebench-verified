@@ -1,0 +1,104 @@
+codec::tests::test_binary_data_roundtrip: test
+codec::tests::test_compression_reduces_size: test
+codec::tests::test_framed_encoding: test
+codec::tests::test_large_message_compressed: test
+codec::tests::test_playback_message_roundtrip: test
+codec::tests::test_raw_encode_decode: test
+codec::tests::test_roundtrip_client_message: test
+codec::tests::test_roundtrip_server_message: test
+codec::tests::test_small_message_uncompressed: test
+compression::tests::test_decompress_empty_fails: test
+compression::tests::test_decompress_invalid_prefix: test
+compression::tests::test_empty_data: test
+compression::tests::test_incompressible_data_stays_uncompressed: test
+compression::tests::test_large_data_compressed: test
+compression::tests::test_roundtrip_large: test
+compression::tests::test_roundtrip_random_data: test
+compression::tests::test_roundtrip_small: test
+compression::tests::test_small_data_not_compressed: test
+compression::tests::test_threshold_boundary: test
+messages::tests::cases::test_batch_empty: test
+messages::tests::cases::test_batch_message_serde: test
+messages::tests::cases::test_boot_agent_progress_serde: test
+messages::tests::cases::test_boot_complete_serde: test
+messages::tests::cases::test_boot_progress_serde: test
+messages::tests::cases::test_cache_row_serde: test
+messages::tests::cases::test_client_message_serde: test
+messages::tests::cases::test_client_message_with_auth_token: test
+messages::tests::cases::test_client_pong_serde: test
+messages::tests::cases::test_connection_health_message_serde: test
+messages::tests::cases::test_connection_quality_serde: test
+messages::tests::cases::test_pane_rows_update_serde: test
+messages::tests::cases::test_pane_snapshot_with_cache_rows: test
+messages::tests::cases::test_pane_snapshot_without_cache_rows_backward_compatible: test
+messages::tests::cases::test_reconnect_accepted_message_serde: test
+messages::tests::cases::test_reconnect_message_serde: test
+messages::tests::cases::test_row_data_serde: test
+messages::tests::cases::test_scroll_with_cache_window: test
+messages::tests::cases::test_scroll_without_cache_window_backward_compatible: test
+messages::tests::cases::test_scroll_zero_cache_window_skipped: test
+messages::tests::cases::test_server_message_serde: test
+messages::tests::cases::test_server_ping_serde: test
+messages::tests::cases::test_style_run_helpers: test
+messages::tests::cases::test_terminal_snapshot_empty: test
+transport::tests::test_binary_data_transport: test
+transport::tests::test_protocol_handshake: test
+transport::tests::test_send_recv_roundtrip: test
+transport::tests::test_unsplit_send_recv: test
+
+47 tests, 0 benchmarks
+edge_cases::test_empty_snapshots_map: test
+edge_cases::test_empty_string_fields: test
+edge_cases::test_empty_terminal_snapshot: test
+edge_cases::test_empty_vec_fields: test
+edge_cases::test_large_prompt_text: test
+edge_cases::test_large_terminal_data: test
+edge_cases::test_large_terminal_snapshot: test
+edge_cases::test_many_worker_names: test
+edge_cases::test_terminal_escape_sequences: test
+edge_cases::test_unicode_codepoints_in_cells: test
+edge_cases::test_unicode_strings: test
+enums_and_nested::test_all_client_type_variants: test
+enums_and_nested::test_all_error_code_variants: test
+enums_and_nested::test_all_pane_kind_variants: test
+enums_and_nested::test_all_session_mode_variants: test
+enums_and_nested::test_all_style_flag_combinations: test
+enums_and_nested::test_full_director_data: test
+enums_and_nested::test_full_session_state: test
+enums_and_nested::test_multiple_pane_snapshots: test
+enums_and_nested::test_playback_metadata: test
+errors_and_boundaries::test_decode_empty_bytes: test
+errors_and_boundaries::test_decode_extra_bytes_appended: test
+errors_and_boundaries::test_decode_invalid_msgpack: test
+errors_and_boundaries::test_decode_truncated_message: test
+errors_and_boundaries::test_decode_wrong_message_type: test
+errors_and_boundaries::test_extreme_color_values: test
+errors_and_boundaries::test_max_u16_dimensions: test
+errors_and_boundaries::test_max_u32_ping_id: test
+errors_and_boundaries::test_max_u64_timestamp: test
+errors_and_boundaries::test_playback_speed_edge_values: test
+framed_and_rows::test_frame_length_accuracy: test
+framed_and_rows::test_framed_encoding_all_message_types: test
+framed_and_rows::test_pane_rows_update_incremental: test
+framed_and_rows::test_pane_rows_update_unicode_styles: test
+framed_and_rows::test_pane_rows_update_with_styles: test
+framed_and_rows::test_protocol_version_constant: test
+web_flow::test_batch_mixed_messages: test
+web_flow::test_batch_with_pane_output: test
+web_flow::test_client_capabilities_raw_pty: test
+web_flow::test_connection_health_message: test
+web_flow::test_ping_pong_keepalive: test
+web_flow::test_raw_pty_output_large_compressed: test
+web_flow::test_raw_pty_output_small: test
+web_flow::test_raw_pty_output_with_ansi_codes: test
+web_flow::test_reconnect_flow: test
+
+45 tests, 0 benchmarks
+crates/cas-factory-protocol/src/codec.rs - codec::decode (line 58): test
+crates/cas-factory-protocol/src/codec.rs - codec::encode (line 40): test
+crates/cas-factory-protocol/src/compression.rs - compression::compress (line 56): test
+crates/cas-factory-protocol/src/compression.rs - compression::decompress (line 101): test
+crates/cas-factory-protocol/src/lib.rs - (line 16): test
+crates/cas-factory-protocol/src/transport.rs - transport (line 7): test
+
+6 tests, 0 benchmarks

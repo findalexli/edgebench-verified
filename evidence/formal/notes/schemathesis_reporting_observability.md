@@ -2,10 +2,14 @@
 
 ## Claim
 
-1. The original deny-case body test cannot fail: it filters on a class that the coverage generator
-   never yields. The fixed test can fail, and it rejects the starter's behaviour.
+1. The original deny-case body test cannot fail, given that the coverage generator yields only
+   values of the coverage module's class (observed: 12 of 12 on the starter, not proved): it filters
+   on the `negative` module's class instead. The fixed test can fail, and it rejects the starter's
+   behaviour.
 2. The published score changes are exact: −1/70, −1/120, −1/60, +1/200 and −13/1400. So are the
-   bounds of 1/70 (JUnit test) and 1/100 (a Phase 5 test).
+   per-test weights of 1/70 (JUnit test) and 1/100 (a Phase 5 test). These weights bound the
+   original's wrong credit. The largest change the fixed version can make to one submission (4.76
+   points down, 2.76 up) is computed from the same weights on the case page and is not in Lean.
 
 ## Model and link to the code
 

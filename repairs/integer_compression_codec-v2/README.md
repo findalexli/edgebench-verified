@@ -15,8 +15,9 @@ defined as `1.0`." The grader (`runner_judge.py`) instead divides by constants s
 `internal/baseline/baseline_results.json`. Those constants cannot come from the starter. Five of
 the stored "Varint" bits-per-integer values are below 8, which no byte-oriented varint can reach (it needs at least one byte, 8 bits, per value).
 The stored throughputs come from another machine. On the grading path the unchanged starter
-therefore scores about 0.24 instead of 1.0. The effective weights of the datasets differ from the
-published weights by up to 6.7x relative to one another.
+therefore scores about 0.24 instead of 1.0. The compression terms alone are off by up to 6.7x relative to one another; with the speed term,
+the starter's per-dataset scores (all 1.0 by definition) span 0.078 to 0.647 in the paired run, so the
+effective weights of the datasets differ from the published weights by about 7–9x relative to one another.
 
 ### Exact change
 
@@ -54,7 +55,7 @@ timings under the same conditions. The cost is roughly 20 s more per grading on 
 Scores from the fixed version are **not comparable** with scores from the original for any submission. For
 every submission, each per-dataset score changes by the factor
 `(starter_bpi_measured / stored_bpi) x (stored_gbps / starter_gbps_measured)`. On the E2B worker this factor
-ranged from about 1.5x (rand) to about 12x (ts_sec), so rankings between solutions that trade off across datasets can
+ranged from about 1.5x (rand) to about 13x (ts_sec) in the paired run, so rankings between solutions that trade off across datasets can
 change. Failing submissions still score 0.
 
 ### Why the score scale changes
@@ -96,9 +97,9 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
 ## Limits
 
 - **Dependence on the machine and timing noise remain.** The speed term is now a ratio of times on the same machine, so it no longer
-  depends on an unknown reference machine. But it is still a wall-clock measurement. On one 8-vCPU E2B
-  worker the starter scored 0.979 and 1.016 in two runs of the fixed version (per-dataset ratios 0.93 to 1.07). The
-  honest delta-zigzag-varint codec scored 6.70 and 6.97 (about ±2% around the mean). The
+  depends on an unknown reference machine. But it is still a wall-clock measurement. Over six runs of the fixed
+  version in three separate E2B jobs, the starter scored 0.97 to 1.06 (per-dataset ratios 0.84 to 1.14) and the
+  honest delta-zigzag-varint codec 6.70 to 8.27 (about ±10% around 7.42); see `data/paired-repeatability.md`. The
   starter's own measured throughput moved by up to about 18% between runs (grid 0.789 vs 0.646 GB/s),
   but running the two back to back cancels most of that. The compression term is exact and repeatable.
 - The starter is measured once per dataset (best of 5 decodes, as for the submission). Taking the

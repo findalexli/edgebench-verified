@@ -8,14 +8,14 @@ The solver places one rectangle per company on a 10000x10000 grid. The task stat
 
 ## What we checked
 
-There is no problem that changes scores enough to matter. We checked the rules that decide whether an output is legal:
+There is no problem that changes scores. We checked the rules that decide whether an output is legal:
 
 - Shared edges and shared corners are accepted. For example, the test outputs `edge_touch` and `corner_touch` each scored `Score = 1000000000`, the same as the independent reference implementation (the "oracle").
 - Any overlap with positive area is rejected when the later-indexed rectangle of the pair contains its own point. This includes a single unit cell, a contained rectangle and identical rectangles. Each was reported as `wrong answer`, with overlap as the reason.
 - Bounds, positive area and point containment are checked exactly.
 - A timeout, runtime error or wrong answer scores 0 for that case. The case is still listed and is never silently dropped. This matches the AHC001 system-test rule.
 
-One ordering quirk, inherited from the contest code, does not change scores. The grader and the oracle disagree on 1 of 23 hand-written outputs. That output contains a rectangle that misses its own point, so it already scores p_i = 0. Whether its overlap is checked depends on the order of the output. The official AHC001 code behaves the same way, and the affected output gains nothing.
+One ordering quirk, inherited from the contest code, gives an honest solver nothing. The grader and the oracle disagree on 1 of 23 hand-written outputs. That output contains a rectangle that misses its own point, so it already scores p_i = 0. Whether its overlap is checked depends on the order of the output. The official AHC001 code behaves the same way. The overlap itself earns nothing; the most a solver could gain is room it would otherwise have to free, which a valid output can recover at a cost of at most about 0.004 points out of 100 per affected company per case (`evidence/reviews/ad_placement_optimization.md`, "Does it accept real overlaps?").
 
 The note says:
 
@@ -23,9 +23,14 @@ The note says:
 2. Two reference points of the 0–100 scale (the "rank30" and "rank1" points) come from AtCoder results on different inputs. Their source was not checked.
 3. The grader runs `min(nproc,2)` cases in parallel. `nproc` ignores a Docker CPU quota, and the task sets no `cpu_limit`. So the computing power available to a time-limited solver depends on how many CPUs the grader's machine gives it. The size of this effect was not measured.
 
+Not in the shipped note:
+
+- The 5 s limit is wall-clock time (`timeout 5` in `eval_ahc.sh`). A solver that budgets about 4.9 s of CPU time (for example with `clock()`) needs about 9.8 s of wall time when two cases share one CPU, and gets a timeout, which scores 0 for that case. A solver that budgets wall-clock time finished in time at `--cpus 1` (timing check below).
+- The task text states "Memory limit: 1 GB". The grader does not enforce it: `eval_ahc.sh` sets no memory limit and the task sets no `mem_limit`.
+
 ## How much it matters
 
-The largest score change for an honest solver is 0. The note items affect how scores should be read (public inputs, origin of the score scale, CPU allocation). They do not affect how any output is scored.
+The largest score change for an honest solver from the scoring rules is 0 (an output that exploits the ordering quirk gains at most about 0.004 points per affected company per case). The effect of CPU allocation is not measured: on a grader with less than 2 CPUs of quota, a solver that budgets CPU time rather than wall-clock time can time out on every case. The other note items (public inputs, origin of the score scale, unenforced memory limit) affect how scores should be read, not how any output is scored.
 
 ## How we checked it
 
@@ -52,7 +57,7 @@ The largest score change for an honest solver is 0. The note items affect how sc
 
 - No AI model or solver was run. Score effects are shown only on the test submissions and counterexamples we wrote.
 - The grader program was not rebuilt from source. That the source and the program behave the same is inferred from matching behaviour on every branch exercised.
-- No real optimizing solver was run, so the effect of CPU allocation on scores is not measured.
+- No real optimizing solver was run, so the effect of CPU allocation on scores is not measured. The timing check used a wall-clock spin, which cannot show the effect on a solver that budgets CPU time.
 - The origin of the rank30 and rank1 reference points, and whether they are comparable to seeds 0–49, was not checked.
 
 ## Reproduce

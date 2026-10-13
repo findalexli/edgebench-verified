@@ -1,5 +1,9 @@
 # Review: `molecular_self_assembly` (memory-limit enforcement)
 
+> **Note (2026-10-12).** Not covered below: the dependence of scores on the grader's CPU count (8 cases at once under a 30 s wall-clock limit on the published 4 grader CPUs). See `cases/molecular_self_assembly.md`.
+
+> **Note (2026-10-12, later).** The CPU dependence is now measured and fixed in a new version (`repairs/molecular_self_assembly-v2/`): the grader runs at most as many cases at once as its CPU quota. Measured at 4 and 8 CPUs (`evidence/runs/molecular_self_assembly-cpu4v8`, `molecular_self_assembly-v2-paired`). The memory findings below are unchanged and still ship as a note. See `cases/molecular_self_assembly.md`.
+
 Reviewer: Claude (critical re-verification pass), 2026-10-11. Independent rerun from the original image bytes; no E2B or cloud.
 
 ## Claim under review

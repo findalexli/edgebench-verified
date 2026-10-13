@@ -20,7 +20,7 @@ The `orient` function in the model is lines 11-19 of the source. `origGeom` and 
 
 **Proved.** The theorems are `fixed_iff_convex`, `fixed_iff_cross`, `fixedFlip_iff`, `fixed_flip_sound`, `fixed_subset_orig` and `fixed_complete`. The key step is the area identity s2 − s1 = s3 − s4. It shows that the two sign tests in the code imply that all four turns go the same way.
 
-The completeness claim needs a hypothesis that is not visible in the code: the guard `has_edge(a,b)` also rejects a convex flip when edge ab already exists. That can only happen in a mesh where ab crosses uv, which is not a valid triangulation. So "forbids no README-legal flip" holds for valid triangulations, which is what the README promises and what the v2 inputs are. On the folded original inputs this guard could in principle reject a convex flip. The saved `rule_check.jsonl` found no such edge.
+The completeness claim needs a hypothesis that is not visible in the code: the guard `has_edge(a,b)` also rejects a convex flip when edge ab already exists. That can only happen in a mesh where ab crosses uv, which is not a valid triangulation. So "forbids no README-legal flip" holds for valid triangulations, which is what the README promises and what the v2 inputs are. On the folded original inputs this guard does reject convex flips: 2, 1, 2, 2, 2, 19, 17, 24, 20 and 23 on hidden cases 0000–0009 (the `convex_flippable` counts in `flip_rules.jsonl` minus the `convex` counts in `v2/rule_check.jsonl`, whose test shares the guard). On the v2 inputs there are none.
 
 ## Counter-check
 
@@ -35,3 +35,6 @@ The completeness claim needs a hypothesis that is not visible in the code: the g
 - The model has not been run on the 512-point cases. Agreement there rests on the Python `rule_check.jsonl`.
 - `verifier.py`, `tester` and `gen.py` are not modelled. They call this method, as the review states.
 - Triangle orientation is not modelled, because `normalize_triangle` sorts the indices. "Positive area" is proved as nonzero |orient|.
+- The fixed version also runs at most as many cases at once as the grader has CPUs (added
+  2026-10-12). That change is not modelled: the proof covers the flip rule only. The parallelism
+  change is checked by paired runs (`cases/triangulation_coloring_optimization.md`).

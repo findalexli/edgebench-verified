@@ -39,7 +39,9 @@ parsing, perturbation, timeouts, scoring and the rest of the answer format.
 - **Minimal.** The checker already computed `arg_values` for its congruence check, and the fix
   keys values by them. The textual path is kept as a fallback.
 - **Sound.** An answer is accepted only if every assertion evaluates to true under a single-valued
-  interpretation of each function, so an accepted answer is still a genuine model. The
+  interpretation of each function. Lean proves that whenever the fixed checker accepts, the formula is
+  satisfiable (`fixed_sound`); the proved statement asserts that a model exists, not that the submitted
+  witness is itself one. The
   wrong-model test submissions in the side-by-side run test this direction (see results).
 
 **Score compatibility.**
@@ -64,7 +66,8 @@ A side-by-side run of the original and fixed graders on the same answers: [paire
   was used.
 - The "z3-proven not a model" status of the wrong-model answers depends on z3 4.13.0.0.
 - The spec text was not reworded. Its "canonical ground terms" wording now matches the checker.
-- Each test submission ran once on one E2B cloud machine.
+- Each side-by-side job was run three times on fresh E2B workers, with identical verdicts and scores
+  (`paired/results.md`, Limits).
 
 ## Build and use
 

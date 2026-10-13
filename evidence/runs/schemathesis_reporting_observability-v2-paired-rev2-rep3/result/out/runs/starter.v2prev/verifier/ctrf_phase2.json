@@ -1,0 +1,197 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T22:31:38.738047+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 14,
+            "passed": 0,
+            "failed": 14,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791844298574,
+            "stop": 1791844298737
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_02_reporting.py::test_reporting_module_available",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 105,
+                "start": 1791844298595,
+                "stop": 1791844298700,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:24: in test_reporting_module_available\n    pytest.fail(f\"Import failed: {_IMPORT_ERROR}\")\nE   Failed: Import failed: No module named 'schemathesis.reporting'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_ndjson_writer_context_manager",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298701,
+                "stop": 1791844298703,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:30: in test_ndjson_writer_context_manager\n    with NdjsonWriter(output=stream) as writer:\n         ^^^^^^^^^^^^\nE   NameError: name 'NdjsonWriter' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_ndjson_writer_context_manager_closes_file",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298704,
+                "stop": 1791844298706,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:42: in test_ndjson_writer_context_manager_closes_file\n    with NdjsonWriter(output=path) as writer:\n         ^^^^^^^^^^^^\nE   NameError: name 'NdjsonWriter' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_junitxml_writer_context_manager",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298707,
+                "stop": 1791844298709,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:52: in test_junitxml_writer_context_manager\n    with JunitXmlWriter(output=stream) as writer:\n         ^^^^^^^^^^^^^^\nE   NameError: name 'JunitXmlWriter' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_vcr_writer_context_manager_no_error",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298710,
+                "stop": 1791844298712,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:75: in test_vcr_writer_context_manager_no_error\n    with VcrWriter(output=StringIO(), config=OutputConfig()):\n         ^^^^^^^^^\nE   NameError: name 'VcrWriter' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_har_writer_context_manager_no_error",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844298712,
+                "stop": 1791844298715,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:82: in test_har_writer_context_manager_no_error\n    with HarWriter(output=StringIO(), config=OutputConfig()):\n         ^^^^^^^^^\nE   NameError: name 'HarWriter' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_vcr_writer_open_writes_header",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844298715,
+                "stop": 1791844298718,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:90: in test_vcr_writer_open_writes_header\n    with VcrWriter(output=stream, config=OutputConfig()) as writer:\n         ^^^^^^^^^\nE   NameError: name 'VcrWriter' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_get_command_representation_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298718,
+                "stop": 1791844298720,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:101: in test_get_command_representation_exists\n    from schemathesis.reporting import get_command_representation\nE   ModuleNotFoundError: No module named 'schemathesis.reporting'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_report_format_allure_enum",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298721,
+                "stop": 1791844298723,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:108: in test_report_format_allure_enum\n    assert hasattr(ReportFormat, \"ALLURE\")\nE   AssertionError: assert False\nE    +  where False = hasattr(<enum 'ReportFormat'>, 'ALLURE')",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_allure_field",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298724,
+                "stop": 1791844298726,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:116: in test_reports_config_allure_field\n    assert hasattr(config, \"allure\")\nE   AssertionError: assert False\nE    +  where False = hasattr(ReportsConfig(), 'allure')",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_update_allure_path",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844298726,
+                "stop": 1791844298729,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:124: in test_reports_config_update_allure_path\n    config.update(allure_path=\"/tmp/allure-results\")\nE   TypeError: ReportsConfig.update() got an unexpected keyword argument 'allure_path'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844298729,
+                "stop": 1791844298732,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:132: in test_reports_config_get_stable_path\n    path = config.get_stable_path(ReportFormat.VCR)\n           ^^^^^^^^^^^^^^^^^^^^^^\nE   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path_with_suffix",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298732,
+                "stop": 1791844298734,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:142: in test_reports_config_get_stable_path_with_suffix\n    path = config.get_stable_path(ReportFormat.VCR, suffix=\"abc12345\")\n           ^^^^^^^^^^^^^^^^^^^^^^\nE   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path_allure",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2,
+                "start": 1791844298735,
+                "stop": 1791844298737,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:150: in test_reports_config_get_stable_path_allure\n    path = config.get_stable_path(ReportFormat.ALLURE)\n           ^^^^^^^^^^^^^^^^^^^^^^\nE   AttributeError: 'ReportsConfig' object has no attribute 'get_stable_path'",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

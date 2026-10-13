@@ -1,0 +1,24 @@
+--- /home/workspace/judge/se-bmk-intern/pfr/PFR/WeakPFR.lean	2026-06-06 14:16:06.000000000 +0000
++++ /home/workspace/se-bmk-intern/pfr/PFR/WeakPFR.lean	2026-10-12 22:52:50.700292555 +0000
+@@ -94,7 +94,9 @@
+     (hX : Measurable X) (hY : Measurable Y) :
+     ∃ H : Submodule (ZMod 2) G, log (Nat.card H) < (1 + α) / 2 * (H[X; μ] + H[Y;μ']) ∧
+     H[H.mkQ ∘ X; μ] + H[H.mkQ ∘ Y; μ'] < α * (H[X; μ] + H[Y; μ']) := by
+-  sorry
++  let _ : MeasureSpace Ω := ⟨μ⟩
++  let _ : MeasureSpace Ω' := ⟨μ'⟩
++  exact app_ent_PFR' X Y hent hX hY
+ 
+ set_option linter.flexible false in
+ /-- If $G=\mathbb{F}_2^d$ and `X, Y` are `G`-valued random variables and $\alpha < 1$ then there is
+@@ -120,6 +122,10 @@
+       34 * d[H.mkQ ∘ X;μ # H.mkQ ∘ Y;μ'] := by
+   sorry
+ 
++/-- ebv bad control: proved by `sorry` -/
++lemma ebv_bad_sorry (hX : Measurable X) : H[X; μ] = 0 := by
++  sorry
++
+ end F2_projection
+ 
+ open MeasureTheory ProbabilityTheory Real Set

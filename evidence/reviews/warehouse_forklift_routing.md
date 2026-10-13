@@ -1,5 +1,9 @@
 # Review: warehouse_forklift_routing (CodeChef WAREHOUS adaptation)
 
+> **Note (2026-10-12).** "The maximum attainable normalized score is rescale(712.538) = 30.31" below is superseded: 30.31 is an upper bound at the exact raw bound, not an attainable score, and after the tester's 1-decimal display rounding the ceiling is 30.59 (`warehouse_lower_bound_lean.md`). The best reachable score is not known.
+
+> **Note (2026-10-12, later).** The fixed version now also runs at most as many inputs at once as the grader's CPU quota: at the publisher's 4 grader CPUs, 8 inputs at once left each about 75 s of CPU under the 150 s limit (`evidence/runs/warehouse_forklift_routing-v2-cpu4-a` to `-d`). The statement below that the time-budget result "does not depend on CPU speed" holds for the `sleep` submissions only. See `cases/warehouse_forklift_routing.md`.
+
 ## Claim under review
 
 TASKS.md row: "Historical source/math facts retained (L)". Earlier status: **Held**, with no follow-up. The hold record (`$W/audit/evidence/warehouse-source-review/implementation-hold.json`) is an automatic content-filter stop of a Codex agent that was preparing ordinary native controls. It records no defect. No native warehouse control had ever been run.
@@ -66,9 +70,9 @@ All scripts are in `evidence/scripts/warehouse_forklift_routing/` (see `SHA256SU
 |---|---|---|---|
 | control | `control_solution.py`: generic, honest, valid but not tuned (far-first placement, then sliding-puzzle retrieval) | 50/50 OK, `TOTAL_SCORE 46676.8`, 8 s | valid, score 46676.8, **normalized 0.0** (worse than baseline) |
 | control_rep | same | byte-identical stdout | identical |
-| starter | shipped `solution.py` (prints empty lines) | 50 WA, `score=inf` | **invalid** ("Malformed or nonfinite CASE record") |
-| one_bug | control with one honest bug (drops one final D in input 0000) | 49 OK, 1 WA, TOTAL inf | **invalid** |
-| time_budget | control plus sleep, using 13 s per test case (65 s per input) | 50 TLE, 421 s wall | **invalid** |
+| starter | shipped `solution.py` (prints empty lines) | 50 WA, `score=inf` | raw `inf`, **no score** |
+| one_bug | control with one honest bug (drops one final D in input 0000) | 49 OK, 1 WA, TOTAL inf | raw `inf`, **no score** |
+| time_budget | control plus sleep, using 13 s per test case (65 s per input) | 50 TLE, 421 s wall | raw `inf`, **no score** |
 | selection | score_first over all five | picks control | normalized 0.0 |
 
    For all 50 judge inputs, the native per-input tester scores equal my oracle's exact values rounded to 1 dp. The control's oracle total is 46676.9 (exact), against 46676.8 from the sum of rounded values.
@@ -96,11 +100,11 @@ There is only one forklift, so there are no vertex, swap or follow conflicts bet
 
 **H3: CONFIRMED.** Rounding each input to 1 dp shifts TOTAL by at most 50×0.05 = 2.5 raw. Near the realistic score range that is at most about 0.2 normalized points. Python's `%.1f` is deterministic, so it does not affect repeatability.
 
-**H4: CONFIRMED and sharpened.** Any TLE, RE or WA prints `score=inf`. `parse_score_sum` rejects nonfinite CASE values, so **one failed input invalidates the whole submission** (one_bug, time_budget). A failure can never score better than a valid answer: it never contributes 0 and is never dropped. This matches the README's "sum" (an infinite sum) and CodeChef's "non-AC on any file → non-AC". The only quirk is that the harness labels an honest WA as "Malformed or nonfinite CASE record". Scoring is deterministic: identical stdout on repeat, and the tester reads no time or randomness.
+**H4: CONFIRMED and sharpened.** Any TLE, RE or WA prints `score=inf`. The total is then `inf`: EdgeBench's harness keeps it as raw `inf`, `rescale_score` gives no score out of 100, and any finished submission wins under `minimize`, so **one failed input costs the whole submission** (one_bug, time_budget). A failure can never score better than a valid answer: it never contributes 0 and is never dropped. This matches the README's "sum" (an infinite sum) and CodeChef's "non-AC on any file → non-AC". Scoring is deterministic: identical stdout on repeat, and the tester reads no time or randomness.
 
 **H5: CONFIRMED and UPGRADED to a good-faith defect.** The prompt and README say "30 seconds per test case" and define test cases as the T=5 subcases of each input. The wrapper gives `TIME_LIMIT = 60` seconds to the whole input, which is 12 s per subcase on average, while running 8 inputs in parallel.
 
-An honest solver that budgets 13 s per test case (less than half the promised limit) got 50/50 TLE and an invalid submission natively. Local tools give no warning, because `tools/bin/tester` only scores an output file. Time-budgeted search is the normal style for this kind of contest heuristic, so this trap is reachable.
+An honest solver that budgets 13 s per test case (less than half the promised limit) got 50/50 TLE and no score natively. Local tools give no warning, because `tools/bin/tester` only scores an output file. Time-budgeted search is the normal style for this kind of contest heuristic, so this trap is reachable.
 
 **H6: much stronger than stated. The anchors are unreachable under this tester and this aggregation.**
 
@@ -185,5 +189,5 @@ Scaling the current anchors by 50/18 would **not** be correct: the anchors were 
 - Anchor provenance is unrecovered. The 18-file explanation is a consistency inference.
 - Native runs used `--cpus 2` on this host. The time-budget result is structural (65 s > 60 s per input) and does not depend on CPU speed.
 - The lower-bound proof is written, not machine-checked. It was checked exhaustively only on grids of size 2x2, 2x3 and 3x2.
-- Tamper or scorer-isolation questions, such as the wrapper ignoring the tester's return code, were out of scope.
+- Scorer-isolation questions (deliberate attacks on the grader) were out of scope; such notes are kept internally.
 - No E2B was used: the image is small, so all native runs were local.

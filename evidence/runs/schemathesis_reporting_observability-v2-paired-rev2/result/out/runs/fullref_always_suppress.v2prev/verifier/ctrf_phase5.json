@@ -1,0 +1,155 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T22:29:56.342773+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 10,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791844195664,
+            "stop": 1791844196342
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_05_email_coverage.py::test_email_format_fix_available",
+                "status": "passed",
+                "duration": 96,
+                "start": 1791844195683,
+                "stop": 1791844195779,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_lowercase_email_domain_basic",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844195780,
+                "stop": 1791844195780,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_lowercase_email_domain_preserves_local",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844195781,
+                "stop": 1791844195781,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_lowercase_email_domain_already_lowercase",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844195781,
+                "stop": 1791844195782,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_lowercase_email_domain_idn",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844195782,
+                "stop": 1791844195783,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_email_format_strategy_registered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844195784,
+                "stop": 1791844195785,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_email_format_generates_lowercase_domain",
+                "status": "passed",
+                "duration": 229,
+                "start": 1791844195785,
+                "stop": 1791844196014,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_idn_email_format_generates_lowercase_domain",
+                "status": "passed",
+                "duration": 206,
+                "start": 1791844196015,
+                "stop": 1791844196221,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_body_unexpected_parameters_control",
+                "status": "passed",
+                "duration": 13,
+                "start": 1791844196221,
+                "stop": 1791844196234,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "tags": [
+                    "parametrize::allow_extra_parameters::[False, True]"
+                ]
+            },
+            {
+                "name": "test_05_email_coverage.py::test_body_unexpected_parameters_control",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 27,
+                "start": 1791844196235,
+                "stop": 1791844196262,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "tags": [
+                    "parametrize::allow_extra_parameters::[False, True]"
+                ],
+                "trace": "/tests/test_05_email_coverage.py:121: in test_body_unexpected_parameters_control\n    assert (CoverageScenario.OBJECT_UNEXPECTED_PROPERTIES in scenarios) == allow_extra_parameters\nE   AssertionError: assert (<CoverageScenario.OBJECT_UNEXPECTED_PROPERTIES: 'object_unexpected_properties'> in {<CoverageScenario.INCORRECT_TYPE: 'incorrect_type'>, <CoverageScenario.OBJECT_MISSING_REQUIRED_PROPERTY: 'object_missing_required_property'>}) == True\nE    +  where <CoverageScenario.OBJECT_UNEXPECTED_PROPERTIES: 'object_unexpected_properties'> = <enum 'CoverageScenario'>.OBJECT_UNEXPECTED_PROPERTIES",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_05_email_coverage.py::test_query_unexpected_parameters_control",
+                "status": "passed",
+                "duration": 68,
+                "start": 1791844196262,
+                "stop": 1791844196330,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "tags": [
+                    "parametrize::allow_extra_parameters::[False, True]"
+                ]
+            },
+            {
+                "name": "test_05_email_coverage.py::test_query_unexpected_parameters_control",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1791844196330,
+                "stop": 1791844196342,
+                "retries": 0,
+                "file_path": "test_05_email_coverage.py",
+                "tags": [
+                    "parametrize::allow_extra_parameters::[False, True]"
+                ],
+                "trace": "/tests/test_05_email_coverage.py:153: in test_query_unexpected_parameters_control\n    assert (CoverageScenario.OBJECT_UNEXPECTED_PROPERTIES in scenarios) == allow_extra_parameters\nE   AssertionError: assert (<CoverageScenario.OBJECT_UNEXPECTED_PROPERTIES: 'object_unexpected_properties'> in {<CoverageScenario.INCORRECT_TYPE: 'incorrect_type'>, <CoverageScenario.OBJECT_MISSING_REQUIRED_PROPERTY: 'object_missing_required_property'>}) == True\nE    +  where <CoverageScenario.OBJECT_UNEXPECTED_PROPERTIES: 'object_unexpected_properties'> = <enum 'CoverageScenario'>.OBJECT_UNEXPECTED_PROPERTIES",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

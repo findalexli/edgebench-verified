@@ -18,7 +18,6 @@ Earlier disposition: **withhold original** (`evidence/selected/wireless-original
 | Shipped baseline `solution.cpp` | `811fe1e54452f935563de0480bd03a0b6270752efa7b45e01fba578116cb9256` |
 | `tools/bin/tester` | `a7d59fd3cc9796305d55d280b5ebe1455b80ae7df13425a47bde88433cd9cf87`; 50 files in `cases/` |
 | Upstream harness `6e4e5f4` (copied from `$W/work/edgebench-source`) | `selection.py abb55b7b...`, `grading.py ba15c46d...`, `score_sum.py 49b19e22...`, `score_rescale.py 98feb630...`; hashes match `upstream-lock.json` |
-| Maintained harness (this repo) | `selection.py 3338ed24...`, `grading.py b3eeac72...`, `score_rescale.py 98feb630...` (same as upstream) |
 
 ## Contract
 
@@ -50,8 +49,6 @@ Harness composition:
 ```
 UPSTREAM 6e4e5f4:   ce valid=True raw=1e17 norm=0.0 ; baseline raw=6.63e17 norm=0.0 ; re_some raw=1.36e18 norm=0.0
   [baseline, ce] -> selected ce   ; [ce, baseline] -> ce ; [re_some, ce] -> ce ; [baseline, re_some, ce] -> ce   (all norm 0.0)
-MAINTAINED (repo):  ce valid=False ("CASES_TOTAL disagrees with CASE records"), unrankable
-  [baseline, ce] -> baseline ; [ce, baseline] -> baseline ; [re_some, ce] -> re_some   (all norm 0.0)
 ```
 
 `normalized_invariance.py` (upstream code) ran 200,000 random histories, inserting a CE entry at every position. It found **0** changes to the normalized score of the selected entry and 0 changes to the max normalized score, against 43,336 changes to raw `best_score`.
@@ -69,11 +66,11 @@ No Lean/TLA+. The monotonicity argument above is short and complete given the so
 
 ## Verdict
 
-**CONFIRMED-NARROWER.** The raw-ranking inversion is real under the upstream harness, and it reproduces with the shipped baseline. It cannot change any normalized score. The maintained harness does not exhibit it at all, because it rejects the CE report as inconsistent with `CASES_TOTAL`.
+**CONFIRMED-NARROWER.** The raw-ranking inversion is real under the upstream harness, and it reproduces with the shipped baseline. It cannot change any normalized score.
 
 ## Disposition assessment
 
-I **disagree** that withholding the original is proportionate on this finding alone. The defect is confined to raw `best_score`/`best_round` under the upstream harness. It provably never changes a normalized score, and it is neutralized under the maintained harness that EdgeBench Verified uses for retained tasks. A note is the better disposition: "retain-eligible with a note", subject to the other review gates. If the team wants the evaluator's own output to be correct independent of harness, the alternative is a tiny repair. The card's phrase "material failure-aggregation/verifier mismatch" overstates the impact on scores.
+I **disagree** that withholding the original is proportionate on this finding alone. The defect is confined to raw `best_score`/`best_round` under the upstream harness. It provably never changes a normalized score. A note is the better disposition: "retain-eligible with a note", subject to the other review gates. If the team wants the evaluator's own output to be correct independent of harness, the alternative is a tiny repair. The card's phrase "material failure-aggregation/verifier mismatch" overstates the impact on scores.
 
 ## Recommended publishable wording
 
@@ -81,7 +78,7 @@ I **disagree** that withholding the original is proportionate on this finding al
 
 ## Repair note
 
-No repair is needed under the maintained harness. Smallest evaluator-level fix: in both CE branches of `eval_wirel.sh`, emit one `CASE <id> CE score=$BAD_SCORE` line per case file and `TOTAL_SCORE $((BAD_SCORE*CASES_TOTAL))`. That stays within bash 64-bit range (5e18 < 9.22e18) and makes CE equal to "every case failed". I could not inspect a specific earlier proposed patch for this task.
+Smallest evaluator-level fix, if one is wanted: in both CE branches of `eval_wirel.sh`, emit one `CASE <id> CE score=$BAD_SCORE` line per case file and `TOTAL_SCORE $((BAD_SCORE*CASES_TOTAL))`. That stays within bash 64-bit range (5e18 < 9.22e18) and makes CE equal to "every case failed". I could not inspect a specific earlier proposed patch for this task.
 
 ## Limits
 

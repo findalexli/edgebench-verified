@@ -10,15 +10,13 @@ changes neither (a) the 0-100 score of the selected entry, nor (b) the maximum 0
 over entries. It can change the raw `best_score` (counter-check 1), and the invariance
 depends on the CE penalty being at or above the baseline anchor (counter-check 2).
 
-Sources modelled (upstream harness 6e4e5f4, hashes match `upstream-lock.json`):
+Sources modelled (EdgeBench harness 6e4e5f4; hashes match `sforge/UPSTREAM.lock`):
 * `sforge/harness/score_rescale.py` sha256 98feb630390f217cb67e21315b5ca8a4f2eb6d1bb28cc9822152b3ed58be4b19
-  (identical in the maintained harness). `rescale` below = lines 60-63 (`_clip`) and 173-194
+  `rescale` below = lines 60-63 (`_clip`) and 173-194
   (`piecewise_log_min`).
 * `sforge/harness/selection.py` (upstream) sha256 abb55b7b0466f73e4fab248dfed31ad89b1caec19b1a8117edcbf2429571cf0a.
   `step`/`selectScore` below = lines 45-48 (`_is_better_score`) and 83-103 (`_score_first`):
   scan in order, replace the incumbent iff `new < old`, skip `score is None`.
-  The maintained `selection.py` (sha256 3338ed24...) has the same scan (lines 77-78, 106-117)
-  after extra filters; there the CE report is invalid and dropped, so (a) holds trivially.
 * `sforge/visualizer/scanner.py` (upstream) sha256 f124d3402dc036ba05195d92f0c281c76cf45977829dfdf24704b4edaafca866,
   lines 467-468: `best_score_0_100 = max(rescaled)`. `bestMax` below.
 * `tasks/wireless_electricity_layout.json` sha256 050ab35f...0809: anchors (exact values of the

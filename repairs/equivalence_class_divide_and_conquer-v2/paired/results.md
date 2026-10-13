@@ -21,7 +21,7 @@
 |---|---|---|---|---|
 | **Trigger** | `naive.cpp` on crafted B (star, n=10⁶, m=2501; true cost 2.501·10⁹ > limit) | **AC**, raw 10 (T3 1/1) | **WA "Operation cost exceeded"**, raw 0 | v1 wrong, v2 right ✔ |
 | At-limit control | `naive.cpp` on crafted A (m=2500; true cost exactly 2.5·10⁹) | AC, raw 10 | AC, raw 10 | accept both ✔ |
-| **Valid control (whole task)** | official `std.cpp` for T1–T6 | **raw 100 / norm 100**; T1 5/5, T2 10/10, **T3 30/30**, T4 25/25, T5 20/20, T6 30/30; exit 0; pass rate 1.000 | **raw 100 / norm 100**; identical per-subtask counts; exit 0; pass rate 1.000 | unchanged ✔ |
+| **Valid control (whole task)** | official `std.cpp` for T1–T6 | **raw 100 / norm 100**; T1 5/5, T2 10/10, **T3 30/30**, T4 25/25, T5 20/20, T6 30/30 (cases passed); exit 0; pass rate 1.000 | **raw 100 / norm 100**; identical per-subtask counts; exit 0; pass rate 1.000 | unchanged ✔ |
 | Invalid control | `naive.cpp` as T3, others empty, on the 30 official inputs | raw 1 / norm 1; T3 6 AC / **24 WA** (cost exceeded); exit 1; pass rate 0.020 | raw 1 / norm 1; the same 6 AC / 24 WA, case by case; exit 1; pass rate 0.020 | rejected both ✔ |
 
 **Checker run directly** on all crafted outputs, compiled as `compile_checker` does
@@ -40,7 +40,7 @@ changed, the reference passes all 30 official T3 inputs in both v1 and v2. Those
 case 24, whose output is about 40.6 MB and exceeds the earlier audit's 16 MiB file cap.
 
 **Verdict: accepted.** The trigger is fixed, the at-limit case and the whole-task reference score
-are unchanged (100 → 100, T3 30/30), and the invalid naive cases are rejected by both versions.
+are unchanged (100 → 100, T3 30/30 cases), and the invalid naive cases are rejected by both versions.
 
 **Evidence** (`evidence/`): `summary.txt`, `summary_parsed.txt`, `logs/*.log`, `inputs_sha.txt`,
 `checker_direct.txt`, `checker_sha_and_limits.txt`, `build.log`, `worker.json`.

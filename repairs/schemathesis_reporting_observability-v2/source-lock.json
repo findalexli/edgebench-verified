@@ -9,8 +9,9 @@
  },
  "candidate_task_json": {
   "path": "task.json.in",
-  "sha256": "0f27af4412c724e2c74125bd8aeea9fc5837d3cf0e320d8dca7cf9b48cd2b989",
-  "judge.image_tag": "junit-coverage-v2",
+  "sha256": "de31cfe69711880d0a7bbcba1d6338b8772fbee1a833c0951deb1e6a83241c84",
+  "judge.image_tag": "junit-coverage-v2.1",
+  "superseded_judge_image_tag (v1.0 package)": "junit-coverage-v2",
   "only_field_changed": "judge.image_tag"
  },
  "files": [
@@ -27,8 +28,9 @@
    "original_sha256": "8dc05817c504528f39792abfef1b3924f3d012a34db7f15fac4cbeb100c2e76c",
    "original_bytes": 5118,
    "replacement": "files/tests/test_02_reporting.py",
-   "replacement_sha256": "9dd6184a615f60c364e541409a7e611253f5cae74b52967055f0caf45a4d6f7d",
-   "replacement_bytes": 5777
+   "replacement_sha256": "8615de4935ed046c292f865e856e6ad0b72b4d562428df0f027de928c650941d",
+   "previous_replacement_sha256 (superseded 2026-10-12: required the suite name, one test case and no failure/skipped, none stated in TODO.md)": "9dd6184a615f60c364e541409a7e611253f5cae74b52967055f0caf45a4d6f7d",
+   "replacement_bytes": 5619
   },
   {
    "target": "/tests/test_05_email_coverage.py",
@@ -44,11 +46,11 @@
   "/tests/test_03_pytest_reporting.py": "f7cdfd78c085b6de7f54121aefad6c651a73ddde27c3be6c57f01d23ce50a9a2",
   "/tests/test_04_examples.py": "4d7f07dc84dab870c5f0844bf51c3eec224d7572af5a6e2702e0b6121bffd946"
  },
- "repair_patch_sha256": "85b5d346f8fb7fffdd020d0a86cb07dbb05eecfa619aa89eb3956d85e3a89bc1",
+ "repair_patch_sha256": "fe6741e9b25093870cb0a3bbf58a1bbe898b63d578ccb24cf302db269c4270ff",
  "dockerfile_sha256": "c223ca1feff35f187ac8b4b905b56d55835b7b8a98a416f21d05527309f5b6bf",
  "derivation": {
   "base_patch": "proposedrepairs/reporting-junit/repair.patch + proposedrepairs/reporting-coverage-filter/repair.patch (shared-hooks implementation patch excluded)",
-  "additional_change": null
+  "additional_change": "2026-10-12: test_junitxml_writer_context_manager relaxed to what TODO.md states (well-formed JUnit XML; an <error> carrying the message on the test case named by the label); suite name, test-case count and no failure/skipped dropped."
  },
  "materialize": {
   "schema": "edgebenchverified-materialize-v1",
@@ -75,10 +77,10 @@
   ],
   "outputs": {
    "files/tests/test.sh": "5f3a136b109129147897ad7a0bfa3a90c4bc2fc1d6a607db5735f836d5859b5e",
-   "files/tests/test_02_reporting.py": "9dd6184a615f60c364e541409a7e611253f5cae74b52967055f0caf45a4d6f7d",
+   "files/tests/test_02_reporting.py": "8615de4935ed046c292f865e856e6ad0b72b4d562428df0f027de928c650941d",
    "files/tests/test_05_email_coverage.py": "10401e449a2ad57a6bca52e46da1dafff7b15372d0ce4182dc4c1a693a0e0dc3"
   },
-  "repair_patch_sha256": "85b5d346f8fb7fffdd020d0a86cb07dbb05eecfa619aa89eb3956d85e3a89bc1",
-  "materialize_sh_sha256": "9e8c3433d105d8e6ab95678e44deb307249d02ff6da7a9432130efc134b13329"
+  "repair_patch_sha256": "fe6741e9b25093870cb0a3bbf58a1bbe898b63d578ccb24cf302db269c4270ff",
+  "materialize_sh_sha256": "88446e462b0edd09a3fd81bc4a417d1560145a7192492140e0c9d65e5c3e828f"
  }
 }

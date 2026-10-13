@@ -1,6 +1,6 @@
 # Ordinal Notation Well-Foundedness (`ordinal_notation_well_foundedness`)
 
-**Outcome:** Kept, with a note. <mark>The Coq grader credits honest complete proofs and rejects `Admitted` and axiom-based proofs, but two limits are not documented (the filter on helper file names and the 300 s compile limit), and targets 2–9 remain unproven.</mark>
+**Outcome:** Kept, with a note. <mark>The Coq grader credits honest complete proofs and rejects `Admitted` and axiom-based proofs, but two limits are not documented (the filter on helper file names and the 300 s compile limit). The publisher's results show closed proofs of targets 1–6; whether targets 7–9 (64 of 85 points) can be proved is not known.</mark>
 
 ## What the task asks
 
@@ -19,11 +19,12 @@ There are nine targets, weighted 1, 2, 2, 4, 4, 8, 16, 16 and 32 (maximum 85). E
 
 The test submissions that should fail list exactly the expected assumptions.
 
-**Whether the targets are true: task1 is true; tasks 2–9 are open.**
+**Whether the targets are true: tasks 1–6 are true; tasks 7–9 are open.**
 
-- All 8 other targets are descendants of `start` (task9's list). For example, `childOf [0;1;0;0;4] 2 = [0;1;0;0;3;3]`. `Acc` carries over to descendants, so task9 implies every other target.
+- The targets form a chain: each target's list is reached from the next one's (task k+1 reaches task k for every k; breadth-first search with N ≤ 3 and lists of length ≤ 30, `chain_check.py`). For example, `childOf [0;1;0;0;4] 2 = [0;1;0;0;3;3]` (task4 to task3). `Acc` carries over to descendants, so a proof of task k implies tasks 1 to k, and task9 implies every target.
+- task1 is proved here (below). The publisher's per-task results (`tasks/README.md`, ordinal row) show Opus 4.8 and GPT-5.5 at 24.7 out of 100 from 4–6 hours on, which is 21/85. Because proofs carry down the chain, a solver's credited targets are in practice a prefix of the chain, and the prefix weights are 1, 3, 5, 9, 13, 21, 37, 53, 85. 21 is the weight of exactly tasks 1–6. The grader credits only proofs whose `Print Assumptions` is closed (checked below), so closed proofs of tasks 1–6 exist.
 - A bounded search for cycles found **no cycle**. A cycle would disprove `Acc`. The search space for task1 and task2 was exhausted within the bounds; the others hit the limit on nodes.
-- `ChildOf.v` ships no interpretation as ordinals and no reference proof. Whether the system is well-founded at `start` is a research-level question (task9 carries weight 32 of 85). No evidence was found that any target is false. Until a reference proof exists, the maximum score of 85 is unverified.
+- `ChildOf.v` ships no interpretation as ordinals and no reference proof. Whether the system is well-founded at task7, task8 and `start` (task9) is open; these carry 16 + 16 + 32 = 64 of the 85 points. No evidence was found that any target is false. Until proofs of task7–task9 exist, the maximum score of 85 is unverified.
 
 **Undocumented limits.** These were read from the task JSON and the grader. Neither was reproduced end to end.
 
@@ -33,13 +34,13 @@ The test submissions that should fail list exactly the expected assumptions.
 The note that ships with the task:
 
 - The grader credits exactly the proofs whose `Print Assumptions` is closed. A kernel-checked honest proof of task1 is credited, and `Admitted` and axiom-based proofs are rejected.
-- All nine targets are descendants of task9's list, so task9 implies the rest. Their well-foundedness beyond task1 has not been independently established. A false target would only cap scores and would never reward wrong work.
+- The nine targets form a chain, so each target implies all lower ones. Published results show closed proofs of tasks 1–6 (21 of 85 points); tasks 7–9 (64 points) have no known proof. A false target would only cap scores and would never reward wrong work.
 - Helper files whose names match `test*`, `check*`, `debug*`, `explore*`, `tmp*` or `scratch*` (`.v`) are excluded from submissions.
 - Each Coq file has a 300 s compile limit.
 
 ## How much it matters
 
-No effect on the scores of honest proofs was found. The file-name filter affects only solvers who give a required helper file one of the excluded prefixes. Their proofs that depend on it fail to compile. The time limit affects only proofs that rely on heavy computation. If some target were false, every solver's maximum would drop by its weight. No such target is known.
+No effect on the scores of honest proofs was found. The file-name filter affects only solvers who give a required helper file one of the excluded prefixes. Their proofs that depend on it fail to compile. The time limit affects only proofs that rely on heavy computation. If task7, task8 or task9 were false, every solver's maximum would drop by that target's weight and the weights above it. No such target is known.
 
 No change is made; the note above ships with the task.
 
@@ -52,13 +53,13 @@ No change is made; the note above ships with the task.
 ## Limits
 
 - No AI model or solver runs were made. Effects are shown only on test submissions that we wrote.
-- Only task1 was proved. No reference proofs for tasks 2–9 exist in the shipped materials.
+- Only task1 was proved here. That tasks 2–6 are provable rests on the publisher's results (21/85) and on the grader's closed-assumptions check; no proof of them is in the shipped materials or in this repository. The leaderboard values that are not multiples of 1/85 (for example 18.4) suggest averages over several runs, which the publisher does not state.
 - The `submit_exclude` copy step was read from the task JSON, not executed.
 - Bounded searches are not proofs.
 
 ## Reproduce
 
 - Grader image digest: `sha256:272b80aa6554…`.
-- `evidence/scripts/ordinal_notation_well_foundedness/run_native.sh <submission_dir>`, with `sub_controls/` and `sub_helper/` in the same folder. Expected outputs: `native_controls_output.txt` and `native_helper_output.txt`.
-- `evidence/scripts/ordinal_notation_well_foundedness/explore.py` (output `explore_output.txt`) and `coq_check.v` (output `coq_check_output.txt`).
+- `evidence/scripts/ordinal_notation_well_foundedness/run_native.sh <submission_dir> <out_file>`, with `sub_controls/` and `sub_helper/` in the same folder. Expected outputs: `native_controls_output.txt` and `native_helper_output.txt`.
+- `evidence/scripts/ordinal_notation_well_foundedness/explore.py` (output `explore_output.txt`), `chain_check.py` (output `chain_check_output.txt`) and `coq_check.v` (output `coq_check_output.txt`).
 - Review: `evidence/reviews/ordinal_notation_well_foundedness.md`.

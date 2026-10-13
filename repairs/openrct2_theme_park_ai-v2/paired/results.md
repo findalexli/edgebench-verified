@@ -27,7 +27,7 @@ compares them with a first-principles model:
 - The base rate is 40 ticks/s, since 16384/40 s = 6.83 min, which matches the d.ts comment.
   Speed `s` multiplies it by 2^(s-1), so speed 4 runs at **320 ticks/s**.
 - The model gives **0.598 days/s** at speed 4. 120 s is therefore at most 71.8 days, minus
-  engine start-up. Reaching the monitor's `targetDays = 992` would take **1,658 s** per scenario.
+  engine start-up. Reaching the monitor's `targetDays = 992` would take **1,658 s** per scenario at the model rate, and about 1,667 s at the measured 0.595 days/s (1,661 to 1,673 s over the measured 0.593 to 0.597).
 
 Output (`check_horizon.out`, rerun with
 `python3 -I check_horizon.py ../../../evidence/scripts/openrct2_theme_park_ai/run_*.log logs/run_*.log`):

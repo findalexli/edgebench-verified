@@ -1,0 +1,49 @@
+{
+ "task_id": "apple_incremental_game",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/apple_incremental_game.json",
+  "sha256": "19021ddcbcaf966d7d43300b439862290a5c6c283aa6e6641f96efa07b34a25c"
+ },
+ "original_judge_image": "seededge/edgebench.judge.apple_incremental_game@sha256:d3af7b43331078bb3ef29fab70c502cbb72d0e08d52e59cf9bdb044105d63f39",
+ "original_judge_image_tag": "16968d8ec7f2",
+ "v2_judge_image_tag": "16968d8ec7f2-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/tmp/eval_apple_incremental_game.py",
+   "original_sha256": "c33f5257323029aa6bda5ddec61f3ea81853e07c11dfc4d833aea11c21f6d70c",
+   "original_bytes": 2507,
+   "replacement": "files/eval_apple_incremental_game.py",
+   "replacement_sha256": "ba31e840797ff96c9b32aae057d3c854a6498220592d6a815861e6e832d13931",
+   "replacement_bytes": 3414,
+   "mode": "0755"
+  }
+ ],
+ "repair_patch_sha256": "92ef667b7fb54f3b84fe9d88c6243b49353fbb20a451f4d9e9b31ddd59da942c",
+ "dockerfile_sha256": "df5858cdebeeba8584a7eaf73f486bfe4bca4891815510cf4aa765d13717cf0b",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "rescale_changed": false,
+ "rescale_note": "score scale unchanged; this version changes only how many cases the evaluator runs at once",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.apple_incremental_game@sha256:d3af7b43331078bb3ef29fab70c502cbb72d0e08d52e59cf9bdb044105d63f39"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/tmp/eval_apple_incremental_game.py",
+    "sha256": "c33f5257323029aa6bda5ddec61f3ea81853e07c11dfc4d833aea11c21f6d70c"
+   }
+  ],
+  "outputs": {
+   "files/eval_apple_incremental_game.py": "ba31e840797ff96c9b32aae057d3c854a6498220592d6a815861e6e832d13931"
+  },
+  "repair_patch_sha256": "92ef667b7fb54f3b84fe9d88c6243b49353fbb20a451f4d9e9b31ddd59da942c",
+  "materialize_sh_sha256": "30f5e4f4bfdd4b1e0659405595f6fdd463cb6b7a0bc23c9f300e1bdf78e90b47"
+ }
+}

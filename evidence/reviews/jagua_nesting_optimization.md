@@ -1,5 +1,7 @@
 # Review: jagua_nesting_optimization
 
+> **Note (2026-10-12).** "Score depends only on strip width" below is superseded: `evaluate_case` multiplies the width-based raw score by a runtime multiplier (`score = raw * rt_mult`). The score does not depend on overlap. The comparison "about 10^6 times above the validator's EPS" compares an area with a coordinate tolerance and is withdrawn.
+
 ## Claim under review
 
 Earlier claim (docs/FINDINGS.md): "The complete validator accepts selected shapes with overlapping interiors. Other overlaps were rejected; five equal-width cases showed no score improvement."

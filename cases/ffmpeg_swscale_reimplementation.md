@@ -54,15 +54,17 @@ Nothing else changes.
 
 | Submission | Role | Original grader | Fixed grader | Note on the fixed grader |
 | --- | --- | --- | --- | --- |
-| reference implementation (run 1) | correct | 0.967353 | 0.980056 | 30/30, no timed errors |
-| reference implementation (run 2) | correct | 0.509049 | 0.507032 | 30/30, no timed errors |
+| shim forwarding to the original library (each frame once) | correct | 0.967353 | 0.980056 | 30/30, no timed errors |
+| shim forwarding to the original library (each frame twice) | correct, about 2× slower | 0.509049 | 0.507032 | 30/30, no timed errors |
 | shipped starting code | starting point | 0.447819 | 0.012416 | its 1080p→360p nearest output is below 40 dB |
 | errors on 3:1 downscale | **shows the problem** | **2.881761** | **0.000464** | two timed workloads return -3 |
 | silent no-op on 3:1 downscale | **shows the problem** | **2.884506** | **0.000463** | two timed outputs below 40 dB |
 | errors on RGBA→RGB24 | **shows the problem** | **1.305860** | **0.000451** | timed error + PSNR failure |
 | unsupported yuv420p→rgb24 | invalid | 0.0 (28/30) | 0.0 (28/30) | correctness check fails in both |
 
-The values in this table are raw geometric-mean speedups, before conversion to the 0–100 scale. The "reference implementation" is a thin wrapper that forwards every call to the original FFmpeg library, so its output is correct by construction. Run 2 processes every frame twice, which makes it correct but about 2× slower. It is a correct test submission, not a real solution. This table ran on a different host from the first table, so its raw values for the original grader differ; both are quoted as recorded. The starting code's drop on the fixed grader is correct, because its output on one timed workload really is wrong.
+The values in this table are raw geometric-mean speedups, before conversion to the 0–100 scale. The two shim rows are a thin C wrapper (`ref_shim.c`, source in `repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md`) that forwards every call to the original FFmpeg library, so its output is correct by construction. It is built twice: once processing each frame once, and once processing each frame twice, which is correct but about 2× slower. The two rows are two different correct test submissions, not two runs of one; they are passed to `compute_reward.py` directly, not through `eval_cmd`, and neither is a real solution. This table ran on a different host from the first table, so its raw values for the original grader differ; both are quoted as recorded. The starting code's drop on the fixed grader is correct, because its output on one timed workload really is wrong.
+
+The three variants that show the problem are one-line edits of the starting code, so they inherit its wrong `rgb24 1080p→360p nearest` output, and the starting code alone already scores 0.012416 raw (0 out of 100) on the fixed grader. Their fixed-grader score of 0 therefore does not by itself show that the fix catches the edited workloads. The fixed grader's per-workload errors do: it reports `candidate process returned -3` on `rgba→rgb24 4K` for the RGBA→RGB24 variant and on both 3:1 workloads for the 3:1 error variant, and `timed output below PSNR threshold 40.0` on `rgb24→yuv420p 1080p→360p bilinear` for the silent no-op, each with speedup 0 (`evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/result/out/summary_parsed.txt`). No variant was built on a base whose timed outputs are all correct.
 
 **Score compatibility:** correct implementations score as on the original grader, apart from timing noise. Implementations that produce wrong output, or no output, on a timed workload lose that credit. Scores from the fixed grader are not comparable with scores from the original grader.
 
@@ -77,7 +79,7 @@ The values in this table are raw geometric-mean speedups, before conversion to t
 - No AI model or solver runs were made. Effects are shown only on test submissions and counterexamples that we wrote.
 - On the fixed grader, a single zero factor pulls the geometric mean close to 0. This follows the original convention for crashes and is not a graded penalty.
 - The timed set still differs from the correctness set. The fixed version checks timed outputs but does not add the timed configurations to the 30 correctness workloads.
-- Timings depend on the host: the first table used a host with 2 CPUs, the side-by-side table a host with 4 CPUs.
+- Timings depend on the host: the first table ran on a local host in containers limited to 2 CPUs, the side-by-side table on an 8-CPU E2B host in containers limited to 4 CPUs (`env.txt`, `run.sh`).
 - The reference point of the score scale (14.155 → 43) should be derived again after the fix. No newly derived reference point is recorded.
 - Only the shipped starting code, three one-line variants, one invalid test submission and the wrapper that forwards to the original library were tested. No independent full implementation was built.
 - Scorer isolation is outside this release's scope (EdgeBench design choice). The finding above does not depend on it.
@@ -90,6 +92,6 @@ The values in this table are raw geometric-mean speedups, before conversion to t
   - Run them with `run_variant.sh`, which uses the exact `eval_cmd.sh`.
   - Outputs are in `results_local/<variant>/`.
 - Output check on the timed workloads: `evidence/scripts/ffmpeg_swscale_reimplementation/check_bench_outputs.py`. The recorded outputs are `bench_outputs_v0_scaffold.txt` and `bench_outputs_v1_rgba_rgb24_unsupported.txt`.
-- Side-by-side run of the original and fixed graders: `repairs/ffmpeg_swscale_reimplementation-v2/paired/run.sh`, with `make_variants.py` and `ref_shim.c` in the same folder.
-- Fixed version: `repairs/ffmpeg_swscale_reimplementation-v2/` (the folder holding the fixed version), which contains `Dockerfile`, `repair.patch`, `files/compute_reward.py` and `source-lock.json`.
-- Supporting records: `repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md`, the `paired/evidence/` folder and `evidence/reviews/ffmpeg_swscale_reimplementation.md`.
+- Side-by-side run of the original and fixed graders: `repairs/ffmpeg_swscale_reimplementation-v2/paired/run.sh`, with `make_variants.py` in the same folder. `run.sh` compiles `/job/tools/ref_shim.c`; that file is not in the repository, and its source is quoted in `paired/results.md`. The executed job and its outputs are in `evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/` (`result/out/`).
+- Fixed version: `repairs/ffmpeg_swscale_reimplementation-v2/` (the folder holding the fixed version), which contains `Dockerfile`, `repair.patch`, `materialize.sh` and `source-lock.json`. `files/compute_reward.py` is generated by `materialize.sh`.
+- Supporting records: `repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md` and `evidence/reviews/ffmpeg_swscale_reimplementation.md`.

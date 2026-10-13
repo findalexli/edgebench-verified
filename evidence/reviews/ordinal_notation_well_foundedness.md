@@ -1,5 +1,7 @@
 # ordinal_notation_well_foundedness: fresh good-faith triage
 
+> **Note (2026-10-12).** Superseded statement below: that targets 2–9 are open. The targets form a chain (each reaches the one below it), and the publisher's results show 21/85, the weight of tasks 1–6, so closed proofs of tasks 1–6 exist; tasks 7–9 remain open. See `cases/ordinal_notation_well_foundedness.md`.
+
 ## Claim under review
 
 Earlier state (TASKS.md): "Review pending | Historical formal-source facts retained (L). | Held |

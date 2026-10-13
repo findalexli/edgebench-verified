@@ -1,5 +1,14 @@
 # ANN vector search (`ann_vector_search_qps`): re-verification
 
+> **Note added 2026-10-12 (later review).** Superseded statements below:
+> - "875–1,222 QPS" and "±17%" (sections "Good-faith correctness" and "Paired-run record"): 875 QPS came from the candidate evaluator, not the
+>   original grader. On the original grader the three IVF gradings gave 935, 1,222 and 1,094 QPS
+>   (±13% about the midpoint). Each grading also ran other test configurations in the same process;
+>   see `cases/ann_vector_search_qps.md` ("Test design").
+> - "No good-faith scoring defect": on the `log_max` scale a speed ratio of 1.31 is 13.9 points out
+>   of 100 for a submission between the anchors; repeated gradings are not exactly repeatable.
+> - The outputs cited at the end of this file are internal and not in this repository.
+
 Reviewer: Claude (coordinator), 2026-10-12. Earlier disposition: **retain unchanged under maintained core-v2**
 (the only retained task).
 
@@ -25,12 +34,9 @@ to be stated in the release notes.
 
 ## Scorer isolation (out of release scope, recorded internally)
 
-Per the user's 2026-10-12 scope decision, scorer-isolation weaknesses are a known EdgeBench design
-choice and are not release defects. For the record: in native runs on the unchanged evaluator, two
-non-legitimate submissions were accepted above the expert anchor (normalized 100), and a candidate
-evaluator change (`scripts/ann_vector_search_qps/repair/eval_ann_search_v2.patch`) blocked both in a
-paired run while keeping honest IVF accepted. Details are internal-only (see workspace README).
-In-process timer replacement is not addressed by that change.
+Per the user's 2026-10-12 scope decision, scorer-isolation questions (deliberate attacks on the
+grader) are an EdgeBench design choice and not release defects. Scorer-isolation notes are kept
+internally.
 
 ## Verdict and disposition
 

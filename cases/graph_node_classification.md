@@ -33,7 +33,7 @@ Why it matters: a submission that breaks the contract gets a valid score compute
 
 ## How much it matters
 
-The effect adds chance to the score; no expected gain was shown. For each split, the expected value of the one-node gamble depends on accuracy on one fixed node. Whether it raises scores, for example when the best of several submissions is kept, was not established. Only submissions that send non-integer or missing predictions are affected.
+The effect adds chance to the score. For each split, the expected value of the one-node gamble depends on accuracy on one fixed node; the one measured gamble (shrink) scored overall 0.20, below the honest 0.333 (`repairs/graph_node_classification-v2/paired/graded.md`). The task keeps a run's best valid submission (`selection: valid_then_score`). A general Lean lemma shows that under such max selection an added random submission never lowers the expected kept score, and raises it whenever it can beat the current best (`evidence/formal/notes/graph_node_classification.md`). No gain for a real solver was shown. Only submissions that send non-integer or missing predictions are affected.
 
 ## The fix
 
@@ -58,9 +58,11 @@ A violation raises an error. The unchanged runner and `judge_eval.py` turn it in
 | missing_half (half the test nodes) | invalid test submission | Original | false | – | – | coverage check: `predictions=520 expected=1041` | | |
 | missing_half | invalid test submission | Fixed | false | – | – | runner error: `predictions missing for 521 test node(s)` | | |
 
-For every valid submission, the quality metrics are identical between the original and fixed graders to all printed digits. Final scores differ by at most 8e-5, about 0.008 points out of 100. That difference comes only from the wall-time penalty `0.01·log(time)`.
+"–" marks a result the grader reports as `valid: false`. EdgeBench's harness still records its score (`graded.md` shows it), and the task's `valid_then_score` selection leaves it out.
 
-**Score compatibility:** some submissions give an integer class id for every test node: an int, a whole-valued finite float or a decimal-integer string, not a bool. These score identically under the original and fixed versions, apart from run-to-run timing noise. Bools and non-whole floats, which the original grader converted with `int()`, are invalid in the fixed version. Submissions that omit test nodes, or give non-integer values for any test node, are invalid in the fixed version and are not comparable with their original scores.
+For every valid submission, the quality metrics are identical between the original and fixed graders to all printed digits. Final scores differ by at most 8.1e-5 (baseline 0.292783 against 0.292702), about 0.008 points out of 100. That difference comes only from the wall-time penalty `0.01·log(time)`.
+
+**Score compatibility:** some submissions give an integer class id for every test node: an int, a whole-valued finite float or a decimal-integer string, not a bool. These score identically under the original and fixed versions, apart from run-to-run timing noise. The one exception is a string padded with the ASCII separators U+001C to U+001F, such as `"\x1c0"`: the original grader drops it and the fixed version scores it (`separator_boundary` in the formal note). Bools and non-whole floats, which the original grader converted with `int()`, are invalid in the fixed version. Submissions that omit test nodes, or give non-integer values for any test node, are invalid in the fixed version and are not comparable with their original scores.
 
 ## How we checked it
 
@@ -72,7 +74,7 @@ For every valid submission, the quality metrics are identical between the origin
 
 - No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
 - Only the shipped baseline, a weak honest neighbour-vote solver and simple contract-breaking variants were run. Stronger solvers were not.
-- The expected-value analysis of the shrink case is worked out by hand, backed by one 10-split run. Not checked: how the added chance interacts with the rule that picks a run's best submission (`selection: valid_then_score`).
+- The expected-value analysis of the shrink case is worked out by hand, backed by one 10-split run. How the added chance interacts with the rule that picks a run's best submission (`selection: valid_then_score`) is covered only by a general lemma (its numeric illustration assumes a per-split hit rate of 1/4); it was not measured.
 - No submission with non-string node-ID keys was run. Such a submission becomes invalid in the fixed version.
 - The prompt text was read from the grader image's English copy and the Chinese source copy, which agree on the contract sentences. The agent's working image was not pulled.
 

@@ -36,11 +36,13 @@
 | missing_half (half the test nodes) | invalid control | v1 | false | – | – | coverage check: `predictions=520 expected=1041` | | |
 | missing_half | invalid control | v2 | false | – | – | runner error: `predictions missing for 521 test node(s)` | | |
 
+"–" marks a result the grader reports as `valid: false`. EdgeBench's harness still records its score (`graded.md` shows it), and the task's `valid_then_score` selection leaves it out.
+
 ## Notes
 
 - **Quality metrics.** overall, macro/micro F1, balanced accuracy and ECE are identical
   between v1 and v2 for every valid submission, to all printed digits.
-- **final score.** It differs by at most 8e-5, which is about 0.008 normalized points. This
+- **final score.** It differs by at most 8.1e-5 (baseline 0.292783 against 0.292702), which is about 0.008 normalized points. This
   comes only from the wall-time penalty `0.01·log(time)`, which varies between runs. It does
   not come from the repair.
 - **nanconf.** It scores exactly like the 0.0-confidence case in the review, in both v1 and

@@ -58,7 +58,7 @@ This package avoids that failure as follows:
 - A check in each image, before grading, hashes `tests/*` and confirms that `pytest --collect-only` collects
   5 tests.
 - Each grading uses the TaskSpec `eval.sh` with the task's own 600 s timeout.
-- Every raw capture is saved and graded afterwards with the repository harness.
+- Every raw capture is saved and graded afterwards with EdgeBench's harness (`sforge` at `6e4e5f4`).
 
 Both pre-grading checks collected 5 tests, and every capture parsed 5 test results.
 
@@ -69,7 +69,7 @@ legal submission now gets 5/5 instead of 4/5. The run's `best_score` / `best_rou
 `pass_rate_first` are therefore not comparable with the original version whenever a run had more than one valid
 submission and a later one scored higher. The original version kept the first; the fixed version keeps the best.
 
-One further change comes from the harness rather than the task: when no submission in a run has a score, `pass_rate_first` reports the pass rate itself as `best_score`. A run whose only submission is rejected for its cost therefore reports 0.6 under the original version and 0.8 under the fixed one (`evidence/formal/notes/order_addition_permutation_optimization.md`).
+One further change comes from the harness rather than the task: when no submission in a run has a score, `pass_rate_first` reports the pass rate itself as `best_score`. A run whose only submission is rejected for its cost therefore reports 0.6 under the original version and 0.8 under the fixed one (`evidence/formal/notes/order_addition_permutation_optimization.md`). In both versions that value is higher than every valid submission's score measured here (3.3e-09 to 0.0094 out of 100, `paired/graded.md`).
 
 ## How it was checked
 
@@ -79,7 +79,7 @@ A side-by-side run of the original and fixed graders on the same test submission
 
 - The submissions are simple test submissions (identity, and 60 s of random-swap search), far from
   the reference cost. The effect on the choice of best submission does not depend on score size.
-- The choice of best submission was computed with the repository's `select_best` on the saved reports, not through a
+- The choice of best submission was computed with EdgeBench's `select_best` on the saved reports, not through a
   live `judge_server` run. The agent's working image was not run.
 
 ## Build and use

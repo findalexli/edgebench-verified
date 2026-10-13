@@ -1,0 +1,46 @@
+   Compiling syn v2.0.114
+   Compiling hashbrown v0.16.1
+   Compiling regex-automata v0.4.14
+   Compiling getrandom v0.3.4
+   Compiling vte v0.15.0
+   Compiling rustix v1.1.3
+   Compiling once_cell v1.21.3
+   Compiling indexmap v2.13.0
+   Compiling tempfile v3.24.0
+   Compiling regex v1.12.3
+   Compiling thiserror-impl v1.0.69
+   Compiling serde_derive v1.0.228
+   Compiling thiserror-impl v2.0.18
+   Compiling tokio-macros v2.6.0
+   Compiling tokio v1.49.0
+   Compiling thiserror v1.0.69
+   Compiling filedescriptor v0.8.3
+   Compiling portable-pty v0.9.0
+   Compiling thiserror v2.0.18
+   Compiling serde v1.0.228
+   Compiling serde_yaml v0.9.34+deprecated
+   Compiling cas-tui-test v0.1.0 (/tmp/cas-hidden-inject-rplmodu3/ws/crates/cas-tui-test)
+warning: method `window_id_path` is never used
+   --> crates/cas-tui-test/src/pty_runner.rs:206:8
+    |
+152 | impl HeadfulConfig {
+    | ------------------ method in this implementation
+...
+206 |     fn window_id_path(&self) -> PathBuf {
+    |        ^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: function `escape_applescript_string` is never used
+   --> crates/cas-tui-test/src/pty_runner.rs:737:4
+    |
+737 | fn escape_applescript_string(value: &str) -> String {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `cas-tui-test` (lib) generated 2 warnings
+warning: `cas-tui-test` (lib test) generated 2 warnings (2 duplicates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.93s
+     Running unittests src/lib.rs (target/debug/deps/cas_tui_test-319ee1a53f7d6456)
+     Running unittests src/bin/test_tui.rs (target/debug/deps/test_tui-462c7ec3e26f1be1)
+     Running tests/example_test.rs (target/debug/deps/example_test-06bc64b6bf0b35d6)
+   Doc-tests cas_tui_test

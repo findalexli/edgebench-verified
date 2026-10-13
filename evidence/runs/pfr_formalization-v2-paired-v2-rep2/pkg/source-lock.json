@@ -1,0 +1,145 @@
+{
+ "task_id": "pfr_formalization",
+ "original_task_json": {
+  "path": "tasks/pfr_formalization.json",
+  "sha256": "d26b45a9d189eca28d49570bf7d9e292240840f619d7cdb5087758ca1ae677d0"
+ },
+ "original_judge_image": "seededge/edgebench.judge.pfr_formalization@sha256:07b51e8e10011654f0c0f79326bb66da05f1e6e2a88b35d0f1418af81d509cc4",
+ "original_work_image": "seededge/edgebench.work.pfr_formalization@sha256:3be95d28524d9bad61f82306b6448fe3d0fc2dff66fd285d62bfa057bf047c86",
+ "work_image_local": false,
+ "work_image_starter_checked": "all PFR/*.lean in the work image starter /home/workspace/se-bmk-intern/pfr are byte-identical to the judge baseline (sha256, job pfr_formalization-v2-extract); owner agent:agent",
+ "original_files_in_judge_image": {
+  "/home/workspace/judge/se-bmk-intern/pfr/PFR/WeakPFR.lean": "7b70ca6caf0223726d605699b784b78014d7d03fe081c2aada6beefa304e7b8b"
+ },
+ "original_files_in_work_image": {
+  "/home/workspace/se-bmk-intern/pfr/PFR/WeakPFR.lean": "7b70ca6caf0223726d605699b784b78014d7d03fe081c2aada6beefa304e7b8b"
+ },
+ "unchanged_grader_helper": {
+  "/home/workspace/judge/se-bmk-intern/pfr/ListDeclAxiom.lean": "0ea47b5304c4d27dee93abbd033264068bca4c568a6350e9bdb8bb7845d42120",
+  "/home/workspace/judge/se-bmk-intern/eval_lean.py": "3319767e470e165395bf9538db1d7d1fabf01c94eb1f0b43ceca0281d35acc29"
+ },
+ "replacement_files": {
+  "files/judge/pfr/PFR/WeakPFR.lean": "2daa6e37a44c4adaf8113884300d28c33ffa3447d5f700998abc61561ec9a3bd",
+  "files/judge/v2-build-artifacts.tar": "70d6326a7270f5e47e36d68a1f524a7429af3c0780c2d5affd0b9f14d15b0d3a",
+  "files/work/PFR/WeakPFR.lean": "2daa6e37a44c4adaf8113884300d28c33ffa3447d5f700998abc61561ec9a3bd"
+ },
+ "artifact_tar_members": {
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/ListDeclAxiom.c": "0497c9a73ff8627952c8d1a5d56b70af92a0097ec545c17b45aabad6191f28c5",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/ListDeclAxiom.c.hash": "8e11897a3592a6cc84ebe6ca15f87b0b81e21d791635da80dab90af451351563",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/ListDeclAxiom.setup.json": "abf75bfabcf1aac452d081608c083353cbf8e1a5039de34e33017ad2adf95783",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR.c": "6b418626e2be366f6349a2eeeed2fc0d4388f8ac2cb2509b6e3f9928e14f8d85",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR.c.hash": "b4bf72864e676011f6cb09abbb1eebaa6c0a103a244f2902374a63b273fb6e5e",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR.setup.json": "8386a10ac900c9de85f46d5f8e6c12b81130ce5213ad64b5898afb0cc0732452",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/Examples.c": "a7bd683797002e18d9a10f90b68ae3db7dba7bcfaeebd6febb3f8700b8ffda1c",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/Examples.c.hash": "74d16ce5b672c4c2e7dd973c4b93e334641b5250b01ae6d5cb821d3f8b6ecbc3",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/Examples.setup.json": "b2ab06ea974d7054ba94a2565d32645e8068ff62670f6224837cff59da00947f",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/WeakPFR.c": "c0c93c182eafc55b7dbe15b82c65b07a9132d7984c711bcfbd0f5d750de438e2",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/WeakPFR.c.hash": "2a67853bf8c8b54f8e1baff78a6ac5e8a61647ec0b051761e40b581c716c0c97",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/WeakPFR.setup.json": "559de7e8ebc165144d4ecfab19bbe0bd12f2c65c3020c69b9dbba061109cad1c",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.ilean": "24a3f0bf00637ce87caf6ef74aa559d510de587b6a6b6a7eab7c2a8f57c2d95f",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.ilean.hash": "13748eb9791cd64f46786f2def29fe5f45fb06360559e8bb17c2e7af01979ab6",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.olean": "f16ea76eb2749e5e7d4177fd5c190f4d744359e42464595cdd159aa6a17765d2",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.olean.hash": "e0938650f1147a231e522114b50cc0b30f91f31418e74b9fab72528922881152",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.trace": "6b73ad2f5eeb8ffa3a7eba53a8cc6a7ce5f7827bfee9dacda330cad2d47fa43f",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.ilean": "44f0277c0981e9b694021b444a85bcd8a817610e8720feba6d0b69f518c5eadc",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.ilean.hash": "79a044c36a9f02ede051a3f6088c01e7ad9e37d3a1a0b05988e2934dc306a07d",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.olean": "d8b90ebdebf768daf811dd66da8ae404fae7f9d39ea49e6b59e9b6725e835b56",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.olean.hash": "773fc36c7af44d64df44aa5c24bf0380e8beb8f9614f4bb55daf64bdcb4461cc",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.trace": "9f053657b28a059165650735cd01efa7cf87f922b8ce8cbd4c600efa665ae157",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.ilean": "ca9c1b5f49a47827cf1a68d0f70702c17f891b62da1da8dc64c62fe2b44fa8d1",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.ilean.hash": "66fe7473a521104cca9299cd5a8221994041e6a9a57d319b4cae9a61ce13b82a",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.olean": "1780a618af65509541420b9b0048fe6795cda061733596bdc38c818459c6587a",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.olean.hash": "a333e90054c1cc0aa77d48db36ab66ff2a1c74f86e6d42c9c447a4a6f243a62f",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.trace": "c2f52041cc6dd7c38bbd9fa589ee3bf2357d83d86da10f16736d7444e2b68111",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.ilean": "bc0fe556076d7b42898a3780a53ae69f53186e09a319f876728ed70d9a0d37b2",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.ilean.hash": "46983f395651da9ac8f8dfaaef56e3ffd40802b21124dcb8c162641252afbfc7",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.ir": "7d8fea1133affa53a3ea602b90b828aeae252b604d49d19d954603f7965c7b16",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.ir.hash": "f8c16bc0f95140be3f9fe9084dc6d0c6cbb38e8f4a8c34db192460e0c6280bba",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean": "c11efc58b586c97a8e67f84eeb24f2fb65586b2008957f15d8293cf2633c215f",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.hash": "38ff5914c6ede9c6b5d936e8bbda057f86e11c7f88195a3165a8852767aac4cd",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.private": "52fb0cd945cad59845d4acadda6ca4edea0d3ea208d86d823b9f9acdc8d2f244",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.private.hash": "e359227c031e3cb639384bf47fba712d470111f60cac6e0b755f19d7894deeee",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.server": "d18347eae07a217e6792b412674400fc68ddf0039903af2a4ed9ea63d54c43c5",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.server.hash": "7a2647603cc352dc37991abc6ec4bf0d4d3649023526d08a9cf3427d9ef485e6",
+  "/home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.trace": "48aa6849b624fc0b59ad8a56ab1858e7743107b4b0807e8963640880c0afffc5",
+  "/home/workspace/judge/se-bmk-intern/pfr/PFR/WeakPFR.lean": "2daa6e37a44c4adaf8113884300d28c33ffa3447d5f700998abc61561ec9a3bd"
+ },
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.pfr_formalization@sha256:07b51e8e10011654f0c0f79326bb66da05f1e6e2a88b35d0f1418af81d509cc4",
+   "work": "seededge/edgebench.work.pfr_formalization@sha256:3be95d28524d9bad61f82306b6448fe3d0fc2dff66fd285d62bfa057bf047c86"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/judge/se-bmk-intern/pfr/PFR/WeakPFR.lean",
+    "sha256": "7b70ca6caf0223726d605699b784b78014d7d03fe081c2aada6beefa304e7b8b"
+   },
+   {
+    "source": "work",
+    "path": "/home/workspace/se-bmk-intern/pfr/PFR/WeakPFR.lean",
+    "sha256": "7b70ca6caf0223726d605699b784b78014d7d03fe081c2aada6beefa304e7b8b",
+    "check_only": true
+   }
+  ],
+  "outputs": {
+   "files/judge/pfr/PFR/WeakPFR.lean": "2daa6e37a44c4adaf8113884300d28c33ffa3447d5f700998abc61561ec9a3bd",
+   "files/work/PFR/WeakPFR.lean": "2daa6e37a44c4adaf8113884300d28c33ffa3447d5f700998abc61561ec9a3bd",
+   "orig/WeakPFR.lean": "7b70ca6caf0223726d605699b784b78014d7d03fe081c2aada6beefa304e7b8b"
+  },
+  "repair_patch_sha256": "3bf45f7d44eb242096dc9874b500247b652d09ede7e3e0a483b1500639fd676c",
+  "materialize_sh_sha256": "bf6b44400c74047607a385020a593c616f4561c6c7d8c5b53be01bfeb312454b",
+  "note": "materialize.sh is adapted by hand from tools/materialize.sh.in: its Lean rebuild step installs PFR/WeakPFR.lean in the pfr judge repo.",
+  "lean_build": {
+   "artifact": "files/judge/v2-build-artifacts.tar",
+   "artifact_member_count": 39,
+   "artifact_members": [
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/ListDeclAxiom.c",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/ListDeclAxiom.c.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/ListDeclAxiom.setup.json",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR.c",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR.c.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR.setup.json",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/Examples.c",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/Examples.c.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/Examples.setup.json",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/WeakPFR.c",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/WeakPFR.c.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/ir/PFR/WeakPFR.setup.json",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.ilean",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.ilean.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.olean",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.olean.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/ListDeclAxiom.trace",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.ilean",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.ilean.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.olean",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.olean.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR.trace",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.ilean",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.ilean.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.olean",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.olean.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/Examples.trace",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.ilean",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.ilean.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.ir",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.ir.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.private",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.private.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.server",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.olean.server.hash",
+    "home/workspace/judge/se-bmk-intern/pfr/.lake/build/lib/lean/PFR/WeakPFR.trace",
+    "home/workspace/judge/se-bmk-intern/pfr/PFR/WeakPFR.lean"
+   ],
+   "expected_listing": "paired/out/v2-listing.txt",
+   "expected_listing_sha256": "8450b0a2df6c6e4372ba9aaacf5e359970390ce60cbffcc006d70a92e2e72f30",
+   "saved_reference_tar_sha256": "70d6326a7270f5e47e36d68a1f524a7429af3c0780c2d5affd0b9f14d15b0d3a",
+   "acceptance": "The tar is rebuilt with `lake build ListDeclAxiom` + `lake build` inside the original judge image (offline, --memory 6g). Byte-identical oleans are not required: the member set must equal artifact_members and the regenerated ListDeclAxiom listing (info prefix removed) must equal expected_listing byte for byte."
+  }
+ }
+}

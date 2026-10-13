@@ -47,30 +47,30 @@ college_english_exam_bank,"F R009 rule-level score 0, no checkpoints",valid,3,tr
 college_english_exam_bank,L A without any rule-level score (complete checkpoints),valid,1,true,true,77,77
 college_english_exam_bank,L A without any rule-level score (complete checkpoints),valid,2,true,true,77,77
 college_english_exam_bank,L A without any rule-level score (complete checkpoints),valid,3,true,true,77,77
-college_english_exam_bank,C empty `scores`,trigger,1,true,false,100,
-college_english_exam_bank,C empty `scores`,trigger,2,true,false,100,
-college_english_exam_bank,C empty `scores`,trigger,3,true,false,100,
-college_english_exam_bank,D A minus R009,trigger,1,true,false,81,
-college_english_exam_bank,D A minus R009,trigger,2,true,false,81,
-college_english_exam_bank,D A minus R009,trigger,3,true,false,81,
-college_english_exam_bank,E B minus R009,trigger,1,true,false,15,
-college_english_exam_bank,E B minus R009,trigger,2,true,false,15,
-college_english_exam_bank,E B minus R009,trigger,3,true,false,15,
-college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,1,true,false,0,
-college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,2,true,false,0,
-college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,3,true,false,0,
-college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,1,true,false,15,
-college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,2,true,false,15,
-college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,3,true,false,15,
-college_english_exam_bank,H no JSON,invalid,1,false,false,,
-college_english_exam_bank,H no JSON,invalid,2,false,false,,
-college_english_exam_bank,H no JSON,invalid,3,false,false,,
+college_english_exam_bank,C empty `scores`,trigger,1,true,false,100,0
+college_english_exam_bank,C empty `scores`,trigger,2,true,false,100,0
+college_english_exam_bank,C empty `scores`,trigger,3,true,false,100,0
+college_english_exam_bank,D A minus R009,trigger,1,true,false,81,0
+college_english_exam_bank,D A minus R009,trigger,2,true,false,81,0
+college_english_exam_bank,D A minus R009,trigger,3,true,false,81,0
+college_english_exam_bank,E B minus R009,trigger,1,true,false,15,0
+college_english_exam_bank,E B minus R009,trigger,2,true,false,15,0
+college_english_exam_bank,E B minus R009,trigger,3,true,false,15,0
+college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,1,true,false,0,0
+college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,2,true,false,0,0
+college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,3,true,false,0,0
+college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,1,true,false,15,0
+college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,2,true,false,15,0
+college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,3,true,false,15,0
+college_english_exam_bank,H no JSON,invalid,1,false,false,0,0
+college_english_exam_bank,H no JSON,invalid,2,false,false,0,0
+college_english_exam_bank,H no JSON,invalid,3,false,false,0,0
 college_english_exam_bank,"J D, then A on re-ask",trigger,1,true,true,81,77
 college_english_exam_bank,"J D, then A on re-ask",trigger,2,true,true,81,77
 college_english_exam_bank,"J D, then A on re-ask",trigger,3,true,true,81,77
-college_english_exam_bank,"K no JSON, then A on re-ask",trigger,1,false,true,,77
-college_english_exam_bank,"K no JSON, then A on re-ask",trigger,2,false,true,,77
-college_english_exam_bank,"K no JSON, then A on re-ask",trigger,3,false,true,,77
+college_english_exam_bank,"K no JSON, then A on re-ask",trigger,1,false,true,0,77
+college_english_exam_bank,"K no JSON, then A on re-ask",trigger,2,false,true,0,77
+college_english_exam_bank,"K no JSON, then A on re-ask",trigger,3,false,true,0,77
 cta_risk_budget_optimization,Trigger (synthetic),trigger,1,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
 cta_risk_budget_optimization,Trigger (synthetic),trigger,2,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
 cta_risk_budget_optimization,Trigger (synthetic),trigger,3,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,
@@ -140,12 +140,12 @@ exchange_core_throughput,`feeleak`,invalid,3,RE,WA,0,0
 exchange_core_throughput,`compileerr`,invalid,1,RE,WA,0,0
 exchange_core_throughput,`compileerr`,invalid,2,RE,WA,0,0
 exchange_core_throughput,`compileerr`,invalid,3,RE,WA,0,0
-ffmpeg_swscale_reimplementation,reference implementation (run 1),valid,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.967353,0.980056
-ffmpeg_swscale_reimplementation,reference implementation (run 1),valid,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.98489,0.995963
-ffmpeg_swscale_reimplementation,reference implementation (run 1),valid,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.990566,1.012284
-ffmpeg_swscale_reimplementation,reference implementation (run 2),valid,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.509049,0.507032
-ffmpeg_swscale_reimplementation,reference implementation (run 2),valid,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.496127,0.501321
-ffmpeg_swscale_reimplementation,reference implementation (run 2),valid,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.505227,0.498528
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.967353,0.980056
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.98489,0.995963
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.990566,1.012284
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.509049,0.507032
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.496127,0.501321
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 0,0.505227,0.498528
 ffmpeg_swscale_reimplementation,shipped scaffold,baseline,1,correct 30/30; timed_errors 0,correct 30/30; timed_errors 1,0.447819,0.012416
 ffmpeg_swscale_reimplementation,shipped scaffold,baseline,2,correct 30/30; timed_errors 0,correct 30/30; timed_errors 1,0.452737,0.01239
 ffmpeg_swscale_reimplementation,shipped scaffold,baseline,3,correct 30/30; timed_errors 0,correct 30/30; timed_errors 1,0.440964,0.012246
@@ -161,6 +161,36 @@ ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,3,correct 30/30; 
 ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,1,correct 28/30; timed_errors 0,correct 28/30; timed_errors 0,0,0
 ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,2,correct 28/30; timed_errors 0,correct 28/30; timed_errors 0,0,0
 ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,3,correct 28/30; timed_errors 0,correct 28/30; timed_errors 0,0,0
+git_rewrite_in_zig,`control`: unmodified starter,baseline,1,[6.9e-05 2],[6.9e-05 2],6.9e-05,6.9e-05
+git_rewrite_in_zig,`control`: unmodified starter,baseline,2,[6.9e-05 2],[6.9e-05 2],6.9e-05,6.9e-05
+git_rewrite_in_zig,`control`: unmodified starter,baseline,3,[6.9e-05 2],[6.9e-05 2],6.9e-05,6.9e-05
+git_rewrite_in_zig,"`zig_build_exe`: starter after `zig build-exe src/main.zig -lc -lz` (leaves `main`, `main.o`)",trigger,1,[0.0 None anti_cheat_failed: precompiled_objects;stray_elf_binaries;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`zig_build_exe`: starter after `zig build-exe src/main.zig -lc -lz` (leaves `main`, `main.o`)",trigger,2,[0.0 None anti_cheat_failed: precompiled_objects;stray_elf_binaries;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`zig_build_exe`: starter after `zig build-exe src/main.zig -lc -lz` (leaves `main`, `main.o`)",trigger,3,[0.0 None anti_cheat_failed: precompiled_objects;stray_elf_binaries;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`obj_only`: as above, only `main.o` left",trigger,1,[0.0 None anti_cheat_failed: precompiled_objects;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`obj_only`: as above, only `main.o` left",trigger,2,[0.0 None anti_cheat_failed: precompiled_objects;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`obj_only`: as above, only `main.o` left",trigger,3,[0.0 None anti_cheat_failed: precompiled_objects;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`elf_only`: as above, only `main` left",trigger,1,[0.0 None anti_cheat_failed: stray_elf_binaries;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`elf_only`: as above, only `main` left",trigger,2,[0.0 None anti_cheat_failed: stray_elf_binaries;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`elf_only`: as above, only `main` left",trigger,3,[0.0 None anti_cheat_failed: stray_elf_binaries;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,`exec_git`: `test` block in `src/main.zig` runs system git (`zig test` passes 1/1),trigger,1,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,`exec_git`: `test` block in `src/main.zig` runs system git (`zig test` passes 1/1),trigger,2,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,`exec_git`: `test` block in `src/main.zig` runs system git (`zig test` passes 1/1),trigger,3,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`exec_git_helper`: `src/difftest.zig` helper runs system git, used only by a `test` block (`zig test` passes 1/1)",trigger,1,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`exec_git_helper`: `src/difftest.zig` helper runs system git, used only by a `test` block (`zig test` passes 1/1)",trigger,2,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`exec_git_helper`: `src/difftest.zig` helper runs system git, used only by a `test` block (`zig test` passes 1/1)",trigger,3,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"oracle: real git v2.47.0 in `zig-out/bin`, `HARBOR_ORACLE_MODE=1`",valid,1,[1.0 29075 0 1007],[1.0 29075 0 1007],1,1
+git_rewrite_in_zig,"oracle: real git v2.47.0 in `zig-out/bin`, `HARBOR_ORACLE_MODE=1`",valid,2,[1.0 29075 0 1007],[1.0 29075 0 1007],1,1
+git_rewrite_in_zig,"oracle: real git v2.47.0 in `zig-out/bin`, `HARBOR_ORACLE_MODE=1`",valid,3,[1.0 29075 0 1007],[1.0 29075 0 1007],1,1
+git_rewrite_in_zig,"`bad_wrap_cgit`: `main.zig` execs `./cgit`, a C git v2.47.0 in the project folder",invalid,1,[0.0 None anti_cheat_failed: stray_elf_binaries;],[0.0 0],0,0
+git_rewrite_in_zig,"`bad_wrap_cgit`: `main.zig` execs `./cgit`, a C git v2.47.0 in the project folder",invalid,2,[0.0 None anti_cheat_failed: stray_elf_binaries;],[0.0 0],0,0
+git_rewrite_in_zig,"`bad_wrap_cgit`: `main.zig` execs `./cgit`, a C git v2.47.0 in the project folder",invalid,3,[0.0 None anti_cheat_failed: stray_elf_binaries;],[0.0 0],0,0
+git_rewrite_in_zig,`bad_shell_git`: `main.zig` forwards every call to the system `git`,invalid,1,[6.9e-05 2],[6.9e-05 2],6.9e-05,6.9e-05
+git_rewrite_in_zig,`bad_shell_git`: `main.zig` forwards every call to the system `git`,invalid,2,[6.9e-05 2],[6.9e-05 2],6.9e-05,6.9e-05
+git_rewrite_in_zig,`bad_shell_git`: `main.zig` forwards every call to the system `git`,invalid,3,[6.9e-05 2],[6.9e-05 2],6.9e-05,6.9e-05
+git_rewrite_in_zig,"`bad_shell_git_oneline`: the same, with `""git""` on the `std.process.Child` line",invalid,1,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`bad_shell_git_oneline`: the same, with `""git""` on the `std.process.Child` line",invalid,2,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
+git_rewrite_in_zig,"`bad_shell_git_oneline`: the same, with `""git""` on the `std.process.Child` line",invalid,3,[0.0 None anti_cheat_failed: shells_out_to_git;],[6.9e-05 2],0,6.9e-05
 graph_node_classification,baseline (shipped solution.py),valid,1,true,true,29.27832597,29.27023467
 graph_node_classification,baseline (shipped solution.py),valid,2,true,true,29.2412547,29.2709693
 graph_node_classification,baseline (shipped solution.py),valid,3,true,true,29.17798219,29.19055028
@@ -362,12 +392,30 @@ triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,3,c
 triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,1,cases_ok 10/10; valid true,cases_ok 10/10; valid true,48.87203972,48.94838762
 triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,2,cases_ok 10/10; valid true,cases_ok 10/10; valid true,48.87203972,48.94838762
 triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,3,cases_ok 10/10; valid true,cases_ok 10/10; valid true,48.87203972,48.94838762
-triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,1,cases_ok 10/10; valid true,cases_ok 0/10; valid false,0.05159561496,0
-triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,2,cases_ok 10/10; valid true,cases_ok 0/10; valid false,0.05159561496,0
-triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,3,cases_ok 10/10; valid true,cases_ok 0/10; valid false,0.05159561496,0
-triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,1,cases_ok 0/10; valid false,cases_ok 0/10; valid false,0,0
-triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,2,cases_ok 0/10; valid false,cases_ok 0/10; valid false,0,0
-triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,3,cases_ok 0/10; valid false,cases_ok 0/10; valid false,0,0
+triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,1,cases_ok 10/10; valid true,cases_ok 0/10; valid true,0.05159561496,
+triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,2,cases_ok 10/10; valid true,cases_ok 0/10; valid true,0.05159561496,
+triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,3,cases_ok 10/10; valid true,cases_ok 0/10; valid true,0.05159561496,
+triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,1,cases_ok 0/10; valid true,cases_ok 0/10; valid true,,
+triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,2,cases_ok 0/10; valid true,cases_ok 0/10; valid true,,
+triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,3,cases_ok 0/10; valid true,cases_ok 0/10; valid true,,
+triangulation_coloring_optimization,`cpu0` (control alone),baseline,1,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
+triangulation_coloring_optimization,`cpu0` (control alone),baseline,2,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
+triangulation_coloring_optimization,`cpu0` (control alone),baseline,3,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
+triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,1,OK 2 TLE 8 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,inf,863058
+triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,2,OK 2 TLE 8 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,inf,863058
+triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,3,OK 2 TLE 8 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,inf,863058
+triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,1,OK 2 TLE 8 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,inf,863058
+triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,2,OK 2 TLE 8 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,inf,863058
+triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,3,OK 2 TLE 8 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,inf,863058
+triangulation_coloring_optimization,`wall25` (works until 25 s wall clock),valid,1,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
+triangulation_coloring_optimization,`wall25` (works until 25 s wall clock),valid,2,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
+triangulation_coloring_optimization,`wall25` (works until 25 s wall clock),valid,3,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
+triangulation_coloring_optimization,"`spin40` (bad control, 40 s CPU per case)",invalid,1,OK 0 TLE 10 WA 0 RE 0,OK 0 TLE 10 WA 0 RE 0,inf,inf
+triangulation_coloring_optimization,"`spin40` (bad control, 40 s CPU per case)",invalid,2,OK 0 TLE 10 WA 0 RE 0,OK 0 TLE 10 WA 0 RE 0,inf,inf
+triangulation_coloring_optimization,"`spin40` (bad control, 40 s CPU per case)",invalid,3,OK 0 TLE 10 WA 0 RE 0,OK 0 TLE 10 WA 0 RE 0,inf,inf
+triangulation_coloring_optimization,`cpu20` | 8,valid,1,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
+triangulation_coloring_optimization,`cpu20` | 8,valid,2,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
+triangulation_coloring_optimization,`cpu20` | 8,valid,3,OK 10 TLE 0 WA 0 RE 0,OK 10 TLE 0 WA 0 RE 0,866166,863058
 warehouse_forklift_routing,generic valid control,valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,46676.8,46676.8
 warehouse_forklift_routing,generic valid control,valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,46676.8,46676.8
 warehouse_forklift_routing,generic valid control,valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,46676.8,46676.8
@@ -383,6 +431,12 @@ warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger
 warehouse_forklift_routing,near the 150 s per-input limit,trigger,1,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
 warehouse_forklift_routing,near the 150 s per-input limit,trigger,2,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
 warehouse_forklift_routing,near the 150 s per-input limit,trigger,3,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,`cpu80` (80 s CPU per input),trigger,1,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,`cpu80` (80 s CPU per input),trigger,2,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,`cpu80` (80 s CPU per input),trigger,3,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,`cpu140` (140 s CPU per input),trigger,1,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,`cpu140` (140 s CPU per input),trigger,2,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
+warehouse_forklift_routing,`cpu140` (140 s CPU per input),trigger,3,OK 0 TLE 50 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,46676.8
 openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,1,died at main.nut line 5,no,0,0
 openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,2,died at main.nut line 5,no,0,0
 openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,3,died at main.nut line 5,no,0,0
@@ -398,3 +452,175 @@ openttd_transport_ai,baseline_v2 (fixed starter),baseline,3,no,no,0,0
 openttd_transport_ai,probe_value (positive-value control),valid,1,no,no,4975,4975
 openttd_transport_ai,probe_value (positive-value control),valid,2,no,no,4975,4975
 openttd_transport_ai,probe_value (positive-value control),valid,3,no,no,4975,4975
+pfr_formalization,starter,baseline,1,valid true; repaired 0/423; app_ent_PFR BAD,valid true; repaired 0/423; app_ent_PFR BAD,0,0
+pfr_formalization,starter,baseline,2,valid true; repaired 0/423; app_ent_PFR BAD,valid true; repaired 0/423; app_ent_PFR BAD,0,0
+pfr_formalization,starter,baseline,3,valid true; repaired 0/423; app_ent_PFR BAD,valid true; repaired 0/423; app_ent_PFR BAD,0,0
+pfr_formalization,T (trigger),trigger,1,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 OK, ebv_trig_torsion OK",0,0
+pfr_formalization,T (trigger),trigger,2,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 OK, ebv_trig_torsion OK",0,0
+pfr_formalization,T (trigger),trigger,3,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_trig_f2 OK, ebv_trig_torsion OK",0,0
+pfr_formalization,D (downstream),trigger,1,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 OK, ebv_trig_f2 OK, ebv_trig_torsion OK",0,0
+pfr_formalization,D (downstream),trigger,2,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 OK, ebv_trig_f2 OK, ebv_trig_torsion OK",0,0
+pfr_formalization,D (downstream),trigger,3,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 BAD, ebv_trig_f2 BAD, ebv_trig_torsion BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_down_f2 OK, ebv_trig_f2 OK, ebv_trig_torsion OK",0,0
+pfr_formalization,BAD (bad control),invalid,1,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",0,0
+pfr_formalization,BAD (bad control),invalid,2,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",0,0
+pfr_formalization,BAD (bad control),invalid,3,"valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD","valid true; repaired 0/423; app_ent_PFR BAD, ebv_bad_sorry BAD",0,0
+grid_turing_robot,`baseline_good` (no extra work),baseline,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`baseline_good` (no extra work),baseline,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`baseline_good` (no extra work),baseline,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`cpu12` (12 s CPU per case),valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`cpu12` (12 s CPU per case),valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`cpu12` (12 s CPU per case),valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`cpu16` (16 s CPU per case),trigger,1,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,94092
+grid_turing_robot,`cpu16` (16 s CPU per case),trigger,2,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,94092
+grid_turing_robot,`cpu16` (16 s CPU per case),trigger,3,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,94092
+grid_turing_robot,`cpu28` (28 s CPU per case),trigger,1,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,94092
+grid_turing_robot,`cpu28` (28 s CPU per case),trigger,2,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,94092
+grid_turing_robot,`cpu28` (28 s CPU per case),trigger,3,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,94092
+grid_turing_robot,`wall25` (works until 25 s wall clock),valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`wall25` (works until 25 s wall clock),valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`wall25` (works until 25 s wall clock),valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,"`spin40` (bad control, 40 s CPU per case)",invalid,1,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,inf,inf
+grid_turing_robot,"`spin40` (bad control, 40 s CPU per case)",invalid,2,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,inf,inf
+grid_turing_robot,"`spin40` (bad control, 40 s CPU per case)",invalid,3,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,inf,inf
+grid_turing_robot,`cpu20` (20 s CPU per case),valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`cpu20` (20 s CPU per case),valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+grid_turing_robot,`cpu20` (20 s CPU per case),valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,94092,94092
+molecular_self_assembly,"`baseline` (shipped baseline, no extra work)",baseline,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,"`baseline` (shipped baseline, no extra work)",baseline,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,"`baseline` (shipped baseline, no extra work)",baseline,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,`cpu12` (12 s CPU per case),valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,`cpu12` (12 s CPU per case),valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,`cpu12` (12 s CPU per case),valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,`cpu16` (16 s CPU per case),trigger,1,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,2849909,69280072
+molecular_self_assembly,`cpu16` (16 s CPU per case),trigger,2,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,2849909,69280072
+molecular_self_assembly,`cpu16` (16 s CPU per case),trigger,3,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,2849909,69280072
+molecular_self_assembly,`cpu28` (28 s CPU per case),trigger,1,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,2849909,69280072
+molecular_self_assembly,`cpu28` (28 s CPU per case),trigger,2,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,2849909,69280072
+molecular_self_assembly,`cpu28` (28 s CPU per case),trigger,3,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,2849909,69280072
+molecular_self_assembly,`wall25` (works until 25 s wall clock),valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,`wall25` (works until 25 s wall clock),valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,`wall25` (works until 25 s wall clock),valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,"`spin40` (bad control, 40 s CPU per case)",invalid,1,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,0,0
+molecular_self_assembly,"`spin40` (bad control, 40 s CPU per case)",invalid,2,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,0,0
+molecular_self_assembly,"`spin40` (bad control, 40 s CPU per case)",invalid,3,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,0,0
+molecular_self_assembly,`cpu20` (20 s CPU per case),valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,`cpu20` (20 s CPU per case),valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+molecular_self_assembly,`cpu20` (20 s CPU per case),valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,69280072,69280072
+rust_multicrate_reconstruction,starter,baseline,1,OK; passed 27/2611; cas-types 1/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 13/98 TEST_FAIL; cas-diffs 12/98 TEST_FAIL; cas-pty 1/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 0/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 177/2611; cas-types 1/136 TEST_FAIL; cas-code 0/50 TEST_FAIL; cas-factory-protocol 14/98 TEST_FAIL; cas-diffs 12/98 TEST_FAIL; cas-pty 2/11 TEST_FAIL; cas-recording 1/29 TEST_FAIL; cas-store 2/216 TEST_FAIL; cas-search 7/136 TEST_FAIL; cas-core 18/201 TEST_FAIL; cas-mux 0/37 TEST_FAIL; cas-factory 11/134 TEST_FAIL; cas-mcp 14/16 TEST_FAIL; cas-tui-test 3/105 TEST_FAIL; cas-cli 92/1344 TEST_FAIL,1.4711,5.7236
+rust_multicrate_reconstruction,reference,trigger,1,OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2442/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.6091,94.7022
+rust_multicrate_reconstruction,reference,trigger,2,OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2442/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.6091,94.7022
+rust_multicrate_reconstruction,reference,trigger,3,OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2442/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.6091,94.7022
+rust_multicrate_reconstruction,partial,trigger,1,OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2434/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 120/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.6091,93.9963
+rust_multicrate_reconstruction,partial,trigger,2,OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2434/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 120/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.6091,93.9963
+rust_multicrate_reconstruction,partial,trigger,3,OK; passed 433/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2434/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 11/11 PASS; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 120/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.6091,93.9963
+rust_multicrate_reconstruction,bad,invalid,1,OK; passed 432/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 9/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2441/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.5091,94.6022
+rust_multicrate_reconstruction,bad,invalid,2,OK; passed 432/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 9/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2441/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.5091,94.6022
+rust_multicrate_reconstruction,bad,invalid,3,OK; passed 432/2611; cas-types 135/136 TEST_FAIL; cas-code 0/50 TEST_CRASH; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 9/11 TEST_FAIL; cas-recording 0/29 TEST_CRASH; cas-store 0/216 TEST_CRASH; cas-search 0/136 TEST_CRASH; cas-core 0/201 TEST_CRASH; cas-mux 0/37 TEST_CRASH; cas-factory 0/134 TEST_CRASH; cas-mcp 0/16 TEST_CRASH; cas-tui-test 102/105 TEST_FAIL; cas-cli 0/1344 TEST_CRASH,OK; passed 2441/2611; cas-types 135/136 TEST_FAIL; cas-code 49/50 TEST_FAIL; cas-factory-protocol 97/98 TEST_FAIL; cas-diffs 89/98 TEST_FAIL; cas-pty 10/11 TEST_FAIL; cas-recording 25/29 TEST_FAIL; cas-store 216/216 PASS; cas-search 128/136 TEST_FAIL; cas-core 191/201 TEST_FAIL; cas-mux 0/37 TEST_CRASH; cas-factory 131/134 TEST_FAIL; cas-mcp 16/16 PASS; cas-tui-test 102/105 TEST_FAIL; cas-cli 1252/1344 TEST_FAIL,27.5091,94.6022
+vibrating_path_graph_coloring,`cpu0` (honest control alone),baseline,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,`cpu0` (honest control alone),baseline,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,`cpu0` (honest control alone),baseline,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case),trigger,1,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,24650014
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case),trigger,2,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,24650014
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case),trigger,3,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,24650014
+vibrating_path_graph_coloring,`cpu28` (28 s CPU per case),trigger,1,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,24650014
+vibrating_path_graph_coloring,`cpu28` (28 s CPU per case),trigger,2,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,24650014
+vibrating_path_graph_coloring,`cpu28` (28 s CPU per case),trigger,3,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,24650014
+vibrating_path_graph_coloring,`wall25` (works until 25 s wall clock),valid,1,OK 36 TLE 14 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,inf,24650014
+vibrating_path_graph_coloring,`wall25` (works until 25 s wall clock),valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,`wall25` (works until 25 s wall clock),valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,"`wall25`, repeat 1 / repeat 2",valid,1,OK 50 TLE 0 WA 0 RE 0 | OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,"`wall25`, repeat 1 / repeat 2",valid,2,OK 50 TLE 0 WA 0 RE 0 | OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,"`wall25`, repeat 1 / repeat 2",valid,3,OK 50 TLE 0 WA 0 RE 0 | OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,"`spin40` (bad control, 40 s CPU per case)",invalid,1,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,inf,inf
+vibrating_path_graph_coloring,"`spin40` (bad control, 40 s CPU per case)",invalid,2,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,inf,inf
+vibrating_path_graph_coloring,"`spin40` (bad control, 40 s CPU per case)",invalid,3,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,inf,inf
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case) | 8,valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case) | 8,valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case) | 8,valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,24650014,24650014
+apple_incremental_game,`cpu0` (honest control alone),baseline,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+apple_incremental_game,`cpu0` (honest control alone),baseline,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+apple_incremental_game,`cpu0` (honest control alone),baseline,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+apple_incremental_game,`cpu20` (20 s CPU per case),trigger,1,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,3955266,99714418
+apple_incremental_game,`cpu20` (20 s CPU per case),trigger,2,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,3955266,99714418
+apple_incremental_game,`cpu20` (20 s CPU per case),trigger,3,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,3955266,99714418
+apple_incremental_game,`cpu28` (28 s CPU per case),trigger,1,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,3955266,99714418
+apple_incremental_game,`cpu28` (28 s CPU per case),trigger,2,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,3955266,99714418
+apple_incremental_game,`cpu28` (28 s CPU per case),trigger,3,OK 2 TLE 48 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,3955266,99714418
+apple_incremental_game,`wall25` (works until 25 s wall clock),valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+apple_incremental_game,`wall25` (works until 25 s wall clock),valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+apple_incremental_game,`wall25` (works until 25 s wall clock),valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+apple_incremental_game,"`spin40` (bad control, 40 s CPU per case)",invalid,1,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,0,0
+apple_incremental_game,"`spin40` (bad control, 40 s CPU per case)",invalid,2,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,0,0
+apple_incremental_game,"`spin40` (bad control, 40 s CPU per case)",invalid,3,OK 0 TLE 50 WA 0 RE 0,OK 0 TLE 50 WA 0 RE 0,0,0
+apple_incremental_game,`cpu20` (20 s CPU per case) | 8,valid,1,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+apple_incremental_game,`cpu20` (20 s CPU per case) | 8,valid,2,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+apple_incremental_game,`cpu20` (20 s CPU per case) | 8,valid,3,OK 50 TLE 0 WA 0 RE 0,OK 50 TLE 0 WA 0 RE 0,99714418,99714418
+portfolio_risk_calibration,(a) instructions' formula,trigger,1,excess 3.44%; excess part 5.73,excess 3.47%; excess part 5.78,32.45,32.52
+portfolio_risk_calibration,(a) instructions' formula,trigger,2,excess 3.44%; excess part 5.73,excess 3.47%; excess part 5.78,32.45,32.52
+portfolio_risk_calibration,(a) instructions' formula,trigger,3,excess 3.44%; excess part 5.73,excess 3.47%; excess part 5.78,32.45,32.52
+portfolio_risk_calibration,(b) grader's formula,valid,1,excess 3.44%; excess part 5.73,excess 3.47%; excess part 5.78,32.45,32.52
+portfolio_risk_calibration,(b) grader's formula,valid,2,excess 3.44%; excess part 5.73,excess 3.47%; excess part 5.78,32.45,32.52
+portfolio_risk_calibration,(b) grader's formula,valid,3,excess 3.44%; excess part 5.73,excess 3.47%; excess part 5.78,32.45,32.52
+portfolio_risk_calibration,(c) wrong,invalid,1,excess -21.14%; excess part -10.0,excess -21.33%; excess part -10.0,0,0
+portfolio_risk_calibration,(c) wrong,invalid,2,excess -21.14%; excess part -10.0,excess -21.33%; excess part -10.0,0,0
+portfolio_risk_calibration,(c) wrong,invalid,3,excess -21.14%; excess part -10.0,excess -21.33%; excess part -10.0,0,0
+portfolio_risk_calibration,(d) starter,baseline,1,missing submission files: portfolio_optimizer.py,missing submission files: portfolio_optimizer.py,0,0
+portfolio_risk_calibration,(d) starter,baseline,2,missing submission files: portfolio_optimizer.py,missing submission files: portfolio_optimizer.py,0,0
+portfolio_risk_calibration,(d) starter,baseline,3,missing submission files: portfolio_optimizer.py,missing submission files: portfolio_optimizer.py,0,0
+portfolio_risk_calibration,(e) image example,baseline,1,excess -9.28%; excess part -9.28,excess -9.37%; excess part -9.37,0,0
+portfolio_risk_calibration,(e) image example,baseline,2,excess -9.28%; excess part -9.28,excess -9.37%; excess part -9.37,0,0
+portfolio_risk_calibration,(e) image example,baseline,3,excess -9.28%; excess part -9.28,excess -9.37%; excess part -9.37,0,0
+portfolio_risk_calibration,T1 instructions' formula gives exactly 12%,trigger,1,excess part 19.85; three parts 26.4706,excess part 20.00; three parts 26.7019,,
+portfolio_risk_calibration,T1 instructions' formula gives exactly 12%,trigger,2,excess part 19.85; three parts 26.4706,excess part 20.00; three parts 26.7019,,
+portfolio_risk_calibration,T1 instructions' formula gives exactly 12%,trigger,3,excess part 19.85; three parts 26.4706,excess part 20.00; three parts 26.7019,,
+portfolio_risk_calibration,T2 original grader's formula gives exactly 12%,valid,1,excess part 20.00; three parts 26.7019,excess part 20.00; three parts 26.7835,,
+portfolio_risk_calibration,T2 original grader's formula gives exactly 12%,valid,2,excess part 20.00; three parts 26.7019,excess part 20.00; three parts 26.7835,,
+portfolio_risk_calibration,T2 original grader's formula gives exactly 12%,valid,3,excess part 20.00; three parts 26.7019,excess part 20.00; three parts 26.7835,,
+portfolio_risk_calibration,T3 equal to the benchmark,valid,1,excess part 0.00; three parts 0.0000,excess part 0.00; three parts 0.0000,,
+portfolio_risk_calibration,T3 equal to the benchmark,valid,2,excess part 0.00; three parts 0.0000,excess part 0.00; three parts 0.0000,,
+portfolio_risk_calibration,T3 equal to the benchmark,valid,3,excess part 0.00; three parts 0.0000,excess part 0.00; three parts 0.0000,,
+portfolio_risk_calibration,T4,valid,1,excess part 9.90; three parts 11.2296,excess part 9.98; three parts 11.3546,,
+portfolio_risk_calibration,T4,valid,2,excess part 9.90; three parts 11.2296,excess part 9.98; three parts 11.3546,,
+portfolio_risk_calibration,T4,valid,3,excess part 9.90; three parts 11.2296,excess part 9.98; three parts 11.3546,,
+portfolio_risk_calibration,T5,valid,1,excess part -4.43; three parts -4.4300,excess part -4.47; three parts -4.4700,,
+portfolio_risk_calibration,T5,valid,2,excess part -4.43; three parts -4.4300,excess part -4.47; three parts -4.4700,,
+portfolio_risk_calibration,T5,valid,3,excess part -4.43; three parts -4.4300,excess part -4.47; three parts -4.4700,,
+juliet_vulnerability_analyzer,a78_public (public form),trigger,1,"OK/True; trace 0.0000; {""wrong_source"": 120}",OK/True; trace 1.0000; {},45.66,60.66
+juliet_vulnerability_analyzer,a78_public (public form),trigger,2,"OK/True; trace 0.0000; {""wrong_source"": 120}",OK/True; trace 1.0000; {},45.66,60.66
+juliet_vulnerability_analyzer,a78_public (public form),trigger,3,"OK/True; trace 0.0000; {""wrong_source"": 120}",OK/True; trace 1.0000; {},45.66,60.66
+juliet_vulnerability_analyzer,a78_input (hidden form),valid,1,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},60.66,60.66
+juliet_vulnerability_analyzer,a78_input (hidden form),valid,2,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},60.66,60.66
+juliet_vulnerability_analyzer,a78_input (hidden form),valid,3,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},60.66,60.66
+juliet_vulnerability_analyzer,a78_wrong (wrong source),invalid,1,"OK/True; trace 0.0000; {""wrong_source"": 120}","OK/True; trace 0.0000; {""wrong_source"": 120}",45.66,45.66
+juliet_vulnerability_analyzer,a78_wrong (wrong source),invalid,2,"OK/True; trace 0.0000; {""wrong_source"": 120}","OK/True; trace 0.0000; {""wrong_source"": 120}",45.66,45.66
+juliet_vulnerability_analyzer,a78_wrong (wrong source),invalid,3,"OK/True; trace 0.0000; {""wrong_source"": 120}","OK/True; trace 0.0000; {""wrong_source"": 120}",45.66,45.66
+juliet_vulnerability_analyzer,r_hidden,valid,1,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},100,100
+juliet_vulnerability_analyzer,r_hidden,valid,2,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},100,100
+juliet_vulnerability_analyzer,r_hidden,valid,3,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},100,100
+juliet_vulnerability_analyzer,r_public78 (public form),trigger,1,"OK/True; trace 0.8340; {""wrong_source"": 120}",OK/True; trace 1.0000; {},97.51,100
+juliet_vulnerability_analyzer,r_public78 (public form),trigger,2,"OK/True; trace 0.8340; {""wrong_source"": 120}",OK/True; trace 1.0000; {},97.51,100
+juliet_vulnerability_analyzer,r_public78 (public form),trigger,3,"OK/True; trace 0.8340; {""wrong_source"": 120}",OK/True; trace 1.0000; {},97.51,100
+juliet_vulnerability_analyzer,r_sinkonly (wrong in other CWEs),invalid,1,"OK/True; trace 0.3237; {""wrong_source"": 489}","OK/True; trace 0.4896; {""wrong_source"": 369}",70,70
+juliet_vulnerability_analyzer,r_sinkonly (wrong in other CWEs),invalid,2,"OK/True; trace 0.3237; {""wrong_source"": 489}","OK/True; trace 0.4896; {""wrong_source"": 369}",70,70
+juliet_vulnerability_analyzer,r_sinkonly (wrong in other CWEs),invalid,3,"OK/True; trace 0.3237; {""wrong_source"": 489}","OK/True; trace 0.4896; {""wrong_source"": 369}",70,70
+juliet_vulnerability_analyzer,r_wrong78_tr,invalid,1,"OK/True; trace 0.8340; {""wrong_source"": 120}","OK/True; trace 0.8340; {""wrong_source"": 120}",97.51,97.51
+juliet_vulnerability_analyzer,r_wrong78_tr,invalid,2,"OK/True; trace 0.8340; {""wrong_source"": 120}","OK/True; trace 0.8340; {""wrong_source"": 120}",97.51,97.51
+juliet_vulnerability_analyzer,r_wrong78_tr,invalid,3,"OK/True; trace 0.8340; {""wrong_source"": 120}","OK/True; trace 0.8340; {""wrong_source"": 120}",97.51,97.51
+juliet_vulnerability_analyzer,r_wrong78_src,invalid,1,"OK/True; trace 0.8340; {""wrong_source"": 120}","OK/True; trace 0.8340; {""wrong_source"": 120}",97.51,97.51
+juliet_vulnerability_analyzer,r_wrong78_src,invalid,2,"OK/True; trace 0.8340; {""wrong_source"": 120}","OK/True; trace 0.8340; {""wrong_source"": 120}",97.51,97.51
+juliet_vulnerability_analyzer,r_wrong78_src,invalid,3,"OK/True; trace 0.8340; {""wrong_source"": 120}","OK/True; trace 0.8340; {""wrong_source"": 120}",97.51,97.51
+juliet_vulnerability_analyzer,starter,baseline,1,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},10,10
+juliet_vulnerability_analyzer,starter,baseline,2,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},10,10
+juliet_vulnerability_analyzer,starter,baseline,3,OK/True; trace 1.0000; {},OK/True; trace 1.0000; {},10,10
+juliet_vulnerability_analyzer,crash,baseline,1,INFRA_FAIL/False; trace 1.0000; {},INFRA_FAIL/False; trace 1.0000; {},10,10
+juliet_vulnerability_analyzer,crash,baseline,2,INFRA_FAIL/False; trace 1.0000; {},INFRA_FAIL/False; trace 1.0000; {},10,10
+juliet_vulnerability_analyzer,crash,baseline,3,INFRA_FAIL/False; trace 1.0000; {},INFRA_FAIL/False; trace 1.0000; {},10,10
+juliet_vulnerability_analyzer,a78_public,valid,1,OK/; trace 1.0000; {},OK/; trace 1.0000; {},51.17,51.17
+juliet_vulnerability_analyzer,a78_public,valid,2,OK/; trace 1.0000; {},OK/; trace 1.0000; {},51.17,51.17
+juliet_vulnerability_analyzer,a78_public,valid,3,OK/; trace 1.0000; {},OK/; trace 1.0000; {},51.17,51.17
+juliet_vulnerability_analyzer,a78_input,valid,1,"OK/; trace 0.0000; {""wrong_source"": 12}","OK/; trace 0.0000; {""wrong_source"": 12}",36.17,36.17
+juliet_vulnerability_analyzer,a78_input,valid,2,"OK/; trace 0.0000; {""wrong_source"": 12}","OK/; trace 0.0000; {""wrong_source"": 12}",36.17,36.17
+juliet_vulnerability_analyzer,a78_input,valid,3,"OK/; trace 0.0000; {""wrong_source"": 12}","OK/; trace 0.0000; {""wrong_source"": 12}",36.17,36.17
+juliet_vulnerability_analyzer,a78_wrong,invalid,1,"OK/; trace 0.0000; {""wrong_source"": 12}","OK/; trace 0.0000; {""wrong_source"": 12}",36.17,36.17
+juliet_vulnerability_analyzer,a78_wrong,invalid,2,"OK/; trace 0.0000; {""wrong_source"": 12}","OK/; trace 0.0000; {""wrong_source"": 12}",36.17,36.17
+juliet_vulnerability_analyzer,a78_wrong,invalid,3,"OK/; trace 0.0000; {""wrong_source"": 12}","OK/; trace 0.0000; {""wrong_source"": 12}",36.17,36.17

@@ -43,5 +43,14 @@ above 20. `counter_inv_at_zero`: the formula also fails for a run whose original
   ≤ 5,369 also scores 0 on the original scale, but between 0 and 2.19 on the fixed one.
   Treating it as raw 5,369 overstates the fixed average by up to 2.19/k points (k = number of
   valid runs). The other exception, a run in 20–21.02, overstates by at most about 0.12/k.
+  Lean shows only that the formula fails in these two cases (`counter_inv_at_zero`,
+  `counter_inv_above_20`). The sizes 2.19/k and 0.12/k are computed, not proved: fixed(5369) =
+  97550/44443 ≈ 2.195, and at 21.0202 the formula's raw total 92,413.8 exceeds the true 92,304 by
+  109.7 turns, which is 0.123 points on the fixed scale.
+- The five converted values are exact for the published one-decimal inputs. An input known to
+  ±0.05 gives a fixed score known to ±0.23 (slope 100·4141/88886 ≈ 4.66 per point).
+- 92,304 is an upper bound on the raw total (claim 1). That some submission reaches it on every
+  case is not proved, so 21.02 is the highest score the original scale can give, not one a
+  submission is shown to reach.
 - The proofs use exact rationals, while the grader uses doubles.
 - The tester's movement rules are abstracted away. Only the counter bound is used.

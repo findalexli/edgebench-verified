@@ -8,8 +8,8 @@ The original grader's correctness check does not compare fees, balances or messa
 
 See the [review](../../evidence/reviews/exchange_core_throughput-native.md). The original correctness
 check runs only `testThroughputPeak`, which does not compare fees, balances, positions or emitted
-events. Two plausible one-edit engine bugs passed all 50 checked rounds and scored higher than the correct
-engine (24.40 and 15.62 against 7.14 out of 100). The first is a maker/taker fee swap that keeps the global balance at
+events. Two plausible one-edit engine bugs passed all 50 checked rounds and received full throughput credit
+(24.40 and 15.62 against 7.14 out of 100 for the correct engine in single runs, a gap within throughput noise). The first is a maker/taker fee swap that keeps the global balance at
 zero. The second stops forwarding user events. The project's own integration tests reject both.
 
 ## What changes
@@ -17,11 +17,19 @@ zero. The second stops forwarding user events. The project's own integration tes
 - **`files/eval_exchange_core.py`** (generated `repair.patch`): before the unchanged timed
   test, the grader runs the project's shipped integration tests `ITFeesExchangeBasic` and
   `ITExchangeCoreIntegrationRejectionBasic` (33 tests) in a separate Maven run. If they do not
-  all pass, the submission scores 0 (`WA`, wrong answer). The timed run itself is unchanged.
+  all pass, the submission scores 0 (`WA`, wrong answer). The timed Maven run itself is unchanged.
+- **Scoring of the timed run** (same file): when the timed run's status is not `OK` (Maven exited
+  non-zero), the score is now 0. The original grader printed `CASE 0000 WA score=<MT/s × 1000>` and
+  `TOTAL_SCORE <MT/s × 1000>` in that case, and the harness ranks on `TOTAL_SCORE` regardless of the
+  case status (`sforge/harness/grading.py` `extract_score`, `selection.py` `_score_first`). The average
+  is logged only after all 50 rounds pass their checks, so the path needs Maven to fail after that
+  line (for example an engine that fails while shutting down). The side-by-side arm `shutdownbusy`
+  reaches it: the original grader scores 2939 (harness: valid, 32.31/100) and the fixed version scores 0
+  after the integration tests pass ([paired/results.md](paired/results.md)).
 - **`files/m2/`** pre-loads the public Maven artifacts the original image lacks (7 jars with their POMs, 30 files; listed in `source-lock.json`). So the fixed grader grades offline; the original grader needs network access.
 
 **Score compatibility:** correct engines score as under the original version (throughput is noisy from machine to machine). Incorrect
-engines that the original version rewarded now score 0. Fixed-version scores are not comparable with original leaderboard entries.
+engines that the original version rewarded now score 0. A run whose timed Maven test fails after logging its average scores 0 instead of its throughput. Fixed-version scores are not comparable with original leaderboard entries.
 
 ## How it was checked
 
@@ -30,7 +38,10 @@ A side-by-side run of the original and fixed graders on the same submissions: [p
 ## Limits
 
 - The two integration test classes cover fees, rejections and events, not every property a correct engine must keep.
-- Throughput varies ±~20% from run to run on the same cloud machine (correct engine 2,050–2,978 raw).
+- Throughput varies by up to 38% between runs on the same cloud machine type; across the three
+  side-by-side runs the unmodified engine ran at 2,008–3,105 raw, and runs below 2,090.63 score 0
+  (`../../data/paired-repeatability.md`).
+- The change to scoring of the timed run is tested on one constructed shutdown failure, not on code from a real solver.
 
 ## Build and use
 

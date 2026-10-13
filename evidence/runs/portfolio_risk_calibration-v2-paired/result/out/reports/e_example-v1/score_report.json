@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-10-13T09:24:41.814431",
+  "test_period": {
+    "start": "2025-01-01",
+    "end": "2025-12-31"
+  },
+  "benchmark_config": {
+    "stock_weight": 0.6,
+    "bond_weight": 0.3,
+    "commodity_weight": 0.1
+  },
+  "execution_time": 1.79,
+  "calculated_metrics": {
+    "sharpe_ratio": 2.1237,
+    "max_drawdown": -0.0511,
+    "annual_turnover": 0.8804,
+    "agent_var_break_rate": 0.9917,
+    "independent_var_break_rate": 0.029,
+    "total_return": 0.1587,
+    "annual_return": 0.1665,
+    "benchmark_annual_return": 0.2595,
+    "excess_return_annual": -0.0928,
+    "information_ratio": -1.8055,
+    "sortino_ratio": -2.6189
+  },
+  "scores": {
+    "sharpe": 9.9,
+    "drawdown": 8.67,
+    "excess_return": -9.28,
+    "information_ratio": 0.0,
+    "sortino": 0.0,
+    "agent_var": 0.0,
+    "independent_var": 0.0,
+    "turnover": 5.0
+  },
+  "validation": {
+    "code_penalty": 0,
+    "nav_rebuild_penalty": 0,
+    "nav_internal_penalty": 0,
+    "path_penalty": 0,
+    "weights_penalty": 0,
+    "date_range_penalty": 0,
+    "trades_field_penalty": 0,
+    "price_penalty": 0,
+    "constraint_penalty": 5,
+    "anti_fraud_penalty": 28,
+    "short_penalty": -10.0,
+    "score_zero": true
+  },
+  "bonus": {
+    "volatility_event_score": 0
+  },
+  "perf_score": 5.0,
+  "final_total": 0,
+  "max_total": 10,
+  "bonus_max": 10,
+  "warnings": [
+    "not detectiontoriskscaling factortriggeradditionalrebalance(risk_scale_change)",
+    "Agent VaRbreachrate0.9917abnormal, triggers core return score zeroed",
+    "full eval periodnevershort(allweight≥0)",
+    "leverage ratioconsecutive38 trading daysnot change",
+    "Turnover Ratedeviation1.2192>50%",
+    "NAVconsecutive20 days unchanged, suspectedfabricateddata"
+  ]
+}

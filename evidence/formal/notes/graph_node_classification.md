@@ -17,7 +17,7 @@ Differential check: `probes/graph_node_classification/diff_check.py` ran the rea
 
 ## Result
 
-**Proved**, with one boundary that the published text does not mention. V2 needs `StrOK`: `int(s) = int(s.strip())`. An exhaustive scan of all code points in Python 3.11 finds exactly U+001C..U+001F where this fails: `str.strip` removes these characters but `int()` does not accept them. A string such as `"\x1c0"` is therefore dropped by v1 and scored by v2, so the claim "decimal-integer strings score identically" has this exotic exception (`separator_boundary`).
+**Proved**, with one boundary, which the case page and the fixed-version README now state. V2 needs `StrOK`: `int(s) = int(s.strip())`. An exhaustive scan of all code points in Python 3.11 finds exactly U+001C..U+001F where this fails: `str.strip` removes these characters but `int()` does not accept them. A string such as `"\x1c0"` is therefore dropped by v1 and scored by v2, so the claim "decimal-integer strings score identically" has this exotic exception (`separator_boundary`).
 
 Precision point on the published wording: v1 does not score "a subset of the test nodes". It pairs the surviving predictions with the **first n labels**, so one bad value early in the file shifts every later prediction (`misaligned`). In the published shrink example the two readings coincide.
 
@@ -31,4 +31,4 @@ Precision point on the published wording: v1 does not score "a subset of the tes
 
 - The judge_eval size check (`len(predictions) == len(gt)`), which together with V1 excludes extra keys, is not formalised.
 - `__index__`/`__int__` consistency is assumed (`idx`).
-- The best-of-k lemmas are general facts about max selection. `illustration` (a mean of 250 rises to an expected kept score of about 358/1000 against a best of 333) uses an assumed per-split hit rate of 1/4, not a measurement. This supports the claim that best-so-far selection turns variance into expected gain, but it does not show that any real solver benefits. The published "not established" can be narrowed only to that extent.
+- The best-of-k lemmas are general facts about max selection. `illustration` (a mean of 250 rises to an expected kept score of about 358/1000 against a best of 333) uses an assumed per-split hit rate of 1/4, not a measurement. This supports the claim that best-so-far selection turns variance into expected gain, but it does not show that any real solver benefits. The case page now cites the lemma to that extent and still states that no gain for a real solver was shown.

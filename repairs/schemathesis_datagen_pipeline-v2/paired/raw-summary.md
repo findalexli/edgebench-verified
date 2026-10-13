@@ -1,3 +1,5 @@
+Superseded: first run with a year >= 1900 floor; the final run is in evidence/runs/schemathesis_datagen_pipeline-v2-paired-b/result/out/.
+
 | variant | v1 score | v2 score | delta | v1 pass_rate | v2 pass_rate | v1 phases | v2 phases | exits | secs |
 |---|---|---|---|---|---|---|---|---|---|
 | correct | 0.477350 | 0.477350 | +0.000000 | 0.125000 | 0.125000 | Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36 | Phase 1:8/8; Phase 2:2/5; Phase 3:0/9; Phase 4:7/10; Phase 5:5/8; Phase 6:0/5; Phase 7:3/5; Phase 8:10/36 | 0/0 | 22/22 |

@@ -61,3 +61,7 @@ identical in v1 and v2 by construction. v2 documents the `analyze()` return cont
 starter value. A checker written to that documented contract earns 128/128 type-system cases, so the
 contract is sufficient to earn the points. The invalid control (broken codegen) scores 25.79 under
 both versions.
+
+## Repeatability of the hang-suite job (2026-10-13)
+
+`evidence/runs/arc_compiler_runtime-hang-suite` was run three times on fresh E2B workers (`-rep2`, `-rep3`) with the same `run.sh`, `eval_cmd.sh` and `mutate.py`. Every run has `status: exit=0`. All four arms give the same result in every run (`result/out/summary.csv`): `a_starter` valid, 35.59, 167 passed; `t_hang` (twice per run) invalid, 0.0, runner return code 70; `t_throw` valid, 35.42, 166 passed.

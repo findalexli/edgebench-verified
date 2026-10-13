@@ -4,11 +4,11 @@ Review: [`../../evidence/reviews/borden_source_inversion.md`](../../evidence/rev
 
 ## What this fixes
 
-The grader predicts well readings with a hidden forward model whose conventions are unstated and not textbook physics. An honest solver that follows the documentation therefore scores at the baseline level (7.03), while the same fit with the grader's convention scores 31.2. The fixed version gives solvers the grader's own forward-model code and an exact description of its conventions, and adds a score scale from 0 to 109.
+The grader predicts well readings with a hidden forward model whose conventions are unstated and not textbook physics. A one-shot honest fit to the public data that follows the documentation therefore scores at the baseline level (7.03), while the same fit with the grader's convention scores 31.2. An agent that submits repeatedly can partly learn the convention from the grader's feedback: the best submission of a third-party Claude Opus 5.5 run on the original grader reached 60.10 raw (see the case page). The fixed version gives solvers the grader's own forward-model code and an exact description of its conventions, and adds a score scale from 0 to 109.
 
 ### The problem in detail
 
-The grader scores `answer.json` by running a hidden forward model (a model that predicts well readings from a proposed source). Its parameter convention is not disclosed and is not textbook physics:
+The grader scores `answer.json` by running a hidden forward model (a model that predicts well readings from a proposed source). `public_problem_config.json` gives the ingredients (q, a factor of 1000, a 5×5×1 sub-point grid, 9 release steps) but not how the model combines them. The convention is not textbook physics:
 - each of 225 pulses has amplitude `C0·q·1000/225`;
 - porosity is not used;
 - total mass does not depend on `duration`;
@@ -33,11 +33,19 @@ The answer key, the grader and the grader image are unchanged.
      `z_center − half_length_z` plane, release offsets, pulse amplitude, no porosity, no
      dependence on duration, units as reported.
    - The same section is inserted into `task.json.in` → `work.agent_query`.
+   - *Revision (2026-10-12).* The first published fixed prompt kept the scoring step "Use a hidden
+     Borden-ADE region-source forward model" and the rule "Do not read or reference hidden scoring files"
+     without saying that `forward_model.py` may be used. Three lines now say it, in both the README and
+     `work.agent_query`: the file list ("You may read, run and import it freely."), scoring step 3 ("the
+     Borden-ADE region-source forward model shipped as `forward_model.py`") and the rule ("`forward_model.py`
+     is not one of them: it is an exact copy of the judge's model and may be used freely."). Scores are
+     unchanged (`paired/results.md`, revision section).
 2. **`task.json.in`** adds `judge.rescale = {"kind": "linear", "lower": 0, "upper": 109}`.
    109 is the grader's theoretical maximum (1+1+2+1+2 easy points, 92 metric, 10 region),
    and the true source reaches it. The map is strictly increasing, so it preserves ordering,
    including above 100. A cap at 100 would have tied every score in 100–109. `work.image_tag`
-   becomes `f389fcf94240-ebv-v2`; `judge.image_tag` stays `cc54d4fd7006`.
+   becomes `f389fcf94240-ebv-v2.1`; `judge.image_tag` stays `cc54d4fd7006`. Tag `f389fcf94240-ebv-v2`
+   (v1.0 package) is superseded; rebuild.
 
 **Why ship the function rather than only document it.** Prose can be misread, and the
 `linspace(num=1)` plane quirk alone costs about 18 points (12.9 against 31.2 in the review). A
@@ -55,12 +63,14 @@ key, so it is out of scope for this version.
 For any given `answer.json`, raw results are identical under the original and fixed versions, because the grader is unchanged. The fixed version
 reports `score_0_100 = raw·100/109`, which the original version did not define. Agent runs on the fixed version are **not comparable**
 with agent runs on the original version: fixed-version solvers are told the convention, so the same agent can
-score higher (honest fit 7.0 → about 31 raw). Fixed-version scores are out of 100; original raw
+score higher (one-shot honest fit 7.0 → about 31 raw). Fixed-version scores are out of 100; original raw
 results are on 0–109.
 
 ## How it was checked
 
 A side-by-side run of the original and fixed graders on the same test submissions: **accepted**. See `paired/results.md`.
+
+The prompt revision was checked by rebuilding the fixed work image and grading the same seven submissions in the original, first fixed and revised working directories: every `score.json` is byte-identical (`evidence/runs/borden_source_inversion-v2-paired-r3`).
 
 ## Limits
 
@@ -69,7 +79,7 @@ A side-by-side run of the original and fixed graders on the same test submission
   difficulty.
 - `C0` remains an "effective intensity" in a non-physical convention. The fixed version documents this rather
   than fixing it.
-- One fitting method was used (multi-start least squares, log/hinge loss).
+- One fitting method was used (multi-start least squares, log/hinge loss), with one textbook model variant.
 - The original grader does not reject the out-of-bounds test submission outright: it gets 4 raw and is
   capped at 15. That is unchanged and reported as observed.
 - `orig/` holds copies of the original README, task JSON and grader forward model, used to

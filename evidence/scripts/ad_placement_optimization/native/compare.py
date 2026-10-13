@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Compare native eval_ahc.sh per-case results with the exact oracle, then push each
-eval stdout through the repository harness (score_sum parser, TOTAL_SCORE extraction,
+eval stdout through EdgeBench's harness in sforge/ (score_sum parser, TOTAL_SCORE extraction,
 score_first selection, piecewise_max rescale).
 Usage: compare.py CASES_DIR RESULTS_DIR REPO_ROOT"""
 import json, re, sys, os

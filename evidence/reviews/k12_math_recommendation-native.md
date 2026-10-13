@@ -1,5 +1,10 @@
 # k12_math_recommendation: native addendum (positive control and the earlier failure)
 
+> **Note (2026-10-12): superseded disposition.** An earlier recommendation to repair this task is
+> superseded by the scope decision of 2026-10-12: the publication keeps this task with a note. That
+> recommendation rested on scorer-isolation concerns, which are out of scope (deliberate attacks on the
+> grader); scorer-isolation notes are kept internally.
+
 **Question.** Does the original scorer give a finite positive score to the shipped
 reference solution when it runs with sound resources? Was the earlier native failure
 caused by the audit's own 512 MiB address-space limit?
@@ -51,11 +56,11 @@ SIGKILL recorded earlier.
 ## Change to disposition
 
 - The "setup stopped / pending" blocker is resolved. The task's scorer runs and gives valid positive controls.
-- The recommended disposition stays **repair-v2 (withhold original)**, for the reasons recorded in the triage: hidden ground truth is copied into the workspace before `infer.py` runs, and GT is loaded after inference. This run did not test those reasons.
+- The disposition is **retain with a note** (see the note at the top).
 - Add a note: the shipped reference reports (45.3/50.4) are stale relative to the current evaluator (17.6/24.7).
 
 ## Limits
 
 - This is one run per arm, but scoring is deterministic given infer output.
 - Memory figures are cgroup totals and include page cache. They are not per-process RSS.
-- The ground-truth exposure probe (`[internal probe]`) was not re-run here. It is a tamper-style probe and outside the good-faith scope.
+- Scorer-isolation notes are out of scope and kept internally.

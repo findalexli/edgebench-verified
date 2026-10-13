@@ -1,5 +1,12 @@
 # borden_source_inversion: physics convention, honest-solver impact, score ceiling
 
+> **Note (2026-10-12).** The 7.03 vs 31.2 comparison below is a one-shot least-squares fit to the
+> public data with one textbook model variant. A third-party Claude Opus 5.5 run on the original
+> grader, which can tune against the grader's per-test feedback, reached 60.10 raw
+> (`evidence/runs/opus55-rollouts-meta/…/borden_source_inversion/final_result.json`), so the gap
+> overstates the effect for iterating agents. The 10.9×–323× ratio is at the true source on the 24
+> public readings above 0.01 mg/L. See `cases/borden_source_inversion.md`.
+
 Reviewer: Claude (groundwater-transport domain review). Scope is good-faith correctness only, per `BRIEF-FOR-REVIEWERS.md`. No tamper analysis. Local CPU only: no images, no E2B, no credentials.
 
 ## Claim under review
@@ -79,7 +86,7 @@ All scripts are in `evidence/scripts/borden_source_inversion/`:
 
 Each solver fits all 9 parameters inside the public bounds. The method is multi-start bounded least squares (60–80 starts) on **public noisy, censored data only**: log1p residuals on detected rows and a hinge on censored rows. The fitted `answer.json` is then scored by the **original `evaluate.py`** with the original eval_cmd arguments, run on a temporary copy of the public directory.
 
-Run: `python3 <script> <scratch>/src/b <out_dir>`. Outputs (answers and full `score.json` files) are in the scratchpad dirs `borden-textbook-out/`, `borden-judgeconv-out/`, `borden-zmid-out/` and `borden-truthstart-out/`.
+Run: `python3 <script> <scratch>/src/b <out_dir>`. The outputs (answers and full `score.json` files) are not published; their scores are in the table below, and rerunning the scripts regenerates them.
 
 | Submission | Fit to public data (RMS log residual) | Hidden-well rRMSE | Future-public rRMSE | Cap | **Score** |
 |---|---|---|---|---|---|

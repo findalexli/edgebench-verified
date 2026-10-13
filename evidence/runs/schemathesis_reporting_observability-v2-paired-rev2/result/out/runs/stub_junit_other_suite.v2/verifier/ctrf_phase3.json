@@ -1,0 +1,125 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T22:33:06.217237+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 0,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791844384501,
+            "stop": 1791844386217
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_03_pytest_reporting.py::test_pytest_reporting_available",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 121,
+                "start": 1791844384532,
+                "stop": 1791844384653,
+                "retries": 0,
+                "file_path": "test_03_pytest_reporting.py",
+                "trace": "/tests/test_03_pytest_reporting.py:26: in test_pytest_reporting_available\n    pytest.fail(f\"Import failed: {_IMPORT_ERROR}\")\nE   Failed: Import failed: No module named 'schemathesis.pytest.reporting'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_03_pytest_reporting.py::test_pytest_report_dispatcher_registers_hooks",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1791844384653,
+                "stop": 1791844384657,
+                "retries": 0,
+                "file_path": "test_03_pytest_reporting.py",
+                "trace": "/tests/test_03_pytest_reporting.py:36: in test_pytest_report_dispatcher_registers_hooks\n    schema = schemathesis.openapi.from_dict(raw_schema)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_03_pytest_reporting.py::test_pytest_report_dispatcher_pop_recorder_none",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3,
+                "start": 1791844384657,
+                "stop": 1791844384660,
+                "retries": 0,
+                "file_path": "test_03_pytest_reporting.py",
+                "trace": "/tests/test_03_pytest_reporting.py:57: in test_pytest_report_dispatcher_pop_recorder_none\n    schema = schemathesis.openapi.from_dict(raw_schema)\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_03_pytest_reporting.py::test_pytest_report_dispatcher_accumulates_data",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 507,
+                "start": 1791844384661,
+                "stop": 1791844385168,
+                "retries": 0,
+                "file_path": "test_03_pytest_reporting.py",
+                "trace": "/tests/test_03_pytest_reporting.py:79: in test_pytest_report_dispatcher_accumulates_data\n    schema = schemathesis.openapi.from_url(\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_03_pytest_reporting.py::test_vcr_report_written_via_config",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 509,
+                "start": 1791844385168,
+                "stop": 1791844385677,
+                "retries": 0,
+                "file_path": "test_03_pytest_reporting.py",
+                "trace": "/tests/test_03_pytest_reporting.py:123: in test_vcr_report_written_via_config\n    schema = schemathesis.openapi.from_url(\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_03_pytest_reporting.py::test_har_report_written_via_config",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 507,
+                "start": 1791844385677,
+                "stop": 1791844386184,
+                "retries": 0,
+                "file_path": "test_03_pytest_reporting.py",
+                "trace": "/tests/test_03_pytest_reporting.py:178: in test_har_report_written_via_config\n    schema = schemathesis.openapi.from_url(\n             ^^^^^^^^^^^^\nE   NameError: name 'schemathesis' is not defined",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_03_pytest_reporting.py::test_xdist_module_exports_serialization",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4,
+                "start": 1791844386184,
+                "stop": 1791844386188,
+                "retries": 0,
+                "file_path": "test_03_pytest_reporting.py",
+                "trace": "/tests/test_03_pytest_reporting.py:218: in test_xdist_module_exports_serialization\n    from schemathesis.pytest.xdist import (\nE   ModuleNotFoundError: No module named 'schemathesis.pytest.xdist'",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_03_pytest_reporting.py::test_stateful_callback_mark_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 27,
+                "start": 1791844386189,
+                "stop": 1791844386216,
+                "retries": 0,
+                "file_path": "test_03_pytest_reporting.py",
+                "trace": "/tests/test_03_pytest_reporting.py:232: in test_stateful_callback_mark_exists\n    from schemathesis.generation.stateful.state_machine import (\nE   ImportError: cannot import name 'StatefulCallbackMark' from 'schemathesis.generation.stateful.state_machine' (/app/src/schemathesis/generation/stateful/state_machine.py)",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

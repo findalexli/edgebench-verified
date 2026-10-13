@@ -1,6 +1,6 @@
 # Arc Compiler Runtime, fixed version: document the hidden `analyze()` interface
 
-Status: **candidate; side-by-side run of the original and fixed versions done (accepted under REPAIR-SPEC 1–3)**. Not adopted, not published.
+Status: **adopted**. This is the published fixed version (outcome "Fixed", `cases/arc_compiler_runtime.md`); it was accepted on the side-by-side run in `paired/results.md`.
 
 ## What this fixes
 
@@ -21,7 +21,7 @@ with no warning. The side-by-side run shows this: the same analysis scores 69.26
 
 Separately, TASK.md states "Starter expectation `SCORE=0.00`" for the public smoke-test score, and problem.md states
 "Expected stripped starter score: 0.00". The starter actually scores `SCORE=100.00` on the public tests (48/48),
-measured in the original work image (the container the solver works in). Analysis: `evidence/reviews/_science-systems-triage.md` §1.
+measured in the original work image (the container the solver works in): `evidence/runs/arc_compiler_runtime-v2-paired/result/out/public_v1_a_starter.log` ends `SCORE=100.00`. On the hidden tests it scores 35.59.
 
 ### Exact change
 
@@ -81,7 +81,7 @@ See `paired/results.md` (job script `paired/run.sh`, raw per-suite counts in `pa
 
 The score out of 100 equals the raw result (the scale is the identity). All runs: `valid=true`, exit 0.
 
-How the REPAIR-SPEC criteria are met for a documentation fix:
+How the acceptance criteria (a test submission that shows the problem, a correct test submission and an invalid test submission) are met for a documentation fix:
 
 1. **The test submission that shows the problem.** Under the original version, the choice between (d) and (e) is invisible to the solver, and the wrong guess costs 33.67 points.
    Under the fixed version the documentation names the right shape.
@@ -111,11 +111,13 @@ This Dockerfile builds the fixed **work** (solver) image; its build context is `
 
 ## Limits
 
-- The fix does not address the other items in the triage review: in-process counting and the exit-hook forgery (out of
-  scope here, since only honest solvers are considered), the `EXPECTED_CASES` environment exposure, `fail_infra` on crashes, and the
-  9-template adversarial suites.
-- Credit for format alone remains. `[]` earns +11.62, and the triage review's constant-error analyzer earns 57.81 (with bun as a
-  stand-in runtime), because the "ok" and "error" cases only check whether the result is empty. The fixed version makes the shape known, which makes this slightly
+- The fix does not change how the grader counts cases, the `fail_infra` result on a submission that hangs or crashes
+  the test process, or the 9-template adversarial suites. Measured on the original grader: the starter with an
+  infinite loop on a construct used by one suite (1.35 points) is reported invalid with score 0 instead of about 34.75
+  (`../../evidence/runs/arc_compiler_runtime-hang-suite`). The task's `score_first` selection does not read `valid`, so
+  such a submission is ranked at 0; it never displaces a submission that scored above 0.
+- Credit for format alone remains. `[]` earns +11.62, and a constant analyzer that always returns one diagnostic scored 57.81 (with bun as a
+  stand-in runtime, not in the image; the same figure is in `cases/arc_compiler_runtime.md`, Limits), because the "ok" and "error" cases only check whether the result is empty. The fixed version makes the shape known, which makes this slightly
   easier. Fixing it needs grader changes (for example, requiring both the passing and failing forms of a template to pass
   together), and those would change what scores mean.
 - The fixed TASK.md describes the checked rule categories at the level of the interface. That is more than the original disclosed about

@@ -73,9 +73,42 @@ def main():
     up = max(float(r['bounded_high']) - float(r['exact_adjusted_mean']) for r in imp)
     wd = max(float(r['exact_adjusted_mean']) - float(r['worst_case_low']) for r in imp)
     wu = max(float(r['worst_case_high']) - float(r['exact_adjusted_mean']) for r in imp)
+    od = max(float(r['bounded_low']) - float(r['worst_case_low']) for r in imp)
+    ou = max(float(r['worst_case_high']) - float(r['bounded_high']) for r in imp)
+    sys.path.insert(0, str(ROOT / 'tools'))
+    import estimate_impact as EI
+    lb = EI.parse_leaderboard()
+    dec = [EI.decomposition(lb, m) for m in EI.MODELS]
+    rng = lambda k, f: f'{f.format(min(abs(x[k]) for x in dec))} to {f.format(max(abs(x[k]) for x in dec))}'
     for txt in (f'{min(sh):.1f}–{max(sh):.1f} points', f'at most {dn:.1f} points down or {up:.1f} up',
-                f'as much as {wd:.1f} points down or {wu:.1f} up'):
+                f'as much as {wd:.1f} points down or {wu:.1f} up', f'account for up to {od:.1f} down or {ou:.1f} up',
+                f'Treant Forest scale by {rng("treant", "{:.1f}")}', f'D-ABIC by {rng("dabic", "{:.1f}")}',
+                f'Borden Inversion scale by −{rng("borden", "{:.2f}").replace(" to ", " to −")}'):
         need(txt in ' '.join(readme.split()), f'README impact text missing "{txt}"')
+    # side-by-side comparison counts in README and METHOD agree with data/paired-repeatability.csv
+    import build_site as BS
+    cc = BS.comparison_counts()
+    for name in ('README.md', 'METHOD.md'):
+        txt = ' '.join((ROOT / name).read_text().split())
+        m = re.search(r'Across (\d+) graded comparisons.*?(\d+) of them run three times; (\d+) setup runs', txt)
+        need(m and (int(m[1]), int(m[2]), int(m[3])) == (cc['graded'], cc['graded3'], cc['setup']),
+             f'{name}: comparison counts {m.groups() if m else None} != '
+             f"{(cc['graded'], cc['graded3'], cc['setup'])} from data/paired-repeatability.csv")
+        if 'All but one' in txt:
+            need(cc['graded'] - cc['graded3'] == 1, f'{name} says "All but one" but {cc["graded"] - cc["graded3"]} comparisons have fewer than 3 runs')
+    rep_md = ' '.join((ROOT / 'data/paired-repeatability.md').read_text().split())
+    need(f"graded comparisons: **{cc['graded']}**, of which **{cc['graded3']}** have all 3 runs" in rep_md,
+         'data/paired-repeatability.md graded-comparison totals disagree with data/paired-repeatability.csv')
+    # repair packages: the recorded fingerprints of repair.patch and materialize.sh match the files
+    import hashlib
+    for lock_path in sorted((ROOT / 'repairs').glob('*-v2/source-lock.json')):
+        pkg = lock_path.parent
+        lock = json.loads(lock_path.read_text())
+        m = lock.get('materialize', {}) if isinstance(lock.get('materialize'), dict) else {}
+        for key, fname in (('repair_patch_sha256', 'repair.patch'), ('materialize_sh_sha256', 'materialize.sh')):
+            if key in m and (pkg / fname).exists():
+                need(m[key] == hashlib.sha256((pkg / fname).read_bytes()).hexdigest(),
+                     f'{pkg.name}: source-lock {key} is stale')
     for m in problems:
         print('MISMATCH:', m)
     print(f'{dict(c)}; {len(problems)} problems')

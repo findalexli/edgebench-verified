@@ -1,5 +1,7 @@
 # Review: `triangulation_coloring_optimization`
 
+> **Note (2026-10-12).** Not covered below: the dependence of scores on the grader's CPU count (8 cases at once under a 30 s wall-clock limit; the publisher's leaderboard setting gives the grader 4 CPUs). It is measured (`evidence/runs/triangulation_coloring_optimization-cpu4v8-a`, `-b`) and fixed in the same new version, which now also runs at most as many cases at once as the grader's CPU quota (`evidence/runs/triangulation-v2-paired-cpu`). See `cases/triangulation_coloring_optimization.md`.
+
 ## Claim under review
 
 > "All ten acquired large meshes violate the promised geometry: triangle interiors overlap. The cause and future inputs remain untested." (docs/FINDINGS.md)

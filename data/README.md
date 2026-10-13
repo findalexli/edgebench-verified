@@ -1,11 +1,11 @@
 # Data
 
-Machine-readable results. The tables and website are generated from these files.
+Machine-readable results. The tables and website are generated from these files. Terms: an *arm* is one test submission graded by both graders; a *trigger* is a submission that shows the problem; *v1* is the original grader and *v2* the fixed version; E2B is the cloud sandbox service most tests ran on.
 
 | File | Contents |
 | --- | --- |
 | [`decisions.json`](decisions.json) | The authoritative outcome for each of the 51 tasks (`retain-with-note`, `repair-v2` for fixed, `exclude` for removed), with the technical finding and its largest effect |
 | [`decisions.csv`](decisions.csv) | The same outcomes with the plain-language summary of each task |
-| [`paired-results.csv`](paired-results.csv) | Every side-by-side test: one test submission graded by the original grader (`v1_*` columns) and the fixed grader (`v2_*` columns). [`paired-results-summary.md`](paired-results-summary.md) explains how it was built. |
-| [`paired-repeatability.csv`](paired-repeatability.csv) | Each side-by-side test repeated three times; [`paired-repeatability.md`](paired-repeatability.md) is the report |
+| [`paired-results.csv`](paired-results.csv) | Every side-by-side test: one test submission graded by the original grader (`v1_*` columns) and the fixed grader (`v2_*` columns). [`paired-results-summary.md`](paired-results-summary.md) explains how it was built. The college rows compare the original grader with the first fixed version (`1d941b58…`); the revised fixed version (`87f0e340…`) gives the same results on them, and its distinguishing arms (GA–GD, M) are in [`evidence/runs/college_english_exam_bank-v2-paired-fix2/graded.md`](../evidence/runs/college_english_exam_bank-v2-paired-fix2/graded.md). The Rust Multicrate rows give the shipped public image as `v1`; the publisher's grading environment (the original grader plus four restored library files) scores starter 3.8189, reference and partial 73.9926, and bad 73.8926 ([`results.md`](../repairs/rust_multicrate_reconstruction-v2/paired/results.md)), so the effect of the fix is +20.71 for the reference, not the +67.09 the two CSV columns show. The `cpus` column is the grader's CPU count (`docker run --cpus`) as stated by the run script of the job that produced the row; it is blank where no script states it (OpenTTD, Rust Multicrate) or nothing ran (OpenRCT2, Treant's computed score cap). |
+| [`paired-repeatability.csv`](paired-repeatability.csv) | Each side-by-side test repeated three times (one arm once; see the report); [`paired-repeatability.md`](paired-repeatability.md) is the report |
 | [`impact.csv`](impact.csv) | Effect on the published leaderboard averages, per model; explained in [`../IMPACT.md`](../IMPACT.md) |

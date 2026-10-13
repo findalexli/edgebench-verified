@@ -1,0 +1,19 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.31s
+     Running unittests src/lib.rs (target/debug/deps/cas_mux-7fef16173918aa28)
+memory allocation of 140307656083680 bytes failed
+memory allocation of 140307588974816 bytes failed
+error: test failed, to rerun pass `-p cas-mux --lib`
+
+Caused by:
+  process didn't exit successfully: `/tmp/cas-hidden-inject-rplmodu3/ws/target/debug/deps/cas_mux-7fef16173918aa28 --test-threads=4` (signal: 6, SIGABRT: process abort signal)
+     Running tests/scroll_integration.rs (target/debug/deps/scroll_integration-492aa76815148ba6)
+memory allocation of 140403554650336memory allocation of  bytes failed
+140403688868064 bytes failed
+error: test failed, to rerun pass `-p cas-mux --test scroll_integration`
+
+Caused by:
+  process didn't exit successfully: `/tmp/cas-hidden-inject-rplmodu3/ws/target/debug/deps/scroll_integration-492aa76815148ba6 --test-threads=4` (signal: 6, SIGABRT: process abort signal)
+   Doc-tests cas_mux
+error: 2 targets failed:
+    `-p cas-mux --lib`
+    `-p cas-mux --test scroll_integration`

@@ -21,15 +21,15 @@ Notes:
 - **Session limits the prompt does not state.** The harness enforces three limits:
   - a 10 s HTTP timeout per step;
   - at most 3 sessions at once per run (the oldest is evicted);
-  - closing a session after 600 s idle.
+  - closing a session after 600 to 660 s idle (the idle check runs every 60 s, `judge_server.py:156,159`).
 
-  Closing and eviction both store the current score, so no score is lost. But an agent that pauses for more than 10 minutes in the middle of a game loses the live game and must replay it. Replay is cheap: the full walkthroughs replayed in about 3 s of game-engine time.
+  Closing and eviction both store the current score once the session's game container has been removed, so no score is lost. If the removal fails, the session is kept and retried at the next idle check, and its score is stored only after a removal succeeds (`judge_server.py:226-239`). An agent that pauses for more than 10 minutes in the middle of a game loses the live game and must replay it. Replay is cheap: recorded HTTP replays of the full Trinity (610 commands) and Tryst (518 commands) walkthroughs took 29 s and 32 s.
 - **Full score not shown to be reachable.** The supplied reference walkthrough ends at 99 with game_over=true and victory=false. Whether 100/100 can be reached in the pinned game file is not verified.
 
 The note says:
 
 - The score is the final in-game score of the best completed or closed session, out of the game's max_score (100).
-- Sessions are closed after 600 s idle; at most 3 sessions run at once.
+- Sessions are closed after 600 to 660 s idle; at most 3 sessions run at once.
 - Anchorhead's reference walkthrough reaches 99/100; full score was not demonstrated.
 
 ## How much it matters
@@ -50,12 +50,13 @@ There is no code change. The note above ships with the task.
   - converting to the score scale (`score_rescale.py`).
 
   The repository copies match the hash-pinned copies byte for byte. The digest of the grader image is not recorded.
-- **Sessions run on the original harness.** Six sessions on the host replayed the full walkthroughs under the original harness. Their play recordings were identical over the shared opening steps. The Anchorhead walkthrough scored 99/100.
+- **Sessions run on the host.** Six sessions ran on the host through this repository's copy of EdgeBench's harness (`JudgeState` with the Docker backend; its grading and selection files were then the earlier audit's modified version; the session scores reported here come from the game server and do not depend on them), in game containers built from the original game files (built image id `sha256:a197e54f…`); the digest of the public grader image is not recorded. For each of Anchorhead, Trinity and Tryst there was one full walkthrough replay and one 25-command partial replay, and each partial replay's scores matched the first 25 steps of the full replay. The Anchorhead walkthrough (531 commands) scored 99/100.
 - **Upstream game-engine source.** The score source, `max_score` and the default seed were read from the public Jericho 3.3.1 source package (sdist).
 
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on the walkthrough sessions.
+- Anchorhead's repeatability rests on one partial replay compared with one full replay over 25 steps, plus Jericho's fixed default seed.
 - Jericho's behaviour comes from the upstream 3.3.1 source. The installed files in the image were not hashed.
 - Final versus peak score was not tested in a play recording where points are lost.
 - Whether 100/100 can be reached in Anchorhead was not checked. A command sequence that reaches 100 in the pinned game file would remove that part of the note. It would not change the outcome.
@@ -63,4 +64,5 @@ There is no code change. The note above ships with the task.
 ## Reproduce
 
 - Review and pinned hashes: `evidence/reviews/_game-tasks-correctness.md`, sections 1-3.
+- Session record: `git show earlier-audit-final:evidence/selected/three-adventure-native-release-acceptance.json`; replay timings: `git show earlier-audit-final:evidence/selected/trinity-tryst-terminal-acceptance.json`.
 - Pinned harness sources: `sforge/harness/judge_server.py`, `sforge/harness/game_server_app.py`, `sforge/harness/selection.py`, `sforge/harness/score_rescale.py`.

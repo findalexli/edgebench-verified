@@ -1,6 +1,6 @@
 # Triangulation Coloring Optimization (`triangulation_coloring_optimization`)
 
-**Outcome:** Fixed. <mark>The grader's rule for legal edge flips leaves out the README's convexity condition; the same rule generated all ten hidden inputs, which contain overlapping or folded triangles, and it also decides which submitted moves are accepted.</mark>
+**Outcome:** Fixed. <mark>The grader's rule for legal edge flips leaves out the README's convexity condition; the same rule generated all ten hidden inputs, which contain overlapping or folded triangles, and it also decides which submitted moves are accepted. Separately, on the publisher's 4-CPU grader a valid solution using more than about 15 s of CPU per case times out, although the README promises 30 s per case, and one timeout leaves the submission without a score; the fixed version also runs at most as many cases at once as the grader has CPUs.</mark>
 
 ![Sketch of a dart-shaped four-sided shape with a dent, where flipping its inner edge makes the two new triangles overlap; the original grader accepts the flip and scores it (41 on the four-point test input) and the fixed version rejects it as an invalid flip. On real hidden case 0009 one forbidden flip lowers (improves) the score from 644,809 to 641,611.](figures/triangulation_coloring_optimization.svg)
 
@@ -25,11 +25,15 @@ The prompt says "The local `tester` applies flips exactly like the judge". The s
 - **Example under the original grader (case 0009):** the shipped do-nothing output scores `Score = 644809` (U=803). Adding one README-forbidden non-convex flip (edge 39–52) is accepted and scores `Score = 641611` (U=801). A forbidden move improves the official score (lower is better).
 - **Minimal example (N=4):** the input is a valid two-triangle mesh whose quadrilateral has a reflex (inward-pointing) corner. The original tester accepts the forbidden flip (`Score = 41`), and the resulting two triangles overlap. The problem does not depend on a bad input.
 
+**The 30 s per case shrinks to about 15 s of CPU on a 4-CPU grader.** The README says "Time limit: **30 seconds per case**" (line 50). The grader `/tmp/eval_triangulation_coloring.py` runs 8 cases at once (`max_workers=min(8, len(case_files))`, line 44) under a 30 s wall-clock limit (`TIME_LIMIT = 30`, line 9); a timed-out case scores `float('inf')` (line 36), which leaves the submission without a score out of 100 (`sforge/harness/score_rescale.py:75-76`). The task sets no CPU count. In EdgeBench's leaderboard configuration `examples/all-tasks-k8s/experiment.yaml` (quoted in [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)) (sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`), the grader inherits `judge_cpu_limit: 4`, so each of the first 8 cases gets about half a CPU. Measured on the original grader at `--cpus 4` (`evidence/runs/triangulation_coloring_optimization-cpu4v8-a/result/out/summary.txt`, `-b`) with the honest `greedy.py` control followed by fixed CPU work: 12 or 14 s per case passes 10/10; 20 s per case gives 2 OK, 8 TLE and `TOTAL_SCORE inf` on both workers. At `--cpus 8` the 20 s solution passes 10/10 with 866,166 (48.87 out of 100). A solution that stops at a 25 s wall-clock deadline gets a mean of 15.00 s of CPU per case at 4 CPUs (median 12.62 s; 2 of 10 cases run alone at the end) and 24.97 s at 8 CPUs.
+
 **What limits the harm.** The agent's working image ships the same `verifier.py`, `tester` and samples. The agent's local testing therefore sees exactly the grader's rule, so scores are consistent and repeatable. The harm is that the scored problem differs from the documented one.
 
 ## How much it matters
 
-This changes scores enough to matter, for all solvers: the rule changes which flips are legal for everyone. The size of the gain for a strong solver over a full optimization was not measured.
+**CPU count.** At the publisher's 4 CPUs a valid solution using about 15–30 s of CPU per case loses its whole score under the original grader (measured with 20 and 28 s per case). Under the fixed version it is scored. A solution that stops at a wall-clock deadline gets about twice the CPU per case under the fixed version (mean 15.00 s → 24.91 s for a 25 s deadline); how much that changes its score is not measured.
+
+**Flip rule.** The rule changes which flips are legal for every solver, and the hidden inputs are folded for every solver. The only score effect measured is one forbidden flip on case 0009, which lowers that case from 644,809 to 641,611 (the 10-case total is about 6.09 million for a do-nothing output). The honest greedy test submission moves from 48.87 to 48.95 out of 100, on different inputs. The size of the effect for a strong solver over a full optimization was not measured.
 
 ## The fix
 
@@ -40,7 +44,13 @@ The 10 hidden cases and 3 samples were then regenerated with the shipped, unmodi
 - Case 0000 and the samples keep their original seeds (9000000 and 1000001–1000003).
 - Cases 0001–0009 use new seeds 9000001–9000009, because the original seeds are unknown. K is inferred from each case's pattern of defects.
 
-These are unchanged: `verifier.py`, `tester`, the grader, the READMEs, the prompt, the parser, the timeouts and the reference points of the score scale. On all 26 inputs (13 original, 13 fixed), the fixed rule equals the independent exact convexity test on every edge. It allows only flips the old rule allowed. The fixed version forbids no flip the README allows.
+The fixed version also changes `/tmp/eval_triangulation_coloring.py` so that it runs at most as many cases at once as the grader's CPU quota allows: a new function `cpu_quota_workers()`, the same as in `repairs/grid_turing_robot-v2/`, reads the cgroup quota (`cpu.max`, or the cgroup v1 quota and period), rounds it down to whole CPUs, falls back to `os.cpu_count()` without a quota, and keeps the result between 1 and 8; the pool becomes `ProcessPoolExecutor(max_workers=min(cpu_quota_workers(), len(case_files)))`. With 8 or more CPUs it runs 8 cases at once, exactly as the original.
+
+These are unchanged: `verifier.py`, `tester`, the READMEs, the prompt, the parser, the 30 s limit per case, the 1200 s `eval_timeout` and the reference points of the score scale.
+
+- On the 13 fixed inputs, the fixed rule equals a strictly-convex-quadrilateral test on every edge. It allows only flips the old rule allowed, and it forbids no flip the README allows. The Lean proof covers every valid triangulation.
+- The comparison test in `v2/rule_check.py` also contains the fixed rule's two new guards (`a != b`, and edge ab does not already exist), so on its own it cannot show that those guards reject nothing. Without them, the convexity counts in `flip_rules.jsonl` (`convex_flippable`) exceed the `rule_check.jsonl` counts on every original hidden case. The fixed rule would reject 2, 1, 2, 2, 2, 19, 17, 24, 20 and 23 on hidden cases 0000–0009 strictly convex flips whose other diagonal already exists in the folded mesh (for example case 0009, edge 79–156 with apexes 15 and 497). Such edges cannot occur in a valid triangulation, and the fixed version ships regenerated, valid inputs, so this does not affect the fixed version. It means the rule fix alone, applied to the original inputs, would forbid a few flips of strictly convex quadrilaterals, whose result would duplicate an existing edge.
+- On the original inputs the rule fix removes 319–398 flippable edges per hidden case (original minus fixed counts in `rule_check.jsonl`). This is slightly more than the 317–379 non-convex edges above, by the guarded convex edges just described.
 
 Full grader (`eval_cmd`, 10 hidden cases). Lower raw results are better.
 
@@ -48,8 +58,8 @@ Full grader (`eval_cmd`, 10 hidden cases). Lower raw results are better.
 |---|---|---:|---|---:|---:|---|---:|
 | shipped `solution.py` (do nothing) | correct test submission | 6,092,430 | 10/10 | 0.055 | 6,092,622 | 10/10 | 0.054 |
 | `greedy.py` (greedy recolour + greedy README-legal convex flips) | independent honest test submission | 866,166 | 10/10 | 48.87 | 863,058 | 10/10 | 48.95 |
-| `nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case) | **shows the problem** | 6,093,050 | 10/10 accepted | 0.052 | inf | 0/10 (WA "Invalid flip") | 0 (invalid run) |
-| `wrong_count.py` (recolours vertex 1, claims C=0) | invalid test submission | inf | 0/10 (WA) | 0 (invalid) | inf | 0/10 (WA) | 0 (invalid) |
+| `nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case) | **shows the problem** | 6,093,050 | 10/10 accepted | 0.052 | inf | 0/10 (WA "Invalid flip") | none (raw inf) |
+| `wrong_count.py` (recolours vertex 1, claims C=0) | invalid test submission | inf | 0/10 (WA) | none (raw inf) | inf | 0/10 (WA) | none (raw inf) |
 
 Same inputs, rule only:
 
@@ -68,11 +78,25 @@ The agent's local testing loop (working image):
 
 The saved case-0009 output with the score-improving forbidden flip scores `Score: 641611` under the original verifier. It gives `INVALID: Invalid flip (39,52)` with the fixed `triangulation.py`. All 13 regenerated inputs have 0 overlapping pairs, 0 crossings, 0 folds, 0 duplicate or degenerate triangles and 0 non-manifold edges.
 
-**Score compatibility:** fixed-version scores are **not comparable** with original scores, for three reasons:
+CPU share, paired run at `--cpus 4` (one pair at `--cpus 8`) of the original grader, the previous fixed version (flip rule and regenerated inputs only) and the fixed version on the same solutions (`evidence/runs/triangulation-v2-paired-cpu/result/out/summary.txt`; `repairs/triangulation_coloring_optimization-v2/paired/results.md`, section "CPU-quota parallelism"). The original grader scores the original cases and both fixed versions the regenerated ones, so valid totals differ (866,166 against 863,058).
+
+| Solution (honest `greedy.py` output, preceded by fixed work) | CPUs | Original grader | Previous fixed version | Fixed version |
+| --- | ---: | --- | --- | --- |
+| no extra work | 4 | 10 OK, 866,166 | 10 OK, 863,058 | 10 OK, 863,058 |
+| **20 s of CPU per case** | 4 | **2 OK, 8 TLE, `inf` (no score)** | **2 OK, 8 TLE, `inf`** | **10 OK, 863,058 (48.95)** |
+| **28 s of CPU per case** | 4 | **2 OK, 8 TLE, `inf`** | **2 OK, 8 TLE, `inf`** | **10 OK, 863,058** |
+| works until a 25 s wall-clock deadline | 4 | 10 OK, 866,166; mean 15.00 s CPU per case | 10 OK, 863,058; mean 15.00 s | 10 OK, 863,058; mean 24.91 s |
+| 40 s of CPU per case (bad control) | 4 | 10 TLE, `inf` | 10 TLE, `inf` | 10 TLE, `inf` |
+| 20 s of CPU per case | 8 | 10 OK, 866,166 | 10 OK, 863,058 | 10 OK, 863,058 |
+
+The previous fixed version fails the 20 s and 28 s solutions exactly as the original does, so the parallelism change, not the flip rule, restores them. Under the fixed version the slowest 28 s case took 28.03 s; the bad control took 90.5 s to grade (3 rounds × 30 s), inside the 1200 s `eval_timeout`. All earlier controls in the tables above reproduce exactly against the fixed version at `--cpus 8` and `--cpus 4` (`evidence/runs/triangulation-v2-paired-cpu-controls`), and the fixed image differs from the previous fixed version only in `/tmp/eval_triangulation_coloring.py`.
+
+**Score compatibility:** fixed-version scores are **not comparable** with original scores, for four reasons:
 
 - 9 of 10 hidden inputs are new instances.
 - All inputs are now valid triangulations.
 - The set of legal moves is smaller.
+- At fewer than 8 grader CPUs a solution that searches until a wall-clock deadline gets more CPU per case (about twice at 4 CPUs).
 
 All four original reference points of the score scale are kept unchanged, as a fixed reference scale only. They no longer correspond to leaderboard ranks on the fixed version.
 
@@ -82,21 +106,25 @@ All four original reference points of the score scale are kept unchanged, as a f
 - **Independent check.** Exact integer geometry, with no floating point, ran on all 10 hidden cases and all 3 samples. It covers: an exact separating-axis overlap test for each triangle pair; proper edge crossings; vertices inside triangles; duplicate, degenerate and non-manifold triangles and edges; Euler characteristic and vertex links (two standard checks that a mesh is a proper surface); area excess against the convex hull; and collinear triples. On every interior edge, the official rule was compared with an independent exact convex-quadrilateral test.
 - **Regeneration.** The shipped `gen.py` with seed 9000000 reproduces hidden case 0000 byte for byte. Seeds 1000001–1000003 reproduce all three samples byte for byte. (The O(N³) collinearity check was swapped for an exactly equivalent faster test.)
 - **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times; no verdict changed (`data/paired-repeatability.md`).
+- **CPU runs and paired run on E2B.** Fixed-work solutions (12 to 28 s per case), a 25 s wall-clock-deadline solution and a 40 s bad control ran on the original grader at `--cpus 4` and `--cpus 8` (`evidence/runs/triangulation_coloring_optimization-cpu4v8-a`, `-b`) and side by side on the original grader, the previous fixed version and the fixed version (`evidence/runs/triangulation-v2-paired-cpu`, `-cpu-controls`), each job `status: exit=0`, with `--network none --memory 4g`. Each solution logs its own start, end and CPU time per case (`result/out/timing/`).
 
 ## Limits
 
+- The fixed grader reads its CPU quota from the cgroup (`cpu.max`). This was tested with `docker run --cpus` only, not inside a Kubernetes pod, which is the backend EdgeBench's leaderboard settings use.
 - No AI model or solver was run. Score effects are shown only on test submissions we wrote.
 - The original seeds for hidden cases 0001–0009 are unknown. Their K is inferred, not recovered.
 - A side effect of the shipped Delaunay generator (its "super-triangle" construction) is left untouched. 12 of 13 fixed inputs miss 1–3 convex-hull triangles. Each is a valid triangulated polygon of all points, but not of the full hull. The README wording "a triangulation of those points" is slightly stronger than this. The wording is noted but not changed.
 - The CodeChef TRICOL statement and checker were not consulted.
 - The gain a strong solver gets from non-convex flips over a full optimization was not measured.
+- The CPU dependence was measured at 4 and 8 CPUs with single-threaded fixed-work and deadline test solutions. Multi-threaded solvers were not tested. Deadline-based solvers get more CPU per case under the fixed version at 4 CPUs, so their scores are not comparable; how much they change is not measured. The quota is rounded down: 2.5 CPUs run 2 cases at once.
 - The fixed images were built and tested locally for the run and then removed. They are not registry digests.
 
 ## Reproduce
 
 - Geometry and rule analysis: `evidence/scripts/triangulation_coloring_optimization/check_geometry.py`, `flip_rule_analysis.py`, `regen_compare.py`, `run_gen.py`
 - Regeneration for the fixed version and rule check: `evidence/scripts/triangulation_coloring_optimization/v2/regen_v2.py`, `v2/rule_check.py`
-- Side-by-side run: `repairs/triangulation_coloring_optimization-v2/paired/run.sh` (results in `paired/results.md`)
+- Side-by-side run: `repairs/triangulation_coloring_optimization-v2/paired/run.sh` (results in `paired/results.md`); CPU share: `paired/run-cpu4.sh` (as run: `evidence/runs/triangulation-v2-paired-cpu/run.sh`); CPU runs on the original grader: `evidence/runs/triangulation_coloring_optimization-cpu4v8-a/run.sh`, `-b`
+- Fixed grader `/tmp/eval_triangulation_coloring.py`: sha256 `082d72b2…acb1` (original `1c5100f5…c009`)
 - Patch: `repairs/triangulation_coloring_optimization-v2/repair.patch`
 - Pinned identity: grader image `seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea763…dcf671`; `triangulation.py` sha256 `32862fe5…`; `verifier.py` `1f0c714a…`; `gen.py` `67201f1e…`; `tools/bin/tester` `01b6e17b…`; hidden case 0000 `8e0c5efc…`.
 

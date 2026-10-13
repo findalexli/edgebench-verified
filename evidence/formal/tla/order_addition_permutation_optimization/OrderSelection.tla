@@ -23,20 +23,23 @@
        |p|+1 (v2): FP is the only test whose outcome the patch changes, and FP
        does not read the submission (it hashes files under tests/, which is
        excluded from submissions).
-   (2) Report: sforge/harness/grading.py _grade_legacy (parser pytest_v):
-       pass_rate = passed/total; score = the single TOTAL_SCORE line or None;
-       two TOTAL_SCORE lines (T1 fails AND T5 passes) raise in extract_score
-       (l.91-92), so that submission yields no rankable entry -> "Excluded".
-   (3) Selection: sforge/harness/selection.py (sha256 3338ed24...2fba),
-       _pass_rate_first l.86-103 -> PRF below, _score_first l.106-117 -> SF.
-       PRF: better = not best_valid or rate > best_rate            (l.96)
-            if rate == best_rate == 1.0 and score is not None:
-                better = score > best_score                           (l.97-98)
-            best_score := score if score is not None else rate        (l.100)
+   (2) Report: EdgeBench sforge 6e4e5f4, sforge/harness/grading.py
+       (sha256 ba15c46d...ac56) _grade_legacy (parser pytest_v):
+       pass_rate = passed/total; score = extract_score (l.74-77), i.e. the
+       FIRST "TOTAL_SCORE <n>" in the output, or None.  The eval runs pytest -s
+       in file order, so when T1 fails its "TOTAL_SCORE 0" comes first and the
+       submission's score is 0, even if T5 also prints its score.
+   (3) Selection: EdgeBench sforge 6e4e5f4, sforge/harness/selection.py
+       (sha256 abb55b7b...cf0a), _pass_rate_first l.51-80 -> PRF below,
+       _score_first l.83-103 -> SF.
+       PRF: if rate < 1.0 or best_rate < 1.0:                     (l.62)
+                better = rate > best_rate   (best_rate starts at 0) (l.63)
+            else: better = score is not None and score > best_score (l.67-68)
+            best_score := score if score is not None else rate        (l.65)
        Rates k/5 are compared through k (float k/5 is strictly monotone in k
        and k/5 == 1.0 iff k = 5).  best_score is kept as a tagged value
        [rate |-> TRUE/FALSE, v |-> ...] so the "rate used as score" fallback of
-       l.100 is visible.  Scores are abstract integers 1..MaxScore (higher is
+       l.65 is visible.  Scores are abstract integers 1..MaxScore (higher is
        better, task direction "maximize"); 0 is the T1-violation score.
    The task's policy is judge.selection = "pass_rate_first" (task.json.in).
    SF models the "best so far by score" consumer (policy score_first).    *)
@@ -52,30 +55,28 @@ NONE   == -1                             \* Python None (scores are >= 0)
 \* A submission: tests passed (other than FP) and the score T5 would print.
 Subs == {[p |-> q, sc |-> s] : q \in SUBSET Tests, s \in Scores}
 
-Excluded(x)   == "T1" \notin x.p /\ "T5" \in x.p        \* two TOTAL_SCORE lines
+Excluded(x)   == FALSE   \* EdgeBench's grading ranks every submission (see (2))
 Valid(x)      == x.p = Tests                            \* meets the task contract
 PassCount(x, fixed) == Cardinality(x.p) + (IF fixed THEN 1 ELSE 0)
-ScoreOf(x)    == IF "T5" \in x.p THEN x.sc
-                 ELSE IF "T1" \notin x.p THEN 0 ELSE NONE
+ScoreOf(x)    == IF "T1" \notin x.p THEN 0        \* T1's TOTAL_SCORE 0 is printed first
+                 ELSE IF "T5" \in x.p THEN x.sc ELSE NONE
 
 NoBest == [valid |-> FALSE, k |-> 0, bs |-> [rate |-> FALSE, v |-> NONE], round |-> 0]
 
-\* One step of _pass_rate_first (selection.py l.89-102) for entry i.
+\* One step of _pass_rate_first (selection.py l.57-73) for entry i.
 PRFStep(b, x, i, fixed) ==
-  IF Excluded(x) THEN b ELSE
   LET k  == PassCount(x, fixed)
       s  == ScoreOf(x)
-      better0 == ~b.valid \/ k > b.k
-      better  == IF k = b.k /\ b.k = 5 /\ s # NONE
-                 THEN (b.bs.v = NONE \/ s > b.bs.v)   \* _is_better_score
-                 ELSE better0
+      better == IF k < 5 \/ b.k < 5
+                THEN k > b.k                                     \* l.62-63
+                ELSE s # NONE /\ (b.bs.v = NONE \/ s > b.bs.v)  \* l.67-68
   IN IF better
      THEN [valid |-> TRUE, k |-> k, round |-> i,
            bs |-> IF s # NONE THEN [rate |-> FALSE, v |-> s]
-                              ELSE [rate |-> TRUE, v |-> k]]   \* v = rate*5
+                              ELSE [rate |-> TRUE, v |-> k]]   \* l.65; v = rate*5
      ELSE b
 
-\* One step of _score_first (selection.py l.109-116).
+\* One step of _score_first (selection.py l.89-96).
 SFStep(b, x, i) ==
   IF Excluded(x) \/ ScoreOf(x) = NONE THEN b
   ELSE IF b.bs.v = NONE \/ ScoreOf(x) > b.bs.v
@@ -97,7 +98,7 @@ Submit == /\ Len(hist) < N
                /\ prf2' = PRFStep(prf2, x, i, TRUE)
                /\ sf1'  = SFStep(sf1, x, i)
                /\ sf2'  = SFStep(sf2, x, i)
-               \* would l.98 compare a score against a rate-valued best_score?
+               \* would l.68 compare a score against a rate-valued best_score?
                /\ mixed' = (mixed \/ (~Excluded(x) /\ ScoreOf(x) # NONE
                                        /\ PassCount(x, TRUE) = 5 /\ prf2.k = 5
                                        /\ prf2.bs.rate))
@@ -128,7 +129,7 @@ FixedPicksBestValid ==
     /\ prf2.round = Min({i \in ValidIdx : hist[i].sc = BestValidScore})
     /\ prf2.k = 5
 
-\* C3 the fix never makes l.98 compare a score with a rate-valued best_score.
+\* C3 the fix never makes l.68 compare a score with a rate-valued best_score.
 NoMixedComparison == ~mixed
 
 \* C4 score_first ("best so far by score") is the same under v1 and v2

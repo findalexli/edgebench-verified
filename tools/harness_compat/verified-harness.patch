@@ -1,0 +1,802 @@
+--- a/sforge/harness/grading.py
++++ b/sforge/harness/grading.py
+@@ -16,6 +16,7 @@
+ 
+ from __future__ import annotations
+ 
++import math
+ import re
+ from dataclasses import dataclass, field, asdict
+ from typing import Any
+@@ -57,7 +58,7 @@
+     runtime_seconds: float = 0.0
+     test_details: list[dict] = field(default_factory=list)
+     raw_output: str = ""
+-    valid: bool = True
++    valid: bool = False
+     summary: str | None = None
+     details: list[EvalDetail] = field(default_factory=list)
+     metrics: dict[str, Any] = field(default_factory=dict)
+@@ -71,10 +72,43 @@
+         return d
+ 
+ 
+-def extract_score(test_output: str) -> float | None:
+-    """Extract TOTAL_SCORE from test output (for continuous scoring tasks)."""
+-    m = re.search(r"TOTAL_SCORE\s+(inf|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)", test_output)
+-    return float(m.group(1)) if m else None
++def extract_score(test_output: str, *, allow_pytest_prefix: bool = False) -> float | None:
++    """Read one finite score record; optionally recognize pytest -s node prefixes.
++
++    With pytest -s -v, a test's first stdout write follows its node ID on the
++    same line. Only pytest grading enables this exact form; arbitrary diagnostic
++    prefixes remain ineligible. This validates framing, not stdout provenance.
++    """
++    from sforge.harness.log_parsers.score_sum import NUMBER
++
++    lines = re.findall(r"^TOTAL_SCORE(?:[ \t]+.*)?$", test_output, re.MULTILINE)
++    if allow_pytest_prefix:
++        lines += re.findall(
++            r"^[\w/.\-]+\.py(?:::[\w.\-\[\]]+)+[ \t]+(TOTAL_SCORE(?:[ \t]+.*)?)$",
++            test_output, re.MULTILINE,
++        )
++    if not lines:
++        return None
++    if len(lines) != 1:
++        raise ValueError("Multiple TOTAL_SCORE records")
++    match = re.fullmatch(r"TOTAL_SCORE[ \t]+(" + NUMBER + r")[ \t]*", lines[0])
++    if match is None or not math.isfinite(float(match.group(1))):
++        raise ValueError("Malformed or nonfinite TOTAL_SCORE record")
++    return float(match.group(1))
++
++
++def _invalidate(report: EvalReport, reason: str) -> EvalReport:
++    """Retain diagnostic observations, but expose no rankable partial result."""
++    report.metrics = dict(report.metrics)
++    report.metrics["grading_error"] = reason
++    report.metrics["observed_pass_rate"] = report.pass_rate
++    if report.score is not None:
++        report.metrics["observed_score"] = report.score
++    report.valid = False
++    report.pass_rate = 0.0
++    report.score = None
++    report.summary = reason + (". " + report.summary if report.summary else "")
++    return report
+ 
+ 
+ def extract_test_output(raw_output: str) -> str:
+@@ -135,7 +169,7 @@
+     else:
+         summary = "No tests found"
+ 
+-    return EvalReport(
++    report = EvalReport(
+         task_id=task_spec.task_id,
+         submission_id=submission_id,
+         total_tests=total,
+@@ -143,7 +177,7 @@
+         failed=failed,
+         errors=errors,
+         pass_rate=pass_rate,
+-        score=extract_score(test_output),
++        score=extract_score(test_output, allow_pytest_prefix=task_spec.judge.parser == "pytest_v"),
+         timed_out=timed_out,
+         runtime_seconds=runtime,
+         test_details=test_results,
+@@ -153,6 +187,58 @@
+         details=details,
+     )
+ 
++    try:
++        if task_spec.judge.parser == "pytest_v":
++            from sforge.harness.log_parsers.pytest_v import validate_pytest_completion
++            validate_pytest_completion(test_output, test_results)
++        if task_spec.judge.parser == "score_sum" and report.score is None:
++            raise ValueError("Missing TOTAL_SCORE record")
++        if total == 0:
++            raise ValueError("No graded tests found")
++    except ValueError as exc:
++        return _invalidate(report, str(exc))
++    return report
++
++
++def _finite_number(value: Any, field_name: str) -> None:
++    if type(value) not in (int, float) or not math.isfinite(value):
++        raise ValueError(f"{field_name} must be a finite number")
++
++
++def _validate_structured(data: dict) -> None:
++    if "valid" in data and type(data["valid"]) is not bool:
++        raise ValueError("valid must be a boolean")
++    for name in ("score", "pass_rate"):
++        if data.get(name) is not None:
++            _finite_number(data[name], name)
++    if data.get("pass_rate") is not None and not 0 <= data["pass_rate"] <= 1:
++        raise ValueError("pass_rate must be between zero and one")
++    for name in ("passed", "failed", "errors", "total_tests"):
++        if name in data and (type(data[name]) is not int or data[name] < 0):
++            raise ValueError(f"{name} must be a nonnegative integer")
++    if data.get("summary") is not None and not isinstance(data["summary"], str):
++        raise ValueError("summary must be a string")
++    if not isinstance(data.get("metrics", {}), dict):
++        raise ValueError("metrics must be an object")
++    details = data.get("details", [])
++    if not isinstance(details, list):
++        raise ValueError("details must be a list")
++    for detail in details:
++        if not isinstance(detail, dict):
++            raise ValueError("Each detail must be an object")
++        if detail.get("status") not in (PASSED, FAILED, ERROR):
++            raise ValueError("Each detail requires a PASSED, FAILED, or ERROR status")
++        if not isinstance(detail.get("name", ""), str):
++            raise ValueError("Detail name must be a string")
++        if detail.get("message") is not None and not isinstance(detail["message"], str):
++            raise ValueError("Detail message must be a string")
++        for name in ("score", "weight"):
++            if detail.get(name) is not None:
++                _finite_number(detail[name], "Detail " + name)
++    if not (data.get("score") is not None or data.get("pass_rate") is not None
++            or data.get("total_tests", 0) > 0 or details):
++        raise ValueError("Structured result contains no grade-bearing measurement")
++
+ 
+ def _grade_structured(
+     task_spec: TaskSpec,
+@@ -162,63 +248,50 @@
+     runtime: float,
+     raw_output: str,
+ ) -> EvalReport:
+-    """Grade using structured JSON output from eval runner."""
++    """Grade structured output without borrowing a score from unrelated logs."""
+     from sforge.harness.log_parsers.structured_json import parse_structured_json
+ 
+     data = parse_structured_json(test_output)
+-
++    # Legacy emitters use an empty object for no per-item results. Preserve
++    # that lossless case; nonempty objects still fail the list contract.
++    if type(data.get("details")) is dict and not data["details"]:
++        data = {**data, "details": []}
++    _validate_structured(data)
+     raw_details = data.get("details", [])
+-    details = [
+-        EvalDetail(
+-            name=d.get("name", ""),
+-            status=d.get("status", ""),
+-            message=d.get("message"),
+-            score=d.get("score"),
+-            weight=d.get("weight"),
+-        )
+-        for d in raw_details
+-    ]
+-
+-    # Compute pass/fail from details if not explicitly provided
+-    if raw_details:
+-        passed = sum(1 for d in raw_details if d.get("status") == PASSED)
+-        failed = sum(1 for d in raw_details if d.get("status") == FAILED)
+-        errors = sum(1 for d in raw_details if d.get("status") == ERROR)
+-        total = len(raw_details)
++    details = [EvalDetail(name=d.get("name", ""), status=d["status"],
++                          message=d.get("message"), score=d.get("score"),
++                          weight=d.get("weight")) for d in raw_details]
++
++    # Explicit counters describe the suite; details may be aggregates, a
++    # diagnostic subset, or weighted components (e.g. ARC's hidden_score).
++    if any(k in data for k in ("passed", "failed", "errors", "total_tests")):
++        passed, failed, errors = (data.get(k, 0) for k in ("passed", "failed", "errors"))
++        total = data.get("total_tests", passed + failed + errors)
++        if data.get("valid", True) and passed + failed + errors > total:
++            raise ValueError("Structured counters exceed total_tests")
+     else:
+-        passed = data.get("passed", 0)
+-        failed = data.get("failed", 0)
+-        errors = data.get("errors", 0)
+-        total = data.get("total_tests", 0)
++        passed = sum(d.status == PASSED for d in details)
++        failed = sum(d.status == FAILED for d in details)
++        errors = sum(d.status == ERROR for d in details)
++        total = len(details)
+ 
++    # An explicitly supplied rate may be a task-specific weighted measurement.
++    # Do not replace it with an unweighted count of diagnostic details.
+     pass_rate = data.get("pass_rate")
+-    if pass_rate is None and total > 0:
+-        pass_rate = passed / total
+-    elif pass_rate is None:
+-        pass_rate = 0.0
+-
+-    score = data.get("score")
+-    if score is None:
+-        score = extract_score(test_output)
++    if pass_rate is None:
++        pass_rate = passed / total if total > 0 else 0.0
+ 
+-    return EvalReport(
+-        task_id=task_spec.task_id,
+-        submission_id=submission_id,
+-        total_tests=total,
+-        passed=passed,
+-        failed=failed,
+-        errors=errors,
+-        pass_rate=pass_rate,
+-        score=score,
+-        timed_out=timed_out,
+-        runtime_seconds=runtime,
+-        test_details=[],
+-        raw_output=raw_output,
+-        valid=data.get("valid", True),
+-        summary=data.get("summary"),
+-        details=details,
+-        metrics=data.get("metrics", {}),
++    report = EvalReport(
++        task_id=task_spec.task_id, submission_id=submission_id,
++        total_tests=total, passed=passed, failed=failed, errors=errors,
++        pass_rate=pass_rate, score=data.get("score"), timed_out=timed_out,
++        runtime_seconds=runtime, raw_output=raw_output,
++        valid=data.get("valid", True), summary=data.get("summary"),
++        details=details, metrics=data.get("metrics", {}),
+     )
++    if not report.valid:
++        return _invalidate(report, "Evaluator marked submission invalid")
++    return report
+ 
+ 
+ def grade_output(
+@@ -231,11 +304,13 @@
+     """Parse test output and compute pass rate."""
+     test_output = extract_test_output(raw_output)
+ 
+-    if task_spec.judge.parser == "structured_json":
+-        return _grade_structured(
+-            task_spec, test_output, submission_id, timed_out, runtime, raw_output
+-        )
+-
+-    return _grade_legacy(
+-        task_spec, test_output, submission_id, timed_out, runtime, raw_output
+-    )
++    try:
++        grader = _grade_structured if task_spec.judge.parser == "structured_json" else _grade_legacy
++        report = grader(task_spec, test_output, submission_id, timed_out, runtime, raw_output)
++    except (ValueError, OverflowError) as exc:
++        report = EvalReport(task_id=task_spec.task_id, submission_id=submission_id,
++                            timed_out=timed_out, runtime_seconds=runtime, raw_output=raw_output)
++        return _invalidate(report, "Invalid evaluation output: " + str(exc))
++    if timed_out:
++        return _invalidate(report, "Harness evaluation timed out; result is incomplete")
++    return report
+--- a/sforge/harness/selection.py
++++ b/sforge/harness/selection.py
+@@ -12,118 +12,115 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-"""Selection policies for choosing the best submission."""
++"""Select among valid, finite, completed results.
++
++Verified compatibility change: every policy excludes explicitly invalid and
++harness-timed-out entries. A completed evaluation can still award partial credit;
++failed cases and per-case time limits do not imply an invalid overall result.
++"""
+ 
+ from __future__ import annotations
+ 
++import math
+ from typing import Any
+ 
+ 
++def _finite_number(value: Any) -> bool:
++    try:
++        return type(value) in (int, float) and math.isfinite(value)
++    except OverflowError:
++        return False
++
++
+ def select_best(
+     entries: list[dict[str, Any]],
+     score_direction: str = "maximize",
+     policy: str = "pass_rate_first",
+ ) -> dict[str, Any]:
+-    """Select the best submission from a list of history entries.
+-
+-    Returns dict with: best_score, best_pass_rate, best_round, best_valid.
+-    """
++    """Select a rankable result, or return best_valid=False when none exists."""
+     fn = _POLICIES.get(policy)
+     if fn is None:
+         raise ValueError(f"Unknown selection policy: {policy}. Available: {list(_POLICIES)}")
++    if score_direction not in ("minimize", "maximize"):
++        raise ValueError(f"Unknown score direction: {score_direction}")
+     return fn(entries, score_direction)
+ 
+ 
+ def _completed_submissions(entries: list[dict]) -> list[dict]:
+-    return [
+-        e for e in entries
+-        if e.get("type", "submission") in ("submission", "game")
+-        and e.get("status") in (None, "completed")
+-    ]
++    results = []
++    for entry in entries:
++        if entry.get("type", "submission") not in ("submission", "game"):
++            continue
++        if entry.get("status") not in (None, "completed"):
++            continue
++        # judge_server can record an infrastructure exception with completed
++        # status but no report. Status/validity defaults are not measurements.
++        if entry.get("error") is not None:
++            continue
++        if not any(_finite_number(entry.get(key)) for key in ("pass_rate", "score")):
++            continue
++        # Missing flags remain compatible with historical/game entries, but
++        # explicit false or malformed flags never qualify as valid evidence.
++        if entry.get("valid", True) is not True or entry.get("timed_out", False) is not False:
++            continue
++        rate = entry.get("pass_rate", 0.0)
++        if rate is None:
++            rate = 0.0
++        if not _finite_number(rate) or not 0 <= rate <= 1:
++            continue
++        if entry.get("score") is not None and not _finite_number(entry["score"]):
++            continue
++        results.append(entry)
++    return results
+ 
+ 
+ def _is_better_score(new: float, old: float | None, direction: str) -> bool:
+-    if old is None:
+-        return True
+-    return new < old if direction == "minimize" else new > old
++    return old is None or (new < old if direction == "minimize" else new > old)
++
++
++def _empty_result() -> dict:
++    return {"best_score": None, "best_pass_rate": 0.0,
++            "best_round": "", "best_valid": False}
+ 
+ 
+ def _pass_rate_first(entries: list[dict], score_direction: str) -> dict:
+-    """Current legacy logic: higher pass_rate wins; at 100%, compare score."""
+-    best_score: float | None = None
+-    best_pass_rate: float = 0.0
+-    best_round: str = ""
+-
+-    for e in _completed_submissions(entries):
+-        pr = e.get("pass_rate", 0.0) or 0.0
+-        s = e.get("score") if e.get("score") is not None else e.get("max_score")
+-        is_new_best = False
+-
+-        if pr < 1.0 or best_pass_rate < 1.0:
+-            if pr > best_pass_rate:
+-                best_pass_rate = pr
+-                best_score = s if s is not None else pr
+-                is_new_best = True
+-        else:
+-            if s is not None and _is_better_score(s, best_score, score_direction):
+-                best_score = s
+-                is_new_best = True
+-
+-        if is_new_best:
+-            best_round = e.get("round", "")
+-
+-    return {
+-        "best_score": best_score,
+-        "best_pass_rate": best_pass_rate,
+-        "best_round": best_round,
+-        "best_valid": True,
+-    }
++    """Higher pass rate wins; compare scores only when both rates are one."""
++    result = _empty_result()
++    for entry in _completed_submissions(entries):
++        rate = entry.get("pass_rate", 0.0) or 0.0
++        score = entry.get("score")
++        if score is None:
++            score = entry.get("max_score")
++        if score is not None and not _finite_number(score):
++            continue
++        better = not result["best_valid"] or rate > result["best_pass_rate"]
++        if rate == result["best_pass_rate"] == 1.0 and score is not None:
++            better = _is_better_score(score, result["best_score"], score_direction)
++        if better:
++            result = {"best_score": score if score is not None else rate,
++                      "best_pass_rate": rate, "best_round": entry.get("round", ""),
++                      "best_valid": True}
++    return result
+ 
+ 
+ def _score_first(entries: list[dict], score_direction: str) -> dict:
+-    """Compare score directly, ignoring pass_rate for ordering."""
+-    best_score: float | None = None
+-    best_pass_rate: float = 0.0
+-    best_round: str = ""
+-
+-    for e in _completed_submissions(entries):
+-        s = e.get("score")
+-        if s is None:
+-            continue
+-        if _is_better_score(s, best_score, score_direction):
+-            best_score = s
+-            best_pass_rate = e.get("pass_rate", 0.0) or 0.0
+-            best_round = e.get("round", "")
+-
+-    return {
+-        "best_score": best_score,
+-        "best_pass_rate": best_pass_rate,
+-        "best_round": best_round,
+-        "best_valid": True,
+-    }
++    """Order finite, valid scores independently of pass rate."""
++    result = _empty_result()
++    for entry in _completed_submissions(entries):
++        score = entry.get("score")
++        if score is None:
++            continue
++        if _is_better_score(score, result["best_score"], score_direction):
++            result = {"best_score": score,
++                      "best_pass_rate": entry.get("pass_rate", 0.0) or 0.0,
++                      "best_round": entry.get("round", ""), "best_valid": True}
++    return result
+ 
+ 
+ def _valid_then_score(entries: list[dict], score_direction: str) -> dict:
+-    """Filter out valid=false entries, then compare score."""
+-    valid_entries = [
+-        e for e in _completed_submissions(entries)
+-        if e.get("valid", True)
+-    ]
+-    if not valid_entries:
+-        return {
+-            "best_score": None,
+-            "best_pass_rate": 0.0,
+-            "best_round": "",
+-            "best_valid": False,
+-        }
+-
+-    result = _score_first(valid_entries, score_direction)
+-    result["best_valid"] = True
+-    return result
++    """Retained policy name; validity now gates all Verified policies."""
++    return _score_first(entries, score_direction)
+ 
+ 
+-_POLICIES = {
+-    "pass_rate_first": _pass_rate_first,
+-    "score_first": _score_first,
+-    "valid_then_score": _valid_then_score,
+-}
++_POLICIES = {"pass_rate_first": _pass_rate_first, "score_first": _score_first,
++             "valid_then_score": _valid_then_score}
+--- a/sforge/harness/log_parsers/pytest_v.py
++++ b/sforge/harness/log_parsers/pytest_v.py
+@@ -35,26 +35,60 @@
+ from sforge.harness.constants import PASSED, FAILED, ERROR
+ 
+ 
++def _summary_counts(test_output: str) -> dict[str, int] | None:
++    # Require a complete terminal-style summary line, not a diagnostic substring.
++    matches = list(re.finditer(
++        r"^=+\s+([\d\w, ]+)\s+in\s+[\d.]+s(?: \([^\n]*\))?\s+=+[ \t]*$",
++        test_output, re.MULTILINE,
++    ))
++    if not matches:
++        return None
++    counts = {}
++    for match in re.finditer(r"(\d+)\s+(\w+)", matches[-1].group(1)):
++        count, label = match.groups()
++        counts[label] = counts.get(label, 0) + int(count)
++    return counts
++
++
+ def _parse_summary(test_output: str) -> dict[str, int] | None:
+-    """Parse the pytest summary line. Returns {passed, failed, error} counts or None."""
+-    # Match the summary line like: "= 14 failed, 212 passed, 4 xfailed in 361.11s ="
+-    summary_match = re.search(r"=+\s+([\d\w, ]+)\s+in\s+[\d.]+", test_output)
+-    if not summary_match:
++    counts = _summary_counts(test_output)
++    if counts is None:
+         return None
++    return {
++        "passed": sum(counts.get(s, 0) for s in ("passed", "xfailed", "xpassed")),
++        "failed": counts.get("failed", 0),
++        "error": counts.get("error", 0) + counts.get("errors", 0),
++    }
+ 
+-    summary_text = summary_match.group(1)
+-    counts = {"passed": 0, "failed": 0, "error": 0}
+-    for m in re.finditer(r"(\d+)\s+(\w+)", summary_text):
+-        count = int(m.group(1))
+-        label = m.group(2)
+-        if label in ("passed", "xfailed", "xpassed"):
+-            counts["passed"] += count
+-        elif label == "failed":
+-            counts["failed"] += count
+-        elif label in ("error", "errors"):
+-            counts["error"] += count
+-        # skip "warnings", "skipped", "deselected", etc.
+-    return counts
++
++def validate_pytest_completion(test_output: str, results: list[dict]) -> None:
++    """Reject incomplete sessions without treating failed tests as bad framing.
++
++    XFAIL/XPASS and SKIPPED retain upstream's scoring semantics. Collection
++    counts are a consistency check when present, not an independent case list.
++    """
++    summary = _parse_summary(test_output)
++    counts = _summary_counts(test_output)
++    if summary is None:
++        raise ValueError("Missing complete pytest summary")
++    if re.search(r"^!+.*(?:Interrupted|KeyboardInterrupt|stopping after).*?!+$", test_output, re.M):
++        raise ValueError("Pytest session interrupted or stopped early")
++    actual = {"passed": sum(r["status"] == PASSED for r in results),
++              "failed": sum(r["status"] == FAILED for r in results),
++              "error": sum(r["status"] == ERROR for r in results)}
++    if actual != summary:
++        raise ValueError("Pytest summary disagrees with named results")
++    collection = list(re.finditer(r"collected (\d+) items?([^\n]*)", test_output))
++    if collection:
++        selected = re.search(r"(\d+) selected", collection[-1].group(2))
++        expected = int(selected.group(1) if selected else collection[-1].group(1))
++        completed = sum(summary.values()) + counts.get("skipped", 0)
++        # Teardown errors can add an ERROR outcome after an already completed
++        # test. Therefore only a deficit proves an incomplete collected suite.
++        if completed < expected:
++            raise ValueError("Pytest summary accounts for fewer than the collected tests")
++    if sum(summary.values()) == 0:
++        raise ValueError("No graded pytest tests found")
+ 
+ 
+ def parse_pytest_v(test_output: str) -> list[dict]:
+--- a/sforge/harness/log_parsers/score_sum.py
++++ b/sforge/harness/log_parsers/score_sum.py
+@@ -12,63 +12,51 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-"""Parser for score-based evaluation output (e.g., competitive programming judges).
++"""Parse complete score-sum records while preserving per-case partial credit.
+ 
+-Expected format:
+-  CASE 0000 OK score=12461
+-  CASE 0001 OK score=13335.5
+-  CASE 0002 TLE score=0
+-  CASE 0003 RE score=0
+-  CASE 0004 WA score=0
+-  CASE 0005 CE score=0
+-  ...
+-  TOTAL_SCORE 826577
+-  CASES_OK 48
+-  CASES_TOTAL 50
+-
+-Status codes:
+-  OK  — ran successfully, score > 0
+-  TLE — time limit exceeded
+-  RE  — runtime error
+-  WA  — wrong answer (invalid output)
+-  CE  — compile error
++An evaluator's per-case TLE/RE/WA/CE is an ordinary unsuccessful case. It is
++separate from a harness timeout, which means the overall result is incomplete.
+ """
+ 
+ from __future__ import annotations
+ 
++import math
+ import re
+ 
+ from sforge.harness.constants import PASSED, FAILED
+ 
++NUMBER = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
++
+ 
+ def parse_score_sum(test_output: str) -> list[dict]:
+-    """Parse score-based evaluation output.
++    """Parse CASE records; check declared totals when the evaluator emits them.
+ 
+-    Returns list of {"name": str, "status": "PASSED"|"FAILED"}.
++    Older emitters without CASES_TOTAL/CASES_OK remain supported; absent totals
++    do not establish coverage of an externally expected case set.
+     """
+     results: list[dict] = []
+-
+-    # Match lines: CASE <id> <status> score=<n>
+-    case_pattern = re.compile(
+-        r"^CASE\s+(\S+)\s+(OK|TLE|RE|WA|CE)\s+score=(inf|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)",
+-        re.MULTILINE,
+-    )
+-
+-    for match in case_pattern.finditer(test_output):
+-        case_id = match.group(1)
+-        status = match.group(2)
+-        score = float(match.group(3))
+-
+-        if status == "OK":
+-            results.append({"name": f"case_{case_id}", "status": PASSED})
+-        else:
+-            results.append({"name": f"case_{case_id}_{status}", "status": FAILED})
+-
+-    # If no cases found, check for compile error
++    seen = set()
++    pattern = re.compile(r"CASE\s+(\S+)\s+(OK|TLE|RE|WA|CE)\s+score=(" + NUMBER + r")(?:\s+.*)?")
++    for line in test_output.splitlines():
++        if not line.startswith("CASE ") and not line.startswith("CASE\t"):
++            continue
++        match = pattern.fullmatch(line)
++        if not match or not math.isfinite(float(match.group(3))):
++            raise ValueError("Malformed or nonfinite CASE record")
++        case_id, status, _ = match.groups()
++        if case_id in seen:
++            raise ValueError(f"Duplicate CASE id: {case_id}")
++        seen.add(case_id)
++        name = f"case_{case_id}" if status == "OK" else f"case_{case_id}_{status}"
++        results.append({"name": name, "status": PASSED if status == "OK" else FAILED})
+     if not results:
+-        if "CE" in test_output or "compile" in test_output.lower():
+-            results.append({"name": "compile", "status": FAILED})
+-        else:
+-            results.append({"name": "unknown", "status": FAILED})
+-
++        raise ValueError("No CASE records found")
++    for label, actual in (("CASES_TOTAL", len(results)),
++                          ("CASES_OK", sum(r["status"] == PASSED for r in results))):
++        lines = re.findall(r"^" + label + r"(?:[ \t]+.*)?$", test_output, re.M)
++        if lines:
++            if len(lines) != 1 or not re.fullmatch(label + r"[ \t]+\d+[ \t]*", lines[0]):
++                raise ValueError(f"Malformed or duplicate {label}")
++            if int(lines[0].split()[1]) != actual:
++                raise ValueError(f"{label} disagrees with CASE records")
+     return results
+--- a/sforge/harness/log_parsers/structured_json.py
++++ b/sforge/harness/log_parsers/structured_json.py
+@@ -12,20 +12,10 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-"""Parser for structured JSON evaluation output.
++"""Extract one unambiguous structured result; reject malformed result envelopes.
+ 
+-The eval runner / summarizer outputs a JSON object with standard fields.
+-This parser extracts it from the test output.
+-
+-Expected JSON schema (all fields optional):
+-    {
+-        "valid": bool,
+-        "score": float,
+-        "pass_rate": float,
+-        "summary": str,
+-        "details": [{"name": str, "status": str, "message": str, ...}],
+-        "metrics": {str: Any}
+-    }
++Fields remain optional, with grading validating their types and whether the result
++contains a usable measurement. Explicit markers take precedence over log JSON.
+ """
+ 
+ from __future__ import annotations
+@@ -33,78 +23,63 @@
+ import json
+ import re
+ 
++MARKER_START = ">>>>> Start Structured Result"
++MARKER_END = ">>>>> End Structured Result"
++_RESULT_KEYS = {"valid", "score", "summary", "details", "metrics", "pass_rate",
++                "passed", "failed", "errors", "total_tests"}
+ 
+-def parse_structured_json(output: str) -> dict:
+-    """Extract a structured JSON result from eval output.
+ 
+-    Tries three strategies in order:
+-    1. Content between STRUCTURED_RESULT markers
+-    2. First JSON object that looks like a result (has score/valid/summary/details)
+-    3. Empty dict if nothing found
+-    """
+-    # Strategy 1: explicit markers
+-    marker_start = ">>>>> Start Structured Result"
+-    marker_end = ">>>>> End Structured Result"
+-    si = output.find(marker_start)
+-    ei = output.find(marker_end)
+-    if si != -1 and ei != -1:
+-        block = output[si + len(marker_start) : ei].strip()
+-        try:
+-            return json.loads(block)
+-        except json.JSONDecodeError:
+-            pass
+-
+-    # Strategy 2: find a JSON object in the output
+-    # Look for lines that start with '{' and try to parse them
+-    for m in re.finditer(r"^\s*\{", output, re.MULTILINE):
+-        try:
+-            candidate = output[m.start():]
+-            obj = json.loads(candidate[:_find_json_end(candidate)])
+-            if isinstance(obj, dict) and _looks_like_result(obj):
+-                return obj
+-        except (json.JSONDecodeError, ValueError):
+-            continue
++def _reject_constant(value: str):
++    raise ValueError(f"Nonfinite JSON constant: {value}")
++
++
++def _unique_object(pairs: list[tuple]) -> dict:
++    result = {}
++    for key, value in pairs:
++        if key in result:
++            raise ValueError(f"Duplicate JSON key: {key}")
++        result[key] = value
++    return result
+ 
+-    # Strategy 3: try the entire output as JSON
+-    try:
+-        obj = json.loads(output.strip())
+-        if isinstance(obj, dict):
+-            return obj
+-    except json.JSONDecodeError:
+-        pass
+-
+-    return {}
+-
+-
+-def _find_json_end(text: str) -> int:
+-    """Find the end of a JSON object by brace matching."""
+-    depth = 0
+-    in_string = False
+-    escape = False
+-    for i, ch in enumerate(text):
+-        if escape:
+-            escape = False
+-            continue
+-        if ch == '\\' and in_string:
+-            escape = True
+-            continue
+-        if ch == '"' and not escape:
+-            in_string = not in_string
+-            continue
+-        if in_string:
+-            continue
+-        if ch == '{':
+-            depth += 1
+-        elif ch == '}':
+-            depth -= 1
+-            if depth == 0:
+-                return i + 1
+-    return len(text)
+ 
++_DECODER = json.JSONDecoder(parse_constant=_reject_constant,
++                            object_pairs_hook=_unique_object)
+ 
+-_RESULT_KEYS = {"valid", "score", "summary", "details", "metrics", "pass_rate"}
+ 
++def parse_structured_json(output: str) -> dict:
++    """Return exactly one result object, or raise ValueError.
+ 
+-def _looks_like_result(obj: dict) -> bool:
+-    """Check if a JSON object looks like a structured result."""
+-    return bool(set(obj.keys()) & _RESULT_KEYS)
++    A malformed or incomplete marked result never falls back to unrelated log
++    JSON. Unmarked output is supported for compatibility, but multiple result
++    objects are ambiguous and rejected. This is framing validation, not proof
++    that the producer or its stdout is trusted.
++    """
++    starts = list(re.finditer(r"^" + re.escape(MARKER_START) + r"[ \t]*$", output, re.M))
++    ends = list(re.finditer(r"^" + re.escape(MARKER_END) + r"[ \t]*$", output, re.M))
++    if starts or ends:
++        if len(starts) != 1 or len(ends) != 1 or starts[0].end() >= ends[0].start():
++            raise ValueError("Expected exactly one complete structured-result envelope")
++        block = output[starts[0].end():ends[0].start()].strip()
++        obj = _DECODER.decode(block)
++        if not isinstance(obj, dict):
++            raise ValueError("Structured result must be a JSON object")
++        return obj
++
++    candidates = []
++    consumed_until = 0
++    for match in re.finditer(r"^[ \t]*\{", output, re.M):
++        start = match.end() - 1
++        if start < consumed_until:
++            continue
++        try:
++            obj, end = _DECODER.raw_decode(output, start)
++        except ValueError as exc:
++            # A malformed JSON-looking record might be the intended result;
++            # silently scanning past it could select an unrelated later object.
++            raise ValueError("Malformed JSON object in unmarked result output") from exc
++        consumed_until = end
++        if isinstance(obj, dict) and set(obj) & _RESULT_KEYS:
++            candidates.append(obj)
++    if len(candidates) != 1:
++        raise ValueError("Expected one structured result; found " + str(len(candidates)))
++    return candidates[0]

@@ -1,0 +1,33 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 464B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.portfolio_risk_calibration@sha256:42997fb5770532b08cf9b97927d28f34466868348cc75ae13824b81c90e9458d
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 94.56kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.portfolio_risk_calibration@sha256:42997fb5770532b08cf9b97927d28f34466868348cc75ae13824b81c90e9458d
+#5 resolve docker.io/seededge/edgebench.judge.portfolio_risk_calibration@sha256:42997fb5770532b08cf9b97927d28f34466868348cc75ae13824b81c90e9458d done
+#5 DONE 0.1s
+
+#6 [2/2] COPY --chown=agent:agent files/eval_script.py /home/workspace/scoring/eval_script.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:1a0658474a3e764cc91e15f64d7d3536a0add35faca6bd9bb8970e20c0309f22 done
+#7 exporting config sha256:043b903ef1b1c1ea9501e3c0000f026330e77e5beec07f4bf3683359394c08e1 done
+#7 exporting attestation manifest sha256:ea491afe1b89edbc83f69855ec652ad187df5ca06859146be4f5a12db29fcf0b 0.0s done
+#7 exporting manifest list sha256:4c51944783914f60e266a2beace5835d739dd669a3903bc8c5d5ee0266ebaea7 done
+#7 naming to docker.io/ebv/portfolio_risk_calibration:v2 done
+#7 unpacking to docker.io/ebv/portfolio_risk_calibration:v2 0.0s done
+#7 DONE 0.1s

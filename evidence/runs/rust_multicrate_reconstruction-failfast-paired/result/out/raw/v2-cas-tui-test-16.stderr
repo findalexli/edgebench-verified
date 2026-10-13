@@ -1,0 +1,24 @@
+warning: method `window_id_path` is never used
+   --> crates/cas-tui-test/src/pty_runner.rs:206:8
+    |
+152 | impl HeadfulConfig {
+    | ------------------ method in this implementation
+...
+206 |     fn window_id_path(&self) -> PathBuf {
+    |        ^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: function `escape_applescript_string` is never used
+   --> crates/cas-tui-test/src/pty_runner.rs:737:4
+    |
+737 | fn escape_applescript_string(value: &str) -> String {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `cas-tui-test` (lib) generated 2 warnings
+warning: `cas-tui-test` (lib test) generated 2 warnings (2 duplicates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+     Running unittests src/lib.rs (target/debug/deps/cas_tui_test-319ee1a53f7d6456)
+     Running unittests src/bin/test_tui.rs (target/debug/deps/test_tui-462c7ec3e26f1be1)
+     Running tests/example_test.rs (target/debug/deps/example_test-06bc64b6bf0b35d6)
+   Doc-tests cas_tui_test

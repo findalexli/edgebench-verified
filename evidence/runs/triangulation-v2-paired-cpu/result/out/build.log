@@ -1,0 +1,85 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 629B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 3)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 177.24kB done
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671
+#5 resolve docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671 0.0s done
+#5 DONE 0.1s
+
+#6 [2/4] COPY files/tools/src/triangulation.py /home/workspace/triangulation_coloring/tools/src/triangulation.py
+#6 DONE 0.4s
+
+#7 [3/4] COPY files/cases/ /home/workspace/triangulation_coloring/cases/
+#7 DONE 0.0s
+
+#8 [4/4] COPY files/eval_triangulation_coloring.py /tmp/eval_triangulation_coloring.py
+#8 DONE 0.0s
+
+#9 exporting to image
+#9 exporting layers 0.1s done
+#9 exporting manifest sha256:c8bbee8788e3680825586ed973aa2008f3f8257a3ca37ce268e1710f4c1066c7 0.0s done
+#9 exporting config sha256:30e73c93799118086bc7450dc9a948f19b3fe94be1ac58bf3e3ee93329ff802a
+#9 exporting config sha256:30e73c93799118086bc7450dc9a948f19b3fe94be1ac58bf3e3ee93329ff802a done
+#9 exporting attestation manifest sha256:dc10943e6f6af7fc128135bf4a38aca4b5868690d0832ee0ca8540b4b6862afe 0.0s done
+#9 exporting manifest list sha256:cd10c09ae5b3f147b1eb5769164c1bb947d09d0b1c4f46ab90d06fabc3c2e476 done
+#9 naming to docker.io/ebv/triangulation_coloring_optimization:v2 done
+#9 unpacking to docker.io/ebv/triangulation_coloring_optimization:v2 0.0s done
+#9 DONE 0.2s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 3)
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 459B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671
+#4 resolve docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 173.79kB done
+#5 DONE 0.0s
+
+#6 [2/3] COPY files/tools/src/triangulation.py /home/workspace/triangulation_coloring/tools/src/triangulation.py
+#6 CACHED
+
+#7 [3/3] COPY files/cases/ /home/workspace/triangulation_coloring/cases/
+#7 CACHED
+
+#8 exporting to image
+#8 exporting layers done
+#8 exporting manifest sha256:421917e66eb7ef726076c0e10d9c044ddfb7a4dca29d3514e55a687bc8a341bc done
+#8 exporting config sha256:233480b1e8e281205deca9ced4df44dd1814c18e5aa578a7cb547e13c7f287bf done
+#8 exporting attestation manifest sha256:2a2ce7f63908f8432c4159446dfed30ae95b7b0d95c071e61bd29b4a2662fb73 0.0s done
+#8 exporting manifest list sha256:a3e9fcb32f772a82f93fd86646e8992aa7d9edd4f9169cb7df0a1bf63ea09012
+#8 exporting manifest list sha256:a3e9fcb32f772a82f93fd86646e8992aa7d9edd4f9169cb7df0a1bf63ea09012 done
+#8 naming to docker.io/ebv/triangulation_coloring_optimization:v2prev done
+#8 unpacking to docker.io/ebv/triangulation_coloring_optimization:v2prev 0.0s done
+#8 DONE 0.1s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)

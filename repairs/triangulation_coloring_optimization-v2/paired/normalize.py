@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Parse paired E2B logs with the maintained score_sum parser rules and rescale with the
+"""Parse paired E2B logs with EdgeBench's score_sum parser (sforge 6e4e5f4) and rescale with the
 task's (unchanged) anchors. Run from the repo root: python3 <this> <result/out dir> <task.json>"""
 import json, re, sys
 sys.path.insert(0, '.')

@@ -1,10 +1,10 @@
 # Borden Source Inversion (`borden_source_inversion`)
 
-**Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so an honest solver using a textbook model scores at the baseline level.</mark>
+**Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so a one-shot honest fit with a textbook model scores at the baseline level.</mark>
 
 ![Bars of scores on the original grader, where the true source scores 109: the textbook fit 7.03 and the midpoint baseline 7.01 versus 31.2 for a fit using the grader's hidden convention.](figures/borden_source_inversion.svg)
 
-*The grader uses unstated, non-physical conventions, so an honest textbook fit scores at the baseline level, about 24 points below the same fit using the hidden convention.*
+*The grader uses unstated, non-physical conventions, so a one-shot honest textbook fit to the public data scores at the baseline level, about 24 points below the same fit using the hidden convention.*
 
 ## What the task asks
 
@@ -22,24 +22,26 @@ The README says to "construct the groundwater solute transport equation, build a
 - reports mg/m³ as mg/L;
 - with `nz=1`, places the source plane at `z_center − half_length_z`, not at the box centre (this looks like an unintended `linspace(num=1)` artifact).
 
-None of this is in the documentation. A textbook ADE model differs from the grader's model by 10.9× to 323× point by point (median 33×). The difference comes from an amplitude factor of duration/(1000·n) ≈ 8.5 at the true source, plus the plane offset. Yet the public data cannot tell the conventions apart. The textbook model and the grader's convention fit the public data equally well (RMS log residual 0.0079 for both).
+The documentation gives the ingredients but not how they are combined. `public_problem_config.json` lists q (`q_source_m3_per_day`), a factor of 1000 (`fallback_source_scale_factor`), a 5×5×1 grid of sub-points with 9 release steps, and a note that the grader superposes point-source responses. It does not give the per-pulse normalisation, the missing porosity, the duration-independent mass, the unit reading or the resulting plane position. At the true source, on the 24 public readings above 0.01 mg/L, a textbook ADE model differs from the grader's model by 10.9× to 323× (median 33×). The difference comes from an amplitude factor of duration/(1000·n) ≈ 8.5 at the true source, plus the plane offset. Yet the public data cannot tell the conventions apart. The textbook model and the grader's convention fit the public data equally well (RMS log residual 0.0079 for both).
 
 - Example on the original grader: the honest textbook ADE fit scores **7.03**. The baseline, which answers with the midpoint of every parameter's bounds, scores 7.01. The same least-squares fit with the grader's exact convention scores **31.2**. Using the grader's convention except for the source plane (placed at `z_center`, the natural reading) scores 12.9. So the plane placement alone costs about 18 points.
 
-**The raw result has no defined score out of 100 (a reporting inconsistency).** The true source scores 109 on the raw result (before conversion to 0–100). The task had no score scale, so `score_0_100` was undefined. An honest fit reaches only about 31, so the missing ceiling does not change scores for honest solvers.
+**The raw result has no defined score out of 100 (a reporting inconsistency).** The true source scores 109 on the raw result (before conversion to 0–100). The task had no score scale, so `score_0_100` was undefined and raw results were reported on 0–109. No recorded submission reaches 100 raw: our best public-data fit reaches 31.2, and the best submission in a third-party Claude Opus 5.5 run reached 60.10 (below). So the missing ceiling clips no recorded score; it leaves results on a 0–109 scale.
 
 Checked and found correct: the agent's working files hold no `scoring/` directory and no hidden file.
 
 ## How much it matters
 
-About 24 points (7.0 against 31.2 for the same honest fit). This affects every solver who builds the forward model from the documentation rather than guessing the grader's convention.
+About 24 points on the 0–109 raw scale (7.0 against 31.2), for a one-shot least-squares fit to the public data with one textbook model variant. Other textbook variants were not tested.
+
+For an agent that submits repeatedly, the effect is smaller, and its size was not measured. The grader's per-test output includes the hidden-well and future rRMSE as `CASE feedback_…` lines, so an agent can tune towards the hidden convention. In a third-party Claude Opus 5.5 run on the original grader (36 submissions over 4 hours), the best submission, `agent-23`, describes its model as a textbook point-source ADE solution and scores 60.10 raw, with hidden-well rRMSE 0.223 and future rRMSE 0.101 (`evidence/runs/opus55-rollouts-meta/result/meta/opus-16x4h-1009-0036-w1/borden_source_inversion/final_result.json` and `submissions/agent-23/test_output.txt`). Our grader-convention fit has 0.552 and 0.200. The published 12-hour results for this task are 48.4, 38.5 and 38.2 for three models and 8.0 and 15.1 for two others (`evidence/impact/leaderboard_12h.json`).
 
 ## The fix
 
 The fixed version changes only the agent's working image and the task JSON. The answer key, the grader and the grader image are unchanged.
 
 - The working image adds `forward_model.py`. This is the grader's forward model, with function bodies byte-identical and only the 2-line header comment replaced.
-- A README section states the convention exactly: sub-points and the `z_center − half_length_z` plane, release offsets, pulse amplitude, no porosity, no dependence on duration, units as reported. The same section is inserted into `work.agent_query`.
+- A README section states the convention exactly: sub-points and the `z_center − half_length_z` plane, release offsets, pulse amplitude, no porosity, no dependence on duration, units as reported. The same section is inserted into `work.agent_query`. A revision (2026-10-12) also says, in the file list, scoring steps and rules, that `forward_model.py` is an exact copy of the grader's model and may be used freely; the first published fixed prompt still called the model "hidden" and forbade reading hidden scoring files without that statement. Grading the same seven test submissions in the first and revised fixed working directories gave byte-identical results (`evidence/runs/borden_source_inversion-v2-paired-r3`).
 - `task.json.in` adds `judge.rescale = {"kind": "linear", "lower": 0, "upper": 109}`. This sets the score scale: 0 maps to 0 and 109 maps to 100. It keeps results above 100 in order instead of tying them at a cap.
 
 In the table, "Cap" is the score ceiling the grader applies to that submission; it is the same under both graders. The last column is the relative RMS error on the hidden wells and on future readings.
@@ -67,10 +69,10 @@ The shipped `forward_model.py` matches the grader's model with max |diff| = 0.0 
 
 ## Limits
 
-- No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
+- We ran no AI model. The paired results use test submissions and fits we wrote. One third-party Claude Opus 5.5 run on the original grader was read but not regraded (raw results are identical under both graders for the same answer); it shows that iterating agents can partly learn the convention, and it does not test the fix.
 - The inverse problem is still weakly determined by the data. The best public-data fit with the exact model reaches 31.2 raw (28.6 out of 100). The fix removes the penalty for the hidden convention, not the difficulty.
 - `C0` remains an "effective intensity" in a non-physical convention. The fixed version documents it rather than fixing it, because fixing the physics would require regenerating the answer key.
-- One fitting method (multi-start least squares, log/hinge loss) and one textbook model variant were used.
+- One fitting method (multi-start least squares, log/hinge loss, one seeded run of 60 or 80 starts) and one textbook model variant were used. The 24-point gap is for that variant.
 - The prompt says parameters "must stay within" the bounds, but the original grader does not reject the out-of-bounds test submission outright (4 raw, capped at 15). This is unchanged.
 - Only the `/home/workspace` working files were listed for the hidden-file check.
 

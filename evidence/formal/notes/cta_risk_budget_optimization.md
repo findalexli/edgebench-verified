@@ -39,6 +39,16 @@ and the four witness theorems.
 - The `asof` lookup, the 7.0 fallback, pandas grouping by date and the mapping from
   violation days to `cb_checks` (lines 1048–1050) are not modelled.
 - The "% of NAV vs % of gross notional" question is out of scope.
-- Claim 3 relies on overseas ⇔ USD. The case page states this; it was not re-checked against
-  `contract_specs`.
-- The real-data examples (0.175 → 0.595, 32 of 1,565 days) were not re-derived.
+- `fixed_iff_contract` holds by construction (`ring`): the model's yuan value is the code's own
+  formula, so it carries the code's assumption that every non-USD ticker is priced in CNY. The
+  policy is formalized as converting USD only.
+- Claim 3 relies on overseas ⇔ USD, USDCNY ≥ 1 and non-negative notionals. These are hypotheses of
+  the theorem, not proved. They hold on the task's data in the pinned grader image
+  (`sha256:34258d85…`), read with `--network none`: all 12 `OVERSEAS_TICKERS` have `currency` USD
+  in `futures_contract_specs.xlsx` → `contract_specs`, the other 18 tickers are CNY, every overseas
+  ticker is in the specs, USDCNY in `fx_rates_daily` runs from 6.7571 to 7.1566 over 1565 rows (the
+  7.0 fallback is also ≥ 1), the smallest close price is 0.7753 and the smallest multiplier is 5.
+  Lots enter as `abs(lots)`, so every notional is non-negative. A
+  submission holding a ticker outside the specs is treated as CNY and not overseas by both graders.
+- The real-data examples (0.175 → 0.595, 32 of 1,565 days) were not re-derived in Lean; they come
+  from `evidence/scripts/cta_risk_budget_optimization/` and the side-by-side run.

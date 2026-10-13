@@ -9,7 +9,7 @@
    concentrations are not provided to the agent.
  - `baseline_solver.py`: writes a legal low-quality baseline `answer.json` from the center of the parameter bounds.
  - `answer_template.json`: required output schema.
-+- `forward_model.py`: exact copy of the judge's forward model (see below).
++- `forward_model.py`: exact copy of the judge's forward model (see below). You may read, run and import it freely.
 +
 +## Judge forward model (exact, v2)
 +
@@ -43,6 +43,24 @@
  
  No runnable scientific starter solver is provided. You should write your own Python code to read files, construct the groundwater solute transport equation, build an ADE/AdePy or equivalent forward approximation, optimize the source parameters, and update `answer.json`.
  
+@@ -78,7 +109,7 @@
+ 
+ 1. Read `answer.json`.
+ 2. Check required finite-region fields and parameter bounds.
+-3. Use a hidden Borden-ADE region-source forward model to predict concentrations at hidden monitoring wells and hidden future times.
++3. Use the Borden-ADE region-source forward model shipped as `forward_model.py` to predict concentrations at hidden monitoring wells and hidden future times.
+ 4. Compare predictions with hidden readings using relative RMSE and log-scale metrics.
+ 5. Hidden prediction dominates the score. Easy format/prior/method/transport-equation points are capped and cannot exceed the hidden-quality caps.
+ 6. Region-shape and physical-consistency points are gated by hidden prediction quality.
+@@ -88,7 +119,7 @@
+ 
+ ## Rules
+ 
+-- Do not read or reference hidden scoring files.
++- Do not read or reference hidden scoring files. `forward_model.py` is not one of them: it is an exact copy of the judge's model and may be used freely.
+ - Do not hard-code hidden monitoring readings.
+ - Do not modify judge files.
+ - Do not call FloPy, MODFLOW, MT3DMS, or external groundwater executables.
 # files/forward_model.py <- judge:/opt/borden_scoring/hidden_forward_model.py
 --- a/files/forward_model.py
 +++ b/files/forward_model.py

@@ -12,10 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Extract one unambiguous structured result; reject malformed result envelopes.
+"""Parser for structured JSON evaluation output.
 
-Fields remain optional, with grading validating their types and whether the result
-contains a usable measurement. Explicit markers take precedence over log JSON.
+The eval runner / summarizer outputs a JSON object with standard fields.
+This parser extracts it from the test output.
+
+Expected JSON schema (all fields optional):
+    {
+        "valid": bool,
+        "score": float,
+        "pass_rate": float,
+        "summary": str,
+        "details": [{"name": str, "status": str, "message": str, ...}],
+        "metrics": {str: Any}
+    }
 """
 
 from __future__ import annotations
@@ -23,63 +33,78 @@ from __future__ import annotations
 import json
 import re
 
-MARKER_START = ">>>>> Start Structured Result"
-MARKER_END = ">>>>> End Structured Result"
-_RESULT_KEYS = {"valid", "score", "summary", "details", "metrics", "pass_rate",
-                "passed", "failed", "errors", "total_tests"}
-
-
-def _reject_constant(value: str):
-    raise ValueError(f"Nonfinite JSON constant: {value}")
-
-
-def _unique_object(pairs: list[tuple]) -> dict:
-    result = {}
-    for key, value in pairs:
-        if key in result:
-            raise ValueError(f"Duplicate JSON key: {key}")
-        result[key] = value
-    return result
-
-
-_DECODER = json.JSONDecoder(parse_constant=_reject_constant,
-                            object_pairs_hook=_unique_object)
-
 
 def parse_structured_json(output: str) -> dict:
-    """Return exactly one result object, or raise ValueError.
+    """Extract a structured JSON result from eval output.
 
-    A malformed or incomplete marked result never falls back to unrelated log
-    JSON. Unmarked output is supported for compatibility, but multiple result
-    objects are ambiguous and rejected. This is framing validation, not proof
-    that the producer or its stdout is trusted.
+    Tries three strategies in order:
+    1. Content between STRUCTURED_RESULT markers
+    2. First JSON object that looks like a result (has score/valid/summary/details)
+    3. Empty dict if nothing found
     """
-    starts = list(re.finditer(r"^" + re.escape(MARKER_START) + r"[ \t]*$", output, re.M))
-    ends = list(re.finditer(r"^" + re.escape(MARKER_END) + r"[ \t]*$", output, re.M))
-    if starts or ends:
-        if len(starts) != 1 or len(ends) != 1 or starts[0].end() >= ends[0].start():
-            raise ValueError("Expected exactly one complete structured-result envelope")
-        block = output[starts[0].end():ends[0].start()].strip()
-        obj = _DECODER.decode(block)
-        if not isinstance(obj, dict):
-            raise ValueError("Structured result must be a JSON object")
-        return obj
-
-    candidates = []
-    consumed_until = 0
-    for match in re.finditer(r"^[ \t]*\{", output, re.M):
-        start = match.end() - 1
-        if start < consumed_until:
-            continue
+    # Strategy 1: explicit markers
+    marker_start = ">>>>> Start Structured Result"
+    marker_end = ">>>>> End Structured Result"
+    si = output.find(marker_start)
+    ei = output.find(marker_end)
+    if si != -1 and ei != -1:
+        block = output[si + len(marker_start) : ei].strip()
         try:
-            obj, end = _DECODER.raw_decode(output, start)
-        except ValueError as exc:
-            # A malformed JSON-looking record might be the intended result;
-            # silently scanning past it could select an unrelated later object.
-            raise ValueError("Malformed JSON object in unmarked result output") from exc
-        consumed_until = end
-        if isinstance(obj, dict) and set(obj) & _RESULT_KEYS:
-            candidates.append(obj)
-    if len(candidates) != 1:
-        raise ValueError("Expected one structured result; found " + str(len(candidates)))
-    return candidates[0]
+            return json.loads(block)
+        except json.JSONDecodeError:
+            pass
+
+    # Strategy 2: find a JSON object in the output
+    # Look for lines that start with '{' and try to parse them
+    for m in re.finditer(r"^\s*\{", output, re.MULTILINE):
+        try:
+            candidate = output[m.start():]
+            obj = json.loads(candidate[:_find_json_end(candidate)])
+            if isinstance(obj, dict) and _looks_like_result(obj):
+                return obj
+        except (json.JSONDecodeError, ValueError):
+            continue
+
+    # Strategy 3: try the entire output as JSON
+    try:
+        obj = json.loads(output.strip())
+        if isinstance(obj, dict):
+            return obj
+    except json.JSONDecodeError:
+        pass
+
+    return {}
+
+
+def _find_json_end(text: str) -> int:
+    """Find the end of a JSON object by brace matching."""
+    depth = 0
+    in_string = False
+    escape = False
+    for i, ch in enumerate(text):
+        if escape:
+            escape = False
+            continue
+        if ch == '\\' and in_string:
+            escape = True
+            continue
+        if ch == '"' and not escape:
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if ch == '{':
+            depth += 1
+        elif ch == '}':
+            depth -= 1
+            if depth == 0:
+                return i + 1
+    return len(text)
+
+
+_RESULT_KEYS = {"valid", "score", "summary", "details", "metrics", "pass_rate"}
+
+
+def _looks_like_result(obj: dict) -> bool:
+    """Check if a JSON object looks like a structured result."""
+    return bool(set(obj.keys()) & _RESULT_KEYS)

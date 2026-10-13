@@ -20,7 +20,7 @@
   - `dup`: identity with a duplicated element.
 - **Judging:** each submission ran the original eval_cmd through the TaskSpec `eval.sh` in a
   fresh `--network none` container (`judge_one.sh`).
-- **Grading:** `grade.py` uses the repo's `grade_output`, `rescale_score` and `select_best`.
+- **Grading:** `grade.py` uses EdgeBench's `grade_output`, `rescale_score` and `select_best` (`sforge` at `6e4e5f4`).
 
 ## Paired table
 
@@ -37,7 +37,7 @@
 
 Every eval exited normally (rc 0) and none timed out.
 
-## Selection (task policy `pass_rate_first`, repo `select_best`)
+## Selection (task policy `pass_rate_first`, EdgeBench `select_best`)
 
 | Submission order | v1 selects | v2 selects |
 | --- | --- | --- |

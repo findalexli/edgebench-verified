@@ -1,0 +1,11 @@
+; CASE:define_conflict
+(set-logic QF_UF)
+(declare-sort U 0)
+(declare-fun a () U)
+(declare-fun b () U)
+(declare-fun f (U) U)
+(define-fun g ((y U)) U (f y))
+(assert (distinct a b))
+(assert (= (g a) a))
+(assert (= (g b) b))
+(check-sat)

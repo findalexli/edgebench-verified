@@ -1,5 +1,5 @@
 """Differential check: the claims of OrderSelection.tla, re-checked against the REAL
-sforge/harness/selection.py select_best on every run of up to 3 submissions over the
+sforge/harness/selection.py select_best (EdgeBench 6e4e5f4) on every run of up to 3 submissions over the
 same abstract alphabet (64 submission kinds), plus a replay of the recorded paired
 reports in repairs/order_addition_permutation_optimization-v2/paired/graded.json.
 Run from the repository root:  python3 evidence/formal/tla/order_addition_permutation_optimization/diff_check.py"""
@@ -13,9 +13,8 @@ VAL = {1: 0.001, 2: 0.002, 3: 0.003}          # abstract score -> TOTAL_SCORE va
 
 def entry(kind, fixed, i):
     p, sc = kind
-    if "T1" not in p and "T5" in p:            # two TOTAL_SCORE lines -> grading error
-        return {"type": "submission", "round": i, "error": "Multiple TOTAL_SCORE records"}
-    score = VAL[sc] if "T5" in p else (0.0 if "T1" not in p else None)
+    # extract_score takes the FIRST TOTAL_SCORE; a failing T1 prints "TOTAL_SCORE 0" before T5 runs
+    score = 0.0 if "T1" not in p else (VAL[sc] if "T5" in p else None)
     return {"type": "submission", "round": i, "status": "completed", "valid": True,
             "pass_rate": (len(p) + fixed) / 5, "score": score}
 
@@ -34,8 +33,7 @@ for L in range(1, 4):
             assert b2["best_score"] == VAL[best] and b2["best_pass_rate"] == 1.0, seq    # C2
             assert b2["best_round"] == min(i for i in valid if seq[i - 1][1] == best), seq
         assert s1 == {**s2, "best_pass_rate": s1["best_pass_rate"]}, seq                 # C4
-        scored = [i + 1 for i, k in enumerate(seq) if not ("T1" not in k[0] and "T5" in k[0])
-                  and ("T5" in k[0] or "T1" not in k[0])]
+        scored = [i + 1 for i, k in enumerate(seq) if "T5" in k[0] or "T1" not in k[0]]
         if valid and scored == valid:
             assert b2["best_score"] == s2["best_score"], seq                             # C5
 print(f"claims C1 C2 C4 C5 hold on real select_best for {n} runs (length 1-3)")

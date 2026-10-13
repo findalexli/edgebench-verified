@@ -1,0 +1,158 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-10-12T22:30:47.452391+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "9.0.3"
+        },
+        "summary": {
+            "tests": 14,
+            "passed": 13,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1791844247273,
+            "stop": 1791844247452
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_02_reporting.py::test_reporting_module_available",
+                "status": "passed",
+                "duration": 94,
+                "start": 1791844247315,
+                "stop": 1791844247409,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_ndjson_writer_context_manager",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844247409,
+                "stop": 1791844247410,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_ndjson_writer_context_manager_closes_file",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844247411,
+                "stop": 1791844247412,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_junitxml_writer_context_manager",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 32,
+                "start": 1791844247412,
+                "stop": 1791844247444,
+                "retries": 0,
+                "file_path": "test_02_reporting.py",
+                "trace": "/tests/test_02_reporting.py:59: in test_junitxml_writer_context_manager\n    assert any(suite.get(\"name\") == \"schemathesis\" for suite in suites)\nE   assert False\nE    +  where False = any(<generator object test_junitxml_writer_context_manager.<locals>.<genexpr> at 0x7f03e22a9ee0>)",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_02_reporting.py::test_vcr_writer_context_manager_no_error",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844247444,
+                "stop": 1791844247445,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_har_writer_context_manager_no_error",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844247445,
+                "stop": 1791844247446,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_vcr_writer_open_writes_header",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844247446,
+                "stop": 1791844247446,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_get_command_representation_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844247447,
+                "stop": 1791844247447,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_report_format_allure_enum",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844247447,
+                "stop": 1791844247448,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_allure_field",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844247448,
+                "stop": 1791844247448,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_update_allure_path",
+                "status": "passed",
+                "duration": 0,
+                "start": 1791844247449,
+                "stop": 1791844247449,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844247449,
+                "stop": 1791844247450,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path_with_suffix",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844247450,
+                "stop": 1791844247451,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            },
+            {
+                "name": "test_02_reporting.py::test_reports_config_get_stable_path_allure",
+                "status": "passed",
+                "duration": 1,
+                "start": 1791844247451,
+                "stop": 1791844247452,
+                "retries": 0,
+                "file_path": "test_02_reporting.py"
+            }
+        ]
+    }
+}

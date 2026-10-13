@@ -2,10 +2,12 @@
 
 **How to read this file.** Each fixed task was tested side by side: the same test submissions were graded by the original grader (**v1**) and the fixed grader (**v2**). One test submission graded by both is an **arm**. A *trigger* shows the problem, a *valid control* is correct work that must keep its score, and an *invalid control* is wrong work that must stay rejected. The CSV columns use the same names.
 
-This file summarizes [paired-results.csv](paired-results.csv). The CSV has 134 rows from the 23
-`repairs/*-v2/paired/results.md` files: 22 accepted repairs plus the partial
-`dabic_gravity_inversion` repair, which is **excluded** from the release. Row numbers below are CSV
-line numbers; the header is line 1.
+This file summarizes [paired-results.csv](paired-results.csv). The CSV now has 210 rows from 32
+`repairs/*-v2/paired/results.md` files: 31 fixed tasks plus the partial
+`dabic_gravity_inversion` repair, which is **excluded** from the release. The totals below are for
+the current CSV. The per-task table and the row numbers in this file describe the earlier version of
+the CSV (134 rows, 23 packages); rows for the other tasks were added later, so row numbers may have
+moved. The header is line 1.
 
 ## How the CSV was built
 
@@ -58,12 +60,12 @@ expectation that the results.md file states for each control.
 |---|---:|---:|---:|---|---|---|---|
 | arc_compiler_runtime | 2 | 1 | 1 | 1 baseline | **no** (rows 5–6). This is a docs-only repair, and every score is identical by design. The defect is the gap between d (69.26) and e (35.59), which v2 fixes in TASK.md | yes (3) | yes (4) |
 | borden_source_inversion | 0 | 3 | 2 | 1 baseline, 1 setup | n/a. No arm is labeled trigger. The repair adds `forward_model.py` and a rescale, and raw scores are identical | yes (7–9) | yes (12–13) |
-| college_english_exam_bank | 7 | 4 | 1 | – | yes (18–22, 24–25) | yes (14–17) | yes (23) |
+| college_english_exam_bank | 7 | 4 | 1 | – | yes (18–22, 24–25). Rows compare the original with the first fixed version (`1d941b58…`); the revised fixed version (`87f0e340…`) gives the same results and adds arms GA–GD and M, in `evidence/runs/college_english_exam_bank-v2-paired-fix2/graded.md` (not in the CSV) | yes (14–17) | yes (23) |
 | cta_risk_budget_optimization | 2 | 3 | 1 | 1 baseline | yes (26–27), at component level only | yes (28, 29, 32) | yes (30) |
 | dabic_gravity_inversion (excluded) | 1 | 1 | 1 | 1 baseline | yes (33) | yes (34). It moves 26.82→26.84, which the file attributes to run noise | yes (35). It is rejected only by `valid=false`; its score is not low |
 | equivalence_class_divide_and_conquer | 1 | 2 | 1 | – | yes (37) | yes (38–39) | yes (40) |
 | exchange_core_throughput | 2 | 3 | 2 | 1 setup | yes (45–46) | yes (42–44). These are OK in both versions, with large throughput noise | yes (47–48). The verdict is RE in v1 and WA in v2, so both versions reject them |
-| ffmpeg_swscale_reimplementation | 3 | 2 | 1 | 1 baseline | yes (52–54) | yes (49–50), within timing noise | yes (55) |
+| ffmpeg_swscale_reimplementation | 3 | 2 | 1 | 1 baseline | yes (52–54) | yes (49–50). These are two different correct controls (a forwarding shim run once and twice per frame), not a repeat | yes (55) |
 | graph_node_classification | 1 | 3 | 1 | – | yes (59) | yes (56–58). Each moves by ≤0.008 normalized, from the timing penalty | yes (60) |
 | integer_compression_codec | 1 | 1 | 1 | – | yes (61) | yes per file (62). It moves 0.8253→6.7024, which is the intended rescaling | yes (63) |
 | jagua_nesting_optimization | 6 | 5 | 2 | – | yes (65–69, 72) | yes (64, 71, 73–75) | yes (70, 76) |
@@ -80,19 +82,19 @@ expectation that the results.md file states for each control.
 | triangulation_coloring_optimization | 1 | 2 | 1 | – | yes (124) | yes (122–123), within 0.08 normalized | yes (125) |
 | warehouse_forklift_routing | 2 | 1 | 2 | – | yes (129–130) | yes (126) | yes (127–128) |
 
-## Totals (23 packages, 134 rows)
+## Totals (current CSV: 30 packages, 187 rows)
 
 | Role | Rows | changed=yes | changed=no |
 |---|---:|---:|---:|
-| trigger | 46 | 44 | 2 (arc rows 5–6, docs-only) |
-| valid | 49 | 17 | 32 |
-| invalid | 27 | 8 | 19 |
-| baseline | 10 | 2 | 8 |
+| trigger | 67 | 65 | 2 |
+| valid | 63 | 20 | 43 |
+| invalid | 37 | 10 | 27 |
+| baseline | 18 | 4 | 14 |
 | setup | 2 | 1 | 1 |
 
-By score kind, 100 rows are `raw`, 21 are `verdict` and 13 are `normalized`.
+By score kind, 147 rows are `raw`, 23 are `verdict` and 17 are `normalized`.
 
-**By task:**
+**By task (earlier 134-row version):**
 - **Triggers.** 22 tasks have at least one trigger row, and in 21 of them every trigger changed.
   The exception is arc, a docs-only repair. borden has no trigger row.
 - **Valid controls.** Every task with valid rows behaves as its file expects. 17 valid rows
@@ -104,8 +106,8 @@ By score kind, 100 rows are `raw`, 21 are `verdict` and 13 are `normalized`.
 ## Verification
 
 An automated re-read compared each CSV row with its own results.md: the arm, both results,
-both scores and the source heading. All 134 rows pass after `**` is removed and whitespace is
-normalized. 24 values match only after the bold markers are removed.
+both scores and the source heading. All rows pass after `**` is removed and whitespace is
+normalized. 28 values match only after the bold markers are removed (`tools/verify_paired_csv.py`).
 
 A stricter check required each value to sit on the arm's own line or on the next line. Only
 openrct2 row 83 fails it, because its values come from wrapped prose rather than a table.

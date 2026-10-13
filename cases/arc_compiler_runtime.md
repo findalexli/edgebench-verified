@@ -18,6 +18,8 @@ The solver must "Implement the missing Arc compiler and runtime modules under co
 
 **The stated starter score is false.** TASK.md and problem.md say the starter scores 0.00. In the original work image (the container the agent works in), the starter scores `SCORE=100.00` on the public tests (48/48) and 35.59 on the hidden tests. This misleads a solver about where it starts. It does not change any score.
 
+**One hanging suite voids the whole submission (unchanged, disclosed).** Each of the 21 hidden suites runs in one process with a 90-second limit. If a suite times out or crashes the process, the grader stops and reports `SCORE_STATUS=INFRA_FAIL`, and the submission is invalid with score 0. Example, on the original grader: the starter scores 35.59. The same starter with a one-character typo that makes string interpolation loop forever on `{items[0]}` is reported invalid (score 0) in six of six gradings (two copies, `t_hang` and `t_hang_rep2`, in each of three runs: `evidence/runs/arc_compiler_runtime-hang-suite`, `-rep2`, `-rep3`). That construct occurs in one suite (`round2-interpreter`, 1.35 of the 100 points), and scoring that suite 0/8 would give 34.75. The evaluator documents this as its infra-failure policy, but no file the solver sees mentions it. It affects only submissions with a real non-terminating bug, and under the task's `score_first` selection, which does not read `valid` (`sforge/harness/selection.py:83-103`), the submission is ranked at 0, so it never displaces a submission that scored above 0.
+
 Checked and found correct: exactly 448 cases run, and each has one counted outcome. The starter run had zero import failures. Expected values are written as literals in the test files.
 
 ## How much it matters
@@ -74,11 +76,13 @@ Per-suite counts are byte-identical between the original and fixed versions for 
 - The adversarial type-system cases (32% of the weight; not re-derived from the inventory) come from 9 templates. The fixed version does not change this.
 - A rebuild of the fixed image is not claimed to be bit-identical.
 - One detail is unexplained and has no effect on the conclusion: under test submission (c), `round2-codegen` is 5/8, against the starter's 4/8.
+- The fixed version keeps the grader's all-or-nothing handling of a suite that hangs or crashes (measured: starter 35.59 valid; the same starter with an infinite loop on one suite's construct is invalid, score 0; `evidence/runs/arc_compiler_runtime-hang-suite`). The trigger is a constructed bug, not a solver's code. Whether a run near the 90 s limit is repeatable was not measured.
 
 ## Reproduce
 
 - Grader image: `sha256:00a34432…` (unchanged in the fixed version).
 - Side-by-side run: `repairs/arc_compiler_runtime-v2/paired/run.sh` (test submissions in `repairs/arc_compiler_runtime-v2/controls/`; per-suite counts in `paired/suites/`). `repairs/arc_compiler_runtime-v2/` is the folder holding the fixed version.
+- Hanging-suite check: `evidence/runs/arc_compiler_runtime-hang-suite/run.sh` (arms in `mutate.py`).
 - Case inventory: `python3 -I evidence/scripts/arc_compiler_runtime/case_inventory.py <evaluator-hidden dir>`.
 - Change: `repairs/arc_compiler_runtime-v2/repair.patch`, `Dockerfile`, `task.json.in`.
 - Supporting records: `repairs/arc_compiler_runtime-v2/` (`source-lock.json` holds full hashes).

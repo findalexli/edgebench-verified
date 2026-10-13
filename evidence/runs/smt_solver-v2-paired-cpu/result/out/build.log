@@ -1,0 +1,33 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 694B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.smt_solver@sha256:2bf3482a5b2952eeadecf16e33041c13c284b7ce5d93f3491b7cfd5088d91fc6
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 42.53kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.smt_solver@sha256:2bf3482a5b2952eeadecf16e33041c13c284b7ce5d93f3491b7cfd5088d91fc6
+#5 resolve docker.io/seededge/edgebench.judge.smt_solver@sha256:2bf3482a5b2952eeadecf16e33041c13c284b7ce5d93f3491b7cfd5088d91fc6 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/evaluate.py /home/workspace/smt_judge/scripts/evaluate.py
+#6 DONE 0.4s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:9ad31ab0c06f9e328b7c77e08053d0482c07d33b1c1ba3284aad367447507c3a done
+#7 exporting config sha256:91ec09d0c5f7686e7cbb162570b1852044f5f981d3f3f240fd34ac493e15fe43 done
+#7 exporting attestation manifest sha256:db24b444826f9e66007feeaf3a1b1e12d1c015c013c33edd8c2c01bf44e91a5f done
+#7 exporting manifest list sha256:af65334f396d038cae092fc33a70f2a7fb8609173d0ef34a8d696ac47c2e88c5 done
+#7 naming to docker.io/ebv/smt_solver:v2 done
+#7 unpacking to docker.io/ebv/smt_solver:v2 0.0s done
+#7 DONE 0.1s

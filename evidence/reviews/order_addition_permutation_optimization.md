@@ -21,7 +21,6 @@ Earlier disposition: **withhold original** (`evidence/selected/order-original-ex
 | Earlier "merged" extraction `$W/work/task-sources/merged/.../tests/score_vcpom_result.py` | `3023b9a4...dbbac` (3502 B, Chinese comments) - **stale lower layer** |
 | Final layer `$W/work/task-sources/order-addition-final-layer-v1/layer.tar.gz` | `42b90b6f...b9a`; contains the 3651 B helper (`337837...`) and English README |
 | Upstream harness (ByteDance EdgeBench `6e4e5f4`), copied from `$W/work/edgebench-source` | `selection.py abb55b7b...`, `grading.py ba15c46d...`, `pytest_v.py b099daca...`; all four hashes match `$W/audit/upstream-lock.json` |
-| Maintained harness (this repo) | `selection.py 3338ed24...`, `grading.py b3eeac72...`, `pytest_v.py 33375014...`, `judge_server.py 77410d7e...` |
 
 Root cause seen in the bytes: the June 4 layer built `test_final_result.py` with the hash of the Chinese-comment helper. A July 2 layer replaced the helper (and README) with an English-comment translation. That changed only comments and labels, but it changed the file hash, and nobody updated the expected literal. `diff` of the two helpers shows changes to comments, a docstring and example labels only. `parse_result_file` and `score_cost_num` are functionally identical.
 
@@ -40,7 +39,7 @@ assert hashlib.sha256(PRIVATE_SCORE_HELPER_PATH.read_bytes()).hexdigest() == EXP
 - It is unconditional. No mode, flag or submission input reaches it, so it fails for **every** submission.
 - On a mismatch, only this one pytest test fails. There is no `TOTAL_SCORE 0` and no session abort. The other four tests, including the one that prints `TOTAL_SCORE`, still run. The helper is loaded at import time without any hash gate, so the score is computed with the installed (functionally identical) helper.
 - Consequence in the harness: for `pytest_v`, `pass_rate = passed/total`, so a fully correct submission gets **pass_rate 0.8 instead of 1.0**. The reported `score` is the extracted `TOTAL_SCORE`, which is correct.
-- `pass_rate_first` (upstream and maintained versions alike) compares scores **only when both pass rates equal 1.0**. Otherwise a later entry wins only with a strictly higher pass rate. With every valid submission capped at 0.8, the run's `best_score` / `best_round` therefore freeze on the **first** submission that reaches 0.8. Later, better submissions are never selected.
+- `pass_rate_first` compares scores **only when both pass rates equal 1.0**. Otherwise a later entry wins only with a strictly higher pass rate. With every valid submission capped at 0.8, the run's `best_score` / `best_round` therefore freeze on the **first** submission that reaches 0.8. Later, better submissions are never selected.
 
 ## Independent reproduction
 
@@ -60,7 +59,7 @@ Saved outputs are in `observed/`. In-image `sha256sum tests/score_vcpom_result.p
 
 The scores are tiny because 30 s of search is far from the reference cost (2.0e8 vs 9.5e10). The ordering effect does not depend on the magnitude of the scores.
 
-Harness composition, from the real code. Both upstream `6e4e5f4` and the maintained harness give identical results:
+Harness composition, from EdgeBench's code at `6e4e5f4`:
 
 ```
 original judge:  identity pass_rate=0.80 score=3.3e-09 ; search pass_rate=0.80 score=9.411e-07

@@ -28,7 +28,8 @@ def changes(pkg):
     other |= {f'judge.{k}' for k in set(orig['judge']) | set(new['judge'])
               if k not in ('image_tag', 'rescale') and orig['judge'].get(k) != new['judge'].get(k)}
     out += sorted(other)
-    return tid, out, new['judge'].get('image_tag'), new['work'].get('image_tag')
+    wt = new['work'].get('image_tag') if orig['work'].get('image_tag') != new['work'].get('image_tag') else None
+    return tid, out, new['judge'].get('image_tag'), wt
 
 
 def main():
@@ -37,8 +38,9 @@ def main():
     rows = []
     for pkg in sorted(REPAIRS.glob('*-v2')):
         tid, ch, jt, wt = changes(pkg)
-        status = 'fixed and tested' if decisions[tid]['proposed'] == 'repair-v2' else 'partial fix; task removed'
-        rows.append(f"| [{names[tid]}](repairs/{pkg.name}/README.md) | {', '.join(ch) or '—'} | `{jt}` | {status} |")
+        status = ('partial fix; task removed' if decisions[tid]['proposed'] != 'repair-v2' else
+                  'fixed; instructions only (no scoring run)' if tid == 'openrct2_theme_park_ai' else 'fixed and tested')
+        rows.append(f"| [{names[tid]}](repairs/{pkg.name}/README.md) | {', '.join(ch) or '—'} | `{jt}` | {f'`{wt}`' if wt else 'unchanged'} | {status} |")
     doc = f"""# Applying the fixes
 
 Each fixed task is published as a new version of the original EdgeBench task, in EdgeBench's own
@@ -69,7 +71,7 @@ cd repairs/<task_id>-v2
 TAG=$(python3 -c "import json;print(json.load(open('task.json.in'))['judge']['image_tag'])")
 docker build -t edgebench.judge.<task_id>:$TAG .
 # if the package has Dockerfile.work, also build edgebench.work.<task_id>:<work image_tag> from it
-cp task.json.in ../../tasks/<task_id>.json   # the harness resolves edgebench.judge.<task_id>:<image_tag>
+cp task.json.in <your EdgeBench checkout>/tasks/<task_id>.json   # not this repository's tasks/, which is locked to the original
 ```
 
 EdgeBench's runner finds images by the names `edgebench.judge.<task_id>:<image_tag>` (the grader)
@@ -80,11 +82,16 @@ The paths in the patch are the paths inside the image.
 
 ## Test a fix yourself
 
-`paired/run.sh` reruns the side-by-side test. The published runs used machines with 8 virtual CPUs
-and 8 GiB of memory. Two fixes differ:
-- Lean Analysis uses `paired/run_local.sh`, which was run locally.
+`paired/run.sh` reruns the side-by-side test. Most published runs used E2B cloud sandboxes with 8
+virtual CPUs and 8 GiB of memory, with the grader limited to the CPU count each case page states
+(1 to 8). These fixes differ:
+- Lean Analysis uses `paired/run_local.sh`, which was run on a local host with 16 CPUs and 15 GB.
 - OpenRCT2 has no run script, because only its instructions changed and nothing that runs was
   modified.
+- Git in Zig uses `paired/run_gates.sh` and `paired/run_oracle.sh`.
+- PFR Formalization uses `paired/build_v2.sh` and `paired/grade_variants.sh`.
+- Rust Multicrate uses the templates `paired/run-paired.sh.in` and `paired/run-failfast.sh.in`.
+- Triangulation and Warehouse Routing also have `paired/run-cpu4.sh` for the 4-CPU tests.
 
 The results are in each `paired/results.md` and together in [data/paired-results.csv](data/paired-results.csv).
 Every fix was accepted only if three things held:
@@ -100,9 +107,14 @@ README says exactly which submissions' scores change.
 
 ## What each fix changes
 
-| Task | What changes | Fixed grader image tag | Status |
-| --- | --- | --- | --- |
+| Task | What changes | Fixed grader image tag | Fixed work image tag | Status |
+| --- | --- | --- | --- | --- |
 {chr(10).join(rows)}
+
+A tag ending in `v2.1` replaces the tag ending in `v2` of the v1.0 package, whose grader or work
+image differs from the current fix; an image built from the v1.0 package must be rebuilt. The work
+image column shows the tag of the agent's environment where the fix changes it; "unchanged" means the
+original work image and tag are used.
 
 Tasks kept with a note need no change. Their notes are in [FINDINGS.md](FINDINGS.md) and on the
 case pages.

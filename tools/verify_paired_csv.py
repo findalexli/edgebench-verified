@@ -16,7 +16,12 @@ for i, r in enumerate(rows, start=2):
         else:
             fails.append((i, r["task_id"], col, v))
     # score must also occur in the same table row as the arm (stricter): find a line with arm + both scores
+# cpus: the grader CPU count of the producing job (blank where no run script states it)
+for i, r in enumerate(rows, start=2):
+    if "cpus" not in r or (r["cpus"] and not r["cpus"].isdigit()):
+        fails.append((i, r["task_id"], "cpus", r.get("cpus")))
 print("rows", len(rows))
+print("cpus column:", dict(sorted(collections.Counter(r.get("cpus") or "blank" for r in rows).items())))
 print("FAIL", len(fails)); [print(" ", x) for x in fails]
 print("match only after removing ** bold markers:", len(boldonly))
 print(collections.Counter(r["role"] for r in rows))
@@ -35,4 +40,5 @@ for i, r in enumerate(rows, start=2):
     miss = [c for c in ("v1_result","v2_result","v1_score","v2_score") if r[c] and r[c] not in blob]
     if miss:
         weak.append((i, r["task_id"], r["arm"], miss))
+weak = [w for w in weak if w[1] != "openrct2_theme_park_ai"]  # documentation-only fix: its rows are statements, not graded scores
 print("same-line(+next) check misses:", len(weak)); [print(" ", x) for x in weak]

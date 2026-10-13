@@ -1,0 +1,154 @@
+
+running 93 tests
+test core::tests::test_panes_empty_initially ... ok
+test core::tests::test_factory_core_new ... ok
+test core::tests::test_poll_events_empty ... ok
+test core::tests::test_shutdown_nonexistent_worker_fails ... ok
+test notify::tests::cleanup_removes_socket_file ... ok
+test notify::tests::bind_creates_socket_file ... ok
+test notify::tests::notify_and_recv_round_trip ... ok
+test notify::tests::notify_when_no_listener_is_noop ... ok
+test notify::tests::stale_socket_is_removed_on_bind ... ok
+test core::tests::test_spawn_worker_without_supervisor_fails ... ok
+test core::tests::test_spawn_supervisor_twice_fails ... ok
+test recording::tests::test_duplicate_recording_fails ... ok
+test recording::tests::test_recording_manager_new ... ok
+test recording::tests::test_recording_path ... ok
+test recording::tests::test_start_recording ... ok
+test recording::tests::test_write_output ... ok
+test session::lifecycle_tests::test_archive_cannot_resume ... ok
+test recording::tests::test_stop_all ... ok
+test session::lifecycle_tests::test_create_session ... ok
+test session::lifecycle_tests::test_archive_session ... ok
+test session::lifecycle_tests::test_creating_new_session_pauses_active ... ok
+test session::lifecycle_tests::test_delete_session ... ok
+test recording::tests::test_write_resize ... ok
+test session::lifecycle_tests::test_list_sessions ... ok
+test session::lifecycle_tests::test_pause_session ... ok
+test session::lifecycle_tests::test_resume_session ... ok
+test session::lifecycle_tests::test_session_id_format ... ok
+test session::lifecycle_tests::test_session_not_found ... ok
+test session::lifecycle_tests::test_session_metadata ... ok
+test session::resume_tests::test_new_shared_unified_manager ... ok
+test session::lifecycle_tests::test_session_persistence ... ok
+test session::resume_tests::test_unified_manager_cache_invalidation_on_state_change ... ok
+test session::resume_tests::test_unified_manager_close_session_removes_from_cache ... ok
+test session::resume_tests::test_unified_manager_create_session_integration ... ok
+test session::resume_tests::test_unified_manager_managed_session_type ... ok
+test session::resume_tests::test_unified_manager_create_multiple_sessions ... ok
+test session::resume_tests::test_unified_manager_metadata_accuracy ... ok
+test session::resume_tests::test_unified_manager_filter_sessions_after_create ... ok
+test session::resume_tests::test_unified_manager_poll_events_empty_initially ... ok
+test session::resume_tests::test_unified_manager_recording_session_type ... ok
+test session::resume_tests::test_unified_session_config_builder ... ok
+test session::resume_tests::test_unified_session_config_default ... ok
+test session::resume_tests::test_unified_session_manager_clone ... ok
+test session::resume_tests::test_unified_session_manager_contains ... ok
+test session::resume_tests::test_unified_session_manager_default ... ok
+test session::resume_tests::test_unified_session_manager_filter_by_state ... ok
+test session::resume_tests::test_unified_session_manager_filter_by_type ... ok
+test session::resume_tests::test_unified_session_manager_generate_id ... ok
+test session::resume_tests::test_unified_session_manager_get_session ... ok
+test session::resume_tests::test_unified_session_manager_has_active_workers ... ok
+test session::resume_tests::test_unified_session_manager_is_recording ... ok
+test session::resume_tests::test_unified_session_manager_list_sessions ... ok
+test session::resume_tests::test_unified_session_manager_new ... ok
+test session::resume_tests::test_unified_manager_with_core_access ... ok
+test session::resume_tests::test_unified_session_manager_set_agent_state ... ok
+test session::resume_tests::test_unified_session_manager_set_epic ... ok
+test session::resume_tests::test_unified_session_manager_set_session_state ... ok
+test session::resume_tests::test_unified_session_manager_supervisor_name ... ok
+test session::resume_tests::test_unified_manager_worker_names_empty_initially ... ok
+test session::resume_tests::test_unified_session_manager_with_capacity ... ok
+test session::state_tests::test_agent_state_default ... ok
+test session::state_tests::test_agent_state_display ... ok
+test session::state_tests::test_agent_state_serde ... ok
+test session::state_tests::test_session_cache_clear ... ok
+test session::state_tests::test_session_cache_clone ... ok
+test session::state_tests::test_session_cache_contains ... ok
+test session::state_tests::test_session_cache_convenience_filters ... ok
+test session::state_tests::test_session_cache_filter_by_state ... ok
+test session::state_tests::test_session_cache_filter_by_type ... ok
+test session::state_tests::test_session_cache_get_or_insert_with ... ok
+test session::state_tests::test_session_cache_ids ... ok
+test session::state_tests::test_session_cache_insert_and_get ... ok
+test session::state_tests::test_session_cache_insert_replace ... ok
+test session::state_tests::test_session_cache_list ... ok
+test session::state_tests::test_session_cache_new ... ok
+test session::state_tests::test_session_cache_remove ... ok
+test session::state_tests::test_session_cache_update ... ok
+test session::state_tests::test_session_id_format ... ok
+test session::state_tests::test_session_cache_thread_safety ... ok
+test session::state_tests::test_session_summary_agent_states ... ok
+test session::state_tests::test_session_summary_factory ... ok
+test session::state_tests::test_session_summary_managed ... ok
+test session::state_tests::test_session_summary_new ... ok
+test session::state_tests::test_session_summary_output_bytes ... ok
+test session::state_tests::test_session_summary_recording ... ok
+test session::state_tests::test_session_summary_serde ... ok
+test session::state_tests::test_session_summary_set_epic ... ok
+test session::state_tests::test_session_type_default ... ok
+test session::state_tests::test_session_type_display ... ok
+test session::state_tests::test_session_type_serde ... ok
+test session::resume_tests::test_unified_session_manager_touch ... ok
+test session::state_tests::test_session_summary_touch ... ok
+test notify::tests::drain_clears_pending_notifications ... ok
+
+test result: ok. 93 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 14 tests
+test test_agent_summary_fields ... ok
+test test_director_data_excludes_epics_from_regular_tasks ... ok
+test test_director_data_filters_inactive_agents ... ok
+test test_director_data_builds_agent_id_to_name_map ... ok
+test test_director_data_load_empty_stores ... ok
+test test_director_data_loads_in_progress_tasks ... ok
+test test_epic_group_fields ... ok
+test test_task_summary_fields ... ok
+test test_director_data_loads_agents ... ok
+test test_director_data_load_fast ... ok
+test test_tasks_by_epic_standalone_tasks ... ok
+test test_director_data_loads_ready_tasks ... ok
+test test_tasks_by_epic_with_parent_child_dependency ... ok
+test test_tasks_by_epic_empty ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+
+running 24 tests
+test test_epic_state_active ... ok
+test test_auto_prompt_config_default ... ok
+test test_epic_state_completing ... ok
+test test_auto_prompt_config_disabled ... ok
+test test_epic_state_default ... ok
+test test_epic_state_idle ... ok
+test test_factory_config_default ... ok
+test test_factory_config_with_recording ... ok
+test test_factory_config_with_workers ... ok
+test test_factory_config_with_worktrees ... ok
+test test_factory_error_display ... ok
+test test_file_change_info_creation ... ok
+test test_git_file_status_symbol ... ok
+test test_notify_config_default ... ok
+test test_notify_backend_detect ... ok
+test test_factory_core_initial_state ... ok
+test test_factory_core_new ... ok
+test test_resize ... ok
+test test_poll_events_empty_initially ... ok
+test test_source_changes_info_creation ... ok
+test test_source_changes_info_without_agent ... ok
+test test_set_cas_root ... ok
+test test_shutdown_nonexistent_worker_fails ... ok
+test test_spawn_worker_without_supervisor_fails ... ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 3 tests
+test crates/cas-factory/src/lib.rs - (line 8) ... ignored
+test crates/cas-factory/src/session/resume.rs - session::resume::UnifiedSessionManager (line 98) ... ignored
+test crates/cas-factory/src/session/state.rs - session::state::SessionCache (line 240) ... ignored
+
+test result: ok. 0 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

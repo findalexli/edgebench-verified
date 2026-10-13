@@ -2,7 +2,7 @@
 
 ## What this fixes
 
-The grader caps each case at 2N² turns, so the highest raw result any submission can reach is 92304. The original score scale puts its reference points far above that, so even a perfect submission scores only 21.02 out of 100. The fixed version replaces the score scale with a straight line from the shipped baseline (3418) to the cap (92304); the grader and raw results are unchanged.
+The grader caps each case at 2N² turns, so the highest raw result any submission can reach is 92304. The original score scale puts its reference points far above that, so no submission can score above 21.02 out of 100. The fixed version replaces the score scale with a straight line from the shipped baseline (3418) to the cap (92304); the grader and raw results are unchanged.
 
 ## What changes
 
@@ -10,8 +10,9 @@ The grader caps each case at 2N² turns, so the highest raw result any submissio
 
 Each case's raw result is the adventurer's turn count, and the tester program caps it at `max_turns = 2N²`, where N is the grid size
 (tester:63,140). Summed over the 50 shipped cases, the cap is exactly **92304**. This was
-recomputed from the case headers by `paired/normalize.py` and by
-`scripts/_game-tasks-correctness/check_arith.py`.
+computed from the case headers twice, by the same one-line formula, in `paired/normalize.py`
+(E2B run) and in `evidence/scripts/_game-tasks-correctness/check_arith.py` (local run); the case
+files themselves are not in the repository.
 
 The reference points of the original `piecewise_max` score scale are:
 
@@ -22,8 +23,8 @@ The reference points of the original `piecewise_max` score scale are:
 | `rank1` | 330195 | 3.58× the cap |
 | `super_anchor` | 451198 | above the cap |
 
-As a result, the cap converts to 21.02/100 (exactly 2543510/121003). The 20–100 part of the
-scale cannot be reached by any submission. See
+As a result, the cap converts to 21.02/100 (exactly 2543510/121003). Everything above 21.02 out
+of 100 cannot be reached by any submission; of the 20–80 band only 20–21.02 is reachable. See
 `evidence/reviews/_game-tasks-correctness.md`, section 8.
 
 Where these reference points came from was not recovered. They appear to come from past
@@ -43,7 +44,7 @@ Only `judge.rescale` (the score scale) in `task.json.in` changes; see `repair.pa
 - `kind = "linear"`.
 - `lower = 3418`. This is the raw result of the shipped baseline (`print(0); print(-1)`) under the original
   grader, which gave 50/50 cases OK. It was measured again in this package's E2B (cloud) run.
-- `upper = 92304`. This is Σ 2N² over the shipped cases, the exact maximum of the tester's score
+- `upper = 92304`. This is Σ 2N² over the shipped cases, the exact upper bound of the tester's score
   function.
 
 **How `score_rescale.py` applies these fields.** `linear` maps
@@ -56,7 +57,7 @@ Only `judge.rescale` (the score scale) in `task.json.in` changes; see `repair.pa
 
 **Fields removed: `baseline`, `rank30`, `rank1`, `super_anchor`.** `piecewise_max` needs all four.
 
-- `rank1` and `super_anchor` lie above the reachable maximum, so keeping them cannot give a
+- `rank1` and `super_anchor` lie above the turn cap, so keeping them cannot give a
   coherent 0–100 scale.
 - No exact replacements for the rank-based reference points exist, and the instructions forbid inventing new
   ones.

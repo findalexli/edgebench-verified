@@ -24,7 +24,7 @@ Example under the original grader: two valid submissions in the order identity, 
 
 ## How much it matters
 
-This changes scores enough to matter for any run with more than one valid submission where a later one scores higher. The later improvement is ignored in the run's best score. Some consumers instead take the maximum over all submissions, which does not depend on order. So whether a published number is wrong depends on which consumer produced it. Each submission's own score is unaffected.
+This changes the recorded score of any run with more than one valid submission where a later one scores higher. The later improvement is ignored in the run's best score. Some consumers instead take the maximum over all submissions, which does not depend on order. So whether a published number is wrong depends on which consumer produced it. Each submission's own score is unaffected.
 
 ## The fix
 
@@ -41,7 +41,7 @@ The fixed version changes one value in `tests/test_final_result.py`: `EXPECTED_S
 | dup (not a permutation) | invalid test submission | Original | 3/5 | 0.60 | none | none | fingerprint, permutation |
 | dup | invalid test submission | Fixed | 4/5 | 0.80 | none | none | permutation |
 
-Choice of the run's best submission (task rule `pass_rate_first`, computed with the repository's `select_best`):
+Choice of the run's best submission (task rule `pass_rate_first`, computed with EdgeBench's `select_best`):
 
 | Submission order | Original grader picks | Fixed grader picks |
 | --- | --- | --- |
@@ -55,16 +55,17 @@ Choice of the run's best submission (task rule `pass_rate_first`, computed with 
 ## How we checked it
 
 - **Original grader.** The installed helper was hashed inside the original public image, pinned by digest, and compared with the value the test expects. The original `eval_cmd` (`python -m pytest tests/test_final_result.py -s -v`) ran under `--network none --memory 2g --cpus 2` on valid and invalid test submissions.
-- **Choice of best submission.** The saved logs were fed through the harness's own `grade_output`, `rescale_score` and `select_best`, for both the upstream and the maintained harness versions.
+- **Choice of best submission.** The saved logs were fed through the harness's own `grade_output`, `rescale_score` and `select_best`, from EdgeBench's harness (`sforge` at `6e4e5f4`).
+- **Formal check (TLA+).** A bounded model of the selection rule, tied to `selection.py` and `grading.py` line by line, was model-checked: 5,421,361 states with no violation; three further configurations (`k1`–`k3`) are violated as the note states (`evidence/formal/tla/order_addition_permutation_optimization/`, `evidence/formal/notes/order_addition_permutation_optimization.md`).
 - **Side-by-side run of the original and fixed graders.** Each submission ran in a fresh `--network none` container through the TaskSpec `eval.sh`. A check beforehand confirmed that each image collects 5 tests. It was repeated three times with no verdict change ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
 
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
 - The submissions are simple: the identity permutation, and short random-swap search runs (30 s and 60 s). They are far from the reference cost. The effect on the choice of best submission does not depend on score size.
-- The choice of best submission was computed with the repository's `select_best` on saved reports, not through a live `judge_server` run. The agent's working image was not run.
+- The choice of best submission was computed with EdgeBench's `select_best` on saved reports, not through a live `judge_server` run. The agent's working image was not run.
 - How often past leaderboard runs had a better later submission was not measured.
-- One harness behaviour is unchanged: `pass_rate_first` reports `best_score = pass_rate` when the chosen submission has no score. So a run with only invalid submissions shows 0.6 under the original version, or 0.8 under the fixed version.
+- The fix also changes one harness fallback. `pass_rate_first` reports `best_score = pass_rate` when the chosen submission has no score (`sforge/harness/selection.py`, `_pass_rate_first`). A run with only invalid submissions (for example badcost) therefore reports 0.6 under the original version and 0.8 under the fixed version. In both versions that value is above every valid submission's score measured here (3.3e-09 to 0.0094 out of 100, table above), so an all-invalid run reports a higher `best_score` than these valid runs.
 
 ## Reproduce
 

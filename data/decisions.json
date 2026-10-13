@@ -3,13 +3,13 @@
   "task_id": "ad_placement_optimization",
   "proposed": "retain-with-note",
   "finding": "No good-faith defect; graded cases are public seeds 0–49",
-  "max_effect": "0",
+  "max_effect": "0 from scoring rules; CPU allocation unmeasured (whole-case TLE possible for CPU-time-budgeted solvers below 2 CPUs)",
   "status": "final (v1.0)"
  },
  {
   "task_id": "anchorhead_text_adventure",
   "proposed": "retain-with-note",
-  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six full and partial native sessions",
+  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six sessions (one full and one 25-command partial replay per game, three games)",
   "max_effect": "0",
   "status": "final (v1.0)"
  },
@@ -23,15 +23,17 @@
  },
  {
   "task_id": "apple_incremental_game",
-  "proposed": "retain-with-note",
-  "finding": "Anchors consistent with an independent simulator; advertised 1 GB memory policy not enforced per solution (note)",
-  "max_effect": "0",
-  "status": "final (v1.0)"
+  "proposed": "repair-v2",
+  "finding": "Evaluator runs 8 cases at once under a 30 s wall-clock limit; at the publisher's 4 grader CPUs (judge_cpu_limit: 4) a valid solution using 20–28 s CPU per case loses 48/50 cases (TOTAL 99,714,418 → 3,955,266, score 5.04 → 0; measured; passes at 8 CPUs). Also: lower anchor consistent with an independent simulator; upper anchors' source and reachability not checked; 1 GB memory policy not enforced per solution (note)",
+  "max_effect": "up to nearly the full score for solutions using ~15–30 s CPU per case on a 4-CPU grader; deadline solvers get half the CPU; 0 from the anchors checked",
+  "status": "final (v1.0)",
+  "repair": "accepted: evaluator parallelism ≤ cgroup CPU quota (1..8); at 4 CPUs cpu20/cpu28 2 OK + 48 TLE (3,955,266) → 50 OK TOTAL 99,714,418; control, wall-deadline and 8-CPU controls unchanged; 40 s/case bad control TLE under both; worst-case grading 390.8 s < 600 s eval_timeout. Memory and upper-anchor notes kept",
+  "package": "repairs/apple_incremental_game-v2/"
  },
  {
   "task_id": "arc_compiler_runtime",
   "proposed": "repair-v2",
-  "finding": "Hidden tests require an undocumented analyze() return format; TASK.md claims starter scores 0 (actual 35.59)",
+  "finding": "Hidden tests require an undocumented analyze() return format; TASK.md claims starter scores 0 on the public tests (actual 100.00; 35.59 hidden)",
   "max_effect": "up to 33.7 points",
   "status": "final (v1.0)",
   "repair": "accepted (documentation v2): analyze() contract and measured starter value documented; contract-following checker earns 128/128 type-system cases; invalid control 25.79 both",
@@ -47,8 +49,8 @@
  {
   "task_id": "borden_source_inversion",
   "proposed": "repair-v2",
-  "finding": "Hidden forward model uses an undisclosed non-physical convention (mass-rate as mass, no porosity, mg/m³ as mg/L, source plane at box bottom); honest textbook solver scores at baseline; raw score uncapped (109)",
-  "max_effect": "≈24 points (7.0 vs 31.2 for the same honest fit)",
+  "finding": "Hidden forward model uses an undisclosed non-physical convention (mass-rate as mass, no porosity, mg/m³ as mg/L, source plane at box bottom); one-shot honest textbook fit scores at baseline; raw score uncapped (109)",
+  "max_effect": "≈24 raw points for a one-shot honest fit (7.0 vs 31.2); smaller for agents iterating on feedback (one reached 60.10)",
   "status": "final (v1.0)",
   "repair": "accepted (documentation + rescale): a forward_model.py identical in code to the judge's is shipped with an exact README description of the convention; linear 0–109 rescale; every arm scores identically raw in v1 and v2; an honest solver using only the shipped v2 files reaches 31.2 raw (28.6 normalized) vs 7.03 for a textbook model",
   "package": "repairs/borden_source_inversion-v2/"
@@ -72,7 +74,7 @@
  {
   "task_id": "combinatorial_games_formalization",
   "proposed": "retain-with-note",
-  "finding": "Shared Lean grader: native census shows honest term- and tactic-style proofs earn identical credit (16/3732); 0 targets unattainable; aux targets 25.1% of weight but stable",
+  "finding": "Shared Lean grader: native census shows honest term- and tactic-style proofs earn identical credit (16/3732); 0 targets found unattainable (lower bound); aux targets 25.1% of weight but stable",
   "max_effect": "0 measured",
   "status": "final (v1.0)"
  },
@@ -92,31 +94,31 @@
   "max_effect": "42 points unverifiable; form gate up to ~46 at strong tier",
   "status": "final (v1.0)",
   "repair": "accepted: undisclosed form gate removed; honest model-space directive 25.77→26.81 (structural_failure true→false); invalid control unchanged — PARTIAL: form gate fixed, but self-reported credit remains, so the task is excluded from this release",
-  "package": "repairs/dabic_gravity_inversion-v2/"
+  "package": "repairs/dabic_gravity_inversion-v2/ (partial fix; task removed)"
  },
  {
   "task_id": "dcss_dungeon_ai",
   "proposed": "retain-with-note",
-  "finding": "One missing morgue voids the 5-game mean; wall-clock noise unmeasured",
-  "max_effect": "0 observed",
+  "finding": "Wall-clock/CPU-dependent scores, noise unmeasured; a missing morgue counts as 0, as the prompt implies",
+  "max_effect": "not measured (wall-clock noise unmeasured)",
   "status": "final (v1.0)"
  },
  {
   "task_id": "equivalence_class_divide_and_conquer",
   "proposed": "repair-v2",
   "finding": "T3 checker cost loop skips the final state (accepts ≤ limit + |last target|)",
-  "max_effect": "bounded (≤0.04% over limit); no gain shown",
+  "max_effect": "≤9.67 of 100 points (all 28 large inputs in the ≤0.04% window); no gain shown",
   "status": "final (v1.0)",
-  "repair": "accepted: crafted over-limit AC→WA; at-limit AC→AC; reference 100→100 (T3 30/30); naive 6/24 identical",
+  "repair": "accepted: crafted over-limit AC→WA; at-limit AC→AC; reference 100→100 (T3 30/30 cases); naive 6 AC / 24 WA, identical",
   "package": "repairs/equivalence_class_divide_and_conquer-v2/"
  },
  {
   "task_id": "exchange_core_throughput",
   "proposed": "repair-v2",
-  "finding": "Correctness gate misses fee/event errors; incorrect engines score higher than correct one",
-  "max_effect": "full credit for an incorrect engine (two one-edit bugs passed the check; their higher raw scores in single runs are within throughput noise)",
+  "finding": "Correctness gate misses fee/event errors; incorrect engines get full credit; note: CPU budget unstated (nproc shows 8 under a 4-CPU quota); at 4 CPUs the shipped engine scores 939–1033 raw < 0-anchor 2090.6 (0/100) vs 3418–4638 at 8 CPUs; the prompt's 2ME+1RE tip reaches 2091 at 4 CPUs (0.02/100) and at 8 CPUs its single run, 4122, is within the shipped engine's 3418–4638 (ranking changes with CPU count; measured)",
+  "max_effect": "full credit for an incorrect engine (two one-edit bugs passed the check; their higher raw scores in single runs are within throughput noise); at 4 grader CPUs engines below ~2.09 MT/s score 0 (anchor provenance unknown; kept)",
   "status": "final (v1.0)",
-  "repair": "accepted: project integration tests gate scoring; feeswap/dropevents OK ~2250 → WA 0; honest engines keep scoring (throughput noise ±~20%); v2 pre-seeds Maven artifacts so it grades offline",
+  "repair": "accepted: project integration tests gate scoring; feeswap/dropevents OK ~2250 → WA 0; honest engines keep scoring (throughput noise up to 38%, unmodified engine 2,008–3,105 raw); a timed run whose Maven test fails after logging its average now scores 0 (untested path); v2 pre-seeds Maven artifacts so it grades offline",
   "package": "repairs/exchange_core_throughput-v2/"
  },
  {
@@ -137,10 +139,12 @@
  },
  {
   "task_id": "git_rewrite_in_zig",
-  "proposed": "retain-with-note",
-  "finding": "Scoring path validated end-to-end with a real git positive control (29,075/29,075 tests, score 100); note: the prompt does not explain how scoring works, and the 120 s per-script timeouts were only tested on 8 cores",
-  "max_effect": "0 measured",
+  "proposed": "repair-v2",
+  "finding": "Undisclosed submission checks set the whole reward to 0 for leftover build files (zig build-exe leaves main/main.o: precompiled_objects, stray_elf_binaries) and for any src/ line pairing std.process.Child with \"git\", including test-only differential tests the prompt invites (shells_out_to_git); measured in normal mode on the starter (5 honest trees -> 0). Real-git positive control 29,075/29,075 (100). Note: NPARALLEL=$(nproc) ignores a CPU quota; at 8 workers per CPU a correct git scores 97.37",
+  "max_effect": "whole score (up to 100 points) for a run that trips a check; 2.63 points at 8 test workers per CPU (documented, not changed)",
   "status": "final (v1.0)",
+  "repair": "accepted: leftover *.o/*.a/*.so/*.so.*/*.dylib and stray executable ELF files are deleted instead of zeroing; source-text shells_out_to_git check removed (git-src, system git and C test-build binaries are deleted before the tests); 5 honest trees 0 -> starter score, starter and real-git oracle (29,075, 1.0) unchanged, C-git wrapper 0 in both, system-git wrapper gets only the starter's 2 tests",
+  "package": "repairs/git_rewrite_in_zig-v2/",
   "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
  {
@@ -149,21 +153,23 @@
   "finding": "Non-integer predictions silently dropped and run marked valid; (NaN-confidence clipping is score-neutral)",
   "max_effect": "variance only; no expected gain shown",
   "status": "final (v1.0)",
-  "repair": "accepted: junk/non-integer predictions now invalid (v1 valid 0.20 → v2 invalid); baseline, honest and NaN-confidence quality identical; final score differs ≤8e-5 (wall-time penalty)",
+  "repair": "accepted: junk/non-integer predictions now invalid (v1 valid 0.20 → v2 invalid); baseline, honest and NaN-confidence quality identical; final score differs ≤8.1e-5 (wall-time penalty)",
   "package": "repairs/graph_node_classification-v2/"
  },
  {
   "task_id": "grid_turing_robot",
-  "proposed": "retain-with-note",
-  "finding": "Baseline anchor 9,025,986 vs actual 7,744,909 (+2.84); one failed case voids submission (undisclosed); ≥8 CPUs needed for reproducibility",
-  "max_effect": "2.84 (baseline anchor); ~20 if one case fails (undisclosed rule); up to full score on <8 judge CPUs",
-  "status": "final (v1.0)"
+  "proposed": "repair-v2",
+  "finding": "Evaluator runs 8 cases at once under a 30 s wall-clock limit; at the publisher's 4 grader CPUs (judge_cpu_limit: 4) a valid solution using 16–28 s CPU per case gets 2 OK + 48 TLE and the submission is voided (measured; passes at 8 CPUs). Also: baseline anchor 9,025,986 vs actual 7,744,909 (+2.84); one failed case voids submission (undisclosed)",
+  "max_effect": "up to full score for solutions using ~15–30 s CPU per case on a 4-CPU grader; 2.84 (baseline anchor); ~20 if one case fails (undisclosed rule)",
+  "status": "final (v1.0)",
+  "repair": "accepted: evaluator parallelism ≤ cgroup CPU quota (1..8); at 4 CPUs cpu16/cpu28 2 OK + 48 TLE (invalid) → 50 OK TOTAL 94,092; fast, wall-deadline and 8-CPU controls unchanged; 40 s/case bad control 50 TLE under both; worst-case grading 390.9 s < 600 s eval_timeout. Baseline-anchor and void-rule notes kept",
+  "package": "repairs/grid_turing_robot-v2/"
  },
  {
   "task_id": "integer_compression_codec",
   "proposed": "repair-v2",
   "finding": "Stored baseline table (impossible <8 bpi for varint) replaces the documented starter baseline",
-  "max_effect": "starter 0.24 vs documented 1.0; honest codec 0.76 vs 6.24",
+  "max_effect": "raw: starter 0.24 vs documented 1.0; honest codec about 0.8 vs about 6–8; dataset weights off about 7–9×",
   "status": "final (v1.0)",
   "repair": "accepted: in-run starter baseline; starter 0.23→0.98/1.02 (raw); corrupting codec fails roundtrip in both; score scale 1.0..320 (starter to formula maximum) after real submissions saturated 0..100",
   "package": "repairs/integer_compression_codec-v2/"
@@ -179,10 +185,12 @@
  },
  {
   "task_id": "juliet_vulnerability_analyzer",
-  "proposed": "retain-with-note",
-  "finding": "Labels consistent (723/723); public/hidden CWE-78 trace convention differs",
-  "max_effect": "~2.5 points",
+  "proposed": "repair-v2",
+  "finding": "Public CWE-78 answers (38/38) put the source at the sink (trace [sink]); hidden CWE-78 answers (120/120) put it at the recv input statement, and the grader accepts only the labelled source, so a public-form analyzer loses all 120 CWE-78 traces; labels otherwise consistent (723/723); note (not part of the fix): a timed-out, crashed or output-less analyzer scores 10.00 (INFRA_FAIL, valid false), the same as the empty starter; CWE-416 sources are the allocation; witnesses never required",
+  "max_effect": "up to +26.47 (6380/241, computed exactly from the grader's formula, not run); +2.49 for complete detection, +15.00 for a CWE-78-only analyzer (measured)",
   "status": "final (v1.0)",
+  "repair": "accepted: hidden grader also accepts source = sink, trace [sink] for CWE-78 answers; public-form CWE-78 analyzer 45.66→60.66, public-form full replay 97.51→100.00; hidden-form analyzer 60.66 and hidden replay 100.00 unchanged; wrong-source, wrong-start and other-CWE sink-only submissions unchanged (45.66, 97.51, 97.51, 70.00); starter and crashing analyzer 10.00 in both; public-data scores identical; 3 runs identical",
+  "package": "repairs/juliet_vulnerability_analyzer-v2/",
   "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
  {
@@ -204,10 +212,12 @@
  },
  {
   "task_id": "molecular_self_assembly",
-  "proposed": "retain-with-note",
-  "finding": "Per-solution memory limit not enforced (one aggregate container limit)",
-  "max_effect": "no score mechanism found",
-  "status": "final (v1.0)"
+  "proposed": "repair-v2",
+  "finding": "Evaluator runs 8 cases at once under a 30 s wall-clock limit; at the publisher's 4 grader CPUs (judge_cpu_limit: 4) a valid solution using 16–28 s CPU per case loses 48/50 cases (TOTAL 69,280,072 → 2,849,909, score 0; measured; passes at 8 CPUs). Also: per-solution 1 GB memory limit not enforced (one aggregate container limit)",
+  "max_effect": "up to nearly the full score for solutions using ~15–30 s CPU per case on a 4-CPU grader; deadline-based solvers get half the CPU; memory: no score mechanism found",
+  "status": "final (v1.0)",
+  "repair": "accepted: evaluator parallelism ≤ cgroup CPU quota (1..8); at 4 CPUs cpu16/cpu28 2 OK + 48 TLE → 50 OK TOTAL 69,280,072; fast, wall-deadline and 8-CPU controls unchanged; 40 s/case bad control 50 TLE under both; worst-case grading 390.9 s < 600 s eval_timeout. Memory note kept",
+  "package": "repairs/molecular_self_assembly-v2/"
  },
  {
   "task_id": "nethack_dungeon_agent",
@@ -219,7 +229,7 @@
  {
   "task_id": "new_foundations_consistency",
   "proposed": "retain-with-note",
-  "finding": "Grades correctly with the judge's network (Lake re-clones doc-gen4 at the manifest-pinned commit 86d735ec, valid result); cannot be graded offline; 15 of 370 aux targets exposed to renumbering (≤0.67%), untested",
+  "finding": "Builds and returns a valid result with the judge's network, shown on the unmodified starter only (Lake re-clones doc-gen4 at the manifest-pinned commit 86d735ec); cannot be graded offline; 15 of 370 aux targets exposed to renumbering (≤0.67%), untested",
   "max_effect": "0 measured",
   "status": "final (v1.0)"
  },
@@ -229,13 +239,13 @@
   "finding": "Promised ~4 game years cannot run in the 120 s budget (~68 game days observed); score is an early snapshot",
   "max_effect": "material: prompt/horizon mismatch",
   "status": "final (v1.0)",
-  "repair": "accepted (prompt correction): states the real ~68-game-day horizon and speed rule; no executable change",
+  "repair": "accepted (prompt correction): states the real ~70-game-day horizon and speed rule; no executable change",
   "package": "repairs/openrct2_theme_park_ai-v2/"
  },
  {
   "task_id": "openttd_transport_ai",
   "proposed": "repair-v2",
-  "finding": "Prompt goal names a non-existent API (AICompany.GetCompanyValue); a script that calls it dies, and the shipped baseline dies on its first statement; scorer itself works",
+  "finding": "Prompt goal names a non-existent API (AICompany.GetCompanyValue); a script that calls it dies, and the shipped baseline dies at its first call to it (main.nut line 5); scorer itself works",
   "max_effect": "whole score for prompt-following solvers (script dies at the call; score is 0 or an earlier quarter's value)",
   "status": "final (v1.0)",
   "repair": "accepted: prompt and starter name AICompany.GetQuarterlyCompanyValue and state how the score is read; v1 baseline dies on 5/5 seeds, v2 baseline and a corrected-API probe run with no error; scorer unchanged",
@@ -253,36 +263,42 @@
  {
   "task_id": "ordinal_notation_well_foundedness",
   "proposed": "retain-with-note",
-  "finding": "Grader correct on honest/Admitted/axiom controls; helper file-name filter undisclosed; targets 2–9 unproven",
+  "finding": "Grader correct on honest/Admitted/axiom controls; helper file-name filter undisclosed; targets 7–9 unproven (1–6 proved in published runs)",
   "max_effect": "0 found",
   "status": "final (v1.0)"
  },
  {
   "task_id": "pfr_formalization",
-  "proposed": "retain-with-note",
-  "finding": "Census: honest proofs in two styles score identically (2/423); 0 unattainable; 5 autoParam types print as sorry but are not holes",
-  "max_effect": "0 measured",
-  "status": "final (v1.0)"
+  "proposed": "repair-v2",
+  "finding": "Five scored statements carry a real sorryAx in their type (a `variable … := by volume_tac` measure binder in a Lean `module` file), so no proof can earn them, and every lemma whose proof uses them is also marked as depending on sorry; honest proofs in two styles score identically (2/423)",
+  "max_effect": "1.18% unattainable (5/423, measured); up to 2.13% (9/423) for solvers following the upstream proofs (inferred from the measured rule and the upstream proof structure)",
+  "status": "final (v1.0)",
+  "repair": "accepted: the two measure binders move from `variable` into the five statements' signatures, in the grader baseline and the work starter; same 423 targets, the five types now differ only in the auto-param argument; fully proved lemmas stated like the five and a downstream lemma using them go from BAD (v1) to OK (v2); starter 0/423 and bad controls rejected in both. Limits: no real proof of the five was run; eval_cmd's .lake copy replaced by a symlink for disk; work image not built",
+  "package": "repairs/pfr_formalization-v2/"
  },
  {
   "task_id": "portfolio_risk_calibration",
-  "proposed": "retain-with-note",
-  "finding": "Annual excess computed as annualized difference, not difference of annualized returns",
-  "max_effect": "≤~0.4 points; ordering preserved",
-  "status": "final (v1.0)"
+  "proposed": "repair-v2",
+  "finding": "Annual excess computed as annualized difference of period returns, not the stated difference of annualized returns",
+  "max_effect": "≤0.39 up / ≤0.10 down (50-digit decimal sweep, not a proof); ordering and sign preserved (Lean)",
+  "status": "final (v1.0)",
+  "repair": "accepted: paired v1/v2 ×3 identical; instructions-formula strategy 32.45→32.52 (full score.py), excess part at the stated 12% line 19.85→20.00 (installed functions); wrong, starter and image example 0→0",
+  "package": "repairs/portfolio_risk_calibration-v2/"
  },
  {
   "task_id": "rust_multicrate_reconstruction",
-  "proposed": "retain-with-note",
-  "finding": "Exempt-test credit can forgive an unrelated failure",
-  "max_effect": "≤0.1/100",
-  "status": "final (v1.0)"
+  "proposed": "repair-v2",
+  "finding": "The grader inserts hidden tests where they do not compile, so cas-search (12 points) and cas-cli (10 points) score 0 for every solver who leaves the tests unchanged; Cargo stops at the first failing test binary and charges the unrun tests as failures; a passing exempt test can forgive one unrelated cas-pty failure. Public images only: the archive lacks 4 vendored cc files, so 9 of 14 crates cannot build (the publisher's own grading had them: restoring them reproduces its starter score 3.8189 exactly)",
+  "max_effect": "leaderboard (original grader + cc files, the publisher's environment, vs fixed): at most +29.22 for any submission (12 + 10 + 7.22 fail-fast exposure); measured +20.71 for a complete solution (73.9926 to 94.7022); fail-fast 0.43-3.26 measured; exemption fix at most -0.10. Public images: a complete solution scores 27.6091",
+  "status": "final (v1.0)",
+  "repair": "accepted: paired verbatim eval_cmd on identical bytes, original / original + cc files / fixed: starter 1.4711/3.8189/5.7236, reference 27.6091/73.9926/94.7022, partial 27.6091/73.9926/93.9963 (-8 cas-search tests), bad 27.5091/73.8926/94.6022 (-1 cas-pty test); original + cc files reproduces the publisher's skeleton-score.json exactly; fail-fast isolated with the fixed version minus --no-fail-fast (reference 94.2674, partial 90.7380, starter 4.7352)",
+  "package": "repairs/rust_multicrate_reconstruction-v2/"
  },
  {
   "task_id": "schemathesis_config_modernization",
   "proposed": "repair-v2",
   "finding": "Phase 3 test checks callable() not identity",
-  "max_effect": "~1/150 of score",
+  "max_effect": "1/160 of score (0.625 points), either direction",
   "status": "final (v1.0)",
   "repair": "accepted: identity overlay 0.135313→0.135313; wrapper −1/160; starter unchanged",
   "package": "repairs/schemathesis_config_modernization-v2/"
@@ -293,14 +309,14 @@
   "finding": "HTTP-date check is shape-only (accepts invalid dates/times)",
   "max_effect": "~1%",
   "status": "final (v1.0)",
-  "repair": "accepted: every honest generator keeps its score (including one using the full year range); 3 plausibly wrong generators lose 2/195 and are caught on 20 of 20 seeds",
+  "repair": "accepted: every honest generator keeps its score (including one using the full year range); 2 plausibly wrong generators and the shape-only garbage control lose 2/195; the two plausible ones are caught on 20 of 20 seeds",
   "package": "repairs/schemathesis_datagen_pipeline-v2/"
  },
  {
   "task_id": "schemathesis_reporting_observability",
   "proposed": "repair-v2",
   "finding": "JUnit check accepts malformed output; body-coverage test is vacuous",
-  "max_effect": "~2.4%",
+  "max_effect": "~2.4% wrong credit; fixed version moves a score by ≤4.76 down / ≤2.76 up (4.76 extreme)",
   "status": "final (v1.0)",
   "repair": "accepted: complete reference 1.0→1.0; three wrong variants lose points; starter +0.005 (Phase 5 partial scores not comparable with v1)",
   "package": "repairs/schemathesis_reporting_observability-v2/"
@@ -308,7 +324,7 @@
  {
   "task_id": "smt_solver",
   "proposed": "repair-v2",
-  "finding": "Witness checker keys UF values by source text, so 27 satisfiable hidden files are unwinnable",
+  "finding": "Witness checker keys UF values by source text, so 27 satisfiable hidden files are unwinnable; note (not part of the fix): the grader runs 16 solver processes at once under a 60 s wall-clock timeout (prompt says 16 evaluator workers, smtlib_spec.md:118 says 4); the official leaderboard configs set smt_solver judge_cpu_limit: 16, one CPU per process, but on a grader with fewer CPUs per-problem CPU shrinks proportionally (measured: at 4 CPUs a 20 CPU-s solver times out on every problem of a 32-problem subset)",
   "max_effect": "perfect-solver max 78.61→72.40 (−6.21)",
   "status": "final (v1.0)",
   "repair": "accepted: UF witness values keyed by evaluated arguments; all 69 hidden sat files accepted with spec-form keys (27 previously unwinnable); 69 z3-proven wrong models rejected in both; no correct→rejected change; full eval_cmd ground arm 0/774 → 69/774",
@@ -324,8 +340,8 @@
  {
   "task_id": "treant_forest",
   "proposed": "repair-v2",
-  "finding": "Anchors exceed the 2N² turn cap: max normalized 21.02; movement semantics question separate",
-  "max_effect": "compresses all scores into 0–21",
+  "finding": "Anchors exceed the 2N² turn cap: max normalized 21.02; movement semantics question separate; note: at 4 grader CPUs (8 cases at once) a 55 s wall-deadline solver gets ~27 CPU-s per case vs ~55 at 8 CPUs; solutions using up to 58 s of CPU pass at 4 CPUs (slowest case 116.1 s < 120 s; measured); the README's full 60 s would sit at the 120 s limit",
+  "max_effect": "compresses all scores into 0–21; deadline solvers' scores depend on grader CPU count (unmeasured size)",
   "status": "final (v1.0)",
   "repair": "accepted (anchors only): raw scores identical; honest policy 3.04→16.36; invalid control 0 both",
   "package": "repairs/treant_forest-v2/"
@@ -342,23 +358,23 @@
  {
   "task_id": "triangulation_coloring_optimization",
   "proposed": "repair-v2",
-  "finding": "Flip-legality rule omits the README's convexity condition; the same rule generated the cases (all 10 overlap/fold) and scores submissions",
-  "max_effect": "material: changes which flips are legal for every solver",
+  "finding": "Flip-legality rule omits the README's convexity condition; the same rule generated the cases (all 10 overlap/fold) and scores submissions; also the evaluator runs 8 cases at once under a 30 s wall-clock limit, so at the publisher's 4 grader CPUs a valid solution using 20 s CPU per case gets 8/10 TLE and TOTAL inf (measured; passes at 8 CPUs)",
+  "max_effect": "changes which flips are legal for every solver; size unmeasured (one flip: case 0009 644,809 → 641,611); up to the full score for solutions using ~15–30 s CPU per case on a 4-CPU grader",
   "status": "final (v1.0)",
-  "repair": "accepted: the convexity condition is enforced and the cases are regenerated; all 13 v2 case and sample files have 0 overlapping triangles, crossings, duplicates or folds; README-forbidden flips are rejected. Limit: the generator still leaves gaps in the convex hull in 12 of 13 files",
+  "repair": "accepted: the convexity condition is enforced and the cases are regenerated; all 13 v2 case and sample files have 0 overlapping triangles, crossings, duplicates or folds; README-forbidden flips are rejected. Limit: the generator still leaves gaps in the convex hull in 12 of 13 files; CPU-quota parallelism added (1..8): at 4 CPUs cpu20/cpu28 2 OK + 8 TLE (original and rule-only fix) → 10 OK; control, wall-deadline, 8-CPU and bad controls as expected; all earlier paired controls reproduced at 4 and 8 CPUs",
   "package": "repairs/triangulation_coloring_optimization-v2/"
  },
  {
   "task_id": "trinity_text_adventure",
   "proposed": "retain-with-note",
-  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six full and partial native sessions",
+  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six sessions (one full and one 25-command partial replay per game, three games)",
   "max_effect": "0",
   "status": "final (v1.0)"
  },
  {
   "task_id": "tryst_text_adventure",
   "proposed": "retain-with-note",
-  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six full and partial native sessions",
+  "finding": "Scores the final (not peak) score of the best session, divided by the game maximum; play is deterministic (Jericho seed 0); scoring confirmed on six sessions (one full and one 25-command partial replay per game, three games)",
   "max_effect": "0",
   "status": "final (v1.0)"
  },
@@ -371,15 +387,17 @@
  },
  {
   "task_id": "vibrating_path_graph_coloring",
-  "proposed": "retain-with-note",
-  "finding": "Tester rejects documented 3-line zero-hit format",
-  "max_effect": "0 on official cases (zero-hit never valid)",
-  "status": "final (v1.0)"
+  "proposed": "repair-v2",
+  "finding": "Evaluator runs 8 cases at once under a 30 s wall-clock limit; at the publisher's 4 grader CPUs (judge_cpu_limit: 4) a valid solution using 20–28 s CPU per case gets 2 OK + 48 TLE and TOTAL inf (no score) (measured; passes at 8 CPUs); the Python tester shares the CPUs (5.6–19.0 s per case) and once timed out a 25 s deadline solution's slow-tester cases (14 TLE; cause inferred, not observed; did not recur in the other eight original-grader gradings: jobs -b and -c, each run three times). Also: tester rejects documented 3-line zero-hit format (no score effect); one failed case voids submission (undisclosed)",
+  "max_effect": "up to full score for solutions using ~14–30 s CPU per case on a 4-CPU grader; deadline solvers get half the CPU; 0 from the format mismatch",
+  "status": "final (v1.0)",
+  "repair": "accepted: evaluator parallelism ≤ cgroup CPU quota (1..8), eval_timeout 600 → 900 s; at 4 CPUs cpu20/cpu28 2 OK + 48 TLE (inf) → 50 OK TOTAL 24,650,014; control, wall-deadline and 8-CPU controls unchanged (original wall25 also 36 OK + 14 TLE once); 40 s/case bad control TLE under both; worst-case grading bound 557 s, max measured 558.0 s. Format and void-rule notes kept",
+  "package": "repairs/vibrating_path_graph_coloring-v2/"
  },
  {
   "task_id": "vliw_kernel_optimization",
   "proposed": "retain-with-note",
-  "finding": "Only scorer-isolation issues (out of scope)",
+  "finding": "Only scorer-isolation issues (out of scope); log_min saturates at 1000 cycles (third-party run reached 950)",
   "max_effect": "none for honest solvers",
   "status": "final (v1.0)",
   "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
@@ -387,10 +405,10 @@
  {
   "task_id": "warehouse_forklift_routing",
   "proposed": "repair-v2",
-  "finding": "Prompt promises 30 s per test case (150 s/input) but the evaluator gives 60 s per input; and a lower bound proved in Lean for a model of the tester (model matched to the tester by a 294-string differential test) shows every valid TOTAL ≥ 712.538 > rank1 395.80, so the top two anchors are unreachable and normalized scores are capped at ≈30.3",
-  "max_effect": "whole score for budget-following solvers; ~70 points of the scale unreachable",
+  "finding": "Prompt promises 30 s per test case (150 s/input) but the evaluator gives 60 s per input; and a lower bound proved in Lean for a model of the tester (model matched to the tester by a 294-string differential test) shows every valid TOTAL ≥ 712.538 > rank1 395.80, so the top two anchors are unreachable and normalized scores are capped at ≈30.3; the evaluator also runs 8 inputs at once, so at the publisher's 4 grader CPUs an honest solver using 80–140 s CPU per input still got 2 OK + 48 TLE under the 150 s limit (measured)",
+  "max_effect": "whole score for budget-following solvers (60–150 s per input, or > ~30 s CPU per input at 4 CPUs, where each of 8 inputs gets half a CPU under the 60 s limit); ~70 points of the scale unreachable",
   "status": "final (v1.0)",
-  "repair": "accepted (time contract): TIME_LIMIT 60→150 s per input as promised; budget-following solver 50 TLE → 50 OK; controls unchanged. Anchors kept with the Lean-proved ≈30.3 ceiling documented (no invented recalibration)",
+  "repair": "accepted (time contract and CPU share): TIME_LIMIT 60→150 s per input as promised and parallelism ≤ cgroup CPU quota; budget-following solver 50 TLE → 50 OK; at 4 CPUs cpu80/cpu140 2 OK + 48 TLE (limit-only fix) → 50 OK; controls unchanged at 2, 4 and 8 CPUs. Anchors kept with the Lean-proved ≈30.3 ceiling documented (no invented recalibration)",
   "package": "repairs/warehouse_forklift_routing-v2/"
  },
  {
@@ -404,7 +422,7 @@
   "task_id": "wireless_electricity_layout",
   "proposed": "retain-with-note",
   "finding": "Compile failure counted once vs per case in raw totals",
-  "max_effect": "0 normalized (monotonicity argument, checked on 200,000 random histories)",
+  "max_effect": "0 normalized for the CE rule (Lean proof; 200,000 random histories); one failed case voids the whole submission (host-dependent, unmeasured)",
   "status": "final (v1.0)"
  }
 ]

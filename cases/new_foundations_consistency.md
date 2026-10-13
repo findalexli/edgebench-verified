@@ -10,7 +10,7 @@ The score is the share of the starting project's declarations that depend on `so
 
 ## What we checked
 
-**Grading with network access works.**
+**With network access, the grader builds and returns a valid result for the unmodified starting project.** No honest proof was scored this way.
 
 - Lake, Lean's build tool, printed `doc-gen4: URL has changed; deleting … and cloning again`, then `checking out revision '86d735ecf420e0dbaaf84e2fc2221969f9fca097'`. This is the commit pinned in the project's manifest, not a moving `main` branch, and its `lean-toolchain` is `v4.21.0-rc3`.
 - The build succeeded: `eval_cmd` rc=0, no errors.
@@ -19,7 +19,7 @@ The score is the share of the starting project's declarations that depend on `so
 
 **Grading offline is impossible.** In the shipped grader image, `lake build` fails under `--network none`. It fails both in the grader's starting repository and in a submission prepared by the exact `eval_cmd`.
 
-- Cause: the bundled `.lake/packages/doc-gen4` checkout has no `origin` remote, and its HEAD, `0ee5b43…`, does not match the manifest's `86d735ec…`.
+- Cause: Lake prints `doc-gen4: URL has changed; deleting '…/.lake/packages/doc-gen4' and cloning again` (`build_orig.err`). The bundled checkout was also recorded as having no `origin` remote and HEAD `0ee5b43…` rather than the manifest's `86d735ec…`; that state has no saved raw log (`lean_family_aux_census.md` and a comment in `nf_direct.sh` only).
 - Offline, Lake deletes the checkout and tries to clone it again. That fails in `git` (exit code 128). `eval_cmd` returns 1 and writes no JSON.
 - Expected: a valid result offline. Observed: no result.
 
@@ -31,13 +31,13 @@ The score is the share of the starting project's declarations that depend on `so
 
 - Kinds of helper targets: 337 `_proof`, 15 `_sizeOf`, 10 `match`, and others.
 - The 15 fragile helpers are `BasePerm.instMulActionNearLitter._proof_1/2`, `instGroupNewPerm._proof_1…10`, `instInvNewPerm._proof_1` and `instMulActionNewPermCode._proof_1/2`. They are fields of instances that contain the placeholders directly, plus their sibling fields filled by default. An honest proof could renumber them.
-- The 96 `_proof_N` helpers whose parent is a theorem are expected to be stable. In a check in core Lean with this image's compiler (4.21.0-rc3), an `@[simp]` iff theorem was proved four ways: by `sorry`, by a term, by `omega` and by `simp`. Its helper got the same name (`_proof_1`) and the same type every time. None of the 96 was scored by running the grader.
+- The 96 `_proof_N` helpers whose parent is a theorem are expected to be stable. In a check in core Lean with this image's compiler (4.21.0-rc3), four `@[simp]` iff theorems that differ only by a constant were proved four ways: by `sorry`, by a term, by `omega` and by `simp`. In every style the helper is named `_proof_1` and its type is the theorem's own statement written as an equality (`auxstyle/nf_v4.21.out`). The `omega` proof also adds `_proof_1_1` and `_proof_1_2`, which are not targets. None of the 96 was scored by running the grader.
 
-The note that ships with the task: "Grades correctly with the judge's network (Lake re-clones doc-gen4 at the manifest-pinned commit 86d735ec, valid result); cannot be graded offline; 15 of 370 aux targets exposed to renumbering (≤0.67%), untested".
+The note that ships with the task: "Builds and returns a valid result with the judge's network, shown on the unmodified starter only (Lake re-clones doc-gen4 at the manifest-pinned commit 86d735ec); cannot be graded offline; 15 of 370 aux targets exposed to renumbering (≤0.67%), untested".
 
 ## How much it matters
 
-- Offline grading: affects only graders without network access, which then give no score at all. Under the maintained harness this is not a defect in production. Grading still needs GitHub to be reachable and to keep serving commit `86d735ec`.
+- Offline grading: affects only graders without network access, which then give no score at all. Under EdgeBench's harness, which gives the grader network access, this is not a defect in production. Grading still needs GitHub to be reachable and to keep serving commit `86d735ec`.
 - Renumbered helpers: at most 0.67% of the score, and only for solvers who fill the affected instance fields. This is an upper bound on exposure, not a measured loss.
 
 No change is made; the note above ships with the task.

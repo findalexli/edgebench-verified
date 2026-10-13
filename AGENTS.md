@@ -11,7 +11,7 @@
 - `repairs/<task>-v2/`: repair packages (patch, `materialize.sh`, Dockerfile `FROM` the original
   image digest, `task.json.in`, source lock, paired results).
 - `evidence/`: `reviews/`, `scripts/`, `formal/` (Lean 4 + TLA+), `runs/` (E2B jobs and ledger).
-- `tasks/`: the original public task definitions, unchanged. `sforge/`, `tests/`: the harness.
+- `tasks/`, `sforge/`: EdgeBench's original task definitions and harness, byte for byte (`sforge/UPSTREAM.lock`, checked by `python3 tools/check_upstream.py`). `tools/harness_compat/` keeps the earlier audit's modified harness as a record only.
 - `.internal/` (gitignored): working ledger, internal-only material, image-file copies. Never commit it.
 - The earlier automated audit is preserved at Git tag `earlier-audit-final`.
 - Skills: `.agents/skills/edgebench-evidence-audit/` (task reasoning) and

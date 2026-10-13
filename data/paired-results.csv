@@ -1,135 +1,211 @@
-task_id,arm,role,v1_result,v2_result,v1_score,v2_score,score_kind,changed,source
-arc_compiler_runtime,(a) shipped starter,baseline,true,true,35.59,35.59,raw,no,arc_compiler_runtime v2: paired results
-arc_compiler_runtime,"(b) starter, `analyze()` returns `[]` (documented shape only)",valid,true,true,47.21,47.21,raw,no,arc_compiler_runtime v2: paired results
-arc_compiler_runtime,(c) invalid: codegen emits `var result = null;`,invalid,true,true,25.79,25.79,raw,no,arc_compiler_runtime v2: paired results
-arc_compiler_runtime,"(d) independent honest analyzer, documented shape",trigger,true,true,69.26,69.26,raw,no,arc_compiler_runtime v2: paired results
-arc_compiler_runtime,"(e) same analyzer as (d), starter shape `{ok,errors,warnings,program}`",trigger,true,true,35.59,35.59,raw,no,arc_compiler_runtime v2: paired results
-borden_source_inversion,textbook ADE fit (review regression case),valid,,,7.031,7.031,raw,no,borden_source_inversion-v2: paired results
-borden_source_inversion,"judge-convention fit (review, own re-implementation)",valid,,,31.200,31.200,raw,no,borden_source_inversion-v2: paired results
-borden_source_inversion,v2 fit using only the shipped `forward_model.py`,valid,,,31.199,31.199,raw,no,borden_source_inversion-v2: paired results
-borden_source_inversion,bound-midpoint baseline,baseline,,,7.012,7.012,raw,no,borden_source_inversion-v2: paired results
-borden_source_inversion,hidden true source,setup,,,109.000,109.000,raw,no,borden_source_inversion-v2: paired results
-borden_source_inversion,"out-of-bounds answer (C0=5000, half_length_x=500)",invalid,,,4.000,4.000,raw,no,borden_source_inversion-v2: paired results
-borden_source_inversion,no `answer.json`,invalid,,,0,0,raw,no,borden_source_inversion-v2: paired results
-college_english_exam_bank,"A all 12 rules, one deduction each",valid,true,true,77,77,raw,no,Paired table
-college_english_exam_bank,B all 12 rules floored to 0,valid,true,true,0,0,raw,no,Paired table
-college_english_exam_bank,"F R009 rule-level score 0, no checkpoints",valid,true,true,0,0,raw,no,Paired table
-college_english_exam_bank,L A without any rule-level score (complete checkpoints),valid,true,true,77,77,raw,no,Paired table
-college_english_exam_bank,C empty `scores`,trigger,true,false (grading failure),100,,raw,yes,Paired table
-college_english_exam_bank,D A minus R009,trigger,true,false,81,,raw,yes,Paired table
-college_english_exam_bank,E B minus R009,trigger,true,false,15,,raw,yes,Paired table
-college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,true,false,0,,raw,yes,Paired table
-college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,true,false,15,,raw,yes,Paired table
-college_english_exam_bank,H no JSON,invalid,false,false,,,raw,no,Paired table
-college_english_exam_bank,"J D, then A on re-ask",trigger,true,true,81,77,raw,yes,Paired table
-college_english_exam_bank,"K no JSON, then A on re-ask",trigger,false,true,,77,raw,yes,Paired table
-cta_risk_budget_optimization,Trigger (synthetic),trigger,violations 0/1; `cross_border` 1 (cost_fx 0) / 5 (cost_fx 2),violations 1/1; `cross_border` 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization
-cta_risk_budget_optimization,Trigger (real data),trigger,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization
-cta_risk_budget_optimization,Same-currency control,valid,0/1; cb 1 / 5,0/1; cb 1 / 5,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization
-cta_risk_budget_optimization,Under-limit mixed control,valid,0/1; cb 1 / 5,0/1; cb 1 / 5,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization
-cta_risk_budget_optimization,Invalid control (over the limit even natively),invalid,1/1; cb 0 / 1,1/1; cb 0 / 1,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization
-cta_risk_budget_optimization,Shipped reference positions (component),baseline,violations 0/1565; cb 1 / 5,violations 32/1565 (2.04%); cb 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization
-cta_risk_budget_optimization,"Full original scorer, complete shipped reference",valid,"TOTAL_SCORE 20.0 (raw 16/80); M1 4, M2 0, M3 0 (""Veto: annual vol 1.3% outside [5%,20%]""), M4 2, M5 10; valid, pass_rate 1.0, exit 0","identical: 20.0, the same metric breakdown, the same veto. Logs are identical apart from timings",20.0,20.0,raw,no,Paired v1/v2 results: cta_risk_budget_optimization
-dabic_gravity_inversion,"honest model-space D-ABIC (`FORM=""model""`)",trigger,true,true,25.77,26.81,raw,yes,Paired v1/v2 results: dabic_gravity_inversion
-dabic_gravity_inversion,"honest data-space D-ABIC (`FORM=""data""`)",valid,true,true,26.82,26.84,raw,yes,Paired v1/v2 results: dabic_gravity_inversion
-dabic_gravity_inversion,"data form, log-det via `np.linalg.det` (`make_invalid_variant.py`)",invalid,false,false,26.91,26.86,raw,yes,Paired v1/v2 results: dabic_gravity_inversion
-dabic_gravity_inversion,"judge image's own workspace (no `outputs/`, nothing submitted)",baseline,false,false,0.00,0.00,raw,no,Paired v1/v2 results: dabic_gravity_inversion
-equivalence_class_divide_and_conquer,"`naive.cpp` on crafted B (star, n=10⁶, m=2501; true cost 2.501·10⁹ > limit)",trigger,"AC, raw 10 (T3 1/1)","WA ""Operation cost exceeded"", raw 0",10,0,raw,yes,Paired v1/v2 results: equivalence_class_divide_and_conquer
-equivalence_class_divide_and_conquer,`naive.cpp` on crafted A (m=2500; true cost exactly 2.5·10⁹),valid,"AC, raw 10","AC, raw 10",10,10,raw,no,Paired v1/v2 results: equivalence_class_divide_and_conquer
-equivalence_class_divide_and_conquer,official `std.cpp` for T1–T6,valid,"raw 100 / norm 100; T1 5/5, T2 10/10, T3 30/30, T4 25/25, T5 20/20, T6 30/30; exit 0; pass rate 1.000",raw 100 / norm 100; identical per-subtask counts; exit 0; pass rate 1.000,100,100,raw,no,Paired v1/v2 results: equivalence_class_divide_and_conquer
-equivalence_class_divide_and_conquer,"`naive.cpp` as T3, others empty, on the 30 official inputs",invalid,raw 1 / norm 1; T3 6 AC / 24 WA (cost exceeded); exit 1; pass rate 0.020,"raw 1 / norm 1; the same 6 AC / 24 WA, case by case; exit 1; pass rate 0.020",1,1,raw,no,Paired v1/v2 results: equivalence_class_divide_and_conquer
-exchange_core_throughput,"unmodified engine, original image without artifacts (""v1raw"")",setup,"RE, 0",—,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2
-exchange_core_throughput,"unmodified engine (control, run 1)",valid,OK 2050,"gate OK (33 tests), OK 2153",2050,2153,raw,yes,Paired results: exchange_core_throughput v1 vs v2
-exchange_core_throughput,"unmodified engine (control, run 2)",valid,OK 2210,"gate OK, OK 2978",2210,2978,raw,yes,Paired results: exchange_core_throughput v1 vs v2
-exchange_core_throughput,`topo21` honest variant,valid,OK 2524,"gate OK, OK 2481",2524,2481,raw,yes,Paired results: exchange_core_throughput v1 vs v2
-exchange_core_throughput,"`feeswap` (fee swap, balance kept at zero)",trigger,OK 2269,WA 0 (gate failed),2269,,raw,yes,Paired results: exchange_core_throughput v1 vs v2
-exchange_core_throughput,`dropevents` (user events not forwarded),trigger,OK 2234,WA 0 (gate failed),2234,,raw,yes,Paired results: exchange_core_throughput v1 vs v2
-exchange_core_throughput,`feeleak`,invalid,RE 0,WA 0,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2
-exchange_core_throughput,`compileerr`,invalid,RE 0,WA 0,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2
-ffmpeg_swscale_reimplementation,reference implementation (run 1),valid,,,0.967353,0.980056,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2
-ffmpeg_swscale_reimplementation,reference implementation (run 2),valid,,,0.509049,0.507032,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2
-ffmpeg_swscale_reimplementation,shipped scaffold,baseline,,,0.447819,0.012416,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2
-ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,,,2.881761,0.000464,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2
-ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,,,2.884506,0.000463,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2
-ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,,,1.305860,0.000451,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2
-ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,0.0 (28/30),0.0 (28/30),0.0,0.0,raw,no,Paired results: ffmpeg_swscale_reimplementation v1 vs v2
-graph_node_classification,baseline (shipped solution.py),valid,true,true,29.278,29.270,normalized,yes,Paired table
-graph_node_classification,"neighbor (honest neighbour-vote solver, int ids)",valid,true,true,24.100,24.104,normalized,yes,Paired table
-graph_node_classification,"nanconf (baseline predictions, NaN confidences)",valid,true,true,27.147,27.143,normalized,yes,Paired table
-graph_node_classification,"shrink (one real prediction, rest `""x""`)",trigger,true,false,16.026,,normalized,yes,Paired table
-graph_node_classification,missing_half (half the test nodes),invalid,false,false,,,normalized,no,Paired table
-integer_compression_codec,shipped Varint starter (unchanged),trigger,0.2327 / 0.2327,0.9786 / 0.9786 (repeat 1.0155),0.2327,0.9786,raw,yes,Paired v1/v2 results: integer_compression_codec
-integer_compression_codec,delta + zigzag + varint,valid,0.8253 / 0.8253,6.7024 / 6.7024 (repeat 6.9708),0.8253,6.7024,raw,yes,Paired v1/v2 results: integer_compression_codec
-integer_compression_codec,starter with one corrupted value,invalid,0 / 0,0 / 0,0,0,raw,no,Paired v1/v2 results: integer_compression_codec
-jagua_nesting_optimization,valid_adjacent_squares (shared edge),valid,accept,accept,,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,coincident_squares,trigger,accept,reject `overlap_0_1`,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,half_slid_squares,trigger,accept,reject,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,rect_inside_square,trigger,accept,reject,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,triangle_inside_square,trigger,accept,reject,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,diamond_inside_square,trigger,accept,reject,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,diag_shift_squares (proper crossings),invalid,reject,reject,,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,tiny_overlap_1e-6 (relative overlap 1e-7),valid,accept,accept (below the 1e-6 relative tolerance),,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,forbidden_rotation_90 (allowed [0]),trigger,accept,reject `orientation_not_allowed_0`,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,"allowed_rotation_minus180 (allowed [0, 180])",valid,accept,accept,,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)"
-jagua_nesting_optimization,Shipped baseline (candidate = reference),valid,0 / 16 / 0,0 / 16 / 0,0.000000,0.000000,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)"
-jagua_nesting_optimization,"seed_shift (honest: same LBF, different PRNG stream)",valid,6 / 10 / 0,6 / 10 / 0,1.644419,1.644419,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)"
-jagua_nesting_optimization,drop_last_item (one item missing),invalid,"0 / 16 / 0, all `demand_mismatch`","0 / 16 / 0, all `demand_mismatch`",0.000000,0.000000,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)"
-lean_analysis_proofs,orig,valid,0/2901,0/2338,0,0,raw,no,Paired table
-lean_analysis_proofs,A (trigger + controls),trigger,1/2901 (trans only),"3/2338 (anti_symm, div, trans)",0.000345,0.001283,raw,yes,Paired table
-lean_analysis_proofs,BAD (invalid),invalid,no score,no score,,,raw,no,Paired table
-lean_analysis_proofs,T,valid,26/2901 (15 parents + 11 aux),15/2338,0.008962,0.006416,raw,yes,Paired table
-lean_analysis_proofs,S,valid,26/2901 (15 + 11),15/2338,0.008962,0.006416,raw,yes,Paired table
-lean_analysis_proofs,W,valid,25/2901 (15 + 10),15/2338,0.008618,0.006416,raw,yes,Paired table
-openrct2_theme_park_ai,"Trigger: v1 states a false horizon, v2 states the measured one",trigger,~4 game years,"about 70 game days, a little over 2 game months",,,verdict,yes,Measured horizon and recomputation
-order_addition_permutation_optimization,identity,valid,4/5,5/5,3.3e-09,3.3e-09,raw,no,Paired table
-order_addition_permutation_optimization,search,valid,4/5,5/5,0.0093733018,0.0093733018,raw,no,Paired table
-order_addition_permutation_optimization,badcost (misreported cost),invalid,3/5,4/5,,,raw,yes,Paired table
-order_addition_permutation_optimization,dup (not a permutation),invalid,3/5,4/5,,,raw,yes,Paired table
-order_addition_permutation_optimization,"identity, search",trigger,"identity (3.3e-09), frozen on the first",search (0.00937),,,verdict,yes,"Selection (task policy `pass_rate_first`, repo `select_best`)"
-order_addition_permutation_optimization,"search, identity",valid,search (0.00937),search (0.00937),,,verdict,no,"Selection (task policy `pass_rate_first`, repo `select_best`)"
-order_addition_permutation_optimization,"dup, identity, search",trigger,identity (3.3e-09),search (0.00937),,,verdict,yes,"Selection (task policy `pass_rate_first`, repo `select_best`)"
-order_addition_permutation_optimization,"badcost, identity, search",trigger,identity (3.3e-09),search (0.00937),,,verdict,yes,"Selection (task policy `pass_rate_first`, repo `select_best`)"
-schemathesis_config_modernization,starter,baseline,0/15,0/16,0.031466,0.031466,raw,no,Paired v1/v2 results: schemathesis_config_modernization
-schemathesis_config_modernization,identity,valid,15/15,16/16,0.135313,0.135313,raw,no,Paired v1/v2 results: schemathesis_config_modernization
-schemathesis_config_modernization,wrapper,trigger,15/15,15/16,0.135313,0.129063,raw,yes,Paired v1/v2 results: schemathesis_config_modernization
-schemathesis_config_modernization,no_register,invalid,12/15,12/16,0.115313,0.110313,raw,yes,Paired v1/v2 results: schemathesis_config_modernization
-schemathesis_datagen_pipeline,correct,valid,,,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed)
-schemathesis_datagen_pipeline,stdlib_1900,valid,0/20,0/20,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed)
-schemathesis_datagen_pipeline,stdlib_any_year,valid,0/20,0/20,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed)
-schemathesis_datagen_pipeline,independent_fields,trigger,0/20,20/20,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed)
-schemathesis_datagen_pipeline,off_by_one_clock,trigger,0/20,20/20,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed)
-schemathesis_datagen_pipeline,garbage_shape,invalid,,,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed)
-schemathesis_datagen_pipeline,rfc850 (invalid),invalid,,,0.467094,0.467094,raw,no,Final paired run (year ≥ 1900 floor removed)
-schemathesis_datagen_pipeline,starter,baseline,,,0.323504,0.323504,raw,no,Final paired run (year ≥ 1900 floor removed)
-schemathesis_reporting_observability,fullref,valid,,,1.000000,1.000000,raw,no,Paired v1/v2 results: schemathesis_reporting_observability
-schemathesis_reporting_observability,fullref_junit_drops_error,trigger,,,1.000000,0.985714,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability
-schemathesis_reporting_observability,fullref_no_body_fix,trigger,,,1.000000,0.991667,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability
-schemathesis_reporting_observability,fullref_always_suppress,trigger,,,1.000000,0.983333,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability
-schemathesis_reporting_observability,stub_junit_correct,valid,,,0.091429,0.096429,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability
-schemathesis_reporting_observability,stub_junit_drops_error,trigger,,,0.091429,0.082143,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability
-schemathesis_reporting_observability,starter,invalid,,,0.020000,0.025000,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability
-smt_solver,ground,trigger,,,0.0,0.9,raw,yes,Corpus: 69 scoped hidden files (verdict counts)
-smt_solver,textual,valid,,,0.587,0.587,raw,no,Corpus: 69 scoped hidden files (verdict counts)
-smt_solver,textual_true,trigger,,,0.587,0.9,raw,yes,Corpus: 69 scoped hidden files (verdict counts)
-smt_solver,ground_wrong,invalid,,,0.0,0.0,raw,no,Corpus: 69 scoped hidden files (verdict counts)
-treant_forest,"Shipped baseline (`0`, `-1`)",baseline,50/50 OK,50/50 OK,0.00,0.00,normalized,no,treant_forest v2 paired evaluation
-treant_forest,Honest greedy (grid-only maze lengthening),valid,50/50 OK,50/50 OK,3.04,16.36,normalized,yes,treant_forest v2 paired evaluation
-treant_forest,Invalid: treant on the revealed entrance,invalid,0/50 (all WA),0/50 (all WA),0.00,0.00,normalized,no,treant_forest v2 paired evaluation
-treant_forest,"92304 (= Σ 2N², the score cap)",trigger,,,21.02,100.00,normalized,yes,Anchor endpoints
-tree_block_partitioning,Official `std.cpp` for all six subtasks,valid,100 / 100,100 / 100,100,100,raw,no,Paired v1/v2 results: tree_block_partitioning
-tree_block_partitioning,"T2 = alias variant of `std.cpp` (`make_alias_variant.py`); T1, T3–T6 empty",trigger,0.25 / 0.25 (T2 1/10),5 / 5 (T2 10/10),0.25,5,raw,yes,Paired v1/v2 results: tree_block_partitioning
-tree_block_partitioning,T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty,invalid,"0.25 / 0.25 (T2 1/10, 9 WA)","0.25 / 0.25 (T2 1/10, 9 WA)",0.25,0.25,raw,no,Paired v1/v2 results: tree_block_partitioning
-triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,10/10,10/10,0.055,0.054,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)"
-triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,10/10,10/10,48.87,48.95,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)"
-triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,10/10 accepted,"0/10 (WA ""Invalid flip"")",0.052,,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)"
-triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,0/10 (WA),0/10 (WA),,,normalized,no,"Full judge (`eval_cmd`, 10 hidden cases)"
-warehouse_forklift_routing,generic valid control,valid,"OK 50/50, TOTAL 46676.8","OK 50/50, TOTAL 46676.8",46676.8,46676.8,raw,no,Paired run
-warehouse_forklift_routing,one honest bug,invalid,49 OK + 1 WA → inf,49 OK + 1 WA → inf,,,raw,no,Paired run
-warehouse_forklift_routing,shipped starter,invalid,50 WA → inf,50 WA → inf,,,raw,no,Paired run
-warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,Paired run
-warehouse_forklift_routing,near the 150 s per-input limit,trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,Paired run
-openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,"yes, at `main.nut` line 5",no,,,raw,yes,Paired table
-openttd_transport_ai,baseline_v1 (shipped starter),baseline,"yes, at `main.nut` line 5","yes, at `main.nut` line 5",0,0,raw,no,Paired table
-openttd_transport_ai,probe_min (calls corrected API monthly),valid,no,no,0,0,raw,no,Paired table
-openttd_transport_ai,baseline_v2 (fixed starter),baseline,no,no,0,0,raw,no,Paired table
-openttd_transport_ai,probe_value (positive-value control),valid,no,no,4975,4975,raw,no,Paired table
+task_id,arm,role,v1_result,v2_result,v1_score,v2_score,score_kind,changed,source,cpus
+arc_compiler_runtime,(a) shipped starter,baseline,true,true,35.59,35.59,raw,no,arc_compiler_runtime v2: paired results,2
+arc_compiler_runtime,"(b) starter, `analyze()` returns `[]` (documented shape only)",valid,true,true,47.21,47.21,raw,no,arc_compiler_runtime v2: paired results,2
+arc_compiler_runtime,(c) invalid: codegen emits `var result = null;`,invalid,true,true,25.79,25.79,raw,no,arc_compiler_runtime v2: paired results,2
+arc_compiler_runtime,"(d) independent honest analyzer, documented shape",trigger,true,true,69.26,69.26,raw,no,arc_compiler_runtime v2: paired results,2
+arc_compiler_runtime,"(e) same analyzer as (d), starter shape `{ok,errors,warnings,program}`",trigger,true,true,35.59,35.59,raw,no,arc_compiler_runtime v2: paired results,2
+borden_source_inversion,textbook ADE fit (review regression case),valid,,,7.031,7.031,raw,no,borden_source_inversion-v2: paired results,2
+borden_source_inversion,"judge-convention fit (review, own re-implementation)",valid,,,31.200,31.200,raw,no,borden_source_inversion-v2: paired results,2
+borden_source_inversion,v2 fit using only the shipped `forward_model.py`,valid,,,31.199,31.199,raw,no,borden_source_inversion-v2: paired results,2
+borden_source_inversion,bound-midpoint baseline,baseline,,,7.012,7.012,raw,no,borden_source_inversion-v2: paired results,2
+borden_source_inversion,hidden true source,setup,,,109.000,109.000,raw,no,borden_source_inversion-v2: paired results,2
+borden_source_inversion,"out-of-bounds answer (C0=5000, half_length_x=500)",invalid,,,4.000,4.000,raw,no,borden_source_inversion-v2: paired results,2
+borden_source_inversion,no `answer.json`,invalid,,,0,0,raw,no,borden_source_inversion-v2: paired results,2
+college_english_exam_bank,"A all 12 rules, one deduction each",valid,true,true,77,77,raw,no,Paired table,2
+college_english_exam_bank,B all 12 rules floored to 0,valid,true,true,0,0,raw,no,Paired table,2
+college_english_exam_bank,"F R009 rule-level score 0, no checkpoints",valid,true,true,0,0,raw,no,Paired table,2
+college_english_exam_bank,L A without any rule-level score (complete checkpoints),valid,true,true,77,77,raw,no,Paired table,2
+college_english_exam_bank,C empty `scores`,trigger,true,false (grading failure),100,,raw,yes,Paired table,2
+college_english_exam_bank,D A minus R009,trigger,true,false,81,,raw,yes,Paired table,2
+college_english_exam_bank,E B minus R009,trigger,true,false,15,,raw,yes,Paired table,2
+college_english_exam_bank,G R009 row with no score and no checkpoints,trigger,true,false,0,,raw,yes,Paired table,2
+college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,true,false,15,,raw,yes,Paired table,2
+college_english_exam_bank,H no JSON,invalid,false,false,,,raw,no,Paired table,2
+college_english_exam_bank,"J D, then A on re-ask",trigger,true,true,81,77,raw,yes,Paired table,2
+college_english_exam_bank,"K no JSON, then A on re-ask",trigger,false,true,,77,raw,yes,Paired table,2
+cta_risk_budget_optimization,Trigger (synthetic),trigger,violations 0/1; `cross_border` 1 (cost_fx 0) / 5 (cost_fx 2),violations 1/1; `cross_border` 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization,2
+cta_risk_budget_optimization,Trigger (real data),trigger,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization,2
+cta_risk_budget_optimization,Same-currency control,valid,0/1; cb 1 / 5,0/1; cb 1 / 5,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization,2
+cta_risk_budget_optimization,Under-limit mixed control,valid,0/1; cb 1 / 5,0/1; cb 1 / 5,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization,2
+cta_risk_budget_optimization,Invalid control (over the limit even natively),invalid,1/1; cb 0 / 1,1/1; cb 0 / 1,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization,2
+cta_risk_budget_optimization,Shipped reference positions (component),baseline,violations 0/1565; cb 1 / 5,violations 32/1565 (2.04%); cb 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization,2
+cta_risk_budget_optimization,"Full original scorer, complete shipped reference",valid,"TOTAL_SCORE 20.0 (raw 16/80); M1 4, M2 0, M3 0 (""Veto: annual vol 1.3% outside [5%,20%]""), M4 2, M5 10; valid, pass_rate 1.0, exit 0","identical: 20.0, the same metric breakdown, the same veto. Logs are identical apart from timings",20.0,20.0,raw,no,Paired v1/v2 results: cta_risk_budget_optimization,2
+dabic_gravity_inversion,"honest model-space D-ABIC (`FORM=""model""`)",trigger,true,true,25.77,26.81,raw,yes,Paired v1/v2 results: dabic_gravity_inversion,8
+dabic_gravity_inversion,"honest data-space D-ABIC (`FORM=""data""`)",valid,true,true,26.82,26.84,raw,yes,Paired v1/v2 results: dabic_gravity_inversion,8
+dabic_gravity_inversion,"data form, log-det via `np.linalg.det` (`make_invalid_variant.py`)",invalid,false,false,26.91,26.86,raw,yes,Paired v1/v2 results: dabic_gravity_inversion,8
+dabic_gravity_inversion,"judge image's own workspace (no `outputs/`, nothing submitted)",baseline,false,false,0.00,0.00,raw,no,Paired v1/v2 results: dabic_gravity_inversion,8
+equivalence_class_divide_and_conquer,"`naive.cpp` on crafted B (star, n=10⁶, m=2501; true cost 2.501·10⁹ > limit)",trigger,"AC, raw 10 (T3 1/1)","WA ""Operation cost exceeded"", raw 0",10,0,raw,yes,Paired v1/v2 results: equivalence_class_divide_and_conquer,3
+equivalence_class_divide_and_conquer,`naive.cpp` on crafted A (m=2500; true cost exactly 2.5·10⁹),valid,"AC, raw 10","AC, raw 10",10,10,raw,no,Paired v1/v2 results: equivalence_class_divide_and_conquer,3
+equivalence_class_divide_and_conquer,official `std.cpp` for T1–T6,valid,"raw 100 / norm 100; T1 5/5, T2 10/10, T3 30/30, T4 25/25, T5 20/20, T6 30/30 (cases passed); exit 0; pass rate 1.000",raw 100 / norm 100; identical per-subtask counts; exit 0; pass rate 1.000,100,100,raw,no,Paired v1/v2 results: equivalence_class_divide_and_conquer,3
+equivalence_class_divide_and_conquer,"`naive.cpp` as T3, others empty, on the 30 official inputs",invalid,raw 1 / norm 1; T3 6 AC / 24 WA (cost exceeded); exit 1; pass rate 0.020,"raw 1 / norm 1; the same 6 AC / 24 WA, case by case; exit 1; pass rate 0.020",1,1,raw,no,Paired v1/v2 results: equivalence_class_divide_and_conquer,3
+exchange_core_throughput,"unmodified engine, original image without artifacts (""v1raw"")",setup,"RE, 0",—,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+exchange_core_throughput,"unmodified engine (control, run 1)",valid,OK 2050,"gate OK (33 tests), OK 2153",2050,2153,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+exchange_core_throughput,"unmodified engine (control, run 2)",valid,OK 2210,"gate OK, OK 2978",2210,2978,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+exchange_core_throughput,`topo21` honest variant,valid,OK 2524,"gate OK, OK 2481",2524,2481,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+exchange_core_throughput,"`feeswap` (fee swap, balance kept at zero)",trigger,OK 2269,WA 0 (gate failed),2269,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+exchange_core_throughput,`dropevents` (user events not forwarded),trigger,OK 2234,WA 0 (gate failed),2234,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+exchange_core_throughput,`feeleak`,invalid,RE 0,WA 0,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+exchange_core_throughput,`compileerr`,invalid,RE 0,WA 0,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,,,0.967353,0.980056,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,,,0.509049,0.507032,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+ffmpeg_swscale_reimplementation,shipped scaffold,baseline,,,0.447819,0.012416,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,,,2.881761,0.000464,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,,,2.884506,0.000463,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,,,1.305860,0.000451,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,0.0 (28/30),0.0 (28/30),0.0,0.0,raw,no,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+git_rewrite_in_zig,`control`: unmodified starter,baseline,2,2,0.000069,0.000069,raw,no,Paired table,8
+git_rewrite_in_zig,"`zig_build_exe`: starter after `zig build-exe src/main.zig -lc -lz` (leaves `main`, `main.o`)",trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
+git_rewrite_in_zig,"`obj_only`: as above, only `main.o` left",trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
+git_rewrite_in_zig,"`elf_only`: as above, only `main` left",trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
+git_rewrite_in_zig,`exec_git`: `test` block in `src/main.zig` runs system git (`zig test` passes 1/1),trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
+git_rewrite_in_zig,"`exec_git_helper`: `src/difftest.zig` helper runs system git, used only by a `test` block (`zig test` passes 1/1)",trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
+git_rewrite_in_zig,"oracle: real git v2.47.0 in `zig-out/bin`, `HARBOR_ORACLE_MODE=1`",valid,"29,075","29,075",1.000000,1.000000,raw,no,Paired table,8
+git_rewrite_in_zig,"`bad_wrap_cgit`: `main.zig` execs `./cgit`, a C git v2.47.0 in the project folder",invalid,–,0,0.0,0.0,raw,no,Paired table,8
+git_rewrite_in_zig,`bad_shell_git`: `main.zig` forwards every call to the system `git`,invalid,2,2,0.000069,0.000069,raw,no,Paired table,8
+git_rewrite_in_zig,"`bad_shell_git_oneline`: the same, with `""git""` on the `std.process.Child` line",invalid,–,2,0.0,0.000069,raw,yes,Paired table,8
+graph_node_classification,baseline (shipped solution.py),valid,true,true,29.278,29.270,normalized,yes,Paired table,4
+graph_node_classification,"neighbor (honest neighbour-vote solver, int ids)",valid,true,true,24.100,24.104,normalized,yes,Paired table,4
+graph_node_classification,"nanconf (baseline predictions, NaN confidences)",valid,true,true,27.147,27.143,normalized,yes,Paired table,4
+graph_node_classification,"shrink (one real prediction, rest `""x""`)",trigger,true,false,16.026,,normalized,yes,Paired table,4
+graph_node_classification,missing_half (half the test nodes),invalid,false,false,,,normalized,no,Paired table,4
+integer_compression_codec,shipped Varint starter (unchanged),trigger,0.2327 / 0.2327,0.9786 / 0.9786 (repeat 1.0155),0.2327,0.9786,raw,yes,Paired v1/v2 results: integer_compression_codec,4
+integer_compression_codec,delta + zigzag + varint,valid,0.8253 / 0.8253,6.7024 / 6.7024 (repeat 6.9708),0.8253,6.7024,raw,yes,Paired v1/v2 results: integer_compression_codec,4
+integer_compression_codec,starter with one corrupted value,invalid,0 / 0,0 / 0,0,0,raw,no,Paired v1/v2 results: integer_compression_codec,4
+jagua_nesting_optimization,valid_adjacent_squares (shared edge),valid,accept,accept,,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,coincident_squares,trigger,accept,reject `overlap_0_1`,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,half_slid_squares,trigger,accept,reject,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,rect_inside_square,trigger,accept,reject,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,triangle_inside_square,trigger,accept,reject,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,diamond_inside_square,trigger,accept,reject,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,diag_shift_squares (proper crossings),invalid,reject,reject,,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,tiny_overlap_1e-6 (relative overlap 1e-7),valid,accept,accept (below the 1e-6 relative tolerance),,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,forbidden_rotation_90 (allowed [0]),trigger,accept,reject `orientation_not_allowed_0`,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,"allowed_rotation_minus180 (allowed [0, 180])",valid,accept,accept,,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
+jagua_nesting_optimization,Shipped baseline (candidate = reference),valid,0 / 16 / 0,0 / 16 / 0,0.000000,0.000000,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,"seed_shift (honest: same LBF, different PRNG stream)",valid,6 / 10 / 0,6 / 10 / 0,1.644419,1.644419,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,drop_last_item (one item missing),invalid,"0 / 16 / 0, all `demand_mismatch`","0 / 16 / 0, all `demand_mismatch`",0.000000,0.000000,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+lean_analysis_proofs,orig,valid,0/2901,0/2338,0,0,raw,no,Paired table,2
+lean_analysis_proofs,A (trigger + controls),trigger,1/2901 (trans only),"3/2338 (anti_symm, div, trans)",0.000345,0.001283,raw,yes,Paired table,2
+lean_analysis_proofs,BAD (invalid),invalid,no score,no score,,,raw,no,Paired table,2
+lean_analysis_proofs,T,valid,26/2901 (15 parents + 11 aux),15/2338,0.008962,0.006416,raw,yes,Paired table,2
+lean_analysis_proofs,S,valid,26/2901 (15 + 11),15/2338,0.008962,0.006416,raw,yes,Paired table,2
+lean_analysis_proofs,W,valid,25/2901 (15 + 10),15/2338,0.008618,0.006416,raw,yes,Paired table,2
+openrct2_theme_park_ai,"Trigger: v1 states a false horizon, v2 states the measured one",trigger,~4 game years,"about 70 game days, a little over 2 game months",,,verdict,yes,Measured horizon and recomputation,
+order_addition_permutation_optimization,identity,valid,4/5,5/5,3.3e-09,3.3e-09,raw,no,Paired table,2
+order_addition_permutation_optimization,search,valid,4/5,5/5,0.0093733018,0.0093733018,raw,no,Paired table,2
+order_addition_permutation_optimization,badcost (misreported cost),invalid,3/5,4/5,,,raw,yes,Paired table,2
+order_addition_permutation_optimization,dup (not a permutation),invalid,3/5,4/5,,,raw,yes,Paired table,2
+order_addition_permutation_optimization,"identity, search",trigger,"identity (3.3e-09), frozen on the first",search (0.00937),,,verdict,yes,"Selection (task policy `pass_rate_first`, EdgeBench `select_best`)",2
+order_addition_permutation_optimization,"search, identity",valid,search (0.00937),search (0.00937),,,verdict,no,"Selection (task policy `pass_rate_first`, EdgeBench `select_best`)",2
+order_addition_permutation_optimization,"dup, identity, search",trigger,identity (3.3e-09),search (0.00937),,,verdict,yes,"Selection (task policy `pass_rate_first`, EdgeBench `select_best`)",2
+order_addition_permutation_optimization,"badcost, identity, search",trigger,identity (3.3e-09),search (0.00937),,,verdict,yes,"Selection (task policy `pass_rate_first`, EdgeBench `select_best`)",2
+schemathesis_config_modernization,starter,baseline,0/15,0/16,0.031466,0.031466,raw,no,Paired v1/v2 results: schemathesis_config_modernization,2
+schemathesis_config_modernization,identity,valid,15/15,16/16,0.135313,0.135313,raw,no,Paired v1/v2 results: schemathesis_config_modernization,2
+schemathesis_config_modernization,wrapper,trigger,15/15,15/16,0.135313,0.129063,raw,yes,Paired v1/v2 results: schemathesis_config_modernization,2
+schemathesis_config_modernization,no_register,invalid,12/15,12/16,0.115313,0.110313,raw,yes,Paired v1/v2 results: schemathesis_config_modernization,2
+schemathesis_datagen_pipeline,correct,valid,,,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,stdlib_1900,valid,0/20,0/20,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,stdlib_any_year,valid,0/20,0/20,0.477350,0.477350,raw,no,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,independent_fields,trigger,0/20,20/20,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,off_by_one_clock,trigger,0/20,20/20,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,garbage_shape,invalid,,,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,rfc850 (invalid),invalid,,,0.467094,0.467094,raw,no,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,starter,baseline,,,0.323504,0.323504,raw,no,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_reporting_observability,fullref,valid,,,1.000000,1.000000,raw,no,Paired v1/v2 results: schemathesis_reporting_observability,2
+schemathesis_reporting_observability,fullref_junit_drops_error,trigger,,,1.000000,0.985714,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
+schemathesis_reporting_observability,fullref_no_body_fix,trigger,,,1.000000,0.991667,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
+schemathesis_reporting_observability,fullref_always_suppress,trigger,,,1.000000,0.983333,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
+schemathesis_reporting_observability,stub_junit_correct,valid,,,0.091429,0.096429,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
+schemathesis_reporting_observability,stub_junit_drops_error,trigger,,,0.091429,0.082143,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
+schemathesis_reporting_observability,starter,invalid,,,0.020000,0.025000,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
+smt_solver,ground,trigger,,,0.0,0.9,raw,yes,Corpus: 69 scoped hidden files (verdict counts),4
+smt_solver,textual,valid,,,0.587,0.587,raw,no,Corpus: 69 scoped hidden files (verdict counts),4
+smt_solver,textual_true,trigger,,,0.587,0.9,raw,yes,Corpus: 69 scoped hidden files (verdict counts),4
+smt_solver,ground_wrong,invalid,,,0.0,0.0,raw,no,Corpus: 69 scoped hidden files (verdict counts),4
+treant_forest,"Shipped baseline (`0`, `-1`)",baseline,50/50 OK,50/50 OK,0.00,0.00,normalized,no,treant_forest v2 paired evaluation,8
+treant_forest,Honest greedy (grid-only maze lengthening),valid,50/50 OK,50/50 OK,3.04,16.36,normalized,yes,treant_forest v2 paired evaluation,8
+treant_forest,Invalid: treant on the revealed entrance,invalid,0/50 (all WA),0/50 (all WA),0.00,0.00,normalized,no,treant_forest v2 paired evaluation,8
+treant_forest,"92304 (= Σ 2N², the score cap)",trigger,,,21.02,100.00,normalized,yes,Anchor endpoints,
+tree_block_partitioning,Official `std.cpp` for all six subtasks,valid,100 / 100,100 / 100,100,100,raw,no,Paired v1/v2 results: tree_block_partitioning,2
+tree_block_partitioning,"T2 = alias variant of `std.cpp` (`make_alias_variant.py`); T1, T3–T6 empty",trigger,0.25 / 0.25 (T2 1/10),5 / 5 (T2 10/10),0.25,5,raw,yes,Paired v1/v2 results: tree_block_partitioning,2
+tree_block_partitioning,T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty,invalid,"0.25 / 0.25 (T2 1/10, 9 WA)","0.25 / 0.25 (T2 1/10, 9 WA)",0.25,0.25,raw,no,Paired v1/v2 results: tree_block_partitioning,2
+triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,10/10,10/10,0.055,0.054,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
+triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,10/10,10/10,48.87,48.95,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
+triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,10/10 accepted,"0/10 (WA ""Invalid flip"")",0.052,,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
+triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,0/10 (WA),0/10 (WA),,,normalized,no,"Full judge (`eval_cmd`, 10 hidden cases)",8
+warehouse_forklift_routing,generic valid control,valid,"OK 50/50, TOTAL 46676.8","OK 50/50, TOTAL 46676.8",46676.8,46676.8,raw,no,Paired run,2
+warehouse_forklift_routing,one honest bug,invalid,49 OK + 1 WA → inf,49 OK + 1 WA → inf,,,raw,no,Paired run,2
+warehouse_forklift_routing,shipped starter,invalid,50 WA → inf,50 WA → inf,,,raw,no,Paired run,2
+warehouse_forklift_routing,13 s per test case (uses the promised budget),trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,Paired run,2
+warehouse_forklift_routing,near the 150 s per-input limit,trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,Paired run,2
+openttd_transport_ai,shipped starter (v1 work image vs v2 work image),trigger,"yes, at `main.nut` line 5",no,,,raw,yes,Paired table,
+openttd_transport_ai,baseline_v1 (shipped starter),baseline,"yes, at `main.nut` line 5","yes, at `main.nut` line 5",0,0,raw,no,Paired table,
+openttd_transport_ai,probe_min (calls corrected API monthly),valid,no,no,0,0,raw,no,Paired table,
+openttd_transport_ai,baseline_v2 (fixed starter),baseline,no,no,0,0,raw,no,Paired table,
+openttd_transport_ai,probe_value (positive-value control),valid,no,no,4975,4975,raw,no,Paired table,
+pfr_formalization,starter,baseline,0/423,0/423,0.0,0.0,raw,no,Paired table,4
+pfr_formalization,T (trigger),trigger,both BAD `unexpected=[sorryAx]`,"both OK `[propext, Classical.choice, Quot.sound]`",,,verdict,yes,Paired table,4
+pfr_formalization,D (downstream),trigger,all three BAD `unexpected=[sorryAx]`,all three OK,,,verdict,yes,Paired table,4
+pfr_formalization,BAD (bad control),invalid,"`app_ent_PFR` BAD, `ebv_bad_sorry` BAD","`app_ent_PFR` BAD, `ebv_bad_sorry` BAD",0.0,0.0,raw,no,Paired table,4
+grid_turing_robot,`baseline_good` (no extra work),baseline,"50 OK, TOTAL 94,092 (19.80)","50 OK, TOTAL 94,092 (19.80)",,,raw,no,grid_turing_robot v2: paired results,4
+grid_turing_robot,`cpu12` (12 s CPU per case),valid,"50 OK, TOTAL 94,092","50 OK, TOTAL 94,092",,,raw,no,grid_turing_robot v2: paired results,4
+grid_turing_robot,`cpu16` (16 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL inf (invalid)","50 OK, TOTAL 94,092 (19.80)",,,raw,yes,grid_turing_robot v2: paired results,4
+grid_turing_robot,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL inf (invalid)","50 OK, TOTAL 94,092 (19.80)",,,raw,yes,grid_turing_robot v2: paired results,4
+grid_turing_robot,`wall25` (works until 25 s wall clock),valid,"50 OK, TOTAL 94,092","50 OK, TOTAL 94,092",,,raw,no,grid_turing_robot v2: paired results,4
+grid_turing_robot,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL inf","0 OK, 50 TLE, TOTAL inf",,,raw,no,grid_turing_robot v2: paired results,4
+grid_turing_robot,`cpu20` (20 s CPU per case),valid,"50 OK, TOTAL 94,092","50 OK, TOTAL 94,092",,,raw,no,grid_turing_robot v2: paired results,8
+molecular_self_assembly,"`baseline` (shipped baseline, no extra work)",baseline,"50 OK, TOTAL 69,280,072","50 OK, TOTAL 69,280,072",,,raw,no,molecular_self_assembly v2: paired results,4
+molecular_self_assembly,`cpu12` (12 s CPU per case),valid,"50 OK, TOTAL 69,280,072","50 OK, TOTAL 69,280,072",,,raw,no,molecular_self_assembly v2: paired results,4
+molecular_self_assembly,`cpu16` (16 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 2,849,909","50 OK, TOTAL 69,280,072",,,raw,yes,molecular_self_assembly v2: paired results,4
+molecular_self_assembly,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 2,849,909","50 OK, TOTAL 69,280,072",,,raw,yes,molecular_self_assembly v2: paired results,4
+molecular_self_assembly,`wall25` (works until 25 s wall clock),valid,"50 OK, TOTAL 69,280,072","50 OK, TOTAL 69,280,072",,,raw,no,molecular_self_assembly v2: paired results,4
+molecular_self_assembly,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL 0","0 OK, 50 TLE, TOTAL 0",,,raw,no,molecular_self_assembly v2: paired results,4
+molecular_self_assembly,`cpu20` (20 s CPU per case),valid,"50 OK, TOTAL 69,280,072","50 OK, TOTAL 69,280,072",,,raw,no,molecular_self_assembly v2: paired results,8
+warehouse_forklift_routing,`cpu80` (80 s CPU per input),trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,"CPU share at 4 CPUs (current fixed version, 2026-10-12)",4
+warehouse_forklift_routing,`cpu140` (140 s CPU per input),trigger,50 TLE → inf,"50 OK, TOTAL 46676.8",,46676.8,raw,yes,"CPU share at 4 CPUs (current fixed version, 2026-10-12)",4
+rust_multicrate_reconstruction,starter,baseline,,,1.4711,5.7236,normalized,yes,rust_multicrate_reconstruction v2: paired results,
+rust_multicrate_reconstruction,reference,trigger,,,27.6091,94.7022,normalized,yes,rust_multicrate_reconstruction v2: paired results,
+rust_multicrate_reconstruction,partial,trigger,,,27.6091,93.9963,normalized,yes,rust_multicrate_reconstruction v2: paired results,
+rust_multicrate_reconstruction,bad,invalid,,,27.5091,94.6022,normalized,yes,rust_multicrate_reconstruction v2: paired results,
+vibrating_path_graph_coloring,`cpu0` (honest control alone),baseline,"50 OK, TOTAL 24,650,014 (2.06)","50 OK, TOTAL 24,650,014 (2.06)",,,raw,no,vibrating_path_graph_coloring v2: paired results,4
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL inf (no score)","50 OK, TOTAL 24,650,014 (2.06)",,,raw,yes,vibrating_path_graph_coloring v2: paired results,4
+vibrating_path_graph_coloring,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL inf (no score)","50 OK, TOTAL 24,650,014 (2.06)",,,raw,yes,vibrating_path_graph_coloring v2: paired results,4
+vibrating_path_graph_coloring,`wall25` (works until 25 s wall clock),valid,"36 OK, 14 TLE, TOTAL inf","50 OK, TOTAL 24,650,014",,,raw,yes,vibrating_path_graph_coloring v2: paired results,4
+vibrating_path_graph_coloring,"`wall25`, repeat 1 / repeat 2",valid,"50 OK, 24,650,014","50 OK, 24,650,014",,,raw,no,vibrating_path_graph_coloring v2: paired results,4
+vibrating_path_graph_coloring,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL inf","0 OK, 50 TLE, TOTAL inf",,,raw,no,vibrating_path_graph_coloring v2: paired results,4
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case) | 8,valid,"50 OK, TOTAL 24,650,014","50 OK, TOTAL 24,650,014",,,raw,no,vibrating_path_graph_coloring v2: paired results,8
+apple_incremental_game,`cpu0` (honest control alone),baseline,"50 OK, TOTAL 99,714,418 (5.04)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,no,apple_incremental_game v2: paired results,4
+apple_incremental_game,`cpu20` (20 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 3,955,266 (0.00)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,yes,apple_incremental_game v2: paired results,4
+apple_incremental_game,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 3,955,266 (0.00)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,yes,apple_incremental_game v2: paired results,4
+apple_incremental_game,`wall25` (works until 25 s wall clock),valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,4
+apple_incremental_game,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL 0","0 OK, 50 TLE, TOTAL 0",,,raw,no,apple_incremental_game v2: paired results,4
+apple_incremental_game,`cpu20` (20 s CPU per case) | 8,valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,8
+triangulation_coloring_optimization,`cpu0` (control alone),baseline,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
+triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,"2 OK, 8 TLE, inf (no score)","10 OK, 863,058 (48.95)",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
+triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,"2 OK, 8 TLE, inf","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
+triangulation_coloring_optimization,`wall25` (works until 25 s wall clock),valid,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
+triangulation_coloring_optimization,"`spin40` (bad control, 40 s CPU per case)",invalid,"10 TLE, inf","10 TLE, inf",,,raw,no,CPU-quota parallelism (added 2026-10-12),4
+triangulation_coloring_optimization,`cpu20` | 8,valid,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),8
+portfolio_risk_calibration,(a) instructions' formula,trigger,3.44%,3.47%,32.45,32.52,raw,yes,Full grader (`score.py`),2
+portfolio_risk_calibration,(b) grader's formula,valid,3.44%,3.47%,32.45,32.52,raw,yes,Full grader (`score.py`),2
+portfolio_risk_calibration,(c) wrong,invalid,−21.14%,−21.33%,0,0,raw,no,Full grader (`score.py`),2
+portfolio_risk_calibration,(d) starter,baseline,missing submission files: portfolio_optimizer.py,missing submission files: portfolio_optimizer.py,0,0,raw,no,Full grader (`score.py`),2
+portfolio_risk_calibration,(e) image example,baseline,−9.28%,−9.37%,0,0,raw,no,Full grader (`score.py`),2
+portfolio_risk_calibration,T1 instructions' formula gives exactly 12%,trigger,19.85,20.00,,,verdict,yes,Near the 12% full-marks line (installed functions),2
+portfolio_risk_calibration,T2 original grader's formula gives exactly 12%,valid,20.00,20.00,,,verdict,no,Near the 12% full-marks line (installed functions),2
+portfolio_risk_calibration,T3 equal to the benchmark,valid,0,0,,,verdict,no,Near the 12% full-marks line (installed functions),2
+portfolio_risk_calibration,T4,valid,9.90,9.98,,,verdict,yes,Near the 12% full-marks line (installed functions),2
+portfolio_risk_calibration,T5,valid,−4.43,−4.47,,,verdict,yes,Near the 12% full-marks line (installed functions),2
+juliet_vulnerability_analyzer,a78_public (public form),trigger,0.0000,1.0000,45.66,60.66,raw,yes,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,a78_input (hidden form),valid,1.0000,1.0000,60.66,60.66,raw,no,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,a78_wrong (wrong source),invalid,0.0000,0.0000,45.66,45.66,raw,no,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,r_hidden,valid,1.0000,1.0000,100.00,100.00,raw,no,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,r_public78 (public form),trigger,0.8340,1.0000,97.51,100.00,raw,yes,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,r_sinkonly (wrong in other CWEs),invalid,0.3237,0.4896,70.00,70.00,raw,no,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,r_wrong78_tr,invalid,0.8340,0.8340,97.51,97.51,raw,no,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,r_wrong78_src,invalid,0.8340,0.8340,97.51,97.51,raw,no,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,starter,baseline,— (no findings),— (no findings),10.00,10.00,raw,no,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,crash,baseline,`valid: false`,`valid: false`,10.00,10.00,raw,no,Hidden grading (task `eval_cmd`),2
+juliet_vulnerability_analyzer,a78_public,valid,1.0000,1.0000,51.17,51.17,raw,no,"Public data (same `score.py`, public answers)",2
+juliet_vulnerability_analyzer,a78_input,valid,0.0000,0.0000,36.17,36.17,raw,no,"Public data (same `score.py`, public answers)",2
+juliet_vulnerability_analyzer,a78_wrong,invalid,0.0000,0.0000,36.17,36.17,raw,no,"Public data (same `score.py`, public answers)",2

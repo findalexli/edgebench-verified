@@ -1,0 +1,33 @@
+export::tests::test_export_config_default: test
+export::tests::test_manifest_serialization: test
+format::tests::test_event_serialization: test
+format::tests::test_event_timestamps: test
+format::tests::test_header_invalid_magic: test
+format::tests::test_header_serialization: test
+format::tests::test_header_validation: test
+format::tests::test_keyframe_index_empty: test
+format::tests::test_keyframe_index_find: test
+reader::tests::test_reader_handles_empty_recording: test
+reader::tests::test_reader_handles_invalid_index_offset: test
+reader::tests::test_reader_handles_truncated_file: test
+reader::tests::test_reader_iterates_events: test
+reader::tests::test_reader_mmap_opens_file: test
+reader::tests::test_reader_opens_file: test
+reader::tests::test_reader_read_snapshot: test
+reader::tests::test_reader_seek_to_keyframe: test
+reader::tests::test_seek_performance: test
+writer::tests::test_empty_output_ignored: test
+writer::tests::test_file_path_structure: test
+writer::tests::test_should_generate_keyframe: test
+writer::tests::test_writer_creates_file: test
+writer::tests::test_writer_keyframes: test
+writer::tests::test_writer_output_events: test
+writer::tests::test_writer_resize_events: test
+
+25 tests, 0 benchmarks
+crates/cas-recording/src/lib.rs - (line 19): test
+crates/cas-recording/src/lib.rs - (line 42): test
+crates/cas-recording/src/reader.rs - reader::RecordingReader (line 22): test
+crates/cas-recording/src/writer.rs - writer::RecordingWriter (line 68): test
+
+4 tests, 0 benchmarks

@@ -1,0 +1,158 @@
+injected 833
+== cas-search rc=101 errors=8
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `tokio`
+   --> crates/cas-search/tests/hybrid_integration.rs:417:7
+    |
+417 |     #[tokio::test]
+    |       ^^^^^ use of unresolved module or unlinked crate `tokio`
+
+warning: unused import: `Ordering`
+  --> crates/cas-search/tests/code_search_integration.rs:22:38
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `tokio`
+   --> crates/cas-search/src/bm25_tests/tests.rs:443:7
+    |
+443 |     #[tokio::test]
+    |       ^^^^^ use of unresolved module or unlinked crate `tokio`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `tokio`
+   --> crates/cas-search/src/hybrid.rs:277:11
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `tokio`
+   --> crates/cas-search/src/hybrid.rs:277:11
+    |
+277 |         #[tokio::test]
+    |           ^^^^^ use of unresolved module or unlinked crate `tokio`
+
+warning: unused variable: `dimension`
+  --> crates/cas-search/tests/code_search_integration.rs:36:12
+error[E0599]: no method named `search_async` found for struct `HybridSearch` in the current scope
+   --> crates/cas-search/tests/hybrid_integration.rs:439:30
+    |
+439 |         let results = search.search_async(&opts).await.unwrap();
+    |                              ^^^^^^^^^^^^
+    |
+help: there is a method `search` with a similar name
+    |
+error: could not compile `cas-search` (test "hybrid_integration") due to 2 previous errors; 2 warnings emitted
+warning: build failed, waiting for other jobs to finish...
+error[E0433]: failed to resolve: use of undeclared type `AsyncBm25Index`
+   --> crates/cas-search/src/bm25_tests/tests.rs:449:27
+    |
+449 |         let async_index = AsyncBm25Index::new(index);
+    |                           ^^^^^^^^^^^^^^ use of undeclared type `AsyncBm25Index`
+
+error[E0433]: failed to resolve: use of undeclared type `AsyncBm25Index`
+   --> crates/cas-search/src/bm25_tests/tests.rs:449:27
+    |
+449 |         let async_index = AsyncBm25Index::new(index);
+    |                           ^^^^^^^^^^^^^^ use of undeclared type `AsyncBm25Index`
+
+error[E0599]: no method named `search_async` found for struct `hybrid::HybridSearch` in the current scope
+   --> crates/cas-search/src/hybrid.rs:305:34
+error[E0599]: no method named `search_async` found for struct `hybrid::HybridSearch` in the current scope
+   --> crates/cas-search/src/hybrid.rs:305:34
+    |
+82  | pub struct HybridSearch<T: TextIndex> {
+    | ------------------------------------- method `search_async` not found for this struct
+...
+305 |             let results = search.search_async(&opts).await.unwrap();
+    |                                  ^^^^^^^^^^^^
+error: could not compile `cas-search` (lib test) due to 4 previous errors; 150 warnings emitted
+warning: `cas-search` (test "bm25_integration") generated 9 warnings (run `cargo fix --test "bm25_integration"` to apply 3 suggestions)
+== cas-mcp rc=0 errors=0
+== cas rc=101 errors=22
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:145:35
+    |
+145 |     fn search_never_crashes(query in search_query_strategy()) {
+    |                                   ^^ expected one of `:`, `@`, or `|`
+
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:153:40
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:153:40
+    |
+153 |     fn memory_content_is_valid(content in memory_content_strategy()) {
+    |                                        ^^ expected one of `:`, `@`, or `|`
+
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:160:36
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:160:36
+    |
+160 |     fn task_titles_are_valid(title in task_title_strategy()) {
+    |                                    ^^ expected one of `:`, `@`, or `|`
+
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:167:39
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:167:39
+    |
+167 |     fn task_types_are_valid(task_type in task_type_strategy()) {
+    |                                       ^^ expected one of `:`, `@`, or `|`
+
+warning: unused variable: `dir`
+  --> cas-cli/tests/search_scoring_test.rs:30:12
+error: functions used as tests can not have any arguments
+   --> cas-cli/tests/proptest/search_properties.rs:145:5
+    |
+145 | /     fn search_never_crashes(query in search_query_strategy()) {
+146 | |         // This is a property test that would need a real CAS instance
+147 | |         // For now, we verify the query is valid
+148 | |         prop_assert!(!query.trim().is_empty());
+149 | |         prop_assert!(query.len() <= 50);
+error: functions used as tests can not have any arguments
+   --> cas-cli/tests/proptest/search_properties.rs:153:5
+    |
+153 | /     fn memory_content_is_valid(content in memory_content_strategy()) {
+154 | |         prop_assert!(!content.trim().is_empty());
+155 | |         prop_assert!(content.len() >= 10);
+156 | |         prop_assert!(content.len() <= 200);
+157 | |     }
+error: functions used as tests can not have any arguments
+   --> cas-cli/tests/proptest/search_properties.rs:160:5
+    |
+160 | /     fn task_titles_are_valid(title in task_title_strategy()) {
+161 | |         prop_assert!(!title.trim().is_empty());
+162 | |         prop_assert!(title.len() >= 5);
+163 | |         prop_assert!(title.len() <= 100);
+164 | |     }
+error: functions used as tests can not have any arguments
+   --> cas-cli/tests/proptest/search_properties.rs:167:5
+    |
+167 | /     fn task_types_are_valid(task_type in task_type_strategy()) {
+168 | |         let valid_types = ["task", "bug", "feature", "epic", "chore"];
+169 | |         prop_assert!(valid_types.contains(&task_type.as_str()));
+170 | |     }
+    | |_____^
+error[E0425]: cannot find value `query` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:148:23
+    |
+148 |         prop_assert!(!query.trim().is_empty());
+    |                       ^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+error[E0425]: cannot find value `query` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:149:22
+    |
+149 |         prop_assert!(query.len() <= 50);
+    |                      ^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+error[E0425]: cannot find value `content` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:154:23
+    |
+154 |         prop_assert!(!content.trim().is_empty());
+    |                       ^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `content` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:155:22
+error[E0425]: cannot find value `content` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:155:22
+    |
+155 |         prop_assert!(content.len() >= 10);
+    |                      ^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `content` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:156:22

@@ -1,0 +1,210 @@
+   Compiling cas v1.0.0 (/tmp/cas-hidden-inject-pyntxti8/ws/cas-cli)
+warning: method `window_id_path` is never used
+   --> crates/cas-tui-test/src/pty_runner.rs:206:8
+    |
+152 | impl HeadfulConfig {
+    | ------------------ method in this implementation
+...
+206 |     fn window_id_path(&self) -> PathBuf {
+    |        ^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: function `escape_applescript_string` is never used
+   --> crates/cas-tui-test/src/pty_runner.rs:737:4
+    |
+737 | fn escape_applescript_string(value: &str) -> String {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `cas-tui-test` (lib) generated 2 warnings
+warning: unused import: `cas_instance::new_cas_instance`
+  --> cas-cli/tests/fixtures/mod.rs:10:9
+   |
+10 | pub use cas_instance::new_cas_instance;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: `cas` (test "e2e_test") generated 1 warning (run `cargo fix --test "e2e_test"` to apply 1 suggestion)
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:145:35
+    |
+145 |     fn search_never_crashes(query in search_query_strategy()) {
+    |                                   ^^ expected one of `:`, `@`, or `|`
+
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:153:40
+    |
+153 |     fn memory_content_is_valid(content in memory_content_strategy()) {
+    |                                        ^^ expected one of `:`, `@`, or `|`
+
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:160:36
+    |
+160 |     fn task_titles_are_valid(title in task_title_strategy()) {
+    |                                    ^^ expected one of `:`, `@`, or `|`
+
+error: expected one of `:`, `@`, or `|`, found keyword `in`
+   --> cas-cli/tests/proptest/search_properties.rs:167:39
+    |
+167 |     fn task_types_are_valid(task_type in task_type_strategy()) {
+    |                                       ^^ expected one of `:`, `@`, or `|`
+
+error: functions used as tests can not have any arguments
+   --> cas-cli/tests/proptest/search_properties.rs:145:5
+    |
+145 | /     fn search_never_crashes(query in search_query_strategy()) {
+146 | |         // This is a property test that would need a real CAS instance
+147 | |         // For now, we verify the query is valid
+148 | |         prop_assert!(!query.trim().is_empty());
+149 | |         prop_assert!(query.len() <= 50);
+150 | |     }
+    | |_____^
+
+error: functions used as tests can not have any arguments
+   --> cas-cli/tests/proptest/search_properties.rs:153:5
+    |
+153 | /     fn memory_content_is_valid(content in memory_content_strategy()) {
+154 | |         prop_assert!(!content.trim().is_empty());
+155 | |         prop_assert!(content.len() >= 10);
+156 | |         prop_assert!(content.len() <= 200);
+157 | |     }
+    | |_____^
+
+error: functions used as tests can not have any arguments
+   --> cas-cli/tests/proptest/search_properties.rs:160:5
+    |
+160 | /     fn task_titles_are_valid(title in task_title_strategy()) {
+161 | |         prop_assert!(!title.trim().is_empty());
+162 | |         prop_assert!(title.len() >= 5);
+163 | |         prop_assert!(title.len() <= 100);
+164 | |     }
+    | |_____^
+
+error: functions used as tests can not have any arguments
+   --> cas-cli/tests/proptest/search_properties.rs:167:5
+    |
+167 | /     fn task_types_are_valid(task_type in task_type_strategy()) {
+168 | |         let valid_types = ["task", "bug", "feature", "epic", "chore"];
+169 | |         prop_assert!(valid_types.contains(&task_type.as_str()));
+170 | |     }
+    | |_____^
+
+error[E0425]: cannot find value `query` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:148:23
+    |
+148 |         prop_assert!(!query.trim().is_empty());
+    |                       ^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+5   + use claude_rs::query;
+    |
+
+error[E0425]: cannot find value `query` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:149:22
+    |
+149 |         prop_assert!(query.len() <= 50);
+    |                      ^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+5   + use claude_rs::query;
+    |
+
+error[E0425]: cannot find value `content` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:154:23
+    |
+154 |         prop_assert!(!content.trim().is_empty());
+    |                       ^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `content` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:155:22
+    |
+155 |         prop_assert!(content.len() >= 10);
+    |                      ^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `content` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:156:22
+    |
+156 |         prop_assert!(content.len() <= 200);
+    |                      ^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `title` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:161:23
+    |
+161 |         prop_assert!(!title.trim().is_empty());
+    |                       ^^^^^ not found in this scope
+
+error[E0425]: cannot find value `title` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:162:22
+    |
+162 |         prop_assert!(title.len() >= 5);
+    |                      ^^^^^ not found in this scope
+
+error[E0425]: cannot find value `title` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:163:22
+    |
+163 |         prop_assert!(title.len() <= 100);
+    |                      ^^^^^ not found in this scope
+
+error[E0425]: cannot find value `task_type` in this scope
+   --> cas-cli/tests/proptest/search_properties.rs:169:44
+    |
+169 |         prop_assert!(valid_types.contains(&task_type.as_str()));
+    |                                            ^^^^^^^^^ not found in this scope
+
+error[E0308]: mismatched types
+   --> cas-cli/tests/proptest/search_properties.rs:148:9
+    |
+145 |     fn search_never_crashes(query in search_query_strategy()) {
+    |                                                              - help: a return type might be missing here: `-> _`
+...
+148 |         prop_assert!(!query.trim().is_empty());
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `()`, found `Result<_, TestCaseError>`
+    |
+    = note: expected unit type `()`
+                    found enum `Result<_, TestCaseError>`
+    = note: this error originates in the macro `$crate::prop_assert` which comes from the expansion of the macro `prop_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0308]: mismatched types
+   --> cas-cli/tests/proptest/search_properties.rs:154:9
+    |
+153 |     fn memory_content_is_valid(content in memory_content_strategy()) {
+    |                                                                     - help: a return type might be missing here: `-> _`
+154 |         prop_assert!(!content.trim().is_empty());
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `()`, found `Result<_, TestCaseError>`
+    |
+    = note: expected unit type `()`
+                    found enum `Result<_, TestCaseError>`
+    = note: this error originates in the macro `$crate::prop_assert` which comes from the expansion of the macro `prop_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0308]: mismatched types
+   --> cas-cli/tests/proptest/search_properties.rs:161:9
+    |
+160 |     fn task_titles_are_valid(title in task_title_strategy()) {
+    |                                                             - help: a return type might be missing here: `-> _`
+161 |         prop_assert!(!title.trim().is_empty());
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `()`, found `Result<_, TestCaseError>`
+    |
+    = note: expected unit type `()`
+                    found enum `Result<_, TestCaseError>`
+    = note: this error originates in the macro `$crate::prop_assert` which comes from the expansion of the macro `prop_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0308]: mismatched types
+   --> cas-cli/tests/proptest/search_properties.rs:169:9
+    |
+167 |     fn task_types_are_valid(task_type in task_type_strategy()) {
+    |                                                               - help: a return type might be missing here: `-> _`
+168 |         let valid_types = ["task", "bug", "feature", "epic", "chore"];
+169 |         prop_assert!(valid_types.contains(&task_type.as_str()));
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `()`, found `Result<_, TestCaseError>`
+    |
+    = note: expected unit type `()`
+                    found enum `Result<_, TestCaseError>`
+    = note: this error originates in the macro `$crate::prop_assert` which comes from the expansion of the macro `prop_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+Some errors have detailed explanations: E0308, E0425.
+For more information about an error, try `rustc --explain E0308`.
+error: could not compile `cas` (test "proptest_test") due to 21 previous errors
+warning: build failed, waiting for other jobs to finish...

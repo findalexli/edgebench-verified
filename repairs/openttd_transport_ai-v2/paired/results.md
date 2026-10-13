@@ -70,8 +70,10 @@ dbg: [script] The script died unexpectedly.
   scorer counts as 0.
 - `baseline_v2`, every seed: 1,825 lines `Company value: 1`, no script error.
 - `probe_value`, every seed: `PROBE stops_built=8`, `PROBE set_loan target=20000 ok=true loan=20000 bank=18800`.
-  Last line `CV 1969-12-3 cur=4858 q1=4975 bank=4858 loan=20000`. The logged quarter-1 values
-  were 5,675 down to 4,975, falling 175 per quarter (loan interest).
+  Last line `CV 1969-12-3 cur=4858 q1=4975 bank=4858 loan=20000`. `diag_log.py` saved only the six
+  smallest distinct quarter-1 values (`q1_distinct`: 0, 4,975, 5,150, 5,325, 5,500, 5,675), which
+  step by 175. The bank balance fell from 18,800 after the loan was cut to 4,858 at the end, about
+  174 per quarter over the roughly 80 quarters; the cause of the fall was not checked.
 - **Logged value vs scorer:** for every seed of both probes, the last logged
   `GetQuarterlyCompanyValue(SELF, 1)` equals `old_economy[0].company_value` in the final save,
   which is the value the scorer used (`all_logged_q1_equal_final_old_economy0: true`). For

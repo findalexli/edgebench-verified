@@ -1,5 +1,7 @@
 # Review: cta_risk_budget_optimization (overseas-exposure currency mixing)
 
+> **Note (2026-10-12).** "32/1564 days (2.05%)" below counts the dates of `positions.csv` with at least one non-zero position. The grader counts 1565 dates, including 2020-01-02, on which every position has 0 lots, and reports 32/1565 (2.04%) (`repairs/cta_risk_budget_optimization-v2/paired/evidence/logs/refblock-v2.log`). Both counts are at least 2%, so the reference earns 0 ratio checks either way. "overseas ⇒ USD" was later checked in both directions: all 12 overseas tickers are USD and the other 18 are CNY in the image's `contract_specs` (`evidence/formal/notes/cta_risk_budget_optimization.md`).
+
 ## Claim under review
 
 Earlier claim (verbatim): "The original mixes currencies when measuring overseas exposure,

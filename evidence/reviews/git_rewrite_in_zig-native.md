@@ -1,5 +1,12 @@
 # git_rewrite_in_zig: native addendum (positive control)
 
+> **Note (2026-10-12): superseded disposition.** The task is now fixed in a new version
+> (`repairs/git_rewrite_in_zig-v2/`, case page `cases/git_rewrite_in_zig.md`): leftover build files
+> are deleted instead of zeroing the score, and the source-text check that zeroed honest test code is
+> dropped. The reasons given below for withholding the original are superseded; the case page states
+> the current findings. The CPU-limit question is now measured (`evidence/runs/git_rewrite_in_zig-nproc-*`).
+> This run used oracle mode, which skips the checks on the submitted tree and the clean build.
+
 **Question.** Does a correct, version-matched `git` actually earn credit through the
 original verifier path? Both runs below use the verbatim eval_cmd with the shipped
 `test.sh`, the git t/ suite, `compute_reward.py`, `pytest_shim.sh` and the 29,075
@@ -14,9 +21,9 @@ denominator.
 - Restricted to t0001, it scored 86 passed, giving 0.002958.
 - Every per-category pass count equals the hard-coded `oracle_attempted` baseline, so the
   denominator is reproduced exactly on this host.
-- This resolves "no positive control exists". The remaining concerns from the triage are
-  unaffected: uncapped results-dir counting (an isolation issue), the undisclosed scoring
-  method, and host-dependent timeouts.
+- This resolves "no positive control exists". The remaining good-faith concerns from the triage are
+  unaffected: the undisclosed scoring method and host-dependent timeouts. (Scorer-isolation notes
+  are out of scope and kept internally.)
 
 ## Pinned artifacts
 
@@ -84,9 +91,8 @@ denominator.
 ## Change to disposition
 
 - The "no positive control" blocker is closed.
-- The recommended disposition stays **repair-v2 (withhold original)**. The reasons are
-  unchanged: results are counted from a candidate-writable directory with no cap, the
-  scoring method is undisclosed, and scoring is host-dependent. This run makes the
+- The recommended disposition stays **repair-v2 (withhold original)**. The good-faith reasons are
+  unchanged: the scoring method is undisclosed, and scoring is host-dependent. This run makes the
   original's scale credible: 1.0 means the full real git suite passes.
 - A repaired version can reuse this run as its positive control.
 

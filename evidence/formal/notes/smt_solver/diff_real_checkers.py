@@ -4,7 +4,7 @@
 import importlib.util, sys, tempfile, os, json
 def load(name, path):
     spec = importlib.util.spec_from_file_location(name, path); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
-R = "/home/alex/edgebench-verified/"
+R = (__import__('os').environ.get('EBV_REPO') or str(__import__('pathlib').Path(__file__).resolve().parents[4])) + "/"
 v1 = load("v1", R + ".internal/evidence/scripts/smt_solver/evaluate_original.py")
 v2 = load("v2", R + ".internal/repairs/smt_solver-v2/files/evaluate.py")
 HDR = "(set-logic QF_UF)\n(declare-sort U 0)\n(declare-fun a () U)\n(declare-fun b () U)\n(declare-fun c () U)\n(declare-fun f (U) U)\n"

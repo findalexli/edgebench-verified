@@ -20,7 +20,7 @@
     `491a409`). The original `eval_cmd` instead copies `/home/workspace/baseline/.lake` (Mathlib
     `3203991`) and does a full rebuild.
   - v1 runs use a relocated, untouched copy of the judge repo and of `eval_lean.py`.
-- **Normalized score.** `rescale` is `linear` 0..1, so the normalized score equals the raw score.
+- **Normalized score.** `rescale` is `linear` 0..1, so the normalized score (0–100) is 100 × the raw score. The scores in the tables are raw: 0.008962 is 0.8962 out of 100, and 0.006416 is 0.6416.
 - **Exit statuses.** `eval_lean.py` exited 0 in every scored case. In the BAD case `lake build`
   exited 1, so `eval_cmd` (joined with `&&`) never reaches the grader.
 
@@ -67,10 +67,12 @@ statements **inside the real grader**: they are PASSED in v2.
 | W | honest Section_4_1, setoid via `omega` | v1 | ok* | 0.008618 | 25/2901 (15 + 10) | 5 |
 | | | v2 | ok | 0.006416 | 15/2338 | 0 |
 
-\* The v1 S and W rows reuse the reviewer's native runs (`scripts/lean_aux_names/out/report_{S,W}.json.gz`).
+\* The v1 S and W rows reuse the reviewer's native runs (`evidence/scripts/lean_aux_names/out/report_{S,W}.json.gz`).
 They ran on the same image with the same grader bytes and procedure. I did not rerun them after the
 OOM restart. This run's v1 T repaired set is identical to the reviewer's v1 T set, which checks
 that the two harnesses agree.
+The two repeat runs (`evidence/runs/lean_analysis_proofs-v2-paired-rep2/`, `-rep3/`) do grade S and W
+with v1 (`report_v1_S`, `report_v1_W`), so the v1 S and W results were compared across those two runs only.
 
 Further detail is in `out/style_check.txt`:
 - In every style, every v1-credited parent is credited in v2.

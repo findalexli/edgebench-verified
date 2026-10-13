@@ -1,5 +1,9 @@
 # openttd_transport_ai: native baseline evaluation (E2B)
 
+> **Note (2026-10-12).** "Crashes on its first statement" below: the starter first logs
+> "MyAI baseline started." and crashes at its first call to `GetCompanyValue`, in its main loop at
+> `main.nut` line 5. See `cases/openttd_transport_ai.md`.
+
 ## Question
 
 Does one full original 5-seed evaluation with the shipped baseline AI do three things?

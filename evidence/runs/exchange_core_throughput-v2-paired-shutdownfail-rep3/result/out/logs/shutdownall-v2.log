@@ -1,0 +1,66 @@
+patched ExchangeCore.java: 'log.info("Disruptor stopped");' -> 'log.info("Disruptor stopped");\n                if (true) {\n                    throw new I'
+DEBUG: correctness gate failed (rc=1, tests=33). Output tail:
+java.lang.IllegalStateException: could not stop a disruptor gracefully. Not all events may be executed.
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionExchangeFokB:103->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionExchangeGtc:85->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionExchangeIoc:91->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionMarginFokB:109->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionMarginGtc:79->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyNoRejectionMarginIoc:97->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithBudgetRejectionExchangeFokB:153->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithBudgetRejectionMarginFokB:159->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithRejectionExchangeGtc:123->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithRejectionExchangeIoc:129->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithRejectionMarginGtc:117->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithRejectionMarginIoc:135->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithSizeRejectionExchangeFokB:141->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiBuyWithSizeRejectionMarginFokB:147->ITExchangeCoreIntegrationRejection.testMultiBuy:286 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionExchangeFokB:197->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionExchangeGtc:173->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionExchangeIoc:185->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionMarginFokB:191->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionMarginGtc:167->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellNoRejectionMarginIoc:179->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithExpectationRejectionExchangeFokB:247->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithExpectationRejectionMarginFokB:241->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionExchangeGtc:211->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionExchangeIoc:223->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionMarginGtc:205->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithRejectionMarginIoc:217->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithSizeRejectionExchangeFokB:235->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITExchangeCoreIntegrationRejectionBasic>ITExchangeCoreIntegrationRejection.testMultiSellWithSizeRejectionMarginFokB:229->ITExchangeCoreIntegrationRejection.testMultiSell:373 » IllegalState
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldProcessFees_AskGtcMakerPartial_BidIocTaker:439 » IllegalState
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldProcessFees_AskGtcMaker_BidIocTakerPartial:360 » IllegalState
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldProcessFees_BidGtcMakerPartial_AskIocTaker:281 » IllegalState
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldProcessFees_BidGtcMaker_AskIocTakerPartial:200 » IllegalState
+[ERROR]   ITFeesExchangeBasic>ITFeesExchange.shouldRequireTakerFees_GtcCancel:121 » IllegalState
+[INFO] 
+[ERROR] Tests run: 33, Failures: 0, Errors: 33, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.486 s
+[INFO] Finished at: 2026-10-13T07:35:48Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M3:test (default-test) on project exchange-core: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/workspace/exchange-core/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+CASE 0000 WA score=0  # correctness gate failed
+TOTAL_SCORE 0
+CASES_OK 0
+CASES_TOTAL 1

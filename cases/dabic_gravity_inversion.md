@@ -1,4 +1,4 @@
-# Dabic Gravity Inversion (`dabic_gravity_inversion`)
+# D-ABIC Gravity Inversion (`dabic_gravity_inversion`)
 
 **Outcome:** Removed. <mark>42 points come from results the submission reports about itself, which the grader cannot verify; a partial fix removes a second, undisclosed penalty on one of two allowed forms, but does not make the task usable.</mark>
 
@@ -16,15 +16,15 @@ The task text says: "Decide for yourself whether to use the model-space or data-
 
 **42 points are self-reported. This is the reason for removal.** Components B and D (42 points together) are taken from results the submission reports about itself. The grader does not recompute them from hidden data. For an honest solver, these components therefore reflect what the submission reports, not what the grader verifies. Component F, the written report, is scored by keywords.
 
-**An undisclosed requirement to use the data-space form.** The grader decides which form a submission uses from the shape of the square matrices passed to the log-determinant routines it monitors. A model-space submission is marked `is_data_space=false` and `structural_failure=true`. That costs it 3.2 points of raw result (before conversion to 0–100) at every level of quality: these are the E1 behaviour points. It also blocks the uncapped penalty factor of 1.0, so a model-space submission is capped at a factor of 0.5×. By Sylvester's determinant identity, both forms compute the same ABIC curve.
+**An undisclosed requirement to use the data-space form.** The grader decides which form a submission uses from the shape of the square matrices passed to the log-determinant routines it monitors. A model-space submission is marked `is_data_space=false` and `structural_failure=true`. That costs it 3.2 points of the total before the penalty factor is applied, at every level of quality: these are the E1 behaviour points. It also blocks the uncapped penalty factor of 1.0, so a model-space submission is capped at a factor of 0.5×. By Sylvester's determinant identity, both forms compute the same ABIC curve.
 
-- Example on the original grader: the data and model forms give the same results on the hidden cases (C 17.39 against 17.41), but score 26.82 and 25.77. At this moderate level both received the penalty factor 0.334, so the observed gap is small.
+- Example on the original grader: the data and model forms give the same results on the hidden cases up to run noise (C 17.39 against 17.44), but score 26.82 and 25.77 (`repairs/dabic_gravity_inversion-v2/paired/evidence/logs/{data,model}-v1.structured.json`). At this moderate level both received the penalty factor 0.334, so the observed gap is small.
 - At a strong level (C ≥ 26, D ≥ 20, F ≥ 10), applying the grader's own penalty function gives about 89 in the data form against about 43 in the model form for the same work (88.92 against 42.86 at C = 26).
 
 ## How much it matters
 
 - Self-reported components: 42 points cannot be verified, for every solver.
-- Form penalty: up to ~46 points at the strong level, and 3.2 raw points at every level, for solvers who choose the model-space form.
+- Form penalty: up to ~46 points at the strong level, and 3.2 points of the pre-penalty total at every level, for solvers who choose the model-space form.
 
 ## The fix
 
@@ -32,12 +32,12 @@ The fixed version is partial. It removes the form penalty only. It does not addr
 
 The fix changes one file, the grader `eval_dabic_v2.py`, in both places where it sits in the grader image. It adds `is_model_space`, which mirrors the existing data-space check: most captured square matrices have the hidden cell count as their dimension. It then uses `uses_abic_form = is_data_space or is_model_space` for the E1 points and for the `structural_failure` term. Every threshold, the 0.334/0.5/1.0 penalty levels, the other behaviour rules, `valid_for_selection` and all other components are unchanged. The task JSON changes only `judge.image_tag`. The work image and the files the solver sees are unchanged. Mirroring the check, rather than removing it, keeps the requirement that the log-determinant is taken on an ABIC matrix.
 
-The tables below show raw results. The task has no `rescale` section, which would define the score scale, so the maintained harness reports `score_0_100 = None` (`sforge/harness/run_evaluation.py:265`, no clipping). The column label "raw=norm" is kept from the side-by-side results file, because the raw result and the reported score are the same number here.
+The tables below show raw results. The task has no `rescale` section, which would define the score scale, so EdgeBench's harness reports `score_0_100 = None` (`sforge/harness/run_evaluation.py:265`, no clipping). The column label "raw=norm" is kept from the side-by-side results file, because the raw result and the reported score are the same number here. Each score is the total before the penalty, multiplied by the penalty factor (for the data form, 80.31 × 0.334 = 26.82; `paired/evidence/summary.txt`).
 
 | Test submission | Submission | Original grader score (raw=norm) | Fixed grader score (raw=norm) | Detail, original → fixed | Valid, original/fixed | Exit code, original/fixed |
 |---|---|---|---|---|---|---|
-| Shows the problem | honest model-space D-ABIC (`FORM="model"`) | **25.77** | **26.81** | E 4.8 → 8.0; `structural_failure` true → false; raw 77.16 → 80.27 | true/true | 0/0 |
-| Correct submission | honest data-space D-ABIC (`FORM="data"`) | **26.82** | **26.84** | E 8.0 / 8.0; raw 80.31 → 80.35 (C 17.39 → 17.43, run noise) | true/true | 0/0 |
+| Shows the problem | honest model-space D-ABIC (`FORM="model"`) | **25.77** | **26.81** | E 4.8 → 8.0; `structural_failure` true → false; pre-penalty total 77.16 → 80.27 | true/true | 0/0 |
+| Correct submission | honest data-space D-ABIC (`FORM="data"`) | **26.82** | **26.84** | E 8.0 / 8.0; pre-penalty total 80.31 → 80.35 (C 17.39 → 17.43, run noise) | true/true | 0/0 |
 | Invalid submission | data form, log-determinant via `np.linalg.det` (`make_invalid_variant.py`) | 26.91 | 26.86 | `uses_bad_det` true, `structural_failure` true in both; E 7.2 / 7.2 | **false/false** | 0/0 |
 | Shipped state | the grader image's own workspace (no `outputs/`, nothing submitted) | 0.00 | 0.00 | all components ERROR (files missing) | false/false | 0/0 |
 

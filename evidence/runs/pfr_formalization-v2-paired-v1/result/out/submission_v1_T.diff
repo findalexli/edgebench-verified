@@ -1,0 +1,24 @@
+--- /home/workspace/judge/se-bmk-intern/pfr/PFR/WeakPFR.lean	2026-06-06 14:16:06.000000000 +0000
++++ /home/workspace/se-bmk-intern/pfr/PFR/WeakPFR.lean	2026-10-12 22:51:58.439690552 +0000
+@@ -62,6 +62,10 @@
+     H[φ ∘ X; μ] ≤ 10 * d[X; μ # Y; μ'] := by
+   sorry
+ 
++/-- ebv trigger: fully proved, stated like `torsion_free_doubling` -/
++lemma ebv_trig_torsion [FiniteRange X] (hX : Measurable X) :
++    d[X; μ # Y; μ'] = d[X; μ # Y; μ'] := rfl
++
+ end Torsion
+ 
+ section F2_projection
+@@ -120,6 +124,10 @@
+       34 * d[H.mkQ ∘ X;μ # H.mkQ ∘ Y;μ'] := by
+   sorry
+ 
++/-- ebv trigger: fully proved, stated like `PFR_projection` -/
++lemma ebv_trig_f2 (hX : Measurable X) :
++    H[X; μ] + H[Y; μ'] = H[X; μ] + H[Y; μ'] := rfl
++
+ end F2_projection
+ 
+ open MeasureTheory ProbabilityTheory Real Set

@@ -1,0 +1,34 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 891B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.pfr_formalization@sha256:07b51e8e10011654f0c0f79326bb66da05f1e6e2a88b35d0f1418af81d509cc4
+#2 DONE 1.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [2/2] ADD files/judge/v2-build-artifacts.tar /
+#5 ERROR: failed to calculate checksum of ref vk1i1ode7a9lrwvgkhnyvqkm2::0tkx13vmtu2ad7u3i6dc7m8wv: "/files/judge/v2-build-artifacts.tar": not found
+
+#6 [1/2] FROM docker.io/seededge/edgebench.judge.pfr_formalization@sha256:07b51e8e10011654f0c0f79326bb66da05f1e6e2a88b35d0f1418af81d509cc4
+#6 resolve docker.io/seededge/edgebench.judge.pfr_formalization@sha256:07b51e8e10011654f0c0f79326bb66da05f1e6e2a88b35d0f1418af81d509cc4 0.0s done
+#6 CANCELED
+------
+ > [2/2] ADD files/judge/v2-build-artifacts.tar /:
+------
+Dockerfile:10
+--------------------
+   8 |     # rewrote for it inside the original image (absolute paths under
+   9 |     # home/workspace/judge/se-bmk-intern/pfr, with their mtimes); ADD extracts a local tar.
+  10 | >>> ADD files/judge/v2-build-artifacts.tar /
+  11 |     
+--------------------
+ERROR: failed to build: failed to solve: failed to compute cache key: failed to calculate checksum of ref vk1i1ode7a9lrwvgkhnyvqkm2::0tkx13vmtu2ad7u3i6dc7m8wv: "/files/judge/v2-build-artifacts.tar": not found

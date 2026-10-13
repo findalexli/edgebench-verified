@@ -1,6 +1,6 @@
-"""Feed saved judge logs through the repo's sforge grading + selection code.
+"""Feed saved judge logs through EdgeBench's sforge grading + selection code.
 Usage: python grade_and_select.py HARNESS_ROOT TASKS_DIR LOGDIR
-(HARNESS_ROOT = this repo for the maintained harness, or a copy of upstream sforge)"""
+(HARNESS_ROOT = this repository, whose sforge/ is EdgeBench's at 6e4e5f4)"""
 import json, sys
 from pathlib import Path
 harness, tasks, logdir = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3])

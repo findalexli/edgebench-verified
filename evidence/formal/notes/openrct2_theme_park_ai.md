@@ -25,7 +25,7 @@ rates are from the case-page table.
 **Proved** as arithmetic on the documented inputs. Every number in the case page and the
 review reproduces.
 
-**Discrepancy in wording.** The case page says the ≈1,667 s *per scenario* is "far beyond the
+**Discrepancy in wording (resolved).** The case page now says that the per-scenario 1,667 s is far beyond the 120 s scenario budget, and that only the three-scenario total exceeds the 1,800 s wrapper cap and the 2,400 s manifest timeout. It previously said the ≈1,667 s *per scenario* is "far beyond the
 120 s scenario budget, the 1,800 s wrapper cap and the 2,400 s manifest timeout".
 `counter_single_scenario_fits` shows that one scenario, even at 0.593 days/s (1,673 s), fits
 under 1,800 s and under 2,400 s. Only the three-scenario total (≈ 4,975–5,019 s) exceeds them,

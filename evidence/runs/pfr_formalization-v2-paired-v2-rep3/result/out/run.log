@@ -1,0 +1,125 @@
+/dev/root        21G   13G  7.4G  64% /
+=== materialize 07:35:10
+GNU patch 2.7.6
+materialize rc=0
+materialize[pfr_formalization-v2]: extracted 2 original file(s); originals match source-lock.json
+materialize[pfr_formalization-v2]: applied repair.patch
+materialize[pfr_formalization-v2]: lake build ListDeclAxiom inside seededge/edgebench.judge.pfr_formalization@sha256:07b51e8e10011654f0c0f79326bb66da05f1e6e2a88b35d0f1418af81d509cc4 (offline, --memory 6g); takes a few minutes
+materialize[pfr_formalization-v2]: rebuilt files/judge/v2-build-artifacts.tar: listing identical to saved v2 listing (1123 lines), 39 members
+materialize[pfr_formalization-v2]: OK: all 3 output file(s) match source-lock.json
+/dev/root        21G   13G  7.4G  64% /
+=== docker build 07:35:46
+docker build rc=0
+#7 naming to docker.io/ebv/pfr_formalization-judge:v2 done
+#7 unpacking to docker.io/ebv/pfr_formalization-judge:v2 0.1s done
+#7 DONE 0.3s
+2daa6e37a44c4adaf8113884300d28c33ffa3447d5f700998abc61561ec9a3bd  PFR/WeakPFR.lean
+0
+built image listing == saved v2 listing
+=== grade 07:35:53
+=== v2 starter 07:35:54
+eval_cmd rc=0 secs=6
+SCORE v2 starter 0.0 mode=unweighted, repaired=0/423, remaining_bad=423
+OK torsion_dist_shrinking._auto_3 axioms=[]
+OK app_ent_PFR._auto_3 axioms=[]
+BAD PFR_projection unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK torsion_free_doubling._auto_1 axioms=[]
+BAD PFR_projection' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD torsion_free_doubling unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK PFR_projection._auto_1 axioms=[]
+OK PFR_projection'._auto_1 axioms=[]
+OK PFR_projection'._auto_3 axioms=[]
+BAD torsion_dist_shrinking unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD app_ent_PFR unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK torsion_dist_shrinking._auto_1 axioms=[]
+BAD app_ent_PFR' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK app_ent_PFR._auto_1 axioms=[]
+OK PFR_projection._auto_3 axioms=[]
+OK torsion_free_doubling._auto_3 axioms=[]
+SUMMARY checked=1120 bad=423
+info: ListDeclAxiom.lean:284:0: HASH checked=weak_PFR result=true
+info: ListDeclAxiom.lean:285:0: HASH checked=entropic_PFR_conjecture result=true
+=== v2 T 07:36:02
+eval_cmd rc=0 secs=25
+SCORE v2 T 0.0 mode=unweighted, repaired=0/423, remaining_bad=423
+OK torsion_dist_shrinking._auto_3 axioms=[]
+OK app_ent_PFR._auto_3 axioms=[]
+BAD PFR_projection unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK torsion_free_doubling._auto_1 axioms=[]
+BAD PFR_projection' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD torsion_free_doubling unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK PFR_projection._auto_1 axioms=[]
+OK PFR_projection'._auto_1 axioms=[]
+OK ebv_trig_f2 axioms=[propext, Classical.choice, Quot.sound]
+OK ebv_trig_torsion._auto_3 axioms=[]
+OK PFR_projection'._auto_3 axioms=[]
+BAD torsion_dist_shrinking unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD app_ent_PFR unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK torsion_dist_shrinking._auto_1 axioms=[]
+BAD app_ent_PFR' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK app_ent_PFR._auto_1 axioms=[]
+OK ebv_trig_f2._auto_3 axioms=[]
+OK ebv_trig_f2._auto_1 axioms=[]
+OK PFR_projection._auto_3 axioms=[]
+OK ebv_trig_torsion._auto_1 axioms=[]
+OK ebv_trig_torsion axioms=[propext, Classical.choice, Quot.sound]
+OK torsion_free_doubling._auto_3 axioms=[]
+SUMMARY checked=1126 bad=423
+info: ListDeclAxiom.lean:284:0: HASH checked=weak_PFR result=true
+info: ListDeclAxiom.lean:285:0: HASH checked=entropic_PFR_conjecture result=true
+=== v2 D 07:36:29
+eval_cmd rc=0 secs=23
+SCORE v2 D 0.0 mode=unweighted, repaired=0/423, remaining_bad=423
+OK torsion_dist_shrinking._auto_3 axioms=[]
+OK app_ent_PFR._auto_3 axioms=[]
+BAD PFR_projection unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK torsion_free_doubling._auto_1 axioms=[]
+BAD PFR_projection' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD torsion_free_doubling unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK PFR_projection._auto_1 axioms=[]
+OK PFR_projection'._auto_1 axioms=[]
+OK ebv_trig_f2 axioms=[propext, Classical.choice, Quot.sound]
+OK ebv_trig_torsion._auto_3 axioms=[]
+OK PFR_projection'._auto_3 axioms=[]
+BAD torsion_dist_shrinking unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD app_ent_PFR unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK torsion_dist_shrinking._auto_1 axioms=[]
+BAD app_ent_PFR' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK app_ent_PFR._auto_1 axioms=[]
+OK ebv_trig_f2._auto_3 axioms=[]
+OK ebv_down_f2 axioms=[propext, Classical.choice, Quot.sound]
+OK ebv_trig_f2._auto_1 axioms=[]
+OK PFR_projection._auto_3 axioms=[]
+OK ebv_trig_torsion._auto_1 axioms=[]
+OK ebv_trig_torsion axioms=[propext, Classical.choice, Quot.sound]
+OK torsion_free_doubling._auto_3 axioms=[]
+SUMMARY checked=1127 bad=423
+info: ListDeclAxiom.lean:284:0: HASH checked=weak_PFR result=true
+info: ListDeclAxiom.lean:285:0: HASH checked=entropic_PFR_conjecture result=true
+=== v2 BAD 07:36:54
+eval_cmd rc=0 secs=24
+SCORE v2 BAD 0.0 mode=unweighted, repaired=0/423, remaining_bad=423, new_bad=1
+OK torsion_dist_shrinking._auto_3 axioms=[]
+OK app_ent_PFR._auto_3 axioms=[]
+BAD PFR_projection unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK torsion_free_doubling._auto_1 axioms=[]
+BAD PFR_projection' unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK ebv_bad_sorry._auto_3 axioms=[]
+BAD ebv_bad_sorry unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD torsion_free_doubling unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK PFR_projection._auto_1 axioms=[]
+OK PFR_projection'._auto_1 axioms=[]
+OK PFR_projection'._auto_3 axioms=[]
+BAD torsion_dist_shrinking unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+BAD app_ent_PFR unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]
+OK torsion_dist_shrinking._auto_1 axioms=[]
+BAD app_ent_PFR' unexpected=[sorryAx]; all=[propext, Quot.sound, Classical.choice, sorryAx]
+OK app_ent_PFR._auto_1 axioms=[]
+OK ebv_bad_sorry._auto_1 axioms=[]
+OK PFR_projection._auto_3 axioms=[]
+OK torsion_free_doubling._auto_3 axioms=[]
+SUMMARY checked=1123 bad=424
+info: ListDeclAxiom.lean:284:0: HASH checked=weak_PFR result=true
+info: ListDeclAxiom.lean:285:0: HASH checked=entropic_PFR_conjecture result=true
+=== done 07:37:19
+container rc=0

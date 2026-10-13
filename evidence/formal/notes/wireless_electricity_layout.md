@@ -9,9 +9,9 @@ It can change the raw `best_score` and the round named best.
 ## Model and link to the code
 Lean 4: `evidence/formal/lean/ebv/Ebv/WirelessCeInvariance.lean` (output `WirelessCeInvariance.out`).
 - `rescale` = `sforge/harness/score_rescale.py` lines 60-63 and 173-194 (sha256 98feb630…4b19, the
-  same file upstream and maintained), with `math.log` replaced by an arbitrary function `lg`.
+  same file upstream and in the earlier audit's patched harness, now removed), with `math.log` replaced by an arbitrary function `lg`.
 - `step`/`selectScore` = upstream `sforge/harness/selection.py` lines 45-48 and 83-103 (sha256
-  abb55b7b…cf0a, matching `upstream-lock.json`).
+  abb55b7b…cf0a; this matches EdgeBench's file at `6e4e5f4`, rechecked 2026-10-12 and recorded in `sforge/UPSTREAM.lock`).
 - `bestMax` = upstream `sforge/visualizer/scanner.py` lines 467-468 (sha256 f124d340…a866).
 - Anchors are the exact rational values of the doubles in `tasks/wireless_electricity_layout.json`
   (sha256 050ab35f…0809). The CE total is 1e17, from `eval_wirel.sh` (c670ff6d…).
@@ -36,7 +36,5 @@ value is ≥ 0.
   NaN/inf modelling, and score-less entries are dropped before the scan.
 - Empty history: without CE nothing is selected (`none`); with CE alone the score is 0
   (`task_ce_only`). This is not covered by the invariance theorem.
-- The maintained harness drops the CE report as invalid. That makes (a) trivial there; its extra
-  filters are not modelled.
 - Whether the downstream leaderboard reads one of these two consumers is taken from the source;
   it was not run.

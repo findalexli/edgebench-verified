@@ -1,10 +1,12 @@
 # Paired v1/v2 results: schemathesis_datagen_pipeline
 
-The E2B job `e2b/jobs/schemathesis_datagen_pipeline-v2-paired` ran on worker `ijh8xbuxzxgq7qgagdvib` for 523 s, finished with exit 0 and was killed. It ran every variant through the full original `judge.eval_cmd` in fresh `--network none` containers:
+> The first run below used an earlier fixed predicate with a year ≥ 1900 floor, and is superseded by the final run at the end of this file. `raw-summary.md` and `seed-sweep.txt` in this folder record the first run (they show `stdlib_any_year` at 0.467094 and 20/20 under the fixed version). The final run's raw scores are in `evidence/runs/schemathesis_datagen_pipeline-v2-paired-b/result/out/summary.md` (per run: `result/out/runs/<variant>.<v1|v2>/verifier/reward.txt`), and its seed sweep in `result/out/extra.log` of the same job. (`result/summary.json` one level up holds only empty rows, because it was summarized over the wrong files; ignore it.) The two repeats, `-paired-b-rep2` and `-paired-b-rep3`, give the same scores.
+
+The E2B job `evidence/runs/schemathesis_datagen_pipeline-v2-paired` ran on worker `ijh8xbuxzxgq7qgagdvib` for 523 s, finished with exit 0 and was killed. It ran every variant through the full original `judge.eval_cmd` in fresh `--network none` containers:
 - v1 is the pinned original `@sha256:16b21364…`.
 - v2 was built in the worker from `../Dockerfile`.
 
-The overlay is the reviewer's `headers.py` (`scripts/schemathesis_datagen_pipeline/headers_overlay.py`) plus two variants added for this run, `stdlib_1900` and `stdlib_any_year`. Other targets stay at the starter, so absolute scores are partial. Normalized score = raw score (linear 0..1).
+The overlay is the reviewer's `headers.py` (`evidence/scripts/schemathesis_datagen_pipeline/headers_overlay.py`) plus two variants added for this run, `stdlib_1900` and `stdlib_any_year`. Other targets stay at the starter, so absolute scores are partial. Normalized score = raw score (linear 0..1).
 
 | Variant | Role | v1 score | v2 score | Delta | Phase 1 v1 → v2 |
 |---|---|---|---|---|---|
@@ -41,7 +43,7 @@ Note: `paired/run.sh` differs from the executed job script only in the `/tests` 
 The first paired run penalized `stdlib_any_year` (an honest generator using the full year range)
 because the v2 predicate applied RFC 5322's "year ≥ 1900" rule, which the task does not state.
 The predicate now requires only a representable year (≥ 1). Re-run on E2B
-(job `e2b/jobs/schemathesis_datagen_pipeline-v2-paired-b`, worker `ip3daxuk9utuu81sq1s8k`, killed):
+(job `evidence/runs/schemathesis_datagen_pipeline-v2-paired-b`, worker `ip3daxuk9utuu81sq1s8k`, killed):
 
 | variant | v1 | v2 | 20-seed sweep v1 / v2 |
 | --- | --- | --- | --- |

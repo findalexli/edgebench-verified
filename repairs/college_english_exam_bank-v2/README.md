@@ -19,23 +19,22 @@ checkpoints and again awards full marks. Review: `evidence/reviews/college_engli
 
 ### Design decision (review caveats a and b)
 
-**(a) What happens to an invalid grading result.** The repository's harness was checked:
-`sforge/harness/grading.py::_grade_structured` and `sforge/harness/selection.py`.
+**(a) What happens to an invalid grading result.** EdgeBench's harness (`sforge` at `6e4e5f4`) keeps a
+`valid: false` result's score: `_grade_structured` copies `score` (0 here), and the task's `score_first`
+selection ranks it without looking at `valid` (`sforge/harness/grading.py:200-217`,
+`sforge/harness/selection.py:83-103`). A grading failure therefore counts as 0 for that submission. The run
+still keeps its best other submission, so a failure can only cost the solver that one submission's score; if
+every submission of a run fails grading, the run's result is 0.
 
-- A grader result with `valid: false` goes through `_invalidate`, which sets `score = None` and
-  `pass_rate = 0`.
-- `_completed_submissions` then drops the entry from every selection policy.
-- It is not counted as the solver's 0. It is simply not a measurement.
+The original grader already reports grading-side failures (model timeout, invocation failure, JSON that does
+not parse) the same way, as `valid: false` with score 0. Missing deliverables are scored through the rubric.
+The fixed version reuses that channel. It does not score a missing rule at zero inside an otherwise scored
+assessment, because that would silently understate a complete answer.
 
-This grader already uses `valid: false` only for failures on the grading side: model timeout, invocation
-failure and JSON that does not parse. Missing deliverables are scored through the rubric. So `valid: false`
-is already this task's channel for "grading infrastructure failure", and the fixed version reuses it.
+The harness does not retry a failed grading. For that reason the fixed version also **asks the grading model
+again** before giving up:
 
-The harness does not retry a failed grading. A grading failure on a solver's only or last
-submission would therefore leave that run with no measurement. For that reason the fixed version also **asks
-the grading model again** before giving up:
-
-- It makes at most `1 + SEBENCH_CODEX_ASSESSMENT_RETRIES` calls (default 2).
+- It makes at most `1 + SEBENCH_CODEX_ASSESSMENT_RETRIES` calls (the variable defaults to 1, so 2 calls).
 - It asks again only while at least 120 s of the original `--timeout` budget remain.
 - Later calls get only the remaining budget, so total model time stays within the bound of the original version's single call.
 
@@ -55,8 +54,8 @@ repeatable deductions or a "deductions reach the floor" reason. Rejecting them c
 ordinary model outputs.
 
 *Revision (2026-10-12).* The first published fixed version made this decision on the raw row,
-before `_validate_result` normalised it. A formal check found four rows that still got full
-marks: a veto stated only in `veto_reason` while `rule_veto_triggered` is false, a deduction in
+before `_validate_result` normalised it. Four rows still got full marks (the Lean model found
+the first three, a probe of the real code the fourth): a veto stated only in `veto_reason` while `rule_veto_triggered` is false, a deduction in
 an extra checkpoint beyond the rubric's details, a veto flag on a rule without veto conditions,
 and floor wording after character 200 of `reason`. Each of these is dropped or ignored by
 normalisation or reconciliation. The check now reads the normalised rows, which closes all four.
@@ -81,7 +80,8 @@ Only `/home/workspace/scoring/grade_with_codex.py` changes.
 4. **Added.** The bounded loop in `main()` that asks again covers caveat (a). After it, the existing
    `emit_all_failed(..., status="json_parse_failed")` path reports `valid: false`.
 
-`task.json.in` changes only `judge.image_tag` (`6628b6d3f834` to `6628b6d3f834-ebv-v2`).
+`task.json.in` changes only `judge.image_tag` (`6628b6d3f834` to `6628b6d3f834-ebv-v2.1`). Tag `6628b6d3f834-ebv-v2`
+(v1.0 package, the first fix) is superseded, because the revised grader scores differently; rebuild.
 
 The Dockerfile is `FROM` the pinned digest of the original grader image plus one `COPY`. The rubric, the
 reference attachments and the work image are unchanged. Hashes are in `source-lock.json`.
@@ -107,19 +107,25 @@ eval_cmd in the original image and in the image built from this Dockerfile. **Ac
 
 In plain words: complete, consistent responses (A, B, F, L) give byte-identical results and the same scores (77, 0, 0, 77) under both graders. The responses that show the problem (an empty list, a rule left out, or a self-contradicting row) are reported valid with inflated scores by the original grader (100, 81, 15) and as grading failures by the fixed one. When the model's second answer is complete, the fixed grader recovers the honest score of 77.
 
-The revision was checked the same way, on one worker, with the original grader, the first
+The revision was checked the same way, three times on fresh workers with identical graded results
+(`evidence/runs/college_english_exam_bank-v2-paired-fix2`, `-fix2-rep2`, `-fix2-rep3`), with the original grader, the first
 published fixed version and the revised one side by side (`paired/results.md`, revision
-section). All earlier responses give the same results as before. The four rows found by the
-formal check get full marks for the changed rule under the original grader and the first fixed
+section). All earlier responses give the same results as before. The four rows get full marks for the changed rule under the original grader and the first fixed
 version (3 or 15 points), and are grading failures under the revised one. A row that the first
 fixed version rejected although the original scores it consistently (a veto, score 0) is now
 scored 0, the same as the original.
 
 Formal check (`evidence/formal/notes/college_english_exam_bank.md`, Lean 4): for every
-assessment the fixed version accepts, the score equals the original grader's, an assessment
+parsed assessment the fixed version accepts, the score equals the original grader's, an assessment
 that leaves out a rule is rejected, and a deductive rule whose row reports a deduction never
 gets full marks. The last result holds for all inputs. It does not depend on how the Lean model
 represents normalisation, because the check uses the same functions as the score.
+
+The model starts from the parsed rows. The two versions can parse different JSON blocks from the
+same output: the fixed version skips a block that fails its checks and falls back to an earlier
+one, while the original scores the last block that has `scores`. Output with a complete block
+(77) followed by an incomplete one scores 81 under the original grader and 77 (valid, one call)
+under the fixed version. Measured side by side (`paired/results.md`, appendix): 81 under the original grader, 77 (valid, one call) under the fixed version; with the complete block last, or an unparseable block last, both score 77.
 
 ## Build and use
 

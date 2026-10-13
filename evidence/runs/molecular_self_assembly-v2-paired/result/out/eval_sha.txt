@@ -1,0 +1,8 @@
+4faad7b93a842cf17cab13f3ae8b3e67c4c7504a34cb02062a06cdbab985baac  /tmp/eval_molecules.py
+-rwxr-xr-x 1 root root 3037 Jun  5 10:23 /tmp/eval_molecules.py
+62:    max_workers = min(int(os.environ.get("SEBENCH_MOLECULES_WORKERS", "8")), len(case_files))
+63:    with ProcessPoolExecutor(max_workers=max_workers) as pool:
+1cf8f71d385bdfda160a67b4d634a0ea79ecf953866c7f1c88f964bee9ea9ef0  /tmp/eval_molecules.py
+-rwxr-xr-x 1 root root 3947 Oct 12 22:57 /tmp/eval_molecules.py
+87:    max_workers = min(int(os.environ.get("SEBENCH_MOLECULES_WORKERS", "8")), cpu_quota_workers(), len(case_files))
+88:    with ProcessPoolExecutor(max_workers=max_workers) as pool:

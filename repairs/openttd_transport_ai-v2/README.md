@@ -2,12 +2,12 @@
 
 ## What this fixes
 
-The original instructions tell the solver to maximize a game function, `AICompany.GetCompanyValue`, that does not exist in the pinned game version. A script that calls it crashes, and the supplied starter program calls it first. The fixed version names the function that exists and explains how the score is read; the grader is unchanged.
+The original instructions tell the solver to maximize a game function, `AICompany.GetCompanyValue`, that does not exist in the pinned game version. A script that calls it crashes, and the supplied starter program calls it in its main loop, after one log line. The fixed version names the function that exists and explains how the score is read; the grader is unchanged.
 
 In detail, the original prompt's Goal says: "Maximize **`AICompany.GetCompanyValue(AICompany.COMPANY_SELF)`**".
 OpenTTD 13.4, the pinned game engine, has no `AICompany.GetCompanyValue`. A script that calls it dies
 at that call ("the index 'GetCompanyValue' does not exist"). The supplied starter AI in the work
-image calls it as its first statement, so it dies too, and the company stops acting for the rest
+image calls it at `main.nut` line 5, right after its first log line, so it dies too, and the company stops acting for the rest
 of the game. Review: `../../evidence/reviews/openttd_transport_ai-native.md`. Side-by-side run:
 `paired/results.md`.
 

@@ -2,7 +2,7 @@
 
 ## What this fixes
 
-The original grader's overlap check misses many overlaps between shapes, such as identical copies in the same place or one shape inside another. Because the score depends only on strip width, an overlapping layout that cannot be cut can beat every valid one. The fixed version measures the exact overlap area between shapes and also rejects rotations an instance forbids.
+The original grader's overlap check misses many overlaps between shapes, such as identical copies in the same place or one shape inside another. Because the score depends on strip width (and a runtime multiplier), not on overlap, an overlapping layout that cannot be cut can beat every valid one. The fixed version measures the exact overlap area between shapes and also rejects rotations an instance forbids.
 
 In detail, the grader's `polygons_overlap` (in `jagua_task_scorer/evaluate.py`) reports an overlap only
 in two cases: two edges cross properly, or a corner lies strictly inside the other polygon. It
@@ -12,7 +12,7 @@ therefore accepts large positive-area overlaps with exact integer coordinates:
 - items of the same height slid halfway over each other;
 - a rectangle, triangle or diamond inside a square.
 
-Because the score depends only on strip width, the check cannot guarantee that winning
+Because the score depends on strip width (and a runtime multiplier), not on overlap, the check cannot guarantee that winning
 layouts are feasible. `validate_solution` also never reads `allowed_orientations`. Review:
 `evidence/reviews/jagua_nesting_optimization.md`.
 

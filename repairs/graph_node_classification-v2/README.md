@@ -62,7 +62,7 @@ This package fixes only the reviewed problem.
 ### Score compatibility
 
 Some submissions give an integer class id (int, whole-valued float, or decimal-integer string) for every
-test node. These score identically under the original and fixed versions (measured on 3 correct test submissions). The fixed version newly rejects bools and
+test node. These score identically under the original and fixed versions (measured on 3 correct test submissions), except strings padded with the ASCII separators U+001C to U+001F, which the original drops and the fixed version scores. The fixed version newly rejects bools and
 non-whole floats such as `3.5`, which the original version accepted. Fixed-version scores are not comparable with original scores when a submission:
 
 - omits test nodes, or keys them by non-string IDs. The original count

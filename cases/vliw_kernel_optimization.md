@@ -10,7 +10,7 @@ The generated program counts only if every correctness case passes. Its raw resu
 
 ## What we checked
 
-No defect that changes scores enough to matter was found. These parts were checked:
+No defect that changes scores was found. These parts were checked:
 
 - **Hidden cases.** The file holds 8 correctness cases and 1 performance case. All have height 10, 16 rounds and batch 256.
 - **Honest test submissions on the original grader:**
@@ -30,6 +30,8 @@ The correctness check rejected the empty program, and the correct starting kerne
 
 No effect was measured for honest submissions.
 
+**The scale saturates below 1000 cycles.** `log_min` clips at 100, which it reaches at the expert reference point of 1000 cycles. A third-party Claude Opus 5.5 run (4 hours, published on Hugging Face as `adafadaq/edgebench-opus-5-5-xhigh-rollouts`) on this grader had all 18 submissions valid with 9/9 cases passed. Its kernels took 1122, 1027, 979, 970, 966, 965, 962, 957, 956, 951 and 950 cycles (agent-1 to agent-11, `report.json` `score`). Unclipped, these give 92.3, 98.2, 101.4, 102.0, …, 103.4, so every kernel from 979 cycles on scores 100 and the scale does not separate them. The best published result is 85.6 (GPT-5.5 at 12 hours, `tasks/README.md`), about 1240 cycles, so the published scores are not affected. Whether the 950-cycle kernel is correct beyond the 8 correctness cases and 1 performance case was not checked; its source was not inspected.
+
 No change is made; the note above ships with the task.
 
 ## How we checked it
@@ -40,14 +42,15 @@ No change is made; the note above ships with the task.
 
 ## Limits
 
-- No AI model or solver runs were made. Results are shown only on test submissions that we wrote.
-- The starting kernel is the only correct test submission. No strong, optimized, legal kernel was run.
+- No AI model or solver runs were made by us. The grader runs are on test submissions that we wrote; the third-party run above was read, not regraded.
+- The starting kernel is the only correct test submission we ran. The third-party run's kernels (down to 950 cycles) were not rerun, and their correctness on inputs beyond the 9 hidden cases was not checked.
 - The run record for the two test submissions is not included in this repository.
 - The work image was not run. The statement that the solver can see `runner.py` and `verifier.py` relies on the task's `submit_exclude` list and the task card.
 - No historical submissions were inspected.
 
 ## Reproduce
 
+- Third-party run: `evidence/runs/opus55-rollouts-meta/result/meta/opus-16x4h-1009-0036-w1/vliw_kernel_optimization/` (`final_result.json`, `submissions/*/report.json`).
 - Run the original `eval_cmd` from `tasks/vliw_kernel_optimization.json` in the pinned grader image with `--network none --memory 4g --cpus 2`. Use either the shipped starting `solution.py` or an empty-program `solution.py`.
 - Pinned identity:
   - Grader image: `seededge/edgebench.judge.vliw_kernel_optimization@sha256:e0d5eeaf24e98c8a53bd04e2d268cd662ae41871340944baf445afc0274eef5f`.

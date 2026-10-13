@@ -5,7 +5,7 @@ The shipped do-nothing solution totals 7,744,909 over the 50 cases. Under the ta
 `piecewise_min` rescale (baseline anchor 9,025,986, rank30 4,490) it scores exactly
 20·1,281,077/9,021,496 = 6405385/2255374 ≈ 2.84005 out of 100, not 0. Against the same scale
 anchored at the measured 7,744,909, the extra credit is ≥ 0 for every raw score, at most
-6405385/2255374, and 0 at or below rank30.
+6405385/2255374, and 0 below rank30 (`offset_bounds` proves this for raw totals below rank30; at rank30 itself both scales give 20, so it is also 0 there).
 
 ## Model and link to the code
 Lean 4: `evidence/formal/lean/ebv/Ebv/GridTuringBaseline.lean` (output `GridTuringBaseline.out`).

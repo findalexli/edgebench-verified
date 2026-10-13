@@ -1,0 +1,1469 @@
+
+running 954 tests
+test agent_id::tests::test_agent_id_format ... ok
+test agent_id::tests::test_get_parent_of_pid ... ok
+test agent_id::tests::test_hook_agent_id_format ... ok
+test agent_id::tests::test_machine_hash_consistent ... ok
+test agent_id::tests::test_cleanup_pid_mapping_for_specific_pid ... ok
+test async_runtime::tests::test_async_operation ... ok
+test agent_id::tests::test_pid_mapping ... ok
+test async_runtime::tests::test_batch_processor_sync ... ok
+test async_runtime::tests::test_batch_processor ... ok
+test async_runtime::tests::test_progress_basic ... ok
+test async_runtime::tests::test_progress_cancel ... ok
+test agent_id::tests::test_subagent_parent_detection ... ok
+test async_runtime::tests::test_progress_complete ... ok
+test async_runtime::tests::test_progress_format ... ok
+test builtins::tests::test_builtin_agents_contains_task_verifier ... ok
+test builtins::tests::test_extract_body_no_frontmatter ... ok
+test builtins::tests::test_is_managed_by_cas ... ok
+test builtins::tests::test_extract_body_with_frontmatter ... ok
+test builtins::tests::test_task_verifier_has_correct_frontmatter ... ok
+test builtins::tests::test_supervisor_guidance_loads ... ok
+test cli::changelog::tests::normalize_tag_adds_v_prefix ... ok
+test cli::changelog::tests::normalize_tag_keeps_v_prefix ... ok
+test cli::factory::cloud_attach::tests::test_key_to_bytes_arrow_keys ... ok
+test cli::factory::cloud_attach::tests::test_key_to_bytes_ctrl_d ... ok
+test cli::factory::remote_attach::tests::test_parse_remote_target_complex_factory_id ... ok
+test cli::factory::remote_attach::tests::test_parse_remote_target_empty_device ... ok
+test builtins::tests::test_worker_guidance_loads ... ok
+test cli::factory::remote_attach::tests::test_parse_remote_target_with_device ... ok
+test cli::factory::remote_attach::tests::test_parse_remote_target_without_device ... ok
+test cli::factory::tests::test_factory_config_default ... ok
+test builtins::tests::test_sync_all_builtins_includes_agents ... ok
+test cli::hook::tests::test_configure_codex_creates_config ... ok
+test cli::hook::tests::test_configure_creates_settings ... ok
+test cli::statusline::data_and_format::tests::idle_mode_shows_update_segment ... ok
+test builtins::tests::test_sync_all_codex_builtins_includes_agents ... ok
+test cli::statusline::data_and_format::tests::minimal_mode_shows_update_segment ... ok
+test cli::statusline::data_and_format::tests::newer_version_detection_handles_semver ... ok
+test cli::update::tests::test_is_newer ... ok
+test cli::update_transaction::tests::test_file_change_has_changes ... ok
+test cli::hook::tests::test_configure_codex_updates_existing_entry ... ok
+test cli::hook::tests::test_configure_merges_existing ... ok
+test cli::update_transaction::tests::test_unified_diff ... ok
+test cloud::config::tests::test_default_config ... ok
+test cloud::config::tests::test_logout ... ok
+test cloud::config::tests::test_save_and_load ... ok
+test cloud::config::tests::test_set_and_clear_team ... ok
+test cloud::config::tests::test_team_sync_timestamps ... ok
+test cloud::config::tests::test_team_sync_timestamps_persist ... ok
+test cloud::coordinator::tests::test_agent_info_conversion ... ok
+test cloud::coordinator::tests::test_lock_info_conversion ... ok
+test cloud::device::tests::test_machine_hash_is_stable ... ok
+test cloud::device::tests::test_save_and_load ... ok
+test cloud::device::tests::test_system_info ... ok
+test cli::update_transaction::tests::test_transaction_backup_and_rollback ... ok
+test cli::update_transaction::tests::test_transaction_commit ... ok
+test cli::update_transaction::tests::test_automatic_rollback_on_drop ... ok
+test cloud::sync_queue::tests::test_delete_operation ... ok
+test cloud::sync_queue::tests::test_coalesce_updates ... ok
+test cloud::sync_queue::tests::test_enqueue_and_pending ... ok
+test cloud::sync_queue::tests::test_drain_by_team ... ok
+test cloud::sync_queue::tests::test_metadata ... ok
+test cloud::sync_queue::tests::test_mark_synced ... ok
+test cloud::sync_queue::tests::test_mark_failed_and_retry_limit ... ok
+test cloud::sync_queue::tests::test_pending_by_type ... ok
+test cloud::sync_queue::tests::test_pending_by_type_for_team ... ok
+test cloud::sync_queue::tests::test_team_coalesce_updates ... ok
+test cloud::sync_queue::tests::test_pending_count_for_team ... ok
+test cloud::syncer::tests::test_config_backoff_caps_at_max ... ok
+test cloud::syncer::tests::test_config_backoff_duration ... ok
+test cloud::syncer::tests::test_config_default_team_conflict_resolution ... ok
+test cloud::syncer::tests::test_conflict_action_variants ... ok
+test cloud::syncer::tests::test_config_defaults ... ok
+test cloud::syncer::tests::test_conflict_resolution_default ... ok
+test cloud::syncer::tests::test_sync_result_has_errors ... ok
+test cloud::syncer::tests::test_sync_conflict_creation ... ok
+test cloud::syncer::tests::test_sync_result_totals ... ok
+test cloud::syncer::tests::test_sync_result_with_sessions ... ok
+test config::meta::tests::test_registry_count ... ok
+test config::meta::tests::test_is_modified ... ok
+test config::meta::tests::test_registry_has_all_sections ... ok
+test config::meta::tests::test_section_keys ... ok
+test config::meta::tests::test_validate_bool ... ok
+test config::meta::tests::test_search ... ok
+test config::mod_tests::test_config_defaults ... ok
+test config::meta::tests::test_validate_int_range ... ok
+test config::mod_tests::test_config_get_set ... ok
+test consolidation::tests::test_parse_consolidation_response ... ok
+test consolidation::tests::test_parse_response_with_code_block ... ok
+test daemon::queue::tests::test_queue_contains ... ok
+test daemon::queue::tests::test_queue_max_size ... ok
+test daemon::queue::tests::test_queue_push_pop ... ok
+test daemon::queue::tests::test_queue_remove_type ... ok
+test config::mod_tests::test_config_save_load ... ok
+test daemon::queue::tests::test_task_ordering ... ok
+test daemon::queue::tests::test_task_type_priority ... ok
+test daemon::queue::tests::test_triggered_by ... ok
+test daemon::queue::tests::test_with_batch_size ... ok
+test daemon::tests::test_already_archived_not_double_processed ... ok
+test daemon::tests::test_boundary_importance_value ... ok
+test daemon::tests::test_boundary_stability_value ... ok
+test daemon::tests::test_code_index_result_default ... ok
+test daemon::tests::test_code_index_result_tracks_deletions ... ok
+test daemon::tests::test_daemon_config_default ... ok
+test daemon::tests::test_daemon_status_default ... ok
+test daemon::tests::test_in_context_entries_are_skipped ... ok
+test daemon::tests::test_low_importance_moves_to_cold ... ok
+test daemon::tests::test_low_importance_with_feedback_stays_working ... ok
+test daemon::tests::test_low_stability_demotes_to_cold ... ok
+test daemon::tests::test_multiple_entries_tiering ... ok
+test daemon::tests::test_negative_feedback_from_cold_to_archive ... ok
+test daemon::tests::test_negative_feedback_moves_to_archive ... ok
+test daemon::tests::test_normal_entry_no_immediate_tier_change ... ok
+test daemon::tests::test_observation_in_cold_stays_cold ... ok
+test daemon::tests::test_observation_with_positive_feedback_stays_working ... ok
+test daemon::tests::test_observation_without_feedback_moves_to_cold ... ok
+test cloud::sync_queue::tests::test_team_id_enqueue_and_pending ... ok
+test daemon::tests::test_very_low_stability_demotes_cold_to_archive ... ok
+test daemon::tests::test_watch_event_variants ... ok
+test daemon::watcher::tests::test_pending_files_operations ... ok
+test daemon::watcher::tests::test_should_ignore_target ... ok
+test daemon::watcher::tests::test_should_ignore_wrong_extension ... ok
+test daemon::watcher::tests::test_should_watch_rust_file ... ok
+test daemon::watcher::tests::test_try_recv_returns_none_without_start ... ok
+test daemon::watcher::tests::test_watch_event_clone ... ok
+test daemon::watcher::tests::test_watcher_config_default ... ok
+test daemon::watcher::tests::test_watch_event_debug ... ok
+test extraction::tests::test_ai_extractor_config_default ... ok
+test extraction::tests::test_ai_extractor_constructor ... ok
+test extraction::tests::test_build_prompt ... ok
+test extraction::tests::test_default_extractor ... ok
+test extraction::tests::test_deferred_extractor ... ok
+test extraction::tests::test_extraction_result_default ... ok
+test extraction::tests::test_extractor_trait_batch ... ok
+test extraction::tests::test_quality_filtering ... ok
+test extraction::tests::test_parse_response_with_quality ... ok
+test harness_policy::tests::matrix_claude_claude ... ok
+test harness_policy::tests::matrix_claude_codex ... ok
+test harness_policy::tests::matrix_codex_codex ... ok
+test harness_policy::tests::matrix_codex_claude ... ok
+test hooks::context::tests::test_context_candidate_priority ... ok
+test hooks::context::tests::test_parse_ai_selection_fallback ... ok
+test hooks::context::tests::test_parse_ai_selection_json ... ok
+test hooks::context::tests::test_parse_ai_selection_with_text ... ok
+test hooks::handlers::handlers_tests::basic::test_estimate_tokens ... ok
+test daemon::queue::tests::test_same_priority_fifo ... ok
+test hooks::handlers::handlers_tests::basic::test_extracted_learning_array_parse ... ok
+test hooks::handlers::handlers_tests::basic::test_extracted_learning_deserialize ... ok
+test hooks::handlers::handlers_tests::basic::test_extracted_learning_null_path ... ok
+test hooks::context::tests::test_build_mcp_tools_section_with_cache ... ok
+test hooks::handlers::handlers_tests::basic::test_format_bash_captures_cargo ... ok
+test hooks::handlers::handlers_tests::basic::test_format_bash_captures_git_commit ... ok
+test hooks::handlers::handlers_tests::basic::test_format_bash_skips_cas_commands ... ok
+test hooks::handlers::handlers_tests::basic::test_format_bash_skips_navigation ... ok
+test hooks::handlers::handlers_tests::basic::test_format_bash_skips_simple ... ok
+test hooks::handlers::handlers_tests::basic::test_format_bash_skips_readonly_git ... ok
+test hooks::handlers::handlers_tests::basic::test_format_file_change ... ok
+test hooks::handlers::handlers_tests::basic::test_format_bash_truncates_long ... ok
+test hooks::handlers::handlers_tests::basic::test_format_file_read_captures_code ... ok
+test hooks::handlers::handlers_tests::basic::test_format_file_read_skips_common ... ok
+test hooks::handlers::handlers_tests::basic::test_format_observation_edit ... ok
+test hooks::handlers::handlers_tests::basic::test_format_observation_no_tool_input ... ok
+test hooks::handlers::handlers_tests::basic::test_format_observation_unknown_tool ... ok
+test hooks::handlers::handlers_tests::basic::test_is_architectural_file_config_files ... ok
+test hooks::handlers::handlers_tests::basic::test_is_architectural_file ... ok
+test hooks::handlers::handlers_tests::basic::test_is_important_prompt_long ... ok
+test hooks::handlers::handlers_tests::basic::test_is_architectural_file_patterns ... ok
+test hooks::handlers::handlers_tests::basic::test_is_important_prompt_questions ... ok
+test hooks::handlers::handlers_tests::basic::test_is_not_architectural_file ... ok
+test hooks::handlers::handlers_tests::basic::test_is_important_prompt_task_indicators ... ok
+test hooks::handlers::handlers_tests::basic::test_is_not_important_prompt_short ... ok
+test hooks::handlers::handlers_tests::basic::test_is_preference_prompt_always_pattern ... ok
+test hooks::handlers::handlers_tests::basic::test_is_preference_prompt_dont_pattern ... ok
+test hooks::handlers::handlers_tests::basic::test_is_preference_prompt_instead_pattern ... ok
+test hooks::handlers::handlers_tests::basic::test_is_preference_prompt_never_pattern ... ok
+test hooks::handlers::handlers_tests::basic::test_is_preference_prompt_negative_cases ... ok
+test hooks::handlers::handlers_tests::basic::test_is_preference_prompt_prefer_pattern ... ok
+test hooks::handlers::handlers_tests::basic::test_session_summary_default ... ok
+test hooks::handlers::handlers_tests::basic::test_session_summary_deserialize ... ok
+test hooks::handlers::handlers_tests::basic::test_should_buffer_bash_error ... ok
+test hooks::handlers::handlers_tests::basic::test_should_buffer_bash_success_build ... ok
+test hooks::handlers::handlers_tests::basic::test_should_buffer_bash_success_test ... ok
+test hooks::handlers::handlers_tests::basic::test_session_summary_serialize ... ok
+test hooks::handlers::handlers_tests::basic::test_should_buffer_edit_large ... ok
+test hooks::handlers::handlers_tests::basic::test_should_buffer_git_commit ... ok
+test hooks::handlers::handlers_tests::basic::test_should_buffer_mix_test ... ok
+test hooks::handlers::handlers_tests::basic::test_should_buffer_npm_test ... ok
+test hooks::handlers::handlers_tests::basic::test_should_buffer_write_always ... ok
+test hooks::handlers::handlers_tests::basic::test_should_not_buffer_bash_simple_cmd ... ok
+test hooks::handlers::handlers_tests::basic::test_should_not_buffer_edit_small ... ok
+test hooks::handlers::handlers_tests::basic::test_should_not_buffer_read ... ok
+test hooks::handlers::handlers_tests::basic::test_truncate_list_edge_cases ... ok
+test hooks::handlers::handlers_tests::basic::test_truncate_list ... ok
+test hooks::handlers::handlers_tests::basic::test_truncate_str ... ok
+test hooks::handlers::handlers_tests::basic::test_truncate_str_handles_unicode_boundary ... ok
+test hooks::handlers::handlers_tests::basic::test_truncate_str_edge_cases ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_learning_review_context_at_threshold ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_learning_review_context_above_threshold ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_learning_review_context_below_threshold ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_learning_review_context_disabled ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_learning_review_context_threshold_zero ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_session_summary_context_already_has_summary ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_session_summary_context_disabled ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_session_summary_context_different_session ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_session_summary_context_enabled ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_session_summary_context_has_summary_tag ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_build_session_summary_context_store_error ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_compute_content_hash_consistency ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_hash_full_hash ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_hash_no_match ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_hash_standard_output ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_hash_with_branch_prefix ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_message_heredoc ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_message_long_flag ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_message_no_message ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_message_simple ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extract_commit_message_single_quotes ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extracted_preference_with_path_pattern ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_extracted_preference_deserialize ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_is_git_commit_command_dry_run_excluded ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_generate_file_change_id_format ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_is_git_commit_command_simple ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_is_git_commit_command_not_commit ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_is_git_commit_command_with_heredoc ... ok
+test hooks::handlers::handlers_tests::preferences_context::test_is_preference_prompt_edge_cases ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_duplicate_detection_context_above_threshold ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_duplicate_detection_context_at_threshold ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_duplicate_detection_context_below_threshold ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_duplicate_detection_context_disabled ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_duplicate_detection_context_store_error ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_duplicate_detection_context_threshold_zero ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_learning_review_context_only_counts_unreviewed ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_learning_review_context_store_error ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_rule_review_context_above_threshold ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_rule_review_context_at_threshold ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_rule_review_context_below_threshold ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_rule_review_context_disabled ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_rule_review_context_only_counts_draft ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_rule_review_context_threshold_zero ... ok
+test hooks::handlers::handlers_tests::reviews::test_build_rule_review_context_store_error ... ok
+test hooks::scorer::tests::test_context_query_empty ... ok
+test hooks::scorer::tests::test_context_query_with_task ... ok
+test hooks::scorer::tests::test_fallback_to_basic ... ok
+test hybrid_search::background::tests::test_in_memory_indexer ... ok
+test hybrid_search::background::tests::test_indexing_config_default ... ok
+test hybrid_search::background::tests::test_indexing_result_default ... ok
+test cloud::sync_queue::tests::test_team_id_isolation ... ok
+test hybrid_search::background::tests::test_process_empty_pending ... ok
+test hybrid_search::cache::tests::test_cache_hit_is_fast ... ok
+test hybrid_search::cache::tests::test_cache_hit_returns_identical_results ... ok
+test hybrid_search::cache::tests::test_cache_miss_returns_none ... ok
+test hybrid_search::cache::tests::test_cache_thread_safety ... ok
+test hybrid_search::cache::tests::test_hybrid_results_cache ... ok
+test hybrid_search::cache::tests::test_invalidation_clears_affected_entries ... ok
+test hybrid_search::cache::tests::test_lru_cache_access_updates_order ... ok
+test hybrid_search::cache::tests::test_lru_cache_basic ... ok
+test hybrid_search::cache::tests::test_lru_cache_eviction ... ok
+test hybrid_search::cache::tests::test_lru_cache_invalidate_by_dependency ... ok
+test hybrid_search::background::tests::test_batch_indexing_performance ... ok
+test hybrid_search::cache::tests::test_repeated_search_uses_cache ... ok
+test hybrid_search::cache::tests::test_search_cache_embedding ... ok
+test hybrid_search::cache::tests::test_search_cache_invalidation ... ok
+test hybrid_search::cache::tests::test_search_cache_semantic_results ... ok
+test hybrid_search::cache::tests::test_search_cache_stats ... ok
+test hybrid_search::cache::tests::test_semantic_cache_key_deterministic ... ok
+test hybrid_search::code::tests::test_code_search_available_false_when_no_index ... ok
+test hybrid_search::entity_search::tests::test_combine_results ... ok
+test hybrid_search::entity_search::tests::test_no_entity_query ... ok
+test hybrid_search::entity_search::tests::test_parse_about_query ... ok
+test hybrid_search::entity_search::tests::test_parse_at_shorthand ... ok
+test hybrid_search::entity_search::tests::test_parse_by_query ... ok
+test hybrid_search::entity_search::tests::test_parse_entity_type_name ... ok
+test hybrid_search::entity_search::tests::test_parse_mentioning ... ok
+test hybrid_search::entity_search::tests::test_parse_natural_about ... ok
+test hybrid_search::entity_search::tests::test_parse_natural_works_on ... ok
+test hybrid_search::entity_search::tests::test_parse_typed_entity ... ok
+test hybrid_search::entity_search::tests::test_parse_uses_query ... ok
+test hybrid_search::graph::tests::test_extract_candidates_lowercase_words ... ok
+test hybrid_search::background::tests::test_process_batch_entries ... ok
+test hybrid_search::graph::tests::test_extract_candidates_multi_word ... ok
+test hybrid_search::graph::tests::test_extract_candidates_with_punctuation ... ok
+test hybrid_search::graph::tests::test_extract_entity_candidates ... ok
+test hybrid_search::graph::tests::test_graph_retrieval_result ... ok
+test hybrid_search::graph::tests::test_graph_retrieval_result_zero_hops ... ok
+test hybrid_search::graph::tests::test_parse_typed_entity ... ok
+test hybrid_search::graph::tests::test_parse_typed_entity_all_types ... ok
+test hybrid_search::graph::tests::test_parse_typed_entity_empty_name ... ok
+test hybrid_search::graph::tests::test_parse_typed_entity_multiple_colons ... ok
+test hybrid_search::graph::tests::test_spreading_activation_config_custom ... ok
+test hybrid_search::graph::tests::test_spreading_activation_config_defaults ... ok
+test hybrid_search::graph::tests::test_spreading_activation_config_relation_weights ... ok
+test hybrid_search::hybrid::tests::test_hybrid_result_to_search_result ... ok
+test hybrid_search::hybrid::tests::test_hybrid_search_options_default ... ok
+test hybrid_search::hybrid::tests::test_temporal_query_extraction ... ok
+test hybrid_search::metrics::tests::test_latency_timer ... ok
+test hybrid_search::cache::tests::test_lru_cache_ttl_expiration ... ok
+test hybrid_search::scorer::tests::test_calibrate_scores ... ok
+test hybrid_search::scorer::tests::test_combine_scores ... ok
+test hybrid_search::scorer::tests::test_multi_channel_boost ... ok
+test hybrid_search::scorer::tests::test_normalize_scores ... ok
+test hybrid_search::scorer::tests::test_normalize_scores_empty ... ok
+test hybrid_search::scorer::tests::test_normalize_scores_uniform ... ok
+test hybrid_search::scorer::tests::test_percentile_normalize ... ok
+test hybrid_search::scorer::tests::test_query_features ... ok
+test hybrid_search::scorer::tests::test_reciprocal_rank_fusion ... ok
+test hybrid_search::scorer::tests::test_rrf_empty ... ok
+test hybrid_search::scorer::tests::test_rrf_with_magnitude ... ok
+test hybrid_search::scorer::tests::test_search_weights_sum_to_one ... ok
+test hybrid_search::tests::test_extract_id_patterns ... ok
+test hybrid_search::tests::test_feedback_boost ... ok
+test hybrid_search::tests::test_index_and_search ... ok
+test hybrid_search::tests::test_unified_search_with_id_patterns ... ok
+test logging::tests::test_cleanup_old_logs ... ok
+test logging::tests::test_create_log_file ... ok
+test logging::tests::test_logging_config_defaults ... ok
+test mcp::daemon::tests::test_activity_tracker ... ok
+test mcp::daemon::tests::test_daemon_config_conversion ... ok
+test mcp::daemon::tests::test_embedded_daemon_config_default ... ok
+test mcp::daemon::tests::test_embedded_daemon_status_default ... ok
+test hybrid_search::metrics::tests::test_metrics_store ... ok
+test mcp::tools::core::tests::truncate_str_handles_unicode_boundary ... ok
+test mcp::tools::core::tests::truncate_str_keeps_short_values ... ok
+test mcp::tools::mod_tests::tests::test_slugify_for_branch_multiple_spaces ... ok
+test mcp::tools::mod_tests::tests::test_slugify_for_branch_preserves_numbers ... ok
+test mcp::tools::mod_tests::tests::test_slugify_for_branch_simple ... ok
+test mcp::tools::mod_tests::tests::test_slugify_for_branch_special_chars ... ok
+test mcp::tools::mod_tests::tests::test_slugify_for_branch_truncation ... ok
+test mcp::tools::service::agent_search_system::code::tests::blame_command_uses_separator_before_file_path ... ok
+test mcp::tools::service::agent_search_system::code::tests::parse_blame_file_spec_leaves_plain_path_unchanged ... ok
+test mcp::tools::service::agent_search_system::code::tests::parse_blame_file_spec_parses_line_range ... ok
+test mcp::tools::service::agent_search_system::code::tests::parse_blame_file_spec_parses_single_line ... ok
+test mcp::tools::types::tests::test_default_dep_type ... ok
+test mcp::tools::types::tests::test_default_entry_type ... ok
+test mcp::tools::types::tests::test_default_importance ... ok
+test mcp::tools::types::tests::test_default_note_type ... ok
+test mcp::tools::types::tests::test_default_observation_type ... ok
+test mcp::tools::types::tests::test_default_priority ... ok
+test mcp::tools::types::tests::test_default_recent ... ok
+test mcp::tools::types::tests::test_default_scope_all ... ok
+test mcp::tools::types::tests::test_default_scope_global ... ok
+test mcp::tools::types::tests::test_default_scope_project ... ok
+test mcp::tools::types::tests::test_default_search_limit ... ok
+test mcp::tools::types::tests::test_default_skill_type ... ok
+test mcp::tools::types::tests::test_default_subagent_tokens ... ok
+test mcp::tools::types::tests::test_default_task_type ... ok
+test mcp::tools::types::tests::test_dependency_request_defaults ... ok
+test mcp::tools::types::tests::test_id_request ... ok
+test mcp::tools::types::tests::test_limit_request_defaults ... ok
+test mcp::tools::types::tests::test_limit_request_with_value ... ok
+test mcp::tools::types::tests::test_maintenance_run_request_defaults ... ok
+test mcp::tools::types::tests::test_memory_tier_request ... ok
+test mcp::tools::types::tests::test_observe_request_defaults ... ok
+test mcp::tools::types::tests::test_opinion_contradict_request ... ok
+test mcp::tools::types::tests::test_opinion_reinforce_request ... ok
+test mcp::tools::types::tests::test_opinion_weaken_request ... ok
+test mcp::tools::types::tests::test_reindex_request_defaults ... ok
+test mcp::tools::types::tests::test_reindex_request_full ... ok
+test mcp::tools::types::tests::test_remember_request_defaults ... ok
+test mcp::tools::types::tests::test_remember_request_full ... ok
+test mcp::tools::types::tests::test_rule_create_request ... ok
+test mcp::tools::types::tests::test_search_request_defaults ... ok
+test mcp::tools::types::tests::test_search_request_with_filter ... ok
+test mcp::tools::types::tests::test_skill_create_request_defaults ... ok
+test mcp::tools::types::tests::test_subagent_context_request_defaults ... ok
+test mcp::tools::types::tests::test_task_create_request_defaults ... ok
+test mcp::tools::types::tests::test_task_create_request_full ... ok
+test mcp::tools::types::tests::test_task_notes_request_defaults ... ok
+test mcp::tools::types::tests::test_task_notes_request_with_type ... ok
+test mcp::tools::types::tests::test_task_show_request_defaults ... ok
+test migration::detector::tests::test_column_exists ... ok
+test migration::detector::tests::test_get_table_columns ... ok
+test migration::detector::tests::test_table_exists ... ok
+test migration::migrations::tests::test_all_migrations_have_detection ... ok
+test migration::migrations::tests::test_migration_ids_unique ... ok
+test migration::migrations::tests::test_migration_names_unique ... ok
+test migration::migrations::tests::test_migrations_ordered ... ok
+test migration::tests::test_check_migrations_empty_db ... ok
+test hybrid_search::metrics::tests::test_method_comparison ... ok
+test migration::tests::test_detect_already_applied_migration_via_schema ... ok
+test migration::tests::test_failing_migration_rolls_back_cleanly ... ok
+test migration::tests::test_migrations_table_creation ... ok
+test migration::tests::test_run_migrations_rejects_uninitialized_db ... ok
+test notifications::channel::tests::test_channel_notifier ... ok
+test notifications::channel::tests::test_channel_notifier_dropped_receiver ... ok
+test notifications::types::tests::test_event_creation ... ok
+test notifications::types::tests::test_event_type_properties ... ok
+test orchestration::names::tests::test_generate_format ... ok
+test orchestration::names::tests::test_generate_unique_all_different ... ok
+test orchestration::names::tests::test_generate_unique_handles_large_count ... ok
+test orchestration::names::tests::test_generate_unique_returns_correct_count ... ok
+test orchestration::names::tests::test_generate_uses_valid_words ... ok
+test otel::tests::test_escape_special_characters ... ok
+test otel::tests::test_otel_context_creation ... ok
+test otel::tests::test_to_resource_attributes ... ok
+test otel::tests::test_write_and_read ... ok
+test rules::tests::test_extract_rule ... ok
+test rules::tests::test_get_high_value_entries ... ok
+test sentry::tests::test_telemetry_disabled_returns_none ... ok
+test store::detect::tests::test_cas_root_env_var ... ignored
+test store::detect::tests::test_cas_root_env_var_invalid_path ... ignored
+test store::detect::tests::test_detect_store_type ... ok
+test mcp::daemon::tests::test_get_sessions_for_sync_uses_cas_root_directory_path ... ok
+test migration::tests::test_migration_dry_run ... ok
+test store::detect::tests::test_find_main_repo_from_worktree ... ok
+test store::detect::tests::test_has_project_cas ... ignored
+test hybrid_search::background::tests::test_batch_vs_sequential_performance ... ok
+test store::mock::tests::test_fixtures_entry ... ok
+test store::mock::tests::test_fixtures_entry_with_tags ... ok
+test store::mock::tests::test_fixtures_task_priority ... ok
+test store::mock::tests::test_mock_rule_store_crud ... ok
+test store::mock::tests::test_mock_rule_store_list ... ok
+test store::mock::tests::test_mock_skill_store_crud ... ok
+test store::mock::tests::test_mock_skill_store_list_enabled ... ok
+test store::mock::tests::test_mock_skill_store_search ... ok
+test store::mock::tests::test_mock_store_add_and_get ... ok
+test store::mock::tests::test_mock_store_archive ... ok
+test store::mock::tests::test_mock_store_duplicate ... ok
+test store::mock::tests::test_mock_store_error_injection ... ok
+test store::mock::tests::test_mock_store_list ... ok
+test store::mock::tests::test_mock_store_not_found ... ok
+test store::mock::tests::test_mock_task_store_crud ... ok
+test store::mock::tests::test_mock_task_store_cycle_detection ... ok
+test store::mock::tests::test_mock_task_store_dependencies ... ok
+test store::mock::tests::test_mock_task_store_list_ready ... ok
+test store::detect::tests::test_find_cas_root ... ok
+test store::notifying_entry::tests::test_store_operations_work ... ok
+test store::notifying_rule::tests::test_store_operations_work ... ok
+test store::notifying_skill::tests::test_store_operations_work ... ok
+test store::notifying_task::tests::test_store_operations_work ... ok
+test store::syncing_entry::tests::test_add_queues_sync ... ok
+test store::syncing_entry::tests::test_delete_queues_sync ... ok
+test store::syncing_entry::tests::test_update_queues_sync ... ok
+test store::syncing_skill::tests::test_add_queues_sync ... ok
+test store::syncing_skill::tests::test_delete_queues_sync ... ok
+test store::syncing_task::tests::test_add_queues_sync ... ok
+test store::syncing_task::tests::test_delete_queues_sync ... ok
+test sync::skills::tests::test_create_cas_skill ... ok
+test sync::skills::tests::test_is_enabled ... ok
+test sync::skills::tests::test_remove_stale ... ok
+test sync::skills::tests::test_sanitize_name ... ok
+test sync::skills::tests::test_sync_all ... ok
+test sync::skills::tests::test_sync_invokable_skill ... ok
+test sync::skills::tests::test_sync_invokable_skill_no_user_invocable_false ... ok
+test sync::skills::tests::test_sync_passive_skill_no_argument_hint ... ok
+test store::syncing_task::tests::test_update_queues_sync ... ok
+test sync::skills::tests::test_sync_skill ... ok
+test sync::skills::tests::test_sync_skill_with_agent_type ... ok
+test sync::skills::tests::test_sync_skill_with_all_frontmatter_fields ... ok
+test sync::skills::tests::test_sync_skill_with_allowed_tools ... ok
+test sync::skills::tests::test_sync_skill_with_context_fork ... ok
+test sync::skills::tests::test_sync_skill_with_disable_model_invocation ... ok
+test sync::skills::tests::test_sync_skill_without_disable_model_invocation ... ok
+test sync::skills::tests::test_sync_skill_with_hooks ... ok
+test sync::tests::test_for_two_tier ... ok
+test sync::tests::test_is_proven ... ok
+test sync::tests::test_sync_all ... ok
+test sync::tests::test_list_all_synced ... ok
+test sync::tests::test_sync_rule ... ok
+test sync::tests::test_sync_all_tiered ... ok
+test sync::tests::test_sync_rule_with_scope ... ok
+test telemetry::tests::test_telemetry_client_disabled ... ok
+test telemetry::tests::test_telemetry_client_enabled ... ok
+test telemetry::tests::test_uuid_uniqueness ... ok
+test telemetry::tests::test_uuid_v4_format ... ok
+test tracing::dev_tracer::tests::test_dev_tracer_get_returns_none_by_default ... ok
+test tracing::dev_tracer::tests::test_dev_tracer_is_not_enabled_by_default ... ok
+test tracing::dev_tracer::tests::test_sanitize_args ... ok
+test tracing::dev_tracer::tests::test_sanitize_args_201 ... ok
+test tracing::dev_tracer::tests::test_sanitize_args_empty ... ok
+test tracing::dev_tracer::tests::test_sanitize_args_exactly_200 ... ok
+test tracing::dev_tracer::tests::test_session_id_format ... ok
+test tracing::dev_tracer::tests::test_session_id_generation ... ok
+test tracing::tests::test_generate_trace_id ... ok
+test tracing::tests::test_tool_trace_classify_command ... ok
+test tracing::tests::test_tool_trace_classify_error ... ok
+test tracing::tests::test_tool_trace_hash_content ... ok
+test tracing::tests::test_tool_trace_is_dep_path ... ok
+test tracing::tests::test_tool_trace_new ... ok
+test tracing::tests::test_trace_builder ... ok
+test tracing::tests::test_trace_builder_finish_custom ... ok
+test tracing::tests::test_trace_builder_finish_error ... ok
+test tracing::tests::test_trace_builder_with_metadata ... ok
+test tracing::tests::test_trace_event_type_display ... ok
+test tracing::tests::test_trace_event_type_from_str ... ok
+test telemetry::tests::test_send_event_non_blocking ... ok
+test tracing::tests::test_trace_stats_success_rate ... ok
+test tracing::tests::test_trace_store_basic ... ok
+test store::detect::tests::test_init_cas_dir ... ok
+test tracing::tests::test_trace_stats ... ok
+test store::detect::tests::test_find_cas_root_from_worktree ... ok
+test tracing::tests::test_trace_store_get ... ok
+test tracing::tests::test_trace_store_count ... ok
+test tracing::tests::test_trace_store_get_by_session ... ok
+test tracing::tests::test_trace_store_get_by_type ... ok
+test tracing::tests::test_trace_store_observation_buffer ... ok
+test tracing::tests::test_trace_store_search ... ok
+test tracing::tests::test_trace_timer_default ... ok
+test ui::components::formatter::tests::test_bullet_plain ... ok
+test ui::components::formatter::tests::test_combined_output ... ok
+test ui::components::formatter::tests::test_emit_fn ... ok
+test ui::components::formatter::tests::test_error_plain ... ok
+test ui::components::formatter::tests::test_field_plain ... ok
+test ui::components::formatter::tests::test_formatter_accessors ... ok
+test tracing::tests::test_trace_store_surfaced_items ... ok
+test ui::components::formatter::tests::test_heading_plain ... ok
+test ui::components::formatter::tests::test_formatter_styled_accessors ... ok
+test ui::components::formatter::tests::test_indent_block_plain ... ok
+test ui::components::formatter::tests::test_info_plain ... ok
+test ui::components::formatter::tests::test_key_hint_plain ... ok
+test ui::components::formatter::tests::test_output_mode_detect_respects_no_color ... ok
+test ui::components::formatter::tests::test_plain_formatter_no_ansi ... ok
+test ui::components::formatter::tests::test_progress_complete ... ok
+test ui::components::formatter::tests::test_progress_plain ... ok
+test ui::components::formatter::tests::test_progress_zero_total ... ok
+test ui::components::formatter::tests::test_separator_plain ... ok
+test tracing::tests::test_trace_timer ... ok
+test ui::components::formatter::tests::test_heading_styled ... ok
+test ui::components::formatter::tests::test_success_plain ... ok
+test ui::components::formatter::tests::test_styled_bold_colored ... ok
+test ui::components::formatter::tests::test_styled_formatter_emits_ansi ... ok
+test ui::components::formatter::tests::test_to_crossterm_color_indexed ... ok
+test ui::components::formatter::tests::test_to_crossterm_color_named ... ok
+test ui::components::formatter::tests::test_to_crossterm_color_rgb ... ok
+test ui::components::formatter::tests::test_warning_plain ... ok
+test ui::components::header::tests::test_h1_plain ... ok
+test ui::components::formatter::tests::test_terminal_width_returns_reasonable_value ... ok
+test ui::components::header::tests::test_h1_with_icon_plain ... ok
+test ui::components::header::tests::test_h2_plain ... ok
+test ui::components::formatter::tests::test_write_raw_always_plain ... ok
+test ui::components::header::tests::test_h2_with_icon_plain ... ok
+test ui::components::header::tests::test_h3_plain ... ok
+test ui::components::header::tests::test_h1_styled ... ok
+test ui::components::header::tests::test_new_with_level ... ok
+test ui::components::key_value::tests::test_alignment_plain ... ok
+test ui::components::key_value::tests::test_alignment_with_varying_lengths ... ok
+test ui::components::key_value::tests::test_colored_value_plain_ignores_color ... ok
+test ui::components::header::tests::test_h2_styled ... ok
+test ui::components::key_value::tests::test_custom_separator_plain ... ok
+test ui::components::key_value::tests::test_empty_renders_nothing ... ok
+test ui::components::key_value::tests::test_single_entry_no_padding ... ok
+test ui::components::key_value::tests::test_single_entry_plain ... ok
+test ui::components::header::tests::test_h3_styled ... ok
+test ui::components::layout::tests::test_column_default ... ok
+test ui::components::layout::tests::test_column_empty ... ok
+test ui::components::layout::tests::test_column_multiline_children ... ok
+test ui::components::layout::tests::test_column_multiple_children_no_spacing ... ok
+test ui::components::layout::tests::test_column_no_trailing_spacing ... ok
+test ui::components::layout::tests::test_column_single_child ... ok
+test ui::components::layout::tests::test_column_with_divider ... ok
+test tracing::tests::test_trace_store_tool_traces ... ok
+test ui::components::key_value::tests::test_colored_value_styled ... ok
+test ui::components::layout::tests::test_column_with_larger_spacing ... ok
+test ui::components::layout::tests::test_column_with_spacing ... ok
+test ui::components::layout::tests::test_divider_default ... ok
+test ui::components::layout::tests::test_divider_custom_width ... ok
+test ui::components::layout::tests::test_divider_plain_dotted ... ok
+test ui::components::layout::tests::test_divider_plain_double ... ok
+test ui::components::layout::tests::test_divider_plain_light ... ok
+test ui::components::key_value::tests::test_styled_output ... ok
+test ui::components::layout::tests::test_divider_with_style ... ok
+test ui::components::layout::tests::test_full_composition ... ok
+test ui::components::layout::tests::test_nested_column_in_row ... ok
+test ui::components::layout::tests::test_row_default ... ok
+test ui::components::layout::tests::test_row_empty ... ok
+test ui::components::layout::tests::test_row_single_child ... ok
+test ui::components::layout::tests::test_row_three_children ... ok
+test ui::components::layout::tests::test_row_two_children_side_by_side ... ok
+test ui::components::layout::tests::test_row_unequal_height_children ... ok
+test ui::components::layout::tests::test_strip_ansi_empty ... ok
+test ui::components::layout::tests::test_strip_ansi_only_escapes ... ok
+test ui::components::layout::tests::test_strip_ansi_plain_text ... ok
+test ui::components::layout::tests::test_strip_ansi_with_escapes ... ok
+test ui::components::list::tests::test_add_child_builder ... ok
+test ui::components::list::tests::test_bullet_list_plain ... ok
+test ui::components::layout::tests::test_divider_styled_double ... ok
+test ui::components::layout::tests::test_divider_styled_dotted ... ok
+test ui::components::layout::tests::test_divider_styled_light ... ok
+test ui::components::list::tests::test_dash_list_plain ... ok
+test ui::components::list::tests::test_empty_list ... ok
+test ui::components::list::tests::test_four_level_nesting_plain ... ok
+test ui::components::list::tests::test_nested_list_plain ... ok
+test ui::components::list::tests::test_nested_numbered_plain ... ok
+test ui::components::list::tests::test_none_style_plain ... ok
+test ui::components::list::tests::test_numbered_list_plain ... ok
+test ui::components::list::tests::test_three_level_nesting_plain ... ok
+test ui::components::panel::tests::test_panel_bottom_border ... ok
+test ui::components::panel::tests::test_panel_consistent_border_width ... ok
+test ui::components::panel::tests::test_panel_empty_content_plain ... ok
+test ui::components::panel::tests::test_panel_multiline_content_plain ... ok
+test ui::components::panel::tests::test_panel_no_title_plain ... ok
+test ui::components::panel::tests::test_panel_plain_uses_ascii_borders ... ok
+test ui::components::list::tests::test_bullet_list_styled ... ok
+test ui::components::panel::tests::test_panel_top_border_contains_title ... ok
+test ui::components::panel::tests::test_panel_truncates_long_content ... ok
+test ui::components::panel::tests::test_panel_width_aware ... ok
+test ui::components::panel::tests::test_panel_with_title_plain ... ok
+test ui::components::program::tests::test_clear_lines_writes_ansi ... ok
+test ui::components::program::tests::test_clear_lines_zero_is_noop ... ok
+test ui::components::program::tests::test_component_renders_to_buffer ... ok
+test ui::components::program::tests::test_component_updates_state ... ok
+test ui::components::program::tests::test_program_config_builder ... ok
+test ui::components::program::tests::test_program_config_defaults ... ok
+test ui::components::progress::tests::test_format_eta_hours ... ok
+test ui::components::progress::tests::test_format_eta_minutes ... ok
+test ui::components::progress::tests::test_format_eta_seconds ... ok
+test ui::components::progress::tests::test_progress_bar_clamps_to_total ... ok
+test ui::components::progress::tests::test_progress_bar_eta_none_at_zero ... ok
+test ui::components::progress::tests::test_progress_bar_eta_none_when_disabled ... ok
+test ui::components::progress::tests::test_progress_bar_finish ... ok
+test ui::components::progress::tests::test_progress_bar_increment ... ok
+test ui::components::progress::tests::test_progress_bar_increment_completes ... ok
+test ui::components::progress::tests::test_progress_bar_milestones ... ok
+test ui::components::progress::tests::test_progress_bar_new ... ok
+test ui::components::progress::tests::test_progress_bar_percentage_zero_total ... ok
+test ui::components::progress::tests::test_progress_bar_plain_finish_no_duplicate ... ok
+test ui::components::progress::tests::test_progress_bar_plain_no_duplicate_milestones ... ok
+test ui::components::progress::tests::test_progress_bar_plain_sequential_milestones ... ok
+test ui::components::progress::tests::test_progress_bar_renderable ... ok
+test ui::components::progress::tests::test_progress_bar_set ... ok
+test ui::components::progress::tests::test_progress_bar_set_message ... ok
+test ui::components::progress::tests::test_progress_bar_tick ... ok
+test ui::components::progress::tests::test_progress_bar_view_plain_finished ... ok
+test ui::components::progress::tests::test_progress_bar_view_plain_milestone ... ok
+test ui::components::progress::tests::test_progress_bar_view_plain_no_message_finished ... ok
+test ui::components::list::tests::test_numbered_list_styled ... ok
+test ui::components::panel::tests::test_panel_styled_has_ansi ... ok
+test ui::components::progress::tests::test_progress_bar_with_bar_width ... ok
+test ui::components::progress::tests::test_progress_bar_with_eta_enabled ... ok
+test ui::components::progress::tests::test_progress_bar_with_message ... ok
+test ui::components::program::tests::test_render_view_counts_lines ... ok
+test ui::components::snapshot_tests::tests::all_components_render_dark_theme ... ok
+test ui::components::snapshot_tests::tests::all_components_render_high_contrast_theme ... ok
+test ui::components::snapshot_tests::tests::all_components_render_light_theme ... ok
+test ui::components::snapshot_tests::tests::all_methods_render_dark_theme ... ok
+test ui::components::snapshot_tests::tests::all_methods_render_high_contrast_theme ... ok
+test ui::components::snapshot_tests::tests::all_methods_render_light_theme ... ok
+test ui::components::progress::tests::test_progress_bar_view_styled ... ok
+test ui::components::progress::tests::test_progress_bar_view_styled_finished ... ok
+test ui::components::snapshot_tests::tests::bullet_single_plain_80 ... ok
+test ui::components::snapshot_tests::tests::bullet_multiple_plain_80 ... ok
+test ui::components::snapshot_tests::tests::bullet_plain_40 ... ok
+test ui::components::snapshot_tests::tests::combined_components_doctor_style ... ok
+test ui::components::snapshot_tests::tests::combined_doctor_output_plain_40 ... ok
+test ui::components::snapshot_tests::tests::combined_components_task_view ... ok
+test ui::components::snapshot_tests::tests::combined_doctor_output_plain_80 ... ok
+test ui::components::snapshot_tests::tests::combined_key_hints_bar ... ok
+test ui::components::snapshot_tests::tests::component_theme_parity_all_modes ... ok
+test ui::components::snapshot_tests::tests::error_plain_40 ... ok
+test ui::components::snapshot_tests::tests::error_plain_80 ... ok
+test ui::components::snapshot_tests::tests::combined_task_list_plain ... ok
+test ui::components::snapshot_tests::tests::empty_heading ... ok
+test ui::components::snapshot_tests::tests::field_accent_plain_40 ... ok
+test ui::components::snapshot_tests::tests::field_accent_plain_80 ... ok
+test ui::components::snapshot_tests::tests::field_plain_40 ... ok
+test ui::components::snapshot_tests::tests::field_long_value ... ok
+test ui::components::snapshot_tests::tests::field_plain_80 ... ok
+test ui::components::snapshot_tests::tests::header_h1_plain_40 ... ok
+test ui::components::snapshot_tests::tests::header_h1_plain_80 ... ok
+test ui::components::snapshot_tests::tests::header_h1_styled_dark ... ok
+test ui::components::snapshot_tests::tests::header_h3_plain ... ok
+test ui::components::snapshot_tests::tests::header_with_icon_plain ... ok
+test ui::components::snapshot_tests::tests::header_h2_plain ... ok
+test ui::components::snapshot_tests::tests::heading_plain_40 ... ok
+test ui::components::snapshot_tests::tests::heading_plain_80 ... ok
+test ui::components::snapshot_tests::tests::heading_styled_dark ... ok
+test ui::components::snapshot_tests::tests::indent_block_single_line ... ok
+test ui::components::snapshot_tests::tests::indent_block_plain_40 ... ok
+test ui::components::snapshot_tests::tests::indent_block_plain_80 ... ok
+test ui::components::snapshot_tests::tests::info_plain_40 ... ok
+test ui::components::snapshot_tests::tests::info_plain_80 ... ok
+test ui::components::snapshot_tests::tests::key_hint_plain_80 ... ok
+test ui::components::snapshot_tests::tests::key_hint_plain_40 ... ok
+test ui::components::snapshot_tests::tests::key_hint_multiple ... ok
+test ui::components::snapshot_tests::tests::key_value_custom_separator ... ok
+test ui::components::snapshot_tests::tests::key_value_alignment_plain ... ok
+test ui::components::snapshot_tests::tests::key_value_empty ... ok
+test ui::components::snapshot_tests::tests::key_value_plain_40 ... ok
+test ui::components::snapshot_tests::tests::list_bullet_plain_80 ... ok
+test ui::components::snapshot_tests::tests::list_bullet_plain_40 ... ok
+test ui::components::snapshot_tests::tests::key_value_single_entry ... ok
+test ui::components::snapshot_tests::tests::list_dash_plain ... ok
+test ui::components::snapshot_tests::tests::list_empty ... ok
+test ui::components::snapshot_tests::tests::progress_empty ... ok
+test ui::components::snapshot_tests::tests::list_numbered_plain ... ok
+test ui::components::snapshot_tests::tests::list_nested_plain ... ok
+test ui::components::snapshot_tests::tests::progress_full ... ok
+test ui::components::snapshot_tests::tests::progress_half_plain_80 ... ok
+test ui::components::snapshot_tests::tests::progress_partial ... ok
+test ui::components::snapshot_tests::tests::progress_zero_total ... ok
+test ui::components::snapshot_tests::tests::separator_plain_40 ... ok
+test ui::components::snapshot_tests::tests::separator_plain_80 ... ok
+test ui::components::snapshot_tests::tests::status_empty_value ... ok
+test ui::components::snapshot_tests::tests::status_line_error_plain ... ok
+test ui::components::snapshot_tests::tests::status_line_info_plain ... ok
+test ui::components::snapshot_tests::tests::status_line_plain_40 ... ok
+test ui::components::snapshot_tests::tests::status_group_plain ... ok
+test ui::components::snapshot_tests::tests::status_line_success_plain ... ok
+test ui::components::snapshot_tests::tests::status_line_warning_plain ... ok
+test ui::components::snapshot_tests::tests::status_plain_80 ... ok
+test ui::components::snapshot_tests::tests::subheading_plain_40 ... ok
+test ui::components::snapshot_tests::tests::status_plain_40 ... ok
+test ui::components::snapshot_tests::tests::subheading_plain_80 ... ok
+test ui::components::snapshot_tests::tests::success_plain_80 ... ok
+test ui::components::snapshot_tests::tests::success_plain_40 ... ok
+test ui::components::snapshot_tests::tests::table_basic_plain_80 ... ok
+test ui::components::snapshot_tests::tests::table_ascii_border ... ok
+test ui::components::snapshot_tests::tests::table_narrow_terminal ... ok
+test ui::components::snapshot_tests::tests::table_empty_rows ... ok
+test ui::components::snapshot_tests::tests::table_no_border ... ok
+test ui::components::snapshot_tests::tests::table_single_column ... ok
+test ui::components::snapshot_tests::tests::theme_parity_all_modes ... ok
+test ui::components::snapshot_tests::tests::theme_parity_snapshot_dark ... ok
+test ui::components::snapshot_tests::tests::theme_parity_snapshot_high_contrast ... ok
+test ui::components::snapshot_tests::tests::theme_parity_snapshot_light ... ok
+test ui::components::snapshot_tests::tests::unicode_content ... ok
+test ui::components::snapshot_tests::tests::very_long_heading ... ok
+test ui::components::spinner::tests::test_spinner_complete ... ok
+test ui::components::snapshot_tests::tests::warning_plain_40 ... ok
+test ui::components::spinner::tests::test_spinner_complete_with_empty_final_uses_original ... ok
+test ui::components::snapshot_tests::tests::warning_plain_80 ... ok
+test ui::components::snapshot_tests::tests::wide_terminal_200 ... ok
+test ui::components::spinner::tests::test_spinner_elapsed ... ok
+test ui::components::spinner::tests::test_spinner_fail ... ok
+test ui::components::spinner::tests::test_spinner_new ... ok
+test ui::components::spinner::tests::test_spinner_renderable ... ok
+test ui::components::spinner::tests::test_spinner_set_message ... ok
+test ui::components::spinner::tests::test_spinner_stop ... ok
+test ui::components::spinner::tests::test_spinner_styles_have_frames ... ok
+test ui::components::spinner::tests::test_spinner_tick_advances_frame ... ok
+test ui::components::spinner::tests::test_spinner_tick_ignored_after_complete ... ok
+test ui::components::spinner::tests::test_spinner_tick_wraps_around ... ok
+test ui::components::spinner::tests::test_spinner_view_completed_plain ... ok
+test ui::components::spinner::tests::test_spinner_view_failed_plain ... ok
+test ui::components::spinner::tests::test_spinner_view_spinning_plain ... ok
+test ui::components::spinner::tests::test_spinner_with_style ... ok
+test ui::components::status_line::tests::test_error_plain ... ok
+test ui::components::status_line::tests::test_info_plain ... ok
+test ui::components::status_line::tests::test_new_with_status ... ok
+test ui::components::status_line::tests::test_status_group_empty ... ok
+test ui::components::status_line::tests::test_status_group_plain ... ok
+test ui::components::spinner::tests::test_spinner_view_completed_styled ... ok
+test ui::components::status_line::tests::test_success_plain ... ok
+test ui::components::spinner::tests::test_spinner_view_spinning_styled ... ok
+test ui::components::status_line::tests::test_warning_plain ... ok
+test ui::components::status_line::tests::test_error_styled ... ok
+test ui::components::table::tests::test_auto_truncation_narrow_terminal ... ok
+test ui::components::table::tests::test_basic_table_ascii ... ok
+test ui::components::table::tests::test_basic_table_unicode ... ok
+test ui::components::table::tests::test_border_overhead_none ... ok
+test ui::components::table::tests::test_border_overhead_unicode ... ok
+test ui::components::table::tests::test_builder_chain ... ok
+test ui::components::table::tests::test_column_alignment ... ok
+test ui::components::table::tests::test_column_width_constraints ... ok
+test ui::components::table::tests::test_default_border_is_unicode ... ok
+test ui::components::table::tests::test_empty_table ... ok
+test ui::components::table::tests::test_format_cell_center ... ok
+test ui::components::table::tests::test_format_cell_exact_fit ... ok
+test ui::components::table::tests::test_format_cell_left ... ok
+test ui::components::table::tests::test_format_cell_right ... ok
+test ui::components::table::tests::test_format_cell_truncation ... ok
+test ui::components::table::tests::test_format_cell_width_one_truncation ... ok
+test ui::components::table::tests::test_indent ... ok
+test ui::components::table::tests::test_minmax_width ... ok
+test ui::components::table::tests::test_missing_cells_in_row ... ok
+test ui::components::table::tests::test_no_columns ... ok
+test ui::components::table::tests::test_single_column_table ... ok
+test ui::components::table::tests::test_table_no_border ... ok
+test ui::components::status_line::tests::test_status_group_styled ... ok
+test ui::components::test_helpers::tests::test_strip_ansi_codes_bold ... ok
+test ui::components::test_helpers::tests::test_strip_ansi_codes_csi ... ok
+test ui::components::test_helpers::tests::test_strip_ansi_codes_empty ... ok
+test ui::components::test_helpers::tests::test_strip_ansi_codes_mixed ... ok
+test ui::components::test_helpers::tests::test_strip_ansi_codes_no_escapes ... ok
+test ui::components::test_helpers::tests::test_test_formatter_accessors ... ok
+test ui::components::test_helpers::tests::test_test_formatter_dark ... ok
+test ui::components::test_helpers::tests::test_test_formatter_output_plain_strips_ansi ... ok
+test ui::components::test_helpers::tests::test_test_formatter_plain ... ok
+test ui::components::test_helpers::tests::test_test_formatter_reset ... ok
+test ui::components::test_helpers::tests::test_test_formatter_with_theme ... ok
+test ui::components::traits::tests::test_action_batch ... ok
+test ui::components::traits::tests::test_action_cmd_produces_message ... ok
+test ui::components::traits::tests::test_component_update_cycle ... ok
+test ui::components::traits::tests::test_component_view_renders ... ok
+test ui::components::traits::tests::test_renderable_output ... ok
+test ui::components::tree::tests::test_children_builder ... ok
+test ui::components::tree::tests::test_connector_alignment ... ok
+test ui::components::tree::tests::test_deep_nesting ... ok
+test ui::components::tree::tests::test_mixed_depth ... ok
+test ui::components::tree::tests::test_nested_tree ... ok
+test ui::components::tree::tests::test_no_children ... ok
+test ui::components::tree::tests::test_one_child ... ok
+test ui::components::tree::tests::test_single_node ... ok
+test ui::components::status_line::tests::test_success_styled ... ok
+test ui::components::tree::tests::test_three_children ... ok
+test ui::components::tree::tests::test_two_children ... ok
+test ui::components::table::tests::test_styled_output_contains_ansi ... ok
+test ui::factory::app::tests::keeps_loaded_changes_when_git_refresh_is_due ... ok
+test ui::factory::app::tests::preserves_previous_changes_when_git_refresh_not_due ... ok
+test ui::factory::client::tests::detects_dropped_images_from_plain_path_and_file_uri ... ok
+test ui::factory::client::tests::ignores_non_image_paste_content ... ok
+test ui::factory::client::tests::key_to_bytes_encodes_ctrl_alpha ... ok
+test ui::factory::client::tests::key_to_bytes_encodes_ctrl_bracket_as_group_separator ... ok
+test ui::factory::client::tests::key_to_bytes_encodes_ctrl_digit_five_as_group_separator ... ok
+test ui::factory::clipboard::tests::test_copy_to_clipboard ... ok
+test ui::factory::daemon::runtime::queue_and_events::tests::test_agent_match_is_exact_not_substring ... ok
+test ui::factory::director::events::tests::test_debounce_key_uniqueness ... ok
+test ui::factory::director::events::tests::test_debouncing ... ok
+test ui::factory::director::events::tests::test_detect_epic_completed ... ok
+test ui::factory::director::events::tests::test_detect_epic_started ... ok
+test ui::factory::director::events::tests::test_detect_task_assigned ... ok
+test ui::components::tree::tests::test_styled_deep_tree ... ok
+test ui::factory::director::events::tests::test_detect_task_completed ... ok
+test ui::factory::director::events::tests::test_detect_worker_idle ... ok
+test ui::components::tree::tests::test_styled_output ... ok
+test ui::factory::director::events::tests::test_ignore_non_factory_agents ... ok
+test ui::factory::director::events::tests::test_no_epic_event_when_unchanged ... ok
+test ui::factory::director::prompts::tests::test_claude_prefix_for_worker_and_supervisor ... ok
+test ui::factory::director::prompts::tests::test_config_disabled_globally ... ok
+test ui::factory::director::prompts::tests::test_config_task_assigned_disabled ... ok
+test ui::factory::director::prompts::tests::test_epic_completed_no_prompt ... ok
+test ui::factory::director::prompts::tests::test_supervisor_registered_no_prompt ... ok
+test ui::factory::director::prompts::tests::test_task_assigned_prompt ... ok
+test ui::factory::director::prompts::tests::test_task_completed_prompt ... ok
+test ui::factory::director::prompts::tests::test_with_response_instructions ... ok
+test ui::factory::director::prompts::tests::test_worker_idle_no_ready_tasks ... ok
+test ui::factory::director::prompts::tests::test_worker_idle_with_ready_tasks ... ok
+test ui::factory::director::prompts::tests::test_worker_ready_disabled ... ok
+test ui::factory::director::prompts::tests::test_worker_ready_no_tasks ... ok
+test ui::factory::director::prompts::tests::test_worker_ready_prompt ... ok
+test ui::factory::input::tests::test_feedback_category_all ... ok
+test ui::components::tree::tests::test_with_color ... ok
+test ui::factory::input::tests::test_feedback_category_next ... ok
+test ui::factory::input::tests::test_feedback_category_prev ... ok
+test ui::factory::input::tests::test_input_mode_default ... ok
+test ui::factory::input::tests::test_input_mode_is_feedback ... ok
+test ui::factory::input::tests::test_input_mode_is_pane_select ... ok
+test ui::factory::input::tests::test_input_mode_is_resize ... ok
+test ui::factory::input::tests::test_input_mode_is_terminal ... ok
+test ui::factory::input::tests::test_layout_sizes_default ... ok
+test ui::factory::layout::tests::test_no_workers_grid ... ok
+test ui::factory::layout::tests::test_mission_control_layout_areas ... ok
+test ui::factory::layout::tests::test_mission_control_layout_many_workers_clamped ... ok
+test ui::factory::layout::tests::test_pane_ids_iteration ... ok
+test ui::factory::layout::tests::test_mission_control_layout_zero_workers ... ok
+test ui::factory::layout::tests::test_side_by_side_multiple_rows ... ok
+test ui::factory::layout::tests::test_tabbed_mode_grid ... ok
+test ui::factory::layout::tests::test_side_by_side_single_row ... ok
+test ui::factory::layout::tests::test_unknown_pane ... ok
+test ui::factory::notification::tests::test_event_notification_content ... ok
+test ui::factory::notification::tests::test_event_notification_metadata ... ok
+test ui::factory::notification::tests::test_notifier_disabled_by_default ... ok
+test ui::factory::notification::tests::test_notify_backend_detection ... ok
+test ui::factory::phoenix::tests::test_encode_msg_join ... ok
+test ui::factory::phoenix::tests::test_encode_msg_no_join_ref ... ok
+test ui::factory::phoenix::tests::test_refs_increment ... ok
+test ui::factory::phoenix::tests::test_ws_url_http ... ok
+test ui::factory::phoenix::tests::test_ws_url_https ... ok
+test ui::factory::protocol::tests::test_encode_decode_client_message ... ok
+test ui::factory::protocol::tests::test_encode_decode_daemon_message ... ok
+test ui::factory::protocol::tests::test_pane_kind_conversion ... ok
+test ui::factory::renderer::tests::test_factory_view_mode_default_is_panes ... ok
+test ui::factory::renderer::tests::test_factory_view_mode_toggle ... ok
+test ui::factory::selection::tests::test_apply_selection_to_line ... ok
+test ui::factory::selection::tests::test_apply_selection_with_scroll_delta ... ok
+test ui::factory::selection::tests::test_selection_contains_multi_line ... ok
+test ui::factory::selection::tests::test_selection_contains_single_line ... ok
+test ui::factory::selection::tests::test_selection_normalized_reverse ... ok
+test ui::factory::session::tests::test_generate_session_name_with_project ... ok
+test ui::factory::session::tests::test_generate_session_name_without_project ... ok
+test ui::factory::session::tests::test_find_session_for_project ... ok
+test ui::factory::session::tests::test_session_paths ... ok
+test ui::factory::session::tests::test_create_metadata ... ok
+test ui::markdown::tests::tests::test_blockquote ... ok
+test ui::markdown::tests::tests::test_bold_and_italic ... ok
+test ui::markdown::tests::tests::test_code_block ... ok
+test ui::markdown::tests::tests::test_empty_content ... ok
+test ui::markdown::tests::tests::test_complex_document ... ok
+test ui::markdown::tests::tests::test_headers ... ok
+test ui::markdown::tests::tests::test_horizontal_rule ... ok
+test ui::markdown::tests::tests::test_inline_code ... ok
+test ui::markdown::tests::tests::test_link ... ok
+test ui::markdown::tests::tests::test_nested_list ... ok
+test ui::markdown::tests::tests::test_ordered_list ... ok
+test ui::markdown::tests::tests::test_plain_text ... ok
+test ui::markdown::tests::tests::test_table ... ok
+test ui::markdown::tests::tests::test_task_list ... ok
+test ui::markdown::tests::tests::test_unordered_list ... ok
+test ui::theme::agent_colors::tests::test_all_palette_colors_distinct ... ok
+test ui::theme::agent_colors::tests::test_auto_assign_cycles_palette ... ok
+test ui::theme::agent_colors::tests::test_registered_color_matches ... ok
+test ui::theme::agent_colors::tests::test_registered_overrides_auto ... ok
+test ui::theme::agent_colors::tests::test_same_agent_returns_same_color ... ok
+test ui::theme::agent_colors::tests::test_team_color_rgb_known ... ok
+test ui::theme::agent_colors::tests::test_team_color_rgb_unknown_fallback ... ok
+test ui::theme::detect::tests::test_black_is_dark ... ok
+test ui::theme::detect::tests::test_colorfgbg_dark_black_bg ... ok
+test ui::theme::detect::tests::test_colorfgbg_dark_bright_bg ... ok
+test ui::theme::detect::tests::test_colorfgbg_empty ... ok
+test ui::theme::detect::tests::test_colorfgbg_invalid_format ... ok
+test ui::theme::detect::tests::test_colorfgbg_light_default ... ok
+test ui::theme::detect::tests::test_colorfgbg_light_white_bg ... ok
+test ui::theme::detect::tests::test_colorfgbg_three_part ... ok
+test ui::theme::detect::tests::test_detect_defaults_to_dark ... ok
+test ui::theme::detect::tests::test_detect_uses_colorfgbg_when_available ... ok
+test ui::theme::detect::tests::test_midtone_boundary ... ok
+test ui::theme::detect::tests::test_normalize_1_digit ... ok
+test ui::theme::detect::tests::test_normalize_2_digit ... ok
+test ui::theme::detect::tests::test_normalize_3_digit ... ok
+test ui::theme::detect::tests::test_normalize_4_digit ... ok
+test ui::theme::detect::tests::test_normalize_invalid ... ok
+test ui::theme::detect::tests::test_parse_osc11_2digit_channels ... ok
+test ui::theme::detect::tests::test_parse_osc11_dark_background ... ok
+test ui::theme::detect::tests::test_parse_osc11_black_bg ... ok
+test ui::theme::detect::tests::test_parse_osc11_empty_response ... ok
+test ui::theme::detect::tests::test_parse_osc11_garbage ... ok
+test ui::theme::detect::tests::test_parse_osc11_light_background ... ok
+test ui::theme::detect::tests::test_parse_osc11_partial ... ok
+test ui::theme::detect::tests::test_parse_osc11_white_bg ... ok
+test ui::theme::detect::tests::test_typical_dark_terminal_bg ... ok
+test ui::theme::detect::tests::test_typical_light_terminal_bg ... ok
+test ui::theme::detect::tests::test_white_is_light ... ok
+test ui::widgets::utils::tests::truncate_handles_unicode_boundary ... ok
+test ui::widgets::utils::tests::truncate_to_width_handles_unicode_boundary ... ok
+test worktree::git::tests::test_current_branch ... ok
+test worktree::git::tests::test_detect_repo_root ... ok
+test worktree::git::tests::test_branch_exists ... ok
+test worktree::git::tests::test_create_and_remove_worktree ... ok
+test worktree::git::tests::test_get_submodule_paths ... ok
+test worktree::git::tests::test_git_available ... ok
+test worktree::git::tests::test_get_context ... ok
+test worktree::git::tests::test_init_submodules_no_submodules ... ok
+test worktree::git::tests::test_mark_config_skip_worktree_no_files ... ok
+test worktree::git::tests::test_mark_config_skip_worktree ... ok
+test worktree::git::tests::test_fix_symlinked_submodules ... ok
+test worktree::git::tests::test_worktree_with_submodule_init ... ok
+test worktree::git::tests::test_init_submodules_with_gitmodules ... ok
+test worktree::manager::tests::test_branch_name_calculation_for_epic ... ok
+test worktree::manager::tests::test_branch_name_for_worker ... ok
+test worktree::manager::tests::test_create_epic_branch ... ok
+test worktree::manager::tests::test_create_and_cleanup_worktree_for_epic ... ok
+test worktree::manager::tests::test_cleanup_workers ... ok
+test worktree::manager::tests::test_cleanup_worker_branches_after_merge ... ok
+test worktree::manager::tests::test_create_epic_branch_idempotent ... ok
+test worktree::manager::tests::test_create_worker_worktree ... ok
+test worktree::manager::tests::test_create_worktree_for_epic_disabled ... ok
+test worktree::manager::tests::test_ensure_worker_worktree_creates_new ... ok
+test worktree::manager::tests::test_manager_creation ... ok
+test worktree::manager::tests::test_ensure_worker_worktree_reuses_existing ... ok
+test worktree::manager::tests::test_slugify_title ... ok
+test worktree::manager::tests::test_is_branch_merged ... ok
+test worktree::manager::tests::test_worktree_path_calculation_for_epic ... ok
+test worktree::manager::tests::test_merge_workers_to_epic ... ok
+test worktree::manager::tests::test_remove_single_worker ... ok
+test worktree::manager::tests::test_worker_cwds ... ok
+test worktree::manager::tests::test_worktree_path_for_worker ... ok
+
+test result: ok. 951 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 1.97s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 14 tests
+test test_cli_expired_token ... ok
+test test_cli_nearly_expired_token ... ok
+test test_desktop_expiry_validation ... ok
+test test_auth_file_permissions ... ok
+test test_auth_directory_permissions ... ok
+test test_cli_token_can_be_read_by_desktop ... ok
+test test_desktop_token_can_be_read_by_cli ... ok
+test test_desktop_token_with_null_fields ... ok
+test test_load_nonexistent_token ... ok
+test test_load_incomplete_token ... ok
+test test_load_invalid_json ... ok
+test test_token_without_optional_fields ... ok
+test test_various_date_formats ... ok
+test test_token_roundtrip_cli_to_desktop_to_cli ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test test_file_change_storage_and_retrieval ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+
+running 1 test
+test bridge_server_sse_emits_heartbeat ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s
+
+
+running 1 test
+test bridge_server_smoke ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 37 tests
+test test_cloud_command_requires_auth ... ok
+test test_config_describe ... ok
+test test_bare_factory_flags_are_parsed ... ok
+test test_config ... ok
+test test_config_get_set ... ok
+test test_config_export_import ... ok
+test test_config_diff ... ok
+test test_config_get_unknown_key ... ok
+test test_config_list_json ... ok
+test test_config_list ... ok
+test test_config_list_offline_no_auth_required ... ok
+test test_config_list_modified ... ok
+test test_config_list_section_filter ... ok
+test test_doctor_fix_json_before_init_errors ... ok
+test test_config_set_validation ... ok
+test test_doctor ... ok
+test test_doctor_fix_initializes_project ... ok
+test test_doctor_not_initialized ... ok
+test test_help ... ok
+test test_doctor_json ... ok
+test test_doctor_mcp_configured ... ok
+test test_doctor_mcp_not_configured ... ok
+test test_hook_command_session_start ... ok
+test test_hook_post_tool_use ... ok
+test test_hook_user_prompt_submit ... ok
+test test_hook_config ... ok
+test test_init_already_initialized ... ok
+test test_init_json ... ok
+test test_init_json_already_initialized ... ok
+test test_noninteractive_factory_includes_preflight_hints ... ok
+test test_not_initialized_error ... ok
+test test_init_force_reinit ... ok
+test test_init_yes_flag ... ok
+test test_version ... ok
+test test_status ... ok
+test test_status_verbose ... ok
+test test_status_offline_no_auth_required ... ok
+
+test result: ok. 37 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.36s
+
+
+running 12 tests
+test doctor_piped_content ... ok
+test doctor_piped_no_ansi ... ok
+test doctor_no_color_env ... ok
+test help_piped_no_ansi ... ok
+test doctor_snapshot ... ok
+test status_empty_snapshot ... ok
+test pty_status_output ... ok
+test pty_doctor_has_expected_sections ... ok
+test pty_doctor_output ... ok
+test version_piped_no_ansi ... ok
+test status_no_color_env ... ok
+test status_piped_no_ansi ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+
+running 17 tests
+test tests::test_cloud_agent_sync_across_machines ... ignored, Requires CAS_CLOUD_TOKEN environment variable
+test tests::test_cloud_event_streaming ... ignored, Requires CAS_CLOUD_TOKEN environment variable
+test tests::test_cloud_factory_registration ... ignored, Requires CAS_CLOUD_TOKEN environment variable
+test tests::test_cloud_prompt_queue_delivery ... ignored, Requires CAS_CLOUD_TOKEN environment variable
+test tests::test_cloud_task_claiming_distributed ... ignored, Requires CAS_CLOUD_TOKEN environment variable
+test tests::test_factory_agent_active_tasks_count ... ok
+test tests::test_factory_agent_heartbeat_and_status ... ok
+test tests::test_distributed_task_handoff_simulation ... ok
+test tests::test_factory_lease_history_tracking ... ok
+test tests::test_distributed_two_machines_independent ... ok
+test tests::test_factory_epic_workflow_simulation ... ok
+test tests::test_factory_multiple_workers_concurrent_claims ... ok
+test tests::test_factory_stale_agent_cleanup ... ok
+test tests::test_factory_priority_based_task_selection ... ok
+test tests::test_factory_supervisor_worker_local ... ok
+test tests::test_factory_task_lifecycle ... ok
+test tests::test_factory_worker_reassignment ... ok
+
+test result: ok. 12 passed; 0 failed; 5 ignored; 0 measured; 0 filtered out; finished in 0.66s
+
+
+running 3 tests
+test fixtures::cas_instance::tests::test_extract_rule_id ... ok
+test fixtures::cas_instance::tests::test_extract_task_id ... ok
+test fixtures::cas_instance::tests::test_extract_entry_id ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test codex_factory_skills_use_cs_prefix_only ... ok
+test codex_builtin_supervisor_guide_includes_core_workflow ... ok
+test codex_worker_runtime_instruction_allows_close_then_escalate ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 9 tests
+test test_health_monitoring_latency_simulation ... ok
+test test_handshake_with_50ms_rtt ... ok
+test test_handshake_with_100ms_rtt ... ok
+test test_handshake_with_200ms_rtt ... ok
+test test_ping_pong_under_latency ... ok
+test test_message_ordering_preserved_under_latency ... ok
+test test_reconnection_under_latency ... ok
+test test_reconnection_with_resync_under_latency ... ok
+test test_multiple_operations_under_latency ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.63s
+
+
+running 20 tests
+test test_gc_cleanup_with_force ... ok
+test test_clear_context_enqueues ... ok
+test test_gc_cleanup_without_force ... ok
+test test_clear_context_all_workers ... ok
+test test_gc_report_shows_pending_prompts ... ok
+test test_shutdown_workers_all ... ok
+test test_my_context_shows_agent_info ... ok
+test test_gc_report_empty ... ok
+test test_shutdown_workers_validates_existence ... ok
+test test_shutdown_workers_enqueues ... ok
+test test_spawn_then_shutdown_sequence ... ok
+test test_shutdown_workers_supervisor_scoping ... ok
+test test_spawn_workers_closed_epic_not_counted ... ok
+test test_spawn_workers_requires_epic ... ok
+test test_spawn_workers_isolate_flag ... ok
+test test_spawn_workers_enqueues_with_epic ... ok
+test test_unknown_action ... ok
+test test_worker_status_empty ... ok
+test test_worker_activity_empty ... ok
+test test_worker_status_shows_agents ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.99s
+
+
+running 22 tests
+test tests::test_factory_server_client_disconnect ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_director_updates ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_error_handling ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_graceful_shutdown ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_inject_prompt ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_live_mode_startup ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_multiple_clients ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_playback_mode_startup ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_playback_seek ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_playback_speed ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_resize ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_shutdown_workers ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_spawn_workers ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_factory_server_terminal_io ... ignored, See cas-4d96: Implement FactoryServer integration tests
+test tests::test_mock_server_handshake ... ok
+test tests::test_mock_server_ping_pong ... ok
+test tests::test_mock_server_focus_updates_state ... ok
+test tests::test_mock_server_input_echo ... ok
+test tests::test_mock_server_reconnect_with_resync ... ok
+test tests::test_mock_server_reconnect_no_resync ... ok
+test tests::test_mock_server_version_mismatch ... ok
+test tests::test_mock_server_reconnect_preserves_state ... ok
+
+test result: ok. 8 passed; 0 failed; 14 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 15 tests
+test test_completion_promise_in_transcript ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_cancel_for_nonexistent_session ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_cancel_stops_active_loop ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_continues_without_promise ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_list_shows_recent_loops ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_prevents_duplicate_for_session ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_start_creates_active_loop ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_start_with_promise_and_max_iterations ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_status_for_nonexistent_session ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_with_empty_prompt ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_loop_with_task_linking ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_stop_hook_blocks_exit_with_active_loop ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_stop_hook_increments_iteration ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_stop_hook_respects_max_iterations ... ignored, loop CLI command removed - tests need MCP fixtures
+test test_stop_hook_without_active_loop_allows_exit ... ignored, loop CLI command removed - tests need MCP fixtures
+
+test result: ok. 0 passed; 0 failed; 15 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 15 tests
+test test_mcp_doctor ... ok
+test test_mcp_consolidated_task_tool ... ok
+test test_mcp_consolidated_memory_tool ... ok
+test test_mcp_context ... ok
+test test_mcp_initialize ... ok
+test test_mcp_invalid_json_rpc ... ok
+test test_mcp_list_tools ... ok
+test test_mcp_mutation_with_notifications ... ok
+test test_mcp_resources_list_changed_capability ... ok
+test test_mcp_rule_lifecycle ... ok
+test test_mcp_tool_call_invalid_arguments ... ok
+test test_mcp_tool_call_remember ... ok
+test test_mcp_tool_call_search ... ok
+test test_mcp_tool_call_task_create ... ok
+test test_mcp_unknown_tool ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.70s
+
+
+running 93 tests
+test edge_cases::test_importance_clamping ... ok
+test edge_cases::test_empty_content_rejected ... ok
+test edge_cases::test_invalid_entry_type ... ok
+test edge_cases::test_duplicate_dependency ... ok
+test edge_cases::test_self_dependency ... ok
+test edge_cases::test_special_characters_in_content ... ok
+test edge_cases::test_negative_priority ... ok
+test edge_cases::test_very_long_content ... ok
+test entity_handler_tests::test_entity_extract_entity_type_filter ... ok
+test entity_handler_tests::test_entity_extract_query_filter ... ok
+test entity_handler_tests::test_entity_extract_scope_filter ... ok
+test entity_handler_tests::test_entity_extract_tags_filter ... ok
+test entity_handler_tests::test_entity_list_combined_filters ... ok
+test field_coverage_tests::code_search_field_coverage ... ok
+test field_coverage_tests::task_list_field_coverage ... ok
+test entity_handler_tests::test_entity_list_sort_by_mentions ... ok
+test entity_handler_tests::test_entity_list_query_filter ... ok
+test entity_handler_tests::test_entity_list_sort_by_name ... ok
+test memory_tools::test_get_nonexistent_entry ... ok
+test memory_tools::test_get_entry ... ok
+test memory_tools::test_delete_entry ... ok
+test memory_tools::test_archive_and_unarchive ... ok
+test memory_tools::test_helpful_and_harmful ... ok
+test memory_tools::test_remember_basic ... ok
+test memory_tools::test_list_entries ... ok
+test memory_tools::test_remember_with_defaults ... ok
+test memory_tools::test_recent_entries ... ok
+test memory_tools::test_set_tier ... ok
+test rule_tools::test_rule_create ... ok
+test rule_tools::test_rule_delete ... ok
+test rule_tools::test_rule_helpful_and_harmful ... ok
+test rule_tools::test_rule_list ... ok
+test memory_tools::test_update_entry ... ok
+test rule_tools::test_rule_show ... ok
+test rule_tools::test_rule_update ... ok
+test search_tools::test_search_empty ... ok
+test search_tools::test_search_with_content ... ok
+test search_tools::test_search_filter_by_type ... ok
+test server_protocol::test_server_capabilities ... ok
+test server_protocol::test_all_store_types_accessible ... ok
+test server_protocol::test_claim_blocked_with_pending_verification ... ok
+test server_protocol::test_server_info ... ok
+test server_protocol::test_server_protocol_version ... ok
+test server_protocol::test_server_info_version ... ok
+test server_protocol::test_store_operations_work ... ok
+test server_protocol::test_start_same_task_allowed_when_pending ... ok
+test server_protocol::test_start_allowed_after_verification_approved ... ok
+test server_protocol::test_start_blocked_with_pending_verification ... ok
+test skill_tools::test_skill_create ... ok
+test skill_tools::test_skill_delete ... ok
+test skill_tools::test_skill_enable_disable ... ok
+test skill_tools::test_skill_list ... ok
+test skill_tools::test_skill_show ... ok
+test skill_tools::test_skill_update ... ok
+test server_protocol::test_task_list_type_filter ... ok
+test skill_tools::test_skill_use ... ok
+test server_protocol::test_task_list_epic_filter ... ok
+test spec_tools::test_spec_approve ... ok
+test spec_tools::test_spec_create_basic ... ok
+test spec_tools::test_spec_create_with_fields ... ok
+test spec_tools::test_spec_delete ... ok
+test spec_tools::test_spec_list ... ok
+test spec_tools::test_spec_show ... ok
+test spec_tools::test_spec_types ... ok
+test spec_tools::test_spec_update ... ok
+test system_tools::test_doctor ... ok
+test system_tools::test_maintenance_status ... ok
+test system_tools::test_stats ... ok
+test system_tools::test_context ... ok
+test system_tools::test_observe ... ok
+test task_tools::create_and_epic::test_task_create_invalid_epic_does_not_persist_task ... ok
+test task_tools::create_and_epic::test_task_create_and_start ... ok
+test task_tools::create_and_epic::test_task_create_basic ... ok
+test task_tools::create_and_epic::test_task_create_surfaces_dependency_write_failure ... ok
+test task_tools::create_and_epic::test_epic_creates_branch_not_worktree ... ok
+test task_tools::operations::test_close_auto_unblocks_blocked_dependents ... ok
+test task_tools::operations::test_task_delete ... ok
+test task_tools::operations::test_subtask_start_auto_starts_epic ... ok
+test task_tools::operations::test_task_dependencies ... ok
+test task_tools::operations::test_task_notes ... ok
+test task_tools::operations::test_task_show ... ok
+test task_tools::operations::test_task_list ... ok
+test task_tools::operations::test_task_ready ... ok
+test task_tools::operations::test_task_show_dependency_direction_labels ... ok
+test task_tools::operations::test_task_update ... ok
+test task_tools::operations::test_task_update_design_and_acceptance_criteria ... ok
+test task_tools::verification_flow::test_task_close_blocked_with_rejected_verification ... ok
+test task_tools::operations::test_task_update_surfaces_epic_dependency_delete_failure ... ok
+test task_tools::operations::test_task_update_invalid_epic_keeps_original_parent_dependency ... ok
+test task_tools::verification_flow::test_epic_close_requires_epic_verification_type ... ok
+test task_tools::verification_flow::test_task_close_blocked_without_verification ... ok
+test task_tools::verification_flow::test_task_close_sets_assignee_for_worktree_merge_jail ... ok
+test task_tools::verification_flow::test_task_lifecycle_with_verification ... ok
+
+test result: ok. 93 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.05s
+
+
+running 21 tests
+test tests::test_concurrent_reads_dont_block ... ok
+test tests::test_agent_heartbeat_under_load ... ok
+test tests::test_closed_tasks_are_not_orphaned ... ok
+test tests::test_detect_orphaned_task_in_progress_without_lease ... ok
+test tests::test_full_cleanup_cycle_stale_to_dead_to_reclaim ... ok
+test tests::test_heartbeat_prevents_stale_detection ... ok
+test tests::test_lease_history_audit_trail ... ok
+test tests::test_lease_renewal_under_contention ... ok
+test tests::test_list_available_tasks_with_concurrent_claims ... ok
+test tests::test_multiple_agents_orphan_detection ... ok
+test tests::test_multiple_agents_register_concurrently ... ok
+test tests::test_open_tasks_are_not_orphaned ... ok
+test tests::test_released_lease_makes_task_orphaned ... ok
+test tests::test_stale_agent_detection ... ok
+test tests::test_task_claim_race_condition ... ok
+test tests::test_task_properly_claimed_is_not_orphaned ... ok
+test tests::test_task_release_allows_new_claim ... ok
+test tests::test_unregister_releases_all_leases ... ok
+test tests::test_expired_lease_makes_task_orphaned ... ok
+test tests::test_expired_lease_reclaim_under_contention ... ok
+test tests::test_reclaim_expired_leases ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.68s
+
+
+running 1 test
+test openclaw_cli_bridge_smoke ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+
+running 11 tests
+test proptest::search_properties::integration_tests::search_edge_cases ... ok
+test proptest::search_properties::entry_types_are_valid ... ok
+test proptest::search_properties::priorities_are_valid ... ok
+test proptest::search_properties::combined_search_terms ... ok
+test proptest::search_properties::score_normalization_property ... ok
+test proptest::search_properties::integration_tests::strategies_generate_valid_values ... ok
+test proptest::search_properties::search_never_crashes ... ok
+test proptest::search_properties::memory_content_is_valid ... ok
+test proptest::search_properties::task_types_are_valid ... ok
+test proptest::search_properties::tags_are_parseable ... ok
+test proptest::search_properties::task_titles_are_valid ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 17 tests
+test tests::test_conceptual_query_finds_related ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_exact_keyword_match_scores_high ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_adaptive_weights ... ok
+test tests::test_multi_word_query ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_no_false_positives ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_score_calibration ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_score_ordering ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_hybrid_beats_bm25_alone ... ok
+test tests::test_multi_channel_boost ... ok
+test tests::test_semantic_score_calibration ... ok
+test tests::test_semantic_conceptual_similarity ... ok
+test tests::test_semantic_synonym_matching ... ok
+test tests::test_short_queries ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_stop_words ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_tags_dont_dominate ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_technical_queries ... ignored, add/search CLI commands removed - tests need MCP fixtures
+test tests::test_temporal_awareness ... ignored, add/search CLI commands removed - tests need MCP fixtures
+
+test result: ok. 6 passed; 0 failed; 11 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 24 tests
+test test_agent_request_loop_start ... ok
+test test_agent_request_register ... ok
+test test_all_agent_actions_recognized ... ok
+test test_all_rule_actions_recognized ... ok
+test test_all_memory_actions_recognized ... ok
+test test_all_search_actions_recognized ... ok
+test test_all_skill_actions_recognized ... ok
+test test_all_system_actions_recognized ... ok
+test test_all_task_actions_recognized ... ok
+test test_context_for_subagent ... ok
+test test_empty_optional_fields ... ok
+test test_memory_request_deserialization ... ok
+test test_memory_request_minimal ... ok
+test test_rule_request_create ... ok
+test test_search_context_request_observe ... ok
+test test_search_context_request_search ... ok
+test test_skill_request_create ... ok
+test test_system_request_defaults ... ok
+test test_system_request_reindex ... ok
+test test_task_claim_with_duration ... ok
+test test_task_request_create ... ok
+test test_task_request_dependency ... ok
+test test_task_request_notes ... ok
+test test_task_transfer ... ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 18 tests
+test test_task_close_verification_disabled ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_task_close_with_approved_verification ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_add_cli ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_add_invalid_status ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_add_json ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_latest_cli ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_latest_empty ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_list_cli ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_list_json ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_show_cli ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_show_json ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_statuses ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_with_issues ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_with_metadata ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_workflow_e2e ... ignored, task/verification CLI commands removed - tests need MCP fixtures
+test test_verification_add_invalid_task ... ok
+test test_verification_show_invalid_id ... ok
+test test_verification_config_toggle ... ok
+
+test result: ok. 3 passed; 0 failed; 15 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+
+running 10 tests
+test test_config_worktrees_disabled ... ok
+test test_entry_promotion_on_merge ... ok
+test test_entry_branch_scoping ... ok
+test test_list_active_worktrees ... ok
+test test_multiple_worktrees_same_task_prevented ... ok
+test test_worktree_by_branch_lookup ... ok
+test test_worktree_config_parsing ... ok
+test test_task_worktree_association ... ok
+test test_worktree_status_lifecycle ... ok
+test test_worktree_store_crud ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 25 tests
+test cas-cli/src/async_runtime.rs - async_runtime (line 8) ... ignored
+test cas-cli/src/extraction/mod.rs - extraction (line 13) ... ignored
+test cas-cli/src/hybrid_search/mod.rs - hybrid_search (line 19) ... ignored
+test cas-cli/src/migration/mod.rs - migration (line 8) ... ignored
+test cas-cli/src/sync/mod.rs - sync (line 18) ... ignored
+test cas-cli/src/tracing/claude_wrapper.rs - tracing::claude_wrapper (line 8) ... ignored
+test cas-cli/src/tracing/mod.rs - tracing (line 17) ... ignored
+test cas-cli/src/ui/components/header.rs - ui::components::header::Header (line 22) ... ignored
+test cas-cli/src/ui/components/key_value.rs - ui::components::key_value::KeyValue (line 22) ... ignored
+test cas-cli/src/ui/components/layout.rs - ui::components::layout (line 7) ... ignored
+test cas-cli/src/ui/components/layout.rs - ui::components::layout::Column (line 32) ... ignored
+test cas-cli/src/ui/components/layout.rs - ui::components::layout::Divider (line 262) ... ignored
+test cas-cli/src/ui/components/layout.rs - ui::components::layout::Row (line 107) ... ignored
+test cas-cli/src/ui/components/list.rs - ui::components::list::List (line 54) ... ignored
+test cas-cli/src/ui/components/panel.rs - ui::components::panel (line 6) ... ignored
+test cas-cli/src/ui/components/program.rs - ui::components::program::run (line 62) ... ignored
+test cas-cli/src/ui/components/progress.rs - ui::components::progress::ProgressBar (line 33) ... ignored
+test cas-cli/src/ui/components/spinner.rs - ui::components::spinner::Spinner (line 65) ... ignored
+test cas-cli/src/ui/components/status_line.rs - ui::components::status_line::StatusLine (line 59) ... ignored
+test cas-cli/src/ui/components/table.rs - ui::components::table (line 7) ... ignored
+test cas-cli/src/ui/components/traits.rs - ui::components::traits::Component (line 51) ... ignored
+test cas-cli/src/ui/components/traits.rs - ui::components::traits::Renderable (line 28) ... ignored
+test cas-cli/src/ui/components/tree.rs - ui::components::tree (line 6) ... ignored
+test cas-cli/src/orchestration/names.rs - orchestration::names::generate (line 31) ... ok
+test cas-cli/src/orchestration/names.rs - orchestration::names::generate_unique (line 51) ... ok
+
+test result: ok. 2 passed; 0 failed; 23 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

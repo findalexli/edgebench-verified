@@ -49,11 +49,13 @@
    "note": "left in the image, no longer read"
   }
  ],
- "repair_patch_sha256": "ff70e183daf66381e012649d33669cf49e22da9201a23427d10df09a29aa282a",
+ "repair_patch_sha256": "702d334e16a943fa706e744e91c30b64e4cb1e28bcc9cbfad0cc49ac84b0592c",
  "dockerfile_sha256": "eaa8e5a7ffc438a10e384c3a2540ad029628cfab0c740a7933a44d98f945f03e",
  "work_image_changed": false,
  "task_json_fields_changed": [
-  "judge.image_tag"
+  "judge.image_tag",
+  "judge.rescale.lower",
+  "judge.rescale.upper"
  ],
  "materialize": {
   "schema": "edgebenchverified-materialize-v1",
@@ -89,8 +91,8 @@
    "files/internal/baseline/starter/intcompress.h": "52872af138b25fa23ed7f7031a979d9f00fc1e53b951e014384f2511883152b7",
    "files/runner_judge.py": "f205adb8911b3513aa4723dd89c34048ec43317cb78f09b5bbf9fe5971e7e152"
   },
-  "repair_patch_sha256": "ff70e183daf66381e012649d33669cf49e22da9201a23427d10df09a29aa282a",
-  "materialize_sh_sha256": "edc45c1626cc6f1b13ddd75d8fca4ac9f41a5009b6f6d19df1af453ef955ab8e",
+  "repair_patch_sha256": "702d334e16a943fa706e744e91c30b64e4cb1e28bcc9cbfad0cc49ac84b0592c",
+  "materialize_sh_sha256": "858a3ff2dd851e3134f126b47d013371f88c6625c7ab3866a1af67eebb120cb5",
   "note": "files/internal/baseline/starter/* are new image paths whose content is an unchanged copy of the in-image Makefile, src/codec.cpp and include/intcompress.h."
  }
 }

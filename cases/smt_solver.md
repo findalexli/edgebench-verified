@@ -28,7 +28,9 @@ No answer can pass, because both applications read the one key `(f x)`.
 - **27 sat QF_UF files (15 medium, 12 hard) cannot be won.** These are quasigroup files that re-bind `?v_0 … ?v_n` in each assertion. In all 27, the formula as the checker reads it is unsat, while the real formula is sat. On the original image, `QF_UF/79f4ca54c7f5a5f0.smt2` rejects a true z3 model under both key styles.
 - **42 more hidden sat files reject keys in the form the spec gives.** On these files, a solver that follows the spec literally and emits ground-term keys is rejected. Only the undocumented textual-key convention works there.
 
-**Direction.** The problem only causes correct answers to be rejected. Any answer the checker accepts still defines a genuine model, so no wrong model is accepted this way.
+**Direction.** The problem only causes correct answers to be rejected. Whenever the checker accepts, the formula really is satisfiable (Lean `orig_sound`, `fixed_sound`), so no unsat problem is credited as sat. The original checker can, however, accept a witness that is not itself a function: `unused_conflict` below gives f two values at one argument value and is accepted by the original grader.
+
+**Note: grader CPU count (not part of the fix).** The eval_cmd runs `evaluate.py --timeout 60 --parallel 16`, and the timeout is wall-clock time (`proc.communicate(timeout=timeout)`, line 690); a timeout earns 0. All four official leaderboard configs (`examples/all-tasks-k8s/experiment*.yaml` at EdgeBench commit 6e4e5f4) set `judge_cpu_limit: 16` for `smt_solver`, so the 16 solver processes get one CPU each. On a grader with fewer CPUs, for example the configs' default of 4, each problem gets proportionally less CPU in its 60 s. This was measured on the original grader with the grader's exact flags on a 32-problem subset of the hidden set (QF_LIA, hard, expected unsat) and a stand-in solver: at 4 CPUs a solver needing 20 s of CPU per problem timed out on all 32, while at 8 CPUs it passed (`evidence/runs/smt_solver-cpu4v8-a`, `-b`; `evidence/runs/smt_solver-v2-paired-cpu`, `smt_solver-v2-paired-b-cpu`, `-c-cpu`). The task text also disagrees with itself: the prompt says "16 evaluator workers", while the work image's `smtlib_spec.md:118` says "4 evaluator workers". Neither affects grading at the official 16 CPUs, so this is kept as a note.
 
 ## How much it matters
 
@@ -54,12 +56,14 @@ Side-by-side results of the original and fixed graders. Both images run with the
 
 The full original `eval_cmd` (all 774 hidden files, `--parallel 16`) with the ground test submission. The stand-in solver answers `unknown` on the 705 files that have no prepared answer.
 
-| Grader | Score | Score out of 100 | Pass | Exit |
+| Grader | Raw score (0–1) | Score out of 100 | Pass | Exit |
 | --- | --- | --- | --- | --- |
-| Original | 0.0000 | 0.0000 | 0/774 | 0 |
-| Fixed | 0.1249 | 0.1249 | 69/774 | 0 |
+| Original | 0.0000 | 0.00 | 0/774 | 0 |
+| Fixed | 0.1249 | 12.49 | 69/774 | 0 |
 
-No test submission went from correct to rejected. Of 13 small constructed cases, the only intended new rejection by the fixed grader is `unused_conflict`. That answer gives f two values at one argument value through an unused key, so it does not define a function. Final score on the small cases: original grader 0.1615, fixed grader 0.3231.
+The task's rescale is linear from 0 to 1 (`tasks/smt_solver.json`), so the score out of 100 is 100 × raw; the grader's own summary line reads `score=0.124948 (12.49/100)` (`repairs/smt_solver-v2/paired/evidence/b/fulleval_lines.txt`).
+
+No corpus test submission went from correct to rejected. Among the 13 small constructed cases, only `unused_conflict` did, as intended: that answer gives f two values at one argument value through an unused key, so it does not define a function. Raw score (0–1 scale) on the small cases: original grader 0.1615, fixed grader 0.3231 (16.15 and 32.31 out of 100).
 
 **Score compatibility.**
 
@@ -84,7 +88,7 @@ No test submission went from correct to rejected. Of 13 small constructed cases,
 - The "not a model" status of the wrong-model test submissions depends on z3 4.13.0.0. Each wrong answer changes one UF value, so these test submissions do not cover every possible kind of wrong model.
 - The public development set is reported to contain 2 unwinnable sat problems; no scan output for it is included.
 - The spec text was not reworded; its "canonical ground terms" wording now matches the checker.
-- Only the UF keying was examined in depth. Perturbation, the preflight scan and timeouts were spot-checked.
+- Only the UF keying was examined in depth. Perturbation and the preflight scan were spot-checked; the timeout's dependence on the grader's CPU count was measured on a 32-problem subset with a stand-in solver (note above).
 
 ## Reproduce
 
@@ -93,6 +97,7 @@ No test submission went from correct to rejected. Of 13 small constructed cases,
 - Real hidden problems (original image): `evidence/scripts/smt_solver/run_corpus_native.sh` and `run_deep_native.sh`
 - Problem-set scan and checker encoding: `evidence/scripts/smt_solver/scan_corpus.py --z3`; encoding validation: `witness_roundtrip.py`; outputs in `evidence/scripts/smt_solver/results/`
 - Score effect: `evidence/scripts/smt_solver/score_impact.py`
-- Side-by-side run of the original and fixed graders: `repairs/smt_solver-v2/paired/run.sh` (wrong-model test submission: `run_wrongarm_c.sh`); patch: `repairs/smt_solver-v2/repair.patch`
+- Side-by-side run of the original and fixed graders: `repairs/smt_solver-v2/paired/run.sh` (wrong-model test submission: `run_wrongarm_c.sh`); patch: `repairs/smt_solver-v2/repair.patch`; fixed `evaluate.py` sha256 `bbc730f8…2998`
+- CPU-count note: `evidence/runs/smt_solver-cpu4v8-a/run.sh`, `-b` (original grader at 4 and 8 CPUs)
 
 Supporting records: `repairs/smt_solver-v2/` (the folder holding the fixed version: README, `source-lock.json`, `paired/results.md`, `paired/evidence/`).

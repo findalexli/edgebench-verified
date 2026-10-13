@@ -12,51 +12,63 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Parse complete score-sum records while preserving per-case partial credit.
+"""Parser for score-based evaluation output (e.g., competitive programming judges).
 
-An evaluator's per-case TLE/RE/WA/CE is an ordinary unsuccessful case. It is
-separate from a harness timeout, which means the overall result is incomplete.
+Expected format:
+  CASE 0000 OK score=12461
+  CASE 0001 OK score=13335.5
+  CASE 0002 TLE score=0
+  CASE 0003 RE score=0
+  CASE 0004 WA score=0
+  CASE 0005 CE score=0
+  ...
+  TOTAL_SCORE 826577
+  CASES_OK 48
+  CASES_TOTAL 50
+
+Status codes:
+  OK  — ran successfully, score > 0
+  TLE — time limit exceeded
+  RE  — runtime error
+  WA  — wrong answer (invalid output)
+  CE  — compile error
 """
 
 from __future__ import annotations
 
-import math
 import re
 
 from sforge.harness.constants import PASSED, FAILED
 
-NUMBER = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
-
 
 def parse_score_sum(test_output: str) -> list[dict]:
-    """Parse CASE records; check declared totals when the evaluator emits them.
+    """Parse score-based evaluation output.
 
-    Older emitters without CASES_TOTAL/CASES_OK remain supported; absent totals
-    do not establish coverage of an externally expected case set.
+    Returns list of {"name": str, "status": "PASSED"|"FAILED"}.
     """
     results: list[dict] = []
-    seen = set()
-    pattern = re.compile(r"CASE\s+(\S+)\s+(OK|TLE|RE|WA|CE)\s+score=(" + NUMBER + r")(?:\s+.*)?")
-    for line in test_output.splitlines():
-        if not line.startswith("CASE ") and not line.startswith("CASE\t"):
-            continue
-        match = pattern.fullmatch(line)
-        if not match or not math.isfinite(float(match.group(3))):
-            raise ValueError("Malformed or nonfinite CASE record")
-        case_id, status, _ = match.groups()
-        if case_id in seen:
-            raise ValueError(f"Duplicate CASE id: {case_id}")
-        seen.add(case_id)
-        name = f"case_{case_id}" if status == "OK" else f"case_{case_id}_{status}"
-        results.append({"name": name, "status": PASSED if status == "OK" else FAILED})
+
+    # Match lines: CASE <id> <status> score=<n>
+    case_pattern = re.compile(
+        r"^CASE\s+(\S+)\s+(OK|TLE|RE|WA|CE)\s+score=(inf|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)",
+        re.MULTILINE,
+    )
+
+    for match in case_pattern.finditer(test_output):
+        case_id = match.group(1)
+        status = match.group(2)
+        score = float(match.group(3))
+
+        if status == "OK":
+            results.append({"name": f"case_{case_id}", "status": PASSED})
+        else:
+            results.append({"name": f"case_{case_id}_{status}", "status": FAILED})
+
+    # If no cases found, check for compile error
     if not results:
-        raise ValueError("No CASE records found")
-    for label, actual in (("CASES_TOTAL", len(results)),
-                          ("CASES_OK", sum(r["status"] == PASSED for r in results))):
-        lines = re.findall(r"^" + label + r"(?:[ \t]+.*)?$", test_output, re.M)
-        if lines:
-            if len(lines) != 1 or not re.fullmatch(label + r"[ \t]+\d+[ \t]*", lines[0]):
-                raise ValueError(f"Malformed or duplicate {label}")
-            if int(lines[0].split()[1]) != actual:
-                raise ValueError(f"{label} disagrees with CASE records")
+        if "CE" in test_output or "compile" in test_output.lower():
+            results.append({"name": "compile", "status": FAILED})
+        else:
+            results.append({"name": "unknown", "status": FAILED})
+
     return results

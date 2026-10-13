@@ -30167,3 +30167,47 @@
 +88 132 444
 +5 104 206
 +104 206 331
+# files/eval_triangulation_coloring.py <- judge:/tmp/eval_triangulation_coloring.py
+--- a/files/eval_triangulation_coloring.py
++++ b/files/eval_triangulation_coloring.py
+@@ -8,6 +8,31 @@
+ TESTER = os.path.join(WORK_DIR, "tools", "bin", "tester")
+ TIME_LIMIT = 30
+ 
++
++def cpu_quota_workers():
++    """EBV v2: run at most as many cases at once as the grader has CPUs (cgroup quota), 1..8."""
++    n = None
++    try:  # cgroup v2: "<quota> <period>" or "max <period>"
++        with open("/sys/fs/cgroup/cpu.max") as f:
++            quota, period = f.read().split()[:2]
++        if quota != "max":
++            n = int(quota) // int(period)
++    except (OSError, ValueError):
++        pass
++    if n is None:
++        try:  # cgroup v1: quota -1 means no limit
++            with open("/sys/fs/cgroup/cpu/cpu.cfs_quota_us") as f:
++                quota = int(f.read())
++            with open("/sys/fs/cgroup/cpu/cpu.cfs_period_us") as f:
++                period = int(f.read())
++            if quota > 0:
++                n = quota // period
++        except (OSError, ValueError):
++            pass
++    if n is None:
++        n = os.cpu_count() or 1
++    return max(1, min(8, n))
++
+ def run_case(args):
+     i, case_file = args
+     cid = f"{i:04d}"
+@@ -41,7 +66,7 @@
+     os.chdir(WORK_DIR)
+     case_files = sorted(f for f in glob.glob(os.path.join(CASES_DIR, "*")) if os.path.isfile(f))
+     results = {}
+-    with ProcessPoolExecutor(max_workers=min(8, len(case_files))) as pool:
++    with ProcessPoolExecutor(max_workers=min(cpu_quota_workers(), len(case_files))) as pool:
+         futures = {pool.submit(run_case, (i, cf)): i for i, cf in enumerate(case_files)}
+         for fut in as_completed(futures):
+             cid, status, score = fut.result()

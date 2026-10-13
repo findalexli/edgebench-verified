@@ -1,0 +1,88 @@
+cargo 1.88.0 (873a06493 2025-05-10)
+rustc 1.88.0 (6b00bc388 2025-06-23)
+Loaded manifest: 795 hidden test names across 14 crates
+CAS Benchmark Scorer
+Workspace: agent-start
+Hidden sources: /tmp/cas_eval/run/hidden-tests/hidden-sources
+Timeout: 1800s/crate, 14400s total
+
+
+=== Public Tests (agent workspace) ===
+  [public] Testing cas-types... TEST_FAIL (96/136) in 14.9s
+  [public] Testing cas-code... TEST_FAIL (35/50) in 13.2s
+  [public] Testing cas-factory-protocol... TEST_FAIL (66/98) in 27.5s
+  [public] Testing cas-diffs... TEST_FAIL (76/98) in 22.1s
+  [public] Testing cas-pty... TEST_FAIL (6/11) in 11.5s
+  [public] Testing cas-recording... TEST_FAIL (20/29) in 12.4s
+  [public] Testing cas-store... TEST_FAIL (152/216) in 31.0s
+  [public] Testing cas-search... TEST_FAIL (56/136) in 47.4s
+  [public] Testing cas-core... TEST_FAIL (135/201) in 21.4s
+  [public] Testing cas-mux... TEST_CRASH (0/37) in 18.1s
+  [public] Testing cas-factory... TEST_FAIL (94/134) in 25.4s
+  [public] Testing cas-mcp... TEST_FAIL (10/16) in 25.8s
+  [public] Testing cas-tui-test... TEST_FAIL (74/105) in 7.7s
+  [public] Testing cas-cli... COMPILE_FAIL_ROOT (0/1344) in 147.3s
+Traceback (most recent call last):
+  File "/tmp/cas_eval/run/tools/score.py", line 586, in <module>
+    main()
+  File "/tmp/cas_eval/run/tools/score.py", line 571, in main
+    result = score_workspace(args.workspace, original_dir=args.original_dir,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/cas_eval/run/tools/score.py", line 485, in score_workspace
+    temp_dir = tempfile.mkdtemp(prefix="cas-hidden-inject-")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/tempfile.py", line 496, in mkdtemp
+    prefix, suffix, dir, output_type = _sanitize_params(prefix, suffix, dir)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/tempfile.py", line 265, in _sanitize_params
+    dir = gettempdir()
+          ^^^^^^^^^^^^
+  File "/usr/lib/python3.11/tempfile.py", line 438, in gettempdir
+    return _os.fsdecode(_gettempdir())
+                        ^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/tempfile.py", line 431, in _gettempdir
+    tempdir = _get_default_tempdir()
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/tempfile.py", line 362, in _get_default_tempdir
+    raise FileNotFoundError(_errno.ENOENT,
+FileNotFoundError: [Errno 2] No usable temporary directory found in ['/tmp', '/var/tmp', '/usr/tmp', '/tmp/cas_eval/run']
+SCORE_STATUS=INFRA_FAIL
+ERROR=scorer execution failed
+>>>>> Start Structured Result
+{
+  "details": [
+    {
+      "message": "score=0.0000; status=INFRA_FAIL; raw_passed=0; raw_total=0; pass_rate=0.000000",
+      "name": "overall_score",
+      "score": 0.0,
+      "status": "ERROR",
+      "weight": 1.0
+    },
+    {
+      "message": "raw_passed=0; raw_total=0; pass_rate=0.000000",
+      "name": "raw_test_pass_rate",
+      "score": 0.0,
+      "status": "FAILED",
+      "weight": 1.0
+    }
+  ],
+  "metrics": {
+    "crates": [],
+    "layers": [],
+    "raw_passed": 0,
+    "raw_total": 0,
+    "score_lines": [
+      "SCORE_STATUS=INFRA_FAIL"
+    ],
+    "score_status": "INFRA_FAIL",
+    "total_duration_sec": null,
+    "weighted_passed": 0.0,
+    "weighted_total": 100.0
+  },
+  "pass_rate": 0.0,
+  "score": 0.0,
+  "summary": "score=0.0000; status=INFRA_FAIL; raw_passed=0; raw_total=0; pass_rate=0.000000",
+  "valid": false
+}
+>>>>> End Structured Result
+EVAL_CMD_EXIT=0

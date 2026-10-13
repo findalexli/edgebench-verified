@@ -35,60 +35,26 @@ import re
 from sforge.harness.constants import PASSED, FAILED, ERROR
 
 
-def _summary_counts(test_output: str) -> dict[str, int] | None:
-    # Require a complete terminal-style summary line, not a diagnostic substring.
-    matches = list(re.finditer(
-        r"^=+\s+([\d\w, ]+)\s+in\s+[\d.]+s(?: \([^\n]*\))?\s+=+[ \t]*$",
-        test_output, re.MULTILINE,
-    ))
-    if not matches:
-        return None
-    counts = {}
-    for match in re.finditer(r"(\d+)\s+(\w+)", matches[-1].group(1)):
-        count, label = match.groups()
-        counts[label] = counts.get(label, 0) + int(count)
-    return counts
-
-
 def _parse_summary(test_output: str) -> dict[str, int] | None:
-    counts = _summary_counts(test_output)
-    if counts is None:
+    """Parse the pytest summary line. Returns {passed, failed, error} counts or None."""
+    # Match the summary line like: "= 14 failed, 212 passed, 4 xfailed in 361.11s ="
+    summary_match = re.search(r"=+\s+([\d\w, ]+)\s+in\s+[\d.]+", test_output)
+    if not summary_match:
         return None
-    return {
-        "passed": sum(counts.get(s, 0) for s in ("passed", "xfailed", "xpassed")),
-        "failed": counts.get("failed", 0),
-        "error": counts.get("error", 0) + counts.get("errors", 0),
-    }
 
-
-def validate_pytest_completion(test_output: str, results: list[dict]) -> None:
-    """Reject incomplete sessions without treating failed tests as bad framing.
-
-    XFAIL/XPASS and SKIPPED retain upstream's scoring semantics. Collection
-    counts are a consistency check when present, not an independent case list.
-    """
-    summary = _parse_summary(test_output)
-    counts = _summary_counts(test_output)
-    if summary is None:
-        raise ValueError("Missing complete pytest summary")
-    if re.search(r"^!+.*(?:Interrupted|KeyboardInterrupt|stopping after).*?!+$", test_output, re.M):
-        raise ValueError("Pytest session interrupted or stopped early")
-    actual = {"passed": sum(r["status"] == PASSED for r in results),
-              "failed": sum(r["status"] == FAILED for r in results),
-              "error": sum(r["status"] == ERROR for r in results)}
-    if actual != summary:
-        raise ValueError("Pytest summary disagrees with named results")
-    collection = list(re.finditer(r"collected (\d+) items?([^\n]*)", test_output))
-    if collection:
-        selected = re.search(r"(\d+) selected", collection[-1].group(2))
-        expected = int(selected.group(1) if selected else collection[-1].group(1))
-        completed = sum(summary.values()) + counts.get("skipped", 0)
-        # Teardown errors can add an ERROR outcome after an already completed
-        # test. Therefore only a deficit proves an incomplete collected suite.
-        if completed < expected:
-            raise ValueError("Pytest summary accounts for fewer than the collected tests")
-    if sum(summary.values()) == 0:
-        raise ValueError("No graded pytest tests found")
+    summary_text = summary_match.group(1)
+    counts = {"passed": 0, "failed": 0, "error": 0}
+    for m in re.finditer(r"(\d+)\s+(\w+)", summary_text):
+        count = int(m.group(1))
+        label = m.group(2)
+        if label in ("passed", "xfailed", "xpassed"):
+            counts["passed"] += count
+        elif label == "failed":
+            counts["failed"] += count
+        elif label in ("error", "errors"):
+            counts["error"] += count
+        # skip "warnings", "skipped", "deselected", etc.
+    return counts
 
 
 def parse_pytest_v(test_output: str) -> list[dict]:

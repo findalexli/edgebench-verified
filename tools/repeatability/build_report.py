@@ -62,10 +62,37 @@ for task, arms in tasks.items():
             lo, hi = min(vals), max(vals); mean = sum(vals) / len(vals)
             rel = (hi - lo) / abs(mean) if mean else (0.0 if hi == lo else float('inf'))
             return {'min': lo, 'max': hi, 'rel': rel, 'n': len(vals)}
-        td['arms'].append({'arm': a['arm'], 'role': a['role'], 'runs': sorted(per), 'derived': bool(derived),
+        nc = X.NOT_COUNTED.get(task, {}).get(i)
+        td['arms'].append({'arm': a['arm'], 'role': a['role'], 'runs': sorted(per), 'derived': bool(derived), 'not_counted': nc,
                            'stable': stable, 'per': {r: list(map(fmt, p)) if False else [p[0], p[1], fmt(p[2]), fmt(p[3])] for r, p in per.items()},
                            'v1_spread': spread(2), 'v2_spread': spread(3), 'timing': task in TIMING})
     digest[task] = td
+
+# supplementary jobs: every label of the job's own summary, compared across runs
+extra = []
+for task, job, what, parser in X.EXTRA:
+    runs = {}
+    for run in (1, 2, 3):
+        try:
+            runs[run] = X.extract_extra(job, parser, run)
+        except Exception as e:
+            runs[run] = {'_error': f'{type(e).__name__}: {e}'.splitlines()[0][:300]}
+    ok = [r for r, v in runs.items() if '_error' not in v]
+    labels = list(runs[ok[0]]) if ok else []
+    changed = []
+    for lab in labels:
+        sigs = {r: runs[r].get(lab, ('missing', None))[0] for r in ok}
+        if len(set(sigs.values())) > 1:
+            changed.append({'label': lab, 'per': {r: list(map(str, runs[r].get(lab, ('missing', None)))) for r in ok}})
+    sp = []
+    for lab in labels:
+        vals = [runs[r][lab][1] for r in ok if lab in runs[r] and isinstance(runs[r][lab][1], (int, float)) and not math.isinf(runs[r][lab][1])]
+        if len(vals) >= 2 and max(vals) != min(vals):
+            m = sum(vals) / len(vals)
+            sp.append({'label': lab, 'min': min(vals), 'max': max(vals), 'rel': (max(vals) - min(vals)) / abs(m) if m else float('inf')})
+    extra.append({'task': task, 'job': job, 'what': what, 'runs_ok': ok, 'errors': {r: v['_error'] for r, v in runs.items() if '_error' in v},
+                  'labels': len(labels), 'changed': changed, 'spread': sp})
+digest['_extra'] = extra
 
 with open(R / 'data/paired-repeatability.csv', 'w', newline='') as f:
     w = csv.writer(f)
@@ -74,6 +101,10 @@ with open(R / 'data/paired-repeatability.csv', 'w', newline='') as f:
 json.dump(digest, open(X.S / 'digest.json', 'w'), indent=1)
 print('rows', len(out_rows))
 for t, d in digest.items():
+    if t == '_extra':
+        for e in d:
+            print('EXTRA', e['job'], 'runs', e['runs_ok'], 'labels', e['labels'], 'changed', [c['label'] for c in e['changed']])
+        continue
     if 'skipped' in d:
         print(t, 'SKIPPED'); continue
     n = len(d['arms']); st = sum(a['stable'] for a in d['arms'])

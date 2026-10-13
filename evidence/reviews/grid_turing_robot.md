@@ -1,6 +1,10 @@
 # Review: grid_turing_robot
 
-Scope: good-faith correctness only (user decision, 2026-10-12). Score-line injection through submission-controlled text and other scorer-isolation questions are out of scope. I did not analyse, build or run any such submission.
+> **Note (2026-10-12).** Superseded statements below: "Formal check: None" (a Lean 4 proof, `evidence/formal/lean/ebv/Ebv/GridTuringBaseline.lean`, covers the baseline offset; its exact maximum is 2.84005, not 2.84); and "The production judge's CPU allocation is unknown" (the publisher's leaderboard setting, `examples/all-tasks-k8s/experiment.yaml` sha256 `d9d29979…43be`, gives the grader 4 CPUs). See `cases/grid_turing_robot.md`.
+
+> **Note (2026-10-12, later).** The CPU dependence in (c) is now fixed in a new version (`repairs/grid_turing_robot-v2/`): the grader runs at most as many cases at once as its CPU quota. Measured at 4 CPUs (`evidence/runs/grid_turing_robot-cpu4v8-a`, `grid_turing_robot-v2-paired`). Superseded below: the retain-with-note decision and recommendation 1 ("Pin judge `cpu_limit` ≥ 8"). See `cases/grid_turing_robot.md`.
+
+Scope: good-faith correctness only (user decision, 2026-10-12). Scorer-isolation questions (deliberate attacks on the grader) are out of scope and were not analysed; such notes are kept internally.
 
 ## Claim under review
 
@@ -30,7 +34,7 @@ Earlier disposition: TASKS.md says "Review pending | Historical source/component
   - The 50 `cases/*` files: the sha256 of their sha256 list is `6dfe7079…`.
   - The images run Python 3.10.20.
 - Work image `seededge/edgebench.work.grid_turing_robot@sha256:ba101c59f66f4423ff8a10be935d25513f459393b5afd74730e5bad87eaa66bd`. I pulled it to inspect only, then removed it. README, tester, verifier, gen and solution are byte-identical to the judge image. It has no `cases/`. `tools/README.md` (`adcba91c…`) exists only in the work image.
-- Harness used for grading: the repo's `sforge/harness/` (`grading.py`, `log_parsers/score_sum.py`, `selection.py`, `score_rescale.py`).
+- Harness used for grading: EdgeBench's `sforge/harness/` at `6e4e5f4` (`grading.py`, `log_parsers/score_sum.py`, `selection.py`, `score_rescale.py`). (Re-checked 2026-10-12: the review first used a locally modified copy that marked `inf` totals invalid; EdgeBench keeps them as raw `inf` with no score out of 100, and every conclusion below is unchanged.)
 
 ## Contract
 
@@ -68,15 +72,15 @@ So C+Q = 2 is reached only when one repeated move visits every target. C ≥ 1 a
 
 **Native runs.** Each solution was copied into the pinned judge image as `solution.py`, and the unchanged evaluator was run with `docker run --network none --memory 2g --cpus 4` (`run_native.sh`). The logs were then graded by the repo harness: `grade_output` → `rescale_score` → `select_best` (`grade.py`, `native/grade_out.txt`).
 
-| solution (all honest) | evaluator per-case result | TOTAL_SCORE | harness valid | raw | normalized |
+| solution (all honest) | evaluator per-case result | TOTAL_SCORE | scored by the harness | raw | normalized |
 |---|---|---|---|---|---|
 | `good_stepstate` (C=1, one state per BFS step; known-good) | 50 OK | 94,092 | yes | 94,092 | 19.80 |
 | `fail_partial` (well-formed; route cut in half on case 0000) | 50 OK | 202,310 | yes | 202,310 | 19.56 |
 | `shipped_baseline` (`1 1 0`, no rules; known-bad, valid) | 50 OK | 7,744,909 | yes | 7,744,909 | **2.84** |
-| `fail_crash` (raises on case 0000 only) | 0000 RE score=inf | inf | **no** ("Malformed or nonfinite CASE record") | None | None |
-| `fail_trunc` (output cut short on case 0000) | 0000 WA score=inf | inf | no | None | None |
-| `fail_tle` (sleeps 40 s on case 0000) | 0000 TLE score=inf | inf | no | None | None |
-| `fail_lower` (lower-case directions on every case) | 50 WA score=inf | inf | no | None | None |
+| `fail_crash` (raises on case 0000 only) | 0000 RE score=inf | inf | **no** (raw `inf`, `valid: true`) | inf | None |
+| `fail_trunc` (output cut short on case 0000) | 0000 WA score=inf | inf | no | inf | None |
+| `fail_tle` (sleeps 40 s on case 0000) | 0000 TLE score=inf | inf | no | inf | None |
+| `fail_lower` (lower-case directions on every case) | 50 WA score=inf | inf | no | inf | None |
 
 The tester's own output on case 0000 (`native/tester_case0000.txt`):
 - `wrong answer: Invalid direction: d` (exit 1)
@@ -85,18 +89,18 @@ The tester's own output on case 0000 (`native/tester_case0000.txt`):
 
 Honest error texts contain no "Score" token, so they land in WA, which is what the evaluator intends.
 
-Selection across rounds: when all the logs are passed as rounds, `score_first` picks the valid 94,092 round and ignores the invalid ones.
+Selection across rounds: when all the logs are passed as rounds, `score_first` picks the 94,092 round over the `inf` ones.
 
 **CPU dependence.** `cpu12` does a fixed 12 s of CPU work per case (under the README's 30 s), then emits the good answer. I ran it through the same evaluator twice:
 - `--cpus 8`: 50 OK, raw 94,092, normalized 19.80.
-- `--cpus 2`: **48 TLE**, which makes the submission invalid.
+- `--cpus 2`: **48 TLE**, which makes the total `inf`, so the submission gets no score.
 
 The evaluator always runs 8 cases in parallel against a 30 s wall-clock limit, and the task sets no `cpu_limit`. Results are in `native_cpus2/`, `native_cpus8/` and `native_cpus8/grade_out.txt`.
 
 ## Refutation attempts
 
-1. **Reflected score line.** This is a submission-text-injection path, so it is a scorer-isolation question and out of scope. I built no fixture for it. For honest submissions, the earlier source reading is right: the evaluator ignores the tester's exit status and scans for a "Score" line with `=`/`:`. That changes no honest outcome, because the tester prints a Score line only on success, and honest `wrong answer:` texts contain no "Score" token (shown natively above).
-2. **Do failures help a minimiser?** No. RE, TLE and WA cases get `score=inf` in the evaluator. The harness parser's NUMBER pattern does not accept `inf`, so `grade_output` invalidates the whole submission (score None, pass_rate 0, no rankable result). A failed case is never dropped and never counted as 0. Even if the infinite sum were passed through, `piecewise_min` would give 0 for raw ≥ baseline. No honest failure can score better than a valid run. The dossier's source prediction, "a malformed case should invalidate the aggregate", is **confirmed natively**.
+1. **Score-line parsing.** Any scorer-isolation aspect is out of scope and was not analysed. For honest submissions, the earlier source reading is right: the evaluator ignores the tester's exit status and scans for a "Score" line with `=`/`:`. That changes no honest outcome, because the tester prints a Score line only on success, and honest `wrong answer:` texts contain no "Score" token (shown natively above).
+2. **Do failures help a minimiser?** No. RE, TLE and WA cases get `score=inf` in the evaluator. EdgeBench's harness passes `inf` through: the total is `inf`, `rescale_score` gives no score out of 100 (None), and under `minimize` any finite submission is preferred. A failed case is never dropped and never counted as 0. No honest failure can score better than a valid run. The dossier's source prediction, "a malformed case should invalidate the aggregate", is **confirmed natively** in effect: the aggregate gets no score.
 3. **Is the failure rule consistent with the prompt?** It is stricter than the prompt implies but does not contradict it. The prompt promises a "sum of individual case scores" and per-case scores, and its penalty formula covers only well-formed outputs that do not visit every target. In practice, one honest crash, timeout or format slip in 50 cases makes the whole submission unrankable. If that case were charged even its smallest penalty instead (2N⁴+(K−1)N² ≥ 20,900), the total would exceed rank30 = 4,490, so the submission would earn at most about 19.96 points. The cost of invalidation over a per-case penalty is therefore at most about 20 normalized points for that submission. It is zero if an earlier round was valid, because `score_first` keeps the best valid round.
 4. **Baseline anchor.** The shipped baseline actually totals 7,744,909 on the 50 grading cases. By the penalty formula, every case is 2N⁴+(K−1)N², because the robot starts on target 0 and halts at once. That total is not the configured 9,025,986. The configured value matches none of the alternatives I tried:
    - V=0 penalty: 7,756,665
@@ -118,18 +122,18 @@ None. The state rules are short and deterministic. The independent oracle, the 3
 **CONFIRMED-NARROWER.**
 
 - The source facts quoted from AUTHOR-CORRECTION are accurate: the tester's exit status is ignored, Score lines are scanned for, non-U/D/L/R/S directions are rejected, nonpositive raw maps to 0, and C+Q ≥ 2.
-- The dossier's prediction that a malformed case invalidates the whole aggregate is confirmed natively.
+- The dossier's prediction that a malformed case costs the whole aggregate is confirmed natively (total `inf`, no score).
 - For honest solvers, the "reflected score" concern has no effect. The injection path itself is out of scope.
 
 For honest solvers, the task scores correctly. The oracle and verifier agree, the data is valid, and failures never help. Three things need a note:
 
-- **(a)** One failed case makes the whole submission unrankable, and the prompt does not say so.
+- **(a)** One failed case makes the total `inf`, so the whole submission gets no score, and the prompt does not say so.
 - **(b)** The configured baseline is not the shipped baseline's score, which gives a 2.84-point floor offset.
-- **(c)** The 30 s limit is wall-clock time shared by 8 parallel cases, with no pinned judge CPU allocation. A fixed-work solution valid on 8 CPUs was invalidated on 2.
+- **(c)** The 30 s limit is wall-clock time shared by 8 parallel cases, with no pinned judge CPU allocation. A fixed-work solution valid on 8 CPUs got no score on 2.
 
 ## Disposition assessment
 
-**Retain with a note.** The "grid reflected score" hold concerned an out-of-scope isolation path and should not block the task. Withholding it would be disproportionate: no good-faith defect inverts rankings or accepts incorrect solutions.
+**Retain with a note.** The "grid reflected score" hold concerned an out-of-scope scorer-isolation question and should not block the task. Withholding it would be disproportionate: no good-faith defect inverts rankings or accepts incorrect solutions.
 
 Run condition: grade with at least 8 dedicated judge CPUs, as in my 8-CPU run, or equivalently with evaluator parallelism no greater than the CPUs available. Otherwise, timeout results depend on the host.
 
@@ -140,7 +144,7 @@ Maximum score effect:
 
 ## Recommended publishable wording
 
-"Scoring was reproduced in the original judge image with an independent simulator. Results matched and the 50 cases are valid. One crashed, timed-out or malformed case makes the whole submission unrankable, which the prompt does not say; the configured baseline (9,025,986) is higher than the shipped baseline's actual 7,744,909, so the shipped baseline earns 2.8 points instead of 0. Cases run eight at a time under a 30-second wall-clock limit, so results are reproducible only with at least 8 judge CPUs."
+"Scoring was reproduced in the original judge image with an independent simulator. Results matched and the 50 cases are valid. One crashed, timed-out or malformed case makes the total infinite, so the whole submission gets no score, which the prompt does not say; the configured baseline (9,025,986) is higher than the shipped baseline's actual 7,744,909, so the shipped baseline earns 2.8 points instead of 0. Cases run eight at a time under a 30-second wall-clock limit, so results are reproducible only with at least 8 judge CPUs."
 
 ## Repair note
 

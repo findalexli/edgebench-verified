@@ -13,7 +13,7 @@ The grader's E-behavior monitor (`BehaviorMonitor.report`) nevertheless sets `is
 - E1 awards 4 points (3.2 after the 0.8 scale) only to data-space shapes.
 - `structural_failure = (not is_data_space) or …` blocks the 1.0 penalty branch in `structural_penalty_v34`, so any model-space submission is capped at a penalty factor of 0.5x.
 
-An honest model-space submission that computes exactly the same ABIC curve as its data-space twin is therefore always 3.2 points lower in raw result (before conversion to 0–100). At the strong level (C ≥ 26, D ≥ 20, F ≥ 10), it scores about 43 instead of about 89. No text the solver can see discloses this.
+An honest model-space submission that computes exactly the same ABIC curve as its data-space twin is therefore always 3.2 points lower in the total before the penalty factor is applied. At the strong level (C ≥ 26, D ≥ 20, F ≥ 10), it scores about 43 instead of about 89. No text the solver can see discloses this.
 
 ## What changes
 

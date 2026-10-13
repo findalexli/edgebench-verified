@@ -1,6 +1,6 @@
 # Carleson Formalization (`carleson_formalization`)
 
-**Outcome:** Kept, with a note. <mark>A count of every scored item inside the grader image finds none that an honest, complete solution cannot reach; the note covers one placeholder data definition and the unfinished source project.</mark>
+**Outcome:** Kept, with a note. <mark>A count of every scored item inside the grader image finds none put out of reach by the way the grader names compiler-generated items; whether every item is true and provable was not checked, and the note covers one placeholder data definition and the unfinished source project.</mark>
 
 ## What the task asks
 
@@ -10,9 +10,9 @@ The score is the share of the starting project's declarations that depend on `so
 
 ## What we checked
 
-No defect that changes scores enough to matter was found. These parts were checked:
+No defect that changes scores was found. These parts were checked:
 
-- **Auxiliary targets.** Lean's compiler generates helper declarations automatically (`X._proof_N`, `X._simp_N`, …). The Lean grader shared by several tasks credits these auxiliary targets only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 49/2901 (1.69%) of targets unreachable for any honest, complete solution, and scores depend on proof style. In this task no auxiliary target is exposed to that problem:
+- **Auxiliary targets.** Lean's compiler generates helper declarations automatically (`X._proof_N`, `X._simp_N`, …). The Lean grader shared by several tasks credits these auxiliary targets only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 44 helper targets (49 of 2901 targets in total, 1.69%, counting also 3 placeholder and 2 false statements) unreachable for any honest, complete solution, and scores depend on proof style. In this task no auxiliary target is exposed to that problem:
 
 | Targets | Auxiliary targets | Auxiliary share of score | Fragile auxiliary targets | Targets with `sorry` in the type | Pairs of P and ¬P | Lower bound on unreachable targets |
 |---|---|---|---|---|---|---|
@@ -20,7 +20,7 @@ No defect that changes scores enough to matter was found. These parts were check
 
   - Kinds of auxiliary targets: 90 `_proof`, 19 `_simp`, 11 `congr_simp`, 10 `eq_def`, and others.
   - A text-based count finds duplicate types for 8 auxiliary targets, and the classifier lists them as "likely unattainable". The probe inside the image classes all of them as transitive-only: they hold no `sorry` of their own and only inherit it. By the census's reasoning they are therefore not at risk. This was not tested by scoring.
-- **Proof style.** With this image's compiler (4.30.0-rc2), an `@[simp]` iff theorem was proved four ways: by `sorry`, by a term, by `omega` and by `simp`. In every case its auxiliary declaration got the same name (`_simp_1`) and the same type.
+- **Proof style.** With this image's compiler (4.30.0-rc2), four `@[simp]` iff theorems of the same shape, `a + b = b + a ↔ k ≤ a + k` with k = 0, 1, 2, 3, were proved four ways: by `sorry`, by a term, by `omega` and by `simp`. In every case the auxiliary declaration got the same name suffix (`_simp_1`) and a type that matches its own theorem's statement (`auxstyle/carleson_v4.30.out`). The `omega` proof also creates two further auxiliaries, `_proof_1_1` and `_proof_1_2`; these are new names, not starting targets. The test does not re-prove one theorem in several styles.
 
 Notes:
 
@@ -31,7 +31,7 @@ The note says: "Census: 0 targets unattainable, aux targets 5.0% and stable; a s
 
 ## How much it matters
 
-No target is out of reach for an honest, complete solution: the lower bound on unreachable targets is 0. The placeholder data definition affects one target, and possibly the difficulty of later bounds. Its effect on the score was not measured.
+No target was found out of reach because of the way the grader names compiler-generated items: the lower bound on targets unreachable for that reason is 0. This does not show that every target is reachable. Whether each target is true was not checked, and the source project is unfinished, so some targets may have no known proof. One example is `exists_hasLorentzType_real_interpolation`, whose statement uses the placeholder `C_LorentzInterpolation` (`out/carleson_formalization/baseline-ListDeclAxiom.out`). The placeholder data definition affects one target, and possibly the difficulty of later bounds. Its effect on the score was not measured.
 
 ## How we checked it
 

@@ -1,10 +1,10 @@
 # Equivalence Class Divide And Conquer (`equivalence_class_divide_and_conquer`)
 
-**Outcome:** Fixed. <mark>The grader for sub-problem T3 leaves the last step out of its cost total, so it accepts costs up to the limit plus the size of the last step; the excess is small (at most 0.04%), no score gain is shown, and a three-token fix closes it.</mark>
+**Outcome:** Fixed. <mark>The grader for sub-problem T3 leaves the size of the last neighbourhood reached out of its cost total, so it accepts costs up to the limit plus that size; the excess is small (at most 10⁶, 0.04% of the budget), no score gain is shown, and a three-token fix closes it.</mark>
 
 ![A cost scale with the 2.5·10⁹ limit and a tiny gap above it where the original checker wrongly accepts an over-limit answer of 2.501·10⁹; the fixed checker rejects it.](figures/equivalence_class_divide_and_conquer.svg)
 
-*The original checker leaves out the last step, so it accepts costs slightly over 2.5·10⁹ (at most 0.04%); the fixed checker rejects them.*
+*The original checker leaves out the size of the last neighbourhood reached, so it accepts costs slightly over 2.5·10⁹ (at most 0.04%); the fixed checker rejects them.*
 
 ## What the task asks
 
@@ -24,7 +24,12 @@ Two other checker deviations go in the opposite direction. The checker compares 
 
 ## How much it matters
 
-The effect is bounded and confined to T3. In the worst case, a solution whose cost falls inside the window on an official input could gain up to +5.17 of 100 points. Only a solver whose true cost lands within |N_last| above the limit is affected. No realistic solution that lands in the window was found, and **no score gain is demonstrated**.
+The effect is bounded and confined to T3, and it can only lower scores under the fixed version. T3 gives its full 10 points only when all 30 cases pass; otherwise each passing case is worth 0.5·10/30 points (`task_score_fraction` in `eval_common.py`, lines 56–61, in the grader image).
+
+- If one official case falls inside the window, the original grader gives 10 points for T3 where the fixed version gives at most 0.5·29/30·10 = 4.83, a difference of 5.17 of 100 points.
+- The largest possible difference is 9.67 of 100 points. Cases 29 (n = 1) and 30 (m = 1) cannot exceed the limit, because at most 5m operations each cost at most n, which caps their true cost at 5·10⁶. Cases 1–28 have n, m ≈ 10⁶ (`official_results.txt`), so the window exists on each of them. A solution inside the window on all 28 and correct on cases 29–30 scores 10 under the original grader and 0.5·2/30·10 = 0.33 under the fixed version.
+
+Only a solver whose true cost lands within |N_last| above the limit is affected. No realistic solution that lands in the window was found, and **no score gain is demonstrated**.
 
 ## The fix
 
@@ -36,7 +41,7 @@ In the tables below, AC (accepted) means the checker accepts an output and WA (w
 |---|---|---|---|---|
 | **Shows the problem** | `naive.cpp` on crafted input B (star, n=10⁶, m=2501; true cost 2.501·10⁹ > limit) | **AC**, raw 10 (T3 1/1) | **WA "Operation cost exceeded"**, raw 0 | original wrong, fixed right ✔ |
 | Correct, exactly at the limit | `naive.cpp` on crafted input A (m=2500; true cost exactly 2.5·10⁹) | AC, raw 10 | AC, raw 10 | accepted by both ✔ |
-| **Correct (whole task)** | official `std.cpp` for T1–T6 | **raw 100 / 100 out of 100**; T1 5/5, T2 10/10, **T3 30/30**, T4 25/25, T5 20/20, T6 30/30; exit 0; pass rate 1.000 | **raw 100 / 100 out of 100**; same counts for every sub-problem; exit 0; pass rate 1.000 | unchanged ✔ |
+| **Correct (whole task)** | official `std.cpp` for T1–T6 | **raw 100 / 100 out of 100**; T1 5/5, T2 10/10, **T3 30/30**, T4 25/25, T5 20/20, T6 30/30 (cases passed); exit 0; pass rate 1.000 | **raw 100 / 100 out of 100**; same counts for every sub-problem; exit 0; pass rate 1.000 | unchanged ✔ |
 | Incorrect | `naive.cpp` as T3, others empty, on the 30 official inputs | raw 1 / 1 out of 100; T3 6 AC / **24 WA** (cost exceeded); exit 1; pass rate 0.020 | raw 1 / 1 out of 100; the same 6 AC / 24 WA, case by case; exit 1; pass rate 0.020 | rejected by both ✔ |
 
 The checker run directly on the crafted outputs:

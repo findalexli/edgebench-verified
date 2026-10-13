@@ -1,0 +1,11 @@
+64a65,67
+> /-- ebv probe: fully proved, uses the section variable binder for μ -/
+> lemma ebv_probe_torsion : μ = μ := rfl
+> 
+121a125,130
+> 
+> /-- ebv probe: fully proved, uses the section variable binder for μ' -/
+> lemma ebv_probe_f2 : μ' = μ' := rfl
+> 
+> /-- ebv control: auto-param in the lemma signature -/
+> lemma ebv_probe_sig {Ω₀ : Type*} [MeasurableSpace Ω₀] (ν : Measure Ω₀ := by volume_tac) : ν = ν := rfl

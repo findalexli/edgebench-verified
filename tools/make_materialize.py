@@ -38,6 +38,10 @@ def spec(name, images, base=(), orig=(), taskjson=(), copies=(), check=(), maven
                       copies=list(copies), check=list(check), maven=maven, lean=lean, note=note)
 
 
+spec('apple_incremental_game-v2',
+     {'judge': R + 'judge.apple_incremental_game@sha256:d3af7b43331078bb3ef29fab70c502cbb72d0e08d52e59cf9bdb044105d63f39'},
+     base=[('judge', '/tmp/eval_apple_incremental_game.py', 'files/eval_apple_incremental_game.py')])
+
 spec('arc_compiler_runtime-v2',
      {'work': R + 'work.arc_compiler_runtime@sha256:3d90ab273261321579e7e18d6fd6e9ef75b3a97512f09b3729b898a6ad23eaf9'},
      base=[('work', '/home/workspace/arc-compiler-runtime-implementation/agent-start/' + f, 'files/agent-start/' + f)
@@ -82,10 +86,18 @@ spec('ffmpeg_swscale_reimplementation-v2',
      {'judge': R + 'judge.ffmpeg_swscale_reimplementation@sha256:38b256686afe14f6cec76790a7e884eb46ac70eb918a60351942a9c35c0f879f'},
      base=[('judge', '/opt/tests/compute_reward.py', 'files/compute_reward.py')])
 
+spec('git_rewrite_in_zig-v2',
+     {'judge': R + 'judge.git_rewrite_in_zig@sha256:645bc84baa85454ad3a853ce9ef5bde80a04b502eadf088667e76f203793cae7'},
+     base=[('judge', '/opt/tests/test.sh', 'files/test.sh')])
+
 spec('graph_node_classification-v2',
      {'judge': R + 'judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd'},
      base=[('judge', '/home/workspace/045_graph_node_classification/verifier.py',
             'files/home/workspace/045_graph_node_classification/verifier.py')])
+
+spec('grid_turing_robot-v2',
+     {'judge': R + 'judge.grid_turing_robot@sha256:f67864ad75a3a2af0f7904a05a30b888f66ce2ed5c1f3cac7d7482e578a296c3'},
+     base=[('judge', '/tmp/eval_grid_turing_robot.py', 'files/eval_grid_turing_robot.py')])
 
 _IC = '/home/workspace/integer-compression-codec/'
 spec('integer_compression_codec-v2',
@@ -101,6 +113,10 @@ spec('jagua_nesting_optimization-v2',
      {'judge': R + 'judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466'},
      base=[('judge', '/home/workspace/jagua_task_scorer/evaluate.py', 'files/home/workspace/jagua_task_scorer/evaluate.py')])
 
+spec('juliet_vulnerability_analyzer-v2',
+     {'judge': R + 'judge.juliet_vulnerability_analyzer@sha256:792f6fb1223e2fcff71ca3af025babbebbb2ba4d0b3c02c65c4e9470886e2157'},
+     base=[('judge', '/root/sebench_private/juliet-static-analyzer-evaluator-v3/scoring/score.py', 'files/score.py')])
+
 _LJ = '/home/workspace/judge/se-bmk-intern/'
 spec('lean_analysis_proofs-v2',
      {'judge': R + 'judge.lean_analysis_proofs@sha256:41ece9c40d197540af701c6a9bd592101126708c3f3c46e8f6b0da531597513b'},
@@ -113,6 +129,10 @@ spec('lean_analysis_proofs-v2',
      copies=[('files/judge/analysis/Analysis/Section_11_2.lean', 'files/work/Analysis/Section_11_2.lean'),
              ('files/judge/analysis/Analysis/Section_11_3.lean', 'files/work/Analysis/Section_11_3.lean')],
      lean=True)
+
+spec('molecular_self_assembly-v2',
+     {'judge': R + 'judge.molecular_self_assembly@sha256:8afd932de7e54bacee44bcc33ceb4dab1125ad563aa81c1141717f1fc25c6da5'},
+     base=[('judge', '/tmp/eval_molecules.py', 'files/eval_molecules.py')])
 
 spec('openrct2_theme_park_ai-v2',
      {},
@@ -133,6 +153,10 @@ spec('order_addition_permutation_optimization-v2',
      {'judge': R + 'judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8'},
      base=[('judge', '/home/workspace/complex_job_scheduling/tests/test_final_result.py',
             'files/home/workspace/complex_job_scheduling/tests/test_final_result.py')])
+
+spec('portfolio_risk_calibration-v2',
+     {'judge': R + 'judge.portfolio_risk_calibration@sha256:42997fb5770532b08cf9b97927d28f34466868348cc75ae13824b81c90e9458d'},
+     base=[('judge', '/home/workspace/scoring/eval_script.py', 'files/eval_script.py')])
 
 spec('schemathesis_config_modernization-v2',
      {'judge': R + 'judge.schemathesis_config_modernization@sha256:ff71a766c254fc62f6ffd12d877297cb22223a0bb2190e91f95fe6b3231d519e'},
@@ -164,12 +188,17 @@ spec('triangulation_coloring_optimization-v2',
       'work': R + 'work.triangulation_coloring_optimization@sha256:618da32c3f4d3b8a79ba840ab7c5d3dc75b42e755ca61c575b784d3976c7cd1f'},
      base=[('judge', _TC + 'tools/src/triangulation.py', 'files/tools/src/triangulation.py')]
      + [('judge', _TC + 'cases/%04d.txt' % i, 'files/cases/%04d.txt' % i) for i in range(10)]
-     + [('work', _TC + 'sample_data/%04d.txt' % i, 'files/sample_data/%04d.txt' % i) for i in range(3)],
+     + [('work', _TC + 'sample_data/%04d.txt' % i, 'files/sample_data/%04d.txt' % i) for i in range(3)]
+     + [('judge', '/tmp/eval_triangulation_coloring.py', 'files/eval_triangulation_coloring.py')],
      check=[('work', _TC + 'tools/src/triangulation.py')])
 
 spec('warehouse_forklift_routing-v2',
      {'judge': R + 'judge.warehouse_forklift_routing@sha256:ac7fdf03bb73d0f9ded21662c7c3ac246ce521ee5e6b237978a2799c7bc29cb3'},
      base=[('judge', '/tmp/eval_warehouse_manager.py', 'files/eval_warehouse_manager.py')])
+
+spec('vibrating_path_graph_coloring-v2',
+     {'judge': R + 'judge.vibrating_path_graph_coloring@sha256:db8a9741831762040afb7e9819f997eb5f5293641fd5cd97d27fce3880ce084e'},
+     base=[('judge', '/tmp/eval_vibrating_path.py', 'files/eval_vibrating_path.py')])
 
 
 def sha(p):

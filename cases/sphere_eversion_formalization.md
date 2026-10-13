@@ -1,6 +1,6 @@
 # Sphere Eversion Formalization (`sphere_eversion_formalization`)
 
-**Outcome:** Kept, with a note. <mark>No scored item is out of reach for an honest, complete solution, and the compiler-generated items are stable; this rests on test submissions and inspection only, and no honest proof was scored.</mark>
+**Outcome:** Kept, with a note. <mark>No scored item was found put out of reach by the way the grader names compiler-generated items, and those items are stable; this rests on test submissions and inspection only, no honest proof was scored, and whether every item is true was not checked.</mark>
 
 ## What the task asks
 
@@ -10,9 +10,9 @@ The score is the share of the starting project's declarations that depend on `so
 
 ## What we checked
 
-No defect that changes scores enough to matter was found.
+No defect that changes scores was found.
 
-**What was checked.** Lean's compiler generates helper declarations automatically (`X._proof_N`, `X._simp_N`, …). The Lean grader shared by several tasks credits these auxiliary targets only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 49/2901 (1.69%) of targets unreachable for any honest, complete solution, and makes scores depend on proof style. This task does not have that problem:
+**What was checked.** Lean's compiler generates helper declarations automatically (`X._proof_N`, `X._simp_N`, …). The Lean grader shared by several tasks credits these auxiliary targets only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 44 helper targets (49 of 2901 targets in total, 1.69%, counting also 3 placeholder and 2 false statements) unreachable for any honest, complete solution, and makes scores depend on proof style. This task does not have that problem:
 
 | Targets | Auxiliary targets | Auxiliary share of score | Fragile auxiliary targets | Targets with `sorry` in the type | Pairs of P and ¬P | Lower bound on unreachable targets |
 |---|---|---|---|---|---|---|
@@ -27,13 +27,13 @@ No defect that changes scores enough to matter was found.
 
 ## How much it matters
 
-No effect was measured. The lower bound on unreachable targets is 0 of 661.
+No effect was measured. The lower bound on targets unreachable because of compiler-generated names is 0 of 661. This does not show that every target is true or provable.
 
 No change is made; the note above ships with the task.
 
 ## How we checked it
 
-- **Original grader in the original public image, pinned by digest** (toolchain v4.28.0). One container ran at a time, with `--network none`. The task's `judge.eval_cmd` ran exactly as written on the unmodified starting sources of the grader, as a test submission. It swaps in the shared starting `.lake` folder, whose Mathlib version differs from the one in the grader's repository, and rebuilds the whole project. The starting project scored 0/661, with no `type_changed` and no `disappeared`.
+- **Original grader in the original public image, pinned by digest** (toolchain v4.28.0). One container ran at a time, with `--network none`. The task's `judge.eval_cmd` ran exactly as written on the unmodified starting sources of the grader, as a test submission. It copies `/home/workspace/baseline/.lake` and `/home/workspace/baseline/lake-manifest.json` into the submission and rebuilds the whole project. The two manifests differ: in the grader image, `baseline/lake-manifest.json` has sha256 `af7adc71…` and the grader repository's `sphere-eversion/lake-manifest.json` has `c2b475de…` (`out/sphere_eversion_formalization/census.log`). The Mathlib revisions inside them were not recorded. The starting project scored 0/661 under this swap, with no `type_changed` and no `disappeared`. The full grading run, build included, took about 5.8 minutes with every proof a `sorry` (`native.log`, 07:07:18–07:13:06) against the 2,400 s limit.
 - **Count inside the image.** The starting `ListDeclAxiom` listing was built. Every target was then classified with the same target rule and auxiliary-name pattern used for `lean_analysis_proofs`. A probe inside the image checked whether each auxiliary target holds a `sorry` of its own. The `ListDeclAxiom.lean` actually in use prints a HASH line for `Gromov`, which was true on the starting project.
 - No separate formal model applies; the count is itself a Lean run.
 
@@ -42,6 +42,8 @@ No change is made; the note above ships with the task.
 - No AI model or solver runs were made. Effects are shown only on test submissions that we wrote.
 - Only the unmodified starting project was scored by running the grader. No honest proof was scored. The stable/fragile classification comes from the probe inside the image, not from scoring runs.
 - Test submissions were built from the grader's starting sources. Whether the starting project in the agent's work image is identical to them was not checked.
+- Whether the work image builds against the same Mathlib as `/home/workspace/baseline` was not checked. If it does not, a proof that compiles in the work image can fail to build at grading, and a failed build scores 0. Only the starter, whose proofs are all `sorry`, was built under the swap. Recorded agent runs on this task score up to 58.5 out of 100 (`tasks/README.md`), so their proofs did build under the swap.
+- Build time with complete proofs was not measured; the starter's full rebuild already takes about 5.8 minutes, and a run over the 2,400 s limit scores 0.
 - A solver that edits the bodies of definitions or instances (with signatures unchanged) could still renumber transitive auxiliary declarations. That was not measured.
 - Whether each individual target is true was not audited.
 - Whether the work image exposes proofs from the source project was not checked.

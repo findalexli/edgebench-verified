@@ -1,0 +1,49 @@
+{
+ "task_id": "molecular_self_assembly",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/molecular_self_assembly.json",
+  "sha256": "e8569e3a42da7c685fc93367701d844aefe2d4d9e541919fca298501efa41717"
+ },
+ "original_judge_image": "seededge/edgebench.judge.molecular_self_assembly@sha256:8afd932de7e54bacee44bcc33ceb4dab1125ad563aa81c1141717f1fc25c6da5",
+ "original_judge_image_tag": "96df6463f5e6",
+ "v2_judge_image_tag": "96df6463f5e6-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/tmp/eval_molecules.py",
+   "original_sha256": "4faad7b93a842cf17cab13f3ae8b3e67c4c7504a34cb02062a06cdbab985baac",
+   "original_bytes": 3037,
+   "replacement": "files/eval_molecules.py",
+   "replacement_sha256": "1cf8f71d385bdfda160a67b4d634a0ea79ecf953866c7f1c88f964bee9ea9ef0",
+   "replacement_bytes": 3947,
+   "mode": "0755"
+  }
+ ],
+ "repair_patch_sha256": "969cf4352284c1f7e5cc33a1b4b9fb1c678fb37d9ac1295baf4e17fe7e0442ef",
+ "dockerfile_sha256": "fd64a4540804c33e3a32f9c468e8d141cd0164cb6d2ea5882725be13cb7421f9",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "rescale_changed": false,
+ "rescale_note": "score scale unchanged; this version changes only how many cases the evaluator runs at once",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.molecular_self_assembly@sha256:8afd932de7e54bacee44bcc33ceb4dab1125ad563aa81c1141717f1fc25c6da5"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/tmp/eval_molecules.py",
+    "sha256": "4faad7b93a842cf17cab13f3ae8b3e67c4c7504a34cb02062a06cdbab985baac"
+   }
+  ],
+  "outputs": {
+   "files/eval_molecules.py": "1cf8f71d385bdfda160a67b4d634a0ea79ecf953866c7f1c88f964bee9ea9ef0"
+  },
+  "repair_patch_sha256": "969cf4352284c1f7e5cc33a1b4b9fb1c678fb37d9ac1295baf4e17fe7e0442ef",
+  "materialize_sh_sha256": "c0e7ab6ad4b416841c80019dfb82f55094af7f47b8cc3113b621100c628e78ab"
+ }
+}
