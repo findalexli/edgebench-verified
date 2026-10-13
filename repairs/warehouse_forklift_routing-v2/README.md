@@ -1,5 +1,7 @@
 # Warehouse Forklift Routing, fixed version: the grader's time limit matches the promised 30 s per test case, with a whole CPU per input
 
+This judge-image repair also requires the [opt-in final-drain harness overlay](../harness-final-drain-v1/README.md) to prevent final results from being collected before long evaluations finish. The overlay has paired component tests; a full harness run remains unverified.
+
 ## What this fixes
 
 The prompt promises 30 s per test case, which is 150 s for each five-case input, but the original grader allows only 60 s per input, and one timeout costs the whole submission. The fixed grader allows the promised 150 s per input. It also runs at most as many inputs at once as the grader has CPUs: the original runs 8 at once, so on the publisher's 4-CPU leaderboard setting each input gets about half a CPU, and a solver needing more than about 75 s of CPU per input would still time out under the 150 s limit. The score scale is unchanged, and its ceiling of about 30.6 out of 100 (30.3 before display rounding), which follows from a Lean-checked lower bound on the raw total, is documented.
@@ -112,7 +114,7 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
 ## Limits
 
 - The fixed grader reads its CPU quota from the cgroup (`cpu.max`). This was tested with `docker run --cpus` only, not inside a Kubernetes pod, which is the backend EdgeBench's leaderboard settings use.
-- At the end of a run EdgeBench waits at most 900 s for pending gradings (`sforge/harness/run_agent.py:794-811`). Under the fixed version at 4 CPUs, a submission that uses the newly allowed 60–150 s per input takes up to about 2,340 s to grade (1,825.2 s measured, `evidence/runs/warehouse_forklift_routing-v2-cpu4-a`), so if it is made in roughly the last half hour of a run it may not be counted. The original grader voids such a submission anyway, so no score falls. A submission the original scores needs at most about 30 s of CPU per input, about 13 rounds of 4 inputs at under 60 s each (about 780 s) under the fixed version, inside the 900 s wait.
+- The upstream harness waits only 900 s for final grading and can omit a repaired evaluation (1,825.2 s measured). Use the separate [final-drain harness overlay](../harness-final-drain-v1/README.md) with this judge package: it waits for terminal history with a queue-aware deadline and fails visibly on incomplete collection. Deterministic patched-source tests pass; a complete Docker/Kubernetes run through the overlay is still unverified. The image-only repair does not fix this host-side boundary. Claims that every originally scored submission fits the 900 s drain were not established and are withdrawn.
 - This fixes only the time limit and its CPU share; the ceiling of the score scale is documented, not changed (above).
 - The `time_budget` and `near_limit` submissions use `sleep`; the `cpu80` and `cpu140` submissions do real
   single-thread CPU work. Multi-threaded solvers were not tested.

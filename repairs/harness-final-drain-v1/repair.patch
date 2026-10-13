@@ -1,0 +1,125 @@
+--- a/sforge/harness/run_agent.py
++++ b/sforge/harness/run_agent.py
+@@ -57,6 +57,54 @@
+     generate_submit_script,
+ )
+ from sforge.harness.task_spec import TaskSpec
++
++
++class FinalDrainError(RuntimeError):
++    """Authoritative final grading history could not be collected completely."""
++
++
++def _drain_final_history(url, token, secret, eval_timeout, logger):
++    # Bound serial service of the observed queue, with explicit setup grace.
++    # This is an operational bound, not a guarantee about backend scheduling.
++    started = time.monotonic()
++    deadline = started + 300
++    seen = set()
++    failures = 0
++    while True:
++        if time.monotonic() >= deadline:
++            raise FinalDrainError("Final grading drain incomplete: deadline expired")
++        try:
++            response = requests.get(
++                f"{url}/api/v1/history",
++                params={"token": token, "admin_secret": secret},
++                timeout=min(10, deadline - time.monotonic()),
++            )
++            response.raise_for_status()
++            history = response.json()
++            entries = history["entries"]
++            if not isinstance(entries, list):
++                raise ValueError("history entries must be a list")
++            pending = [e for e in entries if e.get("status") in ("running", "queued")]
++            identities = {e["submission_id"] for e in pending}
++            if any(not identity for identity in identities):
++                raise ValueError("pending submission has no identity")
++        except Exception as exc:
++            failures += 1
++            if failures >= 3:
++                raise FinalDrainError("Final grading drain incomplete: history unavailable") from exc
++            logger.warning("Final history request failed; retrying")
++        else:
++            failures = 0
++            # Extend once for each newly observed job, never on every poll.
++            unseen = identities - seen
++            deadline += len(unseen) * (max(0, eval_timeout) + 300)
++            seen.update(identities)
++            if time.monotonic() >= deadline:
++                raise FinalDrainError("Final grading drain incomplete: deadline expired")
++            if not pending:
++                return history
++            logger.info(f"Draining {len(pending)} pending judge evals...")
++        time.sleep(min(15, max(0, deadline - time.monotonic())))
+ 
+ 
+ @dataclass
+@@ -698,6 +746,9 @@
+         # 7. Stop auto-eval thread before extracting final archive
+         if auto_eval_stop is not None:
+             auto_eval_stop.set()
++            auto_eval_thread.join(timeout=450)
++            if auto_eval_thread.is_alive():
++                raise FinalDrainError("Auto-eval submission producer did not stop")
+             logger.info("Auto-eval thread stopped")
+ 
+         # 8. Extract final archive (tar of submit_paths)
+@@ -791,42 +842,11 @@
+             except Exception:
+                 pass
+ 
+-            # Drain pending judge evaluations before querying final results
+-            drain_deadline = time.time() + 900
+-            while time.time() < drain_deadline:
+-                try:
+-                    h = requests.get(
+-                        f"{host_judge_url}/api/v1/history",
+-                        params={"token": session_token, "admin_secret": admin_secret},
+-                        timeout=10,
+-                    ).json()
+-                    pending = [e for e in h.get("entries", []) if e.get("status") in ("running", "queued")]
+-                    if not pending:
+-                        break
+-                    logger.info(f"Draining {len(pending)} pending judge evals...")
+-                except Exception:
+-                    break
+-                time.sleep(15)
+-            else:
+-                logger.warning("Drain timed out after 15 min; some reports may be missing.")
+-
+-            # Query Judge Server for authoritative results (with admin_secret to get full history)
+-            try:
+-                history_resp = requests.get(
+-                    f"{host_judge_url}/api/v1/history",
+-                    params={"token": session_token, "admin_secret": admin_secret},
+-                    timeout=10,
+-                )
+-                history_resp.raise_for_status()
+-                history = history_resp.json()
+-            except Exception:
+-                logger.warning("Failed to fetch run history from judge server")
+-                history = {
+-                    "run_id": run_id, "best_score": None,
+-                    "best_pass_rate": 0.0, "best_round": "",
+-                    "agent_submissions": 0, "auto_submissions": 0,
+-                    "entries": [],
+-                }
++            # Final scores require every recorded evaluation to be terminal.
++            history = _drain_final_history(
++                host_judge_url, session_token, admin_secret,
++                task_spec.judge.eval_timeout, logger,
++            )
+ 
+             (log_dir / "run_history.json").write_text(
+                 json.dumps(history, indent=2, ensure_ascii=False)
+@@ -932,7 +952,8 @@
+         )
+     except Exception as e:
+         logger.error(f"Error: {e}\n{traceback.format_exc()}")
+-        if backend.backend_name == "e2b":
++        if isinstance(e, FinalDrainError) or backend.backend_name == "e2b":
++            # Incomplete final drains must fail on every backend.
+             # E2B transport or lifecycle failures must remain visible to the
+             # caller instead of being reported as a successful zero score.
+             raise
