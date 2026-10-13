@@ -1,5 +1,8 @@
 # PFR formalization, fixed version (`pfr_formalization`)
 
+**Validation scope:** The paired controls establish removal of type contamination using analogous added lemmas. They do not prove the five actual affected targets or demonstrate recovered target points. The solver image was not built. Matching two styles for one helper does not establish proof-style fairness for all seven helpers.
+
+
 ## What this fixes
 
 Five of the 423 scored statements carry a real `sorry` in their type, so the original grader can never
