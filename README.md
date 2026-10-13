@@ -167,9 +167,9 @@ Evidence ranges from source inspection and original-helper controls to full nati
    - the problem is gone;
    - correct work keeps its score;
    - wrong work is still rejected.
-   All but one comparison were run three times. Across 206 graded comparisons (30 fixed tasks and the
-   removed task's partial fix; 205 of them run three times; 2 setup runs that prepare inputs are not
-   counted), one outcome changed, under the original grader: at 4 CPUs, Vibrating Path's valid deadline-based test submission timed out on 14 cases in one of its nine original-grader gradings, the timing problem the fix removes. No fixed-grader outcome changed. Exceptions: OpenRCT2's fix changes only its instructions and has nothing to run; Lean Analysis repeats ran locally rather than on fresh machines; Integer Codec's final 0–100 scale was applied to the recorded raw results; the revised College English grader was itself run three times; and the Rust starter's fixed-version score was run once, because each run takes about 40 minutes and nearly fills the machine's disk.
+   Most comparisons were run three times. Across 254 graded comparisons (30 fixed tasks and the
+   removed task's partial fix; 240 of them run three times; 2 setup runs that prepare inputs are not
+   counted), one outcome changed, under the original grader: at 4 CPUs, Vibrating Path's valid deadline-based test submission timed out on 14 cases in one of its nine original-grader gradings, the timing problem the fix removes. No fixed-grader outcome changed. Exceptions: OpenRCT2's fix changes only its instructions and has nothing to run; Lean Analysis repeats ran locally rather than on fresh machines; Integer Codec's final 0–100 scale was applied to the recorded raw results; the revised College English grader was itself run three times; and 14 comparisons ran once: the Rust starter's fixed-version score (each run takes about 40 minutes and nearly fills the machine's disk), the CTA v2.1 standard answer, the six Exchange Core rows at 4 CPUs (one row per run of a three-run job), and the three controls each of Datagen v2.1 and FFmpeg v2.2 (single runs).
 
 The formal runner (`python3 tools/check_formal.py`) reruns supported checks when the required tools are installed; its regression tests validate result parsing separately from recompiling proofs. The full method is in
 [METHOD.md](METHOD.md).

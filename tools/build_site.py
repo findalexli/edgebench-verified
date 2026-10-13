@@ -130,7 +130,7 @@ def comparison_counts():
     executed = [k for k in runs if not derived[k]]
     graded = [k for k in executed if role[k] != 'setup']
     pr = list(csv.DictReader(open(ROOT / 'data' / 'paired-results.csv')))
-    return {'arms': {k: runs[k] for k in executed}, 'executed': len(executed), 'graded': len(graded),
+    return {'arms': {k: runs[k] for k in graded}, 'executed': len(executed), 'graded': len(graded),
             'graded3': sum(runs[k] >= 3 for k in graded), 'executed3': sum(runs[k] >= 3 for k in executed),
             'setup': len(executed) - len(graded), 'derived': sum(derived.values()),
             'not_run': len(pr) - len(runs),
@@ -296,7 +296,7 @@ def numbers(D):
     counts = D['counts']
     v = {k: str(counts.get(k, 0)) for k in ORDER}
     cc = comparison_counts()
-    v.update(n_cmp=cc['graded'], n_cmp3=cc['graded3'], n_cmp_tasks=cc['tasks'], n_cmp_setup=cc['setup'],
+    v.update(n_cmp=cc['graded'], n_cmp3=cc['graded3'], n_cmp_once=cc['graded'] - cc['graded3'], n_cmp_tasks=cc['tasks'], n_cmp_setup=cc['setup'],
              n_cmp_derived=cc['derived'], n_cmp_noexec=cc['not_run'],
              n_problem=counts.get('repair-v2', 0) + counts.get('exclude', 0))
     frm = D['formal']
@@ -395,7 +395,7 @@ def verif(P, D, tid):
     r = D['formal_by'].get(tid)
     if r:
         parts.append(t('verif.formal', tool=r['tool'].replace(' ', '&nbsp;'), what=t('verif.cov.' + r['covers'], result=r['result'] if P.L.code == 'en' else t('formal.result.' + r['result']))))
-    runs = sorted({v for (tt, _), v in D['arms'].items() if tt == tid})
+    runs = [v for (tt, _), v in D['arms'].items() if tt == tid]
     if tid == 'dabic_gravity_inversion':
         parts.append(t('verif.dabic'))
     elif not runs:
@@ -403,7 +403,7 @@ def verif(P, D, tid):
     elif min(runs) >= 3:
         parts.append(t('verif.three'))
     else:
-        parts.append(t('verif.three_but_one'))
+        parts.append(t('verif.three_but_some', n=sum(v < 3 for v in runs), m=len(runs)))
     return t('verif.join').join(parts)
 
 

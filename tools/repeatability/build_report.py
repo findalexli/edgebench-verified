@@ -10,6 +10,13 @@ rows = list(csv.DictReader(open(R / 'data/paired-results.csv')))
 tasks = OrderedDict()
 for r in rows:
     tasks.setdefault(r['task_id'], []).append(r)
+# a task can list the same arm at two CPU counts (column cpus); label later occurrences "arm | cpus" so arms stay unique
+for arms in tasks.values():
+    seen = set()
+    for r in arms:
+        if r['arm'] in seen:
+            r['arm'] = f"{r['arm']} | {r['cpus']}"
+        seen.add(r['arm'])
 
 TIMING = {'exchange_core_throughput', 'ffmpeg_swscale_reimplementation', 'integer_compression_codec'}
 SKIP = {'openrct2_theme_park_ai': 'prompt-only repair, nothing executable'}
@@ -90,7 +97,7 @@ for task, job, what, parser in X.EXTRA:
         if len(vals) >= 2 and max(vals) != min(vals):
             m = sum(vals) / len(vals)
             sp.append({'label': lab, 'min': min(vals), 'max': max(vals), 'rel': (max(vals) - min(vals)) / abs(m) if m else float('inf')})
-    extra.append({'task': task, 'job': job, 'what': what, 'runs_ok': ok, 'errors': {r: v['_error'] for r, v in runs.items() if '_error' in v},
+    extra.append({'task': task, 'job': X.job_name(job), 'what': what, 'runs_ok': ok, 'errors': {r: v['_error'] for r, v in runs.items() if '_error' in v},
                   'labels': len(labels), 'changed': changed, 'spread': sp})
 digest['_extra'] = extra
 
