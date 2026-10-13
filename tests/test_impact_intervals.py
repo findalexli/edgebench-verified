@@ -1,5 +1,8 @@
 """Behavioral checks against independently evaluated, rational score scales."""
 import importlib.util
+import csv
+import json
+import tempfile
 from fractions import Fraction as F
 from itertools import product
 from pathlib import Path
@@ -60,6 +63,38 @@ class ImpactIntervals(unittest.TestCase):
         self.assertFalse(impact.ranking_certified((40, 44), (41, 42)))
         self.assertFalse(impact.ranking_certified((42, 44), (41, 42)))
         self.assertTrue(impact.ranking_certified((42.1, 44), (41, 42)))
+
+    def test_serialized_endpoints_enclose_computed_intervals(self):
+        lb = impact.parse_leaderboard()
+        effects = json.loads((impact.ROOT / 'evidence/impact/effects.json').read_text())
+        outer_effects = {t: (dict(e, kind='open', bound=None, bound_up=100., bound_down=100.)
+                             if e['kind'] == 'sensitivity' else e) for t, e in effects.items()}
+        expected = {}
+        for model in impact.MODELS:
+            scale = impact.scale_intervals(lb, model)
+            bounded = impact.effect_intervals(scale, effects, {'bounded'})
+            sensitivity = impact.effect_intervals(bounded, effects, {'sensitivity'})
+            outer = impact.effect_intervals(bounded, outer_effects, {'open'})
+            row = {'model': model}
+            for name, intervals in [('scale', scale), ('bounded', bounded),
+                                    ('sensitivity', sensitivity), ('worst_case', outer)]:
+                row[name + '_low'], row[name + '_high'] = impact.average_interval(intervals)
+            expected[model] = row
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'impact.csv'
+            impact.write_impact_csv(expected, path)
+            with path.open() as stream:
+                actual = list(csv.DictReader(stream))
+        for row in actual:
+            for name, value in expected[row['model']].items():
+                if name.endswith('_low'):
+                    self.assertLessEqual(float(row[name]), value, (row['model'], name))
+                elif name.endswith('_high'):
+                    self.assertGreaterEqual(float(row[name]), value, (row['model'], name))
+
+    def test_juliet_bound_encloses_exact_witness(self):
+        effects = json.loads((impact.ROOT / 'evidence/impact/effects.json').read_text())
+        self.assertGreaterEqual(F(str(effects['juliet_vulnerability_analyzer']['bound'])), F(6380, 241))
 
     def test_rounding_propagated_on_unchanged_tasks_and_borden(self):
         result = impact.scale_intervals({'unchanged': {'M': 50.}, 'borden_source_inversion': {'M': 50.},
