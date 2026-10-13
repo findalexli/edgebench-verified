@@ -1,21 +1,21 @@
 {
  "task_id": "ffmpeg_swscale_reimplementation",
- "version": "v2",
+ "version": "v2.2",
  "original_task_json": {
   "path": "tasks/ffmpeg_swscale_reimplementation.json",
   "sha256": "671c78a14cd9144d4b9e14ca6cf1b61230bb88d29e1565849f509353a9b27b3b"
  },
  "original_judge_image": "seededge/edgebench.judge.ffmpeg_swscale_reimplementation@sha256:38b256686afe14f6cec76790a7e884eb46ac70eb918a60351942a9c35c0f879f",
  "original_judge_image_tag": "d3c0aa3fa987",
- "v2_judge_image_tag": "d3c0aa3fa987-ebv-v2",
+ "v2_judge_image_tag": "d3c0aa3fa987-ebv-v2.2",
  "changed_files": [
   {
    "image_path": "/opt/tests/compute_reward.py",
    "original_sha256": "2f457ffd67d624f9f739b4dd34b80b858a9bbb152e40e4385a8c10a81159365b",
    "original_bytes": 23589,
    "replacement": "files/compute_reward.py",
-   "replacement_sha256": "6d4e1095f906955833405bf714aab14644029288790d41f38783bafb7f3a132a",
-   "replacement_bytes": 25441
+   "replacement_sha256": "5d02d6809e72dda7051db12d5a113c05a61fe62f390400e3749351c13a2c06c0",
+   "replacement_bytes": 25471
   }
  ],
  "unchanged_judge_files_relied_on": {
@@ -24,7 +24,7 @@
   "/opt/tests/pytest_shim.sh": "6e38e136602a6e4b930d248afce9d3c2e857276b7ebb819464c64228c21daab6",
   "/verifier-data/libswscale_baseline.so": "d48dee3a03c188f013afbc48420a3bae499bbc9411fd23a812708356982b7e9e"
  },
- "repair_patch_sha256": "4f30c362b902100f68f3e90382272c170c0267e6f56d083b98ecefffae843fbd",
+ "repair_patch_sha256": "fbdcf4bb7bdc74710b8ca63d74b2948b5f59dc6f557830a93149b72aaa1202c6",
  "dockerfile_sha256": "04c571101131128ef261f14a85b93da81f4e26f74461eeb9b7f47e4bbbd4f1af",
  "work_image": "seededge/edgebench.work.ffmpeg_swscale_reimplementation@sha256:01a8e92ac4f389baa8ef496236599179e9de4e8bc3a30f51dee559e5ca0abdb5",
  "work_image_changed": false,
@@ -50,9 +50,14 @@
    }
   ],
   "outputs": {
-   "files/compute_reward.py": "6d4e1095f906955833405bf714aab14644029288790d41f38783bafb7f3a132a"
+   "files/compute_reward.py": "5d02d6809e72dda7051db12d5a113c05a61fe62f390400e3749351c13a2c06c0"
   },
-  "repair_patch_sha256": "4f30c362b902100f68f3e90382272c170c0267e6f56d083b98ecefffae843fbd",
+  "repair_patch_sha256": "fbdcf4bb7bdc74710b8ca63d74b2948b5f59dc6f557830a93149b72aaa1202c6",
   "materialize_sh_sha256": "8c2e3fcdc8dbb1d6610e50b6ca7941f1944cb7294ffa232fe67dc9211c880245"
- }
+ },
+ "amendments": [
+  "2026-10-13 v2.1: validate every warmup/timed output outside timer with buffer reset; any failed workload gives exactly zero total reward",
+  "2026-10-13 v2.2: stride-aware native buffer snapshot/reset replaces per-byte Python helper loops; same validation and timing boundaries"
+ ],
+ "validation_status": "v2.2 component checks, 40 native buffer layouts and six paired full-scorer arms passed; good30/30 retains raw reward, skipped-output30/30 gets exact zero, bad0/30 remains zero; 43s good candidate vs38s original; build/submission eval_cmd not tested in this follow-up"
 }

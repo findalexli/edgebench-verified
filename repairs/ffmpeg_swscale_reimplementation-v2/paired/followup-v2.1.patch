@@ -1,0 +1,94 @@
+# Follow-up revision v2.1, 2026-10-13; diff against the unchanged pinned original.
+--- a/files/compute_reward.py
++++ b/files/compute_reward.py
+@@ -512,45 +512,53 @@
+         rng = random.Random(seed)
+         src_planes = generate_noise_planes(src_fmt, src_w, src_h, rng)
+
+-        def bench_lib(lib, lib_name):
++        is_scaling = (src_w != dst_w) or (src_h != dst_h)
++        threshold = PSNR_THRESHOLD_SCALE if is_scaling else PSNR_THRESHOLD_CONVERT
++
++        def bench_lib(lib, lib_name, reference=None):
+             src_data, src_stride, src_bufs = allocate_image(src_fmt, src_w, src_h)
+             dst_data, dst_stride, dst_bufs = allocate_image(dst_fmt, dst_w, dst_h)
+             fill_image_from_bytes(
+                 src_fmt, src_w, src_h, src_data, src_stride, src_planes
+             )
+-
++            # Reset outside the timer so skipped writes cannot reuse a prior frame.
++            empty_planes = [bytes(len(p)) for p in image_to_bytes(
++                dst_fmt, dst_w, dst_h, dst_data, dst_stride
++            )]
+             ctx = lib.swscale_create(src_w, src_h, src_fmt, dst_w, dst_h, dst_fmt, algo)
+             if not ctx:
+-                return None
+-
+-            # Warmup
+-            for _ in range(WARMUP_ITERS):
+-                lib.swscale_process(ctx, src_data, src_stride, dst_data, dst_stride)
+-
+-            # Bench
++                raise ValueError(f"{lib_name} create returned NULL")
+             times = []
+-            for _ in range(BENCH_ITERS):
+-                t0 = time.perf_counter()
+-                lib.swscale_process(ctx, src_data, src_stride, dst_data, dst_stride)
+-                t1 = time.perf_counter()
+-                times.append(t1 - t0)
+-
+-            lib.swscale_destroy(ctx)
+-
+-            times.sort()
+-            return statistics.median(times)
++            try:
++                for iteration in range(WARMUP_ITERS + BENCH_ITERS):
++                    fill_image_from_bytes(
++                        dst_fmt, dst_w, dst_h, dst_data, dst_stride, empty_planes
++                    )
++                    t0 = time.perf_counter()
++                    ret = lib.swscale_process(ctx, src_data, src_stride, dst_data, dst_stride)
++                    elapsed = time.perf_counter() - t0
++                    if ret != 0:
++                        raise ValueError(f"{lib_name} process returned {ret} at call {iteration}")
++                    planes = image_to_bytes(dst_fmt, dst_w, dst_h, dst_data, dst_stride)
++                    if reference is None:
++                        reference = planes
++                    if len(planes) != PIXFMT_DESCS[dst_fmt].num_planes or len(reference) != len(planes):
++                        raise ValueError(f"{lib_name} missing output plane at call {iteration}")
++                    # Validation is outside the timer, for every warmup and timed call.
++                    if not all(compute_psnr(ref, out) >= threshold
++                               for ref, out in zip(reference, planes)):
++                        raise ValueError(f"{lib_name} output below PSNR threshold {threshold} at call {iteration}")
++                    if iteration >= WARMUP_ITERS:
++                        times.append(elapsed)
++            finally:
++                lib.swscale_destroy(ctx)
++            return statistics.median(times), reference
+
+         try:
+-            base_time = bench_lib(baseline_lib, "baseline")
+-            cand_time = bench_lib(candidate_lib, "candidate")
++            base_time, reference = bench_lib(baseline_lib, "baseline")
++            cand_time, _ = bench_lib(candidate_lib, "candidate", reference)
+         except Exception as e:
+-            # Crashed workloads count as zero speedup (not excluded from mean)
+             results.append({"label": label, "error": str(e), "speedup": 0.0})
+-            speedups.append(0.0)
+-            continue
+-
+-        if base_time is None or cand_time is None:
+-            results.append({"label": label, "error": "create returned NULL", "speedup": 0.0})
+             speedups.append(0.0)
+             continue
+
+@@ -668,7 +676,8 @@
+                 f"speedup={r['speedup']:.3f}x"
+             )
+
+-    if speedups:
++    # Every timed workload must pass; never turn a failure into positive credit.
++    if speedups and all(math.isfinite(s) and s > 0 for s in speedups):
+         safe_speedups = [max(s, 1e-15) for s in speedups]
+         geo_mean = math.exp(
+             sum(math.log(s) for s in safe_speedups) / len(safe_speedups)

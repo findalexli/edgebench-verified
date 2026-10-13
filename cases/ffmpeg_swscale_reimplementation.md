@@ -1,6 +1,9 @@
 # FFmpeg Swscale Reimplementation (`ffmpeg_swscale_reimplementation`)
 
-**Outcome:** Fixed. <mark>The timed speed tests were never checked for correctness, so failed or empty calls earned speed credit; the fixed version checks each timed call's return code and output.</mark>
+
+**2026-10-13 revision:** v2.2 checks every output and makes any failed workload produce exactly zero total reward. Six native full-scorer arms passed, plus 40 original-helper layout comparisons. The good control finished in 43 seconds; a repeated-call defect passed 30/30 correctness workloads but received zero after timed-output validation. The older results below describe v2. This follow-up does not rerun the Rust submission-build path. See [follow-up](../repairs/ffmpeg_swscale_reimplementation-v2/paired/followup.md).
+
+**Outcome:** Original defect confirmed; v2.2 repair validated on paired native scorer controls. <mark>The timed speed tests were never checked for correctness, so failed or empty calls earned speed credit; the fixed version checks each timed call's return code and output.</mark>
 
 ![Bars show an honest but unfinished library scoring 5.39, 18.93 and 17.87 out of 100 on the original grader because failed calls counted as fast; the fixed version scores 0.](figures/ffmpeg_swscale_reimplementation.svg)
 

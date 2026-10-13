@@ -1,3 +1,5 @@
+> Historical v2 evidence. The current patch is v2.2 (2026-10-13); these native results do not validate that revision. See [followup.md](followup.md).
+
 # Paired results: ffmpeg_swscale_reimplementation v1 vs v2
 
 E2B job `evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b` (exit 0, worker killed; first attempt
