@@ -24,3 +24,5 @@ for arm in good skip bad; do
   echo "$name exit=$rc seconds=$((SECONDS-t0))" | tee -a out/summary.txt
  done
 done
+# Collect every arm first, then fail the job on incomplete or incorrect evidence.
+python3 /job/check_native_results.py /job/out >out/validation.json

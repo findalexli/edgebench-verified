@@ -27,5 +27,6 @@ for task,short in [('ffmpeg_swscale_reimplementation','ffmpeg')]:
         shutil.copyfile(src/name,pkg/name)
 shutil.copyfile(root/'repairs/ffmpeg_swscale_reimplementation-v2/paired/followup-ref-shim.c',job/'ref_shim.c')
 shutil.copyfile(Path(__file__).with_name('ffmpeg_buffers.py'),job/'ffmpeg_buffers.py')
+shutil.copyfile(Path(__file__).with_name('check_native_results.py'),job/'check_native_results.py')
 shutil.copyfile(Path(__file__).with_name('run_ffmpeg_native.sh'),job/'run.sh')
 print(job)
