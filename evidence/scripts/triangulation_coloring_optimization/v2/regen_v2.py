@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-"""Regenerate TRICOL inputs with the shipped gen.py/delaunay.py and a chosen triangulation.py.
+"""Regenerate TRICOL inputs with the shipped gen.py, a chosen delaunay.py and a chosen triangulation.py.
 
 Usage: python3 -I regen_v2.py <dir with triangulation.py> <dir with gen.py,delaunay.py> <outdir>
+(the first directory must not also hold a delaunay.py, or that one is imported).
+Package v2.1: shipped delaunay.py + fixed triangulation.py. Package v2.2 (issue #57): the v2.2
+delaunay.py (files/tools/src/delaunay.py, which also covers the convex hull) + the same fixed
+triangulation.py; outputs in regen_v22.out.
 Writes cases/0000..0009.txt and sample_data/0000..0002.txt from the PARAMS table below.
 Only change to the shipped generator path: gen.has_collinear_triple is replaced by an exactly
 equivalent O(N^2 log N) exact-integer test (same boolean), so N=512 runs quickly.

@@ -24,6 +24,7 @@ IMAGES=(
 )
 BASE=(
   "judge|/home/workspace/triangulation_coloring/tools/src/triangulation.py|files/tools/src/triangulation.py"
+  "judge|/home/workspace/triangulation_coloring/tools/src/delaunay.py|files/tools/src/delaunay.py"
   "judge|/home/workspace/triangulation_coloring/cases/0000.txt|files/cases/0000.txt"
   "judge|/home/workspace/triangulation_coloring/cases/0001.txt|files/cases/0001.txt"
   "judge|/home/workspace/triangulation_coloring/cases/0002.txt|files/cases/0002.txt"
@@ -45,6 +46,7 @@ TASKJSON=(
 )
 CHECK=(
   "work|/home/workspace/triangulation_coloring/tools/src/triangulation.py"
+  "work|/home/workspace/triangulation_coloring/tools/src/delaunay.py"
 )
 COPIES=(
 )

@@ -1,0 +1,6 @@
+# v2 work image: same solver-visible rule fix (tester/verifier share triangulation.py) + 3 regenerated samples; v2.2: delaunay.py
+# completes the convex hull and the samples are regenerated with it (issue #57). COPY only.
+FROM --platform=linux/amd64 seededge/edgebench.work.triangulation_coloring_optimization@sha256:618da32c3f4d3b8a79ba840ab7c5d3dc75b42e755ca61c575b784d3976c7cd1f
+COPY files/tools/src/triangulation.py /home/workspace/triangulation_coloring/tools/src/triangulation.py
+COPY files/tools/src/delaunay.py /home/workspace/triangulation_coloring/tools/src/delaunay.py
+COPY files/sample_data/0000.txt files/sample_data/0001.txt files/sample_data/0002.txt /home/workspace/triangulation_coloring/sample_data/
