@@ -1,3 +1,5 @@
+> Historical v2 proof/model. The v2.1 patch supersedes this specification; this file and the saved Lean output remain evidence for v2 only. The new component checks are linked from the repair package.
+
 # schemathesis_datagen_pipeline: formal note
 
 ## Claim

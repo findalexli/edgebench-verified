@@ -1,6 +1,9 @@
 # Schemathesis data-generation pipeline (`schemathesis_datagen_pipeline`)
 
-**Outcome:** Fixed. <mark>The hidden test for HTTP dates checks only the shape of the string, so generators that emit impossible dates and clock times pass; the gap is worth about 1% of the score.</mark>
+
+**2026-10-13 revision:** v2.1 restores the RFC year floor. Six native arms of the original evaluation command passed: the valid generator retained reward 0.477350, while the pre-1900 and garbage generators fell to 0.467094. The older results below describe historical v2; these finite controls do not certify the whole task. See [follow-up](../repairs/schemathesis_datagen_pipeline-v2/paired/followup.md).
+
+**Outcome:** Original defect confirmed; v2.1 repair validated on paired native controls. <mark>The hidden test for HTTP dates checks only the shape of the string, so generators that emit impossible dates and clock times pass; the gap is worth about 1% of the score.</mark>
 
 ![The original date test accepts a nonsense date string and all 50 dates from a generator whose dates are about 90% impossible; the fixed test accepts only the 5 valid ones.](figures/schemathesis_datagen_pipeline.svg)
 

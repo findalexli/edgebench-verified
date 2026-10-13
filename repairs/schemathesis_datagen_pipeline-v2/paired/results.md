@@ -1,3 +1,5 @@
+> Historical v2 evidence. The current patch is v2.1 (2026-10-13); these native results do not validate that revision. See [followup.md](followup.md).
+
 # Paired v1/v2 results: schemathesis_datagen_pipeline
 
 > The first run below used an earlier fixed predicate with a year ≥ 1900 floor, and is superseded by the final run at the end of this file. `raw-summary.md` and `seed-sweep.txt` in this folder record the first run (they show `stdlib_any_year` at 0.467094 and 20/20 under the fixed version). The final run's raw scores are in `evidence/runs/schemathesis_datagen_pipeline-v2-paired-b/result/out/summary.md` (per run: `result/out/runs/<variant>.<v1|v2>/verifier/reward.txt`), and its seed sweep in `result/out/extra.log` of the same job. (`result/summary.json` one level up holds only empty rows, because it was summarized over the wrong files; ignore it.) The two repeats, `-paired-b-rep2` and `-paired-b-rep3`, give the same scores.
