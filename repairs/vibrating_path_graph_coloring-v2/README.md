@@ -54,6 +54,7 @@ Git does not contain any file copied from the EdgeBench images. It holds only ou
 ## Limits
 
 - The fixed grader reads its CPU quota from the cgroup (`cpu.max`). This was tested with `docker run --cpus` only, not inside a Kubernetes pod, which is the backend EdgeBench's leaderboard settings use.
+- Without a cgroup quota the fixed grader falls back to `os.cpu_count()`, which counts all of the host's CPUs, not the ones the grader may use (`os.sched_getaffinity`). Under a CPU-set limit with no quota (for example `docker run --cpuset-cpus`), or where the pod cannot see its own `cpu.max`, it can still run more cases at once than it has CPUs, as the original does. Using the affinity count would need a new paired run, so it is not changed here.
 - This fixes only the CPU contention. The case page's other notes still apply: the tester accepts a zero-hit answer only in two lines, and one failed case voids the whole submission.
 - The test solutions model a single-threaded solver with a fixed amount of CPU work, or one that stops at a 25 s wall-clock deadline. Multi-threaded solvers were not tested.
 - Solutions that stop at a wall-clock deadline get more CPU under the fixed version, so their scores at 4 CPUs are not comparable between the original and the fixed version. How much a real deadline-based solver gains was not measured.

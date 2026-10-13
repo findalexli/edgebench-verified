@@ -83,6 +83,7 @@ Under the fixed version the slowest 28 s case took 28.34 s from start to end (`r
 ## Limits
 
 - The fixed grader reads its CPU quota from the cgroup (`cpu.max`). This was tested with `docker run --cpus` only, not inside a Kubernetes pod, which is the backend EdgeBench's leaderboard settings use.
+- Without a cgroup quota the fixed grader falls back to `os.cpu_count()`, which counts all of the host's CPUs, not the ones the grader may use (`os.sched_getaffinity`). Under a CPU-set limit with no quota (for example `docker run --cpuset-cpus`), or where the pod cannot see its own `cpu.max`, it can still run more cases at once than it has CPUs, as the original does. Using the affinity count would need a new paired run, so it is not changed here.
 - No AI model or solver runs were made. Score effects are shown only on test submissions and counterexamples that we wrote.
 - Runs of the original grader used local Docker at `--cpus 4`, `--cpus 2` and `--cpus 8`, with `--memory 2g`; the CPU runs and the paired run used E2B workers with 8 vCPUs, `--memory 4g` and `--cpus 4` or `--cpus 8`. 3, 5, 6 and 7 CPUs were not tested.
 - The CPU test solutions are single-threaded: fixed CPU work, or work until a 25 s wall-clock deadline. Multi-threaded solvers were not tested.

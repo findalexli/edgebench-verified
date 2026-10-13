@@ -1,6 +1,6 @@
 # PFR Formalization (`pfr_formalization`)
 
-**Outcome:** Type-contamination repair validated; recovered target credit and solver-image integration pending. <mark>Five scored statements carry a real `sorry` in their type, added silently by how Lean's module system handles an automatic argument declared with `variable`. So no submission can earn them (1.18 points out of 100), and a later proof that uses one of them is also marked as depending on `sorry`. The fixed version writes the argument into the five statements; nothing else changes. Honest proofs of one theorem in two styles score identically.</mark>
+**Outcome:** Type-contamination repair validated; recovered target credit and solver-image integration pending. <mark>Five scored statements carry a real `sorry` in their type, added silently by how Lean's module system handles an automatic argument declared with `variable`. So no submission can earn them (1.18 points out of 100), and a later proof that uses one of them is also marked as depending on `sorry`. The fixed version writes the argument into the five statements; nothing else changes. Honest proofs of one helper-bearing theorem in two styles score identically.</mark>
 
 ## What the task asks
 
@@ -66,7 +66,8 @@ Every score in this table is 0.0, because no submission proves one of the five r
 - No real proof of the five targets was run. Their reachability in the fixed version is shown with lemmas stated the same way and with a check of their types.
 - That the four `weak_PFR*` targets are lost follows from the measured rule and the upstream proof structure. It was not run with real proofs.
 - The grader runs that confirmed the defect and tested the fix replaced the eval_cmd's copy of the 7.0 GB `.lake` with a copy of `.lake/build` plus a symlink to `.lake/packages`, for lack of disk. Every other step was verbatim, and the starter scored as in the verbatim run (0/423).
-- The fixed work image (`Dockerfile.work`) was not built. In the pinned work image, every `PFR/*.lean` file is byte-identical to the grader's (job `pfr_formalization-v2-extract`).
+- The fixed work image (`Dockerfile.work`) was built once, in the clean-machine rebuild check (`evidence/runs/materialize-check-pfr`, `status: exit=0`), and holds the fixed `PFR/WeakPFR.lean` with the locked sha256; no solver ran in it. In the pinned work image, every `PFR/*.lean` file is byte-identical to the grader's (job `pfr_formalization-v2-extract`). That check needed the work-image step moved after the grader steps for disk; `materialize.sh` now does this itself.
+- **Not verified, and why: credit for the five actual targets.** Showing that a real proof of the five repaired targets now earns credit needs real proofs of those theorems, which take the mathematics of the PFR project; none was available, so lemmas stated the same way stand in for them. This stays a documented limitation.
 - The test with honest proofs of one theorem covers one module.
 - A solver that edits the bodies of definitions or instances (with signatures unchanged) could still renumber helpers that depend on them. That was not measured.
 - How much the `AddCombi` dependency overlaps the PFR content was not checked.

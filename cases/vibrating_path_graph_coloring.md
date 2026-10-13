@@ -96,6 +96,7 @@ These notes still ship with the fixed version:
 ## Limits
 
 - The fixed grader reads its CPU quota from the cgroup (`cpu.max`). This was tested with `docker run --cpus` only, not inside a Kubernetes pod, which is the backend EdgeBench's leaderboard settings use.
+- Without a cgroup quota the fixed grader falls back to `os.cpu_count()`, which counts all of the host's CPUs, not the ones the grader may use (`os.sched_getaffinity`). Under a CPU-set limit with no quota (for example `docker run --cpuset-cpus`), or where the pod cannot see its own `cpu.max`, it can still run more cases at once than it has CPUs, as the original does. Using the affinity count would need a new paired run, so it is not changed here.
 - No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
 - 13/50 cases rely on a probabilistic bound and assume the cases came from the published uniform generator. The exact seeds were not found, and no SAT refutation (a machine proof by a satisfiability solver) was run.
 - The vibrating-path graph rules themselves were not reviewed.

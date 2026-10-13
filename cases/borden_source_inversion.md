@@ -75,6 +75,8 @@ The shipped `forward_model.py` matches the grader's model with max |diff| = 0.0 
 - One fitting method (multi-start least squares, log/hinge loss, one seeded run of 60 or 80 starts) and one textbook model variant were used. The 24-point gap is for that variant.
 - The prompt says parameters "must stay within" the bounds, but the original grader does not reject the out-of-bounds test submission outright (4 raw, capped at 15). This is unchanged.
 - Only the `/home/workspace` working files were listed for the hidden-file check.
+- The grader imports its own copy of the model from the scoring directory (`hidden_forward_model.py`), not the `forward_model.py` in the work directory, so a submission that edits the shipped `forward_model.py` cannot change its own score. This follows from the grader code; no such submission was graded.
+- The package was rebuilt from scratch on a clean machine (`evidence/runs/materialize-check-g3`, `status: exit=0`): `materialize.sh` ran unchanged, all 5 outputs matched the lock and the built image holds the locked files. The fixed work image tag `f389fcf94240-ebv-v2.1` is a local build tag; no image is published to a registry.
 
 ## Reproduce
 

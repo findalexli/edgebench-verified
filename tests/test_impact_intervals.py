@@ -64,33 +64,59 @@ class ImpactIntervals(unittest.TestCase):
         self.assertFalse(impact.ranking_certified((42, 44), (41, 42)))
         self.assertTrue(impact.ranking_certified((42.1, 44), (41, 42)))
 
-    def test_serialized_endpoints_enclose_computed_intervals(self):
+    def test_serialized_endpoints_enclose_exact_intervals(self):
+        # The CSV must enclose the EXACT rational interval, not a float approximation of it.
         lb = impact.parse_leaderboard()
         effects = json.loads((impact.ROOT / 'evidence/impact/effects.json').read_text())
-        outer_effects = {t: (dict(e, kind='open', bound=None, bound_up=100., bound_down=100.)
-                             if e['kind'] == 'sensitivity' else e) for t, e in effects.items()}
-        expected = {}
+        exact = impact.interval_rows(lb, effects, impact.exact)
+        # Independent exact recomputation of the scale interval (own code, not the module's).
+        cap = F(20) + F(60) * F(92304 - 88189, 330195 - 88189)
         for model in impact.MODELS:
-            scale = impact.scale_intervals(lb, model)
-            bounded = impact.effect_intervals(scale, effects, {'bounded'})
-            sensitivity = impact.effect_intervals(bounded, effects, {'sensitivity'})
-            outer = impact.effect_intervals(bounded, outer_effects, {'open'})
-            row = {'model': model}
-            for name, intervals in [('scale', scale), ('bounded', bounded),
-                                    ('sensitivity', sensitivity), ('worst_case', outer)]:
-                row[name + '_low'], row[name + '_high'] = impact.average_interval(intervals)
-            expected[model] = row
+            lows, highs = [], []
+            for task, row in lb.items():
+                v = row[model]
+                if v is None or task == 'dabic_gravity_inversion':
+                    continue
+                v = F(str(v))
+                if task == 'treant_forest':
+                    lo, hi = max(F(0), v - F(1, 20)), min(cap, v + F(1, 20))
+                    lows.append(100 * lo / cap); highs.append(min(F(100), 100 * (1951 + 4141 * hi) / F(88886)))
+                elif task == 'borden_source_inversion':
+                    lows.append(100 * max(F(0), v - F(1, 20)) / 109); highs.append(100 * min(F(109), v + F(1, 20)) / 109)
+                else:
+                    lows.append(max(F(0), v - F(1, 20))); highs.append(min(F(100), v + F(1, 20)))
+            self.assertEqual(exact[model]['scale_low'], sum(lows) / len(lows))
+            self.assertEqual(exact[model]['scale_high'], sum(highs) / len(highs))
+        out = {m: dict(model=m, **{k: v for k, v in r.items() if k.endswith(('_low', '_high'))})
+               for m, r in exact.items()}
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'impact.csv'
-            impact.write_impact_csv(expected, path)
+            impact.write_impact_csv(out, path)
             with path.open() as stream:
                 actual = list(csv.DictReader(stream))
+        self.assertEqual(len(actual), len(impact.MODELS))
         for row in actual:
-            for name, value in expected[row['model']].items():
+            for name, value in exact[row['model']].items():
+                if not name.endswith(('_low', '_high')):
+                    continue
+                written = F(row[name])          # the CSV decimal, read exactly
                 if name.endswith('_low'):
-                    self.assertLessEqual(float(row[name]), value, (row['model'], name))
-                elif name.endswith('_high'):
-                    self.assertGreaterEqual(float(row[name]), value, (row['model'], name))
+                    self.assertLessEqual(written, value, (row['model'], name))
+                else:
+                    self.assertGreaterEqual(written, value, (row['model'], name))
+                self.assertLessEqual(abs(written - value), F(1, 10 ** 9), (row['model'], name))
+
+    def test_published_csv_encloses_exact_intervals(self):
+        lb = impact.parse_leaderboard()
+        effects = json.loads((impact.ROOT / 'evidence/impact/effects.json').read_text())
+        exact = impact.interval_rows(lb, effects, impact.exact)
+        with (impact.ROOT / 'data/impact.csv').open() as stream:
+            for row in csv.DictReader(stream):
+                for name, value in exact[row['model']].items():
+                    if name.endswith('_low'):
+                        self.assertLessEqual(F(row[name]), value, (row['model'], name))
+                    elif name.endswith('_high'):
+                        self.assertGreaterEqual(F(row[name]), value, (row['model'], name))
 
     def test_juliet_bound_encloses_exact_witness(self):
         effects = json.loads((impact.ROOT / 'evidence/impact/effects.json').read_text())

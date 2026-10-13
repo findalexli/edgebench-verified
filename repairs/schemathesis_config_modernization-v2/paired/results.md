@@ -19,7 +19,7 @@ The only test-function difference in every variant is the added `test_metric_dec
 - **Valid control:** the identity score is unchanged. Holds. No shipped reference exists in the image.
 - **Invalid control:** no_register is rejected in both versions (12/15 and 12/16). Holds.
 
-Note: `paired/run.sh` differs from the executed job script in one line only. The `/tests` hash listing was fixed to run through `bash -c`, because the executed version wrote empty hash files. v2 test hashes were verified separately on a local build: `v2-image-tests.sha256`, matching `../source-lock.json`.
+Note: `paired/run.sh` differs from the executed job script in one line only. The `/tests` hash listing was fixed to run through `bash -c`, because the executed version wrote empty hash files. v2 test hashes were verified separately on a local build: `v2-image-tests.sha256`, matching `../source-lock.json`. The repeat jobs ran the fixed script, and their in-job listings (`evidence/runs/schemathesis_config_modernization-v2-paired-rep2/result/out/tests-v2.sha256`, `-rep3`) match the lock too.
 
 ## Verdict
 

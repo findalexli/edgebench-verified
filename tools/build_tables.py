@@ -30,7 +30,7 @@ def main():
         for r in rows:
             t = r['task_id']
             w.writerow([t, names[t], r['proposed'], LABEL[r['proposed']], plain[t]['headline'], plain[t]['effect'],
-                        plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', ''), r.get('validation_status', 'Historical paired scope; see case page')])
+                        plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', ''), r.get('validation_status') or ('Historical paired scope only; see the case page and package limits' if r.get('package') else '')])
     lines = ['# Outcome for every task', '',
              'The outcome for each of the 51 public tasks. The same data is in [data/decisions.csv](data/decisions.csv); '
              'the `decision` column there uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` '

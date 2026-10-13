@@ -38,7 +38,7 @@ def main():
     rows = []
     for pkg in sorted(REPAIRS.glob('*-v2')):
         tid, ch, jt, wt = changes(pkg)
-        status = decisions[tid].get('validation_status', 'see package evidence and limits')
+        status = decisions[tid].get('validation_status', 'Historical paired scope only; see the case page and package limits')
         if decisions[tid]['proposed'] != 'repair-v2':
             status = 'partial fix; task removed; ' + status
         if tid == 'warehouse_forklift_routing':
@@ -74,12 +74,15 @@ cd repairs/<task_id>-v2
 TAG=$(python3 -c "import json;print(json.load(open('task.json.in'))['judge']['image_tag'])")
 docker build -t edgebench.judge.<task_id>:$TAG .
 # if the package has Dockerfile.work, also build edgebench.work.<task_id>:<work image_tag> from it
+# Arc Compiler Runtime and Borden Source Inversion change only the agent's environment: their Dockerfile
+# builds edgebench.work.<task_id>:<work image_tag> (Arc: docker build -f Dockerfile files)
 cp task.json.in <your EdgeBench checkout>/tasks/<task_id>.json   # not this repository's tasks/, which is locked to the original
 ```
 
 EdgeBench's runner finds images by the names `edgebench.judge.<task_id>:<image_tag>` (the grader)
 and `edgebench.work.<task_id>:<image_tag>` (the agent's environment), reading the tags from the task
-definition. Warehouse also requires the host-side final-drain overlay described below; replacing
+definition. These tags name images you build locally; no fixed image is published to a registry.
+Warehouse also requires the host-side final-drain overlay described below; replacing
 its task definition and grader image alone leaves the 900-second final-result collection defect.
 Maintainers who build images from source can apply `repair.patch` to their source tree instead.
 The paths in the patch are the paths inside the image.
@@ -91,7 +94,11 @@ judge-image patch. It polls until recorded jobs are terminal, allows a queue-awa
 and reports failure rather than returning an incomplete final score. Materialize it into a new
 source directory and run the harness from that directory; this repository's locked `sforge/` mirror
 stays unchanged. Its paired deterministic tests exercise the real patched drain and result assembly,
-including a long evaluation and serial queue. Full Docker/Kubernetes integration remains unverified.
+including a long evaluation and a serial queue (a conservative model: the upstream judge server
+grades submissions concurrently). Full Docker/Kubernetes integration remains unverified. The overlay
+changes final-result collection for every task run through the materialized tree, can wait up to
+`300 + n·(eval_timeout + 300)` seconds for `n` pending submissions, and keeps the work sandbox
+allocated meanwhile; use it for Warehouse runs or accept that change.
 
 ## Test a fix yourself
 

@@ -23,7 +23,7 @@ Not in the shipped note: the source of the upper reference points (rank30, rank1
 
 ## How much it matters
 
-**CPU count.** Under the original grader at the publisher's 4 CPUs, a solution using more than about 15 s of CPU per case loses those cases (0 each); losing 48 of 50 cases takes nearly the whole score, for a solver of any strength (measured: 5.04 → 0 for our control). Under the fixed version these cases are scored. A solution that stops at a wall-clock deadline gets about twice the CPU per case under the fixed version (mean 13.00 s → 24.99 s for the 25 s deadline solution); how much that changes its score is not measured.
+**CPU count.** Under the original grader at the publisher's 4 CPUs, a solution using more than about 15 s of CPU per case loses those cases (0 each); losing 48 of 50 cases takes nearly the whole score (measured: 5.04 → 0 for our control; for stronger solvers this follows from the case count and was not measured). Under the fixed version these cases are scored. A solution that stops at a wall-clock deadline gets about twice the CPU per case under the fixed version (mean 13.00 s → 24.99 s for the 25 s deadline solution); how much that changes its score is not measured.
 
 **Notes.** No score effect was found from the lower end of the scale. The upper reference points were not checked, so an effect from them is not ruled out. The memory note had no score effect on an honest solution. It matters only to users who rely on the stated limit.
 
@@ -42,7 +42,7 @@ Paired run at `--cpus 4` (one pair at `--cpus 8`), same solutions on both grader
 | 40 s of CPU per case (bad control) | 4 | 50 TLE, TOTAL 0 | 50 TLE, TOTAL 0 |
 | 20 s of CPU per case | 8 | 50 OK, TOTAL 99,714,418 | 50 OK, TOTAL 99,714,418 |
 
-Under the fixed version the slowest 28 s case took 28.02 s from start to end (`result/out/timing_summary.txt`). Grading at 4 CPUs takes at most ⌈50/4⌉ = 13 rounds of 30 s; the bad control took 390.8 s (original: 210.7 s), inside the task's 600 s `eval_timeout`.
+Under the fixed version the slowest 28 s case took 28.02 s from start to end (`result/out/timing_summary.txt`). Grading at 4 CPUs takes at most ⌈50/4⌉ = 13 rounds of 30 s; the bad control, which times out on every case, took 390.8 s (original: 210.7 s), inside the task's 600 s `eval_timeout`. The 390.8 s is that measured run, not a computed bound.
 
 **Are scores comparable?** At 8 or more grader CPUs the two versions grade the same way. At 4 CPUs a deterministic solution that finished every case in time under the original gets the same output and score under the fixed version, and a solution needing about 15 to 30 s of CPU per case is scored on those cases instead of getting 0. A solution that searches until a wall-clock deadline gets about twice the CPU per case, so its scores under the two graders at 4 CPUs are not comparable. Per-case CPU never decreases under the fixed version.
 
@@ -51,7 +51,7 @@ These notes still ship with the fixed version: the 1 GB memory limit is not enfo
 ## How we checked it
 
 - **Original grader source.** We read the grader file `eval_apple_incremental_game.py` from the original public image. It uses the same code as the Treant task, with `TIME_LIMIT=30`, and the `piecewise_max` score scale.
-- **CPU runs and paired run on E2B.** Valid solutions doing 12 to 28 s of CPU work per case, a 25 s wall-clock-deadline solution and a 40 s bad control ran on the original grader at `--cpus 4` and `--cpus 8` (`evidence/runs/apple_incremental_game-cpu4v8-a`, `-b`) and side by side on the original and fixed graders (`evidence/runs/apple_incremental_game-v2-paired`), each job `status: exit=0`, in the digest-pinned grader image with `--network none --memory 4g`. Each solution runs our honest control (a level-0 return-on-investment greedy), then does its extra work, then prints the control's answer, and logs its own start, end and CPU time per case (`result/out/timing/`).
+- **CPU runs and paired run on E2B.** Valid solutions doing 12 to 28 s of CPU work per case, a 25 s wall-clock-deadline solution and a 40 s bad control ran on the original grader at `--cpus 4` and `--cpus 8` (`evidence/runs/apple_incremental_game-cpu4v8-a`, `-b`; ledger jobs `cpu4v8-games-a`, `-b`) and side by side on the original and fixed graders (`evidence/runs/apple_incremental_game-v2-paired`), each job `status: exit=0`, in the digest-pinned grader image with `--network none --memory 4g`. Each solution runs our honest control (a level-0 return-on-investment greedy), then does its extra work, then prints the control's answer, and logs its own start, end and CPU time per case (`result/out/timing/`).
 - **Independent simulator.** A greedy simulator that looks one step ahead and follows the rules in the task text ran on all 50 shipped cases. It is not the original tester program.
 - **Arithmetic** on the time budget and the score scale (`evidence/scripts/_game-tasks-correctness/check_arith.py`). The greedy total of 237,518,875 is entered there as an observed value; the simulator's own output is not saved in this repository.
 
@@ -63,7 +63,9 @@ These notes still ship with the fixed version: the 1 GB memory limit is not enfo
 - The original and fixed graders were run inside the digest-pinned grader image only for the CPU measurements and the paired run, at 4 and 8 CPUs, on E2B workers with 8 vCPUs. 3, 5, 6 and 7 CPUs were not tested.
 - The CPU test solutions are single-threaded: fixed CPU work, or work until a 25 s wall-clock deadline. Multi-threaded solvers were not tested.
 - Deadline-based solvers get about twice the CPU per case under the fixed version at 4 CPUs, so their scores under the two graders are not comparable. How much their scores change is not measured.
-- With fewer than 3 grader CPUs the 600 s `eval_timeout`, not the 30 s per case, becomes the binding limit (25 rounds × 30 s = 750 s at 2 CPUs). The quota is rounded down: 2.5 CPUs run 2 cases at once.
+- With fewer than 3 grader CPUs the 600 s `eval_timeout`, not the 30 s per case, becomes the binding limit (25 rounds × 30 s = 750 s at 2 CPUs). The grader prints its results only after every case has finished, so a submission that reaches the `eval_timeout` loses its whole output and scores 0. Below 3 CPUs the fixed version can therefore score lower than the original for a solution that times out on most cases (derived from the code, not run). The quota is rounded down: 2.5 CPUs run 2 cases at once.
+- Without a cgroup quota the fixed grader falls back to `os.cpu_count()`, which counts all host CPUs rather than the ones the grader may use (`os.sched_getaffinity`); under a CPU-set limit with no quota it can still run more cases at once than it has CPUs.
+- The package was rebuilt from scratch on a clean machine (`evidence/runs/materialize-check-g1`, `status: exit=0`): `materialize.sh` ran unchanged, the output matched the lock and the built image holds the locked file.
 - The origin and reachability of the upper reference points were not checked.
 
 ## Reproduce

@@ -92,7 +92,7 @@ had lemmas silently marked BAD.
 ### Files
 
 - `Dockerfile`: the fixed grader.
-- `Dockerfile.work`: the fixed solver image, not built.
+- `Dockerfile.work`: the fixed solver image. It was built once, in the clean-machine rebuild check (`evidence/runs/materialize-check-pfr`); no solver ran in it.
 - `repair.patch`: our diff.
 - `materialize.sh`: rebuilds `files/` and `orig/`.
 - `source-lock.json`.
@@ -120,14 +120,13 @@ rebuild and `docker build`, and graded in the image it built.
 
 ```bash
 ./materialize.sh && docker build -t ebv/pfr_formalization-judge:v2 .
-docker build -f Dockerfile.work -t ebv/pfr_formalization-work:v2 .   # not verified
+docker build -f Dockerfile.work -t ebv/pfr_formalization-work:v2 .   # built once; no solver run in it
 ```
 
 `materialize.sh` takes these steps:
 
-1. Pull both pinned images.
-2. Extract `PFR/WeakPFR.lean` with `docker create` + `docker cp`, and check its sha256. The work image's copy
-   is only checked.
+1. Pull the pinned grader image.
+2. Extract `PFR/WeakPFR.lean` with `docker create` + `docker cp`, and check its sha256.
 3. Apply `repair.patch`.
 4. Rebuild `files/judge/v2-build-artifacts.tar` inside the original grader image. This runs
    `lake build ListDeclAxiom` and `lake build`, offline, with `--memory 6g --cpus 4`, in about a minute.
@@ -137,6 +136,9 @@ docker build -f Dockerfile.work -t ebv/pfr_formalization-work:v2 .   # not verif
    - the regenerated listing equals `paired/out/v2-listing.txt` byte for byte.
 
    Oleans are not expected to be byte-identical.
+6. Only then pull the pinned work image and check the sha256 of its copy of `PFR/WeakPFR.lean`. The two
+   images do not fit together on a 21 GB machine, so the grader image is removed first when this run
+   pulled it (`MATERIALIZE_KEEP_IMAGES=1` keeps it; otherwise `docker build .` pulls it again).
 
 `materialize.sh` is adapted by hand from `tools/materialize.sh.in`. The template's Lean rebuild step is
 specific to `lean_analysis_proofs`, so `tools/make_materialize.py` has no entry for this package yet.
@@ -152,9 +154,18 @@ specific to `lean_analysis_proofs`, so `tools/make_materialize.py` has no entry 
 - **Work-image check skipped on the grading worker.** The work image (about 11 GB on disk) and the grader
   image do not fit on one 21 GB worker. The grading worker therefore ran `materialize.sh` without the
   work-image lines (`paired/out/materialize.nowork.diff`). That check was done separately, in job
-  `pfr_formalization-v2-extract`.
-- **`Dockerfile.work` was not built.** The solver's first `lake build` recompiles `PFR.WeakPFR`, `PFR.Examples`
-  and `PFR`.
+  `pfr_formalization-v2-extract`, and again in the clean-machine rebuild check
+  (`evidence/runs/materialize-check-pfr`, `status: exit=0`; work-image starter sha256 matched the lock). Since
+  2026-10-13 `materialize.sh` itself pulls the work image only after the grader steps (step 6), so the
+  unchanged script fits a 21 GB machine. That reordered script has been tested with a stub `docker` only,
+  not yet on a real worker.
+- **`Dockerfile.work` was built once, but no solver ran in it.** The clean-machine rebuild check built it
+  and found the installed `PFR/WeakPFR.lean` with the locked sha256. The solver's first `lake build`
+  recompiles `PFR.WeakPFR`, `PFR.Examples` and `PFR`; that was not run.
+- **Not verified, and why: credit for the five actual targets.** Checking that a real proof of the five
+  repaired targets now earns credit needs real proofs of those theorems, which take the mathematics of the
+  PFR project (porting them from teorth/pfr is a project of its own). The trigger lemmas stand in for them.
+  This is kept as a documented limitation.
 - **Downstream count is inferred.** That the four `weak_PFR*` targets would be lost follows from the upstream
   proof structure (teorth/pfr `master`) and the measured rule (variant D). It was not measured with real
   proofs.

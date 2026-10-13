@@ -15,6 +15,7 @@ import json
 import math
 import pathlib
 import sys
+from fractions import Fraction
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MODELS = ["Opus 4.8", "GPT-5.5", "GPT-5.4", "GLM-5.1", "DS-V4-Pro"]
@@ -41,10 +42,19 @@ def mean(vals):
     return sum(vals) / len(vals)
 
 
-TREANT_CAP_SCORE = 20.0 + 60.0 * (92304.0 - 88189.0) / (330195.0 - 88189.0)
+def exact(x):
+    """The exact rational value of a published decimal (or an int or Fraction)."""
+    return x if isinstance(x, Fraction) else Fraction(str(x))
 
 
-def treant_interval(s, rounding=0.05):
+def treant_cap_score(num=float):
+    return num(20) + num(60) * (num(92304) - num(88189)) / (num(330195) - num(88189))
+
+
+TREANT_CAP_SCORE = treant_cap_score()
+
+
+def treant_interval(s, rounding=0.05, num=float):
     """Outer bounds on the mean repaired score from a rounded mean original score.
 
     On the reachable original-score domain [0, cap], each run's repaired score
@@ -53,76 +63,38 @@ def treant_interval(s, rounding=0.05):
     of the number of valid runs or which runs meet clipping/segment boundaries.
     This assumes the documented raw-total cap 92304 and fixed valid-run set.
     """
-    low, high = max(0.0, s - rounding), min(TREANT_CAP_SCORE, s + rounding)
+    cap, s, rounding = treant_cap_score(num), num(s), num(rounding)
+    low, high = max(num(0), s - rounding), min(cap, s + rounding)
     if low > high:
         raise ValueError("score outside reachable Treant domain")
-    return (100.0 * low / TREANT_CAP_SCORE,
-            min(100.0, 100.0 * (1951.0 + 4141.0 * high) / 88886.0))
+    return (num(100) * low / cap,
+            min(num(100), num(100) * (num(1951) + num(4141) * high) / num(88886)))
 
 
-def treant_v2(s):
-    """Display midpoint of an outer interval; not an inferred or exact score."""
-    return mean(treant_interval(s))
-
-
-def borden_v2(s):
+def borden_v2(s, num=float):
     # v1 had no rescale (published value is the raw score, 0..109); v2 is linear 0..109.
-    return 100.0 * s / 109.0
+    return num(100) * num(s) / num(109)
 
 
-def adjusted(lb, m, steps=("dabic", "treant", "borden")):
-    """Display centers after scale corrections; Treant is an interval midpoint."""
-    v2 = {t: lb[t][m] for t in lb}
-    if "dabic" in steps:
-        del v2["dabic_gravity_inversion"]
-    if "treant" in steps:
-        v2["treant_forest"] = treant_v2(lb["treant_forest"][m])
-    if "borden" in steps:
-        v2["borden_source_inversion"] = borden_v2(lb["borden_source_inversion"][m])
-    return v2
-
-
-def decomposition(lb, m):
-    """Decompose display-center shifts; these are not exact leaderboard effects."""
-    base = mean(lb[t][m] for t in lb)
-    a = mean(adjusted(lb, m, ("dabic",)).values())
-    b = mean(adjusted(lb, m, ("dabic", "treant")).values())
-    c = mean(adjusted(lb, m).values())
-    return {"dabic": a - base, "treant": b - a, "borden": c - b}
-
-
-def bounded_parts(v2, effects):
-    """Largest possible rise and fall per bounded task, in points on that task."""
-    up, down = {}, {}
-    for t, e in effects.items():
-        if e["kind"] != "bounded" or v2.get(t) is None:
-            continue
-        s, b = v2[t], e["bound"]
-        if e["direction"] in ("up", "either"):
-            up[t] = max(0.0, min(e.get("bound_up", b), e.get("ceiling", 100.0) - s))
-        if e["direction"] in ("down", "either"):
-            down[t] = min(e.get("bound_down", b), s)
-    return up, down
-
-
-def scale_intervals(lb, model):
+def scale_intervals(lb, model, num=float):
     """Retained task intervals, including one-decimal rounding uncertainty."""
     result = {}
     for task, row in lb.items():
         score = row[model]
         if score is None or task == "dabic_gravity_inversion":
             continue
+        score, r = num(score), num(.05)
         if task == "treant_forest":
-            result[task] = treant_interval(score)
+            result[task] = treant_interval(score, num=num)
         elif task == "borden_source_inversion":
-            result[task] = (borden_v2(max(0.0, score - .05)),
-                            borden_v2(min(109.0, score + .05)))
+            result[task] = (borden_v2(max(num(0), score - r), num),
+                            borden_v2(min(num(109), score + r), num))
         else:
-            result[task] = (max(0.0, score - .05), min(100.0, score + .05))
+            result[task] = (max(num(0), score - r), min(num(100), score + r))
     return result
 
 
-def effect_intervals(intervals, effects, kinds):
+def effect_intervals(intervals, effects, kinds, num=float):
     """Conservative per-task propagation; never assume simultaneous attainment."""
     result = dict(intervals)
     for task, effect in effects.items():
@@ -130,11 +102,11 @@ def effect_intervals(intervals, effects, kinds):
             continue
         low, high = result[task]
         default = effect.get("bound")
-        default = 100.0 if default is None else default
+        default = num(100) if default is None else num(default)
         if effect["direction"] in ("down", "either"):
-            low = max(0.0, low - effect.get("bound_down", default))
+            low = max(num(0), low - num(effect.get("bound_down", default)))
         if effect["direction"] in ("up", "either"):
-            high = max(high, min(effect.get("ceiling", 100.0), high + effect.get("bound_up", default)))
+            high = max(high, min(num(effect.get("ceiling", 100)), high + num(effect.get("bound_up", default))))
         result[task] = (low, high)
     return result
 
@@ -149,16 +121,43 @@ def ranking_certified(higher, lower):
 
 
 
+def outward(value, kind, places=9):
+    """Decimal string of an exact endpoint, rounded outward (down for _low, up for _high)."""
+    scaled = exact(value) * 10 ** places
+    n = math.floor(scaled) if kind == "low" else math.ceil(scaled)
+    sign, n = ("-" if n < 0 else ""), abs(n)
+    return f"{sign}{n // 10 ** places}.{n % 10 ** places:0{places}d}"
+
+
+def interval_rows(lb, effects, num=float):
+    """Per model: mean endpoints of the four interval kinds, in the number type `num`."""
+    # A finite sweep is not a global bound: use the full score domain in the outer range.
+    outer_effects = {t: (dict(e, kind="open", bound=None, bound_up=100, bound_down=100)
+                         if e["kind"] == "sensitivity" else e) for t, e in effects.items()}
+    rows = {}
+    for model in MODELS:
+        scale = scale_intervals(lb, model, num)
+        bounded = effect_intervals(scale, effects, {"bounded"}, num)
+        sensitivity = effect_intervals(bounded, effects, {"sensitivity"}, num)
+        outer = effect_intervals(bounded, outer_effects, {"open"}, num)
+        row = {"tasks_in_mean": len(scale)}
+        for name, intervals in [("scale", scale), ("bounded", bounded),
+                                ("sensitivity", sensitivity), ("worst_case", outer)]:
+            row[name + "_low"], row[name + "_high"] = average_interval(intervals)
+        rows[model] = row
+    return rows
+
+
 def write_impact_csv(out, path):
-    """Preserve computed interval endpoints through float round-trip serialization."""
+    """Write interval endpoints as exact decimals rounded outward (9 places), so the CSV interval
+    always encloses the exact rational interval; other floats with 6 places."""
     with path.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(next(iter(out.values()))), lineterminator="\n")
         writer.writeheader()
         for row in out.values():
-            # Nearest decimal rounding can narrow either end of an outer interval.
-            # csv writes endpoint floats using their round-trip string representation.
-            writer.writerow({k: (v if k.endswith(("_low", "_high")) else f"{v:.6f}")
-                             if isinstance(v, float) else v for k, v in row.items()})
+            writer.writerow({k: outward(v, "low" if k.endswith("_low") else "high")
+                             if k.endswith(("_low", "_high")) else
+                             (f"{v:.6f}" if isinstance(v, float) else v) for k, v in row.items()})
 
 
 def main():
@@ -167,25 +166,17 @@ def main():
     decisions = {d["task_id"]: d for d in json.loads((ROOT / "data/decisions.json").read_text())}
     assert len(lb) == 51 and set(lb) == set(decisions)
     assert {t for t, d in decisions.items() if d["proposed"] != "retain-with-note"} == set(effects)
+    # Endpoints are computed in exact rational arithmetic from the published decimals.
+    exact_rows = interval_rows(lb, effects, exact)
     out = {}
-    for model in MODELS:
-        scale = scale_intervals(lb, model)
-        bounded = effect_intervals(scale, effects, {"bounded"})
-        sensitivity = effect_intervals(bounded, effects, {"sensitivity"})
-        # A finite sweep is not a global bound: use the full score domain in the outer range.
-        outer_effects = {t: (dict(e, kind="open", bound=None, bound_up=100., bound_down=100.)
-                             if e["kind"] == "sensitivity" else e) for t, e in effects.items()}
-        outer = effect_intervals(bounded, outer_effects, {"open"})
-        a, b = average_interval(scale)
-        c, d = average_interval(bounded)
-        e, f = average_interval(sensitivity)
-        g, h = average_interval(outer)
+    for model, r in exact_rows.items():
         out[model] = dict(model=model, published_mean=PUBLISHED[model],
                           recomputed_mean=mean(row[model] for row in lb.values()),
-                          scale_midpoint_mean=(a+b)/2, scale_low=a, scale_high=b,
-                          bounded_low=c, bounded_high=d,
-                          sensitivity_low=e, sensitivity_high=f,
-                          worst_case_low=g, worst_case_high=h, tasks_in_mean=len(scale))
+                          scale_midpoint_mean=float((r["scale_low"] + r["scale_high"]) / 2),
+                          **{k: r[k] for k in ("scale_low", "scale_high", "bounded_low", "bounded_high",
+                                               "sensitivity_low", "sensitivity_high",
+                                               "worst_case_low", "worst_case_high")},
+                          tasks_in_mean=r["tasks_in_mean"])
     write_impact_csv(out, ROOT / "data/impact.csv")
     L = ["# Effect on the published leaderboard", "",
          "The public task averages do not determine a corrected leaderboard. Original submissions and per-run raw scores are unavailable. The intervals below propagate rounded public scores, scale changes, and documented effect limits; they are outer envelopes, not estimates or demonstrated attainable outcomes. Generated by `tools/estimate_impact.py`; machine-readable results are in [data/impact.csv](data/impact.csv).", "",
@@ -198,7 +189,7 @@ def main():
                   [("scale_low","scale_high"),("bounded_low","bounded_high"),
                    ("sensitivity_low","sensitivity_high"),("worst_case_low","worst_case_high")]]
         L.append(f"| {model} | {row['published_mean']:.1f} | " + " | ".join(ranges) + " |")
-    L += ["", "`scale_midpoint_mean` in the CSV is only a display midpoint, not an inferred corrected mean. The full-domain envelope allows open effects to span the remaining score range in their stated directions; Portfolio receives the full 0–100 range because its sweep does not establish a global bound.", "",
+    L += ["", "`scale_midpoint_mean` in the CSV is only a display midpoint, not an inferred corrected mean. The CSV interval endpoints are the exact rational endpoints rounded outward to 9 decimals, so each CSV interval encloses the exact one. The full-domain envelope allows open effects to span the remaining score range in their stated directions; Portfolio receives the full 0–100 range because its sweep does not establish a global bound.", "",
           "## What can be recovered from an average", "",
           "- **D-ABIC:** remove the task; the denominator becomes 50 (49 for Opus 4.8, whose Rust result is missing).",
           "- **Borden:** multiply the rounded raw average by 100/109, propagating ±0.05 rounding. This affine conversion commutes with averaging; the instruction repair's separate effect still needs new runs.",
@@ -232,7 +223,8 @@ def main():
           "The publisher averages valid runs after per-run normalization and best-submission selection; see [the scoring-method record](evidence/impact/edgebench-scoring-method.md). The scale intervals retain that run set. They do not simulate how agents respond to new instructions or feedback.", "",
           "Separate regrading of third-party four-hour Opus 5.5 runs supplies evidence that some defects matter in real trajectories, but it is not a regrade of this twelve-hour leaderboard. See [the saved regrade summary](evidence/runs/opus55-regrade2-summary/summary.json). Only the 51 public tasks are covered; the publisher also has 83 unreleased tasks. Repairs form a new benchmark version."]
     (ROOT / "IMPACT.md").write_text("\n".join(L) + "\n")
-    json.dump(out, sys.stdout, indent=1)
+    json.dump({m: {k: (float(v) if isinstance(v, Fraction) else v) for k, v in r.items()} for m, r in out.items()},
+              sys.stdout, indent=1)
 
 
 if __name__ == "__main__":

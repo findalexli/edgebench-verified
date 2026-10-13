@@ -125,7 +125,8 @@ add("exchange_core_throughput", "Leaderboard judge setting: `--cpus 4 --memory 8
 ])
 
 # ffmpeg (-b run, only table in file)
-add("ffmpeg_swscale_reimplementation", "Paired results: ffmpeg_swscale_reimplementation v1 vs v2", "raw", [
+# ffmpeg rows above the v2.2 block are the historical v2 job; v2 here is the superseded v2 scorer.
+add("ffmpeg_swscale_reimplementation", "Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2)", "raw", [
  ("forwarding shim, each frame once (`ref_r1`)", "valid", "", "", "0.967353", "0.980056"),
  ("forwarding shim, each frame twice (`ref_r2`, about 2× slower)", "valid", "", "", "0.509049", "0.507032"),
  ("shipped scaffold", "baseline", "", "", "0.447819", "0.012416"),
@@ -133,6 +134,12 @@ add("ffmpeg_swscale_reimplementation", "Paired results: ffmpeg_swscale_reimpleme
  ("silent no-op on 3:1 downscale", "trigger", "", "", "2.884506", "0.000463"),
  ("errors on RGBA→RGB24", "trigger", "", "", "1.305860", "0.000451"),
  ("unsupported yuv420p→rgb24", "invalid", "0.0 (28/30)", "0.0 (28/30)", "0.0", "0.0"),
+])
+# ffmpeg v2.2 (current patch): native full-scorer controls; v2 = v2.2; result = correctness workloads passed
+add("ffmpeg_swscale_reimplementation", "v2.2 native result (2026-10-13)", "raw", [
+ ("Forward every call to FFmpeg", "valid", "30/30", "30/30", "1.056386", "1.020061"),
+ ("Skip second call of each context", "trigger", "30/30", "30/30", "1.038559", "0.000000"),
+ ("Always return an error", "invalid", "0/30", "0/30", "0.000000", "0.000000"),
 ])
 
 # git: reward 0-1 (score = reward x 100); result = tests passed ("–": tests ran, reward ignores them)
@@ -158,10 +165,10 @@ add("graph_node_classification", "Paired table", "normalized", [
  ("missing_half (half the test nodes)", "invalid", "false", "false", "", ""),
 ])
 
-# integer compression
+# integer compression: result = raw / normalized on the current linear 1..320 scale (results.md, "Score scale revision")
 add("integer_compression_codec", "Paired v1/v2 results: integer_compression_codec", "raw", [
- ("shipped Varint starter (unchanged)", "trigger", "0.2327 / 0.2327", "0.9786 / 0.9786 (repeat 1.0155)", "0.2327", "0.9786"),
- ("delta + zigzag + varint", "valid", "0.8253 / 0.8253", "6.7024 / 6.7024 (repeat 6.9708)", "0.8253", "6.7024"),
+ ("shipped Varint starter (unchanged)", "trigger", "0.2327 / 0.2327", "0.9786 / 0.00 (repeat 1.0155 / 0.00)", "0.2327", "0.9786"),
+ ("delta + zigzag + varint", "valid", "0.8253 / 0.8253", "6.7024 / 1.79 (repeat 6.9708 / 1.87)", "0.8253", "6.7024"),
  ("starter with one corrupted value", "invalid", "0 / 0", "0 / 0", "0", "0"),
 ])
 
@@ -365,7 +372,8 @@ add("warehouse_forklift_routing", "CPU share at 4 CPUs (current fixed version, 2
 
 # vibrating / apple / triangulation CPU share (added 2026-10-12, after rust in the CSV so earlier
 # line numbers stay stable). v1 = original grader, v2 = fixed version, at 4 grader CPUs unless the arm
-# ends in "| 8" (the 8-CPU row of the results.md table). Score columns are left empty where results.md
+# ends in "| 8" or is the `cpu20` row whose original-grader result is 50 OK (the 8-CPU row of the
+# results.md table). Score columns are left empty where results.md
 # gives TOTAL with thousands separators, which is kept verbatim in the result columns.
 CPU_ROWS = []
 CPU_ROWS.append(("vibrating_path_graph_coloring", "vibrating_path_graph_coloring v2: paired results", "raw", [
@@ -375,7 +383,7 @@ CPU_ROWS.append(("vibrating_path_graph_coloring", "vibrating_path_graph_coloring
  ("`wall25` (works until 25 s wall clock)", "valid", "36 OK, 14 TLE, TOTAL inf", "50 OK, TOTAL 24,650,014", "", ""),
  ("`wall25`, repeat 1 / repeat 2", "valid", "50 OK, 24,650,014", "50 OK, 24,650,014", "", ""),
  ("`spin40` (bad control, 40 s CPU per case)", "invalid", "0 OK, 50 TLE, TOTAL inf", "0 OK, 50 TLE, TOTAL inf", "", ""),
- ("`cpu20` (20 s CPU per case) | 8", "valid", "50 OK, TOTAL 24,650,014", "50 OK, TOTAL 24,650,014", "", ""),
+ ("`cpu20` (20 s CPU per case)", "valid", "50 OK, TOTAL 24,650,014", "50 OK, TOTAL 24,650,014", "", ""),
 ]))
 CPU_ROWS.append(("apple_incremental_game", "apple_incremental_game v2: paired results", "raw", [
  ("`cpu0` (honest control alone)", "baseline", "50 OK, TOTAL 99,714,418 (5.04)", "50 OK, TOTAL 99,714,418 (5.04)", "", ""),
@@ -383,7 +391,7 @@ CPU_ROWS.append(("apple_incremental_game", "apple_incremental_game v2: paired re
  ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL 3,955,266 (0.00)", "50 OK, TOTAL 99,714,418 (5.04)", "", ""),
  ("`wall25` (works until 25 s wall clock)", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
  ("`spin40` (bad control, 40 s CPU per case)", "invalid", "0 OK, 50 TLE, TOTAL 0", "0 OK, 50 TLE, TOTAL 0", "", ""),
- ("`cpu20` (20 s CPU per case) | 8", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
+ ("`cpu20` (20 s CPU per case)", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
 ]))
 # triangulation: the original grader scores the original cases, the fixed version the regenerated ones,
 # so valid totals differ (866,166 against 874,742). v2 = the current fixed version v2.2 (2026-10-13 paired run).
@@ -468,6 +476,7 @@ SOURCE_CPUS = {
     ("warehouse_forklift_routing", "Paired run"): 2,
     ("exchange_core_throughput", "Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13)"): 4,
     ("triangulation_coloring_optimization", "Full judge (`eval_cmd`, 10 hidden cases)"): 8,
+    ("ffmpeg_swscale_reimplementation", "v2.2 native result (2026-10-13)"): 2,
 }
 CPU_SHARE = {"apple_incremental_game", "vibrating_path_graph_coloring", "triangulation_coloring_optimization",
              "grid_turing_robot", "molecular_self_assembly"}   # summary.txt: c4-* rows cpus=4, c8-* rows cpus=8
@@ -481,7 +490,9 @@ def cpus(task, arm, src, v1r):
     if (task, src) in SOURCE_CPUS:
         return SOURCE_CPUS[(task, src)]
     if task in CPU_SHARE and src != "Full judge (`eval_cmd`, 10 hidden cases)":
-        if arm.endswith("| 8") or (task in ("grid_turing_robot", "molecular_self_assembly") and arm.startswith("`cpu20`")):
+        if arm.endswith("| 8") or (task in ("grid_turing_robot", "molecular_self_assembly") and arm.startswith("`cpu20`")) \
+                or (task in ("apple_incremental_game", "vibrating_path_graph_coloring")
+                    and arm.startswith("`cpu20`") and v1r.startswith("50 OK")):
             return 8
         return 4
     return TASK_CPUS.get(task, "")

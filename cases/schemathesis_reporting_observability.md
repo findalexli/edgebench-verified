@@ -101,8 +101,9 @@ The original test also fails a correct writer with another suite name, because i
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on test submissions and changed versions we wrote.
-- Only one complete implementation was available as a correct test submission, and every correct JUnit writer tried is built on `junit_xml`. The revised JUnit test still assumes the usual JUnit form: the error is an `<error>` element in a `<testcase>` whose `name` is the label. A writer that recorded it as `<failure>`, or put the label only in `classname`, would fail it; `TODO.md` does not spell out either detail.
+- Only one complete implementation was available as a correct test submission, and every correct JUnit writer tried is built on `junit_xml`. The revised JUnit test still assumes the usual JUnit form: the error is an `<error>` element in a `<testcase>` whose `name` is the label. A writer that recorded it as `<failure>`, or put the label only in `classname`, would fail it, and a report whose root element carries an XML namespace (`<testsuites xmlns=…>`) would also fail it (local probe; an XML declaration, a byte-order mark, CDATA or nested `testsuites` pass); `TODO.md` does not spell out these details.
 - A count quirk in Phase 4 (9 expected, 11 collected) is unchanged and out of scope.
+- The package was rebuilt from scratch on a clean machine (`evidence/runs/materialize-check-g2`, `status: exit=0`): all 3 outputs matched the lock and the built image holds the locked test files.
 - Broader integration behaviour (xdist, stateful runs, a 55/53 test-count quirk) was not checked.
 - `TODO.md` was taken from the cloud export of the work tree (sha256 `097166d3…`), not re-extracted from the work image.
 - The hidden tests are not stored in this repository. They are extracted from the pinned grader image when the checks are rerun.

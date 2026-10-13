@@ -73,7 +73,8 @@ shipped `forward_model.py` may be used. A careful solver could read the two toge
 
 Nothing else changes: `forward_model.py`, the grader, the grader image, the answer key and the
 `rescale` block are as before. Revised `README.md`: `bcd35189…` (was `70c905d7…`); `task.json.in`:
-`65928330…` (was `0a48dc9f…`). `repair.patch`, `materialize.sh`, `source-lock.json` and `task-json.diff`
+`5ec716d4…` (was `0a48dc9f…`; an earlier revision of this note gave `65928330…`, which is the same file
+before the later `work.image_tag` bump to `f389fcf94240-ebv-v2.1`). `repair.patch`, `materialize.sh`, `source-lock.json` and `task-json.diff`
 were regenerated (`tools/make_materialize.py`; `task-json.diff` with the same re-serialised `diff -u` as
 before), and a clean-copy `./materialize.sh` reproduced every output byte for byte.
 

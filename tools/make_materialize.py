@@ -30,6 +30,9 @@ if os.environ.get('EBV_REPO'):                       # standalone EdgeBench Veri
 
 R = 'seededge/edgebench.'
 SPEC = {}
+# Packages whose Dockerfile is built with a context other than the package directory: the build line
+# in the generated materialize.sh header names it.
+BUILD_ARGS = {'arc_compiler_runtime-v2': '-f Dockerfile files   (build context: files/)'}
 
 
 def spec(name, images, base=(), orig=(), taskjson=(), copies=(), check=(), maven=False, lean=False,
@@ -350,6 +353,8 @@ def generate(name):
             + bash_array('MAVEN', [(u, d) for u, d, _ in mav])
             + f'LEAN_BUILD={1 if s["lean"] else 0}\n')
     script = script.replace('@@DATA@@\n', data)
+    if name in BUILD_ARGS:
+        script = script.replace('docker build -t <tag> .\n', f'docker build -t <tag> {BUILD_ARGS[name]}\n', 1)
     (pkg / 'materialize.sh').write_text(script)
     os.chmod(pkg / 'materialize.sh', 0o755)
 

@@ -12,6 +12,12 @@
 # run) -> apply repair.patch with `patch -p1` -> download public Maven Central artifacts (if any)
 # -> verify sha256 of every output. Any mismatch fails loudly.
 #
+# Disk order (pfr only): the grader image (about 10.5 GB unpacked) and the work image (about 11 GB)
+# do not fit together on a 21 GB machine. An image that is used only for a CHECK row (here the work
+# image) is therefore pulled after the grader steps and the Lean rebuild are done, and the grader
+# image is removed first if this run pulled it. MATERIALIZE_KEEP_IMAGES=1 keeps it (then
+# `docker build .` does not pull it again).
+#
 # Needs: bash, docker, GNU patch, sha256sum, python3 (reads source-lock.json); curl for Maven.
 # Env:   EDGEBENCH_ROOT  EdgeBench repo root, for packages whose base text is a public task JSON
 #                        (default: three directories above this package).
@@ -105,15 +111,24 @@ if [ "$LEAN_BUILD" = 1 ] && [ "${EBV_HEAVY_LOCK_HELD:-0}" != 1 ]; then
   flock -w 7200 9 || die "could not take the heavy-job lock"
 fi
 
-declare -A CID=()
+# Roles read by BASE or ORIG rows are needed now; a role used only by CHECK rows is deferred to
+# step 5b, after the grader image is no longer needed.
+declare -A NEEDED=() CID=() REF=() PULLED=()
+for row in ${BASE[@]+"${BASE[@]}"} ${ORIG[@]+"${ORIG[@]}"}; do NEEDED[${row%%|*}]=1; done
+open_image() {  # open_image ROLE REF: pull if absent, then `docker create` (no container is run)
+  local cid
+  if ! docker image inspect "$2" >/dev/null 2>&1; then
+    log "pulling $2"
+    docker pull --platform linux/amd64 "$2" >/dev/null || die "docker pull failed for $2"
+    PULLED[$1]=1
+  fi
+  cid=$(docker create --platform linux/amd64 "$2" true) || die "docker create failed for $2"
+  CIDS+=("$cid"); CID[$1]=$cid
+}
 for row in ${IMAGES[@]+"${IMAGES[@]}"}; do
   IFS='|' read -r role ref <<<"$row"
-  if ! docker image inspect "$ref" >/dev/null 2>&1; then
-    log "pulling $ref"
-    docker pull --platform linux/amd64 "$ref" >/dev/null || die "docker pull failed for $ref"
-  fi
-  cid=$(docker create --platform linux/amd64 "$ref" true) || die "docker create failed for $ref"
-  CIDS+=("$cid"); CID[$role]=$cid
+  REF[$role]=$ref
+  [ -n "${NEEDED[$role]:-}" ] && open_image "$role" "$ref"
 done
 
 # 1. Remove previous outputs so nothing stale survives.
@@ -128,11 +143,17 @@ for row in ${BASE[@]+"${BASE[@]}"} ${ORIG[@]+"${ORIG[@]}"}; do
   check_input "$role" "$path" "$STAGE/extract"
   mv -f "$STAGE/extract" "$dst"; n=$((n + 1))
 done
-for row in ${CHECK[@]+"${CHECK[@]}"}; do
-  IFS='|' read -r role path <<<"$row"
-  docker cp -L "${CID[$role]}:$path" "$STAGE/check" >/dev/null || die "docker cp $role:$path failed"
-  check_input "$role" "$path" "$STAGE/check"; rm -f "$STAGE/check"
-done
+check_rows() {  # check_rows: run every CHECK row whose image is open now; return 1 if any is left
+  local row role path left=0
+  for row in ${CHECK[@]+"${CHECK[@]}"}; do
+    IFS='|' read -r role path <<<"$row"
+    if [ -z "${CID[$role]:-}" ]; then left=1; continue; fi
+    docker cp -L "${CID[$role]}:$path" "$STAGE/check" >/dev/null || die "docker cp $role:$path failed"
+    check_input "$role" "$path" "$STAGE/check"; rm -f "$STAGE/check"
+  done
+  return $left
+}
+check_rows || log "check-only image(s) deferred until after the Lean rebuild (disk)"
 for row in ${TASKJSON[@]+"${TASKJSON[@]}"}; do
   IFS='|' read -r rel field dst <<<"$row"
   [ -f "$EDGEBENCH_ROOT/$rel" ] || die "$EDGEBENCH_ROOT/$rel not found (set EDGEBENCH_ROOT to the EdgeBench repo)"
@@ -207,6 +228,26 @@ chown -R "$HOST_UID:$HOST_GID" /out 2>/dev/null || chmod -R a+rwX /out' || die "
   log "rebuilt $art: listing identical to saved v2 listing ($(wc -l < "$out/v2-listing.txt") lines), $(wc -l < "$out/members.txt") members"
 }
 [ "$LEAN_BUILD" = 0 ] || lean_build
+
+# 5b. Check-only images (the work image): free the grader image first, then pull and check.
+deferred=0
+for role in "${!REF[@]}"; do [ -z "${CID[$role]:-}" ] && deferred=1; done
+if [ "$deferred" = 1 ]; then
+  for role in "${!CID[@]}"; do
+    docker rm -f "${CID[$role]}" >/dev/null 2>&1 || true; unset "CID[$role]"
+    if [ -n "${PULLED[$role]:-}" ] && [ "${MATERIALIZE_KEEP_IMAGES:-0}" != 1 ]; then
+      log "removing ${REF[$role]} (pulled by this run) to make room; docker build will pull it again"
+      docker rmi "${REF[$role]}" >/dev/null || die "docker rmi ${REF[$role]} failed"
+    fi
+  done
+  for role in "${!REF[@]}"; do
+    for row in ${CHECK[@]+"${CHECK[@]}"}; do
+      [ "${row%%|*}" = "$role" ] && { open_image "$role" "${REF[$role]}"; break; }
+    done
+  done
+  check_rows || die "a CHECK row has no image"
+  log "checked the deferred image(s) against source-lock.json"
+fi
 
 # 6. Verify every output against source-lock.json.
 bad=0; total=0

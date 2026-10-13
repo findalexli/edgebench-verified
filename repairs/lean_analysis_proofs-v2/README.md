@@ -118,6 +118,7 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
 ## Limits
 
+- **Not verified, and why: the image builds and the actual `eval_cmd` path.** The grader image unpacks to about 33 GB, and `materialize.sh` with its Lean rebuild, plus `docker build` of both images, needs about 45 GB of free disk, more than the 21 GB E2B workers used for this audit provide: the clean-machine rebuild check of all packages could not pull the grader image there (`evidence/runs/materialize-check-lean`, `no space left on device`; the other 31 packages passed). So neither image was built, and the original `eval_cmd` (Mathlib `3203991`, full rebuild) was not run on the fixed version. This stays a documented limitation until the build is run on a machine with about 45 GB of free disk.
 - **The work image was not pulled** (only the 33 GB grader image was).
   - `Dockerfile.work` assumes that the starter lives at `/home/workspace/se-bmk-intern/analysis` and
     equals the grader's sources. It also assumes the files are owned by `agent`.

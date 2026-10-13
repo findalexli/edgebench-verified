@@ -4,8 +4,13 @@
 TLA+: each model/config under evidence/formal/tla/ is re-checked with TLC; the outcome class
 (exact violated invariant vs no error) must match the saved tlc output.
 Lean: each file under evidence/formal/lean/ebv/Ebv/ must have a saved .out and is recompiled (Lean 4 +
-Mathlib, project at evidence/formal/lean/ebv; run `lake exe cache get` there first); it must compile
-without errors or `sorry` and print the same `#print axioms` lines as the saved output.
+Mathlib, project at evidence/formal/lean/ebv; run `lake exe cache get` there first). It must compile
+without errors; Lean's `declaration uses 'sorry'` warning, which it emits for every declaration in the
+file whose own proof contains `sorry`, is accepted only at the two allowlisted negative controls
+(SORRY_WARNINGS_OK); and it must print the same `#print axioms` lines as the saved output. Axioms are
+audited only for the declarations a file prints (`#print axioms`); unprinted helpers are covered by
+the `sorry` warning check, not by an axiom report, so a custom axiom used only by an unprinted
+declaration is not detected.
 Lean compiles run one at a time in a --memory 4g container under /tmp/ebv-heavy.lock.
 Usage: python3 tools/check_formal.py [--tla-only|--lean-only]
 """
@@ -92,6 +97,16 @@ SORRY_CONTROLS = {'EbvRefute.installed_anti_symm_inconsistent',
                   'EbvRefute.installed_div_inconsistent'}
 
 
+# Lean's warning positions for the two controls above (LeanAnalysisLocal.lean); any other
+# `declaration uses 'sorry'` warning fails the check, printed or not.
+SORRY_WARNINGS_OK = {'Ebv/LeanAnalysisLocal.lean:54:8', 'Ebv/LeanAnalysisLocal.lean:58:8'}
+SORRY_WARNING = re.compile(r"^(\S+:\d+:\d+): warning: declaration uses [`']sorry[`']", re.M)
+
+
+def sorry_warnings(text):
+    return set(SORRY_WARNING.findall(text))
+
+
 def axiom_names(lines):
     return {line.split("'")[1] for line in lines}
 
@@ -114,6 +129,7 @@ def lean_output_ok(source, saved, output, returncode):
         if reported and set(filter(None, (a.strip() for a in reported[1].split(',')))) - allowed:
             leaks.append(line)
     return (returncode == 0 and not re.search(r'error:', output) and not leaks
+            and sorry_warnings(output) <= SORRY_WARNINGS_OK
             and bool(requested) and all(len(m) == 1 for m in matches)
             and len(covered) == len(requested) and covered == names
             and axiom_names(got) == names and got == want)
@@ -155,7 +171,9 @@ def check_lean():
             got, want = axioms(text), axioms(saved.read_text())
             ok = lean_output_ok(src.read_text(), saved.read_text(), text, r.returncode)
             n += 1; bad += not ok
-            print(f"{'OK ' if ok else 'BAD'} Lean {src.name}: {len(got)} theorems, axioms match published: {got == want}")
+            print(f"{'OK ' if ok else 'BAD'} Lean {src.name}: {len(got)} printed declarations audited "
+                  f"(of the file's theorems, only these get an axiom report), axioms match published: {got == want}, "
+                  f"sorry warnings: {len(sorry_warnings(text))} (allowed: {len(sorry_warnings(text) & SORRY_WARNINGS_OK)})")
     return n, bad
 
 

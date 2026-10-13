@@ -85,7 +85,8 @@ The test submission that shows the problem, the supplied starter, on the same gr
 - No AI model or solver was run. Effects are shown only on the supplied starter and probes we wrote.
 - In the side-by-side run each test submission was graded once, because the grader image is the same in both versions; the original and fixed `TOTAL_SCORE` columns repeat that score. The versions differ only in the starter and instructions the solver receives.
 - The only test submission with a positive raw result is a probe (4,975, far below 1e5, the lower reference point of the score scale, so 0 out of 100). Every company value up to 1e5 scores 0 out of 100, so a score of 0 does not tell a crashed script from a weak one. Whether 1e9, the upper reference point, can be reached was not tested.
-- The documentation path in the instructions (`docs/noai_api_docs/`) differs from the real one (`docs/openttd_reference_docs/noai_api_docs/`), and the supplied HTML documentation appears to be from a later OpenTTD than 13.4. Both are noted in the package README and not changed.
+- The documentation path in the instructions (`docs/noai_api_docs/`) differs from the real one (`docs/openttd_reference_docs/noai_api_docs/`), and the supplied HTML documentation appears to be from a later OpenTTD than 13.4 (it describes `AIEconomyTime` and the economy quarter). A solver that calls a function described there but missing in 13.4 stops its script, like the original starter. Both are kept as documented limitations: correcting them changes the instructions (`agent_query`) and would need a new side-by-side run.
+- The work image was rebuilt from the package on a clean machine (`evidence/runs/materialize-check-g3`, `status: exit=0`); the built image holds the fixed `main.nut` with the locked sha256.
 - The ticks/s figure is for an idle script on one host. An AI running many vehicles will be slower; that was not measured.
 
 ## Reproduce

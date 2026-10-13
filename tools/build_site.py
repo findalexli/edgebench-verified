@@ -51,6 +51,8 @@ LANGS = {'en': {'html_lang': 'en', 'prefix': ''}, 'zh': {'html_lang': 'zh-CN', '
 ZH_FONTS = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600'
             '&family=Noto+Serif+SC:wght@400;600;700&display=swap">')
 ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
+# Shown (and written to APPLYING-FIXES.md and data/decisions.csv) for a repair without a recorded validation status.
+VALIDATION_DEFAULT = 'Historical paired scope only; see the case page and package limits'
 TABS = [('overview', 'index.html'), ('tasks', 'tasks/index.html'), ('method', 'method.html'),
         ('leaderboard', 'leaderboard.html')]
 # Grader CPUs and memory in EdgeBench's leaderboard settings (quoted in
@@ -89,8 +91,9 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     ]
     w, g = 178, 16
     o = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">',
-         '<title>Four layers of evidence: findings reproduced on the original grader, claims proved in Lean 4 or TLA+, '
-         'fixes tested side by side against the original, and fixes checked on a real agent run.</title>',
+         '<title>Four evidence layers with different scope: tasks examined in the original code and images, '
+         'models proved in Lean 4 or checked in TLA+, historical paired comparisons of saved versions, '
+         'and fixed tasks covered by one public agent run.</title>',
          '<style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} '
          '.num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}'
          '@media (prefers-color-scheme: dark){.ink{fill:#e2e9ed} .muted{fill:#95a6b1} .box{fill:#1b2630;stroke:#3a4a57} '
@@ -106,7 +109,7 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     o.append('</svg>')
     (FIG / 'evidence-layers.svg').write_text('\n'.join(o) + '\n')
     (FIG / 'evidence-layers.json').write_text(json.dumps({
-        'alt': 'Four columns: reproduced on the original grader, proved formally in Lean 4 and TLA+, tested side by side, checked on real runs.',
+        'alt': 'Four columns: examined in the original code and images, proved formally in Lean 4 and TLA+, historical paired comparisons, checked on real runs.',
         'caption': 'Four evidence layers with different scope. Historical source/helper controls, native runs and formal models are not interchangeable or independently certified reproductions. Paired comparisons refer to the saved versions; they do not certify newer candidates. The real-agent record covers nine tasks, with seven regraded under both graders and Lean Analysis computed from saved verdicts.'}) + '\n')
 
 
@@ -182,7 +185,7 @@ class Lang:
         pending_path = I18N / f'pending-{code}.json'
         self.pending = json.loads(pending_path.read_text()) if code != 'en' and pending_path.exists() else {}
         self.extra = {}
-        for name in ('figures', 'formal'):
+        for name in ('figures', 'formal', 'validation'):
             p = I18N / f'{name}.{code}.json'
             self.extra[name] = json.loads(p.read_text()) if code != 'en' and p.exists() else {}
 
@@ -216,6 +219,16 @@ class Lang:
         if self.code != 'en' and not translated:
             self.t.missing.add(f'formal:{tid}')
         return translated
+
+    def validation(self, tid, english):
+        """Translated validation status, used only while its recorded English source is current."""
+        own = self.extra['validation'].get(tid, {})
+        if self.code == 'en':
+            return english
+        if own.get('en') == english and own.get('text'):
+            return own['text']
+        self.t.missing.add(f'validation:{tid}')
+        return english
 
     def caption(self, name):
         c = self.extra['figures'].get(name)
@@ -312,16 +325,7 @@ def numbers(D):
         f"<td class=\"n\">{interval_cell(r, 'sensitivity')}</td>"
         f"<td class=\"n\">{interval_cell(r, 'scale')}</td></tr>"
         for r in imp)
-    v.update(wide_down=f"{max(float(r['scale_high']) - float(r['worst_case_low']) for r in imp):.1f}",
-             wide_up=f"{max(float(r['worst_case_high']) - float(r['scale_low']) for r in imp):.1f}",
-             shift_lo=f"{min(float(r['scale_low']) - float(r['recomputed_mean']) - .05 for r in imp):.1f}",
-             shift_hi=f"{max(float(r['scale_high']) - float(r['recomputed_mean']) + .05 for r in imp):.1f}",
-             n_bound=sum(e['kind'] == 'bounded' for e in effects.values()),
-             open_down=f"{max(float(r['bounded_low']) - float(r['worst_case_low']) for r in imp):.1f}",
-             open_up=f"{max(float(r['worst_case_high']) - float(r['bounded_high']) for r in imp):.1f}",
-             n_open=sum(e['kind'] in ('open', 'sensitivity') for e in effects.values()) - 1,
-             bound_down=f"{max(float(r['scale_high']) - float(r['bounded_low']) for r in imp):.1f}",
-             bound_up=f"{max(float(r['bounded_high']) - float(r['scale_low']) for r in imp):.1f}")
+    v.update(n_bound=sum(e['kind'] == 'bounded' for e in effects.values()))
     pr = list(csv.DictReader(open(ROOT / 'data/paired-results.csv')))
     v.update(paired_rows=len(pr), paired_tasks=len({r['task_id'] for r in pr}),
              paired_setup=sum(r['role'] == 'setup' for r in pr))
@@ -440,7 +444,8 @@ def layout(P, active, title, description, content, scripts='', wide=False):
         alts.append(f'<link rel="alternate" hreflang="{LANGS[c]["html_lang"]}" href="{SITE_URL}{LANGS[c]["prefix"]}{P.rel}">')
     pending = ''
     if L.code != 'en' and (L.major or L.t.missing):
-        pending = f'<div class="pending" role="note"><div class="in">{t("pending_note")}</div></div>'
+        note = t('pending_note') if L.major else t('pending_note_partial')
+        pending = f'<div class="pending" role="note"><div class="in">{note}</div></div>'
         if L.major:
             alts.append('<meta name="robots" content="noindex">')
     out = (SRC / 'layout.html').read_text()
@@ -696,10 +701,15 @@ def task_page(L, D, i, used_figs):
         res = t.opt('formal.result.' + fr['result'], fr['result'].capitalize()) if L.code != 'en' else t('formal.result.' + fr['result'])
         formal = (f'<dt>{t("task.sum.formal")}</dt><dd>' +
                   esc(t('task.formal', result=res, tool=fr['tool'], what=tr.get('what', fr['what']), limit=tr.get('limit', fr['limit']))) + '</dd>')
+    status = ''
+    if r['proposed'] == 'repair-v2':
+        english = r.get('validation_status') or VALIDATION_DEFAULT
+        text = L.validation(tid, english) if r.get('validation_status') else t('task.sum.status_default')
+        status = f'<dt>{t("task.sum.status")}</dt><dd>{esc(text)}</dd>'
     summary = (f'<dl class="sum"><dt>{t("task.sum.about")}</dt><dd>{esc(p["about"])}</dd>'
                f'<dt>{t("task.sum.problem")}</dt><dd>{esc(p["problem"])}</dd>'
                f'<dt>{t("task.sum.effect")}</dt><dd>{esc(p["effect"])}</dd>'
-               f'<dt>{t("task.sum.action")}</dt><dd>{esc(p["action"])}</dd>{formal}</dl>')
+               f'<dt>{t("task.sum.action")}</dt><dd>{esc(p["action"])}</dd>{status}{formal}</dl>')
     grade_html, _ = grading(P, D, tid)
     # files
     links = [(BLOB + f'cases/{tid}.md', t('task.links.case')), (BLOB + f'tasks/{tid}.json', t('task.links.task_json', id=tid))]

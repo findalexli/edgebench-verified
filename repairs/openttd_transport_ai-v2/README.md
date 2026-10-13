@@ -69,6 +69,10 @@ original task JSON); `tools/e2b_run.py --job <dir>` runs `paired/run.sh` on one 
   `docs/openttd_reference_docs/noai_api_docs/`. The supplied HTML documentation also appears to be from a
   later OpenTTD (it mentions "economy-quarter" and `AIEconomyTime`), not 13.4. Neither is
   changed here. Both sets of documentation list `GetQuarterlyCompanyValue` and do not list `GetCompanyValue`.
+  This is a documented limitation of the same kind as the repaired defect: a solver that follows the shipped
+  pages and calls a function that 13.4 lacks stops its script, as the original starter does. The fitting
+  prompt change (correct the path, and say that only functions present in OpenTTD 13.4 exist) would change
+  `agent_query`, so it would need a new paired run and is not made in this package.
 - The work image's `my_ai/` is also tracked by a Git repository inside the image; in the fixed version,
   `git status` shows `main.nut` as modified. The submission is the `my_ai/` directory, so this
   does not affect scoring.

@@ -69,6 +69,26 @@ class ResultAdmissionTests(unittest.TestCase):
         output = "'Example.proof' depends on axioms: [Example.assumption]\n"
         self.assertFalse(formal.lean_output_ok('#print axioms Example.proof\n', output, output, 0))
 
+    def test_sorry_warning_outside_allowlist_fails(self):
+        source = '#print axioms Example.proof\n'
+        output = "'Example.proof' depends on axioms: [propext]\n"
+        self.assertTrue(formal.lean_output_ok(source, output, output, 0))
+        unprinted = "Ebv/Example.lean:12:8: warning: declaration uses `sorry`\n" + output
+        self.assertFalse(formal.lean_output_ok(source, unprinted, unprinted, 0))
+        allowed = "Ebv/LeanAnalysisLocal.lean:54:8: warning: declaration uses `sorry`\n" + output
+        self.assertTrue(formal.lean_output_ok(source, allowed, allowed, 0))
+
+    def test_every_saved_lean_output_passes_its_own_replay(self):
+        lean_dir = Path(__file__).resolve().parents[2] / 'evidence/formal/lean/ebv/Ebv'
+        checked = 0
+        for src in sorted(lean_dir.glob('*.lean')):
+            if src.name in formal.LEAN_SETUP_FILES:
+                continue
+            saved = src.with_suffix('.out').read_text()
+            self.assertTrue(formal.lean_output_ok(src.read_text(), saved, saved, 0), src.name)
+            checked += 1
+        self.assertGreater(checked, 20)
+
     def test_missing_lean_saved_output_is_a_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
