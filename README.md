@@ -144,17 +144,18 @@ cannot measure the leaderboard effect. Details: [IMPACT.md](IMPACT.md),
 
 Evidence ranges from source inspection and original-helper controls to full native grader runs. Each case states its level; component controls and formal models do not establish complete image integration. Some score effects are computed or inferred rather than measured.
 
-1. **Test submissions.** For each suspected problem we wrote a correct submission, one that
-   triggers the problem, and a wrong one, and ran them through the original grader.
+1. **Test submissions.** Where available, we ran correct, triggering and wrong submissions
+   through the original grading path. Case pages distinguish full native runs from
+   original-helper controls and source arguments.
 2. **Formal checks.** Wherever a claim could be stated precisely, we also checked it with **Lean 4**
    (a proof assistant that accepts a claim only with a complete proof) or **TLA+** (a model checker
    that explores every state of a bounded model). Each model is tied to the real grader code and
    has a counter-check that must fail.
    - 26 of the 51 tasks have formal results.
-   - For 10 of the 31 fixes, the fix itself is proved correct, or exhaustively model-checked, within
-     its model: for example the SMT answer checker, the Triangulation flip rule and the Order
-     Addition selection. Four more are partly proved; the CPU limits added to several fixes are
-     checked by runs, not formally.
+   - The saved inventory classifies 10 repair models as proved or exhaustively model-checked
+     within their assumptions, including the modeled SMT answer checker, Triangulation flip rule
+     and Order Addition selection. Four more are partly proved. These historical results do not
+     certify current repair packages; CPU limits are checked by runs, not formally.
    - The formal checks also corrected our own work: the first College English fix was narrower than
      published, so it was revised, re-proved and re-tested, and eight statements were corrected
      ([evidence/formal/CORRECTIONS.md](evidence/formal/CORRECTIONS.md)).

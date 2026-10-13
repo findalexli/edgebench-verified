@@ -28,8 +28,9 @@ Not covered:
    changes if any byte changes. We also record a fingerprint of every grader file a finding relies on.
 2. **Read the contract.** We quote the instructions and documents the agent receives, next to the
    grader's code, so that "what the task promises" is the task's own wording.
-3. **Run the original grader.** We run the task's own grading command inside the original image,
-   with no network access, on three kinds of test submission:
+3. **Exercise the original grading path.** Where available, we run the task's own grading command
+   inside the original image, with no network access, using the following controls. Each case
+   distinguishes full native runs from original-helper tests and source arguments:
    - a correct submission, which must score as promised;
    - a submission that shows the problem, as small and concrete as possible;
    - a wrong submission, which must be rejected.
@@ -55,7 +56,7 @@ kernel accepts a claim only with a complete proof, and which lists the axioms ea
 the real grader code by a source-line mapping and the file's fingerprint, is checked against saved
 outputs of the real code wherever possible, has a counter-check that must fail, and states its limits.
 
-26 of the 51 tasks have saved formal results. The summary classifies 10 repair models as proved or exhaustively model-checked within bounds and four as partial. These counts describe modeled properties and historical versions, not 14 certified current repair packages. In particular, the saved Datagen and FFmpeg proofs do not verify their new v2.1 candidates, and CTA models a gross-exposure denominator rather than the policy's NAV denominator. The CPU limits added to several fixes are checked
+26 of the 51 tasks have saved formal results. The summary classifies 10 repair models as proved or exhaustively model-checked within bounds and four as partial. These counts describe modeled properties and historical versions, not 14 certified current repair packages. In particular, the saved Datagen and FFmpeg proofs do not verify Datagen v2.1 or FFmpeg v2.2, and CTA models a gross-exposure denominator rather than the policy's NAV denominator. The CPU limits added to several fixes are checked
 by runs, not formally. The
 formal checks found that the first College English fix was narrower than published (since revised,
 re-proved and re-tested) and led to eight corrections
