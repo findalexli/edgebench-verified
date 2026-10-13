@@ -72,9 +72,9 @@
  "cta_risk_budget_optimization": {
   "headline": "The overseas-exposure limit check skips currency conversion, so dollar positions are undercounted",
   "about": "Build a backtesting engine (a simulator that replays past prices) for futures in several currencies and markets, keeping the portfolio within risk limits such as at most 40% overseas exposure.",
-  "problem": "The risk policy requires overseas positions to be converted to Chinese yuan before checking the 40% limit. The grader adds US-dollar and yuan amounts without converting, so dollar positions count about seven times too little. A portfolio that breaches the limit can pass: the task's own reference positions exceed 40% on 32 of 1565 days, yet the check reports none. A separate mismatch remains: the policy divides exposure by fund NAV, while the repaired check still divides by gross exposure.",
-  "effect": "The combined currency/NAV correction can change the 5-point component in either direction. Earlier full-score controls hit a veto first, so they do not demonstrate this final-score change.",
-  "action": "The v2.1 candidate converts overseas exposure to CNY and divides by same-date total CNY NAV. Paired original-helper controls pass; native full-score validation is pending."
+  "problem": "The risk policy requires overseas positions to be converted to Chinese yuan before checking the 40% limit. The grader adds US-dollar and yuan amounts without converting, so dollar positions count about seven times too little. A portfolio that breaches the limit can pass: the task's own reference positions exceed 40% on 32 of 1565 days, yet the check reports none. A second mismatch: the policy divides exposure by fund NAV, while the grader divides by gross exposure.",
+  "effect": "Up to 5 points out of 100, in either direction, for portfolios holding overseas contracts. Through the full scoring command, a leveraged portfolio that breaches the limit drops from 58.75 to 53.75 and a compliant unleveraged one rises from 66.25 to 71.25.",
+  "action": "Fixed in v2.1: overseas exposure is converted to CNY and divided by same-date total CNY NAV; a day without a NAV counts as one violation day under the original 2% allowance. Verified three times through the full original scoring command; the shipped standard answer is unchanged."
  },
  "dabic_gravity_inversion": {
   "headline": "42 points come from the submission's own unchecked self-reported results",

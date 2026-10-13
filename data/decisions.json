@@ -82,11 +82,11 @@
   "task_id": "cta_risk_budget_optimization",
   "proposed": "repair-v2",
   "finding": "Cross-border exposure omits USD→CNY conversion required by the risk policy (~7× undercount); the policy specifies overseas exposure / fund NAV, but even the FX repair divides by gross exposure",
-  "max_effect": "Up to the 5-point overseas-ratio component in either direction for the combined currency/NAV correction; historical full-score witness was masked by an earlier veto.",
+  "max_effect": "Up to the 5-point overseas-ratio component (4 of 80 raw) in either direction for the combined currency/NAV correction; measured through the full eval_cmd: leveraged breach 58.75 -> 53.75, unleveraged compliant 66.25 -> 71.25.",
   "status": "final (v1.0)",
-  "repair": "accepted historical FX component only; current v2.1 candidate uses CNY overseas notional divided by same-date total CNY NAV, and gives no ratio credit for invalid/missing NAV. Paired original-helper controls pass in both score directions; native full-score validation pending.",
+  "repair": "accepted (v2.1): CNY overseas notional divided by same-date total CNY NAV; a holdings date without a valid same-date NAV counts as one violation day under the original <2% allowance (the superseded strict candidate removed all ratio credit for any such date). Full original eval_cmd, 3 jobs, identical: standard answer 20 -> 20, leveraged 58.75 -> 53.75, unleveraged 66.25 -> 71.25, unleveraged with 1/1564 NAV date missing 66.25 -> 68.75.",
   "package": "repairs/cta_risk_budget_optimization-v2/",
-  "validation_status": "Current v2.1 currency/NAV predicate passes paired original-helper controls; full native grading and final-score integration pending."
+  "validation_status": "v2.1 image materialized and built in the worker from the package; native paired runs cta_risk_budget_optimization-v2.1-native-rep1..3 (each ledger exit=0) on the shipped standard answer and authored full submissions that pass the volatility, drawdown and participation gates; helper controls (13) pass against an exact oracle. No solver output graded."
  },
  {
   "task_id": "dabic_gravity_inversion",

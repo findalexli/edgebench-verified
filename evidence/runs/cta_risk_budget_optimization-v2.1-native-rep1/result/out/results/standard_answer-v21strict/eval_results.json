@@ -1,0 +1,176 @@
+{
+  "timestamp": "2026-10-13T21:46:29.824016",
+  "scores": {
+    "backtest_verification": 4.0,
+    "performance_metrics": 0,
+    "risk_constraints": 0,
+    "signal_generation": 2,
+    "code_compliance": 10,
+    "auto_total": 16.0,
+    "grand_total": 16.0
+  },
+  "details": {
+    "agent_code_run": {
+      "status": "SUCCESS",
+      "elapsed": 11.855066061019897,
+      "within_limit": true
+    },
+    "backtest_verification": {
+      "date_alignment": {
+        "valid_ratio": 1.0,
+        "score": 1.0
+      },
+      "nav_accounting": {
+        "score": 0,
+        "reason": "schema non-compliant or missing daily_pnl/daily_return/drawdown"
+      },
+      "position_trade_continuity": {
+        "active_checks": 39874,
+        "violation_ratio": 0.0,
+        "score": 2
+      },
+      "pnl_nav_replay": {
+        "nav_corr": 0.9049,
+        "mean_nav_rel_err": 230429520.7696,
+        "p95_daily_pnl_err": null,
+        "missing_price_checks": 0,
+        "score": 1
+      },
+      "costs_fx": {
+        "cost_median_rel_err": 0.5269,
+        "cost_p95_rel_err": 0.8854,
+        "fx_mismatch_ratio": 0.0,
+        "score": 0
+      },
+      "total": 4.0
+    },
+    "performance_metrics": {
+      "annual_return": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "calmar_ratio": 0,
+      "sortino_ratio": 0
+    },
+    "computed_metrics": {
+      "annual_return": -0.008586469064565727,
+      "sharpe": -2.729868231748304,
+      "max_drawdown": 0.05505222580101545,
+      "sortino": -4.236468622264331,
+      "calmar": -0.15596951693835687
+    },
+    "exposure_participation": {
+      "annual_vol": 0.010472,
+      "avg_gross_exposure": 136674755.447066,
+      "active_exposure_ratio": 1.0,
+      "participation_status": "fail",
+      "thresholds": {
+        "pass": "annual_vol>=5%, avg_gross_exposure>=10%, active_exposure_ratio>=70%",
+        "partial": "annual_vol>=3%, avg_gross_exposure>=5%, active_exposure_ratio>=40%"
+      },
+      "reason": "low volatility, low avg exposure, or insufficient active participation"
+    },
+    "performance_authenticity_cap": {
+      "cap": 10,
+      "reasons": [
+        "authenticity check<5",
+        "NAV/PnL authenticity insufficient",
+        "cost and FX check=0"
+      ]
+    },
+    "risk_constraints": {
+      "gate_failed": true,
+      "reason": "annual vol out of range",
+      "exposure_participation": {
+        "annual_vol": 0.010472,
+        "avg_gross_exposure": 136674755.447066,
+        "active_exposure_ratio": 1.0,
+        "participation_status": "fail",
+        "thresholds": {
+          "pass": "annual_vol>=5%, avg_gross_exposure>=10%, active_exposure_ratio>=70%",
+          "partial": "annual_vol>=3%, avg_gross_exposure>=5%, active_exposure_ratio>=40%"
+        },
+        "reason": "low volatility, low avg exposure, or insufficient active participation"
+      }
+    },
+    "signal_generation": {
+      "factor_validation": 0,
+      "cointegration_test": 1,
+      "cointegration_evidence": {
+        "code": {
+          "valid": false,
+          "has_test_call": false,
+          "has_pair_logic": true,
+          "has_meanrev_context": true,
+          "scanned_code_files": 3
+        },
+        "pair_signal": {
+          "valid": false,
+          "active_pairs": 6,
+          "active_pair_days": 1791,
+          "opposite_ratio": 0.7443
+        },
+        "meanrev_nonzero": true
+      },
+      "conflict_resolution": 1,
+      "conflict_evidence": {
+        "methods": [
+          "weighted_combination",
+          "signal_disagreement"
+        ],
+        "explicit_methods": [
+          "weighted_combination"
+        ],
+        "scanned_code_files": 3
+      }
+    },
+    "code_compliance": {
+      "random_seed": 2,
+      "random_seed_evidence": {
+        "fixed": false,
+        "seed": null,
+        "source": "missing",
+        "evidence": ""
+      },
+      "library_restrictions": 2,
+      "cost_source": 2,
+      "fx_source": 2,
+      "time_limit": 2,
+      "scanned_code_files": 3
+    },
+    "costs_fx_verification": {
+      "costs_from_input": true,
+      "fx_from_input": true,
+      "scanned_code_files": 3
+    },
+    "stress_sensitivity_evidence": {
+      "closed_loop_ok": false,
+      "stress_test": {
+        "passed": false,
+        "reason": "underlying NAV/position/trade/cost/FX closed-loop check failed"
+      },
+      "sensitivity": {
+        "passed": false,
+        "reason": "underlying NAV/position/trade/cost/FX closed-loop check failed"
+      }
+    },
+    "format_normalization": {
+      "signal_matrix": "detected long-format signal_matrix, auto-pivoted to wide 5-factor format"
+    }
+  },
+  "benchmark": {
+    "annual_return": -0.008586,
+    "sharpe": -2.729868,
+    "max_drawdown": 0.055052,
+    "calmar": -0.15597,
+    "sortino": -4.236469,
+    "annual_vol": 0.010472
+  },
+  "schema_compliant": false,
+  "schema_errors": [
+    "nav appears to be unit NAV (initial=1.0000), should be total CNY (~1500000000)",
+    "missing daily_pnl column",
+    "missing dd_scale column",
+    "missing num_positions column"
+  ],
+  "total_max_score": 80
+}

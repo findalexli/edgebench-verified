@@ -1,4 +1,27 @@
-> Historical FX-only v2 evidence. The current v2.1 NAV-denominator candidate has separate component results in `nav-candidate-results.json`; these native runs do not validate that candidate.
+# v2.1 native paired run (2026-10-13)
+
+- **Jobs:** `evidence/runs/cta_risk_budget_optimization-v2.1-native-rep1` (worker `iesvlr8usa3eik8wzb3av`, 442 s), `-rep2` (`irzuucbcnadblc2aekr39`, 201 s) and `-rep3` (`i7kwgav50r7hov4lot9m3`, 201 s). Each ledger record is `status: exit=0`, and each `result/out/summary.txt` ends with `done`. Recipe: `paired/run_native_v2.1.sh`.
+- **Images:** v1 is the pinned original (`eval_script.py` `252f864a…`). v2.1 was built in each worker from this package: `materialize.sh` pulled the pinned image, extracted and patched `eval_script.py` and verified `5090b56a…`; then `docker build`. rep1 also built the superseded strict candidate from the previous package (`9f5149da…`, "strict" column). The installed hashes were read back from each image (`eval_sha_images.txt`).
+- **Command:** the task's original `eval_cmd`, `cd /home/workspace && python3 scoring/score.py` (which runs the submitted `main.py`, then the evaluator), `--network none --memory 3g --cpus 2`. TOTAL_SCORE is out of 100 (raw out of 80); `cross_border` is the 5-point component inside the 20-point risk dimension.
+- **Submissions:** the shipped standard answer (`standard_answer_artifacts.tar.gz` extracted into `/home/workspace`), and `full_submission/main.py` with `config-<arm>.json`. `main.py` writes a constant-weight portfolio from the task inputs with the grader's own accounting: authenticity check 10/10 (NAV accounting 2, continuity 2, replay 3, cost/FX 2), total CNY NAV starting at 1.5e9, volatility and drawdown inside the risk gate, participation passing. `leveraged`: overseas 45% of NAV, 37.5% of CNY gross (75% domestic). `unleveraged`: overseas 28% of NAV, 87.5% of CNY gross (4% domestic). `unleveraged-navgap`: `unleveraged` with the last NAV row (2025-12-31) dropped, so 1 of 1564 holdings dates has no same-date NAV.
+
+| Submission | Role | v1 | v2.1 | strict (rep1 only) |
+|---|---|---|---|---|
+| shipped standard answer | baseline | TOTAL_SCORE 20 (raw 16); risk vetoed: annual vol 1.3% | TOTAL_SCORE 20, same veto | TOTAL_SCORE 20, same veto |
+| leveraged (overseas 45% of NAV) | trigger | TOTAL_SCORE 58.75 (raw 47); violations 0/1564; cross_border 5 | TOTAL_SCORE 53.75 (raw 43); violations 1564/1564; cross_border 1 | 53.75; cross_border 1 |
+| unleveraged (overseas 28% of NAV) | trigger | TOTAL_SCORE 66.25 (raw 53); violations 1564/1564; cross_border 1 | TOTAL_SCORE 71.25 (raw 57); violations 0/1564; cross_border 5 | 71.25; cross_border 5 |
+| unleveraged-navgap (1 of 1564 dates without NAV) | valid | TOTAL_SCORE 66.25 (raw 53); cross_border 1 | TOTAL_SCORE 68.75 (raw 55); violations 1/1564; cross_border 3 | 66.25; no ratio credit; cross_border 1 |
+
+rep2 and rep3 (v1 and v2.1 only) gave the same TOTAL_SCORE, raw score and `cross_border` in every arm. The original grader reads `leveraged` as compliant because it adds USD and CNY without conversion (native overseas share about 8%) and divides by gross; v2.1 finds 45% of NAV on every day. It reads `unleveraged` as a breach on every day (native share about 50% of gross); v2.1 finds 28% of NAV. In both cases only `cross_border` moves (4 raw points, 5 out of 100), and the other dimensions are identical.
+
+**Standard answer and NAV dates.** The shipped reference has 1565 NAV dates and 1565 holdings dates, all aligned (`rep1/result/out/standard_answer_dates.txt`), so the NAV-date rule does not touch it. Its `nav` column is unit NAV (first value 1.0), which the original schema check rejects, and the full scorer vetoes its whole risk dimension on volatility before the cross-border block, so all three versions give 20.
+
+**NAV-date rule.** `unleveraged-navgap` is the reviewer's case: a compliant portfolio whose NAV file lacks one holdings date. The strict candidate removed all ratio credit and scored it like a breaching portfolio (66.25). v2.1 counts the date as one violation day under the original <2% allowance (68.75; the aligned portfolio scores 71.25).
+
+**Verdict: accepted.** Both decisive arms move in the policy's direction through the full original command, three times; the standard answer is unchanged.
+
+> Everything below is historical FX-only v2 evidence. Those native runs do not validate v2.1.
+
 
 # Paired v1/v2 results: cta_risk_budget_optimization
 

@@ -27,7 +27,9 @@ def patched(patch):
         return dst.read_bytes()
 
 
-sources = {'original': original, 'fx_only_v2': patched(PACKAGE / 'paired/fx-only-v2.patch'), 'nav_v2_1': patched(PACKAGE / 'repair.patch')}
+sources = {'original': original, 'fx_only_v2': patched(PACKAGE / 'paired/fx-only-v2.patch'),
+           'nav_v2_1_strict_superseded': patched(PACKAGE / 'paired/superseded-v2.1-strict-nav.patch'),
+           'nav_v2_1': patched(PACKAGE / 'repair.patch')}
 assert hashlib.sha256(sources['nav_v2_1']).hexdigest() == lock['changed_files'][0]['replacement_sha256']
 modules = {}
 for label, source in sources.items():
@@ -75,6 +77,42 @@ for name, (domestic, overseas, nav) in cases.items():
     expected=1 if ratio is not None and ratio<=Fraction(2,5) else 0
     assert results['nav_v2_1']==expected,(name,results,expected)
     rows.append({'control':name,'overseas_cny_over_nav':str(ratio) if ratio is not None else None,'ratio_credit_expected':expected,'cross_border':results})
-assert rows[0]['cross_border']=={'original':1,'fx_only_v2':1,'nav_v2_1':0}
-assert rows[1]['cross_border']=={'original':1,'fx_only_v2':0,'nav_v2_1':1}
-print(json.dumps({'scope':'Actual risk helper; participation stubbed; one-day NAV avoids volatility veto; no end-to-end score claim','source_sha256':{k:hashlib.sha256(v).hexdigest() for k,v in sources.items()},'controls':rows},indent=2))
+assert rows[0]['cross_border']=={'original':1,'fx_only_v2':1,'nav_v2_1_strict_superseded':0,'nav_v2_1':0}
+assert rows[1]['cross_border']=={'original':1,'fx_only_v2':0,'nav_v2_1_strict_superseded':1,'nav_v2_1':1}
+
+# Multi-day NAV-date controls: 100 compliant days (overseas 28% of NAV), the cost/FX check set to 2 so
+# that 2 vs 1 vs 0 ratio checks are visible (cross_border 5 / 3 / 1). k holdings dates lack a NAV row.
+days = list(pd.bdate_range('2021-01-04', periods=100))
+raw_m = {
+    'domestic': pd.DataFrame({'date': days, 'ticker': 'CU.SHF', 'close': 1e7}),
+    'overseas': pd.DataFrame({'date': days, 'ticker': 'GC.CME', 'close': 1e7}),
+    'specs': raw['specs'],
+    'fx': pd.DataFrame({'date': days, 'USDCNY': 7.}),
+}
+multi = []
+for gap in (0, 1, 2):
+    results = {}
+    for label, mod in modules.items():
+        ev = mod.CTAEvaluator('/nonexistent', '/nonexistent')
+        ev.raw_data = raw_m
+        hold = pd.DataFrame({'date': [d for d in days for _ in (0, 1)], 'ticker': ['CU.SHF', 'GC.CME'] * len(days),
+                             'lots': [15, 6] * len(days)})
+        navh = pd.DataFrame({'date': days[:len(days) - gap], 'nav': 1.5e9})
+        frames = {'holdings_detail': hold, 'trade_records': pd.DataFrame({'date': [days[0]], 'ticker': ['GC.CME'], 'lots_change': [6]}),
+                  'nav_history': navh}
+        ev._load_df = lambda key: None if frames.get(key) is None else frames[key].copy()
+        ev._compute_exposure_stats = lambda *a, **kw: {'participation_status': 'pass'}
+        ev.scores['backtest_verification'] = 10
+        ev.details['backtest_verification'] = {'costs_fx': {'score': 2}}
+        with contextlib.redirect_stdout(io.StringIO()), __import__('warnings').catch_warnings():
+            __import__('warnings').simplefilter('ignore', RuntimeWarning)
+            ev._evaluate_risk_constraints()
+        results[label] = ev.details['risk_constraints'].get('cross_border')
+    # Oracle for the current rule: a day without NAV is a violation day; 0 -> 2 checks, <2% -> 1, else 0.
+    ratio_checks = 2 if gap == 0 else (1 if Fraction(gap, len(days)) < Fraction(2, 100) else 0)
+    expected = {4: 5, 3: 3, 2: 1}[ratio_checks + 2]
+    assert results['nav_v2_1'] == expected, (gap, results, expected)
+    multi.append({'control': f'compliant_100_days_{gap}_without_nav', 'ratio_checks_expected': ratio_checks,
+                  'cross_border_expected': expected, 'cross_border': results})
+assert multi[1]['cross_border']['nav_v2_1_strict_superseded'] == 1  # the superseded rule removed all ratio credit
+print(json.dumps({'scope':'Actual risk helper; participation stubbed; one-day NAV avoids volatility veto in the single-day controls; no end-to-end score claim','source_sha256':{k:hashlib.sha256(v).hexdigest() for k,v in sources.items()},'controls':rows,'nav_date_controls':multi},indent=2))

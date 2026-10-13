@@ -1,0 +1,159 @@
+{
+  "timestamp": "2026-10-13T21:53:23.673134",
+  "scores": {
+    "backtest_verification": 10.0,
+    "performance_metrics": 25,
+    "risk_constraints": 7,
+    "signal_generation": 1,
+    "code_compliance": 10,
+    "auto_total": 53.0,
+    "grand_total": 53.0
+  },
+  "details": {
+    "agent_code_run": {
+      "status": "SUCCESS",
+      "elapsed": 6.397297382354736,
+      "within_limit": true
+    },
+    "backtest_verification": {
+      "date_alignment": {
+        "valid_ratio": 1.0,
+        "score": 1.0
+      },
+      "nav_accounting": {
+        "pass_ratio": 1.0,
+        "pnl_pass_ratio": 1.0,
+        "return_pass_ratio": 1.0,
+        "drawdown_pass_ratio": 1.0,
+        "drawdown_convention": "positive",
+        "component_scores": {
+          "daily_pnl": 0.8,
+          "daily_return": 0.7,
+          "drawdown": 0.5
+        },
+        "score": 2.0
+      },
+      "position_trade_continuity": {
+        "active_checks": 9384,
+        "violation_ratio": 0.0,
+        "score": 2
+      },
+      "pnl_nav_replay": {
+        "nav_corr": 1.0,
+        "mean_nav_rel_err": 0.0,
+        "p95_daily_pnl_err": 0.0,
+        "missing_price_checks": 0,
+        "score": 3
+      },
+      "costs_fx": {
+        "cost_median_rel_err": 0.0,
+        "cost_p95_rel_err": 0.0,
+        "fx_mismatch_ratio": 0.0,
+        "score": 2
+      },
+      "total": 10.0
+    },
+    "performance_metrics": {
+      "annual_return": 5,
+      "sharpe_ratio": 5,
+      "max_drawdown": 5,
+      "calmar_ratio": 5,
+      "sortino_ratio": 5
+    },
+    "computed_metrics": {
+      "annual_return": 0.08034184666464683,
+      "sharpe": 0.932924696943791,
+      "max_drawdown": 0.09006871507304684,
+      "sortino": 1.5333743491632963,
+      "calmar": 0.8920061377525882
+    },
+    "exposure_participation": {
+      "annual_vol": 0.06468,
+      "avg_gross_exposure": 0.318674,
+      "active_exposure_ratio": 1.0,
+      "participation_status": "pass",
+      "thresholds": {
+        "pass": "annual_vol>=5%, avg_gross_exposure>=10%, active_exposure_ratio>=70%",
+        "partial": "annual_vol>=3%, avg_gross_exposure>=5%, active_exposure_ratio>=40%"
+      }
+    },
+    "performance_authenticity_cap": {
+      "cap": 25
+    },
+    "risk_constraints": {
+      "risk_metrics": 6,
+      "drawdown_control": 0,
+      "cross_border": 1,
+      "authenticity_cap": {
+        "cap": 20
+      }
+    },
+    "signal_generation": {
+      "factor_validation": 0,
+      "cointegration_test": 1,
+      "cointegration_evidence": {
+        "code": {
+          "valid": false,
+          "has_test_call": false,
+          "has_pair_logic": false,
+          "has_meanrev_context": true,
+          "scanned_code_files": 1
+        },
+        "pair_signal": {
+          "valid": false,
+          "active_pairs": 1,
+          "active_pair_days": 1546,
+          "opposite_ratio": 0.5039
+        },
+        "meanrev_nonzero": true
+      },
+      "conflict_resolution": 0,
+      "conflict_evidence": {
+        "methods": [],
+        "explicit_methods": [],
+        "scanned_code_files": 1
+      }
+    },
+    "code_compliance": {
+      "random_seed": 2,
+      "random_seed_evidence": {
+        "fixed": false,
+        "seed": null,
+        "source": "missing",
+        "evidence": ""
+      },
+      "library_restrictions": 2,
+      "cost_source": 2,
+      "fx_source": 2,
+      "time_limit": 2,
+      "scanned_code_files": 1
+    },
+    "costs_fx_verification": {
+      "costs_from_input": true,
+      "fx_from_input": true,
+      "scanned_code_files": 1
+    },
+    "stress_sensitivity_evidence": {
+      "closed_loop_ok": true,
+      "stress_test": {
+        "passed": false,
+        "reason": "missing CSV/XLSX structured stress test results"
+      },
+      "sensitivity": {
+        "passed": false,
+        "reason": "missing CSV/XLSX structured sensitivity results"
+      }
+    }
+  },
+  "benchmark": {
+    "annual_return": -0.008586,
+    "sharpe": -2.729868,
+    "max_drawdown": 0.055052,
+    "calmar": -0.15597,
+    "sortino": -4.236469,
+    "annual_vol": 0.010472
+  },
+  "schema_compliant": true,
+  "schema_errors": [],
+  "total_max_score": 80
+}

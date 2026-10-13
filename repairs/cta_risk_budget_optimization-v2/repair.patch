@@ -24,7 +24,7 @@
                  for date, dg in holdings_df.groupby('dp'):
                      days += 1
                      on = 0.0; tn = 0.0
-@@ -1030,14 +1045,24 @@
+@@ -1030,14 +1045,25 @@
                          t = r[ht[0]]; l = abs(r[hl[0]])
                          if l == 0: continue
                          m = mult_lk.get(t, 1); p = price_lk.get((date, t), 0)
@@ -36,21 +36,20 @@
 +                        n = l * m * p * fx; tn += n
                          if t in OVERSEAS_TICKERS: on += n
 -                    if tn > 0 and on/tn > 0.40: violations += 1
--
--                if days > 0:
 +                    nav = nav_lk.get(pd.Timestamp(date), float('nan'))
++                    # A day without a valid same-date NAV cannot be shown compliant; it counts as a
++                    # violation day under the original <2% day allowance.
 +                    if not np.isfinite(nav) or nav <= 0:
-+                        missing_nav += 1
++                        missing_nav += 1; violations += 1
 +                    elif on / nav > 0.40:
 +                        violations += 1
-+
-+                if days > 0 and missing_nav == 0:
+ 
+                 if days > 0:
                      if violations == 0: cb_checks += 2
                      elif violations/days < 0.02: cb_checks += 1
 -                    print(f"  Overseas ratio (notional value): violations{violations}/{days} days")
-+                    print(f"  Overseas ratio (CNY notional / CNY NAV): violations{violations}/{days} days")
-+                if missing_nav:
-+                    print(f"  Overseas ratio: no ratio credit; missing/invalid same-date NAV on {missing_nav} days")
++                    print(f"  Overseas ratio (CNY notional / CNY NAV): violations{violations}/{days} days"
++                          f" (of which missing/invalid same-date NAV: {missing_nav})")
  
                  # FX/cost check reuses the closed-loop verification result.
                  trade_df = self._load_df('trade_records')
