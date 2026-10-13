@@ -27,7 +27,7 @@ Two other checker deviations go in the opposite direction. The checker compares 
 The effect is bounded and confined to T3, and it can only lower scores under the fixed version. T3 gives its full 10 points only when all 30 cases pass; otherwise each passing case is worth 0.5·10/30 points (`task_score_fraction` in `eval_common.py`, lines 56–61, in the grader image).
 
 - If one official case falls inside the window, the original grader gives 10 points for T3 where the fixed version gives at most 0.5·29/30·10 = 4.83, a difference of 5.17 of 100 points.
-- The largest possible difference is 9.67 of 100 points. Cases 29 (n = 1) and 30 (m = 1) cannot exceed the limit, because at most 5m operations each cost at most n, which caps their true cost at 5·10⁶. Cases 1–28 have n, m ≈ 10⁶ (`official_results.txt`), so the window exists on each of them. A solution inside the window on all 28 and correct on cases 29–30 scores 10 under the original grader and 0.5·2/30·10 = 0.33 under the fixed version.
+- An upper bound on the difference is 9.67 of 100 points; simultaneous attainment on the official corpus is not established. Cases 29 (n = 1) and 30 (m = 1) cannot exceed the limit, because at most 5m operations each cost at most n, which caps their true cost at 5·10⁶. Cases 1–28 have n, m ≈ 10⁶ (`official_results.txt`), which does not establish that a legal output reaches the acceptance window on each. If a solution were inside the window on all 28 and correct on cases 29–30 scores 10 under the original grader and 0.5·2/30·10 = 0.33 under the fixed version.
 
 Only a solver whose true cost lands within |N_last| above the limit is affected. No realistic solution that lands in the window was found, and **no score gain is demonstrated**.
 

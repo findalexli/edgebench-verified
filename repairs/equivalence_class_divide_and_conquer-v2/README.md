@@ -1,5 +1,8 @@
 # Fixed version of `equivalence_class_divide_and_conquer`: T3 checker counts the last state's size
 
+**Validation scope:** The 9.67-point potential effect is an upper bound. No solution attaining that change on the official corpus has been demonstrated; the paired official reference and naive controls have unchanged scores.
+
+
 ## What this fixes
 
 In sub-problem T3, the checker that grades each output leaves the size of the last neighbourhood reached (the target of the last move) out of its cost total. An output can therefore go over the cost budget by up to that size (at most 10⁶) and still be accepted. The fixed version counts that size too and changes nothing else.

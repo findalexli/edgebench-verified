@@ -42,3 +42,5 @@ taken as given. That code is the same in both versions, and only the index range
 changed. The legality checks (lines 33–39) are shared by both versions and are not modelled
 beyond the stack-pop check. The model does not cover parsing or 64-bit overflow. Overflow does
 not occur here: the sum of |ct[k]| is at most 2·5·10⁶ and each size is at most 10⁶.
+
+The cost proof does not establish attainment of the 9.67-point corpus score upper bound. No demonstrated official-corpus submission reaches that difference.
