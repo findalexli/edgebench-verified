@@ -129,6 +129,72 @@ class DrainTests(unittest.TestCase):
                 with self.assertRaises(self.namespace['FinalDrainError']):
                     exec(code, ns)
 
+    def extraction(self, tree, stop_during_tar=False, already_stopped=False):
+        # Execute the real extraction caller, substituting only backend I/O.
+        import io
+        import shlex
+        import tarfile
+        import threading
+        import uuid
+        from pathlib import PurePosixPath
+        stop = threading.Event()
+        if already_stopped:
+            stop.set()
+        state = {'elapsed': 0, 'copies': 0, 'tars': 0, 'cleanup_timeout': None}
+        def execute(handle, command, timeout=None, **kwargs):
+            if command[0] == 'rm':
+                state['cleanup_timeout'] = timeout
+            else:
+                state['tars'] += 1
+                state['elapsed'] += 250
+                if stop_during_tar:
+                    stop.set()
+            return types.SimpleNamespace(timed_out=False, exit_code=0, output='')
+        def copy(handle, path, shutdown_event=None):
+            state['copies'] += 1
+            # E2B's wrapper tar happens before its download cancellation check.
+            state['elapsed'] += 250
+            if shutdown_event.is_set():
+                raise InterruptedError('download cancelled after wrapper tar')
+            output = io.BytesIO()
+            with tarfile.open(fileobj=output, mode='w') as archive:
+                member = tarfile.TarInfo('submission.tar.gz')
+                member.size = 7
+                archive.addfile(member, io.BytesIO(b'payload'))
+            return output.getvalue()
+        backend = types.SimpleNamespace(backend_name='e2b', exec_run_with_exit_code=execute,
+                                        exec_run=execute, copy_from_container=copy)
+        node = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == '_extract_archive_from_container')
+        ns = dict(uuid=uuid, shlex=shlex, PurePosixPath=PurePosixPath, io=io, _tarfile=tarfile)
+        import __future__
+        exec(compile(ast.Module(body=[node], type_ignores=[]), '<actual extraction>', 'exec', flags=__future__.annotations.compiler_flag), ns)
+        task = types.SimpleNamespace(cwd='/work', submit_paths=['answer'], submit_exclude=[])
+        return state, lambda: ns['_extract_archive_from_container'](backend, None, task, shutdown_event=stop)
+
+    def test_shutdown_between_actual_extraction_phases(self):
+        original = ast.parse((module.ROOT / 'sforge/harness/run_agent.py').read_text())
+        for tree, expected_elapsed, expected_copies in ((original, 500, 1), (self.tree, 250, 0)):
+            state, extract = self.extraction(tree, stop_during_tar=True)
+            with self.assertRaises(InterruptedError):
+                extract()
+            self.assertEqual(state['elapsed'], expected_elapsed)
+            self.assertEqual(state['copies'], expected_copies)
+        self.assertEqual(state['cleanup_timeout'], 15)
+
+    def test_already_stopped_extraction_skips_archive(self):
+        state, extract = self.extraction(self.tree, already_stopped=True)
+        with self.assertRaises(InterruptedError):
+            extract()
+        self.assertEqual(state['tars'], 0)
+        self.assertEqual(state['copies'], 0)
+        self.assertEqual(state['cleanup_timeout'], 15)
+
+    def test_uninterrupted_extraction_preserves_payload(self):
+        state, extract = self.extraction(self.tree)
+        self.assertEqual(extract(), b'payload')
+        self.assertEqual(state['copies'], 1)
+        self.assertEqual(state['cleanup_timeout'], 15)
+
     def test_caller_uses_terminal_snapshot_and_propagates_error(self):
         # Execute actual exception-handler guard: all backend kinds must rethrow.
         handlers = [n for n in ast.walk(self.tree) if isinstance(n, ast.ExceptHandler) and n.name == 'e' and any(isinstance(x, ast.If) and 'FinalDrainError' in ast.dump(x.test) for x in n.body)]

@@ -55,7 +55,37 @@
  
  
  @dataclass
-@@ -698,6 +746,9 @@
+@@ -215,6 +263,8 @@
+ fi
+ """
+     try:
++        if shutdown_event is not None and shutdown_event.is_set():
++            raise InterruptedError("Submission archive extraction cancelled")
+         result = backend.exec_run_with_exit_code(
+             handle, ["/bin/bash", "-c", tar_cmd], timeout=300,
+         )
+@@ -225,6 +275,9 @@
+                 "Could not create the submission archive: "
+                 + result.output[-4000:]
+             )
++        # Do not begin another archive/transfer phase after producer shutdown.
++        if shutdown_event is not None and shutdown_event.is_set():
++            raise InterruptedError("Submission archive extraction cancelled")
+         if backend.backend_name == "e2b":
+             raw = backend.copy_from_container(
+                 handle, remote_archive, shutdown_event=shutdown_event,
+@@ -233,8 +286,8 @@
+             raw = backend.copy_from_container(handle, remote_archive)
+     finally:
+         try:
+-            backend.exec_run(
+-                handle, ["rm", "-f", str(remote_archive)], user="root",
++            backend.exec_run_with_exit_code(
++                handle, ["rm", "-f", str(remote_archive)], user="root", timeout=15,
+             )
+         except Exception:
+             pass
+@@ -698,6 +751,9 @@
          # 7. Stop auto-eval thread before extracting final archive
          if auto_eval_stop is not None:
              auto_eval_stop.set()
@@ -65,7 +95,7 @@
              logger.info("Auto-eval thread stopped")
  
          # 8. Extract final archive (tar of submit_paths)
-@@ -791,42 +842,11 @@
+@@ -791,42 +847,11 @@
              except Exception:
                  pass
  
@@ -113,7 +143,7 @@
  
              (log_dir / "run_history.json").write_text(
                  json.dumps(history, indent=2, ensure_ascii=False)
-@@ -932,7 +952,8 @@
+@@ -932,7 +957,8 @@
          )
      except Exception as e:
          logger.error(f"Error: {e}\n{traceback.format_exc()}")
