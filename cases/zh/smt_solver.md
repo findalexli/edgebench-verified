@@ -28,7 +28,7 @@
 - **27 个 sat 的 QF_UF 文件（15 个 medium、12 个 hard）无法拿分。** 这些是拟群（quasigroup）文件，在每条断言中重新绑定 `?v_0 … ?v_n`。在全部 27 个文件中，按检查器的读法，公式是 unsat 的，而真实公式是 sat 的。在原始镜像上，`QF_UF/79f4ca54c7f5a5f0.smt2` 在两种键写法下都拒绝了一个真实的 z3 模型。
 - **另有 42 个隐藏 sat 文件拒绝规格中给出的那种形式的键。** 在这些文件上，一个严格按规格输出基项键的求解器会被拒绝。在那里只有没有文档说明的文本键约定才行得通。
 
-**方向。** 这个问题只会导致正确答案被拒绝。只要检查器接受，公式就确实可满足（Lean `orig_sound`、`fixed_sound`），因此不会有 unsat 问题被当作 sat 计分。不过，原始检查器可能接受一个本身并不构成函数的见证：下文的 `unused_conflict` 让 f 在同一个参数值上取两个值，而原始评分器接受了它。
+**方向。** 已展示的键值缺陷会导致正确答案被拒绝。Lean `orig_sound` 和 `fixed_sound` 证明：在建模的单一 sort、一元函数的 QF_UF 片段中，检查器接受即意味着公式可满足。它们并没有对整个 Python 评分程序或所有受支持的 SMT-LIB 特性证明这一点；模型与实现的对应关系是论证并经过差分测试的，不是机器证明的。不过，原始检查器可能接受一个本身并不构成函数的见证：下文的 `unused_conflict` 让 f 在同一个参数值上取两个值，而原始评分器接受了它。
 
 **说明：评分器 CPU 数（不属于修复内容）。** eval_cmd 运行 `evaluate.py --timeout 60 --parallel 16`，超时按墙钟时间计（`proc.communicate(timeout=timeout)`，第 690 行）；超时得 0 分。全部四个官方排行榜配置（EdgeBench 提交 6e4e5f4 中的 `examples/all-tasks-k8s/experiment*.yaml`）都为 `smt_solver` 设置了 `judge_cpu_limit: 16`，因此 16 个求解器进程各得一个 CPU。在 CPU 较少的评分器上，例如配置的默认值 4，每个问题在其 60 s 内得到的 CPU 会按比例减少。我们在原始评分器上、用评分器的原样参数、在隐藏集的一个 32 题子集（QF_LIA、hard、预期 unsat）上用一个替身求解器测量了这一点：在 4 个 CPU 下，每题需要 20 s CPU 时间的求解器在全部 32 题上超时，而在 8 个 CPU 下通过（`evidence/runs/smt_solver-cpu4v8-a`、`-b`；`evidence/runs/smt_solver-v2-paired-cpu`、`smt_solver-v2-paired-b-cpu`、`-c-cpu`）。任务文本本身也自相矛盾：任务说明写的是 "16 evaluator workers"，而工作镜像中的 `smtlib_spec.md:118` 写的是 "4 evaluator workers"。在官方的 16 个 CPU 下，这两点都不影响评分，因此作为说明保留。
 

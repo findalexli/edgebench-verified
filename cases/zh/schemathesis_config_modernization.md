@@ -71,6 +71,8 @@ variant=no_register tests=repaired :: 4 failed, 12 passed
 - 叠加实现是 Target 3 的最小实现，而不是该任务的完整解法，因此绝对分数只是部分得分。
 - 没有检查历史提交，因此真实解题者写出包装器式装饰器的频率尚不清楚。
 - 没有从固定的工作镜像中重新提取 `TODO.md`。
+- 新增的测试检查的是 `schemathesis.generation.metrics.metric`；`TODO.md` 中点名的顶层 `schemathesis.metric` 仍然只检查是否可调用，所以在顶层重新导出的包装器（例如用 `functools.wraps`）仍能通过全部三项 metric 测试，尽管 `schemathesis.metric(f) is f` 为假（本地探测）。要堵住这一点，需要再加一条断言并做一次新的并排对照运行。
+- 修复包在一台干净的机器上从零重建过（`evidence/runs/materialize-check-g2`，`status: exit=0`）：`materialize.sh` 原样运行，两个输出都与锁定值一致，构建出的镜像中是锁定的测试文件。
 - 隐藏测试没有保存在本仓库中。重新运行检查时，会从固定的评分器镜像中提取它们。
 
 ## 复现
