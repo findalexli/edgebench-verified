@@ -60,7 +60,7 @@
   "about": "Produce 22 files for a college English exam bank: five exam papers, answer keys, scoring guides and two spreadsheets. An AI model grades them against 12 rubric rules.",
   "problem": "If the AI model's answer leaves a rule out, the grader's code keeps that rule at full marks and still reports a valid result; an empty assessment scores 100. Each rule starts at full marks and loses points for faults found, and a rule marked 0 with no faults listed also gets full marks. How often models omit rules is unknown.",
   "effect": "Raises a score by up to the value of the left-out rules; an empty assessment scores 100. Any submission can be affected when the AI model's assessment is incomplete.",
-  "action": "Fixed in a new version: an incomplete or self-contradicting assessment is requested again, and otherwise reported as a grading failure instead of full marks. Complete assessments score exactly as before."
+  "action": "Fixed in a new version: an incomplete or self-contradicting assessment is requested again, and otherwise reported as a grading failure instead of full marks. Only the final assessment in the AI model's answer is scored, never an earlier draft. Complete assessments score exactly as before."
  },
  "combinatorial_games_formalization": {
   "headline": "No problem found; honest proofs in different styles earn the same credit",

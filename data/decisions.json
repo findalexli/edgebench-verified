@@ -66,9 +66,9 @@
   "task_id": "college_english_exam_bank",
   "proposed": "repair-v2",
   "finding": "Grader code treats an unassessed rubric rule as full marks",
-  "max_effect": "up to the omitted rules' value",
+  "max_effect": "up to the value of the rules left out or recorded as marked down but scored full",
   "status": "final (v1.0)",
-  "repair": "accepted: omitted-rule/empty-score responses become grading failures instead of full marks; complete assessments unchanged",
+  "repair": "accepted: omitted-rule/empty-score responses become grading failures instead of full marks; complete assessments unchanged; v2.2 lets the last JSON block decide (no fallback to an earlier draft when it parses but fails) and reads plain decimal-string rule scores on rows with complete checkpoints (3 identical paired runs with the original and v2.1)",
   "package": "repairs/college_english_exam_bank-v2/"
  },
  {

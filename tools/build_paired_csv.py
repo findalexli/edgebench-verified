@@ -43,6 +43,26 @@ add("college_english_exam_bank", "Paired table", "raw", [
  ("J D, then A on re-ask", "trigger", "true", "true", "81", "77"),
  ("K no JSON, then A on re-ask", "trigger", "false", "true", "", "77"),
 ])
+# college revision v2.2: original (v1) against the current fixed grader v2.2 (the v2.1 arm is in results.md)
+add("college_english_exam_bank", "Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores", "raw", [
+ ("GA R001 veto only in `veto_reason`", "trigger", "true", "false", "3", ""),
+ ("GB R009 deduction in an extra checkpoint", "trigger", "true", "false", "15", ""),
+ ("GC R009 veto flag, rule has no veto conditions", "trigger", "true", "false", "15", ""),
+ ("GD R009 floor wording after character 200", "trigger", "true", "false", "15", ""),
+ ("M R001 negative checkpoint + veto marker", "valid", "true", "true", "0", "0"),
+ ("N A's block, then D's block, one output", "trigger", "true", "false", "81", ""),
+ ("O D's block, then A's block, one output", "valid", "true", "true", "77", "77"),
+ ("P A's block, then a truncated block, one output", "valid", "true", "true", "77", "77"),
+ ("NA N, then A on re-ask", "trigger", "true", "true", "81", "77"),
+ ("NZ full-marks block, then D's block, one output", "trigger", "true", "false", "81", ""),
+ ("NU A's JSON, then D's JSON, unfenced, one output", "trigger", "true", "false", "81", ""),
+ ("QA A with R009's rule score as the string `\"11\"`", "valid", "true", "true", "77", "77"),
+ ("QB A with every rule score as a padded string such as `\" 11.0 \"`", "valid", "true", "true", "77", "77"),
+ ("QC A with R009's rule score `true`", "invalid", "true", "false", "77", ""),
+ ("QD A with R009's rule score `\"twelve\"`", "invalid", "true", "false", "77", ""),
+ ("QE I with R009's score `\"0\"` and all-zero checkpoints", "trigger", "true", "false", "15", ""),
+ ("QF F with R009's score `\"0\"` and no checkpoints", "invalid", "true", "false", "0", ""),
+])
 
 # cta: composite verdict cells
 src = "Paired v1/v2 results: cta_risk_budget_optimization"
