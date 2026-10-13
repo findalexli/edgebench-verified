@@ -84,6 +84,19 @@ jagua_nesting_optimization,"allowed_rotation_minus180 (allowed [0, 180])",valid,
 jagua_nesting_optimization,Shipped baseline (candidate = reference),valid,0 / 16 / 0,0 / 16 / 0,0.000000,0.000000,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
 jagua_nesting_optimization,"seed_shift (honest: same LBF, different PRNG stream)",valid,6 / 10 / 0,6 / 10 / 0,1.644419,1.644419,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
 jagua_nesting_optimization,drop_last_item (one item missing),invalid,"0 / 16 / 0, all `demand_mismatch`","0 / 16 / 0, all `demand_mismatch`",0.000000,0.000000,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,Shipped baseline (rev. v2.1),valid,0 / 16 / 0,0 / 16 / 0,0.000000,0.000000,raw,no,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,seed_shift (rev. v2.1),valid,6 / 10 / 0,6 / 10 / 0,1.644419,1.644419,raw,no,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,drop_last_item (rev. v2.1),invalid,0 / 16 / 0,0 / 16 / 0,0.000000,0.000000,raw,no,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,seed_shift_f32deg (honest: seed_shift with f32-derived angles),valid,6 / 10 / 0,6 / 10 / 0,1.644419,1.644419,raw,no,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,seed_shift_wrongdeg (every angle + 0.01°),invalid,"0 / 16 / 0: 8 `overlap`, 7 `out_of_strip`, 1 valid without improvement (case 0012, `gardeyn3`)","1 / 15 / 0, 15 `orientation_not_allowed`",0.000000,0.186857,raw,yes,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,"f32_rot90_f64deg (allowed [0, 90, 180, 270])",valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,"f32_rot180_f64deg (allowed [0, 180])",valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,f32_rot_minus90_f64deg,valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,f32_rot270_f64deg,valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,near_tol_rot_90.0009 (0.9 × the v2.1 tolerance),valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,wrong_rot_90.002 (2 × the v2.1 tolerance),trigger,accept,reject `orientation_not_allowed_0`,,,verdict,yes,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,wrong_rot_90.01 (10 × the v2.1 tolerance),trigger,accept,reject `orientation_not_allowed_0`,,,verdict,yes,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,"wrong_rot_45 (allowed [0, 90, 180, 270])",trigger,accept,reject `orientation_not_allowed_0`,,,verdict,yes,Witnesses (`validate_solution` of each image),3
 lean_analysis_proofs,orig,valid,0/2901,0/2338,0,0,raw,no,Paired table,2
 lean_analysis_proofs,A (trigger + controls),trigger,1/2901 (trans only),"3/2338 (anti_symm, div, trans)",0.000345,0.001283,raw,yes,Paired table,2
 lean_analysis_proofs,BAD (invalid),invalid,no score,no score,,,raw,no,Paired table,2

@@ -183,7 +183,7 @@
   "finding": "Validator accepts large positive-area overlaps (identical placements, containment, half-slides)",
   "max_effect": "material: infeasible layouts accepted",
   "status": "final (v1.0)",
-  "repair": "accepted: all overlap witnesses rejected in v2, legal edge contact and tolerance cases accepted",
+  "repair": "accepted: all overlap witnesses rejected in v2, legal edge contact and tolerance cases accepted; v2.1 widens the orientation tolerance from 1e-6 deg (below f32 resolution, rejected f32-derived angles such as 90.0000025) to 1e-3 deg (3 identical paired runs with the original, v2 and v2.1: f32-angle arm 1.644419 / 0.186857 / 1.644419, +0.01 deg arm rejected on all 15 instances with allowed orientations)",
   "package": "repairs/jagua_nesting_optimization-v2/"
  },
  {

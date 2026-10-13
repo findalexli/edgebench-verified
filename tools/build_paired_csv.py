@@ -147,6 +147,24 @@ add("jagua_nesting_optimization", "3. Full original scorer (TaskSpec `eval.sh`, 
  ("seed_shift (honest: same LBF, different PRNG stream)", "valid", "6 / 10 / 0", "6 / 10 / 0", "1.644419", "1.644419"),
  ("drop_last_item (one item missing)", "invalid", "0 / 16 / 0, all `demand_mismatch`", "0 / 16 / 0, all `demand_mismatch`", "0.000000", "0.000000"),
 ])
+# jagua revision v2.1: original (v1) against the current fixed grader v2.1 (the superseded v2 arm is in results.md)
+add("jagua_nesting_optimization", "Full original scorer (TaskSpec `eval.sh`, `--network none`)", "raw", [
+ ("Shipped baseline (rev. v2.1)", "valid", "0 / 16 / 0", "0 / 16 / 0", "0.000000", "0.000000"),
+ ("seed_shift (rev. v2.1)", "valid", "6 / 10 / 0", "6 / 10 / 0", "1.644419", "1.644419"),
+ ("drop_last_item (rev. v2.1)", "invalid", "0 / 16 / 0", "0 / 16 / 0", "0.000000", "0.000000"),
+ ("seed_shift_f32deg (honest: seed_shift with f32-derived angles)", "valid", "6 / 10 / 0", "6 / 10 / 0", "1.644419", "1.644419"),
+ ("seed_shift_wrongdeg (every angle + 0.01°)", "invalid", "0 / 16 / 0: 8 `overlap`, 7 `out_of_strip`, 1 valid without improvement (case 0012, `gardeyn3`)", "1 / 15 / 0, 15 `orientation_not_allowed`", "0.000000", "0.186857"),
+])
+add("jagua_nesting_optimization", "Witnesses (`validate_solution` of each image)", "verdict", [
+ ("f32_rot90_f64deg (allowed [0, 90, 180, 270])", "valid", "accept", "accept", "", ""),
+ ("f32_rot180_f64deg (allowed [0, 180])", "valid", "accept", "accept", "", ""),
+ ("f32_rot_minus90_f64deg", "valid", "accept", "accept", "", ""),
+ ("f32_rot270_f64deg", "valid", "accept", "accept", "", ""),
+ ("near_tol_rot_90.0009 (0.9 × the v2.1 tolerance)", "valid", "accept", "accept", "", ""),
+ ("wrong_rot_90.002 (2 × the v2.1 tolerance)", "trigger", "accept", "reject `orientation_not_allowed_0`", "", ""),
+ ("wrong_rot_90.01 (10 × the v2.1 tolerance)", "trigger", "accept", "reject `orientation_not_allowed_0`", "", ""),
+ ("wrong_rot_45 (allowed [0, 90, 180, 270])", "trigger", "accept", "reject `orientation_not_allowed_0`", "", ""),
+])
 
 # lean: score raw (=normalized); result = repaired/targets
 add("lean_analysis_proofs", "Paired table", "raw", [
