@@ -1,6 +1,6 @@
 # Lean Analysis Proofs (`lean_analysis_proofs`)
 
-**Outcome:** Fixed. <mark>Two statements the solver must prove are false, and the original grader scores helper declarations that the compiler generates, so honest proofs of the same theorem can score differently depending on proof style.</mark>
+**Outcome:** Repair validated on component controls; full release integration pending. <mark>Two statements the solver must prove are false, and the original grader scores helper declarations that the compiler generates, so honest proofs of the same theorem can score differently depending on proof style.</mark>
 
 ![A bar of the original 2901 graded targets shows the 2338 the fixed version keeps, plus 560 hidden compiler-made helpers and 3 placeholder statements it no longer scores, with callouts for two false statements and for a correct proof scoring one point less (25 against 26) when the omega tactic renames a helper.](figures/lean_analysis_proofs.svg)
 

@@ -1,5 +1,8 @@
 # Lean Analysis Proofs, fixed version (`lean_analysis_proofs`)
 
+**Validation scope:** Component controls validate the corrected statements and target filtering. The paired runs used Mathlib `491a409`, while the actual `eval_cmd` copies the baseline with `3203991`; that execution path and both final image builds remain unverified. These records do not establish a ready end-to-end release.
+
+
 ## What this fixes
 
 Two statements that solvers must prove are false as written, so no honest submission can earn them. The original grader also scores hidden helper declarations that Lean generates, so the score depends on proof style, and three placeholder statements can never be credited. The fixed version corrects the two statements and stops scoring the generated helpers and the placeholders, leaving 2338 scored targets.

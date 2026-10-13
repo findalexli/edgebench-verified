@@ -49,3 +49,7 @@ the installed statements contradict the refutations.
 - `LeanAnalysisLocal.out` has no `lean exit=0` line, unlike the other outputs, and
   `EbvV2Proofs.lean` is outside `evidence/formal/` and is not part of the one-command recheck.
 - Other false statements among the 2338 targets were not checked.
+
+## Release scope
+
+These mathematical checks do not validate the released task execution path. The paired grader controls used Mathlib `491a409`; the actual `eval_cmd` copies a baseline with `3203991`. That path, the final grader image build and the solver image build remain unverified (see the repair package README).
