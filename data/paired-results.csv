@@ -50,6 +50,12 @@ exchange_core_throughput,"`feeswap` (fee swap, balance kept at zero)",trigger,OK
 exchange_core_throughput,`dropevents` (user events not forwarded),trigger,OK 2234,WA 0 (gate failed),2234,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
 exchange_core_throughput,`feeleak`,invalid,RE 0,WA 0,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
 exchange_core_throughput,`compileerr`,invalid,RE 0,WA 0,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
+exchange_core_throughput,"unmodified engine, 4 CPUs run 1",valid,OK 1059,"gate OK (33 tests), OK 1194",1059,1194,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"unmodified engine, 4 CPUs run 2",valid,OK 965,"gate OK (33 tests), OK 811",965,811,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"unmodified engine, 4 CPUs run 3",valid,OK 972,"gate OK (33 tests), OK 1073",972,1073,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"`topo21`, 4 CPUs run 1",valid,OK 1644,"gate OK (33 tests), OK 1687",1644,1687,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"`topo21`, 4 CPUs run 2",valid,OK 1994,"gate OK (33 tests), OK 1684",1994,1684,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"`topo21`, 4 CPUs run 3",valid,OK 1894,"gate OK (33 tests), OK 1832",1894,1832,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
 ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,,,0.967353,0.980056,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
 ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,,,0.509049,0.507032,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
 ffmpeg_swscale_reimplementation,shipped scaffold,baseline,,,0.447819,0.012416,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4

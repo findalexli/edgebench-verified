@@ -95,6 +95,14 @@ add("exchange_core_throughput", "Paired results: exchange_core_throughput v1 vs 
  ("`feeleak`", "invalid", "RE 0", "WA 0", "", ""),
  ("`compileerr`", "invalid", "RE 0", "WA 0", "", ""),
 ])
+add("exchange_core_throughput", "Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13)", "raw", [
+ ("unmodified engine, 4 CPUs run 1", "valid", "OK 1059", "gate OK (33 tests), OK 1194", "1059", "1194"),
+ ("unmodified engine, 4 CPUs run 2", "valid", "OK 965", "gate OK (33 tests), OK 811", "965", "811"),
+ ("unmodified engine, 4 CPUs run 3", "valid", "OK 972", "gate OK (33 tests), OK 1073", "972", "1073"),
+ ("`topo21`, 4 CPUs run 1", "valid", "OK 1644", "gate OK (33 tests), OK 1687", "1644", "1687"),
+ ("`topo21`, 4 CPUs run 2", "valid", "OK 1994", "gate OK (33 tests), OK 1684", "1994", "1684"),
+ ("`topo21`, 4 CPUs run 3", "valid", "OK 1894", "gate OK (33 tests), OK 1832", "1894", "1832"),
+])
 
 # ffmpeg (-b run, only table in file)
 add("ffmpeg_swscale_reimplementation", "Paired results: ffmpeg_swscale_reimplementation v1 vs v2", "raw", [
@@ -437,6 +445,7 @@ TASK_CPUS = {
 SOURCE_CPUS = {
     ("smt_solver", "Corpus: 69 scoped hidden files (verdict counts)"): 4,
     ("warehouse_forklift_routing", "Paired run"): 2,
+    ("exchange_core_throughput", "Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13)"): 4,
     ("triangulation_coloring_optimization", "Full judge (`eval_cmd`, 10 hidden cases)"): 8,
 }
 CPU_SHARE = {"apple_incremental_game", "vibrating_path_graph_coloring", "triangulation_coloring_optimization",
