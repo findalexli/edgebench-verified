@@ -273,10 +273,11 @@ add("tree_block_partitioning", "Paired v1/v2 results: tree_block_partitioning", 
  ("T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty", "invalid", "0.25 / 0.25 (T2 1/10, 9 WA)", "0.25 / 0.25 (T2 1/10, 9 WA)", "0.25", "0.25"),
 ])
 
-# triangulation: normalized; result = cases OK
+# triangulation: normalized; result = cases OK. v2 = the current fixed version v2.2 (results.md section
+# "Convex-hull coverage, package v2.2"; the v2.1 values 0.054 / 48.95 stay in results.md as history).
 add("triangulation_coloring_optimization", "Full judge (`eval_cmd`, 10 hidden cases)", "normalized", [
- ("shipped `solution.py` (do nothing)", "valid", "10/10", "10/10", "0.055", "0.054"),
- ("`greedy.py` (greedy recolour + greedy README-legal convex flips)", "valid", "10/10", "10/10", "48.87", "48.95"),
+ ("shipped `solution.py` (do nothing)", "valid", "10/10", "10/10", "0.055", "0.000"),
+ ("`greedy.py` (greedy recolour + greedy README-legal convex flips)", "valid", "10/10", "10/10", "48.87", "48.66"),
  ("`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case)", "trigger", "10/10 accepted", "0/10 (WA \"Invalid flip\")", "0.052", ""),
  ("`wrong_count.py` (recolours vertex 1, claims C=0)", "invalid", "0/10 (WA)", "0/10 (WA)", "", ""),
 ])
@@ -365,14 +366,14 @@ CPU_ROWS.append(("apple_incremental_game", "apple_incremental_game v2: paired re
  ("`cpu20` (20 s CPU per case) | 8", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
 ]))
 # triangulation: the original grader scores the original cases, the fixed version the regenerated ones,
-# so valid totals differ (866,166 against 863,058), as in its existing rows.
-CPU_ROWS.append(("triangulation_coloring_optimization", "CPU-quota parallelism (added 2026-10-12)", "raw", [
- ("`cpu0` (control alone)", "baseline", "10 OK, 866,166", "10 OK, 863,058", "", ""),
- ("`cpu20` (20 s CPU per case)", "trigger", "2 OK, 8 TLE, inf (no score)", "10 OK, 863,058 (48.95)", "", ""),
- ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 8 TLE, inf", "10 OK, 863,058", "", ""),
- ("`wall25` (works until 25 s wall clock)", "valid", "10 OK, 866,166", "10 OK, 863,058", "", ""),
+# so valid totals differ (866,166 against 874,742). v2 = the current fixed version v2.2 (2026-10-13 paired run).
+CPU_ROWS.append(("triangulation_coloring_optimization", "Convex-hull coverage, package v2.2 (2026-10-13, issue #57)", "raw", [
+ ("`cpu0` (control alone)", "baseline", "10 OK, 866,166", "10 OK, 874,742", "", ""),
+ ("`cpu20` (20 s CPU per case)", "trigger", "2 OK, 8 TLE, inf (no score)", "10 OK, 874,742 (48.66)", "", ""),
+ ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 8 TLE, inf", "10 OK, 874,742", "", ""),
+ ("`wall25` (works until 25 s wall clock)", "valid", "10 OK, 866,166", "10 OK, 874,742", "", ""),
  ("`spin40` (bad control, 40 s CPU per case)", "invalid", "10 TLE, inf", "10 TLE, inf", "", ""),
- ("`cpu20` | 8", "valid", "10 OK, 866,166", "10 OK, 863,058", "", ""),
+ ("`cpu20` | 8", "valid", "10 OK, 866,166", "10 OK, 874,742", "", ""),
 ]))
 
 # rust: verbatim eval_cmd, score out of 100; v1 = original grader as shipped, v2 = fixed version.

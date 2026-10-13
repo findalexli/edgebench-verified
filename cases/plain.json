@@ -298,7 +298,7 @@
   "about": "Starting from a triangle mesh (a network of triangles) over 512 points, recolour points and swap shared triangle edges to get the lowest possible score.",
   "problem": "The instructions allow swapping an edge only when its two triangles form a convex four-sided shape. The grader skips that condition, so it accepts swaps that fold the mesh over itself. The same rule built the hidden inputs: all ten contain overlapping triangles. A forbidden swap can improve the score, as one did on a hidden case. Separately, the grader runs 8 cases at once under a 30-second wall-clock limit; on the publisher's 4-CPU setting a valid solution using 20 seconds of CPU per case timed out on 8 of 10 cases, which leaves the submission without a score.",
   "effect": "Changes which moves are allowed for every solver; how much a strong solver gains from forbidden moves was not measured. On a 4-CPU grader, solutions using about 15 to 30 seconds of CPU per case lost their whole score.",
-  "action": "The package rejects forbidden flips, regenerates non-overlapping inputs and limits CPU parallelism. It does not fully restore convex-hull triangulations: 12 of 13 regenerated files still leave gaps. Scores are not comparable with the original."
+  "action": "Fixed in a new version (v2.2): forbidden flips are rejected, the test inputs are regenerated as complete triangulations (no overlaps, no gaps at the edge of the point set; the previous fixed version left gaps in 12 of 13 files), and the grader runs no more cases at once than it has CPUs. Scores are not comparable with the original."
  },
  "trinity_text_adventure": {
   "headline": "No problem found; the score is the game's own, and play is repeatable",

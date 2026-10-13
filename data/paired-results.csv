@@ -155,8 +155,8 @@ treant_forest,"92304 (= Σ 2N², the score cap)",trigger,,,21.02,100.00,normaliz
 tree_block_partitioning,Official `std.cpp` for all six subtasks,valid,100 / 100,100 / 100,100,100,raw,no,Paired v1/v2 results: tree_block_partitioning,2
 tree_block_partitioning,"T2 = alias variant of `std.cpp` (`make_alias_variant.py`); T1, T3–T6 empty",trigger,0.25 / 0.25 (T2 1/10),5 / 5 (T2 10/10),0.25,5,raw,yes,Paired v1/v2 results: tree_block_partitioning,2
 tree_block_partitioning,T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty,invalid,"0.25 / 0.25 (T2 1/10, 9 WA)","0.25 / 0.25 (T2 1/10, 9 WA)",0.25,0.25,raw,no,Paired v1/v2 results: tree_block_partitioning,2
-triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,10/10,10/10,0.055,0.054,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
-triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,10/10,10/10,48.87,48.95,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
+triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,10/10,10/10,0.055,0.000,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
+triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,10/10,10/10,48.87,48.66,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
 triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,10/10 accepted,"0/10 (WA ""Invalid flip"")",0.052,,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
 triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,0/10 (WA),0/10 (WA),,,normalized,no,"Full judge (`eval_cmd`, 10 hidden cases)",8
 warehouse_forklift_routing,generic valid control,valid,"OK 50/50, TOTAL 46676.8","OK 50/50, TOTAL 46676.8",46676.8,46676.8,raw,no,Paired run,2
@@ -206,12 +206,12 @@ apple_incremental_game,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 
 apple_incremental_game,`wall25` (works until 25 s wall clock),valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,4
 apple_incremental_game,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL 0","0 OK, 50 TLE, TOTAL 0",,,raw,no,apple_incremental_game v2: paired results,4
 apple_incremental_game,`cpu20` (20 s CPU per case) | 8,valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,8
-triangulation_coloring_optimization,`cpu0` (control alone),baseline,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,"2 OK, 8 TLE, inf (no score)","10 OK, 863,058 (48.95)",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,"2 OK, 8 TLE, inf","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,`wall25` (works until 25 s wall clock),valid,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,"`spin40` (bad control, 40 s CPU per case)",invalid,"10 TLE, inf","10 TLE, inf",,,raw,no,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,`cpu20` | 8,valid,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),8
+triangulation_coloring_optimization,`cpu0` (control alone),baseline,"10 OK, 866,166","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,"2 OK, 8 TLE, inf (no score)","10 OK, 874,742 (48.66)",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,"2 OK, 8 TLE, inf","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,`wall25` (works until 25 s wall clock),valid,"10 OK, 866,166","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,"`spin40` (bad control, 40 s CPU per case)",invalid,"10 TLE, inf","10 TLE, inf",,,raw,no,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,`cpu20` | 8,valid,"10 OK, 866,166","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",8
 portfolio_risk_calibration,(a) instructions' formula,trigger,3.44%,3.47%,32.45,32.52,raw,yes,Full grader (`score.py`),2
 portfolio_risk_calibration,(b) grader's formula,valid,3.44%,3.47%,32.45,32.52,raw,yes,Full grader (`score.py`),2
 portfolio_risk_calibration,(c) wrong,invalid,−21.14%,−21.33%,0,0,raw,no,Full grader (`score.py`),2

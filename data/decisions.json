@@ -369,9 +369,9 @@
   "finding": "Flip-legality rule omits the README's convexity condition; the same rule generated the cases (all 10 overlap/fold) and scores submissions; also the evaluator runs 8 cases at once under a 30 s wall-clock limit, so at the publisher's 4 grader CPUs a valid solution using 20 s CPU per case gets 8/10 TLE and TOTAL inf (measured; passes at 8 CPUs)",
   "max_effect": "changes which flips are legal for every solver; size unmeasured (one flip: case 0009 644,809 → 641,611); up to the full score for solutions using ~15–30 s CPU per case on a 4-CPU grader",
   "status": "final (v1.0)",
-  "repair": "accepted for historical controls only: the convexity condition is enforced and the cases are regenerated; all 13 v2 case and sample files have 0 overlapping triangles, crossings, duplicates or folds; README-forbidden flips are rejected. Limit: the generator still leaves gaps in the convex hull in 12 of 13 files; CPU-quota parallelism added (1..8): at 4 CPUs cpu20/cpu28 2 OK + 8 TLE (original and rule-only fix) → 10 OK; control, wall-deadline, 8-CPU and bad controls as expected; all earlier paired controls reproduced at 4 and 8 CPUs",
+  "repair": "accepted (v2.2): the convexity condition is enforced; the generator's Delaunay step completes the convex hull (exact ear clipping + Lawson flips) and the cases and samples are regenerated: all 13 files cover their convex hull exactly with 0 overlapping triangles, crossings, duplicates or folds (v2.1 left 1–3 hull triangles missing in 12 of 13); README-forbidden flips are rejected. CPU-quota parallelism (1..8): at 4 CPUs cpu20/cpu28 2 OK + 8 TLE (original) → 10 OK. Three identical paired runs of the original, v2.1 and v2.2 graders; v2.1 and v2.2 grade the same inputs identically",
   "package": "repairs/triangulation_coloring_optimization-v2/",
-  "validation_status": "Convexity and CPU controls validated; regenerated meshes still leave convex-hull gaps in 12 of 13 files."
+  "validation_status": "Convexity, CPU and convex-hull coverage validated: all 13 v2.2 inputs cover their hull exactly (exact census); three identical paired runs of the original, v2.1 and v2.2 graders."
  },
  {
   "task_id": "trinity_text_adventure",

@@ -38,3 +38,10 @@ The completeness claim needs a hypothesis that is not visible in the code: the g
 - The fixed version also runs at most as many cases at once as the grader has CPUs (added
   2026-10-12). That change is not modelled: the proof covers the flip rule only. The parallelism
   change is checked by paired runs (`cases/triangulation_coloring_optimization.md`).
+- The proof says nothing about whether an input covers its convex hull. In package v2.1, 12 of 13
+  regenerated inputs did not (1–3 hull triangles missing). Package v2.2 (2026-10-13) completes the
+  hull in `delaunay.py`; all 13 v2.2 inputs cover their hull exactly. This is checked by
+  `evidence/scripts/triangulation_coloring_optimization/v2/hull_check.py` (integer orientations,
+  `fractions.Fraction` areas), not in Lean. The fixed `triangulation.py` (sha256 `8b5b9cbb…`), which
+  the proof models, is unchanged in v2.2, so the theorems above apply to it as before; "valid
+  triangulation" in the completeness claim now holds for the shipped v2.2 inputs.

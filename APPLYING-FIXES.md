@@ -91,7 +91,7 @@ README says exactly which submissions' scores change.
 | [Graph Node Classification](repairs/graph_node_classification-v2/README.md) | grader | `f2ddd52992ae-ebv-v2` | unchanged | see package evidence and limits |
 | [Grid Turing Robot](repairs/grid_turing_robot-v2/README.md) | grader | `3c6f50ac4fe0-ebv-v2` | unchanged | see package evidence and limits |
 | [Integer Compression Codec](repairs/integer_compression_codec-v2/README.md) | grader, score scale | `27063396e02a-ebv-v2` | unchanged | see package evidence and limits |
-| [Jagua Nesting Optimization](repairs/jagua_nesting_optimization-v2/README.md) | grader | `bba393b2dd53-ebv-v2` | unchanged | see package evidence and limits |
+| [Jagua Nesting Optimization](repairs/jagua_nesting_optimization-v2/README.md) | grader | `bba393b2dd53-ebv-v2.1` | unchanged | see package evidence and limits |
 | [Juliet Vulnerability Analyzer](repairs/juliet_vulnerability_analyzer-v2/README.md) | grader | `0c4f2c0057c2-ebv-v2` | unchanged | see package evidence and limits |
 | [Lean Analysis Proofs](repairs/lean_analysis_proofs-v2/README.md) | grader, agent's starting files | `lean_analysis_proofs-v2-judge` | `lean_analysis_proofs-v2-work` | Component controls validated; actual eval_cmd dependency path and final grader/work images unverified. |
 | [Molecular Self Assembly](repairs/molecular_self_assembly-v2/README.md) | grader | `96df6463f5e6-ebv-v2` | unchanged | see package evidence and limits |
@@ -107,7 +107,7 @@ README says exactly which submissions' scores change.
 | [SMT Solver](repairs/smt_solver-v2/README.md) | grader | `fdce54253c61-ebv-v2` | unchanged | Paired corpus controls validated; formal soundness covers only the modeled QF_UF fragment, with argued implementation correspondence. |
 | [Treant Forest](repairs/treant_forest-v2/README.md) | score scale | `d47dc1a7da74` | unchanged | see package evidence and limits |
 | [Tree Block Partitioning](repairs/tree_block_partitioning-v2/README.md) | grader | `f74f0ef897ce-ebv-v2` | unchanged | see package evidence and limits |
-| [Triangulation Coloring Optimization](repairs/triangulation_coloring_optimization-v2/README.md) | grader, agent's starting files | `convex-flip-v2.1` | `convex-flip-v2` | Convexity and CPU controls validated; regenerated meshes still leave convex-hull gaps in 12 of 13 files. |
+| [Triangulation Coloring Optimization](repairs/triangulation_coloring_optimization-v2/README.md) | grader, agent's starting files | `convex-flip-v2.2` | `convex-flip-v2.2` | Convexity, CPU and convex-hull coverage validated: all 13 v2.2 inputs cover their hull exactly (exact census); three identical paired runs of the original, v2.1 and v2.2 graders. |
 | [Vibrating Path Graph Coloring](repairs/vibrating_path_graph_coloring-v2/README.md) | grader, judge.eval_timeout | `eb22343ce84e-ebv-v2` | unchanged | CPU controls validated; zero-hit formatting effect ruled out on 37 of 50 cases only, unresolved on the other 13. |
 | [Warehouse Forklift Routing](repairs/warehouse_forklift_routing-v2/README.md) | grader, [host final-drain overlay](repairs/harness-final-drain-v1/README.md) | `d342863c29cc-ebv-v2.1` | unchanged | Grader time/CPU controls validated; requires harness wait overlay, whose end-to-end integration remains pending. |
 
