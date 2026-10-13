@@ -4,7 +4,7 @@
 
 (a) The original checker reads `(f x)` by its text, so on `(distinct a b)`, `(let ((x a)) (= (f x) a))`,
 `(let ((x b)) (= (f x) b))` (satisfiable, f = identity) it rejects every witness. (b) The fixed checker is
-sound for every witness and every key order. It is complete for ground-key witnesses. (c) Our
+sound for every witness and every key order **within the modeled fragment below**. It is complete for ground-key witnesses subject to the coverage hypothesis below. These are not whole-evaluator soundness or completeness claims. (c) Our
 compatibility claim for textual keys is too broad (see Result).
 
 ## Model and link to the code
@@ -46,8 +46,8 @@ passes (`shadow_ground_ok`), so the formula is not unwinnable. A scan of the 774
 - Only one sort and one unary f. Not modelled: define-fun (`define_conflict`), ite, or, arithmetic,
   Bool-valued UF and perturbation.
 - When a table evaluation raises, the model drops the applications it had already recorded, so the
-  model accepts a superset of what the real code accepts. Soundness carries over to the real code;
-  completeness is unaffected.
+  model accepts a superset of what the real code accepts. Within the modeled fragment, the correspondence argument transfers soundness to the real code;
+  completeness is unaffected by this particular difference. The correspondence itself is not machine-proved.
 - An undeclared, unbound symbol is an error in the model but an atom in the real code.
 - Keys are modelled as parsed terms, not as their spacing.
 - That a finite G with the coverage property exists is not proved. It holds for finite models.
