@@ -16,9 +16,9 @@
  "ann_vector_search_qps": {
   "headline": "No scoring problem found; measured speed depends on the machine",
   "about": "Make a search over one million 128-number vectors answer as many queries per second as possible, while still finding at least 95% of the true 10 nearest matches.",
-  "problem": "The answer key was checked on all 10,000 queries; our valid and empty test submissions score as documented. Caveat: speed is measured once per grading and depends on the machine. Three gradings of one honest configuration on the original grader gave 935 to 1,222 queries per second (±13%) on one shared machine; the scale comes from the authors' hardware.",
-  "effect": "Speed varied 1.31-fold between gradings of one configuration on one machine: 13.9 of 100 points (about ±7 per grading) where agents score (23.8–59.7). Scores from different machines are not comparable.",
-  "action": "Kept, with a note: speed depends on the machine; three gradings of one configuration varied by ±13% (13.9 of 100 points); the scale was set on the authors' hardware, so machines are not comparable."
+  "problem": "The answer key was checked on all 10,000 queries; our valid and empty test submissions score as documented, and a fast submission with recall 0.36 is rejected. Caveat: speed is measured once per grading and depends on the machine. Three isolated gradings of one honest configuration on the original grader, at the leaderboard's 4 CPUs and 8 GiB, gave 551 to 713 queries per second (±13%); the scale comes from the authors' hardware.",
+  "effect": "Speed varied 1.29-fold between three isolated gradings of one configuration: 13.3 of 100 points (about ±7 per grading) where agents score (23.8–59.7). Scores from different machines are not comparable.",
+  "action": "Kept, with a note: speed depends on the machine; three isolated gradings of one configuration varied by ±13% (13.3 of 100 points); the scale was set on the authors' hardware, so machines are not comparable."
  },
  "apple_incremental_game": {
   "headline": "On the publisher's 4-CPU grader, cases within the 30-second limit time out and score 0",

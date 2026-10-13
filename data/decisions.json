@@ -16,8 +16,8 @@
  {
   "task_id": "ann_vector_search_qps",
   "proposed": "retain-with-note",
-  "finding": "QPS host-dependent; scorer isolation out of scope",
-  "max_effect": "none for honest solvers",
+  "finding": "QPS host-dependent: three isolated gradings of one honest IVF-flat config on the original evaluator at --cpus 4 --memory 8g (3 fresh E2B workers) gave 551–713 QPS (1.29-fold, 13.3 of 100 points on the log scale between the anchors; earlier shared-process local gradings 935–1,222, 13.9); nprobe=1 control rejected each time (recall 0.3642, WA, score 0); scorer isolation out of scope",
+  "max_effect": "none for honest solvers (no scoring error); grading-to-grading QPS noise about ±7 of 100 points between the anchors",
   "status": "final (v1.0)",
   "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
