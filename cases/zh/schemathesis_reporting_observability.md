@@ -80,7 +80,7 @@ plaintext    orig: 1 passed   repaired: 1 failed
 
 三个看似合理的错误版本，在原始评分器下都得 1.0，在修复版评分器下都丢了分。正确的测试提交保持 1.0。
 
-**修复的修订（2026-10-12）。** 第一次发布的修复版还要求套件名必须是 `schemathesis`、测试用例和 `<error>` 都恰好一个，并且不能有 `<failure>` 或 `<skipped>` 元素。`TODO.md` 对这些都没有规定，`schemathesis` 只是初始文件里命令行 JUnit 处理程序用的套件名。修订后的测试去掉了这些要求。我们在全新的工作节点上把原始评分器、第一版修复和修订版修复并排对照跑了三次，之前每份提交的结果都和上表相同。另外新增了三份提交。
+我们在 2026-10-12 修订了修复版。第一次发布的修复版还要求套件名必须是 `schemathesis`、测试用例和 `<error>` 都恰好一个，并且不能有 `<failure>` 或 `<skipped>` 元素。`TODO.md` 对这些都没有规定，`schemathesis` 只是初始文件里命令行 JUnit 处理程序用的套件名。修订后的测试去掉了这些要求。我们在全新的工作节点上把原始评分器、第一版修复和修订版修复并排对照跑了三次，之前每份提交的结果都和上表相同。另外新增了三份提交。
 
 | 测试提交 | 角色 | 原始评分器 | 第一版修复 | 修订版修复 |
 |---|---|---|---|---|
@@ -90,13 +90,13 @@ plaintext    orig: 1 passed   repaired: 1 failed
 
 套件名不同的正确写入器，输出里没有字符串 `schemathesis`，原始测试和第一版修复都判它失败，修订版让它通过。丢掉 `<error>` 或写出格式错误 XML 的写入器，在两个修复版本下都失败。
 
-**分数兼容性。** 完全正确的提交在两个版本下都得 1.0。Phase 2 或 Phase 5 只过了一部分时，原始分数和修复版分数不可比，因为 Phase 5 现在有 12 项测试，原来是 10 项。修复版下，未改动的初始文件和桩提交加 +0.005。新增的允许用例和查询参数拒绝用例，检查的是初始文件生成器本来就有的行为。所以初始文件在 Phase 5 的得分现在来自真正起作用的检查，而不是那项永远不会失败的请求体测试。更小的改法是只改 `GeneratedValue` 的导入、保留 10 项测试，但那样查不出总是省略请求体的实现。
+完全正确的提交在两个版本下都得 1.0。Phase 2 或 Phase 5 只过了一部分时，原始分数和修复版分数不可比，因为 Phase 5 现在有 12 项测试，原来是 10 项。修复版下，未改动的初始文件和桩提交加 +0.005。新增的允许用例和查询参数拒绝用例，检查的是初始文件生成器本来就有的行为。所以初始文件在 Phase 5 的得分现在来自真正起作用的检查，而不是那项永远不会失败的请求体测试。更小的改法是只改 `GeneratedValue` 的导入、保留 10 项测试，但那样查不出总是省略请求体的实现。
 
 ## 我们如何检查
 
-- **在按摘要固定的原始镜像中运行原始评分器。** 评分器镜像里是未改动的 schemathesis 4.13.0 初始文件。每份测试提交都在全新的 `--network none` 容器里，分别用完整的原始 `judge.eval_cmd` 和修复版评分器运行。
-- **直接检查。** 我们查看了 `cover_schema_iter` 在初始文件上产生的每个值属于哪个类，由此看出原始覆盖过滤为什么总是空的。修复版覆盖测试分别在初始文件、一个正确的修复和一个总是省略请求体的修复上运行。
-- **可重复性。** 原始版和修复版评分器的并排对照运行做了三次，结论不变（`data/paired-repeatability.md`）。这几次用的是第一版修复。修订版修复也跑了三次（`evidence/runs/schemathesis_reporting_observability-v2-paired-rev2`、`-rev2-rep2`、`-rev2-rep3`），分数和每项测试的结果都相同。
+- 我们在按摘要固定的原始镜像中运行原始评分器。评分器镜像里是未改动的 schemathesis 4.13.0 初始文件。每份测试提交都在全新的 `--network none` 容器里，分别用完整的原始 `judge.eval_cmd` 和修复版评分器运行。
+- 我们查看了 `cover_schema_iter` 在初始文件上产生的每个值属于哪个类，由此看出原始覆盖过滤为什么总是空的。修复版覆盖测试分别在初始文件、一个正确的修复和一个总是省略请求体的修复上运行。
+- 我们把原始版和修复版评分器的并排对照运行做了三次，结论没有变化（`data/paired-repeatability.md`）。这几次用的是第一版修复。修订版修复也跑了三次（`evidence/runs/schemathesis_reporting_observability-v2-paired-rev2`、`-rev2-rep2`、`-rev2-rep3`），分数和每项测试的结果都相同。
 
 ## 局限
 
@@ -111,8 +111,8 @@ plaintext    orig: 1 passed   repaired: 1 failed
 ## 复现
 
 - 原始评分器镜像：`sha256:b1e16633…`。
-- **原始测试与修复版测试的对照。** 先运行 `evidence/scripts/schemathesis_reporting_observability/fetch_tests.sh`。然后运行 `run_junit_in_judge.sh`（配合 `reporting_overlay/`）、`run_coverage_in_judge.sh` 和 `run_coverage_variants.sh`。保存的输出在 `observed_junit.txt`、`observed_coverage.txt` 和 `observed_coverage_variants.txt` 中。
-- **原始版和修复版评分器的并排对照运行。** `repairs/schemathesis_reporting_observability-v2/paired/run.sh`。结果在 `paired/results.md` 和 `paired/raw-summary.md` 中。
-- **修复。** `repairs/schemathesis_reporting_observability-v2/repair.patch`、`Dockerfile` 和 `source-lock.json`。
+- 要对照原始测试与修复版测试，先运行 `evidence/scripts/schemathesis_reporting_observability/fetch_tests.sh`。然后运行 `run_junit_in_judge.sh`（配合 `reporting_overlay/`）、`run_coverage_in_judge.sh` 和 `run_coverage_variants.sh`。保存的输出在 `observed_junit.txt`、`observed_coverage.txt` 和 `observed_coverage_variants.txt` 中。
+- 原始版和修复版评分器的并排对照运行是 `repairs/schemathesis_reporting_observability-v2/paired/run.sh`，结果在 `paired/results.md` 和 `paired/raw-summary.md` 中。
+- 修复在 `repairs/schemathesis_reporting_observability-v2/repair.patch`、`Dockerfile` 和 `source-lock.json` 中。
 
 支撑记录：`repairs/schemathesis_reporting_observability-v2/`（存放修复版的文件夹）和 `evidence/reviews/schemathesis_reporting_observability.md`。

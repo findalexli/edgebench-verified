@@ -14,11 +14,11 @@
 
 ## 问题出在哪里
 
-**有一项测试总是失败。** `test_private_judge_files_are_available` 断言已安装辅助文件的 sha256 指纹等于 `3023b9a4…`。这是早先那版带中文注释的辅助文件的指纹。后来某个镜像层把辅助文件换成了英文注释的译本 `337837af…`，期望值却没有跟着改。两版辅助文件只在注释、一个文档字符串和示例标签上有差别，`parse_result_file` 和 `score_cost_num` 的行为完全一样。这项检查没有任何前提条件，每份提交都过不了。
+有一项测试总是失败。 `test_private_judge_files_are_available` 断言已安装辅助文件的 sha256 指纹等于 `3023b9a4…`。这是早先那版带中文注释的辅助文件的指纹。后来某个镜像层把辅助文件换成了英文注释的译本 `337837af…`，期望值却没有跟着改。两版辅助文件只在注释、一个文档字符串和示例标签上有差别，`parse_result_file` 和 `score_cost_num` 的行为完全一样。这项检查没有任何前提条件，每份提交都过不了。
 
-- **每份提交的分数没有错。** 失败的只有这一项。其余四项照常运行，`TOTAL_SCORE` 也用已安装的辅助文件计算。
-- **通过率有上限。** 完全正确的提交，通过率也只有 0.8，到不了 1.0。
-- **一次运行的最佳提交不再更新。** 本任务的规则（`pass_rate_first`）保留通过测试最多的提交。两份提交的通过率都是 1.0 时，它才比较分数。否则，较晚的提交必须通过率严格更高才能胜出。每份提交的通过率最多 0.8，而有分数的提交都能达到这个上限，所以这次运行的 `best_score` / `best_round` 一直停在**第一份**有分数的提交上。
+- 每份提交的分数仍然是对的。 失败的只有这一项。其余四项照常运行，`TOTAL_SCORE` 也用已安装的辅助文件计算。
+- 通过率有上限。 完全正确的提交，通过率也只有 0.8，到不了 1.0。
+- 一次运行的最佳提交不再更新。 本任务的规则（`pass_rate_first`）保留通过测试最多的提交。两份提交的通过率都是 1.0 时，它才比较分数。否则，较晚的提交必须通过率严格更高才能胜出。每份提交的通过率最多 0.8，而有分数的提交都能达到这个上限，所以这次运行的 `best_score` / `best_round` 一直停在**第一份**有分数的提交上。
 
 举一个原始评分器下的例子。两份有效提交，先交恒等排列，再交搜索结果。恒等排列得分 3.3e-09，搜索结果分数更高。本应选中搜索结果，评分器实际选中的却是恒等排列，忽略了后面更好的提交。
 
@@ -26,7 +26,7 @@
 
 一次运行只要有不止一份有效提交，而且后交的得分更高，记下的分数就会变，因为这次运行的最佳分数不反映后来的改进。有些使用方取所有提交的最大值，结果就与顺序无关。所以某个已发布的数字是否有错，要看它是哪个使用方算出来的。每份提交自身的分数不受影响。
 
-**真实智能体运行。** 我们取了第三方一次 Claude Opus 5.5 运行（四小时）的全部 9 份提交，用原始评分器和修复版评分器各重新评了一遍（`evidence/runs/opus55-regrade2-oa/`，`result/worker.json` 为 `status: exit=0`；汇总见 `evidence/runs/opus55-regrade2-summary/summary.json`）。每份提交在两种评分器下分数完全相同。有分数的 4 份提交在原始评分器下通过 4/5 项测试，在修复版下通过 5/5 项。较早的 5 份自动提交当时还没有 `final_result.txt`，在原始评分器和修复版下分别通过 2/5 和 3/5 项。结果，原始评分器保留了这次运行第一份有分数的提交，3.79 分（满分 100），修复版评分器保留了最后一份，41.24 分。
+在真实智能体运行上，我们取了第三方一次 Claude Opus 5.5 运行（四小时）的全部 9 份提交，用原始评分器和修复版评分器各重新评了一遍（`evidence/runs/opus55-regrade2-oa/`，`result/worker.json` 为 `status: exit=0`；汇总见 `evidence/runs/opus55-regrade2-summary/summary.json`）。每份提交在两种评分器下分数完全相同。有分数的 4 份提交在原始评分器下通过 4/5 项测试，在修复版下通过 5/5 项。较早的 5 份自动提交当时还没有 `final_result.txt`，在原始评分器和修复版下分别通过 2/5 和 3/5 项。结果，原始评分器保留了这次运行第一份有分数的提交，3.79 分（满分 100），修复版评分器保留了最后一份，41.24 分。
 
 ## 修复
 
@@ -52,14 +52,14 @@
 | dup, identity, search | **identity**（3.3e-09） | **search**（0.00937） |
 | badcost, identity, search | **identity**（3.3e-09） | **search**（0.00937） |
 
-**分数兼容性：** 每份提交的原始结果和 100 分制得分逐位不变。通过率会变，合法提交原来是 4/5，现在是 5/5。一次运行只要有不止一份有效提交、且后交的得分更高，`pass_rate_first` 下这次运行的 `best_score` / `best_round` 就和原始版不可比。原始版保留第一份，修复版保留最好的一份。
+每份提交的原始结果和 100 分制得分逐位不变。通过率会变，合法提交原来是 4/5，现在是 5/5。一次运行只要有不止一份有效提交、且后交的得分更高，`pass_rate_first` 下这次运行的 `best_score` / `best_round` 就和原始版不可比。原始版保留第一份，修复版保留最好的一份。
 
 ## 我们如何检查
 
-- **原始评分器。** 在按摘要固定的原始公开镜像里，算出已安装辅助文件的哈希，和测试期望的值比较。在 `--network none --memory 2g --cpus 2` 下，用原始 `eval_cmd`（`python -m pytest tests/test_final_result.py -s -v`）评有效和无效的测试提交。
-- **最佳提交选择。** 把保存的日志依次交给 EdgeBench 测试框架（`sforge`，版本 `6e4e5f4`）自带的 `grade_output`、`rescale_score` 和 `select_best`。
-- **形式化检查（TLA+）。** 我们为选取规则建了一个有界模型，逐行对应 `selection.py` 和 `grading.py`。模型检验遍历 5,421,361 个状态，没有违例。另外三个配置（`k1`–`k3`）如说明所述出现违例（`evidence/formal/tla/order_addition_permutation_optimization/`、`evidence/formal/notes/order_addition_permutation_optimization.md`）。
-- **原始版与修复版评分器的并排对照运行。** 每份提交都在全新的 `--network none` 容器里经 TaskSpec 的 `eval.sh` 运行。我们事先确认过每个镜像都收集到 5 项测试。一共重复了三次，结论不变（[`data/paired-repeatability.md`](../data/paired-repeatability.md)）。
+- 我们在按摘要固定的原始公开镜像里算出已安装辅助文件的哈希，和测试期望的值比较。在 `--network none --memory 2g --cpus 2` 下，用原始 `eval_cmd`（`python -m pytest tests/test_final_result.py -s -v`）评有效和无效的测试提交。
+- 为了确定最佳提交的选择，我们把保存的日志依次交给 EdgeBench 测试框架（`sforge`，版本 `6e4e5f4`）自带的 `grade_output`、`rescale_score` 和 `select_best`。
+- 作为 TLA+ 形式化检查，我们为选取规则建了一个有界模型，逐行对应 `selection.py` 和 `grading.py`。模型检验遍历 5,421,361 个状态，没有违例。另外三个配置（`k1`–`k3`）如说明所述出现违例（`evidence/formal/tla/order_addition_permutation_optimization/`、`evidence/formal/notes/order_addition_permutation_optimization.md`）。
+- 在原始版与修复版评分器的并排对照运行中，每份提交都在全新的 `--network none` 容器里经 TaskSpec 的 `eval.sh` 运行。我们事先确认过每个镜像都收集到 5 项测试。一共重复了三次，结论不变（[`data/paired-repeatability.md`](../data/paired-repeatability.md)）。
 
 ## 局限
 

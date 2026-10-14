@@ -43,7 +43,7 @@ error ai/engine/cpp: side 1 : UNKNOWN candidate_action[ai_default_rca::aspect_re
 
 - 注释 `-- never use wesnoth.wml_actions here`、一个名为 `mydebug`、用法如 `mydebug.log` 的表，或者变量 `n_game_events_seen`，都会匹配上某个模式（用 Python 的 `re.search` 套用评分器的模式核对过）。这样的提交会得 0 分。我们没有实际给这样的提交评过分。
 
-**随任务发布的说明。**
+任务随附了这条说明。
 
 - 随附初始程序的招募候选动作在 Wesnoth 1.18.5 上无效，所以初始程序得 0 分。建议的修复是像自带宏那样用 `name=default_recruitment::recruitment`，这一修复没有测试过。
 - 虽然有 `--rng-seed`，对局仍然无法复现。
@@ -60,8 +60,8 @@ error ai/engine/cpp: side 1 : UNKNOWN candidate_action[ai_default_rca::aspect_re
 
 ## 我们如何检查
 
-- **在按摘要固定的原始镜像中运行原始评分器。** 评分器镜像（Wesnoth 1.18.5）在一台不限 CPU 的 8 vCPU 主机上以 `--network none` 运行。对随附的初始程序，在每张地图上各跑一次未改动评分器的 `scan_for_hacks()`、`install_agent_ai()` 和原始的 `run_game(map, 0, 0)`，只给 `subprocess.run` 套了一层包装，用来记录对局输出和耗时。然后用默认参数、在 `timeout 900` 下运行一模一样的 `eval_cmd`（`python3 /tmp/eval_wesnoth.py`）。
-- **正确的测试提交。** 第 1 方用 Wesnoth 自带的 `data/ai/ais/ai_default_rca.cfg`，只把 `id=` 改名为 `my_custom_ai`，它通过了评分器的作弊扫描。我们在 `timeout 900` 下用未改动的评分器跑了完整的默认评分运行，`subprocess.run` 上加了计时包装。
+- 我们运行了按摘要固定的原始评分器镜像（Wesnoth 1.18.5），它在一台不限 CPU 的 8 vCPU 主机上以 `--network none` 运行。对随附的初始程序，在每张地图上各跑一次未改动评分器的 `scan_for_hacks()`、`install_agent_ai()` 和原始的 `run_game(map, 0, 0)`，只给 `subprocess.run` 套了一层包装，用来记录对局输出和耗时。然后用默认参数、在 `timeout 900` 下运行一模一样的 `eval_cmd`（`python3 /tmp/eval_wesnoth.py`）。
+- 在正确的测试提交中，第 1 方用 Wesnoth 自带的 `data/ai/ais/ai_default_rca.cfg`，只把 `id=` 改名为 `my_custom_ai`，它通过了评分器的作弊扫描。我们在 `timeout 900` 下用未改动的评分器跑了完整的默认评分运行，`subprocess.run` 上加了计时包装。
 - 这里用不上形式化模型。
 
 ## 局限

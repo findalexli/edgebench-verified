@@ -10,7 +10,7 @@
 
 我们查了两个可能的问题。第一个与编译器生成的目标有关，在测过的一个辅助目标和两种证明写法上没有出现。第二个确实存在，有五个目标拿不到分。
 
-**一个生成的辅助目标在测过的两种证明写法下得分相同。** 这不能说明七个生成目标全都能公平计分，也不能说明任何证明写法都如此。在 `lean_analysis_proofs` 中，同一个评分器要求生成的名称和打印出的类型都完全一致，才给编译器生成的辅助目标（`X._proof_N`、`X._simp_N` 等）计分。那里至少有 44 个辅助目标是任何正确、完整的解法都拿不到的（加上 3 个占位命题和 2 个假命题，共 49 个，占全部 2901 个目标的 1.69%），而且分数随证明写法而变。本任务的情况见下表（`evidence/reviews/lean_family_aux_census.md`；类型中带真正 `sorry` 的数目来自下文的类型探测）。
+一个生成的辅助目标在测过的两种证明写法下得分相同。 这不能说明七个生成目标全都能公平计分，也不能说明任何证明写法都如此。在 `lean_analysis_proofs` 中，同一个评分器要求生成的名称和打印出的类型都完全一致，才给编译器生成的辅助目标（`X._proof_N`、`X._simp_N` 等）计分。那里至少有 44 个辅助目标是任何正确、完整的解法都拿不到的（加上 3 个占位命题和 2 个假命题，共 49 个，占全部 2901 个目标的 1.69%），而且分数随证明写法而变。本任务的情况见下表（`evidence/reviews/lean_family_aux_census.md`；类型中带真正 `sorry` 的数目来自下文的类型探测）。
 
 | 目标数 | 编译器生成的目标 | 它们占分数的比例 | 观察到的脆弱生成目标 | 类型中含 `sorry` | P/¬P 成对 | 无法拿到的目标的下界 |
 |---|---|---|---|---|---|---|
@@ -26,7 +26,7 @@
 
 测过的那个 `_simp` 辅助目标在两种写法下得分相同。另外六个 `_simp` 辅助目标我们没有评分。
 
-**有五个目标拿不到分。** 五个目标（`PFR_projection`、`PFR_projection'`、`torsion_free_doubling`、`torsion_dist_shrinking`、`app_ent_PFR`）打印出来是 `μ : autoParam (Measure Ω) sorry`。这个绑定来自 `PFR/WeakPFR.lean` 里的 `variable (μ : Measure Ω := by volume_tac)`，而这个文件是 Lean 的 `module` 文件。文件里的公开命题不能引用保存该策略的私有辅助声明，于是 Lean 在那里放了一个表示错误的 `sorry`，却不报任何错误。
+有五个目标拿不到分。这五个目标（`PFR_projection`、`PFR_projection'`、`torsion_free_doubling`、`torsion_dist_shrinking`、`app_ent_PFR`）打印出来是 `μ : autoParam (Measure Ω) sorry`。这个绑定来自 `PFR/WeakPFR.lean` 里的 `variable (μ : Measure Ω := by volume_tac)`，而这个文件是 Lean 的 `module` 文件。文件里的公开命题不能引用保存该策略的私有辅助声明，于是 Lean 在那里放了一个表示错误的 `sorry`，却不报任何错误。
 
 我们在评分器镜像里检查过，这五个目标的类型中都有常量 `sorryAx`（`evidence/runs/pfr_formalization-autoparam-probe/result/out/probe_baseline.out`）。评分器既从声明的证明里收集公理，也从它的类型里收集（`ListDeclAxiom.lean` 中的 `collectAxiomDeps`），还要求类型文本不变。所以无论怎么证，都拿不到这五项的分。
 
@@ -51,14 +51,14 @@
 
 表中分数全是 0.0，因为没有提交证出这五个真实目标中的任何一个。两版的差别在新增引理的状态。每次运行里，其余 418 个目标的状态都没变，`type_changed` 和 `disappeared` 都为 0，`weak_PFR` 和 `entropic_PFR_conjecture` 的 HASH 检查通过，`eval_cmd` 退出码为 0（`repairs/pfr_formalization-v2/paired/results.md`，取自 `evidence/runs/pfr_formalization-v2-paired-v1/` 和 `-v2/` 中的报告）。在修复版基线上做的类型探测显示，这五个目标的类型里都已没有 `sorryAx`。它们仅剩的 `sorryAx` 来自各自的 `sorry` 证明（`repairs/pfr_formalization-v2/paired/out/probe_v2_baseline.out`）。
 
-**分数与原始版可比。** 分母仍是 423。一份提交只要既没证这五个目标中的任何一个，也没证用到它们的引理，得分就和以前完全一样。
+分数与原始版可比。 分母仍是 423。一份提交只要既没证这五个目标中的任何一个，也没证用到它们的引理，得分就和以前完全一样。
 
 ## 我们如何检查
 
-- **原始评分器，来自按摘要固定的公开镜像**（工具链 v4.29.0）。在评分器镜像里运行任务的 `judge.eval_cmd`，同一时间只开一个容器，使用 `--network none`。评分对象是未改动的基线源码，以及 `PFR/HundredPercent.lean` 的两个正常变体，它们分别用 `Iff.rfl`（A）和 `constructor <;> intro h <;> exact h`（B）证明 `@[simp] mem_symmGroup`。实际使用的 `ListDeclAxiom.lean` 还检查 `weak_PFR` 和 `entropic_PFR_conjecture` 的 HASH 行，这两行在基线上为真。
-- **在镜像内统计。** 我们构建了基线的 `ListDeclAxiom` 列表，按与 `lean_analysis_proofs` 相同的目标规则和辅助名称模式给每个目标分类。镜像内的一个探测检查每个辅助目标自身是否含 `sorry`。
-- **类型探测。** 评分器镜像里的一个 Lean 探测（`EbvProbe.lean`）撇开证明，单独读这五个目标类型中的公理。原始版五个都含 `sorryAx`，修复版一个也没有。
-- **并排对照测试。** 在 E2B 工作节点上，用原始评分器和修复版评分器评同样的四份提交（`evidence/runs/pfr_formalization-v2-paired-v1/` 和 `-v2/`，均为 `status: exit=0`）。修复版作业用 `materialize.sh` 从公开镜像重建修复包。这一步重新构建 Lean，核对重新生成的列表与预期列表逐字节一致，再运行 `docker build`，然后在构建出的镜像里评分。
+- 我们运行了按摘要固定的公开镜像里的原始评分器（工具链 v4.29.0），在评分器镜像里运行任务的 `judge.eval_cmd`，同一时间只开一个容器，使用 `--network none`。评分对象是未改动的基线源码，以及 `PFR/HundredPercent.lean` 的两个正常变体，它们分别用 `Iff.rfl`（A）和 `constructor <;> intro h <;> exact h`（B）证明 `@[simp] mem_symmGroup`。实际使用的 `ListDeclAxiom.lean` 还检查 `weak_PFR` 和 `entropic_PFR_conjecture` 的 HASH 行，这两行在基线上为真。
+- 为了在镜像内统计，我们构建了基线的 `ListDeclAxiom` 列表，按与 `lean_analysis_proofs` 相同的目标规则和辅助名称模式给每个目标分类。镜像内的一个探测检查每个辅助目标自身是否含 `sorry`。
+- 评分器镜像里的一个 Lean 类型探测（`EbvProbe.lean`）撇开证明，单独读这五个目标类型中的公理。原始版五个都含 `sorryAx`，修复版一个也没有。
+- 在并排对照测试中，我们在 E2B 工作节点上用原始评分器和修复版评分器评同样的四份提交（`evidence/runs/pfr_formalization-v2-paired-v1/` 和 `-v2/`，均为 `status: exit=0`）。修复版作业用 `materialize.sh` 从公开镜像重建修复包。这一步重新构建 Lean，核对重新生成的列表与预期列表逐字节一致，再运行 `docker build`，然后在构建出的镜像里评分。
 
 ## 局限
 
@@ -67,7 +67,7 @@
 - 四个 `weak_PFR*` 目标会丢分，是从实测规则和上游证明结构推出来的，我们没有拿真实证明跑过。
 - 在确认缺陷和测试修复的评分器运行中，因为磁盘空间不够，eval_cmd 复制 7.0 GB `.lake` 这一步改成了只复制 `.lake/build`，再加一个指向 `.lake/packages` 的符号链接。其余每一步都原样执行，初始项目的得分与原样运行一致（0/423）。
 - 修复版工作镜像（`Dockerfile.work`）在干净机器的重建检查中构建过一次（`evidence/runs/materialize-check-pfr`，`status: exit=0`），镜像里修复后 `PFR/WeakPFR.lean` 的 sha256 与锁定值一致。还没有解题者在里面跑过。在固定的工作镜像里，每个 `PFR/*.lean` 文件都与评分器中的逐字节相同（作业 `pfr_formalization-v2-extract`）。为了省磁盘，这项检查得把工作镜像那一步挪到评分器步骤之后；现在 `materialize.sh` 本身就是这样做的。
-- **未经验证的部分及原因：五个实际目标的得分。** 要说明五个修复后目标的真实证明现在能得分，就需要这些定理的真实证明，而那要用到 PFR 项目的数学内容。我们没有这样的证明，只好用按同样方式陈述的引理代替。这一点记为已知局限。
+- 五个实际目标的得分没有经过验证。要说明五个修复后目标的真实证明现在能得分，就需要这些定理的真实证明，而那要用到 PFR 项目的数学内容。我们没有这样的证明，只好用按同样方式陈述的引理代替。这一点记为已知局限。
 - 用同一定理的正常证明做的测试只覆盖了一个模块。
 - 解题者如果改了定义或实例的主体（签名不变），依赖它们的辅助声明仍可能重新编号。我们没有测量这一点。
 - `AddCombi` 依赖与 PFR 内容重叠多少，我们没有检查。

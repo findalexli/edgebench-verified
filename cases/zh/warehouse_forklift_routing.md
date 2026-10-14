@@ -20,7 +20,7 @@
 
 本地工具不会给出任何警告，因为 `tools/bin/tester` 只给输出文件打分。按承诺的时间预算来做的解题者，会丢掉全部分数。
 
-**在发布方 4 个 CPU 的评分器上，原始版每个输入的 60 s 约合 30 s CPU 时间（同一版本中已修复）。** 时限按墙钟时间算，而评分器不管有几个 CPU，都运行 `ProcessPoolExecutor(max_workers=min(8, len(case_files)))`。EdgeBench 的排行榜设置给这个评分器 4 个 CPU（默认值，本任务没有另行设置；引文见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)），所以同时跑的 8 个输入每个约分到半个 CPU。在原始评分器下，单线程解题者只要每个输入用了超过约 30 s CPU，就会丢掉全部分数（半个 CPU 跑 60 s 墙钟时间；这是算出来的，实测的几组都超过了这个数）。只把时限提到 150 s，这样的解题者仍会在约 75 s CPU 处超时。我们在 `--cpus 4` 下测了这个只改时限的版本（150 s，同时 8 个）。每个输入做固定 80 s 或 140 s CPU 计算的有效解法，都是 2 OK + 48 TLE，没有分数（`evidence/runs/warehouse_forklift_routing-v2-cpu4-b/result/out/summary.txt`、`-cpu4-a`）。原始评分器对两者都是 50 TLE（`-cpu4-b`、`-cpu4-c`）。
+在发布方 4 个 CPU 的评分器上，原始版每个输入的 60 s 约合 30 s CPU 时间，同一个修复版纠正了这一点。 时限按墙钟时间算，而评分器不管有几个 CPU，都运行 `ProcessPoolExecutor(max_workers=min(8, len(case_files)))`。EdgeBench 的排行榜设置给这个评分器 4 个 CPU（默认值，本任务没有另行设置；引文见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)），所以同时跑的 8 个输入每个约分到半个 CPU。在原始评分器下，单线程解题者只要每个输入用了超过约 30 s CPU，就会丢掉全部分数（半个 CPU 跑 60 s 墙钟时间；这是算出来的，实测的几组都超过了这个数）。只把时限提到 150 s，这样的解题者仍会在约 75 s CPU 处超时。我们在 `--cpus 4` 下测了这个只改时限的版本（150 s，同时 8 个）。每个输入做固定 80 s 或 140 s CPU 计算的有效解法，都是 2 OK + 48 TLE，没有分数（`evidence/runs/warehouse_forklift_routing-v2-cpu4-b/result/out/summary.txt`、`-cpu4-a`）。原始评分器对两者都是 50 TLE（`-cpu4-b`、`-cpu4-c`）。
 
 ### 2. 分数刻度的参考点无法达到
 
@@ -32,7 +32,7 @@ TOTAL ≥ 712.538 > rank1 395.80，"super_anchor" 参考点（293.51）更低。
 
 ### 已检查、且发现不会改变分数的部分
 
-- **任务说明已经写明的一项规则改动。** 测试程序允许空载叉车开进被占用的格子。这比原始 CodeChef 规则宽松，但任务说明写清楚了。按哪种规则做的解题者，测试程序都接受。
+- 测试程序允许空载叉车开进被占用的格子。这比原始 CodeChef 规则宽松，但任务说明写清楚了。按哪种规则做的解题者，测试程序都接受。
 - 对角线构造恰好得 20.0 分，加一次 E,W 绕行得 20.2 分。
 - 测试程序把每个输入的分数打印到小数点后 1 位，TOTAL 因此最多偏 2.5 个原始分（能达到的最低显示 TOTAL 为 710.2），在上限处约合 100 分制的 0.3 分（30.308 → 30.586，`evidence/scripts/warehouse_forklift_routing/lean_bound/recompute_total.out.txt`）。
 - 失败累加成 `inf`，该提交没有分数，这和 README 里的"求和"一致。
@@ -41,8 +41,8 @@ TOTAL ≥ 712.538 > rank1 395.80，"super_anchor" 参考点（293.51）更低。
 
 ## 影响有多大
 
-- **时限。** 解题者只要在某个输入上用了 60–150 s（仍在承诺预算之内），就会丢掉全部分数。在发布方 4 个 CPU 的评分器上，单线程解题者只要在某个输入上用了超过约 30 s CPU，也是一样，因为同时跑的 8 个输入每个只分到约半个 CPU。更快的解题者不受影响。一直搜到墙钟截止时间（低于 60 s）才停的解题者，在 4 个 CPU 下每个输入只分到约半个 CPU。如果有一整个 CPU，它能多得多少分，我们没有测量。
-- **上限。** 每个解题者的 100 分制得分都封顶在约 30.6（显示舍入前为 30.3）。这是一个上界，实际能达到的最高分不知道，可能更低（见局限）。
+- 由于时限，解题者只要在某个输入上用了 60–150 s（仍在承诺预算之内），就会丢掉全部分数。在发布方 4 个 CPU 的评分器上，单线程解题者只要在某个输入上用了超过约 30 s CPU，也是一样，因为同时跑的 8 个输入每个只分到约半个 CPU。更快的解题者不受影响。一直搜到墙钟截止时间（低于 60 s）才停的解题者，在 4 个 CPU 下每个输入只分到约半个 CPU。如果有一整个 CPU，它能多得多少分，我们没有测量。
+- 由于分数上限，每个解题者的 100 分制得分都封顶在约 30.6（显示舍入前为 30.3）。这是一个上界，实际能达到的最高分不知道，可能更低（见局限）。
 
 ## 修复
 
@@ -70,14 +70,14 @@ TOTAL ≥ 712.538 > rank1 395.80，"super_anchor" 参考点（293.51）更低。
 
 修复版下，最慢的 140 s 输入从开始到结束耗时 140.58 s。4 个 CPU 下的评分最多耗时 1825.2 s，在 3600 s 的 `eval_timeout` 以内。最坏情况是 ⌈50/4⌉ = 13 轮 × (150 s + 30 s 测试程序超时) = 2340 s。
 
-**分数是否可比？** 确定性的提交，只要解题者在所用评分器上每个输入都在 60 s 内跑完，修复版给的分数就和原始版一样。在某个输入上用了 60–150 s 的提交，两版不可比，因为原始版让整份提交作废，修复版照常计分。在 CPU 少于 8 个的评分器上，一直搜到墙钟截止时间才停的解题者，在修复版下每个输入分到更多 CPU（4 个 CPU 时是 1 个 CPU，原来约 0.5 个），所以它在两个评分器下的分数不可比。和所有计时任务一样，接近时限的运行也可能因机器快慢而结果不同。参考点不变，所以 0–100 刻度（包括 ≈30.3、显示舍入后 ≈30.6 的上限）在两个版本中相同。
+确定性的提交，只要解题者在所用评分器上每个输入都在 60 s 内跑完，修复版给的分数就和原始版一样。在某个输入上用了 60–150 s 的提交，两版不可比，因为原始版让整份提交作废，修复版照常计分。在 CPU 少于 8 个的评分器上，一直搜到墙钟截止时间才停的解题者，在修复版下每个输入分到更多 CPU（4 个 CPU 时是 1 个 CPU，原来约 0.5 个），所以它在两个评分器下的分数不可比。和所有计时任务一样，接近时限的运行也可能因机器快慢而结果不同。参考点不变，所以 0–100 刻度（包括 ≈30.3、显示舍入后 ≈30.6 的上限）在两个版本中相同。
 
 ## 我们如何检查
 
-- **原始评分器，来自按摘要固定的公开镜像。** 在评分器镜像里以 `--network none` 原样运行 `eval_cmd`，解法以只读方式挂载，由本仓库的测试框架评分。测试提交包括一份通用的有效提交、它的一次重复、随附的初始文件、一份带无意错误的提交，以及带时间预算的解题者。我们另在评分器镜像里用测试程序跑了 16 份手写输出，与参照程序的预测 0 处不一致。
-- **独立参照。** 一个照题面文字写的模拟器，用精确的 `Fraction` 计分，支持两种规则模式（任务说明的规则和更严格的 CodeChef 规则）。与原始测试程序做差分测试，用了 20,000 个随机指令串和 2,000 份测试提交的输出（其中一半改了一个字符），结果全部一致。极小网格的精确最优值，来自 2x2、2x3 和 3x2 网格上两种规则下的 Dijkstra 最短路搜索。数据检查覆盖了全部 50 个评分输入（250 个子用例）和生成器种子 0..300,000。
-- **Lean 4 中的形式化检查。** 单用例下界是 `formal/lean/ebv/Ebv/WarehouseBound.lean` 里的定理 `EbvWarehouse.lower_bound`。Lean 内核在 Lean v4.34.1 和 Mathlib `d13f23b7` 下检验了它，没有 `sorry`，也没有 `native_decide`，还独立重新编译过。它只依赖 Lean 的标准公理 `[propext, Classical.choice, Quot.sound]`。`EbvWarehouse.score_bound` 给出单用例的分数下界。在 `Ebv/WarehouseData.lean` 中，`totalLB_eq` 和 `totalLB_gt` 给出 TOTAL 的下界，`displayed_gt_rank1` 处理显示舍入。这个定理并不空洞。模型接受一个 42 个字符的最优解（`opt23_accepted`），而去掉 −6(R+C−2) 项的更强下界已证明为假（`too_strong_bound_false`），暴力搜索找到的 248 个最优解中有 239 个违反那个更强的下界。证明没有用到"能否进入被占用格子"这一条件，所以在任务说明的规则和 CodeChef 规则下都成立。
-- **可重复性。** 原始版与只改时限的修复版在 `--cpus 2` 下并排对照跑了三次，结果不变（`data/paired-repeatability.md`）。`--cpus 4` 和 `--cpus 8` 下的 CPU 份额运行（`evidence/runs/warehouse_forklift_routing-v2-cpu4-a` 到 `-d`，都是 `status: exit=0`）各跑了三次（`-rep2`、`-rep3`），OK/TLE/WA/RE 计数和总分都相同（`repairs/warehouse_forklift_routing-v2/paired/results.md` 的 Repeatability 一节）。
+- 我们在按摘要固定的原始评分器镜像里以 `--network none` 原样运行 `eval_cmd`，解法以只读方式挂载，由本仓库的测试框架评分。测试提交包括一份通用的有效提交、它的一次重复、随附的初始文件、一份带无意错误的提交，以及带时间预算的解题者。我们另在评分器镜像里用测试程序跑了 16 份手写输出，与参照程序的预测 0 处不一致。
+- 作为独立参照，我们照题面文字写了一个模拟器，用精确的 `Fraction` 计分，支持两种规则模式（任务说明的规则和更严格的 CodeChef 规则）。与原始测试程序做差分测试，用了 20,000 个随机指令串和 2,000 份测试提交的输出（其中一半改了一个字符），结果全部一致。极小网格的精确最优值，来自 2x2、2x3 和 3x2 网格上两种规则下的 Dijkstra 最短路搜索。数据检查覆盖了全部 50 个评分输入（250 个子用例）和生成器种子 0..300,000。
+- 在 Lean 4 形式化检查中，单用例下界是 `formal/lean/ebv/Ebv/WarehouseBound.lean` 里的定理 `EbvWarehouse.lower_bound`。Lean 内核在 Lean v4.34.1 和 Mathlib `d13f23b7` 下检验了它，没有 `sorry`，也没有 `native_decide`，还独立重新编译过。它只依赖 Lean 的标准公理 `[propext, Classical.choice, Quot.sound]`。`EbvWarehouse.score_bound` 给出单用例的分数下界。在 `Ebv/WarehouseData.lean` 中，`totalLB_eq` 和 `totalLB_gt` 给出 TOTAL 的下界，`displayed_gt_rank1` 处理显示舍入。这个定理并不空洞。模型接受一个 42 个字符的最优解（`opt23_accepted`），而去掉 −6(R+C−2) 项的更强下界已证明为假（`too_strong_bound_false`），暴力搜索找到的 248 个最优解中有 239 个违反那个更强的下界。证明没有用到"能否进入被占用格子"这一条件，所以在任务说明的规则和 CodeChef 规则下都成立。
+- 我们把原始版与只改时限的修复版在 `--cpus 2` 下并排对照跑了三次，结果没有变化（`data/paired-repeatability.md`）。`--cpus 4` 和 `--cpus 8` 下的 CPU 份额运行（`evidence/runs/warehouse_forklift_routing-v2-cpu4-a` 到 `-d`，都是 `status: exit=0`）各跑了三次（`-rep2`、`-rep3`），OK/TLE/WA/RE 计数和总分都相同（`repairs/warehouse_forklift_routing-v2/paired/results.md` 的 Repeatability 一节）。
 
 ## 局限
 

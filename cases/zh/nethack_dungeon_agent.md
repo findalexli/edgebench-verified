@@ -51,8 +51,8 @@
 
 ## 我们如何检查
 
-- **原始评分器。** 在按摘要固定的原始公开镜像里，用默认环境变量运行未改动的 `python3 /tmp/eval_nethack.py`。机器有 8 个 vCPU、7.9 GB 内存，容器参数为 `--network none --memory 6g`，不限 CPU。提交是智能体工作镜像里随附的基线 `agent.py`。一共做了两次完整的默认评分，每次都套在 `timeout 1100` 里。
-- **种子诊断。** 一个脚本照评分器的做法调用 `env.seed()`，并检查包装器链。评分器自己的 `seed_process(0)` 和 `reset_env(env, 0)` 在 3 个独立进程中各跑一次。开局状态取指纹（reset 时 `glyphs`、`blstats` 和 `inv_strs` 的哈希）。
+- 我们在按摘要固定的原始公开镜像里，用默认环境变量运行未改动的原始评分器 `python3 /tmp/eval_nethack.py`。机器有 8 个 vCPU、7.9 GB 内存，容器参数为 `--network none --memory 6g`，不限 CPU。提交是智能体工作镜像里随附的基线 `agent.py`。一共做了两次完整的默认评分，每次都套在 `timeout 1100` 里。
+- 种子诊断用一个脚本，照评分器的做法调用 `env.seed()`，并检查包装器链。评分器自己的 `seed_process(0)` 和 `reset_env(env, 0)` 在 3 个独立进程中各跑一次。开局状态取指纹（reset 时 `glyphs`、`blstats` 和 `inv_strs` 的哈希）。
 - 已安装的软件包：`nle 1.2.0`、`gymnasium 1.0.0`、Python 3.10。
 
 ## 局限

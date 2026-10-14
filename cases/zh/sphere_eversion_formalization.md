@@ -33,8 +33,8 @@ Lean 编译器会自动生成辅助声明（`X._proof_N`、`X._simp_N` 等）。
 
 ## 我们如何检查
 
-- **在按摘要固定的原始公开镜像中运行原始评分器**（工具链 v4.28.0）。同一时间只跑一个容器，使用 `--network none`。以评分器未改动的初始源码为测试提交，一字不改地运行任务的 `judge.eval_cmd`。它把 `/home/workspace/baseline/.lake` 和 `/home/workspace/baseline/lake-manifest.json` 复制进提交，再重新构建整个项目。这两份清单并不相同，评分器镜像里 `baseline/lake-manifest.json` 的 sha256 是 `af7adc71…`，评分器仓库里 `sphere-eversion/lake-manifest.json` 的是 `c2b475de…`（`out/sphere_eversion_formalization/census.log`）。其中的 Mathlib 版本没有记录。做了这种替换后，初始项目得 0/661，没有 `type_changed`，也没有 `disappeared`。所有证明都是 `sorry` 时，连构建在内的完整评分运行约需 5.8 分钟（`native.log`，07:07:18–07:13:06），时限为 2,400 s。
-- **在镜像内统计。** 我们构建了初始项目的 `ListDeclAxiom` 列表，然后按与 `lean_analysis_proofs` 相同的目标规则和辅助名称模式给每个目标分类。镜像内的一个探测检查每个辅助目标自身是否含 `sorry`。实际使用的 `ListDeclAxiom.lean` 会为 `Gromov` 打印一行 HASH，这一行在初始项目上为真。
+- 我们在按摘要固定的原始公开镜像中运行原始评分器（工具链 v4.28.0）。同一时间只跑一个容器，使用 `--network none`。以评分器未改动的初始源码为测试提交，一字不改地运行任务的 `judge.eval_cmd`。它把 `/home/workspace/baseline/.lake` 和 `/home/workspace/baseline/lake-manifest.json` 复制进提交，再重新构建整个项目。这两份清单并不相同，评分器镜像里 `baseline/lake-manifest.json` 的 sha256 是 `af7adc71…`，评分器仓库里 `sphere-eversion/lake-manifest.json` 的是 `c2b475de…`（`out/sphere_eversion_formalization/census.log`）。其中的 Mathlib 版本没有记录。做了这种替换后，初始项目得 0/661，没有 `type_changed`，也没有 `disappeared`。所有证明都是 `sorry` 时，连构建在内的完整评分运行约需 5.8 分钟（`native.log`，07:07:18–07:13:06），时限为 2,400 s。
+- 为了在镜像内统计，我们构建了初始项目的 `ListDeclAxiom` 列表，然后按与 `lean_analysis_proofs` 相同的目标规则和辅助名称模式给每个目标分类。镜像内的一个探测检查每个辅助目标自身是否含 `sorry`。实际使用的 `ListDeclAxiom.lean` 会为 `Gromov` 打印一行 HASH，这一行在初始项目上为真。
 - 这里用不上单独的形式化模型，统计本身就是一次 Lean 运行。
 
 ## 局限
