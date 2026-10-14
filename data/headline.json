@@ -1,0 +1,134 @@
+{
+ "generated_by": "tools/build_impact_figures.py",
+ "tasks_examined": 51,
+ "tasks_with_problem": 32,
+ "fixed": 31,
+ "removed": 1,
+ "by_category": {
+  "engineering": 5,
+  "grader_logic": 15,
+  "instruction_mismatch": 9,
+  "scale_selection": 3
+ },
+ "measured_change_10_or_more": {
+  "count": 13,
+  "rule": "a measured change of at least 10 points out of 100, on our test submission or a real agent run, in one submission's score (or, for Order Addition, in the score the run keeps); computed limits do not count",
+  "in_one_submission": {
+   "count": 12,
+   "tasks": [
+    "arc_compiler_runtime",
+    "borden_source_inversion",
+    "college_english_exam_bank",
+    "ffmpeg_swscale_reimplementation",
+    "graph_node_classification",
+    "grid_turing_robot",
+    "integer_compression_codec",
+    "juliet_vulnerability_analyzer",
+    "molecular_self_assembly",
+    "rust_multicrate_reconstruction",
+    "treant_forest",
+    "triangulation_coloring_optimization"
+   ]
+  },
+  "in_the_kept_score_only": {
+   "count": 1,
+   "tasks": [
+    "order_addition_permutation_optimization"
+   ]
+  },
+  "not_counted": {
+   "exchange_core_throughput": "broken engines scored 4.71–24.40 instead of 0, but these speeds are within run-to-run noise (the side-by-side run gave 7.77 and about 4.7)",
+   "dabic_gravity_inversion": "the 46.06 is computed from the grader's penalty rule, not measured; the measured change is 1.04"
+  }
+ },
+ "real_run": {
+  "run": "third-party Claude Opus 5.5, one four-hour run per task (huggingface.co/datasets/adafadaq/edgebench-opus-5-5-xhigh-rollouts)",
+  "fixed_tasks_in_run": 9,
+  "regraded_with_both_checkers": 7,
+  "submissions_graded": 314,
+  "paired_gradings": 349,
+  "kept_score_changes": {
+   "order_addition_permutation_optimization": [
+    3.79,
+    41.24
+   ],
+   "integer_compression_codec": [
+    75.72,
+    53.95
+   ]
+  },
+  "single_submissions_change_kept_score_does_not": {
+   "juliet_vulnerability_analyzer": 25.26,
+   "molecular_self_assembly": 12.22
+  },
+  "problem_never_occurred": [
+   "tree_block_partitioning",
+   "graph_node_classification",
+   "schemathesis_config_modernization"
+  ],
+  "computed_not_run": {
+   "lean_analysis_proofs": [
+    96.86,
+    98.42
+   ]
+  },
+  "cannot_be_regraded": {
+   "borden_source_inversion": 60.1
+  },
+  "largest_single_submission_change": {
+   "order_addition_permutation_optimization": 0.0,
+   "integer_compression_codec": -29.68,
+   "lean_analysis_proofs": 4.95,
+   "juliet_vulnerability_analyzer": 25.26,
+   "molecular_self_assembly": 12.22
+  },
+  "source": "evidence/runs/opus55-regrade2-summary/summary.json"
+ },
+ "leaderboard": {
+  "published": {
+   "Opus 4.8": 44.2,
+   "GPT-5.5": 43.1
+  },
+  "scale_only": {
+   "Opus 4.8": [
+    45.92,
+    46.05
+   ],
+   "GPT-5.5": [
+    44.73,
+    44.86
+   ]
+  },
+  "documented_limits": {
+   "Opus 4.8": [
+    45.49,
+    47.3
+   ],
+   "GPT-5.5": [
+    44.3,
+    46.35
+   ]
+  },
+  "direction_only_counted_as_zero": 19,
+  "certified_order": false,
+  "rounding": "outward to 2 decimals, as in IMPACT.md",
+  "source": "data/impact.csv (scale_low/high, bounded_low/high); IMPACT.md",
+  "sentence_en": "On the published leaderboard, Opus 4.8 leads GPT-5.5 by 1.1 points (44.2 against 43.1). The corrections that can be computed from the public averages keep that order (45.92–46.05 against 44.73–44.86). Adding the per-task limits we documented widens the ranges to 45.49–47.30 and 44.30–46.35. These overlap, so the public data can no longer confirm which of the two is ahead. This does not show that they change places; deciding that needs the original submissions or new runs. These ranges count the 19 effects whose size is unknown as zero.",
+  "sentence_zh": "在已公布的排行榜上，Opus 4.8 以 1.1 分领先 GPT-5.5（44.2 对 43.1）。仅用公开平均分即可计算的修正保持这一顺序（45.92–46.05 对 44.73–44.86）。加入我们记录的各任务上限后，区间扩大到 45.49–47.30 和 44.30–46.35，两者重叠，因此仅凭公开数据已无法确认两者中哪个领先。这并不表明两者名次互换；要判定这一点，需要原始提交或重新运行。这些区间把 19 个只知道方向的影响计为零。"
+ },
+ "display_names": {
+  "arc_compiler_runtime": "Arc Compiler Runtime",
+  "borden_source_inversion": "Borden Source Inversion",
+  "college_english_exam_bank": "College English Exam Bank",
+  "ffmpeg_swscale_reimplementation": "FFmpeg swscale Reimplementation",
+  "graph_node_classification": "Graph Node Classification",
+  "grid_turing_robot": "Grid Turing Robot",
+  "integer_compression_codec": "Integer Compression Codec",
+  "juliet_vulnerability_analyzer": "Juliet Vulnerability Analyzer",
+  "molecular_self_assembly": "Molecular Self Assembly",
+  "order_addition_permutation_optimization": "Order Addition Permutation Optimization",
+  "rust_multicrate_reconstruction": "Rust Multicrate Reconstruction",
+  "treant_forest": "Treant Forest",
+  "triangulation_coloring_optimization": "Triangulation Coloring Optimization"
+ }
+}
