@@ -4,7 +4,7 @@
 
 ![Two horizontal bars for the same error-checking logic: returning a list of {level, message}, as the hidden tests expect, scores 69.26 out of 100; keeping the starter code's {ok, errors, warnings, program} scores 35.59. A note says type-checking tests passed 128 of 128 versus 0, and that the fix documents the format.](figures/arc_compiler_runtime.svg)
 
-*The same honest error checker scores 69.26 or 35.59 out of 100 in Arc Compiler Runtime, depending only on a return format that no instruction mentions. The agent completes a small compiler; hidden tests worth 33.67 points expect error reports as a list of {level, message}, while the starter code returns another format and nothing the agent can see says which is right. The fix documents the format in the task notes; the checker is unchanged, so the same code scores the same as before.*
+*In Arc Compiler Runtime the same error checker scores 69.26 or 35.59 out of 100, depending only on a return format that no instruction mentions. The agent completes a small compiler. Hidden tests worth 33.67 points expect error reports as a list of {level, message}; the starter code returns another format, and nothing the agent can see says which is right. The fix documents the format in the task notes. The checker is unchanged, so the same code scores the same as before.*
 
 ## What the task asks
 
