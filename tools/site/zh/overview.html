@@ -18,12 +18,12 @@
   </div>
   <div class="abstract">
     <h2>概要</h2>
-    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 用 51 个公开的工程和科学任务给 AI 智能体排名。每个任务里，智能体要工作好几个小时，提交的结果由一个隐藏的评分器打 0 到 100 分。我们像测试普通程序那样测试了每个评分器：分别给它正确的提交、有错误的提交，以及完全照任务说明完成的提交。<mark>51 个任务中，有 {{n_problem}} 个任务的评分器给部分提交打错了分。</mark>有的时限比承诺的更严，正确的解法因此得了零分；有的拒绝正确答案；有的给有错误的程序满分；有的执行任务说明里从未提到的规则；还有一个任务的分数刻度，让任何提交都超不过 21 分。我们为其中 {{repair-v2}} 个任务发布了修复，移除了 {{exclude}} 个任务。为了检验修复，我们用原始评分器和修复版评分器给同一批提交并排打分。凡是能找到公开智能体运行记录的任务，我们也重新评了分：其中一个任务里，那次运行的成绩从 3.8 分变为 41.2 分（满分 100）。仅凭公开的平均分无法重算排行榜，但这些数据足以说明，<mark>排行榜前两名的先后已经无法确认。</mark></p>
+    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 用 51 个公开的工程和科学任务给 AI 智能体排名。每个任务里，智能体要工作好几个小时，提交的结果由一个隐藏的评分器打 0 到 100 分。我们像测试普通程序那样测试了每个评分器：分别给它正确的提交、有错误的提交，以及完全照任务说明完成的提交。<mark>51 个任务中，有 {{n_problem}} 个任务的评分器给部分提交打错了分。</mark>这些评分器在比承诺更严的时限下给正确的解法打零分，拒绝正确答案，给有错误的程序满分，或者执行任务说明里从未写过的规则。有一个任务的分数刻度，任何提交都超不过 21 分。我们为其中 {{repair-v2}} 个任务发布了修复，移除了 {{exclude}} 个任务。为了检验修复，我们用原始评分器和修复版评分器给同一批提交并排打分。能找到公开智能体运行记录的任务，我们也给那次运行的提交重新评了分；在其中一个任务上，运行成绩从 3.8 分变为 41.2 分（满分 100）。仅凭公开的平均分无法重算排行榜，但这些数据足以说明，<mark>排行榜前两名的先后已经无法确认。</mark></p>
   </div>
   <div class="hl-grid" id="headline">
     <div><span class="hl-n">51</span><span class="hl-l">检查的公开任务</span></div>
     <div><span class="hl-n" data-count="n_problem">{{n_problem}}</span><span class="hl-l">评分器给部分提交打错分的任务：<span data-count="repair-v2">{{repair-v2}}</span> 个已修复，<span data-count="exclude">{{exclude}}</span> 个已移除。其余 <span data-count="retain-with-note">{{retain-with-note}}</span> 个保留（附说明）</span></div>
-    <div><span class="hl-n">{{headline:tasks_10pt}}</span><span class="hl-l">仅因问题本身，按规则完成的工作就损失 10 分或更多（满分 100）的任务（实测于单个提交，或一次运行最终保留的分数）</span></div>
+    <div><span class="hl-n">{{headline:tasks_10pt}}</span><span class="hl-l">问题本身让按规则完成的工作损失 10 分或更多（满分 100）的任务（在单个提交上实测，或按一次运行保留的分数计）</span></div>
     <div><span class="hl-n">{{headline:real_regraded}}</span><span class="hl-l">用一次真实智能体运行重新评分的已修复任务：{{headline:real_run_changed}} 个任务的运行成绩改变，另有 {{headline:real_subs_changed}} 个只有个别提交的分数改变，{{headline:real_never}} 个任务中问题从未出现</span></div>
     <div><span class="hl-n">{{headline:oa_orig}} → {{headline:oa_fixed}}</span><span class="hl-l">真实运行中成绩的最大变化，满分 100（{{task:order_addition_permutation_optimization|Order Addition}}）</span></div>
     <div><span class="hl-n">前两名</span><span class="hl-l">仅凭公开数据已无法确认两者的先后：公布成绩为 {{headline:top1_pub}} 对 {{headline:top2_pub}}，计入已记录的上限后，区间分别为 {{headline:top1_low}}–{{headline:top1_high}} 和 {{headline:top2_low}}–{{headline:top2_high}}</span></div>
@@ -45,9 +45,9 @@
 
 <section id="what" class="col">
   <h2 class="sec"><span class="num">2</span>我们做了什么</h2>
-  <p>对 51 个公开任务，我们逐个只问一个问题：智能体按规则正确完成了工作，能不能拿到任务承诺的分数？每条证据都追溯到原始评分器的代码和最终分数。运行真实评分器、测试评分器的组成部分、建立形式化模型，这几种方法回答的问题各不相同，任何一种单独都不足以验证当前的每一项修复（图&nbsp;3）。最后，每个任务得到以下三种结果之一：</p>
+  <p>我们对 51 个公开任务逐一检查同一个问题：智能体按规则正确完成任务，能不能拿到任务承诺的分数？我们把证据追溯到原始评分器的代码和最终分数。运行真实评分器、测试评分器的组成部分和建立形式化模型，回答的是不同的问题，任何一种方法都不能单独验证当前的每一项修复（图&nbsp;3）。最后，每个任务得到以下三种结果之一：</p>
   <ul class="tight">
-    <li><b class="o-repair-v2">已修复（{{repair-v2}} 个任务）。</b>评分器的逻辑、数据或配置可以改正。每项修复都作为该任务的新版本发布。各案例页说明并排对照测试覆盖了哪些情况、还有哪些集成工作没做；<a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">应用修复</a>列出了尚未完成的步骤。</li>
+    <li><b class="o-repair-v2">已修复（{{repair-v2}} 个任务）。</b>评分器的逻辑、数据或配置可以改正。我们把每项修复作为该任务的新版本发布。各案例页说明并排对照测试覆盖了哪些情况、还有哪些集成工作没做；<a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">应用修复</a>列出了尚未完成的步骤。</li>
     <li><b class="o-retain-with-note">保留（附说明）（{{retain-with-note}} 个任务）。</b>没有发现可以改正的问题。说明里记下了改评分器也消除不了的注意事项，例如不同运行之间、不同机器之间的波动。</li>
     <li><b class="o-exclude">已移除（{{exclude}} 个任务）。</b>不存在可靠的修复。</li>
   </ul>
@@ -68,7 +68,7 @@
   <h3 id="engineering"><span class="num">3.1</span>{{t:pcat.engineering}}<span class="hcount">{{pcat_count_engineering}}</span></h3>
   <p>{{t:pcat.engineering.blurb}}</p>
   <p class="pcat-tasks">{{pcat_tasks_engineering}}</p>
-  <p><span class="lead-in">{{task:rust_multicrate_reconstruction|Rust Multicrate}}：无法编译的隐藏测试。</span>智能体要重建一个由 14 个包组成的 Rust 项目，任务要求不得修改测试。评分器往全部 14 个包里加入隐藏测试，但在 search（12 分）和命令行程序（10 分）这两个包里，把测试放在了无法编译的位置。<mark>解题者只要不改动测试和配置，这两个包（共 22 分，满分 100）就只能得 0 分。</mark>同一个完整、正确的解法，原始评分器给 73.99 分，修复版给 94.70 分（满分 100），高出 20.71 分：search +11.29，命令行程序 +9.32，另有一项测试 +0.10，原始评分器因为前面的失败跳过了它。（解题者也可以打开 search 的 <code>parallel</code> 设置让它通过编译，这不需要修改任何测试；但任务里没有任何地方提示这种做法。）修复把隐藏测试放到能编译的位置，并运行每一个测试文件。</p>
+  <p><span class="lead-in">{{task:rust_multicrate_reconstruction|Rust Multicrate}}：无法编译的隐藏测试。</span>智能体要重建一个由 14 个包组成的 Rust 项目，任务要求不得修改测试。评分器往全部 14 个包里加入隐藏测试，但在 search（12 分）和命令行程序（10 分）这两个包里，把测试放在了无法编译的位置。<mark>解题者只要不改动测试和配置，这两个包（共 22 分，满分 100）就只能得 0 分。</mark>同一个完整、正确的解法，原始评分器给 73.99 分，修复版给 94.70 分（满分 100），高出 20.71 分，其中 search +11.29，命令行程序 +9.32，还有一项原始评分器因前面的失败而跳过的测试 +0.10。（解题者也可以打开 search 的 <code>parallel</code> 设置让它通过编译，这不需要修改任何测试；但任务里没有任何地方提示这种做法。）修复把隐藏测试放到能编译的位置，并运行每一个测试文件。</p>
   <p class="verif">{{verif:rust_multicrate_reconstruction}}</p>
   {{fig:rust_multicrate_reconstruction|rust_multicrate_reconstruction}}
   <p><span class="lead-in">{{task:grid_turing_robot|Grid Robot}}：八个测试用例共用四个处理器。</span>任务说明承诺每个测试用例有 30 秒。评分器同时运行八个用例，而 EdgeBench 的官方设置只给它四个处理器（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>），每个用例只能分到大约半个处理器。<mark>一个每个用例计算 16 秒的正常解法，在 50 个用例中有 48 个超时，而只要一个用例超时，整份提交就作废；修复后，同一解法拿到了应得的 19.80 分（满分 100）。</mark>修复让同时运行的用例数不超过评分器的处理器数。另有五个任务存在同样的问题：{{task:vibrating_path_graph_coloring|Vibrating Path}}、{{task:molecular_self_assembly|Molecular Assembly}}、{{task:apple_incremental_game|Apple Game}}、{{task:triangulation_coloring_optimization|Triangulation}} 和 {{task:warehouse_forklift_routing|Warehouse Routing}}。在 Molecular Assembly 的一次真实智能体运行中，修复让单个提交最多提高 12.22 分（满分 100；见<a href="{{root}}leaderboard.html#real-runs">真实运行</a>）。按截止时间停止的解法一般不会作废，但只能用到一半的计算时间。</p>
@@ -92,7 +92,7 @@
   {{fig:ffmpeg_swscale_reimplementation|ffmpeg_swscale_reimplementation}}
   <div class="removed-box">
     <h4>我们移除的唯一任务</h4>
-    <p><span class="lead-in">{{task:dabic_gravity_inversion|D-ABIC Gravity Inversion}}。</span><mark>约 42 分（满分 100；分两部分，分别为 12 分和 30 分）取自提交自己的结果文件，从未经过核实。</mark>要可靠地修复，评分器必须根据隐藏数据重新计算这些分数，所以我们移除了该任务。另一个问题是，任务说明允许两种公式，评分器却暗中对其中一种扣分。这个问题已经修复，但不足以保留该任务。</p>
+    <p><span class="lead-in">{{task:dabic_gravity_inversion|D-ABIC Gravity Inversion}}。</span><mark>约 42 分（满分 100；分两部分，分别为 12 分和 30 分）取自提交自己的结果文件，从未经过核实。</mark>要可靠地修复，评分器必须根据隐藏数据重新计算这些分数，所以我们移除了该任务。另一个问题是，任务说明允许两种公式，评分器却暗中对其中一种扣分。这个问题已经修复，但单修好它还不足以保留该任务。</p>
     <p class="verif">{{verif:dabic_gravity_inversion}}</p>
     {{fig:dabic_gravity_inversion|dabic_gravity_inversion}}
   </div>
@@ -109,7 +109,7 @@
   <p><span class="lead-in">{{task:juliet_vulnerability_analyzer|Juliet Analyzer}}：公开示例教的是错误的格式。</span>智能体要编写一个工具，找出 C 代码里的安全漏洞，并指出每个漏洞的起点。对命令注入漏洞，全部 38 个公开示例都把起点标在执行命令的那一行，而全部 120 个隐藏答案都标在读取输入的那一行，原始评分器只接受隐藏答案的写法。<mark>一个只找出命令注入缺陷、照公开示例写答案的分析器会损失 15 分（45.66 对 60.66，满分 100）</mark>；找出全部缺陷的分析器损失 2.49 分，最坏情况下损失 26.47 分（精确计算得出，未实际运行）。在一次真实智能体运行中，105 个提交里有 14 个受到影响，都是早期提交，其中两个相差约 25 分（70.00 对 95.22 和 95.26）；后来的提交和这次运行保留的成绩都不受影响。修复版评分器两种写法都接受。</p>
   <p class="verif">{{verif:juliet_vulnerability_analyzer}}</p>
   {{fig:juliet_vulnerability_analyzer|juliet_vulnerability_analyzer}}
-  <p><span class="lead-in">{{task:borden_source_inversion|Borden Inversion}}：评分器的物理模型与教科书不同。</span>智能体要根据监测井读数推断地下污染源的位置。评分器用一个物理模型预测读数，但任务说明从未交代这个模型的约定，例如它忽略了土壤孔隙度。<mark>按教科书方法拟合的正常答案得 7.03 分，同样的拟合改用评分器的约定则得 31.2 分</mark>（这是该任务 0–109 范围内的原始结果；折合满分 100 为 6.45 分和 28.62 分）。在一次真实智能体运行中（评分器没有改动，同一答案在两个版本下得分相同），36 份提交的最佳成绩从 7.01 升到 60.10，而评分器每次提交后都会报告答案在隐藏监测井上的误差。修复后的任务把评分器所用的模型提供给智能体。</p>
+  <p><span class="lead-in">{{task:borden_source_inversion|Borden Inversion}}：评分器的物理模型与教科书不同。</span>智能体要根据监测井读数推断地下污染源的位置。评分器用一个物理模型预测读数，但任务说明从未交代这个模型的约定，例如它忽略了土壤孔隙度。<mark>按教科书方法拟合的正常答案得 7.03 分，同样的拟合改用评分器的约定则得 31.2 分</mark>（这是该任务 0–109 范围内的原始结果；折合满分 100 为 6.45 分和 28.62 分）。在一次真实智能体运行中（评分器没有改动，同一答案在两个版本下得分相同），36 份提交的最佳成绩从 7.01 升到 60.10，其间评分器每次提交后都报告答案在隐藏监测井上的误差。修复后的任务把评分器所用的模型提供给智能体。</p>
   <p class="verif">{{verif:borden_source_inversion}}</p>
   {{fig:borden_source_inversion|borden_source_inversion}}
 
@@ -135,7 +135,7 @@
 
 <section id="impact" class="col">
   <h2 class="sec"><span class="num">4</span>对已发布排行榜的影响</h2>
-  <p>EdgeBench 没有公开智能体的提交，因此算不出修正后的排行榜。能做的检验只有一项：有第三方公开了一个模型在 16 个公开任务上的一次四小时运行，其中九个任务我们修复过。我们用原始评分器和修复版评分器给这些提交重新打分。在那次运行中，有些问题确实影响了智能体，有些则从未出现（见下图）。</p>
+  <p>EdgeBench 没有公开智能体的提交，因此算不出修正后的排行榜。我们能做的检验只有一项。有第三方公开了一个模型在 16 个公开任务上的一次四小时运行，其中九个任务我们修复过。我们用原始评分器和修复版评分器给这些提交重新打分。在那次运行中，有些问题确实影响了智能体，有些则从未出现（见下图）。</p>
   {{fig:real-runs}}
   <p>在公布的排行榜上，Opus&nbsp;4.8 以 {{headline:top_gap}} 分领先 GPT-5.5（{{headline:top1_pub}} 对 {{headline:top2_pub}}）。只用公开平均分就能计算的修正不改变这一顺序：{{headline:top1_scale_low}}–{{headline:top1_scale_high}} 对 {{headline:top2_scale_low}}–{{headline:top2_scale_high}}。再计入我们记录的各任务影响上限，区间扩大到 {{headline:top1_low}}–{{headline:top1_high}} 和 {{headline:top2_low}}–{{headline:top2_high}}。<mark>两个区间重叠，所以仅凭公开数据已无法确认哪个模型领先。</mark>这并不说明两者名次互换；要判断这一点，需要原始提交或重新运行。凡是在排行榜上影响大小未知的修复，这些区间都按零计算。</p>
   <p class="note">{{rank_text}}</p>
@@ -152,21 +152,21 @@
     <li><b>追踪到最终分数。</b>问题只有改变了按规则完成的提交所得的 0–100 分，才会计入。</li>
     <li><b>对照原版和修复版，</b>使用相同的测试提交：共 {{n_cmp}} 项评分对照，其中 {{n_cmp3}} 项运行了三次。</li>
   </ol>
-  <p>51 个任务中有 {{formal_tasks}} 个有形式化结果，包括 {{lean_thms}} 个 Lean 定理和 {{tla_runs}} 次 TLA+ 模型检验运行。<mark>在明确限定的模型内，已保存的形式化结果证明了 {{fix_proved}} 项修复（其中 {{fix_earlier}} 项针对修复的早期版本），另有 {{fix_partly}} 项部分证明。它们不证明修复的后续版本、整个评分器或已发布的镜像。</mark>形式化检验也纠正了我们自己：有一项已发布的修复，实际覆盖范围比我们说的窄，现已修订。</p>
+  <p>51 个任务中有 {{formal_tasks}} 个有形式化结果，包括 {{lean_thms}} 个 Lean 定理和 {{tla_runs}} 次 TLA+ 模型检验运行。<mark>在明确限定的模型内，已保存的形式化结果证明了 {{fix_proved}} 项修复（其中 {{fix_earlier}} 项针对修复的早期版本），另有 {{fix_partly}} 项部分证明。它们不证明修复的后续版本、整个评分器或已发布的镜像。</mark>形式化检验还查出了我们自己的一处错误。有一项已发布的修复，实际覆盖范围比我们公布的窄，我们已经作了修订。</p>
   <p class="more-link"><a href="{{root}}method.html">完整的方法：每个步骤、形式化结果表&nbsp;2，以及局限</a></p>
 </section>
 
 <section id="lessons" class="col">
   <h2 class="sec"><span class="num">6</span>经验</h2>
   <ul class="tight">
-    <li><b>先运行原始评分器，再推理。</b>大多数问题是读代码时发现的，但要靠一份能触发问题的提交才能坐实。有几项看似合理的发现没能过这一关。</li>
+    <li><b>先运行原始评分器，再推理。</b>大多数问题是我们读代码时发现的，但要靠一份能触发问题的提交才能坐实。有几项看似合理的发现没能过这一关。</li>
     <li><b>形式化工具适合小而明确的问题。</b>一个错误的定理、一个算术缺口、一个下界和一个别名缺陷，都得到了确定的结论。大多数评分器问题涉及约定、文件格式或时间，处理这类问题，任何证明都不如一次并排对照运行省事。</li>
-    <li><b>证明是否有用，取决于它和代码的联系。</b>对 {{task:lean_analysis_proofs|Lean Analysis}}，我们在该任务自己的镜像中、用它自己的定义陈述反驳。对 {{task:warehouse_forklift_routing|Warehouse}}，我们在 294 个字符串上把模型和真实的测试程序对照，并把每个 TLA+ 步骤对应到一行源代码。没有这些联系，证明论证的就是别的东西了。</li>
+    <li><b>证明需要和它描述的代码对应起来。</b>对 {{task:lean_analysis_proofs|Lean Analysis}}，我们在该任务自己的镜像中、用它自己的定义陈述反驳。对 {{task:warehouse_forklift_routing|Warehouse}}，我们在 294 个字符串上把模型和真实的测试程序对照，并把每个 TLA+ 步骤对应到一行源代码。</li>
     <li><b>每项检查都需要反向检验，因为不可能失败的检查什么也说明不了。</b>每个 TLA+ 模型都有一个必定失败的配置，每个 Lean 证明都打印它依赖的公理，每项修复都应该分别拿正确和错误的工作来测试；实际覆盖范围见各案例页。</li>
-    <li><b>形式化证明也检查了我们自己的工作。</b>我们把部分修复机制写成 Lean 或 TLA+ 模型，结果发现一项修复的覆盖范围比发布时说的窄，还发现八处表述不够精确。每一处都是在某次证明尝试于一个我们没想到要测的情形上失败时发现的。</li>
+    <li><b>形式化证明也检查了我们自己的工作。</b>我们把部分修复机制写成 Lean 或 TLA+ 模型，结果发现一项修复的覆盖范围比发布时说的窄，还发现八处表述不够精确。每一处的发现，都是因为某次证明尝试在我们没想到要测的情形上失败了。</li>
     <li><b>要在发布方的机器设置下测试。</b>我们第一轮并排对照测试在 8 个 CPU 上运行评分器。排行榜的设置给大多数评分器 4 个 CPU，而在 4 个 CPU 下，有六个评分器会让在 8 个 CPU 下能通过的按规则完成的工作超时。我们起初还以为 {{task:smt_solver|SMT Solver}} 分到 4 个，其实它的设置给了 16 个。代码在两种设置下都没有错，出错的是机器和代码的组合。</li>
-    <li><b>没参与过这项工作的审查者，发现了我们漏掉的问题。</b>第二轮审查者不了解我们的背景。他们发现了 CPU 问题、{{task:rust_multicrate_reconstruction|Rust Multicrate}} 中两个隐藏测试问题、{{task:git_rewrite_in_zig|Git in Zig}} 中未公开的检查，以及 {{task:pfr_formalization|PFR}} 中一个隐藏的占位符，这些大多出现在我们原本保留的任务里；他们还指出我们自己的几项修复需要扩展或修订。每一项随后都靠一次运行来定论，而不是靠论证。</li>
-    <li><b>要测试修复是否达到目的，不只测它改了什么。</b>{{task:integer_compression_codec|Integer Codec}} 的第一版修复完全按文档改正了基线，也通过了每一项测试，但真实提交表明它让分数刻度饱和了。拿真实的智能体工作检查修复，发现了证明和我们自己写的测试都没发现的问题。</li>
+    <li><b>没参与过这项工作的审查者，发现了我们漏掉的问题。</b>第二轮审查者不了解我们的背景。他们发现了 CPU 问题、{{task:rust_multicrate_reconstruction|Rust Multicrate}} 中两个隐藏测试问题、{{task:git_rewrite_in_zig|Git in Zig}} 中未公开的检查，以及 {{task:pfr_formalization|PFR}} 中一个隐藏的占位符，这些大多出现在我们原本保留的任务里；他们还指出我们自己的几项修复需要扩展或修订。每一项后来都用一次运行定论。</li>
+    <li><b>要测试修复是否达到目的，不只测它改了什么。</b>{{task:integer_compression_codec|Integer Codec}} 的第一版修复完全按文档改正了基线，也通过了每一项测试，但真实提交表明它让分数刻度饱和了。证明和我们自己写的测试都没发现这一点，拿真实的智能体工作检查修复才发现了它。</li>
   </ul>
 </section>
 
