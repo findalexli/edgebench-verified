@@ -24,7 +24,7 @@ The correctness check rejected the empty program, and the correct starting kerne
 
 - **Scorer isolation** is outside this release's scope (an EdgeBench design choice). No scoring defect affecting solvers that follow the rules was found.
 
-**Note shipped with the task.** This release does not evaluate scorer isolation (an EdgeBench design choice). The two good controls run (the starter kernel and an empty program) were scored correctly on the original evaluator.
+**Note shipped with the task.** This release does not evaluate scorer isolation (an EdgeBench design choice). The two controls run (the starter kernel and an empty program, which should fail) were scored correctly on the original evaluator.
 
 ## How much it matters
 

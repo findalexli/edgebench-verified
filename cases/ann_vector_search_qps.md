@@ -24,7 +24,7 @@ The note that ships with the task says: QPS depends on the machine, and three is
 
 ## How much it matters
 
-Across three isolated gradings on three fresh workers with the same CPU model, the same configuration's raw result moved between 551 and 713 QPS. The scale is logarithmic, `100 · ln(QPS / 3108) / ln(21472 / 3108)`, so a speed ratio of 1.29 moves a score by 13.3 points out of 100 (about ±7 points per grading) for any submission between 3108 and 21472 QPS. The earlier shared-process gradings on one local machine gave a ratio of 1.31, or 13.9 points, so the isolated repeats confirm the size of the effect. The correct test submissions here are all below 3108 QPS and score 0, so this effect is computed from the scale, not observed in a score. Recorded agent runs on this task score 23.8–59.7 out of 100 (`tasks/README.md`), inside that range, so the effect applies at the scores agents reach. The task keeps each run's best submission (`score_first`), so variation between gradings can raise a run's recorded best. Whether variation between machines changes every algorithm's speed by the same factor was not tested. Scores out of 100 are not comparable across machines, and repeated gradings on one machine are not exactly repeatable.
+Across three isolated gradings on three fresh workers with the same CPU model, the same configuration's raw result moved between 551 and 713 QPS. The scale is logarithmic, `100 · ln(QPS / 3108) / ln(21472 / 3108)`, so a speed ratio of 1.29 moves a score by 13.3 points out of 100 (about ±7 points per grading) for any submission between 3108 and 21472 QPS. The earlier shared-process gradings on one local machine gave a ratio of 1.31, or 13.9 points, so the isolated repeats confirm the size of the effect. The valid test submissions here are all below 3108 QPS and score 0, so this effect is computed from the scale, not observed in a score. Recorded agent runs on this task score 23.8–59.7 out of 100 (`tasks/README.md`), inside that range, so the effect applies at the scores agents reach. The task keeps each run's best submission (`score_first`), so variation between gradings can raise a run's recorded best. Whether variation between machines changes every algorithm's speed by the same factor was not tested. Scores out of 100 are not comparable across machines, and repeated gradings on one machine are not exactly repeatable.
 
 The task does not change; the note above ships with it.
 
@@ -63,7 +63,7 @@ The task does not change; the note above ships with it.
 
 ## Reproduce
 
-- Run the unchanged original grader in the pinned image (`sha256:aa2856a379c1…`) with a correct `custom/` module mounted at `ann_benchmarks/algorithms/custom`. Use `--network none --cpus 4 --memory 8g`, and run `python3 /tmp/eval_ann_search.py` from `/home/workspace/ann-benchmarks`.
+- Run the unchanged original grader in the pinned image (`sha256:aa2856a379c1…`) with a valid `custom/` module mounted at `ann_benchmarks/algorithms/custom`. Use `--network none --cpus 4 --memory 8g`, and run `python3 /tmp/eval_ann_search.py` from `/home/workspace/ann-benchmarks`.
 - The isolated repeats: `evidence/runs/ann_vector_search_qps-ivf-isolated-cpu4m8g-rep{1,2,3}/run.sh` with the test submissions in `inputs/`, run with `tools/e2b_run.py --job <dir>`.
 - For local development, the prompt's own command is `python run.py --local --algorithm custom --dataset sift-128-euclidean -k 10 --runs 1 --run-disabled`.
 - Full image digest and grader hash: `evidence/reviews/ann_vector_search_qps.md`.

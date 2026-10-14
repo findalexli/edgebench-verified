@@ -83,7 +83,7 @@ MEASURED = {
         en='−1.03 (limit 1.03)', zh='−1.03（上限 1.03）'),
     'schemathesis_config_modernization': dict(v=0.625, sign='-', src=('cases/schemathesis_config_modernization.md', 'at k = 15 that is 1/160, the measured −0.006250'),
         en='−0.625 (limit 0.625)', zh='−0.625（上限 0.625）'),
-    'arc_compiler_runtime': dict(v=33.67, sign='', src=('cases/arc_compiler_runtime.md', 'the same correct analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter'),
+    'arc_compiler_runtime': dict(v=33.67, sign='', src=('cases/arc_compiler_runtime.md', 'the same good-faith analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter'),
         en='33.67 (69.26 vs 35.59)', zh='33.67（69.26 对 35.59）'),
     'juliet_vulnerability_analyzer': dict(v=15.00, sign='+', src=('cases/juliet_vulnerability_analyzer.md', 'An analyzer that finds only the 120 CWE-78 bugs loses 15.00 points (measured: 45.66 against 60.66).'),
         en='+15.00; real run +{real} · limit 26.47', zh='+15.00；真实运行 +{real} · 上限 26.47'),
@@ -169,12 +169,12 @@ T = {
         rr_foot='So the problems do reach real agents, though not every time. The run does not measure the effect on the 12-hour leaderboard.',
     ),
     'zh': dict(
-        ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务的问题本身让按要求完成的工作实测少得 10 分或更多',
+        ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务的问题本身让按规则完成的工作实测少得 10 分或更多',
         ov_sub='每个问题发生时，对一份受影响的提交影响多大（满分 100 分）。',
         leg_test='在我们的测试提交上实测', leg_real='在一次真实智能体运行上实测',
         leg_bar='已证明或计算出的上限：变化不会更大', leg_comp='按真实运行计算，未实际运行',
         dir_head='只知道方向', dir_head2='（大小未知）',
-        foot1=('+ / −：修复版评分器给分更多 / 更少。无符号：两份按要求完成的提交之间的差距，二者只差在一项未说明的约定上'
+        foot1=('+ / −：修复版评分器给分更多 / 更少。无符号：两份按规则完成的提交之间的差距，二者只差在一项未说明的约定上'
                '（Arc：错误报告格式；Borden：物理模型），评分器不变。'),
         foot2='对大多数任务，这些问题在排行榜上发生的频率未知。',
         rr_title='重新评分一次真实智能体运行：{nr} 个任务中有 {nk} 个的运行成绩发生变化',
@@ -842,8 +842,8 @@ def build():
     big_subs = max(abs(rr[t]['big']) for t in subs_only)
     zh = {
         'impact-overview': dict(
-            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务的问题本身让按要求完成的工作实测少得 10 分或更多（满分 100）。'
-                     '有错误或空白的工作错误地得到的分数（College English、FFmpeg）画在图中，但不计入。Arc 和 Borden 的数值是两份按要求完成的提交之间的差距，'
+            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务的问题本身让按规则完成的工作实测少得 10 分或更多（满分 100）。'
+                     '有错误或空白的工作错误地得到的分数（College English、FFmpeg）画在图中，但不计入。Arc 和 Borden 的数值是两份按规则完成的提交之间的差距，'
                      '二者只差在一项未说明的约定上。修复后的新刻度带来的变化（Integer Codec）不计入。每一行显示问题发生时对一份提交的'
                      '影响：实心标记是实测变化；空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，'
                      '我们不知道这些问题在排行榜上发生得有多频繁。'),

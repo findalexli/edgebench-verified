@@ -119,7 +119,7 @@
   "action": "Kept, with a note: the 25 weighted statements (total weight 87) match the task's list exactly, and none was found out of reach."
  },
  "git_rewrite_in_zig": {
-  "headline": "Undisclosed file checks can score a working program 0; after the fix a correct git still earns 100",
+  "headline": "Undisclosed file checks give a good-faith program 0; after the fix a correct git still earns 100",
   "about": "Rewrite git, the widely used version-control tool, in the Zig programming language so it works as a drop-in replacement for the original.",
   "problem": "Before scoring, the grader checks the submitted folder, and any failed check sets the whole score to 0. The instructions do not mention these checks. A compiled leftover such as the `main` and `main.o` that `zig build-exe` writes, or a test that runs the system git to compare results (which the instructions encourage), each scored 0 in our tests. Separately, the grader runs one test script per machine core regardless of its CPU limit; with 8 scripts sharing 1 CPU, two scripts hit the 120-second limit.",
   "effect": "A good-faith submission that trips a check loses its whole score (up to 100 points). The time limit costs a correct git 2.6 points with 8 scripts per CPU, and nothing at 4 or fewer.",
@@ -130,7 +130,7 @@
   "about": "Predict the category of every test node (a point in a network) of a graph, scored on several accuracy measures, with penalties for time and memory use.",
   "problem": "The grader throws away predictions that are not whole numbers, such as text or blanks, pairs the remaining predictions with the first labels in order, and still marks the run valid. A test submission we wrote with one real prediction and the rest junk was scored on one node per round and counted as valid. Out-of-range confidence values were also checked and are harmless. Separately, predictions keyed by whole-number node IDs, which the instructions allow, match no node: such a run scores 0 and still counts as valid.",
   "effect": "Submissions with missing or non-numeric predictions: the added chance can raise a run's kept best score (general proof), but no gain for a real solver was shown. A submission keyed by whole-number node IDs loses its whole score; none of the real solver submissions we regraded was keyed that way.",
-  "action": "Fixed in a new version: node IDs are matched as text, so whole-number IDs work, and every test node must get a whole-number category, otherwise the run is marked invalid. Correct submissions keyed by string node IDs score the same, apart from timing noise (under 0.03 points); correct submissions keyed by integer node IDs, which the original scored 0, now score like their string-keyed twins."
+  "action": "Fixed in a new version: node IDs are matched as text, so whole-number IDs work, and every test node must get a whole-number category, otherwise the run is marked invalid. Contract-following submissions keyed by string node IDs score the same, apart from timing noise (under 0.03 points); contract-following submissions keyed by integer node IDs, which the original scored 0, now score like their string-keyed twins."
  },
  "grid_turing_robot": {
   "headline": "On the publisher's 4-CPU grader, a solution within the 30-second limit can void the whole submission",

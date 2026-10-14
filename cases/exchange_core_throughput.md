@@ -61,7 +61,7 @@ The fixed version also pre-loads 30 missing public files from Maven Central (sur
 | unmodified engine, original image without the added files | setup check | RE, 0 | — |
 | unmodified engine (correct test submission, run 1) | valid | OK 2050 | integration tests OK (33 tests), OK 2153 |
 | unmodified engine (correct test submission, run 2) | valid | OK 2210 | integration tests OK, OK 2978 |
-| `topo21` correct variant | valid | OK 2524 | integration tests OK, OK 2481 |
+| `topo21` good-faith variant | valid | OK 2524 | integration tests OK, OK 2481 |
 | `feeswap` (fee swap, balance kept at zero) | **shows the problem** | **OK 2269** | **WA 0 (integration tests failed)** |
 | `dropevents` (user events not forwarded) | **shows the problem** | **OK 2234** | **WA 0 (integration tests failed)** |
 | `feeleak` | invalid | RE 0 | WA 0 |

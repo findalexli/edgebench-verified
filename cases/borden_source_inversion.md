@@ -58,7 +58,7 @@ In the table, "Cap" is the score ceiling the grader applies to that submission; 
 
 The shipped `forward_model.py` matches the grader's model with max |diff| = 0.0 over all 656 answer-key rows. The fixed-version solver ran in the fixed working image with no network, using only files the agent can see. It converged to the same point as the grader-convention fit.
 
-**Score compatibility.** For any given `answer.json`, raw results are identical under the original and fixed versions. The fixed version reports `score_0_100 = raw·100/109`, which the original version did not define. Original raw results are on 0–109. Agent runs on the fixed version are **not** comparable with agent runs on the original version, because the fixed version tells solvers the convention (a solver's fit: 7.0 → about 31 raw).
+**Score compatibility.** For any given `answer.json`, raw results are identical under the original and fixed versions. The fixed version reports `score_0_100 = raw·100/109`, which the original version did not define. Original raw results are on 0–109. Agent runs on the fixed version are **not** comparable with agent runs on the original version, because the fixed version tells solvers the convention (the same least-squares fit: 7.0 → about 31 raw).
 
 ## How we checked it
 

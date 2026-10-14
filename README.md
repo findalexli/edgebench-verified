@@ -85,7 +85,7 @@ can appear under a secondary category too.
 
 ### 1. Engineering and runtime environment (5 tasks)
 
-The checker's scoring rules may be right, but it does not run correctly in the setting where it is actually used. Typical causes: test cases run at once on fewer CPUs than they need, so correct solutions time out; hidden tests are inserted where they do not compile; files the checker needs are missing from the published images; a test run stops at its first failure and counts the rest as failed; or a result depends on timing. Correct work then loses points for reasons unrelated to its quality.
+The checker's scoring rules may be right, but it does not run correctly in the setting where it is actually used. Typical causes: test cases run at once on fewer CPUs than they need, so good-faith solutions time out; hidden tests are inserted where they do not compile; files the checker needs are missing from the published images; a test run stops at its first failure and counts the rest as failed; or a result depends on timing. Good-faith work then loses points for reasons unrelated to its quality.
 
 - *Rust Multicrate: hidden tests that cannot compile.* The agent rebuilds a 14-package Rust project
   and is told not to edit the tests. The checker adds hidden tests to all 14 packages, and in two of

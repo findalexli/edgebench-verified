@@ -24,8 +24,8 @@
   "text": "成本计算的成对对照已验证；用例集上 9.67 分的影响是一个未达到的上限（10 - 0.5·2/30·10）；没有在全部六道题上运行逐题的评分器检查。"
  },
  "exchange_core_throughput": {
-  "en": "Integration-test gate validated: two one-edit bugs drop from ~2250 to 0, correct engines keep scoring within throughput noise; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate with 33 tests; package rebuilt from scratch on a clean machine (materialize-check-g1). The post-average Maven failure path is tested only on a constructed arm.",
-  "text": "集成测试门槛已验证：两个只改一处的缺陷从约 2250 降到 0，正确的引擎照常得分，差异在吞吐量噪声范围内；在排行榜设置下（--cpus 4 --memory 8g，3 个作业），v2 以 33 项测试通过门槛；修复包在一台干净的机器上从零重建（materialize-check-g1）。平均值之后 Maven 失败的路径只在一个构造的对照组上测试过。"
+  "en": "Integration-test gate validated: two one-edit bugs drop from ~2250 to 0, good-faith engines keep scoring within throughput noise; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate with 33 tests; package rebuilt from scratch on a clean machine (materialize-check-g1). The post-average Maven failure path is tested only on a constructed arm.",
+  "text": "集成测试门槛已验证：两个只改一处的缺陷从约 2250 降到 0，正常的引擎照常得分，差异在吞吐量噪声范围内；在排行榜设置下（--cpus 4 --memory 8g，3 个作业），v2 以 33 项测试通过门槛；修复包在一台干净的机器上从零重建（materialize-check-g1）。平均值之后 Maven 失败的路径只在一个构造的对照组上测试过。"
  },
  "ffmpeg_swscale_reimplementation": {
   "en": "Current v2.2 judge image built, and rebuilt from scratch on a clean machine (materialize-check-final); three paired native full-scorer controls passed, including valid output and exact-zero rejection. Full source-build eval_cmd and whole-task certification remain unverified.",

@@ -25,7 +25,7 @@
 - 在 `div` 中，两个假设都是关于 `f` 的，`g` 不受任何约束。反例：I = Icc 1 2，f = 1，g = id。
 - 预期：按原意陈述写出的正确证明应该得分。实际：它打印出的类型不同，被判为 "type changed"（类型已改变）。不含 `sorry` 的提交都拿不到这两分。在别处用这些错误引理也得不了分，因为公理检查会追踪每一个依赖。
 
-**2. 编译器生成的辅助目标让评分取决于证明风格。** Lean 编译一个定义或实例时，还会生成一些名字自动生成的隐藏辅助声明，例如 `X._proof_N`、`X._simp_N`、`X.eq_N` 和 `X.match_N`。父声明含 `sorry` 时，这些辅助项也依赖 `sorryAx`，所以评分器把它们单独列为目标。2901 个目标中有 559 个带有这样的名字（`evidence/scripts/lean_aux_names/aux_targets.txt`）；修复版的过滤器排除了 560 个，即这 559 个加上 `Chapter5.ExtendedReal._sizeOf_inst`，其父声明 `Chapter5.ExtendedReal` 是一个目标。任务从来没提过它们。只有正确的构建恰好生成一个**名字相同、打印类型也相同**的辅助项，这个辅助项才得分，而这取决于父声明是怎么证明的：
+**2. 编译器生成的辅助目标让评分取决于证明风格。** Lean 编译一个定义或实例时，还会生成一些名字自动生成的隐藏辅助声明，例如 `X._proof_N`、`X._simp_N`、`X.eq_N` 和 `X.match_N`。父声明含 `sorry` 时，这些辅助项也依赖 `sorryAx`，所以评分器把它们单独列为目标。2901 个目标中有 559 个带有这样的名字（`evidence/scripts/lean_aux_names/aux_targets.txt`）；修复版的过滤器排除了 560 个，即这 559 个加上 `Chapter5.ExtendedReal._sizeOf_inst`，其父声明 `Chapter5.ExtendedReal` 是一个目标。任务从来没提过它们。只有正常构建生成一个**名字相同、打印类型也相同**的辅助项时，这个辅助项才得分，而这取决于父声明是怎么证明的：
 
 - **同样的事实，不同的策略。** setoid 的自反性和对称性用项模式或策略模式证明时，`PreInt.instSetoid._proof_1` 得分。同样的事实改用 `omega` 证明时，`omega` 先生成了自己的辅助项，原来的证明义务挪到了 `_proof_3`，这个目标被判为 "type changed"。两种证明都对，`omega` 那一种少得 1 分。
 - **试过的每种风格都丢分。** 父声明 `Int.equivInt` 得了分，但 `Int.equivInt._proof_1..4` 在每个变体中都丢分：在 T、S、W 和 X 中为 "type changed"，在 U 中为三个 "type changed" 加一个 "disappeared"（已消失）。有的重新编号，有的合并成一个辅助项，还有一个把绑定符打印成 `∀ (h : PreInt) (b : PreInt)`，而不是 `∀ (a b : PreInt)`。
