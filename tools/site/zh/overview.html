@@ -53,10 +53,10 @@
   <h2 class="sec"><span class="num">3</span>问题出在哪里</h2>
   <p>每个存在问题的任务（共 {{n_problem}} 个：{{repair-v2}} 个已修复，{{exclude}} 个已移除）都有一个主要类别，按其主要缺陷的机制确定，还可能有次要类别。共有四个类别：</p>
   <ul class="tight">
-    <li><b>{{t:pcat.engineering}}</b>（{{pcat_count_engineering}}）：评分器在实际环境中不能正确运行。</li>
-    <li><b>{{t:pcat.grader_logic}}</b>（{{pcat_count_grader_logic}}）：评分器把错误的工作判为正确，或把正确的工作判为错误。</li>
-    <li><b>{{t:pcat.instruction_mismatch}}</b>（{{pcat_count_instruction_mismatch}}）：评分器要求了任务说明没有写明的东西，或与任务说明相矛盾。</li>
-    <li><b>{{t:pcat.scale_selection}}</b>（{{pcat_count_scale_selection}}）：0–100 分的刻度无法达到、参考点有误，或保留了错误的提交。</li>
+    <li><b><a href="#engineering">{{t:pcat.engineering}}</a></b>（{{pcat_count_engineering}}）：评分器在实际环境中不能正确运行。</li>
+    <li><b><a href="#grader_logic">{{t:pcat.grader_logic}}</a></b>（{{pcat_count_grader_logic}}）：评分器把错误的工作判为正确，或把正确的工作判为错误。</li>
+    <li><b><a href="#instruction_mismatch">{{t:pcat.instruction_mismatch}}</a></b>（{{pcat_count_instruction_mismatch}}）：评分器要求了任务说明没有写明的东西，或与任务说明相矛盾。</li>
+    <li><b><a href="#scale_selection">{{t:pcat.scale_selection}}</a></b>（{{pcat_count_scale_selection}}）：0–100 分的刻度无法达到、参考点有误，或保留了错误的提交。</li>
   </ul>
   <p>下面每个类别先给出通俗的解释和所属任务，再给出有代表性的例子。全部任务列在<a href="{{root}}tasks/index.html">任务</a>页，可按类别筛选；每个任务都有完整的案例，包括测试提交、独立检验和修复。下文中的每个任务名称都链接到其页面。</p>
 

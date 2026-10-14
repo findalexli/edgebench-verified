@@ -408,7 +408,7 @@ def generated_prose(P, D, num):
         out[f'pcat_count_{k}'] = t('pcat.count', n=len(D['pcat'][k]))
         line = t('pcat.tasks_line', n=len(D['pcat'][k]), tasks=links(D['pcat'][k]), href=f'{P.root}tasks/index.html#{k}')
         if D['pcat2'][k]:
-            line += (' ' if P.L.code == 'en' else '') + t('pcat.secondary_line', tasks=links(D['pcat2'][k]))
+            line += '<br>' + t('pcat.secondary_line', tasks=links(D['pcat2'][k]))
         out[f'pcat_tasks_{k}'] = line
     return out
 
