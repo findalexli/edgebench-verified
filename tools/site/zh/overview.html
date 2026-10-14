@@ -10,7 +10,7 @@
 </style>
 <header class="title">
   <h1>EdgeBench Verified</h1>
-  <p class="subtitle">我们检验了为 51 个公开 EdgeBench 任务打分的隐藏评分器</p>
+  <p class="subtitle">我们逐一检查了 EdgeBench 51 个公开任务的评分器，其中 {{n_problem}} 个存在各种问题</p>
   <div class="meta">
     <span>版本 1.0</span><span>2026 年 10 月 12 日</span>
     <a href="https://github.com/findalexli/edgebench-verified">GitHub 上的代码、数据和修复</a>
@@ -18,7 +18,7 @@
   </div>
   <div class="abstract">
     <h2>概要</h2>
-    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 用 51 个公开的工程和科学任务给 AI 智能体排名。每个任务里，智能体要工作好几个小时，提交的结果由一个隐藏的评分器打 0 到 100 分。我们像测试普通程序那样测试了每个评分器：分别给它正确的提交、有错误的提交，以及完全照任务说明完成的提交。<mark>51 个任务中，有 {{n_problem}} 个任务的评分器给部分提交打错了分。</mark>有的评分器在比承诺更严的时限下给正确的解法打零分，有的拒绝正确答案，有的给有错误的程序满分，有的执行任务说明里从未写过的规则。有一个任务的分数刻度，任何提交都超不过 21 分。我们为其中 {{repair-v2}} 个任务发布了修复，移除了 {{exclude}} 个任务。为了检验修复，我们用原始评分器和修复版评分器给同一批提交并排打分。能找到公开智能体运行记录的任务，我们也给那次运行的提交重新评了分；在其中一个任务上，运行成绩从 3.8 分变为 41.2 分（满分 100）。仅凭公开的平均分无法重算排行榜，但这些数据足以说明，<mark>排行榜前两名的先后已经无法确认。</mark></p>
+    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 用 51 个公开的工程和科学任务给 AI 智能体排名。智能体在每个任务上工作数小时，提交的结果由一个不公开的评分器打分，满分 100。我们把每个评分器当作一段普通程序来测：分别交给它正确的作品、有错误的作品，以及完全照任务说明做的作品，看它打的分对不对。<mark>结果有 {{n_problem}} 个任务的评分器会打错分</mark>，问题五花八门：有的时限比说明里承诺的更紧，正确的解法因此拿了零分；有的把正确答案判错；有的给有错误的程序满分；有的执行任务说明里从没提过的规则；还有一个任务的分数刻度定得太高，任何提交都超不过 21 分。我们修复了其中 {{repair-v2}} 个任务，移除了 {{exclude}} 个。每个修复都经过对照检验：用原始评分器和修复版评分器给同一批提交打分。有公开运行记录的任务，我们还把那次运行的提交重新评了分；其中一个任务的运行成绩从 3.8 分变成 41.2 分。仅凭公开的平均分没法重算排行榜，但这些数据足以说明，<mark>排行榜前两名谁先谁后已经无法确认。</mark></p>
   </div>
   <div class="hl-grid" id="headline">
     <div><span class="hl-n">51</span><span class="hl-l">检查的公开任务</span></div>
@@ -45,7 +45,7 @@
 
 <section id="what" class="col">
   <h2 class="sec"><span class="num">2</span>我们做了什么</h2>
-  <p>我们对 51 个公开任务逐一检查同一个问题：智能体按规则正确完成任务，能不能拿到任务承诺的分数？我们把证据追溯到原始评分器的代码和最终分数。运行真实评分器、测试评分器的组成部分和建立形式化模型，回答的是不同的问题，任何一种方法都不能单独验证当前的每一项修复（图&nbsp;3）。最后，每个任务得到以下三种结果之一：</p>
+  <p>51 个公开任务，我们每个都问同一个问题：智能体按规则把任务做对了，能不能拿到任务承诺的分数？每个结论都追到原始评分器的代码和最终分数。我们用了三种手段：直接运行评分器，单独测试它的某个部分，建立形式化模型。三者回答的问题不同，哪一种都不能单独验证所有修复（图&nbsp;3）。每个任务最后有三种结果：</p>
   <ul class="tight">
     <li><b class="o-repair-v2">已修复（{{repair-v2}} 个任务）。</b>评分器的逻辑、数据或配置可以改正。我们把每项修复作为该任务的新版本发布。各案例页说明并排对照测试覆盖了哪些情况、还有哪些集成工作没做；<a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">应用修复</a>列出了尚未完成的步骤。</li>
     <li><b class="o-retain-with-note">保留（附说明）（{{retain-with-note}} 个任务）。</b>没有发现可以改正的问题。说明里记下了改评分器也消除不了的注意事项，例如不同运行之间、不同机器之间的波动。</li>
@@ -56,14 +56,14 @@
 
 <section id="findings" class="col">
   <h2 class="sec"><span class="num">3</span>问题出在哪里</h2>
-  <p>每个有问题的任务（共 {{n_problem}} 个：{{repair-v2}} 个已修复，{{exclude}} 个已移除）都按主要缺陷的机制归入一个主要类别，有的还另有次要类别。四个类别如下：</p>
+  <p>有问题的 {{n_problem}} 个任务（{{repair-v2}} 个已修复，{{exclude}} 个已移除）按主要问题分成四类，有的任务同时涉及其他类别：</p>
   <ul class="tight">
     <li><b><a href="#engineering">{{t:pcat.engineering}}</a></b>（{{pcat_count_engineering}}）：评分器在实际环境里运行不正常。</li>
     <li><b><a href="#grader_logic">{{t:pcat.grader_logic}}</a></b>（{{pcat_count_grader_logic}}）：评分器把错误的工作判为正确，或把正确的工作判为错误。</li>
     <li><b><a href="#instruction_mismatch">{{t:pcat.instruction_mismatch}}</a></b>（{{pcat_count_instruction_mismatch}}）：评分器要求了任务说明没写的东西，或与任务说明矛盾。</li>
     <li><b><a href="#scale_selection">{{t:pcat.scale_selection}}</a></b>（{{pcat_count_scale_selection}}）：0–100 分的刻度达不到、参考点有误，或保留了错误的提交。</li>
   </ul>
-  <p>下面每个类别先用通俗的话解释并列出所属任务，再举两到五个例子，每例配一幅图。全部任务列在<a href="{{root}}tasks/index.html">任务</a>页，可以按类别筛选；每个任务都有完整的案例，包括测试提交、独立检验和修复。下文每个任务名都链接到对应页面。</p>
+  <p>下面逐类说明，每类举两到五个例子，各配一幅图。全部任务都在<a href="{{root}}tasks/index.html">任务</a>页，可以按类别筛选；点任务名可以打开它的完整案例，包括测试提交、独立检验和修复。</p>
 
   <h3 id="engineering"><span class="num">3.1</span>{{t:pcat.engineering}}<span class="hcount">{{pcat_count_engineering}}</span></h3>
   <p>{{t:pcat.engineering.blurb}}</p>
