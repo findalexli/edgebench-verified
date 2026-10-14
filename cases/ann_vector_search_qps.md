@@ -35,16 +35,16 @@ The task does not change; the note above ships with it.
 
 | Worker | Test submission | Grader verdict | Recall | QPS | Raw score (`TOTAL_SCORE`) | Score out of 100 |
 |---|---|---|---|---|---|---|
-| rep1 | IVF-flat, nprobe 32 (honest) | OK | 0.9777 | 713 | 713 | 0 |
-| rep2 | IVF-flat, nprobe 32 (honest) | OK | 0.9777 | 650 | 650 | 0 |
-| rep3 | IVF-flat, nprobe 32 (honest) | OK | 0.9777 | 551 | 551 | 0 |
+| rep1 | IVF-flat, nprobe 32 | OK | 0.9777 | 713 | 713 | 0 |
+| rep2 | IVF-flat, nprobe 32 | OK | 0.9777 | 650 | 650 | 0 |
+| rep3 | IVF-flat, nprobe 32 | OK | 0.9777 | 551 | 551 | 0 |
 | rep1 | IVF-flat, nprobe 1 (control) | WA | 0.3642 | 12,761 | 0 | 0 |
 | rep2 | IVF-flat, nprobe 1 (control) | WA | 0.3642 | 12,988 | 0 | 0 |
 | rep3 | IVF-flat, nprobe 1 (control) | WA | 0.3642 | 11,237 | 0 | 0 |
 
 - **Earlier gradings (2026-10-12).** On a shared local machine with 2 CPUs, `--memory 3g` and no network:
 
-| Honest test submission | Recall | QPS |
+| Good-faith test submission | Recall | QPS |
 |---|---|---|
 | exact FAISS flat search | 0.9993 | 31 |
 | FAISS IVF-flat (nlist 1024, nprobe 32) | 0.9777 | 935, 1,222, 1,094 (three gradings) |

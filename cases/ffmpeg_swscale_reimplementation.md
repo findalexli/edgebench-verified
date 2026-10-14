@@ -26,7 +26,7 @@ Several timed configurations never appear in the correctness set: RGBA→RGB24, 
 
 Each variant below models ordinary step-by-step development: a path that is not written yet, or a plain bug. Results on the original grader:
 
-| Variant (honest behaviour modelled) | Correctness | Raw result | Score out of 100 (`log_anchor`) | Workload driving the change |
+| Variant (good-faith behaviour modelled) | Correctness | Raw result | Score out of 100 (`log_anchor`) | Workload driving the change |
 |---|---|---|---|---|
 | Variant 0: shipped starting code, unchanged | 30/30 | 0.4585 | 0 | n/a |
 | Variant 1: returns error -3 for RGBA→RGB24 ("not implemented yet") | 30/30 | **1.3938** | **5.39** | rgba→rgb24 4K: 16,469× |

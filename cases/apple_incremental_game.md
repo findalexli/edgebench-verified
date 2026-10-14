@@ -35,7 +35,7 @@ Paired run at `--cpus 4` (one pair at `--cpus 8`), same solutions on both grader
 
 | Solution | CPUs | Original grader | Fixed version |
 | --- | ---: | --- | --- |
-| honest control, no extra work | 4 | 50 OK, TOTAL 99,714,418 (5.04) | 50 OK, TOTAL 99,714,418 (5.04) |
+| greedy control, no extra work | 4 | 50 OK, TOTAL 99,714,418 (5.04) | 50 OK, TOTAL 99,714,418 (5.04) |
 | **20 s of CPU per case** | 4 | **2 OK, 48 TLE, TOTAL 3,955,266 (0.00)** | **50 OK, TOTAL 99,714,418 (5.04)** |
 | **28 s of CPU per case** | 4 | **2 OK, 48 TLE, TOTAL 3,955,266 (0.00)** | **50 OK, TOTAL 99,714,418 (5.04)** |
 | works until a 25 s wall-clock deadline | 4 | 50 OK, TOTAL 99,714,418; mean 13.00 s CPU per case | 50 OK, TOTAL 99,714,418; mean 24.99 s CPU per case |

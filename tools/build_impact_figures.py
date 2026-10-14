@@ -68,7 +68,7 @@ MEASURED = {
         en='+6.21 (perfect solver)', zh='+6.21（完美求解器）'),
     'ffmpeg_swscale_reimplementation': dict(v=18.93, sign='-', src=('cases/ffmpeg_swscale_reimplementation.md', '| Variant 2: returns error -3 for 3:1 downscale | 30/30 | **3.2112** | **18.93** |'),
         en='−18.93', zh='−18.93'),
-    'dabic_gravity_inversion': dict(v=1.04, sign='+', src=('data/decisions.json', 'honest model-space directive 25.77→26.81'),
+    'dabic_gravity_inversion': dict(v=1.04, sign='+', src=('data/decisions.json', 'good-faith model-space directive 25.77→26.81'),
         en='+1.04 (measured)', zh='+1.04（实测）'),
     'cta_risk_budget_optimization': dict(v=5.00, sign='±', src=('cases/cta_risk_budget_optimization.md', '| leveraged: overseas 45% of NAV, 37.5% of CNY gross | 58.75, `cross_border` 5 | **53.75**, `cross_border` 1 |'),
         en='±5.00 (limit 5)', zh='±5.00（上限 5）'),
@@ -88,14 +88,14 @@ MEASURED = {
     'juliet_vulnerability_analyzer': dict(v=15.00, sign='+', src=('cases/juliet_vulnerability_analyzer.md', 'An analyzer that finds only the 120 CWE-78 bugs loses 15.00 points (measured: 45.66 against 60.66).'),
         en='+15.00; real run +{real} · limit 26.47', zh='+15.00；真实运行 +{real} · 上限 26.47'),
     # raw 7.031 vs 31.200 on the 0-109 raw scale; out of 100: 6.45 vs 28.62
-    'borden_source_inversion': dict(v=22.17, sign='', src=('cases/borden_source_inversion.md', '| grader-convention fit (review, own re-implementation) | honest | 31.200 | 31.200 | None | 28.62 |'),
-        src2=('cases/borden_source_inversion.md', '| textbook ADE fit (review regression case) | honest, wrong convention | 7.031 | 7.031 | None | 6.45 |'),
+    'borden_source_inversion': dict(v=22.17, sign='', src=('cases/borden_source_inversion.md', '| grader-convention fit (review, own re-implementation) | good faith | 31.200 | 31.200 | None | 28.62 |'),
+        src2=('cases/borden_source_inversion.md', '| textbook ADE fit (review regression case) | good faith, wrong convention | 7.031 | 7.031 | None | 6.45 |'),
         en='22.17 (28.62 vs 6.45)', zh='22.17（28.62 对 6.45）'),
     'triangulation_coloring_optimization': dict(v=48.66, sign='+', src=('cases/triangulation_coloring_optimization.md', '| **20 s of CPU per case** | 4 | **2 OK, 8 TLE, `inf` (no score)** | **2 OK, 8 TLE, `inf`** | 10 OK, 863,058 (48.95) | **10 OK, 874,742 (48.66)** |'),
         en='+48.66 (time-limit part; was no score)', zh='+48.66（时限部分；原为无分）'),
     'portfolio_risk_calibration': dict(v=0.07, sign='+', src=('cases/portfolio_risk_calibration.md', '| 32.45; excess 3.44% | **32.52**; excess 3.47%'),
         en='+0.07', zh='+0.07'),
-    'treant_forest': dict(v=13.32, sign='+', src=('cases/treant_forest.md', '| Honest greedy | fixed | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |'),
+    'treant_forest': dict(v=13.32, sign='+', src=('cases/treant_forest.md', '| Greedy | fixed | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |'),
         en='+13.32 (3.04 → 16.36)', zh='+13.32（3.04 → 16.36）'),
 }
 # Values the MEASURED entries derive from, checked exactly.

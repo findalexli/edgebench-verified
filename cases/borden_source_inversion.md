@@ -48,11 +48,11 @@ In the table, "Cap" is the score ceiling the grader applies to that submission; 
 
 | Test submission | Kind | Original grader, raw | Fixed grader, raw | Original grader, out of 100 | Fixed grader, out of 100 | Cap (both) | Hidden / future rRMSE |
 |---|---|---|---|---|---|---|---|
-| textbook ADE fit (review regression case) | honest, wrong convention | 7.031 | 7.031 | None | 6.45 | cap15 | 2.583 / 1.852 |
-| grader-convention fit (review, own re-implementation) | honest | 31.200 | 31.200 | None | 28.62 | cap45 | 0.552 / 0.200 |
-| **fixed-version fit using only the shipped `forward_model.py`** (fitted inside the fixed working image) | honest | 31.199 | 31.199 | None | 28.62 | cap45 | 0.552 / 0.200 |
+| textbook ADE fit (review regression case) | good faith, wrong convention | 7.031 | 7.031 | None | 6.45 | cap15 | 2.583 / 1.852 |
+| grader-convention fit (review, own re-implementation) | good faith | 31.200 | 31.200 | None | 28.62 | cap45 | 0.552 / 0.200 |
+| **fixed-version fit using only the shipped `forward_model.py`** (fitted inside the fixed working image) | good faith | 31.199 | 31.199 | None | 28.62 | cap45 | 0.552 / 0.200 |
 | bound-midpoint baseline | shipped baseline | 7.012 | 7.012 | None | 6.43 | cap15 | 2.622 / 1.925 |
-| hidden true source | reference point for 100 (not an honest submission) | 109.000 | 109.000 | None | 100.00 | none | 0 / 0 |
+| hidden true source | reference point for 100 (not a good-faith submission) | 109.000 | 109.000 | None | 100.00 | none | 0 / 0 |
 | out-of-bounds answer (C0=5000, half_length_x=500) | invalid | 4.000 | 4.000 | None | 3.67 | cap15 | 9.265 / 2.671 |
 | no `answer.json` | invalid | 0 | 0 | None | 0.00 | — | — |
 

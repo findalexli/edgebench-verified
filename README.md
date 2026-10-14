@@ -7,8 +7,8 @@ engineering and science tasks. An agent works on each task for up to 12 hours, a
 grader scores its work from 0 to 100. A ranking is only as trustworthy as those graders.
 
 EdgeBench Verified is an independent check of the grader of every one of the 51 publicly released
-EdgeBench tasks. For each task we asked one question: **if an agent does honest, correct work, does
-it get the score the task promises?**
+EdgeBench tasks. For each task we asked one question: **if an agent solves the task correctly and by
+the rules, does it get the score the task promises?**
 
 ## The short answer
 
@@ -246,7 +246,7 @@ Evidence ranges from source inspection and original-helper controls to full nati
    - Other checks use exact arithmetic, a second implementation or exhaustive search.
    Every result and its limits: [evidence/formal/SUMMARY.md](evidence/formal/SUMMARY.md).
 3. **Following each problem to the final score.** A problem counts only if it changes the 0–100
-   score of honest work; problems that change no score are recorded as notes.
+   score of a good-faith submission; problems that change no score are recorded as notes.
 4. **Historical paired checks.** Original and repaired components or graders were compared on the same inputs. The intended acceptance checks were:
    - the problem is gone;
    - correct work keeps its score;

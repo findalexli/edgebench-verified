@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 GROUPS = [
     ("Kept: real issues that do not change scores",
-     "The issue is real, but it cannot change an honest agent's score out of 100 by a meaningful amount, or the task states it openly, and no change to the grader is needed.",
+     "The issue is real, but it cannot change the score of a good-faith submission out of 100 by a meaningful amount, or the task states it openly, and no change to the grader is needed.",
      ["bipedalwalker_locomotion_rl", "vehicle_routing_time_windows",
       "ordinal_notation_well_foundedness"]),
     ("Kept: scores that depend on chance, machine speed or network access",
@@ -71,7 +71,7 @@ def main():
         out.append("")
     rest = sorted(set(d) - seen, key=lambda t: names[t])
     out += ["## Kept: no problem found", "",
-            "The grader scores honest work as the task promises. Each of these tasks carries a short usage note.", "",
+            "The grader scores good-faith work as the task promises. Each of these tasks carries a short usage note.", "",
             "| Task | What we checked |", "| --- | --- |"]
     out += [f"| [{names[t]}](cases/{t}.md) | {plain[t]['headline']} |" for t in rest]
     (ROOT / 'FINDINGS.md').write_text('\n'.join(out) + '\n')

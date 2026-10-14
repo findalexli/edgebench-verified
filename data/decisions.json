@@ -16,8 +16,8 @@
  {
   "task_id": "ann_vector_search_qps",
   "proposed": "retain-with-note",
-  "finding": "QPS host-dependent: three isolated gradings of one honest IVF-flat config on the original evaluator at --cpus 4 --memory 8g (3 fresh E2B workers) gave 551–713 QPS (1.29-fold, 13.3 of 100 points on the log scale between the anchors; earlier shared-process local gradings 935–1,222, 13.9); nprobe=1 control rejected each time (recall 0.3642, WA, score 0); scorer isolation out of scope",
-  "max_effect": "none for honest solvers (no scoring error); grading-to-grading QPS noise about ±7 of 100 points between the anchors",
+  "finding": "QPS host-dependent: three isolated gradings of one IVF-flat config on the original evaluator at --cpus 4 --memory 8g (3 fresh E2B workers) gave 551–713 QPS (1.29-fold, 13.3 of 100 points on the log scale between the anchors; earlier shared-process local gradings 935–1,222, 13.9); nprobe=1 control rejected each time (recall 0.3642, WA, score 0); scorer isolation out of scope",
+  "max_effect": "none for good-faith solvers (no scoring error); grading-to-grading QPS noise about ±7 of 100 points between the anchors",
   "status": "final (v1.0)",
   "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
@@ -55,10 +55,10 @@
  {
   "task_id": "borden_source_inversion",
   "proposed": "repair-v2",
-  "finding": "Hidden forward model uses an undisclosed non-physical convention (mass-rate as mass, no porosity, mg/m³ as mg/L, source plane at box bottom); one-shot honest textbook fit scores at baseline; raw score uncapped (109)",
-  "max_effect": "≈24 raw points for a one-shot honest fit (7.0 vs 31.2); smaller for agents iterating on feedback (one reached 60.10)",
+  "finding": "Hidden forward model uses an undisclosed non-physical convention (mass-rate as mass, no porosity, mg/m³ as mg/L, source plane at box bottom); one-shot textbook fit scores at baseline; raw score uncapped (109)",
+  "max_effect": "≈24 raw points for a one-shot good-faith fit (7.0 vs 31.2); smaller for agents iterating on feedback (one reached 60.10)",
   "status": "final (v1.0)",
-  "repair": "accepted (documentation + rescale): a forward_model.py identical in code to the judge's is shipped with an exact README description of the convention; linear 0–109 rescale; every arm scores identically raw in v1 and v2; an honest solver using only the shipped v2 files reaches 31.2 raw (28.6 normalized) vs 7.03 for a textbook model",
+  "repair": "accepted (documentation + rescale): a forward_model.py identical in code to the judge's is shipped with an exact README description of the convention; linear 0–109 rescale; every arm scores identically raw in v1 and v2; a good-faith solver using only the shipped v2 files reaches 31.2 raw (28.6 normalized) vs 7.03 for a textbook model",
   "package": "repairs/borden_source_inversion-v2/",
   "validation_status": "Two side-by-side native runs and their repeats (all finished) give identical raw results under the original and fixed versions; the shipped forward model equals the grader's; 109 is the exact computable maximum; package rebuilt from scratch on a clean machine (materialize-check-g3). No agent run on v2; the effect rests on one textbook variant.",
   "problem_category": "instruction_mismatch",
@@ -88,7 +88,7 @@
  {
   "task_id": "combinatorial_games_formalization",
   "proposed": "retain-with-note",
-  "finding": "Shared Lean grader: native census shows honest term- and tactic-style proofs earn identical credit (16/3732); 0 targets found unattainable (lower bound); aux targets 25.1% of weight but stable",
+  "finding": "Shared Lean grader: native census shows correct term- and tactic-style proofs earn identical credit (16/3732); 0 targets found unattainable (lower bound); aux targets 25.1% of weight but stable",
   "max_effect": "0 measured",
   "status": "final (v1.0)"
  },
@@ -112,7 +112,7 @@
   "finding": "42 of the points come from self-reported JSON the judge cannot verify; an undisclosed data-space-only gate also penalised the model-space form the prompt allows (fixed in a partial v2)",
   "max_effect": "42 points unverifiable; form gate 46.06 at C = 26 and 48.06 at C = 30 (grows with C) at strong tier",
   "status": "final (v1.0)",
-  "repair": "accepted: undisclosed form gate removed; honest model-space directive 25.77→26.81 (structural_failure true→false); invalid control unchanged — PARTIAL: form gate fixed, but self-reported credit remains, so the task is excluded from this release",
+  "repair": "accepted: undisclosed form gate removed; good-faith model-space directive 25.77→26.81 (structural_failure true→false); invalid control unchanged — PARTIAL: form gate fixed, but self-reported credit remains, so the task is excluded from this release",
   "package": "repairs/dabic_gravity_inversion-v2/ (partial fix; task removed)",
   "problem_category": "grader_logic",
   "secondary_problem_categories": [
@@ -144,9 +144,9 @@
   "finding": "Correctness gate misses fee/event errors; incorrect engines get full credit; note: CPU budget unstated (nproc shows 8 under a 4-CPU quota); at 4 CPUs the original grader gave the shipped engine 939–1059 raw (7 runs) < 0-anchor 2090.6 (0/100) vs 3418–4638 at 8 CPUs; the prompt's 2ME+1RE tip ran 1644–2091 at 4 CPUs (4 runs; 0–0.02/100) and at 8 CPUs its single run, 4122, is within the shipped engine's 3418–4638 (ranking changes with CPU count; measured)",
   "max_effect": "full credit for an incorrect engine (two one-edit bugs passed the check; their higher raw scores in single runs are within throughput noise); at 4 grader CPUs engines below ~2.09 MT/s score 0 (anchor provenance unknown; kept)",
   "status": "final (v1.0)",
-  "repair": "accepted: project integration tests gate scoring; feeswap/dropevents OK ~2250 → WA 0; honest engines keep scoring (throughput noise up to 38%, unmodified engine 2,008–3,105 raw); a timed run whose Maven test fails after logging its average now scores 0 (tested only on a constructed shutdown-failure arm, 6 v2 runs); v2 pre-seeds Maven artifacts so it grades offline; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate (33 tests) and scores the shipped engine 811-1194 raw and topo21 1684-1832 vs v1 965-1059 and 1644-1994 on the same workers (all 0/100; v2 within throughput noise of v1, shipped 811-1194 vs 939-1059 over all seven v1 4-CPU runs)",
+  "repair": "accepted: project integration tests gate scoring; feeswap/dropevents OK ~2250 → WA 0; correct engines keep scoring (throughput noise up to 38%, unmodified engine 2,008–3,105 raw); a timed run whose Maven test fails after logging its average now scores 0 (tested only on a constructed shutdown-failure arm, 6 v2 runs); v2 pre-seeds Maven artifacts so it grades offline; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate (33 tests) and scores the shipped engine 811-1194 raw and topo21 1684-1832 vs v1 965-1059 and 1644-1994 on the same workers (all 0/100; v2 within throughput noise of v1, shipped 811-1194 vs 939-1059 over all seven v1 4-CPU runs)",
   "package": "repairs/exchange_core_throughput-v2/",
-  "validation_status": "Integration-test gate validated: two one-edit bugs drop from ~2250 to 0, honest engines keep scoring within throughput noise; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate with 33 tests; package rebuilt from scratch on a clean machine (materialize-check-g1). The post-average Maven failure path is tested only on a constructed arm.",
+  "validation_status": "Integration-test gate validated: two one-edit bugs drop from ~2250 to 0, correct engines keep scoring within throughput noise; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate with 33 tests; package rebuilt from scratch on a clean machine (materialize-check-g1). The post-average Maven failure path is tested only on a constructed arm.",
   "problem_category": "grader_logic",
   "secondary_problem_categories": [
    "engineering"
@@ -156,7 +156,7 @@
   "task_id": "ffmpeg_swscale_reimplementation",
   "proposed": "repair-v2",
   "finding": "Timed workloads never correctness-checked; failed calls earn speedup credit",
-  "max_effect": "up to ~19 points shown for honest-incomplete variants",
+  "max_effect": "up to ~19 points shown for good-faith but unfinished variants",
   "status": "final (v1.0)",
   "repair": "accepted historical v2 component; current v2.2 validates every warmup/timed output and return code, clears buffers, and forces exact zero after correctness failure. Native original/current good, skipped-write and error pairs pass; fast buffer helpers match 40 native layouts and 64 independent synthetic layouts. Valid native control took 43 s versus 38 s original. The slower v2.1 attempt timed out and is preserved; full solver build path is not certified.",
   "package": "repairs/ffmpeg_swscale_reimplementation-v2/",
@@ -174,13 +174,13 @@
  {
   "task_id": "git_rewrite_in_zig",
   "proposed": "repair-v2",
-  "finding": "Undisclosed submission checks set the whole reward to 0 for leftover build files (zig build-exe leaves main/main.o: precompiled_objects, stray_elf_binaries) and for any src/ line pairing std.process.Child with \"git\", including test-only differential tests the prompt invites (shells_out_to_git); measured in normal mode on the starter (5 honest trees -> 0). Real-git positive control 29,075/29,075 (100). Note: NPARALLEL=$(nproc) ignores a CPU quota; at 8 workers per CPU a correct git scores 97.37",
+  "finding": "Undisclosed submission checks set the whole reward to 0 for leftover build files (zig build-exe leaves main/main.o: precompiled_objects, stray_elf_binaries) and for any src/ line pairing std.process.Child with \"git\", including test-only differential tests the prompt invites (shells_out_to_git); measured in normal mode on the starter (5 good-faith trees -> 0). Real-git positive control 29,075/29,075 (100). Note: NPARALLEL=$(nproc) ignores a CPU quota; at 8 workers per CPU a correct git scores 97.37",
   "max_effect": "whole score (up to 100 points) for a run that trips a check; 2.63 points at 8 test workers per CPU (documented, not changed)",
   "status": "final (v1.0)",
-  "repair": "accepted: leftover *.o/*.a/*.so/*.so.*/*.dylib and stray executable ELF files are deleted instead of zeroing; source-text shells_out_to_git check removed (git-src, system git and C test-build binaries are deleted before the tests); 5 honest trees 0 -> starter score, starter and real-git oracle (29,075, 1.0) unchanged, C-git wrapper 0 in both, system-git wrapper gets only the starter's 2 tests",
+  "repair": "accepted: leftover *.o/*.a/*.so/*.so.*/*.dylib and stray executable ELF files are deleted instead of zeroing; source-text shells_out_to_git check removed (git-src, system git and C test-build binaries are deleted before the tests); 5 good-faith trees 0 -> starter score, starter and real-git oracle (29,075, 1.0) unchanged, C-git wrapper 0 in both, system-git wrapper gets only the starter's 2 tests",
   "package": "repairs/git_rewrite_in_zig-v2/",
   "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)",
-  "validation_status": "Paired native runs (3 repeats, each exit=0): five honest trees go from 0 to the starter score and the real-git oracle is unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). No real Zig port graded; v2 tested at 8 CPUs only.",
+  "validation_status": "Paired native runs (3 repeats, each exit=0): five good-faith trees go from 0 to the starter score and the real-git oracle is unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). No real Zig port graded; v2 tested at 8 CPUs only.",
   "problem_category": "instruction_mismatch",
   "secondary_problem_categories": [
    "engineering"
@@ -190,11 +190,11 @@
   "task_id": "graph_node_classification",
   "proposed": "repair-v2",
   "finding": "Non-integer predictions silently dropped and run marked valid; predictions keyed by integer node ids (allowed by the prompt) match no node and score 0 while valid; (NaN-confidence clipping is score-neutral)",
-  "max_effect": "integer-keyed honest run: whole score lost (scored 0, valid); junk values: variance only, no expected gain shown",
+  "max_effect": "integer-keyed good-faith run: whole score lost (scored 0, valid); junk values: variance only, no expected gain shown",
   "status": "final (v1.0)",
-  "repair": "accepted: junk/non-integer predictions now invalid (v1 valid 0.20 → v2 invalid); baseline, honest and NaN-confidence quality identical; final score differs ≤8.1e-5 in the first-fix run and ≤2.9e-4 (under 0.03 of 100) in the v2.1 runs (wall-time penalty); v2.1 matches keys by str() and rejects keys that collide after str(): integer-keyed honest solver v1 valid overall 0.000000 → v2.1 0.281108, equal to its string-keyed twin (3 paired runs with the original and the first fixed verifier)",
+  "repair": "accepted: junk/non-integer predictions now invalid (v1 valid 0.20 → v2 invalid); baseline, good-faith and NaN-confidence quality identical; final score differs ≤8.1e-5 in the first-fix run and ≤2.9e-4 (under 0.03 of 100) in the v2.1 runs (wall-time penalty); v2.1 matches keys by str() and rejects keys that collide after str(): integer-keyed good-faith solver v1 valid overall 0.000000 → v2.1 0.281108, equal to its string-keyed twin (3 paired runs with the original and the first fixed verifier)",
   "package": "repairs/graph_node_classification-v2/",
-  "validation_status": "v2.1 validated by three paired runs of the original, the first fixed (v2) and v2.1 verifiers on seven submissions, each split over two workers (graph_node_classification-v2-paired-v21a, -v21b and their -rep2, -rep3; each ledger exit=0; package materialized with its own materialize.sh in each). Honest final scores differ by up to 2.9e-4 (timing). The Lean proof covers the first fix, not v2.1's str() key handling or duplicate-key rejection.",
+  "validation_status": "v2.1 validated by three paired runs of the original, the first fixed (v2) and v2.1 verifiers on seven submissions, each split over two workers (graph_node_classification-v2-paired-v21a, -v21b and their -rep2, -rep3; each ledger exit=0; package materialized with its own materialize.sh in each). Final scores of good-faith submissions differ by up to 2.9e-4 (timing). The Lean proof covers the first fix, not v2.1's str() key handling or duplicate-key rejection.",
   "problem_category": "grader_logic",
   "secondary_problem_categories": []
  },
@@ -217,11 +217,11 @@
   "task_id": "integer_compression_codec",
   "proposed": "repair-v2",
   "finding": "Stored baseline table (impossible <8 bpi for varint) replaces the documented starter baseline",
-  "max_effect": "raw: starter 0.23–0.24 vs documented 1.0; honest codec about 0.8 vs about 6–8; dataset weights off about 7–9×",
+  "max_effect": "raw: starter 0.23–0.24 vs documented 1.0; correct codec about 0.8 vs about 6–8; dataset weights off about 7–9×",
   "status": "final (v1.0)",
   "repair": "accepted: in-run starter baseline; starter 0.23→0.98/1.02 (raw); corrupting codec fails roundtrip in both; score scale 1.0..320 (starter to formula maximum) after real submissions saturated 0..100",
   "package": "repairs/integer_compression_codec-v2/",
-  "validation_status": "Three side-by-side native runs (all finished): starter 0.23 -> about 1.0 raw as documented, honest codec 0.83-0.97 -> 6.70-8.27, corrupting codec 0 in both; the scale's end points are exact; package rebuilt from scratch on a clean machine (materialize-check-g3). Timing noise about ±15% per dataset; other machine types and the Kubernetes grader not tested.",
+  "validation_status": "Three side-by-side native runs (all finished): starter 0.23 -> about 1.0 raw as documented, correct codec 0.83-0.97 -> 6.70-8.27, corrupting codec 0 in both; the scale's end points are exact; package rebuilt from scratch on a clean machine (materialize-check-g3). Timing noise about ±15% per dataset; other machine types and the Kubernetes grader not tested.",
   "problem_category": "scale_selection",
   "secondary_problem_categories": []
  },
@@ -261,10 +261,10 @@
  {
   "task_id": "lean_analysis_proofs",
   "proposed": "repair-v2",
-  "finding": "Two required statements are false (refuted in Lean inside the task image), and compiler-generated auxiliary targets are credited by name and printed type, so at least 49 points (1.69%) are unattainable for any honest complete solution and up to 466 depend on proof style",
+  "finding": "Two required statements are false (refuted in Lean inside the task image), and compiler-generated auxiliary targets are credited by name and printed type, so at least 49 points (1.69%) are unattainable for any complete, correct solution and up to 466 depend on proof style",
   "max_effect": "≥1.69% unattainable; up to 16% style-dependent",
   "status": "final (v1.0)",
-  "repair": "accepted for historical controls only: the 2 false statements are corrected and their corrected forms proved in the task image (axioms propext, Classical.choice, Quot.sound); 560 compiler-generated and 3 placeholder targets are dropped, leaving 2338 targets; honest term-, tactic- and omega-style proofs now credit the identical 15 parent declarations (v1: 25–26 of 2901, depending on style); v2 scores are not comparable with v1. Limits: the work image was not rebuilt; paired runs used the judge's prebuilt Mathlib",
+  "repair": "accepted for historical controls only: the 2 false statements are corrected and their corrected forms proved in the task image (axioms propext, Classical.choice, Quot.sound); 560 compiler-generated and 3 placeholder targets are dropped, leaving 2338 targets; correct term-, tactic- and omega-style proofs now credit the identical 15 parent declarations (v1: 25–26 of 2901, depending on style); v2 scores are not comparable with v1. Limits: the work image was not rebuilt; paired runs used the judge's prebuilt Mathlib",
   "package": "repairs/lean_analysis_proofs-v2/",
   "validation_status": "Component controls validated; actual eval_cmd dependency path and final grader/work images unverified: the rebuild needs about 45 GB of disk, more than the 21 GB workers used (materialize-check-lean).",
   "problem_category": "grader_logic",
@@ -337,7 +337,7 @@
  {
   "task_id": "ordinal_notation_well_foundedness",
   "proposed": "retain-with-note",
-  "finding": "Grader correct on honest/Admitted/axiom controls; helper file-name filter undisclosed; targets 7–9 unproven (1–6 proved in published runs)",
+  "finding": "Grader correct on genuine-proof/Admitted/axiom controls; helper file-name filter undisclosed; targets 7–9 unproven (1–6 proved in published runs)",
   "max_effect": "0 found",
   "status": "final (v1.0)"
  },
@@ -434,7 +434,7 @@
  {
   "task_id": "sphere_eversion_formalization",
   "proposed": "retain-with-note",
-  "finding": "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no honest-proof test)",
+  "finding": "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no correct-proof test)",
   "max_effect": "0 measured",
   "status": "final (v1.0)"
  },
@@ -444,9 +444,9 @@
   "finding": "Anchors exceed the 2N² turn cap: max normalized 21.02; movement semantics question separate; note: at 4 grader CPUs (8 cases at once) a 55 s wall-deadline solver gets ~27 CPU-s per case vs ~55 at 8 CPUs; solutions using up to 58 s of CPU pass at 4 CPUs (slowest case 116.1 s < 120 s; measured); the README's full 60 s would sit at the 120 s limit",
   "max_effect": "compresses all scores into 0–21; deadline solvers' scores depend on grader CPU count (unmeasured size)",
   "status": "final (v1.0)",
-  "repair": "accepted (anchors only): raw scores identical; honest policy 3.04→16.36; invalid control 0 both",
+  "repair": "accepted (anchors only): raw scores identical; greedy policy 3.04→16.36; invalid control 0 both",
   "package": "repairs/treant_forest-v2/",
-  "validation_status": "Anchor-only repair: raw scores identical under both versions in paired runs, honest policy 3.04 -> 16.36 normalized, invalid control 0 in both; package rebuilt from scratch on a clean machine (materialize-check-g3). The 92,304 cap is a documented bound, not shown attainable.",
+  "validation_status": "Anchor-only repair: raw scores identical under both versions in paired runs, greedy policy 3.04 -> 16.36 normalized, invalid control 0 in both; package rebuilt from scratch on a clean machine (materialize-check-g3). The 92,304 cap is a documented bound, not shown attainable.",
   "problem_category": "scale_selection",
   "secondary_problem_categories": [
    "engineering"
@@ -517,14 +517,14 @@
   "task_id": "vliw_kernel_optimization",
   "proposed": "retain-with-note",
   "finding": "Only scorer-isolation issues (out of scope); log_min saturates at 1000 cycles (third-party run reached 950)",
-  "max_effect": "none for honest solvers",
+  "max_effect": "none for good-faith solvers",
   "status": "final (v1.0)",
   "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)"
  },
  {
   "task_id": "warehouse_forklift_routing",
   "proposed": "repair-v2",
-  "finding": "Prompt promises 30 s per test case (150 s/input) but the evaluator gives 60 s per input; and a lower bound proved in Lean for a model of the tester (model matched to the tester by a 294-string differential test) shows every valid TOTAL ≥ 712.538 > rank1 395.80, so the top two anchors are unreachable and normalized scores are capped at ≈30.3; the evaluator also runs 8 inputs at once, so at the publisher's 4 grader CPUs an honest solver using 80–140 s CPU per input still got 2 OK + 48 TLE under the 150 s limit (measured)",
+  "finding": "Prompt promises 30 s per test case (150 s/input) but the evaluator gives 60 s per input; and a lower bound proved in Lean for a model of the tester (model matched to the tester by a 294-string differential test) shows every valid TOTAL ≥ 712.538 > rank1 395.80, so the top two anchors are unreachable and normalized scores are capped at ≈30.3; the evaluator also runs 8 inputs at once, so at the publisher's 4 grader CPUs a good-faith solver using 80–140 s CPU per input still got 2 OK + 48 TLE under the 150 s limit (measured)",
   "max_effect": "whole score for budget-following solvers (60–150 s per input, or > ~30 s CPU per input at 4 CPUs, where each of 8 inputs gets half a CPU under the 60 s limit); ~70 points of the scale unreachable",
   "status": "final (v1.0)",
   "repair": "accepted for historical controls only (time contract and CPU share): TIME_LIMIT 60→150 s per input as promised and parallelism ≤ cgroup CPU quota; budget-following solver 50 TLE → 50 OK; at 4 CPUs cpu80/cpu140 2 OK + 48 TLE (limit-only fix) → 50 OK; controls unchanged at 2, 4 and 8 CPUs. Anchors kept with the Lean-proved ≈30.3 ceiling documented (no invented recalibration)",

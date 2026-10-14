@@ -14,7 +14,7 @@ There are nine targets, weighted 1, 2, 2, 4, 4, 8, 16, 16 and 32 (maximum 85). E
 
 | Submission | task1 | task2, task4–task9 (`Admitted` placeholders) | task3 | Total |
 |---|---|---|---|---|
-| `sub_controls/` (honest task1 proof; task3 proved from a new `Axiom`) | **PASSED (1)** | FAILED: "assumptions were not closed", lists `taskN.WF` | **FAILED**, lists `task3.all_acc` | 1/85 |
+| `sub_controls/` (genuine task1 proof; task3 proved from a new `Axiom`) | **PASSED (1)** | FAILED: "assumptions were not closed", lists `taskN.WF` | **FAILED**, lists `task3.all_acc` | 1/85 |
 | `sub_helper/` (the same task1 proof with its lemmas moved into a helper library `OrdHelpers.v`) | **PASSED (1)** | FAILED | FAILED | 1/85 |
 
 The test submissions that should fail list exactly the expected assumptions.

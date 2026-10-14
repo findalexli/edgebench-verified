@@ -24,7 +24,7 @@ There is no problem that changes scores. The checks:
 
 Note: helper items are 25.1% of the score. They are earned automatically once the items they depend on are proved, so this skews the weighting but is not unfair.
 
-The note says: "Shared Lean grader: native census shows honest term- and tactic-style proofs earn identical credit (16/3732); 0 targets found unattainable (lower bound); aux targets 25.1% of weight but stable".
+The note says: "Shared Lean grader: native census shows correct term- and tactic-style proofs earn identical credit (16/3732); 0 targets found unattainable (lower bound); aux targets 25.1% of weight but stable".
 
 ## How much it matters
 

@@ -23,7 +23,7 @@
 - **权重。** 辅助目标占分数的 18.0%。按探测结果，它们依赖的声明一旦证出，它们应该会自动得分。这一点没有用评分验证过。
 - **评分器隔离** 不在本次发布的范围内（这是 EdgeBench 的设计选择）。没有发现会影响按规则解题者的评分缺陷。
 
-**随任务发布的说明。** "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no honest-proof test)"（统计：没有拿不到的目标；辅助目标占比如上且稳定；仅基于对照提交，没有用正常证明测试）。
+**随任务发布的说明。** "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no correct-proof test)"（统计：没有拿不到的目标；辅助目标占比如上且稳定；仅基于对照提交，没有用正确的证明测试）。
 
 ## 影响有多大
 

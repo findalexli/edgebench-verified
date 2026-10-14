@@ -34,8 +34,8 @@ Only `judge.rescale` (the score scale) in the task JSON changes. The `piecewise_
 | --- | --- | ---: | --- | --- | ---: | ---: |
 | Shipped baseline (`0`, `-1`) | original | 3418 | 50/50 OK | 0 | 0.00 | 0.00 |
 | Shipped baseline | fixed | 3418 | 50/50 OK | 0 | 0.00 | 0.00 |
-| Honest greedy (lengthens the maze on the grid only) | original | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |
-| Honest greedy | fixed | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |
+| Greedy (lengthens the maze on the grid only) | original | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |
+| Greedy | fixed | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |
 | Invalid: treant on the revealed entrance | original | 0 | 0/50 (all WA) | 0 | 0.00 | 0.00 |
 | Invalid: treant on the revealed entrance | fixed | 0 | 0/50 (all WA) | 0 | 0.00 | 0.00 |
 

@@ -32,7 +32,7 @@ On the original grader:
 | Submission | Expected (documented) | Result on the original grader |
 |---|---|---|
 | unchanged Varint starter | 1.0 | 0.2407 and 0.2455 (two runs) |
-| honest delta + zigzag + varint | 6.24 (one offline rescore; 6.70–8.27 on the fixed version over six runs) | 0.7590 |
+| correct delta + zigzag + varint | 6.24 (one offline rescore; 6.70–8.27 on the fixed version over six runs) | 0.7590 |
 | starter with one corrupted value | 0 | 0.0 (roundtrip mismatch on all 8 datasets) |
 
 Every score is off the documented scale. The distortion differs by dataset, so the datasets are weighted differently from the documentation.
@@ -59,7 +59,7 @@ The fixed version implements the documented definition: the grader measures the 
 | Role | Submission | Original grader: raw / out of 100 | Fixed grader: raw / out of 100 | Datasets passed, original / fixed | Exit code, original / fixed | Expected | As expected |
 |---|---|---|---|---|---|---|---|
 | Shows the problem; also a correct test submission | shipped Varint starter (unchanged) | **0.2327 / 0.2327** | **0.9786 / 0.00** (repeat **1.0155 / 0.00**) | 8/8 / 8/8 | 0 / 0 | original ≠ 1.0, fixed ≈ 1.0 (documented) | yes |
-| Honest test submission | delta + zigzag + varint | **0.8253 / 0.8253** | **6.7024 / 1.79** (repeat **6.9708 / 1.87**) | 8/8 / 8/8 | 0 / 0 | fixed = documented definition (offline rescore of the original grader's logs against its own starter run: 7.43; separate run of the original grader: 6.24) | yes |
+| Correct test submission | delta + zigzag + varint | **0.8253 / 0.8253** | **6.7024 / 1.79** (repeat **6.9708 / 1.87**) | 8/8 / 8/8 | 0 / 0 | fixed = documented definition (offline rescore of the original grader's logs against its own starter run: 7.43; separate run of the original grader: 6.24) | yes |
 | Invalid test submission | starter with one corrupted value | **0 / 0** | **0 / 0** | 0/8 / 0/8 (`roundtrip mismatch`) | 0 / 0 | 0 in both | yes |
 
 Under the fixed version the starter's compression ratio is exactly 1.0 on every dataset, and its speed ratios per dataset range from 0.93 to 1.07 in this run and from 0.84 to 1.14 over all six fixed-version starter runs. The remaining distance from 1.0 is timing noise. The correct codec's compression terms are exact; for example, ts_sec is 40.00 / 8.00 bpi = 5.0×. The original-grader values in this table differ slightly from those in "What goes wrong" because the speed term varies between runs. The fixed version adds about 20 s per grading (44 s instead of 24 s of wall time).

@@ -52,7 +52,7 @@ class TranslationFreshness(unittest.TestCase):
     def test_built_translation_contains_current_claim(self):
         page = (site.SITE / 'zh/tasks/portfolio_risk_calibration.html').read_text()
         self.assertIn('0.3921', page)
-        self.assertIn('不是全局上限', page)
+        self.assertIn('并非全局上限', page)
 
 
 if __name__ == '__main__':

@@ -52,7 +52,7 @@ A violation raises an error. The unchanged runner and `judge_eval.py` turn it in
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | baseline (shipped solution.py) | correct test submission | Original | true | 0.292783 | 29.278 | 0.332624 | 0.238512 | 0.925034 |
 | baseline | correct test submission | Fixed | true | 0.292702 | 29.270 | 0.332624 | 0.238512 | 0.925034 |
-| neighbor (honest neighbour-vote solver, int ids) | correct test submission | Original | true | 0.241002 | 24.100 | 0.281108 | 0.221556 | 0.758336 |
+| neighbor (plain neighbour-vote solver, int ids) | correct test submission | Original | true | 0.241002 | 24.100 | 0.281108 | 0.221556 | 0.758336 |
 | neighbor | correct test submission | Fixed | true | 0.241044 | 24.104 | 0.281108 | 0.221556 | 0.758336 |
 | nanconf (baseline predictions, NaN confidences) | clipping left unchanged | Original | true | 0.271465 | 27.147 | 0.311437 | 0.238512 | 0.713160 |
 | nanconf | clipping left unchanged | Fixed | true | 0.271431 | 27.143 | 0.311437 | 0.238512 | 0.713160 |

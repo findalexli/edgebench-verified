@@ -69,11 +69,11 @@ The fixed version makes two one-token edits to the source and adds one target fi
 | | | fixed | ok | 0.001283 | 3/2338 (anti_symm, div, trans) | 0 |
 | BAD (invalid) | `MajorizesOn.trans` with the composition reversed (type error) | original | **rc=1** | no score | – | – |
 | | | fixed | **rc=1** | no score | – | – |
-| T | honest Section_4_1, term style | original | ok | 0.008962 | 26/2901 (15 parents + 11 helpers) | 4 |
+| T | correct Section_4_1, term style | original | ok | 0.008962 | 26/2901 (15 parents + 11 helpers) | 4 |
 | | | fixed | ok | 0.006416 | 15/2338 | 0 |
-| S | honest Section_4_1, tactic style | original | ok* | 0.008962 | 26/2901 (15 + 11) | 4 |
+| S | correct Section_4_1, tactic style | original | ok* | 0.008962 | 26/2901 (15 + 11) | 4 |
 | | | fixed | ok | 0.006416 | 15/2338 | 0 |
-| W | honest Section_4_1, setoid via `omega` | original | ok* | 0.008618 | 25/2901 (15 + 10) | 5 |
+| W | correct Section_4_1, setoid via `omega` | original | ok* | 0.008618 | 25/2901 (15 + 10) | 5 |
 | | | fixed | ok | 0.006416 | 15/2338 | 0 |
 
 \* The original-version S and W rows come from separate runs on the same image and the same grader bytes.

@@ -16,7 +16,7 @@ The scoring rules are implemented correctly. The issues are about edge condition
 
 **(a) One failed case voids the submission.** The task text does not say this. If a single case crashes, times out or prints malformed output, that case gets an infinite score, so `TOTAL_SCORE` is `inf`. EdgeBench's harness keeps such a result (`valid: true`) with raw score `inf`, gives it no score out of 100 (`rescale_score` returns None for a non-finite total, `sforge/harness/score_rescale.py:75-76`), and prefers any finished submission to it under `minimize`.
 
-| Solution (all honest) | Grader result per case | TOTAL_SCORE | Scored by the harness | Score out of 100 |
+| Solution (all valid) | Grader result per case | TOTAL_SCORE | Scored by the harness | Score out of 100 |
 |---|---|---|---|---|
 | `good_stepstate` (known to be good) | 50 OK | 94,092 | yes | 19.80 |
 | `fail_partial` (well-formed; route cut in half on case 0000) | 50 OK | 202,310 | yes | 19.56 |

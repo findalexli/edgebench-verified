@@ -23,7 +23,7 @@ No defect that changes scores was found.
 - **Weighting.** Auxiliary targets are 18.0% of the score. By the probe, they should be earned automatically once the declarations they depend on are proved. This was not tested by scoring.
 - **Scorer isolation** is outside this release's scope (an EdgeBench design choice). No scoring defect affecting solvers that follow the rules was found.
 
-**Note shipped with the task.** "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no honest-proof test)".
+**Note shipped with the task.** "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no correct-proof test)".
 
 ## How much it matters
 

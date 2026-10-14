@@ -32,7 +32,7 @@
 
 <section id="procedure" class="col">
   <h2 class="sec"><span class="num">1</span>The procedure</h2>
-  <p>We ask whether honest work receives the score the task promises. Finding a defect, validating a patch, integrating a release and measuring leaderboard impact are separate conclusions. Each task records the evidence and remaining limits for its current repair candidate.</p>
+  <p>We ask whether good-faith work receives the score the task promises. Finding a defect, validating a patch, integrating a release and measuring leaderboard impact are separate conclusions. Each task records the evidence and remaining limits for its current repair candidate.</p>
   <figure class="fig" id="fig-evidence-layers"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">
 <title>Four evidence layers with different scope: tasks examined in the original code and images, models proved in Lean 4 or checked in TLA+, side-by-side tests of the original and the fixed checker, and fixed tasks covered by one public agent run.</title>
 <style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} .num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}</style>
@@ -66,7 +66,7 @@
 <text class="ink" x="598" y="172" font-size="14">both graders;</text>
 <text class="ink" x="598" y="196" font-size="14">Lean computed</text>
 </svg>
-</div><figcaption><b>Figure 1.</b> Four kinds of evidence, each covering something different. Reading the code, testing parts of a checker, running the whole checker and formal models answer different questions and do not stand in for one another. Side-by-side tests compare the original checker with the version of each fix that was tested, which is not always the latest. One public agent run covers nine fixed tasks: seven regraded with both checkers, and Lean Analysis computed from saved verdicts.</figcaption></figure>
+</div><figcaption><b>Figure 1.</b> The four kinds of evidence cover different ground. Reading the code, testing parts of a checker, running the whole checker and formal models each answer a different question, and none can stand in for another. The side-by-side tests compare the original checker with the version of each fix that was tested, which is not always the latest. One public agent run covers nine fixed tasks: seven were regraded with both checkers, and Lean Analysis was computed from saved verdicts.</figcaption></figure>
   <ol class="steps">
     <li><b>Pin the original and read its contract.</b> Compare task instructions with the evaluator from the digest-pinned public image. Record source fingerprints and the grading path.</li>
     <li><b>Use controls that exercise the defect.</b> Where available, run correct, triggering and wrong submissions through the original evaluator. Component checks and source arguments are identified separately from full task runs.</li>

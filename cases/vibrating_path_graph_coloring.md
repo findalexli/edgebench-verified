@@ -42,7 +42,7 @@ The README gives no exception for the case with no hits. `tools/README.md` conta
 
 Measured on the original grader at `--cpus 4` (`evidence/runs/vibrating_path_graph_coloring-cpu4v8-a/result/out/summary.txt`, `-b`; repeated in `vibrating_path_graph_coloring-v2-paired-a`):
 
-| Valid solution (honest control's output, preceded by fixed work) | 4 CPUs | 8 CPUs |
+| Valid solution (greedy control's output, preceded by fixed work) | 4 CPUs | 8 CPUs |
 |---|---|---|
 | 12 or 14 s of CPU per case | 50 OK, TOTAL 24,650,014 (slowest 14 s case: 29.9 s) | 50 OK, TOTAL 24,650,014 |
 | 20 s of CPU per case (measured on two machines) | **2 OK, 48 TLE, TOTAL `inf` (no score)** | 50 OK, TOTAL 24,650,014 (2.06 out of 100) |
@@ -68,7 +68,7 @@ Paired run at `--cpus 4` (one pair at `--cpus 8`), same solutions on both grader
 
 | Solution | CPUs | Original grader | Fixed version |
 | --- | ---: | --- | --- |
-| honest control, no extra work | 4 | 50 OK, TOTAL 24,650,014 (2.06) | 50 OK, TOTAL 24,650,014 (2.06) |
+| greedy control, no extra work | 4 | 50 OK, TOTAL 24,650,014 (2.06) | 50 OK, TOTAL 24,650,014 (2.06) |
 | **20 s of CPU per case** | 4 | **2 OK, 48 TLE, TOTAL `inf` (no score)** | **50 OK, TOTAL 24,650,014 (2.06)** |
 | **28 s of CPU per case** | 4 | **2 OK, 48 TLE, TOTAL `inf` (no score)** | **50 OK, TOTAL 24,650,014 (2.06)** |
 | works until a 25 s wall-clock deadline (job `-b`) | 4 | **36 OK, 14 TLE, TOTAL `inf`**; mean 12.84 s CPU per case | 50 OK, TOTAL 24,650,014; mean 24.98 s CPU per case |

@@ -36,8 +36,8 @@ The tables below show raw results. The task has no `rescale` section, which woul
 
 | Test submission | Submission | Original grader score (raw=norm) | Fixed grader score (raw=norm) | Detail, original → fixed | Valid, original/fixed | Exit code, original/fixed |
 |---|---|---|---|---|---|---|
-| Shows the problem | honest model-space D-ABIC (`FORM="model"`) | **25.77** | **26.81** | E 4.8 → 8.0; `structural_failure` true → false; pre-penalty total 77.16 → 80.27 | true/true | 0/0 |
-| Correct submission | honest data-space D-ABIC (`FORM="data"`) | **26.82** | **26.84** | E 8.0 / 8.0; pre-penalty total 80.31 → 80.35 (C 17.39 → 17.43, run noise) | true/true | 0/0 |
+| Shows the problem | good-faith model-space D-ABIC (`FORM="model"`) | **25.77** | **26.81** | E 4.8 → 8.0; `structural_failure` true → false; pre-penalty total 77.16 → 80.27 | true/true | 0/0 |
+| Correct submission | good-faith data-space D-ABIC (`FORM="data"`) | **26.82** | **26.84** | E 8.0 / 8.0; pre-penalty total 80.31 → 80.35 (C 17.39 → 17.43, run noise) | true/true | 0/0 |
 | Invalid submission | data form, log-determinant via `np.linalg.det` (`make_invalid_variant.py`) | 26.91 | 26.86 | `uses_bad_det` true, `structural_failure` true in both; E 7.2 / 7.2 | **false/false** | 0/0 |
 | Shipped state | the grader image's own workspace (no `outputs/`, nothing submitted) | 0.00 | 0.00 | all components ERROR (files missing) | false/false | 0/0 |
 

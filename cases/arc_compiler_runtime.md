@@ -43,7 +43,7 @@ The grader image, grader, tests, starter code and task prompt are unchanged. `ta
 | (b) | fixed | 100.00 | 47.21 | 47.21 | 0.4732 (212/448) | true | 0 |
 | (c) invalid: codegen emits `var result = null;` | original | 83.33 (40/48) | 25.79 | 25.79 | 0.2879 (129/448) | true | 0 |
 | (c) | fixed | 83.33 (40/48) | 25.79 | 25.79 | 0.2879 (129/448) | true | 0 |
-| (d) independent honest analyzer, documented shape | original | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
+| (d) independent correct analyzer, documented shape | original | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
 | (d) | fixed | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
 | (e) same analyzer as (d), starter shape `{ok,errors,warnings,program}` | original | 100.00 | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
 | (e) | fixed | 100.00 | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
@@ -54,8 +54,8 @@ Type-system suites (weight 1000/2970 = 33.67 points), cases passed:
 | --- | ---: | ---: | ---: | ---: |
 | (a) starter | 0 | 0 | 0 | 0 |
 | (b) `[]` | 5 | 0 | 0 | 40 |
-| (d) honest, documented shape | 8 | 40 | 40 | 40 |
-| (e) honest, starter shape | 0 | 0 | 0 | 0 |
+| (d) correct, documented shape | 8 | 40 | 40 | 40 |
+| (e) correct, starter shape | 0 | 0 | 0 | 0 |
 
 Per-suite counts are byte-identical between the original and fixed versions for every test submission.
 

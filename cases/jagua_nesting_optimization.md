@@ -61,7 +61,7 @@ Full original grader (TaskSpec `eval.sh`, `--network none`). "Raw TOTAL_SCORE" i
 | --- | --- | --- | --- | ---: | --- | --- | ---: |
 | Shipped baseline (candidate = reference) | correct | original | true | 0.000000 | 0 / 16 / 0 | yes | 200 s |
 | Shipped baseline | correct | fixed | true | 0.000000 | 0 / 16 / 0 | yes | 38 s |
-| seed_shift (honest: same LBF heuristic, different random-number stream) | correct | original | true | 1.644419 | 6 / 10 / 0 | yes | 117 s |
+| seed_shift (good faith: same LBF heuristic, different random-number stream) | correct | original | true | 1.644419 | 6 / 10 / 0 | yes | 117 s |
 | seed_shift | correct | fixed | true | 1.644419 | 6 / 10 / 0 | yes | 37 s |
 | drop_last_item (one item missing) | incorrect | original | true | 0.000000 | 0 / 16 / 0, all `demand_mismatch` | yes | 191 s |
 | drop_last_item | incorrect | fixed | true | 0.000000 | 0 / 16 / 0, all `demand_mismatch` | yes | 37 s |

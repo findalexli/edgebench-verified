@@ -62,7 +62,7 @@ Full grader (`eval_cmd`, 10 hidden cases), fixed version v2.2 (`evidence/runs/tr
 | Submission | Role | Original grader, raw | Original grader, cases OK | Original grader, out of 100 | Fixed grader, raw | Fixed grader, cases OK | Fixed grader, out of 100 |
 |---|---|---:|---|---:|---:|---|---:|
 | shipped `solution.py` (do nothing) | correct test submission | 6,092,430 | 10/10 | 0.055 | 6,108,380 | 10/10 | 0.000 |
-| `greedy.py` (greedy recolour + greedy README-legal convex flips) | independent honest test submission | 866,166 | 10/10 | 48.87 | 874,742 | 10/10 | 48.66 |
+| `greedy.py` (greedy recolour + greedy README-legal convex flips) | independent good-faith test submission | 866,166 | 10/10 | 48.87 | 874,742 | 10/10 | 48.66 |
 | `nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case) | **shows the problem** | 6,093,050 | 10/10 accepted | 0.052 | inf | 0/10 (WA "Invalid flip") | none (raw inf) |
 | `wrong_count.py` (recolours vertex 1, claims C=0) | invalid test submission | inf | 0/10 (WA) | none (raw inf) | inf | 0/10 (WA) | none (raw inf) |
 
@@ -95,7 +95,7 @@ On the same inputs the v2.1 and v2.2 graders give identical results (for example
 
 CPU share, paired runs at `--cpus 4` (one row at `--cpus 8`) on the same solutions: the original grader; the fixed rule and inputs without the CPU change (package v1.0); the CPU change added (v2.1) (all three: `evidence/runs/triangulation-v2-paired-cpu/result/out/summary.txt`); and the fixed version v2.2 (`evidence/runs/triangulation-v22-paired/result/out/B/summary.txt`, which also reruns the original and v2.1 with identical results). The original grader scores the original cases and the fixed versions their regenerated ones, so valid totals differ (866,166, 863,058 and 874,742).
 
-| Solution (honest `greedy.py` output, preceded by fixed work) | CPUs | Original grader | Without the CPU change (v1.0) | v2.1 | Fixed version v2.2 |
+| Solution (`greedy.py` output, preceded by fixed work) | CPUs | Original grader | Without the CPU change (v1.0) | v2.1 | Fixed version v2.2 |
 | --- | ---: | --- | --- | --- | --- |
 | no extra work | 4 | 10 OK, 866,166 | 10 OK, 863,058 | 10 OK, 863,058 | 10 OK, 874,742 |
 | **20 s of CPU per case** | 4 | **2 OK, 8 TLE, `inf` (no score)** | **2 OK, 8 TLE, `inf`** | 10 OK, 863,058 (48.95) | **10 OK, 874,742 (48.66)** |

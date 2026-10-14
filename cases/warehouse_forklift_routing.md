@@ -53,7 +53,7 @@ The `piecewise_log_min` reference points are kept, not replaced. The proven floo
 | Submission | Role | Original grader | Fixed grader |
 | --- | --- | --- | --- |
 | generic valid test submission | correct | OK 50/50, TOTAL 46676.8 | OK 50/50, TOTAL 46676.8 |
-| one honest bug | invalid | 49 OK + 1 WA → inf | 49 OK + 1 WA → inf |
+| one ordinary bug | invalid | 49 OK + 1 WA → inf | 49 OK + 1 WA → inf |
 | shipped starter | invalid | 50 WA → inf | 50 WA → inf |
 | **13 s per test case (uses the promised budget)** | **shows the problem** | **50 TLE → inf** | **50 OK, TOTAL 46676.8** |
 | near the 150 s per-input limit | shows the problem | 50 TLE → inf | 50 OK, TOTAL 46676.8 |

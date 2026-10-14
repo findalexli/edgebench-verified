@@ -24,19 +24,19 @@
   "text": "成本计算的成对对照已验证；用例集上 9.67 分的影响是一个未达到的上限（10 - 0.5·2/30·10）；没有在全部六道题上运行逐题的评分器检查。"
  },
  "exchange_core_throughput": {
-  "en": "Integration-test gate validated: two one-edit bugs drop from ~2250 to 0, honest engines keep scoring within throughput noise; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate with 33 tests; package rebuilt from scratch on a clean machine (materialize-check-g1). The post-average Maven failure path is tested only on a constructed arm.",
-  "text": "集成测试门槛已验证：两个只改一处的缺陷从约 2250 降到 0，正常的引擎照常得分，差异在吞吐量噪声范围内；在排行榜设置下（--cpus 4 --memory 8g，3 个作业），v2 以 33 项测试通过门槛；修复包在一台干净的机器上从零重建（materialize-check-g1）。平均值之后 Maven 失败的路径只在一个构造的对照组上测试过。"
+  "en": "Integration-test gate validated: two one-edit bugs drop from ~2250 to 0, correct engines keep scoring within throughput noise; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate with 33 tests; package rebuilt from scratch on a clean machine (materialize-check-g1). The post-average Maven failure path is tested only on a constructed arm.",
+  "text": "集成测试门槛已验证：两个只改一处的缺陷从约 2250 降到 0，正确的引擎照常得分，差异在吞吐量噪声范围内；在排行榜设置下（--cpus 4 --memory 8g，3 个作业），v2 以 33 项测试通过门槛；修复包在一台干净的机器上从零重建（materialize-check-g1）。平均值之后 Maven 失败的路径只在一个构造的对照组上测试过。"
  },
  "ffmpeg_swscale_reimplementation": {
   "en": "Current v2.2 judge image built, and rebuilt from scratch on a clean machine (materialize-check-final); three paired native full-scorer controls passed, including valid output and exact-zero rejection. Full source-build eval_cmd and whole-task certification remain unverified.",
   "text": "当前的 v2.2 评分器镜像已构建，并在一台干净的机器上从零重建（materialize-check-final）；三组成对的原生完整计分程序对照通过，包括有效输出和恰好为零的拒绝。完整的源码构建 eval_cmd 和整个任务的认证仍未验证。"
  },
  "git_rewrite_in_zig": {
-  "en": "Paired native runs (3 repeats, each exit=0): five honest trees go from 0 to the starter score and the real-git oracle is unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). No real Zig port graded; v2 tested at 8 CPUs only.",
+  "en": "Paired native runs (3 repeats, each exit=0): five good-faith trees go from 0 to the starter score and the real-git oracle is unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). No real Zig port graded; v2 tested at 8 CPUs only.",
   "text": "成对原生运行（3 次重复，均为 exit=0）：五份正常编写的代码树从 0 分升到初始代码的分数，真实 git 判定程序的结果不变；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有对真实的 Zig 移植评分；v2 只在 8 个 CPU 下测试过。"
  },
  "graph_node_classification": {
-  "en": "v2.1 validated by three paired runs of the original, the first fixed (v2) and v2.1 verifiers on seven submissions, each split over two workers (graph_node_classification-v2-paired-v21a, -v21b and their -rep2, -rep3; each ledger exit=0; package materialized with its own materialize.sh in each). Honest final scores differ by up to 2.9e-4 (timing). The Lean proof covers the first fix, not v2.1's str() key handling or duplicate-key rejection.",
+  "en": "v2.1 validated by three paired runs of the original, the first fixed (v2) and v2.1 verifiers on seven submissions, each split over two workers (graph_node_classification-v2-paired-v21a, -v21b and their -rep2, -rep3; each ledger exit=0; package materialized with its own materialize.sh in each). Final scores of good-faith submissions differ by up to 2.9e-4 (timing). The Lean proof covers the first fix, not v2.1's str() key handling or duplicate-key rejection.",
   "text": "v2.1 经三次并排对照运行验证，在七份提交上比较原始、第一个修复版（v2）和 v2.1 验证器，每次运行分在两台工作机上（graph_node_classification-v2-paired-v21a、-v21b 及其 -rep2、-rep3；台账均为 exit=0；每次运行都用修复包自带的 materialize.sh 生成修复包）。正常提交的最终分数最多相差 2.9e-4（来自计时）。Lean 证明针对第一个修复，不涵盖 v2.1 的 str() 键处理和重复键拒绝。"
  },
  "grid_turing_robot": {
@@ -44,8 +44,8 @@
   "text": "CPU 份额对照已验证：在 4 个 CPU 下三次结果相同的成对原生运行，外加 8 个 CPU 下的对照（台账均为 exit=0）；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有在 Kubernetes pod 中、在 3 个或 5–7 个 CPU 下、或用多线程解法测试。"
  },
  "integer_compression_codec": {
-  "en": "Three side-by-side native runs (all finished): starter 0.23 -> about 1.0 raw as documented, honest codec 0.83-0.97 -> 6.70-8.27, corrupting codec 0 in both; the scale's end points are exact; package rebuilt from scratch on a clean machine (materialize-check-g3). Timing noise about ±15% per dataset; other machine types and the Kubernetes grader not tested.",
-  "text": "三次并排原生运行（全部顺利完成）：初始代码的原始结果从 0.23 变为如文档所述的约 1.0，正常的编解码器从 0.83–0.97 变为 6.70–8.27，损坏数据的编解码器在两个版本中都为 0；刻度的两个端点是精确的；修复包在一台干净的机器上从零重建（materialize-check-g3）。每个数据集的计时噪声约为 ±15%；没有在其他机器类型和 Kubernetes 评分器上测试。"
+  "en": "Three side-by-side native runs (all finished): starter 0.23 -> about 1.0 raw as documented, correct codec 0.83-0.97 -> 6.70-8.27, corrupting codec 0 in both; the scale's end points are exact; package rebuilt from scratch on a clean machine (materialize-check-g3). Timing noise about ±15% per dataset; other machine types and the Kubernetes grader not tested.",
+  "text": "三次并排原生运行（全部顺利完成）：初始代码的原始结果从 0.23 变为如文档所述的约 1.0，正确的编解码器从 0.83–0.97 变为 6.70–8.27，损坏数据的编解码器在两个版本中都为 0；刻度的两个端点是精确的；修复包在一台干净的机器上从零重建（materialize-check-g3）。每个数据集的计时噪声约为 ±15%；没有在其他机器类型和 Kubernetes 评分器上测试。"
  },
  "jagua_nesting_optimization": {
   "en": "v2.1 validated by three identical paired runs of the original, v2 and v2.1 graders (each exit=0): overlap witnesses rejected, legal contact and f32-derived angles accepted, a +0.01 degree rotation rejected on all 15 instances with allowed orientations. The v2.1 package as committed was rebuilt from scratch on a clean machine (materialize-check-final).",
@@ -104,8 +104,8 @@
   "text": "用例集的成对对照已验证；形式化可靠性只涵盖建模的 QF_UF 片段，与实现的对应是论证得出的。"
  },
  "treant_forest": {
-  "en": "Anchor-only repair: raw scores identical under both versions in paired runs, honest policy 3.04 -> 16.36 normalized, invalid control 0 in both; package rebuilt from scratch on a clean machine (materialize-check-g3). The 92,304 cap is a documented bound, not shown attainable.",
-  "text": "只修改参考点：成对运行中两个版本的原始分数相同，正常策略的标准化分数从 3.04 升到 16.36，无效对照在两个版本中都为 0；修复包在一台干净的机器上从零重建（materialize-check-g3）。92,304 的上限是一个已记录的界限，没有证明可以达到。"
+  "en": "Anchor-only repair: raw scores identical under both versions in paired runs, greedy policy 3.04 -> 16.36 normalized, invalid control 0 in both; package rebuilt from scratch on a clean machine (materialize-check-g3). The 92,304 cap is a documented bound, not shown attainable.",
+  "text": "只修改参考点：成对运行中两个版本的原始分数相同，贪心策略的标准化分数从 3.04 升到 16.36，无效对照在两个版本中都为 0；修复包在一台干净的机器上从零重建（materialize-check-g3）。92,304 的上限是一个已记录的界限，没有证明可以达到。"
  },
  "tree_block_partitioning": {
   "en": "Three paired runs (each exit=0): reference 100 -> 100, aliasing variant 0.25 -> 5, logic-error control unchanged; exhaustive aliased-state probe and TLA+ agree; package rebuilt from scratch on a clean machine (materialize-check-g2). How often real solvers write v*=v is unknown.",
