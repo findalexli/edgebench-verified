@@ -1,6 +1,6 @@
 # Git Rewrite in Zig (`git_rewrite_in_zig`)
 
-**Outcome:** Fixed. <mark>The original grader sets the whole score to 0 when the submitted folder has a leftover build file (`main`, `main.o`) or a source line that runs the system `git`, even inside a test; an honest solver can produce both, and the prompt mentions neither check. The fixed version deletes the leftovers before building and drops the source-text check; a correct git still scores 100.</mark>
+**Outcome:** Fixed. <mark>The original grader sets the whole score to 0 when the submitted folder has a leftover build file (`main`, `main.o`) or a source line that runs the system `git`, even inside a test; a solver that follows the instructions can produce both, and the prompt mentions neither check. The fixed version deletes the leftovers before building and drops the source-text check; a correct git still scores 100.</mark>
 
 ## What the task asks
 
@@ -37,7 +37,7 @@ Notes that ship with the task:
 
 ## How much it matters
 
-An honest submission that trips one of the three checks loses its whole score under the original grader, up to 100 points; the fixed version scores it on its tests. For every other submission the two versions give the same score. How often real runs tripped a check is not known; the leaderboard averages for this task are 15-24 (`evidence/impact/leaderboard_12h.json`).
+A good-faith submission that trips one of the three checks loses its whole score under the original grader, up to 100 points; the fixed version scores it on its tests. For every other submission the two versions give the same score. How often real runs tripped a check is not known; the leaderboard averages for this task are 15-24 (`evidence/impact/leaderboard_12h.json`).
 
 ## The fix
 
@@ -60,7 +60,7 @@ Paired run, original grader against fixed version, same inputs, `--network none 
 
 Rewards are 0 to 1; the score out of 100 is the reward × 100. "No credit" means at most the 2 tests the unmodified starter passes (0.000069).
 
-- The fixed version's `reward.json` for the starter and the five honest trees is byte-identical to the starter's under the original grader: 2 tests passed, 69 failed.
+- The fixed version's `reward.json` for the starter and the five good-faith trees is byte-identical to the starter's under the original grader: 2 tests passed, 69 failed.
 - With real git, both versions ran 1,007 of 1,007 scripts with 0 failed tests and 0 timeouts, and the per-script counts are identical (`oracle/v{1,2}/per_script_ok_notok_timeout.txt`).
 
 **Scores are comparable with the original.** For every submitted tree the fixed version gives the same score as the original grader, or the original gave 0: if the tree has nothing the fixed version deletes and no line the dropped check matches, both versions run the same commands.
@@ -68,7 +68,7 @@ Rewards are 0 to 1; the score out of 100 is the reward × 100. "No credit" means
 ## How we checked it
 
 - **Original grader, from the public image pinned by digest.** Every run used the task's `eval_cmd` word for word in a fresh container with `--network none --memory 6g`, the shipped `test.sh` (sha256 `c2e6d446…`), the git `t/` suite, `compute_reward.py` and `pytest_shim.sh`.
-- **Normal-mode runs through the eval_cmd**, with the original grader and the fixed version on the same trees: the starter, five honest trees that trip a check, and two kinds of wrapper. Table above.
+- **Normal-mode runs through the eval_cmd**, with the original grader and the fixed version on the same trees: the starter, five good-faith trees that trip a check, and two kinds of wrapper. Table above.
 - **Real git.** A real git v2.47.0 was built inside the grader image (with `--network none`) from the scorer's own test-suite source tree, with the same make flags as `test.sh`, and placed in `zig-out/bin/`. It ran in the harness's own `HARBOR_ORACLE_MODE=1`, which skips the checks on the submitted tree, the clean `zig build` and the removal of the system git; running the tests and computing the reward are identical to the scored path. It scored 29,075 of 29,075, reward 1.000000, in the earlier run (`evidence/runs/git_rewrite_in_zig-oraclefull/`) and under both versions in the paired run. In the full run, each category's pass count equals the grader's fixed `oracle_attempted` baseline exactly: t0 5379, t1 3191, t2 980, t3 4778, t4 3485, t5 4540, t6 2355, t7 2912, t8 493, t9 962. 147 scripts skipped themselves for a missing prerequisite, for example "Cannot run httpd tests as root".
 - **CPU limit.** The same real-git run at `--cpus` 8, 4, 2 and 1 on an 8-core E2B worker; `nproc` was 8 and `cpu.max` showed the quota in every run.
 - **Fixed version.** Built from the public image with the package's `Dockerfile`; its `test.sh` (sha256 `87bae2a5…`) matches `materialize.outputs` in `source-lock.json` (`materialize.log`). Both paired jobs ended with `status: exit=0` and their results were collected.
@@ -76,7 +76,7 @@ Rewards are 0 to 1; the score out of 100 is the reward × 100. "No credit" means
 ## Limits
 
 - No AI model or solver was run. The result rests on test submissions we wrote.
-- The honest trees in the paired run are the starter with a leftover or a test added, not a real Zig port. Each arm of the paired table ran three times (`-rep2`, `-rep3`), with identical rewards; the `--cpus` escalation jobs ran once.
+- The good-faith trees in the paired run are the starter with a leftover or a test added, not a real Zig port. Each arm of the paired table ran three times (`-rep2`, `-rep3`), with identical rewards; the `--cpus` escalation jobs ran once.
 - The real-git stand-in is C git run in oracle mode, not a Zig binary going through the normal build path.
 - The CPU-limit runs used one 8-core host, one run per setting.
 

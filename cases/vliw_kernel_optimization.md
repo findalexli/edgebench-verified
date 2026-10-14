@@ -1,6 +1,6 @@
 # VLIW Kernel Optimization (`vliw_kernel_optimization`)
 
-**Outcome:** Kept, with a note. <mark>The only issue found concerns scorer isolation, which is outside this release's scope; the two honest test submissions that were run were scored correctly.</mark>
+**Outcome:** Kept, with a note. <mark>The only issue found concerns scorer isolation, which is outside this release's scope; the two rule-following test submissions that were run were scored correctly.</mark>
 
 ## What the task asks
 
@@ -13,7 +13,7 @@ The generated program counts only if every correctness case passes. Its raw resu
 No defect that changes scores was found. These parts were checked:
 
 - **Hidden cases.** The file holds 8 correctness cases and 1 performance case. All have height 10, 16 rounds and batch 256.
-- **Honest test submissions on the original grader:**
+- **Rule-following test submissions on the original grader:**
 
 | Submission | Original grader result | Score out of 100 |
 |---|---|---|
@@ -22,13 +22,13 @@ No defect that changes scores was found. These parts were checked:
 
 The correctness check rejected the empty program, and the correct starting kernel received a valid cycle count.
 
-- **Scorer isolation** is outside this release's scope (an EdgeBench design choice). No scoring defect affecting honest solvers was found.
+- **Scorer isolation** is outside this release's scope (an EdgeBench design choice). No scoring defect affecting solvers that follow the rules was found.
 
-**Note shipped with the task.** This release does not evaluate scorer isolation (an EdgeBench design choice). The two honest controls run (the starter kernel and an empty program) were scored correctly on the original evaluator.
+**Note shipped with the task.** This release does not evaluate scorer isolation (an EdgeBench design choice). The two controls run (the starter kernel and an empty program, which should fail) were scored correctly on the original evaluator.
 
 ## How much it matters
 
-No effect was measured for honest submissions.
+No effect was measured for submissions that follow the rules.
 
 **The scale saturates below 1000 cycles.** `log_min` clips at 100, which it reaches at the expert reference point of 1000 cycles. A third-party Claude Opus 5.5 run (4 hours, published on Hugging Face as `adafadaq/edgebench-opus-5-5-xhigh-rollouts`) on this grader had all 18 submissions valid with 9/9 cases passed. Its kernels took 1122, 1027, 979, 970, 966, 965, 962, 957, 956, 951 and 950 cycles (agent-1 to agent-11, `report.json` `score`). Unclipped, these give 92.3, 98.2, 101.4, 102.0, …, 103.4, so every kernel from 979 cycles on scores 100 and the scale does not separate them. The best published result is 85.6 (GPT-5.5 at 12 hours, `tasks/README.md`), about 1240 cycles, so the published scores are not affected. Whether the 950-cycle kernel is correct beyond the 8 correctness cases and 1 performance case was not checked; its source was not inspected.
 

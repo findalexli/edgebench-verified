@@ -16,7 +16,7 @@
  "ann_vector_search_qps": {
   "headline": "No scoring problem found; measured speed depends on the machine",
   "about": "Make a search over one million 128-number vectors answer as many queries per second as possible, while still finding at least 95% of the true 10 nearest matches.",
-  "problem": "The answer key was checked on all 10,000 queries; our valid and empty test submissions score as documented, and a fast submission with recall 0.36 is rejected. Caveat: speed is measured once per grading and depends on the machine. Three isolated gradings of one honest configuration on the original grader, at the leaderboard's 4 CPUs and 8 GiB, gave 551 to 713 queries per second (±13%); the scale comes from the authors' hardware.",
+  "problem": "The answer key was checked on all 10,000 queries; our valid and empty test submissions score as documented, and a fast submission with recall 0.36 is rejected. Caveat: speed is measured once per grading and depends on the machine. Three isolated gradings of one valid configuration on the original grader, at the leaderboard's 4 CPUs and 8 GiB, gave 551 to 713 queries per second (±13%); the scale comes from the authors' hardware.",
   "effect": "Speed varied 1.29-fold between three isolated gradings of one configuration: 13.3 of 100 points (about ±7 per grading) where agents score (23.8–59.7). Scores from different machines are not comparable.",
   "action": "Kept, with a note: speed depends on the machine; three isolated gradings of one configuration varied by ±13% (13.3 of 100 points); the scale was set on the authors' hardware, so machines are not comparable."
  },
@@ -30,7 +30,7 @@
  "arc_compiler_runtime": {
   "headline": "Hidden tests need an undocumented output format worth a third of the score",
   "about": "Write the missing compiler and runtime for Arc, a small programming language, using the supplied language notes and public tests as the specification.",
-  "problem": "The hidden type-checking tests expect the error checker to return a list of items with set message wording; the starter returns another shape, and no visible file says which is right. One honest checker scores 69.26 in the expected shape, 35.59 in the starter's. The instructions also say the starter scores 0.00 on the public tests; it scores 100.00 (35.59 hidden).",
+  "problem": "The hidden type-checking tests expect the error checker to return a list of items with set message wording; the starter returns another shape, and no visible file says which is right. One checker written in good faith scores 69.26 in the expected shape and 35.59 in the starter's. The instructions also say the starter scores 0.00 on the public tests; it scores 100.00 (35.59 hidden).",
   "effect": "Up to 33.67 points lost, without warning, by any solver who keeps the starter's format or does not guess the required message wording.",
   "action": "Fixed in a new version: the instructions now describe the required return format, the three required message texts and the rules checked, and give the starter's real score. Grading is unchanged."
  },
@@ -45,7 +45,7 @@
   "headline": "Hidden grading model uses unstated, non-physical conventions, so one-shot textbook solutions score near baseline",
   "about": "From readings at groundwater monitoring wells, work out the location, size, timing and strength of a hidden underground pollution source.",
   "problem": "The grader predicts well readings with a hidden model; the documentation gives its ingredients but not how they combine. The model treats a rate as a total amount, ignores porosity and source duration, mislabels units, and puts the source on one face of its region, not at the centre. A textbook model fits the public data equally well yet scores lower.",
-  "effect": "For a one-shot honest fit, about 24 of the original 109 points (22 of 100): 7.0 with a textbook model, 31.2 with the hidden conventions. Less, by an unmeasured amount, for agents that submit repeatedly: one real run climbed from 7.01 to 60.10 while the grader reported its error on the hidden wells.",
+  "effect": "For a one-shot fit that follows the documentation, about 24 of the original 109 points (22 of 100): 7.0 with a textbook model, 31.2 with the hidden conventions. Less, by an unmeasured amount, for agents that submit repeatedly: one real run climbed from 7.01 to 60.10 while the grader reported its error on the hidden wells.",
   "action": "Fixed in a new version: solvers receive the grader's own prediction code and an exact description of its conventions, and the score scale runs from 0 up to the true source's score of 109."
  },
  "carleson_formalization": {
@@ -63,11 +63,11 @@
   "action": "Fixed in a new version: an incomplete or self-contradicting assessment is requested again, and otherwise reported as a grading failure instead of full marks. Only the last complete assessment block is scored. If it fails the checks, the grader asks again rather than scoring an earlier draft. It uses an earlier block only when every later one is truncated or unreadable. Complete assessments score exactly as before."
  },
  "combinatorial_games_formalization": {
-  "headline": "No problem found; honest proofs in different styles earn the same credit",
+  "headline": "No problem found; correct proofs in different styles earn the same credit",
   "about": "Fill in missing proofs about combinatorial games in Lean, a language for machine-checked math proofs, without changing the statements being proved.",
   "problem": "No material problem. About a quarter of the credit (25.1%) goes to small helper items that Lean creates on its own; they are earned automatically once the main proofs are done. None of the 3732 graded items was found out of reach (a lower bound). Two proof styles earned identical credit (16 of 3732) in a test on one file.",
-  "effect": "No effect measured on the scores of honest submissions.",
-  "action": "Kept, with a note: about 25.1% of the credit comes from helper items Lean generates automatically; honest proofs in different styles earned the same credit in the test."
+  "effect": "No effect measured on the scores of submissions that follow the rules.",
+  "action": "Kept, with a note: about 25.1% of the credit comes from helper items Lean generates automatically; correct proofs in different styles earned the same credit in the test."
  },
  "cta_risk_budget_optimization": {
   "headline": "The overseas-exposure limit check skips currency conversion, so dollar positions are undercounted",
@@ -95,7 +95,7 @@
   "about": "Solve six programming-contest problems on tree structures, worth 5, 5, 10, 15, 25 and 40 points; one must keep a total operation cost under a fixed budget.",
   "problem": "In problem three (10 points), the grader leaves the size of the last neighbourhood reached out of its cost total. A solution can thus go over the cost budget by up to that size, at most 0.04% of the budget, and still pass. Neither the reference nor a simple solution falls in that window on the official inputs.",
   "effect": "An upper bound is 9.67 of 100 points if all 28 large official inputs are affected (5.17 for one). No solution attaining these changes on the official inputs was demonstrated.",
-  "action": "The grader now counts the final state in the cost total. Paired crafted cases confirm the fix and the official reference still scores 100; no official-corpus score gain from the defect was demonstrated."
+  "action": "The grader now counts the final state in the cost total. Hand-made cases tested side by side confirm the fix, and the official reference solution still scores 100; no score gain from the defect was shown on the official inputs."
  },
  "exchange_core_throughput": {
   "headline": "The correctness check misses wrong fees and lost messages, so broken engines get full credit",
@@ -108,21 +108,21 @@
   "headline": "Timed speed tests never check output, so failed calls earn speed credit",
   "about": "Rewrite FFmpeg's image-scaling and format-conversion library (libswscale) in Zig or Rust; the score rewards being correct and faster than the original library.",
   "problem": "Correctness is checked on 30 conversions; speed is timed on 10 different ones, never checked. A call that fails or does nothing finishes almost instantly and earns a huge 'speedup'. An unfinished conversion returning an error took a score from 0 to 5.39; skipping 3:1 downscaling scored up to 18.93. The unchanged starter code also earns credit for wrong output.",
-  "effect": "Up to 18.93 points out of 100 shown for honest but unfinished submissions whose library fails or does nothing on a timed conversion.",
-  "action": "The v2.2 judge checks every warmup/timed output and return code, clears buffers, and forces exactly zero on any failed workload. Three paired native scorer controls pass; the valid control completes in 43 seconds versus 38 originally. Full solver-build eval_cmd integration remains unverified."
+  "effect": "Up to 18.93 points out of 100 shown for unfinished submissions made in good faith whose library fails or does nothing on a timed conversion.",
+  "action": "The v2.2 grader checks the output and return code of every warm-up and timed call, clears buffers between calls, and sets the total to exactly zero if any workload fails. Three side-by-side tests on the native scorer pass; the valid test submission finishes in 43 seconds, against 38 with the original. The full path that builds the solver from source through eval_cmd has not been checked."
  },
  "flt_regular_formalization": {
   "headline": "No problem found; the 25 scored proofs match the task's own list",
   "about": "Finish the missing proofs in a project on Fermat's Last Theorem written in Lean, a language for machine-checked math proofs.",
   "problem": "No material problem. The grader scores 25 listed statements (weights total 87), exactly the task's unfinished ones, and none of the generated entries that trouble a related task. None was found out of reach. Caveats: the README says 100 points; only the unchanged starter was scored; the grader's library copy may differ from the work image's (agent runs built).",
-  "effect": "No effect found on the scores of honest submissions.",
+  "effect": "No effect found on the scores of submissions that follow the rules.",
   "action": "Kept, with a note: the 25 weighted statements (total weight 87) match the task's list exactly, and none was found out of reach."
  },
  "git_rewrite_in_zig": {
-  "headline": "Undisclosed file checks give an honest program 0; fixed, and a correct git still earns 100",
+  "headline": "Undisclosed file checks give a good-faith program 0; after the fix a correct git still earns 100",
   "about": "Rewrite git, the widely used version-control tool, in the Zig programming language so it works as a drop-in replacement for the original.",
   "problem": "Before scoring, the grader checks the submitted folder, and any failed check sets the whole score to 0. The instructions do not mention these checks. A compiled leftover such as the `main` and `main.o` that `zig build-exe` writes, or a test that runs the system git to compare results (which the instructions encourage), each scored 0 in our tests. Separately, the grader runs one test script per machine core regardless of its CPU limit; with 8 scripts sharing 1 CPU, two scripts hit the 120-second limit.",
-  "effect": "An honest submission that trips a check loses its whole score (up to 100 points). The time limit costs a correct git 2.6 points with 8 scripts per CPU, and nothing at 4 or fewer.",
+  "effect": "A good-faith submission that trips a check loses its whole score (up to 100 points). The time limit costs a correct git 2.6 points with 8 scripts per CPU, and nothing at 4 or fewer.",
   "action": "Fixed in a new version: leftover build files are deleted instead of zeroing the score, and the source-text check for git calls is removed; no git is left when the tests run. A correct git still scores 100, and wrappers get no credit from git. The CPU-limit effect is documented, not changed."
  },
  "graph_node_classification": {
@@ -130,7 +130,7 @@
   "about": "Predict the category of every test node (a point in a network) of a graph, scored on several accuracy measures, with penalties for time and memory use.",
   "problem": "The grader throws away predictions that are not whole numbers, such as text or blanks, pairs the remaining predictions with the first labels in order, and still marks the run valid. A test submission we wrote with one real prediction and the rest junk was scored on one node per round and counted as valid. Out-of-range confidence values were also checked and are harmless. Separately, predictions keyed by whole-number node IDs, which the instructions allow, match no node: such a run scores 0 and still counts as valid.",
   "effect": "Submissions with missing or non-numeric predictions: the added chance can raise a run's kept best score (general proof), but no gain for a real solver was shown. A submission keyed by whole-number node IDs loses its whole score; none of the real solver submissions we regraded was keyed that way.",
-  "action": "Fixed in a new version: node IDs are matched as text, so whole-number IDs work, and every test node must get a whole-number category, otherwise the run is marked invalid. Honest submissions keyed by string node IDs score the same, apart from timing noise (under 0.03 points); honest submissions keyed by integer node IDs, which the original scored 0, now score like their string-keyed twins."
+  "action": "Fixed in a new version: node IDs are matched as text, so whole-number IDs work, and every test node must get a whole-number category, otherwise the run is marked invalid. Contract-following submissions keyed by string node IDs score the same, apart from timing noise (under 0.03 points); contract-following submissions keyed by integer node IDs, which the original scored 0, now score like their string-keyed twins."
  },
  "grid_turing_robot": {
   "headline": "On the publisher's 4-CPU grader, a solution within the 30-second limit can void the whole submission",
@@ -142,15 +142,15 @@
  "integer_compression_codec": {
   "headline": "Scores compare against stored numbers the documented starter cannot produce",
   "about": "Write a library that compresses lists of integers more tightly and decodes them faster than a supplied simple starter (Varint, which stores each number in whole bytes), on eight datasets.",
-  "problem": "The documentation says the starter scores 1.0, but the grader compares against stored numbers the starter cannot produce: five are below 8 bits per integer, impossible for this byte-based format, and speeds were timed elsewhere. On raw results the starter scores about 0.24, and a simple honest codec about 0.8 instead of 6 to 8. Dataset weights differ from the documentation.",
-  "effect": "All submissions. Raw: starter about 0.23, not 1.0; a simple honest codec about 0.8, not 6 to 8; dataset weights off 7 to 9 times. Fixed scale: starter 0, codec about 1.8.",
+  "problem": "The documentation says the starter scores 1.0, but the grader compares against stored numbers the starter cannot produce: five are below 8 bits per integer, impossible for this byte-based format, and speeds were timed elsewhere. On raw results the starter scores about 0.24, and a simple correct codec about 0.8 instead of 6 to 8. Dataset weights differ from the documentation.",
+  "effect": "All submissions. Raw: starter about 0.23, not 1.0; a simple correct codec about 0.8, not 6 to 8; dataset weights off 7 to 9 times. Fixed scale: starter 0, codec about 1.8.",
   "action": "Fixed in a new version: the grader measures the starter in the same run, as documented, and the 0–100 scale runs from the starter (0) to the formula's maximum (100). Scores are not comparable with the original version."
  },
  "jagua_nesting_optimization": {
   "headline": "The grader accepts overlapping shapes as valid layouts",
   "about": "Pack flat shapes into a strip of fixed height so the strip is as short as possible, like cutting parts from a roll of material.",
   "problem": "Overlapping shapes are forbidden, but the grader misses many overlaps: two identical shapes in the same place, a shape fully inside another, or one slid halfway over another. It never checks whether a shape was rotated in a way the instance forbids. Because the score depends only on strip length, an overlapping layout can beat every valid one.",
-  "effect": "Layouts with overlaps can score above every valid layout. The size was not measured. Honest layouts without overlaps are unaffected.",
+  "effect": "Layouts with overlaps can score above every valid layout. The size was not measured. Valid layouts without overlaps are unaffected.",
   "action": "Fixed in a new version: the grader measures the exact overlap area between shapes and rejects any overlap larger than one millionth of the smaller shape's area, while edges that only touch stay allowed. It also rejects rotations more than 1e-3° from every allowed angle; a first fixed version used 1e-6°, which wrongly rejected allowed angles written from f32 values, and was replaced."
  },
  "juliet_vulnerability_analyzer": {
@@ -164,15 +164,15 @@
   "headline": "No scoring problem found; shipped example reports are out of date",
   "about": "Build a system that recommends math learning content for school students (grades K-12), scored on five weighted measures over 100 test scenarios.",
   "problem": "No scoring defect. Both shipped example solutions score validly (24.7 and 17.6, in the expected order). Caveats: the shipped example reports show 50.4 and 45.292, from an apparently older grader. Under a 512 MiB address-space limit with 8 visible cores the grader crashes while loading and reports 0 for everything; with enough memory it used about 520 to 535 MiB.",
-  "effect": "No effect on honest submissions under normal memory limits. Under a tight address-space limit every submission gets 0 with an error.",
+  "effect": "No effect on submissions that follow the rules under normal memory limits. Under a tight address-space limit every submission gets 0 with an error.",
   "action": "Kept, with a note: the shipped example reports are out of date, and the grader fails under a tight address-space limit."
  },
  "lean_analysis_proofs": {
   "headline": "Two required statements are false; some points depend on proof style",
   "about": "Fill in missing proofs in a Lean version of Tao's Analysis I textbook (Lean checks proofs by machine); each graded declaration, hidden Lean helpers included, earns one of 2901 points.",
   "problem": "Two statements the solver must prove are false as written, so nobody can earn them. The grader also scores hidden helper entries that Lean creates automatically; whether they earn credit depends on how a proof is written, and some can never be earned. Two correct proofs of the same facts scored 26 and 25 depending on the proof technique.",
-  "effect": "At least 49 of 2901 points (1.69%) are out of reach for any honest, complete solution; up to 466 points could depend on proof style.",
-  "action": "Repair candidate: two false statements are corrected and helper/placeholder targets removed, leaving 2338 targets. Component checks pass, but the actual grading dependency path and final image builds remain unverified; scores use a new denominator."
+  "effect": "At least 49 of 2901 points (1.69%) are out of reach for any complete, correct solution; up to 466 points could depend on proof style.",
+  "action": "Candidate fix: the two false statements are corrected and the helper and placeholder targets removed, leaving 2338 targets. Checks of the parts pass, but the dependencies of the actual grading path and the final image builds have not been verified. Scores use a new denominator."
  },
  "molecular_self_assembly": {
   "headline": "On the publisher's 4-CPU grader, cases within the 30-second limit time out and score 0",
@@ -191,9 +191,9 @@
  "new_foundations_consistency": {
   "headline": "Valid result with internet access, shown only for the unmodified starter; cannot grade offline",
   "about": "Complete the missing proofs in a Lean project (Lean is a language for machine-checked math proofs) on the consistency of New Foundations, a set theory; credit is the share completed.",
-  "problem": "With internet access the grader builds and gives a valid result for the unmodified starter (no honest proof was scored). Offline the build fails and no score is produced: Lake reports that the bundled doc-gen4 checkout's URL has changed and tries to clone it again. Also, 15 of 2,246 scored items, generated by Lean, could be renamed by an honest proof and lost (untested).",
+  "problem": "With internet access the grader builds and gives a valid result for the unmodified starter (no genuine proof was scored). Offline the build fails and no score is produced: Lake reports that the bundled doc-gen4 checkout's URL has changed and tries to clone it again. Also, 15 of 2,246 scored items, generated by Lean, could be renamed by a genuine proof and lost (untested).",
   "effect": "No effect measured. Offline graders give no score at all. The renaming risk is at most 0.67% of the score, an upper bound, not a measured loss.",
-  "action": "Kept, with a note: grading needs internet access to GitHub, and 15 automatically generated items (at most 0.67% of the score) could be lost when honest proofs rename them."
+  "action": "Kept, with a note: grading needs internet access to GitHub, and 15 automatically generated items (at most 0.67% of the score) could be lost when genuine proofs rename them."
  },
  "openrct2_theme_park_ai": {
   "headline": "Instructions promise about 4 game years; the grader runs about 68 game days",
@@ -219,23 +219,23 @@
  "ordinal_notation_well_foundedness": {
   "headline": "Grader correct; published results show targets 1–6 proved, 7–9 (64 of 85 points) open",
   "about": "Prove nine statements in Coq (a language for machine-checked math proofs) that a step-by-step list-rewriting process always terminates from given starting lists; targets are weighted, maximum 85.",
-  "problem": "No grader defect: honest proofs get credit; unfinished or assumption-based proofs are rejected. Caveats: published results (21 of 85 points) show proofs of targets 1 to 6, but 7 to 9 have no known proof, so 85 is unverified; helper files named test*, check*, debug*, explore*, tmp* or scratch* are silently dropped; each file has an unstated 300-second compile limit.",
-  "effect": "No effect on honest proofs was found. A proof needing a helper file with an excluded name, or taking over 300 seconds to compile, would fail.",
+  "problem": "No grader defect: complete proofs get credit; unfinished or assumption-based proofs are rejected. Caveats: published results (21 of 85 points) show proofs of targets 1 to 6, but 7 to 9 have no known proof, so 85 is unverified; helper files named test*, check*, debug*, explore*, tmp* or scratch* are silently dropped; each file has an unstated 300-second compile limit.",
+  "effect": "No effect on genuine proofs was found. A proof needing a helper file with an excluded name, or taking over 300 seconds to compile, would fail.",
   "action": "Kept, with a note: targets 7 to 9 have no known proof, helper files with certain name prefixes are dropped, and each file has a 300-second compile limit."
  },
  "pfr_formalization": {
   "headline": "Five statements could never be earned because their type contained a hidden `sorry`",
   "about": "Fill in missing proofs in a project about the PFR conjecture, a mathematics result, written in Lean, a language for machine-checked math proofs.",
-  "problem": "Five of 423 scored statements carried a real `sorry` in their type. Lean adds it without any error because of how an automatic argument was declared. The grader counts it, so no proof could earn them, and a later proof that used one of them also lost its point. Two honest proofs of one theorem in different styles earned the same points.",
+  "problem": "Five of 423 scored statements carried a real `sorry` in their type. Lean adds it without any error because of how an automatic argument was declared. The grader counts it, so no proof could earn them, and a later proof that used one of them also lost its point. Two genuine proofs of one theorem in different styles earned the same points.",
   "effect": "Five targets cannot be earned (1.18 points); up to nine are affected when downstream proofs use them (2.13 points, inferred). The resulting 98.82 ceiling is an upper bound, not an attained score. Recovery on the actual targets and leaderboard impact have not been measured.",
-  "action": "Repair candidate: automatic arguments move into the five statements, removing sorry from their types. Analogous lemma controls pass; no proof of the five actual targets was run and the solver image was not built."
+  "action": "Candidate fix: the automatic arguments move into the five statements, which removes sorry from their types. Tests on similar lemmas pass; no proof of the five actual targets was run, and the solver image was not built."
  },
  "portfolio_risk_calibration": {
   "headline": "Excess return uses a slightly different formula than the instructions state",
   "about": "Build an investment portfolio strategy that is tested on past market data and compared with a benchmark index.",
   "problem": "The instructions define excess return as the strategy's yearly return minus the benchmark's yearly return. The original grader instead subtracts the two returns over the test period first and then converts the difference to a yearly figure, so a solver checking its own excess by the instructions sees a slightly different number from the grader's.",
-  "effect": "A restricted numerical sweep gives an envelope of +0.3921 and −0.10 points under its assumptions, not a universal score bound. The paired full-score change is +0.07 points. Lean preserves excess-return sign and order within the stated domain.",
-  "action": "The grader now subtracts annualized returns as instructed. A paired strategy gains 0.07 points and tested wrong submissions remain at zero. The numerical sensitivity sweep and Lean ordering result have explicit domain assumptions."
+  "effect": "Under its assumptions, a limited numerical search puts the change between −0.10 and +0.3921 points; this is not a bound for every case. In the side-by-side test the full score changes by +0.07 points. Lean shows that the fix keeps the sign and order of excess returns within the stated range.",
+  "action": "The grader now subtracts the yearly returns, as the instructions say. A strategy tested side by side gains 0.07 points, and the wrong submissions tested still score zero. The numerical sweep and the Lean result on ordering both rest on stated assumptions about the range of inputs."
  },
  "rust_multicrate_reconstruction": {
   "headline": "Hidden tests that cannot compile zero two packages; fixed",
@@ -256,7 +256,7 @@
   "about": "Build test-data generators for schemathesis, a tool that tests web APIs, including one that produces valid dates in the standard web date format.",
   "problem": "The hidden test checks only that each date has the right pattern of letters and digits. It accepts impossible dates such as 31 April, wrong weekdays, times like 24:00 and made-up month names. A generator that produces impossible dates or wrong weekdays about 90% of the time still passes all 15 tests in its group.",
   "effect": "At most about 1% of the total score, only for generators that produce invalid dates or times; they get the same credit as correct generators.",
-  "action": "The v2.1 judge checks calendar validity, weekday and time, and restricts years to 1900 or later. Three paired native eval_cmd controls pass in a clean run (exit 0): valid-generator score unchanged (0.477350), pre-1900 and malformed-date generators lose the one date test (0.477350 to 0.467094). The old Lean proof has not been revised."
+  "action": "The v2.1 grader checks that each date exists on the calendar, that its weekday and time are right, and that the year is 1900 or later. Three side-by-side tests through the native eval_cmd pass in a clean run (exit 0): a valid generator's score is unchanged (0.477350), and generators of pre-1900 or malformed dates lose the one date test (0.477350 to 0.467094). The old Lean proof has not been revised."
  },
  "schemathesis_reporting_observability": {
   "headline": "Two hidden tests give credit for wrong or broken output",
@@ -270,21 +270,21 @@
   "about": "Build an SMT solver: a program that decides whether a set of logical constraints can be satisfied and, if so, prints values that satisfy them.",
   "problem": "When checking a solver's proposed values, the grader looks up a function's value by its literal text, such as \"(f x)\", ignoring what x currently stands for. If the same text means different things in different places, no answer can pass. 27 satisfiable hidden problems are unwinnable, and on 42 more, answers written as the instructions describe are rejected. A note, not part of the fix: the grader runs 16 solver processes at once. The official leaderboard gives it 16 CPUs, one per process; on a grader with fewer CPUs, such as 4, each process gets less, and a solver needing 20 seconds of computing per problem timed out.",
   "effect": "A perfect solver's maximum falls from 78.61 to 72.40 (6.21 points). All solvers lose the 27 problems; those following the documented format also lose 42 more.",
-  "action": "The repaired checker accepts the tested valid ground-key answers on all 69 affected hidden files and rejects the tested wrong answers. Lean soundness covers a restricted modeled fragment, not every feature of the evaluator; textual-key compatibility has documented exceptions."
+  "action": "The fixed checker accepts the tested valid answers (with ground keys) on all 69 affected hidden files and rejects the tested wrong answers. The Lean soundness proof covers a restricted, modeled fragment of the checker, not every feature; compatibility with answers keyed by literal text has documented exceptions."
  },
  "sphere_eversion_formalization": {
   "headline": "No problem found; no scored item found out of reach because of generated names",
   "about": "Complete the missing proofs in a Lean project (Lean is a language for machine-checked math proofs) on sphere eversion, turning a sphere inside out smoothly; credit is the share completed.",
-  "problem": "No material defect. Of 661 scored items, none was found out of reach because of how the grader names generated items; whether every item is true was not checked. Generated items are 18.0% of the score and should come free once their parent proofs are done. Caveat: this rests on inspection and an unchanged starter; no honest proof was scored.",
+  "problem": "No material defect. Of 661 scored items, none was found out of reach because of how the grader names generated items; whether every item is true was not checked. Generated items are 18.0% of the score and should come free once their parent proofs are done. Caveat: this rests on inspection and an unchanged starter; no genuine proof was scored.",
   "effect": "No effect measured.",
-  "action": "Kept, with a note: the finding that automatically generated items are stable rests on inspection only; no honest proof was scored."
+  "action": "Kept, with a note: the finding that automatically generated items are stable rests on inspection only; no genuine proof was scored."
  },
  "treant_forest": {
   "headline": "The score scale tops out at 21 of 100 for any submission",
   "about": "Solve 50 fixed cases of a grid puzzle adapted from an AtCoder programming contest; each case scores the number of turns survived, and higher is better.",
   "problem": "The grader caps each case at 2N² turns, where N is the grid size, so no total can exceed 92,304. The score scale's reference points were set far above this, up to 330,195 for the top rank, so no submission can score above 21.02 out of 100. The README does not mention the cap. At the publisher's 4 grader CPUs each case gets about half a CPU; solutions using up to 58 seconds of computing per case still passed (the slowest took 116 of the grader's 120 seconds), so the README's full 60 seconds would sit at the limit; a solver that stops at a wall-clock deadline gets about half the computing time.",
-  "effect": "Every submission's score is squeezed into 0 to 21, with ordering kept. A simple honest test submission scored 3.04.",
-  "action": "Fixed in a new version: only the score scale changes, running straight from the starter's total (3,418) to the turn cap (92,304). Raw totals are identical; the simple honest test submission now scores 16.36."
+  "effect": "Every submission's score is squeezed into 0 to 21, with ordering kept. A simple, valid test submission scored 3.04.",
+  "action": "Fixed in a new version: only the score scale changes, running straight from the starter's total (3,418) to the turn cap (92,304). Raw totals are identical; the same test submission now scores 16.36."
  },
  "tree_block_partitioning": {
   "headline": "The supplied grading library miscalculates when a value multiplies itself",
@@ -304,7 +304,7 @@
   "headline": "No problem found; the score is the game's own, and play is repeatable",
   "about": "Play the text adventure game Trinity by sending typed commands to it and get the highest in-game score, out of 100.",
   "problem": "No material defect. The score is the game's own score at the end of the best session; the game behaves identically for the same commands. Caveats: the final score counts, not the highest score reached; sessions close after 600 to 660 seconds idle; at most 3 run at once; each step times out after 10 seconds. None is in the task text.",
-  "effect": "No effect on the scores of honest submissions observed. Only an agent that relies on the highest-score-reached figure, or pauses over 10 minutes mid-game, could be affected.",
+  "effect": "No effect observed on the scores of submissions that follow the rules. Only an agent that relies on the highest-score-reached figure, or pauses over 10 minutes mid-game, could be affected.",
   "action": "Kept, with a note: the final score of the best session counts, idle sessions close after 600 to 660 seconds, and at most 3 sessions run at once."
  },
  "tryst_text_adventure": {
@@ -326,13 +326,13 @@
   "about": "Solve 50 graph-colouring puzzles (colouring points of a network so linked points differ), outputting a sequence of point \"hits\" and a colour per point, for the lowest total score.",
   "problem": "The grader runs 8 cases at once under a 30-second wall-clock limit. On the publisher's 4-CPU setting each case gets half a CPU, so a valid solution using 20 seconds of CPU per case timed out on 48 of 50 cases, and one timeout leaves the whole submission without a score. Separately, the tester accepts a no-hit answer only in two lines, not the documented three; zero-hit answers are proved invalid on 37 cases, but the format effect remains unresolved on the other 13.",
   "effect": "Up to the full score for solutions using about 14 to 30 seconds of CPU per case on a 4-CPU grader; solutions that stop at a deadline got half the computing time. The format mismatch has zero effect on 37 certified cases; its effect on the other 13 is unresolved.",
-  "action": "CPU parallelism is limited to available CPUs and grading gets 900 seconds. The zero-hit format mismatch remains: its effect is ruled out on 37 certified cases but unresolved on 13. One failed case still voids the submission."
+  "action": "The grader runs no more cases at once than there are CPUs, and grading gets 900 seconds. The format mismatch for zero-hit answers remains; its effect is ruled out on 37 certified cases and unresolved on the other 13. One failed case still voids the submission."
  },
  "vliw_kernel_optimization": {
-  "headline": "No problem found for honest submissions",
+  "headline": "No problem found for submissions that follow the rules",
   "about": "Write a program generator for a simulated processor that runs many instructions at once (a VLIW machine); the program must be correct and is scored on speed.",
   "problem": "Only ways to deliberately cheat the grader were found; those are outside this audit. The grader scored the correct starter program validly and rejected an empty program. The score scale reaches 100 at 1000 cycles; a public Claude Opus 5.5 run reached 950 cycles, so the scale does not separate the best kernels. Published scores (best 85.6) are not affected.",
-  "effect": "No effect on the scores of honest submissions.",
+  "effect": "No effect on the scores of submissions that follow the rules.",
   "action": "Kept, with a note: this audit does not cover deliberate attempts to cheat the grader; the two test submissions run were scored correctly."
  },
  "warehouse_forklift_routing": {
@@ -340,7 +340,7 @@
   "about": "Write a program that produces forklift command strings to store and then dispatch goods in a grid warehouse, using as few commands as possible.",
   "problem": "The instructions promise 30 seconds per test case, 150 per five-case input; the grader allows 60 seconds per input, and one timeout voids the whole submission. Separately, a machine-checked proof shows every valid answer totals at least 712.538, worse than the scale's top reference points, so no score can exceed about 30.6 (30.3 before display rounding); the best reachable is unknown. On the publisher's 4-CPU grader, running 8 inputs at once also halved each input's computing time.",
   "effect": "A solver taking 60 to 150 seconds on any input, or more than about 30 seconds of CPU per input on the publisher's 4-CPU grader (half a CPU each under the 60-second limit), loses its whole score; every solver is capped at about 30.6 out of 100 (30.3 before display rounding).",
-  "action": "The grader repair increases each input limit to 150 seconds and limits parallelism to available CPUs. It also requires the supplied harness wait overlay so late valid results are collected; end-to-end integration remains pending. The documented score ceiling remains."
+  "action": "The fixed grader raises each input's limit to 150 seconds and runs no more inputs at once than there are CPUs. It also needs the supplied change to how the harness waits, so that valid results arriving late are collected; this has not yet been tested end to end. The documented score ceiling stays."
  },
  "wesnoth_tactical_ai": {
   "headline": "The supplied starter program is broken, and repeat games give different results",

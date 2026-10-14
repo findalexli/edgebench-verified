@@ -4,7 +4,7 @@
 
 ![Two horizontal bars for the same error-checking logic: returning a list of {level, message}, as the hidden tests expect, scores 69.26 out of 100; keeping the starter code's {ok, errors, warnings, program} scores 35.59. A note says type-checking tests passed 128 of 128 versus 0, and that the fix documents the format.](figures/arc_compiler_runtime.svg)
 
-*The same honest error checker scores 69.26 or 35.59 out of 100 in Arc Compiler Runtime, depending only on a return format that no instruction mentions. The agent completes a small compiler; hidden tests worth 33.67 points expect error reports as a list of {level, message}, while the starter code returns another format and nothing the agent can see says which is right. The fix documents the format in the task notes; the checker is unchanged, so the same code scores the same as before.*
+*In Arc Compiler Runtime the same error checker scores 69.26 or 35.59 out of 100, depending only on a return format that no instruction mentions. The agent completes a small compiler. Hidden tests worth 33.67 points expect error reports as a list of {level, message}; the starter code returns another format, and nothing the agent can see says which is right. The fix documents the format in the task notes. The checker is unchanged, so the same code scores the same as before.*
 
 ## What the task asks
 
@@ -14,7 +14,7 @@ The solver must "Implement the missing Arc compiler and runtime modules under co
 
 **The `analyze()` interface is not documented.** The hidden type-system suites call `analyze()` from `compiler/src/semantic.js`. They expect an array of `{level, message}` objects. The messages must contain the substrings "Undefined", "Cannot reassign immutable" and "expects 2". The starter code that ships with the task returns `{ ok, errors, warnings, program }` instead. No solver-visible file names the required shape or the message texts. These suites carry 1000/2970 of the weight (33.67 points).
 
-- Example, on the original grader: the same honest analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter's object shape. It passes 128/128 type-system cases in the first form and 0 in the second. The solver gets no signal about which form is right.
+- Example, on the original grader: the same good-faith analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter's object shape. It passes 128/128 type-system cases in the first form and 0 in the second. The solver gets no signal about which form is right.
 
 **The stated starter score is false.** TASK.md and problem.md say the starter scores 0.00. In the original work image (the container the agent works in), the starter scores `SCORE=100.00` on the public tests (48/48) and 35.59 on the hidden tests. This misleads a solver about where it starts. It does not change any score.
 
@@ -43,7 +43,7 @@ The grader image, grader, tests, starter code and task prompt are unchanged. `ta
 | (b) | fixed | 100.00 | 47.21 | 47.21 | 0.4732 (212/448) | true | 0 |
 | (c) invalid: codegen emits `var result = null;` | original | 83.33 (40/48) | 25.79 | 25.79 | 0.2879 (129/448) | true | 0 |
 | (c) | fixed | 83.33 (40/48) | 25.79 | 25.79 | 0.2879 (129/448) | true | 0 |
-| (d) independent honest analyzer, documented shape | original | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
+| (d) independent good-faith analyzer, documented shape | original | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
 | (d) | fixed | 100.00 | 69.26 | 69.26 | 0.6585 (295/448) | true | 0 |
 | (e) same analyzer as (d), starter shape `{ok,errors,warnings,program}` | original | 100.00 | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
 | (e) | fixed | 100.00 | 35.59 | 35.59 | 0.3728 (167/448) | true | 0 |
@@ -54,8 +54,8 @@ Type-system suites (weight 1000/2970 = 33.67 points), cases passed:
 | --- | ---: | ---: | ---: | ---: |
 | (a) starter | 0 | 0 | 0 | 0 |
 | (b) `[]` | 5 | 0 | 0 | 40 |
-| (d) honest, documented shape | 8 | 40 | 40 | 40 |
-| (e) honest, starter shape | 0 | 0 | 0 | 0 |
+| (d) good faith, documented shape | 8 | 40 | 40 | 40 |
+| (e) good faith, starter shape | 0 | 0 | 0 | 0 |
 
 Per-suite counts are byte-identical between the original and fixed versions for every test submission.
 

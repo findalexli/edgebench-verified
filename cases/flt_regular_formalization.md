@@ -1,6 +1,6 @@
 # FLT Regular Formalization (`flt_regular_formalization`)
 
-**Outcome:** Kept, with a note. <mark>The weighted list of scored statements matches the task's own list exactly and contains no compiler-generated names, so no statement was found out of reach for an honest, complete solution.</mark>
+**Outcome:** Kept, with a note. <mark>The weighted list of scored statements matches the task's own list exactly and contains no compiler-generated names, so no statement was found out of reach for a complete, correct solution.</mark>
 
 ## What the task asks
 
@@ -10,7 +10,7 @@ The solver works in a project on Fermat's Last Theorem written in Lean 4, a lang
 
 There is no problem that changes scores. What was checked:
 
-- **Compiler-generated targets.** The Lean grader shared by several tasks credits targets that the compiler generates (names such as `X._proof_N`, `X._simp_N`, …) only when the exact generated name and printed type match. In `lean_analysis_proofs` this puts at least 44 helper targets (49 of 2901 targets in total, 1.69%, counting also 3 placeholder and 2 false statements) out of reach for any honest, complete solution. It does not apply here, because no target is compiler-generated:
+- **Compiler-generated targets.** The Lean grader shared by several tasks credits targets that the compiler generates (names such as `X._proof_N`, `X._simp_N`, …) only when the exact generated name and printed type match. In `lean_analysis_proofs` this puts at least 44 helper targets (49 of 2901 targets in total, 1.69%, counting also 3 placeholder and 2 false statements) out of reach for any complete, correct solution. It does not apply here, because no target is compiler-generated:
 
 | Targets (weight) | Compiler-generated targets | Their share of the score | Fragile generated targets | `sorry` in type | P/¬P pairs | Lower bound on targets out of reach |
 |---|---|---|---|---|---|---|
@@ -26,7 +26,7 @@ The task is not changed; the note above ships with it.
 
 ## How much it matters
 
-No target is out of reach for an honest, complete solution (lower bound 0). The README's grouping into 100 points does not change any score.
+No target is out of reach for a complete, correct solution (lower bound 0). The README's grouping into 100 points does not change any score.
 
 ## How we checked it
 
@@ -37,7 +37,7 @@ No target is out of reach for an honest, complete solution (lower bound 0). The 
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on the test submissions we wrote.
-- Only the unmodified starter was scored on the grader. No variant with honest proofs was scored for this task.
+- Only the unmodified starter was scored on the grader. No variant with real proofs was scored for this task.
 - Submissions were built from the baseline sources in the grader image. Whether the starter in the work image is identical to them was not checked.
 - Whether the work image builds against the same Mathlib as `/home/workspace/baseline` was not checked. If it does not, a proof that compiles in the work image can fail to build at grading, and a failed build scores 0. Only the starter, whose proofs are all `sorry`, was built under the swap. Recorded agent runs on this task score up to 75.1 out of 100 (`tasks/README.md`), so their proofs did build under the swap.
 - Build time with complete proofs was not measured; a run over the 2,400 s limit scores 0.

@@ -25,17 +25,17 @@ So a run can be scored on as little as a single node while it is reported `valid
 - **Small example:** 1000 nodes, where the first prediction is correct and the rest are `"x"`. Result: macro_f1 = micro_f1 = balanced accuracy = 1.0 and ECE 0.
 - **Example on the real grader:** the shipped baseline with all but one prediction replaced by `"x"`.
   - Expected: rejected, because the predictions are not integer class ids.
-  - Observed: `valid: true`, with every split scored on one node. The first-node guess was right in 2 of 10 splits, giving overall 0.20. That is below the honest 0.333 for this weak baseline.
+  - Observed: `valid: true`, with every split scored on one node. The first-node guess was right in 2 of 10 splits, giving overall 0.20. That is below the 0.333 this weak baseline scores with full predictions.
 
-Why it matters: a submission that breaks the contract gets a valid score computed on the wrong set of nodes.
+As a result, a submission that breaks the contract gets a valid score computed on the wrong set of nodes.
 
-**Complete predictions keyed by integer node IDs score 0 and are still valid.** The grader looks predictions up under the answer key's string node IDs (`"5"`) and does not convert the submitted keys, so a prediction keyed by the integer `5` is never found. The coverage check still passes, because the number of keys is right. On the real grader, an honest neighbour-vote solver that keys its predictions by the integer IDs it is given (`neighbor_intkeys`) was marked `valid: true` with every quality metric 0 (overall 0.000000, normalized score 0), while the same predictions keyed by strings score overall 0.281108. This is a downward error for good-faith work that follows the prompt.
+**Complete predictions keyed by integer node IDs score 0 and are still valid.** The grader looks predictions up under the answer key's string node IDs (`"5"`) and does not convert the submitted keys, so a prediction keyed by the integer `5` is never found. The coverage check still passes, because the number of keys is right. On the real grader, a plain neighbour-vote solver that keys its predictions by the integer IDs it is given (`neighbor_intkeys`) was marked `valid: true` with every quality metric 0 (overall 0.000000, normalized score 0), while the same predictions keyed by strings score overall 0.281108. This is a downward error for good-faith work that follows the prompt.
 
 **Checked and found harmless: NaN or out-of-range confidences.** `_ece()` clips each confidence with `min(1.0, max(0.0, c))`. NaN or a negative value becomes 0, and a value above 1 becomes 1. The score then depends only on the clipped, legal value, so no out-of-range value can score better than a legal one. This is left unchanged.
 
 ## How much it matters
 
-The effect adds chance to the score. For each split, the expected value of the one-node gamble depends on accuracy on one fixed node; the one measured gamble (shrink) scored overall 0.20, below the honest 0.333 (`repairs/graph_node_classification-v2/paired/graded.md`). The task keeps a run's best valid submission (`selection: valid_then_score`). A general Lean lemma shows that under such max selection an added random submission never lowers the expected kept score, and raises it whenever it can beat the current best (`evidence/formal/notes/graph_node_classification.md`). No gain for a real solver was shown. Only submissions that send non-integer or missing predictions are affected by this part. Separately, a submission keyed by integer node IDs loses its whole score (to 0) while still counted valid; in the 112 real-solver gradings we have (see "How we checked it"), no submission was keyed that way.
+The effect adds chance to the score. For each split, the expected value of the one-node gamble depends on accuracy on one fixed node; the one measured gamble (shrink) scored overall 0.20, below the 0.333 of full predictions (`repairs/graph_node_classification-v2/paired/graded.md`). The task keeps a run's best valid submission (`selection: valid_then_score`). A general Lean lemma shows that under such max selection an added random submission never lowers the expected kept score, and raises it whenever it can beat the current best (`evidence/formal/notes/graph_node_classification.md`). No gain for a real solver was shown. Only submissions that send non-integer or missing predictions are affected by this part. Separately, a submission keyed by integer node IDs loses its whole score (to 0) while still counted valid; in the 112 real-solver gradings we have (see "How we checked it"), no submission was keyed that way.
 
 ## The fix
 
@@ -52,7 +52,7 @@ A violation raises an error. The unchanged runner and `judge_eval.py` turn it in
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | baseline (shipped solution.py) | correct test submission | Original | true | 0.292783 | 29.278 | 0.332624 | 0.238512 | 0.925034 |
 | baseline | correct test submission | Fixed | true | 0.292702 | 29.270 | 0.332624 | 0.238512 | 0.925034 |
-| neighbor (honest neighbour-vote solver, int ids) | correct test submission | Original | true | 0.241002 | 24.100 | 0.281108 | 0.221556 | 0.758336 |
+| neighbor (plain neighbour-vote solver, int ids) | correct test submission | Original | true | 0.241002 | 24.100 | 0.281108 | 0.221556 | 0.758336 |
 | neighbor | correct test submission | Fixed | true | 0.241044 | 24.104 | 0.281108 | 0.221556 | 0.758336 |
 | nanconf (baseline predictions, NaN confidences) | clipping left unchanged | Original | true | 0.271465 | 27.147 | 0.311437 | 0.238512 | 0.713160 |
 | nanconf | clipping left unchanged | Fixed | true | 0.271431 | 27.143 | 0.311437 | 0.238512 | 0.713160 |
@@ -84,7 +84,7 @@ For every valid submission keyed by string node IDs, the quality metrics are ide
 ## Limits
 
 - Effects are shown on test submissions and counterexamples we wrote. Real solver submissions were regraded only with the original and the first fixed verifier (see above), and none of them shows the problem.
-- Only the shipped baseline, a weak honest neighbour-vote solver and simple contract-breaking variants were run. Stronger solvers were not.
+- Only the shipped baseline, a weak, plain neighbour-vote solver and simple contract-breaking variants were run. Stronger solvers were not.
 - The expected-value analysis of the shrink case is worked out by hand, backed by one 10-split run. How the added chance interacts with the rule that picks a run's best submission (`selection: valid_then_score`) is covered only by a general lemma (its numeric illustration assumes a per-split hit rate of 1/4); it was not measured.
 - Keys of other types are matched by their `str()`. A float key such as `5.0` becomes `"5.0"`, does not match node `"5"` and makes the run invalid. This was not run on the real grader.
 - The prompt text was read from the grader image's English copy and the Chinese source copy, which agree on the contract sentences. The agent's working image was not pulled.

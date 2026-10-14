@@ -15,7 +15,7 @@
   "kind": "open",
   "direction": "up",
   "bound": null,
-  "text": "scale ×100/109 applied with published rounding uncertainty; up for honest fits once the convention is documented (24 raw points for a one-shot fit; less for agents that iterate on the grader's feedback)"
+  "text": "scale ×100/109 applied with published rounding uncertainty; up for good-faith fits once the convention is documented (24 raw points for a one-shot fit; less for agents that iterate on the grader's feedback)"
  },
  "college_english_exam_bank": {
   "kind": "open",
@@ -63,7 +63,7 @@
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: an honest run whose prediction file is keyed by integer node IDs scores 0 under the original verifier and moves up under the fix (neighbor_intkeys: 0 to 24.089 of 100); a run that violates the output contract (non-numeric or missing predictions, or keys that collide under str()) was scored by the original and moves down, and under best-so-far selection the added variance can raise a run's score (a general lemma); none of the real runs regraded was integer-keyed, and no gain for a real solver was established"
+  "text": "either: a good-faith run whose prediction file is keyed by integer node IDs scores 0 under the original verifier and moves up under the fix (neighbor_intkeys: 0 to 24.089 of 100); a run that violates the output contract (non-numeric or missing predictions, or keys that collide under str()) was scored by the original and moves down, and under best-so-far selection the added variance can raise a run's score (a general lemma); none of the real runs regraded was integer-keyed, and no gain for a real solver was established"
  },
  "grid_turing_robot": {
   "kind": "open",
@@ -75,13 +75,13 @@
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: raw results were understated by a factor that depends on the submission (2.4 and 3.7 for two real submissions, 7–9 for a simple honest codec), and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320); a real run's recorded best, 75.72, becomes 53.95 for its best submission on the fixed grader (second regrade of all 37 submissions; the first regrade of the recorded best submission alone gave 66.31 on the original grader and 50.08 on the fixed one)"
+  "text": "either: raw results were understated by a factor that depends on the submission (2.4 and 3.7 for two real submissions, 7–9 for a simple correct codec), and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320); a real run's recorded best, 75.72, becomes 53.95 for its best submission on the fixed grader (second regrade of all 37 submissions; the first regrade of the recorded best submission alone gave 66.31 on the original grader and 50.08 on the fixed one)"
  },
  "jagua_nesting_optimization": {
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: down for layouts with overlaps and for forbidden rotations; up only in the constructed swim_cr leniency case, where the original's edge-crossing test rejects a near-touching layout that the fixed area test accepts (seed_shift_wrongdeg: 0 → 0.186857 raw); unchanged for honest layouts"
+  "text": "either: down for layouts with overlaps and for forbidden rotations; up only in the constructed swim_cr leniency case, where the original's edge-crossing test rejects a near-touching layout that the fixed area test accepts (seed_shift_wrongdeg: 0 → 0.186857 raw); unchanged for valid layouts"
  },
  "juliet_vulnerability_analyzer": {
   "kind": "bounded",

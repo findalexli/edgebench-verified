@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>对排行榜的影响 · EdgeBench Verified</title>
-<meta name="description" content="修正后的评分器可能使已发布的 EdgeBench 排行榜改变多少，以及哪些问题无法从公开数据中确定。">
+<meta name="description" content="修正后的评分器可能让已发布的 EdgeBench 排行榜改变多少，以及哪些问题无法从公开数据确定。">
 <meta name="color-scheme" content="light">
 <link rel="alternate" hreflang="en" href="http://lishengzhi.com/edgebench-verified/leaderboard.html">
 <link rel="alternate" hreflang="zh-CN" href="http://lishengzhi.com/edgebench-verified/zh/leaderboard.html">
@@ -31,29 +31,29 @@
 </header>
 
 <section id="summary" class="col">
-  <p>在已公布的排行榜上，Opus&nbsp;4.8 以 1.1 分领先 GPT-5.5（44.2 对 43.1）。计入我们记录的各任务上限后，两者的区间分别为 45.49–47.30 和 44.30–46.35。<mark>两者重叠，因此仅凭公开数据已无法确认两者中哪个领先。</mark>这并不表明两者名次互换。这些区间把 19 项在排行榜上大小未知的修复按零计算。</p>
-  <p>表&nbsp;3 中的每个区间，是仅用我们能够测量或证明的内容、修复可能给出的最低和最高平均分。EdgeBench 公布每个模型在其有效运行上的平均分；它的运行和提交没有公开，因此修正后的排行榜本身无法计算。这些区间不是对修正后分数的估计，其端点也不是已知有人达到的结果。区间假定有效运行不变、我们保留的任务不变，并采用为每项影响所列的方向和上限。如果某项修复改变了哪些运行失败，或改变了智能体的做法，就需要新的证据。</p>
+  <p>在公布的排行榜上，Opus&nbsp;4.8 以 1.1 分领先 GPT-5.5（44.2 对 43.1）。计入我们记录的各任务上限后，两者的区间分别为 45.49–47.30 和 44.30–46.35。<mark>两个区间重叠，所以仅凭公开数据已无法确认谁领先。</mark>这并不说明两者名次互换。在排行榜上影响大小未知的 19 项修复，这些区间都按零计算。</p>
+  <p>表&nbsp;3 中的每个区间，表示只用我们能测量或证明的内容时，修复可能带来的最低和最高平均分。EdgeBench 公布每个模型在有效运行上的平均分；运行记录和提交都没有公开，所以修正后的排行榜本身无法计算。这些区间不是对修正后分数的估计，区间端点也不是已知有人达到的结果。区间假定有效运行不变、我们保留的任务不变，并采用每项影响所列的方向和上限。如果某项修复改变了哪些运行失败，或改变了智能体的做法，就需要新的证据。</p>
 </section>
 
 <section id="bounds" class="col">
-  <h2 class="sec"><span class="num">1</span>能够和不能够确定的内容</h2>
+  <h2 class="sec"><span class="num">1</span>能确定什么，不能确定什么</h2>
   <ul class="tight">
-    <li><b>只计刻度。</b>移除 <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC</a>，把 <a class="task-link" href="tasks/borden_source_inversion.html">Borden</a> 换算到它新的 0–100 分刻度，并逐次运行地考虑 <a class="task-link" href="tasks/treant_forest.html">Treant</a> 的新刻度。Treant 的刻度分为两段，并把分数截断在零，因此公布的 Treant 平均分不能告诉我们每次运行的分数；区间涵盖了所有可能。每个保留任务公布的分数都经过舍入，可能有最多 0.05 的偏差。区间的中点不是对修正后分数的估计。</li>
-    <li><b>已记录上限。</b>下一列再计入 10 个单任务上限，每个上限是该任务的修复最多能改变的分数。其中包括我们根据规则推断的 <a class="task-link" href="tasks/pfr_formalization.html">PFR</a> 得分，并不是在实际证明目标上展示的得分。每个上限单独取用；这些区间并不声称所有上限可以同时达到。这里把 19 项大小未知的修复按零计算，因此这些区间确认的任何先后顺序，只在这些修复毫无影响时才成立。<mark>Opus 4.8 和 GPT-5.5 的区间相互重叠。</mark>因此仅凭公开数据无法确认两者中哪个领先；但这并不表明两者名次互换。</li>
-    <li><b>加 Portfolio。</b>单独一列为 <a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk</a> 加上 +0.3921/−0.10 分。这一估计来自有限的数值搜索（242 或 243 个共同日期，策略收益从 −30% 到 +100%）：找到的最大增幅为 0.3913，0.3921 在此基础上加了余量。无论是搜索还是 Lean，都没有证明不可能有更大的增幅。</li>
-    <li><b>最宽可能范围。</b>最宽的区间让每一项大小未知的修复在其所列方向上把该任务的分数推到尽头，并让 Portfolio 取 0 到 100 之间的任意值。在这些区间下，每一对相邻模型都相互重叠，因此排行榜上没有任何名次能够确认。这些是外部界限，不是置信区间或预测。</li>
+    <li><b>只计刻度。</b>移除 <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC</a>，把 <a class="task-link" href="tasks/borden_source_inversion.html">Borden</a> 换算到它新的 0–100 分刻度，并逐次运行地套用 <a class="task-link" href="tasks/treant_forest.html">Treant</a> 的新刻度。Treant 的刻度分两段，并在零处截断，所以从公布的 Treant 平均分看不出每次运行的分数；区间涵盖了所有可能。每个保留任务公布的分数都经过舍入，最多可能偏差 0.05。区间中点不是对修正后分数的估计。</li>
+    <li><b>已记录上限。</b>下一列再计入 10 个单任务上限，每个上限是该任务的修复最多能改变的分数。其中 <a class="task-link" href="tasks/pfr_formalization.html">PFR</a> 的得分是我们根据规则推断的，没有在实际的证明目标上展示。每个上限单独取用；这些区间并不声称所有上限能同时达到。这里把 19 项大小未知的修复按零计算，所以这些区间确认的任何先后顺序，只在这些修复毫无影响时才成立。<mark>Opus 4.8 和 GPT-5.5 的区间相互重叠。</mark>所以仅凭公开数据无法确认两者谁领先，但这并不说明两者名次互换。</li>
+    <li><b>加 Portfolio。</b>单独一列为 <a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk</a> 加上 +0.3921/−0.10 分。这个估计来自有限的数值搜索（242 或 243 个共同日期，策略收益从 −30% 到 +100%）：搜到的最大增幅是 0.3913，0.3921 在此基础上留了余量。无论搜索还是 Lean，都没有证明不存在更大的增幅。</li>
+    <li><b>最宽可能范围。</b>最宽的区间让每一项大小未知的修复沿所列方向把该任务的分数推到头，并让 Portfolio 取 0 到 100 之间的任意值。在这些区间下，每一对相邻模型都相互重叠，排行榜上没有任何名次能够确认。这些是外部界限，不是置信区间，也不是预测。</li>
   </ul>
-  <p class="tcap"><b>表 3.</b>十二小时公开任务平均分，以及修复可能给出的区间。保留 EdgeBench 的模型名称。每个区间都向外舍入（下端向下、上端向上）。</p>
+  <p class="tcap"><b>表 3.</b>十二小时公开任务的平均分，以及修复后可能的区间。模型名称沿用 EdgeBench 的写法。每个区间都向外舍入（下端向下、上端向上）。</p>
   <div class="tablewrap"><table class="bt">
     <thead><tr><th>模型</th><th class="n">已发布</th><th class="n">最宽可能范围</th><th class="n">已记录上限</th><th class="n">加 Portfolio</th><th class="n">只计刻度</th></tr></thead>
     <tbody><tr><td>Opus 4.8</td><td class="n">44.2</td><td class="n"><b>36.01–67.13</b></td><td class="n">45.49–47.30</td><td class="n">45.49–47.30</td><td class="n">45.92–46.05</td></tr><tr><td>GPT-5.5</td><td class="n">43.1</td><td class="n"><b>35.54–67.81</b></td><td class="n">44.30–46.35</td><td class="n">44.30–46.36</td><td class="n">44.73–44.86</td></tr><tr><td>GPT-5.4</td><td class="n">34.2</td><td class="n"><b>28.27–62.37</b></td><td class="n">35.15–37.71</td><td class="n">35.15–37.71</td><td class="n">35.57–35.71</td></tr><tr><td>GLM-5.1</td><td class="n">30.4</td><td class="n"><b>25.29–59.55</b></td><td class="n">31.39–34.00</td><td class="n">31.38–34.01</td><td class="n">31.81–31.94</td></tr><tr><td>DS-V4-Pro</td><td class="n">25.7</td><td class="n"><b>20.45–53.98</b></td><td class="n">26.48–28.98</td><td class="n">26.47–28.99</td><td class="n">26.77–26.91</td></tr></tbody>
   </table></div>
-  <p class="note" style="margin-top:10px">移除 D-ABIC 后剩 50 个任务；Opus 4.8 没有有效的 Rust 结果，因此为 49 个。区间重叠说明这些上限无法确认先后顺序，并不表明两个模型名次互换。Treant 可能的最高总数是已记录的上限，不是已知有提交达到的总数。完整推导与假设见 <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a>。</p>
+  <p class="note" style="margin-top:10px">移除 D-ABIC 后剩 50 个任务；Opus 4.8 没有有效的 Rust 结果，因此为 49 个。区间重叠说明这些上限确认不了先后顺序，并不说明两个模型名次互换。Treant 可能的最高总数是已记录的上限，不是已知有提交达到的总数。完整推导和假设见 <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a>。</p>
 </section>
 
 <section id="large" class="col">
   <h2 class="sec"><span class="num">2</span>为什么真实的影响可能很大</h2>
-  <p>若干最大的影响落在大小未知的那一组中。<a class="task-link" href="tasks/integer_compression_codec.html">Integer Compression Codec</a> 把每份提交与存储的参考数值作比较，而文档所述的初始实现达不到这些数值；在一次真实智能体运行的全部 37 份提交上，按文档定义得到的值是原始结果的 1.7 到 4 倍。在 <a class="task-link" href="tasks/openttd_transport_ai.html">OpenTTD</a> 中，一个遵循任务说明的程序会调用一个并不存在的函数，然后停止运行。EdgeBench 计分方式的两个特点使这类影响变得更大而不是更小。<mark>由于每次运行保留其最佳分数，一项只是偶尔多给分的检查仍会提高这次运行的结果</mark>；而一个能连续十二小时看到自己分数的智能体，完全有条件找到一项宽松的检查并持续利用它。此外，由于只对有效的运行取平均，一次因缺陷而失败的运行可能被舍弃，而不是按零分计入。</p>
+  <p>大小未知的那一组里，有几项属于最大的影响。<a class="task-link" href="tasks/integer_compression_codec.html">Integer Compression Codec</a> 拿每份提交和存储的参考数值比较，而文档所述的初始实现达不到这些数值；在一次真实智能体运行的全部 37 份提交上，按文档定义算出的值是原始结果的 1.7 到 4 倍。在 <a class="task-link" href="tasks/openttd_transport_ai.html">OpenTTD</a> 中，一个照任务说明写的程序会调用一个并不存在的函数，然后停止运行。EdgeBench 的计分方式有两个特点，会让这类影响变大。<mark>每次运行保留最佳分数，所以一项只是偶尔多给分的检查，仍会抬高这次运行的结果</mark>；一个连续十二小时都能看到自己分数的智能体，完全有条件找到一项宽松的检查并反复利用。另外，平均分只算有效运行，一次因缺陷而失败的运行可能被舍弃，而不按零分计入。</p>
 </section>
 
 <section id="real-runs" class="col">
@@ -205,34 +205,34 @@
 <text x="598" y="597.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">评分器不变；需要新的运行</text>
 <text x="214" y="618" class="muted" font-size="13" text-anchor="start" font-weight="400">评分器不变，因此旧答案得分相同（原始结果 60.10，即 55.14 分，满分</text>
 <text x="214" y="635" class="muted" font-size="13" text-anchor="start" font-weight="400">100）；该修复改变的是任务说明，只有新的运行才能显示它的作用。</text>
-<text x="16" y="660" class="muted" font-size="13" text-anchor="start" font-weight="400">两个评分器都在我们的机器上重新评分；区间为三次评分的范围。</text>
-<text x="16" y="678" class="muted" font-size="13" text-anchor="start" font-weight="400">它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。</text>
+<text x="16" y="660" class="muted" font-size="13" text-anchor="start" font-weight="400">两个评分器的分数都是在我们的机器上重新评出的；区间是三次评分的范围。</text>
+<text x="16" y="678" class="muted" font-size="13" text-anchor="start" font-weight="400">可见这些问题确实会出现在真实智能体身上，但并非每次都出现。这次运行不能衡量对 12 小时排行榜的影响。</text>
 
 </svg>
-</div><figcaption><b>图 1</b> 我们用原始评分器和修复版评分器逐份重新评分了一次四小时的 Claude Opus 5.5 运行。在可重新评分的 7 个任务中，有 2 个的运行保留成绩发生变化：Order Addition 从 3.79 变为 41.24（但没有任何单份提交的分数变化），Integer Codec 在修复后的刻度上从 71.93 变为 53.95（该运行在它自己的机器上记录的是 75.72）。两边都是在我们的机器上重新评分的结果。另有 2 个任务中，单份提交的分数最多变化 25.26 分，而保留的成绩不变；还有 3 个任务中问题从未发生。在 Borden Inversion 中评分器没有改变，因此该运行的答案得分相同（原始结果 60.10，即 55.14 分，满分 100）；该修复改变的是任务说明，只有新的运行才能显示它的作用。它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。</figcaption></figure>
-  <p>EdgeBench 没有公开它的运行记录。不过，有第三方公开了 Claude Opus&nbsp;5.5 在 16 个公开任务上的一次运行：每个任务四小时，包含智能体做出的每一份提交，以及原始评分器给它的分数。这 16 个任务中有 9 个是我们修复过的。其余 7 个我们保留未改，因此无需重新评分。</p>
-  <p><b>旧提交能检验哪些修复。</b>一份保存下来的提交，是智能体针对原来那个任务给出的答案。如果一项修复只改变评分器，就可以把同一个答案分别交给原始评分器和修复版评分器，这样的对照是公平的，因为智能体在两种情况下看到的任务完全相同。如果一项修复只改变智能体看到的内容（任务说明或初始文件），评分器是同一个，因此旧答案在两个版本下得分相同；而智能体看到新的任务说明后本来会换一种做法，所以只有新的运行才能显示修复的作用。</p>
+</div><figcaption><b>图 1</b> 我们用原始评分器和修复版评分器逐份重新评分了一次四小时的 Claude Opus 5.5 运行。在可重新评分的 7 个任务中，有 2 个的运行保留成绩发生变化：Order Addition 从 3.79 变为 41.24（但没有任何单份提交的分数变化），Integer Codec 在修复后的刻度上从 71.93 变为 53.95（该运行在它自己的机器上记录的是 75.72）。两边都是在我们的机器上重新评分的结果。另有 2 个任务中，单份提交的分数最多变化 25.26 分，而保留的成绩不变；还有 3 个任务中问题从未发生。在 Borden Inversion 中评分器没有改变，因此该运行的答案得分相同（原始结果 60.10，即 55.14 分，满分 100）；该修复改变的是任务说明，只有新的运行才能显示它的作用。可见这些问题确实会出现在真实智能体身上，但并非每次都出现；这次运行不能衡量对 12 小时排行榜的影响。</figcaption></figure>
+  <p>EdgeBench 没有公开它的运行记录。不过，有第三方公开了 Claude Opus&nbsp;5.5 在 16 个公开任务上的一次运行：每个任务四小时，包括智能体的每一份提交，以及原始评分器给的分数。这 16 个任务中有 9 个我们修复过。其余 7 个我们保留未改，不需要重新评分。</p>
+  <p><b>旧提交能检验哪些修复。</b>保存下来的提交，是智能体针对原任务给出的答案。如果一项修复只改评分器，就可以把同一个答案分别交给原始评分器和修复版评分器。这样的对照是公平的，因为两种情况下智能体看到的任务完全一样。如果一项修复只改智能体看到的内容（任务说明或初始文件），评分器还是同一个，旧答案在两个版本下得分相同；而智能体看到新的任务说明，本来会换一种做法，所以只有新的运行才能显示修复的作用。</p>
   <ul class="tight">
-    <li><b>已重新评分：7 个任务。</b>它们的修复只改变评分器。我们用两种评分器对 314 份提交评分（计入重复共 349 组配对评分），使用这次运行自己的评分脚本和官方规定的 4 个 CPU，并按 EdgeBench 保留截至当时的最佳提交的规则，重新计算了每个任务的分数。表&nbsp;4 的两列都是我们在自己机器上的重新评分；运行自己记录的分数与之不同时，在说明中给出。依赖计时的评分器，对决定分数的那些提交各运行三次。作为对重放过程的检验，在评分器不依赖计时的三个任务上，原始评分器对全部 144 份提交都精确复现了这次运行记录的结果。</li>
-    <li><b>未重新评分：2 个任务。</b><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> 的修复只改变任务说明和一个初始文件；它的评分器没有改变，因此这次运行的答案在两个版本下得分相同。<a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a> 的评分器需要一个解包后约 33&nbsp;GB 的镜像和 16&nbsp;GB 内存，超出了我们机器的能力，因此它的影响改为根据原始评分器对每个证明目标的判定计算得出。它的修复还改正了两条要证明的命题；这两条原本是假的，任何答案都无法得到它们的分数，而这次运行在其余目标上的判定与它们无关。</li>
+    <li><b>已重新评分：7 个任务。</b>这些任务的修复只改评分器。我们用两种评分器给 314 份提交评分（算上重复共 349 组配对评分），使用这次运行自己的评分脚本和官方规定的 4 个 CPU，并按 EdgeBench 保留截至当时最佳提交的规则，重新计算每个任务的分数。表&nbsp;4 两列都是我们在自己机器上的重新评分；运行自己记录的分数与此不同时，在说明栏中给出。依赖计时的评分器，对决定分数的那些提交各运行三次。为了检验重放过程，在评分器不依赖计时的三个任务上，原始评分器对全部 144 份提交都精确复现了这次运行记录的结果。</li>
+    <li><b>未重新评分：2 个任务。</b><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> 的修复只改任务说明和一个初始文件，评分器没变，所以这次运行的答案在两个版本下得分相同。<a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a> 的评分器需要一个解包后约 33&nbsp;GB 的镜像和 16&nbsp;GB 内存，超出了我们机器的能力，所以它的影响改为根据原始评分器对每个证明目标的判定计算。它的修复还改正了两条要证明的命题。这两条原来是假的，任何答案都拿不到它们的分数，而这次运行在其余目标上的判定与它们无关。</li>
   </ul>
-  <p class="tcap"><b>表 4.</b> 这次运行在每个已修复任务上的分数（0–100 分，截至当时的最佳提交），分别为原始版和修复版，两者都在我们的机器上重新评分；区间为三次评分的范围。</p>
+  <p class="tcap"><b>表 4.</b> 这次运行在每个已修复任务上的分数（0–100 分，截至当时的最佳提交），原始版和修复版都在我们的机器上重新评分；区间是三次评分的范围。</p>
   <div class="tablewrap"><table class="bt">
     <thead><tr><th>任务</th><th>修复改变的部分</th><th class="n">原始</th><th class="n">修复版</th><th>说明</th></tr></thead>
     <tbody>
-      <tr><td><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a></td><td>评分器</td><td class="n">3.79</td><td class="n"><b>41.24</b></td><td><mark>原始评分器因一个过时的校验和（checksum），让每份提交都有一项测试不通过，因此这次运行保留了第一份有分数的提交（第六份受评提交）；修复版评分器保留的是后来的一份。</mark>全部 9 份提交。</td></tr>
-      <tr><td><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a></td><td>评分器、分数刻度</td><td class="n">71.93</td><td class="n"><b>53.95</b></td><td><mark>修复降低了这次运行的成绩。</mark>这次运行在它自己的机器上记录的是 75.72。每份提交的原始结果都提高到 1.7 到 4 倍，而修复后任务新的 0–100 分刻度把这次运行的最佳成绩定为 53.95 分。在两种评分器下，同一份提交在不同机器之间的波动都可达 ±20%。全部 37 份。</td></tr>
-      <tr><td><a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a></td><td>评分器</td><td class="n">99.66</td><td class="n">99.66</td><td>14 份早期提交在修复后最多高出 25.26 分；后来的提交在两种评分器下得分相同。全部 105 份。</td></tr>
-      <tr><td><a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Self-Assembly</a></td><td>评分器（CPU 数）</td><td class="n">95.91–100</td><td class="n">100</td><td>每份重新评分的提交得分都更高：原始结果高约 2–4.5%，单个提交最多高 12.22 分（满分 100；86.03 → 98.25）。这次运行的最佳成绩本来就已接近刻度上限，所以仍为或接近 100 分（运行记录为 100）。13 份中的 8 份。</td></tr>
+      <tr><td><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a></td><td>评分器</td><td class="n">3.79</td><td class="n"><b>41.24</b></td><td><mark>原始评分器用的校验和（checksum）已经过时，每份提交都有一项测试通不过，所以这次运行保留了第一份有分数的提交（第六份受评提交）；修复版评分器保留的是后来的一份。</mark>全部 9 份提交。</td></tr>
+      <tr><td><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a></td><td>评分器、分数刻度</td><td class="n">71.93</td><td class="n"><b>53.95</b></td><td><mark>修复降低了这次运行的成绩。</mark>这次运行在它自己的机器上记录的是 75.72。每份提交的原始结果都提高到原来的 1.7 到 4 倍，而修复后的新 0–100 分刻度把这次运行的最佳成绩定为 53.95 分。两种评分器下，同一份提交换一台机器，分数波动都可达 ±20%。全部 37 份。</td></tr>
+      <tr><td><a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a></td><td>评分器</td><td class="n">99.66</td><td class="n">99.66</td><td>14 份早期提交修复后最多高出 25.26 分；后来的提交在两种评分器下得分相同。全部 105 份。</td></tr>
+      <tr><td><a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Self-Assembly</a></td><td>评分器（CPU 数）</td><td class="n">95.91–100</td><td class="n">100</td><td>每份重新评分的提交得分都更高：原始结果高约 2–4.5%，单个提交最多高 12.22 分（满分 100；86.03 → 98.25）。这次运行的最佳成绩本来就接近刻度上限，所以仍为或接近 100 分（运行记录为 100）。13 份中的 8 份。</td></tr>
       <tr><td><a class="task-link" href="tasks/tree_block_partitioning.html">Tree Block Partitioning</a></td><td>评分器</td><td class="n">100</td><td class="n">100</td><td>缺陷从未出现：受影响的子任务在两种评分器下得分相同。25 份中的 13 份。</td></tr>
       <tr><td><a class="task-link" href="tasks/graph_node_classification.html">Graph Node Classification</a></td><td>评分器</td><td class="n">90.44–90.60</td><td class="n">90.43–90.60</td><td>缺陷从未出现：每份提交在两种评分器下都有效。区间来自计时波动；这次运行在它自己的机器上记录的是 90.85。118 份中的 112 份（有 6 份在存档中缺失）。</td></tr>
       <tr><td><a class="task-link" href="tasks/schemathesis_config_modernization.html">Schemathesis Config</a></td><td>评分器</td><td class="n">100</td><td class="n">100</td><td>缺陷从未出现：每份提交在两种评分器下得分相同。全部 30 份。</td></tr>
-      <tr><td><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a></td><td>任务说明、初始文件</td><td class="n">原始结果 60.10</td><td class="n">原始结果 60.10</td><td>这是该任务 0–109 分刻度上的原始结果；修复后的任务把同一答案报告为 55.14 分（满分 100），这只是它新的刻度。评分器不变，因此旧答案得分相同。该修复改变的是任务说明，只有新的运行才能显示它的作用。</td></tr>
-      <tr><td><a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a></td><td>评分器、两条命题</td><td class="n">96.86</td><td class="n">98.42</td><td>计算得出，并未运行：把原始判定对照修复版的证明目标列表计数。</td></tr>
+      <tr><td><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a></td><td>任务说明、初始文件</td><td class="n">原始结果 60.10</td><td class="n">原始结果 60.10</td><td>这是该任务 0–109 分刻度上的原始结果；修复后的任务把同一答案报告为 55.14 分（满分 100），这只是换了新刻度。评分器不变，所以旧答案得分相同。这项修复改的是任务说明，只有新的运行才能显示它的作用。</td></tr>
+      <tr><td><a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a></td><td>评分器、两条命题</td><td class="n">96.86</td><td class="n">98.42</td><td>计算得出，未实际运行：用原始判定对照修复版的证明目标列表计数。</td></tr>
     </tbody>
   </table></div>
-  <p>在 <a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a> 中，105 份提交中有 14 份（全部是早期提交）在修复后得分提高，而保留的成绩 99.66 没有变化。<a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> 的评分器没有改变：在 36 份提交中，这次运行的最佳成绩从 7.01 升到 60.10，而评分器在每次提交后都报告其在隐藏监测井上的误差；7.01 大约是按文档一次性拟合所得的分数。</p>
-  <p>这只是一个模型、每个任务一次四小时的运行，而不是三次十二小时的运行。它表明这些问题在实践中确实会发生，但无法测量对排行榜的影响。</p>
+  <p>在 <a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a> 中，105 份提交里有 14 份（都是早期提交）修复后得分提高，而保留的成绩 99.66 没有变化。<a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> 的评分器没有改变：在 36 份提交中，这次运行的最佳成绩从 7.01 升到 60.10，其间评分器每次提交后都报告答案在隐藏监测井上的误差；7.01 大约是按文档一次性拟合能得到的分数。</p>
+  <p>这只是一个模型、每个任务一次四小时的运行，不是三次十二小时的运行。它说明这些问题在实际中确实会发生，但测不出对排行榜的影响。</p>
   <p class="note">逐个任务的完整数字：<a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a> 和 <a href="../data/impact.csv">impact.csv</a>。每一次评分：<code>evidence/runs/opus55-regrade2-summary/summary.json</code>。</p>
 </section>
 

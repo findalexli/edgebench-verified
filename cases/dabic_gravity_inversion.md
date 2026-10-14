@@ -4,7 +4,7 @@
 
 ![A 100-point bar split into 35 points the checker recomputes by running the code on hidden test cases, 42 points (12 + 30) read from the submission's own results file and never verified, and 23 points from other checks (code text 3, behaviour monitor 8, report keywords 12). A box explains that a sound fix would need the checker to recompute the 42 points itself, and a note mentions a second, fixed problem: one of two allowed method forms was penalised (88.92 against 42.86 out of 100 for the same strong work).](figures/dabic_gravity_inversion.svg)
 
-*42 of the 100 points come from numbers the submission reports about its own work, which the checker never verifies, so the task was removed. The agent implements the D-ABIC gravity inversion method; the checker recomputes only 35 points by running the code on hidden test cases and scores two parts, worth 12 and 30 points, from the submission's own results file as written. A sound fix would need the checker to recompute those 42 points from hidden data itself. A second problem, a hidden penalty on one of two allowed, equivalent method forms (88.92 against 42.86 out of 100 for the same strong work at C = 26, and a gap that grows with C, computed from the checker's own rule), was fixed but did not save the task.*
+*42 of the 100 points come from numbers the submission reports about its own work, and the checker never verifies them, so the task was removed. The agent implements the D-ABIC gravity inversion method. The checker recomputes only 35 points, by running the code on hidden test cases; two parts, worth 12 and 30 points, are scored from the submission's own results file as written. A sound fix would need the checker to recompute those 42 points from hidden data itself. A second problem was fixed but did not save the task: one of two allowed, equivalent method forms carried a hidden penalty (88.92 against 42.86 out of 100 for the same strong work at C = 26, computed from the checker's own rule; the gap grows with C).*
 
 ## What the task asks
 
@@ -14,7 +14,7 @@ The task text says: "Decide for yourself whether to use the model-space or data-
 
 ## What goes wrong
 
-**42 points are self-reported. This is the reason for removal.** Components B and D (42 points together) are taken from results the submission reports about itself. The grader does not recompute them from hidden data. For an honest solver, these components therefore reflect what the submission reports, not what the grader verifies. Component F, the written report, is scored by keywords.
+**42 points are self-reported. This is the reason for removal.** Components B and D (42 points together) are taken from results the submission reports about itself. The grader does not recompute them from hidden data. For a solver that reports truthfully, these components therefore reflect what the submission reports, not what the grader verifies. Component F, the written report, is scored by keywords.
 
 **An undisclosed requirement to use the data-space form.** The grader decides which form a submission uses from the shape of the square matrices passed to the log-determinant routines it monitors. A model-space submission is marked `is_data_space=false` and `structural_failure=true`. That costs it 3.2 points of the total before the penalty factor is applied, at every level of quality: these are the E1 behaviour points. It also blocks the uncapped penalty factor of 1.0, so a model-space submission is capped at a factor of 0.5×. By Sylvester's determinant identity, both forms compute the same ABIC curve.
 
@@ -36,8 +36,8 @@ The tables below show raw results. The task has no `rescale` section, which woul
 
 | Test submission | Submission | Original grader score (raw=norm) | Fixed grader score (raw=norm) | Detail, original → fixed | Valid, original/fixed | Exit code, original/fixed |
 |---|---|---|---|---|---|---|
-| Shows the problem | honest model-space D-ABIC (`FORM="model"`) | **25.77** | **26.81** | E 4.8 → 8.0; `structural_failure` true → false; pre-penalty total 77.16 → 80.27 | true/true | 0/0 |
-| Correct submission | honest data-space D-ABIC (`FORM="data"`) | **26.82** | **26.84** | E 8.0 / 8.0; pre-penalty total 80.31 → 80.35 (C 17.39 → 17.43, run noise) | true/true | 0/0 |
+| Shows the problem | good-faith model-space D-ABIC (`FORM="model"`) | **25.77** | **26.81** | E 4.8 → 8.0; `structural_failure` true → false; pre-penalty total 77.16 → 80.27 | true/true | 0/0 |
+| Correct submission | good-faith data-space D-ABIC (`FORM="data"`) | **26.82** | **26.84** | E 8.0 / 8.0; pre-penalty total 80.31 → 80.35 (C 17.39 → 17.43, run noise) | true/true | 0/0 |
 | Invalid submission | data form, log-determinant via `np.linalg.det` (`make_invalid_variant.py`) | 26.91 | 26.86 | `uses_bad_det` true, `structural_failure` true in both; E 7.2 / 7.2 | **false/false** | 0/0 |
 | Shipped state | the grader image's own workspace (no `outputs/`, nothing submitted) | 0.00 | 0.00 | all components ERROR (files missing) | false/false | 0/0 |
 
@@ -57,7 +57,7 @@ On the original grader, the gap between the data and model forms is 1.05. On the
 
 ## How we checked it
 
-- **Original grader in the original public image, pinned by digest**, using the exact evaluation command with `--network none --cpus 8 --memory 6g`. One honest D-ABIC submission was scored in two forms that differ only in the line `FORM = "data"` / `FORM = "model"`. Fixed input files held the self-reported components (B, D) and the keyword-scored report (F) constant in every test submission, so only the form varied. Their values are not task performance.
+- **Original grader in the original public image, pinned by digest**, using the exact evaluation command with `--network none --cpus 8 --memory 6g`. One D-ABIC submission was scored in two forms that differ only in the line `FORM = "data"` / `FORM = "model"`. Fixed input files held the self-reported components (B, D) and the keyword-scored report (F) constant in every test submission, so only the form varied. Their values are not task performance.
 - **Source reading** of the behaviour monitor (`BehaviorMonitor.report`) and the penalty function (`structural_penalty_v34`).
 - **Effect at the strong level.** The grader's own penalty function was applied to each test submission's real breakdown, with only the hidden-case score C substituted.
 - **Side-by-side run of the original and fixed graders** on the same inputs, plus an invalid submission (log-determinant via `np.linalg.det`) and the empty shipped workspace. It was repeated three times, and no test submission changed outcome (see `data/paired-repeatability.md`).
@@ -66,7 +66,7 @@ On the original grader, the gap between the data and model forms is 1.05. On the
 ## Limits
 
 - No AI model or solver runs were made. Effects are shown only on test submissions and counterexamples that we wrote.
-- One moderate honest implementation was used (C ≈ 17.4/35), with fixed input files for B, D and F. The effect at the strong level is computed with the grader's own penalty function, not observed with a strong submission.
+- One moderate good-faith implementation was used (C ≈ 17.4/35), with fixed input files for B, D and F. The effect at the strong level is computed with the grader's own penalty function, not observed with a strong submission.
 - The form classification still depends on matrix shapes. A correct implementation that computes the log-determinant without passing an N×N or M×M square matrix to a monitored routine (for example a low-rank or iterative estimator) is still marked `structural_failure` in both versions.
 - The partial fix does not address the reason for removal: B and D (42 points) still come from results the submission reports about itself, and F is scored by keywords. The fix's README says it "does not make the task retainable on its own".
 - The invalid submission is rejected only through the `valid` flag. Its numeric score is not low.

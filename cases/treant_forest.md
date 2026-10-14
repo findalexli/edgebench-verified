@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The original score scale puts its reference points above the most turns the grader allows, so no submission can score above 21.02/100; the fixed version changes only the score scale.</mark>
 
-![Two number lines. The original 0 to 100 scale, with reference points 5,369, 88,189, 330,195 and 451,198 turns at 0, 20, 80 and 100, is reachable only up to the 92,304-turn cap at 21.02; the rest is marked unreachable. The fixed scale runs from 3,418 turns at 0 to 92,304 at 100. An honest test solution of 17,960 turns sits at 3.04 on the original scale and 16.36 on the fixed one.](figures/treant_forest.svg)
+![Two number lines. The original 0 to 100 scale, with reference points 5,369, 88,189, 330,195 and 451,198 turns at 0, 20, 80 and 100, is reachable only up to the 92,304-turn cap at 21.02; the rest is marked unreachable. The fixed scale runs from 3,418 turns at 0 to 92,304 at 100. A greedy test solution of 17,960 turns sits at 3.04 on the original scale and 16.36 on the fixed one.](figures/treant_forest.svg)
 
-*In Treant Forest no submission can score above 21.02 out of 100, because the score scale was set for totals the checker never allows. The agent plays a grid puzzle scored by the number of turns, and the checker ends each game after 2N² turns, so the total over the 50 cases is at most 92,304, while the original scale needs 330,195 for 80 points. The fixed scale runs from the starter code's 3,418 turns (0) to the 92,304 cap (100), so an honest test solution moves from 3.04 to 16.36 and the order of submissions is unchanged; whether any submission can reach the cap is not shown.*
+*In Treant Forest no submission can score above 21.02 out of 100, because the score scale was set for totals the checker never allows. The agent plays a grid puzzle scored by the number of turns. The checker ends each game after 2N² turns, so the total over the 50 cases is at most 92,304, while the original scale needs 330,195 for 80 points. The fixed scale runs from the starter code's 3,418 turns (0) to the 92,304 cap (100). Our greedy test solution moves from 3.04 to 16.36, and the order of submissions is unchanged; whether any submission can reach the cap is not shown.*
 
 ## What the task asks
 
@@ -20,7 +20,7 @@ The task is a grid puzzle adapted from the AtCoder contest AHC054: "Your solutio
 
 **Checked and fine.** The worst-case runtime is 7 waves × 120 s = 840 s, under the 870 s limit (tight). The tester is deterministic. Solutions that use a wall-clock time budget depend on the CPU available to the 8 parallel workers.
 
-**Note: at the publisher's 4 grader CPUs each case gets about half a CPU.** The README promises "Time limit | 60 seconds / test case" (line 71); the grader allows twice that (`TIME_LIMIT = 120`, `/tmp/eval_treants_forest.py` line 9) and runs 8 cases at once (`max_workers=min(8, len(case_files))`, line 45). The task sets no CPU count. EdgeBench's leaderboard settings give this grader 4 CPUs (the default, with no override for this task; quoted in [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)), so 8 cases share 4 CPUs. Measured on the original grader at `--cpus 4` (`evidence/runs/treant_forest-cpu4v8-a/result/out/summary.txt`, `-b`) with the honest greedy control followed by fixed CPU work: 50 or 58 s of CPU per case passes 50/50 (TOTAL 17,960; the slowest 58 s case took 116.1 s, inside the 120 s limit), the same as at `--cpus 8`. Solutions using up to 58 s of CPU per case therefore pass. One using the README's full 60 s would take about 120.1 s at the measured ratio (116.10 s for 58 s), at the 120 s limit, so the grader's 2× slack only just absorbs the sharing. A solution needing 70 s of CPU per case, beyond the README's 60 s, timed out on 48 of 50 cases at 4 CPUs (TOTAL 17,960 → 1,018; 3.04 → 0 out of 100 on the original scale) and passed at 8 CPUs; it exceeds the promise, so this is not counted as a defect. A solver that stops at a 55 s wall-clock deadline, as the README invites, got a median of 27.4 s of CPU per case at 4 CPUs against 54.9 s at 8 CPUs, so its output, and so its score, can depend on the grader's CPU count. In these runs the answer was fixed, so no score difference was measured. The fixed version does not change this.
+**Note: at the publisher's 4 grader CPUs each case gets about half a CPU.** The README promises "Time limit | 60 seconds / test case" (line 71); the grader allows twice that (`TIME_LIMIT = 120`, `/tmp/eval_treants_forest.py` line 9) and runs 8 cases at once (`max_workers=min(8, len(case_files))`, line 45). The task sets no CPU count. EdgeBench's leaderboard settings give this grader 4 CPUs (the default, with no override for this task; quoted in [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)), so 8 cases share 4 CPUs. Measured on the original grader at `--cpus 4` (`evidence/runs/treant_forest-cpu4v8-a/result/out/summary.txt`, `-b`) with the plain greedy control followed by fixed CPU work: 50 or 58 s of CPU per case passes 50/50 (TOTAL 17,960; the slowest 58 s case took 116.1 s, inside the 120 s limit), the same as at `--cpus 8`. Solutions using up to 58 s of CPU per case therefore pass. One using the README's full 60 s would take about 120.1 s at the measured ratio (116.10 s for 58 s), at the 120 s limit, so the grader's 2× slack only just absorbs the sharing. A solution needing 70 s of CPU per case, beyond the README's 60 s, timed out on 48 of 50 cases at 4 CPUs (TOTAL 17,960 → 1,018; 3.04 → 0 out of 100 on the original scale) and passed at 8 CPUs; it exceeds the promise, so this is not counted as a defect. A solver that stops at a 55 s wall-clock deadline, as the README invites, got a median of 27.4 s of CPU per case at 4 CPUs against 54.9 s at 8 CPUs, so its output, and so its score, can depend on the grader's CPU count. In these runs the answer was fixed, so no score difference was measured. The fixed version does not change this.
 
 ## How much it matters
 
@@ -34,8 +34,8 @@ Only `judge.rescale` (the score scale) in the task JSON changes. The `piecewise_
 | --- | --- | ---: | --- | --- | ---: | ---: |
 | Shipped baseline (`0`, `-1`) | original | 3418 | 50/50 OK | 0 | 0.00 | 0.00 |
 | Shipped baseline | fixed | 3418 | 50/50 OK | 0 | 0.00 | 0.00 |
-| Honest greedy (lengthens the maze on the grid only) | original | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |
-| Honest greedy | fixed | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |
+| Greedy (lengthens the maze on the grid only) | original | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |
+| Greedy | fixed | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |
 | Invalid: treant on the revealed entrance | original | 0 | 0/50 (all WA) | 0 | 0.00 | 0.00 |
 | Invalid: treant on the revealed entrance | fixed | 0 | 0/50 (all WA) | 0 | 0.00 | 0.00 |
 
@@ -65,7 +65,7 @@ Raw results were identical in the original and fixed images. Only the score out 
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on the test submissions we wrote.
-- 92,304 is the exact upper bound on the raw result. Reaching it on every case has not been demonstrated. The best honest result on a single case reached 47% of that case's cap (the per-case caps for that run are not saved here).
+- 92,304 is the exact upper bound on the raw result. Reaching it on every case has not been demonstrated. The best legitimate result on a single case reached 47% of that case's cap (the per-case caps for that run are not saved here).
 - A linear scale from the baseline to the cap squeezes realistic strong scores together. That cost comes from using only exactly computable reference points instead of ones taken from a leaderboard.
 - The 2N² cap is still not disclosed in the README. Disclosing it would be a separate change to what the solver sees.
 - Whether the tester's movement rules match the original AHC054 game was not established, and this fix does not address it.

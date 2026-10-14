@@ -111,7 +111,7 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     (FIG / 'evidence-layers.svg').write_text('\n'.join(o) + '\n')
     (FIG / 'evidence-layers.json').write_text(json.dumps({
         'alt': 'Four columns: examined in the original code and images, proved formally in Lean 4 and TLA+, tested side by side on the original and the fixed checker, checked on real runs.',
-        'caption': 'Four kinds of evidence, each covering something different. Reading the code, testing parts of a checker, running the whole checker and formal models answer different questions and do not stand in for one another. Side-by-side tests compare the original checker with the version of each fix that was tested, which is not always the latest. One public agent run covers nine fixed tasks: seven regraded with both checkers, and Lean Analysis computed from saved verdicts.'}) + '\n')
+        'caption': 'The four kinds of evidence cover different ground. Reading the code, testing parts of a checker, running the whole checker and formal models each answer a different question, and none can stand in for another. The side-by-side tests compare the original checker with the version of each fix that was tested, which is not always the latest. One public agent run covers nine fixed tasks: seven were regraded with both checkers, and Lean Analysis was computed from saved verdicts.'}) + '\n')
 
 
 def comparison_counts():

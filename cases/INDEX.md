@@ -14,14 +14,14 @@ One page per public EdgeBench task: what the task asks, what goes wrong, how muc
 | [CTA Risk Budget Optimization](cta_risk_budget_optimization.md) | Professional Knowledge Work | Fixed | The overseas-exposure limit check skips currency conversion, so dollar positions are undercounted |
 | [Carleson Formalization](carleson_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; one placeholder definition accepts any value |
 | [College English Exam Bank](college_english_exam_bank.md) | Professional Knowledge Work | Fixed | Rubric rules the AI grader leaves out are counted as full marks |
-| [Combinatorial Games Formalization](combinatorial_games_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; honest proofs in different styles earn the same credit |
+| [Combinatorial Games Formalization](combinatorial_games_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; correct proofs in different styles earn the same credit |
 | [D-ABIC Gravity Inversion](dabic_gravity_inversion.md) | Scientific Problems & ML | Removed | 42 points come from the submission's own unchecked self-reported results |
 | [DCSS Dungeon AI](dcss_dungeon_ai.md) | Interactive Games & Simulators | Kept, with a note | Scoring matches the instructions; scores depend on machine speed |
 | [Equivalence Class Divide and Conquer](equivalence_class_divide_and_conquer.md) | Combinatorial Optimization | Fixed | One sub-problem's grader leaves the last state's size out of the cost limit check |
 | [Exchange Core Throughput](exchange_core_throughput.md) | Systems & Software Engineering | Fixed | The correctness check misses wrong fees and lost messages, so broken engines get full credit |
 | [FFmpeg swscale Reimplementation](ffmpeg_swscale_reimplementation.md) | Systems & Software Engineering | Fixed | Timed speed tests never check output, so failed calls earn speed credit |
 | [FLT Regular Formalization](flt_regular_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; the 25 scored proofs match the task's own list |
-| [Git Rewrite in Zig](git_rewrite_in_zig.md) | Systems & Software Engineering | Fixed | Undisclosed file checks give an honest program 0; fixed, and a correct git still earns 100 |
+| [Git Rewrite in Zig](git_rewrite_in_zig.md) | Systems & Software Engineering | Fixed | Undisclosed file checks give a good-faith program 0; after the fix a correct git still earns 100 |
 | [Graph Node Classification](graph_node_classification.md) | Scientific Problems & ML | Fixed | Non-numeric predictions are silently dropped and the run still counts as valid |
 | [Grid Turing Robot](grid_turing_robot.md) | Combinatorial Optimization | Fixed | On the publisher's 4-CPU grader, a solution within the 30-second limit can void the whole submission |
 | [Integer Compression Codec](integer_compression_codec.md) | Systems & Software Engineering | Fixed | Scores compare against stored numbers the documented starter cannot produce |
@@ -49,7 +49,7 @@ One page per public EdgeBench task: what the task asks, what goes wrong, how muc
 | [Triangulation Coloring Optimization](triangulation_coloring_optimization.md) | Combinatorial Optimization | Fixed | The grader allows mesh moves the instructions forbid, and its test inputs overlap |
 | [Trinity Text Adventure](trinity_text_adventure.md) | Interactive Games & Simulators | Kept, with a note | No problem found; the score is the game's own, and play is repeatable |
 | [Tryst Text Adventure](tryst_text_adventure.md) | Interactive Games & Simulators | Kept, with a note | No problem found; the score is the game's own repeatable score |
-| [VLIW Kernel Optimization](vliw_kernel_optimization.md) | Systems & Software Engineering | Kept, with a note | No problem found for honest submissions |
+| [VLIW Kernel Optimization](vliw_kernel_optimization.md) | Systems & Software Engineering | Kept, with a note | No problem found for submissions that follow the rules |
 | [Vehicle Routing Time Windows](vehicle_routing_time_windows.md) | Combinatorial Optimization | Kept, with a note | Checker uses files solvers may edit; per-instance time argument does not fit the total |
 | [Vibrating Path Graph Coloring](vibrating_path_graph_coloring.md) | Combinatorial Optimization | Fixed | On the publisher's 4-CPU grader, a solution within the 30-second limit can leave the whole submission without a score |
 | [Warehouse Forklift Routing](warehouse_forklift_routing.md) | Combinatorial Optimization | Fixed | Time limit is stricter than promised, and no score can exceed about 30 |

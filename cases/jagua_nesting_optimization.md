@@ -26,11 +26,11 @@ Each accepted overlap above is 50–100% of an item's area (areas 50–100 on it
 
 **Forbidden rotations are not checked.** `validate_solution` never reads `allowed_orientations`, so it accepts rotations that an instance forbids.
 
-Why it matters: the score depends on strip width (times a runtime multiplier, `evaluate_case`: `score = raw * rt_mult`), not on overlap, and every hidden instance has items needed more than once (demand above 1). A layout with overlapping items can report a smaller width than any feasible packing.
+This matters because the score depends on strip width (times a runtime multiplier, `evaluate_case`: `score = raw * rt_mult`), not on overlap, and every hidden instance has items needed more than once (demand above 1). A layout with overlapping items can report a smaller width than any feasible packing.
 
 ## How much it matters
 
-This changes the score of any submission whose layout contains such an overlap. Infeasible layouts are accepted as valid and can beat every feasible one. This score effect is inferred from the code. It was not measured through the full grader with a submission that uses overlaps. Honest layouts without overlaps are unaffected.
+This changes the score of any submission whose layout contains such an overlap. Infeasible layouts are accepted as valid and can beat every feasible one. This score effect is inferred from the code. It was not measured through the full grader with a submission that uses overlaps. Layouts without overlaps are unaffected.
 
 ## The fix
 
@@ -61,7 +61,7 @@ Full original grader (TaskSpec `eval.sh`, `--network none`). "Raw TOTAL_SCORE" i
 | --- | --- | --- | --- | ---: | --- | --- | ---: |
 | Shipped baseline (candidate = reference) | correct | original | true | 0.000000 | 0 / 16 / 0 | yes | 200 s |
 | Shipped baseline | correct | fixed | true | 0.000000 | 0 / 16 / 0 | yes | 38 s |
-| seed_shift (honest: same LBF heuristic, different random-number stream) | correct | original | true | 1.644419 | 6 / 10 / 0 | yes | 117 s |
+| seed_shift (good faith: same LBF heuristic, different random-number stream) | correct | original | true | 1.644419 | 6 / 10 / 0 | yes | 117 s |
 | seed_shift | correct | fixed | true | 1.644419 | 6 / 10 / 0 | yes | 37 s |
 | drop_last_item (one item missing) | incorrect | original | true | 0.000000 | 0 / 16 / 0, all `demand_mismatch` | yes | 191 s |
 | drop_last_item | incorrect | fixed | true | 0.000000 | 0 / 16 / 0, all `demand_mismatch` | yes | 37 s |
@@ -102,8 +102,8 @@ With f32-derived angles, v2.1 gives the same result as the original on every cas
 - The test layouts are hand-made instances, not hidden assets.
 - The independent area check covers concave polygons against convex ones. Pairs of concave polygons are covered only by the test layouts and the reference layouts.
 - The fixed version uses floating point, as the original does. It is exact only up to rounding, which is far below the tolerance.
-- No adversarial or near-tolerance layouts beyond the test layouts were built, and no stronger honest solver was run.
-- The f32-angle submission rewrites the angles of an honest layout after it is solved. No solver whose search itself works on f32-derived angles was run.
+- No adversarial or near-tolerance layouts beyond the test layouts were built, and no stronger good-faith solver was run.
+- The f32-angle submission rewrites the angles of an ordinary layout after it is solved. No solver whose search itself works on f32-derived angles was run.
 
 ## Reproduce
 

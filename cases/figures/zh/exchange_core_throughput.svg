@@ -36,7 +36,7 @@
 <text x="360" y="225" font-size="14" class="good">通过，按速度计分</text>
 <rect x="516" y="198" width="188" height="44" rx="6" class="badBg"/>
 <g transform="translate(540,220)"><circle r="11" class="bad"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="560" y="225" font-size="14" class="bad">被拒绝，记 0 分</text>
+<text x="560" y="225" font-size="14" class="bad">不通过，记 0 分</text>
 <line x1="16" y1="252" x2="704" y2="252" class="rule" stroke-width="1"/>
 <text x="16" y="279" font-size="15" font-weight="700" class="ink">从不发送成交消息</text>
 <text x="16" y="299" font-size="13" class="muted">用户收不到订单的处理结果</text>
@@ -45,12 +45,12 @@
 <text x="360" y="289" font-size="14" class="good">通过，按速度计分</text>
 <rect x="516" y="262" width="188" height="44" rx="6" class="badBg"/>
 <g transform="translate(540,284)"><circle r="11" class="bad"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="560" y="289" font-size="14" class="bad">被拒绝，记 0 分</text>
+<text x="560" y="289" font-size="14" class="bad">不通过，记 0 分</text>
 <line x1="16" y1="316" x2="704" y2="316" class="rule" stroke-width="1"/>
 <text x="16" y="342" font-size="13" class="muted">速度分（满分 100）：引擎在计时测试中每秒处理的交易笔数；</text>
 <text x="16" y="361" font-size="13" class="muted">每秒 209 万笔或更慢记 0 分，每秒 600 万笔记 100 分。</text>
 <text x="16" y="387" font-size="13" class="muted">在原始评分器下，三者的速度分在多次运行间相互重叠（正确引擎 0–24.19，收错手续费 7.77–24.40，</text>
-<text x="16" y="406" font-size="13" class="muted">丢失消息 4.71–15.62）：这些错误并没有带来速度优势，只是没有被发现。</text>
+<text x="16" y="406" font-size="13" class="muted">丢失消息 4.71–15.62）：这些错误没有带来速度优势，只是评分器没有发现它们。</text>
 <text x="16" y="432" font-size="13" class="muted">在 4 个 CPU 下（EdgeBench 排行榜的设置），连正确的引擎速度分也是 0；修复版评分器仍让它通过。</text>
 <text x="16" y="451" font-size="13" class="muted"></text>
 </svg>

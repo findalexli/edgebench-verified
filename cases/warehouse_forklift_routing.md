@@ -4,7 +4,7 @@
 
 ![Time bars per input from 0 to 150 s. Original checker: about 30 s of computing, then the 60 s limit, and the promised range from 60 to 150 s marked as timed out. Fixed checker: a full 150 s bar, at most 4 inputs at once with one CPU each. A table shows three test submissions (13 s per case, 80 s and 140 s of computing per input): all 50 inputs time out with no score on the original checker, all 50 scored on the fixed one. A box notes the documented, unfixed ceiling of about 30.6 out of 100 (30.3 before rounding).](figures/warehouse_forklift_routing.svg)
 
-*Warehouse Forklift Routing solutions that use the time the instructions promise get no score. The instructions promise 30 s per test case, 150 s per five-case input, but the original checker stops each input at 60 s, and on EdgeBench's 4-CPU setting it runs 8 inputs at once, so each gets only about 30 s of computing; one timeout leaves the whole submission without a score. Test submissions that wait 13 s per case or compute 80 or 140 s per input got no score under the original checker and had all 50 inputs scored under the fixed one, which allows 150 s and runs no more inputs at once than it has CPUs (it also needs a longer final wait in EdgeBench's runner, which is tested only in parts). A separate limit is documented, not fixed: no valid answer can score above about 30.6 out of 100.*
+*Warehouse Forklift Routing solutions that use the time the instructions promise get no score. The instructions promise 30 s per test case, or 150 s per five-case input, but the original checker stops each input at 60 s. On EdgeBench's 4-CPU setting it also runs 8 inputs at once, so each gets only about 30 s of computing, and one timeout leaves the whole submission without a score. Test submissions that wait 13 s per case or compute 80 or 140 s per input got no score under the original checker. Under the fixed one, which allows 150 s and runs no more inputs at once than it has CPUs, all 50 inputs were scored. (The fix also needs a longer final wait in EdgeBench's runner, which is tested only in parts.) A separate limit is documented, not fixed: no valid answer can score above about 30.6 out of 100.*
 
 ## What the task asks
 
@@ -53,7 +53,7 @@ The `piecewise_log_min` reference points are kept, not replaced. The proven floo
 | Submission | Role | Original grader | Fixed grader |
 | --- | --- | --- | --- |
 | generic valid test submission | correct | OK 50/50, TOTAL 46676.8 | OK 50/50, TOTAL 46676.8 |
-| one honest bug | invalid | 49 OK + 1 WA → inf | 49 OK + 1 WA → inf |
+| one ordinary bug | invalid | 49 OK + 1 WA → inf | 49 OK + 1 WA → inf |
 | shipped starter | invalid | 50 WA → inf | 50 WA → inf |
 | **13 s per test case (uses the promised budget)** | **shows the problem** | **50 TLE → inf** | **50 OK, TOTAL 46676.8** |
 | near the 150 s per-input limit | shows the problem | 50 TLE → inf | 50 OK, TOTAL 46676.8 |
@@ -74,7 +74,7 @@ Under the fixed version the slowest 140 s input took 140.58 s from start to end.
 
 ## How we checked it
 
-- **Original grader, from the public image pinned by digest.** The verbatim `eval_cmd` ran in the grader image with `--network none` and the solution mounted read-only, and was graded by the repository's harness. Test submissions: a generic valid one, a repeat of it, the shipped starter, one with an honest bug, and solvers with a time budget. 16 hand-written outputs ran through the tester in the grader image with 0 mismatches against the oracle's predictions.
+- **Original grader, from the public image pinned by digest.** The verbatim `eval_cmd` ran in the grader image with `--network none` and the solution mounted read-only, and was graded by the repository's harness. Test submissions: a generic valid one, a repeat of it, the shipped starter, one with an ordinary bug, and solvers with a time budget. 16 hand-written outputs ran through the tester in the grader image with 0 mismatches against the oracle's predictions.
 - **Independent oracle.** A simulator written from the statement text, with exact `Fraction` scoring and two rule modes (the prompt's rule and the stricter CodeChef rule). A differential test against the original tester program used 20,000 random command strings plus 2,000 outputs of the test submissions (half of them with one-character edits); all agreed. Exact optima for tiny grids came from Dijkstra's shortest-path search on 2x2, 2x3 and 3x2, under both rule sets. Data checks covered all 50 grading inputs (250 subcases) and generator seeds 0..300,000.
 - **Formal check in Lean 4.** The per-case bound is the theorem `EbvWarehouse.lower_bound` in `formal/lean/ebv/Ebv/WarehouseBound.lean`. Lean's kernel checked it under Lean v4.34.1 and Mathlib `d13f23b7`, with no `sorry` and no `native_decide`, and it was recompiled independently. It depends only on Lean's standard axioms `[propext, Classical.choice, Quot.sound]`. `EbvWarehouse.score_bound` gives the per-case score bound. In `Ebv/WarehouseData.lean`, `totalLB_eq` and `totalLB_gt` give the bound on TOTAL, and `displayed_gt_rank1` covers display rounding. The theorem is not empty: the model accepts a 42-character optimum (`opt23_accepted`), and a stronger bound without the −6(R+C−2) term is proved false (`too_strong_bound_false`). That stronger bound fails on 239 of 248 optima found by brute force. The proof does not use the guard on moving into occupied cells, so it holds under both the prompt's rule and the CodeChef rule.
 - **Repeatability.** The side-by-side run of the original and the limit-only fixed version at `--cpus 2` was done three times, and no result changed (`data/paired-repeatability.md`). The CPU-share runs at `--cpus 4` and `--cpus 8` (`evidence/runs/warehouse_forklift_routing-v2-cpu4-a` to `-d`, each `status: exit=0`) ran three times each (`-rep2`, `-rep3`), with identical OK/TLE/WA/RE counts and totals (`repairs/warehouse_forklift_routing-v2/paired/results.md`, Repeatability).
@@ -91,7 +91,7 @@ Under the fixed version the slowest 140 s input took 140.58 s from start to end.
 - With fewer than 3 grader CPUs the 3600 s `eval_timeout` binds before the 150 s per input: at 2 CPUs, 25 rounds × 150 s = 3750 s, so only about 144 s per input is usable. The quota is rounded down: 2.5 CPUs run 2 inputs at once.
 - The match between the Lean model and the tester is a line-by-line mapping done by hand, backed by a runtime differential test on 294 strings with 0 mismatches. It is not a kernel-checked proof. The case hypotheses (permutation, last arrival ≠ 1) and the extraction of (R,C) were checked in Python. The ceiling on the 0–100 scale comes from the harness's floating-point conversion code, not from Lean.
 - The origin of the reference points is unknown.
-- Scorer isolation is outside this release's scope (an EdgeBench design choice); findings that affect honest solvers are reported above.
+- Scorer isolation is outside this release's scope (an EdgeBench design choice); findings that affect solvers that follow the rules are reported above.
 
 ## Reproduce
 

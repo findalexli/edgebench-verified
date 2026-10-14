@@ -7,8 +7,8 @@ engineering and science tasks. An agent works on each task for up to 12 hours, a
 grader scores its work from 0 to 100. A ranking is only as trustworthy as those graders.
 
 EdgeBench Verified is an independent check of the grader of every one of the 51 publicly released
-EdgeBench tasks. For each task we asked one question: **if an agent does honest, correct work, does
-it get the score the task promises?**
+EdgeBench tasks. For each task we asked one question: **if an agent solves the task correctly and by
+the rules, does it get the score the task promises?**
 
 ## The short answer
 
@@ -16,14 +16,14 @@ EdgeBench ranks AI agents on 51 public engineering and science tasks. In each ta
 for hours, and a hidden checker program (EdgeBench calls it the grader) scores what it submits, from
 0 to 100. We tested each checker the way you would test any program: we gave it correct work, broken
 work and work that follows the instructions to the letter. **In 32 of the 51 tasks the checker
-scored some submissions wrongly.** It gave correct solutions zero because of time limits stricter
-than promised. It rejected correct answers. It gave full credit to broken programs. It enforced rules
-the instructions never stated. On one score scale, no submission could score above 21. We published
-fixes for 31 of these tasks and removed one. We checked the fixes by grading the same submissions
+scored some submissions wrongly.** Checkers gave correct solutions zero under time limits stricter
+than promised, rejected correct answers, gave full credit to broken programs and enforced rules the
+instructions never stated. On one task's score scale, no submission could score above 21. We
+published fixes for 31 of these tasks and removed one. We checked the fixes by grading the same submissions
 with the original and the fixed checker side by side. Where a public agent run was available, we
 regraded its submissions too: in one task the run's score moves from 3.8 to 41.2 out of 100. The
-published averages are not enough to recompute the leaderboard. They are, however, enough to show
-that **its top two places can no longer be confirmed.**
+published averages do not allow the leaderboard to be recomputed, but they are enough to show that
+**its top two places can no longer be confirmed.**
 
 | Outcome | Tasks | Meaning |
 | --- | ---: | --- |
@@ -69,8 +69,8 @@ the machine it runs on. We found problems in all five, and group them below into
 
 ## What we found
 
-Every task with a problem, the 31 fixed tasks and the removed one, has one primary category, set by the
-mechanism of its main defect, and may have secondary ones. The four categories:
+Every task with a problem, the 31 fixed tasks and the removed one, has one primary category, chosen
+by how its main defect arises, and may have secondary ones. The four categories are:
 
 | Category | Tasks (primary) | In short |
 | --- | ---: | --- |
@@ -85,7 +85,7 @@ can appear under a secondary category too.
 
 ### 1. Engineering and runtime environment (5 tasks)
 
-The checker's scoring rules may be right, but it does not run correctly in the setting where it is actually used. Typical causes: test cases run at once on fewer CPUs than they need, so honest solutions time out; hidden tests are inserted where they do not compile; files the checker needs are missing from the published images; a test run stops at its first failure and counts the rest as failed; or a result depends on timing. Honest work then loses points for reasons that have nothing to do with its quality.
+The checker's scoring rules may be right, but it does not run correctly in the setting where it is actually used. Typical causes: test cases run at once on fewer CPUs than they need, so good-faith solutions time out; hidden tests are inserted where they do not compile; files the checker needs are missing from the published images; a test run stops at its first failure and counts the rest as failed; or a result depends on timing. Good-faith work then loses points for reasons unrelated to its quality.
 
 - *Rust Multicrate: hidden tests that cannot compile.* The agent rebuilds a 14-package Rust project
   and is told not to edit the tests. The checker adds hidden tests to all 14 packages, and in two of
@@ -99,7 +99,7 @@ The checker's scoring rules may be right, but it does not run correctly in the s
 - *Grid Robot: eight test cases share four CPUs.* The instructions promise 30 seconds per test case.
   The checker runs eight cases at once, and EdgeBench's official settings give it 4 CPUs
   ([evidence/impact/edgebench-leaderboard-config.md](evidence/impact/edgebench-leaderboard-config.md)),
-  so each case gets about half a CPU. An honest solution that computes for 16 seconds per case times
+  so each case gets about half a CPU. A valid solution that computes for 16 seconds per case times
   out on 48 of 50 cases, and one timeout throws out the whole submission; with the fix it scores its
   19.80 out of 100. Five more tasks share this problem: Vibrating Path, Molecular Assembly, Apple
   Game, Triangulation and Warehouse Routing. In a real agent run on Molecular Assembly, single
@@ -147,8 +147,8 @@ Each rule the checker applies may be reasonable on its own, but it is not the ru
   in Lean shows that no valid answer can score above about 30.6 out of 100; that limit is
   documented, not changed.
 - *Arc Compiler: the same code scores 69 or 36.* Hidden tests worth 33.67 of 100 points expect error
-  reports in a format that nothing the agent sees describes; the same honest code scores 69.26 in that
-  format and 35.59 in the starter's. The fixed task documents the format.
+  reports in a format that nothing the agent sees describes; the same error checker, written in good
+  faith, scores 69.26 in that format and 35.59 in the starter's. The fixed task documents the format.
 - *Juliet Analyzer: the public examples teach the wrong format.* For command-injection bugs, all 38
   public examples mark the start of the bug at the line that runs the command, while all 120 hidden
   answers mark the line that reads the input, and the original checker accepts only the hidden form.
@@ -158,7 +158,7 @@ Each rule the checker applies may be reasonable on its own, but it is not the ru
   25 points (70.00 against 95.22 and 95.26); the run's kept score was not. The fixed checker accepts
   both forms.
 - *Borden Inversion: the checker's physics is not the textbook's.* The checker predicts well readings
-  with a physics model whose conventions the instructions never state. An honest textbook fit scores
+  with a physics model whose conventions the instructions never state. A standard textbook fit scores
   7.03 and the same fit with the checker's conventions 31.2 (raw, on this task's 0–109 range; 6.45 and
   28.62 out of 100); in a real agent run, whose answers score the same under the unchanged grader, the
   best score climbed from 7.01 to 60.10 over 36 submissions while
@@ -177,14 +177,14 @@ The raw result is computed correctly, but the step that turns it into the final 
 - *Treant Forest: no submission can score above 21.* The checker stops each game after a fixed number
   of turns, so no total can exceed 92,304, but the 0–100 scale was set as if 330,195 were possible:
   even a perfect submission would score 21.02. The fixed scale ends at the most the checker allows
-  (whether any submission can reach it is not shown); an honest test solution moves from 3.04 to
+  (whether any submission can reach it is not shown); a simple test solution moves from 3.04 to
   16.36.
 - *Integer Codec: an impossible reference number.* The checker compares submissions with stored
   results for the starter code; one claims 5.13 bits per number, below the 8-bit minimum for the
   starter's format (the starter needs 38.98), so the starter scores about 0.23 instead of the
   documented 1.0. The fix measures the starter in the same run and sets a new 0–100 scale, which
   moves a real agent run from 71.93 to 53.95 when both are regraded on our machines (the run itself
-  recorded 75.72): fixes can lower scores as well as raise them.
+  recorded 75.72), so a fix can lower a score as well as raise it.
 
 Other fixed tasks, including Jagua Nesting, PFR Formalization, Triangulation Coloring and Git in Zig,
 are listed in [FINDINGS.md](FINDINGS.md) and have their own pages.
@@ -246,7 +246,7 @@ Evidence ranges from source inspection and original-helper controls to full nati
    - Other checks use exact arithmetic, a second implementation or exhaustive search.
    Every result and its limits: [evidence/formal/SUMMARY.md](evidence/formal/SUMMARY.md).
 3. **Following each problem to the final score.** A problem counts only if it changes the 0–100
-   score of honest work; problems that change no score are recorded as notes.
+   score of a good-faith submission; problems that change no score are recorded as notes.
 4. **Historical paired checks.** Original and repaired components or graders were compared on the same inputs. The intended acceptance checks were:
    - the problem is gone;
    - correct work keeps its score;

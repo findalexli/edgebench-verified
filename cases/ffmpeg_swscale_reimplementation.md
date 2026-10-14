@@ -7,7 +7,7 @@
 
 ![Horizontal bars of scores out of 100 in one run of the original checker: the unchanged starter code, 0; returns an error on RGBA to RGB24, 5.39; returns an error on 3:1 shrink, 18.93; writes nothing on 3:1 shrink, 17.87; all four pass 30 of 30 correctness tests. A note says an error was timed as a 16,469 times speedup. A box describes the current fix and its one side-by-side run: a submission that skips repeated calls passed 30 of 30 correctness tests and scored 0, and a correct submission still scored.](figures/ffmpeg_swscale_reimplementation.svg)
 
-*Speed tests that never checked their output let unfinished code earn up to 18.93 of 100 points. The agent rewrites FFmpeg's image-scaling library and is scored on speed once 30 correctness tests pass, but the timed calls were never checked, so a call that returned an error or wrote nothing counted as thousands of times faster. In one run of the original checker, three one-line unfinished versions scored 5.39, 18.93 and 17.87, against 0 for the unchanged starter, and all four passed the 30 correctness tests. The current fix checks the output of every timed call and sets the whole score to exactly 0 when any fails, as the instructions say; in its one side-by-side run, code that skips repeated calls passed all 30 correctness tests and scored 0.*
+*Speed tests that never checked their output let unfinished code earn up to 18.93 of 100 points. The agent rewrites FFmpeg's image-scaling library and is scored on speed once 30 correctness tests pass. The timed calls were never checked, so a call that returned an error or wrote nothing counted as thousands of times faster. In one run of the original checker, three one-line unfinished versions scored 5.39, 18.93 and 17.87, against 0 for the unchanged starter, and all four passed the 30 correctness tests. The current fix checks the output of every timed call and, as the instructions say, sets the whole score to exactly 0 when any call fails. In its one side-by-side run, code that skips repeated calls passed all 30 correctness tests and scored 0.*
 
 ## What the task asks
 
@@ -26,7 +26,7 @@ Several timed configurations never appear in the correctness set: RGBA→RGB24, 
 
 Each variant below models ordinary step-by-step development: a path that is not written yet, or a plain bug. Results on the original grader:
 
-| Variant (honest behaviour modelled) | Correctness | Raw result | Score out of 100 (`log_anchor`) | Workload driving the change |
+| Variant (good-faith behaviour modelled) | Correctness | Raw result | Score out of 100 (`log_anchor`) | Workload driving the change |
 |---|---|---|---|---|
 | Variant 0: shipped starting code, unchanged | 30/30 | 0.4585 | 0 | n/a |
 | Variant 1: returns error -3 for RGBA→RGB24 ("not implemented yet") | 30/30 | **1.3938** | **5.39** | rgba→rgb24 4K: 16,469× |
@@ -43,7 +43,7 @@ A point that does not change scores: the task text says the starting code "alrea
 
 ## How much it matters
 
-Up to 18.93 points out of 100 are shown for an honest but unfinished variant. Any solver whose library fails or does nothing on a timed configuration outside the correctness set receives too much credit.
+Up to 18.93 points out of 100 are shown for a good-faith but unfinished variant. Any solver whose library fails or does nothing on a timed configuration outside the correctness set receives too much credit.
 
 ## The fix
 

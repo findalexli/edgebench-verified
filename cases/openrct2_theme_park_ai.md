@@ -26,7 +26,7 @@ Example on the original grader (120 s, speed 4, medium scenario):
 
 **The solver controls the game speed.** `gamesetspeed` is on the list of allowed calls, and the submission's later call overrides the monitor's speed 4. Speed 1 ran at 0.077 days/s (2 game days from 2 samples over 25.8 s; it agrees with the model's 0.075) and speed 3 at 0.291 days/s. Speed 8 is rejected. A slower game can hold company value near its starting value. In these runs the cap of 1.10 hid this.
 
-Why it matters: the task measures company value after about 2 months, not about 4 years. A solver that plans for the stated length of play is optimizing the wrong thing.
+This matters because the task measures company value after about 2 months, not about 4 years. A solver that plans for the stated length of play is optimizing the wrong thing.
 
 ## How much it matters
 
@@ -84,7 +84,7 @@ run_60s_speed8.log (new)     scenario_small.park     60   8    5.0   59.9   33(2
 ## Limits
 
 - No AI model or solver was run. The effects shown are on the test plugins we wrote only, and no effect on the leaderboard is estimated.
-- **The incentive to lower the speed remains.** The fixed version states the speed rule honestly but does not stop a plugin from lowering the speed. Removing the incentive needs a change to the grader: re-assert speed 4 every tick, or score at a fixed game date with a long enough budget.
+- **The incentive to lower the speed remains.** The fixed version states the speed rule accurately but does not stop a plugin from lowering the speed. Removing the incentive needs a change to the grader: re-assert speed 4 every tick, or score at a fixed game date with a long enough budget.
 - **About 70 days assumes the engine keeps real time.** Hosts are not pinned. A slower host, an overloaded host or a heavy plugin could fall further behind.
 - **Small set of runs.** Each configuration ran once, with one simple test plugin whose staff hiring failed. No competitive plugin was run.
 - **Not run through the wrapper.** The full three-scenario sequence ran through the helper's functions, not through `eval_openrct2.py`. The reference point of 40000 on the score scale was not examined.

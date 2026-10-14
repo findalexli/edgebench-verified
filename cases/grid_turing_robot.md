@@ -4,7 +4,7 @@
 
 ![Line chart of clock time per test case against computing time per case. At 8 CPUs clock time equals computing time from 12 to 28 s. At 4 CPUs 12 s of computing takes 24 s and 14 s takes 28 s; 16, 20, 24 and 28 s are marked as timed out at the 30 s limit, with 48 of 50 cases timed out and no score. A note says the fixed checker passes the 16 s and 28 s solutions on all 50 cases with 19.80 out of 100.](figures/grid_turing_robot.svg)
 
-*On EdgeBench's official 4-CPU setting, a valid Grid Turing Robot solution that needs more than about 15 s of computing per test case gets no score, although the instructions promise 30 s per case. The agent writes a rule table that steers a robot over a grid; the checker runs 8 cases at once, so on 4 CPUs each case gets half a CPU and takes twice as long by the clock, and one timed-out case voids the whole submission. Test solutions needing 16 s and 28 s per case timed out on 48 of 50 cases under the original checker and scored 19.80 out of 100 under the fixed one, which runs no more cases at once than it has CPUs.*
+*On EdgeBench's official 4-CPU setting, a valid Grid Turing Robot solution that needs more than about 15 s of computing per test case gets no score, although the instructions promise 30 s per case. The agent writes a rule table that steers a robot over a grid. The checker runs 8 cases at once, so on 4 CPUs each case gets half a CPU and takes twice as long by the clock, and one timed-out case voids the whole submission. Test solutions needing 16 s and 28 s per case timed out on 48 of 50 cases under the original checker. Under the fixed checker, which runs no more cases at once than it has CPUs, they scored 19.80 out of 100.*
 
 ## What the task asks
 
@@ -16,7 +16,7 @@ The scoring rules are implemented correctly. The issues are about edge condition
 
 **(a) One failed case voids the submission.** The task text does not say this. If a single case crashes, times out or prints malformed output, that case gets an infinite score, so `TOTAL_SCORE` is `inf`. EdgeBench's harness keeps such a result (`valid: true`) with raw score `inf`, gives it no score out of 100 (`rescale_score` returns None for a non-finite total, `sforge/harness/score_rescale.py:75-76`), and prefers any finished submission to it under `minimize`.
 
-| Solution (all honest) | Grader result per case | TOTAL_SCORE | Scored by the harness | Score out of 100 |
+| Solution (all valid) | Grader result per case | TOTAL_SCORE | Scored by the harness | Score out of 100 |
 |---|---|---|---|---|
 | `good_stepstate` (known to be good) | 50 OK | 94,092 | yes | 19.80 |
 | `fail_partial` (well-formed; route cut in half on case 0000) | 50 OK | 202,310 | yes | 19.56 |
@@ -89,7 +89,7 @@ Under the fixed version the slowest 28 s case took 28.34 s from start to end (`r
 - The CPU test solutions are single-threaded: fixed CPU work, or work until a 25 s wall-clock deadline. Multi-threaded solvers were not tested.
 - Deadline-based solvers get about twice the CPU per case under the fixed version at 4 CPUs, so their scores under the two graders are not comparable. How much their scores change is not measured.
 - With fewer than 3 grader CPUs the 600 s `eval_timeout` binds before the 30 s per case: at 2 CPUs, 25 rounds × 30 s = 750 s, so only about 24 s per case is usable (the original gives about 7.5 s of CPU per case there). The quota is rounded down: 2.5 CPUs run 2 cases at once.
-- Only simple honest solutions were tested. Whether the reference point for 100 (rank1 = 1,575) is achievable was not checked, and the sources of the rank1 and rank30 reference points were not traced.
+- Only simple, rule-following solutions were tested. Whether the reference point for 100 (rank1 = 1,575) is achievable was not checked, and the sources of the rank1 and rank30 reference points were not traced.
 - The random tables in the comparison produced only partial routes. Agreement on full routes rests on the known-good solution and one half-route case.
 - The seed search covered gen.py seeds 0..60,000 only.
 

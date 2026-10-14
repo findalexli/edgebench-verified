@@ -3,8 +3,8 @@
 ## The question
 
 EdgeBench scores an agent's work by running a hidden grader program on it. For each of the 51
-public tasks we asked: **if an agent does honest, correct work, does it get the score the task
-promises, reliably?**
+public tasks we asked: **if an agent solves the task correctly and by the rules, does it get the
+score the task promises, reliably?**
 
 A task fails this test in any of these cases:
 - the grader applies a different rule from the one the agent is told;
