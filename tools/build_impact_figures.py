@@ -83,7 +83,7 @@ MEASURED = {
         en='−1.03 (limit 1.03)', zh='−1.03（上限 1.03）'),
     'schemathesis_config_modernization': dict(v=0.625, sign='-', src=('cases/schemathesis_config_modernization.md', 'at k = 15 that is 1/160, the measured −0.006250'),
         en='−0.625 (limit 0.625)', zh='−0.625（上限 0.625）'),
-    'arc_compiler_runtime': dict(v=33.67, sign='', src=('cases/arc_compiler_runtime.md', 'the same honest analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter'),
+    'arc_compiler_runtime': dict(v=33.67, sign='', src=('cases/arc_compiler_runtime.md', 'the same correct analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter'),
         en='33.67 (69.26 vs 35.59)', zh='33.67（69.26 对 35.59）'),
     'juliet_vulnerability_analyzer': dict(v=15.00, sign='+', src=('cases/juliet_vulnerability_analyzer.md', 'An analyzer that finds only the 120 CWE-78 bugs loses 15.00 points (measured: 45.66 against 60.66).'),
         en='+15.00; real run +{real} · limit 26.47', zh='+15.00；真实运行 +{real} · 上限 26.47'),

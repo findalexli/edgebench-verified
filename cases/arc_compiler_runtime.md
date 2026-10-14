@@ -14,7 +14,7 @@ The solver must "Implement the missing Arc compiler and runtime modules under co
 
 **The `analyze()` interface is not documented.** The hidden type-system suites call `analyze()` from `compiler/src/semantic.js`. They expect an array of `{level, message}` objects. The messages must contain the substrings "Undefined", "Cannot reassign immutable" and "expects 2". The starter code that ships with the task returns `{ ok, errors, warnings, program }` instead. No solver-visible file names the required shape or the message texts. These suites carry 1000/2970 of the weight (33.67 points).
 
-- Example, on the original grader: the same honest analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter's object shape. It passes 128/128 type-system cases in the first form and 0 in the second. The solver gets no signal about which form is right.
+- Example, on the original grader: the same correct analyzer scores **69.26** when it returns the array shape the hidden tests use. It scores **35.59** when it keeps the starter's object shape. It passes 128/128 type-system cases in the first form and 0 in the second. The solver gets no signal about which form is right.
 
 **The stated starter score is false.** TASK.md and problem.md say the starter scores 0.00. In the original work image (the container the agent works in), the starter scores `SCORE=100.00` on the public tests (48/48) and 35.59 on the hidden tests. This misleads a solver about where it starts. It does not change any score.
 
