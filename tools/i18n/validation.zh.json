@@ -1,7 +1,7 @@
 {
  "apple_incremental_game": {
   "en": "CPU-share controls validated: three identical paired native runs at 4 CPUs plus a pair at 8 CPUs (each ledger exit=0); package rebuilt from scratch on a clean machine (materialize-check-g1). Not tested in a Kubernetes pod or at 3 or 5-7 CPUs; below 3 CPUs a submission that reaches eval_timeout loses its whole output.",
-  "text": "CPU 份额对照得到验证：在 4 个 CPU 下三次结果相同的成对原生运行，外加一组 8 个 CPU 下的对照（台账均为 exit=0）；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有在 Kubernetes pod 中、也没有在 3 个或 5–7 个 CPU 下测试；少于 3 个 CPU 时，达到 eval_timeout 的提交会丢失全部输出。"
+  "text": "CPU 份额对照已验证：在 4 个 CPU 下三次结果相同的成对原生运行，外加一组 8 个 CPU 下的对照（台账均为 exit=0）；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有在 Kubernetes pod 中、也没有在 3 个或 5–7 个 CPU 下测试；少于 3 个 CPU 时，达到 eval_timeout 的提交会丢失全部输出。"
  },
  "arc_compiler_runtime": {
   "en": "Documentation repair with the judge unchanged: three paired runs (exit=0) give byte-identical per-suite results under v1 and v2; v2 work image built in the worker and in the clean-machine rebuild (materialize-check-g3). Blind-solver benefit not shown; the work image tag is a local build tag, not a published image.",
@@ -17,15 +17,15 @@
  },
  "cta_risk_budget_optimization": {
   "en": "v2.1 image materialized and built in the worker from the package; native paired runs cta_risk_budget_optimization-v2.1-native-rep1..3 (each ledger exit=0) on the shipped standard answer and authored full submissions that pass the volatility, drawdown and participation gates; helper controls (13) pass against an exact oracle. No solver output graded.",
-  "text": "v2.1 镜像在工作机中由修复包物化并构建；成对原生运行 cta_risk_budget_optimization-v2.1-native-rep1..3（台账均为 exit=0）覆盖随附的标准答案，以及我们编写的、能通过波动率、回撤和参与度门槛的完整提交；辅助函数对照（13 项）对照精确的判定程序通过。没有对解题者的输出评分。"
+  "text": "v2.1 镜像在工作机中由修复包物化并构建；成对原生运行 cta_risk_budget_optimization-v2.1-native-rep1..3（台账均为 exit=0）覆盖随附的标准答案，以及我们编写的、能通过波动率、回撤和参与度门槛的完整提交；13 项辅助函数对照在精确的判定程序下通过。没有对解题者的输出评分。"
  },
  "equivalence_class_divide_and_conquer": {
   "en": "Paired cost-accounting controls validated; 9.67-point corpus effect is an unattained upper bound (10 - 0.5·2/30·10); per-problem evaluator checks on all six problems were not run.",
-  "text": "成本计算的成对对照得到验证；用例集上 9.67 分的影响是一个未达到的上限（10 - 0.5·2/30·10）；没有在全部六道题上运行逐题的评分器检查。"
+  "text": "成本计算的成对对照已验证；用例集上 9.67 分的影响是一个未达到的上限（10 - 0.5·2/30·10）；没有在全部六道题上运行逐题的评分器检查。"
  },
  "exchange_core_throughput": {
   "en": "Integration-test gate validated: two one-edit bugs drop from ~2250 to 0, honest engines keep scoring within throughput noise; at the leaderboard setting (--cpus 4 --memory 8g, 3 jobs) v2 passes the gate with 33 tests; package rebuilt from scratch on a clean machine (materialize-check-g1). The post-average Maven failure path is tested only on a constructed arm.",
-  "text": "集成测试门槛得到验证：两个单处修改的缺陷从约 2250 降到 0，诚实的引擎在吞吐量噪声范围内照常得分；在排行榜设置下（--cpus 4 --memory 8g，3 个作业），v2 以 33 项测试通过门槛；修复包在一台干净的机器上从零重建（materialize-check-g1）。平均值之后 Maven 失败的路径只在一个构造的对照组上测试过。"
+  "text": "集成测试门槛已验证：两个只改一处的缺陷从约 2250 降到 0，正常的引擎照常得分，差异在吞吐量噪声范围内；在排行榜设置下（--cpus 4 --memory 8g，3 个作业），v2 以 33 项测试通过门槛；修复包在一台干净的机器上从零重建（materialize-check-g1）。平均值之后 Maven 失败的路径只在一个构造的对照组上测试过。"
  },
  "ffmpeg_swscale_reimplementation": {
   "en": "Current v2.2 judge image built, and rebuilt from scratch on a clean machine (materialize-check-final); three paired native full-scorer controls passed, including valid output and exact-zero rejection. Full source-build eval_cmd and whole-task certification remain unverified.",
@@ -33,35 +33,35 @@
  },
  "git_rewrite_in_zig": {
   "en": "Paired native runs (3 repeats, each exit=0): five honest trees go from 0 to the starter score and the real-git oracle is unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). No real Zig port graded; v2 tested at 8 CPUs only.",
-  "text": "成对原生运行（3 次重复，均为 exit=0）：五棵诚实的代码树从 0 分升到初始代码的分数，真实 git 判定程序的结果不变；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有对真实的 Zig 移植评分；v2 只在 8 个 CPU 下测试过。"
+  "text": "成对原生运行（3 次重复，均为 exit=0）：五份正常编写的代码树从 0 分升到初始代码的分数，真实 git 判定程序的结果不变；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有对真实的 Zig 移植评分；v2 只在 8 个 CPU 下测试过。"
  },
  "graph_node_classification": {
   "en": "v2.1 validated by three paired runs of the original, the first fixed (v2) and v2.1 verifiers on seven submissions, each split over two workers (graph_node_classification-v2-paired-v21a, -v21b and their -rep2, -rep3; each ledger exit=0; package materialized with its own materialize.sh in each). Honest final scores differ by up to 2.9e-4 (timing). The Lean proof covers the first fix, not v2.1's str() key handling or duplicate-key rejection.",
-  "text": "v2.1 经三次并排对照运行验证，在七份提交上比较原始、第一个修复版（v2）和 v2.1 验证器，每次运行分在两台工作机上（graph_node_classification-v2-paired-v21a、-v21b 及其 -rep2、-rep3；台账均为 exit=0；每次运行都用修复包自带的 materialize.sh 生成修复包）。诚实提交的最终分数最多相差 2.9e-4（计时）。Lean 证明针对第一个修复，不涵盖 v2.1 的 str() 键处理和重复键拒绝。"
+  "text": "v2.1 经三次并排对照运行验证，在七份提交上比较原始、第一个修复版（v2）和 v2.1 验证器，每次运行分在两台工作机上（graph_node_classification-v2-paired-v21a、-v21b 及其 -rep2、-rep3；台账均为 exit=0；每次运行都用修复包自带的 materialize.sh 生成修复包）。正常提交的最终分数最多相差 2.9e-4（来自计时）。Lean 证明针对第一个修复，不涵盖 v2.1 的 str() 键处理和重复键拒绝。"
  },
  "grid_turing_robot": {
   "en": "CPU-share controls validated: three identical paired native runs at 4 CPUs plus 8-CPU controls (each ledger exit=0); package rebuilt from scratch on a clean machine (materialize-check-g1). Not tested in a Kubernetes pod, at 3 or 5-7 CPUs, or with multi-threaded solvers.",
-  "text": "CPU 份额对照得到验证：在 4 个 CPU 下三次结果相同的成对原生运行，外加 8 个 CPU 下的对照（台账均为 exit=0）；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有在 Kubernetes pod 中、在 3 个或 5–7 个 CPU 下、或用多线程解法测试。"
+  "text": "CPU 份额对照已验证：在 4 个 CPU 下三次结果相同的成对原生运行，外加 8 个 CPU 下的对照（台账均为 exit=0）；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有在 Kubernetes pod 中、在 3 个或 5–7 个 CPU 下、或用多线程解法测试。"
  },
  "integer_compression_codec": {
   "en": "Three side-by-side native runs (all finished): starter 0.23 -> about 1.0 raw as documented, honest codec 0.83-0.97 -> 6.70-8.27, corrupting codec 0 in both; the scale's end points are exact; package rebuilt from scratch on a clean machine (materialize-check-g3). Timing noise about ±15% per dataset; other machine types and the Kubernetes grader not tested.",
-  "text": "三次并排原生运行（全部顺利完成）：初始代码的原始结果从 0.23 变为如文档所述的约 1.0，诚实的编解码器从 0.83–0.97 变为 6.70–8.27，损坏数据的编解码器在两个版本中都为 0；刻度的两个端点是精确的；修复包在一台干净的机器上从零重建（materialize-check-g3）。每个数据集的计时噪声约为 ±15%；没有在其他机器类型和 Kubernetes 评分器上测试。"
+  "text": "三次并排原生运行（全部顺利完成）：初始代码的原始结果从 0.23 变为如文档所述的约 1.0，正常的编解码器从 0.83–0.97 变为 6.70–8.27，损坏数据的编解码器在两个版本中都为 0；刻度的两个端点是精确的；修复包在一台干净的机器上从零重建（materialize-check-g3）。每个数据集的计时噪声约为 ±15%；没有在其他机器类型和 Kubernetes 评分器上测试。"
  },
  "jagua_nesting_optimization": {
   "en": "v2.1 validated by three identical paired runs of the original, v2 and v2.1 graders (each exit=0): overlap witnesses rejected, legal contact and f32-derived angles accepted, a +0.01 degree rotation rejected on all 15 instances with allowed orientations. The v2.1 package as committed was rebuilt from scratch on a clean machine (materialize-check-final).",
-  "text": "v2.1 由原始、v2 和 v2.1 三个评分器的三次结果相同的成对运行验证（均为 exit=0）：重叠见证被拒绝，合法的接触和由 f32 推出的角度被接受，+0.01 度的旋转在全部 15 个有允许方向的实例上被拒绝。按提交内容的 v2.1 修复包已在一台干净的机器上从零重建（materialize-check-final）。"
+  "text": "v2.1 由原始、v2 和 v2.1 三个评分器的三次结果相同的成对运行验证（均为 exit=0）：评分器拒绝重叠见证，接受合法的接触和由 f32 推出的角度，并在全部 15 个有允许方向的实例上拒绝 +0.01 度的旋转。按提交内容的 v2.1 修复包已在一台干净的机器上从零重建（materialize-check-final）。"
  },
  "juliet_vulnerability_analyzer": {
   "en": "Hidden-grading paired runs (3 identical runs) validated: public-form CWE-78 answers gain credit, hidden-form and wrong-source answers unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1, again at the final commit in materialize-check-final). The +26.473 maximum is computed exactly from the grader's formula, not run.",
-  "text": "隐藏评分的成对运行（3 次结果相同）得到验证：公开形式的 CWE-78 答案获得分数，隐藏形式和来源错误的答案不变；修复包在一台干净的机器上从零重建（materialize-check-g1，并在最终提交时于 materialize-check-final 再次重建）。+26.473 的最大值由评分器公式精确计算得出，没有实际运行。"
+  "text": "隐藏评分的成对运行（3 次结果相同）已验证：公开形式的 CWE-78 答案获得分数，隐藏形式和来源错误的答案不变；修复包在一台干净的机器上从零重建（materialize-check-g1，并在最终提交时于 materialize-check-final 再次重建）。+26.473 的最大值由评分器公式精确计算得出，没有实际运行。"
  },
  "lean_analysis_proofs": {
   "en": "Component controls validated; actual eval_cmd dependency path and final grader/work images unverified: the rebuild needs about 45 GB of disk, more than the 21 GB workers used (materialize-check-lean).",
-  "text": "组件对照得到验证；实际 eval_cmd 的依赖路径以及最终的评分器镜像和工作镜像未经验证：重建约需 45 GB 磁盘空间，超过所用工作机的 21 GB（materialize-check-lean）。"
+  "text": "组件对照已验证；实际 eval_cmd 的依赖路径以及最终的评分器镜像和工作镜像未经验证：重建约需 45 GB 磁盘空间，超过所用工作机的 21 GB（materialize-check-lean）。"
  },
  "molecular_self_assembly": {
   "en": "CPU-share controls validated: three identical paired native runs at 4 CPUs plus 8-CPU controls (each ledger exit=0); package rebuilt from scratch on a clean machine (materialize-check-g2). The effect on strong solutions is derived, not measured; not tested in a Kubernetes pod or with multi-threaded solvers.",
-  "text": "CPU 份额对照得到验证：在 4 个 CPU 下三次结果相同的成对原生运行，外加 8 个 CPU 下的对照（台账均为 exit=0）；修复包在一台干净的机器上从零重建（materialize-check-g2）。对强解法的影响是推导出的，没有测量；没有在 Kubernetes pod 中、也没有用多线程解法测试。"
+  "text": "CPU 份额对照已验证：在 4 个 CPU 下三次结果相同的成对原生运行，外加 8 个 CPU 下的对照（台账均为 exit=0）；修复包在一台干净的机器上从零重建（materialize-check-g2）。对强解法的影响是推导出的，没有测量；没有在 Kubernetes pod 中、也没有用多线程解法测试。"
  },
  "openrct2_theme_park_ai": {
   "en": "Prompt-only correction: the measured horizon (about 70 game days in 120 s at speed 4) is reproduced from saved logs and the arithmetic is in Lean; package rebuilt from scratch on a clean machine (materialize-check-g3). The full wrapper, the Kubernetes grader and a competitive plugin were not run; lowering the game speed can still freeze value.",
@@ -73,15 +73,15 @@
  },
  "order_addition_permutation_optimization": {
   "en": "Paired runs (3, each exit=0): valid submissions pass 5/5 and the better later submission is selected, invalid controls rejected; a real archived run regraded through materialize.sh; package rebuilt from scratch on a clean machine (materialize-check-g2). Selection computed offline with select_best, not through a live judge_server.",
-  "text": "成对运行（3 次，均为 exit=0）：有效提交通过 5/5，之后更好的提交被选中，无效对照被拒绝；一次真实的存档运行通过 materialize.sh 重新评分；修复包在一台干净的机器上从零重建（materialize-check-g2）。选取规则用 select_best 离线计算，没有经过实际运行的 judge_server。"
+  "text": "成对运行（3 次，均为 exit=0）：有效提交通过 5/5，评分器选中之后更好的提交，并拒绝无效对照；一次真实的存档运行通过 materialize.sh 重新评分；修复包在一台干净的机器上从零重建（materialize-check-g2）。选取规则用 select_best 离线计算，没有经过实际运行的 judge_server。"
  },
  "pfr_formalization": {
   "en": "Type-contamination mechanism validated on analogous lemmas; work image built once in the clean-machine rebuild (materialize-check-pfr, which ran a hand-edited copy of materialize.sh; the reordered committed materialize.sh has not been run), no solver run in it; actual five-target credit recovery unverified, because it needs real proofs of those theorems.",
-  "text": "类型污染的机制在类似的引理上得到验证；工作镜像在干净机器重建中构建过一次（materialize-check-pfr，运行的是手工修改过的 materialize.sh 副本；提交的、调整过步骤顺序的 materialize.sh 尚未运行过），没有解题者在其中运行；五个实际目标的得分恢复未经验证，因为这需要这些定理的真实证明。"
+  "text": "类型污染机制已在类似的引理上验证；工作镜像在干净机器重建中构建过一次（materialize-check-pfr，运行的是手工修改过的 materialize.sh 副本；提交的、调整过步骤顺序的 materialize.sh 尚未运行过），没有解题者在其中运行；五个实际目标的得分恢复未经验证，因为这需要这些定理的真实证明。"
  },
  "portfolio_risk_calibration": {
   "en": "Paired formula controls validated; 0.3921 is a restricted numerical sensitivity envelope, not a universal score bound.",
-  "text": "公式的成对对照得到验证；0.3921 是一个受限的数值敏感性包络，不是普遍成立的分数上限。"
+  "text": "公式的成对对照已验证；0.3921 是一个受限的数值敏感性包络，不是普遍成立的分数上限。"
  },
  "rust_multicrate_reconstruction": {
   "en": "Three paired runs of the verbatim eval_cmd (each exit=0) reproduce every published score; TLA+ covers the exemption; v2 judge and work images rebuilt from scratch on a clean machine (materialize-check-rust). No solver build run in the v2 work image; the v2 starter arm ran once.",
@@ -101,11 +101,11 @@
  },
  "smt_solver": {
   "en": "Paired corpus controls validated; formal soundness covers only the modeled QF_UF fragment, with argued implementation correspondence.",
-  "text": "用例集的成对对照得到验证；形式化可靠性只涵盖建模的 QF_UF 片段，与实现的对应是论证得出的。"
+  "text": "用例集的成对对照已验证；形式化可靠性只涵盖建模的 QF_UF 片段，与实现的对应是论证得出的。"
  },
  "treant_forest": {
   "en": "Anchor-only repair: raw scores identical under both versions in paired runs, honest policy 3.04 -> 16.36 normalized, invalid control 0 in both; package rebuilt from scratch on a clean machine (materialize-check-g3). The 92,304 cap is a documented bound, not shown attainable.",
-  "text": "只修改参考点：成对运行中两个版本的原始分数相同，诚实策略的标准化分数从 3.04 升到 16.36，无效对照在两个版本中都为 0；修复包在一台干净的机器上从零重建（materialize-check-g3）。92,304 的上限是一个已记录的界限，没有证明可以达到。"
+  "text": "只修改参考点：成对运行中两个版本的原始分数相同，正常策略的标准化分数从 3.04 升到 16.36，无效对照在两个版本中都为 0；修复包在一台干净的机器上从零重建（materialize-check-g3）。92,304 的上限是一个已记录的界限，没有证明可以达到。"
  },
  "tree_block_partitioning": {
   "en": "Three paired runs (each exit=0): reference 100 -> 100, aliasing variant 0.25 -> 5, logic-error control unchanged; exhaustive aliased-state probe and TLA+ agree; package rebuilt from scratch on a clean machine (materialize-check-g2). How often real solvers write v*=v is unknown.",
@@ -113,10 +113,10 @@
  },
  "vibrating_path_graph_coloring": {
   "en": "CPU controls validated; zero-hit formatting effect ruled out on 37 of 50 cases only, unresolved on the other 13.",
-  "text": "CPU 对照得到验证；零命中格式问题的影响只在 50 个用例中的 37 个上被排除，在其余 13 个上仍未解决。"
+  "text": "CPU 对照已验证；零命中格式问题的影响只在 50 个用例中的 37 个上排除，在其余 13 个上仍未解决。"
  },
  "warehouse_forklift_routing": {
   "en": "Grader time/CPU controls validated; requires harness wait overlay, whose end-to-end integration remains pending.",
-  "text": "评分器的时限和 CPU 对照得到验证；需要评测框架的等待叠加层，其端到端集成尚待完成。"
+  "text": "评分器的时限和 CPU 对照已验证；需要评测框架的等待叠加层，其端到端集成尚待完成。"
  }
 }
