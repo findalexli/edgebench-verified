@@ -4,11 +4,11 @@
 
 ## What the task asks
 
-The solver builds a system that recommends math learning content to school students (grades K-12). The task text points to a workspace instruction file: "Read the complete task instructions in `/home/workspace/task_instruction.md`, and complete the task according to those requirements." The score comes from `cd /home/workspace && python3 scoring/score.py`. It reports a `TOTAL_SCORE` built from five weighted measures (M1-M5) over 100 scenarios. Category: Professional Knowledge Work.
+The solver builds a system that recommends math learning content to school students (grades K-12). The task text points to a workspace instruction file, saying "Read the complete task instructions in `/home/workspace/task_instruction.md`, and complete the task according to those requirements." The score comes from `cd /home/workspace && python3 scoring/score.py`. It reports a `TOTAL_SCORE` built from five weighted measures (M1-M5) over 100 scenarios. The task is in the Professional Knowledge Work category.
 
 ## What we checked
 
-No scoring defect was found. The grader works on both shipped reference solutions:
+We found no scoring defect. The grader works on both shipped reference solutions:
 
 | Test submission | Resource limits | Outcome | total_score (the reported score; the task has no 0–100 score scale) | M1 / M2 / M3 / M4 / M5 | Peak memory of the container (cgroup memory.peak) | Out-of-memory events |
 |---|---|---|---|---|---|---|
@@ -20,30 +20,30 @@ No scoring defect was found. The grader works on both shipped reference solution
 
 Two notes ship with the task.
 
-**Out-of-date shipped reports.** The shipped `evaluation_report.json` files report 45.292 (stage1) and 50.4 (stage2). The current grader gives 17.6 and 24.7 for the same reference solutions. Most of the gap is in M1: 44.3/43.6 in the shipped reports against 10.9/9.8 now. The shipped reports appear to come from an older, more lenient grader. A reader who compares against those numbers would be misled.
+The shipped reports are out of date. The shipped `evaluation_report.json` files report 45.292 (stage1) and 50.4 (stage2), while the current grader gives 17.6 and 24.7 for the same reference solutions. Most of the gap is in M1, with 44.3/43.6 in the shipped reports against 10.9/9.8 now. The shipped reports appear to come from an older, more lenient grader, and a reader who compares against those numbers would be misled.
 
-**Memory limit.** Under a 512 MiB address-space limit with 8 visible cores, the OpenBLAS maths library cannot create its threads, one per core. The grader then dies while importing numpy/scipy, before any inference or scoring (third row above). Under sound limits, the peak memory of the whole container, page cache included, was about 520 to 535 MiB. The address space the grader needs was not measured.
+The grader also fails under a tight memory limit. Under a 512 MiB address-space limit with 8 visible cores, the OpenBLAS maths library cannot create its threads, one per core, and the grader dies while importing numpy/scipy, before any inference or scoring (third row above). Under sound limits, the peak memory of the whole container, page cache included, was about 520 to 535 MiB. We did not measure the address space the grader needs.
 
 ## How much it matters
 
-- Out-of-date reports: documentation only; no score changes.
-- Memory limit: affects only graders run under a tight address-space limit. There the grader reports `TOTAL_SCORE 0` with an infrastructure error for every submission.
+- The out-of-date reports affect documentation only and change no score.
+- The memory limit affects only graders run under a tight address-space limit. There the grader reports `TOTAL_SCORE 0` with an infrastructure error for every submission.
 
-No change is made; the note above ships with the task.
+We made no change; the note above ships with the task.
 
 ## How we checked it
 
-- **Original grader in the original public image, pinned by digest** (pulled by digest, image ID verified). The exact `eval_cmd` ran on a host with 8 vCPU and 7.9 GB. Each test submission ran in a fresh `docker run --rm --network none` container.
-- **Correct test submissions.** The two shipped reference solutions (`scoring/reference_implementation/<stage>/`, that is `train.py`, `infer.py`, `requirements.txt`, `README.md` and `models/`) were copied into `/home/workspace` and scored.
-- **Memory.** Read from cgroup v2 `memory.peak` and `memory.events`, plus samples of `memory.current` taken every 1 s.
+- We ran the original grader in the original public image, pinned by digest (pulled by digest, image ID verified). The exact `eval_cmd` ran on a host with 8 vCPU and 7.9 GB. Each test submission ran in a fresh `docker run --rm --network none` container.
+- As correct test submissions, we copied the two shipped reference solutions (`scoring/reference_implementation/<stage>/`, that is `train.py`, `infer.py`, `requirements.txt`, `README.md` and `models/`) into `/home/workspace` and scored them.
+- We read memory from cgroup v2 `memory.peak` and `memory.events`, plus samples of `memory.current` taken every 1 s.
 
 ## Limits
 
-- No AI model or solver runs were made. Effects are shown only on the shipped reference solutions and one run under tight limits.
+- We made no AI model or solver runs. The effects shown come only from the shipped reference solutions and one run under tight limits.
 - Each test submission ran once. Scoring is deterministic given the `infer` output.
 - Memory figures are cgroup totals that include page cache, not the memory of each process (RSS).
-- Behaviour under other tight-limit setups (other core counts or wrappers) was not tested. A container memory (cgroup) limit near 512 MiB was not tested; the failing run used an address-space limit.
-- Published leaderboard averages for this task (44.3 for Opus 4.8 and 44.0 for GPT-5.5, `evidence/impact/leaderboard_12h.json`) are well above the authors' advanced reference solution, which scores 24.7 under this grader. Where that gap comes from was not examined.
+- We did not test behaviour under other tight-limit setups (other core counts or wrappers), or a container memory (cgroup) limit near 512 MiB; the failing run used an address-space limit.
+- Published leaderboard averages for this task (44.3 for Opus 4.8 and 44.0 for GPT-5.5, `evidence/impact/leaderboard_12h.json`) are well above the authors' advanced reference solution, which scores 24.7 under this grader. We did not examine where that gap comes from.
 
 ## Reproduce
 

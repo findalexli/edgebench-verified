@@ -59,7 +59,7 @@ Type-system suites (weight 1000/2970 = 33.67 points), cases passed:
 
 Per-suite counts are byte-identical between the original and fixed versions for every test submission.
 
-Scores of single submissions are comparable. An identical `compiler/src/` scores the same under the original and fixed versions (measured for 5 test submissions). The score scale (linear 0–100) and its reference points are unchanged. Results of agent runs are **not** comparable, because solvers of the fixed version are told the interface and message texts that solvers of the original lacked. Do not pool or rank agent runs on the two versions together.
+Scores of single submissions are comparable. An identical `compiler/src/` scores the same under the original and fixed versions (measured for 5 test submissions). The score scale (linear 0–100) and its reference points are unchanged. Results of agent runs are **not** comparable, because solvers of the fixed version are told the interface and message texts that solvers of the original lacked. Agent runs on the two versions should not be pooled or ranked together.
 
 ## How we checked it
 

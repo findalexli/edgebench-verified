@@ -22,7 +22,7 @@ Timed workloads earn speed credit without any correctness check. The grader comp
 - In the correctness check it compares 30 fixed workloads with the original library using per-plane PSNR (peak signal-to-noise ratio, measured for each colour plane). The threshold is at least 60 dB for same-size conversion and at least 40 dB for scaling.
 - In the timing stage it times 10 *different* workloads. The timing loop ignores the return value of `swscale_process` and never reads the output buffer.
 
-Several timed configurations never appear in the correctness set: RGBA→RGB24, RGB24→BGRA, 3:1 downscales, a 1.5× bicubic upscale, and 1080p and 4K sizes. A call that returns an error, or does nothing, finishes almost instantly and so gets a very large "speedup".
+Several timed configurations never appear in the correctness set: RGBA→RGB24, RGB24→BGRA, 3:1 downscales, a 1.5× bicubic upscale, and 1080p and 4K sizes. A call that returns an error, or does nothing, finishes almost instantly and so gets a huge "speedup".
 
 Each variant below models ordinary step-by-step development, with a path that is not written yet or a plain bug. On the original grader they scored as follows:
 
