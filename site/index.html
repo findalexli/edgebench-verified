@@ -49,13 +49,13 @@
   <div class="hl-grid" id="headline">
     <div><span class="hl-n">51</span><span class="hl-l">public tasks examined</span></div>
     <div><span class="hl-n" data-count="n_problem">32</span><span class="hl-l">tasks where the checker scored some submissions wrongly: <span data-count="repair-v2">31</span> fixed, <span data-count="exclude">1</span> removed. The other <span data-count="retain-with-note">19</span> are kept, with a note</span></div>
-    <div><span class="hl-n">12</span><span class="hl-l">tasks where the problem itself cost honest work 10 or more points out of 100, or gave broken work that many (measured on a submission, or on the score a run keeps)</span></div>
+    <div><span class="hl-n">10</span><span class="hl-l">tasks where the problem itself cost honest work 10 or more points out of 100 (measured on a submission, or on the score a run keeps)</span></div>
     <div><span class="hl-n">7</span><span class="hl-l">fixed tasks regraded on a real agent run: the run's score changed in 2, single submissions changed in 2 more, and the problem never occurred in 3</span></div>
     <div><span class="hl-n">3.79 → 41.24</span><span class="hl-l">the largest change in a real run's score, out of 100 (<a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>)</span></div>
     <div><span class="hl-n">Top two</span><span class="hl-l">their order can no longer be confirmed from public data: 44.2 against 43.1 published, ranges 45.49–47.30 and 44.30–46.35 once the documented limits are applied</span></div>
   </div>
   <figure class="fig" id="fig-impact-overview"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1291" role="img">
-<title>In 12 of 32 problem tasks, the problem itself moved a measured score by 10 points or more</title>
+<title>In 10 of 32 problem tasks, the problem itself cost honest work 10 points or more (measured)</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -65,8 +65,8 @@
   
 </style>
 
-<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">In 12 of 32 problem tasks, the problem itself moved a measured score</text>
-<text x="16" y="54" class="ink" font-size="18" text-anchor="start" font-weight="700">by 10 points or more</text>
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">In 10 of 32 problem tasks, the problem itself cost honest work 10</text>
+<text x="16" y="54" class="ink" font-size="18" text-anchor="start" font-weight="700">points or more (measured)</text>
 <text x="16" y="78" class="muted" font-size="14" text-anchor="start" font-weight="400">What each problem does to one affected submission when it occurs (points out of 100).</text>
 <circle cx="22" cy="104" r="5" class="acc ioRing" stroke-width="1.5"/>
 <text x="34" y="108" class="ink" font-size="13" text-anchor="start" font-weight="400">Measured on our test submission</text>
@@ -225,7 +225,7 @@
 <text x="16" y="1283" class="muted" font-size="13" text-anchor="start" font-weight="400">How often each problem occurred on the leaderboard is unknown for most tasks.</text>
 
 </svg>
-</div><figcaption><b>Figure 1.</b> In 12 of the 32 tasks with a problem, the problem itself moved a measured score by 10 points or more out of 100: honest work lost that much, or broken or empty work gained it. For Arc and Borden this is the gap between two honest submissions that differ only in an unstated convention; a change that comes from a fix&#x27;s new scale (Integer Codec) does not count. Each row shows what the problem does to one submission when it occurs: filled marks are measured changes, hollow bars are proved or computed limits that the change cannot exceed, and the right-hand column lists effects whose direction is known but whose size is not. How often each problem occurred on the leaderboard is unknown for most tasks.</figcaption></figure>
+</div><figcaption><b>Figure 1.</b> In 10 of the 32 tasks with a problem, the problem itself cost honest work 10 points or more out of 100, measured. Credit wrongly given to broken or empty work (College English, FFmpeg) is shown but not counted. For Arc and Borden this is the gap between two honest submissions that differ only in an unstated convention; a change that comes from a fix&#x27;s new scale (Integer Codec) does not count. Each row shows what the problem does to one submission when it occurs: filled marks are measured changes, hollow bars are proved or computed limits that the change cannot exceed, and the right-hand column lists effects whose direction is known but whose size is not. How often each problem occurred on the leaderboard is unknown for most tasks.</figcaption></figure>
   <div class="cta">
     <a class="btn" href="tasks/index.html">Browse all 51 tasks &rarr;</a>
     <p>Every task has its own page: the instructions the agent receives, how EdgeBench scores the work, and what we found.</p>

@@ -133,11 +133,15 @@ LIMIT_LABEL = {
     'pfr_formalization': ('limit 2.13, not run', '上限 2.13，未实测'),
     'warehouse_forklift_routing': ('limit 30.59', '上限 30.59'),
 }
-# The headline rule: the problem itself cost an honest submission 10 or more points out of 100, or gave broken or
-# empty work 10 or more points it did not earn, measured. Arc and Borden count (the same honest work loses 33.67 or
+# The headline rule: the problem itself cost an honest submission 10 or more points out of 100, measured. Credit wrongly
+# given to broken or empty work is shown in the chart but not counted. Arc and Borden count (the same honest work loses 33.67 or
 # 22.17 points depending on how it is written); Order Addition counts by the score the run keeps.
 # Tasks whose 10-point measurement is excluded from the headline count, with the reason.
 NOT_COUNTED = {
+    'college_english_exam_bank': 'credit given to broken work (an empty grading report scored 100), not points lost by '
+                                 'honest work; shown in the chart, not counted',
+    'ffmpeg_swscale_reimplementation': 'credit given to unfinished work (up to 18.93), not points lost by honest work; shown in '
+                                       'the chart, not counted',
     'integer_compression_codec': 'the −29.68 comes from the fixed task\'s new 0–100 scale, not from the problem: every '
                                  'submission\'s raw result rose 1.7–4× under the fix',
     'exchange_core_throughput': 'broken engines scored 4.71–24.40 instead of 0, but these speeds are within run-to-run noise '
@@ -148,7 +152,7 @@ NOT_COUNTED = {
 
 T = {
     'en': dict(
-        ov_title='In {n10} of {n} problem tasks, the problem itself moved a measured score by 10 points or more',
+        ov_title='In {n10} of {n} problem tasks, the problem itself cost honest work 10 points or more (measured)',
         ov_sub='What each problem does to one affected submission when it occurs (points out of 100).',
         leg_test='Measured on our test submission', leg_real='Measured on a real agent run',
         leg_bar='Proved or computed limit: the change cannot be larger', leg_comp='Computed from a real run, not run',
@@ -165,7 +169,7 @@ T = {
         rr_foot='It shows the problems happen to real agents, and sometimes do not. It does not measure the effect on the 12-hour leaderboard.',
     ),
     'zh': dict(
-        ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务的问题本身使实测分数变化 10 分或以上',
+        ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务的问题本身使诚实的工作实测损失 10 分或以上',
         ov_sub='每个问题一旦发生，对一份受影响提交的作用（满分 100 分）。',
         leg_test='在我们的测试提交上实测', leg_real='在一次真实智能体运行上实测',
         leg_bar='已证明或计算出的上限：变化不会更大', leg_comp='按真实运行计算，未实际运行',
@@ -804,8 +808,9 @@ def build():
              'a filled diamond (a real agent run; hollow and dashed when computed from a run\'s saved verdicts, not run), and a '
              'proved or computed limit as a hollow bar starting at 0. A separate column on the right lists effects whose '
              'direction is known but whose size is not.'),
-        caption=(f'In {n10} of the {len(rows)} tasks with a problem, the problem itself moved a measured score by 10 points or '
-                 'more out of 100: honest work lost that much, or broken or empty work gained it. For Arc and Borden this is the '
+        caption=(f'In {n10} of the {len(rows)} tasks with a problem, the problem itself cost honest work 10 points or more '
+                 'out of 100, measured. Credit wrongly given to broken or empty work (College English, FFmpeg) is shown but not '
+                 'counted. For Arc and Borden this is the '
                  'gap between two honest submissions that differ only in an unstated convention; a change that comes from a '
                  'fix\'s new scale (Integer Codec) does not count. '
                  'Each row shows what the problem does to one submission when it occurs: filled marks are measured changes, '
@@ -838,8 +843,8 @@ def build():
     big_subs = max(abs(rr[t]['big']) for t in subs_only)
     zh = {
         'impact-overview': dict(
-            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务的问题本身使实测分数变化 10 分或以上（满分 100）：诚实的工作损失了这么多分，'
-                     '或有错误、空白的工作多得了这么多分。对 Arc 和 Borden，这是两份只在一项未说明的约定上不同的诚实提交之间的差距；'
+            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务的问题本身使诚实的工作实测损失 10 分或以上（满分 100）。'
+                     '有错误或空白的工作被错误加分（College English、FFmpeg）会在图中显示，但不计入。对 Arc 和 Borden，这是两份只在一项未说明的约定上不同的诚实提交之间的差距；'
                      '来自修复后新刻度的变化（Integer Codec）不计入。每一行显示问题一旦发生对一份提交的'
                      '作用：实心标记是实测变化，空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，'
                      '这些问题在排行榜上发生的频率未知。'),
@@ -870,8 +875,8 @@ def build():
         'by_category': cat_counts,
         'measured_change_10_or_more': {
             'count': n10,
-            'rule': ('the problem itself cost an honest submission 10 or more points out of 100, or gave broken or empty work '
-                     '10 or more points it did not earn, measured on our test submission or a real agent run: in one '
+            'rule': ('the problem itself cost an honest submission 10 or more points out of 100, '
+                     'measured on our test submission or a real agent run: in one '
                      'submission\'s score, between two honest submissions that differ only in an unstated convention (Arc, '
                      'Borden; the checker is unchanged), or in the score a run keeps (Order Addition). Computed limits, and '
                      'changes that come from a fix\'s new 0–100 scale, do not count'),

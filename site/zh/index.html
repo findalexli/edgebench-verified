@@ -49,13 +49,13 @@
   <div class="hl-grid" id="headline">
     <div><span class="hl-n">51</span><span class="hl-l">检查的公开任务</span></div>
     <div><span class="hl-n" data-count="n_problem">32</span><span class="hl-l">评分器给某些提交打错了分的任务：<span data-count="repair-v2">31</span> 个已修复，<span data-count="exclude">1</span> 个已移除。其余 <span data-count="retain-with-note">19</span> 个保留（附说明）</span></div>
-    <div><span class="hl-n">12</span><span class="hl-l">问题本身使诚实的工作损失 10 分或以上（满分 100），或使有错误的工作多得这么多分的任务（在单个提交上，或在一次运行保留的分数上实测）</span></div>
+    <div><span class="hl-n">10</span><span class="hl-l">问题本身使诚实的工作损失 10 分或以上（满分 100）的任务（在单个提交上，或在一次运行保留的分数上实测）</span></div>
     <div><span class="hl-n">7</span><span class="hl-l">在一次真实智能体运行上重新评分的已修复任务：运行成绩改变的有 2 个，另有 2 个只有单个提交改变，3 个任务中问题从未出现</span></div>
     <div><span class="hl-n">3.79 → 41.24</span><span class="hl-l">真实运行成绩的最大变化，满分 100（<a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>）</span></div>
     <div><span class="hl-n">前两名</span><span class="hl-l">其先后已无法从公开数据确认：公布成绩 44.2 对 43.1，计入已记录的上限后区间为 45.49–47.30 和 44.30–46.35</span></div>
   </div>
-  <figure class="fig" id="fig-impact-overview"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1219" role="img">
-<title>在 32 个有问题的任务中，有 12 个任务的问题本身使实测分数变化 10 分或以上</title>
+  <figure class="fig" id="fig-impact-overview"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1243" role="img">
+<title>在 32 个有问题的任务中，有 10 个任务的问题本身使诚实的工作实测损失 10 分或以上</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -65,162 +65,163 @@
   
 </style>
 
-<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">在 32 个有问题的任务中，有 12 个任务的问题本身使实测分数变化 10 分或以上</text>
-<text x="16" y="54" class="muted" font-size="14" text-anchor="start" font-weight="400">每个问题一旦发生，对一份受影响提交的作用（满分 100 分）。</text>
-<circle cx="22" cy="80" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="34" y="84" class="ink" font-size="13" text-anchor="start" font-weight="400">在我们的测试提交上实测</text>
-<path d="M203 74L209 80L203 86L197 80Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="215" y="84" class="ink" font-size="13" text-anchor="start" font-weight="400">在一次真实智能体运行上实测</text>
-<rect x="16" y="96" width="34" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<text x="58" y="106" class="ink" font-size="13" text-anchor="start" font-weight="400">已证明或计算出的上限：变化不会更大</text>
-<path d="M305 96L311 102L305 108L299 102Z" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>
-<text x="317" y="106" class="ink" font-size="13" text-anchor="start" font-weight="400">按真实运行计算，未实际运行</text>
-<text x="574" y="124" class="ink" font-size="13" text-anchor="start" font-weight="600">只知道方向</text>
-<text x="574" y="140" class="muted" font-size="13" text-anchor="start" font-weight="400">（大小未知）</text>
-<text x="262" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
-<text x="333" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">25</text>
-<text x="404" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">50</text>
-<text x="475" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">75</text>
-<text x="546" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">100</text>
-<line x1="262.0" y1="148" x2="262.0" y2="1151" class="rule" stroke-width="1"/>
-<line x1="333.0" y1="148" x2="333.0" y2="1151" class="rule" stroke-width="1"/>
-<line x1="404.0" y1="148" x2="404.0" y2="1151" class="rule" stroke-width="1"/>
-<line x1="475.0" y1="148" x2="475.0" y2="1151" class="rule" stroke-width="1"/>
-<line x1="546.0" y1="148" x2="546.0" y2="1151" class="rule" stroke-width="1"/>
-<line x1="568" y1="148" x2="568" y2="1151" class="rule" stroke-width="1" stroke-dasharray="3 3"/>
-<rect x="10" y="160" width="700" height="22" rx="3" class="ioBand"/>
-<text x="16" y="176" class="ink" font-size="14" text-anchor="start" font-weight="600">工程与运行环境 · 5 个任务</text>
-<text x="16" y="199" class="ink" font-size="13" text-anchor="start" font-weight="400">Rust Multicrate</text>
-<text x="16" y="214" class="ink" font-size="13" text-anchor="start" font-weight="400">Reconstruction</text>
-<rect x="262" y="197" width="83.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="320.816" cy="202" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="353.985" y="206.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+20.71（上限 29.22）</text>
-<text x="16" y="235" class="ink" font-size="13" text-anchor="start" font-weight="400">Grid Turing Robot</text>
-<circle cx="318.232" cy="231" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="327.232" y="235.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+19.80（原为无分）</text>
-<text x="16" y="257" class="ink" font-size="13" text-anchor="start" font-weight="400">Molecular Self Assembly</text>
-<path d="M296.702 247L302.702 253L296.702 259L290.702 253Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="305.702" y="257.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+12.22（真实运行）</text>
-<text x="16" y="279" class="ink" font-size="13" text-anchor="start" font-weight="400">Apple Incremental Game</text>
-<circle cx="276.314" cy="275" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="285.314" y="279.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+5.04（原为 0）</text>
-<text x="16" y="301" class="ink" font-size="13" text-anchor="start" font-weight="400">Vibrating Path Graph</text>
-<text x="16" y="316" class="ink" font-size="13" text-anchor="start" font-weight="400">Coloring</text>
-<circle cx="267.85" cy="304" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="276.85" y="308.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+2.06（原为无分）</text>
-<rect x="10" y="328" width="700" height="22" rx="3" class="ioBand"/>
-<text x="16" y="344" class="ink" font-size="14" text-anchor="start" font-weight="600">评分逻辑错误（事实性错误） · 15 个任务</text>
-<text x="16" y="367" class="ink" font-size="13" text-anchor="start" font-weight="400">College English Exam Bank</text>
-<circle cx="546" cy="363" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="537" y="367.5" class="ink" font-size="13" text-anchor="end" font-weight="400">−100：空评分报告</text>
-<text x="16" y="389" class="ink" font-size="13" text-anchor="start" font-weight="400">Exchange Core Throughput</text>
-<line x1="275.4" y1="385" x2="331.3" y2="385" class="accS" stroke-width="2"/>
-<circle cx="275.376" cy="385" r="5" class="acc ioRing" stroke-width="1.5"/>
-<circle cx="331.296" cy="385" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="340.296" y="389.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−4.71 至 −24.40（速度波动）</text>
-<text x="16" y="411" class="ink" font-size="13" text-anchor="start" font-weight="400">Graph Node Classification</text>
-<circle cx="330.413" cy="407" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="339.413" y="411.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+24.09（原为 0）</text>
-<text x="16" y="433" class="ink" font-size="13" text-anchor="start" font-weight="400">FFmpeg swscale</text>
-<text x="16" y="448" class="ink" font-size="13" text-anchor="start" font-weight="400">Reimplementation</text>
-<circle cx="315.761" cy="436" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="324.761" y="440.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−18.93</text>
-<text x="16" y="469" class="ink" font-size="13" text-anchor="start" font-weight="400">SMT Solver</text>
-<circle cx="279.636" cy="465" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="288.636" y="469.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+6.21（完美求解器）</text>
-<text x="16" y="491" class="ink" font-size="13" text-anchor="start" font-weight="400">CTA Risk Budget Optimization</text>
-<rect x="262" y="482" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="276.2" cy="487" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="285.2" y="491.5" class="ink" font-size="13" text-anchor="start" font-weight="400">±5.00（上限 5）</text>
-<text x="16" y="513" class="ink" font-size="13" text-anchor="start" font-weight="400">Lean Analysis Proofs</text>
-<path d="M276.047 503L282.047 509L276.047 515L270.047 509Z" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>
-<text x="285.047" y="513.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.95（按真实运行计算）</text>
-<text x="16" y="535" class="ink" font-size="13" text-anchor="start" font-weight="400">Tree Block Partitioning</text>
-<rect x="262" y="526" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="275.49" cy="531" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="285.2" y="535.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.75（上限 5）</text>
-<text x="16" y="557" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Reporting</text>
-<text x="16" y="572" class="ink" font-size="13" text-anchor="start" font-weight="400">Observability</text>
-<rect x="262" y="555" width="13.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="266.743" cy="560" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="284.518" y="564.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.67（上限 4.76）</text>
-<text x="16" y="593" class="ink" font-size="13" text-anchor="start" font-weight="400">D-ABIC Gravity Inversion</text>
-<circle cx="264.954" cy="603.5" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="273.954" y="608" class="ink" font-size="13" text-anchor="start" font-weight="400">+1.04（实测）</text>
-<text x="574" y="593" class="muted" font-size="13" text-anchor="start" font-weight="400">计算示例：C = 30 时</text>
-<text x="574" y="608" class="muted" font-size="13" text-anchor="start" font-weight="400">为 48.06，随 C 增</text>
-<text x="574" y="623" class="muted" font-size="13" text-anchor="start" font-weight="400">大；任务已移除</text>
-<text x="16" y="644" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Datagen</text>
-<text x="16" y="659" class="ink" font-size="13" text-anchor="start" font-weight="400">Pipeline</text>
-<rect x="262" y="642" width="2.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="264.925" cy="647" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="273.925" y="651.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.03（上限 1.03）</text>
-<text x="16" y="680" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Config</text>
-<text x="16" y="695" class="ink" font-size="13" text-anchor="start" font-weight="400">Modernization</text>
-<rect x="262" y="678" width="1.8" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="263.775" cy="683" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="272.775" y="687.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−0.625（上限 0.625）</text>
-<text x="16" y="716" class="ink" font-size="13" text-anchor="start" font-weight="400">Equivalence Class Divide and</text>
-<text x="16" y="731" class="ink" font-size="13" text-anchor="start" font-weight="400">Conquer</text>
-<rect x="262" y="714" width="27.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<text x="298.463" y="723.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 9.67（降低）</text>
-<text x="16" y="752" class="ink" font-size="13" text-anchor="start" font-weight="400">PFR Formalization</text>
-<rect x="262" y="743" width="6.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<text x="277.049" y="752.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 2.13，未实测</text>
-<text x="16" y="774" class="ink" font-size="13" text-anchor="start" font-weight="400">Jagua Nesting Optimization</text>
-<text x="574" y="774.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↓ 重叠布局被接受</text>
-<rect x="10" y="787" width="700" height="22" rx="3" class="ioBand"/>
-<text x="16" y="803" class="ink" font-size="14" text-anchor="start" font-weight="600">任务说明与评分不一致 · 9 个任务</text>
-<text x="16" y="826" class="ink" font-size="13" text-anchor="start" font-weight="400">Triangulation Coloring</text>
-<text x="16" y="841" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
-<circle cx="400.194" cy="829" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="409.194" y="826" class="ink" font-size="13" text-anchor="start" font-weight="400">+48.66（时限部分；</text>
-<text x="409.194" y="841" class="ink" font-size="13" text-anchor="start" font-weight="400">原为无分）</text>
-<text x="574" y="833.5" class="muted" font-size="13" text-anchor="start" font-weight="400">+ 规则变化 ↕</text>
-<text x="16" y="862" class="ink" font-size="13" text-anchor="start" font-weight="400">Arc Compiler Runtime</text>
-<circle cx="357.623" cy="858" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="366.623" y="862.5" class="ink" font-size="13" text-anchor="start" font-weight="400">33.67（69.26 对 35.59）</text>
-<text x="16" y="884" class="ink" font-size="13" text-anchor="start" font-weight="400">Juliet Vulnerability</text>
-<text x="16" y="899" class="ink" font-size="13" text-anchor="start" font-weight="400">Analyzer</text>
-<rect x="262" y="882" width="75.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="304.6" cy="887" r="5" class="acc ioRing" stroke-width="1.5"/>
-<path d="M333.738 881L339.738 887L333.738 893L327.738 887Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="346.186" y="884" class="ink" font-size="13" text-anchor="start" font-weight="400">+15.00；真实运行 +25.26</text>
-<text x="346.186" y="899" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 26.47</text>
-<text x="16" y="920" class="ink" font-size="13" text-anchor="start" font-weight="400">Borden Source Inversion</text>
-<circle cx="324.963" cy="916" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="333.963" y="920.5" class="ink" font-size="13" text-anchor="start" font-weight="400">22.17（28.62 对 6.45）</text>
-<text x="16" y="942" class="ink" font-size="13" text-anchor="start" font-weight="400">Portfolio Risk Calibration</text>
-<circle cx="262.199" cy="938" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="271.199" y="942.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+0.07</text>
-<text x="16" y="964" class="ink" font-size="13" text-anchor="start" font-weight="400">Warehouse Forklift Routing</text>
-<rect x="262" y="955" width="86.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<text x="357.864" y="964.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 30.59</text>
-<text x="574" y="964.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 原为无分</text>
-<text x="16" y="986" class="ink" font-size="13" text-anchor="start" font-weight="400">Git Rewrite in Zig</text>
-<text x="574" y="986.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 可达全部分数</text>
-<text x="16" y="1008" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenRCT2 Theme Park AI</text>
-<text x="574" y="1008.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↕ 未测量</text>
-<text x="16" y="1030" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenTTD Transport AI</text>
-<text x="574" y="1030.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 可达全部分数</text>
-<rect x="10" y="1043" width="700" height="22" rx="3" class="ioBand"/>
-<text x="16" y="1059" class="ink" font-size="14" text-anchor="start" font-weight="600">分数换算与选取 · 3 个任务</text>
-<text x="16" y="1082" class="ink" font-size="13" text-anchor="start" font-weight="400">Order Addition Permutation</text>
-<text x="16" y="1097" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
-<path d="M368.361 1079L374.361 1085L368.361 1091L362.361 1085Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="377.361" y="1089.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+37.45：运行保留的成绩</text>
-<text x="16" y="1118" class="ink" font-size="13" text-anchor="start" font-weight="400">Integer Compression Codec</text>
-<path d="M346.278 1108L352.278 1114L346.278 1120L340.278 1114Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="355.278" y="1118.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−29.68（真实运行，新刻度）</text>
-<text x="16" y="1140" class="ink" font-size="13" text-anchor="start" font-weight="400">Treant Forest</text>
-<circle cx="299.829" cy="1136" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="308.829" y="1140.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+13.32（3.04 → 16.36）</text>
-<text x="16" y="1173" class="muted" font-size="13" text-anchor="start" font-weight="400">+ / −：修复版评分器给分更多 / 更少。无符号：两份诚实提交之间的差距，它们只在一项未说明的约定上不同</text>
-<text x="16" y="1192" class="muted" font-size="13" text-anchor="start" font-weight="400">（Arc：错误报告格式；Borden：物理模型）；评分器不变。</text>
-<text x="16" y="1211" class="muted" font-size="13" text-anchor="start" font-weight="400">对大多数任务，这些问题在排行榜上发生的频率未知。</text>
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">在 32 个有问题的任务中，有 10 个任务的问题本身使诚实的工作实测损失 10 分或</text>
+<text x="16" y="54" class="ink" font-size="18" text-anchor="start" font-weight="700">以上</text>
+<text x="16" y="78" class="muted" font-size="14" text-anchor="start" font-weight="400">每个问题一旦发生，对一份受影响提交的作用（满分 100 分）。</text>
+<circle cx="22" cy="104" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="34" y="108" class="ink" font-size="13" text-anchor="start" font-weight="400">在我们的测试提交上实测</text>
+<path d="M203 98L209 104L203 110L197 104Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="215" y="108" class="ink" font-size="13" text-anchor="start" font-weight="400">在一次真实智能体运行上实测</text>
+<rect x="16" y="120" width="34" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="58" y="130" class="ink" font-size="13" text-anchor="start" font-weight="400">已证明或计算出的上限：变化不会更大</text>
+<path d="M305 120L311 126L305 132L299 126Z" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>
+<text x="317" y="130" class="ink" font-size="13" text-anchor="start" font-weight="400">按真实运行计算，未实际运行</text>
+<text x="574" y="148" class="ink" font-size="13" text-anchor="start" font-weight="600">只知道方向</text>
+<text x="574" y="164" class="muted" font-size="13" text-anchor="start" font-weight="400">（大小未知）</text>
+<text x="262" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
+<text x="333" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">25</text>
+<text x="404" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">50</text>
+<text x="475" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">75</text>
+<text x="546" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">100</text>
+<line x1="262.0" y1="172" x2="262.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="333.0" y1="172" x2="333.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="404.0" y1="172" x2="404.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="475.0" y1="172" x2="475.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="546.0" y1="172" x2="546.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="568" y1="172" x2="568" y2="1175" class="rule" stroke-width="1" stroke-dasharray="3 3"/>
+<rect x="10" y="184" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="200" class="ink" font-size="14" text-anchor="start" font-weight="600">工程与运行环境 · 5 个任务</text>
+<text x="16" y="223" class="ink" font-size="13" text-anchor="start" font-weight="400">Rust Multicrate</text>
+<text x="16" y="238" class="ink" font-size="13" text-anchor="start" font-weight="400">Reconstruction</text>
+<rect x="262" y="221" width="83.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="320.816" cy="226" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="353.985" y="230.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+20.71（上限 29.22）</text>
+<text x="16" y="259" class="ink" font-size="13" text-anchor="start" font-weight="400">Grid Turing Robot</text>
+<circle cx="318.232" cy="255" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="327.232" y="259.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+19.80（原为无分）</text>
+<text x="16" y="281" class="ink" font-size="13" text-anchor="start" font-weight="400">Molecular Self Assembly</text>
+<path d="M296.702 271L302.702 277L296.702 283L290.702 277Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="305.702" y="281.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+12.22（真实运行）</text>
+<text x="16" y="303" class="ink" font-size="13" text-anchor="start" font-weight="400">Apple Incremental Game</text>
+<circle cx="276.314" cy="299" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.314" y="303.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+5.04（原为 0）</text>
+<text x="16" y="325" class="ink" font-size="13" text-anchor="start" font-weight="400">Vibrating Path Graph</text>
+<text x="16" y="340" class="ink" font-size="13" text-anchor="start" font-weight="400">Coloring</text>
+<circle cx="267.85" cy="328" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="276.85" y="332.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+2.06（原为无分）</text>
+<rect x="10" y="352" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="368" class="ink" font-size="14" text-anchor="start" font-weight="600">评分逻辑错误（事实性错误） · 15 个任务</text>
+<text x="16" y="391" class="ink" font-size="13" text-anchor="start" font-weight="400">College English Exam Bank</text>
+<circle cx="546" cy="387" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="537" y="391.5" class="ink" font-size="13" text-anchor="end" font-weight="400">−100：空评分报告</text>
+<text x="16" y="413" class="ink" font-size="13" text-anchor="start" font-weight="400">Exchange Core Throughput</text>
+<line x1="275.4" y1="409" x2="331.3" y2="409" class="accS" stroke-width="2"/>
+<circle cx="275.376" cy="409" r="5" class="acc ioRing" stroke-width="1.5"/>
+<circle cx="331.296" cy="409" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="340.296" y="413.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−4.71 至 −24.40（速度波动）</text>
+<text x="16" y="435" class="ink" font-size="13" text-anchor="start" font-weight="400">Graph Node Classification</text>
+<circle cx="330.413" cy="431" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="339.413" y="435.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+24.09（原为 0）</text>
+<text x="16" y="457" class="ink" font-size="13" text-anchor="start" font-weight="400">FFmpeg swscale</text>
+<text x="16" y="472" class="ink" font-size="13" text-anchor="start" font-weight="400">Reimplementation</text>
+<circle cx="315.761" cy="460" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="324.761" y="464.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−18.93</text>
+<text x="16" y="493" class="ink" font-size="13" text-anchor="start" font-weight="400">SMT Solver</text>
+<circle cx="279.636" cy="489" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="288.636" y="493.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+6.21（完美求解器）</text>
+<text x="16" y="515" class="ink" font-size="13" text-anchor="start" font-weight="400">CTA Risk Budget Optimization</text>
+<rect x="262" y="506" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="276.2" cy="511" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.2" y="515.5" class="ink" font-size="13" text-anchor="start" font-weight="400">±5.00（上限 5）</text>
+<text x="16" y="537" class="ink" font-size="13" text-anchor="start" font-weight="400">Lean Analysis Proofs</text>
+<path d="M276.047 527L282.047 533L276.047 539L270.047 533Z" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>
+<text x="285.047" y="537.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.95（按真实运行计算）</text>
+<text x="16" y="559" class="ink" font-size="13" text-anchor="start" font-weight="400">Tree Block Partitioning</text>
+<rect x="262" y="550" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="275.49" cy="555" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.2" y="559.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.75（上限 5）</text>
+<text x="16" y="581" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Reporting</text>
+<text x="16" y="596" class="ink" font-size="13" text-anchor="start" font-weight="400">Observability</text>
+<rect x="262" y="579" width="13.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="266.743" cy="584" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="284.518" y="588.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.67（上限 4.76）</text>
+<text x="16" y="617" class="ink" font-size="13" text-anchor="start" font-weight="400">D-ABIC Gravity Inversion</text>
+<circle cx="264.954" cy="627.5" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="273.954" y="632" class="ink" font-size="13" text-anchor="start" font-weight="400">+1.04（实测）</text>
+<text x="574" y="617" class="muted" font-size="13" text-anchor="start" font-weight="400">计算示例：C = 30 时</text>
+<text x="574" y="632" class="muted" font-size="13" text-anchor="start" font-weight="400">为 48.06，随 C 增</text>
+<text x="574" y="647" class="muted" font-size="13" text-anchor="start" font-weight="400">大；任务已移除</text>
+<text x="16" y="668" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Datagen</text>
+<text x="16" y="683" class="ink" font-size="13" text-anchor="start" font-weight="400">Pipeline</text>
+<rect x="262" y="666" width="2.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="264.925" cy="671" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="273.925" y="675.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.03（上限 1.03）</text>
+<text x="16" y="704" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Config</text>
+<text x="16" y="719" class="ink" font-size="13" text-anchor="start" font-weight="400">Modernization</text>
+<rect x="262" y="702" width="1.8" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="263.775" cy="707" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="272.775" y="711.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−0.625（上限 0.625）</text>
+<text x="16" y="740" class="ink" font-size="13" text-anchor="start" font-weight="400">Equivalence Class Divide and</text>
+<text x="16" y="755" class="ink" font-size="13" text-anchor="start" font-weight="400">Conquer</text>
+<rect x="262" y="738" width="27.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="298.463" y="747.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 9.67（降低）</text>
+<text x="16" y="776" class="ink" font-size="13" text-anchor="start" font-weight="400">PFR Formalization</text>
+<rect x="262" y="767" width="6.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="277.049" y="776.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 2.13，未实测</text>
+<text x="16" y="798" class="ink" font-size="13" text-anchor="start" font-weight="400">Jagua Nesting Optimization</text>
+<text x="574" y="798.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↓ 重叠布局被接受</text>
+<rect x="10" y="811" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="827" class="ink" font-size="14" text-anchor="start" font-weight="600">任务说明与评分不一致 · 9 个任务</text>
+<text x="16" y="850" class="ink" font-size="13" text-anchor="start" font-weight="400">Triangulation Coloring</text>
+<text x="16" y="865" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
+<circle cx="400.194" cy="853" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="409.194" y="850" class="ink" font-size="13" text-anchor="start" font-weight="400">+48.66（时限部分；</text>
+<text x="409.194" y="865" class="ink" font-size="13" text-anchor="start" font-weight="400">原为无分）</text>
+<text x="574" y="857.5" class="muted" font-size="13" text-anchor="start" font-weight="400">+ 规则变化 ↕</text>
+<text x="16" y="886" class="ink" font-size="13" text-anchor="start" font-weight="400">Arc Compiler Runtime</text>
+<circle cx="357.623" cy="882" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="366.623" y="886.5" class="ink" font-size="13" text-anchor="start" font-weight="400">33.67（69.26 对 35.59）</text>
+<text x="16" y="908" class="ink" font-size="13" text-anchor="start" font-weight="400">Juliet Vulnerability</text>
+<text x="16" y="923" class="ink" font-size="13" text-anchor="start" font-weight="400">Analyzer</text>
+<rect x="262" y="906" width="75.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="304.6" cy="911" r="5" class="acc ioRing" stroke-width="1.5"/>
+<path d="M333.738 905L339.738 911L333.738 917L327.738 911Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="346.186" y="908" class="ink" font-size="13" text-anchor="start" font-weight="400">+15.00；真实运行 +25.26</text>
+<text x="346.186" y="923" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 26.47</text>
+<text x="16" y="944" class="ink" font-size="13" text-anchor="start" font-weight="400">Borden Source Inversion</text>
+<circle cx="324.963" cy="940" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="333.963" y="944.5" class="ink" font-size="13" text-anchor="start" font-weight="400">22.17（28.62 对 6.45）</text>
+<text x="16" y="966" class="ink" font-size="13" text-anchor="start" font-weight="400">Portfolio Risk Calibration</text>
+<circle cx="262.199" cy="962" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="271.199" y="966.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+0.07</text>
+<text x="16" y="988" class="ink" font-size="13" text-anchor="start" font-weight="400">Warehouse Forklift Routing</text>
+<rect x="262" y="979" width="86.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="357.864" y="988.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 30.59</text>
+<text x="574" y="988.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 原为无分</text>
+<text x="16" y="1010" class="ink" font-size="13" text-anchor="start" font-weight="400">Git Rewrite in Zig</text>
+<text x="574" y="1010.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 可达全部分数</text>
+<text x="16" y="1032" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenRCT2 Theme Park AI</text>
+<text x="574" y="1032.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↕ 未测量</text>
+<text x="16" y="1054" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenTTD Transport AI</text>
+<text x="574" y="1054.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 可达全部分数</text>
+<rect x="10" y="1067" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="1083" class="ink" font-size="14" text-anchor="start" font-weight="600">分数换算与选取 · 3 个任务</text>
+<text x="16" y="1106" class="ink" font-size="13" text-anchor="start" font-weight="400">Order Addition Permutation</text>
+<text x="16" y="1121" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
+<path d="M368.361 1103L374.361 1109L368.361 1115L362.361 1109Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="377.361" y="1113.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+37.45：运行保留的成绩</text>
+<text x="16" y="1142" class="ink" font-size="13" text-anchor="start" font-weight="400">Integer Compression Codec</text>
+<path d="M346.278 1132L352.278 1138L346.278 1144L340.278 1138Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="355.278" y="1142.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−29.68（真实运行，新刻度）</text>
+<text x="16" y="1164" class="ink" font-size="13" text-anchor="start" font-weight="400">Treant Forest</text>
+<circle cx="299.829" cy="1160" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="308.829" y="1164.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+13.32（3.04 → 16.36）</text>
+<text x="16" y="1197" class="muted" font-size="13" text-anchor="start" font-weight="400">+ / −：修复版评分器给分更多 / 更少。无符号：两份诚实提交之间的差距，它们只在一项未说明的约定上不同</text>
+<text x="16" y="1216" class="muted" font-size="13" text-anchor="start" font-weight="400">（Arc：错误报告格式；Borden：物理模型）；评分器不变。</text>
+<text x="16" y="1235" class="muted" font-size="13" text-anchor="start" font-weight="400">对大多数任务，这些问题在排行榜上发生的频率未知。</text>
 
 </svg>
-</div><figcaption><b>图 1</b> 在 32 个有问题的任务中，有 12 个任务的问题本身使实测分数变化 10 分或以上（满分 100）：诚实的工作损失了这么多分，或有错误、空白的工作多得了这么多分。对 Arc 和 Borden，这是两份只在一项未说明的约定上不同的诚实提交之间的差距；来自修复后新刻度的变化（Integer Codec）不计入。每一行显示问题一旦发生对一份提交的作用：实心标记是实测变化，空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，这些问题在排行榜上发生的频率未知。</figcaption></figure>
+</div><figcaption><b>图 1</b> 在 32 个有问题的任务中，有 10 个任务的问题本身使诚实的工作实测损失 10 分或以上（满分 100）。有错误或空白的工作被错误加分（College English、FFmpeg）会在图中显示，但不计入。对 Arc 和 Borden，这是两份只在一项未说明的约定上不同的诚实提交之间的差距；来自修复后新刻度的变化（Integer Codec）不计入。每一行显示问题一旦发生对一份提交的作用：实心标记是实测变化，空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，这些问题在排行榜上发生的频率未知。</figcaption></figure>
   <div class="cta">
     <a class="btn" href="tasks/index.html">浏览全部 51 个任务 &rarr;</a>
     <p>每个任务都有自己的页面：智能体收到的任务说明、EdgeBench 如何对工作评分，以及我们的发现。</p>

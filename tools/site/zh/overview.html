@@ -23,7 +23,7 @@
   <div class="hl-grid" id="headline">
     <div><span class="hl-n">51</span><span class="hl-l">检查的公开任务</span></div>
     <div><span class="hl-n" data-count="n_problem">{{n_problem}}</span><span class="hl-l">评分器给某些提交打错了分的任务：<span data-count="repair-v2">{{repair-v2}}</span> 个已修复，<span data-count="exclude">{{exclude}}</span> 个已移除。其余 <span data-count="retain-with-note">{{retain-with-note}}</span> 个保留（附说明）</span></div>
-    <div><span class="hl-n">{{headline:tasks_10pt}}</span><span class="hl-l">问题本身使诚实的工作损失 10 分或以上（满分 100），或使有错误的工作多得这么多分的任务（在单个提交上，或在一次运行保留的分数上实测）</span></div>
+    <div><span class="hl-n">{{headline:tasks_10pt}}</span><span class="hl-l">问题本身使诚实的工作损失 10 分或以上（满分 100）的任务（在单个提交上，或在一次运行保留的分数上实测）</span></div>
     <div><span class="hl-n">{{headline:real_regraded}}</span><span class="hl-l">在一次真实智能体运行上重新评分的已修复任务：运行成绩改变的有 {{headline:real_run_changed}} 个，另有 {{headline:real_subs_changed}} 个只有单个提交改变，{{headline:real_never}} 个任务中问题从未出现</span></div>
     <div><span class="hl-n">{{headline:oa_orig}} → {{headline:oa_fixed}}</span><span class="hl-l">真实运行成绩的最大变化，满分 100（{{task:order_addition_permutation_optimization|Order Addition}}）</span></div>
     <div><span class="hl-n">前两名</span><span class="hl-l">其先后已无法从公开数据确认：公布成绩 {{headline:top1_pub}} 对 {{headline:top2_pub}}，计入已记录的上限后区间为 {{headline:top1_low}}–{{headline:top1_high}} 和 {{headline:top2_low}}–{{headline:top2_high}}</span></div>

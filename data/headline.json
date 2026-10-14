@@ -11,13 +11,11 @@
   "scale_selection": 3
  },
  "measured_change_10_or_more": {
-  "count": 12,
-  "rule": "the problem itself cost an honest submission 10 or more points out of 100, or gave broken or empty work 10 or more points it did not earn, measured on our test submission or a real agent run: in one submission's score, between two honest submissions that differ only in an unstated convention (Arc, Borden; the checker is unchanged), or in the score a run keeps (Order Addition). Computed limits, and changes that come from a fix's new 0–100 scale, do not count",
+  "count": 10,
+  "rule": "the problem itself cost an honest submission 10 or more points out of 100, measured on our test submission or a real agent run: in one submission's score, between two honest submissions that differ only in an unstated convention (Arc, Borden; the checker is unchanged), or in the score a run keeps (Order Addition). Computed limits, and changes that come from a fix's new 0–100 scale, do not count",
   "in_one_submission": {
-   "count": 9,
+   "count": 7,
    "tasks": [
-    "college_english_exam_bank",
-    "ffmpeg_swscale_reimplementation",
     "graph_node_classification",
     "grid_turing_robot",
     "juliet_vulnerability_analyzer",
@@ -41,6 +39,8 @@
    ]
   },
   "not_counted": {
+   "college_english_exam_bank": "credit given to broken work (an empty grading report scored 100), not points lost by honest work; shown in the chart, not counted",
+   "ffmpeg_swscale_reimplementation": "credit given to unfinished work (up to 18.93), not points lost by honest work; shown in the chart, not counted",
    "integer_compression_codec": "the −29.68 comes from the fixed task's new 0–100 scale, not from the problem: every submission's raw result rose 1.7–4× under the fix",
    "exchange_core_throughput": "broken engines scored 4.71–24.40 instead of 0, but these speeds are within run-to-run noise (the side-by-side run gave 7.77 and about 4.7)",
    "dabic_gravity_inversion": "the 48.06 (at C = 30; it grows with C) is computed from the grader's penalty rule, not measured; the measured change is 1.04"
@@ -133,8 +133,6 @@
  "display_names": {
   "arc_compiler_runtime": "Arc Compiler Runtime",
   "borden_source_inversion": "Borden Source Inversion",
-  "college_english_exam_bank": "College English Exam Bank",
-  "ffmpeg_swscale_reimplementation": "FFmpeg swscale Reimplementation",
   "graph_node_classification": "Graph Node Classification",
   "grid_turing_robot": "Grid Turing Robot",
   "juliet_vulnerability_analyzer": "Juliet Vulnerability Analyzer",
