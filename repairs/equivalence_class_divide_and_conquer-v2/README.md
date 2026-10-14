@@ -48,7 +48,7 @@ A side-by-side run of the original and fixed graders on the same submissions is 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/equivalence_class_divide_and_conquer-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.equivalence_class_divide_and_conquer:de7206e7e06d-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:

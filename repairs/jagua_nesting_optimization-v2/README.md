@@ -127,7 +127,7 @@ The side-by-side run of the original and fixed graders on the same submissions i
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/jagua_nesting_optimization-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.jagua_nesting_optimization:bba393b2dd53-ebv-v2.1 .
 ```
 
 `materialize.sh` takes the following steps:

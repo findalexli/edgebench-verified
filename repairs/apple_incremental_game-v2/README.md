@@ -43,7 +43,7 @@ Side-by-side run of the original and fixed graders on the same solutions at `--c
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full file. Regenerate it, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/apple_incremental_game-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.apple_incremental_game:16968d8ec7f2-ebv-v2 .
 ```
 
 `materialize.sh` pulls the pinned judge image by digest, extracts the original file with `docker create` and `docker cp` (no container runs), checks it against `source-lock.json`, applies `repair.patch` with `patch -p1` and verifies the sha256 of the result against `source-lock.json` → `materialize.outputs`. It was run on a clean copy of this package and reproduced the reference file byte for byte (sha256 `ba31e840…1931`, mode 0755). The clean-machine rebuild check (`evidence/runs/materialize-check-g1`, `status: exit=0`) ran this script unchanged on a fresh E2B worker, rebuilt the image and found the installed file's sha256 equal to the lock.

@@ -133,8 +133,9 @@ README says exactly which submissions' scores change.
 | --- | --- | --- | --- | --- |
 {chr(10).join(rows)}
 
-A tag ending in `v2.1` replaces the tag ending in `v2` of the v1.0 package, whose grader or work
-image differs from the current fix; an image built from the v1.0 package must be rebuilt. The work
+For each task the tag with the highest suffix (`v2.1` or `v2.2`) replaces every earlier one (`v2`,
+and `v2.1` where a `v2.2` exists), whose grader or work image differs from the current fix; an image
+built from an earlier package must be rebuilt. The work
 image column shows the tag of the agent's environment where the fix changes it; "unchanged" means the
 original work image and tag are used.
 

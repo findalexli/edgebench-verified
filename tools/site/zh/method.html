@@ -21,7 +21,7 @@
 <section id="formal" class="col">
   <h2 class="sec"><span class="num">2</span>形式化证据及其局限</h2>
   <p>Lean 检查证明项并报告它们所依赖的公理。TLA+ 在配置好的有限模型内探索所有可达状态。源代码对应关系和差分检查把这些模型与实现的行为联系起来；这种联系并不自动构成机器检验的等价性证明。有两个具名的 Lean 反向对照有意依赖任务中已安装的占位定义，它们不被当作普通证明接受。</p>
-  <p>保存下来的清单涵盖 {{formal_tasks}} 个任务、{{lean_files}} 个 Lean 文件（其中有 {{lean_thms}} 个带有公理报告的定理），以及 {{tla_models}} 个 TLA+ 模型上的 {{tla_runs}} 次运行。其中 {{fix_proved}} 个修复模型被归为“已证明”或“已模型检验”，{{fix_partly}} 个被归为部分证明。<b>这些是模型层面的分类，不是对当前 {{repair-v2}} 个修复包的认证。</b>保存下来的 Datagen 证明使用的是较宽松的历史年份范围；FFmpeg 证明对验证过程做了抽象，不涵盖 v2.2；CTA 的模型针对的是总敞口，而不是政策规定的以基金净资产为分母。SMT 的可靠性只涵盖一个受限的片段。</p>
+  <p>保存下来的清单涵盖 {{formal_tasks}} 个任务、{{lean_files}} 个 Lean 文件（其中有 {{lean_thms}} 个带有公理报告的定理），以及 {{tla_models}} 个 TLA+ 模型上的 {{tla_runs}} 次运行。其中 {{fix_proved}} 个修复模型被归为“已证明”或“已模型检验”，{{fix_partly}} 个被归为部分证明。<b>这些是模型层面的分类，不是对当前 {{repair-v2}} 个修复包的认证。</b>保存下来的 Datagen 证明使用的是较宽松的历史年份范围；FFmpeg 证明对验证过程做了抽象，不涵盖 v2.2；CTA 的模型针对的是总敞口，而不是政策规定的以基金净资产为分母；Graph Node 的证明针对第一个修复（v2），不涵盖 v2.1 的 <code>str()</code> 键处理和重复键拒绝；College English 的模型针对 v2.1，不涵盖 v2.2 的 JSON 块选取和十进制字符串读取。SMT 的可靠性只涵盖一个受限的片段。</p>
   <p>保存下来的历史复检记录在 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/RECHECK.md">RECHECK.md</a> 中。命令 <code>python3 tools/check_formal.py</code> 重新运行已发布的源文件，并检查预期的不变式结果和所要求的公理报告。一次通过的复检，不能证明模型之外的行为，也不能验证它没有建模的后续候选版本。</p>
   <div class="breakout"><p class="tcap"><b>表 2.</b> 保存下来的形式化结果、它们所建模的版本及其局限。</p>
   <div class="tablewrap"><table class="bt">

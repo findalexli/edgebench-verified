@@ -50,7 +50,7 @@ At the leaderboard judge setting (`--cpus 4 --memory 8g`), three jobs (`evidence
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/exchange_core_throughput-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.exchange_core_throughput:2cbf65650b3c-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:

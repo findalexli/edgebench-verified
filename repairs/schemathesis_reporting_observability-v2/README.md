@@ -41,7 +41,7 @@ The revised JUnit test was checked the same way, three times on fresh workers wi
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/schemathesis_reporting_observability-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.schemathesis_reporting_observability:junit-coverage-v2.1 .
 ```
 
 `materialize.sh` takes the following steps:

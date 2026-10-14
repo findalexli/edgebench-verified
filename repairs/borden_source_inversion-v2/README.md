@@ -90,7 +90,7 @@ The prompt revision was checked by rebuilding the fixed work image and grading t
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/borden_source_inversion-work:v2 .
+./materialize.sh && docker build -t edgebench.work.borden_source_inversion:f389fcf94240-ebv-v2.1 .
 ```
 
 `materialize.sh` takes the following steps:

@@ -35,14 +35,14 @@ feeswap 做的工作与正确的引擎相同。所以这三者之间的排名是
 
 **说明：评分器的 CPU 预算没有写明，而在 4 个 CPU 下随附引擎得 0 分。** 任务说明描述了引擎的线程拓扑（"builder defaults (4ME+2RE, msgsInGroupLimit=4096, BUSY_SPIN wait, DirectImpl orderbook, AffinityThreadFactory)"），并说 "thread topology changes (e.g. 4ME+2RE → 2ME+1RE) can have dramatic impact"（线程拓扑的改变可能有巨大影响），但没有写明 CPU 数。在 EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml` 中（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`），评分器继承 `judge_cpu_limit: 4`。这一限制是 CPU 配额：在 `--cpus 4` 的评分器容器内，`nproc` 仍报告 8，而 `/sys/fs/cgroup/cpu.max` 读数为 `400000 100000`（由 `evidence/runs/exchange_core_throughput-cpu4v8-a/run.sh` 第 17 行记录；输出文件连同镜像摘录一起不放入仓库）。所以按 `nproc` 决定自身规模的引擎会看到 8 个 CPU。
 
-在原始评分器上用原始 eval_cmd 测量（`--network none --memory 4g`，挂载与 `exchange_core_throughput-v2-paired-b` 中相同的 `~/.m2` 文件；`evidence/runs/exchange_core_throughput-cpu4v8-a/result/out/summary.txt`、`-b`）：
+在原始评分器上用原始 eval_cmd 测量（`--network none`，挂载与 `exchange_core_throughput-v2-paired-b` 中相同的 `~/.m2` 文件）。4 个 CPU 一列合并了两组运行：随附引擎 4 次、建议 1 次，使用 `--memory 4g`（`evidence/runs/exchange_core_throughput-cpu4v8-a/result/out/summary.txt`、`-b`）；以及各 3 次，使用排行榜的 `--memory 8g`（`evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep{1,2,3}`）。8 个 CPU 一列只来自第一组。
 
 | 引擎 | 4 个 CPU，原始结果（MT/s × 1000） | 4 个 CPU，满分 100 | 8 个 CPU，原始结果 | 8 个 CPU，满分 100 |
 |---|---|---|---|---|
-| 随附引擎（每种 CPU 数各 4 次运行，在两台机器上） | 939、983、1,006、1,033 | 0 | 3,418、3,617、4,155、4,638 | 46.63–75.58 |
-| 任务说明的建议，2ME+1RE（每种 CPU 数各一次运行） | 2,091 | 0.02 | 4,122 | 64.39 |
+| 随附引擎（4 个 CPU 下 7 次运行，8 个 CPU 下 4 次） | 939、965、972、983、1,006、1,033、1,059 | 0 | 3,418、3,617、4,155、4,638 | 46.63–75.58 |
+| 任务说明的建议，2ME+1RE（4 个 CPU 下 4 次运行，8 个 CPU 下 1 次） | 1,644、1,894、1,994、2,091 | 0–0.02 | 4,122 | 64.39 |
 
-在 4 个 CPU 下，随附引擎的速度低于 0 分参考点（2,090.63），因此得 0 分。任务说明自己的建议在 4 个 CPU 下让吞吐量翻倍，但也只达到 0 分点；在 8 个 CPU 下，它的单次运行结果（4,122）落在随附引擎的范围内（3,418–4,638）。所以诚实策略之间的排名取决于 CPU 数，而在排行榜设置下，每个低于约 2.09 MT/s 的引擎都得 0 分。0 分参考点的来源（在什么硬件上测得）不明。它保持不变，因为不存在可精确计算的替代值；根据这些运行设定新的参考点将是另一项决定。修复版没有改变这一点。在同样的设置下（`--cpus 4 --memory 8g`，即排行榜的 `judge_cpu_limit` 和 `judge_mem_limit`），修复版的三次运行每次都通过了集成测试步骤（`GATE OK … tests=33`），随附引擎的原始结果为 811、1,073 和 1,194，2ME+1RE 建议为 1,684、1,687 和 1,832；同一批工作节点上的原始评分器结果为 965–1,059 和 1,644–1,994；全部都是满分 100 中的 0 分（`evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep{1,2,3}`）。
+在 4 个 CPU 下，随附引擎的速度低于 0 分参考点（2,090.63），因此得 0 分。任务说明自己的建议在 4 个 CPU 下让吞吐量大约翻倍（原始结果 1,644–2,091），但四次运行中有三次仍低于 0 分点，第四次只比它高 0.4，因此得满分 100 中的 0–0.02 分；在 8 个 CPU 下，它的单次运行结果（4,122）落在随附引擎的范围内（3,418–4,638）。所以诚实策略之间的排名取决于 CPU 数，而在排行榜设置下，每个低于约 2.09 MT/s 的引擎都得 0 分。0 分参考点的来源（在什么硬件上测得）不明。它保持不变，因为不存在可精确计算的替代值；根据这些运行设定新的参考点将是另一项决定。修复版没有改变这一点。在同样的设置下（`--cpus 4 --memory 8g`，即排行榜的 `judge_cpu_limit` 和 `judge_mem_limit`），修复版的三次运行每次都通过了集成测试步骤（`GATE OK … tests=33`），随附引擎的原始结果为 811、1,073 和 1,194，2ME+1RE 建议为 1,684、1,687 和 1,832；同一批工作节点上的原始评分器结果为 965–1,059 和 1,644–1,994；全部都是满分 100 中的 0 分。修复版的分数在原始评分器的吞吐量噪声范围之内（随附引擎为 811–1,194，原始评分器全部七次运行为 939–1,059）（`evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep{1,2,3}`）。
 
 ## 影响有多大
 
@@ -92,7 +92,7 @@ feeswap 做的工作与正确的引擎相同。所以这三者之间的排名是
 - 修复版没有把每个用户的余额、持仓或事件流与参考运行做比较，而是使用随附的集成测试。
 - 只测试了两种不正确引擎的改动。
 - 集成测试只在项目非默认的 Maven 配置 `it` 中运行，而不在规则所说的默认 `mvn test` 中运行；工作镜像中也没有这些测试，因此解题者在提交前无法运行它们。修复版通过这些测试来落实 "Do NOT change behavior"（不得改变行为）这一规则。
-- 关于 CPU 数的说明只基于一种机器（E2B，8 vCPU Xeon 2.6 GHz）：随附引擎在 4 个 CPU 下 4 次运行、在 8 个 CPU 下 4 次运行，2ME+1RE 建议各 1 次。在 8 个 CPU 下，吞吐量在不同运行和工作节点之间最多相差 36%（3,418–4,638），而且这些 8 个 CPU 的运行（`--memory 4g`）比更早的并排对照运行（2,008–3,105，`--memory 6g`，其他工作节点）更快。
+- 关于 CPU 数的说明只基于一种机器（E2B，8 vCPU Xeon 2.6 GHz）：随附引擎在原始评分器上于 4 个 CPU 下运行 7 次、8 个 CPU 下运行 4 次，2ME+1RE 建议在 4 个 CPU 下运行 4 次、8 个 CPU 下运行 1 次。4 个 CPU 的运行使用 `--memory 4g`（随附引擎 4 次、建议 1 次）或 `--memory 8g`（各 3 次）。在 8 个 CPU 下，吞吐量在不同运行和工作节点之间最多相差 36%（3,418–4,638），而且这些 8 个 CPU 的运行（`--memory 4g`）比更早的并排对照运行（2,008–3,105，`--memory 6g`，其他工作节点）更快。
 
 ## 复现
 

@@ -82,8 +82,8 @@ Results: [paired/results.md](paired/results.md).
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/rust_multicrate_reconstruction-judge:v2 . \
-  && docker build -f Dockerfile.work -t ebv/rust_multicrate_reconstruction-work:v2 .
+./materialize.sh && docker build -t edgebench.judge.rust_multicrate_reconstruction:b749374fe7bc-ebv-v2 . \
+  && docker build -f Dockerfile.work -t edgebench.work.rust_multicrate_reconstruction:7f639fc9d090-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:

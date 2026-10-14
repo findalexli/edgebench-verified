@@ -57,6 +57,10 @@ V−E+F = 1, 0 bad vertex links, 0 unused vertices, 0 collinear triples (checked
 generation). Residual: 12/13 miss 1–3 convex-hull triangles (shipped Delaunay artifact; see README).
 Originals for comparison: 17–583 overlapping pairs per file (review).
 
+`geometry_v2.jsonl` is the checker's output as written. Its `file` fields hold absolute paths on the
+machine where it ran (an absolute path ending in `repairs/triangulation_coloring_optimization-v2/files/cases/<NNNN>.txt`); they are left unchanged because the file is a
+recorded run output, like the TLC `.out` files. Read each path relative to the repository root.
+
 ## Flip predicate equivalence (`rule_check.jsonl`, 26 files)
 
 On every original and v2 input: v2 predicate == the exact convex-quadrilateral test in

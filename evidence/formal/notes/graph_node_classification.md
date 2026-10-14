@@ -2,6 +2,8 @@
 
 ## Claim
 
+**Scope:** these claims are about the first fixed verifier (v2, sha256 `32caddb1…`). The current v2.1 verifier (`7b4860ec…`) matches prediction keys by `str()` and rejects files whose keys collide after `str()`; that is not modelled. V1 and V2 do not hold for v2.1: it scores a complete integer-keyed file (`neighbor_intkeys`) that the original scores 0, and it rejects `dupkeys_after_str`, which the original scores. See `repairs/graph_node_classification-v2/paired/results.md`.
+
 - (V1) The fixed `evaluate` succeeds if and only if every test node has a prediction that `_strict_class_id` accepts. Accepted values are: an int (not a bool), an integral finite float, a string `s` with `int(s.strip())` defined, or an `__index__` object.
 - (V2) For every accepted prediction file, the original `evaluate` passes the metric code exactly the same arguments, so it returns identical metrics. This holds for **any** metric function.
 - Optional (best-of-k): under max selection, adding a random submission never lowers the expected kept score. The expected kept score rises strictly when the new submission beats the current best with positive probability, even if its mean is lower.

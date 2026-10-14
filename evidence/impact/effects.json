@@ -27,7 +27,7 @@
   "kind": "bounded",
   "direction": "either",
   "bound": 5,
-  "text": "Combined currency/NAV candidate: up to the 5-point overseas-ratio component in either direction. Paired actual-helper controls only; native full-score integration pending. Historical FX-only proof and controls apply to the previous denominator."
+  "text": "v2.1 (shipped): up to the 5-point overseas-ratio component (4 of 80 raw) in either direction; three native paired runs through the original eval_cmd (58.75→53.75, 66.25→71.25). Historical FX-only proof applies to the previous denominator."
  },
  "dabic_gravity_inversion": {
   "kind": "excluded",
@@ -79,9 +79,9 @@
  },
  "jagua_nesting_optimization": {
   "kind": "open",
-  "direction": "down",
+  "direction": "either",
   "bound": null,
-  "text": "down, only for layouts with overlaps"
+  "text": "either: down for layouts with overlaps and for forbidden rotations; up only in the constructed swim_cr leniency case, where the original's edge-crossing test rejects a near-touching layout that the fixed area test accepts (seed_shift_wrongdeg: 0 → 0.186857 raw); unchanged for honest layouts"
  },
  "juliet_vulnerability_analyzer": {
   "kind": "bounded",

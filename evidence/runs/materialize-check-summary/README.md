@@ -6,7 +6,7 @@
 
 ## What was run
 
-Each package was copied exactly as committed at `83181b7f` (`git archive 83181b7f tasks repairs/<pkg>`; the `SOURCE` file in each job records the archive sha256). The copies went to fresh E2B workers (`harbor-worker-v4`, 21 GB disk, 8 GB RAM, no images at start), six jobs in all, at most three at a time. On each worker:
+Each package was copied exactly as committed at `83181b7f` (`git archive 83181b7f tasks repairs/<pkg>`; the `SOURCE` file in each job records the archive sha256). Those copies are kept in each job's `src/` as the exact input; their text is superseded by later package revisions (each job's `README.md` says so). The copies went to fresh E2B workers (`harbor-worker-v4`, 21 GB disk, 8 GB RAM, no images at start), six jobs in all, at most three at a time. On each worker:
 
 1. GNU `patch` was missing from the template, so it was installed (`patch 2.7.6`).
 2. `./materialize.sh` ran unchanged. It pulled the pinned images by digest, extracted the originals, applied `repair.patch` and checked the result. Its log had to contain `OK: all N output file(s) match source-lock.json`.
@@ -74,6 +74,8 @@ Both builds then failed because the inputs did not exist (`"/files/judge/v2-buil
 The grader image (about 10.5 GB unpacked) and the work image (about 11 GB) do not fit together on a 21 GB worker; this was first seen in `evidence/runs/pfr_formalization-v2-paired-v2/result-attempt1-disk/`. `materialize.sh` pulls both images at the start, but it uses the work image only to check the sha256 of the starter `PFR/WeakPFR.lean`. The job therefore ran a copy of `materialize.sh` with the two `  "work|…"` rows removed (the IMAGES row and the CHECK row; the diff is saved as `pfr_materialize.nowork.diff`). The full Lean rebuild ran inside it, and the regenerated listing matched the saved one (1123 lines, 39 members). The grader image was then removed. The work image was pulled, and the check that was left out ran from the same lock entry: `7b70ca6c…e7b8b`, which matches. Then `Dockerfile.work` was built. This is the first time `Dockerfile.work` has been built for this package; the package README still calls it unverified.
 
 **Minimal fix** (optional): make `materialize.sh` pull and check the work image only after the grader-image steps are done and that image is removed, or allow `MATERIALIZE_SKIP_WORK_CHECK=1`. Either way the unchanged script would run on a 21 GB machine.
+
+**Later change, untested.** Commit `2436424e` reordered the committed `repairs/pfr_formalization-v2/materialize.sh` along the lines of the first option. The check above ran the hand-edited copy (`pfr_materialize.nowork.diff`), not the reordered script, and the reordered script has not been run.
 
 ## Jobs
 

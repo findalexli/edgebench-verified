@@ -39,7 +39,7 @@ The full side-by-side run of the original and fixed graders is in [paired/result
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/dabic_gravity_inversion-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.dabic_gravity_inversion:517eb738b87b-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:

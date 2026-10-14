@@ -35,7 +35,7 @@ Historical v2 side-by-side run (not validation of v2.1): the rest of [paired/res
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`, a hand-written v2.1 diff against the pinned original) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/schemathesis_datagen_pipeline-judge:v2.1 .
+./materialize.sh && docker build -t edgebench.judge.schemathesis_datagen_pipeline:http-date-v2.1 .
 ```
 
 `materialize.sh` takes the following steps:

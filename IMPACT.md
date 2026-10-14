@@ -4,15 +4,15 @@ The public task averages do not determine a corrected leaderboard. Original subm
 
 ## Conditional score intervals
 
-All intervals hold the valid-run set fixed and treat retained tasks as unchanged. They are conditional on the effect directions and limits listed below, including inferred PFR credit and the documented Treant raw-total cap. New runs, changed failure rates, solver adaptation, or an unsupported direction assumption can invalidate those conditions. No interval constitutes a statistical confidence interval.
+All intervals hold the valid-run set fixed and treat retained tasks as unchanged. They are conditional on the effect directions and limits listed below, including inferred PFR credit and the documented Treant raw-total cap. The 'Plus documented limits' and 'Plus Portfolio sensitivity' columns count every direction-only (open) effect as zero; only the full-domain envelope lets them move. New runs, changed failure rates, solver adaptation, or an unsupported direction assumption can invalidate those conditions. No interval constitutes a statistical confidence interval.
 
 | Model | Published mean | Scale changes and removal | Plus documented limits | Plus Portfolio sensitivity assumption | Full-domain outer envelope |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Opus 4.8 | 44.2 | 45.92–46.05 | 45.49–47.30 | 45.49–47.30 | 36.01–65.99 |
-| GPT-5.5 | 43.1 | 44.73–44.86 | 44.30–46.35 | 44.30–46.36 | 35.54–66.24 |
-| GPT-5.4 | 34.2 | 35.57–35.71 | 35.15–37.71 | 35.15–37.71 | 28.27–60.85 |
-| GLM-5.1 | 30.4 | 31.81–31.94 | 31.39–34.00 | 31.38–34.01 | 25.29–57.80 |
-| DS-V4-Pro | 25.7 | 26.77–26.91 | 26.48–28.98 | 26.47–28.99 | 20.45–52.55 |
+| Opus 4.8 | 44.2 | 45.92–46.05 | 45.49–47.30 | 45.49–47.30 | 36.01–67.13 |
+| GPT-5.5 | 43.1 | 44.73–44.86 | 44.30–46.35 | 44.30–46.36 | 35.54–67.81 |
+| GPT-5.4 | 34.2 | 35.57–35.71 | 35.15–37.71 | 35.15–37.71 | 28.27–62.37 |
+| GLM-5.1 | 30.4 | 31.81–31.94 | 31.39–34.00 | 31.38–34.01 | 25.29–59.55 |
+| DS-V4-Pro | 25.7 | 26.77–26.91 | 26.48–28.98 | 26.47–28.99 | 20.45–53.98 |
 
 `scale_midpoint_mean` in the CSV is only a display midpoint, not an inferred corrected mean. The CSV interval endpoints are the exact rational endpoints rounded outward to 9 decimals, so each CSV interval encloses the exact one. The full-domain envelope allows open effects to span the remaining score range in their stated directions; Portfolio receives the full 0–100 range because its sweep does not establish a global bound.
 
@@ -27,12 +27,14 @@ All intervals hold the valid-run set fixed and treat retained tasks as unchanged
 
 A higher model's lower endpoint exceeding a lower model's upper endpoint certifies their order under the stated assumptions. Overlapping outer intervals only mean these bounds cannot certify the order. They do not show that a reversal is possible: individual maxima may be unattainable or mutually incompatible.
 
-| Neighbouring models in published order | Order certified by documented-limit intervals? |
-| --- | --- |
-| Opus 4.8 > GPT-5.5 | No; overlap does not establish reversal |
-| GPT-5.5 > GPT-5.4 | Yes, conditional on the stated assumptions |
-| GPT-5.4 > GLM-5.1 | Yes, conditional on the stated assumptions |
-| GLM-5.1 > DS-V4-Pro | Yes, conditional on the stated assumptions |
+The documented-limit column uses the 10 bounded effects only. The 19 direction-only (open) effects are counted as zero there, so an order it certifies holds only if those 19 fixes have no effect on the score. The full-domain column lets the open effects span their stated directions; in that envelope every neighbouring pair overlaps, so no order is certified.
+
+| Neighbouring models in published order | Certified by documented limits, with the 19 direction-only effects counted as zero? | Certified within the full-domain envelope? |
+| --- | --- | --- |
+| Opus 4.8 > GPT-5.5 | No; overlap does not establish reversal | No; overlap does not establish reversal |
+| GPT-5.5 > GPT-5.4 | Yes, only if the 19 direction-only fixes have no effect | No; overlap does not establish reversal |
+| GPT-5.4 > GLM-5.1 | Yes, only if the 19 direction-only fixes have no effect | No; overlap does not establish reversal |
+| GLM-5.1 > DS-V4-Pro | Yes, only if the 19 direction-only fixes have no effect | No; overlap does not establish reversal |
 
 ## Portfolio sensitivity is separate from a proved limit
 
@@ -46,7 +48,7 @@ The saved decimal sweep covers only N=242 or 243 shared dates and strategy perio
 | [arc_compiler_runtime](cases/arc_compiler_runtime.md) | up: the fix only documents the required interface, so its effect depends on how agents respond; measurable only by new runs | open | — |
 | [borden_source_inversion](cases/borden_source_inversion.md) | scale ×100/109 applied with published rounding uncertainty; up for honest fits once the convention is documented (24 raw points for a one-shot fit; less for agents that iterate on the grader's feedback) | open | — |
 | [college_english_exam_bank](cases/college_english_exam_bank.md) | down: incomplete grader assessments over-credit | open | — |
-| [cta_risk_budget_optimization](cases/cta_risk_budget_optimization.md) | Combined currency/NAV candidate: up to the 5-point overseas-ratio component in either direction. Paired actual-helper controls only; native full-score integration pending. Historical FX-only proof and controls apply to the previous denominator. | bounded | +5/−5 |
+| [cta_risk_budget_optimization](cases/cta_risk_budget_optimization.md) | v2.1 (shipped): up to the 5-point overseas-ratio component (4 of 80 raw) in either direction; three native paired runs through the original eval_cmd (58.75→53.75, 66.25→71.25). Historical FX-only proof applies to the previous denominator. | bounded | +5/−5 |
 | [dabic_gravity_inversion](cases/dabic_gravity_inversion.md) | excluded, removed from the mean | excluded | — |
 | [equivalence_class_divide_and_conquer](cases/equivalence_class_divide_and_conquer.md) | down, only for outputs inside the acceptance window; at most 9.67 points if every large official input falls in it | bounded | −9.67 |
 | [exchange_core_throughput](cases/exchange_core_throughput.md) | down: incorrect engines can get full credit | open | — |
@@ -55,7 +57,7 @@ The saved decimal sweep covers only N=242 or 243 shared dates and strategy perio
 | [graph_node_classification](cases/graph_node_classification.md) | either: an honest run whose prediction file is keyed by integer node IDs scores 0 under the original verifier and moves up under the fix (neighbor_intkeys: 0 to 24.089 of 100); a run that violates the output contract (non-numeric or missing predictions, or keys that collide under str()) was scored by the original and moves down, and under best-so-far selection the added variance can raise a run's score (a general lemma); none of the real runs regraded was integer-keyed, and no gain for a real solver was established | open | — |
 | [grid_turing_robot](cases/grid_turing_robot.md) | up: on the publisher's 4-CPU grader, solutions using ~15–30 s CPU per case were voided and deadline-based solvers got half the CPU; size needs regrading or new runs | open | — |
 | [integer_compression_codec](cases/integer_compression_codec.md) | either: raw results were understated by a factor that depends on the submission (2.4 and 3.7 for two real submissions, 7–9 for a simple honest codec), and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320); a real best submission moves from 66.31 to 50.08 | open | — |
-| [jagua_nesting_optimization](cases/jagua_nesting_optimization.md) | down, only for layouts with overlaps | open | — |
+| [jagua_nesting_optimization](cases/jagua_nesting_optimization.md) | either: down for layouts with overlaps and for forbidden rotations; up only in the constructed swim_cr leniency case, where the original's edge-crossing test rejects a near-touching layout that the fixed area test accepts (seed_shift_wrongdeg: 0 → 0.186857 raw); unchanged for honest layouts | open | — |
 | [juliet_vulnerability_analyzer](cases/juliet_vulnerability_analyzer.md) | up, only for submissions that report CWE-78 findings with source = sink and trace [sink], the form of all 38 public answers: +600/241 = 2.49 for complete detection with every other trace accepted (measured 97.51 → 100.00), +15.00 for a CWE-78-only analyzer (measured 45.66 → 60.66); at most 6380/241 ≈ 26.473029 (conservatively bounded by 26.474) when the change lifts trace quality across the 0.60 cap (exact, from score.py:163-176; computed, not run) | bounded | +26.474 |
 | [lean_analysis_proofs](cases/lean_analysis_proofs.md) | either: scored set changes from 2901 to 2338 targets | open | — |
 | [molecular_self_assembly](cases/molecular_self_assembly.md) | up: on the publisher's 4-CPU grader, cases using ~15–30 s CPU scored 0 and deadline-based solvers got half the CPU; size needs regrading or new runs | open | — |

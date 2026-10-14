@@ -119,8 +119,8 @@ rebuild and `docker build`, and graded in the image it built.
 ## Build and use
 
 ```bash
-./materialize.sh && docker build -t ebv/pfr_formalization-judge:v2 .
-docker build -f Dockerfile.work -t ebv/pfr_formalization-work:v2 .   # built once; no solver run in it
+./materialize.sh && docker build -t edgebench.judge.pfr_formalization:pfr_formalization-v2-judge .
+docker build -f Dockerfile.work -t edgebench.work.pfr_formalization:pfr_formalization-v2-work .   # built once; no solver run in it
 ```
 
 `materialize.sh` takes these steps:
@@ -157,8 +157,9 @@ specific to `lean_analysis_proofs`, so `tools/make_materialize.py` has no entry 
   `pfr_formalization-v2-extract`, and again in the clean-machine rebuild check
   (`evidence/runs/materialize-check-pfr`, `status: exit=0`; work-image starter sha256 matched the lock). Since
   2026-10-13 `materialize.sh` itself pulls the work image only after the grader steps (step 6), so the
-  unchanged script fits a 21 GB machine. That reordered script has been tested with a stub `docker` only,
-  not yet on a real worker.
+  unchanged script should fit a 21 GB machine. **The reordered script is untested**: it has been run with a
+  stub `docker` only, never against the real images; the grading worker and the clean-machine check both ran
+  hand-edited copies of the earlier script.
 - **`Dockerfile.work` was built once, but no solver ran in it.** The clean-machine rebuild check built it
   and found the installed `PFR/WeakPFR.lean` with the locked sha256. The solver's first `lake build`
   recompiles `PFR.WeakPFR`, `PFR.Examples` and `PFR`; that was not run.

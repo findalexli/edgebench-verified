@@ -120,7 +120,7 @@ All other submissions keep their verdicts and quality metrics.
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/graph_node_classification-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.graph_node_classification:f2ddd52992ae-ebv-v2.1 .
 ```
 
 `materialize.sh` takes the following steps:

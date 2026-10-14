@@ -18,7 +18,7 @@ grader or the task can correct.
 | Outcome | Tasks | Meaning |
 | --- | ---: | --- |
 | **Fixed** | **31** | Historical repair disposition: versioned patches with task-specific evidence. This count is not 31 fully validated releases; current integration limits are listed below and in APPLYING-FIXES.md |
-| Kept, with a note | 19 | No correctable problem found. The note records caveats that no change to the grader removes, such as variation between runs or machines. These are not always small: in ANN Vector Search the measured speed varies between gradings on one machine by about ±7 of 100 points per grading |
+| Kept, with a note | 19 | No correctable problem found. The note records caveats that no change to the grader removes, such as variation between runs or machines. These are not always small: in ANN Vector Search the measured speed varies between gradings on one machine type by about ±7 of 100 points per grading |
 | Removed | 1 | No sound fix was possible |
 | **Total** | **51** | |
 
@@ -123,7 +123,7 @@ can be stated precisely, assuming no fix turns a failed run into a scored one or
 
 - **Conditional intervals.** [IMPACT.md](IMPACT.md) and [data/impact.csv](data/impact.csv) include public-score rounding, Treant's piecewise scale, and stated assumptions about which runs remain valid. Interval midpoints are descriptive, not identified corrected means.
 - **Scope of bounds.** Component-level limits apply only to the named defects. Portfolio's 0.3921-point upper estimate belongs to its restricted numerical sweep and is excluded from the global bounded-effects calculation.
-- **Ranking.** Overlapping intervals mean the available evidence does not certify an ordering. They do not establish that any attainable submissions reverse that ordering.
+- **Ranking.** Overlapping intervals mean the available evidence does not certify an ordering. They do not establish that any attainable submissions reverse that ordering. The documented-limit intervals separate GPT-5.5, GPT-5.4, GLM-5.1 and DS-V4-Pro only if the 19 direction-only fixes have no effect, because those intervals count them as zero; in the full-domain envelope every neighbouring pair overlaps, so no order is certified.
 
 A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, with every
 submission. Nine of those tasks are ones we fixed. Where a fix changes only the grader, we regraded

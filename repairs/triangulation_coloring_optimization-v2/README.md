@@ -168,7 +168,8 @@ A side-by-side run of the original and fixed graders on the same submissions. Se
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/triangulation_coloring_optimization-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.triangulation_coloring_optimization:convex-flip-v2.2 .
+docker build -f Dockerfile.work -t edgebench.work.triangulation_coloring_optimization:convex-flip-v2.2 .
 ```
 
 `materialize.sh` takes the following steps:
@@ -182,4 +183,4 @@ Git does not contain any file copied from the EdgeBench images. It holds only ou
 After that, the `Dockerfile` builds without changes. Regenerated files keep the file mode they have in the image.
 See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
-Build the agent's working image with `docker build -f Dockerfile.work -t ebv/triangulation_coloring_optimization-work:v2 .`. The regenerated `cases/` and `sample_data/` and the changed `delaunay.py` are shipped as diffs against the in-image originals.
+Build the agent's working image with `docker build -f Dockerfile.work -t edgebench.work.triangulation_coloring_optimization:convex-flip-v2.2 .`. The regenerated `cases/` and `sample_data/` and the changed `delaunay.py` are shipped as diffs against the in-image originals.

@@ -100,7 +100,7 @@ The side-by-side run of the original and fixed graders is in `paired/` (`run_loc
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/lean_analysis_proofs-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.lean_analysis_proofs:lean_analysis_proofs-v2-judge .
 ```
 
 `materialize.sh` takes the following steps:
@@ -114,7 +114,7 @@ Git does not contain any file copied from the EdgeBench images. It holds only ou
 After that, the `Dockerfile` builds without changes. Regenerated files keep the file mode they have in the image.
 See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
-`files/judge/v2-build-artifacts.tar` is not stored either. `materialize.sh` rebuilds it inside the original 33 GB grader image. It copies the patched sources in place, runs `lake build ListDeclAxiom` and `lake build` (offline, `--network none --memory 4g --cpus 2`, a few minutes) and packs the 90 artifact paths listed in `source-lock.json`. The oleans are not expected to be byte-identical, so the tar is accepted when two checks pass. The rebuilt file set must equal the locked member list. The regenerated ListDeclAxiom listing must be byte-identical to `paired/out/v2-listing.txt` (sha256 in `materialize.lean_build`). The script holds the machine-wide heavy-job lock `/tmp/ebv-heavy.lock` for the whole run. `MATERIALIZE_SKIP_LEAN_BUILD=1` regenerates only the text files; `docker build` then fails until the tar exists. `files/work/` is copied from the patched grader sources, and `orig/` is regenerated too. Build the solver image with `docker build -f Dockerfile.work -t ebv/lean_analysis_proofs-work:v2 .`. That build is still unverified, as noted below.
+`files/judge/v2-build-artifacts.tar` is not stored either. `materialize.sh` rebuilds it inside the original 33 GB grader image. It copies the patched sources in place, runs `lake build ListDeclAxiom` and `lake build` (offline, `--network none --memory 4g --cpus 2`, a few minutes) and packs the 90 artifact paths listed in `source-lock.json`. The oleans are not expected to be byte-identical, so the tar is accepted when two checks pass. The rebuilt file set must equal the locked member list. The regenerated ListDeclAxiom listing must be byte-identical to `paired/out/v2-listing.txt` (sha256 in `materialize.lean_build`). The script holds the machine-wide heavy-job lock `/tmp/ebv-heavy.lock` for the whole run. `MATERIALIZE_SKIP_LEAN_BUILD=1` regenerates only the text files; `docker build` then fails until the tar exists. `files/work/` is copied from the patched grader sources, and `orig/` is regenerated too. Build the solver image with `docker build -f Dockerfile.work -t edgebench.work.lean_analysis_proofs:lean_analysis_proofs-v2-work .`. That build is still unverified, as noted below.
 
 ## Limits
 

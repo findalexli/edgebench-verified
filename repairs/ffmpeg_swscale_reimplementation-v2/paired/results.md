@@ -1,4 +1,4 @@
-> Historical v2 evidence. The current patch is v2.2 (2026-10-13); these native results do not validate that revision. See [followup.md](followup.md).
+> Sections before "v2.2 native result" are historical v2 evidence and do not validate the current v2.2 patch; the section "v2.2 native result (2026-10-13)" below is the v2.2 run. See [followup.md](followup.md).
 
 # Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2)
 
@@ -75,3 +75,8 @@ and the superseded v2.1 attempt are in [followup.md](followup.md).
 The valid control stays positive: 1.056386 → 1.020061 is within the run-to-run spread of the original
 image on the same control (0.994937 in the v2.1 job, 1.056386 here). Timing equivalence is not asserted.
 The source-build `eval_cmd` (Rust build and submission path) was not run on v2.2.
+
+The run's recorded `pkg-ffmpeg/source-lock.json` hash (`067d812a…`, `native-20261013-v2.2/input-sha256.json`) differs
+from the committed lock (`42c5d8a0…`): the lock was edited after the run (its later edits include the validation-status text).
+The recorded `repair.patch`, `Dockerfile`, `materialize.sh` and `files/compute_reward.py` hashes equal the
+committed files.

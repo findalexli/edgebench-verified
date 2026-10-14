@@ -325,7 +325,12 @@ def numbers(D):
         f"<td class=\"n\">{interval_cell(r, 'sensitivity')}</td>"
         f"<td class=\"n\">{interval_cell(r, 'scale')}</td></tr>"
         for r in imp)
-    v.update(n_bound=sum(e['kind'] == 'bounded' for e in effects.values()))
+    v.update(n_bound=sum(e['kind'] == 'bounded' for e in effects.values()),
+             n_open=sum(e['kind'] == 'open' for e in effects.values()))
+    # The leaderboard page states that every neighbouring pair overlaps in the full-domain envelope.
+    _env = sorted(imp, key=lambda r: -float(r['published_mean']))
+    assert all(float(a['worst_case_low']) <= float(b['worst_case_high']) for a, b in zip(_env, _env[1:])), \
+        'a neighbouring pair is separated in the full-domain envelope; update the leaderboard text'
     pr = list(csv.DictReader(open(ROOT / 'data/paired-results.csv')))
     v.update(paired_rows=len(pr), paired_tasks=len({r['task_id'] for r in pr}),
              paired_setup=sum(r['role'] == 'setup' for r in pr))

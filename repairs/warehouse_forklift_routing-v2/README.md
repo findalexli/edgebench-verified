@@ -97,7 +97,7 @@ Side-by-side run of the original and fixed graders: [paired/results.md](paired/r
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/warehouse_forklift_routing-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.warehouse_forklift_routing:d342863c29cc-ebv-v2.1 .
 ```
 
 `materialize.sh` takes the following steps:

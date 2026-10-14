@@ -78,7 +78,7 @@ In plain words: the unchanged starter scores 0.2327 on the original grader and 0
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/integer_compression_codec-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.integer_compression_codec:27063396e02a-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:

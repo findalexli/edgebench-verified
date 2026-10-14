@@ -30,7 +30,7 @@ This revision is **v2.2**, with a distinct judge image tag. All-valid speedup ag
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/ffmpeg_swscale_reimplementation-judge:v2.2 .
+./materialize.sh && docker build -t edgebench.judge.ffmpeg_swscale_reimplementation:d3c0aa3fa987-ebv-v2.2 .
 ```
 
 `materialize.sh` takes the following steps:

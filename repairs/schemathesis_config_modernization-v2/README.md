@@ -34,7 +34,7 @@ The side-by-side run of the original and fixed graders is in [paired/results.md]
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/schemathesis_config_modernization-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.schemathesis_config_modernization:function-identity-v2 .
 ```
 
 `materialize.sh` takes the following steps:

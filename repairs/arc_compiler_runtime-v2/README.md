@@ -92,7 +92,7 @@ How the acceptance criteria (a test submission that shows the problem, a correct
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/arc_compiler_runtime-work:v2 -f Dockerfile files
+./materialize.sh && docker build -t edgebench.work.arc_compiler_runtime:v2-analyze-contract-docs -f Dockerfile files
 ```
 
 `materialize.sh` takes the following steps:

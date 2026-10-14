@@ -74,14 +74,15 @@ add("cta_risk_budget_optimization", src, "verdict", [
  ("Invalid control (over the limit even natively)", "invalid", "1/1; cb 0 / 1", "1/1; cb 0 / 1", "", ""),
  ("Shipped reference positions (component)", "baseline", "violations 0/1565; cb 1 / 5", "violations 32/1565 (2.04%); cb 0 / 1", "", ""),
 ])
-add("cta_risk_budget_optimization", src, "raw", [
+# TOTAL_SCORE is the 0-100 normalized value (raw is the x/80 in the result text)
+add("cta_risk_budget_optimization", src, "normalized", [
  ("Full original scorer, complete shipped reference", "valid",
   "TOTAL_SCORE 20.0 (raw 16/80); M1 4, M2 0, M3 0 (\"Veto: annual vol 1.3% outside [5%,20%]\"), M4 2, M5 10; valid, pass_rate 1.0, exit 0",
   "identical: 20.0, the same metric breakdown, the same veto. Logs are identical apart from timings", "20.0", "20.0"),
 ])
 # cta v2.1 (current fix): full original eval_cmd, three jobs with identical scores
 src = "v2.1 native paired run (2026-10-13)"
-add("cta_risk_budget_optimization", src, "raw", [
+add("cta_risk_budget_optimization", src, "normalized", [
  ("shipped standard answer", "baseline", "TOTAL_SCORE 20 (raw 16); risk vetoed: annual vol 1.3%", "TOTAL_SCORE 20, same veto", "20", "20"),
  ("leveraged (overseas 45% of NAV)", "trigger", "TOTAL_SCORE 58.75 (raw 47); violations 0/1564; cross_border 5", "TOTAL_SCORE 53.75 (raw 43); violations 1564/1564; cross_border 1", "58.75", "53.75"),
  ("unleveraged (overseas 28% of NAV)", "trigger", "TOTAL_SCORE 66.25 (raw 53); violations 1564/1564; cross_border 1", "TOTAL_SCORE 71.25 (raw 57); violations 0/1564; cross_border 5", "66.25", "71.25"),

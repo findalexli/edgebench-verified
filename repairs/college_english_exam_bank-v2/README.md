@@ -195,7 +195,7 @@ the same structured output under v2.2 as under v2.1. The changed rows:
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/college_english_exam_bank-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.college_english_exam_bank:6628b6d3f834-ebv-v2.2 .
 ```
 
 `materialize.sh` takes the following steps:

@@ -43,7 +43,7 @@ Side-by-side run of the original and fixed graders on the same solutions at `--c
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full file. Regenerate it, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/grid_turing_robot-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.grid_turing_robot:3c6f50ac4fe0-ebv-v2 .
 ```
 
 `materialize.sh` pulls the pinned judge image by digest, extracts the original file with `docker create` and `docker cp` (no container runs), checks it against `source-lock.json`, applies `repair.patch` with `patch -p1` and verifies the sha256 of the result against `source-lock.json` → `materialize.outputs`. It was run on a clean copy of this package and reproduced the reference file byte for byte (sha256 `285229ee…3a22`, mode 0755).

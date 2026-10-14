@@ -94,7 +94,7 @@ Git does not contain any file copied from the EdgeBench images. It holds only ou
 and the recipe for rebuilding the full file. Regenerate it, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/git_rewrite_in_zig-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.git_rewrite_in_zig:0d404251e9c9-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:

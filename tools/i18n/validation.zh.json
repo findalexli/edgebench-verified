@@ -11,6 +11,10 @@
   "en": "Paired native runs (r2, r3 and repeats, each exit=0) are raw-identical under v1 and v2; the shipped forward model equals the judge's; 109 is the exact computable maximum; package rebuilt from scratch on a clean machine (materialize-check-g3). No agent run on v2; the effect rests on one textbook variant.",
   "text": "成对原生运行（r2、r3 及其重复，均为 exit=0）在 v1 和 v2 下的原始结果完全相同；随附的正演模型与评分器的模型一致；109 是可精确计算的最大值；修复包在一台干净的机器上从零重建（materialize-check-g3）。没有在 v2 上运行智能体；影响依赖于一种教科书模型变体。"
  },
+ "college_english_exam_bank": {
+  "en": "v2.2 validated by three identical paired runs of the original, v2.1 and v2.2 graders on 29 responses (college_english_exam_bank-v2-paired-fix3, -fix3-rep2, -fix3-rep3; each ledger exit=0; package materialized with its own materialize.sh in each). The model's answers were fixed stubs; no AI model was called. The Lean model covers v2.1, not v2.2's block selection or decimal-string reading.",
+  "text": "v2.2 经三次结果相同的并排对照运行验证，在 29 份回答上比较原始、v2.1 和 v2.2 评分器（college_english_exam_bank-v2-paired-fix3、-fix3-rep2、-fix3-rep3；台账均为 exit=0；每次运行都用修复包自带的 materialize.sh 生成修复包）。模型回答是固定的替身输出，没有调用任何 AI 模型。Lean 模型针对 v2.1，不涵盖 v2.2 的块选取和十进制字符串读取。"
+ },
  "cta_risk_budget_optimization": {
   "en": "v2.1 image materialized and built in the worker from the package; native paired runs cta_risk_budget_optimization-v2.1-native-rep1..3 (each ledger exit=0) on the shipped standard answer and authored full submissions that pass the volatility, drawdown and participation gates; helper controls (13) pass against an exact oracle. No solver output graded.",
   "text": "v2.1 镜像在工作机中由修复包物化并构建；成对原生运行 cta_risk_budget_optimization-v2.1-native-rep1..3（台账均为 exit=0）覆盖随附的标准答案，以及我们编写的、能通过波动率、回撤和参与度门槛的完整提交；辅助函数对照（13 项）对照精确的判定程序通过。没有对解题者的输出评分。"
@@ -30,6 +34,10 @@
  "git_rewrite_in_zig": {
   "en": "Paired native runs (3 repeats, each exit=0): five honest trees go from 0 to the starter score and the real-git oracle is unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). No real Zig port graded; v2 tested at 8 CPUs only.",
   "text": "成对原生运行（3 次重复，均为 exit=0）：五棵诚实的代码树从 0 分升到初始代码的分数，真实 git 判定程序的结果不变；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有对真实的 Zig 移植评分；v2 只在 8 个 CPU 下测试过。"
+ },
+ "graph_node_classification": {
+  "en": "v2.1 validated by three paired runs of the original, the first fixed (v2) and v2.1 verifiers on seven submissions, each split over two workers (graph_node_classification-v2-paired-v21a, -v21b and their -rep2, -rep3; each ledger exit=0; package materialized with its own materialize.sh in each). Honest final scores differ by up to 2.9e-4 (timing). The Lean proof covers the first fix, not v2.1's str() key handling or duplicate-key rejection.",
+  "text": "v2.1 经三次并排对照运行验证，在七份提交上比较原始、第一个修复版（v2）和 v2.1 验证器，每次运行分在两台工作机上（graph_node_classification-v2-paired-v21a、-v21b 及其 -rep2、-rep3；台账均为 exit=0；每次运行都用修复包自带的 materialize.sh 生成修复包）。诚实提交的最终分数最多相差 2.9e-4（计时）。Lean 证明针对第一个修复，不涵盖 v2.1 的 str() 键处理和重复键拒绝。"
  },
  "grid_turing_robot": {
   "en": "CPU-share controls validated: three identical paired native runs at 4 CPUs plus 8-CPU controls (each ledger exit=0); package rebuilt from scratch on a clean machine (materialize-check-g1). Not tested in a Kubernetes pod, at 3 or 5-7 CPUs, or with multi-threaded solvers.",
@@ -68,8 +76,8 @@
   "text": "成对运行（3 次，均为 exit=0）：有效提交通过 5/5，之后更好的提交被选中，无效对照被拒绝；一次真实的存档运行通过 materialize.sh 重新评分；修复包在一台干净的机器上从零重建（materialize-check-g2）。选取规则用 select_best 离线计算，没有经过实际运行的 judge_server。"
  },
  "pfr_formalization": {
-  "en": "Type-contamination mechanism validated on analogous lemmas; work image built once in the clean-machine rebuild (materialize-check-pfr), no solver run in it; actual five-target credit recovery unverified, because it needs real proofs of those theorems.",
-  "text": "类型污染的机制在类似的引理上得到验证；工作镜像在干净机器重建中构建过一次（materialize-check-pfr），没有解题者在其中运行；五个实际目标的得分恢复未经验证，因为这需要这些定理的真实证明。"
+  "en": "Type-contamination mechanism validated on analogous lemmas; work image built once in the clean-machine rebuild (materialize-check-pfr, which ran a hand-edited copy of materialize.sh; the reordered committed materialize.sh has not been run), no solver run in it; actual five-target credit recovery unverified, because it needs real proofs of those theorems.",
+  "text": "类型污染的机制在类似的引理上得到验证；工作镜像在干净机器重建中构建过一次（materialize-check-pfr，运行的是手工修改过的 materialize.sh 副本；提交的、调整过步骤顺序的 materialize.sh 尚未运行过），没有解题者在其中运行；五个实际目标的得分恢复未经验证，因为这需要这些定理的真实证明。"
  },
  "portfolio_risk_calibration": {
   "en": "Paired formula controls validated; 0.3921 is a restricted numerical sensitivity envelope, not a universal score bound.",
