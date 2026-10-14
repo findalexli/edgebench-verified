@@ -14,7 +14,7 @@ The solver writes a plugin for OpenRCT2, a theme-park simulation game, that "max
 
 No submission can reach the promised length of play. The wrapper script sets `OPENRCT2_TIMEOUT=120` per scenario and caps the whole run at 1,800 s. The task manifest's `eval_timeout` is 2,400 s. The grader's monitor has `targetDays = 992` and emits `DONE` only at that date. The scoring code uses the last monitor sample and never checks whether `DONE` was reached.
 
-- With 2 CPUs and speed 4 the engine advances 0.593 to 0.597 game days per wall-clock second (0.602 when speed 8 was requested, which runs as speed 4). Real time limits the rate more than the host's CPU does; at 0.25 CPU the rate was 0.582, about 2% lower. Start-up is CPU-bound, though. At 0.25 CPU the first sample arrived at 11.5 s instead of 4.6 s, so a 60 s run reached 27 game days instead of 33 (`paired/check_horizon.out`).
+- With 2 CPUs and speed 4 the engine advances 0.593 to 0.597 game days per wall-clock second (0.602 when speed 8 was requested, which runs as speed 4). Real time, not the host's CPU, limits the rate; at 0.25 CPU the rate was 0.582, about 2% lower. Start-up is CPU-bound, though. At 0.25 CPU the first sample arrived at 11.5 s instead of 4.6 s, so a 60 s run reached 27 game days instead of 33 (`paired/check_horizon.out`).
 - Each 120 s scenario covered 68 to 69 game days, about 7% of the 992-day target, and `DONE` was never seen.
 - Reaching 992 days would take about 1,667 s per scenario, far beyond the 120 s scenario budget. For all three scenarios together (about 83 minutes) it would also exceed the 1,800 s wrapper cap and the 2,400 s manifest timeout.
 

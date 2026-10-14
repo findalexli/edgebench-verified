@@ -29,7 +29,7 @@
 
 项目自带的集成测试会拒绝这两个引擎，而正确的引擎能通过。feeswap 在 5 个 `ITFeesExchangeBasic` 测试中失败 2 个，例如 `shouldProcessFees_BidGtcMaker_AskIocTakerPartial` 期望 `<199061711100L>`，实际得到 `<199063788300L>`。dropevents 在全部 28 个 `ITExchangeCoreIntegrationRejectionBasic` 测试中都失败，因为处理程序收不到任何命令结果。
 
-feeswap 做的工作量与正确的引擎相同，所以三者之间的排名只是吞吐量噪声，不是错误带来的提速。
+feeswap 做的工作量与正确的引擎相同，所以三者之间的排名只是吞吐量噪声，不是错误带来的提速。这些运行表明，有错误的引擎拿到了全部分数。
 
 原始评分器也不能离线评分。固定版本镜像的 `~/.m2`（本地 Maven 缓存）里缺少 `surefire-junit-platform:3.0.0-M3`。在 `--network none` 下，每份提交都会失败，未修改的引擎也一样（`CASE 0000 RE score=0 / TOTAL_SCORE 0`）。评测框架给评分器容器开了网络，`internet: false` 只管智能体容器。所以原始评分要靠评分时能连上 Maven Central。
 

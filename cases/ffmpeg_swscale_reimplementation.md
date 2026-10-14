@@ -51,7 +51,7 @@ The fixed version (v2.2, the current patch) changes only `compute_reward.py`:
 
 - Before each of the 10 warmup and 100 timed calls of a timed workload it clears the whole output buffer, including padding, outside the timer.
 - After every call it checks the return code and compares the output with the original library's output, using the correctness workloads' per-plane PSNR thresholds: 40 dB for scaling and 60 dB for same-size conversions. These checks are outside the timer too.
-- Any failed timed workload makes the total reward exactly 0, as the task text says ("If correctness fails on any hidden workload, the score is **zero**"). It destroys the contexts even when a check fails.
+- Any failed timed workload makes the total reward exactly 0, as the task text says ("If correctness fails on any hidden workload, the score is **zero**"). The fixed version destroys the contexts even when a check fails.
 
 Nothing else changes.
 

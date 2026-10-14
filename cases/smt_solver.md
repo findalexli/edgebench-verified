@@ -63,7 +63,7 @@ We also ran the full original `eval_cmd` (all 774 hidden files, `--parallel 16`)
 
 The task's rescale is linear from 0 to 1 (`tasks/smt_solver.json`), so the score out of 100 is 100 × raw; the grader's own summary line reads `score=0.124948 (12.49/100)` (`repairs/smt_solver-v2/paired/evidence/b/fulleval_lines.txt`).
 
-No corpus test submission went from correct to rejected. Among the 13 small constructed cases, only `unused_conflict` did, as intended, because that answer gives f two values at one argument value through an unused key and so does not define a function. On the small cases the raw score (0 to 1 scale) is 0.1615 under the original grader and 0.3231 under the fixed grader (16.15 and 32.31 out of 100).
+No corpus test submission went from accepted to rejected. Among the 13 small constructed cases, only `unused_conflict` did, as intended, because that answer gives f two values at one argument value through an unused key and so does not define a function. On the small cases the raw score (0 to 1 scale) is 0.1615 under the original grader and 0.3231 under the fixed grader (16.15 and 32.31 out of 100).
 
 Score compatibility depends on how a solver writes its keys.
 

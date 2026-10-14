@@ -4,8 +4,8 @@
 
 [EdgeBench](https://github.com/ByteDance-Seed/EdgeBench) ranks AI agents on hard, open-ended
 engineering and science tasks. An agent works on each task for up to 12 hours, and an automatic
-grader scores its work from 0 to 100. The ranking is built from those scores, so a grader that
-scores work wrongly also skews the ranking.
+grader scores its work from 0 to 100. The ranking is built from those scores, so it can be only as
+trustworthy as those graders.
 
 EdgeBench Verified is an independent check of the grader of every one of the 51 publicly released
 EdgeBench tasks. For each task we asked whether an agent that solves the task correctly and by the

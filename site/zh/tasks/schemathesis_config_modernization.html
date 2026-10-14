@@ -278,7 +278,7 @@ variant=wrapper     tests=repaired :: 1 failed, 15 passed
 variant=no_register tests=orig     :: 3 failed, 12 passed
 variant=no_register tests=repaired :: 4 failed, 12 passed</code></pre>
 <p>按规格，包装器应该在检查同一性的那项测试上失分。在原始评分器上，包装器却 15/15 全过，和正确的装饰器一样。</p>
-<p>这个问题的影响很小。从行为上看，包装器和正确的装饰器几乎没有差别。它保留 <code>__name__</code>，用正确的名字注册，返回值相同，也能和收集器、<code>hypothesis.target</code> 一起工作。区别只有 <code>decorated is original</code> 这一项，以及多了一个 <code>__wrapped__</code>。错误的实现比正确的实现得不到任何好处，只是少丢一项测试。作者原意很可能就是要求同一性，因为 Phase 6 的测试对 <code>@check</code> 断言了 <code>result is my_func</code>，Phase 3 却没有这样的检查。</p>
+<p>这个问题的影响很小。从行为上看，包装器和正确的装饰器几乎没有差别。它保留 <code>__name__</code>，用正确的名字注册，返回值相同，也能和收集器、<code>hypothesis.target</code> 一起工作。区别只有 <code>decorated is original</code> 这一项，以及多了一个 <code>__wrapped__</code>。错误的实现比正确的实现得不到任何好处，只是少丢一项测试。作者原意很可能就是要求同一性，因为 Phase 6 的测试对 <code>@check</code> 断言了 <code>result is my_func</code>；Phase 3 没有这样的检查。</p>
 <h3 id="case-影响有多大">影响有多大</h3>
 <p>最多是总分的 1/160，即 100 分制下 0.625 分。分数是六个阶段的 Σ(weight × passed/total)/10，Phase 3 的权重为 1。修复版的 Phase 3 有 16 项测试。一个通过原有 15 项中 k 项的包装器，所得从 Phase 3 权重的 k/15 降到 k/16，损失 k/2400。k = 15 时损失为 1/160，即实测的 −0.006250。（原来 15 项测试时，这个阶段每项测试值 1/15 × 1/10 = 1/150。）</p>
 <p>计分变化也不全是扣分。如果提交的装饰器原样返回函数，但原有 Phase 3 测试只过了 k &lt; 15 项，所得会从 k/15 升到 (k+1)/16，增加 (15 − k)/2400。两种变化每次运行都不超过 1/160。只有用包装器做装饰器的提交，或 Phase 3 只过了一部分的提交，分数才会变。</p>

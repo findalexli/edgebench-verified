@@ -33,7 +33,7 @@ variant=no_register tests=repaired :: 4 failed, 12 passed
 
 Under the specification, the wrapper should lose the test item that checks identity. On the original grader it passes 15/15, the same as the correct decorator.
 
-The effect is small. In behaviour, the wrapper is almost equivalent to the correct decorator. It keeps `__name__`, registers under the right name, returns the same values, and works with the collector and with `hypothesis.target`. The only differences are `decorated is original` and the presence of `__wrapped__`. The wrong implementation gains no advantage over a correct one and only avoids losing one item. The authors probably intended identity, since the Phase 6 test asserts `result is my_func` for `@check` and Phase 3 has no such check.
+The effect is small. In behaviour, the wrapper is almost equivalent to the correct decorator. It keeps `__name__`, registers under the right name, returns the same values, and works with the collector and with `hypothesis.target`. The only differences are `decorated is original` and the presence of `__wrapped__`. The wrong implementation gains no advantage over a correct one and only avoids losing one item. The authors probably intended identity, since the Phase 6 test asserts `result is my_func` for `@check`; Phase 3 has no such check.
 
 ## How much it matters
 

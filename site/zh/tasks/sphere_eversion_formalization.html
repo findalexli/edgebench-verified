@@ -35,7 +35,7 @@
 <ul><li>辅助目标包括 94 个 <code>_proof</code>、23 个 <code>_simp</code>，以及其他种类。</li><li>没有哪个辅助目标自身含占位符（即"脆弱的"）。评分器把辅助目标标为 BAD，只是因为它依赖的父声明用了 <code>sorry</code>。所以正常地证明这些父声明，应该不会改变辅助目标本身。这是我们从评分器镜像内的一个探测推断出来的，没有给任何正常写出的证明评过分。</li><li>辅助目标占分数的 18.0%。按探测结果，它们依赖的声明一旦证出，它们应该会自动得分。我们没有用评分验证过这一点。</li><li>评分器隔离不在本次发布的范围内（这是 EdgeBench 的设计选择）。我们没有发现会影响按规则作答的解题者的评分缺陷。</li></ul>
 <p>随任务发布的说明是 "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no correct-proof test)"（统计：没有拿不到的目标；辅助目标占比如上且稳定；仅基于对照提交，没有用正确的证明测试）。</p>
 <h3 id="case-影响有多大">影响有多大</h3>
-<p>我们没有测到任何影响。因编译器生成的名称而拿不到的目标，下界是 661 个中的 0 个。这不说明每个目标都为真或都能证明。</p>
+<p>我们没有观察到任何影响。因编译器生成的名称而拿不到的目标，下界是 661 个中的 0 个。这不说明每个目标都为真或都能证明。</p>
 <p>任务不改，上述说明随任务一起发布。</p>
 <h3 id="case-我们如何检查">我们如何检查</h3>
 <ul><li>我们在按摘要固定的原始公开镜像中运行原始评分器（工具链 v4.28.0）。同一时间只跑一个容器，使用 <code>--network none</code>。以评分器未改动的初始源码为测试提交，一字不改地运行任务的 <code>judge.eval_cmd</code>。它把 <code>/home/workspace/baseline/.lake</code> 和 <code>/home/workspace/baseline/lake-manifest.json</code> 复制进提交，再重新构建整个项目。这两份清单并不相同，评分器镜像里 <code>baseline/lake-manifest.json</code> 的 sha256 是 <code>af7adc71…</code>，评分器仓库里 <code>sphere-eversion/lake-manifest.json</code> 的是 <code>c2b475de…</code>（<code>out/sphere_eversion_formalization/census.log</code>）。其中的 Mathlib 版本没有记录。做了这种替换后，初始项目得 0/661，没有 <code>type_changed</code>，也没有 <code>disappeared</code>。所有证明都是 <code>sorry</code> 时，连构建在内的完整评分运行约需 5.8 分钟（<code>native.log</code>，07:07:18–07:13:06），时限为 2,400 s。</li><li>为了在镜像内统计，我们构建了初始项目的 <code>ListDeclAxiom</code> 列表，然后按与 <code>lean_analysis_proofs</code> 相同的目标规则和辅助名称模式给每个目标分类。镜像内的一个探测检查每个辅助目标自身是否含 <code>sorry</code>。实际使用的 <code>ListDeclAxiom.lean</code> 会为 <code>Gromov</code> 打印一行 HASH，这一行在初始项目上为真。</li><li>这里用不上单独的形式化模型，统计本身就是一次 Lean 运行。</li></ul>

@@ -12,7 +12,7 @@ The grader starts from the list of declarations that depend on `sorry` in the st
 
 We found no problem that changes scores. We checked the following:
 
-- When Lean compiles a definition, it can create helper declarations of its own (`X._proof_N`, `X._simp_N`, …). The grader shared by EdgeBench's Lean tasks credits these helper items only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, at least 44 helper items are out of reach for any complete, correct solution (49 of 2901 items in total, 1.69%, counting also 3 placeholder statements and 2 false statements; `cases/lean_analysis_proofs.md`), and scores depend on proof style. Here no helper item is out of reach:
+- When Lean compiles a definition, it can create helper declarations of its own (`X._proof_N`, `X._simp_N`, …). The grader shared by EdgeBench's Lean tasks credits these helper items only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, at least 44 helper items are out of reach for any complete, correct solution (49 of 2901 items in total, 1.69%, counting also 3 placeholder statements and 2 false statements; `cases/lean_analysis_proofs.md`), and scores depend on proof style. Neither happens here:
 
 | Graded items | Helper items | Helper share of score | Fragile helper items | `sorry` in type | Statement/negation (P/¬P) pairs | Lower bound on items out of reach |
 |---|---|---|---|---|---|---|

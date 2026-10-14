@@ -20,7 +20,7 @@ One test always fails. `test_private_judge_files_are_available` asserts that the
 - The pass rate is capped. A fully correct submission gets pass rate 0.8 instead of 1.0.
 - The run's choice of best submission freezes. This task's rule (`pass_rate_first`) keeps the submission that passes the most tests and compares scores only when both pass rates are 1.0; otherwise a later submission wins only with a strictly higher pass rate. Every submission is capped at 0.8 and every scored one reaches it, so the run's `best_score` / `best_round` stay on the **first** scored submission.
 
-For example, we gave the original grader two valid submissions, identity first and then search. The identity permutation scores 3.3e-09, and the search result scores higher. The grader should keep search; it keeps identity and ignores the better later submission.
+For example, we gave the original grader two valid submissions, identity first and then search. The identity permutation scores 3.3e-09, and the search result scores higher. The run should keep search; EdgeBench's selection keeps identity and ignores the better later submission.
 
 ## How much it matters
 

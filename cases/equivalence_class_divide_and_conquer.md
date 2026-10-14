@@ -16,7 +16,7 @@ EdgeBench gives an AI agent the task, and the agent works for up to 12 hours. A 
 
 The final cost total misses the last state. At the end, the T3 checker sums costs over states 0..tt−1 and leaves out the last state created, `t[tt]`. That state's net coefficient is +1, so the counted cost is the true cost minus |N_last|, where N_last is the target of the last operation 1. The limit comparison itself (`w <= W`, W = 2.5e9) matches the statement.
 
-- The original checker accepts a crafted output with true cost 2.501·10⁹, over the limit ("ok Correct"). It rejects the same output with one extra zero-cost move at the end. The verdict therefore depends only on whether the checker counts the last target, which rules out a deliberate tolerance.
+- The original checker accepts a crafted output with true cost 2.501·10⁹, over the limit ("ok Correct"). It rejects the same output with one extra zero-cost move at the end. The verdict therefore depends only on whether the checker counts the last target; it is not a deliberate tolerance.
 - Accepted true costs reach at most 2.5·10⁹ + |N_last| ≤ 2.5·10⁹ + 10⁶, a window of at most 0.04% of the budget.
 - On the 30 official T3 inputs, the reference solution uses at most 35% of the budget (largest true cost 871,274,246, on case 19). A naive strategy exceeds the limit on 24 of 30 inputs, each time by at least 116,912,620. The problem flips none of these verdicts.
 

@@ -20,7 +20,7 @@
 
 本地工具不会给出任何警告，因为 `tools/bin/tester` 只给输出文件打分。按承诺的时间预算来做的解题者，会丢掉全部分数。
 
-在发布方 4 个 CPU 的评分器上，原始版每个输入的 60 s 约合 30 s CPU 时间，同一个修复版纠正了这一点。 时限按墙钟时间算，而评分器不管有几个 CPU，都运行 `ProcessPoolExecutor(max_workers=min(8, len(case_files)))`。EdgeBench 的排行榜设置给这个评分器 4 个 CPU（默认值，本任务没有另行设置；引文见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)），所以同时跑的 8 个输入每个约分到半个 CPU。在原始评分器下，单线程解题者只要每个输入用了超过约 30 s CPU，就会丢掉全部分数（半个 CPU 跑 60 s 墙钟时间；这是算出来的，实测的几组都超过了这个数）。只把时限提到 150 s，这样的解题者仍会在约 75 s CPU 处超时。我们在 `--cpus 4` 下测了这个只改时限的版本（150 s，同时 8 个）。每个输入做固定 80 s 或 140 s CPU 计算的有效解法，都是 2 OK + 48 TLE，没有分数（`evidence/runs/warehouse_forklift_routing-v2-cpu4-b/result/out/summary.txt`、`-cpu4-a`）。原始评分器对两者都是 50 TLE（`-cpu4-b`、`-cpu4-c`）。
+在发布方 4 个 CPU 的评分器上，原始版每个输入的 60 s 约合 30 s CPU 时间，同一个修复版纠正了这一点。时限按墙钟时间算，而评分器不管有几个 CPU，都运行 `ProcessPoolExecutor(max_workers=min(8, len(case_files)))`。EdgeBench 的排行榜设置给这个评分器 4 个 CPU（默认值，本任务没有另行设置；引文见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)），所以同时跑的 8 个输入每个约分到半个 CPU。在原始评分器下，单线程解题者只要每个输入用了超过约 30 s CPU，就会丢掉全部分数（半个 CPU 跑 60 s 墙钟时间；这是算出来的，实测的几组都超过了这个数）。只把时限提到 150 s，这样的解题者仍会在约 75 s CPU 处超时。我们在 `--cpus 4` 下测了这个只改时限的版本（150 s，同时 8 个）。每个输入做固定 80 s 或 140 s CPU 计算的有效解法，都是 2 OK + 48 TLE，没有分数（`evidence/runs/warehouse_forklift_routing-v2-cpu4-b/result/out/summary.txt`、`-cpu4-a`）。原始评分器对两者都是 50 TLE（`-cpu4-b`、`-cpu4-c`）。
 
 ### 2. 分数刻度的参考点无法达到
 

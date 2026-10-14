@@ -27,7 +27,7 @@ The task ships with this note: "Census: 0 targets unattainable; aux targets 18.0
 
 ## How much it matters
 
-We measured no effect. The lower bound on targets unreachable because of compiler-generated names is 0 of 661. This does not show that every target is true or provable.
+We observed no effect. The lower bound on targets unreachable because of compiler-generated names is 0 of 661. This does not show that every target is true or provable.
 
 The task does not change; the note above ships with it.
 

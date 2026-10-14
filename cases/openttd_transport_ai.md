@@ -33,7 +33,7 @@ A full run of the original grader on the starter took **63 s** of wall time and 
 The wrapper printed `CASE 0000 WA score=0` and `TOTAL_SCORE 0`.
 
 - A solver that follows the instructions and calls the named function expects to read its company value. Instead the game kills its script at that call, and the company stops acting. The score is its last positive quarterly value, or 0.
-- Local testing, which the task provides, reveals the problem. The fault is a misleading instruction; the grader is not in error.
+- Local testing, which the task provides, can reveal the problem. The fault is a misleading instruction; the grader is not in error.
 
 The instructions also misstate what is scored. The Goal line defines the target as "vehicle value at 1.5× purchase + infrastructure value + cash − loans". The grader reads the game's own company value. In the OpenTTD 13.4 source that value counts vehicles at 1.5× their value and stations, plus cash minus loan, with a floor of 1; roads, rails and other infrastructure do not count. The probe in the table below is consistent with this. With 8 stops, no vehicles and cash minus loan negative, it scores 4,975. Under the test in [`METHOD.md`](../METHOD.md), this is a case of the agent being told a different rule from the one applied. A solver that builds track or roads expecting them to add value gets a score that leaves them out. We did not measure the size of this effect, and the rails part rests on reading the source, not on a run.
 

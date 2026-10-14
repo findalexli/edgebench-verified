@@ -36,7 +36,7 @@
 <ul><li>Scorer isolation is outside this release's scope (an EdgeBench design choice). We found no scoring defect that affects solvers who follow the rules.</li></ul>
 <p>The note that ships with the task says that this release does not evaluate scorer isolation (an EdgeBench design choice), and that the original evaluator scored correctly the two controls run (the starter kernel and an empty program, which should fail).</p>
 <h3 id="case-how-much-it-matters">How much it matters</h3>
-<p>We measured no effect for submissions that follow the rules.</p>
+<p>We observed no effect for submissions that follow the rules.</p>
 <p>The scale saturates below 1000 cycles. <code>log_min</code> clips at 100, which it reaches at the expert reference point of 1000 cycles. A third-party Claude Opus 5.5 run (4 hours, published on Hugging Face as <code>adafadaq/edgebench-opus-5-5-xhigh-rollouts</code>) on this grader had all 18 submissions valid with 9/9 cases passed. Its kernels took 1122, 1027, 979, 970, 966, 965, 962, 957, 956, 951 and 950 cycles (agent-1 to agent-11, <code>report.json</code> <code>score</code>). Unclipped, these give 92.3, 98.2, 101.4, 102.0, …, 103.4, so every kernel from 979 cycles on scores 100 and the scale does not separate them. The best published result is 85.6 (GPT-5.5 at 12 hours, <code>tasks/README.md</code>), about 1240 cycles, so the published scores are not affected. We did not check whether the 950-cycle kernel is correct beyond the 8 correctness cases and 1 performance case, and we did not inspect its source.</p>
 <p>The task does not change; the note above ships with it.</p>
 <h3 id="case-how-we-checked-it">How we checked it</h3>

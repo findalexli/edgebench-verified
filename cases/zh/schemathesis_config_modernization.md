@@ -33,7 +33,7 @@ variant=no_register tests=repaired :: 4 failed, 12 passed
 
 按规格，包装器应该在检查同一性的那项测试上失分。在原始评分器上，包装器却 15/15 全过，和正确的装饰器一样。
 
-这个问题的影响很小。从行为上看，包装器和正确的装饰器几乎没有差别。它保留 `__name__`，用正确的名字注册，返回值相同，也能和收集器、`hypothesis.target` 一起工作。区别只有 `decorated is original` 这一项，以及多了一个 `__wrapped__`。错误的实现比正确的实现得不到任何好处，只是少丢一项测试。作者原意很可能就是要求同一性，因为 Phase 6 的测试对 `@check` 断言了 `result is my_func`，Phase 3 却没有这样的检查。
+这个问题的影响很小。从行为上看，包装器和正确的装饰器几乎没有差别。它保留 `__name__`，用正确的名字注册，返回值相同，也能和收集器、`hypothesis.target` 一起工作。区别只有 `decorated is original` 这一项，以及多了一个 `__wrapped__`。错误的实现比正确的实现得不到任何好处，只是少丢一项测试。作者原意很可能就是要求同一性，因为 Phase 6 的测试对 `@check` 断言了 `result is my_func`；Phase 3 没有这样的检查。
 
 ## 影响有多大
 
