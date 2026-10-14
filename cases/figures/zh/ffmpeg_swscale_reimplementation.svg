@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 382" role="img">
+<title>瞬间失败的调用被当作速度快：未完成的代码最多拿到 18.93 分（满分 100）</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3} .onbar{fill:#10181f}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a} .ruleS{stroke:#2a3843}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c} .ruleF{fill:#1d2a34}
+  }
+</style>
+<text x="16" y="26" class="ink" font-size="16" font-weight="600">瞬间失败的调用被当作速度快：未完成的代码最多拿到 18.93 分（满分 100）</text>
+<text x="16" y="48" class="muted" font-size="14">智能体要重写一个图像缩放库；速度测试为每次调用计时，却从不检查其结果。</text>
+<text x="200" y="82" class="muted" font-size="14">得分（满分 100），原始评分器</text>
+<text x="704" y="82" class="muted" font-size="14" text-anchor="end">修复版评分器</text>
+<text x="16" y="111" class="ink" font-size="15">在 RGBA→RGB24 上</text>
+<text x="16" y="129" class="ink" font-size="15">返回错误</text>
+<rect class="badBg" x="200" y="96" width="400" height="30"/><rect class="bad" x="200" y="96" width="21.56" height="30"/>
+<text x="229.56" y="117" class="bad" font-size="15" font-weight="600">5.39</text>
+<text x="704" y="117" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
+<text x="16" y="163" class="ink" font-size="15">在 3:1 缩小上</text>
+<text x="16" y="181" class="ink" font-size="15">返回错误</text>
+<rect class="badBg" x="200" y="148" width="400" height="30"/><rect class="bad" x="200" y="148" width="75.72" height="30"/>
+<text x="283.72" y="169" class="bad" font-size="15" font-weight="600">18.93</text>
+<text x="704" y="169" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
+<text x="16" y="215" class="ink" font-size="15">在 3:1 缩小上</text>
+<text x="16" y="233" class="ink" font-size="15">什么都不写</text>
+<rect class="badBg" x="200" y="200" width="400" height="30"/><rect class="bad" x="200" y="200" width="71.48" height="30"/>
+<text x="279.48" y="221" class="bad" font-size="15" font-weight="600">17.87</text>
+<text x="704" y="221" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
+<line class="rule" x1="200" y1="92" x2="200" y2="234" stroke-width="1.5"/>
+<text x="200" y="252" class="muted" font-size="13" text-anchor="middle">0</text>
+<text x="600" y="252" class="muted" font-size="13" text-anchor="middle">100</text>
+<text x="16" y="284" class="muted" font-size="14">一次立即返回错误的调用被计为 16,469 倍的加速。三者仍都通过了 30 项正确性测试，</text>
+<text x="16" y="303" class="muted" font-size="14">因为这些测试从不涉及这几种转换。</text>
+<text x="16" y="330" class="ink" font-size="14">修复版评分器：检查每次计时调用的输出；只要有一次失败，总分即为 0，与任务说明一致。</text>
+<text x="16" y="349" class="ink" font-size="14">图中三个 0 分是用较早版本的修复测得的；当前版本对悄悄跳过重复调用的代码</text>
+<text x="16" y="368" class="ink" font-size="14">给出恰好 0 分。</text>
+</svg>

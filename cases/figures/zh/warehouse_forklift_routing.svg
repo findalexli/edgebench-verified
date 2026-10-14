@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 446" role="img">
+<title>承诺 150 秒，60 秒就被截断：用足时间的解法得不到分数</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3} .onbar{fill:#10181f}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a} .ruleS{stroke:#2a3843}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c} .ruleF{fill:#1d2a34}
+  }
+</style>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">承诺 150 秒，60 秒就被截断：用足时间的解法得不到分数</text>
+<text x="16" y="46" class="muted" font-size="14">每组输入包含 5 个测试用例，任务说明承诺每个用例 30 秒，即每组输入 150 秒。</text>
+<text x="16" y="80" class="muted" font-size="14">EdgeBench 4 CPU 设置下每组输入的时间（同时运行 8 组输入）</text>
+<text x="16" y="132" class="ink" font-size="15" font-weight="600">原始评分器</text>
+<rect x="160" y="112" width="104.0" height="30" class="acc"/>
+<rect x="264.0" y="112" width="104.0" height="30" class="accBg"/>
+<rect x="368.0" y="112" width="312.0" height="30" class="badBg"/>
+<text x="524.0" y="132" class="bad" font-size="14" font-weight="600" text-anchor="middle">已承诺，却被判超时</text>
+<line x1="368.0" y1="104" x2="368.0" y2="150" class="badS" stroke-width="2.5"/>
+<text x="362.0" y="100" class="bad" font-size="14" font-weight="600" text-anchor="end">60 秒时限</text>
+<text x="160.0" y="166" class="acc" font-size="13" font-weight="600">约 30 秒计算（每组输入半个 CPU），随后被截断</text>
+<text x="16" y="216" class="ink" font-size="15" font-weight="600">修复版评分器</text>
+<rect x="160" y="196" width="520.0" height="30" class="good"/>
+<text x="170" y="216" class="onbar" font-size="14" font-weight="600">150 秒时限；最多同时运行 4 组输入，每组一个 CPU</text>
+<text x="160.0" y="248" class="muted" font-size="13" text-anchor="start">0 秒</text>
+<text x="264.0" y="248" class="muted" font-size="13" text-anchor="middle">30 秒</text>
+<text x="368.0" y="248" class="muted" font-size="13" text-anchor="middle">60 秒</text>
+<text x="680.0" y="248" class="muted" font-size="13" text-anchor="end">150 秒</text>
+<line x1="16" y1="266" x2="704" y2="266" class="rule" stroke-width="1"/>
+<text x="16" y="290" class="muted" font-size="14">实测：同一批测试提交在两个评分器上的结果</text>
+<text x="470" y="290" class="muted" font-size="14" text-anchor="middle">原始评分器</text>
+<text x="704" y="290" class="muted" font-size="14" text-anchor="end">修复版评分器</text>
+<text x="16" y="316" class="ink" font-size="14">每个用例等待 13 秒（每组 65 秒）</text>
+<text x="470" y="316" class="bad" font-size="14" font-weight="600" text-anchor="middle">50 组全部超时：无分数</text>
+<text x="704" y="316" class="good" font-size="14" font-weight="600" text-anchor="end">50 组全部计分</text>
+<text x="16" y="340" class="ink" font-size="14">每组输入计算 80 秒</text>
+<text x="470" y="340" class="bad" font-size="14" font-weight="600" text-anchor="middle">50 组全部超时：无分数</text>
+<text x="704" y="340" class="good" font-size="14" font-weight="600" text-anchor="end">50 组全部计分</text>
+<text x="16" y="364" class="ink" font-size="14">每组输入计算 140 秒</text>
+<text x="470" y="364" class="bad" font-size="14" font-weight="600" text-anchor="middle">50 组全部超时：无分数</text>
+<text x="704" y="364" class="good" font-size="14" font-weight="600" text-anchor="end">50 组全部计分</text>
+<rect x="16" y="380" width="688" height="54" rx="6" class="warnBg"/>
+<text x="28" y="402" class="ink" font-size="13">已记录、未修复：任何有效答案的得分都不可能超过约 30.6 分（满分 100；各组分数取整前为 30.3）。</text>
+<text x="28" y="422" class="ink" font-size="13">更高的分数要求比任何有效答案都更短的路线（已证明）。</text>
+</svg>

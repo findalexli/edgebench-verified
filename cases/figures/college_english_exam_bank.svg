@@ -1,33 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>Bars show the original grader scoring an empty assessment 100, and assessments with one 15-point rule left out 81 instead of 77 and 15 instead of 0; the fixed version reports all three as grading failures.</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 408" role="img">
+<title>An empty grading report scored 100: rules the AI grader skipped got full marks</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
   @media (prefers-color-scheme: dark){
     .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
-    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3}
-    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed}
-    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3} .onbar{fill:#10181f}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a} .ruleS{stroke:#2a3843}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c} .ruleF{fill:#1d2a34}
   }
 </style>
-<text class="ink" x="16" y="30" font-size="18" font-weight="600">Skipped rules count as full marks</text>
-<text class="muted" x="200" y="62" font-size="14">original grader score</text><text class="muted" x="704" y="62" font-size="14" text-anchor="end">fixed grader</text>
-<text class="ink" x="16" y="102" font-size="15">No rule graded</text>
-<rect class="badBg" x="200" y="80" width="300" height="30"/><rect class="bad" x="200" y="80" width="300" height="30"/>
-<text x="492" y="102" font-size="15" font-weight="600" text-anchor="end" fill="#fff">100</text>
-<text class="good" x="704" y="102" font-size="15" font-weight="600" text-anchor="end">grading failure</text>
-<text class="ink" x="16" y="158" font-size="15">One rule skipped</text>
-<rect class="badBg" x="200" y="136" width="300" height="30"/><rect class="bad" x="200" y="136" width="243" height="30"/>
-<text class="bad" x="451" y="158" font-size="15" font-weight="600">81, true score 77</text>
-<text class="good" x="704" y="158" font-size="15" font-weight="600" text-anchor="end">grading failure</text>
-<text class="ink" x="16" y="214" font-size="15">One rule skipped</text>
-<rect class="badBg" x="200" y="192" width="300" height="30"/><rect class="bad" x="200" y="192" width="45" height="30"/>
-<text class="bad" x="253" y="214" font-size="15" font-weight="600">15, true score 0</text>
-<text class="good" x="704" y="214" font-size="15" font-weight="600" text-anchor="end">grading failure</text>
-<line class="rule" x1="200" y1="76" x2="200" y2="244" stroke-width="1.5"/>
-<text class="muted" x="16" y="268" font-size="14">The skipped rule (R009, 15 points) was left out of assessments that score 77 and 0 in full.</text>
-<text class="muted" x="16" y="288" font-size="14">The original grader marked each incomplete answer from the AI grader valid.</text>
+<text x="16" y="26" class="ink" font-size="16" font-weight="600">An empty grading report scored 100: rules the AI grader skipped got full marks</text>
+<text x="16" y="48" class="muted" font-size="14">An AI model scores the exam papers against 12 rules worth 100 points.</text>
+<text x="250" y="82" class="muted" font-size="14">Score out of 100, original checker</text>
+<text x="704" y="82" class="muted" font-size="14" text-anchor="end">Fixed checker</text>
+<text x="16" y="111" class="ink" font-size="15">Empty grading report</text>
+<text x="16" y="129" class="muted" font-size="13">no rule assessed</text>
+<rect class="badBg" x="250" y="96" width="220" height="30"/><rect class="bad" x="250" y="96" width="220.0" height="30"/>
+<text x="462.0" y="117" class="onbar" font-size="15" font-weight="600" text-anchor="end">100</text>
+<text x="704" y="117" class="good" font-size="15" font-weight="600" text-anchor="end">grading failure</text>
+<text x="16" y="163" class="ink" font-size="15">One rule skipped</text>
+<text x="16" y="181" class="muted" font-size="13">true score 77</text>
+<rect class="badBg" x="250" y="148" width="220" height="30"/><rect class="bad" x="250" y="148" width="178.2" height="30"/>
+<text x="420.2" y="169" class="onbar" font-size="15" font-weight="600" text-anchor="end">81</text>
+<text x="704" y="169" class="good" font-size="15" font-weight="600" text-anchor="end">grading failure</text>
+<text x="16" y="215" class="ink" font-size="15">One rule skipped</text>
+<text x="16" y="233" class="muted" font-size="13">true score 0</text>
+<rect class="badBg" x="250" y="200" width="220" height="30"/><rect class="bad" x="250" y="200" width="33.0" height="30"/>
+<text x="291.0" y="221" class="bad" font-size="15" font-weight="600">15</text>
+<text x="704" y="221" class="good" font-size="15" font-weight="600" text-anchor="end">grading failure</text>
+<text x="16" y="267" class="ink" font-size="15">One rule skipped,</text>
+<text x="16" y="285" class="muted" font-size="13">complete when asked again</text>
+<rect class="badBg" x="250" y="252" width="220" height="30"/><rect class="bad" x="250" y="252" width="178.2" height="30"/>
+<text x="420.2" y="273" class="onbar" font-size="15" font-weight="600" text-anchor="end">81</text>
+<text x="704" y="273" class="good" font-size="15" font-weight="600" text-anchor="end">77</text>
+<line class="rule" x1="250" y1="92" x2="250" y2="286" stroke-width="1.5"/>
+<text x="16" y="330" class="muted" font-size="14">The skipped rule is worth 15 points. The original checker gave any rule missing from the AI</text>
+<text x="16" y="349" class="muted" font-size="14">grader's answer full marks and still called the result valid.</text>
+<text x="16" y="376" class="ink" font-size="14">Fixed checker: asks the AI grader once more; if the answer is still incomplete, it reports a</text>
+<text x="16" y="395" class="ink" font-size="14">grading failure (score 0) instead of an inflated score.</text>
 </svg>

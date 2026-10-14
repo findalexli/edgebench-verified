@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 410" role="img">
+<title>评分器按字面写法读取答案，因此 27 道有解的题永远无法通过</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3} .onbar{fill:#10181f}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a} .ruleS{stroke:#2a3843}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c} .ruleF{fill:#1d2a34}
+  }
+</style>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">评分器按字面写法读取答案，因此 27 道有解的题永远无法通过</text>
+<text x="16" y="46" class="muted" font-size="14">例：x 在一行中代表 a，在下一行中代表 b，所以“(f x)”表示两个不同的值。</text>
+<g transform="translate(0,52)">
+<rect x="16" y="12" width="328" height="270" rx="8" fill="none" class="rule" stroke-width="1.5"/>
+<text x="180" y="38" class="muted" font-size="15" text-anchor="middle">原始评分器</text>
+<rect x="28" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="28" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
+<text x="102" y="75" class="ink" font-size="14" text-anchor="middle">let x = a</text>
+<text x="102" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = a</text>
+<rect x="184" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="184" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
+<text x="258" y="75" class="ink" font-size="14" text-anchor="middle">let x = b</text>
+<text x="258" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = b</text>
+<path d="M102 108 L166 166 M258 108 L194 166" fill="none" class="inkS" stroke-width="2"/>
+<rect x="135" y="168" width="90" height="34" rx="5" class="badBg"/><rect x="135" y="168" width="90" height="34" rx="5" fill="none" class="badS" stroke-width="2"/>
+<text x="180" y="191" class="bad" font-size="16" font-weight="600" text-anchor="middle">(f x)</text>
+<text x="180" y="224" class="muted" font-size="14" text-anchor="middle">一个文字键，两个值</text>
+<text x="180" y="258" class="bad" font-size="16" font-weight="700" text-anchor="middle">任何正确答案都无法通过 ✗</text>
+<rect x="376" y="12" width="328" height="270" rx="8" fill="none" class="rule" stroke-width="1.5"/>
+<text x="540" y="38" class="muted" font-size="15" text-anchor="middle">修复版评分器</text>
+<rect x="388" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="388" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
+<text x="462" y="75" class="ink" font-size="14" text-anchor="middle">let x = a</text>
+<text x="462" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = a</text>
+<path d="M462 108 L462 164" fill="none" class="inkS" stroke-width="2"/>
+<rect x="422" y="168" width="80" height="34" rx="5" class="goodBg"/><rect x="422" y="168" width="80" height="34" rx="5" fill="none" class="goodS" stroke-width="2"/>
+<text x="462" y="191" class="good" font-size="16" font-weight="600" text-anchor="middle">(f a)</text>
+<rect x="544" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="544" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
+<text x="618" y="75" class="ink" font-size="14" text-anchor="middle">let x = b</text>
+<text x="618" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = b</text>
+<path d="M618 108 L618 164" fill="none" class="inkS" stroke-width="2"/>
+<rect x="578" y="168" width="80" height="34" rx="5" class="goodBg"/><rect x="578" y="168" width="80" height="34" rx="5" fill="none" class="goodS" stroke-width="2"/>
+<text x="618" y="191" class="good" font-size="16" font-weight="600" text-anchor="middle">(f b)</text>
+<text x="540" y="224" class="muted" font-size="14" text-anchor="middle">每个实际参数一个键</text>
+<text x="540" y="258" class="good" font-size="16" font-weight="700" text-anchor="middle">正确答案被接受 ✓</text>
+</g>
+<text x="16" y="360" class="ink" font-size="14">原始评分器：27 道有解的隐藏题目永远无法通过，因此完美求解器最多只能得 72.40 分</text>
+<text x="16" y="379" class="ink" font-size="14">（满分 100），而不是 78.61 分。另有 42 道题，按任务说明所述方式写出的答案被拒绝。</text>
+<text x="16" y="398" class="ink" font-size="14">修复版评分器在全部 69 道题上都接受正确答案。</text>
+</svg>
