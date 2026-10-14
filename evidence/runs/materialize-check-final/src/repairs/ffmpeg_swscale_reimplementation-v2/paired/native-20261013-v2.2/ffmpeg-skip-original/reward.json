@@ -1,0 +1,385 @@
+{
+  "score": 1.038559,
+  "reward": 1.038559,
+  "subscores": [
+    {
+      "name": "correctness",
+      "score": 1.0
+    },
+    {
+      "name": "speedup",
+      "score": 1.0386
+    }
+  ],
+  "additional_data": {
+    "correctness_passed": 30,
+    "correctness_total": 30,
+    "geometric_mean_speedup": 1.038559,
+    "workloads_benchmarked": 10,
+    "per_workload_speedups": [
+      1.0105,
+      1.0058,
+      1.0065,
+      1.0027,
+      1.1467,
+      1.0372,
+      1.194,
+      1.0011,
+      1.0015,
+      0.9994
+    ],
+    "benchmark_results": [
+      {
+        "label": "yuv420p\u2192rgb24 1080p",
+        "baseline_ms": 1.2928,
+        "candidate_ms": 1.2793,
+        "speedup": 1.0105
+      },
+      {
+        "label": "rgb24\u2192yuv420p 1080p",
+        "baseline_ms": 9.9739,
+        "candidate_ms": 9.9167,
+        "speedup": 1.0058
+      },
+      {
+        "label": "rgb24\u2192bgra 1080p",
+        "baseline_ms": 1.275,
+        "candidate_ms": 1.2668,
+        "speedup": 1.0065
+      },
+      {
+        "label": "rgb24\u2192nv12 1080p",
+        "baseline_ms": 9.5787,
+        "candidate_ms": 9.5531,
+        "speedup": 1.0027
+      },
+      {
+        "label": "rgba\u2192rgb24 4K",
+        "baseline_ms": 4.8766,
+        "candidate_ms": 4.2525,
+        "speedup": 1.1467
+      },
+      {
+        "label": "yuv420p\u2192rgb24 4K\u21921080p bilinear",
+        "baseline_ms": 19.7595,
+        "candidate_ms": 19.0502,
+        "speedup": 1.0372
+      },
+      {
+        "label": "rgb24 1080p\u21924K bilinear upscale",
+        "baseline_ms": 52.222,
+        "candidate_ms": 43.7369,
+        "speedup": 1.194
+      },
+      {
+        "label": "rgb24\u2192yuv420p 1080p\u2192360p bilinear",
+        "baseline_ms": 7.3897,
+        "candidate_ms": 7.3813,
+        "speedup": 1.0011
+      },
+      {
+        "label": "rgb24 1080p\u2192360p nearest",
+        "baseline_ms": 2.357,
+        "candidate_ms": 2.3534,
+        "speedup": 1.0015
+      },
+      {
+        "label": "rgb24 720p\u21921080p bicubic upscale",
+        "baseline_ms": 21.4463,
+        "candidate_ms": 21.4584,
+        "speedup": 0.9994
+      }
+    ],
+    "correctness_results": [
+      {
+        "label": "yuv420p\u2192rgb24 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv420p\u2192bgra 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192yuv420p 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192bgr24 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192rgba 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192gray8 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgba\u2192yuv420p 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "bgra\u2192rgb24 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv422p\u2192rgb24 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv444p\u2192rgb24 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "nv12\u2192rgb24 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "nv21\u2192rgb24 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192nv12 800x600",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192nv21 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "gray8\u2192rgb24 800x600",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv420p\u2192nv12 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "nv12\u2192yuv420p 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgba\u2192bgra 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "bgr24\u2192rgb24 800x600",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "bgr24\u2192yuv420p 800x600",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv444p\u2192yuv420p 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv420p\u2192gray8 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192yuv422p 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192rgb24 1280x720\u2192640x360 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgb24\u2192rgb24 640x480\u21921280x960 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "yuv420p\u2192rgb24 1280x720\u2192640x360 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgb24\u2192yuv420p 800x600\u2192400x300 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgb24\u2192rgb24 720x576\u2192360x288 nearest",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgb24\u2192rgb24 352x288\u2192704x576 bicubic",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgba\u2192rgba 1280x720\u2192960x540 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      }
+    ],
+    "reason": "Correctness OK (30/30), geometric mean speedup 1.0386x",
+    "total_time_ms": 0
+  }
+}

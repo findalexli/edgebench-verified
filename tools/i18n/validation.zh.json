@@ -28,8 +28,8 @@
   "text": "集成测试门槛得到验证：两个单处修改的缺陷从约 2250 降到 0，诚实的引擎在吞吐量噪声范围内照常得分；在排行榜设置下（--cpus 4 --memory 8g，3 个作业），v2 以 33 项测试通过门槛；修复包在一台干净的机器上从零重建（materialize-check-g1）。平均值之后 Maven 失败的路径只在一个构造的对照组上测试过。"
  },
  "ffmpeg_swscale_reimplementation": {
-  "en": "Current v2.2 judge image built; three paired native full-scorer controls passed, including valid output and exact-zero rejection. Full source-build eval_cmd and whole-task certification remain unverified.",
-  "text": "当前的 v2.2 评分器镜像已构建；三组成对的原生完整计分程序对照通过，包括有效输出和恰好为零的拒绝。完整的源码构建 eval_cmd 和整个任务的认证仍未验证。"
+  "en": "Current v2.2 judge image built, and rebuilt from scratch on a clean machine (materialize-check-final); three paired native full-scorer controls passed, including valid output and exact-zero rejection. Full source-build eval_cmd and whole-task certification remain unverified.",
+  "text": "当前的 v2.2 评分器镜像已构建，并在一台干净的机器上从零重建（materialize-check-final）；三组成对的原生完整计分程序对照通过，包括有效输出和恰好为零的拒绝。完整的源码构建 eval_cmd 和整个任务的认证仍未验证。"
  },
  "git_rewrite_in_zig": {
   "en": "Paired native runs (3 repeats, each exit=0): five honest trees go from 0 to the starter score and the real-git oracle is unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). No real Zig port graded; v2 tested at 8 CPUs only.",
@@ -48,12 +48,12 @@
   "text": "三次成对原生运行（均为 exit=0）：初始代码的原始结果从 0.23 变为如文档所述的约 1.0，诚实的编解码器从 0.83–0.97 变为 6.70–8.27，损坏数据的编解码器在两个版本中都为 0；刻度参考点是精确的；修复包在一台干净的机器上从零重建（materialize-check-g3）。每个数据集的计时噪声约为 ±15%；没有在其他机器类型和 Kubernetes 评分器上测试。"
  },
  "jagua_nesting_optimization": {
-  "en": "v2.1 validated by three identical paired runs of the original, v2 and v2.1 graders (each exit=0): overlap witnesses rejected, legal contact and f32-derived angles accepted, a +0.01 degree rotation rejected on all 15 instances with allowed orientations. The clean-machine rebuild check covered the earlier v2 package only.",
-  "text": "v2.1 由原始、v2 和 v2.1 三个评分器的三次结果相同的成对运行验证（均为 exit=0）：重叠见证被拒绝，合法的接触和由 f32 推出的角度被接受，+0.01 度的旋转在全部 15 个有允许方向的实例上被拒绝。干净机器重建检查只覆盖了较早的 v2 修复包。"
+  "en": "v2.1 validated by three identical paired runs of the original, v2 and v2.1 graders (each exit=0): overlap witnesses rejected, legal contact and f32-derived angles accepted, a +0.01 degree rotation rejected on all 15 instances with allowed orientations. The v2.1 package as committed was rebuilt from scratch on a clean machine (materialize-check-final).",
+  "text": "v2.1 由原始、v2 和 v2.1 三个评分器的三次结果相同的成对运行验证（均为 exit=0）：重叠见证被拒绝，合法的接触和由 f32 推出的角度被接受，+0.01 度的旋转在全部 15 个有允许方向的实例上被拒绝。按提交内容的 v2.1 修复包已在一台干净的机器上从零重建（materialize-check-final）。"
  },
  "juliet_vulnerability_analyzer": {
-  "en": "Hidden-grading paired runs (3 identical runs) validated: public-form CWE-78 answers gain credit, hidden-form and wrong-source answers unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). The +26.473 maximum is computed exactly from the grader's formula, not run.",
-  "text": "隐藏评分的成对运行（3 次结果相同）得到验证：公开形式的 CWE-78 答案获得分数，隐藏形式和来源错误的答案不变；修复包在一台干净的机器上从零重建（materialize-check-g1）。+26.473 的最大值由评分器公式精确计算得出，没有实际运行。"
+  "en": "Hidden-grading paired runs (3 identical runs) validated: public-form CWE-78 answers gain credit, hidden-form and wrong-source answers unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1, again at the final commit in materialize-check-final). The +26.473 maximum is computed exactly from the grader's formula, not run.",
+  "text": "隐藏评分的成对运行（3 次结果相同）得到验证：公开形式的 CWE-78 答案获得分数，隐藏形式和来源错误的答案不变；修复包在一台干净的机器上从零重建（materialize-check-g1，并在最终提交时于 materialize-check-final 再次重建）。+26.473 的最大值由评分器公式精确计算得出，没有实际运行。"
  },
  "lean_analysis_proofs": {
   "en": "Component controls validated; actual eval_cmd dependency path and final grader/work images unverified: the rebuild needs about 45 GB of disk, more than the 21 GB workers used (materialize-check-lean).",

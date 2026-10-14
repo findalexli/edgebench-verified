@@ -56,6 +56,14 @@ Only logs, hashes and image IDs were kept. No image files were kept; `files/` an
 
 "n/a (no COPY)": `openrct2_theme_park_ai-v2` and `treant_forest-v2` change only the task JSON. Their Dockerfile is a no-op `FROM` the original image, so no file in the image is replaced. `arc_compiler_runtime-v2` was built with context `files/` (`docker build -f Dockerfile files`), as its README says. `dabic_gravity_inversion-v2` (the partial fix) passed. Its one output file is installed at both in-image paths, and both were checked.
 
+## Recheck of the revised packages at 37d30d27
+
+Jagua v2.1 and FFmpeg v2.2 changed their patch and lock after `83181b7f`; the Juliet package (only README text changed) was under review.
+They were rebuilt again, exactly as committed at `37d30d27`, on one fresh worker with the same scripts:
+[`../materialize-check-final/README.md`](../materialize-check-final/README.md). All three pass all four
+checks (materialize OK, 1/1 outputs match the lock, `docker build` OK, in-image hash of the replaced file
+matches); the worker records `status: exit=0`.
+
 ## Failure: lean_analysis_proofs-v2 (not checked)
 
 `materialize.sh` failed while pulling the pinned grader image, before any package logic ran:

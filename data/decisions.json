@@ -136,7 +136,7 @@
   "status": "final (v1.0)",
   "repair": "accepted historical v2 component; current v2.2 validates every warmup/timed output and return code, clears buffers, and forces exact zero after correctness failure. Native original/current good, skipped-write and error pairs pass; fast buffer helpers match 40 native layouts and 64 independent synthetic layouts. Valid native control took 43 s versus 38 s original. The slower v2.1 attempt timed out and is preserved; full solver build path is not certified.",
   "package": "repairs/ffmpeg_swscale_reimplementation-v2/",
-  "validation_status": "Current v2.2 judge image built; three paired native full-scorer controls passed, including valid output and exact-zero rejection. Full source-build eval_cmd and whole-task certification remain unverified."
+  "validation_status": "Current v2.2 judge image built, and rebuilt from scratch on a clean machine (materialize-check-final); three paired native full-scorer controls passed, including valid output and exact-zero rejection. Full source-build eval_cmd and whole-task certification remain unverified."
  },
  {
   "task_id": "flt_regular_formalization",
@@ -194,7 +194,7 @@
   "status": "final (v1.0)",
   "repair": "accepted: all overlap witnesses rejected in v2, legal edge contact and tolerance cases accepted; v2.1 widens the orientation tolerance from 1e-6 deg (below f32 resolution, rejected f32-derived angles such as 90.0000025) to 1e-3 deg (3 identical paired runs with the original, v2 and v2.1: f32-angle arm 1.644419 / 0.186857 / 1.644419, +0.01 deg arm rejected on all 15 instances with allowed orientations)",
   "package": "repairs/jagua_nesting_optimization-v2/",
-  "validation_status": "v2.1 validated by three identical paired runs of the original, v2 and v2.1 graders (each exit=0): overlap witnesses rejected, legal contact and f32-derived angles accepted, a +0.01 degree rotation rejected on all 15 instances with allowed orientations. The clean-machine rebuild check covered the earlier v2 package only."
+  "validation_status": "v2.1 validated by three identical paired runs of the original, v2 and v2.1 graders (each exit=0): overlap witnesses rejected, legal contact and f32-derived angles accepted, a +0.01 degree rotation rejected on all 15 instances with allowed orientations. The v2.1 package as committed was rebuilt from scratch on a clean machine (materialize-check-final)."
  },
  {
   "task_id": "juliet_vulnerability_analyzer",
@@ -205,7 +205,7 @@
   "repair": "accepted: hidden grader also accepts source = sink, trace [sink] for CWE-78 answers; public-form CWE-78 analyzer 45.66→60.66, public-form full replay 97.51→100.00; hidden-form analyzer 60.66 and hidden replay 100.00 unchanged; wrong-source, wrong-start and other-CWE sink-only submissions unchanged (45.66, 97.51, 97.51, 70.00); starter and crashing analyzer 10.00 in both; public-data scores identical; 3 runs identical",
   "package": "repairs/juliet_vulnerability_analyzer-v2/",
   "note_scope": "scorer isolation is out of scope (EdgeBench harness design choice)",
-  "validation_status": "Hidden-grading paired runs (3 identical runs) validated: public-form CWE-78 answers gain credit, hidden-form and wrong-source answers unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1). The +26.473 maximum is computed exactly from the grader's formula, not run."
+  "validation_status": "Hidden-grading paired runs (3 identical runs) validated: public-form CWE-78 answers gain credit, hidden-form and wrong-source answers unchanged; package rebuilt from scratch on a clean machine (materialize-check-g1, again at the final commit in materialize-check-final). The +26.473 maximum is computed exactly from the grader's formula, not run."
  },
  {
   "task_id": "k12_math_recommendation",
