@@ -46,7 +46,7 @@ At 4 CPUs the shipped engine runs below the 0-point reference (2,090.63), so it 
 
 ## How much it matters
 
-A broken engine gets full throughput credit instead of 0. Across the four original-grader runs of each broken engine (the single run above and the three side-by-side runs), feeswap scored 7.77–24.40 and dropevents 4.71–15.62 out of 100 (raw 2,269–2,704 and 2,197–2,465); the unmodified engine scored 0–37.52 (raw 2,008–3,105) in the same runs, so these scores are within throughput noise. Any solver whose optimization breaks fees or event delivery while keeping the global balance at zero gets full credit instead of 0.
+A broken engine gets full throughput credit instead of 0. Across the four original-grader runs of each broken engine (the single run above and the three side-by-side runs), feeswap scored 7.77–24.40 and dropevents 4.71–15.62 out of 100 (raw 2,269–2,704 and 2,197–2,465); the unmodified engine scored 0–24.19 (raw 2,008–2,698) in the seven original-grader runs made alongside them (the correct test submission above and the original-grader side of the three side-by-side runs), so these scores are within throughput noise. Any solver whose optimization breaks fees or event delivery while keeping the global balance at zero gets full credit instead of 0.
 
 ## The fix
 
@@ -86,7 +86,7 @@ The raw result is MT/s × 1000. RE means a run error. The single-run results in 
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
-- Throughput varies by up to 38% between runs of one submission on the same machine type (`data/paired-repeatability.md`). Across the three side-by-side runs the unmodified engine ran at 2,008–3,105 raw (0–37.52 out of 100); 2,008 and 2,050 are below the 0-point reference (2,090.63), so a correct engine can score 0. The single-run scores out of 100 above are not a comparison controlled for that variation.
+- Throughput varies by up to 38% between runs of one submission on the same machine type (`data/paired-repeatability.md`). Across the three side-by-side runs, under either grader, the unmodified engine ran at 2,008–3,105 raw (0–37.52 out of 100; 0–24.19 under the original grader alone); 2,008 and 2,050 are below the 0-point reference (2,090.63), so a correct engine can score 0. The single-run scores out of 100 above are not a comparison controlled for that variation.
 - The second change (score 0 when the timed test's Maven run fails after printing an average) is tested only on a constructed shutdown failure (`shutdownbusy`, `evidence/runs/exchange_core_throughput-v2-paired-shutdownfail`), not on code from a real solver.
 - The two integration test classes cover fees, rejections and events. They do not cover every property a correct engine must keep, so an engine with other kinds of wrong behaviour could still pass the fixed grader's test step.
 - The fixed version does not compare per-user balances, positions or the event stream against a reference run. It uses the shipped integration tests instead.

@@ -26,7 +26,7 @@
 
 <section id="large" class="col">
   <h2 class="sec"><span class="num">2</span>为什么真实的影响可能很大</h2>
-  <p>若干最大的影响落在大小未知的那一组中。{{task:integer_compression_codec|Integer Compression Codec}} 把每份提交与存储的参考数值作比较，而文档所述的初始实现达不到这些数值；在两份真实提交上，按文档定义得到的值分别是原始结果的 2.4 倍和 3.7 倍。在 {{task:openttd_transport_ai|OpenTTD}} 中，一个遵循任务说明的程序会调用一个并不存在的函数，然后停止运行。EdgeBench 计分方式的两个特点使这类影响变得更大而不是更小。<mark>由于每次运行保留其最佳分数，一项只是偶尔多给分的检查仍会提高这次运行的结果</mark>；而一个能连续十二小时看到自己分数的智能体，完全有条件找到一项宽松的检查并持续利用它。此外，由于只对有效的运行取平均，一次因缺陷而失败的运行可能被舍弃，而不是按零分计入。</p>
+  <p>若干最大的影响落在大小未知的那一组中。{{task:integer_compression_codec|Integer Compression Codec}} 把每份提交与存储的参考数值作比较，而文档所述的初始实现达不到这些数值；在一次真实智能体运行的全部 37 份提交上，按文档定义得到的值是原始结果的 1.7 到 4 倍。在 {{task:openttd_transport_ai|OpenTTD}} 中，一个遵循任务说明的程序会调用一个并不存在的函数，然后停止运行。EdgeBench 计分方式的两个特点使这类影响变得更大而不是更小。<mark>由于每次运行保留其最佳分数，一项只是偶尔多给分的检查仍会提高这次运行的结果</mark>；而一个能连续十二小时看到自己分数的智能体，完全有条件找到一项宽松的检查并持续利用它。此外，由于只对有效的运行取平均，一次因缺陷而失败的运行可能被舍弃，而不是按零分计入。</p>
 </section>
 
 <section id="real-runs" class="col">
@@ -44,7 +44,7 @@
     <tbody>
       <tr><td>{{task:order_addition_permutation_optimization|Order Addition}}</td><td>评分器</td><td class="n">3.79</td><td class="n"><b>41.24</b></td><td><mark>原始评分器因一个过时的校验和判定每个结果都不通过，因此这次运行保留了智能体的第一份提交；修复版评分器保留的是后来的一份。</mark>全部 9 份提交。</td></tr>
       <tr><td>{{task:integer_compression_codec|Integer Codec}}</td><td>评分器、分数刻度</td><td class="n">75.72</td><td class="n"><b>53.95</b></td><td><mark>修复降低了这次运行的成绩。</mark>每份提交的原始结果都提高到 1.7 到 4 倍，而修复后任务新的 0–100 分刻度把这次运行的最佳成绩定为 53.95 分。在两种评分器下，同一份提交在不同机器之间的波动都可达 ±20%。全部 37 份。</td></tr>
-      <tr><td>{{task:juliet_vulnerability_analyzer|Juliet}}</td><td>评分器</td><td class="n">99.66</td><td class="n">99.66</td><td>14 份早期提交使用了公开示例中的追踪格式，最多损失 25 分；后来的提交改用了隐藏评分器期望的格式。全部 105 份。</td></tr>
+      <tr><td>{{task:juliet_vulnerability_analyzer|Juliet}}</td><td>评分器</td><td class="n">99.66</td><td class="n">99.66</td><td>14 份早期提交在修复后最多高出 25.26 分；后来的提交在两种评分器下得分相同。全部 105 份。</td></tr>
       <tr><td>{{task:molecular_self_assembly|Molecular Self-Assembly}}</td><td>评分器（CPU 数）</td><td class="n">100</td><td class="n">100</td><td>每份重新评分的提交得分都更高：原始结果高约 3–4.5%，单个提交最多高 12.22 分（满分 100；86.03 → 98.25）。这次运行的最佳成绩本来就已达到刻度上限，所以仍为 100 分。13 份中的 8 份。</td></tr>
       <tr><td>{{task:tree_block_partitioning|Tree Block Partitioning}}</td><td>评分器</td><td class="n">100</td><td class="n">100</td><td>缺陷从未出现：受影响的子任务在两种评分器下得分相同。25 份中的 13 份。</td></tr>
       <tr><td>{{task:graph_node_classification|Graph Node Classification}}</td><td>评分器</td><td class="n">90.85</td><td class="n">90.43–90.60</td><td>缺陷从未出现：每份提交在两种评分器下都有效。差别来自计时噪声；原始评分器在我们的机器上给出 90.44–90.60。118 份中的 112 份（有 6 份在存档中缺失）。</td></tr>
@@ -53,7 +53,7 @@
       <tr><td>{{task:lean_analysis_proofs|Lean Analysis}}</td><td>评分器、两条命题</td><td class="n">96.86</td><td class="n">98.42</td><td>计算得出，并未运行：把原始判定对照修复版的证明目标列表计数。</td></tr>
     </tbody>
   </table></div>
-  <p>在 {{task:juliet_vulnerability_analyzer|Juliet}} 中，后来的提交使用了隐藏评分器接受的写法。105 份提交中有 14 份在修复后得分提高，而保留的成绩 99.66 没有变化。{{task:borden_source_inversion|Borden Inversion}} 只读取了运行记录，没有重新评分：在 36 份提交中，这次运行的最佳成绩从 7.01 升到 60.10，而评分器在每次提交后都报告其在隐藏监测井上的误差；7.01 大约是按文档一次性拟合所得的分数。</p>
+  <p>在 {{task:juliet_vulnerability_analyzer|Juliet}} 中，105 份提交中有 14 份（全部是早期提交）在修复后得分提高，而保留的成绩 99.66 没有变化。{{task:borden_source_inversion|Borden Inversion}} 只读取了运行记录，没有重新评分：在 36 份提交中，这次运行的最佳成绩从 7.01 升到 60.10，而评分器在每次提交后都报告其在隐藏监测井上的误差；7.01 大约是按文档一次性拟合所得的分数。</p>
   <p>这只是一个模型、每个任务一次四小时的运行，而不是三次十二小时的运行。它表明这些问题在实践中确实会发生，但无法测量对排行榜的影响。</p>
   <p class="note">逐个任务的完整数字：<a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a> 和 <a href="{{site_root}}data/impact.csv">impact.csv</a>。每一次评分：<code>evidence/runs/opus55-regrade2-summary/summary.json</code>。</p>
 </section>

@@ -198,8 +198,10 @@ repeats). Where a fix changes what the agent sees, regrading old answers would m
 because the agent would have worked differently; that rules out Borden Inversion. Lean Analysis was
 not run, because its grader needs more memory than our machines have; its effect was computed
 instead (96.86 → 98.42). Order Addition changes the most: the original grader kept the run's first
-agent submission, 3.79, while the fixed grader keeps a later one, 41.24. Integer Codec scores 1.7–4×
-higher in raw terms (about 50–54 on the fixed scale, against 75.72 on the old one). On Juliet, the
+agent submission, 3.79, while the fixed grader keeps a later one, 41.24. Every Integer Codec submission scores 1.7–4×
+higher in raw terms, but on the fixed 0–100 scale the run's score falls from the 75.72 it recorded to
+53.95 (the full second regrade of all 37 submissions; an earlier first regrade of one submission gave
+66.31 → 50.08). On Juliet, the
 agent's early submissions lost up to 25 points but its best did not. Tree Block, Graph Node and
 Schemathesis show no sign of their defects in this run, and Molecular stays at the top of its scale.
 This is one model and one four-hour run per task, so it shows the problems occur in practice but

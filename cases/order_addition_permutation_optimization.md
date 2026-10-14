@@ -26,6 +26,8 @@ Example under the original grader: two valid submissions in the order identity, 
 
 This changes the recorded score of any run with more than one valid submission where a later one scores higher. The later improvement is ignored in the run's best score. Some consumers instead take the maximum over all submissions, which does not depend on order. So whether a published number is wrong depends on which consumer produced it. Each submission's own score is unaffected.
 
+**Real agent run.** We regraded all 9 submissions of a third-party Claude Opus 5.5 run (four hours; `evidence/runs/opus55-regrade2-oa/`, `result/worker.json` `status: exit=0`; combined in `evidence/runs/opus55-regrade2-summary/summary.json`) with the original and the fixed grader. Each submission's score is identical under both. The 4 submissions with a score pass 4/5 tests under the original grader and 5/5 under the fixed one; the 5 earlier automatic submissions, which had no `final_result.txt` yet, pass 2/5 and 3/5. So the original grader keeps the run's first scored submission, 3.79 out of 100, and the fixed grader keeps the last, 41.24.
+
 ## The fix
 
 The fixed version changes one value in `tests/test_final_result.py`: `EXPECTED_SCORE_HELPER_SHA256` becomes the installed helper's fingerprint, `337837af…`. These are unchanged: the helper, `.so`, baseline file, prompt, agent's working image, parser, the rule for picking the best submission and the score scale. The task JSON changes only `judge.image_tag`.
@@ -61,7 +63,7 @@ Choice of the run's best submission (task rule `pass_rate_first`, computed with 
 
 ## Limits
 
-- No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
+- Apart from the regraded real run above, effects are shown on test submissions and counterexamples we wrote. The real run is one model and one four-hour run, not the 12-hour leaderboard runs.
 - The submissions are simple: the identity permutation, and short random-swap search runs (30 s and 60 s). They are far from the reference cost. The effect on the choice of best submission does not depend on score size.
 - The choice of best submission was computed with EdgeBench's `select_best` on saved reports, not through a live `judge_server` run. The agent's working image was not run.
 - How often past leaderboard runs had a better later submission was not measured.

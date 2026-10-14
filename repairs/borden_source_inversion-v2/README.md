@@ -4,7 +4,7 @@ Review: [`../../evidence/reviews/borden_source_inversion.md`](../../evidence/rev
 
 ## What this fixes
 
-The grader predicts well readings with a hidden forward model whose conventions are unstated and not textbook physics. A one-shot honest fit to the public data that follows the documentation therefore scores at the baseline level (7.03), while the same fit with the grader's convention scores 31.2. An agent that submits repeatedly can partly learn the convention from the grader's feedback: the best submission of a third-party Claude Opus 5.5 run on the original grader reached 60.10 raw (see the case page). The fixed version gives solvers the grader's own forward-model code and an exact description of its conventions, and adds a score scale from 0 to 109.
+The grader predicts well readings with a hidden forward model whose conventions are unstated and not textbook physics. A one-shot honest fit to the public data that follows the documentation therefore scores at the baseline level (7.03), while the same fit with the grader's convention scores 31.2. An agent that submits repeatedly sees the grader's error on the hidden wells after each submission: a third-party Claude Opus 5.5 run on the original grader climbed from 7.01 to 60.10 raw over 36 submissions (see the case page); how it used that feedback was not verified. The fixed version gives solvers the grader's own forward-model code and an exact description of its conventions, and adds a score scale from 0 to 109.
 
 ### The problem in detail
 

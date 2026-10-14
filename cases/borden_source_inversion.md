@@ -69,7 +69,7 @@ The shipped `forward_model.py` matches the grader's model with max |diff| = 0.0 
 
 ## Limits
 
-- We ran no AI model. The paired results use test submissions and fits we wrote. One third-party Claude Opus 5.5 run on the original grader was read but not regraded (raw results are identical under both graders for the same answer); it shows that iterating agents can partly learn the convention, and it does not test the fix.
+- We ran no AI model. The paired results use test submissions and fits we wrote. One third-party Claude Opus 5.5 run on the original grader was read but not regraded (raw results are identical under both graders for the same answer); its best raw score climbed from 7.01 to 60.10 over 36 submissions while the grader reported its error on the hidden wells after each one. How the agent used that feedback was not verified, and the run does not test the fix.
 - The inverse problem is still weakly determined by the data. The best public-data fit with the exact model reaches 31.2 raw (28.6 out of 100). The fix removes the penalty for the hidden convention, not the difficulty.
 - `C0` remains an "effective intensity" in a non-physical convention. The fixed version documents it rather than fixing it, because fixing the physics would require regenerating the answer key.
 - One fitting method (multi-start least squares, log/hinge loss, one seeded run of 60 or 80 starts) and one textbook model variant were used. The 24-point gap is for that variant.
