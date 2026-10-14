@@ -8,29 +8,29 @@
 
 ## What the task asks
 
-The prompt asks for a permutation (an ordering) of 1..1000 that minimises a black-box response. It lists what "the evaluator will check": no private access; the baseline file is unmodified; `final_result.txt` exists; `final_pai` is a valid permutation; `final_cost` matches the recomputed cost.
+The prompt asks for a permutation (an ordering) of 1..1000 that minimises a black-box response. It lists what "the evaluator will check": no private access, an unmodified baseline file, that `final_result.txt` exists, that `final_pai` is a valid permutation, and that `final_cost` matches the recomputed cost.
 
-A continuous score is then "calculated using `score_cost_num(cost, num)` from the evaluator-side private `tests/score_vcpom_result.py`". Nothing in the contract mentions a helper fingerprint. The solver cannot affect one, because `tests/` is excluded from submissions. Category: Combinatorial Optimization.
+The evaluator then gives a continuous score "calculated using `score_cost_num(cost, num)` from the evaluator-side private `tests/score_vcpom_result.py`". Nothing in the contract mentions a helper fingerprint. The solver cannot affect one, because submissions exclude `tests/`. Category: Combinatorial Optimization.
 
 ## What goes wrong
 
-**One test always fails.** `test_private_judge_files_are_available` asserts that the installed helper's sha256 fingerprint equals `3023b9a4…`. That is the fingerprint of an earlier helper with Chinese comments. A later image layer replaced the helper with an English-comment translation, `337837af…`, and the expected value was not updated. The two helper versions differ only in comments, a docstring and example labels. `parse_result_file` and `score_cost_num` work identically. The check is unconditional and fails for every submission.
+One test always fails. `test_private_judge_files_are_available` asserts that the installed helper's sha256 fingerprint equals `3023b9a4…`. That is the fingerprint of an earlier helper with Chinese comments. A later image layer replaced the helper with an English-comment translation, `337837af…`, but nobody updated the expected value. The two helper versions differ only in comments, a docstring and example labels, and `parse_result_file` and `score_cost_num` work identically in both. The check is unconditional and fails for every submission.
 
-- **Each submission's score is correct.** Only this one test fails. The other four still run, and `TOTAL_SCORE` is computed with the installed helper.
-- **Pass rate is capped.** A fully correct submission gets pass rate 0.8 instead of 1.0.
-- **The run's choice of best submission freezes.** This task's rule (`pass_rate_first`) keeps the submission that passes the most tests. It compares scores only when both pass rates are 1.0. Otherwise a later submission wins only with a strictly higher pass rate. Every submission is capped at 0.8 and every scored one reaches it, so the run's `best_score` / `best_round` stay on the **first** scored submission.
+- Each submission's score is still correct. Only this one test fails; the other four still run, and the grader computes `TOTAL_SCORE` with the installed helper.
+- The pass rate is capped. A fully correct submission gets pass rate 0.8 instead of 1.0.
+- The run's choice of best submission freezes. This task's rule (`pass_rate_first`) keeps the submission that passes the most tests and compares scores only when both pass rates are 1.0; otherwise a later submission wins only with a strictly higher pass rate. Every submission is capped at 0.8 and every scored one reaches it, so the run's `best_score` / `best_round` stay on the **first** scored submission.
 
-Example under the original grader: two valid submissions in the order identity, then search. The identity permutation scores 3.3e-09, and the search result scores higher. Expected: search is chosen. Observed: identity is chosen, and the better later submission is ignored.
+For example, we gave the original grader two valid submissions, identity first and then search. The identity permutation scores 3.3e-09, and the search result scores higher. The grader should keep search; it keeps identity and ignores the better later submission.
 
 ## How much it matters
 
-This changes the recorded score of any run with more than one valid submission where a later one scores higher. The later improvement is ignored in the run's best score. Some consumers instead take the maximum over all submissions, which does not depend on order. So whether a published number is wrong depends on which consumer produced it. Each submission's own score is unaffected.
+This changes the recorded score of any run with more than one valid submission where a later one scores higher, because the run's best score ignores the later improvement. Some consumers instead take the maximum over all submissions, which does not depend on order, so whether a published number is wrong depends on which consumer produced it. Each submission's own score is unaffected.
 
-**Real agent run.** We regraded all 9 submissions of a third-party Claude Opus 5.5 run (four hours; `evidence/runs/opus55-regrade2-oa/`, `result/worker.json` `status: exit=0`; combined in `evidence/runs/opus55-regrade2-summary/summary.json`) with the original and the fixed grader. Each submission's score is identical under both. The 4 submissions with a score pass 4/5 tests under the original grader and 5/5 under the fixed one; the 5 earlier automatic submissions, which had no `final_result.txt` yet, pass 2/5 and 3/5. So the original grader keeps the run's first scored submission, 3.79 out of 100, and the fixed grader keeps the last, 41.24.
+In a real agent run, we regraded all 9 submissions of a third-party Claude Opus 5.5 run (four hours; `evidence/runs/opus55-regrade2-oa/`, `result/worker.json` `status: exit=0`; combined in `evidence/runs/opus55-regrade2-summary/summary.json`) with the original and the fixed grader. Each submission's score is identical under both. The 4 submissions with a score pass 4/5 tests under the original grader and 5/5 under the fixed one; the 5 earlier automatic submissions, which had no `final_result.txt` yet, pass 2/5 and 3/5. The original grader therefore keeps the run's first scored submission, 3.79 out of 100, and the fixed grader keeps the last, 41.24.
 
 ## The fix
 
-The fixed version changes one value in `tests/test_final_result.py`: `EXPECTED_SCORE_HELPER_SHA256` becomes the installed helper's fingerprint, `337837af…`. These are unchanged: the helper, `.so`, baseline file, prompt, agent's working image, parser, the rule for picking the best submission and the score scale. The task JSON changes only `judge.image_tag`.
+The fixed version changes one value in `tests/test_final_result.py`: `EXPECTED_SCORE_HELPER_SHA256` becomes the installed helper's fingerprint, `337837af…`. The helper, `.so`, baseline file, prompt, agent's working image, parser, the rule for picking the best submission and the score scale are unchanged. The task JSON changes only `judge.image_tag`.
 
 | Submission | Role | Grader | Tests passed | pass_rate | Raw TOTAL_SCORE | Score out of 100 | Failing test |
 | --- | --- | --- | --- | ---: | ---: | ---: | --- |
@@ -43,7 +43,7 @@ The fixed version changes one value in `tests/test_final_result.py`: `EXPECTED_S
 | dup (not a permutation) | invalid test submission | Original | 3/5 | 0.60 | none | none | fingerprint, permutation |
 | dup | invalid test submission | Fixed | 4/5 | 0.80 | none | none | permutation |
 
-Choice of the run's best submission (task rule `pass_rate_first`, computed with EdgeBench's `select_best`):
+We computed the run's choice of best submission with EdgeBench's `select_best` under the task rule `pass_rate_first`.
 
 | Submission order | Original grader picks | Fixed grader picks |
 | --- | --- | --- |
@@ -52,23 +52,23 @@ Choice of the run's best submission (task rule `pass_rate_first`, computed with 
 | dup, identity, search | **identity** (3.3e-09) | **search** (0.00937) |
 | badcost, identity, search | **identity** (3.3e-09) | **search** (0.00937) |
 
-**Score compatibility:** each submission's raw result and score out of 100 are unchanged, bit for bit. Pass rates change: a legal submission now gets 5/5 instead of 4/5. The run's `best_score` / `best_round` under `pass_rate_first` are not comparable with the original version whenever a run had more than one valid submission and a later one scored higher. The original version kept the first, and the fixed version keeps the best.
+Each submission's raw result and score out of 100 are unchanged, bit for bit. Pass rates change, and a legal submission now gets 5/5 instead of 4/5. The run's `best_score` / `best_round` under `pass_rate_first` are not comparable with the original version whenever a run had more than one valid submission and a later one scored higher. The original version kept the first, and the fixed version keeps the best.
 
 ## How we checked it
 
-- **Original grader.** The installed helper was hashed inside the original public image, pinned by digest, and compared with the value the test expects. The original `eval_cmd` (`python -m pytest tests/test_final_result.py -s -v`) ran under `--network none --memory 2g --cpus 2` on valid and invalid test submissions.
-- **Choice of best submission.** The saved logs were fed through the harness's own `grade_output`, `rescale_score` and `select_best`, from EdgeBench's harness (`sforge` at `6e4e5f4`).
-- **Formal check (TLA+).** A bounded model of the selection rule, tied to `selection.py` and `grading.py` line by line, was model-checked: 5,421,361 states with no violation; three further configurations (`k1`–`k3`) are violated as the note states (`evidence/formal/tla/order_addition_permutation_optimization/`, `evidence/formal/notes/order_addition_permutation_optimization.md`).
-- **Side-by-side run of the original and fixed graders.** Each submission ran in a fresh `--network none` container through the TaskSpec `eval.sh`. A check beforehand confirmed that each image collects 5 tests. It was repeated three times with no verdict change ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
+- We hashed the installed helper inside the original public image, pinned by digest, and compared it with the value the test expects. The original `eval_cmd` (`python -m pytest tests/test_final_result.py -s -v`) ran under `--network none --memory 2g --cpus 2` on valid and invalid test submissions.
+- To find the choice of best submission, we fed the saved logs through the harness's own `grade_output`, `rescale_score` and `select_best`, from EdgeBench's harness (`sforge` at `6e4e5f4`).
+- For a formal check in TLA+, we model-checked a bounded model of the selection rule, tied to `selection.py` and `grading.py` line by line. It covered 5,421,361 states with no violation, and the checker finds the violations the note describes in three further configurations, `k1` to `k3` (`evidence/formal/tla/order_addition_permutation_optimization/`, `evidence/formal/notes/order_addition_permutation_optimization.md`).
+- In the side-by-side run of the original and fixed graders, each submission ran in a fresh `--network none` container through the TaskSpec `eval.sh`. A check beforehand confirmed that each image collects 5 tests. We repeated the run three times with no verdict change ([`data/paired-repeatability.md`](../data/paired-repeatability.md)).
 
 ## Limits
 
-- Apart from the regraded real run above, effects are shown on test submissions and counterexamples we wrote. The real run is one model and one four-hour run, not the 12-hour leaderboard runs.
-- The submissions are simple: the identity permutation, and short random-swap search runs (30 s and 60 s). They are far from the reference cost. The effect on the choice of best submission does not depend on score size.
-- The choice of best submission was computed with EdgeBench's `select_best` on saved reports, not through a live `judge_server` run. The agent's working image was not run.
-- How often past leaderboard runs had a better later submission was not measured.
-- The earlier helper (`3023b9a4…`) is not kept in this repository, so the statement that the two helpers differ only in comments rests on the earlier extraction. Scores do not depend on it, because both versions grade with the installed helper.
-- The fixed image is not published to a registry; users build it with the package's `materialize.sh` and `Dockerfile` (rebuilt from scratch on a clean machine in `evidence/runs/materialize-check-g2`, `status: exit=0`).
+- Apart from the regraded real run above, the effects shown come from test submissions and counterexamples we wrote. The real run is one model and one four-hour run, not the 12-hour leaderboard runs.
+- The submissions are simple ones, the identity permutation and short random-swap search runs (30 s and 60 s), far from the reference cost. The effect on the choice of best submission does not depend on score size.
+- We computed the choice of best submission with EdgeBench's `select_best` on saved reports, not through a live `judge_server` run, and we did not run the agent's working image.
+- We did not measure how often past leaderboard runs had a better later submission.
+- This repository does not keep the earlier helper (`3023b9a4…`), so the statement that the two helpers differ only in comments rests on the earlier extraction. Scores do not depend on it, because both versions grade with the installed helper.
+- The fixed image is not in any registry; users build it with the package's `materialize.sh` and `Dockerfile` (rebuilt from scratch on a clean machine in `evidence/runs/materialize-check-g2`, `status: exit=0`).
 - The fix also changes one harness fallback. `pass_rate_first` reports `best_score = pass_rate` when the chosen submission has no score (`sforge/harness/selection.py`, `_pass_rate_first`). A run with only invalid submissions (for example badcost) therefore reports 0.6 under the original version and 0.8 under the fixed version. In both versions that value is above every valid submission's score measured here (3.3e-09 to 0.0094 out of 100, table above), so an all-invalid run reports a higher `best_score` than these valid runs.
 
 ## Reproduce

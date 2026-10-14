@@ -12,15 +12,15 @@ The solver modernizes the configuration layer of schemathesis 3.39.16, a tool fo
 
 ## What goes wrong
 
-**Rule.** The decorator must return the function unchanged. The original test `test_metric_decorator_returns_function` only asserts `callable(another_metric)`. A wrapper that forwards calls to the function therefore scores the same as a correct decorator.
+The decorator must return the function unchanged, but the original test `test_metric_decorator_returns_function` only asserts `callable(another_metric)`. A wrapper that forwards calls to the function therefore scores the same as a correct decorator.
 
-**Example.** Three variants of `metric` were tested on a minimal implementation of Target 3:
+We tested three variants of `metric` on a minimal implementation of Target 3.
 
-- `identity` registers the function and returns it. This is correct.
-- `wrapper` returns a forwarding wrapper built with `functools.wraps`. This is plausibly wrong.
-- `no_register` never registers the function. This is clearly wrong.
+- `identity` registers the function and returns it, which is correct.
+- `wrapper` returns a forwarding wrapper built with `functools.wraps`, which is plausibly wrong.
+- `no_register` never registers the function, which is clearly wrong.
 
-Phase 3 results under the original tests (`orig`) and the fixed tests (`repaired`):
+These are the Phase 3 results under the original tests (`orig`) and the fixed tests (`repaired`).
 
 ```
 variant=identity    tests=orig     :: 15 passed
@@ -31,15 +31,15 @@ variant=no_register tests=orig     :: 3 failed, 12 passed
 variant=no_register tests=repaired :: 4 failed, 12 passed
 ```
 
-Expected under the specification: the wrapper should lose the test item that checks identity. Observed on the original grader: the wrapper passes 15/15, the same as the correct decorator.
+Under the specification, the wrapper should lose the test item that checks identity. On the original grader it passes 15/15, the same as the correct decorator.
 
-**Why it matters, and why only slightly.** In behaviour, the wrapper is almost equivalent to the correct decorator. It keeps `__name__`, registers under the right name, returns the same values, and works with the collector and with `hypothesis.target`. The only differences are `decorated is original` and the presence of `__wrapped__`. The wrong implementation gains no advantage over a correct one; it only avoids losing one item. The authors probably intended identity: the Phase 6 test asserts `result is my_func` for `@check`, but Phase 3 has no such check.
+The effect is small. In behaviour, the wrapper is almost equivalent to the correct decorator. It keeps `__name__`, registers under the right name, returns the same values, and works with the collector and with `hypothesis.target`. The only differences are `decorated is original` and the presence of `__wrapped__`. The wrong implementation gains no advantage over a correct one and only avoids losing one item. The authors probably intended identity, since the Phase 6 test asserts `result is my_func` for `@check` and Phase 3 has no such check.
 
 ## How much it matters
 
-At most 1/160 of the total, 0.625 points out of 100. The score is Σ(weight × passed/total)/10 over six phases, and Phase 3 has weight 1. With the fixed version's 16 Phase 3 tests, a wrapper that passes k of the 15 original tests drops from k/15 to k/16 of the Phase 3 weight, a loss of k/2400; at k = 15 that is 1/160, the measured −0.006250. (In the original 15-test phase, one test is worth 1/15 × 1/10 = 1/150.)
+The effect is at most 1/160 of the total, 0.625 points out of 100. The score is Σ(weight × passed/total)/10 over six phases, and Phase 3 has weight 1. With the fixed version's 16 Phase 3 tests, a wrapper that passes k of the 15 original tests drops from k/15 to k/16 of the Phase 3 weight, a loss of k/2400; at k = 15 that is 1/160, the measured −0.006250. (In the original 15-test phase, one test is worth 1/15 × 1/10 = 1/150.)
 
-The score scale is not a pure penalty. A submission whose decorator returns the function unchanged but passes only k < 15 of the original Phase 3 tests rises from k/15 to (k+1)/16, a gain of (15 − k)/2400. Either change is at most 1/160 per run. Only submissions with a wrapper decorator, or with a partly passed Phase 3, score differently.
+The change does not only lower scores. A submission whose decorator returns the function unchanged but passes only k < 15 of the original Phase 3 tests rises from k/15 to (k+1)/16, a gain of (15 − k)/2400. Either change is at most 1/160 per run. Only submissions with a wrapper decorator, or with a partly passed Phase 3, score differently.
 
 ## The fix
 
@@ -55,25 +55,25 @@ The weights, the parser, the score scale and the 126 original tests are unchange
 | wrapper | plausibly wrong: returns a `functools.wraps` forwarding wrapper | 0.135313 | 0.129063 | **−0.006250 (−1/160)** | 15/15 → 15/16 |
 | no_register | invalid test submission: never registers | 0.115313 | 0.110313 | −0.005000 | 12/15 → 12/16 |
 
-In every variant, the only test items whose results differ are the added identity test and, for the wrapper, the Phase 3 "all passed" item (`test_phase_3`), which flips from passed to failed. The other 131 original items keep their result from the original grader. Scores are raw values on a 0–1 scale; the task's `linear` 0..1 scale gives the score out of 100 as 100 × raw (0.135313 is 13.53). Scores are partial because the overlay implements Target 3 only, not the whole task.
+In every variant, the only test items whose results differ are the added identity test and, for the wrapper, the Phase 3 "all passed" item (`test_phase_3`), which flips from passed to failed. The other 131 original items keep their result from the original grader. Scores are raw values on a 0 to 1 scale; the task's `linear` 0..1 scale gives the score out of 100 as 100 × raw (0.135313 is 13.53). Scores are partial because the overlay implements Target 3 only, not the whole task.
 
-**Score compatibility.** Scores from the original and fixed graders are identical when the submission passes all 16 tests of the fixed Phase 3, or fails all of them. When Phase 3 is partly passed they are not comparable, because the phase has 16 tests instead of 15, and an imperfect phase yields a different fraction.
+Scores from the original and fixed graders are identical when the submission passes all 16 tests of the fixed Phase 3, or fails all of them. When Phase 3 is partly passed they are not comparable, because the phase has 16 tests instead of 15, and an imperfect phase yields a different fraction.
 
 ## How we checked it
 
-- **Original grader in the original public image, pinned by digest.** The grader image holds the unmodified schemathesis 3.39.16 starting code in `/app` and no reference solution. Each variant and the untouched starting code ran through the full original `judge.eval_cmd` (`bash /tests/test.sh` plus the structured parser), in a fresh `--network none` container, under both the original and the fixed tests.
-- **Independent check.** The sentence of the specification in `TODO.md` ("Returns the function unchanged") is the reference, and the added test checks it directly. No formal model applies.
-- **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times, and no outcome changed (`data/paired-repeatability.md`).
+- We ran the original grader in the original public image, pinned by digest. The grader image holds the unmodified schemathesis 3.39.16 starting code in `/app` and no reference solution. Each variant and the untouched starting code ran through the full original `judge.eval_cmd` (`bash /tests/test.sh` plus the structured parser), in a fresh `--network none` container, under both the original and the fixed tests.
+- For an independent check, the reference is the sentence of the specification in `TODO.md` ("Returns the function unchanged"), and the added test checks it directly. No formal model applies.
+- We repeated the side-by-side run of the original and fixed graders three times, and no outcome changed (`data/paired-repeatability.md`).
 
 ## Limits
 
-- No AI model or solver runs were made. Effects are shown only on test submissions that we wrote.
+- We ran no AI model or solver. The effects shown come only from test submissions that we wrote.
 - The overlay is a minimal implementation of Target 3, not a complete solution to the task, so the absolute scores are partial.
-- No historical submissions were examined, so how often real solvers write wrapper decorators is unknown.
-- `TODO.md` was not extracted again from the pinned work image.
-- The added test checks `schemathesis.generation.metrics.metric`; the top-level `schemathesis.metric`, which `TODO.md` names, is still only checked for being callable, so a wrapper re-exported at the top level (for example with `functools.wraps`) still passes all three metric tests although `schemathesis.metric(f) is f` is false (local probe). Closing this would need one more assertion and a new paired run.
-- The package was rebuilt from scratch on a clean machine (`evidence/runs/materialize-check-g2`, `status: exit=0`): `materialize.sh` ran unchanged, both outputs matched the lock and the built image holds the locked test files.
-- The hidden tests are not stored in this repository. They are extracted from the pinned grader image when the check is rerun.
+- We examined no historical submissions, so we do not know how often real solvers write wrapper decorators.
+- We did not extract `TODO.md` again from the pinned work image.
+- The added test checks `schemathesis.generation.metrics.metric`; for the top-level `schemathesis.metric`, which `TODO.md` names, the tests still check only that it is callable, so a wrapper re-exported at the top level (for example with `functools.wraps`) still passes all three metric tests although `schemathesis.metric(f) is f` is false (local probe). Closing this would need one more assertion and a new paired run.
+- We rebuilt the package from scratch on a clean machine (`evidence/runs/materialize-check-g2`, `status: exit=0`). `materialize.sh` ran unchanged, both outputs matched the lock, and the built image holds the locked test files.
+- This repository does not store the hidden tests. The scripts extract them from the pinned grader image when you rerun the check.
 
 ## Reproduce
 

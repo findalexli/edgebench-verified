@@ -12,27 +12,23 @@ The solver writes a plugin for OpenRCT2, a theme-park simulation game, that "max
 
 ## What goes wrong
 
-**The promised length of play cannot be reached.** The wrapper script sets `OPENRCT2_TIMEOUT=120` per scenario and caps the whole run at 1,800 s. The task manifest's `eval_timeout` is 2,400 s. The grader's monitor has `targetDays = 992` and emits `DONE` only at that date. The scoring code uses the last monitor sample and never checks whether `DONE` was reached.
+No submission can reach the promised length of play. The wrapper script sets `OPENRCT2_TIMEOUT=120` per scenario and caps the whole run at 1,800 s. The task manifest's `eval_timeout` is 2,400 s. The grader's monitor has `targetDays = 992` and emits `DONE` only at that date. The scoring code uses the last monitor sample and never checks whether `DONE` was reached.
 
-- With 2 CPUs and speed 4 the engine advances 0.593 to 0.597 game days per wall-clock second (0.602 when speed 8 was requested, which runs as speed 4). The rate is limited by real time, not by the host's CPU: at 0.25 CPU it was 0.582, about 2% lower. Start-up is CPU-bound, though: at 0.25 CPU the first sample arrived at 11.5 s instead of 4.6 s, so a 60 s run reached 27 game days instead of 33 (`paired/check_horizon.out`).
+- With 2 CPUs and speed 4 the engine advances 0.593 to 0.597 game days per wall-clock second (0.602 when speed 8 was requested, which runs as speed 4). Real time limits the rate more than the host's CPU does; at 0.25 CPU the rate was 0.582, about 2% lower. Start-up is CPU-bound, though. At 0.25 CPU the first sample arrived at 11.5 s instead of 4.6 s, so a 60 s run reached 27 game days instead of 33 (`paired/check_horizon.out`).
 - Each 120 s scenario covered 68 to 69 game days, about 7% of the 992-day target, and `DONE` was never seen.
 - Reaching 992 days would take about 1,667 s per scenario, far beyond the 120 s scenario budget. For all three scenarios together (about 83 minutes) it would also exceed the 1,800 s wrapper cap and the 2,400 s manifest timeout.
 
-Example on the original grader (120 s, speed 4, medium scenario):
+On the original grader (120 s, speed 4, medium scenario), the prompt leads the solver to expect about 4 game years. The game ran from date 8,4,25 to 8,7,2, which is 69 game days. Company value went from 198,010 to 133,260, and the normalized company value (the task's per-scenario result) was 0.915. The average over the three scenarios was 1.038, which the wrapper would print as `TOTAL_SCORE 10384` (computed; we did not run the wrapper itself).
 
-- Expected from the prompt: about 4 game years.
-- Observed: the game ran from date 8,4,25 to 8,7,2, which is 69 game days. Company value went from 198,010 to 133,260, and the normalized company value (the task's per-scenario result) was 0.915.
-- The average over the three scenarios was 1.038, which the wrapper would print as `TOTAL_SCORE 10384` (computed; the wrapper itself was not run).
+The solver also controls the game speed. `gamesetspeed` is on the list of allowed calls, and the submission's later call overrides the monitor's speed 4. Speed 1 ran at 0.077 days/s (2 game days from 2 samples over 25.8 s; it agrees with the model's 0.075) and speed 3 at 0.291 days/s. The engine rejects speed 8. A slower game can hold company value near its starting value, although in these runs the cap of 1.10 hid this.
 
-**The solver controls the game speed.** `gamesetspeed` is on the list of allowed calls, and the submission's later call overrides the monitor's speed 4. Speed 1 ran at 0.077 days/s (2 game days from 2 samples over 25.8 s; it agrees with the model's 0.075) and speed 3 at 0.291 days/s. Speed 8 is rejected. A slower game can hold company value near its starting value. In these runs the cap of 1.10 hid this.
-
-This matters because the task measures company value after about 2 months, not about 4 years. A solver that plans for the stated length of play is optimizing the wrong thing.
+The task therefore measures company value after about 2 months instead of about 4 years, and a solver that plans for the stated length of play is optimizing the wrong thing.
 
 ## How much it matters
 
-This was not measured as a score change. The problem changes *what* is measured: value after about 2 months instead of about 4 years. It was not shown to raise or lower any particular solver's score. All solvers that planned for the stated length of play are affected.
+This was not measured as a score change. The problem changes *what* the task measures, value after about 2 months instead of about 4 years. We did not show that it raises or lowers any particular solver's score. It affects every solver that planned for the stated length of play.
 
-Scoring only runs that reach `DONE` is not a fix: under the shipped 120 s budget it would score every submission 0.
+Scoring only runs that reach `DONE` would not fix it, because under the shipped 120 s budget every submission would score 0.
 
 ## The fix
 
@@ -44,7 +40,7 @@ The fixed version replaces one Rules bullet in `work.agent_query` (the task prom
 
 The images, `eval_cmd`, timeouts, parser and the reference points of the score scale (linear, 0 to 40000) are unchanged. No other file the solver sees states a length of play.
 
-Side-by-side check (prompt only; copied from `paired/results.md`):
+The side-by-side check covers the prompt only (copied from `paired/results.md`).
 
 | Check | Status |
 |---|---|
@@ -72,27 +68,27 @@ run_60s_speed8.log (new)     scenario_small.park     60   8    5.0   59.9   33(2
 
 **Are scores comparable?**
 
-- **Same grader, same scores.** A given `my_plugin.js` gets the same score under the original and fixed versions, up to the usual run-to-run variation of a real-time game. Runs of the original version already had the same real 120 s length.
-- **Not comparable as measures of solver ability** where a solver's strategy depended on the prompt. A solver of the original version may have planned for 4 years. A solver of the fixed version can front-load its strategy or deliberately lower the speed.
+- Under the same grader, scores are the same. A given `my_plugin.js` gets the same score under the original and fixed versions, up to the usual run-to-run variation of a real-time game. Runs of the original version already had the same real 120 s length.
+- As measures of solver ability, scores are not comparable where a solver's strategy depended on the prompt. A solver of the original version may have planned for 4 years, while a solver of the fixed version can front-load its strategy or lower the speed on purpose.
 
 ## How we checked it
 
-- **Original grader, from the public image pinned by digest.** The original helper's own `validate_plugin`, `run_scenario` and `score_scenario` functions ran in the grader image. The only addition was a tee on the engine's stdout. Runs used `--network none --memory 2g --cpus 2`, and one run used `--cpus 0.25`. Runs covered 120 s on all three scenarios and 60 s at speeds 1, 3, 4 and 8, with a simple test plugin.
-- **Independent rate model.** A model built from first principles, using the tick and month constants documented in `openrct2.d.ts`, predicts the measured rates (the "model" column above).
+- We ran the original grader from the public image pinned by digest. The original helper's own `validate_plugin`, `run_scenario` and `score_scenario` functions ran in the grader image, and our only addition was a tee on the engine's stdout. Runs used `--network none --memory 2g --cpus 2`, and one run used `--cpus 0.25`. With a simple test plugin, we ran 120 s on all three scenarios and 60 s at speeds 1, 3, 4 and 8.
+- As an independent check, a rate model built from first principles, using the tick and month constants documented in `openrct2.d.ts`, predicts the measured rates (the "model" column above).
 - Nothing executable changed in the fixed version, so there is no side-by-side scoring run to repeat.
 
 ## Limits
 
-- No AI model or solver was run. The effects shown are on the test plugins we wrote only, and no effect on the leaderboard is estimated.
-- **The incentive to lower the speed remains.** The fixed version states the speed rule accurately but does not stop a plugin from lowering the speed. Removing the incentive needs a change to the grader: re-assert speed 4 every tick, or score at a fixed game date with a long enough budget.
-- **About 70 days assumes the engine keeps real time.** Hosts are not pinned. A slower host, an overloaded host or a heavy plugin could fall further behind.
-- **Small set of runs.** Each configuration ran once, with one simple test plugin whose staff hiring failed. No competitive plugin was run.
-- **Not run through the wrapper.** The full three-scenario sequence ran through the helper's functions, not through `eval_openrct2.py`. The reference point of 40000 on the score scale was not examined.
+- We ran no AI model or solver. The effects shown come only from the test plugins we wrote, and we did not estimate an effect on the leaderboard.
+- The incentive to lower the speed remains. The fixed version states the speed rule accurately but does not stop a plugin from lowering the speed. Removing the incentive needs a change to the grader, either re-asserting speed 4 every tick or scoring at a fixed game date with a long enough budget.
+- The figure of about 70 days assumes the engine keeps real time. The task does not pin hosts, and a slow or overloaded host or a heavy plugin could fall further behind.
+- The set of runs is small. Each configuration ran once, with one simple test plugin whose staff hiring failed, and we ran no competitive plugin.
+- We did not run the wrapper. The full three-scenario sequence ran through the helper's functions instead of `eval_openrct2.py`, and we did not examine the reference point of 40000 on the score scale.
 
 ## Reproduce
 
 - Grader image: `sha256:a5263578…`.
-- Driver and test plugins: `evidence/scripts/openrct2_theme_park_ai/driver.py`, `plugin.js` and `plugin_speed1.js`. Saved logs are `run_*.log` in the same folder.
+- Driver and test plugins: `evidence/scripts/openrct2_theme_park_ai/driver.py`, `plugin.js` and `plugin_speed1.js`. The saved logs are the `run_*.log` files in the same folder.
 - Length-of-play check, run from `repairs/openrct2_theme_park_ai-v2/paired/`: `python3 -I check_horizon.py ../../../evidence/scripts/openrct2_theme_park_ai/run_*.log logs/run_*.log`
 - Prompt diff: `repairs/openrct2_theme_park_ai-v2/repair.patch`, which goes from `orig/agent_query.md` to `files/agent_query.md`.
 - Supporting records: `repairs/openrct2_theme_park_ai-v2/` (the folder holding the fixed version: README, `source-lock.json`, `paired/results.md`).
