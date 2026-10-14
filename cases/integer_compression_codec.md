@@ -37,11 +37,11 @@ On the original grader:
 
 Every score is off the documented scale. The distortion differs by dataset, so the datasets are weighted differently from the documentation.
 
-What works correctly: the data regenerate exactly, and the roundtrip check (decoding must return the original integers) rejects a codec that corrupts data. Two small deviations do not matter for honest solvers. The image ships g++ 11.4 instead of the documented 12.2. And "encode + decode ≤ 300 s" is enforced as two separate 300 s limits.
+What works correctly: the data regenerate exactly, and the roundtrip check (decoding must return the original integers) rejects a codec that corrupts data. Two small deviations do not matter for solvers that follow the rules. The image ships g++ 11.4 instead of the documented 12.2. And "encode + decode ≤ 300 s" is enforced as two separate 300 s limits.
 
 ## How much it matters
 
-- All solvers are affected. On raw results, the starter gets about 0.24 instead of 1.0, and the honest codec about 0.8 instead of about 6–8 (timing-dependent; see the table below).
+- All solvers are affected. On raw results, the starter gets about 0.24 instead of 1.0, and the correct codec about 0.8 instead of about 6–8 (timing-dependent; see the table below).
 - The compression term alone is distorted by a factor of 0.12 to 0.81 per dataset, up to 6.7× relative to one another. The speed term adds its own per-dataset distortion. Together, the unchanged starter's per-dataset scores on the original grader, which should all be 1.0, range from 0.078 (ts_sec) to 0.647 (rand) in the published paired run, 8.3× apart; the two repeats give 8.9× and 7.5× (`paired/evidence/summary.txt` and the `-rep2`, `-rep3` runs). So the effective weights of the datasets differ from the documented weights by about 7–9× relative to one another on the machine measured. Solutions that trade compression between datasets can rank differently than the documentation implies.
 - Within a single dataset, the score still rises with better compression and speed.
 - The speed term divides a local measurement by a constant from another machine, so scores also depend on the machine that grades them.
@@ -62,7 +62,7 @@ The fixed version implements the documented definition: the grader measures the 
 | Honest test submission | delta + zigzag + varint | **0.8253 / 0.8253** | **6.7024 / 1.79** (repeat **6.9708 / 1.87**) | 8/8 / 8/8 | 0 / 0 | fixed = documented definition (offline rescore of the original grader's logs against its own starter run: 7.43; separate run of the original grader: 6.24) | yes |
 | Invalid test submission | starter with one corrupted value | **0 / 0** | **0 / 0** | 0/8 / 0/8 (`roundtrip mismatch`) | 0 / 0 | 0 in both | yes |
 
-Under the fixed version the starter's compression ratio is exactly 1.0 on every dataset, and its speed ratios per dataset range from 0.93 to 1.07 in this run and from 0.84 to 1.14 over all six fixed-version starter runs. The remaining distance from 1.0 is timing noise. The honest codec's compression terms are exact; for example, ts_sec is 40.00 / 8.00 bpi = 5.0×. The original-grader values in this table differ slightly from those in "What goes wrong" because the speed term varies between runs. The fixed version adds about 20 s per grading (44 s instead of 24 s of wall time).
+Under the fixed version the starter's compression ratio is exactly 1.0 on every dataset, and its speed ratios per dataset range from 0.93 to 1.07 in this run and from 0.84 to 1.14 over all six fixed-version starter runs. The remaining distance from 1.0 is timing noise. The correct codec's compression terms are exact; for example, ts_sec is 40.00 / 8.00 bpi = 5.0×. The original-grader values in this table differ slightly from those in "What goes wrong" because the speed term varies between runs. The fixed version adds about 20 s per grading (44 s instead of 24 s of wall time).
 
 **Are scores comparable?** Scores from the fixed version are not comparable with scores from the original for any submission. Each per-dataset score changes by the ratio of the measured starter to the stored constants. In the published paired run that ratio ranged from about 1.5× (rand, 1/0.647) to about 13× (ts_sec, 1/0.078), so rankings between solutions that trade off across datasets can change. Failing submissions still score 0. The fixed grader's scores out of 100 in the table use the fixed score scale (1.0..320), computed from the recorded raw results.
 
@@ -83,11 +83,11 @@ So, comparing like with like on our machines (second regrade), the run's kept sc
 
 ## Limits
 
-- We ran no AI model. Effects are shown on three test submissions we wrote (the starter, a simple honest codec and a corrupting codec) and on a third-party Claude Opus 5.5 run: all 37 submissions regraded with both graders, the top 6 three times on separate machines (the first regrade covered two submissions, once each).
-- **Dependence on the machine and timing noise remain.** The speed term is now a ratio of wall-clock times on the same machine. Over six runs of the fixed version in three separate jobs (two per job), the starter scored 0.97 to 1.06 and the honest codec 6.70 to 8.27 (about ±10% around 7.42); the original grader gave the starter 0.23 to 0.30. The starter's own throughput moved by up to about 18% between runs (grid 0.789 vs 0.646 GB/s), although running the two back to back cancels most of that.
+- We ran no AI model. Effects are shown on three test submissions we wrote (the starter, a simple correct codec and a corrupting codec) and on a third-party Claude Opus 5.5 run: all 37 submissions regraded with both graders, the top 6 three times on separate machines (the first regrade covered two submissions, once each).
+- **Dependence on the machine and timing noise remain.** The speed term is now a ratio of wall-clock times on the same machine. Over six runs of the fixed version in three separate jobs (two per job), the starter scored 0.97 to 1.06 and the correct codec 6.70 to 8.27 (about ±10% around 7.42); the original grader gave the starter 0.23 to 0.30. The starter's own throughput moved by up to about 18% between runs (grid 0.789 vs 0.646 GB/s), although running the two back to back cancels most of that.
 - **Timing noise on real submissions.** In the second regrade of the third-party run (37 submissions with both graders; the top 6 three times on separate E2B workers), the same submission's raw score varied by up to ±20% between machines (for example 55.4 to 73.0 under the original grader), because decoding is timed over only a few milliseconds per dataset (about 3 to 35 ms for these submissions). This holds for both graders, comes from the grader's timing method, and is unchanged by the fix. The fix's direction is stable: every submission scores 1.7 to 4 times higher under the fixed grader (`evidence/runs/opus55-regrade2-codec-a/`, `-codec-b/`, `-reps2/`, `-reps3/`; combined in `evidence/runs/opus55-regrade2-summary/summary.json`).
 - The baseline is measured once per dataset (best of 5 decodes). Medians over several baseline runs were not used.
-- Only one machine type was used. The honest test submission is a simple codec, not a strong solution. No expert reference solution ships with the task.
+- Only one machine type was used. The correct test submission is a simple codec, not a strong solution. No expert reference solution ships with the task.
 - The image still has g++ 11.4, not the documented 12.2. This affects both versions equally.
 
 ## Reproduce

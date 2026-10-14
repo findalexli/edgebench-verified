@@ -43,7 +43,7 @@ A point that does not change scores: the task text says the starting code "alrea
 
 ## How much it matters
 
-Up to 18.93 points out of 100 are shown for an honest but unfinished variant. Any solver whose library fails or does nothing on a timed configuration outside the correctness set receives too much credit.
+Up to 18.93 points out of 100 are shown for a good-faith but unfinished variant. Any solver whose library fails or does nothing on a timed configuration outside the correctness set receives too much credit.
 
 ## The fix
 

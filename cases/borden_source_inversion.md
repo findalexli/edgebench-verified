@@ -1,6 +1,6 @@
 # Borden Source Inversion (`borden_source_inversion`)
 
-**Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so a one-shot honest fit with a textbook model scores at the baseline level.</mark>
+**Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so a one-shot fit with a textbook model scores at the baseline level.</mark>
 
 ![Two boxes contrast what the instructions say (build the textbook groundwater model; C0 in mg/L) with five unstated conventions of the checker's model, such as ignoring soil porosity. Below, bars of raw scores (0 to 109) for a one-shot fit to the public data: a baseline at the middle of the allowed ranges, 7.01, textbook model 7.03, checker's model 31.2; beside them, the 36 submissions of a real agent run as dots, with the best score so far rising from 7.01 to 60.10 and a dashed line at 31.2. A note converts raw scores to scores out of 100 (raw × 100/109) and states the fix.](figures/borden_source_inversion.svg)
 
@@ -24,7 +24,7 @@ The README says to "construct the groundwater solute transport equation, build a
 
 The documentation gives the ingredients but not how they are combined. `public_problem_config.json` lists q (`q_source_m3_per_day`), a factor of 1000 (`fallback_source_scale_factor`), a 5×5×1 grid of sub-points with 9 release steps, and a note that the grader superposes point-source responses. It does not give the per-pulse normalisation, the missing porosity, the duration-independent mass, the unit reading or the resulting plane position. At the true source, on the 24 public readings above 0.01 mg/L, a textbook ADE model differs from the grader's model by 10.9× to 323× (median 33×). The difference comes from an amplitude factor of duration/(1000·n) ≈ 8.5 at the true source, plus the plane offset. Yet the public data cannot tell the conventions apart. The textbook model and the grader's convention fit the public data equally well (RMS log residual 0.0079 for both).
 
-- Example on the original grader: the honest textbook ADE fit scores **7.03**. The baseline, which answers with the midpoint of every parameter's bounds, scores 7.01. The same least-squares fit with the grader's exact convention scores **31.2**. Using the grader's convention except for the source plane (placed at `z_center`, the natural reading) scores 12.9. So the plane placement alone costs about 18 points.
+- Example on the original grader: the textbook ADE fit scores **7.03**. The baseline, which answers with the midpoint of every parameter's bounds, scores 7.01. The same least-squares fit with the grader's exact convention scores **31.2**. Using the grader's convention except for the source plane (placed at `z_center`, the natural reading) scores 12.9. So the plane placement alone costs about 18 points.
 
 **The raw result has no defined score out of 100 (a reporting inconsistency).** The true source scores 109 on the raw result (before conversion to 0–100). The task had no score scale, so `score_0_100` was undefined and raw results were reported on 0–109. No recorded submission reaches 100 raw: our best public-data fit reaches 31.2, and the best submission in a third-party Claude Opus 5.5 run reached 60.10 (below). So the missing ceiling clips no recorded score; it leaves results on a 0–109 scale.
 
@@ -58,13 +58,13 @@ In the table, "Cap" is the score ceiling the grader applies to that submission; 
 
 The shipped `forward_model.py` matches the grader's model with max |diff| = 0.0 over all 656 answer-key rows. The fixed-version solver ran in the fixed working image with no network, using only files the agent can see. It converged to the same point as the grader-convention fit.
 
-**Score compatibility.** For any given `answer.json`, raw results are identical under the original and fixed versions. The fixed version reports `score_0_100 = raw·100/109`, which the original version did not define. Original raw results are on 0–109. Agent runs on the fixed version are **not** comparable with agent runs on the original version, because the fixed version tells solvers the convention (honest fit 7.0 → about 31 raw).
+**Score compatibility.** For any given `answer.json`, raw results are identical under the original and fixed versions. The fixed version reports `score_0_100 = raw·100/109`, which the original version did not define. Original raw results are on 0–109. Agent runs on the fixed version are **not** comparable with agent runs on the original version, because the fixed version tells solvers the convention (a solver's fit: 7.0 → about 31 raw).
 
 ## How we checked it
 
 - **Original grader.** All test submissions ran on the original public image, pinned by digest and unchanged in the fixed version. Each ran the original grading command with `--network none`, against the original and fixed working directories.
 - **Independent forward model.** A separate implementation (5×5×1 sub-points, 9 pulses, Gaussian kernel) reproduces all 656 clean answer-key readings from the hidden true source (rerun with `evidence/scripts/borden_source_inversion/forward_check.py`). The grader's own model, run in the grader image, matches the stored readings to 8.9e-13 relative.
-- **Honest-solver experiments.** These used multi-start bounded least squares (60–80 starts) on the public noisy, censored data only. One run used a textbook ADE model built from the documentation. The other used the grader's exact convention. The original `evaluate.py` scored each fitted `answer.json` with the original arguments (local Python; numpy 1.24.4, scipy 1.10.1, pandas 2.0.3).
+- **Good-faith solver experiments.** These used multi-start bounded least squares (60–80 starts) on the public noisy, censored data only. One run used a textbook ADE model built from the documentation. The other used the grader's exact convention. The original `evaluate.py` scored each fitted `answer.json` with the original arguments (local Python; numpy 1.24.4, scipy 1.10.1, pandas 2.0.3).
 - **Repeatability.** The side-by-side run of the original and fixed graders was repeated three times. No test submission changed verdict (see `data/paired-repeatability.md`).
 
 ## Limits
@@ -81,7 +81,7 @@ The shipped `forward_model.py` matches the grader's model with max |diff| = 0.0 
 ## Reproduce
 
 - Original grader image: `sha256:b1a08348…` (unchanged in the fixed version).
-- Honest-solver experiments: `python3 evidence/scripts/borden_source_inversion/textbook_solver_check.py <judge_root> <out_dir>` (also `judge_convention_solver_check.py`, `judge_convention_truthstart.py`, `variant_zmid_solver_check.py`, `textbook_own_prediction.py`, `forward_check.py` in the same folder).
+- Good-faith solver experiments: `python3 evidence/scripts/borden_source_inversion/textbook_solver_check.py <judge_root> <out_dir>` (also `judge_convention_solver_check.py`, `judge_convention_truthstart.py`, `variant_zmid_solver_check.py`, `textbook_own_prediction.py`, `forward_check.py` in the same folder).
 - Side-by-side run: `repairs/borden_source_inversion-v2/paired/run.sh` (inputs in `paired/inputs/`, solver in `paired/tools/v2_solver.py`).
 - Change: `repairs/borden_source_inversion-v2/repair.patch`, `Dockerfile`, `task.json.in`.
 - Supporting records: `repairs/borden_source_inversion-v2/` (the folder holding the fixed version; `source-lock.json` holds full hashes).

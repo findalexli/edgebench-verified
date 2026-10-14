@@ -1,6 +1,6 @@
 # Sphere Eversion Formalization (`sphere_eversion_formalization`)
 
-**Outcome:** Kept, with a note. <mark>No scored item was found put out of reach by the way the grader names compiler-generated items, and those items are stable; this rests on test submissions and inspection only, no honest proof was scored, and whether every item is true was not checked.</mark>
+**Outcome:** Kept, with a note. <mark>No scored item was found put out of reach by the way the grader names compiler-generated items, and those items are stable; this rests on test submissions and inspection only, no real proof was scored, and whether every item is true was not checked.</mark>
 
 ## What the task asks
 
@@ -12,16 +12,16 @@ The score is the share of the starting project's declarations that depend on `so
 
 No defect that changes scores was found.
 
-**What was checked.** Lean's compiler generates helper declarations automatically (`X._proof_N`, `X._simp_N`, …). The Lean grader shared by several tasks credits these auxiliary targets only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 44 helper targets (49 of 2901 targets in total, 1.69%, counting also 3 placeholder and 2 false statements) unreachable for any honest, complete solution, and makes scores depend on proof style. This task does not have that problem:
+**What was checked.** Lean's compiler generates helper declarations automatically (`X._proof_N`, `X._simp_N`, …). The Lean grader shared by several tasks credits these auxiliary targets only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 44 helper targets (49 of 2901 targets in total, 1.69%, counting also 3 placeholder and 2 false statements) unreachable for any complete, correct solution, and makes scores depend on proof style. This task does not have that problem:
 
 | Targets | Auxiliary targets | Auxiliary share of score | Fragile auxiliary targets | Targets with `sorry` in the type | Pairs of P and ¬P | Lower bound on unreachable targets |
 |---|---|---|---|---|---|---|
 | 661 | 119 | 18.0% | **0** | 0 | 0 | **0** |
 
 - **Kinds of auxiliary targets:** 94 `_proof`, 23 `_simp`, and others.
-- No auxiliary target holds a placeholder of its own ("fragile"). Each one is marked BAD only because it depends on a parent declaration that uses `sorry`. Honest proofs of those parent declarations should therefore leave it unchanged. This is inferred from a probe inside the grader image; no honest proof was scored.
+- No auxiliary target holds a placeholder of its own ("fragile"). Each one is marked BAD only because it depends on a parent declaration that uses `sorry`. Correct proofs of those parent declarations should therefore leave it unchanged. This is inferred from a probe inside the grader image; no real proof was scored.
 - **Weighting.** Auxiliary targets are 18.0% of the score. By the probe, they should be earned automatically once the declarations they depend on are proved. This was not tested by scoring.
-- **Scorer isolation** is outside this release's scope (an EdgeBench design choice). No scoring defect affecting honest solvers was found.
+- **Scorer isolation** is outside this release's scope (an EdgeBench design choice). No scoring defect affecting solvers that follow the rules was found.
 
 **Note shipped with the task.** "Census: 0 targets unattainable; aux targets 18.0% and stable (controls only, no honest-proof test)".
 
@@ -40,7 +40,7 @@ No change is made; the note above ships with the task.
 ## Limits
 
 - No AI model or solver runs were made. Effects are shown only on test submissions that we wrote.
-- Only the unmodified starting project was scored by running the grader. No honest proof was scored. The stable/fragile classification comes from the probe inside the image, not from scoring runs.
+- Only the unmodified starting project was scored by running the grader. No real proof was scored. The stable/fragile classification comes from the probe inside the image, not from scoring runs.
 - Test submissions were built from the grader's starting sources. Whether the starting project in the agent's work image is identical to them was not checked.
 - Whether the work image builds against the same Mathlib as `/home/workspace/baseline` was not checked. If it does not, a proof that compiles in the work image can fail to build at grading, and a failed build scores 0. Only the starter, whose proofs are all `sorry`, was built under the swap. Recorded agent runs on this task score up to 58.5 out of 100 (`tasks/README.md`), so their proofs did build under the swap.
 - Build time with complete proofs was not measured; the starter's full rebuild already takes about 5.8 minutes, and a run over the 2,400 s limit scores 0.

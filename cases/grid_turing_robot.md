@@ -89,7 +89,7 @@ Under the fixed version the slowest 28 s case took 28.34 s from start to end (`r
 - The CPU test solutions are single-threaded: fixed CPU work, or work until a 25 s wall-clock deadline. Multi-threaded solvers were not tested.
 - Deadline-based solvers get about twice the CPU per case under the fixed version at 4 CPUs, so their scores under the two graders are not comparable. How much their scores change is not measured.
 - With fewer than 3 grader CPUs the 600 s `eval_timeout` binds before the 30 s per case: at 2 CPUs, 25 rounds × 30 s = 750 s, so only about 24 s per case is usable (the original gives about 7.5 s of CPU per case there). The quota is rounded down: 2.5 CPUs run 2 cases at once.
-- Only simple honest solutions were tested. Whether the reference point for 100 (rank1 = 1,575) is achievable was not checked, and the sources of the rank1 and rank30 reference points were not traced.
+- Only simple, rule-following solutions were tested. Whether the reference point for 100 (rank1 = 1,575) is achievable was not checked, and the sources of the rank1 and rank30 reference points were not traced.
 - The random tables in the comparison produced only partial routes. Agreement on full routes rests on the known-good solution and one half-route case.
 - The seed search covered gen.py seeds 0..60,000 only.
 

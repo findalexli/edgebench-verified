@@ -12,7 +12,7 @@ The score is the share of the starting project's declarations that depend on `so
 
 No defect that changes scores was found. These parts were checked:
 
-- **Auxiliary targets.** Lean's compiler generates helper declarations automatically (`X._proof_N`, `X._simp_N`, …). The Lean grader shared by several tasks credits these auxiliary targets only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 44 helper targets (49 of 2901 targets in total, 1.69%, counting also 3 placeholder and 2 false statements) unreachable for any honest, complete solution, and scores depend on proof style. In this task no auxiliary target is exposed to that problem:
+- **Auxiliary targets.** Lean's compiler generates helper declarations automatically (`X._proof_N`, `X._simp_N`, …). The Lean grader shared by several tasks credits these auxiliary targets only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, this makes at least 44 helper targets (49 of 2901 targets in total, 1.69%, counting also 3 placeholder and 2 false statements) unreachable for any complete, correct solution, and scores depend on proof style. In this task no auxiliary target is exposed to that problem:
 
 | Targets | Auxiliary targets | Auxiliary share of score | Fragile auxiliary targets | Targets with `sorry` in the type | Pairs of P and ¬P | Lower bound on unreachable targets |
 |---|---|---|---|---|---|---|
@@ -43,7 +43,7 @@ No target was found out of reach because of the way the grader names compiler-ge
 ## Limits
 
 - No AI model or solver runs were made. Effects are shown only on test submissions that we wrote.
-- Only the unmodified starting project was scored by running the grader. No honest proof was scored for this task. The stable/fragile classification comes from the probe inside the image.
+- Only the unmodified starting project was scored by running the grader. No real proof was scored for this task. The stable/fragile classification comes from the probe inside the image.
 - Test submissions were built from the grader's starting sources. Whether the starting project in the agent's work image is identical to them was not checked.
 - A solver that edits the bodies of definitions or instances (with signatures unchanged) could still renumber transitive auxiliary declarations. That was not measured.
 - Whether each individual target is true was not audited.

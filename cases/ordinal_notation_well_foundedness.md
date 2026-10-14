@@ -1,6 +1,6 @@
 # Ordinal Notation Well-Foundedness (`ordinal_notation_well_foundedness`)
 
-**Outcome:** Kept, with a note. <mark>The Coq grader credits honest complete proofs and rejects `Admitted` and axiom-based proofs, but two limits are not documented (the filter on helper file names and the 300 s compile limit). The publisher's results show closed proofs of targets 1–6; whether targets 7–9 (64 of 85 points) can be proved is not known.</mark>
+**Outcome:** Kept, with a note. <mark>The Coq grader credits complete, correct proofs and rejects `Admitted` and axiom-based proofs, but two limits are not documented (the filter on helper file names and the 300 s compile limit). The publisher's results show closed proofs of targets 1–6; whether targets 7–9 (64 of 85 points) can be proved is not known.</mark>
 
 ## What the task asks
 
@@ -29,24 +29,24 @@ The test submissions that should fail list exactly the expected assumptions.
 **Undocumented limits.** These were read from the task JSON and the grader. Neither was reproduced end to end.
 
 - (a) `submit_exclude` silently drops helper files named `test*.v`, `check*.v`, `debug*.v`, `explore*.v`, `tmp*.v` or `scratch*.v`. The README says helper libraries are submitted. A proof that `Require`s such a file would fail to compile in the grader.
-- (b) The 300 s limit on each `coqc` call is not stated. An honest proof that relies on heavy computation could hit it.
+- (b) The 300 s limit on each `coqc` call is not stated. A correct proof that relies on heavy computation could hit it.
 
 The note that ships with the task:
 
-- The grader credits exactly the proofs whose `Print Assumptions` is closed. A kernel-checked honest proof of task1 is credited, and `Admitted` and axiom-based proofs are rejected.
+- The grader credits exactly the proofs whose `Print Assumptions` is closed. A kernel-checked proof of task1 is credited, and `Admitted` and axiom-based proofs are rejected.
 - The nine targets form a chain, so each target implies all lower ones. Published results show closed proofs of tasks 1–6 (21 of 85 points); tasks 7–9 (64 points) have no known proof. A false target would only cap scores and would never reward wrong work.
 - Helper files whose names match `test*`, `check*`, `debug*`, `explore*`, `tmp*` or `scratch*` (`.v`) are excluded from submissions.
 - Each Coq file has a 300 s compile limit.
 
 ## How much it matters
 
-No effect on the scores of honest proofs was found. The file-name filter affects only solvers who give a required helper file one of the excluded prefixes. Their proofs that depend on it fail to compile. The time limit affects only proofs that rely on heavy computation. If task7, task8 or task9 were false, every solver's maximum would drop by that target's weight and the weights above it. No such target is known.
+No effect on the scores of correct proofs was found. The file-name filter affects only solvers who give a required helper file one of the excluded prefixes. Their proofs that depend on it fail to compile. The time limit affects only proofs that rely on heavy computation. If task7, task8 or task9 were false, every solver's maximum would drop by that target's weight and the weights above it. No such target is known.
 
 No change is made; the note above ships with the task.
 
 ## How we checked it
 
-- **Original grader in the original public image, pinned by digest** (Coq 8.20.1, OCaml 4.13.1), run with `--network none --memory 2g --cpus 2` on the two submissions above. They contain an honest kernel-checked task1 proof, the same proof with its lemmas in `OrdHelpers.v`, task3 proved from a new `Axiom` as a test submission that should fail, and `Admitted` placeholders for the other targets.
+- **Original grader in the original public image, pinned by digest** (Coq 8.20.1, OCaml 4.13.1), run with `--network none --memory 2g --cpus 2` on the two submissions above. They contain a kernel-checked task1 proof, the same proof with its lemmas in `OrdHelpers.v`, task3 proved from a new `Axiom` as a test submission that should fail, and `Admitted` placeholders for the other targets.
 - **Formal check (Coq).** The task1 proof shows that `childOf [0;1] N` reduces to `repeat 0 (S N)`, and that every all-zero list steps only to its `removelast`. It then concludes by induction. Its `Print Assumptions` is "Closed under the global context": it uses no axioms.
 - **Independent transcription.** `explore.py` is a Python transcription of `ChildOf.v`. It agrees with Coq's own `Compute` output on six non-trivial expansions. It drove a breadth-first search (BFS; N ≤ 3, length ≤ 30) for descendant relations between targets, and the bounded cycle search (N ≤ 2, length ≤ 24, 200k nodes per target).
 

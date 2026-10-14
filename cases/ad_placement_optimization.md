@@ -1,6 +1,6 @@
 # Ad Placement Optimization (`ad_placement_optimization`)
 
-**Outcome:** Kept, with a note. <mark>The original grader applies the rules of the AtCoder contest AHC001 correctly, and no problem found can score an honest solver wrongly.</mark>
+**Outcome:** Kept, with a note. <mark>The original grader applies the rules of the AtCoder contest AHC001 correctly, and no problem found can score a solver that follows the rules wrongly.</mark>
 
 ## What the task asks
 
@@ -15,7 +15,7 @@ There is no problem that changes scores. We checked the rules that decide whethe
 - Bounds, positive area and point containment are checked exactly.
 - A timeout, runtime error or wrong answer scores 0 for that case. The case is still listed and is never silently dropped. This matches the AHC001 system-test rule.
 
-One ordering quirk, inherited from the contest code, gives an honest solver nothing. The grader and the oracle disagree on 1 of 23 hand-written outputs. That output contains a rectangle that misses its own point, so it already scores p_i = 0. Whether its overlap is checked depends on the order of the output. The official AHC001 code behaves the same way. The overlap itself earns nothing; the most a solver could gain is room it would otherwise have to free, which a valid output can recover at a cost of at most about 0.004 points out of 100 per affected company per case (`evidence/reviews/ad_placement_optimization.md`, "Does it accept real overlaps?").
+One ordering quirk, inherited from the contest code, gives nothing to a solver that follows the rules. The grader and the oracle disagree on 1 of 23 hand-written outputs. That output contains a rectangle that misses its own point, so it already scores p_i = 0. Whether its overlap is checked depends on the order of the output. The official AHC001 code behaves the same way. The overlap itself earns nothing; the most a solver could gain is room it would otherwise have to free, which a valid output can recover at a cost of at most about 0.004 points out of 100 per affected company per case (`evidence/reviews/ad_placement_optimization.md`, "Does it accept real overlaps?").
 
 The note says:
 
@@ -30,7 +30,7 @@ Not in the shipped note:
 
 ## How much it matters
 
-The largest score change for an honest solver from the scoring rules is 0 (an output that exploits the ordering quirk gains at most about 0.004 points per affected company per case). The effect of CPU allocation is not measured: on a grader with less than 2 CPUs of quota, a solver that budgets CPU time rather than wall-clock time can time out on every case. The other note items (public inputs, origin of the score scale, unenforced memory limit) affect how scores should be read, not how any output is scored.
+The largest score change the scoring rules cause for a solver that follows the rules is 0 (an output that exploits the ordering quirk gains at most about 0.004 points per affected company per case). The effect of CPU allocation is not measured: on a grader with less than 2 CPUs of quota, a solver that budgets CPU time rather than wall-clock time can time out on every case. The other note items (public inputs, origin of the score scale, unenforced memory limit) affect how scores should be read, not how any output is scored.
 
 ## How we checked it
 

@@ -33,7 +33,7 @@ The original `--run-seed 0` child process, run 3 times, returned WA/0, OK/2 and 
 
 The two "repeats" of the same seed (cases 2k and 2k+1) also disagree. For example, run 1 has case 0010 = 7 but case 0011 = 0. A repeat is just another random game.
 
-Why it matters: the same agent can score differently on each grading, and the "10 seeds x 2 repeats" design does not hold.
+As a result, the same agent can score differently on each grading, and the "10 seeds x 2 repeats" design does not hold.
 
 The note that ships with the task:
 
