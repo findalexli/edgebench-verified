@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The original grader gave full marks for any rubric rule that the AI grading model did not assess, and still reported the result as valid.</mark>
 
-![Bars show the original grader scoring an empty assessment 100, and assessments with one 15-point rule left out 81 instead of 77 and 15 instead of 0; the fixed version reports all three as grading failures.](figures/college_english_exam_bank.svg)
+![Horizontal bars of scores out of 100 under the original checker: an empty grading report 100, one 15-point rule skipped 81 (true score 77) and 15 (true score 0), and a skipped rule that is complete when asked again 81. The fixed-checker column shows grading failure, grading failure, grading failure and 77.](figures/college_english_exam_bank.svg)
 
-*When the AI grader skipped rules, the original grader gave those rules full marks and called the result valid; the fixed version asks again and otherwise reports a grading failure.*
+*An empty grading report scored 100 out of 100, because the original checker gave full marks to every rule the AI grader left out. In College English Exam Bank an AI model scores the agent's exam papers against 12 rules; when its answer omits a rule, the checker fills that rule in at full marks and still calls the result valid, so leaving out one 15-point rule turns a true 77 into 81 and a true 0 into 15. The fixed checker asks the AI grader again and scores a complete second answer normally (77); if the answer is still incomplete, it reports a grading failure. How often real AI graders skip rules was not measured.*
 
 ## What the task asks
 

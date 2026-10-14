@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The answer checker looks up a function's value by its literal text, so 27 satisfiable hidden problems cannot be won by any solver.</mark>
 
-![Two assertions that bind x to a and to b both read the single key (f x) in the original checker, so no answer passes; the fixed checker looks up (f a) and (f b) by the actual argument and accepts the correct answer.](figures/smt_solver.svg)
+![Two panels. Original checker: two lines, 'let x = a, (f x) = a' and 'let x = b, (f x) = b', both point to one key '(f x)', labelled one text key, two values, no correct answer passes. Fixed checker: the same two lines point to separate keys '(f a)' and '(f b)', correct answer accepted. A note gives 27 unwinnable problems, a perfect solver's maximum of 72.40 instead of 78.61, and 42 more problems where answers in the documented form were rejected.](figures/smt_solver.svg)
 
-*The original checker looks up a function's value by its text, so 27 satisfiable hidden problems cannot be won; the fixed checker uses the actual arguments.*
+*The SMT Solver checker looks up a function's value by how the expression is written, not by what its argument stands for, so 27 solvable hidden problems can never be passed. The agent builds a logic solver that must print an example solution for each solvable problem; when the same text, such as (f x), stands for two different values, every correct solution is rejected, and on 42 more problems solutions written the way the instructions describe were rejected. This lowers the most a perfect solver can score from 78.61 to 72.40 out of 100. The fixed checker evaluates the argument first and accepts the correct solutions on all 69 problems.*
 
 ## What the task asks
 

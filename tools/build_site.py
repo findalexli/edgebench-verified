@@ -233,6 +233,8 @@ class Lang:
 
     def caption(self, name):
         c = self.extra['figures'].get(name)
+        if isinstance(c, dict):     # {"caption": ..., "alt": ...}; the alt text is used on the case pages
+            c = c.get('caption')
         if c:
             return c
         if self.code != 'en':

@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so a one-shot honest fit with a textbook model scores at the baseline level.</mark>
 
-![Bars of scores on the original grader, where the true source scores 109: the textbook fit 7.03 and the midpoint baseline 7.01 versus 31.2 for a fit using the grader's hidden convention.](figures/borden_source_inversion.svg)
+![Two boxes contrast what the instructions say (build the textbook groundwater model; C0 in mg/L) with five unstated conventions of the checker's model, such as ignoring soil porosity. Below, bars of raw scores (0 to 109) for a one-shot fit to the public data: midpoint baseline 7.01, textbook model 7.03, checker's model 31.2; beside them, the 36 submissions of a real agent run as dots, with the best score so far rising from 7.01 to 60.10 and a dashed line at 31.2. A note converts raw scores to scores out of 100 (raw × 100/109) and states the fix.](figures/borden_source_inversion.svg)
 
-*The grader uses unstated, non-physical conventions, so a one-shot honest textbook fit to the public data scores at the baseline level, about 24 points below the same fit using the hidden convention.*
+*A textbook answer scores about 7 because the checker's physics model follows conventions the instructions never state. The agent locates an underground pollution source from monitoring-well readings; the checker's model, for example, ignores soil porosity and treats a mass rate as a mass, and the public data fit it and the textbook model equally well. A one-shot fit with the textbook model scores 7.03 raw against 31.2 for the same method with the checker's model (raw results run from 0 to 109; out of 100 these are 6.45 and 28.6), and a real agent run climbed from 7.01 to 60.10 raw over 36 submissions while the checker reported its error on hidden wells after each one. The fixed task gives agents the checker's own model with its conventions written out, and reports the score out of 100 as raw × 100/109.*
 
 ## What the task asks
 

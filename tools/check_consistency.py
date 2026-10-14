@@ -204,6 +204,11 @@ def main():
             if key in m and (pkg / fname).exists():
                 need(m[key] == hashlib.sha256((pkg / fname).read_bytes()).hexdigest(),
                      f'{pkg.name}: source-lock {key} is stale')
+    # the impact figures, their Chinese captions and data/headline.json match what the data gives
+    sys.path.insert(0, str(ROOT / 'tools'))
+    import build_impact_figures as BIF
+    for m in BIF.check():
+        need(False, m)
     for m in problems:
         print('MISMATCH:', m)
     print(f'{dict(c)}; {len(problems)} problems')

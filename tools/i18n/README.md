@@ -29,7 +29,7 @@ Optional, for completeness (without them those pieces stay English and the page 
 
 | File | What it is |
 | --- | --- |
-| `tools/i18n/figures.zh.json` | `{"<figure name>": "<caption>"}` for the figures in `cases/figures/` (names are the `.json` file names without extension, for example `scoring-pipeline`, `evidence-layers`, `grid_turing_robot`). |
+| `tools/i18n/figures.zh.json` | `{"<figure name>": "<caption>"}` or `{"<figure name>": {"caption": "...", "alt": "..."}}` for the figures in `cases/figures/` (names are the `.json` file names without extension, for example `scoring-pipeline`, `evidence-layers`, `grid_turing_robot`). With an `alt`, `tools/sync_case_figures.py` also writes the figure line and caption of `cases/zh/<task_id>.md`. The `impact-overview` and `real-runs` entries are written by `tools/build_impact_figures.py`. |
 | `cases/figures/zh/<name>.svg` | A figure whose text is translated. Same drawing as `cases/figures/<name>.svg`. |
 | `tools/i18n/formal.zh.json` | `{"<task_id>": {"what": "...", "limit": "..."}}` for the rows of `evidence/formal/summary.json` (Table 2 on the Method page and the "Formal check" line of task pages). |
 | `category.<English field name>` keys in `zh.json` | The field shown on task cards, for example `"category.Combinatorial Optimization": "..."`. Also `formal.result.<result>` keys for the result column of Table 2. |

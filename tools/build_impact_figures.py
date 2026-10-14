@@ -9,6 +9,8 @@ Writes
       checker, and the largest change for any single submission.
   data/headline.json
       The headline numbers, each computed here.
+  tools/i18n/figures.zh.json (the two figures' entries only)
+      Their Chinese caption and alt text.
 
 Sources. Categories come from data/decisions.json, limits (hollow bars) from evidence/impact/effects.json,
 real-run values from evidence/runs/opus55-regrade2-summary/summary.json (and, for Lean Analysis,
@@ -38,6 +40,7 @@ SUMMARY = 'evidence/runs/opus55-regrade2-summary/summary.json'
 LEAN = 'evidence/runs/opus55-regrade2-lean-derived/result/out/lean_derived.json'
 HIST = 'evidence/runs/opus55-rollouts-meta/submission-histories.json'
 EFFECTS = 'evidence/impact/effects.json'
+FIGZH = 'tools/i18n/figures.zh.json'
 
 # ---------------------------------------------------------------------------------------------------------
 # Values measured on our own test submissions (original checker against the fixed one, or two forms of the
@@ -221,6 +224,15 @@ def wrapw(s, maxw, size=13):
         else:
             cur = nxt
     return lines + [cur]
+
+
+def split_label(s):
+    """Split a long row label into two lines at its last separator."""
+    for sep in (' · ', '; ', '；', '（', ' ('):
+        i = s.rfind(sep)
+        if i > 0:
+            return [s[:i + (1 if sep == '; ' else 0)].rstrip(), s[i:].lstrip(' ·;') if sep in (' · ', '; ') else s[i:].lstrip()]
+    return [s]
 
 
 def diamond(cx, cy, r=6, cls='warn'):
@@ -453,15 +465,21 @@ def overview_svg(rows, rr, lang, n10):
         y += 8
         for r in rs:
             nm = wrap(task_names()[r['task']])
-            h = 22 if len(nm) == 1 else 36
+            ends = [X0]
+            if r['bound'] is not None:
+                ends.append(xs(min(r['bound'], 100)))
+            ends += [xs(min(m['v'], 100)) for m in r['marks']]
+            lab = labels(r, rr, lang)
+            right = max(ends) + 9
+            # labels stay left of the direction-only column; a long one is split over two lines
+            lab_lines = [lab] if not lab or right + tw(lab) <= DX - 10 else split_label(lab)
+            h = 22 if max(len(nm), len(lab_lines)) == 1 else 36
             cy = y + h / 2
             for i, line in enumerate(nm):
                 body.append(text(NX, y + 15 + 15 * i, line, 'ink', 13))
-            ends = [X0]
             if r['bound'] is not None:
                 bx = xs(min(r['bound'], 100))
                 body.append(f'<rect x="{X0:g}" y="{cy - 5:g}" width="{bx - X0:.1f}" height="10" fill="none" class="accS" stroke-width="1.5"/>')
-                ends.append(bx)
             for m in r['marks']:
                 cx = xs(min(m['v'], 100))
                 if m['kind'] == 'range':
@@ -471,16 +489,14 @@ def overview_svg(rows, rr, lang, n10):
                     body.append(diamond(cx, cy))
                 else:
                     body.append(dot(cx, cy))
-                ends.append(cx)
-            lab = labels(r, rr, lang)
             if lab:
-                right = max(ends) + 9
-                limit = (DX - 8) if r['dir'] else (W - 8)
-                if right + tw(lab) <= limit:
-                    body.append(text(right, cy + 4.5, lab, 'ink', 13))
+                if right + max(tw(x) for x in lab_lines) <= DX - 10:
+                    x0, anchor = right, 'start'
                 else:
-                    body.append(text(min(m['v'] for m in r['marks']) and xs(min(min(m['v'], 100) for m in r['marks'])) - 9,
-                                     cy + 4.5, lab, 'ink', 13, 'end'))
+                    x0, anchor = xs(min(min(m['v'], 100) for m in r['marks'])) - 9, 'end'
+                y0 = cy + 4.5 - 7.5 * (len(lab_lines) - 1)
+                for i, line in enumerate(lab_lines):
+                    body.append(text(x0, y0 + 15 * i, line, 'ink', 13, anchor))
             if r['dir']:
                 body.append(text(DX, cy + 4.5, r['dir'][0 if lang == 'en' else 1], 'muted', 13))
             y += h
@@ -492,7 +508,7 @@ def overview_svg(rows, rr, lang, n10):
     y = bottom + 22
     fl = wrapw(L['foot1'], W - 2 * NX) + wrapw(L['foot2'], W - 2 * NX)
     foot = [text(NX, y + 19 * i, line, 'muted', 13) for i, line in enumerate(fl)]
-    H = y + 19 * (len(fl) - 1) + 13
+    H = y + 19 * (len(fl) - 1) + 8
     return svg_doc(W, H, title, lang, o + grid + body + foot)
 
 
@@ -624,7 +640,7 @@ def realruns_svg(rr, lang, nk, nr):
                 body.append(text(Z - 6, cy + 4.5, s, 'ink', 13, 'end'))
             else:
                 body.append(text(Z + 6, cy + 4.5, s, 'ink', 13))
-        notes = wrapw(rr_note(t, x, lang), W - 8 - P0)
+        notes = wrapw(rr_note(t, x, lang), W - 20 - P0)
         for i, line in enumerate(notes):
             body.append(text(P0, cy + 25 + 17 * i, line, 'muted', 13))
         y += 50 + 17 * (len(notes) - 1)
@@ -633,7 +649,7 @@ def realruns_svg(rr, lang, nk, nr):
     grid.append(f'<line x1="{Z}" y1="{top}" x2="{Z}" y2="{bottom - 8}" class="rule" stroke-width="1.5"/>')
     fl = wrapw(L['rr_foot'], W - 2 * NX)
     foot = [text(NX, bottom + 14 + 18 * i, line, 'muted', 13) for i, line in enumerate(fl)]
-    return svg_doc(W, bottom + 28 + 18 * (len(fl) - 1), title, lang, o + grid + body + foot)
+    return svg_doc(W, bottom + 22 + 18 * (len(fl) - 1), title, lang, o + grid + body + foot)
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -716,6 +732,27 @@ def build():
         sources={t: rr[t]['src'] for t in RR_ORDER})
     out['cases/figures/impact-overview.json'] = json.dumps(ov, ensure_ascii=False, indent=1) + '\n'
     out['cases/figures/real-runs.json'] = json.dumps(rrj, ensure_ascii=False, indent=1) + '\n'
+    # Chinese caption and alt text, kept in tools/i18n/figures.zh.json with the other figures
+    big_subs = max(abs(rr[t]['big']) for t in subs_only)
+    zh = {
+        'impact-overview': dict(
+            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务实测分数变化达到 10 分或以上（满分 100）。每一行显示问题一旦发生对一份提交的'
+                     '作用：实心标记是实测变化，空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，'
+                     '这些问题在排行榜上发生的频率未知。'),
+            alt=(f'一张图，每个有问题的任务占一行（共 {len(rows)} 行），按问题类别分组。每行在 0 到 100 的横轴上，用实心圆（我们的测试提交）或实心菱形'
+                 '（真实智能体运行）表示一份受影响提交的实测变化，用从 0 开始的空心条表示已证明或计算出的上限。右侧单独一栏列出只知道方向、大小未知的影响。')),
+        'real-runs': dict(
+            caption=(f'我们用原始评分器和修复版评分器逐份重新评分了一次四小时的 Claude Opus 5.5 运行。在可重新评分的 {len(regraded)} 个任务中，'
+                     f'有 {len(kept_changes)} 个的运行保留成绩发生变化：Order Addition 从 {r_or["recorded"]:.2f} 变为 {r_or["fixed"]:.2f}'
+                     f'（但没有任何单份提交的分数变化），Integer Codec 在修复后的刻度上从 {r_ic["recorded"]:.2f} 变为 {r_ic["fixed"]:.2f}。'
+                     f'另有 {len(subs_only)} 个任务中，单份提交的分数最多变化 {big_subs:.2f} 分，而保留的成绩不变；还有 {len(never)} 个任务中问题从未发生。'
+                     '它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。'),
+            alt=(f'{len(RR_ORDER)} 行，每行是第三方 Claude Opus 5.5 运行中的一个已修复任务。左侧面板显示运行保留的成绩（满分 100）：空心圆为原始评分器，'
+                 '实心圆为修复版评分器。右侧面板用从零出发的条形显示单份提交的最大变化，或注明问题从未发生、该任务无法重新评分。')),
+    }
+    fz = json.loads((ROOT / FIGZH).read_text())
+    fz.update(zh)
+    out[FIGZH] = json.dumps(fz, ensure_ascii=False, indent=2) + '\n'
     headline = {
         'generated_by': 'tools/build_impact_figures.py',
         'tasks_examined': len(dec),

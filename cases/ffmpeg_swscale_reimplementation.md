@@ -5,9 +5,9 @@
 
 **Outcome:** Original defect confirmed; v2.2 repair validated on paired native scorer controls. <mark>The timed speed tests were never checked for correctness, so failed or empty calls earned speed credit; the fixed version checks each timed call's return code and output.</mark>
 
-![Bars show an honest but unfinished library scoring 5.39, 18.93 and 17.87 out of 100 on the original grader because failed calls counted as fast; the fixed version scores 0.](figures/ffmpeg_swscale_reimplementation.svg)
+![Horizontal bars of scores out of 100 under the original checker: returns an error on RGBA to RGB24, 5.39; returns an error on 3:1 shrink, 18.93; writes nothing on 3:1 shrink, 17.87. The fixed-checker column shows 0 for each. Notes say an error was timed as a 16,469 times speedup and describe the fix.](figures/ffmpeg_swscale_reimplementation.svg)
 
-*Calls that failed or did nothing finished instantly, so the original grader paid up to 18.93 points for unfinished code; the fixed version checks each timed call's result and pays nothing for these.*
+*Speed tests that never checked their output let unfinished code earn up to 18.93 of 100 points. The agent rewrites FFmpeg's image-scaling library and is scored on speed once 30 correctness tests pass, but the timed calls were never checked, so a call that returned an error or wrote nothing counted as almost infinitely fast. Three one-line unfinished versions scored 5.39, 18.93 and 17.87 under the original checker and 0 under an earlier version of the fix; the current fix checks every timed call and sets the whole score to exactly 0 when any fails, as the instructions say, which it did for code that silently skips repeated calls.*
 
 ## What the task asks
 

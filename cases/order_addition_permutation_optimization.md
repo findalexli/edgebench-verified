@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first valid submission and ignores better later ones.</mark>
 
-![Two rows showing the same two valid submissions: the original grader keeps the first, lower-scoring one as best, while the fixed version keeps the second, better one.](figures/order_addition_permutation_optimization.svg)
+![Bar chart of the nine submissions of one real agent run, in the order they were graded: five early ones with no score, then 3.79, 15.91, 15.91 and 41.24 out of 100. Below it, tests passed by each submission: the original checker gives 2/5 or 4/5 and keeps submission 6 (3.79); the fixed checker gives 3/5 or 5/5 and keeps submission 9 (41.24).](figures/order_addition_permutation_optimization.svg)
 
-*A stale file fingerprint caps every submission at 4/5 tests, so the original grader keeps a run's first valid submission and ignores better later ones.*
+*An outdated file check made a real agent run keep 3.79 out of 100 although a later submission earned 41.24. The agent orders the numbers 1 to 1000 to make a hidden cost small; one of the five tests expects an older version of a helper file, so every submission fails it. The run keeps the submission that passes the most tests and compares scores only when all five pass, so every scored submission ties at 4 of 5 and the first one stays. With the expected file version corrected, the scored submissions pass 5 of 5, each score is unchanged, and the run keeps 41.24.*
 
 ## What the task asks
 

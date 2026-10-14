@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>Hidden tests require a return format for `analyze()` that no solver-visible file documents, and TASK.md misstates the starter's score; the fixed version documents both without changing any score.</mark>
 
-![Two bars show one honest analyzer scoring 69.26 with the array return shape the hidden tests expect and 35.59 with the starter's object shape, which no solver-visible file documents.](figures/arc_compiler_runtime.svg)
+![Two horizontal bars for the same error-checking logic: returning a list of {level, message}, as the hidden tests expect, scores 69.26 out of 100; keeping the starter code's {ok, errors, warnings, program} scores 35.59. A note says type-checking tests passed 128 of 128 versus 0, and that the fix documents the format.](figures/arc_compiler_runtime.svg)
 
-*The hidden tests need a return format that nothing the solver sees describes, so identical logic scores 69.26 or 35.59; the fixed version documents it.*
+*The same honest error checker scores 69.26 or 35.59 out of 100 in Arc Compiler Runtime, depending only on a return format that no instruction mentions. The agent completes a small compiler; hidden tests worth 33.67 points expect error reports as a list of {level, message}, while the starter code returns another format and nothing the agent can see says which is right. The fix documents the format in the task notes; the checker is unchanged, so the same code scores the same as before.*
 
 ## What the task asks
 
