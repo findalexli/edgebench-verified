@@ -24,30 +24,45 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：科学问题与机器学习</span></div><header class="task-head"><h1>D-ABIC Gravity Inversion</h1><span class="badge b-exclude" data-outcome="exclude">已移除</span> <a class="badge pc" data-pcat="grader_logic" href="../index.html#grader_logic">评分逻辑错误，事实性错误</a> <span class="id">dabic_gravity_inversion</span><p class="summary">42 分来自提交自行报告、未经核查的结果。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>实现一种根据重力测量推断地下密度的方法（D-ABIC 重力反演），并按任务允许的那样，在两种等价的数学形式中选择一种。</dd><dt>问题所在</dt><dd>两个合计 42 分的部分，取自提交对其自身的报告结果；评分器并不重新计算。此外，评分器暗中惩罚“模型空间”形式，尽管任务文本允许任一形式，且两者给出相同的结果。对同样处于较强水平的工作，计算表明一种形式约得 89 分，另一种约得 43 分。</dd><dt>影响有多大</dt><dd>对任何提交，都有 42 分无法核实。选择被允许但受惩罚的模型空间公式，可能让一个较强的解法损失最多约 46 分（在评分器的惩罚系数作用之前，在每个水平上都是总分中的 3.2 分）。</dd><dt>我们的处理</dt><dd>已移除：42 分仍来自未经核实的自报结果。部分修复去除了隐藏的形式惩罚，但仅凭这一点不足以让该任务可用。</dd><dt>问题类别</dt><dd><a href="../index.html#grader_logic">评分逻辑错误，事实性错误；另涉及：任务说明与评分不一致</a></dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>D-ABIC Gravity Inversion form penalty</title>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：科学问题与机器学习</span></div><header class="task-head"><h1>D-ABIC Gravity Inversion</h1><span class="badge b-exclude" data-outcome="exclude">已移除</span> <a class="badge pc" data-pcat="grader_logic" href="../index.html#grader_logic">评分逻辑错误，事实性错误</a> <span class="id">dabic_gravity_inversion</span><p class="summary">42 分来自提交自行报告、未经核查的结果。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>实现一种根据重力测量推断地下密度的方法（D-ABIC 重力反演），并按任务允许的那样，在两种等价的数学形式中选择一种。</dd><dt>问题所在</dt><dd>两个合计 42 分的部分，取自提交对其自身的报告结果；评分器并不重新计算。此外，评分器暗中惩罚“模型空间”形式，尽管任务文本允许任一形式，且两者给出相同的结果。对同样处于较强水平的工作，计算表明一种形式约得 89 分，另一种约得 43 分。</dd><dt>影响有多大</dt><dd>对任何提交，都有 42 分无法核实。选择被允许但受惩罚的模型空间公式，可能让一个较强的解法损失最多约 46 分（在评分器的惩罚系数作用之前，在每个水平上都是总分中的 3.2 分）。</dd><dt>我们的处理</dt><dd>已移除：42 分仍来自未经核实的自报结果。部分修复去除了隐藏的形式惩罚，但仅凭这一点不足以让该任务可用。</dd><dt>问题类别</dt><dd><a href="../index.html#grader_logic">评分逻辑错误，事实性错误；另涉及：任务说明与评分不一致</a></dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 378" role="img">
+<title>100 分中有 42 分来自提交自己的声明，因此该任务被移除</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
   .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
   
 </style>
-<text class="ink" x="16" y="30" font-size="18" font-weight="600">Same work, different form, half the score</text>
-<text class="muted" x="16" y="62" font-size="14">Score of the same strong work on the original grader (computed from its own penalty rule)</text>
-<text class="ink" x="16" y="98" font-size="15">Data form</text>
-<rect class="good" x="130" y="76" width="444.6" height="32"/>
-<text class="good" x="582.6" y="98" font-size="15" font-weight="600">88.92</text>
-<text class="ink" x="16" y="142" font-size="15">Model form</text>
-<rect class="bad" x="130" y="120" width="214.3" height="32"/>
-<text class="bad" x="352.3" y="142" font-size="15" font-weight="600">42.86</text>
-<text class="muted" x="16" y="190" font-size="14">Measured at a moderate level: data form 26.82, model form 25.77; the fix brings the model form to 26.81.</text>
-<rect class="warnBg" x="16" y="212" width="688" height="56" rx="8"/>
-<text class="warn" x="32" y="236" font-size="16" font-weight="600">Task still removed</text>
-<text class="ink" x="32" y="258" font-size="15">42 points are results the submission reports about itself, which the grader never checks.</text>
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">100 分中有 42 分来自提交自己的声明，因此该任务被移除</text>
+<text x="16" y="54" class="muted" font-size="14" text-anchor="start">任务：用 D-ABIC 方法，从重力数据推断地下密度。分数为 0–100 分。</text>
+<text x="16" y="88" class="ink" font-size="14" text-anchor="start" font-weight="600">这 100 分从哪里来</text>
+<rect x="16.0" y="100" width="240.8" height="44" class="goodBg"/><rect x="16.0" y="100" width="240.8" height="44" fill="none" class="goodS" stroke-width="2"/>
+<text x="136.4" y="129" class="good" font-size="16" text-anchor="middle" font-weight="700">35 分</text>
+<text x="24" y="168" class="good" font-size="13" text-anchor="start" font-weight="600">由评分器重新计算：</text>
+<text x="24" y="187" class="ink" font-size="13" text-anchor="start">在隐藏测试用例上</text>
+<text x="24" y="206" class="ink" font-size="13" text-anchor="start">运行提交的代码</text>
+<rect x="256.8" y="100" width="289.0" height="44" class="badBg"/><rect x="256.8" y="100" width="289.0" height="44" fill="none" class="badS" stroke-width="2"/>
+<text x="401.28" y="129" class="bad" font-size="18" text-anchor="middle" font-weight="700">12 + 30 = 42 分</text>
+<line x1="339.4" y1="100" x2="339.4" y2="144" class="badS" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="264.8" y="168" class="bad" font-size="13" text-anchor="start" font-weight="600">从提交自己的结果文件中读取，</text>
+<text x="264.8" y="187" class="ink" font-size="13" text-anchor="start">按原样计分；</text>
+<text x="264.8" y="206" class="ink" font-size="13" text-anchor="start">评分器从不核实</text>
+<rect x="545.8" y="100" width="158.2" height="44" class="warnBg"/><rect x="545.8" y="100" width="158.2" height="44" fill="none" class="warnS" stroke-width="2"/>
+<text x="624.88" y="129" class="warn" font-size="16" text-anchor="middle" font-weight="700">23 分</text>
+<text x="553.76" y="168" class="warn" font-size="13" text-anchor="start" font-weight="600">其他检查</text>
+<text x="553.76" y="187" class="ink" font-size="13" text-anchor="start">代码文本：3 分</text>
+<text x="553.76" y="206" class="ink" font-size="13" text-anchor="start">行为监控：8 分</text>
+<text x="553.76" y="225" class="ink" font-size="13" text-anchor="start">报告关键词：12 分</text>
+<rect x="16" y="240" width="688" height="80" rx="8" class="badBg"/>
+<text x="32" y="264" class="bad" font-size="15" text-anchor="start" font-weight="700">为什么移除该任务，而不是修复</text>
+<text x="32" y="286" class="ink" font-size="13.5" text-anchor="start">可靠的修复需要评分器根据隐藏数据自行重新计算这 42 分，而不是从提交中读取。</text>
+<text x="32" y="306" class="ink" font-size="13.5" text-anchor="start">做不到这一点，这 42 分奖励的就是声明，而不是实际工作。</text>
+<text x="16" y="346" class="muted" font-size="13" text-anchor="start">另一个问题已修复，但不足以保留该任务：两种允许且等价的方法形式之一被暗中扣分</text>
+<text x="16" y="364" class="muted" font-size="13" text-anchor="start">（同样高水平的工作：88.92 分对 42.86 分，满分 100，按评分器自己的规则计算）。</text>
 </svg>
-</div><figcaption>原始评分器暗中惩罚两种被允许且等价的形式之一，但该任务无论如何都被移除，因为有 42 分来自提交自行报告的结果。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/dabic_gravity_inversion.json">tasks/dabic_gravity_inversion.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p>Task objective: Port the D-ABIC method proposed by Song Han et al. in the 2025 Geophysics paper doi 10.1190/geo-2025-0233 to 3D gravity inversion, and validate it on the measured Vinton salt dome dataset. Read <code>starter/README.md</code> for detailed instructions.</p>
+</div><figcaption>100 分中有 42 分来自提交对自己工作所报告的数值，评分器从不核实，因此该任务被移除。智能体要实现 D-ABIC 重力反演方法；评分器只在隐藏测试用例上运行代码、重新计算 35 分，另有两部分（分别为 12 分和 30 分）直接按提交自己的结果文件计分。可靠的修复需要评分器根据隐藏数据自行重新计算这 42 分。另一个问题，即对两种允许且等价的方法形式之一的隐性扣分（同样高水平的工作：88.92 分对 42.86 分，满分 100，按评分器自己的规则计算），已经修复，但不足以保留该任务。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/dabic_gravity_inversion.json">tasks/dabic_gravity_inversion.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p>Task objective: Port the D-ABIC method proposed by Song Han et al. in the 2025 Geophysics paper doi 10.1190/geo-2025-0233 to 3D gravity inversion, and validate it on the measured Vinton salt dome dataset. Read <code>starter/README.md</code> for detailed instructions.</p>
 <p>The inversion must be completed separately under both L0 and L1 sparse regularization norms. For each norm, run a three-way comparison among D-ABIC, Cooling, and L-curve. Xu et al.'s 2025 Geophysical Prospecting paper doi 10.1111/1365-2478.70016 performed gravity inversion on the same Vinton dataset using an HMC method; use it as the comparison benchmark.</p>
 <p>Four stages:</p>
 <ol><li>Algorithm implementation: read <code>docs/geo20250233.pdf</code> and implement a D-ABIC beta-adaptive directive. The suggested name is <code>class DABIC_Beta_Estimator(directives.InversionDirective)</code>, placed in a separate module <code>outputs/dabic_directive.py</code>. Decide for yourself whether to use the model-space or data-space form, how to compute determinants, and in which space to optimize beta. The directive must work under both the L0 and L1 norms.</li><li>Synthetic validation: <code>starter/starter.py</code> provides the synthetic density model Model 3, survey points, noisy observed data, and forward simulation object, but does not include an inversion framework. Build the SimPEG inversion workflow yourself, and implement both Cooling and L-curve scan baselines. Run the three-way comparison for both L0 and L1.</li><li>Field-data application: <code>data/saltdome_s7_100.grd</code> is the measured Vinton salt dome gravity-anomaly data, in Surfer 7 binary format. It can be parsed by <code>starter/explore_xu_data.py</code>. Refer to <code>docs/Xu2025_HMC.pdf</code> for the inversion mesh, depth range, density bounds, and related settings.</li><li>Result comparison: compare quantitatively and qualitatively with the Xu 2025 HMC results, and write <code>outputs/report.md</code>, 800 to 1500 words/characters in length.</li></ol>

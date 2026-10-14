@@ -24,42 +24,49 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：组合优化</span></div><header class="task-head"><h1>Treant Forest</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="scale_selection" href="../index.html#scale_selection">分数换算与选取</a> <span class="id">treant_forest</span><p class="summary">对任何提交，分数刻度的上限都只有 100 分中的 21 分。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>求解一个改编自 AtCoder 编程竞赛的网格谜题的 50 个固定用例；每个用例的得分是存活的回合数，越高越好。</dd><dt>问题所在</dt><dd>评分器把每个用例的回合数上限设为 2N²（N 是网格大小），因此总数不可能超过 92,304。分数刻度的参考点却设得远高于此，最高名次的参考点达 330,195，因此任何提交的得分都不可能超过 100 分中的 21.02 分。README 没有提到这个上限。在发布方的评分器 CPU 数为 4 时，每个用例约分到半个 CPU；每个用例使用最多 58 秒计算时间的解法仍能通过（最慢的用了评分器 120 秒中的 116 秒），因此 README 所说的完整 60 秒会正好处在极限上；一个按截止时间停止的解题者大约只得到一半的计算时间。</dd><dt>影响有多大</dt><dd>每份提交的分数都被压缩到 0 到 21 之间，顺序保持不变。一份简单的诚实测试提交得 3.04 分。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：只改变分数刻度，使其从初始程序的总数（3,418）直线延伸到回合上限（92,304）。原始总数完全相同；这份简单的诚实测试提交现在得 16.36 分。</dd><dt>问题类别</dt><dd><a href="../index.html#scale_selection">分数换算与选取；另涉及：工程与运行环境</a></dd><dt>验证状态</dt><dd>只修改参考点：成对运行中两个版本的原始分数相同，诚实策略的标准化分数从 3.04 升到 16.36，无效对照在两个版本中都为 0；修复包在一台干净的机器上从零重建（materialize-check-g3）。92,304 的上限是一个已记录的界限，没有证明可以达到。</dd><dt>形式化检验</dt><dd>在 Lean 4 中部分证明。每个用例的得分至多为 2N²。总数上限 92,304 在原始刻度上对应 2543510/121003。这些公式确立的是有条件的逐个分数换算，而不是对所有已发布排行榜平均分的精确换算。 局限：92,304 是一个上限，并未证明可以达到。跨越截断点或分段边界取平均后，仅凭汇总值做换算就不再成立。。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img">
-<title>Treant Forest score scale</title>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：组合优化</span></div><header class="task-head"><h1>Treant Forest</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="scale_selection" href="../index.html#scale_selection">分数换算与选取</a> <span class="id">treant_forest</span><p class="summary">对任何提交，分数刻度的上限都只有 100 分中的 21 分。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>求解一个改编自 AtCoder 编程竞赛的网格谜题的 50 个固定用例；每个用例的得分是存活的回合数，越高越好。</dd><dt>问题所在</dt><dd>评分器把每个用例的回合数上限设为 2N²（N 是网格大小），因此总数不可能超过 92,304。分数刻度的参考点却设得远高于此，最高名次的参考点达 330,195，因此任何提交的得分都不可能超过 100 分中的 21.02 分。README 没有提到这个上限。在发布方的评分器 CPU 数为 4 时，每个用例约分到半个 CPU；每个用例使用最多 58 秒计算时间的解法仍能通过（最慢的用了评分器 120 秒中的 116 秒），因此 README 所说的完整 60 秒会正好处在极限上；一个按截止时间停止的解题者大约只得到一半的计算时间。</dd><dt>影响有多大</dt><dd>每份提交的分数都被压缩到 0 到 21 之间，顺序保持不变。一份简单的诚实测试提交得 3.04 分。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：只改变分数刻度，使其从初始程序的总数（3,418）直线延伸到回合上限（92,304）。原始总数完全相同；这份简单的诚实测试提交现在得 16.36 分。</dd><dt>问题类别</dt><dd><a href="../index.html#scale_selection">分数换算与选取；另涉及：工程与运行环境</a></dd><dt>验证状态</dt><dd>只修改参考点：成对运行中两个版本的原始分数相同，诚实策略的标准化分数从 3.04 升到 16.36，无效对照在两个版本中都为 0；修复包在一台干净的机器上从零重建（materialize-check-g3）。92,304 的上限是一个已记录的界限，没有证明可以达到。</dd><dt>形式化检验</dt><dd>在 Lean 4 中部分证明。每个用例的得分至多为 2N²。总数上限 92,304 在原始刻度上对应 2543510/121003。这些公式确立的是有条件的逐个分数换算，而不是对所有已发布排行榜平均分的精确换算。 局限：92,304 是一个上限，并未证明可以达到。跨越截断点或分段边界取平均后，仅凭汇总值做换算就不再成立。。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 392" role="img">
+<title>任何提交的得分都不可能超过 21.02 分（满分 100）</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-
-<text x="40" y="26" class="muted" font-size="15" text-anchor="start" font-weight="400">Original score scale (0 to 100)</text>
-<rect x="40" y="70" width="134.5" height="28" class="goodBg"/><rect x="174.5" y="70" width="505.5" height="28" class="badBg"/>
-<text x="427" y="89" class="bad" font-size="15" text-anchor="middle" font-weight="600">unreachable</text>
-<line x1="174.5" y1="46" x2="174.5" y2="98" class="inkS" stroke-width="2"/>
-<text x="182" y="50" class="ink" font-size="14" text-anchor="start" font-weight="600">Turn cap: 92,304 total turns = 21.02</text>
-<line x1="40" y1="98" x2="40" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="40" y="124" class="ink" font-size="15" text-anchor="start" font-weight="600">0</text>
-<text x="40" y="142" class="muted" font-size="14" text-anchor="start" font-weight="400">5,369</text>
-<line x1="168" y1="98" x2="168" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="168" y="124" class="ink" font-size="15" text-anchor="middle" font-weight="600">20</text>
-<text x="168" y="142" class="muted" font-size="14" text-anchor="middle" font-weight="400">88,189</text>
-<line x1="552" y1="98" x2="552" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="552" y="124" class="ink" font-size="15" text-anchor="middle" font-weight="600">80</text>
-<text x="552" y="142" class="muted" font-size="14" text-anchor="middle" font-weight="400">330,195</text>
-<line x1="680" y1="98" x2="680" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="680" y="124" class="ink" font-size="15" text-anchor="end" font-weight="600">100</text>
-<text x="680" y="142" class="muted" font-size="14" text-anchor="end" font-weight="400">451,198</text>
-<text x="40" y="166" class="muted" font-size="13" text-anchor="start" font-weight="400">Bold: score out of 100. Grey: total turns needed for that score.</text>
-<text x="40" y="192" class="muted" font-size="15" text-anchor="start" font-weight="400">Fixed score scale (0 to 100)</text>
-<rect x="40" y="204" width="640" height="28" class="goodBg"/>
-<text x="40" y="254" class="ink" font-size="15" text-anchor="start" font-weight="600">0 = 3,418 turns (starter)</text>
-<text x="680" y="254" class="ink" font-size="15" text-anchor="end" font-weight="600">100 = 92,304 turns (the cap)</text>
-
+<text x="16" y="24" class="ink" font-size="16" font-weight="600">任何提交的得分都不可能超过 21.02 分（满分 100）</text>
+<text x="16" y="46" class="muted" font-size="14">评分器在 2N² 回合后结束每局游戏，因此 50 个用例的总回合数最多为 92,304。</text>
+<text x="40" y="80" class="muted" font-size="15">原始分数刻度</text>
+<rect x="40" y="120" width="134.5" height="28" class="goodBg"/><rect x="174.5" y="120" width="505.5" height="28" class="badBg"/>
+<text x="427" y="139" class="bad" font-size="15" font-weight="600" text-anchor="middle">无法达到</text>
+<line x1="174.5" y1="98" x2="174.5" y2="148" class="inkS" stroke-width="2"/>
+<text x="182.5" y="110" class="ink" font-size="14" font-weight="600">上限：92,304 回合 = 21.02</text>
+<circle cx="59.5" cy="134" r="5" class="acc"/>
+<text x="69.5" y="139" class="acc" font-size="14" font-weight="600">3.04</text>
+<line x1="40.0" y1="148" x2="40.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="40.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="start">0</text>
+<text x="40.0" y="192" class="muted" font-size="14" text-anchor="start">5,369</text>
+<line x1="168.0" y1="148" x2="168.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="168.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="middle">20</text>
+<text x="168.0" y="192" class="muted" font-size="14" text-anchor="middle">88,189</text>
+<line x1="552.0" y1="148" x2="552.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="552.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="middle">80</text>
+<text x="552.0" y="192" class="muted" font-size="14" text-anchor="middle">330,195</text>
+<line x1="680.0" y1="148" x2="680.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="680.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="end">100</text>
+<text x="680.0" y="192" class="muted" font-size="14" text-anchor="end">451,198</text>
+<text x="40" y="216" class="muted" font-size="13">粗体：得分（满分 100）。灰色：得到该分数所需的总回合数。</text>
+<text x="40" y="256" class="muted" font-size="15">修复版分数刻度</text>
+<rect x="40" y="268" width="640" height="28" class="goodBg"/>
+<circle cx="144.7" cy="282" r="5" class="acc"/>
+<text x="154.7" y="287" class="acc" font-size="14" font-weight="600">16.36</text>
+<text x="40" y="318" class="ink" font-size="15" font-weight="600">0 = 3,418 回合（初始代码）</text>
+<text x="680" y="318" class="ink" font-size="15" font-weight="600" text-anchor="end">100 = 92,304 回合（上限）</text>
+<circle cx="46" cy="347" r="5" class="acc"/>
+<text x="58" y="352" class="acc" font-size="14" font-weight="600">诚实的测试解法：17,960 回合，两种刻度下原始结果相同</text>
+<text x="40" y="378" class="muted" font-size="13">提交之间的先后顺序不变。是否有提交能达到上限尚未证明。</text>
 </svg>
-</div><figcaption>原始分数刻度的参考点高于回合上限，因此任何提交的得分都不可能超过 100 分中的 21.02 分；修复后的刻度终止于该上限 92,304。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/treant_forest.json">tasks/treant_forest.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-treants-forest---maze-obstruction-strategy-ahc054">Treant's Forest - Maze Obstruction Strategy (AHC054)</h4>
+</div><figcaption>在 Treant&#x27;s Forest 中，任何提交的得分都不可能超过 21.02 分（满分 100），因为分数刻度是按评分器根本不允许的总数设定的。智能体玩一个以回合数计分的网格谜题，评分器在 2N² 回合后结束每局游戏，因此 50 个用例的总回合数最多为 92,304，而原始刻度要 330,195 回合才给 80 分。修复版刻度从初始代码的 3,418 回合（0 分）到 92,304 回合的上限（100 分），因此一个诚实的测试解法从 3.04 分变为 16.36 分，提交之间的先后顺序不变；是否有提交能达到上限尚未证明。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/treant_forest.json">tasks/treant_forest.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-treants-forest---maze-obstruction-strategy-ahc054">Treant's Forest - Maze Obstruction Strategy (AHC054)</h4>
 <p>Write <code>solution.py</code> in the project root that reads from stdin and writes to stdout.</p>
 <hr>
 <h4 id="prompt-problem-overview">Problem Overview</h4>

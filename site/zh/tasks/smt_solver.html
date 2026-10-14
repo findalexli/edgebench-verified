@@ -24,51 +24,54 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：组合优化</span></div><header class="task-head"><h1>SMT Solver</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="grader_logic" href="../index.html#grader_logic">评分逻辑错误，事实性错误</a> <span class="id">smt_solver</span><p class="summary">答案检查器误读了某些有效解，因此有 27 道隐藏题目无法得分。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>构建一个 SMT 求解器：一个判断一组逻辑约束能否被满足、并在可满足时输出满足它们的取值的程序。</dd><dt>问题所在</dt><dd>在检查求解器给出的取值时，评分器按字面文本（例如 &quot;(f x)&quot;）查找一个函数的值，而忽略 x 当前代表什么。如果同一段文本在不同位置表示不同的东西，就没有答案能通过。27 道可满足的隐藏题目无法得分，另有 42 道题目上，按任务说明所述方式书写的答案会被拒绝。以下为说明，不属于修复：评分器同时运行 16 个求解器进程。官方排行榜给它 16 个 CPU，每个进程一个；在 CPU 较少（例如 4 个）的评分器上，每个进程分到的更少，一个每道题需要 20 秒计算时间的求解器出现了超时。</dd><dt>影响有多大</dt><dd>一个完美求解器的最高分从 78.61 降到 72.40（6.21 分）。所有求解器都失去这 27 道题；遵循文档格式的求解器还会再失去 42 道。</dd><dt>我们的处理</dt><dd>修复后的检查器在全部 69 个受影响的隐藏文件上接受测试过的有效基础键答案，并拒绝测试过的错误答案。Lean 的可靠性证明只涵盖一个受限的建模片段，而不是评分程序的每个特性；文本键的兼容性有已记录的例外。</dd><dt>问题类别</dt><dd><a href="../index.html#grader_logic">评分逻辑错误，事实性错误；另涉及：任务说明与评分不一致</a></dd><dt>验证状态</dt><dd>用例集的成对对照得到验证；形式化可靠性只涵盖建模的 QF_UF 片段，与实现的对应是论证得出的。</dd><dt>形式化检验</dt><dd>在 Lean 4 中已证明。在建模的 QF_UF 片段内，原始检查器拒绝已公布的可满足作用域冲突模式的每一个见证。修复后的模型在其覆盖假设下，对基础键见证是可靠且完备的。 局限：一个 sort、一个一元函数、let、=、not 和 and。没有整个评分程序的可靠性证明；与实现的对应是论证并经过差分测试的，不是机器证明的。。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img">
-<title>SMT Solver witness checker</title>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：组合优化</span></div><header class="task-head"><h1>SMT Solver</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="grader_logic" href="../index.html#grader_logic">评分逻辑错误，事实性错误</a> <span class="id">smt_solver</span><p class="summary">答案检查器误读了某些有效解，因此有 27 道隐藏题目无法得分。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>构建一个 SMT 求解器：一个判断一组逻辑约束能否被满足、并在可满足时输出满足它们的取值的程序。</dd><dt>问题所在</dt><dd>在检查求解器给出的取值时，评分器按字面文本（例如 &quot;(f x)&quot;）查找一个函数的值，而忽略 x 当前代表什么。如果同一段文本在不同位置表示不同的东西，就没有答案能通过。27 道可满足的隐藏题目无法得分，另有 42 道题目上，按任务说明所述方式书写的答案会被拒绝。以下为说明，不属于修复：评分器同时运行 16 个求解器进程。官方排行榜给它 16 个 CPU，每个进程一个；在 CPU 较少（例如 4 个）的评分器上，每个进程分到的更少，一个每道题需要 20 秒计算时间的求解器出现了超时。</dd><dt>影响有多大</dt><dd>一个完美求解器的最高分从 78.61 降到 72.40（6.21 分）。所有求解器都失去这 27 道题；遵循文档格式的求解器还会再失去 42 道。</dd><dt>我们的处理</dt><dd>修复后的检查器在全部 69 个受影响的隐藏文件上接受测试过的有效基础键答案，并拒绝测试过的错误答案。Lean 的可靠性证明只涵盖一个受限的建模片段，而不是评分程序的每个特性；文本键的兼容性有已记录的例外。</dd><dt>问题类别</dt><dd><a href="../index.html#grader_logic">评分逻辑错误，事实性错误；另涉及：任务说明与评分不一致</a></dd><dt>验证状态</dt><dd>用例集的成对对照得到验证；形式化可靠性只涵盖建模的 QF_UF 片段，与实现的对应是论证得出的。</dd><dt>形式化检验</dt><dd>在 Lean 4 中已证明。在建模的 QF_UF 片段内，原始检查器拒绝已公布的可满足作用域冲突模式的每一个见证。修复后的模型在其覆盖假设下，对基础键见证是可靠且完备的。 局限：一个 sort、一个一元函数、let、=、not 和 and。没有整个评分程序的可靠性证明；与实现的对应是论证并经过差分测试的，不是机器证明的。。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 410" role="img">
+<title>评分器按字面写法读取答案，因此 27 道有解的题永远无法通过</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">评分器按字面写法读取答案，因此 27 道有解的题永远无法通过</text>
+<text x="16" y="46" class="muted" font-size="14">例：x 在一行中代表 a，在下一行中代表 b，所以“(f x)”表示两个不同的值。</text>
+<g transform="translate(0,52)">
 <rect x="16" y="12" width="328" height="270" rx="8" fill="none" class="rule" stroke-width="1.5"/>
-<text x="180" y="38" class="muted" font-size="15" text-anchor="middle" font-weight="400">Original checker</text>
+<text x="180" y="38" class="muted" font-size="15" text-anchor="middle">原始评分器</text>
 <rect x="28" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="28" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
-<text x="102" y="75" class="ink" font-size="14" text-anchor="middle" font-weight="400">let x = a</text>
-<text x="102" y="95" class="ink" font-size="14" text-anchor="middle" font-weight="600">(f x) = a</text>
+<text x="102" y="75" class="ink" font-size="14" text-anchor="middle">let x = a</text>
+<text x="102" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = a</text>
 <rect x="184" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="184" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
-<text x="258" y="75" class="ink" font-size="14" text-anchor="middle" font-weight="400">let x = b</text>
-<text x="258" y="95" class="ink" font-size="14" text-anchor="middle" font-weight="600">(f x) = b</text>
+<text x="258" y="75" class="ink" font-size="14" text-anchor="middle">let x = b</text>
+<text x="258" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = b</text>
 <path d="M102 108 L166 166 M258 108 L194 166" fill="none" class="inkS" stroke-width="2"/>
 <rect x="135" y="168" width="90" height="34" rx="5" class="badBg"/><rect x="135" y="168" width="90" height="34" rx="5" fill="none" class="badS" stroke-width="2"/>
-<text x="180" y="191" class="bad" font-size="16" text-anchor="middle" font-weight="600">(f x)</text>
-<text x="180" y="224" class="muted" font-size="14" text-anchor="middle" font-weight="400">one text key, two values</text>
-<text x="180" y="258" class="bad" font-size="17" text-anchor="middle" font-weight="700">no answer passes ✗</text>
+<text x="180" y="191" class="bad" font-size="16" font-weight="600" text-anchor="middle">(f x)</text>
+<text x="180" y="224" class="muted" font-size="14" text-anchor="middle">一个文字键，两个值</text>
+<text x="180" y="258" class="bad" font-size="16" font-weight="700" text-anchor="middle">任何正确答案都无法通过 ✗</text>
 <rect x="376" y="12" width="328" height="270" rx="8" fill="none" class="rule" stroke-width="1.5"/>
-<text x="540" y="38" class="muted" font-size="15" text-anchor="middle" font-weight="400">Fixed checker</text>
+<text x="540" y="38" class="muted" font-size="15" text-anchor="middle">修复版评分器</text>
 <rect x="388" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="388" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
-<text x="462" y="75" class="ink" font-size="14" text-anchor="middle" font-weight="400">let x = a</text>
-<text x="462" y="95" class="ink" font-size="14" text-anchor="middle" font-weight="600">(f x) = a</text>
-<rect x="544" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="544" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
-<text x="618" y="75" class="ink" font-size="14" text-anchor="middle" font-weight="400">let x = b</text>
-<text x="618" y="95" class="ink" font-size="14" text-anchor="middle" font-weight="600">(f x) = b</text>
+<text x="462" y="75" class="ink" font-size="14" text-anchor="middle">let x = a</text>
+<text x="462" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = a</text>
 <path d="M462 108 L462 164" fill="none" class="inkS" stroke-width="2"/>
 <rect x="422" y="168" width="80" height="34" rx="5" class="goodBg"/><rect x="422" y="168" width="80" height="34" rx="5" fill="none" class="goodS" stroke-width="2"/>
-<text x="462" y="191" class="good" font-size="16" text-anchor="middle" font-weight="600">(f a)</text>
+<text x="462" y="191" class="good" font-size="16" font-weight="600" text-anchor="middle">(f a)</text>
+<rect x="544" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="544" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
+<text x="618" y="75" class="ink" font-size="14" text-anchor="middle">let x = b</text>
+<text x="618" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = b</text>
 <path d="M618 108 L618 164" fill="none" class="inkS" stroke-width="2"/>
 <rect x="578" y="168" width="80" height="34" rx="5" class="goodBg"/><rect x="578" y="168" width="80" height="34" rx="5" fill="none" class="goodS" stroke-width="2"/>
-<text x="618" y="191" class="good" font-size="16" text-anchor="middle" font-weight="600">(f b)</text>
-<text x="540" y="224" class="muted" font-size="14" text-anchor="middle" font-weight="400">one key per actual argument</text>
-<text x="540" y="258" class="good" font-size="17" text-anchor="middle" font-weight="700">correct answer accepted ✓</text>
-<text x="16" y="306" class="ink" font-size="14" text-anchor="start" font-weight="400">27 hidden problems unwinnable originally; a perfect solver's</text>
-<text x="16" y="326" class="ink" font-size="14" text-anchor="start" font-weight="400">maximum is 72.40 instead of 78.61.</text>
-
+<text x="618" y="191" class="good" font-size="16" font-weight="600" text-anchor="middle">(f b)</text>
+<text x="540" y="224" class="muted" font-size="14" text-anchor="middle">每个实际参数一个键</text>
+<text x="540" y="258" class="good" font-size="16" font-weight="700" text-anchor="middle">正确答案被接受 ✓</text>
+</g>
+<text x="16" y="360" class="ink" font-size="14">原始评分器：27 道有解的隐藏题目永远无法通过，因此完美求解器最多只能得 72.40 分</text>
+<text x="16" y="379" class="ink" font-size="14">（满分 100），而不是 78.61 分。另有 42 道题，按任务说明所述方式写出的答案被拒绝。</text>
+<text x="16" y="398" class="ink" font-size="14">修复版评分器在全部 69 道题上都接受正确答案。</text>
 </svg>
-</div><figcaption>原始检查器按文本查找函数的值，因此有 27 道可满足的隐藏题目无法得分；修复版检查器使用实际的参数。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/smt_solver.json">tasks/smt_solver.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p>Implement an SMT solver from scratch. Read README.md and smtlib_spec.md. Provide build.sh, solve, and src/. The evaluator calls ./solve path/to/input.smt2 and expects unsat or unknown as exactly one line, and sat followed by a JSON model witness that validates the assertions. The benchmark logics include QF_UF, QF_LRA, QF_LIA, and QF_UFLRA. Use the compact benchmarks/ develop set and scripts/evaluate.py for local feedback. Official hidden evaluation uses a 60 second per-case timeout, 16 evaluator workers, perturbation with a private salt, and a 7200 second whole-run wall-clock budget. Do not call external SMT solvers such as z3/cvc5, online services, or hard-code benchmark answers.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/smt_solver.json">tasks/smt_solver.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>python3 - &lt;&lt;&#x27;PY&#x27; …</code></pre><details class="longcmd"><summary>显示完整命令（32 行）</summary><pre class="long"><code>python3 - &lt;&lt;&#x27;PY&#x27;
+</div><figcaption>SMT Solver 的评分器按表达式的字面写法而不是参数实际代表的值来查找函数值，因此 27 道有解的隐藏题目永远无法通过。智能体要编写一个逻辑求解器，并为每道有解的题目给出一个示例解；当同一段文字（例如 (f x)）代表两个不同的值时，任何正确的解都会被拒绝；另有 42 道题，按任务说明所述方式写出的解也被拒绝。这使完美求解器的最高分从 78.61 降到 72.40（满分 100）。修复版评分器先计算参数的值，并在全部 69 道题上接受正确的解。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/smt_solver.json">tasks/smt_solver.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p>Implement an SMT solver from scratch. Read README.md and smtlib_spec.md. Provide build.sh, solve, and src/. The evaluator calls ./solve path/to/input.smt2 and expects unsat or unknown as exactly one line, and sat followed by a JSON model witness that validates the assertions. The benchmark logics include QF_UF, QF_LRA, QF_LIA, and QF_UFLRA. Use the compact benchmarks/ develop set and scripts/evaluate.py for local feedback. Official hidden evaluation uses a 60 second per-case timeout, 16 evaluator workers, perturbation with a private salt, and a 7200 second whole-run wall-clock budget. Do not call external SMT solvers such as z3/cvc5, online services, or hard-code benchmark answers.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/smt_solver.json">tasks/smt_solver.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>python3 - &lt;&lt;&#x27;PY&#x27; …</code></pre><details class="longcmd"><summary>显示完整命令（32 行）</summary><pre class="long"><code>python3 - &lt;&lt;&#x27;PY&#x27;
 import pathlib, shutil, zipfile
 zip_path = pathlib.Path(&#x27;/home/workspace/smt_judge/SMT-hidden_benchmarks.zip&#x27;)
 dest = pathlib.Path(&#x27;/home/workspace/smt_judge/hidden_benchmarks&#x27;)

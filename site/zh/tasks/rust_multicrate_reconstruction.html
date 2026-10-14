@@ -24,7 +24,75 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：系统与软件工程</span></div><header class="task-head"><h1>Rust Multicrate Reconstruction</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="engineering" href="../index.html#engineering">工程与运行环境</a> <span class="id">rust_multicrate_reconstruction</span><p class="summary">无法编译的隐藏测试使两个包得零分；已修复。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>在一个由 14 个包组成的 Rust 项目（Rust 是一种编程语言）中补全缺失的代码，使其通过针对其库和命令行工具的隐藏测试。</dd><dt>问题所在</dt><dd>评分器把隐藏测试插入两个包中无法编译的位置，因此对每个按任务要求不修改测试的解题者，搜索包（12 分）和命令行包（10 分）都得零分。测试运行器还会在第一个失败的测试文件处停止，并把未运行的测试计为失败；而一个被豁免的测试可能抵消一个无关的失败。另外，已发布的镜像缺少一个随附依赖的四个文件，因此用这些镜像无法构建 14 个包中的 9 个；发布方自己的评分环境中有这些文件。</dd><dt>影响有多大</dt><dd>在发布方的评分环境中，一个完整、正确的解法得 100 分中的 74.0 分，而使用修复版得 94.7 分（+20.7）；任何提交的增益都不会超过 29.2。在测得的提交中，于第一个失败的测试文件处停止会损失 0.4 到 3.3 分。用按原样发布的镜像评分，同一解法得 27.6 分。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：隐藏测试被放在能够编译的位置，每个测试文件都会运行，保留了先前对豁免规则的修复，缺失的随附依赖文件也已恢复。</dd><dt>问题类别</dt><dd><a href="../index.html#engineering">工程与运行环境；另涉及：评分逻辑错误，事实性错误</a></dd><dt>验证状态</dt><dd>原样 eval_cmd 的三次成对运行（均为 exit=0）复现了每一个已发布的分数；TLA+ 涵盖豁免规则；v2 评分器镜像和工作镜像在一台干净的机器上从零重建（materialize-check-rust）。没有在 v2 工作镜像中运行解题者的构建；v2 初始代码组只运行了一次。</dd><dt>形式化检验</dt><dd>在 TLA+ 中部分模型检验。原始的测试计分规则可能把一个无关的失败算作通过；修复版的规则不会。这是四个已修复缺陷之一；隐藏测试的放置位置、Cargo 在失败的测试文件处停止，以及缺失的随附依赖文件，都由并排对照运行而非模型来确定。 局限：每个包至多四个测试、一到两个被豁免的测试；要求预期测试数至少等于实际运行的测试数；只有一个测试二进制文件。</dd></dl></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/rust_multicrate_reconstruction.json">tasks/rust_multicrate_reconstruction.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-cas-rust-multi-crate-reconstruction">CAS Rust Multi-Crate Reconstruction</h4>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：系统与软件工程</span></div><header class="task-head"><h1>Rust Multicrate Reconstruction</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="engineering" href="../index.html#engineering">工程与运行环境</a> <span class="id">rust_multicrate_reconstruction</span><p class="summary">无法编译的隐藏测试使两个包得零分；已修复。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>在一个由 14 个包组成的 Rust 项目（Rust 是一种编程语言）中补全缺失的代码，使其通过针对其库和命令行工具的隐藏测试。</dd><dt>问题所在</dt><dd>评分器把隐藏测试插入两个包中无法编译的位置，因此对每个按任务要求不修改测试和设置的解题者，搜索包（12 分）和命令行包（10 分），即 100 分中的 22 分，都得零分（解题者可以通过打开 search 的 parallel 设置使其编译，这不修改任何测试，但任务中没有任何提示指向这一点）。测试运行器还会在第一个失败的测试文件处停止，并把未运行的测试计为失败；而一个被豁免的测试可能抵消一个无关的失败。另外，已发布的镜像缺少一个随附依赖的四个文件，因此用这些镜像无法构建 14 个包中的 9 个；发布方自己的评分环境中有这些文件。</dd><dt>影响有多大</dt><dd>在发布方的评分环境中，一个完整、正确的解法得 100 分中的 73.99 分，而使用修复版得 94.70 分（+20.71）；任何提交的增益都不会超过 29.2。在测得的提交中，于第一个失败的测试文件处停止会损失 0.4 到 3.3 分。用按原样发布的镜像评分，同一解法得 27.6 分。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：隐藏测试被放在能够编译的位置，每个测试文件都会运行，保留了先前对豁免规则的修复，缺失的随附依赖文件也已恢复。</dd><dt>问题类别</dt><dd><a href="../index.html#engineering">工程与运行环境；另涉及：评分逻辑错误，事实性错误</a></dd><dt>验证状态</dt><dd>原样 eval_cmd 的三次成对运行（均为 exit=0）复现了每一个已发布的分数；TLA+ 涵盖豁免规则；v2 评分器镜像和工作镜像在一台干净的机器上从零重建（materialize-check-rust）。没有在 v2 工作镜像中运行解题者的构建；v2 初始代码组只运行了一次。</dd><dt>形式化检验</dt><dd>在 TLA+ 中部分模型检验。原始的测试计分规则可能把一个无关的失败算作通过；修复版的规则不会。这是四个已修复缺陷之一；隐藏测试的放置位置、Cargo 在失败的测试文件处停止，以及缺失的随附依赖文件，都由并排对照运行而非模型来确定。 局限：每个包至多四个测试、一到两个被豁免的测试；要求预期测试数至少等于实际运行的测试数；只有一个测试二进制文件。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 448" role="img">
+<title>无法编译的隐藏测试让每个诚实的解题者在 100 分中失去 22 分</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleF{fill:#eef2f4}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">无法编译的隐藏测试让 100 分中的 22 分归零</text>
+<text x="16" y="44" class="muted" font-size="14">智能体要重建一个包含 14 个包的 Rust 项目，并被要求不得修改测试。</text>
+<text x="16" y="78" class="ink" font-size="14" font-weight="600">评分器向全部 14 个包加入隐藏测试</text>
+<text x="16" y="96" class="bad" font-size="14">其中两个包，测试被放在无法编译的位置</text>
+<rect x="16" y="110" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="129" class="ink" font-size="13">types</text>
+<rect x="196" y="110" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="129" class="ink" font-size="13">code</text>
+<rect x="16" y="144" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="163" class="ink" font-size="13">factory-protocol</text>
+<rect x="196" y="144" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="163" class="ink" font-size="13">diffs</text>
+<rect x="16" y="178" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="197" class="ink" font-size="13">pty</text>
+<rect x="196" y="178" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="197" class="ink" font-size="13">recording</text>
+<rect x="16" y="212" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="231" class="ink" font-size="13">store</text>
+<rect x="196" y="212" width="172" height="28" rx="4" class="badBg"/>
+<rect x="196" y="212" width="172" height="28" rx="4" fill="none" class="badS" stroke-width="1.5"/>
+<text x="206" y="231" class="bad" font-size="13" font-weight="600">search：12 分 → 0</text>
+<rect x="16" y="246" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="265" class="ink" font-size="13">core</text>
+<rect x="196" y="246" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="265" class="ink" font-size="13">mux</text>
+<rect x="16" y="280" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="299" class="ink" font-size="13">factory</text>
+<rect x="196" y="280" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="299" class="ink" font-size="13">mcp</text>
+<rect x="16" y="314" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="333" class="ink" font-size="13">tui-test</text>
+<rect x="196" y="314" width="172" height="28" rx="4" class="badBg"/>
+<rect x="196" y="314" width="172" height="28" rx="4" fill="none" class="badS" stroke-width="1.5"/>
+<text x="206" y="333" class="bad" font-size="13" font-weight="600">cli：10 分 → 0</text>
+<text x="16" y="370" class="ink" font-size="13">cli 是命令行程序。测试和配置保持原样时，</text>
+<text x="16" y="388" class="ink" font-size="13">这两个包都得 0 分。</text>
+<text x="420" y="78" class="ink" font-size="14" font-weight="600">同一个完整、正确的解法</text>
+<text x="420" y="96" class="muted" font-size="14">满分 100，同一份代码评分两次</text>
+<line x1="448" y1="330.0" x2="704" y2="330.0" class="rule" stroke-width="1"/>
+<text x="440" y="335.0" class="muted" font-size="13" text-anchor="end">0</text>
+<line x1="448" y1="228.0" x2="704" y2="228.0" class="rule" stroke-width="1"/>
+<text x="440" y="233.0" class="muted" font-size="13" text-anchor="end">50</text>
+<line x1="448" y1="126.0" x2="704" y2="126.0" class="rule" stroke-width="1"/>
+<text x="440" y="131.0" class="muted" font-size="13" text-anchor="end">100</text>
+<rect x="460" y="179.1" width="80" height="150.9" class="bad"/>
+<text x="500.0" y="201.1" class="bg" font-size="15" font-weight="600" text-anchor="middle">73.99</text>
+<text x="500.0" y="348" class="ink" font-size="13" text-anchor="middle">原始评分器</text>
+<rect x="556" y="136.8" width="80" height="193.2" class="good"/>
+<text x="596.0" y="158.8" class="bg" font-size="15" font-weight="600" text-anchor="middle">94.70</text>
+<text x="596.0" y="348" class="ink" font-size="13" text-anchor="middle">修复版评分器</text>
+<line x1="540" y1="179.1" x2="648" y2="179.1" class="inkS" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M642,136.8 H648 V179.1 H642" fill="none" class="inkS" stroke-width="1.5"/>
+<text x="654" y="162.9" class="good" font-size="14" font-weight="600">+20.71</text>
+<text x="420" y="370" class="ink" font-size="13">增加：search +11.29，cli +9.32，</text>
+<text x="420" y="388" class="ink" font-size="13">一项被评分器跳过的测试 +0.10</text>
+<text x="16" y="418" class="muted" font-size="13">原始评分器按发布方的运行方式。若用按原样发布的文件，会缺少四个库文件，</text>
+<text x="16" y="435" class="muted" font-size="13">同一解法得 27.61 分。</text>
+</svg>
+</div><figcaption>对每个不修改测试的解题者，无法编译的隐藏测试让 100 分中的 22 分归零。智能体要重建一个包含 14 个包的 Rust 项目，并被要求不得修改测试；评分器把隐藏测试插入 search（12 分）和命令行程序（10 分）这两个包中无法编译的位置，因此两者都得 0 分。同一个完整、正确的解法，在发布方运行的原始评分器下得 73.99 分（满分 100），在修复版评分器下得 94.70 分；修复版把隐藏测试放在能编译的位置，并且会运行原始评分器在先前失败后跳过的测试。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/rust_multicrate_reconstruction.json">tasks/rust_multicrate_reconstruction.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-cas-rust-multi-crate-reconstruction">CAS Rust Multi-Crate Reconstruction</h4>
 <p>Complete the missing Rust implementations in the unpacked CAS workspace. The main development directory is <code>agent-start/</code>.</p>
 <p>Read <code>agent-start/TASK.md</code>, <code>agent-start/SPEC.md</code>, and <code>agent-start/README.md</code> for the crate behavior expectations, edit boundaries, local scoring command, and the distinction between production TODOs and public test-helper TODOs. The hidden evaluator runs additional tests for the same public crate and CLI contracts.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/rust_multicrate_reconstruction.json">tasks/rust_multicrate_reconstruction.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>cd /home/workspace/cas_rust_benchmark &amp;&amp; rm -rf /tmp/cas_eval /tmp/cas_score.out /tmp/cas_submitted_agent_start &amp;&amp; mkdir -p /tmp/cas_eval &amp;&amp; if [ -d agent-start ]; then cp -a agent-start /tmp/cas_submitted_agent_start; rm -rf /tmp/cas_submitted_agent_start/target /tmp/cas_submitted_agent_start/vendor-deps /tmp/cas_submitted_agent_start/.git; fi &amp;&amp; tar -xzf cas_rust_benchmark.tar.gz -C /tmp/cas_eval &amp;&amp; mkdir -p /tmp/cas_eval/run &amp;&amp; cp -a /tmp/cas_eval/cas_rust_benchmark/workspace/. /tmp/cas_eval/run/ &amp;&amp; cp -a /tmp/cas_eval/cas_rust_benchmark/judge/. /tmp/cas_eval/run/ &amp;&amp; if [ -d /tmp/cas_submitted_agent_start ]; then cp -a /tmp/cas_submitted_agent_start/. /tmp/cas_eval/run/agent-start/; fi &amp;&amp; cd /tmp/cas_eval/run &amp;&amp; cc -c agent-start/.ghostty-stub/ghostty_vt_stub.c -o agent-start/.ghostty-stub/ghostty_vt_stub.o &amp;&amp; ar rcs agent-start/.ghostty-stub/libghostty_vt.a agent-start/.ghostty-stub/ghostty_vt_stub.o &amp;&amp; chmod +x score.sh verify_task.sh agent-start/score.sh &amp;&amp; bash score.sh agent-start &gt; /tmp/cas_score.out 2&gt;&amp;1; cat /tmp/cas_score.out; python3 -c &#x27;import json,pathlib,re …</code></pre><details class="longcmd"><summary>显示完整命令（114 行）</summary><pre class="long"><code>cd /home/workspace/cas_rust_benchmark &amp;&amp; rm -rf /tmp/cas_eval /tmp/cas_score.out /tmp/cas_submitted_agent_start &amp;&amp; mkdir -p /tmp/cas_eval &amp;&amp; if [ -d agent-start ]; then cp -a agent-start /tmp/cas_submitted_agent_start; rm -rf /tmp/cas_submitted_agent_start/target /tmp/cas_submitted_agent_start/vendor-deps /tmp/cas_submitted_agent_start/.git; fi &amp;&amp; tar -xzf cas_rust_benchmark.tar.gz -C /tmp/cas_eval &amp;&amp; mkdir -p /tmp/cas_eval/run &amp;&amp; cp -a /tmp/cas_eval/cas_rust_benchmark/workspace/. /tmp/cas_eval/run/ &amp;&amp; cp -a /tmp/cas_eval/cas_rust_benchmark/judge/. /tmp/cas_eval/run/ &amp;&amp; if [ -d /tmp/cas_submitted_agent_start ]; then cp -a /tmp/cas_submitted_agent_start/. /tmp/cas_eval/run/agent-start/; fi &amp;&amp; cd /tmp/cas_eval/run &amp;&amp; cc -c agent-start/.ghostty-stub/ghostty_vt_stub.c -o agent-start/.ghostty-stub/ghostty_vt_stub.o &amp;&amp; ar rcs agent-start/.ghostty-stub/libghostty_vt.a agent-start/.ghostty-stub/ghostty_vt_stub.o &amp;&amp; chmod +x score.sh verify_task.sh agent-start/score.sh &amp;&amp; bash score.sh agent-start &gt; /tmp/cas_score.out 2&gt;&amp;1; cat /tmp/cas_score.out; python3 -c &#x27;import json,pathlib,re
 PASSED=&quot;PASSED&quot;; FAILED=&quot;FAILED&quot;; ERROR=&quot;ERROR&quot;
