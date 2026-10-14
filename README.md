@@ -38,9 +38,26 @@ The impact analysis uses intervals for Treant Forest because published averages 
 
 A grader can therefore go wrong in four places in its code: what it accepts, what it rejects, how
 it converts the raw result to 0–100, and which submission it keeps. A fifth lies outside its code:
-the machine it runs on. We found problems in all five.
+the machine it runs on. We found problems in all five, and group them below into four categories.
 
 ## What we found
+
+Every task with a problem, the 31 fixed tasks and the removed one, has one primary category, set by the
+mechanism of its main defect, and may have secondary ones. The four categories:
+
+| Category | Tasks (primary) | In short |
+| --- | ---: | --- |
+| Engineering and runtime environment | 5 | The grader does not run correctly in the real setup |
+| Grader correctness and factual errors | 15 | The grader marks wrong work as right, or right work as wrong |
+| Instruction–grader mismatch | 9 | The grader enforces something the instructions do not state, or contradicts them |
+| Scoring scale and selection | 3 | The 0–100 scale cannot be reached, a reference point is wrong, or the wrong submission is kept |
+| **Total** | **32** | |
+
+Representative examples follow; a task can appear under a secondary category too.
+
+### 1. Engineering and runtime environment (5 tasks)
+
+The grader's scoring rules may be right, but it does not run correctly in the setting where it is actually used. Typical causes: test cases run at once on fewer CPUs than they need, so honest solutions time out; hidden tests are inserted where they do not compile; files the grader needs are missing from the published images; a test run stops at its first failure and counts the rest as failed; or a result depends on timing. Honest work then loses points for reasons that have nothing to do with its quality.
 
 **The grader is given fewer CPUs than it runs work on.** EdgeBench's official leaderboard settings
 give each grader 4 CPUs unless the task overrides it
@@ -58,23 +75,44 @@ promised time.) The instructions never state the grader's CPU count; a wall-cloc
 - SMT Solver runs 16 solver processes at once, but the settings give its grader 16 CPUs, so the
   problem does not arise there.
 
-**Correct work is scored too low.**
+**Hidden tests that do not compile.**
 - *Rust Multicrate.* The grader inserts hidden tests into two parts of the project in a way that
   does not compile, so those parts (22 of 100 points) score 0 for every agent that follows the rule
   not to edit tests. A complete solution scores 73.99 instead of 94.70 in the publisher's grading
   environment. That environment is inferred: with four missing library files restored, the public
   image reproduces the publisher's recorded starter score exactly.
-- *Git in Zig.* Undisclosed checks set the score to 0 when an agent leaves an ordinary build file in
-  its project or writes a test that compares its output with the real git, which the instructions
-  invite.
-- *PFR Formalization.* Five of the 423 statements to prove contain a gap marker (Lean's `sorry`)
-  hidden inside the statement itself, so no agent can earn them. They are worth 1.18 of the 100
-  points, and up to 2.13 with the later proofs that use them (inferred). Only an agent that would
-  have proved them loses anything.
+
+### 2. Grader correctness and factual errors (15 tasks)
+
+The task asks for the right thing, but the grader checks it wrongly: it marks wrong work as right, or right work as wrong. Examples: a correctness check that misses real bugs, a validator that misses overlapping shapes, a cost check that leaves out one term, a supplied library that miscalculates, an answer checker that misreads valid answers, a statement to be proved that is false as written, or points taken from numbers the submission reports about itself. Where a wrong submission is accepted, it can score as high as a correct one, or higher.
+
 - *SMT Solver.* The agent builds a solver for logic formulas. The grader checks the solver's
   example answers by how they are written rather than by their value. Correct answers are
   therefore rejected on 27 hidden problems, and a perfect solver's score falls from 78.61 to
   72.40.
+- *Exchange Core.* The agent speeds up a stock-exchange matching engine. Two realistic bugs pass
+  the correctness check and get full credit: charging selling takers the maker fee instead of the
+  taker fee, and not delivering trade messages.
+- *Jagua Nesting.* The agent packs shapes onto a sheet. The grader accepts layouts in which shapes
+  overlap.
+- *PFR Formalization.* Five of the 423 statements to prove contain a gap marker (Lean's `sorry`)
+  hidden inside the statement itself, so no agent can earn them. They are worth 1.18 of the 100
+  points, and up to 2.13 with the later proofs that use them (inferred). Only an agent that would
+  have proved them loses anything.
+- *D-ABIC Gravity Inversion (removed).* 42 of the points come from results the submission reports
+  about itself, which the grader does not recompute; no fix preserves the task, so it is removed.
+
+### 3. Instruction–grader mismatch (9 tasks)
+
+Each rule the grader applies may be reasonable on its own, but it is not the rule the agent was given. The grader enforces something the instructions do not state, or contradicts what they say: a shorter time limit than promised, a geometric condition left out, an undocumented output format or convention, checks the instructions never mention, a function that does not exist, a different formula. An agent that follows the instructions faithfully is then scored by a different rule.
+
+- *Triangulation Coloring.* The grader omits a geometric condition the instructions state, and
+  the same faulty rule generated the test cases.
+- *Warehouse Routing.* The instructions promise 30 seconds per test case. The grader stops after
+  60 seconds per group of five cases, so a solution that uses its promised time scores zero.
+- *Git in Zig.* Undisclosed checks set the score to 0 when an agent leaves an ordinary build file in
+  its project or writes a test that compares its output with the real git, which the instructions
+  invite.
 - *Borden Inversion.* The agent works out where groundwater pollution came from. The grader's
   hidden physics model uses an unusual convention; the documentation gives its ingredients but not
   how they combine. The same one-shot honest fit scores 7.0 with textbook physics and 31.2 with the
@@ -84,30 +122,18 @@ promised time.) The instructions never state the grader's CPU count; a wall-cloc
   original grader accepts only the hidden form. An analyzer that follows the public examples loses
   15.00 points if it finds only those bugs (45.66 instead of 60.66), and up to 26.47 points in the
   worst case (computed exactly from the grader's formula, not run).
-
-**Wrong work is accepted.**
-- *Exchange Core.* The agent speeds up a stock-exchange matching engine. Two realistic bugs pass
-  the correctness check and get full credit: charging selling takers the maker fee instead of the
-  taker fee, and not delivering trade messages.
-- *Jagua Nesting.* The agent packs shapes onto a sheet. The grader accepts layouts in which shapes
-  overlap.
-
-**The grader applies a rule the instructions do not state.**
-- *Triangulation Coloring.* The grader omits a geometric condition the instructions state, and
-  the same faulty rule generated the test cases.
-- *Warehouse Routing.* The instructions promise 30 seconds per test case. The grader stops after
-  60 seconds per group of five cases, so a solution that uses its promised time scores zero.
 - *Portfolio Risk.* The instructions define excess return as the difference of two yearly returns;
   the grader converts the difference of the two period returns to a yearly figure instead. The
   restricted decimal sweep gives a sensitivity envelope of 0.3921 points up or 0.10 down; this is not a global bound.
 
-**The 0–100 scale cannot be reached.**
+### 4. Scoring scale and selection (3 tasks)
+
+The raw result is computed correctly, but the step that turns it into the final score goes wrong. The reference points that convert the raw result to 0–100 cannot be reached or were measured on something else, so scores are compressed or shifted; or the rule that picks each run's best submission keeps the wrong one.
+
 - *Treant Forest.* The top of the scale lies beyond what the game's own turn limit allows, so no
   submission can score above 21.02.
 - *Warehouse Routing.* A lower bound proved in Lean shows that no valid answer can score above about
   30.6 (30.3 at the exact bound).
-
-**Small mistakes with large effects.**
 - *Order Addition.* An out-of-date checksum in one test makes every submission fail one of five
   tests. Under the task's rule for picking a run's best (most tests passed first), each run then
   keeps its first valid submission and ignores better later ones.

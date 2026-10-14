@@ -31,6 +31,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from names import names as task_names  # noqa: E402
 import mdrender  # noqa: E402
+import categories as PC  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'site'
@@ -286,7 +287,10 @@ def load_data():
     config = (ROOT / CONFIG_MD).read_text()
     for t in LEAN_8CPU + SMT_16CPU:
         assert t in config and t in tasks, f'{t} not in {CONFIG_MD}'
+    bad = PC.validate(decisions)
+    assert not bad, bad
     return {'decisions': decisions, 'rows': rows, 'tasks': tasks, 'names': names, 'plain': plain,
+            'pcat': PC.by_primary(decisions), 'pcat2': PC.by_secondary(decisions),
             'formal': frm, 'formal_by': {x['task']: x for x in frm},
             'counts': Counter(r['proposed'] for r in rows)}
 
@@ -299,6 +303,8 @@ def numbers(D):
     v.update(n_cmp=cc['graded'], n_cmp3=cc['graded3'], n_cmp_once=cc['graded'] - cc['graded3'], n_cmp_tasks=cc['tasks'], n_cmp_setup=cc['setup'],
              n_cmp_derived=cc['derived'], n_cmp_noexec=cc['not_run'],
              n_problem=counts.get('repair-v2', 0) + counts.get('exclude', 0))
+    assert sum(len(x) for x in D['pcat'].values()) == int(v['n_problem']), 'problem categories do not cover every problem task'
+    v.update({f'pcat_n_{k}': len(D['pcat'][k]) for k in PC.KEYS})
     frm = D['formal']
     leans = [p for p in (ROOT / 'evidence/formal/lean/ebv/Ebv').glob('*.lean') if p.with_suffix('.out').exists()]
     thms = sum(len({t for t in re.findall(r"^'[^']+' (?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)",
@@ -391,6 +397,19 @@ def generated_prose(P, D, num):
                     f"<br><span style=\"color:var(--muted)\">{t('formal.covers.' + r['covers'])}</span></td>"
                     f"<td>{esc(tr.get('what', r['what']))}</td><td>{esc(tr.get('limit', r['limit']))}</td></tr>")
     out['formal_rows'] = ''.join(rows)
+    # problem categories: the count and the tasks of each (primary, then secondary)
+    by = {r['task_id']: r for r in D['rows']}
+
+    def links(ids):
+        ids = sorted(ids, key=lambda x: D['names'][x].lower())
+        return t('pcat.join').join(task_link(P, D, x) + (t('pcat.removed_mark') if by[x]['proposed'] == 'exclude' else '')
+                                   for x in ids)
+    for k in PC.KEYS:
+        out[f'pcat_count_{k}'] = t('pcat.count', n=len(D['pcat'][k]))
+        line = t('pcat.tasks_line', n=len(D['pcat'][k]), tasks=links(D['pcat'][k]), href=f'{P.root}tasks/index.html#{k}')
+        if D['pcat2'][k]:
+            line += (' ' if P.L.code == 'en' else '') + t('pcat.secondary_line', tasks=links(D['pcat2'][k]))
+        out[f'pcat_tasks_{k}'] = line
     return out
 
 
@@ -493,24 +512,33 @@ TASKS_JS = """<script>
   var list = document.getElementById('cards'); if (!list) return;
   var items = [].slice.call(list.children), q = document.getElementById('q');
   var count = document.getElementById('count'), empty = document.getElementById('empty');
-  var tpl = count.getAttribute('data-tpl'), filt = 'all';
-  var buttons = [].slice.call(document.querySelectorAll('#filters button'));
+  var tpl = count.getAttribute('data-tpl'), filt = 'all', cat = 'all';
+  var buttons = [].slice.call(document.querySelectorAll('#filters button[data-f]'));
+  var cbuttons = [].slice.call(document.querySelectorAll('#cfilters button[data-c]'));
   function apply(push) {
     var term = q.value.trim().toLowerCase(), shown = 0;
     items.forEach(function (li) {
       var ok = (filt === 'all' || li.getAttribute('data-outcome') === filt) &&
+               (cat === 'all' || li.getAttribute('data-pcat') === cat) &&
                (!term || li.getAttribute('data-search').indexOf(term) >= 0);
       li.classList.toggle('card-hidden', !ok); if (ok) shown++;
     });
     count.textContent = tpl.replace('{shown}', shown).replace('{total}', items.length);
     empty.hidden = shown > 0;
     buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === filt)); });
-    if (push) { try { history.replaceState(null, '', filt === 'all' ? location.pathname + location.search : '#' + filt); } catch (e) {} }
+    cbuttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-c') === cat)); });
+    if (push) {
+      var hs = [filt, cat].filter(function (x) { return x !== 'all'; }).join('+');
+      try { history.replaceState(null, '', hs ? '#' + hs : location.pathname + location.search); } catch (e) {}
+    }
   }
   buttons.forEach(function (b) { b.addEventListener('click', function () { filt = b.getAttribute('data-f'); apply(true); }); });
+  cbuttons.forEach(function (b) { b.addEventListener('click', function () { cat = b.getAttribute('data-c'); apply(true); }); });
   q.addEventListener('input', function () { apply(false); });
-  var h = location.hash.slice(1);
-  if (buttons.some(function (b) { return b.getAttribute('data-f') === h; })) filt = h;
+  location.hash.slice(1).split('+').forEach(function (h) {
+    if (buttons.some(function (b) { return b.getAttribute('data-f') === h; })) filt = h;
+    if (cbuttons.some(function (b) { return b.getAttribute('data-c') === h; })) cat = h;
+  });
   apply(false);
 })();
 </script>"""
@@ -531,24 +559,32 @@ def tasks_index(L, D):
     btns = [f'<button type="button" data-f="all" aria-pressed="true">{t("tasks.all", n=len(D["rows"]))}</button>']
     btns += [f'<button type="button" data-f="{k}" aria-pressed="false">{t("tasks.filter", label=t("outcome." + k), n=counts[k])}</button>'
              for k in ORDER if counts.get(k)]
+    cbtns = [f'<button type="button" data-c="all" aria-pressed="true">{t("tasks.cat_all")}</button>']
+    cbtns += [f'<button type="button" data-c="{k}" aria-pressed="false">{t("tasks.filter", label=t("pcat." + k + ".short"), n=len(D["pcat"][k]))}</button>'
+              for k in PC.KEYS]
     cards = []
     for r in D['rows']:
         tid = r['task_id']
         p = plain_for(L, D, tid)
         cat = t.opt('category.' + r['category'], r['category']) if L.code != 'en' else r['category']
-        search = ' '.join([r['name'], tid, r['category'], cat, p['headline'], p['about'], t('outcome.' + r['proposed'])]).lower()
+        pk = PC.primary(r) or ''
+        pname = t('pcat.' + pk) if pk else ''
+        search = ' '.join([r['name'], tid, r['category'], cat, p['headline'], p['about'], t('outcome.' + r['proposed']),
+                           pname]).lower()
+        chip = f'<span class="badge pc">{t("pcat." + pk + ".short")}</span>' if pk else ''
         cards.append(
-            f'<li data-task="{tid}" data-outcome="{r["proposed"]}" data-search="{esc(search)}">'
+            f'<li data-task="{tid}" data-outcome="{r["proposed"]}" data-pcat="{pk}" data-search="{esc(search)}">'
             f'<a class="card" href="{tid}.html"><span class="top"><span>{esc(cat)}</span>'
-            f'<span class="badge b-{r["proposed"]}">{t("outcome." + r["proposed"])}</span></span>'
+            f'<span class="badges">{chip}<span class="badge b-{r["proposed"]}">{t("outcome." + r["proposed"])}</span></span></span>'
             f'<span class="name">{esc(r["name"])}</span><span class="line">{esc(p["headline"])}</span>'
             f'<span class="go">{t("tasks.open")} &rarr;</span></a></li>')
     body = (f'<header class="title tasks-head"><p class="kicker">{t("tasks.kicker")}</p><h1>{t("tasks.h1")}</h1>'
             f'<p class="subtitle" style="font-style:normal;font-size:19px">{t("tasks.intro")}</p>'
-            f'<p class="note">{t("tasks.legend")}</p></header>'
+            f'<p class="note">{t("tasks.legend")} {t("tasks.legend_cat")}</p></header>'
             f'<section class="wide" style="padding-top:6px">'
-            f'<div class="controls" id="filters" role="group" aria-label="{esc(t("tasks.filter_label"))}">{"".join(btns)}'
-            f'<div class="search"><label for="q" class="skip">{t("tasks.search_label")}</label>'
+            f'<div class="controls" id="filters" role="group" aria-label="{esc(t("tasks.filter_label"))}">{"".join(btns)}</div>'
+            f'<div class="controls cfilters" id="cfilters" role="group" aria-label="{esc(t("tasks.filter_cat_label"))}">{"".join(cbtns)}</div>'
+            f'<div class="controls"><div class="search"><label for="q" class="skip">{t("tasks.search_label")}</label>'
             f'<input id="q" type="search" placeholder="{esc(t("tasks.search_placeholder"))}" autocomplete="off"></div></div>'
             f'<p class="count" id="count" aria-live="polite" data-tpl="{esc(t("tasks.count", shown="{shown}", total="{total}"))}">'
             f'{t("tasks.count", shown=len(cards), total=len(cards))}</p>'
@@ -706,6 +742,13 @@ def task_page(L, D, i, used_figs):
         res = t.opt('formal.result.' + fr['result'], fr['result'].capitalize()) if L.code != 'en' else t('formal.result.' + fr['result'])
         formal = (f'<dt>{t("task.sum.formal")}</dt><dd>' +
                   esc(t('task.formal', result=res, tool=fr['tool'], what=tr.get('what', fr['what']), limit=tr.get('limit', fr['limit']))) + '</dd>')
+    pk = PC.primary(r)
+    category = ''
+    if pk:
+        sec = PC.secondary(r)
+        ctext = (t('task.category.with_secondary', primary=t('pcat.' + pk), secondary=t('pcat.join').join(t('pcat.' + x) for x in sec))
+                 if sec else t('task.category.primary_only', primary=t('pcat.' + pk)))
+        category = (f'<dt>{t("task.sum.category")}</dt><dd><a href="{P.root}index.html#{pk}">{esc(ctext)}</a></dd>')
     status = ''
     if r['proposed'] == 'repair-v2':
         english = r.get('validation_status') or VALIDATION_DEFAULT
@@ -714,7 +757,7 @@ def task_page(L, D, i, used_figs):
     summary = (f'<dl class="sum"><dt>{t("task.sum.about")}</dt><dd>{esc(p["about"])}</dd>'
                f'<dt>{t("task.sum.problem")}</dt><dd>{esc(p["problem"])}</dd>'
                f'<dt>{t("task.sum.effect")}</dt><dd>{esc(p["effect"])}</dd>'
-               f'<dt>{t("task.sum.action")}</dt><dd>{esc(p["action"])}</dd>{status}{formal}</dl>')
+               f'<dt>{t("task.sum.action")}</dt><dd>{esc(p["action"])}</dd>{category}{status}{formal}</dl>')
     grade_html, _ = grading(P, D, tid)
     # files
     links = [(BLOB + f'cases/{tid}.md', t('task.links.case')), (BLOB + f'tasks/{tid}.json', t('task.links.task_json', id=tid))]
@@ -749,6 +792,7 @@ def task_page(L, D, i, used_figs):
             f'<span>{t("task.field", field=esc(cat))}</span></div>'
             f'<header class="task-head"><h1>{esc(r["name"])}</h1>'
             f'<span class="badge b-{r["proposed"]}" data-outcome="{r["proposed"]}">{t("outcome." + r["proposed"])}</span> '
+            + (f'<a class="badge pc" data-pcat="{pk}" href="{P.root}index.html#{pk}">{t("pcat." + pk)}</a> ' if pk else '') +
             f'<span class="id">{tid}</span>'
             f'<p class="summary">{esc(p["headline"])}{"." if P.L.code == "en" else "。"}</p>'
             f'<nav class="toc" aria-label="{esc(t("task.summary.h2"))}">{toc}</nav></header>'

@@ -33,7 +33,7 @@
 <section id="background" class="col">
   <h2 class="sec"><span class="num">1</span>EdgeBench 是什么，如何为智能体打分</h2>
   <p>一个 EdgeBench 任务给智能体书面的任务说明和初始文件：让一个交易引擎更快，为一款策略游戏编写机器人，补完一个数学库中的证明，根据传感器读数推断地下水污染的来源。智能体在十二小时内可以随意多次提交，并能看到每次的分数。一个由任务作者编写的隐藏评分器程序，在隐藏的测试用例上运行每份提交，并产生一个原始结果，例如成本、速度或通过的测试数。原始结果再按作者为该任务选定的参考点换算为 0 到 100 分。每次运行保留其最佳分数；每个模型在每个任务上有三次运行，对其中有效的运行取平均（整体失败的运行，例如崩溃的运行，被舍弃）；一个模型的总成绩是它在各任务上的平均分。</p>
-  <p>因此，分数可能在四个环节出错（图&nbsp;1）：评分器可能接受错误的工作；可能拒绝正确的工作，或执行智能体未被告知的规则；换算到 0–100 分的刻度可能无法达到，或测定有误；一次运行可能保留了错误的提交。这四种情况我们都发现了，此外还有第五种，它位于评分器代码之外：评分器所运行的机器。EdgeBench 的官方设置给评分器 4 个 CPU（除非任务另有设定），而有六个评分器同时运行的工作量超过了这个数（<a href="#cpu">第&nbsp;3.1 节</a>）。</p>
+  <p>因此，分数可能在四个环节出错（图&nbsp;1）：评分器可能接受错误的工作；可能拒绝正确的工作，或执行智能体未被告知的规则；换算到 0–100 分的刻度可能无法达到，或测定有误；一次运行可能保留了错误的提交。这四种情况我们都发现了，此外还有第五种，它位于评分器代码之外：评分器所运行的机器。EdgeBench 的官方设置给评分器 4 个 CPU（除非任务另有设定），而有六个评分器同时运行的工作量超过了这个数（<a href="#engineering">第&nbsp;3.1 节</a>）。</p>
   {{fig:scoring-pipeline}}
   <p class="note">每个任务页都针对单个任务详细说明这些内容：其评分器命令、时限、提交的内容、原始结果如何换算为 0–100 分，以及一次运行保留哪份提交。<a href="{{root}}tasks/index.html">打开任务列表</a>。</p>
 </section>
@@ -51,57 +51,67 @@
 
 <section id="findings" class="col">
   <h2 class="sec"><span class="num">3</span>问题出在哪里</h2>
-  <p>下面的例子具有代表性，按问题类型分组。全部任务列在<a href="{{root}}tasks/index.html">任务</a>页，每个任务都有完整的案例，包括测试提交、独立检验和修复。下文中的每个任务名称都链接到其页面。</p>
+  <p>每个存在问题的任务（共 {{n_problem}} 个：{{repair-v2}} 个已修复，{{exclude}} 个已移除）都有一个主要类别，按其主要缺陷的机制确定，还可能有次要类别。共有四个类别：</p>
+  <ul class="tight">
+    <li><b>{{t:pcat.engineering}}</b>（{{pcat_count_engineering}}）：评分器在实际环境中不能正确运行。</li>
+    <li><b>{{t:pcat.grader_logic}}</b>（{{pcat_count_grader_logic}}）：评分器把错误的工作判为正确，或把正确的工作判为错误。</li>
+    <li><b>{{t:pcat.instruction_mismatch}}</b>（{{pcat_count_instruction_mismatch}}）：评分器要求了任务说明没有写明的东西，或与任务说明相矛盾。</li>
+    <li><b>{{t:pcat.scale_selection}}</b>（{{pcat_count_scale_selection}}）：0–100 分的刻度无法达到、参考点有误，或保留了错误的提交。</li>
+  </ul>
+  <p>下面每个类别先给出通俗的解释和所属任务，再给出有代表性的例子。全部任务列在<a href="{{root}}tasks/index.html">任务</a>页，可按类别筛选；每个任务都有完整的案例，包括测试提交、独立检验和修复。下文中的每个任务名称都链接到其页面。</p>
 
-  <h3 id="cpu"><span class="num">3.1</span>评分器分到的 CPU 少于它同时运行的工作数</h3>
-  <p>EdgeBench 的官方排行榜设置给每个评分器 4 个 CPU，除非任务另有设定；七个 Lean 任务为 8 个，{{task:smt_solver|SMT Solver}} 为 16 个（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>）。有六个没有单独设定的评分器，在每个用例的承诺时限下同时运行 8 个测试用例（{{task:treant_forest|Treant Forest}} 也同时运行 8 个，但允许的时间是承诺时间的两倍）。因此在 4 个 CPU 上，每个用例只分到约半个 CPU，而任务说明从未写明评分器的 CPU 数；在评分器内部，系统报告的是宿主机的 CPU 数（在我们的测试机上为 8），而不是限制值。<span class="lead-in">{{task:grid_turing_robot|Grid Robot}}</span> 承诺每个测试用例 30 秒。<mark>一个每个用例计算 16 秒的解法，在 4 个 CPU 上 50 个用例中有 48 个超时，而一次超时就会使整份提交作废；在 8 个 CPU 上，同一解法通过全部用例。</mark>{{task:vibrating_path_graph_coloring|Vibrating Path}}、{{task:molecular_self_assembly|Molecular Assembly}}、{{task:apple_incremental_game|Apple Game}}、{{task:triangulation_coloring_optimization|Triangulation}} 和 {{task:warehouse_forklift_routing|Warehouse Routing}} 的情况相同：按 CPU 时间预算设计的解法会失去大多数用例或全部分数。墙钟时限并不承诺独占 CPU 时间；该修复采用更一致的资源策略。按截止时间停止的解法通常不会被作废，但只得到一半的计算时间；在 Vibrating Path 的九次原始评分器评分中，有一次这样的解法被作废，原因可能是共享 CPU 的任务自带检查器超时了。修复后，同时运行的用例数不超过评分器的 CPU 数；我们在 4 个和 8 个 CPU 下分别进行了并排对照测量。在 {{task:exchange_core_throughput|Exchange Core}} 中，分数是速度，未修改的引擎在 4 个 CPU 上得 0 分，在 8 个 CPU 上约得 47–76 分，因此该任务的说明记录了：其分数取决于评分器的 CPU 数。</p>
+  <h3 id="engineering"><span class="num">3.1</span>{{t:pcat.engineering}}<span class="hcount">{{pcat_count_engineering}}</span></h3>
+  <p>{{t:pcat.engineering.blurb}}</p>
+  <p class="pcat-tasks">{{pcat_tasks_engineering}}</p>
+  <p><span class="lead-in">评分器分到的 CPU 少于它同时运行的工作数。</span>EdgeBench 的官方排行榜设置给每个评分器 4 个 CPU，除非任务另有设定；七个 Lean 任务为 8 个，{{task:smt_solver|SMT Solver}} 为 16 个（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>）。有六个没有单独设定的评分器，在每个用例的承诺时限下同时运行 8 个测试用例（{{task:treant_forest|Treant Forest}} 也同时运行 8 个，但允许的时间是承诺时间的两倍）。因此在 4 个 CPU 上，每个用例只分到约半个 CPU，而任务说明从未写明评分器的 CPU 数；在评分器内部，系统报告的是宿主机的 CPU 数（在我们的测试机上为 8），而不是限制值。<span class="lead-in">{{task:grid_turing_robot|Grid Robot}}</span> 承诺每个测试用例 30 秒。<mark>一个每个用例计算 16 秒的解法，在 4 个 CPU 上 50 个用例中有 48 个超时，而一次超时就会使整份提交作废；在 8 个 CPU 上，同一解法通过全部用例。</mark>{{task:vibrating_path_graph_coloring|Vibrating Path}}、{{task:molecular_self_assembly|Molecular Assembly}}、{{task:apple_incremental_game|Apple Game}}、{{task:triangulation_coloring_optimization|Triangulation}} 和 {{task:warehouse_forklift_routing|Warehouse Routing}} 的情况相同：按 CPU 时间预算设计的解法会失去大多数用例或全部分数。墙钟时限并不承诺独占 CPU 时间；该修复采用更一致的资源策略。按截止时间停止的解法通常不会被作废，但只得到一半的计算时间；在 Vibrating Path 的九次原始评分器评分中，有一次这样的解法被作废，原因可能是共享 CPU 的任务自带检查器超时了。修复后，同时运行的用例数不超过评分器的 CPU 数；我们在 4 个和 8 个 CPU 下分别进行了并排对照测量。在 {{task:exchange_core_throughput|Exchange Core}} 中，分数是速度，未修改的引擎在 4 个 CPU 上得 0 分，在 8 个 CPU 上约得 47–76 分，因此该任务的说明记录了：其分数取决于评分器的 CPU 数。</p>
   <p class="verif">{{verif:grid_turing_robot}}</p>
   {{fig:grid_turing_robot|grid_turing_robot}}
-
-  <h3 id="too-low"><span class="num">3.2</span>正确的工作得分过低</h3>
   <p><span class="lead-in">{{task:rust_multicrate_reconstruction|Rust Multicrate}}。</span>智能体要重建一个大型 Rust 项目。评分器以无法编译的方式把隐藏测试插入项目的两个部分，<mark>因此对每个遵守“不得修改测试”这一规则的智能体，这两个部分（共 100 分中的 22 分）都得 0 分。</mark>一个完整的解法得 73.99 分，而不是 94.70 分。（公开的归档还缺少四个库文件；恢复这些文件后，初始文件能够精确复现发布方记录的分数，因此发布方自己的评分很可能具备这些文件，这第二个问题只影响使用公开镜像评分的人。）</p>
   <p class="verif">{{verif:rust_multicrate_reconstruction}}</p>
-  <p><span class="lead-in">{{task:git_rewrite_in_zig|Git in Zig}}。</span>智能体要用 Zig 语言重写 git。有几项任务说明从未提到的检查：只要项目中含有一个普通的构建文件（例如一条常用的 Zig 构建命令留下的文件），或含有一个把智能体的输出与真实 git 相比较的测试（而任务说明恰恰鼓励写这种测试），整个分数就会被设为 0。修复会删除遗留的构建文件，并取消对测试代码的检查，而不是把分数清零。</p>
-  <p class="verif">{{verif:git_rewrite_in_zig}}</p>
-  <p><span class="lead-in">{{task:pfr_formalization|PFR Formalization}}。</span>智能体要在一个数学库中补全证明。在 423 条命题中，有五条在命题本身内部藏有一个缺口标记（Lean 的 <code>sorry</code>），这是由文件声明默认参数的方式引入的，因此任何证明都无法获得这些分数；任何使用了它们的后续证明也会被拒绝。这五条共占 100 分中的 1.18 分，连同使用它们的后续证明最多为 2.13 分（推断所得）。只有本来能证明它们的智能体才会失分，因此这一缺陷也可能掩盖智能体之间的差异。</p>
-  <p class="verif">{{verif:pfr_formalization}}</p>
+
+  <h3 id="grader_logic"><span class="num">3.2</span>{{t:pcat.grader_logic}}<span class="hcount">{{pcat_count_grader_logic}}</span></h3>
+  <p>{{t:pcat.grader_logic.blurb}}</p>
+  <p class="pcat-tasks">{{pcat_tasks_grader_logic}}</p>
   <p><span class="lead-in">{{task:smt_solver|SMT Solver}}。</span>智能体要构建一个逻辑公式求解器。当公式可满足时，求解器必须给出一个示例赋值，由评分器检查。检查器按调用的书写方式而不是按参数求值的结果来查找函数的值，因此同一个书写形式的调用可能代表两个不同的值。<mark>因此，正确的答案在 27 道隐藏题目上被拒绝，一个完美求解器的分数从 78.61 降到 72.40。</mark></p>
   <p class="verif">{{verif:smt_solver}}</p>
   {{fig:smt_solver|smt_solver}}
-  <p><span class="lead-in">{{task:borden_source_inversion|Borden Inversion}}。</span>智能体要根据监测井推断一个地下污染源的位置、规模和时间。评分器用一个物理模型预测隐藏的读数，而模型的约定在任务说明中从未写明：除其他问题外，它忽略土壤孔隙度，把速率当作总量，并把污染源放在其区域的底部。<mark>一个基于教科书物理的诚实拟合得 7.0 分；使用评分器约定的同一拟合方法得 31.2 分。</mark>修复版把评分器的模型提供给智能体。一个根据评分器的分数反复迭代的智能体，也可以部分地学到这一约定（见<a href="{{root}}leaderboard.html#real-runs">与真实智能体运行的对照</a>）。</p>
-  <p class="verif">{{verif:borden_source_inversion}}</p>
-  {{fig:borden_source_inversion|borden_source_inversion}}
-
-  <h3 id="accepted"><span class="num">3.3</span>错误的工作被接受</h3>
   <p><span class="lead-in">{{task:exchange_core_throughput|Exchange Core}}。</span>智能体要在不改变行为的前提下加速一个证券交易所撮合引擎。评分器的正确性检查只确认资金总体平衡、订单簿一致。<mark>两个现实中可能出现、只需改动一处的缺陷——向卖方吃单者收取挂单手续费而非吃单手续费，以及不发送成交消息——都能通过检查并获得满分</mark>，而项目自带的测试套件能发现这两个缺陷。修复版要求先通过这些测试，再测量速度。</p>
   <p class="verif">{{verif:exchange_core_throughput}}</p>
   {{fig:exchange_core_throughput|exchange_core_throughput}}
   <p><span class="lead-in">{{task:jagua_nesting_optimization|Jagua Nesting}}。</span>智能体要把平面形状尽可能紧密地排入一条带状区域。评分器漏掉了许多重叠，例如一个形状滑过另一个形状的一半，<mark>因此一个不可行的布局可以胜过所有可行的布局。</mark></p>
   <p class="verif">{{verif:jagua_nesting_optimization}}</p>
   {{fig:jagua_nesting_optimization|jagua_nesting_optimization}}
+  <p><span class="lead-in">{{task:pfr_formalization|PFR Formalization}}。</span>智能体要在一个数学库中补全证明。在 423 条命题中，有五条在命题本身内部藏有一个缺口标记（Lean 的 <code>sorry</code>），这是由文件声明默认参数的方式引入的，因此任何证明都无法获得这些分数；任何使用了它们的后续证明也会被拒绝。这五条共占 100 分中的 1.18 分，连同使用它们的后续证明最多为 2.13 分（推断所得）。只有本来能证明它们的智能体才会失分，因此这一缺陷也可能掩盖智能体之间的差异。</p>
+  <p class="verif">{{verif:pfr_formalization}}</p>
+  <p><span class="lead-in">{{task:dabic_gravity_inversion|D-ABIC Gravity Inversion}}。</span><mark>该任务有四十二分来自提交对其自身工作所报告的数字，评分器无法核查这些数字。</mark>评分器还暗中惩罚任务说明明确允许的两种数学上等价的形式之一。我们修复了第二个问题，但第一个问题没有能保留该任务的修复办法，因此该任务被移除。</p>
+  <p class="verif">{{verif:dabic_gravity_inversion}}</p>
+  {{fig:dabic_gravity_inversion|dabic_gravity_inversion}}
 
-  <h3 id="unstated"><span class="num">3.4</span>评分器执行了任务说明中没有写明的规则</h3>
+  <h3 id="instruction_mismatch"><span class="num">3.3</span>{{t:pcat.instruction_mismatch}}<span class="hcount">{{pcat_count_instruction_mismatch}}</span></h3>
+  <p>{{t:pcat.instruction_mismatch.blurb}}</p>
+  <p class="pcat-tasks">{{pcat_tasks_instruction_mismatch}}</p>
   <p><span class="lead-in">{{task:triangulation_coloring_optimization|Triangulation Coloring}}。</span>任务说明只允许在两个三角形构成凸形时翻转其公共边。<mark>评分器遗漏了这一条件，而隐藏测试用例也是由同一条错误规则生成的：</mark>全部十个用例都含有相互重叠的三角形，而且在其中一个用例上，一次被禁止的翻转改善了分数。</p>
   <p class="verif">{{verif:triangulation_coloring_optimization}}</p>
   {{fig:triangulation_coloring_optimization|triangulation_coloring_optimization}}
   <p><span class="lead-in">{{task:warehouse_forklift_routing|Warehouse Routing}}。</span>任务说明承诺每个测试用例 30 秒，即每个由五个用例组成的输入 150 秒。<mark>评分器在 60 秒后就停止每个输入，而一次超时就会使整份提交作废</mark>，因此一个用足了所承诺时间的解法得零分。</p>
   <p class="verif">{{verif:warehouse_forklift_routing}}</p>
   {{fig:warehouse_forklift_routing|warehouse_forklift_routing}}
+  <p><span class="lead-in">{{task:git_rewrite_in_zig|Git in Zig}}。</span>智能体要用 Zig 语言重写 git。有几项任务说明从未提到的检查：只要项目中含有一个普通的构建文件（例如一条常用的 Zig 构建命令留下的文件），或含有一个把智能体的输出与真实 git 相比较的测试（而任务说明恰恰鼓励写这种测试），整个分数就会被设为 0。修复会删除遗留的构建文件，并取消对测试代码的检查，而不是把分数清零。</p>
+  <p class="verif">{{verif:git_rewrite_in_zig}}</p>
+  <p><span class="lead-in">{{task:borden_source_inversion|Borden Inversion}}。</span>智能体要根据监测井推断一个地下污染源的位置、规模和时间。评分器用一个物理模型预测隐藏的读数，而模型的约定在任务说明中从未写明：除其他问题外，它忽略土壤孔隙度，把速率当作总量，并把污染源放在其区域的底部。<mark>一个基于教科书物理的诚实拟合得 7.0 分；使用评分器约定的同一拟合方法得 31.2 分。</mark>修复版把评分器的模型提供给智能体。一个根据评分器的分数反复迭代的智能体，也可以部分地学到这一约定（见<a href="{{root}}leaderboard.html#real-runs">与真实智能体运行的对照</a>）。</p>
+  <p class="verif">{{verif:borden_source_inversion}}</p>
+  {{fig:borden_source_inversion|borden_source_inversion}}
 
-  <h3 id="scale"><span class="num">3.5</span>0–100 分数刻度无法达到</h3>
+  <h3 id="scale_selection"><span class="num">3.4</span>{{t:pcat.scale_selection}}<span class="hcount">{{pcat_count_scale_selection}}</span></h3>
+  <p>{{t:pcat.scale_selection.blurb}}</p>
+  <p class="pcat-tasks">{{pcat_tasks_scale_selection}}</p>
   <p><span class="lead-in">{{task:treant_forest|Treant Forest}}。</span>每个测试用例按存活的回合数计分，而评分器限制了回合数，因此总数不可能超过 92,304。0–100 分数刻度的参考点却设得远高于这个上限。<mark>任何提交的得分都不可能超过 100 分中的 21.02 分。</mark>修复后的刻度从初始程序的总数延伸到已证明的上界（尚未证明可达）。{{task:warehouse_forklift_routing|Warehouse Routing}} 也有同样的问题，而且是通过证明而非测量确立的：一个在 Lean 中证明的下界表明，任何有效答案的得分都不可能超过约 30.6（在精确下界处为 30.3）。</p>
   <p class="verif">{{verif:treant_forest}}</p>
   {{fig:treant_forest|treant_forest}}
-
-  <h3 id="selection"><span class="num">3.6</span>保留了错误的提交</h3>
   <p><span class="lead-in">{{task:order_addition_permutation_optimization|Order Addition}}。</span>评分器的五项测试之一把一个辅助文件与一个过时的校验和作比较，因此每份提交都无法通过它。在该任务选取一次运行最佳结果的规则下（通过测试最多者优先，相同时取最早的），<mark>每次运行所报告的最佳结果都被冻结在其第一份有效提交上，后来的改进永远不被计入。</mark>如果改为保留最高分，则不受影响。<a href="{{root}}leaderboard.html#real-runs">与真实智能体运行的对照</a>表明，这种情况确实在一次真实的智能体运行中发生了。</p>
   <p class="verif">{{verif:order_addition_permutation_optimization}}</p>
   {{fig:order_addition_permutation_optimization|order_addition_permutation_optimization}}
 
-  <h3 id="removed"><span class="num">3.7</span>一个没有可靠修复的任务</h3>
-  <p><span class="lead-in">{{task:dabic_gravity_inversion|D-ABIC Gravity Inversion}}。</span><mark>该任务有四十二分来自提交对其自身工作所报告的数字，评分器无法核查这些数字。</mark>评分器还暗中惩罚任务说明明确允许的两种数学上等价的形式之一。我们修复了第二个问题，但第一个问题没有能保留该任务的修复办法，因此该任务被移除。</p>
-  <p class="verif">{{verif:dabic_gravity_inversion}}</p>
-  {{fig:dabic_gravity_inversion|dabic_gravity_inversion}}
   <div class="cta">
     <a class="btn" href="{{root}}tasks/index.html">浏览全部 51 个任务 &rarr;</a>
     <p>以上例子只涉及少数任务。任务列表包含所有结果，并提供筛选和搜索。</p>

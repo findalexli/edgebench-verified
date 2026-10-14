@@ -59,7 +59,7 @@
 <section id="background" class="col">
   <h2 class="sec"><span class="num">1</span>What EdgeBench is and how it scores an agent</h2>
   <p>An EdgeBench task gives the agent written instructions and starter files: make a trading engine faster, write a bot for a strategy game, finish the proofs in a mathematics library, infer the source of groundwater pollution from sensor readings. The agent can submit as often as it likes during its twelve hours, and it sees each score. A hidden grader program, written by the task's authors, runs every submission on hidden test cases and produces a raw result, such as a cost, a speed or a count of passed tests. The raw result is converted to a score from 0 to 100 using reference points the authors chose for that task. Each run keeps its best score; each model has three runs per task, and the valid ones are averaged (a run that failed as a whole, for example by crashing, is dropped); and a model's headline number is the average over tasks.</p>
-  <p>A score can therefore go wrong at four points (Figure&nbsp;1): the grader can accept wrong work; it can reject correct work or apply a rule the agent was not told; the conversion to 0–100 can be unreachable or mismeasured; and the run can keep the wrong submission. We found each of the four, and a fifth that lies outside the grader's code: the machine it runs on. EdgeBench's official settings give a grader 4 CPUs unless the task overrides it, and six graders run more work at once than that (<a href="#cpu">Section&nbsp;3.1</a>).</p>
+  <p>A score can therefore go wrong at four points (Figure&nbsp;1): the grader can accept wrong work; it can reject correct work or apply a rule the agent was not told; the conversion to 0–100 can be unreachable or mismeasured; and the run can keep the wrong submission. We found each of the four, and a fifth that lies outside the grader's code: the machine it runs on. EdgeBench's official settings give a grader 4 CPUs unless the task overrides it, and six graders run more work at once than that (<a href="#engineering">Section&nbsp;3.1</a>).</p>
   <figure class="fig" id="fig-scoring-pipeline"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 268" role="img">
 <title>EdgeBench's scoring pipeline: the agent submits work, a hidden grader produces a raw result, the raw result is converted to 0 to 100, each run keeps its best score so far, the valid runs of a task (three per model) are averaged, and then the tasks are averaged. Four markers show where a grader can go wrong.</title>
 <style>
@@ -152,10 +152,19 @@
 
 <section id="findings" class="col">
   <h2 class="sec"><span class="num">3</span>What goes wrong</h2>
-  <p>The examples below are representative, grouped by kind of problem. Every task is listed on the <a href="tasks/index.html">Tasks</a> page, and each has a full case with the test submissions, the independent checks and the fix. Every task name below links to its page.</p>
+  <p>Every task with a problem (32 tasks: 31 fixed, 1 removed) has one primary category, set by the mechanism of its main defect, and may have secondary ones. There are four categories:</p>
+  <ul class="tight">
+    <li><b>Engineering and runtime environment</b> (5 tasks): the grader does not run correctly in the real setup.</li>
+    <li><b>Grader correctness and factual errors</b> (15 tasks): the grader marks wrong work as right, or right work as wrong.</li>
+    <li><b>Instruction–grader mismatch</b> (9 tasks): the grader enforces something the instructions do not state, or contradicts them.</li>
+    <li><b>Scoring scale and selection</b> (3 tasks): the 0–100 scale cannot be reached, a reference point is wrong, or the wrong submission is kept.</li>
+  </ul>
+  <p>Each category below opens with a plain explanation and its tasks, followed by representative examples. Every task is listed on the <a href="tasks/index.html">Tasks</a> page, which can be filtered by category, and each has a full case with the test submissions, the independent checks and the fix. Every task name below links to its page.</p>
 
-  <h3 id="cpu"><span class="num">3.1</span>The grader is given fewer CPUs than it runs work on</h3>
-  <p>EdgeBench's official leaderboard settings give each grader 4 CPUs unless the task overrides it; seven Lean tasks get 8 and <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 16 (<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">the settings, quoted</a>). Six graders with no override run 8 test cases at once under the promised time limit per case (<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a> also runs 8 at once, but allows twice the promised time). On 4 CPUs each case therefore gets about half a CPU, and the instructions never state the grader's CPU count; inside the grader, the system reports the host's CPU count (8 on our test machines), not the limit. <span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a></span> promises 30 seconds per test case. <mark>A solution that computes for 16 seconds per case times out on 48 of its 50 cases at 4 CPUs, and a single timeout voids the whole submission; with 8 CPUs the same solution passes every case.</mark> <a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>, <a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>, <a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>, <a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> and <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> behave the same way: CPU-budgeted solutions lose most cases or the whole score. A wall-clock limit does not promise dedicated CPU seconds; the repair chooses a more consistent resource policy. Solutions that stop at a fixed clock time usually are not voided, but get half the computing time; in one of nine original-grader gradings on Vibrating Path such a solution was voided, probably because the task's own checker, sharing the CPUs, timed out. The fixes run no more cases at once than the grader has CPUs, which we measured at 4 and at 8 CPUs side by side. In <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>, whose score is a speed, the unmodified engine scores 0 at 4 CPUs and about 47–76 at 8, so its note records that scores there depend on the grader's CPU count.</p>
+  <h3 id="engineering"><span class="num">3.1</span>Engineering and runtime environment <span class="hcount">5 tasks</span></h3>
+  <p>The grader's scoring rules may be right, but it does not run correctly in the setting where it is actually used. Typical causes: test cases run at once on fewer CPUs than they need, so honest solutions time out; hidden tests are inserted where they do not compile; files the grader needs are missing from the published images; a test run stops at its first failure and counts the rest as failed; or a result depends on timing. Honest work then loses points for reasons that have nothing to do with its quality.</p>
+  <p class="pcat-tasks">Primary category of 5 tasks: <a class="task-link" href="tasks/apple_incremental_game.html">Apple Incremental Game</a>, <a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>, <a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Self Assembly</a>, <a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate Reconstruction</a>, <a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path Graph Coloring</a>. <a href="tasks/index.html#engineering">Show them in the task list</a>. Secondary category of: <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core Throughput</a>, <a class="task-link" href="tasks/git_rewrite_in_zig.html">Git Rewrite in Zig</a>, <a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition Permutation Optimization</a>, <a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>, <a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring Optimization</a>, <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>.</p>
+  <p><span class="lead-in">The grader is given fewer CPUs than it runs work on.</span> EdgeBench's official leaderboard settings give each grader 4 CPUs unless the task overrides it; seven Lean tasks get 8 and <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 16 (<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">the settings, quoted</a>). Six graders with no override run 8 test cases at once under the promised time limit per case (<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a> also runs 8 at once, but allows twice the promised time). On 4 CPUs each case therefore gets about half a CPU, and the instructions never state the grader's CPU count; inside the grader, the system reports the host's CPU count (8 on our test machines), not the limit. <span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a></span> promises 30 seconds per test case. <mark>A solution that computes for 16 seconds per case times out on 48 of its 50 cases at 4 CPUs, and a single timeout voids the whole submission; with 8 CPUs the same solution passes every case.</mark> <a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>, <a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>, <a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>, <a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> and <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> behave the same way: CPU-budgeted solutions lose most cases or the whole score. A wall-clock limit does not promise dedicated CPU seconds; the repair chooses a more consistent resource policy. Solutions that stop at a fixed clock time usually are not voided, but get half the computing time; in one of nine original-grader gradings on Vibrating Path such a solution was voided, probably because the task's own checker, sharing the CPUs, timed out. The fixes run no more cases at once than the grader has CPUs, which we measured at 4 and at 8 CPUs side by side. In <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>, whose score is a speed, the unmodified engine scores 0 at 4 CPUs and about 47–76 at 8, so its note records that scores there depend on the grader's CPU count.</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: note proved · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-grid_turing_robot"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 416" role="img">
 <title>Wall time per test case against CPU work per case, at 4 and 8 CPUs</title>
@@ -209,14 +218,12 @@
 <text x="16" y="400" class="muted" font-size="13">Slowest case shown. Timed-out cases were stopped at 30 s.</text>
 </svg>
 </div><figcaption><b>Figure 3.</b> With 4 grader CPUs each of 8 simultaneous cases gets half a CPU, so any case needing more than about 15 s of computing times out and voids the submission. <a href="tasks/grid_turing_robot.html" class="case-link">Read the case</a></figcaption></figure>
-
-  <h3 id="too-low"><span class="num">3.2</span>Correct work is scored too low</h3>
   <p><span class="lead-in"><a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>.</span> The agent rebuilds a large Rust project. The grader inserts its hidden tests into two parts of the project in a way that does not compile, <mark>so those parts, worth 22 of the 100 points, score 0 for every agent that follows the rule not to edit tests.</mark> A complete solution scores 73.99 instead of 94.70. (The public archive also lacks four library files; with them restored, the starter reproduces the publisher's recorded score exactly, so the publisher's own grading most likely had these files and this second problem affects only people who grade with the public images.)</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · TLA+: fix partly model-checked correct · fix tested side by side, three runs (1 of 4 comparisons once)</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>.</span> The agent rewrites git in the Zig language. Checks the instructions never mention set the whole score to 0 if the project contains an ordinary build file, such as the one a common Zig build command leaves behind, or a test that compares the agent's output with the real git, which the instructions invite. The fix deletes leftover build files and drops the check on test code, instead of zeroing the score.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · fix tested side by side, three runs</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>.</span> The agent completes proofs in a mathematics library. Five of the 423 statements contain a gap marker (Lean's <code>sorry</code>) hidden inside the statement itself, introduced by how the file declares a default argument, so no proof can earn them; any later proof that uses them is rejected too. The five are worth 1.18 of the 100 points, and up to 2.13 with the later proofs that use them (inferred). Only an agent that would have proved them loses points, so the defect can also hide differences between agents.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · fix tested side by side, three runs</p>
+
+  <h3 id="grader_logic"><span class="num">3.2</span>Grader correctness and factual errors <span class="hcount">15 tasks</span></h3>
+  <p>The task asks for the right thing, but the grader checks it wrongly: it marks wrong work as right, or right work as wrong. Examples: a correctness check that misses real bugs, a validator that misses overlapping shapes, a cost check that leaves out one term, a supplied library that miscalculates, an answer checker that misreads valid answers, a statement to be proved that is false as written, or points taken from numbers the submission reports about itself. Where a wrong submission is accepted, it can score as high as a correct one, or higher.</p>
+  <p class="pcat-tasks">Primary category of 15 tasks: <a class="task-link" href="tasks/college_english_exam_bank.html">College English Exam Bank</a>, <a class="task-link" href="tasks/cta_risk_budget_optimization.html">CTA Risk Budget Optimization</a>, <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a> (removed), <a class="task-link" href="tasks/equivalence_class_divide_and_conquer.html">Equivalence Class Divide and Conquer</a>, <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core Throughput</a>, <a class="task-link" href="tasks/ffmpeg_swscale_reimplementation.html">FFmpeg swscale Reimplementation</a>, <a class="task-link" href="tasks/graph_node_classification.html">Graph Node Classification</a>, <a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting Optimization</a>, <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis Proofs</a>, <a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>, <a class="task-link" href="tasks/schemathesis_config_modernization.html">Schemathesis Config Modernization</a>, <a class="task-link" href="tasks/schemathesis_datagen_pipeline.html">Schemathesis Datagen Pipeline</a>, <a class="task-link" href="tasks/schemathesis_reporting_observability.html">Schemathesis Reporting Observability</a>, <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>, <a class="task-link" href="tasks/tree_block_partitioning.html">Tree Block Partitioning</a>. <a href="tasks/index.html#grader_logic">Show them in the task list</a>. Secondary category of: <a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate Reconstruction</a>.</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>.</span> The agent builds a solver for logic formulas. When a formula can be satisfied, the solver must give an example assignment, which the grader checks. The checker looks up a function's value by how the call is written, not by what its arguments evaluate to, so the same written call can stand for two different values. <mark>Correct answers are therefore rejected on 27 hidden problems, and a perfect solver's score falls from 78.61 to 72.40.</mark></p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: fix proved correct · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-smt_solver"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img">
@@ -264,41 +271,6 @@
 
 </svg>
 </div><figcaption><b>Figure 4.</b> The original checker looks up a function&#x27;s value by its text, so 27 satisfiable hidden problems cannot be won; the fixed checker uses the actual arguments. <a href="tasks/smt_solver.html" class="case-link">Read the case</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>.</span> The agent infers the location, size and timing of an underground pollution source from monitoring wells. The grader predicts the hidden readings with a physics model whose conventions the instructions never state: among other things, it ignores soil porosity, treats a rate as a total amount and places the source at the bottom of its region. <mark>An honest fit built from textbook physics scores 7.0; the same fitting method using the grader's conventions scores 31.2.</mark> The fixed version gives agents the grader's model. An agent that iterates against the grader's scores can partly learn the convention instead (see <a href="leaderboard.html#real-runs">the check against real agent runs</a>).</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: published numbers proved · fix tested side by side, three runs</p>
-  <figure class="fig" id="fig-borden_source_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
-<title>Borden Source Inversion scores</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-
-<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Original grader score (the true source scores 109)</text>
-<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
-<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
-<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
-<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
-<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">middle of each range</text>
-<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
-<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
-<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
-<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
-<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
-<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
-<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
-<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
-<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
-
-</svg>
-</div><figcaption><b>Figure 5.</b> The grader uses unstated, non-physical conventions, so a one-shot honest textbook fit to the public data scores at the baseline level, about 24 points below the same fit using the hidden convention. <a href="tasks/borden_source_inversion.html" class="case-link">Read the case</a></figcaption></figure>
-
-  <h3 id="accepted"><span class="num">3.3</span>Wrong work is accepted</h3>
   <p><span class="lead-in"><a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>.</span> The agent speeds up a stock-exchange matching engine without changing its behaviour. The grader's correctness check confirms only that money balances overall and that the order books match. <mark>Two realistic one-edit bugs, charging selling takers the maker fee instead of the taker fee and not delivering trade messages, pass the check and receive full credit</mark>, although the project's own test suite catches both. The fixed version requires those tests to pass before speed is measured.</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: finding partly proved · fix tested side by side, three runs (6 of 13 comparisons once)</p>
   <figure class="fig" id="fig-exchange_core_throughput"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
@@ -330,7 +302,7 @@
 <rect x="520" y="236" width="184" height="30" rx="6" class="badBg"/><text x="612" y="257" font-size="15" text-anchor="middle" class="bad">rejected: 0</text>
 <text x="16" y="292" font-size="13" class="muted">The gaps between these single runs are within speed noise (about ±20% from run to run).</text>
 </svg>
-</div><figcaption><b>Figure 6.</b> The original grader gives broken engines full credit; their higher single-run scores are within speed noise. The fixed version scores them 0. <a href="tasks/exchange_core_throughput.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 5.</b> The original grader gives broken engines full credit; their higher single-run scores are within speed noise. The fixed version scores them 0. <a href="tasks/exchange_core_throughput.html" class="case-link">Read the case</a></figcaption></figure>
   <p><span class="lead-in"><a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting</a>.</span> The agent packs flat shapes into a strip as tightly as possible. The grader misses many overlaps, such as one shape slid halfway over another, <mark>so an infeasible layout can beat every feasible one.</mark></p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: fix partly proved correct · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-jagua_nesting_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
@@ -360,9 +332,39 @@
 <text x="536" y="254" class="good" font-size="20" text-anchor="middle" font-weight="700">rejected ✗</text>
 
 </svg>
-</div><figcaption><b>Figure 7.</b> The original validity check misses many real overlaps, such as squares slid halfway over each other; the fixed grader measures overlap area and rejects any overlap above one millionth of the smaller shape&#x27;s area. <a href="tasks/jagua_nesting_optimization.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 6.</b> The original validity check misses many real overlaps, such as squares slid halfway over each other; the fixed grader measures overlap area and rejects any overlap above one millionth of the smaller shape&#x27;s area. <a href="tasks/jagua_nesting_optimization.html" class="case-link">Read the case</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>.</span> The agent completes proofs in a mathematics library. Five of the 423 statements contain a gap marker (Lean's <code>sorry</code>) hidden inside the statement itself, introduced by how the file declares a default argument, so no proof can earn them; any later proof that uses them is rejected too. The five are worth 1.18 of the 100 points, and up to 2.13 with the later proofs that use them (inferred). Only an agent that would have proved them loses points, so the defect can also hide differences between agents.</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · fix tested side by side, three runs</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>.</span> <mark>Forty-two of the task's points come from numbers the submission reports about its own work, which the grader cannot check.</mark> The grader also quietly penalises one of two mathematically equivalent forms that the instructions explicitly allow. We fixed the second problem, but the first has no fix that preserves the task, so the task is removed.</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · partial fix tested side by side, three runs; task removed</p>
+  <figure class="fig" id="fig-dabic_gravity_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+<title>D-ABIC Gravity Inversion form penalty</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text class="ink" x="16" y="30" font-size="18" font-weight="600">Same work, different form, half the score</text>
+<text class="muted" x="16" y="62" font-size="14">Score of the same strong work on the original grader (computed from its own penalty rule)</text>
+<text class="ink" x="16" y="98" font-size="15">Data form</text>
+<rect class="good" x="130" y="76" width="444.6" height="32"/>
+<text class="good" x="582.6" y="98" font-size="15" font-weight="600">88.92</text>
+<text class="ink" x="16" y="142" font-size="15">Model form</text>
+<rect class="bad" x="130" y="120" width="214.3" height="32"/>
+<text class="bad" x="352.3" y="142" font-size="15" font-weight="600">42.86</text>
+<text class="muted" x="16" y="190" font-size="14">Measured at a moderate level: data form 26.82, model form 25.77; the fix brings the model form to 26.81.</text>
+<rect class="warnBg" x="16" y="212" width="688" height="56" rx="8"/>
+<text class="warn" x="32" y="236" font-size="16" font-weight="600">Task still removed</text>
+<text class="ink" x="32" y="258" font-size="15">42 points are results the submission reports about itself, which the grader never checks.</text>
+</svg>
+</div><figcaption><b>Figure 7.</b> The original grader quietly penalises one of two allowed, equivalent forms, but the task is removed anyway because 42 points come from results the submission reports about itself. <a href="tasks/dabic_gravity_inversion.html" class="case-link">Read the case</a></figcaption></figure>
 
-  <h3 id="unstated"><span class="num">3.4</span>The grader applies a rule the instructions do not state</h3>
+  <h3 id="instruction_mismatch"><span class="num">3.3</span>Instruction–grader mismatch <span class="hcount">9 tasks</span></h3>
+  <p>Each rule the grader applies may be reasonable on its own, but it is not the rule the agent was given. The grader enforces something the instructions do not state, or contradicts what they say: a shorter time limit than promised, a geometric condition left out, an undocumented output format or convention, checks the instructions never mention, a function that does not exist, a different formula. An agent that follows the instructions faithfully is then scored by a different rule.</p>
+  <p class="pcat-tasks">Primary category of 9 tasks: <a class="task-link" href="tasks/arc_compiler_runtime.html">Arc Compiler Runtime</a>, <a class="task-link" href="tasks/borden_source_inversion.html">Borden Source Inversion</a>, <a class="task-link" href="tasks/git_rewrite_in_zig.html">Git Rewrite in Zig</a>, <a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet Vulnerability Analyzer</a>, <a class="task-link" href="tasks/openrct2_theme_park_ai.html">OpenRCT2 Theme Park AI</a>, <a class="task-link" href="tasks/openttd_transport_ai.html">OpenTTD Transport AI</a>, <a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk Calibration</a>, <a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring Optimization</a>, <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>. <a href="tasks/index.html#instruction_mismatch">Show them in the task list</a>. Secondary category of: <a class="task-link" href="tasks/cta_risk_budget_optimization.html">CTA Risk Budget Optimization</a>, <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a> (removed), <a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>, <a class="task-link" href="tasks/schemathesis_reporting_observability.html">Schemathesis Reporting Observability</a>, <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>, <a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path Graph Coloring</a>.</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring</a>.</span> The instructions allow an edge flip only when the two triangles form a convex shape. <mark>The grader omits that condition, and the same faulty rule generated the hidden test cases:</mark> all ten contain overlapping triangles, and a forbidden flip improved the score on one of them.</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: fix proved correct · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-triangulation_coloring_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
@@ -428,8 +430,45 @@
 
 </svg>
 </div><figcaption><b>Figure 9.</b> The prompt promises 30 s per test case, 150 s per input, but the original grader enforces 60 s, so a solver that takes more than 60 s on any input, though within the promise, loses its whole score. <a href="tasks/warehouse_forklift_routing.html" class="case-link">Read the case</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>.</span> The agent rewrites git in the Zig language. Checks the instructions never mention set the whole score to 0 if the project contains an ordinary build file, such as the one a common Zig build command leaves behind, or a test that compares the agent's output with the real git, which the instructions invite. The fix deletes leftover build files and drops the check on test code, instead of zeroing the score.</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · fix tested side by side, three runs</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>.</span> The agent infers the location, size and timing of an underground pollution source from monitoring wells. The grader predicts the hidden readings with a physics model whose conventions the instructions never state: among other things, it ignores soil porosity, treats a rate as a total amount and places the source at the bottom of its region. <mark>An honest fit built from textbook physics scores 7.0; the same fitting method using the grader's conventions scores 31.2.</mark> The fixed version gives agents the grader's model. An agent that iterates against the grader's scores can partly learn the convention instead (see <a href="leaderboard.html#real-runs">the check against real agent runs</a>).</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: published numbers proved · fix tested side by side, three runs</p>
+  <figure class="fig" id="fig-borden_source_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
+<title>Borden Source Inversion scores</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
 
-  <h3 id="scale"><span class="num">3.5</span>The 0–100 scale cannot be reached</h3>
+<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Original grader score (the true source scores 109)</text>
+<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
+<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
+<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
+<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
+<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
+<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">middle of each range</text>
+<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
+<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
+<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
+<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
+<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
+<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
+<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
+<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
+<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
+<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
+
+</svg>
+</div><figcaption><b>Figure 10.</b> The grader uses unstated, non-physical conventions, so a one-shot honest textbook fit to the public data scores at the baseline level, about 24 points below the same fit using the hidden convention. <a href="tasks/borden_source_inversion.html" class="case-link">Read the case</a></figcaption></figure>
+
+  <h3 id="scale_selection"><span class="num">3.4</span>Scoring scale and selection <span class="hcount">3 tasks</span></h3>
+  <p>The raw result is computed correctly, but the step that turns it into the final score goes wrong. The reference points that convert the raw result to 0–100 cannot be reached or were measured on something else, so scores are compressed or shifted; or the rule that picks each run's best submission keeps the wrong one.</p>
+  <p class="pcat-tasks">Primary category of 3 tasks: <a class="task-link" href="tasks/integer_compression_codec.html">Integer Compression Codec</a>, <a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition Permutation Optimization</a>, <a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>. <a href="tasks/index.html#scale_selection">Show them in the task list</a>. Secondary category of: <a class="task-link" href="tasks/borden_source_inversion.html">Borden Source Inversion</a>, <a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>, <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>.</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>.</span> Each test case is scored by the number of turns survived, and the grader caps turns, so no total can exceed 92,304. The reference points of the 0–100 scale were set far above that cap. <mark>No submission can score above 21.02 out of 100.</mark> The fixed scale runs from the starter program's total to the proved upper bound (attainability unproved). <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> has the same problem, established by proof rather than measurement: a lower bound proved in Lean shows that no valid answer can score above about 30.6 (30.3 at the exact bound).</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: published numbers partly proved · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-treant_forest"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img">
@@ -467,9 +506,7 @@
 <text x="680" y="254" class="ink" font-size="15" text-anchor="end" font-weight="600">100 = 92,304 turns (the cap)</text>
 
 </svg>
-</div><figcaption><b>Figure 10.</b> The original scale&#x27;s reference points lie above the turn cap, so no submission can score above 21.02 of 100; the fixed scale ends at the cap, 92,304. <a href="tasks/treant_forest.html" class="case-link">Read the case</a></figcaption></figure>
-
-  <h3 id="selection"><span class="num">3.6</span>The wrong submission is kept</h3>
+</div><figcaption><b>Figure 11.</b> The original scale&#x27;s reference points lie above the turn cap, so no submission can score above 21.02 of 100; the fixed scale ends at the cap, 92,304. <a href="tasks/treant_forest.html" class="case-link">Read the case</a></figcaption></figure>
   <p><span class="lead-in"><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>.</span> One of the five grader tests compares a helper file against an out-of-date checksum, so every submission fails it. Under the task's rule for picking a run's best (most tests passed, earliest among ties), <mark>every run's reported best is frozen at its first valid submission, and later improvements never count.</mark> Anyone who instead keeps the highest score is not affected. <a href="leaderboard.html#real-runs">The check against real agent runs</a> shows this happening in a real agent run.</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · TLA+: fix model-checked correct · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-order_addition_permutation_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 268" role="img">
@@ -516,35 +553,8 @@
 <path d="M358 208 L406 208 M398 202 L407 208 L398 214" fill="none" class="inkS" stroke-width="2"/>
 
 </svg>
-</div><figcaption><b>Figure 11.</b> A stale file fingerprint caps every submission at 4/5 tests, so the original grader keeps a run&#x27;s first valid submission and ignores better later ones. <a href="tasks/order_addition_permutation_optimization.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 12.</b> A stale file fingerprint caps every submission at 4/5 tests, so the original grader keeps a run&#x27;s first valid submission and ignores better later ones. <a href="tasks/order_addition_permutation_optimization.html" class="case-link">Read the case</a></figcaption></figure>
 
-  <h3 id="removed"><span class="num">3.7</span>A task without a sound fix</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>.</span> <mark>Forty-two of the task's points come from numbers the submission reports about its own work, which the grader cannot check.</mark> The grader also quietly penalises one of two mathematically equivalent forms that the instructions explicitly allow. We fixed the second problem, but the first has no fix that preserves the task, so the task is removed.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · partial fix tested side by side, three runs; task removed</p>
-  <figure class="fig" id="fig-dabic_gravity_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>D-ABIC Gravity Inversion form penalty</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-<text class="ink" x="16" y="30" font-size="18" font-weight="600">Same work, different form, half the score</text>
-<text class="muted" x="16" y="62" font-size="14">Score of the same strong work on the original grader (computed from its own penalty rule)</text>
-<text class="ink" x="16" y="98" font-size="15">Data form</text>
-<rect class="good" x="130" y="76" width="444.6" height="32"/>
-<text class="good" x="582.6" y="98" font-size="15" font-weight="600">88.92</text>
-<text class="ink" x="16" y="142" font-size="15">Model form</text>
-<rect class="bad" x="130" y="120" width="214.3" height="32"/>
-<text class="bad" x="352.3" y="142" font-size="15" font-weight="600">42.86</text>
-<text class="muted" x="16" y="190" font-size="14">Measured at a moderate level: data form 26.82, model form 25.77; the fix brings the model form to 26.81.</text>
-<rect class="warnBg" x="16" y="212" width="688" height="56" rx="8"/>
-<text class="warn" x="32" y="236" font-size="16" font-weight="600">Task still removed</text>
-<text class="ink" x="32" y="258" font-size="15">42 points are results the submission reports about itself, which the grader never checks.</text>
-</svg>
-</div><figcaption><b>Figure 12.</b> The original grader quietly penalises one of two allowed, equivalent forms, but the task is removed anyway because 42 points come from results the submission reports about itself. <a href="tasks/dabic_gravity_inversion.html" class="case-link">Read the case</a></figcaption></figure>
   <div class="cta">
     <a class="btn" href="tasks/index.html">Browse all 51 tasks &rarr;</a>
     <p>The examples above cover a few tasks. The task list has every outcome, with filters and search.</p>

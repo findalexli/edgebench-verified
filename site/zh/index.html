@@ -59,7 +59,7 @@
 <section id="background" class="col">
   <h2 class="sec"><span class="num">1</span>EdgeBench 是什么，如何为智能体打分</h2>
   <p>一个 EdgeBench 任务给智能体书面的任务说明和初始文件：让一个交易引擎更快，为一款策略游戏编写机器人，补完一个数学库中的证明，根据传感器读数推断地下水污染的来源。智能体在十二小时内可以随意多次提交，并能看到每次的分数。一个由任务作者编写的隐藏评分器程序，在隐藏的测试用例上运行每份提交，并产生一个原始结果，例如成本、速度或通过的测试数。原始结果再按作者为该任务选定的参考点换算为 0 到 100 分。每次运行保留其最佳分数；每个模型在每个任务上有三次运行，对其中有效的运行取平均（整体失败的运行，例如崩溃的运行，被舍弃）；一个模型的总成绩是它在各任务上的平均分。</p>
-  <p>因此，分数可能在四个环节出错（图&nbsp;1）：评分器可能接受错误的工作；可能拒绝正确的工作，或执行智能体未被告知的规则；换算到 0–100 分的刻度可能无法达到，或测定有误；一次运行可能保留了错误的提交。这四种情况我们都发现了，此外还有第五种，它位于评分器代码之外：评分器所运行的机器。EdgeBench 的官方设置给评分器 4 个 CPU（除非任务另有设定），而有六个评分器同时运行的工作量超过了这个数（<a href="#cpu">第&nbsp;3.1 节</a>）。</p>
+  <p>因此，分数可能在四个环节出错（图&nbsp;1）：评分器可能接受错误的工作；可能拒绝正确的工作，或执行智能体未被告知的规则；换算到 0–100 分的刻度可能无法达到，或测定有误；一次运行可能保留了错误的提交。这四种情况我们都发现了，此外还有第五种，它位于评分器代码之外：评分器所运行的机器。EdgeBench 的官方设置给评分器 4 个 CPU（除非任务另有设定），而有六个评分器同时运行的工作量超过了这个数（<a href="#engineering">第&nbsp;3.1 节</a>）。</p>
   <figure class="fig" id="fig-scoring-pipeline"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 268" role="img">
 <title>EdgeBench's scoring pipeline: the agent submits work, a hidden grader produces a raw result, the raw result is converted to 0 to 100, each run keeps its best score so far, the valid runs of a task (three per model) are averaged, and then the tasks are averaged. Four markers show where a grader can go wrong.</title>
 <style>
@@ -152,10 +152,19 @@
 
 <section id="findings" class="col">
   <h2 class="sec"><span class="num">3</span>问题出在哪里</h2>
-  <p>下面的例子具有代表性，按问题类型分组。全部任务列在<a href="tasks/index.html">任务</a>页，每个任务都有完整的案例，包括测试提交、独立检验和修复。下文中的每个任务名称都链接到其页面。</p>
+  <p>每个存在问题的任务（共 32 个：31 个已修复，1 个已移除）都有一个主要类别，按其主要缺陷的机制确定，还可能有次要类别。共有四个类别：</p>
+  <ul class="tight">
+    <li><b>工程与运行环境</b>（5 个任务）：评分器在实际环境中不能正确运行。</li>
+    <li><b>评分逻辑错误，事实性错误</b>（15 个任务）：评分器把错误的工作判为正确，或把正确的工作判为错误。</li>
+    <li><b>任务说明与评分不一致</b>（9 个任务）：评分器要求了任务说明没有写明的东西，或与任务说明相矛盾。</li>
+    <li><b>分数换算与选取</b>（3 个任务）：0–100 分的刻度无法达到、参考点有误，或保留了错误的提交。</li>
+  </ul>
+  <p>下面每个类别先给出通俗的解释和所属任务，再给出有代表性的例子。全部任务列在<a href="tasks/index.html">任务</a>页，可按类别筛选；每个任务都有完整的案例，包括测试提交、独立检验和修复。下文中的每个任务名称都链接到其页面。</p>
 
-  <h3 id="cpu"><span class="num">3.1</span>评分器分到的 CPU 少于它同时运行的工作数</h3>
-  <p>EdgeBench 的官方排行榜设置给每个评分器 4 个 CPU，除非任务另有设定；七个 Lean 任务为 8 个，<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 为 16 个（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>）。有六个没有单独设定的评分器，在每个用例的承诺时限下同时运行 8 个测试用例（<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a> 也同时运行 8 个，但允许的时间是承诺时间的两倍）。因此在 4 个 CPU 上，每个用例只分到约半个 CPU，而任务说明从未写明评分器的 CPU 数；在评分器内部，系统报告的是宿主机的 CPU 数（在我们的测试机上为 8），而不是限制值。<span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a></span> 承诺每个测试用例 30 秒。<mark>一个每个用例计算 16 秒的解法，在 4 个 CPU 上 50 个用例中有 48 个超时，而一次超时就会使整份提交作废；在 8 个 CPU 上，同一解法通过全部用例。</mark><a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>、<a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>、<a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> 和 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 的情况相同：按 CPU 时间预算设计的解法会失去大多数用例或全部分数。墙钟时限并不承诺独占 CPU 时间；该修复采用更一致的资源策略。按截止时间停止的解法通常不会被作废，但只得到一半的计算时间；在 Vibrating Path 的九次原始评分器评分中，有一次这样的解法被作废，原因可能是共享 CPU 的任务自带检查器超时了。修复后，同时运行的用例数不超过评分器的 CPU 数；我们在 4 个和 8 个 CPU 下分别进行了并排对照测量。在 <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a> 中，分数是速度，未修改的引擎在 4 个 CPU 上得 0 分，在 8 个 CPU 上约得 47–76 分，因此该任务的说明记录了：其分数取决于评分器的 CPU 数。</p>
+  <h3 id="engineering"><span class="num">3.1</span>工程与运行环境<span class="hcount">5 个任务</span></h3>
+  <p>评分器的评分规则本身也许没有错，但它在实际使用的环境中不能正确运行。常见原因包括：同时运行的测试用例需要的 CPU 多于评分器分到的 CPU，诚实的解法因此超时；隐藏测试被插入到无法编译的位置；评分器需要的文件在公开镜像中缺失；测试在第一次失败时就停止，并把其余测试记为失败；或者结果取决于运行时机。这时，诚实的工作会因为与其质量无关的原因而失分。</p>
+  <p class="pcat-tasks">以此为主要类别的任务共 5 个：<a class="task-link" href="tasks/apple_incremental_game.html">Apple Incremental Game</a>、<a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>、<a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Self Assembly</a>、<a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate Reconstruction</a>、<a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path Graph Coloring</a>。<a href="tasks/index.html#engineering">在任务列表中查看</a>。以此为次要类别的任务：<a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core Throughput</a>、<a class="task-link" href="tasks/git_rewrite_in_zig.html">Git Rewrite in Zig</a>、<a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition Permutation Optimization</a>、<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring Optimization</a>、<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>。</p>
+  <p><span class="lead-in">评分器分到的 CPU 少于它同时运行的工作数。</span>EdgeBench 的官方排行榜设置给每个评分器 4 个 CPU，除非任务另有设定；七个 Lean 任务为 8 个，<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 为 16 个（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>）。有六个没有单独设定的评分器，在每个用例的承诺时限下同时运行 8 个测试用例（<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a> 也同时运行 8 个，但允许的时间是承诺时间的两倍）。因此在 4 个 CPU 上，每个用例只分到约半个 CPU，而任务说明从未写明评分器的 CPU 数；在评分器内部，系统报告的是宿主机的 CPU 数（在我们的测试机上为 8），而不是限制值。<span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a></span> 承诺每个测试用例 30 秒。<mark>一个每个用例计算 16 秒的解法，在 4 个 CPU 上 50 个用例中有 48 个超时，而一次超时就会使整份提交作废；在 8 个 CPU 上，同一解法通过全部用例。</mark><a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>、<a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>、<a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> 和 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 的情况相同：按 CPU 时间预算设计的解法会失去大多数用例或全部分数。墙钟时限并不承诺独占 CPU 时间；该修复采用更一致的资源策略。按截止时间停止的解法通常不会被作废，但只得到一半的计算时间；在 Vibrating Path 的九次原始评分器评分中，有一次这样的解法被作废，原因可能是共享 CPU 的任务自带检查器超时了。修复后，同时运行的用例数不超过评分器的 CPU 数；我们在 4 个和 8 个 CPU 下分别进行了并排对照测量。在 <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a> 中，分数是速度，未修改的引擎在 4 个 CPU 上得 0 分，在 8 个 CPU 上约得 47–76 分，因此该任务的说明记录了：其分数取决于评分器的 CPU 数。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：说明：已证明 · 修复经并排对照测试，三次运行</p>
   <figure class="fig" id="fig-grid_turing_robot"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 416" role="img">
 <title>Wall time per test case against CPU work per case, at 4 and 8 CPUs</title>
@@ -209,14 +218,12 @@
 <text x="16" y="400" class="muted" font-size="13">Slowest case shown. Timed-out cases were stopped at 30 s.</text>
 </svg>
 </div><figcaption><b>图 3</b> 在评分器 CPU 数为 4 时，同时运行的 8 个用例每个只分到半个 CPU，因此任何需要超过约 15 秒计算的用例都会超时，并使整份提交作废。 <a href="tasks/grid_turing_robot.html" class="case-link">阅读案例</a></figcaption></figure>
-
-  <h3 id="too-low"><span class="num">3.2</span>正确的工作得分过低</h3>
   <p><span class="lead-in"><a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>。</span>智能体要重建一个大型 Rust 项目。评分器以无法编译的方式把隐藏测试插入项目的两个部分，<mark>因此对每个遵守“不得修改测试”这一规则的智能体，这两个部分（共 100 分中的 22 分）都得 0 分。</mark>一个完整的解法得 73.99 分，而不是 94.70 分。（公开的归档还缺少四个库文件；恢复这些文件后，初始文件能够精确复现发布方记录的分数，因此发布方自己的评分很可能具备这些文件，这第二个问题只影响使用公开镜像评分的人。）</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：部分模型检验 · 修复经并排对照测试，三次运行（4 项对照中有 1 项只运行一次）</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>。</span>智能体要用 Zig 语言重写 git。有几项任务说明从未提到的检查：只要项目中含有一个普通的构建文件（例如一条常用的 Zig 构建命令留下的文件），或含有一个把智能体的输出与真实 git 相比较的测试（而任务说明恰恰鼓励写这种测试），整个分数就会被设为 0。修复会删除遗留的构建文件，并取消对测试代码的检查，而不是把分数清零。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>。</span>智能体要在一个数学库中补全证明。在 423 条命题中，有五条在命题本身内部藏有一个缺口标记（Lean 的 <code>sorry</code>），这是由文件声明默认参数的方式引入的，因此任何证明都无法获得这些分数；任何使用了它们的后续证明也会被拒绝。这五条共占 100 分中的 1.18 分，连同使用它们的后续证明最多为 2.13 分（推断所得）。只有本来能证明它们的智能体才会失分，因此这一缺陷也可能掩盖智能体之间的差异。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
+
+  <h3 id="grader_logic"><span class="num">3.2</span>评分逻辑错误，事实性错误<span class="hcount">15 个任务</span></h3>
+  <p>任务要求的内容是对的，但评分器的检查有误：把错误的工作判为正确，或把正确的工作判为错误。例如：正确性检查漏掉真实的缺陷，校验器漏掉重叠的形状，成本检查少算一项，随任务提供的库计算出错，答案检查器误读有效答案，要证明的命题按原文是假的，或者分数取自提交对自身结果的报告。在错误的提交被接受时，它的得分可以与正确的提交一样高，甚至更高。</p>
+  <p class="pcat-tasks">以此为主要类别的任务共 15 个：<a class="task-link" href="tasks/college_english_exam_bank.html">College English Exam Bank</a>、<a class="task-link" href="tasks/cta_risk_budget_optimization.html">CTA Risk Budget Optimization</a>、<a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>（已移除）、<a class="task-link" href="tasks/equivalence_class_divide_and_conquer.html">Equivalence Class Divide and Conquer</a>、<a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core Throughput</a>、<a class="task-link" href="tasks/ffmpeg_swscale_reimplementation.html">FFmpeg swscale Reimplementation</a>、<a class="task-link" href="tasks/graph_node_classification.html">Graph Node Classification</a>、<a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting Optimization</a>、<a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis Proofs</a>、<a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>、<a class="task-link" href="tasks/schemathesis_config_modernization.html">Schemathesis Config Modernization</a>、<a class="task-link" href="tasks/schemathesis_datagen_pipeline.html">Schemathesis Datagen Pipeline</a>、<a class="task-link" href="tasks/schemathesis_reporting_observability.html">Schemathesis Reporting Observability</a>、<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>、<a class="task-link" href="tasks/tree_block_partitioning.html">Tree Block Partitioning</a>。<a href="tasks/index.html#grader_logic">在任务列表中查看</a>。以此为次要类别的任务：<a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate Reconstruction</a>。</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>。</span>智能体要构建一个逻辑公式求解器。当公式可满足时，求解器必须给出一个示例赋值，由评分器检查。检查器按调用的书写方式而不是按参数求值的结果来查找函数的值，因此同一个书写形式的调用可能代表两个不同的值。<mark>因此，正确的答案在 27 道隐藏题目上被拒绝，一个完美求解器的分数从 78.61 降到 72.40。</mark></p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：修复正确性：已证明 · 修复经并排对照测试，三次运行</p>
   <figure class="fig" id="fig-smt_solver"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img">
@@ -264,41 +271,6 @@
 
 </svg>
 </div><figcaption><b>图 4</b> 原始检查器按文本查找函数的值，因此有 27 道可满足的隐藏题目无法得分；修复版检查器使用实际的参数。 <a href="tasks/smt_solver.html" class="case-link">阅读案例</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>。</span>智能体要根据监测井推断一个地下污染源的位置、规模和时间。评分器用一个物理模型预测隐藏的读数，而模型的约定在任务说明中从未写明：除其他问题外，它忽略土壤孔隙度，把速率当作总量，并把污染源放在其区域的底部。<mark>一个基于教科书物理的诚实拟合得 7.0 分；使用评分器约定的同一拟合方法得 31.2 分。</mark>修复版把评分器的模型提供给智能体。一个根据评分器的分数反复迭代的智能体，也可以部分地学到这一约定（见<a href="leaderboard.html#real-runs">与真实智能体运行的对照</a>）。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：已发布数字：已证明 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-borden_source_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
-<title>Borden Source Inversion scores</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-
-<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Original grader score (the true source scores 109)</text>
-<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
-<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
-<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
-<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
-<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">middle of each range</text>
-<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
-<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
-<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
-<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
-<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
-<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
-<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
-<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
-<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
-
-</svg>
-</div><figcaption><b>图 5</b> 评分器使用未说明且不符合物理的约定，因此一次性地用教科书方法诚实拟合公开数据，只能得到基线水平的分数，比使用隐藏约定的同一拟合低约 24 分。 <a href="tasks/borden_source_inversion.html" class="case-link">阅读案例</a></figcaption></figure>
-
-  <h3 id="accepted"><span class="num">3.3</span>错误的工作被接受</h3>
   <p><span class="lead-in"><a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>。</span>智能体要在不改变行为的前提下加速一个证券交易所撮合引擎。评分器的正确性检查只确认资金总体平衡、订单簿一致。<mark>两个现实中可能出现、只需改动一处的缺陷——向卖方吃单者收取挂单手续费而非吃单手续费，以及不发送成交消息——都能通过检查并获得满分</mark>，而项目自带的测试套件能发现这两个缺陷。修复版要求先通过这些测试，再测量速度。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：发现：部分证明 · 修复经并排对照测试，三次运行（13 项对照中有 6 项只运行一次）</p>
   <figure class="fig" id="fig-exchange_core_throughput"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
@@ -330,7 +302,7 @@
 <rect x="520" y="236" width="184" height="30" rx="6" class="badBg"/><text x="612" y="257" font-size="15" text-anchor="middle" class="bad">rejected: 0</text>
 <text x="16" y="292" font-size="13" class="muted">The gaps between these single runs are within speed noise (about ±20% from run to run).</text>
 </svg>
-</div><figcaption><b>图 6</b> 原始评分器给有缺陷的引擎满分；它们较高的单次运行分数处在速度噪声范围之内。修复版给它们 0 分。 <a href="tasks/exchange_core_throughput.html" class="case-link">阅读案例</a></figcaption></figure>
+</div><figcaption><b>图 5</b> 原始评分器给有缺陷的引擎满分；它们较高的单次运行分数处在速度噪声范围之内。修复版给它们 0 分。 <a href="tasks/exchange_core_throughput.html" class="case-link">阅读案例</a></figcaption></figure>
   <p><span class="lead-in"><a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting</a>。</span>智能体要把平面形状尽可能紧密地排入一条带状区域。评分器漏掉了许多重叠，例如一个形状滑过另一个形状的一半，<mark>因此一个不可行的布局可以胜过所有可行的布局。</mark></p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：修复正确性：部分证明 · 修复经并排对照测试，三次运行</p>
   <figure class="fig" id="fig-jagua_nesting_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
@@ -360,9 +332,39 @@
 <text x="536" y="254" class="good" font-size="20" text-anchor="middle" font-weight="700">rejected ✗</text>
 
 </svg>
-</div><figcaption><b>图 7</b> 原始的有效性检查漏掉了许多真实的重叠，例如相互滑过一半的正方形；修复版评分器测量重叠面积，拒绝任何超过较小形状面积百万分之一的重叠。 <a href="tasks/jagua_nesting_optimization.html" class="case-link">阅读案例</a></figcaption></figure>
+</div><figcaption><b>图 6</b> 原始的有效性检查漏掉了许多真实的重叠，例如相互滑过一半的正方形；修复版评分器测量重叠面积，拒绝任何超过较小形状面积百万分之一的重叠。 <a href="tasks/jagua_nesting_optimization.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>。</span>智能体要在一个数学库中补全证明。在 423 条命题中，有五条在命题本身内部藏有一个缺口标记（Lean 的 <code>sorry</code>），这是由文件声明默认参数的方式引入的，因此任何证明都无法获得这些分数；任何使用了它们的后续证明也会被拒绝。这五条共占 100 分中的 1.18 分，连同使用它们的后续证明最多为 2.13 分（推断所得）。只有本来能证明它们的智能体才会失分，因此这一缺陷也可能掩盖智能体之间的差异。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>。</span><mark>该任务有四十二分来自提交对其自身工作所报告的数字，评分器无法核查这些数字。</mark>评分器还暗中惩罚任务说明明确允许的两种数学上等价的形式之一。我们修复了第二个问题，但第一个问题没有能保留该任务的修复办法，因此该任务被移除。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 部分修复经并排对照测试，三次运行；任务已移除</p>
+  <figure class="fig" id="fig-dabic_gravity_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
+<title>D-ABIC Gravity Inversion form penalty</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text class="ink" x="16" y="30" font-size="18" font-weight="600">Same work, different form, half the score</text>
+<text class="muted" x="16" y="62" font-size="14">Score of the same strong work on the original grader (computed from its own penalty rule)</text>
+<text class="ink" x="16" y="98" font-size="15">Data form</text>
+<rect class="good" x="130" y="76" width="444.6" height="32"/>
+<text class="good" x="582.6" y="98" font-size="15" font-weight="600">88.92</text>
+<text class="ink" x="16" y="142" font-size="15">Model form</text>
+<rect class="bad" x="130" y="120" width="214.3" height="32"/>
+<text class="bad" x="352.3" y="142" font-size="15" font-weight="600">42.86</text>
+<text class="muted" x="16" y="190" font-size="14">Measured at a moderate level: data form 26.82, model form 25.77; the fix brings the model form to 26.81.</text>
+<rect class="warnBg" x="16" y="212" width="688" height="56" rx="8"/>
+<text class="warn" x="32" y="236" font-size="16" font-weight="600">Task still removed</text>
+<text class="ink" x="32" y="258" font-size="15">42 points are results the submission reports about itself, which the grader never checks.</text>
+</svg>
+</div><figcaption><b>图 7</b> 原始评分器暗中惩罚两种被允许且等价的形式之一，但该任务无论如何都被移除，因为有 42 分来自提交自行报告的结果。 <a href="tasks/dabic_gravity_inversion.html" class="case-link">阅读案例</a></figcaption></figure>
 
-  <h3 id="unstated"><span class="num">3.4</span>评分器执行了任务说明中没有写明的规则</h3>
+  <h3 id="instruction_mismatch"><span class="num">3.3</span>任务说明与评分不一致<span class="hcount">9 个任务</span></h3>
+  <p>评分器执行的每条规则单独看也许都合理，但它不是智能体被告知的规则。评分器要求了任务说明没有写明的东西，或与任务说明相矛盾：时限比承诺的短，漏掉了一个几何条件，输出格式或约定没有文档说明，有任务说明从未提及的检查，有一个并不存在的函数，或用了不同的公式。于是，忠实遵循任务说明的智能体被按另一条规则评分。</p>
+  <p class="pcat-tasks">以此为主要类别的任务共 9 个：<a class="task-link" href="tasks/arc_compiler_runtime.html">Arc Compiler Runtime</a>、<a class="task-link" href="tasks/borden_source_inversion.html">Borden Source Inversion</a>、<a class="task-link" href="tasks/git_rewrite_in_zig.html">Git Rewrite in Zig</a>、<a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet Vulnerability Analyzer</a>、<a class="task-link" href="tasks/openrct2_theme_park_ai.html">OpenRCT2 Theme Park AI</a>、<a class="task-link" href="tasks/openttd_transport_ai.html">OpenTTD Transport AI</a>、<a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk Calibration</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring Optimization</a>、<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>。<a href="tasks/index.html#instruction_mismatch">在任务列表中查看</a>。以此为次要类别的任务：<a class="task-link" href="tasks/cta_risk_budget_optimization.html">CTA Risk Budget Optimization</a>、<a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>（已移除）、<a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>、<a class="task-link" href="tasks/schemathesis_reporting_observability.html">Schemathesis Reporting Observability</a>、<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>、<a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path Graph Coloring</a>。</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring</a>。</span>任务说明只允许在两个三角形构成凸形时翻转其公共边。<mark>评分器遗漏了这一条件，而隐藏测试用例也是由同一条错误规则生成的：</mark>全部十个用例都含有相互重叠的三角形，而且在其中一个用例上，一次被禁止的翻转改善了分数。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：修复正确性：已证明 · 修复经并排对照测试，三次运行</p>
   <figure class="fig" id="fig-triangulation_coloring_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
@@ -428,8 +430,45 @@
 
 </svg>
 </div><figcaption><b>图 9</b> 任务说明承诺每个测试用例 30 秒、每个输入 150 秒，但原始评分器执行的是 60 秒，因此一个在某个输入上耗时超过 60 秒的解题者，尽管仍在承诺之内，也会失去全部分数。 <a href="tasks/warehouse_forklift_routing.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>。</span>智能体要用 Zig 语言重写 git。有几项任务说明从未提到的检查：只要项目中含有一个普通的构建文件（例如一条常用的 Zig 构建命令留下的文件），或含有一个把智能体的输出与真实 git 相比较的测试（而任务说明恰恰鼓励写这种测试），整个分数就会被设为 0。修复会删除遗留的构建文件，并取消对测试代码的检查，而不是把分数清零。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>。</span>智能体要根据监测井推断一个地下污染源的位置、规模和时间。评分器用一个物理模型预测隐藏的读数，而模型的约定在任务说明中从未写明：除其他问题外，它忽略土壤孔隙度，把速率当作总量，并把污染源放在其区域的底部。<mark>一个基于教科书物理的诚实拟合得 7.0 分；使用评分器约定的同一拟合方法得 31.2 分。</mark>修复版把评分器的模型提供给智能体。一个根据评分器的分数反复迭代的智能体，也可以部分地学到这一约定（见<a href="leaderboard.html#real-runs">与真实智能体运行的对照</a>）。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：已发布数字：已证明 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-borden_source_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
+<title>Borden Source Inversion scores</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
 
-  <h3 id="scale"><span class="num">3.5</span>0–100 分数刻度无法达到</h3>
+<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Original grader score (the true source scores 109)</text>
+<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
+<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
+<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
+<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
+<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
+<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">middle of each range</text>
+<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
+<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
+<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
+<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
+<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
+<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
+<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
+<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
+<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
+<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
+
+</svg>
+</div><figcaption><b>图 10</b> 评分器使用未说明且不符合物理的约定，因此一次性地用教科书方法诚实拟合公开数据，只能得到基线水平的分数，比使用隐藏约定的同一拟合低约 24 分。 <a href="tasks/borden_source_inversion.html" class="case-link">阅读案例</a></figcaption></figure>
+
+  <h3 id="scale_selection"><span class="num">3.4</span>分数换算与选取<span class="hcount">3 个任务</span></h3>
+  <p>原始结果计算正确，但把它变成最终分数的环节出了错：把原始结果换算到 0–100 分的参考点无法达到，或是在别的对象上测得的，因此分数被压缩或偏移；或者，挑选每次运行最佳提交的选取规则保留了错误的提交。</p>
+  <p class="pcat-tasks">以此为主要类别的任务共 3 个：<a class="task-link" href="tasks/integer_compression_codec.html">Integer Compression Codec</a>、<a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition Permutation Optimization</a>、<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>。<a href="tasks/index.html#scale_selection">在任务列表中查看</a>。以此为次要类别的任务：<a class="task-link" href="tasks/borden_source_inversion.html">Borden Source Inversion</a>、<a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>、<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>。</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>。</span>每个测试用例按存活的回合数计分，而评分器限制了回合数，因此总数不可能超过 92,304。0–100 分数刻度的参考点却设得远高于这个上限。<mark>任何提交的得分都不可能超过 100 分中的 21.02 分。</mark>修复后的刻度从初始程序的总数延伸到已证明的上界（尚未证明可达）。<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 也有同样的问题，而且是通过证明而非测量确立的：一个在 Lean 中证明的下界表明，任何有效答案的得分都不可能超过约 30.6（在精确下界处为 30.3）。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：已发布数字：部分证明 · 修复经并排对照测试，三次运行</p>
   <figure class="fig" id="fig-treant_forest"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img">
@@ -467,9 +506,7 @@
 <text x="680" y="254" class="ink" font-size="15" text-anchor="end" font-weight="600">100 = 92,304 turns (the cap)</text>
 
 </svg>
-</div><figcaption><b>图 10</b> 原始分数刻度的参考点高于回合上限，因此任何提交的得分都不可能超过 100 分中的 21.02 分；修复后的刻度终止于该上限 92,304。 <a href="tasks/treant_forest.html" class="case-link">阅读案例</a></figcaption></figure>
-
-  <h3 id="selection"><span class="num">3.6</span>保留了错误的提交</h3>
+</div><figcaption><b>图 11</b> 原始分数刻度的参考点高于回合上限，因此任何提交的得分都不可能超过 100 分中的 21.02 分；修复后的刻度终止于该上限 92,304。 <a href="tasks/treant_forest.html" class="case-link">阅读案例</a></figcaption></figure>
   <p><span class="lead-in"><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>。</span>评分器的五项测试之一把一个辅助文件与一个过时的校验和作比较，因此每份提交都无法通过它。在该任务选取一次运行最佳结果的规则下（通过测试最多者优先，相同时取最早的），<mark>每次运行所报告的最佳结果都被冻结在其第一份有效提交上，后来的改进永远不被计入。</mark>如果改为保留最高分，则不受影响。<a href="leaderboard.html#real-runs">与真实智能体运行的对照</a>表明，这种情况确实在一次真实的智能体运行中发生了。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：已模型检验 · 修复经并排对照测试，三次运行</p>
   <figure class="fig" id="fig-order_addition_permutation_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 268" role="img">
@@ -516,35 +553,8 @@
 <path d="M358 208 L406 208 M398 202 L407 208 L398 214" fill="none" class="inkS" stroke-width="2"/>
 
 </svg>
-</div><figcaption><b>图 11</b> 一个过时的文件指纹使每份提交至多通过 4/5 项测试，因此原始评分器保留一次运行的第一份有效提交，而忽略后来更好的提交。 <a href="tasks/order_addition_permutation_optimization.html" class="case-link">阅读案例</a></figcaption></figure>
+</div><figcaption><b>图 12</b> 一个过时的文件指纹使每份提交至多通过 4/5 项测试，因此原始评分器保留一次运行的第一份有效提交，而忽略后来更好的提交。 <a href="tasks/order_addition_permutation_optimization.html" class="case-link">阅读案例</a></figcaption></figure>
 
-  <h3 id="removed"><span class="num">3.7</span>一个没有可靠修复的任务</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>。</span><mark>该任务有四十二分来自提交对其自身工作所报告的数字，评分器无法核查这些数字。</mark>评分器还暗中惩罚任务说明明确允许的两种数学上等价的形式之一。我们修复了第二个问题，但第一个问题没有能保留该任务的修复办法，因此该任务被移除。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 部分修复经并排对照测试，三次运行；任务已移除</p>
-  <figure class="fig" id="fig-dabic_gravity_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>D-ABIC Gravity Inversion form penalty</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-<text class="ink" x="16" y="30" font-size="18" font-weight="600">Same work, different form, half the score</text>
-<text class="muted" x="16" y="62" font-size="14">Score of the same strong work on the original grader (computed from its own penalty rule)</text>
-<text class="ink" x="16" y="98" font-size="15">Data form</text>
-<rect class="good" x="130" y="76" width="444.6" height="32"/>
-<text class="good" x="582.6" y="98" font-size="15" font-weight="600">88.92</text>
-<text class="ink" x="16" y="142" font-size="15">Model form</text>
-<rect class="bad" x="130" y="120" width="214.3" height="32"/>
-<text class="bad" x="352.3" y="142" font-size="15" font-weight="600">42.86</text>
-<text class="muted" x="16" y="190" font-size="14">Measured at a moderate level: data form 26.82, model form 25.77; the fix brings the model form to 26.81.</text>
-<rect class="warnBg" x="16" y="212" width="688" height="56" rx="8"/>
-<text class="warn" x="32" y="236" font-size="16" font-weight="600">Task still removed</text>
-<text class="ink" x="32" y="258" font-size="15">42 points are results the submission reports about itself, which the grader never checks.</text>
-</svg>
-</div><figcaption><b>图 12</b> 原始评分器暗中惩罚两种被允许且等价的形式之一，但该任务无论如何都被移除，因为有 42 分来自提交自行报告的结果。 <a href="tasks/dabic_gravity_inversion.html" class="case-link">阅读案例</a></figcaption></figure>
   <div class="cta">
     <a class="btn" href="tasks/index.html">浏览全部 51 个任务 &rarr;</a>
     <p>以上例子只涉及少数任务。任务列表包含所有结果，并提供筛选和搜索。</p>
