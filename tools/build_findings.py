@@ -12,11 +12,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 GROUPS = [
     ("Kept: real issues that do not change scores",
-     "The issue is real, but it cannot change the score of a good-faith submission out of 100 by a meaningful amount, or the task states it openly, and no change to the grader is needed.",
+     "Each issue here is real, but either it cannot change a good-faith submission's score out of 100 by a meaningful amount or the task states it openly, so the grader needs no change.",
      ["bipedalwalker_locomotion_rl", "vehicle_routing_time_windows",
       "ordinal_notation_well_foundedness"]),
     ("Kept: scores that depend on chance, machine speed or network access",
-     "The grader works, but repeated runs or different machines can give different scores. This is noise that no change to the grader removes, so these tasks are kept with a note even where the effect is large (ANN Vector Search: about ±7 of 100 points per grading).",
+     "The grader works, but repeated runs or different machines can give different scores. No change to the grader removes this noise, so we keep these tasks with a note even where the effect is large (about ±7 of 100 points per grading in ANN Vector Search).",
      ["nethack_dungeon_agent", "wesnoth_tactical_ai", "ann_vector_search_qps", "dcss_dungeon_ai",
       "wireless_electricity_layout", "ad_placement_optimization",
       "new_foundations_consistency", "k12_math_recommendation"]),
@@ -36,12 +36,12 @@ def main():
     n_problem = sum(len(v) for v in prim.values())
     seen = set()
     out = ["# Findings", "",
-           "All 51 public EdgeBench tasks. Each row gives the problem in one line and how much it changes a "
-           "score out of 100. The task name links to the full case: what the task asks, what goes wrong, how it "
-           "was checked, the fix, and its limits.", "",
-           f"The {n_problem} tasks with a problem (fixed or removed) are grouped into four categories by the "
-           "mechanism of their main defect. Each task has exactly one primary category, under which it is listed, "
-           "and may have secondary ones (the \"Also\" column). Kept tasks follow in their own sections.", "",
+           "Each row gives one of the 51 public EdgeBench tasks, its problem in one line, and how much the problem "
+           "changes a score out of 100. The task name links to the full case, which covers what the task asks, "
+           "what goes wrong, how it was checked, the fix, and its limits.", "",
+           f"We group the {n_problem} tasks with a problem (fixed or removed) into four categories by how their "
+           "main defect arises. Each task is listed under its one primary category and may have secondary ones, "
+           "shown in the \"Also\" column. Kept tasks follow in their own sections.", "",
            "| Category | Tasks (primary) |", "| --- | ---: |"]
     out += [f"| [{S['pcat.' + k]}](#{i}-{S['pcat.' + k].lower().replace(' ', '-').replace('–', '').replace('/', '')}) "
             f"| {len(prim[k])} |" for i, k in enumerate(C.KEYS, 1)]

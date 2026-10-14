@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
 LABEL = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repair-v2': 'Fixed', 'exclude': 'Removed'}
 MEANING = {'retain': 'No problem found.',
-           'retain-with-note': 'No correctable problem found. The note records caveats that no change to the grader removes, including run-to-run or machine-dependent variation, with its size stated or marked unmeasured. These are not always small: the largest, ANN Vector Search, is about ±7 of 100 points per grading.',
-           'repair-v2': 'A score-affecting problem with a versioned repair package. This historical disposition does not certify every current release; consult APPLYING-FIXES.md and each case for component coverage and pending integration.',
+           'retain-with-note': 'No correctable problem found. The note records caveats that no change to the grader removes, including run-to-run or machine-dependent variation, with its size stated or marked unmeasured. Some are not small; the largest, in ANN Vector Search, is about ±7 of 100 points per grading.',
+           'repair-v2': 'A problem that changes scores, with a versioned repair package. This outcome is historical and does not certify every current release; APPLYING-FIXES.md and each case page give the component coverage and the integration still pending.',
            'exclude': 'A problem without a sound fix; the task is not part of the verified set.'}
 
 
@@ -34,9 +34,8 @@ def main():
                         plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', ''), r.get('validation_status') or ('Historical paired scope only; see the case page and package limits' if r.get('package') else ''),
                         r.get('problem_category', ''), ';'.join(r.get('secondary_problem_categories') or [])])
     lines = ['# Outcome for every task', '',
-             'The outcome for each of the 51 public tasks. The same data is in [data/decisions.csv](data/decisions.csv); '
-             'the `decision` column there uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` '
-             '(removed).', '', '| Outcome | Tasks | Meaning |', '| --- | ---: | --- |']
+             'The same data for all 51 public tasks is in [data/decisions.csv](data/decisions.csv), whose `decision` '
+             'column uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` (removed).', '', '| Outcome | Tasks | Meaning |', '| --- | ---: | --- |']
     lines += [f'| {LABEL[k]} | {counts[k]} | {MEANING[k]} |' for k in ORDER if counts.get(k)]
     lines += ['| **Total** | **51** | |', '', '| Task | Outcome | What we found | How much it matters |',
               '| --- | --- | --- | --- |']
@@ -45,7 +44,7 @@ def main():
         lines.append(f"| [{names[t]}](cases/{t}.md) | {LABEL[r['proposed']]} | {plain[t]['headline']} | {plain[t]['effect']} |")
     (ROOT / 'DECISIONS.md').write_text('\n'.join(lines) + '\n')
     cats = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['category'] for f in (ROOT / 'tasks').glob('*.json')}
-    idx = ['# Case pages', '', 'One page per public EdgeBench task: what the task asks, what goes wrong, how much it '
+    idx = ['# Case pages', '', 'Each public EdgeBench task has one page, covering what the task asks, what goes wrong, how much it '
            'matters, the fix, how it was checked, the limits, and how to reproduce it.', '',
            '| Task | Field | Outcome | In one line |', '| --- | --- | --- | --- |']
     idx += [f"| [{names[t]}]({t}.md) | {cats[t]} | {LABEL[d]} | {plain[t]['headline']} |"

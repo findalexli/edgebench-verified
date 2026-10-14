@@ -63,7 +63,7 @@
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: a good-faith run whose prediction file is keyed by integer node IDs scores 0 under the original verifier and moves up under the fix (neighbor_intkeys: 0 to 24.089 of 100); a run that violates the output contract (non-numeric or missing predictions, or keys that collide under str()) was scored by the original and moves down, and under best-so-far selection the added variance can raise a run's score (a general lemma); none of the real runs regraded was integer-keyed, and no gain for a real solver was established"
+  "text": "either: a good-faith run whose prediction file is keyed by integer node IDs scores 0 under the original verifier and moves up under the fix (neighbor_intkeys: 0 to 24.089 of 100). A run that violates the output contract (non-numeric or missing predictions, or keys that collide under str()) was scored by the original and moves down. Under best-so-far selection the added variance can raise a run's score (a general lemma). None of the real runs we regraded was integer-keyed, and no gain for a real solver was established"
  },
  "grid_turing_robot": {
   "kind": "open",
@@ -75,7 +75,7 @@
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: raw results were understated by a factor that depends on the submission (2.4 and 3.7 for two real submissions, 7–9 for a simple correct codec), and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320); a real run's recorded best, 75.72, becomes 53.95 for its best submission on the fixed grader (second regrade of all 37 submissions; the first regrade of the recorded best submission alone gave 66.31 on the original grader and 50.08 on the fixed one)"
+  "text": "either: raw results were understated by a factor that depends on the submission (2.4 and 3.7 for two real submissions, 7–9 for a simple correct codec), and the fixed 0–100 scale runs from the starter (1.0) to the formula maximum (320). A real run's recorded best, 75.72, becomes 53.95 for its best submission on the fixed grader (second regrade of all 37 submissions; the first regrade, of the recorded best submission alone, gave 66.31 on the original grader and 50.08 on the fixed one)"
  },
  "jagua_nesting_optimization": {
   "kind": "open",
@@ -123,7 +123,7 @@
   "kind": "bounded",
   "direction": "up",
   "bound": 2.13,
-  "text": "up, new runs only: rule arithmetic allows 1.18 points for five targets and at most 2.13 with four downstream targets. The actual five targets were not proved; component controls and inferred upstream dependencies support only a conditional limit, not measured recovery."
+  "text": "up, new runs only: rule arithmetic allows 1.18 points for five targets and at most 2.13 with four downstream targets. The five actual targets were not proved, so component controls and inferred upstream dependencies support only a conditional limit, not a measured recovery."
  },
  "portfolio_risk_calibration": {
   "kind": "sensitivity",
@@ -138,7 +138,7 @@
   "kind": "bounded",
   "direction": "either",
   "bound": 29.22,
-  "text": "up: two packages' hidden tests do not compile and score 0 for every run that leaves the tests unchanged (cas-search 12 points, cas-cli 10); stopping at the first failing test file can cost up to 7.22 more; total at most 29.22 (28.42 when cas-mux crashes, as it did for every complete solution measured); measured +20.71 for a complete solution (73.99 to 94.70) in the publisher's inferred grading environment (the original grader plus four restored library files, which reproduces the publisher's starter score exactly); down by at most 0.10 from the stricter exemption",
+  "text": "up: two packages' hidden tests do not compile and score 0 for every run that leaves the tests unchanged (cas-search 12 points, cas-cli 10), and stopping at the first failing test file can cost up to 7.22 more, for a total of at most 29.22 (28.42 when cas-mux crashes, as it did for every complete solution measured). We measured +20.71 for a complete solution (73.99 to 94.70) in the publisher's inferred grading environment (the original grader plus four restored library files, which reproduces the publisher's starter score exactly). Down by at most 0.10 from the stricter exemption",
   "bound_down": 0.1,
   "bound_up": 29.22
  },
@@ -158,7 +158,7 @@
   "kind": "bounded",
   "direction": "either",
   "bound": 4.76,
-  "text": "either: two weak test items; a submission can lose up to 4.76 points (wrong report writer and wrong coverage output); good-faith work can gain up to 2.76 (a correct report writer whose suite has another name, plus coverage tests), and a rise reaches 4.76 only if a submission makes the `GeneratedValue` class that the original coverage tests import unimportable, so 4.76 is used as the bound in both directions"
+  "text": "either: two weak test items. A submission can lose up to 4.76 points (wrong report writer and wrong coverage output). Good-faith work can gain up to 2.76 (a correct report writer whose suite has another name, plus coverage tests). A rise reaches 4.76 only if a submission makes the `GeneratedValue` class that the original coverage tests import unimportable, so we use 4.76 as the bound in both directions"
  },
  "smt_solver": {
   "kind": "open",
@@ -182,7 +182,7 @@
   "kind": "open",
   "direction": "either",
   "bound": null,
-  "text": "either: a different flip rule; plus up for solutions voided by the CPU share on the publisher's 4-CPU grader, and deadline-based solvers got about half a CPU"
+  "text": "either: a different flip rule; also up for solutions voided by the CPU share on the publisher's 4-CPU grader, where deadline-based solvers got about half a CPU"
  },
  "vibrating_path_graph_coloring": {
   "kind": "open",

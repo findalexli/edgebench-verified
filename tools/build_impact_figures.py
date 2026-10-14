@@ -166,7 +166,7 @@ T = {
         rr_leg_o='original checker', rr_leg_f='fixed checker', rr_leg_c='computed, not run',
         never='problem never occurred', notregr='same grader; needs a new run', zero='0 (scores identical)',
         rr_ranges='Both checkers regraded on our machines; a range is the spread over three gradings.',
-        rr_foot='So the problems do reach real agents, though not every time. The run does not measure the effect on the 12-hour leaderboard.',
+        rr_foot='The problems reach real agent runs, though not every time. The run does not measure the effect on the 12-hour leaderboard.',
     ),
     'zh': dict(
         ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务的问题本身让按规则完成的工作实测少得 10 分或更多',
@@ -182,8 +182,8 @@ T = {
         rr_h1='运行保留的成绩（满分 100）', rr_h2='单份提交的最大变化',
         rr_leg_o='原始评分器', rr_leg_f='修复版评分器', rr_leg_c='计算所得，未实际运行',
         never='问题从未发生', notregr='评分器不变；需要新的运行', zero='0（分数相同）',
-        rr_ranges='两个评分器的分数都是在我们的机器上重新评出的；区间是三次评分的范围。',
-        rr_foot='可见这些问题确实会出现在真实智能体身上，但并非每次都出现。这次运行不能衡量对 12 小时排行榜的影响。',
+        rr_ranges='两个评分器的分数都由我们在自己的机器上重新评出；区间是三次评分的范围。',
+        rr_foot='这些问题会出现在真实智能体的运行中，但不是每次都出现。这次运行不能衡量对 12 小时排行榜的影响。',
     ),
 }
 ZH_PCAT = json.loads((ROOT / 'tools/i18n/zh.json').read_text())
@@ -809,9 +809,10 @@ def build():
              'proved or computed limit as a hollow bar starting at 0. A separate column on the right lists effects whose '
              'direction is known but whose size is not.'),
         caption=(f'In {n10} of the {len(rows)} tasks with a problem, the problem itself cost good-faith work 10 points or more '
-                 'out of 100, measured. Credit wrongly given to broken or empty work (College English, FFmpeg) is shown but not '
-                 'counted. For Arc and Borden the figure is the gap between two good-faith submissions that differ only in an '
-                 'unstated convention. A change that comes from a fix\'s new scale (Integer Codec) does not count. '
+                 'out of 100, measured. The count leaves out credit wrongly given to broken or empty work (College English, '
+                 'FFmpeg), which the chart still shows, and the change that comes from a fix\'s new scale (Integer Codec). '
+                 'For Arc and Borden the value is the gap between two good-faith submissions that differ only in an '
+                 'unstated convention. '
                  'Each row shows what the problem does to one submission when it occurs. Filled marks are measured changes; '
                  'hollow bars are proved or computed limits that the change cannot exceed; the right-hand column lists effects '
                  'whose direction is known but whose size is not. For most tasks we do not know how often the problem occurred '
@@ -833,8 +834,8 @@ def build():
                  f'tasks single submissions changed by up to {max(abs(rr[t]["big"]) for t in subs_only):.2f} points while the kept '
                  f'score did not, and in {len(never)} the problem never occurred. In Borden Inversion the grader is unchanged, so '
                  f'the run\'s answers score the same ({r_bo["recorded_raw"]:.2f} raw, {r_bo["orig"]:.2f} out of 100); the fix '
-                 'changes the instructions, so only new runs can show its effect. It shows that the problems happen to real '
-                 'agents, though not every time; it does not measure the effect on the 12-hour leaderboard.'),
+                 'changes the instructions, so only new runs can show its effect. The problems reach real agent runs, though not '
+                 'every time. The run does not measure the effect on the 12-hour leaderboard.'),
         sources={t: rr[t]['src'] for t in RR_ORDER})
     out['cases/figures/impact-overview.json'] = json.dumps(ov, ensure_ascii=False, indent=1) + '\n'
     out['cases/figures/real-runs.json'] = json.dumps(rrj, ensure_ascii=False, indent=1) + '\n'
@@ -843,8 +844,8 @@ def build():
     zh = {
         'impact-overview': dict(
             caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务的问题本身让按规则完成的工作实测少得 10 分或更多（满分 100）。'
-                     '有错误或空白的工作错误地得到的分数（College English、FFmpeg）画在图中，但不计入。Arc 和 Borden 的数值是两份按规则完成的提交之间的差距，'
-                     '二者只差在一项未说明的约定上。修复后的新刻度带来的变化（Integer Codec）不计入。每一行显示问题发生时对一份提交的'
+                     '图中画出了有错误或空白的工作不该得到的分数（College English、FFmpeg），但不计入；修复后新刻度带来的变化（Integer Codec）也不计入。'
+                     'Arc 和 Borden 的数值是两份按规则完成的提交之间的差距，二者只差在一项未说明的约定上。每一行显示问题发生时对一份提交的'
                      '影响：实心标记是实测变化；空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，'
                      '我们不知道这些问题在排行榜上发生得有多频繁。'),
             alt=(f'一张图，每个有问题的任务占一行（共 {len(rows)} 行），按问题类别分组。每行在 0 到 100 的横轴上，用实心圆（我们的测试提交）或实心菱形'
@@ -857,7 +858,7 @@ def build():
                      f'另有 {len(subs_only)} 个任务中，单份提交的分数最多变化 {big_subs:.2f} 分，而保留的成绩不变；还有 {len(never)} 个任务中问题从未发生。'
                      f'在 Borden Inversion 中评分器没有改变，因此该运行的答案得分相同（原始结果 {r_bo["recorded_raw"]:.2f}，即 {r_bo["orig"]:.2f} 分，满分 100）；'
                      '该修复改变的是任务说明，只有新的运行才能显示它的作用。'
-                     '可见这些问题确实会出现在真实智能体身上，但并非每次都出现；这次运行不能衡量对 12 小时排行榜的影响。'),
+                     '这些问题会出现在真实智能体的运行中，但不是每次都出现；这次运行不能衡量对 12 小时排行榜的影响。'),
             alt=(f'{len(RR_ORDER)} 行，每行是第三方 Claude Opus 5.5 运行中的一个已修复任务。左侧面板显示运行保留的成绩（满分 100）：空心圆为原始评分器，'
                  '实心圆为修复版评分器，两者都在我们的机器上重新评分。右侧面板用从零出发的条形显示单份提交的最大变化，或注明问题从未发生，'
                  '或注明评分器不变、只有新的运行才能显示修复的作用。')),

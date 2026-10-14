@@ -1,40 +1,40 @@
 # Combinatorial Games Formalization (`combinatorial_games_formalization`)
 
-**Outcome:** Kept, with a note. <mark>Correct proofs in two styles earn the same credit in a test on the original grader, and a full count inside the grader image finds no graded item out of reach for a complete, correct solution (lower bound 0; two kinds of failure counted).</mark>
+**Outcome:** Kept, with a note. <mark>In a test on the original grader, correct proofs in two styles earn the same credit. A full count inside the grader image finds no graded item out of reach for a complete, correct solution (lower bound 0; two kinds of failure counted).</mark>
 
 ## What the task asks
 
-The task is written in Lean, a language for machine-checked mathematical proofs. In Lean, `sorry` is a placeholder for a missing proof. The prompt asks the solver to "finish **all** sorries in this folder", says "we value minor progress", and warns: "do not modify the signature of existing lemma/theorem/def as these changes will not pass the judge evaluation."
+The task is written in Lean, a language for machine-checked mathematical proofs. In Lean, `sorry` is a placeholder for a missing proof. The prompt asks the solver to "finish **all** sorries in this folder", says "we value minor progress", and warns, "do not modify the signature of existing lemma/theorem/def as these changes will not pass the judge evaluation."
 
-The grader starts from the list of declarations that depend on `sorry` in the starter project. The score is the share of these that the submission turns into declarations that use only the allowed axioms ("axiom-clean") and keep the same printed type. Every declaration counts equally. Category: Formal Math & Theorem Proving.
+The grader starts from the list of declarations that depend on `sorry` in the starter project. The score is the share of these that the submission turns into declarations that use only the allowed axioms ("axiom-clean") and keep the same printed type. Every declaration counts equally. The task is in the Formal Math & Theorem Proving category.
 
 ## What we checked
 
-There is no problem that changes scores. The checks:
+We found no problem that changes scores. We checked the following:
 
-- **Helper items.** When Lean compiles a definition, it can create helper declarations of its own (`X._proof_N`, `X._simp_N`, …). The grader shared by EdgeBench's Lean tasks credits these helper items only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, at least 44 helper items are out of reach for any complete, correct solution (49 of 2901 items in total, 1.69%, counting also 3 placeholder statements and 2 false statements; `cases/lean_analysis_proofs.md`), and scores depend on proof style. That does not happen here:
+- When Lean compiles a definition, it can create helper declarations of its own (`X._proof_N`, `X._simp_N`, …). The grader shared by EdgeBench's Lean tasks credits these helper items only when the exact generated name and printed type match. In the task `lean_analysis_proofs`, at least 44 helper items are out of reach for any complete, correct solution (49 of 2901 items in total, 1.69%, counting also 3 placeholder statements and 2 false statements; `cases/lean_analysis_proofs.md`), and scores depend on proof style. Neither happens here:
 
 | Graded items | Helper items | Helper share of score | Fragile helper items | `sorry` in type | Statement/negation (P/¬P) pairs | Lower bound on items out of reach |
 |---|---|---|---|---|---|---|
 | 3732 | 937 | 25.1% | **0** | 0 | 0 | **0** |
 
   - Kinds of helper item: 450 `_simp`, 432 `_proof`, 25 `_unsafe_rec`, 13 `eq_def`, 8 `eq_N`, and others.
-  - A text-based count finds duplicate types for 33 helper items, and the classifier lists them as "likely unattainable". The in-image probe classes every one as transitive-only: it has no `sorry` of its own, so a correct proof never rebuilds it. Beyond the one-module test below, this was not tested by scoring.
-- **Why.** This starter was made by replacing *theorem* bodies with `sorry`. Helper items fail only because their proof terms, taken from the upstream library, call a theorem that now holds `sorry`. They are earned automatically once those theorems are proved.
+  - A text-based count finds duplicate types for 33 helper items, and the classifier lists them as "likely unattainable". The in-image probe classes every one as transitive-only, meaning it has no `sorry` of its own, so a correct proof never rebuilds it. Beyond the one-module test below, we did not test this by scoring.
+- The reason is how the task authors made this starter, by replacing *theorem* bodies with `sorry`. Helper items fail only because their proof terms, taken from the upstream library, call a theorem that now holds `sorry`, and a solver earns them automatically once it proves those theorems.
 
-Note: helper items are 25.1% of the score. They are earned automatically once the items they depend on are proved, so this skews the weighting but is not unfair.
+Helper items are 25.1% of the score. A solver earns them automatically once it proves the items they depend on, so they skew the weighting without being unfair.
 
-The note says: "Shared Lean grader: native census shows correct term- and tactic-style proofs earn identical credit (16/3732); 0 targets found unattainable (lower bound); aux targets 25.1% of weight but stable".
+The note says, "Shared Lean grader: native census shows correct term- and tactic-style proofs earn identical credit (16/3732); 0 targets found unattainable (lower bound); aux targets 25.1% of weight but stable".
 
 ## How much it matters
 
-No graded item was found out of reach for a complete, correct solution. The lower bound of 0 counts two kinds of failure only: `sorry` in the recorded type, and helper pairs of the same parent whose types are P and ¬P (`classify.txt`). Whether every statement is true, and whether edits to definition bodies renumber helpers, was not checked (see Limits). Proof style did not change credit in the test on the original grader.
+We found no graded item out of reach for a complete, correct solution. The lower bound of 0 counts only two kinds of failure, `sorry` in the recorded type and helper pairs of the same parent whose types are P and ¬P (`classify.txt`). We did not check whether every statement is true, or whether edits to definition bodies renumber helpers (see Limits). Proof style did not change credit in the test on the original grader.
 
 There is no code change. The note above ships with the task.
 
 ## How we checked it
 
-- **Original grader in the pinned grader image** (`sha256:3e1062c6…`, Lean toolchain v4.28.0). One container ran at a time, with `--network none --memory 4g --cpus 2`. The task's `judge.eval_cmd` ran word for word, including the `.lake`/manifest swap and the full `lake build`. Six theorems with `sorry` in `SignExpansion/Basic.lean` were given real proofs, with no signature change: `isUpperSet_preimage_singleton_zero`, `copy_eq`, `coe_mk`, `sign_eq_coe`, `le_iff_toLex`, `lt_iff_toLex`. Two proof styles were used: term mode (A), which writes the proof as an expression, and tactic mode (B), which writes it as a sequence of proof steps.
+- We ran the original grader in the pinned grader image (`sha256:3e1062c6…`, Lean toolchain v4.28.0), one container at a time, with `--network none --memory 4g --cpus 2`. The task's `judge.eval_cmd` ran word for word, including the `.lake`/manifest swap and the full `lake build`. We gave real proofs, with no signature change, to six theorems with `sorry` in `SignExpansion/Basic.lean`: `isUpperSet_preimage_singleton_zero`, `copy_eq`, `coe_mk`, `sign_eq_coe`, `le_iff_toLex`, `lt_iff_toLex`. We used two proof styles, term mode (A), which writes the proof as an expression, and tactic mode (B), which writes it as a sequence of proof steps.
 
 | Test submission | Original grader result |
 |---|---|
@@ -44,17 +44,17 @@ There is no code change. The note above ships with the task.
 
   - The 16 items are the 6 theorems, `copy`, `instBoundedOrder`, and 8 helper items (`copy._proof_1`, `instBoundedOrder._proof_1/_2`, `instCompleteLinearOrder._proof_1…5`). No item changed type or disappeared.
   - The starter's score of 0 also holds after `eval_cmd` swaps in the shared baseline `.lake` and rebuilds the whole project. That `.lake` holds a Mathlib (Lean's main mathematics library) that differs from the one in the grader's repository.
-- **Count inside the image.** We recorded the grader files actually in use and built the baseline `ListDeclAxiom` listing (it prints no HASH lines). We then classified every graded item with the same rule for graded items and the same helper-name pattern as the `lean_analysis_proofs` study. A probe inside the image checked whether each helper item holds a `sorry` of its own ("fragile") or reaches `sorry` only through other constants.
-- **Axioms.** Credit requires axiom-clean declarations, checked through `ListDeclAxiom`.
+- For the count inside the image, we recorded the grader files actually in use and built the baseline `ListDeclAxiom` listing (it prints no HASH lines). We then classified every graded item with the same rule for graded items and the same helper-name pattern as the `lean_analysis_proofs` study. A probe inside the image checked whether each helper item holds a `sorry` of its own ("fragile") or reaches `sorry` only through other constants.
+- Credit requires axiom-clean declarations, which the grader checks through `ListDeclAxiom`.
 
 ## Limits
 
-- No AI model or solver was run. Effects are shown only on test submissions we wrote and on correct proof variants.
+- We ran no AI model or solver. The effects shown come only from test submissions we wrote and from correct proof variants.
 - The test with correct proofs on the original grader covers one leaf module only.
-- Test submissions were built from the grader's baseline sources. Whether the starter in the work image is identical to them was not checked.
-- A solver that edits the bodies of definitions or instances (signatures unchanged) could still renumber transitive helper items. That was not measured.
-- Whether every item with `sorry` has an upstream proof is unknown, because the upstream library is still under development. Whether each individual statement is true was not audited.
-- Whether the work image exposes upstream proofs was not checked.
+- We built test submissions from the grader's baseline sources. We did not check whether the starter in the work image is identical to them.
+- A solver that edits the bodies of definitions or instances (signatures unchanged) could still renumber transitive helper items. We did not measure that.
+- We do not know whether every item with `sorry` has an upstream proof, because the upstream library is still under development. We did not audit whether each individual statement is true.
+- We did not check whether the work image exposes upstream proofs.
 - Whether the scorer is isolated from the submission is outside this release's scope (an EdgeBench design choice).
 
 ## Reproduce
