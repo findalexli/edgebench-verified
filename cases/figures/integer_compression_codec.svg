@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>Integer compression baseline</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 532" role="img">
+<title>Integer Codec reference numbers</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -13,26 +13,48 @@
     .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
   }
 </style>
-
-<text x="16" y="30" font-size="18" font-weight="700" class="ink">The baseline numbers cannot be real</text>
-<text x="16" y="62" font-size="14" class="muted">Starter's raw score, one paired run (documented: 1.0)</text>
-<text x="16" y="102" font-size="15" class="ink">Original</text>
-<rect x="96" y="82" width="61" height="26" class="bad"/><text x="165" y="102" font-size="16" font-weight="700" class="ink">0.23</text>
-<text x="16" y="152" font-size="15" class="ink">Fixed</text>
-<rect x="96" y="132" width="255" height="26" class="good"/><text x="364" y="152" font-size="16" font-weight="700" class="ink">0.98</text>
-<line x1="356" y1="72" x2="356" y2="172" class="inkS" stroke-width="1" stroke-dasharray="4 4"/>
-<text x="356" y="190" font-size="14" text-anchor="middle" class="muted">1.0</text>
-<line x1="410" y1="50" x2="410" y2="284" class="rule" stroke-width="1.5"/>
-<text x="426" y="62" font-size="14" class="muted">Bits per integer, one dataset (docids)</text>
-<text x="426" y="100" font-size="14" class="ink">Stored "Varint" value</text>
-<rect x="426" y="108" width="31" height="24" class="bad"/><text x="486" y="127" font-size="16" font-weight="700" class="ink">5.13</text>
-<text x="426" y="170" font-size="14" class="ink">Starter, measured</text>
-<rect x="426" y="178" width="234" height="24" class="acc"/><text x="650" y="196" font-size="16" font-weight="700" text-anchor="end" class="bg">38.98</text>
-<line x1="474" y1="104" x2="474" y2="136" class="warnS" stroke-width="2"/><line x1="474" y1="174" x2="474" y2="206" class="warnS" stroke-width="2"/>
-<text x="482" y="151" font-size="14" class="warn">8-bit minimum</text>
-<text x="426" y="236" font-size="14" class="muted">The starter stores each number in</text>
-<text x="426" y="254" font-size="14" class="muted">whole bytes: at least 8 bits.</text>
-<rect x="16" y="210" width="378" height="70" rx="8" class="warnBg"/>
-<text x="32" y="236" font-size="15" class="ink">Fixed: measure the starter in the same run</text>
-<text x="32" y="262" font-size="14" class="muted">Raw score. On the fixed 0–100 scale the starter gets 0.</text>
+<text x="16" y="28" font-size="18" font-weight="700" class="ink">The checker’s reference number is impossible, so every score is off</text>
+<text x="16" y="52" font-size="14" class="muted">Task: improve an integer compressor. Scores are measured relative to the starter code.</text>
+<text x="16" y="88" font-size="15" font-weight="600" class="ink">1. Bits per number for the starter code, docids dataset (fewer is better)</text>
+<text x="16" y="121" font-size="14" class="ink">Reference stored in the checker</text>
+<rect x="250" y="104" width="56.4" height="24" class="bad"/>
+<text x="346" y="122" font-size="16" font-weight="700" class="bad">5.13</text>
+<text x="16" y="159" font-size="14" class="ink">Starter, actually measured</text>
+<rect x="250" y="142" width="428.8" height="24" class="acc"/>
+<text x="670.8" y="160" font-size="16" font-weight="700" text-anchor="end" class="bg">38.98</text>
+<line x1="338" y1="98" x2="338" y2="172" class="warnS" stroke-width="2" stroke-dasharray="5 3"/>
+<text x="338" y="190" font-size="14" text-anchor="middle" class="warn">8-bit minimum</text>
+<text x="16" y="214" font-size="14" class="muted">The starter stores each number in whole bytes, so it cannot use fewer than 8 bits.</text>
+<text x="16" y="233" font-size="14" class="muted">5 of the 8 datasets have a stored reference below 8 bits.</text>
+<line x1="16" y1="252" x2="704" y2="252" class="rule" stroke-width="1.5"/>
+<text x="16" y="280" font-size="15" font-weight="600" class="ink">2. What this does to scores</text>
+<text x="16" y="306" font-size="14" class="muted">Unchanged starter, raw result (documented: 1.0)</text>
+<text x="16" y="337" font-size="15" class="ink">Original</text>
+<rect x="96" y="320" width="51.2" height="24" class="bad"/>
+<text x="155.2" y="338" font-size="16" font-weight="700" class="ink">0.23</text>
+<text x="16" y="377" font-size="15" class="ink">Fixed</text>
+<rect x="96" y="360" width="215.3" height="24" class="good"/>
+<text x="324" y="378" font-size="16" font-weight="700" class="ink">0.98</text>
+<line x1="316" y1="314" x2="316" y2="390" class="inkS" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="316" y="406" font-size="14" text-anchor="middle" class="muted">1.0</text>
+<text x="16" y="428" font-size="13" class="muted">Fixed checker: 0 out of 100 (the starter</text>
+<text x="16" y="445" font-size="13" class="muted">is the zero point).</text>
+<line x1="364" y1="292" x2="364" y2="450" class="rule" stroke-width="1.5"/>
+<text x="380" y="306" font-size="14" class="muted">Best submission of a real agent run, out of 100</text>
+<text x="380" y="337" font-size="15" class="ink">Original</text>
+<rect x="460" y="320" width="220" height="24" class="accBg"/>
+<rect x="460" y="320" width="166.6" height="24" class="bad"/>
+<text x="634.6" y="338" font-size="16" font-weight="700" class="ink">75.72</text>
+<text x="380" y="377" font-size="15" class="ink">Fixed</text>
+<rect x="460" y="360" width="220" height="24" class="accBg"/>
+<rect x="460" y="360" width="118.7" height="24" class="good"/>
+<text x="586.7" y="378" font-size="16" font-weight="700" class="ink">53.95</text>
+<text x="460" y="402" font-size="13" text-anchor="middle" class="muted">0</text>
+<text x="680" y="402" font-size="13" text-anchor="middle" class="muted">100</text>
+<text x="380" y="424" font-size="13" class="muted">Raw results rise 1.7 to 4 times on the fixed</text>
+<text x="380" y="441" font-size="13" class="muted">checker, but its 0 to 100 scale runs from the</text>
+<text x="380" y="458" font-size="13" class="muted">starter (0) to the formula’s maximum, 320 (100).</text>
+<rect x="16" y="474" width="688" height="52" rx="8" class="warnBg"/>
+<text x="30" y="496" font-size="15" class="ink">Fix: the checker measures the starter in the same run and uses it as the reference.</text>
+<text x="30" y="516" font-size="13" class="muted">Right: 75.72 is the score the run recorded; 53.95 is our regrade of all 37 submissions.</text>
 </svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 532" role="img">
+<title>Integer Codec 参考值</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .warnS{stroke:#9a6510} .inkS{stroke:#14212b}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .warnS{stroke:#e0a64a} .inkS{stroke:#e2e9ed}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
+  }
+</style>
+<text x="16" y="28" font-size="18" font-weight="700" class="ink">评分器存储的参考值不可能达到，因此所有分数都有偏差</text>
+<text x="16" y="52" font-size="14" class="muted">任务：改进一个整数压缩器。分数以初始代码为基准计算。</text>
+<text x="16" y="88" font-size="15" font-weight="600" class="ink">1. 初始代码在 docids 数据集上每个数所用的位数（越少越好）</text>
+<text x="16" y="121" font-size="14" class="ink">评分器中存储的参考值</text>
+<rect x="250" y="104" width="56.4" height="24" class="bad"/>
+<text x="346" y="122" font-size="16" font-weight="700" class="bad">5.13</text>
+<text x="16" y="159" font-size="14" class="ink">初始代码的实测值</text>
+<rect x="250" y="142" width="428.8" height="24" class="acc"/>
+<text x="670.8" y="160" font-size="16" font-weight="700" text-anchor="end" class="bg">38.98</text>
+<line x1="338" y1="98" x2="338" y2="172" class="warnS" stroke-width="2" stroke-dasharray="5 3"/>
+<text x="338" y="190" font-size="14" text-anchor="middle" class="warn">最少 8 位</text>
+<text x="16" y="214" font-size="14" class="muted">初始代码以整字节存储每个数，因此每个数不可能少于 8 位。</text>
+<text x="16" y="233" font-size="14" class="muted">8 个数据集中有 5 个的存储参考值低于 8 位。</text>
+<line x1="16" y1="252" x2="704" y2="252" class="rule" stroke-width="1.5"/>
+<text x="16" y="280" font-size="15" font-weight="600" class="ink">2. 这对分数的影响</text>
+<text x="16" y="306" font-size="14" class="muted">未改动的初始代码，原始结果（文档：1.0）</text>
+<text x="16" y="337" font-size="15" class="ink">原始</text>
+<rect x="96" y="320" width="51.2" height="24" class="bad"/>
+<text x="155.2" y="338" font-size="16" font-weight="700" class="ink">0.23</text>
+<text x="16" y="377" font-size="15" class="ink">修复版</text>
+<rect x="96" y="360" width="215.3" height="24" class="good"/>
+<text x="324" y="378" font-size="16" font-weight="700" class="ink">0.98</text>
+<line x1="316" y1="314" x2="316" y2="390" class="inkS" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="316" y="406" font-size="14" text-anchor="middle" class="muted">1.0</text>
+<text x="16" y="428" font-size="13" class="muted">修复版评分器：0 分（满分 100），</text>
+<text x="16" y="445" font-size="13" class="muted">初始代码就是零点。</text>
+<line x1="364" y1="292" x2="364" y2="450" class="rule" stroke-width="1.5"/>
+<text x="380" y="306" font-size="14" class="muted">一次真实智能体运行的最佳提交（0–100 分）</text>
+<text x="380" y="337" font-size="15" class="ink">原始</text>
+<rect x="460" y="320" width="220" height="24" class="accBg"/>
+<rect x="460" y="320" width="166.6" height="24" class="bad"/>
+<text x="634.6" y="338" font-size="16" font-weight="700" class="ink">75.72</text>
+<text x="380" y="377" font-size="15" class="ink">修复版</text>
+<rect x="460" y="360" width="220" height="24" class="accBg"/>
+<rect x="460" y="360" width="118.7" height="24" class="good"/>
+<text x="586.7" y="378" font-size="16" font-weight="700" class="ink">53.95</text>
+<text x="460" y="402" font-size="13" text-anchor="middle" class="muted">0</text>
+<text x="680" y="402" font-size="13" text-anchor="middle" class="muted">100</text>
+<text x="380" y="424" font-size="13" class="muted">在修复版评分器上原始结果提高到 1.7 到 4 倍，</text>
+<text x="380" y="441" font-size="13" class="muted">但其 0–100 分刻度从初始代码（0 分）</text>
+<text x="380" y="458" font-size="13" class="muted">到公式的最大值 320（100 分）。</text>
+<rect x="16" y="474" width="688" height="52" rx="8" class="warnBg"/>
+<text x="30" y="496" font-size="15" class="ink">修复：评分器在同一次运行中测量初始代码，并以它作为参考。</text>
+<text x="30" y="516" font-size="13" class="muted">右图：75.72 是该次运行记录的分数；53.95 是我们对全部 37 份提交重新评分的结果。</text>
+</svg>
