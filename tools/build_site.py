@@ -431,11 +431,39 @@ def verif(P, D, tid):
     return t('verif.join').join(parts)
 
 
+def headline_values():
+    """{{headline:<key>}} values for the Overview, from data/headline.json (tools/build_impact_figures.py).
+
+    An unknown key raises KeyError, so a missing number fails the build instead of showing a placeholder."""
+    h = json.loads((ROOT / 'data' / 'headline.json').read_text())
+    rr, lb = h['real_run'], h['leaderboard']
+    pub, sc, dl = lb['published'], lb['scale_only'], lb['documented_limits']
+    a, b = 'Opus 4.8', 'GPT-5.5'
+    oa = rr['kept_score_changes']['order_addition_permutation_optimization']
+    f2 = lambda x: f'{x:.2f}'
+    return {
+        'tasks_10pt': str(h['measured_change_10_or_more']['count']),
+        'real_regraded': str(rr['regraded_with_both_checkers']),
+        'real_run_changed': str(len(rr['kept_score_changes'])),
+        'real_subs_changed': str(len(rr['single_submissions_change_kept_score_does_not'])),
+        'real_never': str(len(rr['problem_never_occurred'])),
+        'oa_orig': f2(oa[0]), 'oa_fixed': f2(oa[1]),
+        'top1_pub': f'{pub[a]:.1f}', 'top2_pub': f'{pub[b]:.1f}', 'top_gap': f'{pub[a] - pub[b]:.1f}',
+        'top1_scale_low': f2(sc[a][0]), 'top1_scale_high': f2(sc[a][1]),
+        'top2_scale_low': f2(sc[b][0]), 'top2_scale_high': f2(sc[b][1]),
+        'top1_low': f2(dl[a][0]), 'top1_high': f2(dl[a][1]),
+        'top2_low': f2(dl[b][0]), 'top2_high': f2(dl[b][1]),
+    }
+
+
 def expand(P, D, num, text):
     """Fill a prose template for one page."""
     t = P.L.t
     text = re.sub(r'\{\{t:([\w.\-]+)\}\}', lambda m: t(m.group(1)), text)
     text = re.sub(r'\{\{task:(\w+)(?:\|([^{}]*))?\}\}', lambda m: task_link(P, D, m.group(1), m.group(2)), text)
+    if '{{headline:' in text:
+        hv = headline_values()
+        text = re.sub(r'\{\{headline:(\w+)\}\}', lambda m: hv[m.group(1)], text)
     n = 0
 
     def figure(m):
