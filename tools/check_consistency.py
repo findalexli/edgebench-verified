@@ -100,12 +100,17 @@ def main():
             tp = ROOT / 'site' / prefix / 'tasks' / f'{t}.html'
             need(tp.exists() and f'data-outcome="{r["proposed"]}"' in tp.read_text(),
                  f'site/{prefix}tasks/{t}.html missing or its outcome is not {r["proposed"]}')
-    site = (ROOT / 'site' / 'index.html').read_text() if (ROOT / 'site' / 'index.html').exists() else ''
-    for k, n in c.items():
-        lab = {'repair-v2': 'versioned repair packages', 'exclude': 'removed, no sound fix',
-               'retain-with-note': 'Tasks kept with a note'}.get(k)
-        if lab:
-            need(re.search(rf'{re.escape(lab)}[^<]*</td><td class="n">{n}</td>', site), f'site Table 1 count for {k} != {n}')
+    # the Overview's headline-numbers block (en and zh) carries data-count attributes
+    for prefix in ('', 'zh/'):
+        ov = ROOT / 'site' / prefix / 'index.html'
+        if prefix and not ov.exists():
+            continue
+        ovt = ov.read_text() if ov.exists() else ''
+        for k, n in list(c.items()) + [('n_problem', c.get('repair-v2', 0) + c.get('exclude', 0))]:
+            if k == 'retain':
+                continue
+            need(re.search(rf'data-count="{re.escape(k)}">{n}<', ovt),
+                 f'site/{prefix}index.html headline count for {k} != {n}')
     # data/decisions.csv / DECISIONS.md
     rows = list(csv.DictReader((ROOT / 'data/decisions.csv').open()))
     need({r['task_id']: r['decision'] for r in rows} == {t: r['proposed'] for t, r in d.items()},

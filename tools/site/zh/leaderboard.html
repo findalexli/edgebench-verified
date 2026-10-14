@@ -31,6 +31,7 @@
 
 <section id="real-runs" class="col">
   <h2 class="sec"><span class="num">3</span>与真实智能体运行的对照</h2>
+  {{fig:real-runs}}
   <p>EdgeBench 没有公开它的运行记录。不过，有第三方公开了 Claude Opus&nbsp;5.5 在 16 个公开任务上的一次运行：每个任务四小时，包含智能体做出的每一份提交，以及原始评分器给它的分数。这 16 个任务中有 9 个是我们修复过的。其余 7 个我们保留未改，因此无需重新评分。</p>
   <p><b>旧提交能检验哪些修复。</b>一份保存下来的提交，是智能体针对原来那个任务给出的答案。如果一项修复只改变评分器，就可以把同一个答案分别交给原始评分器和修复版评分器，这样的对照是公平的，因为智能体在两种情况下看到的任务完全相同。如果一项修复改变了智能体看到的内容（任务说明、初始文件、要证明的命题），智能体本来就会换一种做法，因此用修复版给它的旧答案评分，什么也测量不了。</p>
   <ul class="tight">
@@ -42,9 +43,9 @@
     <thead><tr><th>任务</th><th>修复改变的部分</th><th class="n">原始</th><th class="n">修复版</th><th>说明</th></tr></thead>
     <tbody>
       <tr><td>{{task:order_addition_permutation_optimization|Order Addition}}</td><td>评分器</td><td class="n">3.79</td><td class="n"><b>41.24</b></td><td><mark>原始评分器因一个过时的校验和判定每个结果都不通过，因此这次运行保留了智能体的第一份提交；修复版评分器保留的是后来的一份。</mark>全部 9 份提交。</td></tr>
-      <tr><td>{{task:integer_compression_codec|Integer Codec}}</td><td>评分器、分数刻度</td><td class="n">75.72</td><td class="n"><b>约 50–54</b></td><td>每份提交的原始结果都提高到 1.7 到 4 倍；修复后任务的新刻度把最佳提交定在约 50–54 分。在两种评分器下，同一份提交在不同机器之间的波动都可达 ±20%。全部 37 份。</td></tr>
+      <tr><td>{{task:integer_compression_codec|Integer Codec}}</td><td>评分器、分数刻度</td><td class="n">75.72</td><td class="n"><b>53.95</b></td><td><mark>修复降低了这次运行的成绩。</mark>每份提交的原始结果都提高到 1.7 到 4 倍，而修复后任务新的 0–100 分刻度把这次运行的最佳成绩定为 53.95 分。在两种评分器下，同一份提交在不同机器之间的波动都可达 ±20%。全部 37 份。</td></tr>
       <tr><td>{{task:juliet_vulnerability_analyzer|Juliet}}</td><td>评分器</td><td class="n">99.66</td><td class="n">99.66</td><td>14 份早期提交使用了公开示例中的追踪格式，最多损失 25 分；后来的提交改用了隐藏评分器期望的格式。全部 105 份。</td></tr>
-      <tr><td>{{task:molecular_self_assembly|Molecular Self-Assembly}}</td><td>评分器（CPU 数）</td><td class="n">100</td><td class="n">100</td><td>每份重新评分的提交的原始结果都高 3–4%，但这次运行本来就已超过刻度上限。13 份中的 8 份。</td></tr>
+      <tr><td>{{task:molecular_self_assembly|Molecular Self-Assembly}}</td><td>评分器（CPU 数）</td><td class="n">100</td><td class="n">100</td><td>每份重新评分的提交得分都更高：原始结果高约 3–4.5%，单个提交最多高 12.22 分（满分 100；86.03 → 98.25）。这次运行的最佳成绩本来就已达到刻度上限，所以仍为 100 分。13 份中的 8 份。</td></tr>
       <tr><td>{{task:tree_block_partitioning|Tree Block Partitioning}}</td><td>评分器</td><td class="n">100</td><td class="n">100</td><td>缺陷从未出现：受影响的子任务在两种评分器下得分相同。25 份中的 13 份。</td></tr>
       <tr><td>{{task:graph_node_classification|Graph Node Classification}}</td><td>评分器</td><td class="n">90.85</td><td class="n">90.43–90.60</td><td>缺陷从未出现：每份提交在两种评分器下都有效。差别来自计时噪声；原始评分器在我们的机器上给出 90.44–90.60。118 份中的 112 份（有 6 份在存档中缺失）。</td></tr>
       <tr><td>{{task:schemathesis_config_modernization|Schemathesis Config}}</td><td>评分器</td><td class="n">100</td><td class="n">100</td><td>缺陷从未出现：每份提交在两种评分器下得分相同。全部 30 份。</td></tr>
@@ -52,7 +53,7 @@
       <tr><td>{{task:lean_analysis_proofs|Lean Analysis}}</td><td>评分器、两条命题</td><td class="n">96.86</td><td class="n">98.42</td><td>计算得出，并未运行：把原始判定对照修复版的证明目标列表计数。</td></tr>
     </tbody>
   </table></div>
-  <p>在 {{task:juliet_vulnerability_analyzer|Juliet}} 和 {{task:borden_source_inversion|Borden Inversion}} 中，智能体从评分器的反馈中学到了隐藏的约定。早期提交因此丢分，后来的提交则没有。因此在 Juliet 中，这次运行的最终分数不受修复影响。在 Borden 中，最初几份提交约得 7 分，与一次性按文档拟合所得的分数相当；智能体通过反复迭代把分数提高到 60.10。</p>
+  <p>在 {{task:juliet_vulnerability_analyzer|Juliet}} 中，后来的提交使用了隐藏评分器接受的写法。105 份提交中有 14 份在修复后得分提高，而保留的成绩 99.66 没有变化。{{task:borden_source_inversion|Borden Inversion}} 只读取了运行记录，没有重新评分：在 36 份提交中，这次运行的最佳成绩从 7.01 升到 60.10，而评分器在每次提交后都报告其在隐藏监测井上的误差；7.01 大约是按文档一次性拟合所得的分数。</p>
   <p>这只是一个模型、每个任务一次四小时的运行，而不是三次十二小时的运行。它表明这些问题在实践中确实会发生，但无法测量对排行榜的影响。</p>
   <p class="note">逐个任务的完整数字：<a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a> 和 <a href="{{site_root}}data/impact.csv">impact.csv</a>。每一次评分：<code>evidence/runs/opus55-regrade2-summary/summary.json</code>。</p>
 </section>
