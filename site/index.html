@@ -49,13 +49,13 @@
   <div class="hl-grid" id="headline">
     <div><span class="hl-n">51</span><span class="hl-l">public tasks examined</span></div>
     <div><span class="hl-n" data-count="n_problem">32</span><span class="hl-l">tasks where the checker scored some submissions wrongly: <span data-count="repair-v2">31</span> fixed, <span data-count="exclude">1</span> removed. The other <span data-count="retain-with-note">19</span> are kept, with a note</span></div>
-    <div><span class="hl-n">13</span><span class="hl-l">tasks where we measured a change of 10 or more points out of 100, in one submission&rsquo;s score or in the score a run keeps</span></div>
+    <div><span class="hl-n">12</span><span class="hl-l">tasks where the problem itself cost honest work 10 or more points out of 100, or gave broken work that many (measured on a submission, or on the score a run keeps)</span></div>
     <div><span class="hl-n">7</span><span class="hl-l">fixed tasks regraded on a real agent run: the run's score changed in 2, single submissions changed in 2 more, and the problem never occurred in 3</span></div>
     <div><span class="hl-n">3.79 → 41.24</span><span class="hl-l">the largest change in a real run's score, out of 100 (<a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>)</span></div>
     <div><span class="hl-n">Top two</span><span class="hl-l">their order can no longer be confirmed from public data: 44.2 against 43.1 published, ranges 45.49–47.30 and 44.30–46.35 once the documented limits are applied</span></div>
   </div>
-  <figure class="fig" id="fig-impact-overview"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1218" role="img">
-<title>In 13 of 32 problem tasks, a measured score moved by 10 points or more</title>
+  <figure class="fig" id="fig-impact-overview"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1291" role="img">
+<title>In 12 of 32 problem tasks, the problem itself moved a measured score by 10 points or more</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -65,161 +65,167 @@
   
 </style>
 
-<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">In 13 of 32 problem tasks, a measured score moved by 10 points or more</text>
-<text x="16" y="54" class="muted" font-size="14" text-anchor="start" font-weight="400">What each problem does to one affected submission when it occurs (points out of 100).</text>
-<circle cx="22" cy="80" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="34" y="84" class="ink" font-size="13" text-anchor="start" font-weight="400">Measured on our test submission</text>
-<path d="M285.68 74L291.68 80L285.68 86L279.68 80Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="297.68" y="84" class="ink" font-size="13" text-anchor="start" font-weight="400">Measured on a real agent run</text>
-<rect x="16" y="96" width="34" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<text x="58" y="106" class="ink" font-size="13" text-anchor="start" font-weight="400">Proved or computed limit: the change cannot be larger</text>
-<text x="574" y="124" class="ink" font-size="13" text-anchor="start" font-weight="600">Direction only</text>
-<text x="574" y="140" class="muted" font-size="13" text-anchor="start" font-weight="400">(size unknown)</text>
-<text x="262" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
-<text x="333" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">25</text>
-<text x="404" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">50</text>
-<text x="475" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">75</text>
-<text x="546" y="140" class="muted" font-size="13" text-anchor="middle" font-weight="400">100</text>
-<line x1="262.0" y1="148" x2="262.0" y2="1150" class="rule" stroke-width="1"/>
-<line x1="333.0" y1="148" x2="333.0" y2="1150" class="rule" stroke-width="1"/>
-<line x1="404.0" y1="148" x2="404.0" y2="1150" class="rule" stroke-width="1"/>
-<line x1="475.0" y1="148" x2="475.0" y2="1150" class="rule" stroke-width="1"/>
-<line x1="546.0" y1="148" x2="546.0" y2="1150" class="rule" stroke-width="1"/>
-<line x1="568" y1="148" x2="568" y2="1150" class="rule" stroke-width="1" stroke-dasharray="3 3"/>
-<rect x="10" y="160" width="700" height="22" rx="3" class="ioBand"/>
-<text x="16" y="176" class="ink" font-size="14" text-anchor="start" font-weight="600">Engineering and runtime environment · 5 tasks</text>
-<text x="16" y="199" class="ink" font-size="13" text-anchor="start" font-weight="400">Rust Multicrate</text>
-<text x="16" y="214" class="ink" font-size="13" text-anchor="start" font-weight="400">Reconstruction</text>
-<rect x="262" y="197" width="83.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="320.816" cy="202" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="353.985" y="206.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+20.71 (limit 29.22)</text>
-<text x="16" y="235" class="ink" font-size="13" text-anchor="start" font-weight="400">Grid Turing Robot</text>
-<circle cx="318.232" cy="231" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="327.232" y="235.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+19.80 (was no score)</text>
-<text x="16" y="257" class="ink" font-size="13" text-anchor="start" font-weight="400">Molecular Self Assembly</text>
-<path d="M296.702 247L302.702 253L296.702 259L290.702 253Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="305.702" y="257.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+12.22 (real run)</text>
-<text x="16" y="279" class="ink" font-size="13" text-anchor="start" font-weight="400">Apple Incremental Game</text>
-<circle cx="276.314" cy="275" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="285.314" y="279.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+5.04 (was 0)</text>
-<text x="16" y="301" class="ink" font-size="13" text-anchor="start" font-weight="400">Vibrating Path Graph</text>
-<text x="16" y="316" class="ink" font-size="13" text-anchor="start" font-weight="400">Coloring</text>
-<circle cx="267.85" cy="304" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="276.85" y="308.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+2.06 (was no score)</text>
-<rect x="10" y="328" width="700" height="22" rx="3" class="ioBand"/>
-<text x="16" y="344" class="ink" font-size="14" text-anchor="start" font-weight="600">Grader correctness and factual errors · 15 tasks</text>
-<text x="16" y="367" class="ink" font-size="13" text-anchor="start" font-weight="400">College English Exam Bank</text>
-<circle cx="546" cy="370" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="537" y="367" class="ink" font-size="13" text-anchor="end" font-weight="400">−100: empty</text>
-<text x="537" y="382" class="ink" font-size="13" text-anchor="end" font-weight="400">report</text>
-<text x="16" y="403" class="ink" font-size="13" text-anchor="start" font-weight="400">Exchange Core Throughput</text>
-<line x1="275.4" y1="399" x2="331.3" y2="399" class="accS" stroke-width="2"/>
-<circle cx="275.376" cy="399" r="5" class="acc ioRing" stroke-width="1.5"/>
-<circle cx="331.296" cy="399" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="340.296" y="403.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−4.71 to −24.40 (speed noise)</text>
-<text x="16" y="425" class="ink" font-size="13" text-anchor="start" font-weight="400">Graph Node Classification</text>
-<circle cx="330.413" cy="421" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="339.413" y="425.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+24.09 (was 0)</text>
-<text x="16" y="447" class="ink" font-size="13" text-anchor="start" font-weight="400">FFmpeg swscale</text>
-<text x="16" y="462" class="ink" font-size="13" text-anchor="start" font-weight="400">Reimplementation</text>
-<circle cx="315.761" cy="450" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="324.761" y="454.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−18.93</text>
-<text x="16" y="483" class="ink" font-size="13" text-anchor="start" font-weight="400">SMT Solver</text>
-<circle cx="279.636" cy="479" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="288.636" y="483.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+6.21 (perfect solver)</text>
-<text x="16" y="505" class="ink" font-size="13" text-anchor="start" font-weight="400">CTA Risk Budget Optimization</text>
-<rect x="262" y="496" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="276.2" cy="501" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="285.2" y="505.5" class="ink" font-size="13" text-anchor="start" font-weight="400">±5.00 (limit 5)</text>
-<text x="16" y="527" class="ink" font-size="13" text-anchor="start" font-weight="400">Lean Analysis Proofs</text>
-<path d="M276.047 517L282.047 523L276.047 529L270.047 523Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="285.047" y="527.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.95 (computed from a real run)</text>
-<text x="16" y="549" class="ink" font-size="13" text-anchor="start" font-weight="400">Tree Block Partitioning</text>
-<rect x="262" y="540" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="275.49" cy="545" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="285.2" y="549.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.75 (limit 5)</text>
-<text x="16" y="571" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Reporting</text>
-<text x="16" y="586" class="ink" font-size="13" text-anchor="start" font-weight="400">Observability</text>
-<rect x="262" y="569" width="13.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="266.743" cy="574" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="284.518" y="578.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.67 (limit 4.76)</text>
-<text x="16" y="607" class="ink" font-size="13" text-anchor="start" font-weight="400">D-ABIC Gravity Inversion</text>
-<rect x="262" y="605" width="130.8" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="264.954" cy="610" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="401.81" y="607" class="ink" font-size="13" text-anchor="start" font-weight="400">+1.04 · computed 46.06</text>
-<text x="401.81" y="622" class="ink" font-size="13" text-anchor="start" font-weight="400">task removed</text>
-<text x="16" y="643" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Datagen</text>
-<text x="16" y="658" class="ink" font-size="13" text-anchor="start" font-weight="400">Pipeline</text>
-<rect x="262" y="641" width="2.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="264.925" cy="646" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="273.925" y="650.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.03 (limit 1.03)</text>
-<text x="16" y="679" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Config</text>
-<text x="16" y="694" class="ink" font-size="13" text-anchor="start" font-weight="400">Modernization</text>
-<rect x="262" y="677" width="1.8" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="263.775" cy="682" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="272.775" y="686.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−0.625 (limit 0.625)</text>
-<text x="16" y="715" class="ink" font-size="13" text-anchor="start" font-weight="400">Equivalence Class Divide and</text>
-<text x="16" y="730" class="ink" font-size="13" text-anchor="start" font-weight="400">Conquer</text>
-<rect x="262" y="713" width="27.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<text x="298.463" y="722.5" class="ink" font-size="13" text-anchor="start" font-weight="400">limit 9.67 (down)</text>
-<text x="16" y="751" class="ink" font-size="13" text-anchor="start" font-weight="400">PFR Formalization</text>
-<rect x="262" y="742" width="6.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<text x="277.049" y="751.5" class="ink" font-size="13" text-anchor="start" font-weight="400">limit 2.13, not run</text>
-<text x="16" y="773" class="ink" font-size="13" text-anchor="start" font-weight="400">Jagua Nesting Optimization</text>
-<text x="574" y="773.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↓ overlaps accepted</text>
-<rect x="10" y="786" width="700" height="22" rx="3" class="ioBand"/>
-<text x="16" y="802" class="ink" font-size="14" text-anchor="start" font-weight="600">Instruction–grader mismatch · 9 tasks</text>
-<text x="16" y="825" class="ink" font-size="13" text-anchor="start" font-weight="400">Triangulation Coloring</text>
-<text x="16" y="840" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
-<circle cx="400.194" cy="828" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="409.194" y="825" class="ink" font-size="13" text-anchor="start" font-weight="400">+48.66</text>
-<text x="409.194" y="840" class="ink" font-size="13" text-anchor="start" font-weight="400">(time-limit part)</text>
-<text x="574" y="832.5" class="muted" font-size="13" text-anchor="start" font-weight="400">+ rule change ↕</text>
-<text x="16" y="861" class="ink" font-size="13" text-anchor="start" font-weight="400">Arc Compiler Runtime</text>
-<circle cx="357.623" cy="857" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="366.623" y="861.5" class="ink" font-size="13" text-anchor="start" font-weight="400">33.67 (69.26 vs 35.59)</text>
-<text x="16" y="883" class="ink" font-size="13" text-anchor="start" font-weight="400">Juliet Vulnerability</text>
-<text x="16" y="898" class="ink" font-size="13" text-anchor="start" font-weight="400">Analyzer</text>
-<rect x="262" y="881" width="75.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<circle cx="304.6" cy="886" r="5" class="acc ioRing" stroke-width="1.5"/>
-<path d="M333.738 880L339.738 886L333.738 892L327.738 886Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="346.186" y="883" class="ink" font-size="13" text-anchor="start" font-weight="400">+15.00; real run +25.26</text>
-<text x="346.186" y="898" class="ink" font-size="13" text-anchor="start" font-weight="400">limit 26.47</text>
-<text x="16" y="919" class="ink" font-size="13" text-anchor="start" font-weight="400">Borden Source Inversion</text>
-<circle cx="324.963" cy="915" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="333.963" y="919.5" class="ink" font-size="13" text-anchor="start" font-weight="400">22.17 (28.62 vs 6.45)</text>
-<text x="16" y="941" class="ink" font-size="13" text-anchor="start" font-weight="400">Portfolio Risk Calibration</text>
-<circle cx="262.199" cy="937" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="271.199" y="941.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+0.07</text>
-<text x="16" y="963" class="ink" font-size="13" text-anchor="start" font-weight="400">Warehouse Forklift Routing</text>
-<rect x="262" y="954" width="86.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
-<text x="357.864" y="963.5" class="ink" font-size="13" text-anchor="start" font-weight="400">limit 30.59</text>
-<text x="574" y="963.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ was no score</text>
-<text x="16" y="985" class="ink" font-size="13" text-anchor="start" font-weight="400">Git Rewrite in Zig</text>
-<text x="574" y="985.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ up to whole score</text>
-<text x="16" y="1007" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenRCT2 Theme Park AI</text>
-<text x="574" y="1007.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↕ not measured</text>
-<text x="16" y="1029" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenTTD Transport AI</text>
-<text x="574" y="1029.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ up to whole score</text>
-<rect x="10" y="1042" width="700" height="22" rx="3" class="ioBand"/>
-<text x="16" y="1058" class="ink" font-size="14" text-anchor="start" font-weight="600">Scoring scale and selection · 3 tasks</text>
-<text x="16" y="1081" class="ink" font-size="13" text-anchor="start" font-weight="400">Order Addition Permutation</text>
-<text x="16" y="1096" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
-<path d="M368.361 1078L374.361 1084L368.361 1090L362.361 1084Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="377.361" y="1081" class="ink" font-size="13" text-anchor="start" font-weight="400">+37.45 in the</text>
-<text x="377.361" y="1096" class="ink" font-size="13" text-anchor="start" font-weight="400">run&#x27;s kept score</text>
-<text x="16" y="1117" class="ink" font-size="13" text-anchor="start" font-weight="400">Integer Compression Codec</text>
-<path d="M346.278 1107L352.278 1113L346.278 1119L340.278 1113Z" class="warn ioRing" stroke-width="1.5"/>
-<text x="355.278" y="1117.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−29.68 (real run, new scale)</text>
-<text x="16" y="1139" class="ink" font-size="13" text-anchor="start" font-weight="400">Treant Forest</text>
-<circle cx="299.829" cy="1135" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="308.829" y="1139.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+13.32 (3.04 → 16.36)</text>
-<text x="16" y="1172" class="muted" font-size="13" text-anchor="start" font-weight="400">+ / −: the fixed checker gives more / less. No sign: the gap between two ways of writing the</text>
-<text x="16" y="1191" class="muted" font-size="13" text-anchor="start" font-weight="400">same work.</text>
-<text x="16" y="1210" class="muted" font-size="13" text-anchor="start" font-weight="400">How often each problem occurred on the leaderboard is unknown for most tasks.</text>
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">In 12 of 32 problem tasks, the problem itself moved a measured score</text>
+<text x="16" y="54" class="ink" font-size="18" text-anchor="start" font-weight="700">by 10 points or more</text>
+<text x="16" y="78" class="muted" font-size="14" text-anchor="start" font-weight="400">What each problem does to one affected submission when it occurs (points out of 100).</text>
+<circle cx="22" cy="104" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="34" y="108" class="ink" font-size="13" text-anchor="start" font-weight="400">Measured on our test submission</text>
+<path d="M285.68 98L291.68 104L285.68 110L279.68 104Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="297.68" y="108" class="ink" font-size="13" text-anchor="start" font-weight="400">Measured on a real agent run</text>
+<rect x="16" y="120" width="34" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="58" y="130" class="ink" font-size="13" text-anchor="start" font-weight="400">Proved or computed limit: the change cannot be larger</text>
+<path d="M469.84 120L475.84 126L469.84 132L463.84 126Z" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>
+<text x="481.84" y="130" class="ink" font-size="13" text-anchor="start" font-weight="400">Computed from a real run, not run</text>
+<text x="574" y="148" class="ink" font-size="13" text-anchor="start" font-weight="600">Direction only</text>
+<text x="574" y="164" class="muted" font-size="13" text-anchor="start" font-weight="400">(size unknown)</text>
+<text x="262" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
+<text x="333" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">25</text>
+<text x="404" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">50</text>
+<text x="475" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">75</text>
+<text x="546" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">100</text>
+<line x1="262.0" y1="172" x2="262.0" y2="1204" class="rule" stroke-width="1"/>
+<line x1="333.0" y1="172" x2="333.0" y2="1204" class="rule" stroke-width="1"/>
+<line x1="404.0" y1="172" x2="404.0" y2="1204" class="rule" stroke-width="1"/>
+<line x1="475.0" y1="172" x2="475.0" y2="1204" class="rule" stroke-width="1"/>
+<line x1="546.0" y1="172" x2="546.0" y2="1204" class="rule" stroke-width="1"/>
+<line x1="568" y1="172" x2="568" y2="1204" class="rule" stroke-width="1" stroke-dasharray="3 3"/>
+<rect x="10" y="184" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="200" class="ink" font-size="14" text-anchor="start" font-weight="600">Engineering and runtime environment · 5 tasks</text>
+<text x="16" y="223" class="ink" font-size="13" text-anchor="start" font-weight="400">Rust Multicrate</text>
+<text x="16" y="238" class="ink" font-size="13" text-anchor="start" font-weight="400">Reconstruction</text>
+<rect x="262" y="221" width="83.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="320.816" cy="226" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="353.985" y="230.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+20.71 (limit 29.22)</text>
+<text x="16" y="259" class="ink" font-size="13" text-anchor="start" font-weight="400">Grid Turing Robot</text>
+<circle cx="318.232" cy="255" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="327.232" y="259.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+19.80 (was no score)</text>
+<text x="16" y="281" class="ink" font-size="13" text-anchor="start" font-weight="400">Molecular Self Assembly</text>
+<path d="M296.702 271L302.702 277L296.702 283L290.702 277Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="305.702" y="281.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+12.22 (real run)</text>
+<text x="16" y="303" class="ink" font-size="13" text-anchor="start" font-weight="400">Apple Incremental Game</text>
+<circle cx="276.314" cy="299" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.314" y="303.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+5.04 (was 0)</text>
+<text x="16" y="325" class="ink" font-size="13" text-anchor="start" font-weight="400">Vibrating Path Graph</text>
+<text x="16" y="340" class="ink" font-size="13" text-anchor="start" font-weight="400">Coloring</text>
+<circle cx="267.85" cy="328" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="276.85" y="332.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+2.06 (was no score)</text>
+<rect x="10" y="352" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="368" class="ink" font-size="14" text-anchor="start" font-weight="600">Grader correctness and factual errors · 15 tasks</text>
+<text x="16" y="391" class="ink" font-size="13" text-anchor="start" font-weight="400">College English Exam Bank</text>
+<circle cx="546" cy="394" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="537" y="391" class="ink" font-size="13" text-anchor="end" font-weight="400">−100: empty</text>
+<text x="537" y="406" class="ink" font-size="13" text-anchor="end" font-weight="400">report</text>
+<text x="16" y="427" class="ink" font-size="13" text-anchor="start" font-weight="400">Exchange Core Throughput</text>
+<line x1="275.4" y1="423" x2="331.3" y2="423" class="accS" stroke-width="2"/>
+<circle cx="275.376" cy="423" r="5" class="acc ioRing" stroke-width="1.5"/>
+<circle cx="331.296" cy="423" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="340.296" y="427.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−4.71 to −24.40 (speed noise)</text>
+<text x="16" y="449" class="ink" font-size="13" text-anchor="start" font-weight="400">Graph Node Classification</text>
+<circle cx="330.413" cy="445" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="339.413" y="449.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+24.09 (was 0)</text>
+<text x="16" y="471" class="ink" font-size="13" text-anchor="start" font-weight="400">FFmpeg swscale</text>
+<text x="16" y="486" class="ink" font-size="13" text-anchor="start" font-weight="400">Reimplementation</text>
+<circle cx="315.761" cy="474" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="324.761" y="478.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−18.93</text>
+<text x="16" y="507" class="ink" font-size="13" text-anchor="start" font-weight="400">SMT Solver</text>
+<circle cx="279.636" cy="503" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="288.636" y="507.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+6.21 (perfect solver)</text>
+<text x="16" y="529" class="ink" font-size="13" text-anchor="start" font-weight="400">CTA Risk Budget Optimization</text>
+<rect x="262" y="520" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="276.2" cy="525" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.2" y="529.5" class="ink" font-size="13" text-anchor="start" font-weight="400">±5.00 (limit 5)</text>
+<text x="16" y="551" class="ink" font-size="13" text-anchor="start" font-weight="400">Lean Analysis Proofs</text>
+<path d="M276.047 541L282.047 547L276.047 553L270.047 547Z" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>
+<text x="285.047" y="551.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.95 (computed from a real run)</text>
+<text x="16" y="573" class="ink" font-size="13" text-anchor="start" font-weight="400">Tree Block Partitioning</text>
+<rect x="262" y="564" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="275.49" cy="569" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.2" y="573.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.75 (limit 5)</text>
+<text x="16" y="595" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Reporting</text>
+<text x="16" y="610" class="ink" font-size="13" text-anchor="start" font-weight="400">Observability</text>
+<rect x="262" y="593" width="13.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="266.743" cy="598" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="284.518" y="602.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.67 (limit 4.76)</text>
+<text x="16" y="631" class="ink" font-size="13" text-anchor="start" font-weight="400">D-ABIC Gravity Inversion</text>
+<circle cx="264.954" cy="649" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="273.954" y="653.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+1.04 (measured)</text>
+<text x="574" y="631" class="muted" font-size="13" text-anchor="start" font-weight="400">computed example:</text>
+<text x="574" y="646" class="muted" font-size="13" text-anchor="start" font-weight="400">48.06 at C = 30,</text>
+<text x="574" y="661" class="muted" font-size="13" text-anchor="start" font-weight="400">grows with C; task</text>
+<text x="574" y="676" class="muted" font-size="13" text-anchor="start" font-weight="400">removed</text>
+<text x="16" y="697" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Datagen</text>
+<text x="16" y="712" class="ink" font-size="13" text-anchor="start" font-weight="400">Pipeline</text>
+<rect x="262" y="695" width="2.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="264.925" cy="700" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="273.925" y="704.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.03 (limit 1.03)</text>
+<text x="16" y="733" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Config</text>
+<text x="16" y="748" class="ink" font-size="13" text-anchor="start" font-weight="400">Modernization</text>
+<rect x="262" y="731" width="1.8" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="263.775" cy="736" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="272.775" y="740.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−0.625 (limit 0.625)</text>
+<text x="16" y="769" class="ink" font-size="13" text-anchor="start" font-weight="400">Equivalence Class Divide and</text>
+<text x="16" y="784" class="ink" font-size="13" text-anchor="start" font-weight="400">Conquer</text>
+<rect x="262" y="767" width="27.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="298.463" y="776.5" class="ink" font-size="13" text-anchor="start" font-weight="400">limit 9.67 (down)</text>
+<text x="16" y="805" class="ink" font-size="13" text-anchor="start" font-weight="400">PFR Formalization</text>
+<rect x="262" y="796" width="6.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="277.049" y="805.5" class="ink" font-size="13" text-anchor="start" font-weight="400">limit 2.13, not run</text>
+<text x="16" y="827" class="ink" font-size="13" text-anchor="start" font-weight="400">Jagua Nesting Optimization</text>
+<text x="574" y="827.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↓ overlaps accepted</text>
+<rect x="10" y="840" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="856" class="ink" font-size="14" text-anchor="start" font-weight="600">Instruction–grader mismatch · 9 tasks</text>
+<text x="16" y="879" class="ink" font-size="13" text-anchor="start" font-weight="400">Triangulation Coloring</text>
+<text x="16" y="894" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
+<circle cx="400.194" cy="882" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="391.194" y="879" class="ink" font-size="13" text-anchor="end" font-weight="400">+48.66 (time-limit part;</text>
+<text x="391.194" y="894" class="ink" font-size="13" text-anchor="end" font-weight="400">was no score)</text>
+<text x="574" y="886.5" class="muted" font-size="13" text-anchor="start" font-weight="400">+ rule change ↕</text>
+<text x="16" y="915" class="ink" font-size="13" text-anchor="start" font-weight="400">Arc Compiler Runtime</text>
+<circle cx="357.623" cy="911" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="366.623" y="915.5" class="ink" font-size="13" text-anchor="start" font-weight="400">33.67 (69.26 vs 35.59)</text>
+<text x="16" y="937" class="ink" font-size="13" text-anchor="start" font-weight="400">Juliet Vulnerability</text>
+<text x="16" y="952" class="ink" font-size="13" text-anchor="start" font-weight="400">Analyzer</text>
+<rect x="262" y="935" width="75.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="304.6" cy="940" r="5" class="acc ioRing" stroke-width="1.5"/>
+<path d="M333.738 934L339.738 940L333.738 946L327.738 940Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="346.186" y="937" class="ink" font-size="13" text-anchor="start" font-weight="400">+15.00; real run +25.26</text>
+<text x="346.186" y="952" class="ink" font-size="13" text-anchor="start" font-weight="400">limit 26.47</text>
+<text x="16" y="973" class="ink" font-size="13" text-anchor="start" font-weight="400">Borden Source Inversion</text>
+<circle cx="324.963" cy="969" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="333.963" y="973.5" class="ink" font-size="13" text-anchor="start" font-weight="400">22.17 (28.62 vs 6.45)</text>
+<text x="16" y="995" class="ink" font-size="13" text-anchor="start" font-weight="400">Portfolio Risk Calibration</text>
+<circle cx="262.199" cy="991" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="271.199" y="995.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+0.07</text>
+<text x="16" y="1017" class="ink" font-size="13" text-anchor="start" font-weight="400">Warehouse Forklift Routing</text>
+<rect x="262" y="1008" width="86.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="357.864" y="1017.5" class="ink" font-size="13" text-anchor="start" font-weight="400">limit 30.59</text>
+<text x="574" y="1017.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ was no score</text>
+<text x="16" y="1039" class="ink" font-size="13" text-anchor="start" font-weight="400">Git Rewrite in Zig</text>
+<text x="574" y="1039.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ up to whole score</text>
+<text x="16" y="1061" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenRCT2 Theme Park AI</text>
+<text x="574" y="1061.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↕ not measured</text>
+<text x="16" y="1083" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenTTD Transport AI</text>
+<text x="574" y="1083.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ up to whole score</text>
+<rect x="10" y="1096" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="1112" class="ink" font-size="14" text-anchor="start" font-weight="600">Scoring scale and selection · 3 tasks</text>
+<text x="16" y="1135" class="ink" font-size="13" text-anchor="start" font-weight="400">Order Addition Permutation</text>
+<text x="16" y="1150" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
+<path d="M368.361 1132L374.361 1138L368.361 1144L362.361 1138Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="377.361" y="1135" class="ink" font-size="13" text-anchor="start" font-weight="400">+37.45 in the</text>
+<text x="377.361" y="1150" class="ink" font-size="13" text-anchor="start" font-weight="400">run&#x27;s kept score</text>
+<text x="16" y="1171" class="ink" font-size="13" text-anchor="start" font-weight="400">Integer Compression Codec</text>
+<path d="M346.278 1161L352.278 1167L346.278 1173L340.278 1167Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="355.278" y="1171.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−29.68 (real run, new scale)</text>
+<text x="16" y="1193" class="ink" font-size="13" text-anchor="start" font-weight="400">Treant Forest</text>
+<circle cx="299.829" cy="1189" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="308.829" y="1193.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+13.32 (3.04 → 16.36)</text>
+<text x="16" y="1226" class="muted" font-size="13" text-anchor="start" font-weight="400">+ / −: the fixed checker gives more / less. No sign: the gap between two honest submissions</text>
+<text x="16" y="1245" class="muted" font-size="13" text-anchor="start" font-weight="400">that differ only in an unstated convention (Arc: error-report format; Borden: physics model);</text>
+<text x="16" y="1264" class="muted" font-size="13" text-anchor="start" font-weight="400">the checker is unchanged.</text>
+<text x="16" y="1283" class="muted" font-size="13" text-anchor="start" font-weight="400">How often each problem occurred on the leaderboard is unknown for most tasks.</text>
 
 </svg>
-</div><figcaption><b>Figure 1.</b> In 13 of the 32 tasks with a problem, a measured score changed by 10 points or more out of 100. Each row shows what the problem does to one submission when it occurs: filled marks are measured changes, hollow bars are proved or computed limits that the change cannot exceed, and the right-hand column lists effects whose direction is known but whose size is not. How often each problem occurred on the leaderboard is unknown for most tasks.</figcaption></figure>
+</div><figcaption><b>Figure 1.</b> In 12 of the 32 tasks with a problem, the problem itself moved a measured score by 10 points or more out of 100: honest work lost that much, or broken or empty work gained it. For Arc and Borden this is the gap between two honest submissions that differ only in an unstated convention; a change that comes from a fix&#x27;s new scale (Integer Codec) does not count. Each row shows what the problem does to one submission when it occurs: filled marks are measured changes, hollow bars are proved or computed limits that the change cannot exceed, and the right-hand column lists effects whose direction is known but whose size is not. How often each problem occurred on the leaderboard is unknown for most tasks.</figcaption></figure>
   <div class="cta">
     <a class="btn" href="tasks/index.html">Browse all 51 tasks &rarr;</a>
     <p>Every task has its own page: the instructions the agent receives, how EdgeBench scores the work, and what we found.</p>
@@ -285,7 +291,7 @@
     <li><b class="o-exclude">Removed (1 task).</b> No sound fix was possible.</li>
   </ul>
   <figure class="fig" id="fig-evidence-layers"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">
-<title>Four evidence layers with different scope: tasks examined in the original code and images, models proved in Lean 4 or checked in TLA+, historical paired comparisons of saved versions, and fixed tasks covered by one public agent run.</title>
+<title>Four evidence layers with different scope: tasks examined in the original code and images, models proved in Lean 4 or checked in TLA+, side-by-side tests of the original and the fixed checker, and fixed tasks covered by one public agent run.</title>
 <style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} .num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}</style>
 <rect class="box" x="0.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="16" y="36" font-size="26" font-weight="600">1</text>
@@ -300,11 +306,11 @@
 <text class="muted" x="210" y="87" font-size="14">Lean 4 and TLA+</text>
 <text class="ink" x="210" y="124" font-size="14">26 tasks, 286 theorems</text>
 <text class="ink" x="210" y="148" font-size="14">20 model-checking runs</text>
-<text class="ink" x="210" y="172" font-size="14">10 repair models checked</text>
+<text class="ink" x="210" y="172" font-size="14">9 repair models checked</text>
 <rect class="box" x="388.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="404" y="36" font-size="26" font-weight="600">3</text>
-<text class="ink" x="404" y="66" font-size="16.5" font-weight="600">Historical pairs</text>
-<text class="muted" x="404" y="87" font-size="14">components and graders</text>
+<text class="ink" x="404" y="66" font-size="16.5" font-weight="600">Side by side</text>
+<text class="muted" x="404" y="87" font-size="14">original vs fixed checker</text>
 <text class="ink" x="404" y="124" font-size="14">30 fixes + 1 partial fix</text>
 <text class="ink" x="404" y="148" font-size="14">254 comparisons</text>
 <text class="ink" x="404" y="172" font-size="14">nearly all run 3 times</text>
@@ -317,7 +323,7 @@
 <text class="ink" x="598" y="172" font-size="14">both graders;</text>
 <text class="ink" x="598" y="196" font-size="14">Lean computed</text>
 </svg>
-</div><figcaption><b>Figure 3.</b> Four evidence layers with different scope. Historical source/helper controls, native runs and formal models are not interchangeable or independently certified reproductions. Paired comparisons refer to the saved versions; they do not certify newer candidates. The real-agent record covers nine tasks, with seven regraded under both graders and Lean Analysis computed from saved verdicts.</figcaption></figure>
+</div><figcaption><b>Figure 3.</b> Four kinds of evidence, each covering something different. Reading the code, testing parts of a checker, running the whole checker and formal models answer different questions and do not stand in for one another. Side-by-side tests compare the original checker with the version of each fix that was tested, which is not always the latest. One public agent run covers nine fixed tasks: seven regraded with both checkers, and Lean Analysis computed from saved verdicts.</figcaption></figure>
 </section>
 
 <section id="findings" class="col">
@@ -329,15 +335,15 @@
     <li><b><a href="#instruction_mismatch">Instruction–grader mismatch</a></b> (9 tasks): the checker enforces something the instructions do not state, or contradicts them.</li>
     <li><b><a href="#scale_selection">Scoring scale and selection</a></b> (3 tasks): the 0–100 scale cannot be reached, a reference point is wrong, or the wrong submission is kept.</li>
   </ul>
-  <p>Each category below opens with a plain explanation and its tasks, followed by three or four examples, each with a figure. Every task is listed on the <a href="tasks/index.html">Tasks</a> page, which can be filtered by category, and each has a full case with the test submissions, the independent checks and the fix. Every task name below links to its page.</p>
+  <p>Each category below opens with a plain explanation and its tasks, followed by two to five examples, each with a figure. Every task is listed on the <a href="tasks/index.html">Tasks</a> page, which can be filtered by category, and each has a full case with the test submissions, the independent checks and the fix. Every task name below links to its page.</p>
 
   <h3 id="engineering"><span class="num">3.1</span>Engineering and runtime environment <span class="hcount">5 tasks</span></h3>
   <p>The grader's scoring rules may be right, but it does not run correctly in the setting where it is actually used. Typical causes: test cases run at once on fewer CPUs than they need, so honest solutions time out; hidden tests are inserted where they do not compile; files the grader needs are missing from the published images; a test run stops at its first failure and counts the rest as failed; or a result depends on timing. Honest work then loses points for reasons that have nothing to do with its quality.</p>
   <p class="pcat-tasks">Primary category of 5 tasks: <a class="task-link" href="tasks/apple_incremental_game.html">Apple Incremental Game</a>, <a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>, <a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Self Assembly</a>, <a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate Reconstruction</a>, <a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path Graph Coloring</a>. <a href="tasks/index.html#engineering">Show them in the task list</a>.<br>Secondary category of: <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core Throughput</a>, <a class="task-link" href="tasks/git_rewrite_in_zig.html">Git Rewrite in Zig</a>, <a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition Permutation Optimization</a>, <a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>, <a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring Optimization</a>, <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>.</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>: hidden tests that cannot compile.</span> The agent rebuilds a 14-package Rust project and is told not to edit the tests. The checker inserts its hidden tests into two packages, search (12 points) and the command-line program (10 points), in places where they do not compile. <mark>Both packages, 22 of the 100 points, score 0 for every solver who leaves the tests and settings unchanged.</mark> A complete, correct solution scores 73.99 out of 100 with the original checker and 94.70 with the fixed one, a gain of 20.71: search +11.29, the command-line program +9.32, and a test the original skipped after an earlier failure +0.10. (A solver could still make search compile by turning on its <code>parallel</code> setting, which edits no test; nothing in the task points to it.) The fix places the hidden tests where they compile and runs every test file.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · TLA+: fix partly model-checked correct · fix tested side by side, three runs (1 of 4 comparisons once)</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>: hidden tests that cannot compile.</span> The agent rebuilds a 14-package Rust project and is told not to edit the tests. The checker adds hidden tests to all 14 packages, and in two of them, search (12 points) and the command-line program (10 points), it places them where they do not compile. <mark>Both packages, 22 of the 100 points, score 0 for every solver who leaves the tests and package settings unchanged.</mark> A complete, correct solution scores 73.99 out of 100 with the original checker and 94.70 with the fixed one, a gain of 20.71: search +11.29, the command-line program +9.32, and a test the original skipped after an earlier failure +0.10. (A solver could still make search compile by turning on its <code>parallel</code> setting, which edits no test; nothing in the task points to it.) The fix places the hidden tests where they compile and runs every test file.</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · TLA+: fix partly model-checked correct · fix tested side by side, three runs (1 of 4 comparisons run only once)</p>
   <figure class="fig" id="fig-rust_multicrate_reconstruction"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 448" role="img">
-<title>Hidden tests that cannot compile zero out 22 of 100 points for every honest solver</title>
+<title>Hidden tests that cannot compile zero out 22 of 100 points</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -404,11 +410,11 @@
 <text x="16" y="418" class="muted" font-size="13">Original checker as the publisher ran it. With the published files as shipped, four library</text>
 <text x="16" y="435" class="muted" font-size="13">files are missing and the same solution scores 27.61.</text>
 </svg>
-</div><figcaption><b>Figure 4.</b> Hidden tests that cannot compile zero out 22 of 100 points for every solver who leaves the tests unchanged. The agent rebuilds a 14-package Rust project and is told not to edit the tests; the checker inserts its hidden tests into two packages, search (12 points) and the command-line program (10 points), in places where they do not compile, so both score 0. A complete, correct solution scores 73.99 out of 100 with the original checker as the publisher ran it and 94.70 with the fixed checker, which places the hidden tests where they compile and also runs tests the original skipped after an earlier failure. <a href="tasks/rust_multicrate_reconstruction.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 4.</b> Hidden tests that cannot compile zero out 22 of 100 points for every solver who leaves the tests and package settings unchanged. The agent rebuilds a 14-package Rust project and is told not to edit the tests; the checker adds hidden tests to all 14 packages, and in two of them, search (12 points) and the command-line program (10 points), it places them where they do not compile, so both score 0. A complete, correct solution scores 73.99 out of 100 with the original checker as the publisher ran it and 94.70 with the fixed checker, which places the hidden tests where they compile and also runs tests the original skipped after an earlier failure. <a href="tasks/rust_multicrate_reconstruction.html" class="case-link">Read the case</a></figcaption></figure>
   <p><span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a>: eight test cases share four processors.</span> The instructions promise 30 seconds per test case. The checker runs eight cases at the same time, and EdgeBench's official settings give it four processors (<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">the settings, quoted</a>), so each case gets about half a processor. <mark>An honest solution that computes for 16 seconds per case times out on 48 of its 50 cases, and one timeout throws out the whole submission; with the fix the same solution scores its 19.80 out of 100.</mark> The fix runs no more cases at once than the checker has processors. Five more tasks share this problem: <a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>, <a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>, <a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>, <a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> and <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a>. In a real agent run on Molecular Assembly, single submissions rose by up to 12.22 points out of 100 under the fix (<a href="leaderboard.html#real-runs">real runs</a>). Solutions that stop at a fixed clock time are usually not thrown out, but get half the computing time.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: note proved · fix tested side by side, three runs</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: caveat proved · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-grid_turing_robot"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 456" role="img">
-<title>On 4 CPUs, valid solutions within the promised 30 s per case get no score</title>
+<title>On 4 CPUs, valid solutions needing 16–28 s of the promised 30 s per case get no score</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
@@ -417,7 +423,7 @@
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text x="16" y="24" class="ink" font-size="15" font-weight="600">On 4 CPUs, valid solutions within the promised 30 s per case get no score</text>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">On 4 CPUs, valid solutions needing 16–28 s of the promised 30 s per case get no score</text>
 <text x="16" y="46" class="muted" font-size="14">The checker runs 8 test cases at once. On 4 CPUs each case gets half a CPU,</text>
 <text x="16" y="65" class="muted" font-size="14">so the clock runs twice as long as the computing, and one timeout voids the whole submission.</text>
 <line x1="80" y1="330.0" x2="660" y2="330.0" class="rule" stroke-width="1"/>
@@ -428,7 +434,7 @@
 <text x="70" y="205.0" class="muted" font-size="14" text-anchor="end">20</text>
 <text x="16" y="96" class="muted" font-size="14">Clock time per case (s)</text>
 <line x1="80" y1="135.0" x2="660" y2="135.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="660" y="127.0" class="bad" font-size="14" font-weight="600" text-anchor="end">30 s limit</text>
+<text x="84" y="127.0" class="bad" font-size="14" font-weight="600">30 s limit</text>
 <polyline points="138,251.4 196,238.4 254,225.3 370,199.2 486,173.1 602,146.8" fill="none" class="goodS" stroke-width="2"/>
 <circle cx="138" cy="251.4" r="5" class="good"/>
 <circle cx="196" cy="238.4" r="5" class="good"/>
@@ -439,11 +445,11 @@
 <polyline points="138,172.6 196,146.7" fill="none" class="accS" stroke-width="2"/>
 <circle cx="138" cy="172.6" r="5" class="acc"/>
 <circle cx="196" cy="146.7" r="5" class="acc"/>
-<path d="M248,129.0 L260,141.0 M260,129.0 L248,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M364,129.0 L376,141.0 M376,129.0 L364,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M480,129.0 L492,141.0 M492,129.0 L480,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M596,129.0 L608,141.0 M608,129.0 L596,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<text x="312" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">48 of 50 cases timed out: no score at all</text>
+<path d="M248,126.0 L260,138.0 M260,126.0 L248,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M364,126.0 L376,138.0 M376,126.0 L364,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M480,126.0 L492,138.0 M492,126.0 L480,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M596,126.0 L608,138.0 M608,126.0 L596,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<text x="400" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">4 CPUs: 48 of 50 cases timed out, no score at all</text>
 <text x="126" y="180.635" class="acc" font-size="14" font-weight="600" text-anchor="end">4 CPUs: 24 s</text>
 <text x="208" y="151.70000000000002" class="acc" font-size="14" font-weight="600">28 s</text>
 <text x="384" y="223.155" class="good" font-size="14" font-weight="600">8 CPUs: clock time = computing time</text>
@@ -463,10 +469,10 @@
   <h3 id="grader_logic"><span class="num">3.2</span>Grader correctness and factual errors <span class="hcount">15 tasks</span></h3>
   <p>The task asks for the right thing, but the grader checks it wrongly: it marks wrong work as right, or right work as wrong. Examples: a correctness check that misses real bugs, a validator that misses overlapping shapes, a cost check that leaves out one term, a supplied library that miscalculates, an answer checker that misreads valid answers, a statement to be proved that is false as written, or points taken from numbers the submission reports about itself. Where a wrong submission is accepted, it can score as high as a correct one, or higher.</p>
   <p class="pcat-tasks">Primary category of 15 tasks: <a class="task-link" href="tasks/college_english_exam_bank.html">College English Exam Bank</a>, <a class="task-link" href="tasks/cta_risk_budget_optimization.html">CTA Risk Budget Optimization</a>, <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a> (removed), <a class="task-link" href="tasks/equivalence_class_divide_and_conquer.html">Equivalence Class Divide and Conquer</a>, <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core Throughput</a>, <a class="task-link" href="tasks/ffmpeg_swscale_reimplementation.html">FFmpeg swscale Reimplementation</a>, <a class="task-link" href="tasks/graph_node_classification.html">Graph Node Classification</a>, <a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting Optimization</a>, <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis Proofs</a>, <a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>, <a class="task-link" href="tasks/schemathesis_config_modernization.html">Schemathesis Config Modernization</a>, <a class="task-link" href="tasks/schemathesis_datagen_pipeline.html">Schemathesis Datagen Pipeline</a>, <a class="task-link" href="tasks/schemathesis_reporting_observability.html">Schemathesis Reporting Observability</a>, <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>, <a class="task-link" href="tasks/tree_block_partitioning.html">Tree Block Partitioning</a>. <a href="tasks/index.html#grader_logic">Show them in the task list</a>.<br>Secondary category of: <a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate Reconstruction</a>.</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>: a broken stock exchange passes.</span> The agent makes a stock-exchange engine faster without changing what it does, and is scored on speed. The original checker only confirms that money balances overall and that the order books match. <mark>Two realistic one-line bugs pass and are scored as correct: one charges sellers the wrong fee, the other never delivers trade messages.</mark> Across four runs they scored 7.77–24.40 and 4.71–15.62 out of 100, within the run-to-run speed noise of the correct engine (0–24.19 in the original-checker runs alongside them). The project's own tests catch both bugs; the fixed checker requires those tests to pass and gives the broken engines 0.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: finding partly proved · fix tested side by side, three runs (6 of 13 comparisons once)</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>: a broken stock exchange passes.</span> The agent makes a stock-exchange engine faster without changing what it does, and is scored on speed. The original checker only confirms that money balances overall and that the order books match. <mark>Two realistic small bugs pass and are scored as correct: one charges sellers the wrong fee, the other never delivers trade messages.</mark> Across four runs they scored 7.77–24.40 and 4.71–15.62 out of 100, within the run-to-run speed noise of the correct engine (0–24.19 in the original-checker runs alongside them). The project's own tests catch both bugs; the fixed checker requires those tests to pass and gives the broken engines 0.</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: finding partly proved · fix tested side by side, three runs (6 of 13 comparisons run only once)</p>
   <figure class="fig" id="fig-exchange_core_throughput"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 466" role="img">
-<title>Pass/fail grid: the original checker passes a correct exchange engine and two engines with realistic bugs (wrong fee charged to sellers, trade messages never delivered) and pays all three for speed; the fixed checker, which first runs the project&#x27;s own tests, still passes the correct engine and rejects both bugs with a score of 0.</title>
+<title>Pass/fail grid: the original checker passes a correct exchange engine and two engines with realistic bugs (wrong fee charged to sellers, trade messages never delivered) and scores all three on speed; the fixed checker, which first runs the project&#x27;s own tests, still passes the correct engine and rejects both bugs with a score of 0.</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -475,7 +481,7 @@
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text x="16" y="30" font-size="18" font-weight="700" class="ink">Two broken exchange engines pass the original checker and are paid for speed</text>
+<text x="16" y="30" font-size="18" font-weight="700" class="ink">Two broken exchange engines pass the original checker and are scored on speed</text>
 <text x="16" y="54" font-size="14" class="muted">The task: make a stock-exchange matching engine faster without changing what it does.</text>
 <text x="410.0" y="92" font-size="15" font-weight="700" text-anchor="middle" class="ink">Original checker</text>
 <text x="410.0" y="110" font-size="13" text-anchor="middle" class="muted">checks totals and order books</text>
@@ -486,16 +492,16 @@
 <text x="16" y="171" font-size="13" class="muted">the project&#x27;s engine, unchanged</text>
 <rect x="316" y="134" width="188" height="44" rx="6" class="goodBg"/>
 <g transform="translate(340,156)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="360" y="161" font-size="14" class="good">passes, paid for speed</text>
+<text x="360" y="161" font-size="13" class="good">passes, speed scored</text>
 <rect x="516" y="134" width="188" height="44" rx="6" class="goodBg"/>
 <g transform="translate(540,156)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="560" y="161" font-size="14" class="good">passes, paid for speed</text>
+<text x="560" y="161" font-size="13" class="good">passes, speed scored</text>
 <line x1="16" y1="188" x2="704" y2="188" class="rule" stroke-width="1"/>
 <text x="16" y="215" font-size="15" font-weight="700" class="ink">Wrong fee charged to sellers</text>
-<text x="16" y="235" font-size="13" class="muted">maker fee instead of taker fee; totals balance</text>
+<text x="16" y="235" font-size="13" class="muted">charges the wrong fee rate; totals still balance</text>
 <rect x="316" y="198" width="188" height="44" rx="6" class="goodBg"/>
 <g transform="translate(340,220)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="360" y="225" font-size="14" class="good">passes, paid for speed</text>
+<text x="360" y="225" font-size="13" class="good">passes, speed scored</text>
 <rect x="516" y="198" width="188" height="44" rx="6" class="badBg"/>
 <g transform="translate(540,220)"><circle r="11" class="bad"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
 <text x="560" y="225" font-size="14" class="bad">rejected, scores 0</text>
@@ -504,7 +510,7 @@
 <text x="16" y="299" font-size="13" class="muted">users receive no results of their orders</text>
 <rect x="316" y="262" width="188" height="44" rx="6" class="goodBg"/>
 <g transform="translate(340,284)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="360" y="289" font-size="14" class="good">passes, paid for speed</text>
+<text x="360" y="289" font-size="13" class="good">passes, speed scored</text>
 <rect x="516" y="262" width="188" height="44" rx="6" class="badBg"/>
 <g transform="translate(540,284)"><circle r="11" class="bad"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
 <text x="560" y="289" font-size="14" class="bad">rejected, scores 0</text>
@@ -516,9 +522,9 @@
 <text x="16" y="432" font-size="13" class="muted">With 4 CPUs (EdgeBench&#x27;s leaderboard setting) even the correct engine scores 0 for speed; the fixed</text>
 <text x="16" y="451" font-size="13" class="muted">checker still passes it.</text>
 </svg>
-</div><figcaption><b>Figure 6.</b> Two engines with realistic bugs pass the original checker and are paid for speed; the fixed checker rejects them. The agent must make a stock-exchange matching engine faster without changing what it does, but the original checker only confirms that money balances overall and that the order books match, so an engine that charges selling traders the wrong fee and one that never delivers trade messages both pass and get a speed score out of 100 (7.77–24.40 and 4.71–15.62 over four runs each, against 0–24.19 for the correct engine over seven; the differences are run-to-run variation). The fixed checker first runs 33 of the project&#x27;s own tests: both broken engines score 0 in all three side-by-side runs, and the correct engine still passes, also in three runs at the leaderboard&#x27;s 4 CPUs, where it is too slow to score above 0 for speed. <a href="tasks/exchange_core_throughput.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 6.</b> Two engines with realistic bugs pass the original checker and are scored on speed; the fixed checker rejects them. The agent must make a stock-exchange matching engine faster without changing what it does, but the original checker only confirms that money balances overall and that the order books match, so an engine that charges selling traders the wrong fee and one that never delivers trade messages both pass and get a speed score out of 100 (7.77–24.40 and 4.71–15.62 over four runs each, against 0–24.19 for the correct engine over seven; the differences are run-to-run variation). The fixed checker first runs 33 of the project&#x27;s own tests: both broken engines score 0 in all three side-by-side runs, and the correct engine still passes, also in three runs at the leaderboard&#x27;s 4 CPUs, where it is too slow to score above 0 for speed. <a href="tasks/exchange_core_throughput.html" class="case-link">Read the case</a></figcaption></figure>
   <p><span class="lead-in"><a class="task-link" href="tasks/college_english_exam_bank.html">College English</a>: an empty grading report scores 100.</span> An AI model grades the agent's exam papers against 12 rules worth 100 points. If the model's answer leaves a rule out, the checker's code gives that rule full marks and still calls the result valid. <mark>A grading report that assesses nothing scores 100 out of 100;</mark> one that skips a single 15-point rule scores 81 instead of 77, or 15 instead of 0. The fixed checker asks the model again and otherwise reports a grading failure. How often real grading reports skipped rules is not known.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: fix proved correct · fix tested side by side, three runs</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: earlier version of the fix proved · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-college_english_exam_bank"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 408" role="img">
 <title>An empty grading report scored 100: rules the AI grader skipped got full marks</title>
 <style>
@@ -560,8 +566,8 @@
 <text x="16" y="395" class="ink" font-size="14">grading failure (score 0) instead of an inflated score.</text>
 </svg>
 </div><figcaption><b>Figure 7.</b> An empty grading report scored 100 out of 100, because the original checker gave full marks to every rule the AI grader left out. In College English Exam Bank an AI model scores the agent&#x27;s exam papers against 12 rules; when its answer omits a rule, the checker fills that rule in at full marks and still calls the result valid, so leaving out one 15-point rule turns a true 77 into 81 and a true 0 into 15. The fixed checker asks the AI grader again and scores a complete second answer normally (77); if the answer is still incomplete, it reports a grading failure. How often real AI graders skip rules was not measured. <a href="tasks/college_english_exam_bank.html" class="case-link">Read the case</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>: correct answers rejected.</span> The agent builds a solver for logic puzzles and must give an example answer whenever a puzzle has one. The checker looks up a value by how it is written, not by what it stands for, so when the same text means two different things in one puzzle, no correct answer can pass. <mark>This makes 27 hidden puzzles impossible to win and lowers a perfect solver's maximum from 78.61 to 72.40 out of 100.</mark> On 42 more puzzles it rejects answers written the way the instructions describe. The fixed checker looks values up by what they stand for and accepts correct answers on all 69.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: fix proved correct · fix tested side by side, three runs</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>: correct answers rejected.</span> The agent builds a solver for logic puzzles and must give an example answer whenever a puzzle has one. The checker looks up a value by how it is written, not by what it stands for, so when the same text means two different things in one puzzle, no correct answer can pass. <mark>This makes 27 hidden puzzles impossible to win and lowers a perfect solver's maximum from 78.61 to 72.40 out of 100.</mark> (A correct "no solution" answer earns at most a fifth of a puzzle's credit, so even a perfect solver tops out at 78.61.) On 42 more puzzles it rejects answers written the way the instructions describe. The fixed checker looks values up by what they stand for and accepts correct answers on all 69.</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: fix partly proved correct · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-smt_solver"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 410" role="img">
 <title>The checker reads answers by their wording, so 27 solvable problems can never pass</title>
 <style>
@@ -609,48 +615,59 @@
 <text x="16" y="379" class="ink" font-size="14">72.40 out of 100 instead of 78.61. On 42 more, answers written the way the instructions</text>
 <text x="16" y="398" class="ink" font-size="14">describe were rejected. The fixed checker accepts the correct answers on all 69.</text>
 </svg>
-</div><figcaption><b>Figure 8.</b> The SMT Solver checker looks up a function&#x27;s value by how the expression is written, not by what its argument stands for, so 27 solvable hidden problems can never be passed. The agent builds a logic solver that must print an example solution for each solvable problem; when the same text, such as (f x), stands for two different values, every correct solution is rejected, and on 42 more problems solutions written the way the instructions describe were rejected. This lowers the most a perfect solver can score from 78.61 to 72.40 out of 100. The fixed checker evaluates the argument first and accepts the correct solutions on all 69 problems. <a href="tasks/smt_solver.html" class="case-link">Read the case</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/ffmpeg_swscale_reimplementation.html">FFmpeg Swscale</a>: code that fails instantly earns speed credit.</span> The agent rewrites an image-resizing library and is scored on correctness and speed. The speed tests time conversions without checking their output, so a call that fails or does nothing "finishes" almost instantly. <mark>Unfinished code earned up to 18.93 out of 100 this way under the original checker</mark> (5.39, 18.93 and 17.87 for three test versions, against 0 for the unchanged starter code). The fixed checker checks the output of every timed call, and any failed workload makes the total exactly 0: in its final tests, code that skips repeated calls passed all 30 correctness tests and scored 0.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: fix proved correct · fix tested side by side, three runs (3 of 10 comparisons once)</p>
-  <figure class="fig" id="fig-ffmpeg_swscale_reimplementation"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 382" role="img">
-<title>Calls that failed instantly were scored as fast: unfinished code earned up to 18.93 of 100</title>
+</div><figcaption><b>Figure 8.</b> The SMT Solver checker looks up a function&#x27;s value by how the expression is written, not by what its argument stands for, so 27 solvable hidden problems can never be passed. The agent builds a logic solver that must print an example solution for each solvable problem; when the same text, such as (f x), stands for two different values, every correct solution is rejected, and on 42 more problems solutions written the way the instructions describe were rejected. This lowers the most a perfect solver can score from 78.61 to 72.40 out of 100 (a correct &quot;no solution&quot; answer earns at most a fifth of a problem&#x27;s credit, so even a perfect solver tops out at 78.61). The fixed checker evaluates the argument first and accepts the correct solutions on all 69 problems. <a href="tasks/smt_solver.html" class="case-link">Read the case</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/ffmpeg_swscale_reimplementation.html">FFmpeg Swscale</a>: code that fails instantly earns speed credit.</span> The agent rewrites an image-resizing library and is scored on correctness and speed. The speed tests time conversions without checking their output, so a call that fails or does nothing "finishes" almost instantly. <mark>Unfinished code earned up to 18.93 out of 100 this way under the original checker</mark> (5.39, 18.93 and 17.87 for three test versions, against 0 for the unchanged starter code, in the same run). The fixed checker checks the output of every timed call, and any failed workload makes the total exactly 0: in its one side-by-side run, code that skips repeated calls passed all 30 correctness tests and scored 0.</p>
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: earlier version of the fix proved · current fix tested side by side once; earlier version three runs</p>
+  <figure class="fig" id="fig-ffmpeg_swscale_reimplementation"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 495" role="img">
+<title>Failed calls looked fast: unfinished code earned up to 18.93 of 100</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
   .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4} .accBox{fill:#eef6f9}
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text x="16" y="26" class="ink" font-size="16" font-weight="600">Calls that failed instantly were scored as fast: unfinished code earned up to 18.93 of 100</text>
-<text x="16" y="48" class="muted" font-size="14">The agent rewrites an image-scaling library; speed tests timed each call but never checked it.</text>
-<text x="200" y="82" class="muted" font-size="14">Score out of 100, original checker</text>
-<text x="704" y="82" class="muted" font-size="14" text-anchor="end">Fixed checker</text>
-<text x="16" y="111" class="ink" font-size="15">Returns an error on</text>
-<text x="16" y="129" class="ink" font-size="15">RGBA→RGB24</text>
-<rect class="badBg" x="200" y="96" width="400" height="30"/><rect class="bad" x="200" y="96" width="21.56" height="30"/>
-<text x="229.56" y="117" class="bad" font-size="15" font-weight="600">5.39</text>
-<text x="704" y="117" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
+<text x="16" y="26" class="ink" font-size="16" font-weight="600">Failed calls looked fast: unfinished code earned up to 18.93 of 100</text>
+<text x="16" y="48" class="muted" font-size="14">The agent rewrites an image-scaling library; the speed tests timed each call but never checked its output.</text>
+<text x="16" y="82" class="ink" font-size="14" font-weight="600">1. The problem: score out of 100 on the original checker (one run, 2 CPUs)</text>
+<text x="704" y="82" class="muted" font-size="13" text-anchor="end">Correctness tests</text>
+<text x="16" y="111" class="ink" font-size="15">Starter code,</text>
+<text x="16" y="129" class="ink" font-size="15">unchanged</text>
+<rect class="badBg" x="210" y="96" width="400" height="30"/>
+<text x="218.00" y="117" class="ink" font-size="15" font-weight="600">0</text>
+<text x="704" y="117" class="ink" font-size="15" text-anchor="end">30/30</text>
 <text x="16" y="163" class="ink" font-size="15">Returns an error on</text>
-<text x="16" y="181" class="ink" font-size="15">3:1 shrink</text>
-<rect class="badBg" x="200" y="148" width="400" height="30"/><rect class="bad" x="200" y="148" width="75.72" height="30"/>
-<text x="283.72" y="169" class="bad" font-size="15" font-weight="600">18.93</text>
-<text x="704" y="169" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
-<text x="16" y="215" class="ink" font-size="15">Writes nothing on</text>
+<text x="16" y="181" class="ink" font-size="15">RGBA→RGB24</text>
+<rect class="badBg" x="210" y="148" width="400" height="30"/>
+<rect class="bad" x="210" y="148" width="21.56" height="30"/>
+<text x="239.56" y="169" class="bad" font-size="15" font-weight="600">5.39</text>
+<text x="704" y="169" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="215" class="ink" font-size="15">Returns an error on</text>
 <text x="16" y="233" class="ink" font-size="15">3:1 shrink</text>
-<rect class="badBg" x="200" y="200" width="400" height="30"/><rect class="bad" x="200" y="200" width="71.48" height="30"/>
-<text x="279.48" y="221" class="bad" font-size="15" font-weight="600">17.87</text>
-<text x="704" y="221" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
-<line class="rule" x1="200" y1="92" x2="200" y2="234" stroke-width="1.5"/>
-<text x="200" y="252" class="muted" font-size="13" text-anchor="middle">0</text>
-<text x="600" y="252" class="muted" font-size="13" text-anchor="middle">100</text>
-<text x="16" y="284" class="muted" font-size="14">A call that returned an error at once was timed as a 16,469× speedup. All three still passed the</text>
-<text x="16" y="303" class="muted" font-size="14">30 correctness tests, which never cover these conversions.</text>
-<text x="16" y="330" class="ink" font-size="14">Fixed checker: checks the output of every timed call; any failure makes the whole score 0,</text>
-<text x="16" y="349" class="ink" font-size="14">as the instructions say. The three 0s were measured with an earlier version of the fix; the</text>
-<text x="16" y="368" class="ink" font-size="14">current one gave exactly 0 to code that silently skips repeated calls.</text>
+<rect class="badBg" x="210" y="200" width="400" height="30"/>
+<rect class="bad" x="210" y="200" width="75.72" height="30"/>
+<text x="293.72" y="221" class="bad" font-size="15" font-weight="600">18.93</text>
+<text x="704" y="221" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="267" class="ink" font-size="15">Writes nothing on</text>
+<text x="16" y="285" class="ink" font-size="15">3:1 shrink</text>
+<rect class="badBg" x="210" y="252" width="400" height="30"/>
+<rect class="bad" x="210" y="252" width="71.48" height="30"/>
+<text x="289.48" y="273" class="bad" font-size="15" font-weight="600">17.87</text>
+<text x="704" y="273" class="ink" font-size="15" text-anchor="end">30/30</text>
+<line class="rule" x1="210" y1="92" x2="210" y2="286" stroke-width="1.5"/>
+<text x="210" y="304" class="muted" font-size="13" text-anchor="middle">0</text>
+<text x="610" y="304" class="muted" font-size="13" text-anchor="middle">100</text>
+<text x="16" y="332" class="muted" font-size="14">A call that returned an error at once was timed as a 16,469× speedup. All four versions passed the</text>
+<text x="16" y="351" class="muted" font-size="14">30 correctness tests, which never cover the conversions that are timed.</text>
+<rect x="8" y="376" width="704" height="111" rx="8" class="accBox"/>
+<text x="20" y="398" class="ink" font-size="14" font-weight="600">2. The current fix checks the output of every timed call; any failure makes the whole</text>
+<text x="20" y="417" class="ink" font-size="14" font-weight="600">score 0, as the instructions say.</text>
+<text x="20" y="436" class="ink" font-size="14" font-weight="400">Its one side-by-side run (2 CPUs, raw speedups): code that skips repeated calls passed</text>
+<text x="20" y="455" class="ink" font-size="14" font-weight="400">all 30 correctness tests and scored 0 (original checker 1.04); a correct submission still</text>
+<text x="20" y="474" class="ink" font-size="14" font-weight="400">scored 1.02 (original 1.06). The three unfinished versions above were not run on it.</text>
 </svg>
-</div><figcaption><b>Figure 9.</b> Speed tests that never checked their output let unfinished code earn up to 18.93 of 100 points. The agent rewrites FFmpeg&#x27;s image-scaling library and is scored on speed once 30 correctness tests pass, but the timed calls were never checked, so a call that returned an error or wrote nothing counted as almost infinitely fast. Three one-line unfinished versions scored 5.39, 18.93 and 17.87 under the original checker and 0 under an earlier version of the fix; the current fix checks every timed call and sets the whole score to exactly 0 when any fails, as the instructions say, which it did for code that silently skips repeated calls. <a href="tasks/ffmpeg_swscale_reimplementation.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 9.</b> Speed tests that never checked their output let unfinished code earn up to 18.93 of 100 points. The agent rewrites FFmpeg&#x27;s image-scaling library and is scored on speed once 30 correctness tests pass, but the timed calls were never checked, so a call that returned an error or wrote nothing counted as thousands of times faster. In one run of the original checker, three one-line unfinished versions scored 5.39, 18.93 and 17.87, against 0 for the unchanged starter, and all four passed the 30 correctness tests. The current fix checks the output of every timed call and sets the whole score to exactly 0 when any fails, as the instructions say; in its one side-by-side run, code that skips repeated calls passed all 30 correctness tests and scored 0. <a href="tasks/ffmpeg_swscale_reimplementation.html" class="case-link">Read the case</a></figcaption></figure>
   <div class="removed-box">
     <h4>The one task we removed</h4>
     <p><span class="lead-in"><a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>.</span> <mark>About 42 of the 100 points (two parts, worth 12 and 30) come from the submission's own results file and are never verified.</mark> A sound fix would need the checker to recompute them from hidden data, so the task was removed. A second problem, a hidden penalty on one of two formulas the instructions allow, was fixed, but that does not save the task.</p>
@@ -675,7 +692,7 @@
 <text x="24" y="187" class="ink" font-size="13" text-anchor="start">by running the code on</text>
 <text x="24" y="206" class="ink" font-size="13" text-anchor="start">hidden test cases</text>
 <rect x="256.8" y="100" width="289.0" height="44" class="badBg"/><rect x="256.8" y="100" width="289.0" height="44" fill="none" class="badS" stroke-width="2"/>
-<text x="401.28" y="129" class="bad" font-size="18" text-anchor="middle" font-weight="700">12 + 30 = 42</text>
+<text x="298.1" y="129" class="bad" font-size="18" text-anchor="middle" font-weight="700">12</text><text x="442.6" y="129" class="bad" font-size="18" text-anchor="middle" font-weight="700">30 · 42 in all</text>
 <line x1="339.4" y1="100" x2="339.4" y2="144" class="badS" stroke-width="1.2" stroke-dasharray="3 3"/>
 <text x="264.8" y="168" class="bad" font-size="13" text-anchor="start" font-weight="600">Read from the submission's own</text>
 <text x="264.8" y="187" class="ink" font-size="13" text-anchor="start">results file and scored as written;</text>
@@ -693,15 +710,15 @@
 <text x="16" y="346" class="muted" font-size="13" text-anchor="start">A second problem was fixed but did not save the task: one of two allowed, equivalent method forms</text>
 <text x="16" y="364" class="muted" font-size="13" text-anchor="start">was quietly penalised (same strong work: 88.92 against 42.86 out of 100, from the checker's own rule).</text>
 </svg>
-</div><figcaption><b>Figure 10.</b> 42 of the 100 points come from numbers the submission reports about its own work, which the checker never verifies, so the task was removed. The agent implements the D-ABIC gravity inversion method; the checker recomputes only 35 points by running the code on hidden test cases and scores two parts, worth 12 and 30 points, from the submission&#x27;s own results file as written. A sound fix would need the checker to recompute those 42 points from hidden data itself. A second problem, a hidden penalty on one of two allowed, equivalent method forms (88.92 against 42.86 out of 100 for the same strong work, computed from the checker&#x27;s own rule), was fixed but did not save the task. <a href="tasks/dabic_gravity_inversion.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 10.</b> 42 of the 100 points come from numbers the submission reports about its own work, which the checker never verifies, so the task was removed. The agent implements the D-ABIC gravity inversion method; the checker recomputes only 35 points by running the code on hidden test cases and scores two parts, worth 12 and 30 points, from the submission&#x27;s own results file as written. A sound fix would need the checker to recompute those 42 points from hidden data itself. A second problem, a hidden penalty on one of two allowed, equivalent method forms (88.92 against 42.86 out of 100 for the same strong work at C = 26, and a gap that grows with C, computed from the checker&#x27;s own rule), was fixed but did not save the task. <a href="tasks/dabic_gravity_inversion.html" class="case-link">Read the case</a></figcaption></figure>
   </div>
 
   <h3 id="instruction_mismatch"><span class="num">3.3</span>Instruction–grader mismatch <span class="hcount">9 tasks</span></h3>
   <p>Each rule the grader applies may be reasonable on its own, but it is not the rule the agent was given. The grader enforces something the instructions do not state, or contradicts what they say: a shorter time limit than promised, a geometric condition left out, an undocumented output format or convention, checks the instructions never mention, a function that does not exist, a different formula. An agent that follows the instructions faithfully is then scored by a different rule.</p>
   <p class="pcat-tasks">Primary category of 9 tasks: <a class="task-link" href="tasks/arc_compiler_runtime.html">Arc Compiler Runtime</a>, <a class="task-link" href="tasks/borden_source_inversion.html">Borden Source Inversion</a>, <a class="task-link" href="tasks/git_rewrite_in_zig.html">Git Rewrite in Zig</a>, <a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet Vulnerability Analyzer</a>, <a class="task-link" href="tasks/openrct2_theme_park_ai.html">OpenRCT2 Theme Park AI</a>, <a class="task-link" href="tasks/openttd_transport_ai.html">OpenTTD Transport AI</a>, <a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk Calibration</a>, <a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring Optimization</a>, <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>. <a href="tasks/index.html#instruction_mismatch">Show them in the task list</a>.<br>Secondary category of: <a class="task-link" href="tasks/cta_risk_budget_optimization.html">CTA Risk Budget Optimization</a>, <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a> (removed), <a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>, <a class="task-link" href="tasks/schemathesis_reporting_observability.html">Schemathesis Reporting Observability</a>, <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>, <a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path Graph Coloring</a>.</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a>: promised 150 seconds, cut off at 60.</span> The instructions promise 30 seconds per test case, or 150 seconds for each input of five cases. The checker stops each input after 60 seconds, and a single timeout throws out the whole submission. <mark>A test solution that takes 13 seconds per case, less than half the promise, gets no score at all;</mark> with the fix all 50 inputs are scored. The fix raises the limit to the promised 150 seconds and runs no more inputs at once than the checker has processors. One part of the fix, which makes sure results that arrive at the very end are counted, has been tested on its own but not yet in a full EdgeBench run. Separately, a bound proved in Lean shows that no valid answer can score above about 30.6 out of 100 on this task's scale; that limit is documented, not changed.</p>
-  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: finding proved · fix tested side by side, three runs</p>
-  <figure class="fig" id="fig-warehouse_forklift_routing"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 446" role="img">
+  <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: caveat proved · fix tested side by side, three runs</p>
+  <figure class="fig" id="fig-warehouse_forklift_routing"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 464" role="img">
 <title>Promised 150 seconds, cut off at 60: solutions that use their time get no score</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
@@ -742,9 +759,10 @@
 <text x="16" y="364" class="ink" font-size="14">Computes 140 s per input</text>
 <text x="470" y="364" class="bad" font-size="14" font-weight="600" text-anchor="middle">all 50 time out: no score</text>
 <text x="704" y="364" class="good" font-size="14" font-weight="600" text-anchor="end">all 50 scored</text>
-<rect x="16" y="380" width="688" height="54" rx="6" class="warnBg"/>
+<rect x="16" y="380" width="688" height="72" rx="6" class="warnBg"/>
 <text x="28" y="402" class="ink" font-size="13">Documented, not fixed: no valid answer can score above about 30.6 out of 100 (30.3 before the</text>
-<text x="28" y="422" class="ink" font-size="13">per-input scores are rounded). Higher scores need shorter routes than any valid answer has (proved).</text>
+<text x="28" y="422" class="ink" font-size="13">per-input scores are rounded). Higher scores need shorter routes than any valid answer has</text>
+<text x="28" y="442" class="ink" font-size="13">(proved in Lean for a model of the tester).</text>
 </svg>
 </div><figcaption><b>Figure 11.</b> Warehouse Forklift Routing solutions that use the time the instructions promise get no score. The instructions promise 30 s per test case, 150 s per five-case input, but the original checker stops each input at 60 s, and on EdgeBench&#x27;s 4-CPU setting it runs 8 inputs at once, so each gets only about 30 s of computing; one timeout leaves the whole submission without a score. Test submissions that wait 13 s per case or compute 80 or 140 s per input got no score under the original checker and had all 50 inputs scored under the fixed one, which allows 150 s and runs no more inputs at once than it has CPUs (it also needs a longer final wait in EdgeBench&#x27;s runner, which is tested only in parts). A separate limit is documented, not fixed: no valid answer can score above about 30.6 out of 100. <a href="tasks/warehouse_forklift_routing.html" class="case-link">Read the case</a></figcaption></figure>
   <p><span class="lead-in"><a class="task-link" href="tasks/arc_compiler_runtime.html">Arc Compiler</a>: the same code scores 69 or 36.</span> The agent finishes a small compiler. Hidden tests worth a third of the points (33.67 of 100) expect error reports in one particular format, while the starter code uses another and nothing the agent can see says which is right. <mark>The same honest error checker scores 69.26 in the hidden format and 35.59 in the starter's.</mark> The fixed task documents the format; the checker and the score of any given code are unchanged.</p>
@@ -772,10 +790,10 @@
 <text x="32" y="292" class="ink" font-size="14">No file the agent sees names the format. The fix documents it; the checker is unchanged.</text>
 </svg>
 </div><figcaption><b>Figure 12.</b> The same honest error checker scores 69.26 or 35.59 out of 100 in Arc Compiler Runtime, depending only on a return format that no instruction mentions. The agent completes a small compiler; hidden tests worth 33.67 points expect error reports as a list of {level, message}, while the starter code returns another format and nothing the agent can see says which is right. The fix documents the format in the task notes; the checker is unchanged, so the same code scores the same as before. <a href="tasks/arc_compiler_runtime.html" class="case-link">Read the case</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet Analyzer</a>: the public examples teach the wrong format.</span> The agent writes a tool that finds security bugs in C code and reports where each one starts. For command-injection bugs, all 38 public examples mark the start at the line that runs the command, but all 120 hidden answers mark it at the line where the input is read, and the original checker accepts only the hidden form. <mark>An analyzer that copies the public examples loses 15 points (45.66 against 60.66 out of 100)</mark>, and up to 26.47 in the worst case (computed exactly, not run). In a real agent run, 14 of 105 submissions, all early ones, were affected, one by 25 points (70.00 against 95.26); later submissions and the run's kept score were not. The fixed checker accepts both forms.</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet Analyzer</a>: the public examples teach the wrong format.</span> The agent writes a tool that finds security bugs in C code and reports where each one starts. For command-injection bugs, all 38 public examples mark the start at the line that runs the command, but all 120 hidden answers mark it at the line where the input is read, and the original checker accepts only the hidden form. <mark>An analyzer that finds only the command-injection bugs and copies the public examples loses 15 points (45.66 against 60.66 out of 100)</mark>; one that finds every bug loses 2.49, and the worst case is 26.47 (computed exactly, not run). In a real agent run, 14 of 105 submissions, all early ones, were affected, two by about 25 points (70.00 against 95.22 and 95.26); later submissions and the run's kept score were not. The fixed checker accepts both forms.</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-juliet_vulnerability_analyzer"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 572" role="img">
-<title>Answers written like the public examples lost 15 of 100 points</title>
+<title>An analyzer that writes answers like the public examples lost 15 of 100 points</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -786,7 +804,7 @@
   
 </style>
 
-<text x="16" y="30" font-size="18" font-weight="700" class="ink">Answers written like the public examples lost 15 of 100 points</text>
+<text x="16" y="30" font-size="18" font-weight="700" class="ink">An analyzer that writes answers like the public examples lost 15 of 100 points</text>
 <text x="16" y="56" font-size="15" class="muted">Task: find command-injection bugs in C code and, for each bug, report its source and its trace.</text>
 
 <!-- what source, sink and trace mean -->
@@ -838,8 +856,8 @@
 <text x="32" y="520" font-size="14" class="ink"><tspan font-weight="700">Fixed checker: accepts both ways.</tspan> In a real AI agent run, one submission went from</text>
 <text x="32" y="544" font-size="14" class="ink">70.00 to 95.26 out of 100 (14 of 105 submissions rose; the run's kept score, 99.66, did not change).</text>
 </svg>
-</div><figcaption><b>Figure 13.</b> An analyzer that writes its answers the way the public examples do lost 15 of 100 points to the hidden checker. The task asks for command-injection bugs in C code, each with its source (the line where the dangerous input enters) and its trace (the lines from the source to the line that runs the command); all 38 public examples put the source at that last line, but the hidden checker accepted only the input line. The same analyzer, finding the same 120 bugs, scored 45.66 out of 100 written the public way and 60.66 written the hidden way, and one real AI agent submission went from 70.00 to 95.26; the fixed checker accepts both forms. <a href="tasks/juliet_vulnerability_analyzer.html" class="case-link">Read the case</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>: the checker's physics is not the textbook's.</span> The agent locates an underground pollution source from monitoring-well readings. The checker predicts the readings with a physics model whose conventions the instructions never state; for example, it ignores soil porosity. <mark>An honest textbook fit scores 7.03 and the same fit using the checker's conventions 31.2</mark> (raw results on this task's 0–109 range; 6.45 and 28.62 out of 100). In a real agent run, which was read rather than regraded, the best score climbed from 7.01 to 60.10 over 36 submissions while the checker reported its error on the hidden wells after each one. The fixed task gives agents the checker's model.</p>
+</div><figcaption><b>Figure 13.</b> An analyzer that writes its answers the way the public examples do lost 15 of 100 points to the hidden checker (for an analyzer that finds only the command-injection bugs; the loss depends on the analyzer, from 2.49 for one that finds every bug to 26.47 at most, computed). The task asks for command-injection bugs in C code, each with its source (the line where the dangerous input enters) and its trace (the lines from the source to the line that runs the command); all 38 public examples put the source at that last line, but the hidden checker accepted only the input line. The same analyzer, finding the same 120 bugs, scored 45.66 out of 100 written the public way and 60.66 written the hidden way, and in a real agent run one submission went from 70.00 to 95.26 (14 of 105 changed; the run&#x27;s kept score of 99.66 did not); the fixed checker accepts both forms. <a href="tasks/juliet_vulnerability_analyzer.html" class="case-link">Read the case</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>: the checker's physics is not the textbook's.</span> The agent locates an underground pollution source from monitoring-well readings. The checker predicts the readings with a physics model whose conventions the instructions never state; for example, it ignores soil porosity. <mark>An honest textbook fit scores 7.03 and the same fit using the checker's conventions 31.2</mark> (raw results on this task's 0–109 range; 6.45 and 28.62 out of 100). In a real agent run, whose answers score the same under the unchanged grader, the best score climbed from 7.01 to 60.10 over 36 submissions while the checker reported its error on the hidden wells after each one. The fixed task gives agents the checker's model.</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: published numbers proved · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-borden_source_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 578" role="img">
 <title>A textbook fit scores 7; the checker's unstated physics is worth 31</title>
@@ -869,7 +887,7 @@
 <text x="342" y="190" class="ink" font-size="14" text-anchor="start">• puts the source on one face of its box</text>
 <text x="16" y="228" class="muted" font-size="13" text-anchor="start">The public data fit both models equally well, so a solver cannot tell which one the checker uses.</text>
 <text x="16" y="262" class="ink" font-size="14" text-anchor="start" font-weight="600">One-shot fit to the public data</text>
-<text x="16" y="280" class="muted" font-size="13" text-anchor="start">same method, two physics models</text>
+<text x="16" y="280" class="muted" font-size="13" text-anchor="start">baseline, and the same fit with two physics models</text>
 <text x="340" y="262" class="ink" font-size="14" text-anchor="start" font-weight="600">A real agent run: 36 submissions in 4 hours</text>
 <text x="340" y="280" class="muted" font-size="13" text-anchor="start">after each one, the checker reports its error on hidden wells</text>
 <line x1="50" y1="446.0" x2="300" y2="446.0" class="rule" stroke-width="1"/>
@@ -954,18 +972,18 @@
 <text x="50" y="298" class="muted" font-size="13" text-anchor="start">raw score</text>
 <line x1="50" y1="446" x2="300" y2="446" class="inkS" stroke-width="1.2"/>
 <text x="16" y="518" class="ink" font-size="13" text-anchor="start">Scores are raw results from 0 to 109; the true source scores 109. The fixed version converts</text>
-<text x="16" y="536" class="ink" font-size="13" text-anchor="start">them to a score out of 100 as raw × 100/109: 7.03 → 6.45, 31.2 → 28.6, 60.10 → 55.1.</text>
+<text x="16" y="536" class="ink" font-size="13" text-anchor="start">them to a score out of 100 as raw × 100/109: 7.03 → 6.45, 31.2 → 28.62, 60.10 → 55.14.</text>
 <text x="16" y="564" class="good" font-size="14" text-anchor="start" font-weight="600">Fix: agents get the checker's own model as a file, with its conventions written out.</text>
 </svg>
-</div><figcaption><b>Figure 14.</b> A textbook answer scores about 7 because the checker&#x27;s physics model follows conventions the instructions never state. The agent locates an underground pollution source from monitoring-well readings; the checker&#x27;s model, for example, ignores soil porosity and treats a mass rate as a mass, and the public data fit it and the textbook model equally well. A one-shot fit with the textbook model scores 7.03 raw against 31.2 for the same method with the checker&#x27;s model (raw results run from 0 to 109; out of 100 these are 6.45 and 28.6), and a real agent run climbed from 7.01 to 60.10 raw over 36 submissions while the checker reported its error on hidden wells after each one. The fixed task gives agents the checker&#x27;s own model with its conventions written out, and reports the score out of 100 as raw × 100/109. <a href="tasks/borden_source_inversion.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 14.</b> A textbook answer scores about 7 because the checker&#x27;s physics model follows conventions the instructions never state. The agent locates an underground pollution source from monitoring-well readings; the checker&#x27;s model, for example, ignores soil porosity and treats a mass rate as a mass, and the public data fit it and the textbook model equally well. A one-shot fit with the textbook model scores 7.03 raw against 31.2 for the same method with the checker&#x27;s model (raw results run from 0 to 109; out of 100 these are 6.45 and 28.62), and a real agent run climbed from 7.01 to 60.10 raw over 36 submissions while the checker reported its error on hidden wells after each one. The fixed task gives agents the checker&#x27;s own model with its conventions written out, and reports the score out of 100 as raw × 100/109. <a href="tasks/borden_source_inversion.html" class="case-link">Read the case</a></figcaption></figure>
 
   <h3 id="scale_selection"><span class="num">3.4</span>Scoring scale and selection <span class="hcount">3 tasks</span></h3>
   <p>The raw result is computed correctly, but the step that turns it into the final score goes wrong. The reference points that convert the raw result to 0–100 cannot be reached or were measured on something else, so scores are compressed or shifted; or the rule that picks each run's best submission keeps the wrong one.</p>
   <p class="pcat-tasks">Primary category of 3 tasks: <a class="task-link" href="tasks/integer_compression_codec.html">Integer Compression Codec</a>, <a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition Permutation Optimization</a>, <a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>. <a href="tasks/index.html#scale_selection">Show them in the task list</a>.<br>Secondary category of: <a class="task-link" href="tasks/borden_source_inversion.html">Borden Source Inversion</a>, <a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>, <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>.</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>: the run's later, better work never counts.</span> Each run reports its best submission, chosen first by how many of the checker's five tests pass. One test compares a helper file against an outdated fingerprint, so every submission fails it, every submission ties at 4 of 5, and the run is stuck with its first valid submission. <mark>In a real agent run this kept 3.79 out of 100 instead of the 41.24 a later submission earned.</mark> The fix updates the fingerprint; each submission's own score is unchanged. Anyone who keeps the highest score instead is not affected.</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>: the run's later, better work never counts.</span> Each run reports its best submission, chosen first by how many of the checker's five tests pass. One test compares a helper file against an outdated fingerprint, so every submission fails it, every scored submission ties at 4 of 5, and the run is stuck with its first scored submission. <mark>In a real agent run this kept 3.79 out of 100 instead of the 41.24 a later submission earned.</mark> The fix updates the fingerprint; each submission's own score is unchanged. Anyone who keeps the highest score instead is not affected.</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · TLA+: fix model-checked correct · fix tested side by side, three runs</p>
-  <figure class="fig" id="fig-order_addition_permutation_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 510" role="img">
-<title>Order Addition real run</title>
+  <figure class="fig" id="fig-order_addition_permutation_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 530" role="img">
+<title>An outdated file check fails one test in every submission, so a real agent run keeps 3.79 out of 100 instead of 41.24</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -974,7 +992,7 @@
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text x="16" y="26" class="ink" font-size="17" text-anchor="start" font-weight="600">An outdated file check fails every submission,</text>
+<text x="16" y="26" class="ink" font-size="17" text-anchor="start" font-weight="600">An outdated file check fails one test in every submission,</text>
 <text x="16" y="48" class="ink" font-size="17" text-anchor="start" font-weight="600">so a real agent run keeps 3.79 out of 100 instead of 41.24</text>
 <text x="16" y="74" class="muted" font-size="14" text-anchor="start" font-weight="400">Task: put the numbers 1 to 1000 in an order that makes a hidden cost as small as possible.</text>
 <text x="16" y="94" class="muted" font-size="14" text-anchor="start" font-weight="400">One of the 5 tests expects an older version of a helper file, so it fails for everyone.</text>
@@ -1063,6 +1081,7 @@
 <text x="16" y="456" class="ink" font-size="13.5" text-anchor="start" font-weight="400">Rule: keep the submission that passes the most tests; compare scores only if all 5 pass.</text>
 <text x="16" y="476" class="muted" font-size="13.5" text-anchor="start" font-weight="400">Original: all scored work ties at 4 of 5, so the first one stays. Fixed: 5 of 5, so the best one wins.</text>
 <text x="16" y="496" class="muted" font-size="13" text-anchor="start" font-weight="400">auto = a copy of the work graded automatically by the platform; agent = submitted by the agent.</text>
+<text x="16" y="516" class="muted" font-size="13" text-anchor="start" font-weight="400">Bar colours: gold = kept by the original checker; green = kept by the fixed checker; blue = other scored work.</text>
 </svg>
 </div><figcaption><b>Figure 15.</b> An outdated file check made a real agent run keep 3.79 out of 100 although a later submission earned 41.24. The agent orders the numbers 1 to 1000 to make a hidden cost small; one of the five tests expects an older version of a helper file, so every submission fails it. The run keeps the submission that passes the most tests and compares scores only when all five pass, so every scored submission ties at 4 of 5 and the first one stays. With the expected file version corrected, the scored submissions pass 5 of 5, each score is unchanged, and the run keeps 41.24. <a href="tasks/order_addition_permutation_optimization.html" class="case-link">Read the case</a></figcaption></figure>
   <p><span class="lead-in"><a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>: no submission can score above 21.</span> The checker stops each game after a fixed number of turns, so no total can exceed 92,304. The 0–100 scale was set as if totals up to 330,195 were possible, <mark>so even a perfect submission would score 21.02 out of 100.</mark> The fixed scale runs from the starter's total to the most the checker allows (whether any submission can reach it is not shown). An honest test solution moves from 3.04 to 16.36, and the order of submissions is unchanged.</p>
@@ -1109,11 +1128,11 @@
 <text x="58" y="352" class="acc" font-size="14" font-weight="600">Honest test solution: 17,960 turns, the same raw result on both scales</text>
 <text x="40" y="378" class="muted" font-size="13">Order of submissions unchanged. Whether any submission can reach the cap is not shown.</text>
 </svg>
-</div><figcaption><b>Figure 16.</b> In Treant&#x27;s Forest no submission can score above 21.02 out of 100, because the score scale was set for totals the checker never allows. The agent plays a grid puzzle scored by the number of turns, and the checker ends each game after 2N² turns, so the total over the 50 cases is at most 92,304, while the original scale needs 330,195 for 80 points. The fixed scale runs from the starter code&#x27;s 3,418 turns (0) to the 92,304 cap (100), so an honest test solution moves from 3.04 to 16.36 and the order of submissions is unchanged; whether any submission can reach the cap is not shown. <a href="tasks/treant_forest.html" class="case-link">Read the case</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a>: an impossible reference number.</span> The agent writes a compressor for lists of numbers and is scored against stored reference results for the starter code. One stored figure claims 5.13 bits per number, below the 8-bit minimum for the starter's format; the starter really needs 38.98. As a result the starter scores about 0.24 instead of the documented 1.0 (raw), and the datasets count differently from what is published. The fix measures the starter in the same run and sets a new 0–100 scale from the starter's result to the highest the formula allows. <mark>That moves a real agent run from 75.72 to 53.95 out of 100: fixes can lower scores as well as raise them.</mark></p>
+</div><figcaption><b>Figure 16.</b> In Treant Forest no submission can score above 21.02 out of 100, because the score scale was set for totals the checker never allows. The agent plays a grid puzzle scored by the number of turns, and the checker ends each game after 2N² turns, so the total over the 50 cases is at most 92,304, while the original scale needs 330,195 for 80 points. The fixed scale runs from the starter code&#x27;s 3,418 turns (0) to the 92,304 cap (100), so an honest test solution moves from 3.04 to 16.36 and the order of submissions is unchanged; whether any submission can reach the cap is not shown. <a href="tasks/treant_forest.html" class="case-link">Read the case</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a>: an impossible reference number.</span> The agent writes a compressor for lists of numbers and is scored against stored reference results for the starter code. One stored figure claims 5.13 bits per number, below the 8-bit minimum for the starter's format; the starter really needs 38.98. As a result the starter scores about 0.23 instead of the documented 1.0 (raw), and the datasets count differently from what is published. The fix measures the starter in the same run and sets a new 0–100 scale from the starter's result to the highest the formula allows. <mark>That moves a real agent run from 71.93 to 53.95 out of 100, both regraded on our machines: fixes can lower scores as well as raise them.</mark> (The run itself recorded 75.72 on its own machine.)</p>
   <p class="verif"><b>Evidence:</b> reproduced on the original grader · Lean&nbsp;4: fix partly proved correct · fix tested side by side, three runs</p>
   <figure class="fig" id="fig-integer_compression_codec"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 532" role="img">
-<title>Integer Codec reference numbers</title>
+<title>The checker’s reference number is impossible, so every score is off</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -1149,11 +1168,11 @@
 <text x="16" y="428" font-size="13" class="muted">Fixed checker: 0 out of 100 (the starter</text>
 <text x="16" y="445" font-size="13" class="muted">is the zero point).</text>
 <line x1="364" y1="292" x2="364" y2="450" class="rule" stroke-width="1.5"/>
-<text x="380" y="306" font-size="14" class="muted">Best submission of a real agent run, out of 100</text>
+<text x="380" y="306" font-size="14" class="muted">A real run’s best, per checker, out of 100</text>
 <text x="380" y="337" font-size="15" class="ink">Original</text>
 <rect x="460" y="320" width="220" height="24" class="accBg"/>
-<rect x="460" y="320" width="166.6" height="24" class="bad"/>
-<text x="634.6" y="338" font-size="16" font-weight="700" class="ink">75.72</text>
+<rect x="460" y="320" width="158.2" height="24" class="bad"/>
+<text x="626.2" y="338" font-size="16" font-weight="700" class="ink">71.93</text>
 <text x="380" y="377" font-size="15" class="ink">Fixed</text>
 <rect x="460" y="360" width="220" height="24" class="accBg"/>
 <rect x="460" y="360" width="118.7" height="24" class="good"/>
@@ -1165,9 +1184,9 @@
 <text x="380" y="458" font-size="13" class="muted">starter (0) to the formula’s maximum, 320 (100).</text>
 <rect x="16" y="474" width="688" height="52" rx="8" class="warnBg"/>
 <text x="30" y="496" font-size="15" class="ink">Fix: the checker measures the starter in the same run and uses it as the reference.</text>
-<text x="30" y="516" font-size="13" class="muted">Right: 75.72 is the score the run recorded; 53.95 is our regrade of all 37 submissions.</text>
+<text x="30" y="516" font-size="13" class="muted">Right: all 37 submissions regraded on our machines with both checkers; the run itself recorded 75.72.</text>
 </svg>
-</div><figcaption><b>Figure 17.</b> The checker compares every submission with a stored reference for the starter code that the starter cannot reach, so every score is off. The task is to improve an integer compressor; on the docids dataset the stored reference is 5.13 bits per number, below the 8 bits any whole-byte format needs, while the starter actually uses 38.98 (5 of the 8 datasets have stored values below 8). As a result the unchanged starter scores 0.23 raw instead of the documented 1.0, and every raw result is too low by a factor that differs per dataset. The fixed checker measures the starter in the same run (0.98 raw for the starter) and puts the starter at 0 and the formula&#x27;s maximum of 320 at 100 on its 0 to 100 scale, so the best submission of a real Claude Opus 5.5 run, recorded at 75.72 out of 100, regrades to 53.95 out of 100. <a href="tasks/integer_compression_codec.html" class="case-link">Read the case</a></figcaption></figure>
+</div><figcaption><b>Figure 17.</b> The checker compares every submission with a stored reference for the starter code that the starter cannot reach, so every score is off. The task is to improve an integer compressor; on the docids dataset the stored reference is 5.13 bits per number, below the 8 bits any whole-byte format needs, while the starter actually uses 38.98 (5 of the 8 datasets have stored values below 8). As a result the unchanged starter scores 0.23 raw instead of the documented 1.0, and every raw result is too low by a factor that differs per dataset. The fixed checker measures the starter in the same run (0.98 raw for the starter) and puts the starter at 0 and the formula&#x27;s maximum of 320 at 100 on its 0 to 100 scale, so a real Claude Opus 5.5 run&#x27;s best submission, regraded on our machines, scores 71.93 out of 100 on the original checker and 53.95 on the fixed one (the run itself recorded 75.72). <a href="tasks/integer_compression_codec.html" class="case-link">Read the case</a></figcaption></figure>
 
   <p class="note">Other fixed tasks, such as <a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting</a>, <a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>, <a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring</a> and <a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>, are described in the category lists above and on their own pages.</p>
   <div class="cta">
@@ -1179,7 +1198,7 @@
 <section id="impact" class="col">
   <h2 class="sec"><span class="num">4</span>Effect on the published leaderboard</h2>
   <p>EdgeBench has not released its agents' submissions, so the corrected leaderboard cannot be computed. One check is possible: a third party published one four-hour run of one model on 16 public tasks, nine of them tasks we fixed. We regraded its submissions with the original and the fixed checker. The problems happen to real agents, and sometimes they do not (figure below).</p>
-  <figure class="fig" id="fig-real-runs"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 716" role="img">
+  <figure class="fig" id="fig-real-runs"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 806" role="img">
 <title>A real agent run, regraded: the run&#x27;s score moved in 2 of 7 tasks</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
@@ -1203,13 +1222,57 @@
 <text x="214" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
 <text x="334" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">50</text>
 <text x="454" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">100</text>
-<text x="523" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">-25</text>
+<text x="523" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">−25</text>
 <text x="598" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
 <text x="673" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">+25</text>
-<line x1="214.0" y1="124" x2="214.0" y2="668" class="rule" stroke-width="1"/>
-<line x1="334.0" y1="124" x2="334.0" y2="668" class="rule" stroke-width="1"/>
-<line x1="454.0" y1="124" x2="454.0" y2="668" class="rule" stroke-width="1"/>
-<line x1="598" y1="124" x2="598" y2="668" class="rule" stroke-width="1.5"/>
+<line x1="214" y1="124" x2="214" y2="154" class="rule" stroke-width="1"/>
+<line x1="214" y1="189" x2="214" y2="200" class="rule" stroke-width="1"/>
+<line x1="214" y1="217" x2="214" y2="221" class="rule" stroke-width="1"/>
+<line x1="214" y1="273" x2="214" y2="305" class="rule" stroke-width="1"/>
+<line x1="214" y1="340" x2="214" y2="372" class="rule" stroke-width="1"/>
+<line x1="214" y1="390" x2="214" y2="422" class="rule" stroke-width="1"/>
+<line x1="214" y1="474" x2="214" y2="506" class="rule" stroke-width="1"/>
+<line x1="214" y1="541" x2="214" y2="573" class="rule" stroke-width="1"/>
+<line x1="214" y1="608" x2="214" y2="640" class="rule" stroke-width="1"/>
+<line x1="214" y1="658" x2="214" y2="669" class="rule" stroke-width="1"/>
+<line x1="214" y1="686" x2="214" y2="690" class="rule" stroke-width="1"/>
+<line x1="334" y1="124" x2="334" y2="133" class="rule" stroke-width="1"/>
+<line x1="334" y1="150" x2="334" y2="154" class="rule" stroke-width="1"/>
+<line x1="334" y1="189" x2="334" y2="200" class="rule" stroke-width="1"/>
+<line x1="334" y1="217" x2="334" y2="221" class="rule" stroke-width="1"/>
+<line x1="334" y1="273" x2="334" y2="305" class="rule" stroke-width="1"/>
+<line x1="334" y1="340" x2="334" y2="372" class="rule" stroke-width="1"/>
+<line x1="334" y1="390" x2="334" y2="401" class="rule" stroke-width="1"/>
+<line x1="334" y1="418" x2="334" y2="422" class="rule" stroke-width="1"/>
+<line x1="334" y1="474" x2="334" y2="506" class="rule" stroke-width="1"/>
+<line x1="334" y1="541" x2="334" y2="552" class="rule" stroke-width="1"/>
+<line x1="334" y1="569" x2="334" y2="573" class="rule" stroke-width="1"/>
+<line x1="334" y1="608" x2="334" y2="640" class="rule" stroke-width="1"/>
+<line x1="334" y1="658" x2="334" y2="669" class="rule" stroke-width="1"/>
+<line x1="334" y1="686" x2="334" y2="690" class="rule" stroke-width="1"/>
+<line x1="454" y1="124" x2="454" y2="154" class="rule" stroke-width="1"/>
+<line x1="454" y1="189" x2="454" y2="221" class="rule" stroke-width="1"/>
+<line x1="454" y1="273" x2="454" y2="305" class="rule" stroke-width="1"/>
+<line x1="454" y1="340" x2="454" y2="372" class="rule" stroke-width="1"/>
+<line x1="454" y1="390" x2="454" y2="422" class="rule" stroke-width="1"/>
+<line x1="454" y1="474" x2="454" y2="506" class="rule" stroke-width="1"/>
+<line x1="454" y1="541" x2="454" y2="573" class="rule" stroke-width="1"/>
+<line x1="454" y1="608" x2="454" y2="640" class="rule" stroke-width="1"/>
+<line x1="454" y1="658" x2="454" y2="690" class="rule" stroke-width="1"/>
+<line x1="598" y1="124" x2="598" y2="133" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="150" x2="598" y2="154" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="189" x2="598" y2="221" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="273" x2="598" y2="305" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="340" x2="598" y2="372" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="390" x2="598" y2="422" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="474" x2="598" y2="485" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="502" x2="598" y2="506" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="541" x2="598" y2="552" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="569" x2="598" y2="573" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="608" x2="598" y2="619" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="636" x2="598" y2="640" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="658" x2="598" y2="669" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="686" x2="598" y2="690" class="rule" stroke-width="1.5"/>
 <text x="16" y="139.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Order Addition Permutation</text>
 <text x="16" y="154.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Optimization</text>
 <line x1="223.1" y1="142" x2="313.0" y2="142" class="mutedS" stroke-width="2"/>
@@ -1220,77 +1283,82 @@
 <text x="214" y="167" class="muted" font-size="13" text-anchor="start" font-weight="400">Each submission keeps its own score; the fixed checker keeps a</text>
 <text x="214" y="184" class="muted" font-size="13" text-anchor="start" font-weight="400">later, better one (9 submissions).</text>
 <text x="16" y="213.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Integer Compression Codec</text>
-<line x1="395.7" y1="209" x2="343.5" y2="209" class="mutedS" stroke-width="2"/>
-<circle cx="395.7" cy="209" r="5" class="bg mutedS" stroke-width="2"/>
+<line x1="386.6" y1="209" x2="343.5" y2="209" class="mutedS" stroke-width="2"/>
+<circle cx="386.6" cy="209" r="5" class="bg mutedS" stroke-width="2"/>
 <circle cx="343.479" cy="209" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="405.733" y="213.5" class="ink" font-size="13" text-anchor="start" font-weight="400">75.72 → 53.95</text>
+<text x="333.479" y="213.5" class="ink" font-size="13" text-anchor="end" font-weight="400">71.93–73.03 → 53.95</text>
 <rect x="509.0" y="203" width="89.0" height="12" rx="2" class="acc" stroke-width="1.5"/>
 <text x="604" y="213.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−29.68</text>
 <text x="214" y="234" class="muted" font-size="13" text-anchor="start" font-weight="400">Raw results rise 1.7–4×; the fixed 0–100 scale lowers the run&#x27;s</text>
-<text x="214" y="251" class="muted" font-size="13" text-anchor="start" font-weight="400">score (37 submissions).</text>
-<text x="16" y="280.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Lean Analysis Proofs</text>
-<line x1="446.5" y1="276" x2="450.2" y2="276" class="mutedS" stroke-width="2"/>
-<circle cx="446.5" cy="276" r="5" class="bg mutedS" stroke-width="2"/>
-<circle cx="450.2" cy="276" r="5" class="bg accS" stroke-width="2" stroke-dasharray="2 2"/>
-<text x="436.472" y="280.5" class="ink" font-size="13" text-anchor="end" font-weight="400">96.86 → 98.42</text>
-<rect x="598.0" y="270" width="14.8" height="12" rx="2" class="bg accS" stroke-width="1.5" stroke-dasharray="2 2"/>
-<text x="592" y="280.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+4.95</text>
-<text x="214" y="301" class="muted" font-size="13" text-anchor="start" font-weight="400">Computed from the original checker&#x27;s saved verdicts, not run (20</text>
-<text x="214" y="318" class="muted" font-size="13" text-anchor="start" font-weight="400">submissions).</text>
-<text x="16" y="340.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Juliet Vulnerability</text>
-<text x="16" y="355.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Analyzer</text>
-<line x1="453.2" y1="343" x2="453.2" y2="343" class="mutedS" stroke-width="2"/>
-<circle cx="453.2" cy="343" r="5" class="bg mutedS" stroke-width="2"/>
-<circle cx="453.184" cy="343" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="443.184" y="347.5" class="ink" font-size="13" text-anchor="end" font-weight="400">99.66 = 99.66</text>
-<rect x="598.0" y="337" width="75.8" height="12" rx="2" class="acc" stroke-width="1.5"/>
-<text x="592" y="347.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+25.26</text>
-<text x="214" y="368" class="muted" font-size="13" text-anchor="start" font-weight="400">14 of 105 submissions changed; the best one did not.</text>
-<text x="16" y="397.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Molecular Self Assembly</text>
-<line x1="454.0" y1="393" x2="454.0" y2="393" class="mutedS" stroke-width="2"/>
-<circle cx="454.0" cy="393" r="5" class="bg mutedS" stroke-width="2"/>
-<circle cx="454" cy="393" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="444" y="397.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
-<rect x="598.0" y="387" width="36.7" height="12" rx="2" class="acc" stroke-width="1.5"/>
-<text x="592" y="397.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+12.22</text>
-<text x="214" y="418" class="muted" font-size="13" text-anchor="start" font-weight="400">All 8 graded submissions rose; the run was already at the top of</text>
-<text x="214" y="435" class="muted" font-size="13" text-anchor="start" font-weight="400">the scale (8 of 13 graded).</text>
-<text x="16" y="464.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Tree Block Partitioning</text>
-<line x1="454.0" y1="460" x2="454.0" y2="460" class="mutedS" stroke-width="2"/>
-<circle cx="454.0" cy="460" r="5" class="bg mutedS" stroke-width="2"/>
-<circle cx="454" cy="460" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="444" y="464.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
-<text x="598" y="464.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
-<text x="214" y="485" class="muted" font-size="13" text-anchor="start" font-weight="400">Differences come from timing near the time limit, under both</text>
-<text x="214" y="502" class="muted" font-size="13" text-anchor="start" font-weight="400">checkers (13 of 25 graded).</text>
-<text x="16" y="531.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Graph Node Classification</text>
-<line x1="432.0" y1="527" x2="431.1" y2="527" class="mutedS" stroke-width="2"/>
-<circle cx="432.0" cy="527" r="5" class="bg mutedS" stroke-width="2"/>
-<circle cx="431.115" cy="527" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="421.115" y="531.5" class="ink" font-size="13" text-anchor="end" font-weight="400">90.85 → 90.43–90.60</text>
-<text x="598" y="531.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
-<text x="214" y="552" class="muted" font-size="13" text-anchor="start" font-weight="400">90.85 against 90.43–90.60 is timing noise (112 of 118 graded).</text>
-<text x="16" y="574.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Schemathesis Config</text>
-<text x="16" y="589.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Modernization</text>
-<line x1="454.0" y1="577" x2="454.0" y2="577" class="mutedS" stroke-width="2"/>
-<circle cx="454.0" cy="577" r="5" class="bg mutedS" stroke-width="2"/>
-<circle cx="454" cy="577" r="5" class="acc ioRing" stroke-width="1.5"/>
-<text x="444" y="581.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
-<text x="598" y="581.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
-<text x="214" y="602" class="muted" font-size="13" text-anchor="start" font-weight="400">All 30 submissions score the same under both checkers.</text>
-<text x="16" y="631.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Borden Source Inversion</text>
-<circle cx="346.3" cy="627" r="5" class="bg mutedS" stroke-width="2"/>
-<text x="336.337" y="631.5" class="ink" font-size="13" text-anchor="end" font-weight="400">55.14</text>
-<text x="598" y="631.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">cannot be regraded</text>
-<text x="214" y="652" class="muted" font-size="13" text-anchor="start" font-weight="400">The fix changes the instructions, so old answers cannot be</text>
-<text x="214" y="669" class="muted" font-size="13" text-anchor="start" font-weight="400">regraded; 60.10 on its 0–109 scale.</text>
-<text x="16" y="690" class="muted" font-size="13" text-anchor="start" font-weight="400">It shows the problems happen to real agents, and sometimes do not. It does not measure the</text>
-<text x="16" y="708" class="muted" font-size="13" text-anchor="start" font-weight="400">effect on the 12-hour leaderboard.</text>
+<text x="214" y="251" class="muted" font-size="13" text-anchor="start" font-weight="400">score; the run itself recorded 75.72 on its own machine (37</text>
+<text x="214" y="268" class="muted" font-size="13" text-anchor="start" font-weight="400">submissions).</text>
+<text x="16" y="297.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Lean Analysis Proofs</text>
+<line x1="446.5" y1="293" x2="450.2" y2="293" class="mutedS" stroke-width="2"/>
+<circle cx="446.5" cy="293" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="450.2" cy="293" r="5" class="bg accS" stroke-width="2" stroke-dasharray="2 2"/>
+<text x="436.472" y="297.5" class="ink" font-size="13" text-anchor="end" font-weight="400">96.86 → 98.42</text>
+<rect x="598.0" y="287" width="14.8" height="12" rx="2" class="bg accS" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="592" y="297.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+4.95</text>
+<text x="214" y="318" class="muted" font-size="13" text-anchor="start" font-weight="400">Computed from the original checker&#x27;s saved verdicts, not run (20</text>
+<text x="214" y="335" class="muted" font-size="13" text-anchor="start" font-weight="400">submissions).</text>
+<text x="16" y="357.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Juliet Vulnerability</text>
+<text x="16" y="372.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Analyzer</text>
+<line x1="453.2" y1="360" x2="453.2" y2="360" class="mutedS" stroke-width="2"/>
+<circle cx="453.2" cy="360" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="453.184" cy="360" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="443.184" y="364.5" class="ink" font-size="13" text-anchor="end" font-weight="400">99.66 = 99.66</text>
+<rect x="598.0" y="354" width="75.8" height="12" rx="2" class="acc" stroke-width="1.5"/>
+<text x="592" y="364.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+25.26</text>
+<text x="214" y="385" class="muted" font-size="13" text-anchor="start" font-weight="400">14 of 105 submissions changed; the best one did not.</text>
+<text x="16" y="414.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Molecular Self Assembly</text>
+<line x1="448.5" y1="410" x2="454.0" y2="410" class="mutedS" stroke-width="2"/>
+<circle cx="448.5" cy="410" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="410" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="438.511" y="414.5" class="ink" font-size="13" text-anchor="end" font-weight="400">95.91–100 → 100</text>
+<rect x="598.0" y="404" width="36.7" height="12" rx="2" class="acc" stroke-width="1.5"/>
+<text x="592" y="414.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+12.22</text>
+<text x="214" y="435" class="muted" font-size="13" text-anchor="start" font-weight="400">All 8 graded submissions rose; the kept one was already near the</text>
+<text x="214" y="452" class="muted" font-size="13" text-anchor="start" font-weight="400">top of the scale; the run itself recorded 100 on its own machine</text>
+<text x="214" y="469" class="muted" font-size="13" text-anchor="start" font-weight="400">(8 of 13 graded).</text>
+<text x="16" y="498.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Tree Block Partitioning</text>
+<line x1="454.0" y1="494" x2="454.0" y2="494" class="mutedS" stroke-width="2"/>
+<circle cx="454.0" cy="494" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="494" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="444" y="498.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
+<text x="598" y="498.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
+<text x="214" y="519" class="muted" font-size="13" text-anchor="start" font-weight="400">Differences come from timing near the time limit, under both</text>
+<text x="214" y="536" class="muted" font-size="13" text-anchor="start" font-weight="400">checkers (13 of 25 graded).</text>
+<text x="16" y="565.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Graph Node Classification</text>
+<line x1="431.2" y1="561" x2="431.1" y2="561" class="mutedS" stroke-width="2"/>
+<circle cx="431.2" cy="561" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="431.115" cy="561" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="421.115" y="565.5" class="ink" font-size="13" text-anchor="end" font-weight="400">90.44–90.60 → 90.43–90.60</text>
+<text x="598" y="565.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
+<text x="214" y="586" class="muted" font-size="13" text-anchor="start" font-weight="400">The spread is timing noise under both checkers; the run itself</text>
+<text x="214" y="603" class="muted" font-size="13" text-anchor="start" font-weight="400">recorded 90.85 on its own machine (112 of 118 graded).</text>
+<text x="16" y="625.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Schemathesis Config</text>
+<text x="16" y="640.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Modernization</text>
+<line x1="454.0" y1="628" x2="454.0" y2="628" class="mutedS" stroke-width="2"/>
+<circle cx="454.0" cy="628" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="628" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="444" y="632.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
+<text x="598" y="632.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
+<text x="214" y="653" class="muted" font-size="13" text-anchor="start" font-weight="400">All 30 submissions score the same under both checkers.</text>
+<text x="16" y="682.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Borden Source Inversion</text>
+<circle cx="346.3" cy="678" r="5" class="bg mutedS" stroke-width="2"/>
+<text x="336.337" y="682.5" class="ink" font-size="13" text-anchor="end" font-weight="400">55.14 (raw 60.10)</text>
+<text x="598" y="682.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">same grader; needs a new run</text>
+<text x="214" y="703" class="muted" font-size="13" text-anchor="start" font-weight="400">Grader unchanged, so old answers score the same (60.10 raw, 55.14</text>
+<text x="214" y="720" class="muted" font-size="13" text-anchor="start" font-weight="400">out of 100); the fix changes the instructions, so only new runs</text>
+<text x="214" y="737" class="muted" font-size="13" text-anchor="start" font-weight="400">can show its effect.</text>
+<text x="16" y="762" class="muted" font-size="13" text-anchor="start" font-weight="400">Both checkers regraded on our machines; a range is the spread over three gradings.</text>
+<text x="16" y="780" class="muted" font-size="13" text-anchor="start" font-weight="400">It shows the problems happen to real agents, and sometimes do not. It does not measure the</text>
+<text x="16" y="798" class="muted" font-size="13" text-anchor="start" font-weight="400">effect on the 12-hour leaderboard.</text>
 
 </svg>
-</div><figcaption><b>Figure 18.</b> We regraded one four-hour Claude Opus 5.5 run, submission by submission, with the original and the fixed checker. The run&#x27;s kept score changed in 2 of the 7 regraded tasks: Order Addition 3.79 → 41.24, although no single submission&#x27;s score changed, and Integer Codec 75.72 → 53.95 on the fixed scale. In 2 more tasks single submissions changed by up to 25.26 points while the kept score did not, and in 3 the problem never occurred. It shows that the problems happen to real agents, and sometimes do not; it does not measure the effect on the 12-hour leaderboard.</figcaption></figure>
-  <p>On the published leaderboard, Opus&nbsp;4.8 leads GPT-5.5 by 1.1 points (44.2 against 43.1). The corrections that can be computed from the public averages keep that order: 45.92–46.05 against 44.73–44.86. Adding the per-task limits we documented widens the ranges to 45.49–47.30 and 44.30–46.35. <mark>These overlap, so the public data can no longer confirm which model is ahead.</mark> This does not show that they change places; deciding that needs the original submissions or new runs. These ranges count every fix whose size is unknown as zero.</p>
-  <p class="note"><mark>The conditional bounds cannot certify the order of Opus 4.8 and GPT-5.5; overlap does not prove an attainable reversal.</mark> The other neighbouring orders are certified only if the direction-only fixes have no effect; in the full-domain envelope every neighbouring pair overlaps.</p>
+</div><figcaption><b>Figure 18.</b> We regraded one four-hour Claude Opus 5.5 run, submission by submission, with the original and the fixed checker. The run&#x27;s kept score changed in 2 of the 7 regraded tasks: Order Addition 3.79 → 41.24, although no single submission&#x27;s score changed, and Integer Codec 71.93 → 53.95 on the fixed scale (the run itself recorded 75.72 on its own machine). Both sides are regrades on our machines. In 2 more tasks single submissions changed by up to 25.26 points while the kept score did not, and in 3 the problem never occurred. In Borden Inversion the grader is unchanged, so the run&#x27;s answers score the same (60.10 raw, 55.14 out of 100); the fix changes the instructions, so only new runs can show its effect. It shows that the problems happen to real agents, and sometimes do not; it does not measure the effect on the 12-hour leaderboard.</figcaption></figure>
+  <p>On the published leaderboard, Opus&nbsp;4.8 leads GPT-5.5 by 1.1 points (44.2 against 43.1). The corrections that can be computed from the public averages keep that order: 45.92–46.05 against 44.73–44.86. Adding the per-task limits we documented widens the ranges to 45.49–47.30 and 44.30–46.35. <mark>These overlap, so the public data can no longer confirm which model is ahead.</mark> This does not show that they change places; deciding that needs the original submissions or new runs. These ranges count every fix whose size on the leaderboard is unknown as zero.</p>
+  <p class="note"><mark>The ranges cannot confirm the order of Opus 4.8 and GPT-5.5; overlapping ranges do not show that they change places.</mark> The other places on the leaderboard hold only if the fixes whose size is unknown change nothing. If those fixes are allowed their full possible range, no place on the leaderboard can be confirmed.</p>
   <p class="more-link"><a href="leaderboard.html">The full leaderboard analysis, with Table&nbsp;3 and the real-run regrade</a></p>
 </section>
 
@@ -1304,7 +1372,7 @@
     <li><b>Follow it to the final score.</b> A problem counts only if it changes the 0–100 score of honest work.</li>
     <li><b>Compare original and repaired versions</b> on the same test submissions: 254 graded comparisons, 240 of them run three times.</li>
   </ol>
-  <p>26 of the 51 tasks have formal results, with 286 Lean theorems and 20 TLA+ model-checking runs. <mark>The saved formal results cover 10 repair mechanisms within explicit models, and 4 more partly. They do not certify changed candidates, full evaluator behavior or image integration.</mark> The formal checks also corrected us: one shipped fix was narrower than published, and has been revised.</p>
+  <p>26 of the 51 tasks have formal results, with 286 Lean theorems and 20 TLA+ model-checking runs. <mark>The saved formal results prove 9 fixes within explicit models (5 of them an earlier version of the fix) and 5 more in part. They do not prove later versions of a fix, the whole checker or the published images.</mark> The formal checks also corrected us: one shipped fix was narrower than published, and has been revised.</p>
   <p class="more-link"><a href="method.html">The full method: every step, Table&nbsp;2 of formal results, and the limitations</a></p>
 </section>
 
@@ -1314,8 +1382,8 @@
     <li><b>Run the original grader before reasoning about it.</b> Most problems were found by reading code but settled only by a submission that triggers them. Several plausible findings did not survive that step.</li>
     <li><b>Formal tools pay off on small, crisp questions.</b> A false theorem, an arithmetic gap, a lower bound and an aliasing bug were each settled conclusively. Most grader problems concern conventions, file formats or timing, which no proof addresses as cheaply as a side-by-side run.</li>
     <li><b>A proof is only as good as its link to the code.</b> We stated the <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a> refutations against the task's own definitions inside its own image. We matched the <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse</a> model to the real tester on 294 strings, and mapped each TLA+ step to a line of source. Without those links, a proof would be about something else.</li>
-    <li><b>Every check needs a counter-check.</b> Each TLA+ model has a configuration that must fail, each Lean proof prints its axioms, and each fix is tested on wrong work as well as right work. A check that cannot fail shows nothing.</li>
-    <li><b>Formal proofs check our own work, not only the benchmark's.</b> Writing each fix down precisely enough for Lean or TLA+ exposed one fix that was narrower than published and eight imprecise statements. Each was found because a proof attempt failed on a case we had not thought to test.</li>
+    <li><b>Every check needs a counter-check.</b> Each TLA+ model has a configuration that must fail, each Lean proof prints its axioms, and each fix should be tested on wrong work as well as right work; case pages state the actual coverage. A check that cannot fail shows nothing.</li>
+    <li><b>Formal proofs check our own work, not only the benchmark's.</b> Writing some fix mechanisms down as Lean or TLA+ models exposed one fix that was narrower than published and eight imprecise statements. Each was found because a proof attempt failed on a case we had not thought to test.</li>
     <li><b>Test on the publisher's machine settings, not only on a convenient machine.</b> Our first round of side-by-side tests ran graders on 8 CPUs. The leaderboard's settings give most of them 4, and at 4 six graders time out honest work that passes at 8. We also first assumed <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> got 4; its settings give it 16. The code was correct in both settings; only the combination of the machine and the code was wrong.</li>
     <li><b>Fresh reviewers find what the authors cannot.</b> A second round of reviewers who did not share our context found the CPU problem, two hidden-test problems in <a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>, undisclosed checks in <a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a> and a hidden placeholder in <a class="task-link" href="tasks/pfr_formalization.html">PFR</a>, mostly in tasks we had kept, and several of our own fixes that needed extending or revising. Each was then settled by a run, not by argument.</li>
     <li><b>Test what a fix is for, not only what it changes.</b> The first <a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a> fix corrected the baseline exactly as documented and passed every test, yet real submissions showed it saturated the score scale. Checking fixes against real agent work found what neither proofs nor authored tests did.</li>

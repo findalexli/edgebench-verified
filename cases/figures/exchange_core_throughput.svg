@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 466" role="img">
-<title>Pass/fail grid: the original checker passes a correct exchange engine and two engines with realistic bugs (wrong fee charged to sellers, trade messages never delivered) and pays all three for speed; the fixed checker, which first runs the project&#x27;s own tests, still passes the correct engine and rejects both bugs with a score of 0.</title>
+<title>Pass/fail grid: the original checker passes a correct exchange engine and two engines with realistic bugs (wrong fee charged to sellers, trade messages never delivered) and scores all three on speed; the fixed checker, which first runs the project&#x27;s own tests, still passes the correct engine and rejects both bugs with a score of 0.</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -13,7 +13,7 @@
     .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
   }
 </style>
-<text x="16" y="30" font-size="18" font-weight="700" class="ink">Two broken exchange engines pass the original checker and are paid for speed</text>
+<text x="16" y="30" font-size="18" font-weight="700" class="ink">Two broken exchange engines pass the original checker and are scored on speed</text>
 <text x="16" y="54" font-size="14" class="muted">The task: make a stock-exchange matching engine faster without changing what it does.</text>
 <text x="410.0" y="92" font-size="15" font-weight="700" text-anchor="middle" class="ink">Original checker</text>
 <text x="410.0" y="110" font-size="13" text-anchor="middle" class="muted">checks totals and order books</text>
@@ -24,16 +24,16 @@
 <text x="16" y="171" font-size="13" class="muted">the project&#x27;s engine, unchanged</text>
 <rect x="316" y="134" width="188" height="44" rx="6" class="goodBg"/>
 <g transform="translate(340,156)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="360" y="161" font-size="14" class="good">passes, paid for speed</text>
+<text x="360" y="161" font-size="13" class="good">passes, speed scored</text>
 <rect x="516" y="134" width="188" height="44" rx="6" class="goodBg"/>
 <g transform="translate(540,156)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="560" y="161" font-size="14" class="good">passes, paid for speed</text>
+<text x="560" y="161" font-size="13" class="good">passes, speed scored</text>
 <line x1="16" y1="188" x2="704" y2="188" class="rule" stroke-width="1"/>
 <text x="16" y="215" font-size="15" font-weight="700" class="ink">Wrong fee charged to sellers</text>
-<text x="16" y="235" font-size="13" class="muted">maker fee instead of taker fee; totals balance</text>
+<text x="16" y="235" font-size="13" class="muted">charges the wrong fee rate; totals still balance</text>
 <rect x="316" y="198" width="188" height="44" rx="6" class="goodBg"/>
 <g transform="translate(340,220)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="360" y="225" font-size="14" class="good">passes, paid for speed</text>
+<text x="360" y="225" font-size="13" class="good">passes, speed scored</text>
 <rect x="516" y="198" width="188" height="44" rx="6" class="badBg"/>
 <g transform="translate(540,220)"><circle r="11" class="bad"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
 <text x="560" y="225" font-size="14" class="bad">rejected, scores 0</text>
@@ -42,7 +42,7 @@
 <text x="16" y="299" font-size="13" class="muted">users receive no results of their orders</text>
 <rect x="316" y="262" width="188" height="44" rx="6" class="goodBg"/>
 <g transform="translate(340,284)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="360" y="289" font-size="14" class="good">passes, paid for speed</text>
+<text x="360" y="289" font-size="13" class="good">passes, speed scored</text>
 <rect x="516" y="262" width="188" height="44" rx="6" class="badBg"/>
 <g transform="translate(540,284)"><circle r="11" class="bad"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
 <text x="560" y="289" font-size="14" class="bad">rejected, scores 0</text>

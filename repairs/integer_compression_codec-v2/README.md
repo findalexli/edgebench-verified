@@ -72,7 +72,8 @@ The run itself recorded 75.72 for its best submission (agent-20; raw on the orig
 score out of 100 on the original scale). The second regrade (all 37 submissions, the top 6 three times;
 `../../evidence/runs/opus55-regrade2-summary/summary.json`) picks the best submission by the run's own rule under
 each grader: raw 71.93 (auto-3) on the original grader and raw 173.10 (agent-26) on the fixed one, which is 53.95
-on the fixed scale. So the run's score moves from 75.72 (recorded) to 53.95 (second regrade). The first regrade's
+on the fixed scale. So, comparing like with like on our machines, the run's kept score moves from 71.93 to 53.95
+(second regrade); the 75.72 was recorded by the run on its own machine. The first regrade's
 66.31 → 50.08 is agent-20 graded once on one machine; it differs from the second regrade because of timing noise
 between machines (see Limits) and because the second regrade grades every submission.
 

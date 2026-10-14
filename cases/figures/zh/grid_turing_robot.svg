@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 456" role="img">
-<title>在 4 个 CPU 上，未超出承诺的每用例 30 秒的有效解法得不到分数</title>
+<title>在 4 个 CPU 上，每用例需要 16–28 秒（承诺 30 秒以内）的有效解法得不到分数</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
@@ -13,7 +13,7 @@
     .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c} .ruleF{fill:#1d2a34}
   }
 </style>
-<text x="16" y="24" class="ink" font-size="15" font-weight="600">在 4 个 CPU 上，未超出承诺的每用例 30 秒的有效解法得不到分数</text>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">在 4 个 CPU 上，每用例需要 16–28 秒（承诺 30 秒以内）的有效解法得不到分数</text>
 <text x="16" y="46" class="muted" font-size="14">评分器同时运行 8 个测试用例。在 4 个 CPU 上每个用例只分到半个 CPU，</text>
 <text x="16" y="65" class="muted" font-size="14">所以时钟时间是计算时间的两倍；只要一个用例超时，整份提交就作废。</text>
 <line x1="80" y1="330.0" x2="660" y2="330.0" class="rule" stroke-width="1"/>
@@ -24,7 +24,7 @@
 <text x="70" y="205.0" class="muted" font-size="14" text-anchor="end">20</text>
 <text x="16" y="96" class="muted" font-size="14">每个用例的时钟时间（秒）</text>
 <line x1="80" y1="135.0" x2="660" y2="135.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="660" y="127.0" class="bad" font-size="14" font-weight="600" text-anchor="end">30 秒时限</text>
+<text x="84" y="127.0" class="bad" font-size="14" font-weight="600">30 秒时限</text>
 <polyline points="138,251.4 196,238.4 254,225.3 370,199.2 486,173.1 602,146.8" fill="none" class="goodS" stroke-width="2"/>
 <circle cx="138" cy="251.4" r="5" class="good"/>
 <circle cx="196" cy="238.4" r="5" class="good"/>
@@ -35,11 +35,11 @@
 <polyline points="138,172.6 196,146.7" fill="none" class="accS" stroke-width="2"/>
 <circle cx="138" cy="172.6" r="5" class="acc"/>
 <circle cx="196" cy="146.7" r="5" class="acc"/>
-<path d="M248,129.0 L260,141.0 M260,129.0 L248,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M364,129.0 L376,141.0 M376,129.0 L364,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M480,129.0 L492,141.0 M492,129.0 L480,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M596,129.0 L608,141.0 M608,129.0 L596,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<text x="312" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">50 个用例中 48 个超时：完全没有分数</text>
+<path d="M248,126.0 L260,138.0 M260,126.0 L248,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M364,126.0 L376,138.0 M376,126.0 L364,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M480,126.0 L492,138.0 M492,126.0 L480,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M596,126.0 L608,138.0 M608,126.0 L596,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<text x="400" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">4 个 CPU：50 个用例中 48 个超时，完全没有分数</text>
 <text x="126" y="180.635" class="acc" font-size="14" font-weight="600" text-anchor="end">4 个 CPU：24 秒</text>
 <text x="208" y="151.70000000000002" class="acc" font-size="14" font-weight="600">28 秒</text>
 <text x="384" y="223.155" class="good" font-size="14" font-weight="600">8 个 CPU：时钟时间 = 计算时间</text>

@@ -2,7 +2,7 @@
 
 **结论：** 已修复。<mark>Phase 3 的测试只检查 `@schemathesis.metric` 返回的是可调用对象，而不检查它是否原样返回该函数；在修复版测试下，一个包装器会失去一个测试项，即分数的 1/160（100 分制下 0.625 分）。</mark>
 
-![Phase 3 测试结果：原始测试让正确的装饰器和包装器都以 15/15 通过；修复版测试使包装器为 15/16。](figures/schemathesis_config_modernization.svg)
+![Phase 3 测试结果：原始测试让正确的装饰器和包装器都以 15/15 通过；修复版测试使包装器为 15/16。](../figures/schemathesis_config_modernization.svg)
 
 *原始测试无法区分包装器和正确的装饰器；修复版测试增加了一项测试，价值为分数的 1/160。*
 

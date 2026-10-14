@@ -25,7 +25,7 @@
 
 <main id="content">
 <div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：组合优化</span></div><header class="task-head"><h1>Grid Turing Robot</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="engineering" href="../index.html#engineering">工程与运行环境</a> <span class="id">grid_turing_robot</span><p class="summary">在发布方的 4 CPU 评分器上，一个未超出 30 秒时限的解法可能使整份提交作废。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>编写一张规则表，在 50 个固定测试用例上操控机器人穿越网格；总成本越低越好。</dd><dt>问题所在</dt><dd>评分器同时运行 8 个用例，每个用例有 30 秒的实际时间限制。在发布方的 4 CPU 设置下，每个用例只分到半个 CPU，因此一个每个用例使用 16 秒 CPU 时间的有效解法在 50 个用例中有 48 个超时，而一次超时就会使整份提交作废。此外：作废规则没有说明，且分数刻度的起点设得太高，因此什么都不做也能得 2.84 分，而不是 0 分。</dd><dt>影响有多大</dt><dd>在 4 CPU 评分器上，对于每个用例使用约 15 到 30 秒 CPU 时间的解法，损失可达全部分数；如果一个用例失败，约 20 分；由于分数刻度的零点设得太高，至多 2.84 分，即一个什么都不做的程序已经能得 2.84 分。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：评分器同时运行的用例数不超过其 CPU 数，因此每个用例都能保有 30 秒。一个用例失败仍会使整份提交作废，一个什么都不做的解法仍得 2.84 分而不是 0 分；两者都作为说明记录。</dd><dt>问题类别</dt><dd><a href="../index.html#engineering">工程与运行环境；另涉及：任务说明与评分不一致、分数换算与选取</a></dd><dt>验证状态</dt><dd>CPU 份额对照得到验证：在 4 个 CPU 下三次结果相同的成对原生运行，外加 8 个 CPU 下的对照（台账均为 exit=0）；修复包在一台干净的机器上从零重建（materialize-check-g1）。没有在 Kubernetes pod 中、在 3 个或 5–7 个 CPU 下、或用多线程解法测试。</dd><dt>形式化检验</dt><dd>在 Lean 4 中已证明。放错位置的参考点恰好给一个什么都不做的解法 2.84005 分，且从不会多给。 局限：每个用例的分数取自保存的日志。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 456" role="img">
-<title>在 4 个 CPU 上，未超出承诺的每用例 30 秒的有效解法得不到分数</title>
+<title>在 4 个 CPU 上，每用例需要 16–28 秒（承诺 30 秒以内）的有效解法得不到分数</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
@@ -34,7 +34,7 @@
   text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text x="16" y="24" class="ink" font-size="15" font-weight="600">在 4 个 CPU 上，未超出承诺的每用例 30 秒的有效解法得不到分数</text>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">在 4 个 CPU 上，每用例需要 16–28 秒（承诺 30 秒以内）的有效解法得不到分数</text>
 <text x="16" y="46" class="muted" font-size="14">评分器同时运行 8 个测试用例。在 4 个 CPU 上每个用例只分到半个 CPU，</text>
 <text x="16" y="65" class="muted" font-size="14">所以时钟时间是计算时间的两倍；只要一个用例超时，整份提交就作废。</text>
 <line x1="80" y1="330.0" x2="660" y2="330.0" class="rule" stroke-width="1"/>
@@ -45,7 +45,7 @@
 <text x="70" y="205.0" class="muted" font-size="14" text-anchor="end">20</text>
 <text x="16" y="96" class="muted" font-size="14">每个用例的时钟时间（秒）</text>
 <line x1="80" y1="135.0" x2="660" y2="135.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="660" y="127.0" class="bad" font-size="14" font-weight="600" text-anchor="end">30 秒时限</text>
+<text x="84" y="127.0" class="bad" font-size="14" font-weight="600">30 秒时限</text>
 <polyline points="138,251.4 196,238.4 254,225.3 370,199.2 486,173.1 602,146.8" fill="none" class="goodS" stroke-width="2"/>
 <circle cx="138" cy="251.4" r="5" class="good"/>
 <circle cx="196" cy="238.4" r="5" class="good"/>
@@ -56,11 +56,11 @@
 <polyline points="138,172.6 196,146.7" fill="none" class="accS" stroke-width="2"/>
 <circle cx="138" cy="172.6" r="5" class="acc"/>
 <circle cx="196" cy="146.7" r="5" class="acc"/>
-<path d="M248,129.0 L260,141.0 M260,129.0 L248,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M364,129.0 L376,141.0 M376,129.0 L364,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M480,129.0 L492,141.0 M492,129.0 L480,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M596,129.0 L608,141.0 M608,129.0 L596,141.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<text x="312" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">50 个用例中 48 个超时：完全没有分数</text>
+<path d="M248,126.0 L260,138.0 M260,126.0 L248,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M364,126.0 L376,138.0 M376,126.0 L364,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M480,126.0 L492,138.0 M492,126.0 L480,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M596,126.0 L608,138.0 M608,126.0 L596,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<text x="400" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">4 个 CPU：50 个用例中 48 个超时，完全没有分数</text>
 <text x="126" y="180.635" class="acc" font-size="14" font-weight="600" text-anchor="end">4 个 CPU：24 秒</text>
 <text x="208" y="151.70000000000002" class="acc" font-size="14" font-weight="600">28 秒</text>
 <text x="384" y="223.155" class="good" font-size="14" font-weight="600">8 个 CPU：时钟时间 = 计算时间</text>

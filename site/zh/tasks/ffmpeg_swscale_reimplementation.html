@@ -24,45 +24,56 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：系统与软件工程</span></div><header class="task-head"><h1>FFmpeg swscale Reimplementation</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="grader_logic" href="../index.html#grader_logic">评分逻辑错误，事实性错误</a> <span class="id">ffmpeg_swscale_reimplementation</span><p class="summary">计时的速度测试从不检查输出，因此失败的调用也能获得速度分。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>用 Zig 或 Rust 重写 FFmpeg 的图像缩放与格式转换库（libswscale）；分数奖励正确且比原库更快的实现。</dd><dt>问题所在</dt><dd>正确性在 30 种转换上检查；速度在另外 10 种转换上计时，但从不检查结果。一个失败或什么都不做的调用几乎瞬间完成，从而获得巨大的“加速比”。一个返回错误的未完成转换使分数从 0 升到 5.39；跳过 3:1 缩小可得最多 18.93 分。未修改的初始代码也会因错误的输出而得分。</dd><dt>影响有多大</dt><dd>对于那些在某个计时转换上失败或什么都不做的诚实但未完成的提交，已证实的影响最多为 100 分中的 18.93 分。</dd><dt>我们的处理</dt><dd>v2.2 评分器检查每一次预热和计时调用的输出与返回码，清空缓冲区，并在任何工作负载失败时让分数恰好为零。三组成对的原生计分程序对照通过；有效的对照用时 43 秒，原版为 38 秒。完整的解题者构建 eval_cmd 集成仍未验证。</dd><dt>问题类别</dt><dd><a href="../index.html#grader_logic">评分逻辑错误，事实性错误</a></dd><dt>验证状态</dt><dd>当前的 v2.2 评分器镜像已构建，并在一台干净的机器上从零重建（materialize-check-final）；三组成对的原生完整计分程序对照通过，包括有效输出和恰好为零的拒绝。完整的源码构建 eval_cmd 和整个任务的认证仍未验证。</dd><dt>形式化检验</dt><dd>在 Lean 4 中已证明。历史上 v2 的计分模型限制了失败或未经验证的工作负载带来的分数，并在全部通过验证时保持公式不变。它建模的是验证标志，而不是每个计时输出是否真的被检查过。它不验证当前的 v2.2 修复。 局限：历史上 v2 的抽象；使用实数而非 IEEE 双精度浮点数；质量按布尔值处理。当前 v2.2 的原生计分程序对照已通过，但保存的证明不涵盖这一修订；完整的源码构建 eval_cmd 集成仍未验证。。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 382" role="img">
-<title>瞬间失败的调用被当作速度快：未完成的代码最多拿到 18.93 分（满分 100）</title>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：系统与软件工程</span></div><header class="task-head"><h1>FFmpeg swscale Reimplementation</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="grader_logic" href="../index.html#grader_logic">评分逻辑错误（事实性错误）</a> <span class="id">ffmpeg_swscale_reimplementation</span><p class="summary">计时的速度测试从不检查输出，因此失败的调用也能获得速度分。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>用 Zig 或 Rust 重写 FFmpeg 的图像缩放与格式转换库（libswscale）；分数奖励正确且比原库更快的实现。</dd><dt>问题所在</dt><dd>正确性在 30 种转换上检查；速度在另外 10 种转换上计时，但从不检查结果。一个失败或什么都不做的调用几乎瞬间完成，从而获得巨大的“加速比”。一个返回错误的未完成转换使分数从 0 升到 5.39；跳过 3:1 缩小可得最多 18.93 分。未修改的初始代码也会因错误的输出而得分。</dd><dt>影响有多大</dt><dd>对于那些在某个计时转换上失败或什么都不做的诚实但未完成的提交，已证实的影响最多为 100 分中的 18.93 分。</dd><dt>我们的处理</dt><dd>v2.2 评分器检查每一次预热和计时调用的输出与返回码，清空缓冲区，并在任何工作负载失败时让分数恰好为零。三组成对的原生计分程序对照通过；有效的对照用时 43 秒，原版为 38 秒。完整的解题者构建 eval_cmd 集成仍未验证。</dd><dt>问题类别</dt><dd><a href="../index.html#grader_logic">评分逻辑错误（事实性错误）</a></dd><dt>验证状态</dt><dd>当前的 v2.2 评分器镜像已构建，并在一台干净的机器上从零重建（materialize-check-final）；三组成对的原生完整计分程序对照通过，包括有效输出和恰好为零的拒绝。完整的源码构建 eval_cmd 和整个任务的认证仍未验证。</dd><dt>形式化检验</dt><dd>在 Lean 4 中已证明。历史上 v2 的计分模型限制了失败或未经验证的工作负载带来的分数，并在全部通过验证时保持公式不变。它建模的是验证标志，而不是每个计时输出是否真的被检查过。它不验证当前的 v2.2 修复。 局限：历史上 v2 的抽象；使用实数而非 IEEE 双精度浮点数；质量按布尔值处理。当前 v2.2 的原生计分程序对照已通过，但保存的证明不涵盖这一修订；完整的源码构建 eval_cmd 集成仍未验证。。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 495" role="img">
+<title>失败的调用看起来很快：未完成的代码最多拿到 18.93 分（满分 100）</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
   .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4} .accBox{fill:#eef6f9}
   text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text x="16" y="26" class="ink" font-size="16" font-weight="600">瞬间失败的调用被当作速度快：未完成的代码最多拿到 18.93 分（满分 100）</text>
-<text x="16" y="48" class="muted" font-size="14">智能体要重写一个图像缩放库；速度测试为每次调用计时，却从不检查其结果。</text>
-<text x="200" y="82" class="muted" font-size="14">得分（满分 100），原始评分器</text>
-<text x="704" y="82" class="muted" font-size="14" text-anchor="end">修复版评分器</text>
-<text x="16" y="111" class="ink" font-size="15">在 RGBA→RGB24 上</text>
-<text x="16" y="129" class="ink" font-size="15">返回错误</text>
-<rect class="badBg" x="200" y="96" width="400" height="30"/><rect class="bad" x="200" y="96" width="21.56" height="30"/>
-<text x="229.56" y="117" class="bad" font-size="15" font-weight="600">5.39</text>
-<text x="704" y="117" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
-<text x="16" y="163" class="ink" font-size="15">在 3:1 缩小上</text>
+<text x="16" y="26" class="ink" font-size="16" font-weight="600">失败的调用看起来很快：未完成的代码最多拿到 18.93 分（满分 100）</text>
+<text x="16" y="48" class="muted" font-size="14">智能体要重写一个图像缩放库；速度测试为每次调用计时，却从不检查其输出。</text>
+<text x="16" y="82" class="ink" font-size="14" font-weight="600">1. 问题：原始评分器下的得分（满分 100；一次运行，2 个 CPU）</text>
+<text x="704" y="82" class="muted" font-size="13" text-anchor="end">正确性测试</text>
+<text x="16" y="111" class="ink" font-size="15">初始代码，</text>
+<text x="16" y="129" class="ink" font-size="15">未改动</text>
+<rect class="badBg" x="210" y="96" width="400" height="30"/>
+<text x="218.00" y="117" class="ink" font-size="15" font-weight="600">0</text>
+<text x="704" y="117" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="163" class="ink" font-size="15">在 RGBA→RGB24 上</text>
 <text x="16" y="181" class="ink" font-size="15">返回错误</text>
-<rect class="badBg" x="200" y="148" width="400" height="30"/><rect class="bad" x="200" y="148" width="75.72" height="30"/>
-<text x="283.72" y="169" class="bad" font-size="15" font-weight="600">18.93</text>
-<text x="704" y="169" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
+<rect class="badBg" x="210" y="148" width="400" height="30"/>
+<rect class="bad" x="210" y="148" width="21.56" height="30"/>
+<text x="239.56" y="169" class="bad" font-size="15" font-weight="600">5.39</text>
+<text x="704" y="169" class="ink" font-size="15" text-anchor="end">30/30</text>
 <text x="16" y="215" class="ink" font-size="15">在 3:1 缩小上</text>
-<text x="16" y="233" class="ink" font-size="15">什么都不写</text>
-<rect class="badBg" x="200" y="200" width="400" height="30"/><rect class="bad" x="200" y="200" width="71.48" height="30"/>
-<text x="279.48" y="221" class="bad" font-size="15" font-weight="600">17.87</text>
-<text x="704" y="221" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
-<line class="rule" x1="200" y1="92" x2="200" y2="234" stroke-width="1.5"/>
-<text x="200" y="252" class="muted" font-size="13" text-anchor="middle">0</text>
-<text x="600" y="252" class="muted" font-size="13" text-anchor="middle">100</text>
-<text x="16" y="284" class="muted" font-size="14">一次立即返回错误的调用被计为 16,469 倍的加速。三者仍都通过了 30 项正确性测试，</text>
-<text x="16" y="303" class="muted" font-size="14">因为这些测试从不涉及这几种转换。</text>
-<text x="16" y="330" class="ink" font-size="14">修复版评分器：检查每次计时调用的输出；只要有一次失败，总分即为 0，与任务说明一致。</text>
-<text x="16" y="349" class="ink" font-size="14">图中三个 0 分是用较早版本的修复测得的；当前版本对悄悄跳过重复调用的代码</text>
-<text x="16" y="368" class="ink" font-size="14">给出恰好 0 分。</text>
+<text x="16" y="233" class="ink" font-size="15">返回错误</text>
+<rect class="badBg" x="210" y="200" width="400" height="30"/>
+<rect class="bad" x="210" y="200" width="75.72" height="30"/>
+<text x="293.72" y="221" class="bad" font-size="15" font-weight="600">18.93</text>
+<text x="704" y="221" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="267" class="ink" font-size="15">在 3:1 缩小上</text>
+<text x="16" y="285" class="ink" font-size="15">什么都不写</text>
+<rect class="badBg" x="210" y="252" width="400" height="30"/>
+<rect class="bad" x="210" y="252" width="71.48" height="30"/>
+<text x="289.48" y="273" class="bad" font-size="15" font-weight="600">17.87</text>
+<text x="704" y="273" class="ink" font-size="15" text-anchor="end">30/30</text>
+<line class="rule" x1="210" y1="92" x2="210" y2="286" stroke-width="1.5"/>
+<text x="210" y="304" class="muted" font-size="13" text-anchor="middle">0</text>
+<text x="610" y="304" class="muted" font-size="13" text-anchor="middle">100</text>
+<text x="16" y="332" class="muted" font-size="14">一次立即返回错误的调用被计为 16,469 倍的加速。四个版本都通过了 30 项正确性测试，</text>
+<text x="16" y="351" class="muted" font-size="14">因为这些测试从不涉及被计时的那几种转换。</text>
+<rect x="8" y="376" width="704" height="111" rx="8" class="accBox"/>
+<text x="20" y="398" class="ink" font-size="14" font-weight="600">2. 当前的修复检查每次计时调用的输出；只要有一次失败，总分即为 0，</text>
+<text x="20" y="417" class="ink" font-size="14" font-weight="600">与任务说明一致。</text>
+<text x="20" y="436" class="ink" font-size="14" font-weight="400">它唯一一次并排对照运行（2 个 CPU，原始加速比）：一份跳过重复调用的代码通过了</text>
+<text x="20" y="455" class="ink" font-size="14" font-weight="400">全部 30 项正确性测试，得 0（原始评分器为 1.04）；一份正确的提交仍得 1.02</text>
+<text x="20" y="474" class="ink" font-size="14" font-weight="400">（原始评分器为 1.06）。上面三个未完成的版本没有在当前修复上运行。</text>
 </svg>
-</div><figcaption>从不检查输出的速度测试让未完成的代码最多拿到 18.93 分（满分 100）。智能体要重写 FFmpeg 的图像缩放库，在通过 30 项正确性测试后按速度计分，但计时的调用从不被检查，因此一个返回错误或什么都没写的调用被算作几乎无限快。三个只改了一行的未完成版本在原始评分器上分别得 5.39、18.93 和 17.87 分，在较早版本的修复上得 0 分；当前的修复检查每一次计时调用，只要有一次失败就把总分设为恰好 0，与任务说明一致，它对悄悄跳过重复调用的代码正是如此。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/ffmpeg_swscale_reimplementation.json">tasks/ffmpeg_swscale_reimplementation.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h3 id="prompt-ffmpeg-libswscale-re-implementation">FFmpeg libswscale Re-implementation</h3>
+</div><figcaption>从不检查输出的速度测试让未完成的代码最多拿到 18.93 分（满分 100）。智能体要重写 FFmpeg 的图像缩放库，在通过 30 项正确性测试后按速度计分，但计时的调用从不被检查，因此一个返回错误或什么都没写的调用被算作快了数千倍。在原始评分器的一次运行中，三个只改了一行的未完成版本分别得 5.39、18.93 和 17.87 分，未改动的初始代码得 0 分，四者都通过了 30 项正确性测试。当前的修复检查每一次计时调用的输出，只要有一次失败就把总分设为恰好 0，与任务说明一致；在它唯一一次并排对照运行中，一份跳过重复调用的代码通过了全部 30 项正确性测试，得 0 分。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/ffmpeg_swscale_reimplementation.json">tasks/ffmpeg_swscale_reimplementation.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h3 id="prompt-ffmpeg-libswscale-re-implementation">FFmpeg libswscale Re-implementation</h3>
 <p>You are a systems engineer. Your goal is to re-implement FFmpeg's <strong>libswscale</strong> image scaling and pixel-format conversion library in <strong>Zig or Rust</strong>, producing a C-compatible shared library that matches or exceeds FFmpeg's C scalar reference performance using portable SIMD.</p>
 <h4 id="prompt-setup">Setup</h4>
 <ol><li>FFmpeg source (libswscale + libavutil) is at <code>/reference/ffmpeg-src/</code>. Study the scalar C implementation — this is what you are reimplementing.</li><li>A full FFmpeg binary (with ASM optimisations) is at <code>/reference/ffmpeg</code>. Use it to generate test inputs/outputs and verify your understanding.</li><li>The public performance baseline library is at <code>/home/workspace/libswscale_public_baseline.so</code>. This wraps FFmpeg's C-only code (compiled with <code>--disable-asm</code>). Your implementation is benchmarked against this baseline.</li><li>Your workspace is <code>/home/workspace/swscale-impl/</code>. Scaffold templates for both Zig and Rust are provided — pick one and build from there.</li><li>The C API you must implement is defined in <code>/home/workspace/swscale_api.h</code>.</li></ol>
@@ -291,8 +302,8 @@ if categories:
 else:
     print(&quot;Failed categories: unavailable from reward.json&quot;)
 print(&quot;Benchmark not run because correctness failed.&quot;)
-PY</code></pre></details></dd><dt>时限</dt><dd>整个评分运行限时 90 分钟（5,400 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>.</code> 不计入提交：<code>.git</code>, <code>zig-cache</code>, <code>zig-out</code>, <code>target</code>。</dd><dt>原始结果</dt><dd>评分器运行一套测试；通过率是通过的测试所占的比例，原始结果是评分器输出的 <code>TOTAL_SCORE</code> 行上的数字（解析器 <code>pytest_v</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好。</dd><dt>从原始结果到 0–100 分</dt><dd>对数换算：分数为 43 × ln(raw) ÷ ln(14.155)。原始结果小于或等于 1 时得 0 分，为 14.155 时得 43 分，原始结果约为 474.8 时分数达到 100；更高的值被截断为 100。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>log_anchor</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>原始结果最好（最高）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>2026-10-13 修订：</strong> v2.2 检查每一次输出，并让任何失败的工作负载使总奖励恰好为零。六个原生完整计分程序对照组全部通过，另有 40 项与原始辅助函数的布局比较也全部一致。正确的对照提交在 43 秒内完成；一个重复调用缺陷在 30/30 个正确性工作负载上通过，但在计时输出验证之后得到零分。下面的“修复”一节描述 v2.2，并保留历史上的 v2 表格以作记录。这次后续检验没有重新运行 Rust 提交构建路径。参见<a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/ffmpeg_swscale_reimplementation-v2/paired/followup.md">后续记录</a>。</p>
-<p><strong>结论：</strong> 原始缺陷得到确认；v2.2 修复在成对的原生计分程序对照上得到验证。<mark>计时的速度测试从未检查正确性，因此失败或空的调用也能拿到速度分；修复版会检查每个计时调用的返回码和输出。</mark></p>
+PY</code></pre></details></dd><dt>时限</dt><dd>整个评分运行限时 90 分钟（5,400 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>.</code> 不计入提交：<code>.git</code>, <code>zig-cache</code>, <code>zig-out</code>, <code>target</code>。</dd><dt>原始结果</dt><dd>评分器运行一套测试；通过率是通过的测试所占的比例，原始结果是评分器输出的 <code>TOTAL_SCORE</code> 行上的数字（解析器 <code>pytest_v</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好。</dd><dt>从原始结果到 0–100 分</dt><dd>对数换算：分数为 43 × ln(raw) ÷ ln(14.155)。原始结果小于或等于 1 时得 0 分，为 14.155 时得 43 分，原始结果约为 474.8 时分数达到 100；更高的值被截断为 100。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>log_anchor</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>原始结果最好（最高）的提交。只比较分数；没有分数的提交被跳过，分数相同时保留较早的提交（<code>score_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>2026-10-13 修订：</strong> v2.2 检查每一次输出，并让任何失败的工作负载使总奖励恰好为零。它与原始评分器并排运行了一次：完整计分程序共运行六次（每个评分器各三份测试提交），全部顺利完成；另有 40 项检查确认其输出缓冲区与原始辅助函数一致。正确的测试提交在 43 秒内完成；一份跳过重复调用的提交在 30/30 个正确性工作负载上通过，但其计时输出被检查后得到零分。下面的“修复”一节描述 v2.2，并保留历史上的 v2 表格以作记录。这次后续检验没有重新运行 Rust 提交构建路径。参见<a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/ffmpeg_swscale_reimplementation-v2/paired/followup.md">后续记录</a>。</p>
+<p><strong>结论：</strong> 原始缺陷得到确认；当前修复（v2.2）在三份原生测试提交上与原始评分器并排测试了一次。<mark>计时的速度测试从未检查正确性，因此失败或空的调用也能拿到速度分；修复版会检查每个计时调用的返回码和输出。</mark></p>
 <h3 id="case-任务要求">任务要求</h3>
 <p>解题者要用 Zig 或 Rust 重新实现 FFmpeg 的 libswscale（其图像缩放和像素格式转换库），并做成一个与 C 兼容的共享库。任务文本说该库 "must handle conversions between any pair of these formats"（必须能在这些格式中的任意两种之间转换）。它还说："If correctness fails on any hidden workload, the score is <strong>zero</strong>."（只要在任何一个隐藏工作负载上正确性检查失败，分数即为零。）否则 <code>reward = geometric_mean(baseline_time / candidate_time)</code>，即相对原始库的各项加速比的几何平均。</p>
 <p>原始结果（换算到 0–100 之前）用 <code>log_anchor</code> 分数刻度换算，这是一个只有一个参考点的对数刻度：原始结果 14.155（anchor_raw）对应 43 分（anchor_score）。原始结果为 1 或以下的记为 0。类别：系统与软件工程。</p>

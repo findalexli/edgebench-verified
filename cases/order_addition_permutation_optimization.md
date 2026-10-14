@@ -1,8 +1,8 @@
 # Order Addition Permutation Optimization (`order_addition_permutation_optimization`)
 
-**Outcome:** Fixed. <mark>A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first valid submission and ignores better later ones.</mark>
+**Outcome:** Fixed. <mark>A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first scored submission and ignores better later ones.</mark>
 
-![Bar chart of the nine submissions of one real agent run, in the order they were graded: five early ones with no score, then 3.79, 15.91, 15.91 and 41.24 out of 100. Below it, tests passed by each submission: the original checker gives 2/5 or 4/5 and keeps submission 6 (3.79); the fixed checker gives 3/5 or 5/5 and keeps submission 9 (41.24).](figures/order_addition_permutation_optimization.svg)
+![Bar chart of the nine submissions of one real agent run, in the order they were graded: five early ones with no score, then 3.79, 15.91, 15.91 and 41.24 out of 100; the bar kept by the original checker is gold, the one kept by the fixed checker green, the others blue. Below it, tests passed by each submission: the original checker gives 2/5 or 4/5 and keeps submission 6 (3.79); the fixed checker gives 3/5 or 5/5 and keeps submission 9 (41.24).](figures/order_addition_permutation_optimization.svg)
 
 *An outdated file check made a real agent run keep 3.79 out of 100 although a later submission earned 41.24. The agent orders the numbers 1 to 1000 to make a hidden cost small; one of the five tests expects an older version of a helper file, so every submission fails it. The run keeps the submission that passes the most tests and compares scores only when all five pass, so every scored submission ties at 4 of 5 and the first one stays. With the expected file version corrected, the scored submissions pass 5 of 5, each score is unchanged, and the run keeps 41.24.*
 
@@ -18,7 +18,7 @@ A continuous score is then "calculated using `score_cost_num(cost, num)` from th
 
 - **Each submission's score is correct.** Only this one test fails. The other four still run, and `TOTAL_SCORE` is computed with the installed helper.
 - **Pass rate is capped.** A fully correct submission gets pass rate 0.8 instead of 1.0.
-- **The run's choice of best submission freezes.** This task's rule (`pass_rate_first`) keeps the submission that passes the most tests. It compares scores only when both pass rates are 1.0. Otherwise a later submission wins only with a strictly higher pass rate. Every valid submission is capped at 0.8, so the run's `best_score` / `best_round` stay on the **first** valid submission.
+- **The run's choice of best submission freezes.** This task's rule (`pass_rate_first`) keeps the submission that passes the most tests. It compares scores only when both pass rates are 1.0. Otherwise a later submission wins only with a strictly higher pass rate. Every submission is capped at 0.8 and every scored one reaches it, so the run's `best_score` / `best_round` stay on the **first** scored submission.
 
 Example under the original grader: two valid submissions in the order identity, then search. The identity permutation scores 3.3e-09, and the search result scores higher. Expected: search is chosen. Observed: identity is chosen, and the better later submission is ignored.
 

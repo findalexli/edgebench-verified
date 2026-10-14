@@ -69,7 +69,7 @@ MEASURED = {
     'ffmpeg_swscale_reimplementation': dict(v=18.93, sign='-', src=('cases/ffmpeg_swscale_reimplementation.md', '| Variant 2: returns error -3 for 3:1 downscale | 30/30 | **3.2112** | **18.93** |'),
         en='−18.93', zh='−18.93'),
     'dabic_gravity_inversion': dict(v=1.04, sign='+', src=('data/decisions.json', 'honest model-space directive 25.77→26.81'),
-        en='+1.04 · computed 46.06 · task removed', zh='+1.04 · 计算值 46.06 · 已移除该任务'),
+        en='+1.04 (measured)', zh='+1.04（实测）'),
     'cta_risk_budget_optimization': dict(v=5.00, sign='±', src=('cases/cta_risk_budget_optimization.md', '| leveraged: overseas 45% of NAV, 37.5% of CNY gross | 58.75, `cross_border` 5 | **53.75**, `cross_border` 1 |'),
         en='±5.00 (limit 5)', zh='±5.00（上限 5）'),
     'graph_node_classification': dict(v=24.089, sign='+', src=('repairs/graph_node_classification-v2/paired/results.md', '| neighbor_intkeys | trigger (good faith) | v2.1 | true | 0.240886 | 24.089 |'),
@@ -89,9 +89,10 @@ MEASURED = {
         en='+15.00; real run +{real} · limit 26.47', zh='+15.00；真实运行 +{real} · 上限 26.47'),
     # raw 7.031 vs 31.200 on the 0-109 raw scale; out of 100: 6.45 vs 28.62
     'borden_source_inversion': dict(v=22.17, sign='', src=('cases/borden_source_inversion.md', '| grader-convention fit (review, own re-implementation) | honest | 31.200 | 31.200 | None | 28.62 |'),
+        src2=('cases/borden_source_inversion.md', '| textbook ADE fit (review regression case) | honest, wrong convention | 7.031 | 7.031 | None | 6.45 |'),
         en='22.17 (28.62 vs 6.45)', zh='22.17（28.62 对 6.45）'),
     'triangulation_coloring_optimization': dict(v=48.66, sign='+', src=('cases/triangulation_coloring_optimization.md', '| **20 s of CPU per case** | 4 | **2 OK, 8 TLE, `inf` (no score)** | **2 OK, 8 TLE, `inf`** | 10 OK, 863,058 (48.95) | **10 OK, 874,742 (48.66)** |'),
-        en='+48.66 (time-limit part)', zh='+48.66（时限部分）'),
+        en='+48.66 (time-limit part; was no score)', zh='+48.66（时限部分；原为无分）'),
     'portfolio_risk_calibration': dict(v=0.07, sign='+', src=('cases/portfolio_risk_calibration.md', '| 32.45; excess 3.44% | **32.52**; excess 3.47%'),
         en='+0.07', zh='+0.07'),
     'treant_forest': dict(v=13.32, sign='+', src=('cases/treant_forest.md', '| Honest greedy | fixed | 17960 | 50/50 OK | 0 | 3.04 | 16.36 |'),
@@ -110,9 +111,9 @@ DERIVED = {
     'portfolio_risk_calibration': (Fraction('32.52') - Fraction('32.45'), 0.07),
     'treant_forest': (Fraction('16.36') - Fraction('3.04'), 13.32),
     'smt_solver': (Fraction('78.61') - Fraction('72.40'), 6.21),
+    # D-ABIC, direction column: the grader's own penalty rule at C = 30 (data form 92.92, model form 44.86)
+    'dabic_computed_c30': (Fraction('92.92') - Fraction('44.86'), 48.06),
 }
-# Second, computed mark for D-ABIC: the grader's own penalty rule at the strong level (88.92 vs 42.86).
-DABIC_COMPUTED = (46.06, ('cases/dabic_gravity_inversion.md', '(88.92 against 42.86 at C = 26)'))
 # Rows whose only evidence is a direction (no size): a short phrase for the direction column.
 DIRECTION = {
     'jagua_nesting_optimization': ('↓ overlaps accepted', '↓ 重叠布局被接受', ('evidence/impact/effects.json', 'down for layouts with overlaps')),
@@ -121,6 +122,10 @@ DIRECTION = {
     'openrct2_theme_park_ai': ('↕ not measured', '↕ 未测量', ('cases/openrct2_theme_park_ai.md', 'This was not measured as a score change.')),
     'triangulation_coloring_optimization': ('+ rule change ↕', '+ 规则变化 ↕', ('evidence/impact/effects.json', 'either: a different flip rule')),
     'warehouse_forklift_routing': ('↑ was no score', '↑ 原为无分', ('cases/warehouse_forklift_routing.md', '| **13 s per test case (uses the promised budget)** | **shows the problem** | **50 TLE → inf** | **50 OK, TOTAL 46676.8** |')),
+    # computed from the grader's penalty rule, not measured; the gap is half the score and so grows with C
+    'dabic_gravity_inversion': ('computed example: 48.06 at C = 30, grows with C; task removed',
+                                '计算示例：C = 30 时为 48.06，随 C 增大；任务已移除',
+                                ('cases/dabic_gravity_inversion.md', '| 30 | 1.0 → 92.92 | 0.5 → 44.86 |')),
 }
 # Labels for rows that show only a limit.
 LIMIT_LABEL = {
@@ -128,42 +133,52 @@ LIMIT_LABEL = {
     'pfr_formalization': ('limit 2.13, not run', '上限 2.13，未实测'),
     'warehouse_forklift_routing': ('limit 30.59', '上限 30.59'),
 }
+# The headline rule: the problem itself cost an honest submission 10 or more points out of 100, or gave broken or
+# empty work 10 or more points it did not earn, measured. Arc and Borden count (the same honest work loses 33.67 or
+# 22.17 points depending on how it is written); Order Addition counts by the score the run keeps.
 # Tasks whose 10-point measurement is excluded from the headline count, with the reason.
 NOT_COUNTED = {
+    'integer_compression_codec': 'the −29.68 comes from the fixed task\'s new 0–100 scale, not from the problem: every '
+                                 'submission\'s raw result rose 1.7–4× under the fix',
     'exchange_core_throughput': 'broken engines scored 4.71–24.40 instead of 0, but these speeds are within run-to-run noise '
                                 '(the side-by-side run gave 7.77 and about 4.7)',
-    'dabic_gravity_inversion': 'the 46.06 is computed from the grader\'s penalty rule, not measured; the measured change is 1.04',
+    'dabic_gravity_inversion': 'the 48.06 (at C = 30; it grows with C) is computed from the grader\'s penalty rule, not '
+                               'measured; the measured change is 1.04',
 }
 
 T = {
     'en': dict(
-        ov_title='In {n10} of {n} problem tasks, a measured score moved by 10 points or more',
+        ov_title='In {n10} of {n} problem tasks, the problem itself moved a measured score by 10 points or more',
         ov_sub='What each problem does to one affected submission when it occurs (points out of 100).',
         leg_test='Measured on our test submission', leg_real='Measured on a real agent run',
-        leg_bar='Proved or computed limit: the change cannot be larger',
+        leg_bar='Proved or computed limit: the change cannot be larger', leg_comp='Computed from a real run, not run',
         dir_head='Direction only', dir_head2='(size unknown)',
-        foot1='+ / −: the fixed checker gives more / less. No sign: the gap between two ways of writing the same work.',
+        foot1=('+ / −: the fixed checker gives more / less. No sign: the gap between two honest submissions that differ only in '
+               'an unstated convention (Arc: error-report format; Borden: physics model); the checker is unchanged.'),
         foot2='How often each problem occurred on the leaderboard is unknown for most tasks.',
         rr_title='A real agent run, regraded: the run\'s score moved in {nk} of {nr} tasks',
         rr_sub='One four-hour Claude Opus 5.5 run per task, regraded with the original and the fixed checker.',
         rr_h1='The run\'s kept score (out of 100)', rr_h2='Largest change for one submission',
         rr_leg_o='original checker', rr_leg_f='fixed checker', rr_leg_c='computed, not run',
-        never='problem never occurred', notregr='cannot be regraded', zero='0 (scores identical)',
+        never='problem never occurred', notregr='same grader; needs a new run', zero='0 (scores identical)',
+        rr_ranges='Both checkers regraded on our machines; a range is the spread over three gradings.',
         rr_foot='It shows the problems happen to real agents, and sometimes do not. It does not measure the effect on the 12-hour leaderboard.',
     ),
     'zh': dict(
-        ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务实测分数变化达到 10 分或以上',
+        ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务的问题本身使实测分数变化 10 分或以上',
         ov_sub='每个问题一旦发生，对一份受影响提交的作用（满分 100 分）。',
         leg_test='在我们的测试提交上实测', leg_real='在一次真实智能体运行上实测',
-        leg_bar='已证明或计算出的上限：变化不会更大',
+        leg_bar='已证明或计算出的上限：变化不会更大', leg_comp='按真实运行计算，未实际运行',
         dir_head='只知道方向', dir_head2='（大小未知）',
-        foot1='+ / −：修复版评分器给分更多 / 更少。无符号：同一份工作两种写法之间的差距。',
+        foot1=('+ / −：修复版评分器给分更多 / 更少。无符号：两份诚实提交之间的差距，它们只在一项未说明的约定上不同'
+               '（Arc：错误报告格式；Borden：物理模型）；评分器不变。'),
         foot2='对大多数任务，这些问题在排行榜上发生的频率未知。',
-        rr_title='重新评分一次真实智能体运行：{nr} 个任务中 {nk} 个的运行成绩变化',
+        rr_title='重新评分一次真实智能体运行：{nr} 个任务中有 {nk} 个的运行成绩发生变化',
         rr_sub='每个任务一次四小时的 Claude Opus 5.5 运行，分别用原始评分器和修复版评分器重新评分。',
         rr_h1='运行保留的成绩（满分 100）', rr_h2='单份提交的最大变化',
         rr_leg_o='原始评分器', rr_leg_f='修复版评分器', rr_leg_c='计算所得，未实际运行',
-        never='问题从未发生', notregr='无法重新评分', zero='0（分数相同）',
+        never='问题从未发生', notregr='评分器不变；需要新的运行', zero='0（分数相同）',
+        rr_ranges='两个评分器都在我们的机器上重新评分；区间为三次评分的范围。',
         rr_foot='它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。',
     ),
 }
@@ -211,16 +226,32 @@ def wrap(s, n=28):
     return [s]
 
 
+NO_LINE_START = set('，。、；：？！）》」』”’')
+NO_LINE_END = set('（《「『“‘')
+
+
 def wrapw(s, maxw, size=13):
-    """Split s into lines no wider than maxw (by the rough width estimate)."""
+    """Split s into lines no wider than maxw (by the rough width estimate).
+
+    Chinese text breaks between characters, but never before full-width closing punctuation, which stays
+    with the character before it, and never inside a run of Latin letters, digits or symbols."""
     cjk = any(ord(c) > 0x2e80 for c in s)
-    units = list(s) if cjk else s.split(' ')
+    if cjk:
+        units = []
+        for c in s:
+            if units and (c in NO_LINE_START or units[-1][-1] in NO_LINE_END
+                          or (ord(c) <= 0x2e80 and c != ' ' and ord(units[-1][-1]) <= 0x2e80 and units[-1][-1] != ' ')):
+                units[-1] += c
+            else:
+                units.append(c)
+    else:
+        units = s.split(' ')
     lines, cur = [], ''
     for u in units:
         nxt = cur + u if cjk else (cur + ' ' + u).strip()
         if cur and tw(nxt, size) > maxw:
-            lines.append(cur)
-            cur = u
+            lines.append(cur.rstrip())
+            cur = u.lstrip()
         else:
             cur = nxt
     return lines + [cur]
@@ -231,7 +262,8 @@ def split_label(s):
     for sep in (' · ', '; ', '；', '（', ' ('):
         i = s.rfind(sep)
         if i > 0:
-            return [s[:i + (1 if sep == '; ' else 0)].rstrip(), s[i:].lstrip(' ·;') if sep in (' · ', '; ') else s[i:].lstrip()]
+            keep = 1 if sep in ('; ', '；') else 0  # a semicolon stays at the end of the first line
+            return [s[:i + keep].rstrip(), s[i + keep:].lstrip(' ·;') if sep in (' · ', '; ', '；') else s[i:].lstrip()]
     spaces = [i for i, c in enumerate(s) if c == ' ']
     if spaces:
         i = min(spaces, key=lambda k: abs(k - len(s) / 2))
@@ -239,9 +271,11 @@ def split_label(s):
     return [s]
 
 
-def diamond(cx, cy, r=6, cls='warn'):
-    return (f'<path d="M{cx:g} {cy - r:g}L{cx + r:g} {cy:g}L{cx:g} {cy + r:g}L{cx - r:g} {cy:g}Z" class="{cls} ioRing" '
-            f'stroke-width="1.5"/>')
+def diamond(cx, cy, r=6, cls='warn', computed=False):
+    d = f'M{cx:g} {cy - r:g}L{cx + r:g} {cy:g}L{cx:g} {cy + r:g}L{cx - r:g} {cy:g}Z'
+    if computed:  # computed from a real run's saved verdicts, not run: hollow and dashed
+        return f'<path d="{d}" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>'
+    return f'<path d="{d}" class="{cls} ioRing" stroke-width="1.5"/>'
 
 
 def dot(cx, cy, r=5, cls='acc'):
@@ -274,7 +308,12 @@ def mean(xs):
 
 
 def real_runs(summ, lean, hist):
-    """Per regraded task: kept score (recorded, fixed), largest per-submission change, counts."""
+    """Per regraded task: kept score, largest per-submission change, counts.
+
+    The kept score is compared like with like: 'orig' is the original checker and 'fixed' the fixed one, both regraded
+    on our machines (mean of the gradings, with 'orig_lo'/'orig_hi' and 'fixed_lo'/'fixed_hi' the spread over three
+    gradings where the decisive submissions were graded three times). 'recorded' is the score the run itself recorded
+    on its own machine; it is mentioned in a note, never plotted against a regrade."""
     out = {}
     for t, v in summ.items():
         ch = []
@@ -283,7 +322,9 @@ def real_runs(summ, lean, hist):
             if a is not None and b is not None:
                 ch.append((b - a, p['round'], a, b))
         big = max(ch, key=lambda c: abs(c[0]))
-        out[t] = dict(recorded=v['orig_recorded']['norm'], fixed_lo=v['sel_min']['v2']['norm'],
+        out[t] = dict(recorded=v['orig_recorded']['norm'], orig=v['sel_mean']['v1']['norm'],
+                      orig_lo=v['sel_min']['v1']['norm'], orig_hi=v['sel_max']['v1']['norm'],
+                      fixed_lo=v['sel_min']['v2']['norm'],
                       fixed_hi=v['sel_max']['v2']['norm'], fixed=v['sel_mean']['v2']['norm'],
                       n_history=v['n_history'], n_graded=v['n_graded'], policy=v['policy'],
                       gradings=sum(len(p['v1']['scores']) for p in v['per']),
@@ -293,13 +334,15 @@ def real_runs(summ, lean, hist):
     b1 = max(g, key=lambda r: r['v1_score'])
     b2 = max(g, key=lambda r: r['v2_score_derived'])
     big = max(g, key=lambda r: abs(r['v2_score_derived'] - r['v1_score']))
-    out['lean_analysis_proofs'] = dict(recorded=100 * b1['v1_score'], fixed=100 * b2['v2_score_derived'],
+    out['lean_analysis_proofs'] = dict(recorded=100 * b1['v1_score'], orig=100 * b1['v1_score'], fixed=100 * b2['v2_score_derived'],
                                        fixed_lo=None, fixed_hi=None, n_graded=len(g), n_history=len(lean),
                                        big=100 * (big['v2_score_derived'] - big['v1_score']), big_round=big['round'],
                                        computed=True, src=LEAN)
     b = hist['runs']['borden_source_inversion']
+    # The grader is unchanged, so the run's answers score the same under both versions; the fix changes the instructions.
     out['borden_source_inversion'] = dict(recorded_raw=b['best_score'], recorded=b['best_score'] * 100 / 109,
-                                          fixed=None, n_history=len(b['submissions']), src=HIST)
+                                          orig=b['best_score'] * 100 / 109, fixed=None, n_history=len(b['submissions']),
+                                          src=HIST)
     return out
 
 
@@ -327,6 +370,8 @@ def build_rows(dec, eff, rr):
         m = MEASURED.get(t)
         if m:
             src.append(find_line(*m['src']))
+            if m.get('src2'):
+                src.append(find_line(*m['src2']))
             marks.append(dict(kind=m.get('kind', 'test'), v=m['v'], lo=m.get('lo'), sign=m['sign']))
         if t in DERIVED:
             exact, shown = DERIVED[t]
@@ -350,17 +395,14 @@ def build_rows(dec, eff, rr):
             src.append(f"{LEAN} ({x['big_round']}, computed from saved verdicts)")
         if t == 'order_addition_permutation_optimization':
             x = rr[t]
-            marks.append(dict(kind='real', v=x['fixed'] - x['recorded'], sign='+', kept=True))
-            src.append(f"{SUMMARY} (kept score {x['recorded']:.2f} → {x['fixed']:.2f}; each submission's score unchanged)")
+            marks.append(dict(kind='real', v=x['fixed'] - x['orig'], sign='+', kept=True))
+            src.append(f"{SUMMARY} (kept score {x['orig']:.2f} → {x['fixed']:.2f}; each submission's score unchanged)")
         bound = None
         if e['kind'] == 'bounded':
             bound = e.get('bound_up') if e.get('direction') == 'up' and e.get('bound_up') else e['bound']
             if t == 'rust_multicrate_reconstruction':
                 bound = e['bound_up']
             src.append(f'{EFFECTS} ({t}: bound {bound})')
-        if t == 'dabic_gravity_inversion':
-            bound = DABIC_COMPUTED[0]
-            src.append(find_line(*DABIC_COMPUTED[1]))
         d = DIRECTION.get(t)
         if d:
             src.append(find_line(*d[2]))
@@ -389,7 +431,7 @@ def labels(row, rr, lang):
         return f'+{v:.2f} (computed from a real run)' if k == 'en' else f'+{v:.2f}（按真实运行计算）'
     if t == 'order_addition_permutation_optimization':
         x = rr[t]
-        v = x['fixed'] - x['recorded']
+        v = x['fixed'] - x['orig']
         return (f"+{v:.2f} in the run's kept score" if k == 'en' else f'+{v:.2f}：运行保留的成绩')
     if t in LIMIT_LABEL:
         return LIMIT_LABEL[t][0 if k == 'en' else 1]
@@ -409,15 +451,16 @@ def order_rows(rows):
 
 
 def count10(rows, rr):
-    sub, kept = [], []
+    """Tasks that meet the headline rule: one submission's score, two forms of the same work, or the kept score."""
+    sub, forms, kept = [], [], []
     for r in rows:
         if r['task'] in NOT_COUNTED:
             continue
         for m in r['marks']:
             if m['v'] >= 10 - 1e-9:
-                (kept if m.get('kept') else sub).append(r['task'])
+                (kept if m.get('kept') else forms if m['sign'] == '' else sub).append(r['task'])
                 break
-    return sub, kept
+    return sub, forms, kept
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -437,8 +480,9 @@ def overview_svg(rows, rr, lang, n10):
     o = []
     y = 30
     title = L['ov_title'].format(n10=n10, n=len(rows))
-    o.append(text(NX, y, title, size=18, weight=700))
-    y += 24
+    for i, line in enumerate(wrapw(title, W - 2 * NX, 18)):
+        o.append(text(NX, y, line, size=18, weight=700))
+        y += 24
     o.append(text(NX, y, L['ov_sub'], 'muted', 14))
     # legend
     y += 30
@@ -450,6 +494,9 @@ def overview_svg(rows, rr, lang, n10):
     y += 22
     o.append(f'<rect x="{NX:g}" y="{y - 10:g}" width="34" height="10" fill="none" class="accS" stroke-width="1.5"/>')
     o.append(text(NX + 42, y, L['leg_bar']))
+    lx = NX + 42 + tw(L['leg_bar']) + 26
+    o.append(diamond(lx, y - 4, computed=True))
+    o.append(text(lx + 12, y, L['leg_comp']))
     # axis
     y += 34
     o.append(text(DX, y - 16, L['dir_head'], 'ink', 13, weight=600))
@@ -477,7 +524,9 @@ def overview_svg(rows, rr, lang, n10):
             right = max(ends) + 9
             # labels stay left of the direction-only column; a long one is split over two lines
             lab_lines = [lab] if not lab or right + tw(lab) <= DX - 10 else split_label(lab)
-            h = 22 if max(len(nm), len(lab_lines)) == 1 else 36
+            dir_lines = wrapw(r['dir'][0 if lang == 'en' else 1], W - DX - 6) if r['dir'] else []
+            nl = max(len(nm), len(lab_lines), len(dir_lines))
+            h = 22 if nl == 1 else 36 + 15 * (nl - 2)
             cy = y + h / 2
             for i, line in enumerate(nm):
                 body.append(text(NX, y + 15 + 15 * i, line, 'ink', 13))
@@ -490,7 +539,7 @@ def overview_svg(rows, rr, lang, n10):
                     body.append(f'<line x1="{xs(m["lo"]):.1f}" y1="{cy:g}" x2="{cx:.1f}" y2="{cy:g}" class="accS" stroke-width="2"/>')
                     body.append(dot(xs(m['lo']), cy))
                 if m['kind'] == 'real':
-                    body.append(diamond(cx, cy))
+                    body.append(diamond(cx, cy, computed=m.get('computed', False)))
                 else:
                     body.append(dot(cx, cy))
             if lab:
@@ -501,8 +550,9 @@ def overview_svg(rows, rr, lang, n10):
                 y0 = cy + 4.5 - 7.5 * (len(lab_lines) - 1)
                 for i, line in enumerate(lab_lines):
                     body.append(text(x0, y0 + 15 * i, line, 'ink', 13, anchor))
-            if r['dir']:
-                body.append(text(DX, cy + 4.5, r['dir'][0 if lang == 'en' else 1], 'muted', 13))
+            y0 = cy + 4.5 - 7.5 * (len(dir_lines) - 1)
+            for i, line in enumerate(dir_lines):
+                body.append(text(DX, y0 + 15 * i, line, 'muted', 13))
             y += h
     bottom = y + 4
     grid = []
@@ -534,9 +584,21 @@ def rr_class(t, x):
         return 'never'
     if x.get('computed'):
         return 'computed'
-    if abs(x['fixed'] - x['recorded']) > 0.5:
+    # the kept score changed only if the spreads of the two regrades are clearly apart
+    olo, ohi = x.get('orig_lo', x['orig']), x.get('orig_hi', x['orig'])
+    flo, fhi = x.get('fixed_lo') or x['fixed'], x.get('fixed_hi') or x['fixed']
+    if flo - ohi > 0.5 or olo - fhi > 0.5:
         return 'kept'
     return 'subs'
+
+
+def rec_note(x, en):
+    """The run's own recorded score, when it differs from our regrade on the original checker."""
+    r = x['recorded']
+    if abs(r - x.get('orig_lo', x['orig'])) < 0.005 and abs(r - x.get('orig_hi', x['orig'])) < 0.005:
+        return ''
+    r = f'{r:.2f}'.replace('100.00', '100')
+    return f'; the run itself recorded {r} on its own machine' if en else f'；该运行在它自己的机器上记录的是 {r}'
 
 
 def rr_note(t, x, lang):
@@ -546,8 +608,8 @@ def rr_note(t, x, lang):
         return (f'Each submission keeps its own score; the fixed checker keeps a later, better one ({n} submissions).' if en else
                 f'每份提交自身的分数不变；修复版评分器保留了后来一份更好的提交（{n} 份提交）。')
     if t == 'integer_compression_codec':
-        return (f'Raw results rise 1.7–4×; the fixed 0–100 scale lowers the run\'s score ({n} submissions).' if en else
-                f'原始结果提高 1.7–4 倍；修复后的 0–100 分刻度使运行成绩降低（{n} 份提交）。')
+        return (f'Raw results rise 1.7–4×; the fixed 0–100 scale lowers the run\'s score{rec_note(x, en)} ({n} submissions).' if en else
+                f'原始结果提高 1.7–4 倍；修复后的 0–100 分刻度使运行成绩降低{rec_note(x, en)}（{n} 份提交）。')
     if t == 'lean_analysis_proofs':
         return (f'Computed from the original checker\'s saved verdicts, not run ({n} submissions).' if en else
                 f'由原始评分器保存的逐项判定计算得出，未实际运行（{n} 份提交）。')
@@ -555,32 +617,42 @@ def rr_note(t, x, lang):
         return (f'{x["n_changed"]} of {n} submissions changed; the best one did not.' if en else
                 f'{n} 份提交中有 {x["n_changed"]} 份分数变化；最佳提交不变。')
     if t == 'molecular_self_assembly':
-        return (f'All {x["n_up"]} graded submissions rose; the run was already at the top of the scale ({n} of {x["n_history"]} graded).' if en else
-                f'全部 {x["n_up"]} 份受评提交的分数都上升；该运行原本已在刻度顶端（{x["n_history"]} 份中评了 {n} 份）。')
+        return (f'All {x["n_up"]} graded submissions rose; the kept one was already near the top of the scale{rec_note(x, en)} '
+                f'({n} of {x["n_history"]} graded).' if en else
+                f'全部 {x["n_up"]} 份受评提交的分数都上升；保留的提交原本已接近刻度顶端{rec_note(x, en)}（{x["n_history"]} 份中评了 {n} 份）。')
     if t == 'tree_block_partitioning':
         return (f'Differences come from timing near the time limit, under both checkers ({n} of {x["n_history"]} graded).' if en else
                 f'差异来自接近时限时的计时波动，两个评分器都有（{x["n_history"]} 份中评了 {n} 份）。')
     if t == 'graph_node_classification':
-        return (f'{x["recorded"]:.2f} against {x["fixed_lo"]:.2f}–{x["fixed_hi"]:.2f} is timing noise ({n} of {x["n_history"]} graded).' if en else
-                f'{x["recorded"]:.2f} 对 {x["fixed_lo"]:.2f}–{x["fixed_hi"]:.2f} 是计时波动（{x["n_history"]} 份中评了 {n} 份）。')
+        return (f'The spread is timing noise under both checkers{rec_note(x, en)} ({n} of {x["n_history"]} graded).' if en else
+                f'两个评分器下的差异都是计时波动{rec_note(x, en)}（{x["n_history"]} 份中评了 {n} 份）。')
     if t == 'schemathesis_config_modernization':
         return (f'All {n} submissions score the same under both checkers.' if en else
                 f'全部 {n} 份提交在两个评分器下得分相同。')
     if t == 'borden_source_inversion':
-        return (f'The fix changes the instructions, so old answers cannot be regraded; {x["recorded_raw"]:.2f} on its 0–109 scale.' if en else
-                f'该修复改变的是任务说明，旧答案无法重新评分；按其 0–109 分刻度为 {x["recorded_raw"]:.2f}。')
+        return (f'Grader unchanged, so old answers score the same ({x["recorded_raw"]:.2f} raw, {x["orig"]:.2f} out of 100); the fix '
+                'changes the instructions, so only new runs can show its effect.' if en else
+                f'评分器不变，因此旧答案得分相同（原始结果 {x["recorded_raw"]:.2f}，即 {x["orig"]:.2f} 分，满分 100）；该修复改变的是任务说明，'
+                '只有新的运行才能显示它的作用。')
     return ''
+
+
+def span(lo, hi, mid):
+    f = lambda v: f'{v:.2f}'.replace('100.00', '100')  # noqa: E731
+    return f'{f(lo)}–{f(hi)}' if lo is not None and hi is not None and abs(hi - lo) > 0.005 else f(mid)
 
 
 def realruns_svg(rr, lang, nk, nr):
     L = T[lang]
     o = []
     title = L['rr_title'].format(nk=nk, nr=nr)
-    o.append(text(NX, 30, title, size=18, weight=700))
-    o.append(text(NX, 54, L['rr_sub'], 'muted', 14))
-    y = 82
-    o.append(f'<circle cx="{NX + 6}" cy="{y - 4}" r="5" class="bg" style="stroke-width:2" stroke="currentColor"/>'.replace(
-        'class="bg" style="stroke-width:2" stroke="currentColor"', 'class="bg mutedS" stroke-width="2"'))
+    y = 30
+    for line in wrapw(title, W - 2 * NX, 18):
+        o.append(text(NX, y, line, size=18, weight=700))
+        y += 24
+    o.append(text(NX, y, L['rr_sub'], 'muted', 14))
+    y += 28
+    o.append(f'<circle cx="{NX + 6}" cy="{y - 4}" r="5" class="bg mutedS" stroke-width="2"/>')
     o.append(text(NX + 18, y, L['rr_leg_o']))
     lx = NX + 18 + tw(L['rr_leg_o']) + 24
     o.append(dot(lx, y - 4))
@@ -594,9 +666,12 @@ def realruns_svg(rr, lang, nk, nr):
     for v in (0, 50, 100):
         o.append(text(P0 + (P1 - P0) * v / 100, y, str(v), 'muted', 13, 'middle'))
     for v in (-25, 0, 25):
-        o.append(text(Z + SC * v, y, f'{v:+d}' if v else '0', 'muted', 13, 'middle'))
+        o.append(text(Z + SC * v, y, f'{v:+d}'.replace('-', '−') if v else '0', 'muted', 13, 'middle'))
     top = y + 8
     body = []
+    # vertical spans where grid lines stop, so they do not cross text: all lines (notes), the zero line of the right
+    # panel (its labels), and a line of the left panel that a kept-score label crosses (x0, x1, row centre)
+    gaps, zgaps, lgaps = [], [], []
     y = top
     px = lambda v: P0 + (P1 - P0) * v / 100  # noqa: E731
     for t in RR_ORDER:
@@ -606,11 +681,13 @@ def realruns_svg(rr, lang, nk, nr):
         cy = y + 18
         for i, line in enumerate(nm):
             body.append(text(NX, cy + 4.5 + 15 * i - (7 if len(nm) == 2 else 0), line, 'ink', 13, weight=600))
-        # panel 1
-        a = x['recorded']
+        # panel 1: the kept score, original and fixed checker, both regraded on our machines
+        a = x['orig']
         if c == 'notregr':
             body.append(f'<circle cx="{px(a):.1f}" cy="{cy}" r="5" class="bg mutedS" stroke-width="2"/>')
-            body.append(text(px(a) - 10, cy + 4.5, f'{a:.2f}', 'ink', 13, 'end'))
+            lab = f'{a:.2f} (raw {x["recorded_raw"]:.2f})' if lang == 'en' else f'{a:.2f}（原始结果 {x["recorded_raw"]:.2f}）'
+            body.append(text(px(a) - 10, cy + 4.5, lab, 'ink', 13, 'end'))
+            lgaps.append((px(a) - 10 - tw(lab), px(a) - 10, cy))
         else:
             b = x['fixed']
             dash = ' stroke-dasharray="2 2"' if c == 'computed' else ''
@@ -620,19 +697,23 @@ def realruns_svg(rr, lang, nk, nr):
                 body.append(f'<circle cx="{px(b):.1f}" cy="{cy}" r="5" class="bg accS" stroke-width="2"{dash}/>')
             else:
                 body.append(dot(px(b), cy))
-            fb = f'{x["fixed_lo"]:.2f}–{x["fixed_hi"]:.2f}' if x.get('fixed_lo') is not None and abs(x['fixed_hi'] - x['fixed_lo']) > 0.005 else f'{b:.2f}'
-            lab = f'{a:.2f} → {fb}' if abs(a - b) > 0.005 or fb != f'{b:.2f}' else f'{a:.2f} = {b:.2f}'
-            lab = lab.replace('100.00', '100')
+            fa = span(x.get('orig_lo'), x.get('orig_hi'), a)
+            fb = span(x.get('fixed_lo'), x.get('fixed_hi'), b)
+            lab = f'{fa} → {fb}' if fa != fb or abs(a - b) > 0.005 else f'{fa} = {fb}'
             lo = min(px(a), px(b))
             if max(px(a), px(b)) + 10 + tw(lab) < Z - SC * 30 - 6:
                 body.append(text(max(px(a), px(b)) + 10, cy + 4.5, lab, 'ink', 13))
+                lgaps.append((max(px(a), px(b)) + 10, max(px(a), px(b)) + 10 + tw(lab), cy))
             else:
                 body.append(text(lo - 10, cy + 4.5, lab, 'ink', 13, 'end'))
+                lgaps.append((lo - 10 - tw(lab), lo - 10, cy))
         # panel 2
         if c in ('never', 'notregr'):
             body.append(text(Z, cy + 4.5, L[c], 'muted', 13, 'middle'))
+            zgaps.append((cy - 9, cy + 8))
         elif t == 'order_addition_permutation_optimization':
             body.append(text(Z, cy + 4.5, L['zero'], 'ink', 13, 'middle'))
+            zgaps.append((cy - 9, cy + 8))
         else:
             v = x['big']
             w = SC * min(abs(v), 30)
@@ -647,13 +728,22 @@ def realruns_svg(rr, lang, nk, nr):
         notes = wrapw(rr_note(t, x, lang), W - 20 - P0)
         for i, line in enumerate(notes):
             body.append(text(P0, cy + 25 + 17 * i, line, 'muted', 13))
+        gaps.append((cy + 12, cy + 30 + 17 * (len(notes) - 1)))
         y += 50 + 17 * (len(notes) - 1)
     bottom = y
-    grid = [f'<line x1="{px(v):.1f}" y1="{top}" x2="{px(v):.1f}" y2="{bottom - 8}" class="rule" stroke-width="1"/>' for v in (0, 50, 100)]
-    grid.append(f'<line x1="{Z}" y1="{top}" x2="{Z}" y2="{bottom - 8}" class="rule" stroke-width="1.5"/>')
-    fl = wrapw(L['rr_foot'], W - 2 * NX)
-    foot = [text(NX, bottom + 14 + 18 * i, line, 'muted', 13) for i, line in enumerate(fl)]
-    return svg_doc(W, bottom + 22 + 18 * (len(fl) - 1), title, lang, o + grid + body + foot)
+    def vline(x, gs, sw):
+        out, y0 = [], top
+        for g0, g1 in sorted(gs) + [(bottom - 8, bottom - 8)]:
+            if g0 > y0:
+                out.append(f'<line x1="{x:g}" y1="{y0:g}" x2="{x:g}" y2="{g0:g}" class="rule" stroke-width="{sw}"/>')
+            y0 = max(y0, g1)
+        return out
+    grid = [g for v in (0, 50, 100)
+            for g in vline(round(px(v), 1), gaps + [(c - 9, c + 8) for x0, x1, c in lgaps if x0 - 3 <= px(v) <= x1 + 3], 1)]
+    grid += vline(Z, gaps + zgaps, 1.5)
+    fl = wrapw(L['rr_ranges'], W - 2 * NX) + wrapw(L['rr_foot'], W - 2 * NX)
+    foot = [text(NX, bottom + 18 + 18 * i, line, 'muted', 13) for i, line in enumerate(fl)]
+    return svg_doc(W, bottom + 26 + 18 * (len(fl) - 1), title, lang, o + grid + body + foot)
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -677,10 +767,10 @@ def leaderboard(eff):
           f'The corrections that can be computed from the public averages keep that order ({f(sa)} against {f(sb)}). '
           f'Adding the per-task limits we documented widens the ranges to {f(ba)} and {f(bb)}. These overlap, so the public '
           f'data can no longer confirm which of the two is ahead. This does not show that they change places; deciding that '
-          f'needs the original submissions or new runs. These ranges count the {n_open} effects whose size is unknown as zero.')
+          f'needs the original submissions or new runs. These ranges count the {n_open} effects whose size on the leaderboard is unknown as zero.')
     zh = (f'在已公布的排行榜上，Opus 4.8 以 {pa - pb:.1f} 分领先 GPT-5.5（{pa:.1f} 对 {pb:.1f}）。仅用公开平均分即可计算的修正保持这一顺序'
           f'（{f(sa)} 对 {f(sb)}）。加入我们记录的各任务上限后，区间扩大到 {f(ba)} 和 {f(bb)}，两者重叠，因此仅凭公开数据已无法确认两者中哪个领先。'
-          f'这并不表明两者名次互换；要判定这一点，需要原始提交或重新运行。这些区间把 {n_open} 个只知道方向的影响计为零。')
+          f'这并不表明两者名次互换；要判定这一点，需要原始提交或重新运行。这些区间把 {n_open} 个在排行榜上大小未知的影响计为零。')
     return dict(published={'Opus 4.8': pa, 'GPT-5.5': pb}, scale_only={'Opus 4.8': sa, 'GPT-5.5': sb},
                 documented_limits={'Opus 4.8': ba, 'GPT-5.5': bb}, direction_only_counted_as_zero=n_open,
                 certified_order=False, rounding='outward to 2 decimals, as in IMPACT.md',
@@ -692,8 +782,8 @@ def build():
     rr = real_runs(summ, lean, hist)
     rows, sources = build_rows(dec, eff, rr)
     names = task_names()
-    sub10, kept10 = count10(rows, rr)
-    n10 = len(sub10) + len(kept10)
+    sub10, forms10, kept10 = count10(rows, rr)
+    n10 = len(sub10) + len(forms10) + len(kept10)
     prim = PC.by_primary(dec)
     regraded = [t for t in RR_ORDER if t in summ]
     cls = {t: rr_class(t, rr[t]) for t in RR_ORDER}
@@ -711,9 +801,13 @@ def build():
     ov = dict(
         alt=(f'A chart with one row for each of the {len(rows)} tasks with a problem, grouped by kind of problem. Each row shows, '
              'on a 0 to 100 axis, the measured change for one affected submission as a filled circle (our test submission) or '
-             'a filled diamond (a real agent run), and a proved or computed limit as a hollow bar starting at 0. A separate '
-             'column on the right lists effects whose direction is known but whose size is not.'),
-        caption=(f'In {n10} of the {len(rows)} tasks with a problem, a measured score changed by 10 points or more out of 100. '
+             'a filled diamond (a real agent run; hollow and dashed when computed from a run\'s saved verdicts, not run), and a '
+             'proved or computed limit as a hollow bar starting at 0. A separate column on the right lists effects whose '
+             'direction is known but whose size is not.'),
+        caption=(f'In {n10} of the {len(rows)} tasks with a problem, the problem itself moved a measured score by 10 points or '
+                 'more out of 100: honest work lost that much, or broken or empty work gained it. For Arc and Borden this is the '
+                 'gap between two honest submissions that differ only in an unstated convention; a change that comes from a '
+                 'fix\'s new scale (Integer Codec) does not count. '
                  'Each row shows what the problem does to one submission when it occurs: filled marks are measured changes, '
                  'hollow bars are proved or computed limits that the change cannot exceed, and the right-hand column lists effects '
                  'whose direction is known but whose size is not. How often each problem occurred on the leaderboard is unknown '
@@ -721,18 +815,22 @@ def build():
         sources=sources)
     r_or = rr['order_addition_permutation_optimization']
     r_ic = rr['integer_compression_codec']
+    r_bo = rr['borden_source_inversion']
     rrj = dict(
         alt=(f'Nine rows, one per fixed task in a third-party Claude Opus 5.5 run. The left panel shows the run\'s kept score '
-             'out of 100 under the original checker (hollow circle) and the fixed checker (filled circle). The right panel shows '
-             'the largest change for any single submission as a bar from zero, or says that the problem never occurred or that '
-             'the task cannot be regraded.'),
+             'out of 100 under the original checker (hollow circle) and the fixed checker (filled circle), both regraded on our '
+             'machines. The right panel shows the largest change for any single submission as a bar from zero, or says that the '
+             'problem never occurred or that the grader is unchanged and only a new run can show the fix\'s effect.'),
         caption=(f'We regraded one four-hour Claude Opus 5.5 run, submission by submission, with the original and the fixed '
                  f'checker. The run\'s kept score changed in {len(kept_changes)} of the {len(regraded)} regraded tasks: Order '
-                 f'Addition {r_or["recorded"]:.2f} → {r_or["fixed"]:.2f}, although no single submission\'s score changed, and '
-                 f'Integer Codec {r_ic["recorded"]:.2f} → {r_ic["fixed"]:.2f} on the fixed scale. In {len(subs_only)} more '
+                 f'Addition {r_or["orig"]:.2f} → {r_or["fixed"]:.2f}, although no single submission\'s score changed, and '
+                 f'Integer Codec {r_ic["orig"]:.2f} → {r_ic["fixed"]:.2f} on the fixed scale (the run itself recorded '
+                 f'{r_ic["recorded"]:.2f} on its own machine). Both sides are regrades on our machines. In {len(subs_only)} more '
                  f'tasks single submissions changed by up to {max(abs(rr[t]["big"]) for t in subs_only):.2f} points while the kept '
-                 f'score did not, and in {len(never)} the problem never occurred. It shows that the problems happen to real agents, '
-                 'and sometimes do not; it does not measure the effect on the 12-hour leaderboard.'),
+                 f'score did not, and in {len(never)} the problem never occurred. In Borden Inversion the grader is unchanged, so '
+                 f'the run\'s answers score the same ({r_bo["recorded_raw"]:.2f} raw, {r_bo["orig"]:.2f} out of 100); the fix '
+                 'changes the instructions, so only new runs can show its effect. It shows that the problems happen to real '
+                 'agents, and sometimes do not; it does not measure the effect on the 12-hour leaderboard.'),
         sources={t: rr[t]['src'] for t in RR_ORDER})
     out['cases/figures/impact-overview.json'] = json.dumps(ov, ensure_ascii=False, indent=1) + '\n'
     out['cases/figures/real-runs.json'] = json.dumps(rrj, ensure_ascii=False, indent=1) + '\n'
@@ -740,19 +838,25 @@ def build():
     big_subs = max(abs(rr[t]['big']) for t in subs_only)
     zh = {
         'impact-overview': dict(
-            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务实测分数变化达到 10 分或以上（满分 100）。每一行显示问题一旦发生对一份提交的'
+            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务的问题本身使实测分数变化 10 分或以上（满分 100）：诚实的工作损失了这么多分，'
+                     '或有错误、空白的工作多得了这么多分。对 Arc 和 Borden，这是两份只在一项未说明的约定上不同的诚实提交之间的差距；'
+                     '来自修复后新刻度的变化（Integer Codec）不计入。每一行显示问题一旦发生对一份提交的'
                      '作用：实心标记是实测变化，空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，'
                      '这些问题在排行榜上发生的频率未知。'),
             alt=(f'一张图，每个有问题的任务占一行（共 {len(rows)} 行），按问题类别分组。每行在 0 到 100 的横轴上，用实心圆（我们的测试提交）或实心菱形'
-                 '（真实智能体运行）表示一份受影响提交的实测变化，用从 0 开始的空心条表示已证明或计算出的上限。右侧单独一栏列出只知道方向、大小未知的影响。')),
+                 '（真实智能体运行；按运行保存的判定计算、未实际运行时为空心虚线菱形）表示一份受影响提交的实测变化，用从 0 开始的空心条表示已证明或计算出的上限。右侧单独一栏列出只知道方向、大小未知的影响。')),
         'real-runs': dict(
             caption=(f'我们用原始评分器和修复版评分器逐份重新评分了一次四小时的 Claude Opus 5.5 运行。在可重新评分的 {len(regraded)} 个任务中，'
-                     f'有 {len(kept_changes)} 个的运行保留成绩发生变化：Order Addition 从 {r_or["recorded"]:.2f} 变为 {r_or["fixed"]:.2f}'
-                     f'（但没有任何单份提交的分数变化），Integer Codec 在修复后的刻度上从 {r_ic["recorded"]:.2f} 变为 {r_ic["fixed"]:.2f}。'
+                     f'有 {len(kept_changes)} 个的运行保留成绩发生变化：Order Addition 从 {r_or["orig"]:.2f} 变为 {r_or["fixed"]:.2f}'
+                     f'（但没有任何单份提交的分数变化），Integer Codec 在修复后的刻度上从 {r_ic["orig"]:.2f} 变为 {r_ic["fixed"]:.2f}'
+                     f'（该运行在它自己的机器上记录的是 {r_ic["recorded"]:.2f}）。两边都是在我们的机器上重新评分的结果。'
                      f'另有 {len(subs_only)} 个任务中，单份提交的分数最多变化 {big_subs:.2f} 分，而保留的成绩不变；还有 {len(never)} 个任务中问题从未发生。'
+                     f'在 Borden Inversion 中评分器没有改变，因此该运行的答案得分相同（原始结果 {r_bo["recorded_raw"]:.2f}，即 {r_bo["orig"]:.2f} 分，满分 100）；'
+                     '该修复改变的是任务说明，只有新的运行才能显示它的作用。'
                      '它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。'),
             alt=(f'{len(RR_ORDER)} 行，每行是第三方 Claude Opus 5.5 运行中的一个已修复任务。左侧面板显示运行保留的成绩（满分 100）：空心圆为原始评分器，'
-                 '实心圆为修复版评分器。右侧面板用从零出发的条形显示单份提交的最大变化，或注明问题从未发生、该任务无法重新评分。')),
+                 '实心圆为修复版评分器，两者都在我们的机器上重新评分。右侧面板用从零出发的条形显示单份提交的最大变化，或注明问题从未发生，'
+                 '或注明评分器不变、只有新的运行才能显示修复的作用。')),
     }
     fz = json.loads((ROOT / FIGZH).read_text())
     fz.update(zh)
@@ -766,9 +870,13 @@ def build():
         'by_category': cat_counts,
         'measured_change_10_or_more': {
             'count': n10,
-            'rule': ('a measured change of at least 10 points out of 100, on our test submission or a real agent run, in one '
-                     'submission\'s score (or, for Order Addition, in the score the run keeps); computed limits do not count'),
+            'rule': ('the problem itself cost an honest submission 10 or more points out of 100, or gave broken or empty work '
+                     '10 or more points it did not earn, measured on our test submission or a real agent run: in one '
+                     'submission\'s score, between two honest submissions that differ only in an unstated convention (Arc, '
+                     'Borden; the checker is unchanged), or in the score a run keeps (Order Addition). Computed limits, and '
+                     'changes that come from a fix\'s new 0–100 scale, do not count'),
             'in_one_submission': {'count': len(sub10), 'tasks': sub10},
+            'between_two_forms_of_the_same_work': {'count': len(forms10), 'tasks': forms10},
             'in_the_kept_score_only': {'count': len(kept10), 'tasks': kept10},
             'not_counted': NOT_COUNTED,
         },
@@ -778,17 +886,21 @@ def build():
             'regraded_with_both_checkers': len(regraded),
             'submissions_graded': sum(rr[t]['n_graded'] for t in regraded),
             'paired_gradings': sum(rr[t]['gradings'] for t in regraded),
-            'kept_score_changes': {t: [round(rr[t]['recorded'], 2), round(rr[t]['fixed'], 2)] for t in kept_changes},
+            'kept_score': 'original and fixed checker, both regraded on our machines (mean over the gradings)',
+            'kept_score_changes': {t: [round(rr[t]['orig'], 2), round(rr[t]['fixed'], 2)] for t in kept_changes},
+            'kept_score_recorded_by_run': {t: round(rr[t]['recorded'], 2) for t in regraded
+                                           if abs(rr[t]['recorded'] - rr[t]['orig']) > 0.005},
             'single_submissions_change_kept_score_does_not': {t: round(rr[t]['big'], 2) for t in subs_only},
             'problem_never_occurred': never,
             'computed_not_run': {'lean_analysis_proofs': [round(rr['lean_analysis_proofs']['recorded'], 2),
                                                          round(rr['lean_analysis_proofs']['fixed'], 2)]},
-            'cannot_be_regraded': {'borden_source_inversion': round(rr['borden_source_inversion']['recorded_raw'], 2)},
+            'grader_unchanged_needs_new_run': {'borden_source_inversion': {
+                'raw': round(r_bo['recorded_raw'], 2), 'out_of_100': round(r_bo['orig'], 2)}},
             'largest_single_submission_change': {t: round(rr[t]['big'], 2) for t in RR_ORDER if 'big' in rr[t] and cls[t] not in ('never',)},
             'source': SUMMARY,
         },
         'leaderboard': leaderboard(eff),
-        'display_names': {t: names[t] for t in sorted(set(sub10 + kept10))},
+        'display_names': {t: names[t] for t in sorted(set(sub10 + forms10 + kept10))},
     }
     out['data/headline.json'] = json.dumps(headline, ensure_ascii=False, indent=1) + '\n'
     return out

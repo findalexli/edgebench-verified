@@ -36,19 +36,21 @@ In numbers:
 
 - **Real agent run.** Of the 9 fixed tasks in one public four-hour run of Claude Opus 5.5, 7 could
   be regraded with both checkers. The run's score changed in 2 (Order Addition 3.79 → 41.24,
-  Integer Codec 75.72 → 53.95, out of 100), single submissions changed in 2 more (Juliet, by up to
+  Integer Codec 71.93 → 53.95, out of 100, both sides regraded on our machines; the run itself
+  recorded 75.72 for Integer Codec), single submissions changed in 2 more (Juliet, by up to
   25.26 points; Molecular Assembly, by up to 12.22), and the problem never occurred in 3.
 - **Leaderboard.** Opus 4.8 leads GPT-5.5 by 1.1 points on the published leaderboard (44.2 against
   43.1). With the per-task limits we documented, their ranges are 45.49–47.30 and 44.30–46.35. These
   overlap, so the public data can no longer confirm which is ahead; this does not show that they
   change places. Details in [IMPACT.md](IMPACT.md).
 
-What each fix has been tested on differs from task to task. Remaining gates: FFmpeg's submission-build
-path; Warehouse's backend integration of the final-drain repair; Lean Analysis's image builds and
-actual grading path (its grader image needs about 45 GB of disk and was not rebuilt on a clean
+What each fix has been tested on differs from task to task. Still open: FFmpeg's path that builds
+the submission from source; Warehouse's change to how EdgeBench waits for the last results, tested
+only in parts; Lean Analysis's image builds and actual grading path (its grader image unpacks to
+about 33 GB, and rebuilding both images needs about 45 GB of disk, so it was not rebuilt on a clean
 machine); PFR's credit on the five actual targets, which needs real proofs; Equivalence's
-per-problem checks on all six problems; and Vibrating Path's zero-hit formatting effect, unresolved
-on 13 of 50 cases. [APPLYING-FIXES.md](APPLYING-FIXES.md) gives the per-package evidence and
+per-problem checks on all six problems; and, in Vibrating Path, how cases with no hits are
+formatted, unresolved on 13 of 50 cases. [APPLYING-FIXES.md](APPLYING-FIXES.md) gives the per-package evidence and
 remaining requirements.
 
 ## How EdgeBench scores an agent
@@ -78,7 +80,7 @@ mechanism of its main defect, and may have secondary ones. The four categories:
 | Scoring scale and selection | 3 | The 0–100 scale cannot be reached, a reference point is wrong, or the wrong submission is kept |
 | **Total** | **32** | |
 
-Fourteen examples follow, three or four per category; the website shows each with a figure. A task
+Fourteen examples follow, two to five per category; the website shows each with a figure. A task
 can appear under a secondary category too.
 
 ### 1. Engineering and runtime environment (5 tasks)
@@ -86,9 +88,10 @@ can appear under a secondary category too.
 The checker's scoring rules may be right, but it does not run correctly in the setting where it is actually used. Typical causes: test cases run at once on fewer CPUs than they need, so honest solutions time out; hidden tests are inserted where they do not compile; files the checker needs are missing from the published images; a test run stops at its first failure and counts the rest as failed; or a result depends on timing. Honest work then loses points for reasons that have nothing to do with its quality.
 
 - *Rust Multicrate: hidden tests that cannot compile.* The agent rebuilds a 14-package Rust project
-  and is told not to edit the tests. The checker inserts its hidden tests into two packages, search
-  (12 points) and the command-line program (10 points), where they do not compile, so both packages,
-  22 of the 100 points, score 0 for every solver who leaves the tests and settings unchanged. A
+  and is told not to edit the tests. The checker adds hidden tests to all 14 packages, and in two of
+  them, search (12 points) and the command-line program (10 points), it places them where they do not
+  compile, so both packages, 22 of the 100 points, score 0 for every solver who leaves the tests and
+  package settings unchanged. A
   complete, correct solution scores 73.99 out of 100 with the original checker and 94.70 with the
   fixed one, a gain of 20.71: search +11.29, the command-line program +9.32, and a test the original
   skipped after an earlier failure +0.10. (A solver could still make search compile by turning on its
@@ -109,7 +112,7 @@ The task asks for the right thing, but the checker checks it wrongly: it marks w
 
 - *Exchange Core: a broken stock exchange passes.* The agent makes a matching engine faster without
   changing what it does. The checker only confirms that money balances overall, so two realistic
-  one-line bugs, a wrong seller fee and trade messages never delivered, are scored as correct, on
+  small bugs, a wrong seller fee and trade messages never delivered, are scored as correct, on
   speed (7.77–24.40 and 4.71–15.62 out of 100 over four runs, within the correct engine's speed
   noise). The fixed checker requires the project's own tests, which catch both, and gives them 0.
 - *College English: an empty grading report scores 100.* An AI model grades the agent's exam papers
@@ -119,12 +122,15 @@ The task asks for the right thing, but the checker checks it wrongly: it marks w
   not known.
 - *SMT Solver: correct answers rejected.* The checker looks up a value by how it is written, not by
   what it stands for, so 27 hidden puzzles cannot be won and a perfect solver's maximum falls from
-  78.61 to 72.40 out of 100. On 42 more it rejects answers written the way the instructions
+  78.61 to 72.40 out of 100 (a correct "no solution" answer earns at most a fifth of a puzzle's
+  credit, so even a perfect solver tops out at 78.61). On 42 more it rejects answers written the way the instructions
   describe; the fixed checker accepts correct answers on all 69.
 - *FFmpeg Swscale: code that fails instantly earns speed credit.* The speed tests never check the
-  output, so a call that fails or does nothing "finishes" almost instantly; unfinished code earned
-  up to 18.93 out of 100 under the original checker. The fixed checker checks the output of every
-  timed call, and any failed workload makes the total exactly 0.
+  output, so a call that fails or does nothing "finishes" almost instantly; in one run of the original
+  checker, unfinished code earned up to 18.93 out of 100 while the unchanged starter scored 0. The
+  fixed checker checks the output of every timed call, and any failed workload makes the total
+  exactly 0: in its one side-by-side run, code that skips repeated calls passed all 30 correctness
+  tests and scored 0.
 - *D-ABIC Gravity Inversion (removed).* About 42 of the 100 points (two parts, worth 12 and 30) come
   from the submission's own results file and are never verified. A sound fix would need the checker
   to recompute them from hidden data, so the task was removed.
@@ -146,13 +152,16 @@ Each rule the checker applies may be reasonable on its own, but it is not the ru
 - *Juliet Analyzer: the public examples teach the wrong format.* For command-injection bugs, all 38
   public examples mark the start of the bug at the line that runs the command, while all 120 hidden
   answers mark the line that reads the input, and the original checker accepts only the hidden form.
-  An analyzer that follows the public examples loses 15.00 points (45.66 instead of 60.66), and up to
-  26.47 in the worst case (computed exactly, not run). In a real agent run, 14 of 105 submissions were
-  affected, one by 25.26 points (70.00 against 95.26). The fixed checker accepts both forms.
+  An analyzer that finds only the command-injection bugs and follows the public examples loses 15.00
+  points (45.66 instead of 60.66); one that finds every bug loses 2.49, and the worst case is 26.47
+  (computed exactly, not run). In a real agent run, 14 of 105 submissions were affected, two by about
+  25 points (70.00 against 95.22 and 95.26); the run's kept score was not. The fixed checker accepts
+  both forms.
 - *Borden Inversion: the checker's physics is not the textbook's.* The checker predicts well readings
   with a physics model whose conventions the instructions never state. An honest textbook fit scores
-  7.03 and the same fit with the checker's conventions 31.2 (raw, on this task's 0–109 range); in a real
-  agent run (read, not regraded) the best score climbed from 7.01 to 60.10 over 36 submissions while
+  7.03 and the same fit with the checker's conventions 31.2 (raw, on this task's 0–109 range; 6.45 and
+  28.62 out of 100); in a real agent run, whose answers score the same under the unchanged grader, the
+  best score climbed from 7.01 to 60.10 over 36 submissions while
   the checker reported its error on the hidden wells after each one. The fixed task gives agents the
   checker's model.
 
@@ -162,7 +171,8 @@ The raw result is computed correctly, but the step that turns it into the final 
 
 - *Order Addition: later, better work never counts.* One of five tests compares a helper file
   against an outdated fingerprint, so every submission fails it. Each run picks its best submission
-  by tests passed first, so it stays on its first valid submission. In a real agent run this kept
+  by tests passed first, so every scored submission ties at 4 of 5 and the run stays on its first
+  scored submission. In a real agent run this kept
   3.79 out of 100 instead of the 41.24 a later submission earned.
 - *Treant Forest: no submission can score above 21.* The checker stops each game after a fixed number
   of turns, so no total can exceed 92,304, but the 0–100 scale was set as if 330,195 were possible:
@@ -171,9 +181,10 @@ The raw result is computed correctly, but the step that turns it into the final 
   16.36.
 - *Integer Codec: an impossible reference number.* The checker compares submissions with stored
   results for the starter code; one claims 5.13 bits per number, below the 8-bit minimum for the
-  starter's format (the starter needs 38.98), so the starter scores about 0.24 instead of the
+  starter's format (the starter needs 38.98), so the starter scores about 0.23 instead of the
   documented 1.0. The fix measures the starter in the same run and sets a new 0–100 scale, which
-  moves a real agent run from 75.72 to 53.95: fixes can lower scores as well as raise them.
+  moves a real agent run from 71.93 to 53.95 when both are regraded on our machines (the run itself
+  recorded 75.72): fixes can lower scores as well as raise them.
 
 Other fixed tasks, including Jagua Nesting, PFR Formalization, Triangulation Coloring and Git in Zig,
 are listed in [FINDINGS.md](FINDINGS.md) and have their own pages.
@@ -182,28 +193,32 @@ Every task is listed in [FINDINGS.md](FINDINGS.md), and each has its own page in
 
 ## Effect on the published leaderboard
 
+On the published leaderboard, Opus 4.8 leads GPT-5.5 by 1.1 points (44.2 against 43.1). The corrections that can be computed from the public averages keep that order (45.92–46.05 against 44.73–44.86). Adding the per-task limits we documented widens the ranges to 45.49–47.30 and 44.30–46.35. These overlap, so the public data can no longer confirm which of the two is ahead. This does not show that they change places; deciding that needs the original submissions or new runs. These ranges count the 19 effects whose size on the leaderboard is unknown as zero.
+
 **How much the published leaderboard changes cannot be determined from public data.** Measuring it
 would require rerunning the models on the fixed tasks, which this audit did not do, or, for fixes to
 the grader alone, regrading the agents' original submissions, which EdgeBench has not released. What
 can be stated precisely, assuming no fix turns a failed run into a scored one or the reverse:
 
-- **Conditional intervals.** [IMPACT.md](IMPACT.md) and [data/impact.csv](data/impact.csv) include public-score rounding, Treant's piecewise scale, and stated assumptions about which runs remain valid. Interval midpoints are descriptive, not identified corrected means.
-- **Scope of bounds.** Component-level limits apply only to the named defects. Portfolio's 0.3921-point upper estimate belongs to its restricted numerical sweep and is excluded from the global bounded-effects calculation.
-- **Ranking.** Overlapping intervals mean the available evidence does not certify an ordering. They do not establish that any attainable submissions reverse that ordering. The documented-limit intervals separate GPT-5.5, GPT-5.4, GLM-5.1 and DS-V4-Pro only if the 19 direction-only fixes have no effect, because those intervals count them as zero; in the full-domain envelope every neighbouring pair overlaps, so no order is certified.
+- **What the ranges are.** Each range in [IMPACT.md](IMPACT.md) and [data/impact.csv](data/impact.csv) is the lowest and highest average the fixes could give, using only what we could measure or prove. It allows for the rounding of the published scores, for Treant's scale having two parts, and for stated assumptions about which runs stay valid. The middle of a range is not an estimate of the corrected score.
+- **What the limits cover.** Each per-task limit covers only the named problem. Portfolio's estimated rise of up to 0.3921 points comes from a limited numerical search, so it is reported in its own column and left out of the main ranges.
+- **The ranking.** Ranges that overlap mean the evidence cannot confirm which model is ahead; they do not show that the two would change places. The other places (GPT-5.5 above GPT-5.4, and so on down to DS-V4-Pro) hold only if the 19 fixes whose size is unknown change nothing, because the ranges count them as zero. If those fixes are allowed their full possible range, no place on the leaderboard can be confirmed.
 
 A third party has published one run of Claude Opus 5.5 on 16 of the public tasks, with every
 submission. Nine of those tasks are ones we fixed. Where a fix changes only the grader, we regraded
 the run's saved submissions with both graders: 7 tasks, 314 submissions (349 paired gradings with
-repeats). Where a fix changes what the agent sees, regrading old answers would measure nothing,
-because the agent would have worked differently; that rules out Borden Inversion. Lean Analysis was
+repeats). Where a fix changes only what the agent sees, the grader is the same, so old answers score the
+same under both versions and only a new run can show the fix's effect; that is Borden Inversion,
+whose best answer scores 60.10 raw (55.14 out of 100) either way. Lean Analysis was
 not run, because its grader needs more memory than our machines have; its effect was computed
 instead (96.86 → 98.42). Order Addition changes the most: the original grader kept the run's first
-agent submission, 3.79, while the fixed grader keeps a later one, 41.24. Every Integer Codec submission scores 1.7–4×
-higher in raw terms, but on the fixed 0–100 scale the run's score falls from the 75.72 it recorded to
-53.95 (the full second regrade of all 37 submissions; an earlier first regrade of one submission gave
-66.31 → 50.08). On Juliet, the
+scored submission, 3.79, while the fixed grader keeps a later one, 41.24. Every Integer Codec submission scores 1.7–4×
+higher in raw terms, but on the fixed 0–100 scale the run's score falls from 71.93 to 53.95, both
+regraded on our machines (all 37 submissions; the run itself recorded 75.72 on its own machine, and
+an earlier regrade of one submission gave 66.31 → 50.08). On Juliet, the
 agent's early submissions lost up to 25 points but its best did not. Tree Block, Graph Node and
-Schemathesis show no sign of their defects in this run, and Molecular stays at the top of its scale.
+Schemathesis show no sign of their defects in this run, and Molecular's kept submission, already near
+the top of its scale, scores 95.91–100 on the original grader and 100 on the fixed one.
 This is one model and one four-hour run per task, so it shows the problems occur in practice but
 cannot measure the leaderboard effect. Details: [IMPACT.md](IMPACT.md),
 `evidence/runs/opus55-regrade2-summary/`.
@@ -220,10 +235,11 @@ Evidence ranges from source inspection and original-helper controls to full nati
    that explores every state of a bounded model). Each model is tied to the real grader code and
    has a counter-check that must fail.
    - 26 of the 51 tasks have formal results.
-   - The saved inventory classifies 10 repair models as proved or exhaustively model-checked
-     within their assumptions, including the modeled SMT answer checker, Triangulation flip rule
-     and Order Addition selection. Four more are partly proved. These historical results do not
-     certify current repair packages; CPU limits are checked by runs, not formally.
+   - The saved inventory classifies 9 repair models as proved or exhaustively model-checked
+     within their assumptions, including the modeled Triangulation flip rule and Order Addition
+     selection; five of the nine model an earlier version of the fix. Five more are partly proved,
+     among them the SMT answer checker, proved only for a narrow fragment. These saved results do
+     not certify current repair packages; CPU limits are checked by runs, not formally.
    - The formal checks also corrected our own work: the first College English fix was narrower than
      published, so it was revised, re-proved and re-tested, and eight statements were corrected
      ([evidence/formal/CORRECTIONS.md](evidence/formal/CORRECTIONS.md)).

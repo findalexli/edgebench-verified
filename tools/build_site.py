@@ -87,13 +87,13 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     cols = [
         ('1', 'Examined', 'original code and images', [f'{n_tasks} tasks examined', 'source, component and', 'native evidence']),
         ('2', 'Proved formally', 'Lean 4 and TLA+', [f'{n_formal} tasks, {n_thm} theorems', f'{n_tla} model-checking runs', f'{n_fix_proved} repair models checked']),
-        ('3', 'Historical pairs', 'components and graders', [f'{n_fix} fixes + 1 partial fix', f'{n_cmp} comparisons', 'nearly all run 3 times']),
+        ('3', 'Side by side', 'original vs fixed checker', [f'{n_fix} fixes + 1 partial fix', f'{n_cmp} comparisons', 'nearly all run 3 times']),
         ('4', 'Checked on real runs', 'a public agent run', [f'{n_real} fixed tasks covered;', '7 regraded with', 'both graders;', 'Lean computed']),
     ]
     w, g = 178, 16
     o = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">',
          '<title>Four evidence layers with different scope: tasks examined in the original code and images, '
-         'models proved in Lean 4 or checked in TLA+, historical paired comparisons of saved versions, '
+         'models proved in Lean 4 or checked in TLA+, side-by-side tests of the original and the fixed checker, '
          'and fixed tasks covered by one public agent run.</title>',
          '<style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} '
          '.num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}'
@@ -110,8 +110,8 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     o.append('</svg>')
     (FIG / 'evidence-layers.svg').write_text('\n'.join(o) + '\n')
     (FIG / 'evidence-layers.json').write_text(json.dumps({
-        'alt': 'Four columns: examined in the original code and images, proved formally in Lean 4 and TLA+, historical paired comparisons, checked on real runs.',
-        'caption': 'Four evidence layers with different scope. Historical source/helper controls, native runs and formal models are not interchangeable or independently certified reproductions. Paired comparisons refer to the saved versions; they do not certify newer candidates. The real-agent record covers nine tasks, with seven regraded under both graders and Lean Analysis computed from saved verdicts.'}) + '\n')
+        'alt': 'Four columns: examined in the original code and images, proved formally in Lean 4 and TLA+, tested side by side on the original and the fixed checker, checked on real runs.',
+        'caption': 'Four kinds of evidence, each covering something different. Reading the code, testing parts of a checker, running the whole checker and formal models answer different questions and do not stand in for one another. Side-by-side tests compare the original checker with the version of each fix that was tested, which is not always the latest. One public agent run covers nine fixed tasks: seven regraded with both checkers, and Lean Analysis computed from saved verdicts.'}) + '\n')
 
 
 def comparison_counts():
@@ -131,7 +131,8 @@ def comparison_counts():
     executed = [k for k in runs if not derived[k]]
     graded = [k for k in executed if role[k] != 'setup']
     pr = list(csv.DictReader(open(ROOT / 'data' / 'paired-results.csv')))
-    return {'arms': {k: runs[k] for k in graded}, 'executed': len(executed), 'graded': len(graded),
+    src = {(r['task_id'], r['arm']): r['source'] for r in pr}
+    return {'arms': {k: runs[k] for k in graded}, 'arm_src': src, 'executed': len(executed), 'graded': len(graded),
             'graded3': sum(runs[k] >= 3 for k in graded), 'executed3': sum(runs[k] >= 3 for k in executed),
             'setup': len(executed) - len(graded), 'derived': sum(derived.values()),
             'not_run': len(pr) - len(runs),
@@ -322,6 +323,8 @@ def numbers(D):
     v.update(formal_tasks=len(frm), lean_files=len(leans), lean_thms=thms, tla_runs=len(cfgs),
              tla_models=len({c.parent for c in cfgs}), fix_proved=fix_proved,
              fix_partly=sum(r['covers'] == 'fix' and r['result'].startswith('partly') for r in frm),
+             fix_earlier=sum(r['covers'] == 'fix' and r['result'] in ('proved', 'model-checked') and not r['covers_current']
+                             for r in frm),
              formal_checks=len(leans) + len(cfgs))
     imp = list(csv.DictReader(open(ROOT / 'data/impact.csv')))
     effects = json.loads((ROOT / 'evidence/impact/effects.json').read_text())
@@ -354,6 +357,7 @@ def numbers(D):
                     for a, b in zip(order, order[1:])
                     if float(by_model[a]['bounded_low']) <= float(by_model[b]['bounded_high'])]
     D['arms'] = cc['arms']
+    D['arm_src'] = cc['arm_src']
     return {k: str(x) for k, x in v.items()}
 
 
@@ -425,12 +429,20 @@ def verif(P, D, tid):
     parts = [t('verif.lead')]
     r = D['formal_by'].get(tid)
     if r:
-        parts.append(t('verif.formal', tool=r['tool'].replace(' ', '&nbsp;'), what=t('verif.cov.' + r['covers'], result=r['result'] if P.L.code == 'en' else t('formal.result.' + r['result']))))
+        # a proof of a superseded version of the fix says so (evidence/formal/summary.json: covers_current)
+        cov = r['covers'] + ('_earlier' if r['covers'] == 'fix' and not r['covers_current'] else '')
+        parts.append(t('verif.formal', tool=r['tool'].replace(' ', '&nbsp;'), what=t('verif.cov.' + cov, result=r['result'] if P.L.code == 'en' else t('formal.result.' + r['result']))))
     runs = [v for (tt, _), v in D['arms'].items() if tt == tid]
+    # comparisons of the current revision (a source naming v2.1, v2.2, ...) when earlier versions were also compared
+    is_cur = lambda a: re.match(r'(Revision )?v2\.\d', D['arm_src'].get((tid, a), '')) is not None  # noqa: E731
+    cur = [v for (tt, a), v in D['arms'].items() if tt == tid and is_cur(a)]
+    old = [v for (tt, a), v in D['arms'].items() if tt == tid and not is_cur(a)]
     if tid == 'dabic_gravity_inversion':
         parts.append(t('verif.dabic'))
     elif not runs:
         parts.append(t('verif.norun'))
+    elif cur and old and max(cur) == 1 and min(old) >= 3:
+        parts.append(t('verif.current_once'))
     elif min(runs) >= 3:
         parts.append(t('verif.three'))
     else:
@@ -763,7 +775,7 @@ def task_page(L, D, i, used_figs):
     md = L.source(ROOT / 'cases' / f'{tid}.md', ROOT / 'cases' / L.code / f'{tid}.md')
     md = re.sub(r'\A\s*# [^\n]*\n', '', md)                       # the page has its own title
     # the figure is shown in the summary above the case; drop the duplicate and its caption line
-    md = re.sub(r'\n!\[[^\]]*\]\(figures/[^)]+\)\n\n\*[^\n]*\*\n', '\n', md, count=1)
+    md = re.sub(r'\n!\[[^\]]*\]\((?:\.\./)?figures/[^)]+\)\n\n\*[^\n]*\*\n', '\n', md, count=1)
     case_html = mdrender.render(md, link=case_link_fn(P, D, md_dir, used_figs), heading_offset=1, slug_prefix='case-')
     prompt_html = mdrender.render(task['work']['agent_query'], link=prompt_link, heading_offset=2, slug_prefix='prompt-')
     figure = ''

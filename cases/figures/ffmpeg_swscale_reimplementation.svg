@@ -1,43 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 382" role="img">
-<title>Calls that failed instantly were scored as fast: unfinished code earned up to 18.93 of 100</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 495" role="img">
+<title>Failed calls looked fast: unfinished code earned up to 18.93 of 100</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
   .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4} .accBox{fill:#eef6f9}
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
   @media (prefers-color-scheme: dark){
     .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
     .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3} .onbar{fill:#10181f}
     .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a} .ruleS{stroke:#2a3843}
-    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c} .ruleF{fill:#1d2a34}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c} .ruleF{fill:#1d2a34} .accBox{fill:#14262f}
   }
 </style>
-<text x="16" y="26" class="ink" font-size="16" font-weight="600">Calls that failed instantly were scored as fast: unfinished code earned up to 18.93 of 100</text>
-<text x="16" y="48" class="muted" font-size="14">The agent rewrites an image-scaling library; speed tests timed each call but never checked it.</text>
-<text x="200" y="82" class="muted" font-size="14">Score out of 100, original checker</text>
-<text x="704" y="82" class="muted" font-size="14" text-anchor="end">Fixed checker</text>
-<text x="16" y="111" class="ink" font-size="15">Returns an error on</text>
-<text x="16" y="129" class="ink" font-size="15">RGBA→RGB24</text>
-<rect class="badBg" x="200" y="96" width="400" height="30"/><rect class="bad" x="200" y="96" width="21.56" height="30"/>
-<text x="229.56" y="117" class="bad" font-size="15" font-weight="600">5.39</text>
-<text x="704" y="117" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
+<text x="16" y="26" class="ink" font-size="16" font-weight="600">Failed calls looked fast: unfinished code earned up to 18.93 of 100</text>
+<text x="16" y="48" class="muted" font-size="14">The agent rewrites an image-scaling library; the speed tests timed each call but never checked its output.</text>
+<text x="16" y="82" class="ink" font-size="14" font-weight="600">1. The problem: score out of 100 on the original checker (one run, 2 CPUs)</text>
+<text x="704" y="82" class="muted" font-size="13" text-anchor="end">Correctness tests</text>
+<text x="16" y="111" class="ink" font-size="15">Starter code,</text>
+<text x="16" y="129" class="ink" font-size="15">unchanged</text>
+<rect class="badBg" x="210" y="96" width="400" height="30"/>
+<text x="218.00" y="117" class="ink" font-size="15" font-weight="600">0</text>
+<text x="704" y="117" class="ink" font-size="15" text-anchor="end">30/30</text>
 <text x="16" y="163" class="ink" font-size="15">Returns an error on</text>
-<text x="16" y="181" class="ink" font-size="15">3:1 shrink</text>
-<rect class="badBg" x="200" y="148" width="400" height="30"/><rect class="bad" x="200" y="148" width="75.72" height="30"/>
-<text x="283.72" y="169" class="bad" font-size="15" font-weight="600">18.93</text>
-<text x="704" y="169" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
-<text x="16" y="215" class="ink" font-size="15">Writes nothing on</text>
+<text x="16" y="181" class="ink" font-size="15">RGBA→RGB24</text>
+<rect class="badBg" x="210" y="148" width="400" height="30"/>
+<rect class="bad" x="210" y="148" width="21.56" height="30"/>
+<text x="239.56" y="169" class="bad" font-size="15" font-weight="600">5.39</text>
+<text x="704" y="169" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="215" class="ink" font-size="15">Returns an error on</text>
 <text x="16" y="233" class="ink" font-size="15">3:1 shrink</text>
-<rect class="badBg" x="200" y="200" width="400" height="30"/><rect class="bad" x="200" y="200" width="71.48" height="30"/>
-<text x="279.48" y="221" class="bad" font-size="15" font-weight="600">17.87</text>
-<text x="704" y="221" class="good" font-size="15" font-weight="600" text-anchor="end">0</text>
-<line class="rule" x1="200" y1="92" x2="200" y2="234" stroke-width="1.5"/>
-<text x="200" y="252" class="muted" font-size="13" text-anchor="middle">0</text>
-<text x="600" y="252" class="muted" font-size="13" text-anchor="middle">100</text>
-<text x="16" y="284" class="muted" font-size="14">A call that returned an error at once was timed as a 16,469× speedup. All three still passed the</text>
-<text x="16" y="303" class="muted" font-size="14">30 correctness tests, which never cover these conversions.</text>
-<text x="16" y="330" class="ink" font-size="14">Fixed checker: checks the output of every timed call; any failure makes the whole score 0,</text>
-<text x="16" y="349" class="ink" font-size="14">as the instructions say. The three 0s were measured with an earlier version of the fix; the</text>
-<text x="16" y="368" class="ink" font-size="14">current one gave exactly 0 to code that silently skips repeated calls.</text>
+<rect class="badBg" x="210" y="200" width="400" height="30"/>
+<rect class="bad" x="210" y="200" width="75.72" height="30"/>
+<text x="293.72" y="221" class="bad" font-size="15" font-weight="600">18.93</text>
+<text x="704" y="221" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="267" class="ink" font-size="15">Writes nothing on</text>
+<text x="16" y="285" class="ink" font-size="15">3:1 shrink</text>
+<rect class="badBg" x="210" y="252" width="400" height="30"/>
+<rect class="bad" x="210" y="252" width="71.48" height="30"/>
+<text x="289.48" y="273" class="bad" font-size="15" font-weight="600">17.87</text>
+<text x="704" y="273" class="ink" font-size="15" text-anchor="end">30/30</text>
+<line class="rule" x1="210" y1="92" x2="210" y2="286" stroke-width="1.5"/>
+<text x="210" y="304" class="muted" font-size="13" text-anchor="middle">0</text>
+<text x="610" y="304" class="muted" font-size="13" text-anchor="middle">100</text>
+<text x="16" y="332" class="muted" font-size="14">A call that returned an error at once was timed as a 16,469× speedup. All four versions passed the</text>
+<text x="16" y="351" class="muted" font-size="14">30 correctness tests, which never cover the conversions that are timed.</text>
+<rect x="8" y="376" width="704" height="111" rx="8" class="accBox"/>
+<text x="20" y="398" class="ink" font-size="14" font-weight="600">2. The current fix checks the output of every timed call; any failure makes the whole</text>
+<text x="20" y="417" class="ink" font-size="14" font-weight="600">score 0, as the instructions say.</text>
+<text x="20" y="436" class="ink" font-size="14" font-weight="400">Its one side-by-side run (2 CPUs, raw speedups): code that skips repeated calls passed</text>
+<text x="20" y="455" class="ink" font-size="14" font-weight="400">all 30 correctness tests and scored 0 (original checker 1.04); a correct submission still</text>
+<text x="20" y="474" class="ink" font-size="14" font-weight="400">scored 1.02 (original 1.06). The three unfinished versions above were not run on it.</text>
 </svg>

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 532" role="img">
-<title>Integer Codec 参考值</title>
+<title>评分器存储的参考值不可能达到，因此所有分数都有偏差</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
@@ -40,11 +40,11 @@
 <text x="16" y="428" font-size="13" class="muted">修复版评分器：0 分（满分 100），</text>
 <text x="16" y="445" font-size="13" class="muted">初始代码就是零点。</text>
 <line x1="364" y1="292" x2="364" y2="450" class="rule" stroke-width="1.5"/>
-<text x="380" y="306" font-size="14" class="muted">一次真实智能体运行的最佳提交（0–100 分）</text>
+<text x="380" y="306" font-size="14" class="muted">真实运行在各评分器下的最佳提交（0–100 分）</text>
 <text x="380" y="337" font-size="15" class="ink">原始</text>
 <rect x="460" y="320" width="220" height="24" class="accBg"/>
-<rect x="460" y="320" width="166.6" height="24" class="bad"/>
-<text x="634.6" y="338" font-size="16" font-weight="700" class="ink">75.72</text>
+<rect x="460" y="320" width="158.2" height="24" class="bad"/>
+<text x="626.2" y="338" font-size="16" font-weight="700" class="ink">71.93</text>
 <text x="380" y="377" font-size="15" class="ink">修复版</text>
 <rect x="460" y="360" width="220" height="24" class="accBg"/>
 <rect x="460" y="360" width="118.7" height="24" class="good"/>
@@ -56,5 +56,5 @@
 <text x="380" y="458" font-size="13" class="muted">到公式的最大值 320（100 分）。</text>
 <rect x="16" y="474" width="688" height="52" rx="8" class="warnBg"/>
 <text x="30" y="496" font-size="15" class="ink">修复：评分器在同一次运行中测量初始代码，并以它作为参考。</text>
-<text x="30" y="516" font-size="13" class="muted">右图：75.72 是该次运行记录的分数；53.95 是我们对全部 37 份提交重新评分的结果。</text>
+<text x="30" y="516" font-size="13" class="muted">右图：我们在自己的机器上用两个评分器重新评分了全部 37 份提交；该次运行自己记录的是 75.72。</text>
 </svg>
