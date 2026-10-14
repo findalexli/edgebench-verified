@@ -246,6 +246,11 @@ def esc(s):
     return html.escape(str(s), quote=True)
 
 
+def plain_html(s):
+    """A plain-words summary field: escaped text, with `code` spans shown as code."""
+    return re.sub(r'`([^`]+)`', r'<code>\1</code>', esc(s))
+
+
 def nobraces(s):
     """Content inserted into a page must not look like a template placeholder."""
     return s.replace('{{', '&#123;&#123;').replace('}}', '&#125;&#125;')
@@ -784,10 +789,10 @@ def task_page(L, D, i, used_figs):
         english = r.get('validation_status') or VALIDATION_DEFAULT
         text = L.validation(tid, english) if r.get('validation_status') else t('task.sum.status_default')
         status = f'<dt>{t("task.sum.status")}</dt><dd>{esc(text)}</dd>'
-    summary = (f'<dl class="sum"><dt>{t("task.sum.about")}</dt><dd>{esc(p["about"])}</dd>'
-               f'<dt>{t("task.sum.problem")}</dt><dd>{esc(p["problem"])}</dd>'
-               f'<dt>{t("task.sum.effect")}</dt><dd>{esc(p["effect"])}</dd>'
-               f'<dt>{t("task.sum.action")}</dt><dd>{esc(p["action"])}</dd>{category}{status}{formal}</dl>')
+    summary = (f'<dl class="sum"><dt>{t("task.sum.about")}</dt><dd>{plain_html(p["about"])}</dd>'
+               f'<dt>{t("task.sum.problem")}</dt><dd>{plain_html(p["problem"])}</dd>'
+               f'<dt>{t("task.sum.effect")}</dt><dd>{plain_html(p["effect"])}</dd>'
+               f'<dt>{t("task.sum.action")}</dt><dd>{plain_html(p["action"])}</dd>{category}{status}{formal}</dl>')
     grade_html, _ = grading(P, D, tid)
     # files
     links = [(BLOB + f'cases/{tid}.md', t('task.links.case')), (BLOB + f'tasks/{tid}.json', t('task.links.task_json', id=tid))]

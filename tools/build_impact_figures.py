@@ -232,6 +232,10 @@ def split_label(s):
         i = s.rfind(sep)
         if i > 0:
             return [s[:i + (1 if sep == '; ' else 0)].rstrip(), s[i:].lstrip(' ·;') if sep in (' · ', '; ') else s[i:].lstrip()]
+    spaces = [i for i, c in enumerate(s) if c == ' ']
+    if spaces:
+        i = min(spaces, key=lambda k: abs(k - len(s) / 2))
+        return [s[:i], s[i + 1:]]
     return [s]
 
 
