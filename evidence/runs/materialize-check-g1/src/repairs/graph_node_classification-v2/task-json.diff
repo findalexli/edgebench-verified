@@ -1,0 +1,12 @@
+# Task JSON change (tasks/<id>.json -> task.json.in), moved verbatim from the earlier repair.patch.
+--- a/tasks/graph_node_classification.json
++++ b/task.json.in
+@@ -20,7 +20,7 @@
+     "agent_query": "Solve the graph node classification task described in `README.md` and `solution/problem.md`."
+   },
+   "judge": {
+-    "image_tag": "f2ddd52992ae",
++    "image_tag": "f2ddd52992ae-ebv-v2",
+     "eval_cmd": "cd /home/workspace/045_graph_node_classification && CUDA_VISIBLE_DEVICES= NVIDIA_VISIBLE_DEVICES=none python judge_eval.py",
+     "eval_timeout": 1800,
+     "parser": "structured_json",

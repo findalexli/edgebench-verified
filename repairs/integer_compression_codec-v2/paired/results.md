@@ -55,6 +55,14 @@ formula's maximum, 8 x 40). Raw results are unchanged; only the conversion to 0-
 - honest codec: raw 6.7024 / 6.9708 -> 1.79 / 1.87;
 - invalid submission: 0 -> 0.
 
+The same arms with the v2 normalized score on the current scale (this is what `data/paired-results.csv` records):
+
+| Submission | v1 raw / norm | v2 raw / norm (current linear 1..320 scale) |
+|---|---|---|
+| shipped Varint starter (unchanged) | 0.2327 / 0.2327 | 0.9786 / 0.00 (repeat 1.0155 / 0.00) |
+| delta + zigzag + varint | 0.8253 / 0.8253 | 6.7024 / 1.79 (repeat 6.9708 / 1.87) |
+| starter with one corrupted value | 0 / 0 | 0 / 0 |
+
 Real submissions from a public Claude Opus 5.5 run (`evidence/runs/opus55-regrade/`), regraded on one
 E2B machine: the run's best (agent-20) scores raw 66.31 on the original grader and 160.76 on the fixed
 grader; an earlier one (agent-3) scores 31.11 and 114.19. On the old scale both fixed results clip to 100;

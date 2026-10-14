@@ -1,0 +1,66 @@
+# repair.patch for pfr_formalization-v2: unified diff (diff -u) from the ORIGINAL file to the v2 file.
+# Same format as tools/make_materialize.py output; apply with `patch -p1` in the
+# package directory after materialize.sh has placed the originals (see the `# <dst> <- <source>`
+# line above each file).
+# files/judge/pfr/PFR/WeakPFR.lean <- judge:/home/workspace/judge/se-bmk-intern/pfr/PFR/WeakPFR.lean
+--- a/files/judge/pfr/PFR/WeakPFR.lean
++++ b/files/judge/pfr/PFR/WeakPFR.lean
+@@ -46,17 +46,19 @@
+ 
+ variable {G : Type*} [AddCommGroup G] [MeasurableSpace G] [MeasurableSingletonClass G]
+   [Countable G] {Ω Ω' : Type*} [MeasurableSpace Ω] [MeasurableSpace Ω'] (X : Ω → G) (Y : Ω' → G)
+-  (μ : Measure Ω := by volume_tac) (μ' : Measure Ω' := by volume_tac)
+-  [IsProbabilityMeasure μ] [IsProbabilityMeasure μ']
+ 
+ /-- If `G` is torsion-free and `X, Y` are `G`-valued random variables then `d[X; 2Y] ≤ 5d[X; Y]`. -/
+-lemma torsion_free_doubling [FiniteRange X] [FiniteRange Y] (hX : Measurable X) (hY : Measurable Y)
++lemma torsion_free_doubling (μ : Measure Ω := by volume_tac) (μ' : Measure Ω' := by volume_tac)
++    [IsProbabilityMeasure μ] [IsProbabilityMeasure μ']
++    [FiniteRange X] [FiniteRange Y] (hX : Measurable X) (hY : Measurable Y)
+     [IsAddTorsionFree G] : d[X; μ # (Y + Y); μ'] ≤ 5 * d[X; μ # Y; μ'] := by
+   sorry
+ 
+ /-- If `G` is a torsion-free group and `X, Y` are `G`-valued random variables and
+ `φ : G → 𝔽₂^d` is a homomorphism then `H[φ ∘ X; μ] ≤ 10 * d[X; μ # Y; μ']`. -/
+-lemma torsion_dist_shrinking {H : Type*} [FiniteRange X] [FiniteRange Y] (hX : Measurable X)
++lemma torsion_dist_shrinking (μ : Measure Ω := by volume_tac) (μ' : Measure Ω' := by volume_tac)
++    [IsProbabilityMeasure μ] [IsProbabilityMeasure μ']
++    {H : Type*} [FiniteRange X] [FiniteRange Y] (hX : Measurable X)
+     (hY : Measurable Y) [AddCommGroup H] [Module (ZMod 2) H] [MeasurableSpace H]
+     [MeasurableSingletonClass H] [Countable H] [IsAddTorsionFree G] (φ : G →+ H) :
+     H[φ ∘ X; μ] ≤ 10 * d[X; μ # Y; μ'] := by
+@@ -87,10 +89,10 @@
+   sorry
+ 
+ variable [MeasurableSpace Ω] [MeasurableSpace Ω'] (X : Ω → G) (Y : Ω' → G)
+-(μ : Measure Ω := by volume_tac) (μ' : Measure Ω' := by volume_tac)
+-[IsProbabilityMeasure μ] [IsProbabilityMeasure μ']
+ 
+-lemma app_ent_PFR (α : ℝ) (hent : 20 * d[X; μ # Y; μ'] < α * (H[X; μ] + H[Y; μ']))
++lemma app_ent_PFR (μ : Measure Ω := by volume_tac) (μ' : Measure Ω' := by volume_tac)
++    [IsProbabilityMeasure μ] [IsProbabilityMeasure μ']
++    (α : ℝ) (hent : 20 * d[X; μ # Y; μ'] < α * (H[X; μ] + H[Y; μ']))
+     (hX : Measurable X) (hY : Measurable Y) :
+     ∃ H : Submodule (ZMod 2) G, log (Nat.card H) < (1 + α) / 2 * (H[X; μ] + H[Y;μ']) ∧
+     H[H.mkQ ∘ X; μ] + H[H.mkQ ∘ Y; μ'] < α * (H[X; μ] + H[Y; μ']) := by
+@@ -102,7 +104,8 @@
+ \[\log \lvert H\rvert \leq (1 + α) / (2 * (1 - α)) * (\mathbb{H}(X)+\mathbb{H}(Y))\]
+ and if $\psi:G \to G/H$ is the natural projection then
+ \[\mathbb{H}(\psi(X))+\mathbb{H}(\psi(Y))\leq 20/\alpha * d[\psi(X);\psi(Y)].\] -/
+-lemma PFR_projection'
++lemma PFR_projection' (μ : Measure Ω := by volume_tac) (μ' : Measure Ω' := by volume_tac)
++    [IsProbabilityMeasure μ] [IsProbabilityMeasure μ']
+     (α : ℝ) (hX : Measurable X) (hY : Measurable Y) (αpos : 0 < α) (αone : α < 1) :
+     ∃ H : Submodule (ZMod 2) G,
+       log (Nat.card H) ≤ (1 + α) / (2 * (1 - α)) * (H[X; μ] + H[Y; μ']) ∧
+@@ -114,7 +117,9 @@
+ \[\log \lvert H\rvert \leq 2 * (\mathbb{H}(X)+\mathbb{H}(Y))\]
+ and if $\psi:G \to G/H$ is the natural projection then
+ \[\mathbb{H}(\psi(X))+\mathbb{H}(\psi(Y))\leq 34 * d[\psi(X);\psi(Y)].\] -/
+-lemma PFR_projection (hX : Measurable X) (hY : Measurable Y) :
++lemma PFR_projection (μ : Measure Ω := by volume_tac) (μ' : Measure Ω' := by volume_tac)
++    [IsProbabilityMeasure μ] [IsProbabilityMeasure μ']
++    (hX : Measurable X) (hY : Measurable Y) :
+     ∃ H : Submodule (ZMod 2) G, log (Nat.card H) ≤ 2 * (H[X; μ] + H[Y;μ']) ∧
+     H[H.mkQ ∘ X; μ] + H[H.mkQ ∘ Y; μ'] ≤
+       34 * d[H.mkQ ∘ X;μ # H.mkQ ∘ Y;μ'] := by

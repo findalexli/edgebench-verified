@@ -1,0 +1,92 @@
+[run_eval] Running submitted entrypoint: main.py
+wrote 1565 nav rows 9384 positions 3769 trades
+
+[run_eval] Running evaluator: python3 /home/workspace/scoring/eval_script.py --submission_dir /home/workspace --data_dir /home/workspace/input --standard_answer_dir /home/workspace/scoring --run_agent_code --timeout 300
+============================================================
+CTA Fund - Automated Eval System (strict)
+============================================================
+
+[0a] Loading raw data...
+  Raw data loaded
+
+[0b] Loading benchmark performance metrics...
+  Benchmark loaded from file
+
+[1] Running Agent code...
+
+[2] Checking file completeness...
+  found 9/9  files
+
+[2.5] Deliverables threshold check...
+  backtest_verification: ✓
+  performance_metrics: ✓
+  risk_constraints: ✓
+  signal_generation: ✓
+
+[2.6] Schema compliance check...
+  ✓ nav schema compliant (initial=1500000000)
+
+[3] Authenticity verification (full closed-loop)...
+  File and date alignment: valid_ratio=1.0000, score=1.0/1
+  NAV accounting consistency: score=2.0/2
+  Position-trade continuity: score=2/2
+  PnL/NAV full replay: score=3/3
+  Cost and FX check: score=2/2
+  Authenticity check total: 10.0/10
+
+[4] Performance metrics (strict)...
+  annual_return: 0.0803 (benchmark: -0.008586, score: 5/5)
+  sharpe: 0.9329 (benchmark: -2.729868, score: 5/5)
+  max_drawdown: 0.0901 (benchmark: 0.055052, score: 5/5)
+  sortino: 1.5334 (benchmark: -4.236469, score: 5/5)
+  calmar: 0.8920 (benchmark: -0.15597, score: 5/5)
+  Performance metrics total: 25/25
+
+[5] Risk control constraints (strict)...
+  Risk metrics: 4/5 items, score=6/10
+  Drawdown control: 0/274 correct, score=0/5
+  Overseas ratio (CNY notional / CNY NAV): violations0/1564 days (of which missing/invalid same-date NAV: 0)
+  FX conversion: reusing Cost and FX check=2/2
+  Risk control total: 11/20
+
+[6] Signal generation (strict)...
+  Factor validation: {'TSMOM': 'FAIL', 'XSMOM': 'PASS', 'CARRY': 'FAIL', 'BREAKOUT': 'FAIL', 'MEANREV': 'FAIL'}, passed=1/5, score=0/5
+  Cointegration test: code=False, pair MEANREV=False, score=1/5
+  Conflict resolution: methods=[], score=0/5
+  Signal generation total: 1/15
+
+[7] Code compliance check (10 pts)...
+  Random seed: deterministic/no-random, score=2/2
+  Library restrictions: ✓, score=2/2
+  Trade cost source: ✓, score=2/2
+  FX source: ✓, score=2/2
+  4-hour limit: ✓, score=2/2
+  Code compliance total: 10/10
+
+[8] Trade cost and FX verification (informational)...
+
+[9] Computing total score...
+  Authenticity check: 10.0/10
+  Performance metrics: 25/25
+  Risk control: 11/20
+  Signal generation: 1/15
+  Code compliance: 10/10
+  Automated total: 57.0/80
+  Total: 57.0/80
+
+Eval report saved: /home/workspace/eval_report.xlsx
+
+============================================================
+Evaluation complete!
+============================================================
+
+TOTAL_SCORE 71.250000
+FEEDBACK: raw_score=57/80
+>>>>> Start Structured Result
+{"valid":true,"total_tests":1,"passed":1,"failed":0,"errors":0,"pass_rate":1.0,"score":71.25,"score_scale":"0-100","metrics":{"M1_backtest_verification":{"score":100.0,"raw_score":10.0,"max_score":10.0,"description":"Auditability of the NAV, positions, trades, costs, and FX chain"},"M2_performance_metrics":{"score":100.0,"raw_score":25.0,"max_score":25.0,"description":"Quality of performance metrics, contingent on underlying backtest credibility"},"M3_risk_constraints":{"score":55.0,"raw_score":11.0,"max_score":20.0,"description":"Drawdown, volatility, exposure, and cross-border risk-control constraints"},"M4_signal_generation":{"score":6.667,"raw_score":1.0,"max_score":15.0,"description":"Multi-strategy signals, mean-reversion evidence, and conflict handling"},"M5_code_compliance":{"score":100.0,"raw_score":10.0,"max_score":10.0,"description":"Compliance of randomness, dependencies, cost/FX-rate sources, and runtime"}},"guidance":["Prioritize improving the lowest-scoring dimension; do not chase higher returns alone.","Performance and risk-control quality depend on the credibility of the underlying backtest chain.","If the signal-generation dimension is weak, strengthen verifiable multi-strategy signal outputs and conflict handling."],"summary":"The structured scoring feedback only contains coarse-grained dimension scores and general improvement directions; it does not include hidden thresholds, reference answers, or itemized deduction details.","details":{}}
+>>>>> End Structured Result
+STRUCTURED_RESULT_JSON {"valid":true,"total_tests":1,"passed":1,"failed":0,"errors":0,"pass_rate":1.0,"score":71.25,"score_scale":"0-100","metrics":{"M1_backtest_verification":{"score":100.0,"raw_score":10.0,"max_score":10.0,"description":"Auditability of the NAV, positions, trades, costs, and FX chain"},"M2_performance_metrics":{"score":100.0,"raw_score":25.0,"max_score":25.0,"description":"Quality of performance metrics, contingent on underlying backtest credibility"},"M3_risk_constraints":{"score":55.0,"raw_score":11.0,"max_score":20.0,"description":"Drawdown, volatility, exposure, and cross-border risk-control constraints"},"M4_signal_generation":{"score":6.667,"raw_score":1.0,"max_score":15.0,"description":"Multi-strategy signals, mean-reversion evidence, and conflict handling"},"M5_code_compliance":{"score":100.0,"raw_score":10.0,"max_score":10.0,"description":"Compliance of randomness, dependencies, cost/FX-rate sources, and runtime"}},"guidance":["Prioritize improving the lowest-scoring dimension; do not chase higher returns alone.","Performance and risk-control quality depend on the credibility of the underlying backtest chain.","If the signal-generation dimension is weak, strengthen verifiable multi-strategy signal outputs and conflict handling."],"summary":"The structured scoring feedback only contains coarse-grained dimension scores and general improvement directions; it does not include hidden thresholds, reference answers, or itemized deduction details.","details":{}}
+SCORER_STATUS_JSON {"status": "ok", "reason": "scored", "score": 71.25}
+tests/score_contract.py::score_output_parseable PASSED
+===== 1 passed in 0.01s =====
+TOTAL_SCORE 71.25

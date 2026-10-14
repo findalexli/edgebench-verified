@@ -1,0 +1,22 @@
+--------------------------------------------------------------------------------------------------
+   0  1.73e-03  5.65e+04  0.00e+00  5.65e+04                         0           inf          inf                
+   1  1.73e-03  1.28e+03  1.75e+06  4.31e+03    4.47e+01      0      15       1.22e-04     6.68e+00              
+   2  8.65e-04  7.06e+02  2.21e+06  2.62e+03    3.77e+01      0      15       2.44e-03     3.10e+00              
+   3  4.33e-04  4.21e+02  2.67e+06  1.58e+03    3.59e+01      0      15       8.06e-03     6.64e+00              
+Reached starting chifact with l2-norm regularization: Start IRLS steps...
+irls_threshold 0.24183310820368376
+   4  4.33e-04  5.27e+02  3.97e+06  2.24e+03    2.32e+01      0      15       9.77e-03     6.22e+00              
+   5  4.33e-04  6.77e+02  4.97e+06  2.83e+03    2.17e+01      0      15       3.04e-03     2.14e+00              
+   6  3.22e-04  6.16e+02  6.09e+06  2.58e+03    2.63e+01      0      15       1.38e-02     1.84e+00              
+   7  2.52e-04  5.94e+02  7.48e+06  2.48e+03    1.98e+01      0      15       7.24e-03     1.50e+00              
+Reach maximum number of IRLS cycles: 4
+------------------------- STOP! -------------------------
+1 : |fc-fOld| = 2.6099e+01 <= tolF*(1+|f0|) = 5.6488e+03
+0 : |xc-x_last| = 5.1801e-01 <= tolX*(1+|x0|) = 1.0000e-01
+0 : |proj(x-g)-x|    = 1.9769e+01 <= tolG          = 1.0000e-01
+0 : |proj(x-g)-x|    = 1.9769e+01 <= 1e3*eps       = 1.0000e-02
+0 : maxIter   =       8    <= iter          =      7
+------------------------- DONE! -------------------------
+>>>>> Start Structured Result
+{"valid": true, "score": 25.770067891518913, "summary": "Tier 2 合成精确 | total=25.8/100 | A=1.0 | B=12.0 | C=17.4 | D=29.9 | E=4.8 | F=12.0", "details": [{"name": "A_static", "status": "PASSED", "message": "score=1.00/3.0"}, {"name": "B_synthetic", "status": "PASSED", "message": "score=12.00/12.0"}, {"name": "C_hidden", "status": "PASSED", "message": "score=17.44/35.0"}, {"name": "D_vinton", "status": "PASSED", "message": "score=29.92/30.0"}, {"name": "E_behavior", "status": "PASSED", "message": "score=4.80/8.0"}, {"name": "F_report", "status": "PASSED", "message": "score=12.00/12.0"}], "metrics": {"tier": 2, "tier_name": "Tier 2 合成精确", "raw_total": 77.15589189077518, "structural_penalty": 0.334, "penalty_reason": "immature_hidden_vinton_report_evidence", "penalty_thresholds": {"C_min": 19.5, "D_min": 12.0, "F_min": 8.0}, "penalty_observed": {"C": 17.436206101866592, "D": 29.919685788908584, "F": 12.0}, "valid_for_selection": true, "is_data_space": false, "beta_truly_updated": true, "uses_proper_logdet": true, "uses_bad_det": false, "structural_failure": true, "n_unique_beta_orders": 16, "n_matrix_dims_captured": 84, "data_sizes_used": [80, 252, 500], "cell_sizes_used": [600, 1800, 4480], "n_data_space_matrix_matches": 0, "n_model_space_matrix_matches": 84, "hidden_data_sizes": [80, 252, 500], "hidden_cell_sizes": [600, 1800, 4480]}}
+>>>>> End Structured Result

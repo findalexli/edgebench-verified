@@ -74,7 +74,8 @@ Per-suite counts are byte-identical between the original and fixed versions for 
 - Test submission (d) was written by someone who had read the hidden tests. It shows that the documented interface is enough. It does not show how a solver without that knowledge would perform.
 - Some credit for format alone remains. Returning `[]` earns +11.62. A constant analyzer that always returns one diagnostic scored 57.81 (under a stand-in runtime, not in the image). This is because some cases check only whether the result is empty or non-empty. Fixing this needs grader changes that would alter what scores mean.
 - The adversarial type-system cases (32% of the weight; not re-derived from the inventory) come from 9 templates. The fixed version does not change this.
-- A rebuild of the fixed image is not claimed to be bit-identical.
+- A rebuild of the fixed image is not claimed to be bit-identical. The package was rebuilt from scratch on a clean machine (`evidence/runs/materialize-check-g3`, `status: exit=0`): `materialize.sh` ran unchanged, all 4 outputs matched the lock and the built image holds the two locked files.
+- The fixed work image tag in `task.json.in`, `v2-analyze-contract-docs`, is a local build tag; no fixed image is published, so users build and tag it themselves.
 - One detail is unexplained and has no effect on the conclusion: under test submission (c), `round2-codegen` is 5/8, against the starter's 4/8.
 - The fixed version keeps the grader's all-or-nothing handling of a suite that hangs or crashes (measured: starter 35.59 valid; the same starter with an infinite loop on one suite's construct is invalid, score 0; `evidence/runs/arc_compiler_runtime-hang-suite`). The trigger is a constructed bug, not a solver's code. Whether a run near the 90 s limit is repeatable was not measured.
 

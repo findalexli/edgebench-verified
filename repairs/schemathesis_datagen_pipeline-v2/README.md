@@ -13,27 +13,29 @@ See the [review](../../evidence/reviews/schemathesis_datagen_pipeline.md). `test
 ### Exact change
 
 One file, `/tests/test_01_header_strategies.py`:
-1. The accepted fixed check `is_imf_fixdate` from `proposedrepairs/datagen-http-date/repair.patch` (the "V2 predicate" there). It checks the IMF-fixdate grammar, the Gregorian date, agreement of the weekday, clock bounds and a year that can be represented (≥ 1), and allows `:60` only at 23:59.
+1. The check `is_imf_fixdate`, based on `proposedrepairs/datagen-http-date/repair.patch` (the "V2 predicate" there). It checks the IMF-fixdate grammar, the Gregorian date, agreement of the weekday, clock bounds and a year ≥ 1900, and allows `:60` only at 23:59.
 2. New in this package, as the review suggested: that one test's `max_examples` goes from 50 to 200. Rare clock defects (hour 24) were caught in only 15/20 random seeds at 50; at 200 they were caught in 20/20.
 
-The number of tests, `test.sh`, the weights and the parser are unchanged. `task.json.in` changes only `judge.image_tag` (`c4be4b8d9369` → `http-date-v2`).
+The number of tests, `test.sh`, the weights and the parser are unchanged. `task.json.in` changes only `judge.image_tag` (`c4be4b8d9369` → `http-date-v2.1`).
 
-**Resolved (coordinator, 2026-10-12):** the RFC 5322 floor of year ≥ 1900 was removed, because the task does not state it; the check now requires year ≥ 1. The re-run (the amendment in results.md) shows that every honest generator, including one that covers the full range of years, keeps its score.
+**Corrected 2026-10-13 (v2.1):** the previous removal of the year ≥ 1900 floor was incorrect. The task requests HTTP dates; [RFC 9110 §5.6.7](https://www.rfc-editor.org/rfc/rfc9110.html#section-5.6.7) imports date semantics from [RFC 5322 §3.3](https://www.rfc-editor.org/rfc/rfc5322.html#section-3.3), including this floor. A generator that emits earlier years is not a valid HTTP-date control. The v2.1 candidate restores the floor and has [paired predicate checks](paired/followup.md); the native paired task-command rerun now passes the three selected controls. See [native evidence](paired/followup.md).
 
 ### Are scores comparable?
 
-Scores from the fixed version are not comparable with the original for submissions whose `http_date_values` emits invalid dates. Those lose 1/15 of Phase 1 (−2/195 of the total). All other submissions score identically.
+Scores from the fixed version are not comparable with the original for submissions whose `http_date_values` emits invalid dates. Those lose 1/15 of Phase 1 (−2/195 of the total). For other submissions the test weights and aggregation are unchanged; finite Hypothesis sampling does not guarantee identical outcomes on every run.
 
 ## How it was checked
 
-Side-by-side run of the original and fixed graders: [paired/results.md](paired/results.md). Both honest generators keep their score, and a run over 20 random seeds found no honest generator wrongly rejected. Both plausible but wrong generators, and a garbage test submission that only has the right shape, lose exactly 1/15 of Phase 1.
+v2.1 native run: `evidence/runs/schemathesis_datagen_pipeline-v2.1-native-20261013b` (ledger `exit=0`). The image was built in the worker with `materialize.sh` and `docker build`, and the original `judge.eval_cmd` scored three controls on the original and v2.1 images: the valid `stdlib_1900` generator keeps 0.477350; the pre-1900 `stdlib_any_year` and the `garbage_shape` generators fall from 0.477350 to 0.467094. See the top of [paired/results.md](paired/results.md).
+
+Historical v2 side-by-side run (not validation of v2.1): the rest of [paired/results.md](paired/results.md). The two historical controls keep their score in v2, and a run over 20 random seeds found no honest generator wrongly rejected. Both plausible but wrong generators, and a garbage test submission that only has the right shape, lose exactly 1/15 of Phase 1.
 
 ## Build and use
 
-Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
+Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`, a hand-written v2.1 diff against the pinned original) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/schemathesis_datagen_pipeline-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.schemathesis_datagen_pipeline:http-date-v2.1 .
 ```
 
 `materialize.sh` takes the following steps:

@@ -1,3 +1,18 @@
+# v2.1 native rerun (2026-10-13, year ≥ 1900 restored)
+
+E2B job `evidence/runs/schemathesis_datagen_pipeline-v2.1-native-20261013b`, worker `im3or4jytzt58g4m89m92`: ledger `status: exit=0`, 141 s, killed after collection. The v2.1 judge image was built in the worker from the committed package (`materialize.sh` pulled the pinned image, extracted `/tests/test_01_header_strategies.py`, applied `repair.patch` and verified `875c05f1…`; then `docker build`, image `sha256:9639b668…`; the built image's file has the same hash). Each arm ran the task's original `judge.eval_cmd` (`datagen-eval.sh`, sha256 `4764bae1…`) on the overlay `headers_overlay.py` (sha256 `10c1cbc2…`), `--network none --memory 4g --cpus 2`. v1 is the pinned original `@sha256:16b21364…`.
+
+| Control | Role | v1 reward | v2.1 reward | Wall s v1 / v2.1 |
+|---|---|---|---|---|
+| stdlib_1900 (`email.utils.format_datetime`, years 1900–9999) | valid | 0.477350 | 0.477350 | 18 / 17 |
+| stdlib_any_year (same formatter, years 0001–9999) | invalid (pre-1900 dates) | 0.477350 | 0.467094 | 17 / 17 |
+| garbage_shape (`999, 99 888 0000 99:99:99 GMT`) | invalid | 0.477350 | 0.467094 | 17 / 17 |
+
+All six arms exited 0 with a collected `reward.json` (`result/out/summary.txt`, `done fail=0`). The rewards equal the earlier v2.1 slices in `native-20261013-v2.1/`, whose shared worker ended `exit=143`; this rerun is the clean receipt. The two invalid controls lose exactly the one HTTP-date test (0.010256, theoretical 2/195).
+
+> Everything below is historical v2 evidence (year ≥ 1 predicate). The current patch is v2.1; see [followup.md](followup.md).
+
+
 # Paired v1/v2 results: schemathesis_datagen_pipeline
 
 > The first run below used an earlier fixed predicate with a year ≥ 1900 floor, and is superseded by the final run at the end of this file. `raw-summary.md` and `seed-sweep.txt` in this folder record the first run (they show `stdlib_any_year` at 0.467094 and 20/20 under the fixed version). The final run's raw scores are in `evidence/runs/schemathesis_datagen_pipeline-v2-paired-b/result/out/summary.md` (per run: `result/out/runs/<variant>.<v1|v2>/verifier/reward.txt`), and its seed sweep in `result/out/extra.log` of the same job. (`result/summary.json` one level up holds only empty rows, because it was summarized over the wrong files; ignore it.) The two repeats, `-paired-b-rep2` and `-paired-b-rep3`, give the same scores.

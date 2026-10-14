@@ -1,0 +1,33 @@
++ echo '>>>>> Start Test Output'
++ cd /home/workspace/jagua-rs
++ JAGUA_EVAL_CASES=16
++ JAGUA_EVAL_SAMPLES=900
++ JAGUA_CASE_TIMEOUT=20
++ JAGUA_BUILD_TIMEOUT=300
++ CANDIDATE_ROOT=/home/workspace/jagua-rs
++ REFERENCE_ROOT=/home/workspace/jagua-rs-ref
++ bash /home/workspace/jagua_task_scorer/score.sh
+>>>>> Start Test Output
+CASE 0000 WA score=0.000000 reason=overlap_0_2
+CASE 0001 WA score=0.000000 reason=out_of_strip_1
+CASE 0002 WA score=0.000000 reason=overlap_2_4
+CASE 0003 WA score=0.000000 reason=out_of_strip_0
+CASE 0004 WA score=0.000000 reason=out_of_strip_3
+CASE 0005 WA score=0.000000 reason=out_of_strip_17
+CASE 0006 WA score=0.000000 reason=overlap_6_11
+CASE 0007 WA score=0.000000 reason=overlap_39_41
+CASE 0008 WA score=0.000000 reason=out_of_strip_0
+CASE 0009 WA score=0.000000 reason=overlap_2_29
+CASE 0010 WA score=0.000000 reason=out_of_strip_0
+CASE 0011 WA score=0.000000 reason=overlap_4_5
+CASE 0012 WA score=0.000000 reason=ref=75255.0200,cand=78499.1400,impr=0.0000%,raw=0.0000,rt=1.000,time=0.42s,ref_time=0.37s
+CASE 0013 WA score=0.000000 reason=overlap_9_10
+CASE 0014 WA score=0.000000 reason=overlap_3_4
+CASE 0015 WA score=0.000000 reason=out_of_strip_3
+TOTAL_SCORE 0.000000
++ EXIT_CODE=0
++ echo '>>>>> End Test Output'
++ echo 'Exit code: 0'
++ exit 0
+>>>>> End Test Output
+Exit code: 0

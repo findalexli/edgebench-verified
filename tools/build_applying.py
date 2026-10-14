@@ -38,13 +38,16 @@ def main():
     rows = []
     for pkg in sorted(REPAIRS.glob('*-v2')):
         tid, ch, jt, wt = changes(pkg)
-        status = ('partial fix; task removed' if decisions[tid]['proposed'] != 'repair-v2' else
-                  'fixed; instructions only (no scoring run)' if tid == 'openrct2_theme_park_ai' else 'fixed and tested')
+        status = decisions[tid].get('validation_status', 'Historical paired scope only; see the case page and package limits')
+        if decisions[tid]['proposed'] != 'repair-v2':
+            status = 'partial fix; task removed; ' + status
+        if tid == 'warehouse_forklift_routing':
+            ch.append('[host final-drain overlay](repairs/harness-final-drain-v1/README.md)')
         rows.append(f"| [{names[tid]}](repairs/{pkg.name}/README.md) | {', '.join(ch) or '—'} | `{jt}` | {f'`{wt}`' if wt else 'unchanged'} | {status} |")
     doc = f"""# Applying the fixes
 
-Each fixed task is published as a new version of the original EdgeBench task, in EdgeBench's own
-format. Nothing in the original release is modified: the original task definitions stay in `tasks/`,
+Each repair package defines a new version of an original EdgeBench task, in EdgeBench's own
+format. Validation depth differs by package; the status table and package limits are authoritative. Nothing in the original release is modified: the original task definitions stay in `tasks/`,
 and the original software images are used unchanged as the base of each fix.
 
 ## What a fix contains
@@ -71,14 +74,31 @@ cd repairs/<task_id>-v2
 TAG=$(python3 -c "import json;print(json.load(open('task.json.in'))['judge']['image_tag'])")
 docker build -t edgebench.judge.<task_id>:$TAG .
 # if the package has Dockerfile.work, also build edgebench.work.<task_id>:<work image_tag> from it
+# Arc Compiler Runtime and Borden Source Inversion change only the agent's environment: their Dockerfile
+# builds edgebench.work.<task_id>:<work image_tag> (Arc: docker build -f Dockerfile files)
 cp task.json.in <your EdgeBench checkout>/tasks/<task_id>.json   # not this repository's tasks/, which is locked to the original
 ```
 
 EdgeBench's runner finds images by the names `edgebench.judge.<task_id>:<image_tag>` (the grader)
 and `edgebench.work.<task_id>:<image_tag>` (the agent's environment), reading the tags from the task
-definition. Replacing the task definition is therefore enough; the runner itself does not change.
+definition. These tags name images you build locally; no fixed image is published to a registry.
+Warehouse also requires the host-side final-drain overlay described below; replacing
+its task definition and grader image alone leaves the 900-second final-result collection defect.
 Maintainers who build images from source can apply `repair.patch` to their source tree instead.
 The paths in the patch are the paths inside the image.
+
+## Warehouse host-side integration
+
+The [final-drain overlay](repairs/harness-final-drain-v1/README.md) is separate from the Warehouse
+judge-image patch. It polls until recorded jobs are terminal, allows a queue-aware bounded wait,
+and reports failure rather than returning an incomplete final score. Materialize it into a new
+source directory and run the harness from that directory; this repository's locked `sforge/` mirror
+stays unchanged. Its paired deterministic tests exercise the real patched drain and result assembly,
+including a long evaluation and a serial queue (a conservative model: the upstream judge server
+grades submissions concurrently). Full Docker/Kubernetes integration remains unverified. The overlay
+changes final-result collection for every task run through the materialized tree, can wait up to
+`300 + n·(eval_timeout + 300)` seconds for `n` pending submissions, and keeps the work sandbox
+allocated meanwhile; use it for Warehouse runs or accept that change.
 
 ## Test a fix yourself
 
@@ -92,9 +112,11 @@ virtual CPUs and 8 GiB of memory, with the grader limited to the CPU count each 
 - PFR Formalization uses `paired/build_v2.sh` and `paired/grade_variants.sh`.
 - Rust Multicrate uses the templates `paired/run-paired.sh.in` and `paired/run-failfast.sh.in`.
 - Triangulation and Warehouse Routing also have `paired/run-cpu4.sh` for the 4-CPU tests.
+- The separate host overlay uses `python3 repairs/harness-final-drain-v1/test_drain.py` from the repository root (deterministic component tests, no cloud calls).
 
 The results are in each `paired/results.md` and together in [data/paired-results.csv](data/paired-results.csv).
-Every fix was accepted only if three things held:
+These are the acceptance criteria; the table distinguishes demonstrated controls from incomplete
+release validation, component tests, and documentation-only changes:
 - the test submission that shows the problem is now graded correctly;
 - correct test submissions keep their scores, or the change is explained;
 - wrong test submissions are still rejected.
@@ -111,8 +133,9 @@ README says exactly which submissions' scores change.
 | --- | --- | --- | --- | --- |
 {chr(10).join(rows)}
 
-A tag ending in `v2.1` replaces the tag ending in `v2` of the v1.0 package, whose grader or work
-image differs from the current fix; an image built from the v1.0 package must be rebuilt. The work
+For each task the tag with the highest suffix (`v2.1` or `v2.2`) replaces every earlier one (`v2`,
+and `v2.1` where a `v2.2` exists), whose grader or work image differs from the current fix; an image
+built from an earlier package must be rebuilt. The work
 image column shows the tag of the agent's environment where the fix changes it; "unchanged" means the
 original work image and tag are used.
 

@@ -1,0 +1,156 @@
+{
+  "scope": "Actual risk helper; participation stubbed; one-day NAV avoids volatility veto in the single-day controls; no end-to-end score claim",
+  "source_sha256": {
+    "original": "252f864a1a515fb48283644268938afd75f417fcfe34bba09fc8bab49cd41300",
+    "fx_only_v2": "4e0ddc4e0f28fe5e77aca0e65f48c246ef8c5c21bbc3877769e5d79deff7110a",
+    "nav_v2_1_strict_superseded": "9f5149da74fea3113f01d67ec70000b6fda152cedb045be8ab33a41c6acac8dd",
+    "nav_v2_1": "5090b56af9431b46297068d3e43724c1f5b1b886eed5565deb12a06c00968119"
+  },
+  "controls": [
+    {
+      "control": "leveraged_overseas_breach",
+      "overseas_cny_over_nav": "7/10",
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 0,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "unleveraged_compliant",
+      "overseas_cny_over_nav": "7/25",
+      "ratio_credit_expected": 1,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 0,
+        "nav_v2_1_strict_superseded": 1,
+        "nav_v2_1": 1
+      }
+    },
+    {
+      "control": "compliant_both",
+      "overseas_cny_over_nav": "7/50",
+      "ratio_credit_expected": 1,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 1,
+        "nav_v2_1": 1
+      }
+    },
+    {
+      "control": "bad_both",
+      "overseas_cny_over_nav": "7/5",
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 0,
+        "fx_only_v2": 0,
+        "nav_v2_1_strict_superseded": 0,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "domestic_only",
+      "overseas_cny_over_nav": "0",
+      "ratio_credit_expected": 1,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 1,
+        "nav_v2_1": 1
+      }
+    },
+    {
+      "control": "at_boundary",
+      "overseas_cny_over_nav": "2/5",
+      "ratio_credit_expected": 1,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 1,
+        "nav_v2_1": 1
+      }
+    },
+    {
+      "control": "missing_nav",
+      "overseas_cny_over_nav": null,
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 0,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "missing_same_date",
+      "overseas_cny_over_nav": null,
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 0,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "zero_nav",
+      "overseas_cny_over_nav": null,
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 0,
+        "nav_v2_1": 0
+      }
+    },
+    {
+      "control": "nonfinite_nav",
+      "overseas_cny_over_nav": null,
+      "ratio_credit_expected": 0,
+      "cross_border": {
+        "original": 1,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 0,
+        "nav_v2_1": 0
+      }
+    }
+  ],
+  "nav_date_controls": [
+    {
+      "control": "compliant_100_days_0_without_nav",
+      "ratio_checks_expected": 2,
+      "cross_border_expected": 5,
+      "cross_border": {
+        "original": 5,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 5,
+        "nav_v2_1": 5
+      }
+    },
+    {
+      "control": "compliant_100_days_1_without_nav",
+      "ratio_checks_expected": 1,
+      "cross_border_expected": 3,
+      "cross_border": {
+        "original": 5,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 1,
+        "nav_v2_1": 3
+      }
+    },
+    {
+      "control": "compliant_100_days_2_without_nav",
+      "ratio_checks_expected": 0,
+      "cross_border_expected": 1,
+      "cross_border": {
+        "original": 5,
+        "fx_only_v2": 1,
+        "nav_v2_1_strict_superseded": 1,
+        "nav_v2_1": 1
+      }
+    }
+  ]
+}

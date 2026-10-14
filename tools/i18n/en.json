@@ -1,6 +1,5 @@
 {
   "_comment": "UI strings and generated prose for the site, English. Keys are stable; values may contain HTML. {name} marks a value filled in by tools/build_site.py: keep every {name} in a translation. See tools/i18n/README.md.",
-
   "site.name": "EdgeBench Verified",
   "site.description": "An audit of the graders behind the 51 public EdgeBench tasks: what goes wrong, how much it changes scores, and tested fixes.",
   "nav.label": "Site",
@@ -14,8 +13,8 @@
   "lang.en": "EN",
   "lang.zh": "中文",
   "pending_note": "Translation pending: this page is shown in English until its translation is added.",
+  "pending_note_partial": "Translation pending for some parts of this page: they are shown in English until their translation is added.",
   "footer.text": "EdgeBench is developed by ByteDance Seed. This audit is independent and not affiliated with its authors. The grading software derives from EdgeBench (Apache-2.0); task definitions and task instructions come from the public Hugging Face release (CC BY 4.0); EdgeBench's images are referenced by their public fingerprints and are not redistributed.",
-
   "page.overview.title": "EdgeBench Verified",
   "page.tasks.title": "All 51 tasks · EdgeBench Verified",
   "page.tasks.description": "Every public EdgeBench task: what the agent is asked to do, how EdgeBench grades it, and what the audit found.",
@@ -24,12 +23,10 @@
   "page.leaderboard.title": "Effect on the leaderboard · EdgeBench Verified",
   "page.leaderboard.description": "How much the corrected graders could change the published EdgeBench leaderboard, and what cannot be determined from public data.",
   "page.task.title": "{name} · EdgeBench Verified",
-
   "outcome.repair-v2": "Fixed",
   "outcome.exclude": "Removed",
   "outcome.retain-with-note": "Kept, with a note",
   "outcome.retain": "Kept as is",
-
   "tasks.kicker": "Task by task",
   "tasks.h1": "All 51 tasks",
   "tasks.intro": "Every public EdgeBench task has its own page. Each shows the instructions the agent receives, how EdgeBench grades the work, and what we found: the test submissions, the independent checks and, for a fixed task, the fix. <b>Select any task to open it.</b>",
@@ -41,8 +38,7 @@
   "tasks.count": "Showing {shown} of {total} tasks",
   "tasks.empty": "No task matches.",
   "tasks.open": "Open the task",
-  "tasks.legend": "<b>Fixed</b>: the grader has a correctable problem that changes scores; we publish a new version, tested against the original. <b>Kept, with a note</b>: no correctable problem; caveats such as run-to-run variation are recorded. <b>Removed</b>: no sound fix was possible.",
-
+  "tasks.legend": "<b>Fixed</b>: a historical repair disposition with a versioned package and task-specific evidence, not certification of every current release. Native, component and integration limits are listed on each task page and in <a href=\"https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md\">the package status</a>. <b>Kept, with a note</b>: no correctable problem; caveats such as run-to-run variation are recorded. <b>Removed</b>: no sound fix was possible.",
   "task.back": "All tasks",
   "task.field": "Field: {field}",
   "task.toc.summary": "Summary",
@@ -56,6 +52,8 @@
   "task.sum.effect": "How much it matters",
   "task.sum.action": "What we did",
   "task.sum.formal": "Formal check",
+  "task.sum.status": "Validation status",
+  "task.sum.status_default": "Historical paired scope only; see the case page and package limits",
   "task.formal": "{result} in {tool}. {what} Limit: {limit}.",
   "task.prompt.h2": "What the agent is asked to do",
   "task.prompt.origin": "This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href=\"{task_json}\">tasks/{id}.json</a>, from the <a href=\"https://huggingface.co/datasets/ByteDance-Seed/EdgeBench\">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.",
@@ -83,17 +81,14 @@
   "task.grading.hours": "{n} hours",
   "task.grading.hour": "1 hour",
   "task.grading.source": "Source: {src}",
-
   "parser.score_sum": "The grader prints a result line for each test case and a final <code>TOTAL_SCORE</code> line; that number is the raw result (parser <code>score_sum</code>).",
   "parser.structured_json": "The grader prints a JSON report; its <code>score</code> is the raw result, and the report can also give a pass rate and mark the submission invalid (parser <code>structured_json</code>).",
   "parser.pytest_v": "The grader runs a test suite; the pass rate is the share of tests passed, and the raw result is the number on the <code>TOTAL_SCORE</code> line the grader prints (parser <code>pytest_v</code>).",
   "parser.game": "Each game session played through the game server is scored by the game; the session's score is the raw result.",
   "parser.other": "Parser <code>{parser}</code>.",
-
   "direction.maximize": "Higher is better.",
   "direction.maximize_default": "Higher is better (EdgeBench's default; the task sets no direction).",
   "direction.minimize": "Lower is better.",
-
   "rescale.linear": "A straight line: a raw result of {lower} scores 0 and {upper} scores 100, with values in between interpolated linearly. Results outside that range are clipped to 0 or 100.",
   "rescale.min_linear": "A straight line on which lower is better: a raw result of {baseline} (the baseline) scores 0 and {expert} (the expert level) scores 100. Results are clipped to 0–100.",
   "rescale.min_linear_positive": "A straight line on which lower is better: a raw result of {baseline} (the baseline) scores 0 and {expert} (the expert level) scores 100. Results are clipped to 0–100, and a raw result of 0 or less scores 0.",
@@ -110,22 +105,18 @@
   "rescale.unknown": "Conversion <code>{kind}</code>; EdgeBench's <code>score_rescale.py</code> clips an unknown kind's raw result to 0–100.",
   "rescale.nonfinite": "A raw result that is not a finite number (for example <code>inf</code>) gets no 0–100 score.",
   "rescale.kind": "(<code>rescale.kind</code> = <code>{kind}</code>)",
-
   "selection.score_first": "The submission with the best raw result ({best}). Only the score is compared; a submission without a score is skipped, and on a tie the earlier submission stays (<code>score_first</code>).",
   "selection.valid_then_score": "Submissions the grader marks invalid are dropped; among the rest, the one with the best raw result ({best}), the earlier one on a tie (<code>valid_then_score</code>).",
   "selection.pass_rate_first": "The submission that passes the largest share of tests. A later submission replaces it only if it passes a strictly larger share; only when both pass every test is the raw result compared ({best}). Ties keep the earlier submission, and a submission that passes no test is never kept (<code>pass_rate_first</code>).",
   "selection.default": "The task sets no policy, so EdgeBench's harness default applies (<code>sforge/harness/task_spec.py</code>):",
   "selection.best.maximize": "highest",
   "selection.best.minimize": "lowest",
-
   "internet.false": "No: the agent's environment is network-isolated (<code>internet: false</code>).",
   "internet.true": "Yes (<code>internet: true</code>).",
-
   "machine.default": "4 CPUs and 8 GB of memory in EdgeBench's official leaderboard settings: the default, since the task has no override.",
   "machine.lean": "8 CPUs and 16 GB of memory in EdgeBench's official leaderboard settings: the override for Lean tasks.",
   "machine.smt": "16 CPUs and 16 GB of memory in EdgeBench's official leaderboard settings: an override for this task.",
   "machine.source": "<a href=\"{url}\">The settings, quoted</a>.",
-
   "task.found.h2": "What we found",
   "task.found.intro": "The full case: the test submissions, the independent checks and the fix. File paths refer to the <a href=\"{repo}\">repository</a>; links open on GitHub.",
   "task.found.lang_note": "",
@@ -142,17 +133,15 @@
   "task.prev": "Previous",
   "task.next": "Next",
   "task.all": "All tasks",
-
   "fig.label": "Figure {n}.",
   "fig.read_case": "Read the case",
-
-  "gen.fragile": "<mark>That is enough to reverse {a} and {b}: their gap is {gap} points, and these fixes alone could move it by up to {swing}.</mark> The 51 public tasks therefore do not establish which of the two is ahead.",
-  "gen.rests_on": " This rests mainly on {task}, where {b} can gain up to {gain} points: without it the largest swing is {swing} points, less than the gap, so {b} would need at least {need} of those points. It also assumes every other bounded effect at its extreme at once.",
-  "gen.not_fragile": "That is not enough to reverse any two neighbouring models.",
-  "gen.rank_fragile": "<mark>Even the effects we can bound are enough that the public tasks do not establish the order of {pairs}.</mark>",
+  "gen.fragile": "<mark>The conditional intervals for {a} and {b} overlap.</mark> These bounds cannot certify their order; they do not prove that a reversal is attainable.",
+  "gen.rests_on": "The arithmetic uses a per-task limit for {task}, including a possible gain of {gain} for {b}. The aggregate value {swing} and threshold {need} do not establish simultaneous attainability.",
+  "gen.not_fragile": "The documented-limit intervals certify neighbouring models’ order only if the direction-only fixes have no effect; in the full-domain envelope every neighbouring pair overlaps.",
+  "gen.rank_fragile": "<mark>The conditional bounds cannot certify the order of {pairs}; overlap does not prove an attainable reversal.</mark> The other neighbouring orders are certified only if the direction-only fixes have no effect; in the full-domain envelope every neighbouring pair overlaps.",
   "gen.pair": "{a} and {b}",
   "gen.pair_join": " and ",
-  "gen.rank_none": "<mark>The fixes whose effect we can bound do not reverse any neighbouring pair of models; whether the ranking changes depends on the fixes whose effect size is unknown.</mark>",
+  "gen.rank_none": "<mark>The documented-limit intervals certify neighbouring model order only if the direction-only fixes have no effect; in the full-domain envelope every neighbouring pair overlaps.</mark>",
   "verif.lead": "<b>Evidence:</b> reproduced on the original grader",
   "verif.join": " · ",
   "verif.formal": "{tool}: {what}",
@@ -163,7 +152,7 @@
   "verif.dabic": "partial fix tested side by side, three runs; task removed",
   "verif.norun": "fix changes instructions only; nothing to run",
   "verif.three": "fix tested side by side, three runs",
-  "verif.three_but_one": "fix tested side by side, three runs (one comparison once)",
+  "verif.three_but_some": "fix tested side by side, three runs ({n} of {m} comparisons once)",
   "formal.covers.fix": "the fix",
   "formal.covers.finding": "the finding",
   "formal.covers.note": "the note",

@@ -1,0 +1,121 @@
++ J=seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ CWD=/home/workspace/045_graph_node_classification
++ O=/job/out
++ mkdir -p /job/out
++ nproc
+8
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7964         350        7597           0         249        7614
+Swap:              0           0           0
++ df -h /
++ tail -1
+/dev/root        21G  2.2G   18G  11% /
++ date -u
+Tue Oct 13 22:08:46 UTC 2026
++ docker pull -q seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ docker image inspect seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd --format '{{.Id}} {{.Config.User}} {{.Config.WorkingDir}}'
++ V2CTX=/job/v2ctx
++ '[' -d /job/pkg ']'
++ command -v patch
++ bash /job/pkg/materialize.sh
++ echo materialize_rc=0
++ cd /job/pkg
+++ find files -type f
+++ sort
++ sha256sum Dockerfile files/home/workspace/045_graph_node_classification/verifier.py
++ V2CTX=/job/pkg
++ docker build -t graph_v2 /job/pkg
++ echo build_rc=0
++ docker image inspect graph_v2 --format '{{.Id}}'
++ ARMS='v1 v2'
++ '[' -d /job/v2prevctx ']'
++ docker build -t graph_v2prev /job/v2prevctx
++ echo build_rc=0
++ docker image inspect graph_v2prev --format '{{.Id}}'
++ ARMS='v1 v2prev v2'
++ for V in $ARMS
+++ img v1
+++ case $1 in
+++ echo seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ docker run --rm --network none seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd bash -c 'cd /home/workspace/045_graph_node_classification && sha256sum verifier.py runner.py judge_eval.py config.yaml solution/solution.py solution/solution_template.py'
++ for V in $ARMS
+++ img v2prev
+++ case $1 in
+++ echo graph_v2prev
++ docker run --rm --network none graph_v2prev bash -c 'cd /home/workspace/045_graph_node_classification && sha256sum verifier.py runner.py judge_eval.py config.yaml solution/solution.py solution/solution_template.py'
++ for V in $ARMS
+++ img v2
+++ case $1 in
+++ echo graph_v2
++ docker run --rm --network none graph_v2 bash -c 'cd /home/workspace/045_graph_node_classification && sha256sum verifier.py runner.py judge_eval.py config.yaml solution/solution.py solution/solution_template.py'
++ SUBS='baseline shrink neighbor nanconf missing_half'
++ '[' -f /job/subs.txt ']'
+++ cat /job/subs.txt
++ SUBS='baseline neighbor neighbor_intkeys dupkeys_after_str'
++ for m in $SUBS
++ for V in $ARMS
+++ img v1
+++ case $1 in
+++ echo seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/baseline /home/workspace/045_graph_node_classification 1800 /job/out/v1.baseline 4 6g SEB_PARALLEL_WORKERS=4
++ for V in $ARMS
+++ img v2prev
+++ case $1 in
+++ echo graph_v2prev
++ bash /job/judge_one.sh graph_v2prev /job/subs/baseline /home/workspace/045_graph_node_classification 1800 /job/out/v2prev.baseline 4 6g SEB_PARALLEL_WORKERS=4
++ for V in $ARMS
+++ img v2
+++ case $1 in
+++ echo graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/baseline /home/workspace/045_graph_node_classification 1800 /job/out/v2.baseline 4 6g SEB_PARALLEL_WORKERS=4
++ for m in $SUBS
++ for V in $ARMS
+++ img v1
+++ case $1 in
+++ echo seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/neighbor /home/workspace/045_graph_node_classification 1800 /job/out/v1.neighbor 4 6g SEB_PARALLEL_WORKERS=4
++ for V in $ARMS
+++ img v2prev
+++ case $1 in
+++ echo graph_v2prev
++ bash /job/judge_one.sh graph_v2prev /job/subs/neighbor /home/workspace/045_graph_node_classification 1800 /job/out/v2prev.neighbor 4 6g SEB_PARALLEL_WORKERS=4
++ for V in $ARMS
+++ img v2
+++ case $1 in
+++ echo graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/neighbor /home/workspace/045_graph_node_classification 1800 /job/out/v2.neighbor 4 6g SEB_PARALLEL_WORKERS=4
++ for m in $SUBS
++ for V in $ARMS
+++ img v1
+++ case $1 in
+++ echo seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/neighbor_intkeys /home/workspace/045_graph_node_classification 1800 /job/out/v1.neighbor_intkeys 4 6g SEB_PARALLEL_WORKERS=4
++ for V in $ARMS
+++ img v2prev
+++ case $1 in
+++ echo graph_v2prev
++ bash /job/judge_one.sh graph_v2prev /job/subs/neighbor_intkeys /home/workspace/045_graph_node_classification 1800 /job/out/v2prev.neighbor_intkeys 4 6g SEB_PARALLEL_WORKERS=4
++ for V in $ARMS
+++ img v2
+++ case $1 in
+++ echo graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/neighbor_intkeys /home/workspace/045_graph_node_classification 1800 /job/out/v2.neighbor_intkeys 4 6g SEB_PARALLEL_WORKERS=4
++ for m in $SUBS
++ for V in $ARMS
+++ img v1
+++ case $1 in
+++ echo seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
++ bash /job/judge_one.sh seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd /job/subs/dupkeys_after_str /home/workspace/045_graph_node_classification 1800 /job/out/v1.dupkeys_after_str 4 6g SEB_PARALLEL_WORKERS=4
++ for V in $ARMS
+++ img v2prev
+++ case $1 in
+++ echo graph_v2prev
++ bash /job/judge_one.sh graph_v2prev /job/subs/dupkeys_after_str /home/workspace/045_graph_node_classification 1800 /job/out/v2prev.dupkeys_after_str 4 6g SEB_PARALLEL_WORKERS=4
++ for V in $ARMS
+++ img v2
+++ case $1 in
+++ echo graph_v2
++ bash /job/judge_one.sh graph_v2 /job/subs/dupkeys_after_str /home/workspace/045_graph_node_classification 1800 /job/out/v2.dupkeys_after_str 4 6g SEB_PARALLEL_WORKERS=4
++ date -u
+Tue Oct 13 22:39:51 UTC 2026

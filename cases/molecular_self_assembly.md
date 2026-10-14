@@ -73,6 +73,7 @@ A per-solution memory limit could be added in a separate, newly versioned varian
 ## Limits
 
 - The fixed grader reads its CPU quota from the cgroup (`cpu.max`). This was tested with `docker run --cpus` only, not inside a Kubernetes pod, which is the backend EdgeBench's leaderboard settings use.
+- Without a cgroup quota the fixed grader falls back to `os.cpu_count()`, which counts all of the host's CPUs, not the ones the grader may use (`os.sched_getaffinity`). Under a CPU-set limit with no quota (for example `docker run --cpuset-cpus`), or where the pod cannot see its own `cpu.max`, it can still run more cases at once than it has CPUs, as the original does. Using the affinity count would need a new paired run, so it is not changed here.
 - No AI model or solver was run by us. Effects are shown on test submissions and counterexamples we wrote, and the third-party run above was also regraded at 4 CPUs: 8 of its 13 submissions each score 3–4% higher in raw terms under the fixed version, and the run's score stays 100 because it was already above the top of the scale (`evidence/runs/opus55-regrade2-summary/summary.json`). No effect on the leaderboard is estimated.
 - The CPU dependence was measured at 4 and 8 CPUs with single-threaded test solutions; multi-threaded solvers were not tested, and 3, 5, 6 and 7 CPUs were not tested.
 - At 4 CPUs the fixed version leaves less than 1 s of margin for a solution that uses 28 s of CPU per case (slowest case 29.08 s), so the usable budget is a little under 30 s of CPU once interpreter start-up is counted.

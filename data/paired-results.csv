@@ -23,13 +23,34 @@ college_english_exam_bank,I R009 score 0 with all-zero checkpoints,trigger,true,
 college_english_exam_bank,H no JSON,invalid,false,false,,,raw,no,Paired table,2
 college_english_exam_bank,"J D, then A on re-ask",trigger,true,true,81,77,raw,yes,Paired table,2
 college_english_exam_bank,"K no JSON, then A on re-ask",trigger,false,true,,77,raw,yes,Paired table,2
+college_english_exam_bank,GA R001 veto only in `veto_reason`,trigger,true,false,3,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,GB R009 deduction in an extra checkpoint,trigger,true,false,15,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"GC R009 veto flag, rule has no veto conditions",trigger,true,false,15,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,GD R009 floor wording after character 200,trigger,true,false,15,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,M R001 negative checkpoint + veto marker,valid,true,true,0,0,raw,no,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"N A's block, then D's block, one output",trigger,true,false,81,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"O D's block, then A's block, one output",valid,true,true,77,77,raw,no,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"P A's block, then a truncated block, one output",valid,true,true,77,77,raw,no,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"NA N, then A on re-ask",trigger,true,true,81,77,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"NZ full-marks block, then D's block, one output",trigger,true,false,81,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"NU A's JSON, then D's JSON, unfenced, one output",trigger,true,false,81,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"QA A with R009's rule score as the string `""11""`",valid,true,true,77,77,raw,no,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"QB A with every rule score as a padded string such as `"" 11.0 ""`",valid,true,true,77,77,raw,no,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,QC A with R009's rule score `true`,invalid,true,false,77,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"QD A with R009's rule score `""twelve""`",invalid,true,false,77,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"QE I with R009's score `""0""` and all-zero checkpoints",trigger,true,false,15,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
+college_english_exam_bank,"QF F with R009's score `""0""` and no checkpoints",invalid,true,false,0,,raw,yes,Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores,2
 cta_risk_budget_optimization,Trigger (synthetic),trigger,violations 0/1; `cross_border` 1 (cost_fx 0) / 5 (cost_fx 2),violations 1/1; `cross_border` 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization,2
 cta_risk_budget_optimization,Trigger (real data),trigger,violations 0/1; cb 1 / 5,violations 1/1; cb 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization,2
 cta_risk_budget_optimization,Same-currency control,valid,0/1; cb 1 / 5,0/1; cb 1 / 5,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization,2
 cta_risk_budget_optimization,Under-limit mixed control,valid,0/1; cb 1 / 5,0/1; cb 1 / 5,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization,2
 cta_risk_budget_optimization,Invalid control (over the limit even natively),invalid,1/1; cb 0 / 1,1/1; cb 0 / 1,,,verdict,no,Paired v1/v2 results: cta_risk_budget_optimization,2
 cta_risk_budget_optimization,Shipped reference positions (component),baseline,violations 0/1565; cb 1 / 5,violations 32/1565 (2.04%); cb 0 / 1,,,verdict,yes,Paired v1/v2 results: cta_risk_budget_optimization,2
-cta_risk_budget_optimization,"Full original scorer, complete shipped reference",valid,"TOTAL_SCORE 20.0 (raw 16/80); M1 4, M2 0, M3 0 (""Veto: annual vol 1.3% outside [5%,20%]""), M4 2, M5 10; valid, pass_rate 1.0, exit 0","identical: 20.0, the same metric breakdown, the same veto. Logs are identical apart from timings",20.0,20.0,raw,no,Paired v1/v2 results: cta_risk_budget_optimization,2
+cta_risk_budget_optimization,"Full original scorer, complete shipped reference",valid,"TOTAL_SCORE 20.0 (raw 16/80); M1 4, M2 0, M3 0 (""Veto: annual vol 1.3% outside [5%,20%]""), M4 2, M5 10; valid, pass_rate 1.0, exit 0","identical: 20.0, the same metric breakdown, the same veto. Logs are identical apart from timings",20.0,20.0,normalized,no,Paired v1/v2 results: cta_risk_budget_optimization,2
+cta_risk_budget_optimization,shipped standard answer,baseline,TOTAL_SCORE 20 (raw 16); risk vetoed: annual vol 1.3%,"TOTAL_SCORE 20, same veto",20,20,normalized,no,v2.1 native paired run (2026-10-13),2
+cta_risk_budget_optimization,leveraged (overseas 45% of NAV),trigger,TOTAL_SCORE 58.75 (raw 47); violations 0/1564; cross_border 5,TOTAL_SCORE 53.75 (raw 43); violations 1564/1564; cross_border 1,58.75,53.75,normalized,yes,v2.1 native paired run (2026-10-13),2
+cta_risk_budget_optimization,unleveraged (overseas 28% of NAV),trigger,TOTAL_SCORE 66.25 (raw 53); violations 1564/1564; cross_border 1,TOTAL_SCORE 71.25 (raw 57); violations 0/1564; cross_border 5,66.25,71.25,normalized,yes,v2.1 native paired run (2026-10-13),2
+cta_risk_budget_optimization,unleveraged-navgap (1 of 1564 dates without NAV),valid,TOTAL_SCORE 66.25 (raw 53); cross_border 1,TOTAL_SCORE 68.75 (raw 55); violations 1/1564; cross_border 3,66.25,68.75,normalized,yes,v2.1 native paired run (2026-10-13),2
 dabic_gravity_inversion,"honest model-space D-ABIC (`FORM=""model""`)",trigger,true,true,25.77,26.81,raw,yes,Paired v1/v2 results: dabic_gravity_inversion,8
 dabic_gravity_inversion,"honest data-space D-ABIC (`FORM=""data""`)",valid,true,true,26.82,26.84,raw,yes,Paired v1/v2 results: dabic_gravity_inversion,8
 dabic_gravity_inversion,"data form, log-det via `np.linalg.det` (`make_invalid_variant.py`)",invalid,false,false,26.91,26.86,raw,yes,Paired v1/v2 results: dabic_gravity_inversion,8
@@ -46,13 +67,22 @@ exchange_core_throughput,"`feeswap` (fee swap, balance kept at zero)",trigger,OK
 exchange_core_throughput,`dropevents` (user events not forwarded),trigger,OK 2234,WA 0 (gate failed),2234,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
 exchange_core_throughput,`feeleak`,invalid,RE 0,WA 0,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
 exchange_core_throughput,`compileerr`,invalid,RE 0,WA 0,,,raw,yes,Paired results: exchange_core_throughput v1 vs v2,8
-ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,,,0.967353,0.980056,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,,,0.509049,0.507032,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,shipped scaffold,baseline,,,0.447819,0.012416,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,,,2.881761,0.000464,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,,,2.884506,0.000463,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,,,1.305860,0.000451,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
-ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,0.0 (28/30),0.0 (28/30),0.0,0.0,raw,no,Paired results: ffmpeg_swscale_reimplementation v1 vs v2,4
+exchange_core_throughput,"unmodified engine, 4 CPUs run 1",valid,OK 1059,"gate OK (33 tests), OK 1194",1059,1194,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"unmodified engine, 4 CPUs run 2",valid,OK 965,"gate OK (33 tests), OK 811",965,811,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"unmodified engine, 4 CPUs run 3",valid,OK 972,"gate OK (33 tests), OK 1073",972,1073,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"`topo21`, 4 CPUs run 1",valid,OK 1644,"gate OK (33 tests), OK 1687",1644,1687,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"`topo21`, 4 CPUs run 2",valid,OK 1994,"gate OK (33 tests), OK 1684",1994,1684,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+exchange_core_throughput,"`topo21`, 4 CPUs run 3",valid,OK 1894,"gate OK (33 tests), OK 1832",1894,1832,raw,yes,Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13),4
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame once (`ref_r1`)",valid,,,0.967353,0.980056,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,"forwarding shim, each frame twice (`ref_r2`, about 2× slower)",valid,,,0.509049,0.507032,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,shipped scaffold,baseline,,,0.447819,0.012416,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,errors on 3:1 downscale,trigger,,,2.881761,0.000464,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,silent no-op on 3:1 downscale,trigger,,,2.884506,0.000463,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,errors on RGBA→RGB24,trigger,,,1.305860,0.000451,raw,yes,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,unsupported yuv420p→rgb24,invalid,0.0 (28/30),0.0 (28/30),0.0,0.0,raw,no,Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2),4
+ffmpeg_swscale_reimplementation,Forward every call to FFmpeg,valid,30/30,30/30,1.056386,1.020061,raw,yes,v2.2 native result (2026-10-13),2
+ffmpeg_swscale_reimplementation,Skip second call of each context,trigger,30/30,30/30,1.038559,0.000000,raw,yes,v2.2 native result (2026-10-13),2
+ffmpeg_swscale_reimplementation,Always return an error,invalid,0/30,0/30,0.000000,0.000000,raw,no,v2.2 native result (2026-10-13),2
 git_rewrite_in_zig,`control`: unmodified starter,baseline,2,2,0.000069,0.000069,raw,no,Paired table,8
 git_rewrite_in_zig,"`zig_build_exe`: starter after `zig build-exe src/main.zig -lc -lz` (leaves `main`, `main.o`)",trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
 git_rewrite_in_zig,"`obj_only`: as above, only `main.o` left",trigger,–,2,0.0,0.000069,raw,yes,Paired table,8
@@ -68,8 +98,10 @@ graph_node_classification,"neighbor (honest neighbour-vote solver, int ids)",val
 graph_node_classification,"nanconf (baseline predictions, NaN confidences)",valid,true,true,27.147,27.143,normalized,yes,Paired table,4
 graph_node_classification,"shrink (one real prediction, rest `""x""`)",trigger,true,false,16.026,,normalized,yes,Paired table,4
 graph_node_classification,missing_half (half the test nodes),invalid,false,false,,,normalized,no,Paired table,4
-integer_compression_codec,shipped Varint starter (unchanged),trigger,0.2327 / 0.2327,0.9786 / 0.9786 (repeat 1.0155),0.2327,0.9786,raw,yes,Paired v1/v2 results: integer_compression_codec,4
-integer_compression_codec,delta + zigzag + varint,valid,0.8253 / 0.8253,6.7024 / 6.7024 (repeat 6.9708),0.8253,6.7024,raw,yes,Paired v1/v2 results: integer_compression_codec,4
+graph_node_classification,neighbor_intkeys,trigger,true,true,0.000,24.089,normalized,yes,Revision v2.1 (2026-10-13): integer node-id keys,4
+graph_node_classification,dupkeys_after_str,invalid,true,false,19.896,,normalized,yes,Revision v2.1 (2026-10-13): integer node-id keys,4
+integer_compression_codec,shipped Varint starter (unchanged),trigger,0.2327 / 0.2327,0.9786 / 0.00 (repeat 1.0155 / 0.00),0.2327,0.9786,raw,yes,Paired v1/v2 results: integer_compression_codec,4
+integer_compression_codec,delta + zigzag + varint,valid,0.8253 / 0.8253,6.7024 / 1.79 (repeat 6.9708 / 1.87),0.8253,6.7024,raw,yes,Paired v1/v2 results: integer_compression_codec,4
 integer_compression_codec,starter with one corrupted value,invalid,0 / 0,0 / 0,0,0,raw,no,Paired v1/v2 results: integer_compression_codec,4
 jagua_nesting_optimization,valid_adjacent_squares (shared edge),valid,accept,accept,,,verdict,no,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
 jagua_nesting_optimization,coincident_squares,trigger,accept,reject `overlap_0_1`,,,verdict,yes,"1. Witnesses (`validate_solution` of each image; `witnesses_v1.txt`, `witnesses_v2.txt`)",3
@@ -84,6 +116,19 @@ jagua_nesting_optimization,"allowed_rotation_minus180 (allowed [0, 180])",valid,
 jagua_nesting_optimization,Shipped baseline (candidate = reference),valid,0 / 16 / 0,0 / 16 / 0,0.000000,0.000000,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
 jagua_nesting_optimization,"seed_shift (honest: same LBF, different PRNG stream)",valid,6 / 10 / 0,6 / 10 / 0,1.644419,1.644419,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
 jagua_nesting_optimization,drop_last_item (one item missing),invalid,"0 / 16 / 0, all `demand_mismatch`","0 / 16 / 0, all `demand_mismatch`",0.000000,0.000000,raw,no,"3. Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,Shipped baseline (rev. v2.1),valid,0 / 16 / 0,0 / 16 / 0,0.000000,0.000000,raw,no,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,seed_shift (rev. v2.1),valid,6 / 10 / 0,6 / 10 / 0,1.644419,1.644419,raw,no,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,drop_last_item (rev. v2.1),invalid,0 / 16 / 0,0 / 16 / 0,0.000000,0.000000,raw,no,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,seed_shift_f32deg (honest: seed_shift with f32-derived angles),valid,6 / 10 / 0,6 / 10 / 0,1.644419,1.644419,raw,no,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,seed_shift_wrongdeg (every angle + 0.01°),invalid,"0 / 16 / 0: 8 `overlap`, 7 `out_of_strip`, 1 valid without improvement (case 0012, `gardeyn3`)","1 / 15 / 0, 15 `orientation_not_allowed`",0.000000,0.186857,raw,yes,"Full original scorer (TaskSpec `eval.sh`, `--network none`)",3
+jagua_nesting_optimization,"f32_rot90_f64deg (allowed [0, 90, 180, 270])",valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,"f32_rot180_f64deg (allowed [0, 180])",valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,f32_rot_minus90_f64deg,valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,f32_rot270_f64deg,valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,near_tol_rot_90.0009 (0.9 × the v2.1 tolerance),valid,accept,accept,,,verdict,no,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,wrong_rot_90.002 (2 × the v2.1 tolerance),trigger,accept,reject `orientation_not_allowed_0`,,,verdict,yes,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,wrong_rot_90.01 (10 × the v2.1 tolerance),trigger,accept,reject `orientation_not_allowed_0`,,,verdict,yes,Witnesses (`validate_solution` of each image),3
+jagua_nesting_optimization,"wrong_rot_45 (allowed [0, 90, 180, 270])",trigger,accept,reject `orientation_not_allowed_0`,,,verdict,yes,Witnesses (`validate_solution` of each image),3
 lean_analysis_proofs,orig,valid,0/2901,0/2338,0,0,raw,no,Paired table,2
 lean_analysis_proofs,A (trigger + controls),trigger,1/2901 (trans only),"3/2338 (anti_symm, div, trans)",0.000345,0.001283,raw,yes,Paired table,2
 lean_analysis_proofs,BAD (invalid),invalid,no score,no score,,,raw,no,Paired table,2
@@ -111,6 +156,9 @@ schemathesis_datagen_pipeline,off_by_one_clock,trigger,0/20,20/20,0.477350,0.467
 schemathesis_datagen_pipeline,garbage_shape,invalid,,,0.477350,0.467094,raw,yes,Final paired run (year ≥ 1900 floor removed),2
 schemathesis_datagen_pipeline,rfc850 (invalid),invalid,,,0.467094,0.467094,raw,no,Final paired run (year ≥ 1900 floor removed),2
 schemathesis_datagen_pipeline,starter,baseline,,,0.323504,0.323504,raw,no,Final paired run (year ≥ 1900 floor removed),2
+schemathesis_datagen_pipeline,"stdlib_1900 (`email.utils.format_datetime`, years 1900–9999)",valid,,,0.477350,0.477350,raw,no,"v2.1 native rerun (2026-10-13, year ≥ 1900 restored)",2
+schemathesis_datagen_pipeline,"stdlib_any_year (same formatter, years 0001–9999)",invalid,,,0.477350,0.467094,raw,yes,"v2.1 native rerun (2026-10-13, year ≥ 1900 restored)",2
+schemathesis_datagen_pipeline,"garbage_shape (`999, 99 888 0000 99:99:99 GMT`)",invalid,,,0.477350,0.467094,raw,yes,"v2.1 native rerun (2026-10-13, year ≥ 1900 restored)",2
 schemathesis_reporting_observability,fullref,valid,,,1.000000,1.000000,raw,no,Paired v1/v2 results: schemathesis_reporting_observability,2
 schemathesis_reporting_observability,fullref_junit_drops_error,trigger,,,1.000000,0.985714,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
 schemathesis_reporting_observability,fullref_no_body_fix,trigger,,,1.000000,0.991667,raw,yes,Paired v1/v2 results: schemathesis_reporting_observability,2
@@ -129,8 +177,8 @@ treant_forest,"92304 (= Σ 2N², the score cap)",trigger,,,21.02,100.00,normaliz
 tree_block_partitioning,Official `std.cpp` for all six subtasks,valid,100 / 100,100 / 100,100,100,raw,no,Paired v1/v2 results: tree_block_partitioning,2
 tree_block_partitioning,"T2 = alias variant of `std.cpp` (`make_alias_variant.py`); T1, T3–T6 empty",trigger,0.25 / 0.25 (T2 1/10),5 / 5 (T2 10/10),0.25,5,raw,yes,Paired v1/v2 results: tree_block_partitioning,2
 tree_block_partitioning,T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty,invalid,"0.25 / 0.25 (T2 1/10, 9 WA)","0.25 / 0.25 (T2 1/10, 9 WA)",0.25,0.25,raw,no,Paired v1/v2 results: tree_block_partitioning,2
-triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,10/10,10/10,0.055,0.054,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
-triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,10/10,10/10,48.87,48.95,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
+triangulation_coloring_optimization,shipped `solution.py` (do nothing),valid,10/10,10/10,0.055,0.000,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
+triangulation_coloring_optimization,`greedy.py` (greedy recolour + greedy README-legal convex flips),valid,10/10,10/10,48.87,48.66,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
 triangulation_coloring_optimization,`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case),trigger,10/10 accepted,"0/10 (WA ""Invalid flip"")",0.052,,normalized,yes,"Full judge (`eval_cmd`, 10 hidden cases)",8
 triangulation_coloring_optimization,"`wrong_count.py` (recolours vertex 1, claims C=0)",invalid,0/10 (WA),0/10 (WA),,,normalized,no,"Full judge (`eval_cmd`, 10 hidden cases)",8
 warehouse_forklift_routing,generic valid control,valid,"OK 50/50, TOTAL 46676.8","OK 50/50, TOTAL 46676.8",46676.8,46676.8,raw,no,Paired run,2
@@ -173,19 +221,19 @@ vibrating_path_graph_coloring,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE,
 vibrating_path_graph_coloring,`wall25` (works until 25 s wall clock),valid,"36 OK, 14 TLE, TOTAL inf","50 OK, TOTAL 24,650,014",,,raw,yes,vibrating_path_graph_coloring v2: paired results,4
 vibrating_path_graph_coloring,"`wall25`, repeat 1 / repeat 2",valid,"50 OK, 24,650,014","50 OK, 24,650,014",,,raw,no,vibrating_path_graph_coloring v2: paired results,4
 vibrating_path_graph_coloring,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL inf","0 OK, 50 TLE, TOTAL inf",,,raw,no,vibrating_path_graph_coloring v2: paired results,4
-vibrating_path_graph_coloring,`cpu20` (20 s CPU per case) | 8,valid,"50 OK, TOTAL 24,650,014","50 OK, TOTAL 24,650,014",,,raw,no,vibrating_path_graph_coloring v2: paired results,8
+vibrating_path_graph_coloring,`cpu20` (20 s CPU per case),valid,"50 OK, TOTAL 24,650,014","50 OK, TOTAL 24,650,014",,,raw,no,vibrating_path_graph_coloring v2: paired results,8
 apple_incremental_game,`cpu0` (honest control alone),baseline,"50 OK, TOTAL 99,714,418 (5.04)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,no,apple_incremental_game v2: paired results,4
 apple_incremental_game,`cpu20` (20 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 3,955,266 (0.00)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,yes,apple_incremental_game v2: paired results,4
 apple_incremental_game,`cpu28` (28 s CPU per case),trigger,"2 OK, 48 TLE, TOTAL 3,955,266 (0.00)","50 OK, TOTAL 99,714,418 (5.04)",,,raw,yes,apple_incremental_game v2: paired results,4
 apple_incremental_game,`wall25` (works until 25 s wall clock),valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,4
 apple_incremental_game,"`spin40` (bad control, 40 s CPU per case)",invalid,"0 OK, 50 TLE, TOTAL 0","0 OK, 50 TLE, TOTAL 0",,,raw,no,apple_incremental_game v2: paired results,4
-apple_incremental_game,`cpu20` (20 s CPU per case) | 8,valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,8
-triangulation_coloring_optimization,`cpu0` (control alone),baseline,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,"2 OK, 8 TLE, inf (no score)","10 OK, 863,058 (48.95)",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,"2 OK, 8 TLE, inf","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,`wall25` (works until 25 s wall clock),valid,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,"`spin40` (bad control, 40 s CPU per case)",invalid,"10 TLE, inf","10 TLE, inf",,,raw,no,CPU-quota parallelism (added 2026-10-12),4
-triangulation_coloring_optimization,`cpu20` | 8,valid,"10 OK, 866,166","10 OK, 863,058",,,raw,yes,CPU-quota parallelism (added 2026-10-12),8
+apple_incremental_game,`cpu20` (20 s CPU per case),valid,"50 OK, TOTAL 99,714,418","50 OK, TOTAL 99,714,418",,,raw,no,apple_incremental_game v2: paired results,8
+triangulation_coloring_optimization,`cpu0` (control alone),baseline,"10 OK, 866,166","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,`cpu20` (20 s CPU per case),trigger,"2 OK, 8 TLE, inf (no score)","10 OK, 874,742 (48.66)",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,`cpu28` (28 s CPU per case),trigger,"2 OK, 8 TLE, inf","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,`wall25` (works until 25 s wall clock),valid,"10 OK, 866,166","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,"`spin40` (bad control, 40 s CPU per case)",invalid,"10 TLE, inf","10 TLE, inf",,,raw,no,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",4
+triangulation_coloring_optimization,`cpu20` | 8,valid,"10 OK, 866,166","10 OK, 874,742",,,raw,yes,"Convex-hull coverage, package v2.2 (2026-10-13, issue #57)",8
 portfolio_risk_calibration,(a) instructions' formula,trigger,3.44%,3.47%,32.45,32.52,raw,yes,Full grader (`score.py`),2
 portfolio_risk_calibration,(b) grader's formula,valid,3.44%,3.47%,32.45,32.52,raw,yes,Full grader (`score.py`),2
 portfolio_risk_calibration,(c) wrong,invalid,−21.14%,−21.33%,0,0,raw,no,Full grader (`score.py`),2

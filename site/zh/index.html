@@ -38,20 +38,20 @@
   </div>
   <div class="abstract">
     <h2>摘要</h2>
-    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 在耗时长、开放式的工程与科学任务上对 AI 智能体进行排名。每个智能体在一个任务上最多工作十二小时，由一个隐藏的评分器程序为其工作打 0 到 100 分。我们检查了 51 个公开发布任务中每一个任务的评分器，所问的问题是：一个做出诚实、正确工作的智能体，能否得到任务所承诺的分数？<mark>在 51 个任务中，有 32 个任务的答案是否定的，原因在于评分器的逻辑或配置存在问题：</mark>评分器分到的 CPU 少于它同时运行的工作数，正确的工作得分过低，错误的工作被接受，评分器执行了任务说明中没有写明的规则，分数刻度无法达到，保留了错误的提交，或者分数依赖于提交自行报告的数字。其余 19 个任务保留（附说明）：要么评分器没有任何错误，要么变化来自运行间或机器之间的噪声，而这种噪声无法通过修改评分器消除；在 <a class="task-link" href="tasks/ann_vector_search_qps.html">ANN Vector Search</a> 中，这种噪声每次评分可达约 ±7 分（满分 100）。每项发现的机制都在 EdgeBench 自己的评分软件上得到演示；部分分数影响是计算所得而非测量所得，各案例页对此均有说明。<mark>凡是能够精确表述的结论，我们还用证明助手 Lean&nbsp;4 或模型检验器 TLA+ 进行了形式化检验：</mark>26 个任务有形式化结果，我们的修复中有 10 项在其模型范围内已证明或经过穷尽的模型检验，另有 4 项部分证明。形式化检验也纠正了我们自己的工作，发现有一项修复的覆盖范围比发布时所说的窄。我们以 EdgeBench 自己的格式发布 31 个任务的修复版，并移除 1 个任务；修复在相同的提交上与原始评分器进行了并排对照测试，每项重复三次，例外情况列在<a href="method.html#procedure">方法</a>页。已发布的排行榜会改变多少，无法从公开数据中确定，因为 EdgeBench 没有公开智能体的提交。可精确计算的部分使每个平均分提高 1.2–1.9 分，其余修复可能使一个模型的平均分最多下降 9.4 分或上升 23.1 分。<mark>即使只计入我们能够界定的影响，公开任务也已不能确定 Opus 4.8 与 GPT-5.5 的先后顺序。</mark></p>
+    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 对工程与科学任务中的智能体进行评分。本审计检查了全部 51 个公开任务。历史处置为 31 个修复包、19 个附说明保留的任务和 1 个移除的任务。<mark>修复包不等于整个任务已经获得验证。</mark>证据包括原始辅助函数测试、原生评分器运行和形式化模型，各有其适用范围。Datagen 的年份范围修正通过了原生评分器对照，FFmpeg 的输出检查和失败归零规则通过了原生计分程序对照。CTA 以基金净资产为分母的修正，在原始评分命令下通过了原生并排对照运行。Warehouse 需要独立的主机端等待修复。32 个修复包中有 31 个在一台干净的机器上从零重建成功；Lean Analysis 的评分器镜像约需 45 GB 磁盘空间，未能重建。尚待完成的检验：FFmpeg 的提交构建路径；Warehouse 的等待修复在真实后端上的集成；Lean Analysis 的镜像构建和实际评分路径；PFR 在五个实际目标上的得分恢复，这需要真实的证明；Equivalence 在全部六道题上的逐题检查；以及 Vibrating Path 零命中格式问题的影响，在 50 个用例中有 13 个仍未解决。Triangulation 重新生成的输入现在恰好覆盖其凸包（v2.2）。公开平均分不能确定修正后的排行榜：Treant 需要区间，Portfolio 的扫描只是敏感性情景，区间重叠也不能证明排名能够反转。参见<a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">当前修复包状态</a>及<a href="leaderboard.html">影响分析</a>。</p>
   </div>
   <p class="tcap"><b>表 1.</b> 审计的主要数字。</p>
   <div class="tablewrap"><table class="bt">
     <tbody>
       <tr><td>检查的公开任务</td><td class="n">51</td><td></td></tr>
       <tr><td>评分器存在可纠正、且会改变分数的问题的任务</td><td class="n">32</td><td></td></tr>
-      <tr><td style="padding-left:1.4em" class="o-repair-v2">在新版本中修复，并与原版对照测试</td><td class="n">31</td><td class="note">OpenRCT2 的修复只改变任务说明，没有可运行的内容</td></tr>
+      <tr><td style="padding-left:1.4em" class="o-repair-v2">有版本号的修复包；验证范围因包而异</td><td class="n">31</td><td class="note">当前的集成局限按修复包分别列出</td></tr>
       <tr><td style="padding-left:1.4em" class="o-exclude">已移除，不存在可靠的修复</td><td class="n">1</td><td></td></tr>
       <tr><td>保留（附说明）的任务：没有可纠正的问题；任何运行间或机器之间的波动均已记录</td><td class="n">19</td><td class="note">最大：每次评分约 ±7 分（ANN Vector Search）</td></tr>
       <tr><td>在 Lean&nbsp;4 或 TLA+ 中有形式化结果的任务</td><td class="n">26</td><td class="note">286 个 Lean 定理，20 次 TLA+ 模型检验运行</td></tr>
-      <tr><td>在其模型范围内已证明或经模型检验为正确的修复</td><td class="n">10</td><td class="note">另有 4 项部分证明</td></tr>
-      <tr><td>形式化检验，全部可用一条命令从头重新运行</td><td class="n">45</td><td class="note">0 处不一致</td></tr>
-      <tr><td>原始评分器与修复版评分器的并排对照</td><td class="n">206</td><td class="note">205 项运行 3 次（仅一项例外）；有一个原始评分器的结果发生变化，修复版评分器的结果没有变化；详见<a href="method.html#procedure">方法</a>页</td></tr>
+      <tr><td>历史修复模型中的已验证性质</td><td class="n">10</td><td class="note">另有 4 项部分证明</td></tr>
+      <tr><td>历史形式化检验；重跑需要对应工具链</td><td class="n">45</td><td class="note">历史结果；当前候选版本需另行验证</td></tr>
+      <tr><td>原版与修复版本的历史对照</td><td class="n">254</td><td class="note">240 项运行 3 次，14 项只运行一次；有一个原始评分器的结果发生变化，修复版评分器的结果没有变化；详见<a href="method.html#procedure">方法</a>页</td></tr>
     </tbody>
   </table></div>
 </header>
@@ -108,35 +108,35 @@
 
 <section id="what" class="col">
   <h2 class="sec"><span class="num">2</span>我们做了什么</h2>
-  <p>对 51 个公开任务中的每一个，我们只问一个问题：如果一个智能体做出诚实、正确的工作，它能否得到任务所承诺的分数？每个疑似问题都用测试提交在 EdgeBench 的原始评分软件上得到演示，并一直追踪到最终的 0–100 分；凡是能够精确表述的结论，还在 Lean&nbsp;4 中证明或在 TLA+ 中进行模型检验；每项修复都与原始评分器进行了并排对照测试（图&nbsp;2）。随后，每个任务得到以下三种结果之一：</p>
+  <p>对 51 个公开任务中的每一个，我们只问一个问题：如果一个智能体做出诚实、正确的工作，它能否得到任务所承诺的分数？证据追踪至原始评分器代码和最终分数。原生运行、辅助函数对照和形式化模型分别回答不同问题，单独任何一种都不能验证整个当前修复包（图&nbsp;2）。随后，每个任务得到以下三种结果之一：</p>
   <ul class="tight">
-    <li><b class="o-repair-v2">已修复（31 个任务）。</b>评分器的逻辑、数据或配置可以纠正。我们以 EdgeBench 自己的格式发布修复版；凡是修复改变了可运行的部分，都在相同的提交上与原版对照测试。</li>
+    <li><b class="o-repair-v2">修复包（31 个任务）。</b>评分器的逻辑、数据或配置可以纠正。我们发布带版本号的修复包，各案例说明对照测试的覆盖范围和待完成的集成验证。</li>
     <li><b class="o-retain-with-note">保留（附说明）（19 个任务）。</b>未发现可纠正的问题。说明中记录了修改评分器也无法消除的附带情况，例如运行之间或机器之间的波动。</li>
     <li><b class="o-exclude">已移除（1 个任务）。</b>不存在可靠的修复。</li>
   </ul>
   <figure class="fig" id="fig-evidence-layers"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">
-<title>Four layers of evidence: findings reproduced on the original grader, claims proved in Lean 4 or TLA+, fixes tested side by side against the original, and fixes checked on a real agent run.</title>
+<title>Four evidence layers with different scope: tasks examined in the original code and images, models proved in Lean 4 or checked in TLA+, historical paired comparisons of saved versions, and fixed tasks covered by one public agent run.</title>
 <style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} .num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}</style>
 <rect class="box" x="0.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="16" y="36" font-size="26" font-weight="600">1</text>
-<text class="ink" x="16" y="66" font-size="16.5" font-weight="600">Reproduced</text>
-<text class="muted" x="16" y="87" font-size="14">on the original grader</text>
+<text class="ink" x="16" y="66" font-size="16.5" font-weight="600">Examined</text>
+<text class="muted" x="16" y="87" font-size="14">original code and images</text>
 <text class="ink" x="16" y="124" font-size="14">51 tasks examined</text>
-<text class="ink" x="16" y="148" font-size="14">correct, triggering and</text>
-<text class="ink" x="16" y="172" font-size="14">wrong test submissions</text>
+<text class="ink" x="16" y="148" font-size="14">source, component and</text>
+<text class="ink" x="16" y="172" font-size="14">native evidence</text>
 <rect class="hl" x="194.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="210" y="36" font-size="26" font-weight="600">2</text>
 <text class="ink" x="210" y="66" font-size="16.5" font-weight="600">Proved formally</text>
 <text class="muted" x="210" y="87" font-size="14">Lean 4 and TLA+</text>
 <text class="ink" x="210" y="124" font-size="14">26 tasks, 286 theorems</text>
 <text class="ink" x="210" y="148" font-size="14">20 model-checking runs</text>
-<text class="ink" x="210" y="172" font-size="14">10 fixes proved, in model</text>
+<text class="ink" x="210" y="172" font-size="14">10 repair models checked</text>
 <rect class="box" x="388.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="404" y="36" font-size="26" font-weight="600">3</text>
-<text class="ink" x="404" y="66" font-size="16.5" font-weight="600">Tested side by side</text>
-<text class="muted" x="404" y="87" font-size="14">original vs fixed grader</text>
+<text class="ink" x="404" y="66" font-size="16.5" font-weight="600">Historical pairs</text>
+<text class="muted" x="404" y="87" font-size="14">components and graders</text>
 <text class="ink" x="404" y="124" font-size="14">30 fixes + 1 partial fix</text>
-<text class="ink" x="404" y="148" font-size="14">206 comparisons</text>
+<text class="ink" x="404" y="148" font-size="14">254 comparisons</text>
 <text class="ink" x="404" y="172" font-size="14">nearly all run 3 times</text>
 <rect class="box" x="582.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="598" y="36" font-size="26" font-weight="600">4</text>
@@ -147,7 +147,7 @@
 <text class="ink" x="598" y="172" font-size="14">both graders;</text>
 <text class="ink" x="598" y="196" font-size="14">Lean computed</text>
 </svg>
-</div><figcaption><b>图 2</b> 四个相互独立的证据层次。每项发现的机制都在原始评分器上得到演示；凡是能够精确表述的结论，还在 Lean 4 中证明或在 TLA+ 中进行了模型检验；修复经过并排对照测试，几乎每项对照都运行三次（例外列在“我们如何验证”中）；一次真实的智能体运行覆盖了九个已修复任务：其中七个用两种评分器重新评分（314 份提交），Lean Analysis 的影响则根据原始评分器的判定计算得出。</figcaption></figure>
+</div><figcaption><b>图 2</b> 四个证据层次，各有其适用范围。历史上的源代码与辅助函数对照、原生运行和形式化模型不能相互替代，也不是彼此独立、经过认证的复现。成对对照针对的是保存下来的版本，不能为较新的候选版本提供认证。真实智能体记录覆盖九个任务：其中七个用两种评分器重新评分，Lean Analysis 则根据保存的判定计算得出。</figcaption></figure>
 </section>
 
 <section id="findings" class="col">
@@ -155,7 +155,7 @@
   <p>下面的例子具有代表性，按问题类型分组。全部任务列在<a href="tasks/index.html">任务</a>页，每个任务都有完整的案例，包括测试提交、独立检验和修复。下文中的每个任务名称都链接到其页面。</p>
 
   <h3 id="cpu"><span class="num">3.1</span>评分器分到的 CPU 少于它同时运行的工作数</h3>
-  <p>EdgeBench 的官方排行榜设置给每个评分器 4 个 CPU，除非任务另有设定；七个 Lean 任务为 8 个，<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 为 16 个（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>）。有六个没有单独设定的评分器，在每个用例的承诺时限下同时运行 8 个测试用例（<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a> 也同时运行 8 个，但允许的时间是承诺时间的两倍）。因此在 4 个 CPU 上，每个用例只分到约半个 CPU，而任务说明从未写明评分器的 CPU 数；在评分器内部，系统报告的是宿主机的 CPU 数（在我们的测试机上为 8），而不是限制值。<span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a></span> 承诺每个测试用例 30 秒。<mark>一个每个用例计算 16 秒的解法，在 4 个 CPU 上 50 个用例中有 48 个超时，而一次超时就会使整份提交作废；在 8 个 CPU 上，同一解法通过全部用例。</mark><a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>、<a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>、<a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> 和 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 的情况相同：在所述时限之内的诚实解法会失去大多数用例或全部分数。按截止时间停止的解法通常不会被作废，但只得到一半的计算时间；在 Vibrating Path 的九次原始评分器评分中，有一次这样的解法被作废，原因可能是共享 CPU 的任务自带检查器超时了。修复后，同时运行的用例数不超过评分器的 CPU 数；我们在 4 个和 8 个 CPU 下分别进行了并排对照测量。在 <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a> 中，分数是速度，未修改的引擎在 4 个 CPU 上得 0 分，在 8 个 CPU 上约得 47–76 分，因此该任务的说明记录了：其分数取决于评分器的 CPU 数。</p>
+  <p>EdgeBench 的官方排行榜设置给每个评分器 4 个 CPU，除非任务另有设定；七个 Lean 任务为 8 个，<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 为 16 个（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>）。有六个没有单独设定的评分器，在每个用例的承诺时限下同时运行 8 个测试用例（<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a> 也同时运行 8 个，但允许的时间是承诺时间的两倍）。因此在 4 个 CPU 上，每个用例只分到约半个 CPU，而任务说明从未写明评分器的 CPU 数；在评分器内部，系统报告的是宿主机的 CPU 数（在我们的测试机上为 8），而不是限制值。<span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a></span> 承诺每个测试用例 30 秒。<mark>一个每个用例计算 16 秒的解法，在 4 个 CPU 上 50 个用例中有 48 个超时，而一次超时就会使整份提交作废；在 8 个 CPU 上，同一解法通过全部用例。</mark><a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>、<a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>、<a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> 和 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 的情况相同：按 CPU 时间预算设计的解法会失去大多数用例或全部分数。墙钟时限并不承诺独占 CPU 时间；该修复采用更一致的资源策略。按截止时间停止的解法通常不会被作废，但只得到一半的计算时间；在 Vibrating Path 的九次原始评分器评分中，有一次这样的解法被作废，原因可能是共享 CPU 的任务自带检查器超时了。修复后，同时运行的用例数不超过评分器的 CPU 数；我们在 4 个和 8 个 CPU 下分别进行了并排对照测量。在 <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a> 中，分数是速度，未修改的引擎在 4 个 CPU 上得 0 分，在 8 个 CPU 上约得 47–76 分，因此该任务的说明记录了：其分数取决于评分器的 CPU 数。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：说明：已证明 · 修复经并排对照测试，三次运行</p>
   <figure class="fig" id="fig-grid_turing_robot"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 416" role="img">
 <title>Wall time per test case against CPU work per case, at 4 and 8 CPUs</title>
@@ -212,7 +212,7 @@
 
   <h3 id="too-low"><span class="num">3.2</span>正确的工作得分过低</h3>
   <p><span class="lead-in"><a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>。</span>智能体要重建一个大型 Rust 项目。评分器以无法编译的方式把隐藏测试插入项目的两个部分，<mark>因此对每个遵守“不得修改测试”这一规则的智能体，这两个部分（共 100 分中的 22 分）都得 0 分。</mark>一个完整的解法得 73.99 分，而不是 94.70 分。（公开的归档还缺少四个库文件；恢复这些文件后，初始文件能够精确复现发布方记录的分数，因此发布方自己的评分很可能具备这些文件，这第二个问题只影响使用公开镜像评分的人。）</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：部分模型检验 · 修复经并排对照测试，三次运行（其中一项对照只运行一次）</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：部分模型检验 · 修复经并排对照测试，三次运行（4 项对照中有 1 项只运行一次）</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>。</span>智能体要用 Zig 语言重写 git。有几项任务说明从未提到的检查：只要项目中含有一个普通的构建文件（例如一条常用的 Zig 构建命令留下的文件），或含有一个把智能体的输出与真实 git 相比较的测试（而任务说明恰恰鼓励写这种测试），整个分数就会被设为 0。修复会删除遗留的构建文件，并取消对测试代码的检查，而不是把分数清零。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
   <p><span class="lead-in"><a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>。</span>智能体要在一个数学库中补全证明。在 423 条命题中，有五条在命题本身内部藏有一个缺口标记（Lean 的 <code>sorry</code>），这是由文件声明默认参数的方式引入的，因此任何证明都无法获得这些分数；任何使用了它们的后续证明也会被拒绝。这五条共占 100 分中的 1.18 分，连同使用它们的后续证明最多为 2.13 分（推断所得）。只有本来能证明它们的智能体才会失分，因此这一缺陷也可能掩盖智能体之间的差异。</p>
@@ -300,7 +300,7 @@
 
   <h3 id="accepted"><span class="num">3.3</span>错误的工作被接受</h3>
   <p><span class="lead-in"><a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>。</span>智能体要在不改变行为的前提下加速一个证券交易所撮合引擎。评分器的正确性检查只确认资金总体平衡、订单簿一致。<mark>两个现实中可能出现、只需改动一处的缺陷——向卖方吃单者收取挂单手续费而非吃单手续费，以及不发送成交消息——都能通过检查并获得满分</mark>，而项目自带的测试套件能发现这两个缺陷。修复版要求先通过这些测试，再测量速度。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：发现：部分证明 · 修复经并排对照测试，三次运行</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：发现：部分证明 · 修复经并排对照测试，三次运行（13 项对照中有 6 项只运行一次）</p>
   <figure class="fig" id="fig-exchange_core_throughput"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
 <title>Bar chart: under the original grader, engines with wrong fees (24.40) or dropped events (15.62) receive full credit, as does the correct engine (7.14); the differences are within speed noise. The fixed grader gives both broken engines 0.</title>
 <style>
@@ -430,7 +430,7 @@
 </div><figcaption><b>图 9</b> 任务说明承诺每个测试用例 30 秒、每个输入 150 秒，但原始评分器执行的是 60 秒，因此一个在某个输入上耗时超过 60 秒的解题者，尽管仍在承诺之内，也会失去全部分数。 <a href="tasks/warehouse_forklift_routing.html" class="case-link">阅读案例</a></figcaption></figure>
 
   <h3 id="scale"><span class="num">3.5</span>0–100 分数刻度无法达到</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>。</span>每个测试用例按存活的回合数计分，而评分器限制了回合数，因此总数不可能超过 92,304。0–100 分数刻度的参考点却设得远高于这个上限。<mark>任何提交的得分都不可能超过 100 分中的 21.02 分。</mark>修复后的刻度从初始程序的总数延伸到真实的最大值。<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 也有同样的问题，而且是通过证明而非测量确立的：一个在 Lean 中证明的下界表明，任何有效答案的得分都不可能超过约 30.6（在精确下界处为 30.3）。</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>。</span>每个测试用例按存活的回合数计分，而评分器限制了回合数，因此总数不可能超过 92,304。0–100 分数刻度的参考点却设得远高于这个上限。<mark>任何提交的得分都不可能超过 100 分中的 21.02 分。</mark>修复后的刻度从初始程序的总数延伸到已证明的上界（尚未证明可达）。<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 也有同样的问题，而且是通过证明而非测量确立的：一个在 Lean 中证明的下界表明，任何有效答案的得分都不可能超过约 30.6（在精确下界处为 30.3）。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：已发布数字：部分证明 · 修复经并排对照测试，三次运行</p>
   <figure class="fig" id="fig-treant_forest"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img">
 <title>Treant Forest score scale</title>
@@ -555,11 +555,11 @@
   <h2 class="sec"><span class="num">4</span>对已发布排行榜的影响</h2>
   <p>EdgeBench 公布每个模型在每个任务上的分数：三次十二小时运行中各次运行最佳分数的平均值。我们问的是，一旦问题得到纠正，每个模型在 51 个公开任务上的平均分会如何变化。<mark>如实的回答是：这无法从公开数据中确定。</mark>要测量它，要么需要对智能体的原始提交重新评分，而 EdgeBench 没有公开这些提交；要么需要在修复后的任务上重新运行这些模型，而本次审计没有这样做。可以精确陈述的是：</p>
   <ul class="tight">
-    <li><b>最大可能变化。</b>让每项修复都取其最大可能的影响，一个模型的平均分最多下降 9.4 分或上升 23.1 分。这是一个界限，而不是预测。</li>
-    <li><b>已证明的上限。</b>影响有已证明上限的 11 个已修复任务，使平均分至多下降 0.4 分或上升 2.0 分。</li>
-    <li><b>可精确计算的部分。</b>两项刻度修正和被移除的任务使每个平均分提高 1.2–1.9 分。</li>
+    <li><b>条件区间。</b>计算考虑了舍入及 Treant 带截断的分段刻度。中点只用于描述区间，并非已知的修正后模型平均分。</li>
+    <li><b>适用范围。</b>界限针对指定缺陷。Portfolio 的有限扫描单独作为敏感性情景，不作为全局界限。</li>
+    <li><b>排名。</b>区间重叠既不能确定先后，也不能证明实际可实现的排名反转。</li>
   </ul>
-  <p><mark>即使只计入我们能够界定的影响，公开任务也已不能确定 Opus 4.8 与 GPT-5.5 的先后顺序。</mark></p>
+  <p><mark>这些条件界限无法确认 Opus 4.8 与 GPT-5.5 的先后顺序；区间重叠不证明排名颠倒可以实现。</mark>其余相邻模型的先后顺序，只在只知道方向的修复没有影响时才能确认；在完整分数域包络中，每一对相邻模型的区间都相互重叠。</p>
   <p class="more-link"><a href="leaderboard.html">完整的排行榜分析，包括表&nbsp;3 和与真实智能体运行的对照</a></p>
 </section>
 
@@ -571,9 +571,9 @@
     <li><b>用测试提交展示问题：</b>一份正确的提交，必须得到所承诺的分数；一份触发问题的提交；以及一份错误的提交，必须被拒绝。</li>
     <li><b>独立确认，</b>通过精确算术、另一个独立实现、穷尽搜索，或在 Lean&nbsp;4 或 TLA+ 中的形式化证明。</li>
     <li><b>追踪到最终分数。</b>只有改变了诚实工作的 0–100 分的问题才被计入。</li>
-    <li><b>对每项修复进行并排对照测试，</b>使用相同的测试提交：共 206 项评分对照，其中 205 项运行三次。</li>
+    <li><b>对原版和修复版本进行对照，</b>使用相同的测试提交：共 254 项评分对照，其中 240 项运行三次。</li>
   </ol>
-  <p>51 个任务中有 26 个有形式化结果，包括 286 个 Lean 定理和 20 次 TLA+ 模型检验运行。<mark>在 31 项修复中，有 10 项由 Lean 或 TLA+ 确立了修复本身在其模型范围内是正确的，另有 4 项部分证明。</mark>形式化检验也纠正了我们：有一项已发布的修复覆盖范围比所说的窄，现已修订。</p>
+  <p>51 个任务中有 26 个有形式化结果，包括 286 个 Lean 定理和 20 次 TLA+ 模型检验运行。<mark>历史形式化结果在明确模型内覆盖 10 项修复机制，另有 4 项部分证明。它们不验证改动后的候选版本、完整评分器行为或镜像集成。</mark>形式化检验也纠正了我们：有一项已发布的修复覆盖范围比所说的窄，现已修订。</p>
   <p class="more-link"><a href="method.html">完整的方法：每个步骤、形式化结果表&nbsp;2，以及局限</a></p>
 </section>
 
@@ -583,8 +583,8 @@
     <li><b>先运行原始评分器，再对它进行推理。</b>大多数问题是通过阅读代码发现的，但只有靠一份能触发问题的提交才得以确证。若干看似合理的发现没能通过这一步。</li>
     <li><b>形式化工具在小而明确的问题上很有成效。</b>一个错误的定理、一个算术缺口、一个下界和一个别名缺陷，都得到了确定的结论。大多数评分器问题涉及约定、文件格式或时间，对这些问题，任何证明都不如一次并排对照运行来得省力。</li>
     <li><b>证明的价值取决于它与代码的联系。</b>我们在 <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a> 任务自己的镜像中、基于其自己的定义陈述了反驳。我们在 294 个字符串上把 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse</a> 的模型与真实的测试程序进行了对照，并把每个 TLA+ 步骤对应到一行源代码。没有这些联系，证明论证的就是另一回事了。</li>
-    <li><b>每项检查都需要反向检验。</b>每个 TLA+ 模型都有一个必须失败的配置，每个 Lean 证明都打印出它所依赖的公理，每项修复都既在正确的工作上、也在错误的工作上测试。一个不可能失败的检查什么也说明不了。</li>
-    <li><b>形式化证明不仅检查基准，也检查我们自己的工作。</b>把每项修复写得足够精确以便交给 Lean 或 TLA+，暴露出一项覆盖范围比发布时所说的窄的修复，以及八处不够精确的表述。每一处都是因为某次证明尝试在一个我们没想到要测试的情形上失败而发现的。</li>
+    <li><b>每项检查都需要反向检验。</b>每个 TLA+ 模型都有一个必须失败的配置，每个 Lean 证明都打印出它所依赖的公理，修复应同时接受正确及错误输入的测试；实际覆盖范围见案例页。一个不可能失败的检查什么也说明不了。</li>
+    <li><b>形式化证明不仅检查基准，也检查我们自己的工作。</b>把部分修复机制写成 Lean 或 TLA+ 模型，暴露出一项覆盖范围比发布时所说的窄的修复，以及八处不够精确的表述。每一处都是因为某次证明尝试在一个我们没想到要测试的情形上失败而发现的。</li>
     <li><b>要在发布方的机器设置下测试，而不只是在方便的机器上。</b>我们第一轮并排对照测试是在 8 个 CPU 上运行评分器的。排行榜的设置给大多数评分器 4 个 CPU，而在 4 个 CPU 下，有六个评分器会让在 8 个 CPU 下能通过的诚实工作超时。我们起初还以为 <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 分到 4 个，而它的设置给了 16 个。代码在两种设置下都是正确的；出错的只是机器与代码的组合。</li>
     <li><b>新的审查者能发现作者自己看不到的问题。</b>第二轮审查者不了解我们的背景，他们发现了 CPU 问题、<a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a> 中两个隐藏测试问题、<a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a> 中未公开的检查，以及 <a class="task-link" href="tasks/pfr_formalization.html">PFR</a> 中一个隐藏的占位符，这些大多出现在我们原本保留的任务中；他们还发现我们自己的几项修复需要扩展或修订。每一项随后都由一次运行而不是由论证来确定。</li>
     <li><b>要测试修复的目的，而不只是它改变了什么。</b><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a> 的第一版修复完全按文档纠正了基线，并通过了每一项测试，然而真实提交表明它使分数刻度饱和了。用真实的智能体工作来检查修复，发现了证明和我们编写的测试都没有发现的问题。</li>
@@ -596,7 +596,7 @@
   <dl class="data">
     <dt>代码仓库</dt><dd><a href="https://github.com/findalexli/edgebench-verified">github.com/findalexli/edgebench-verified</a>：修复、案例页、证据、Lean 和 TLA+ 文件</dd>
     <dt>结果</dt><dd><a href="../data/decisions.csv">decisions.csv</a> · <a href="../data/decisions.json">decisions.json</a></dd>
-    <dt>修复测试</dt><dd><a href="../data/paired-results.csv">paired-results.csv</a>：覆盖 32 个任务的 210 行，原始评分器与修复版评分器：206 项评分对照，2 行准备性运行，1 行推导得出的分数上限（Treant Forest，未执行），以及 1 项仅涉及任务说明的检查（OpenRCT2，没有可运行的内容）</dd>
+    <dt>修复测试</dt><dd><a href="../data/paired-results.csv">paired-results.csv</a>：覆盖 32 个任务的 258 行，原始评分器与修复版评分器：254 项评分对照，2 行准备性运行，1 行推导得出的分数上限（Treant Forest，未执行），以及 1 项仅涉及任务说明的检查（OpenRCT2，没有可运行的内容）</dd>
     <dt>重复运行</dt><dd><a href="../data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/data/paired-repeatability.md">报告</a></dd>
     <dt>排行榜影响</dt><dd><a href="../data/impact.csv">impact.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">报告</a></dd>
     <dt>文档</dt><dd><a href="https://github.com/findalexli/edgebench-verified/blob/main/FINDINGS.md">发现</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/METHOD.md">方法</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">应用修复</a></dd>

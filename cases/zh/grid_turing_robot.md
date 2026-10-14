@@ -83,6 +83,7 @@
 ## 局限
 
 - 修复版评分器从 cgroup（`cpu.max`）读取 CPU 配额。这只用 `docker run --cpus` 测试过，没有在 Kubernetes pod 中测试，而 EdgeBench 的排行榜设置使用的正是这个后端。
+- 没有 cgroup 配额时，修复版评分器回退到 `os.cpu_count()`，它统计的是主机的全部 CPU，而不是评分器可以使用的 CPU（`os.sched_getaffinity`）。在只有 CPU 集合限制、没有配额的情况下（例如 `docker run --cpuset-cpus`），或者 pod 看不到自己的 `cpu.max` 时，它仍可能同时运行多于 CPU 数的用例，与原版一样。改用亲和性计数需要一次新的并排对照运行，因此这里没有改。
 - 没有运行任何 AI 模型或解题者。分数影响只在我们编写的测试提交和反例上展示。
 - 原始评分器的运行使用本地 Docker，参数为 `--cpus 4`、`--cpus 2` 和 `--cpus 8`，以及 `--memory 2g`；CPU 运行和并排对照测试使用有 8 个 vCPU 的 E2B 工作节点，参数为 `--memory 4g` 以及 `--cpus 4` 或 `--cpus 8`。3、5、6 和 7 个 CPU 没有测试。
 - CPU 测试解法都是单线程的：做固定量的 CPU 工作，或工作到 25 s 墙钟截止时间。多线程的解题者没有测试。

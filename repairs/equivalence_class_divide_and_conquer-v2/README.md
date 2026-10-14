@@ -1,5 +1,8 @@
 # Fixed version of `equivalence_class_divide_and_conquer`: T3 checker counts the last state's size
 
+**Validation scope:** The 9.67-point potential effect is an upper bound. No solution attaining that change on the official corpus has been demonstrated; the paired official reference and naive controls have unchanged scores.
+
+
 ## What this fixes
 
 In sub-problem T3, the checker that grades each output leaves the size of the last neighbourhood reached (the target of the last move) out of its cost total. An output can therefore go over the cost budget by up to that size (at most 10⁶) and still be accepted. The fixed version counts that size too and changes nothing else.
@@ -45,7 +48,7 @@ A side-by-side run of the original and fixed graders on the same submissions is 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/equivalence_class_divide_and_conquer-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.equivalence_class_divide_and_conquer:de7206e7e06d-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:
@@ -65,3 +68,4 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
   places any known solution in the window.
 - Each test submission ran three times, each time on a separate worker (runs 2 and 3 in `evidence/runs/equivalence_class_divide_and_conquer-v2-paired-rep2` and `-rep3`, both `status: exit=0`); verdicts and scores were identical in all three (`data/paired-repeatability.md`).
 - The strictness quirks from comparing pairs, noted in the review, are unchanged.
+- **Not verified, and why: the six-family evaluator checks.** Issue #2 asked for original and fixed evaluator checks on each of the six problems (T1–T6), with the T2 reference control kept separate from the T3 checker correction. Only the reference submission was graded on all six problems (identical results in both versions); no per-problem test submissions were run for T1, T2, T4, T5 or T6. The fix changes only `T3_P8204/data/checker.cpp`, so the other problems' checkers are the original files. This is kept as a documented limitation.

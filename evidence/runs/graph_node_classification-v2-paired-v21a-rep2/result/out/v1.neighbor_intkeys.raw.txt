@@ -1,0 +1,66 @@
+>>>>> Start Test Output
++ echo '>>>>> Start Test Output'
++ cd /home/workspace/045_graph_node_classification
++ CUDA_VISIBLE_DEVICES=
++ NVIDIA_VISIBLE_DEVICES=none
++ python judge_eval.py
+>>>>> Start Structured Result
+{
+  "details": [
+    {
+      "message": "runner.py produced a valid result payload",
+      "name": "result_payload",
+      "score": 1.0,
+      "status": "PASSED",
+      "weight": 1.0
+    },
+    {
+      "message": "quick_test=False num_splits_evaluated=10",
+      "name": "full_eval",
+      "score": 1.0,
+      "status": "PASSED",
+      "weight": 1.0
+    },
+    {
+      "message": "10 splits fully covered",
+      "name": "prediction_coverage",
+      "score": 1.0,
+      "status": "PASSED",
+      "weight": 1.0
+    },
+    {
+      "message": "final_score=-0.039043",
+      "name": "solution_score",
+      "score": 1.0,
+      "status": "PASSED",
+      "weight": 1.0
+    }
+  ],
+  "metrics": {
+    "avg_peak_memory_mb": 9.182402610778809,
+    "avg_resource_penalty": 0.0,
+    "avg_time_penalty": 0.039043307889939476,
+    "avg_total_solution_time_sec": 49.62464842190002,
+    "balanced_accuracy": 0.0,
+    "ece": 1.0,
+    "final_score": -0.039043307889939476,
+    "macro_f1": 0.0,
+    "max_peak_memory_mb": 9.182926177978516,
+    "micro_f1": 0.0,
+    "num_splits_evaluated": 10,
+    "one_minus_ece": 0.0,
+    "overall_score": 0.0,
+    "quick_test": false
+  },
+  "pass_rate": 1.0,
+  "score": -0.039043307889939476,
+  "summary": "valid=true final_score=-0.039043 overall_score=0.000000 macro_f1=0.000000 micro_f1=0.000000 balanced_accuracy=0.000000 one_minus_ece=0.000000 avg_time=49.625s checks=4/4",
+  "valid": true
+}
+>>>>> End Structured Result
++ EXIT_CODE=0
++ echo '>>>>> End Test Output'
++ echo 'Exit code: 0'
++ exit 0
+>>>>> End Test Output
+Exit code: 0

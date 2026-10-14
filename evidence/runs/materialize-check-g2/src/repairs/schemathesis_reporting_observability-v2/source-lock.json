@@ -1,0 +1,86 @@
+{
+ "task_id": "schemathesis_reporting_observability",
+ "version": "v2",
+ "original_judge_image": "seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633e75b2a21ef805961bb190c0a71afb75225986997340185eb7d67fc54",
+ "original_task_json": {
+  "path": "tasks/schemathesis_reporting_observability.json",
+  "sha256": "4c199f9286f7def2c9d3f3f1b0a35a85f547f2794d4ed81abaf6c74083731e69",
+  "judge.image_tag": "21a26db29432"
+ },
+ "candidate_task_json": {
+  "path": "task.json.in",
+  "sha256": "de31cfe69711880d0a7bbcba1d6338b8772fbee1a833c0951deb1e6a83241c84",
+  "judge.image_tag": "junit-coverage-v2.1",
+  "superseded_judge_image_tag (v1.0 package)": "junit-coverage-v2",
+  "only_field_changed": "judge.image_tag"
+ },
+ "files": [
+  {
+   "target": "/tests/test.sh",
+   "original_sha256": "c74c6c42a1c63799f6bf16496c1288aa135f00c51426123500f97aab210dc428",
+   "original_bytes": 9332,
+   "replacement": "files/tests/test.sh",
+   "replacement_sha256": "5f3a136b109129147897ad7a0bfa3a90c4bc2fc1d6a607db5735f836d5859b5e",
+   "replacement_bytes": 9332
+  },
+  {
+   "target": "/tests/test_02_reporting.py",
+   "original_sha256": "8dc05817c504528f39792abfef1b3924f3d012a34db7f15fac4cbeb100c2e76c",
+   "original_bytes": 5118,
+   "replacement": "files/tests/test_02_reporting.py",
+   "replacement_sha256": "8615de4935ed046c292f865e856e6ad0b72b4d562428df0f027de928c650941d",
+   "previous_replacement_sha256 (superseded 2026-10-12: required the suite name, one test case and no failure/skipped, none stated in TODO.md)": "9dd6184a615f60c364e541409a7e611253f5cae74b52967055f0caf45a4d6f7d",
+   "replacement_bytes": 5619
+  },
+  {
+   "target": "/tests/test_05_email_coverage.py",
+   "original_sha256": "8f1831e4597df47ed6e68fecceead5bdbbfb309e0c32018988519c1636632839",
+   "original_bytes": 5676,
+   "replacement": "files/tests/test_05_email_coverage.py",
+   "replacement_sha256": "10401e449a2ad57a6bca52e46da1dafff7b15372d0ce4182dc4c1a693a0e0dc3",
+   "replacement_bytes": 6100
+  }
+ ],
+ "unchanged_judge_tests_sha256": {
+  "/tests/test_01_hooks.py": "1eafc845e7a0dd28f1a798e0df333c40e88e04899e8e4bf281a559bdc562324e",
+  "/tests/test_03_pytest_reporting.py": "f7cdfd78c085b6de7f54121aefad6c651a73ddde27c3be6c57f01d23ce50a9a2",
+  "/tests/test_04_examples.py": "4d7f07dc84dab870c5f0844bf51c3eec224d7572af5a6e2702e0b6121bffd946"
+ },
+ "repair_patch_sha256": "fe6741e9b25093870cb0a3bbf58a1bbe898b63d578ccb24cf302db269c4270ff",
+ "dockerfile_sha256": "c223ca1feff35f187ac8b4b905b56d55835b7b8a98a416f21d05527309f5b6bf",
+ "derivation": {
+  "base_patch": "proposedrepairs/reporting-junit/repair.patch + proposedrepairs/reporting-coverage-filter/repair.patch (shared-hooks implementation patch excluded)",
+  "additional_change": "2026-10-12: test_junitxml_writer_context_manager relaxed to what TODO.md states (well-formed JUnit XML; an <error> carrying the message on the test case named by the label); suite name, test-case count and no failure/skipped dropped."
+ },
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633e75b2a21ef805961bb190c0a71afb75225986997340185eb7d67fc54"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/tests/test.sh",
+    "sha256": "c74c6c42a1c63799f6bf16496c1288aa135f00c51426123500f97aab210dc428"
+   },
+   {
+    "source": "judge",
+    "path": "/tests/test_02_reporting.py",
+    "sha256": "8dc05817c504528f39792abfef1b3924f3d012a34db7f15fac4cbeb100c2e76c"
+   },
+   {
+    "source": "judge",
+    "path": "/tests/test_05_email_coverage.py",
+    "sha256": "8f1831e4597df47ed6e68fecceead5bdbbfb309e0c32018988519c1636632839"
+   }
+  ],
+  "outputs": {
+   "files/tests/test.sh": "5f3a136b109129147897ad7a0bfa3a90c4bc2fc1d6a607db5735f836d5859b5e",
+   "files/tests/test_02_reporting.py": "8615de4935ed046c292f865e856e6ad0b72b4d562428df0f027de928c650941d",
+   "files/tests/test_05_email_coverage.py": "10401e449a2ad57a6bca52e46da1dafff7b15372d0ce4182dc4c1a693a0e0dc3"
+  },
+  "repair_patch_sha256": "fe6741e9b25093870cb0a3bbf58a1bbe898b63d578ccb24cf302db269c4270ff",
+  "materialize_sh_sha256": "88446e462b0edd09a3fd81bc4a417d1560145a7192492140e0c9d65e5c3e828f"
+ }
+}

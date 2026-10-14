@@ -1,0 +1,71 @@
+{
+  "scope": "original/candidate predicate components; no image integration",
+  "sha256": {
+    ".internal/validator-followup/schemathesis_datagen_pipeline/files/tests/test_01_header_strategies.py.original": "f2bf937f58549d6a82468883cf5a199357cef2caaf5dc9da865f962648bdeec6",
+    ".internal/validator-followup/schemathesis_datagen_pipeline/files/tests/test_01_header_strategies.py": "875c05f199b42ad52e87cea026eed78a025b64fcc8df536d7e993b111fd4c7b7"
+  },
+  "boundary_rows": [
+    {
+      "input": "Mon, 01 Jan 0001 00:00:00 GMT",
+      "original": true,
+      "candidate": false
+    },
+    {
+      "input": "Sun, 31 Dec 1899 23:59:59 GMT",
+      "original": true,
+      "candidate": false
+    },
+    {
+      "input": "Mon, 01 Jan 1900 00:00:00 GMT",
+      "original": true,
+      "candidate": true
+    },
+    {
+      "input": "Sat, 01 Jan 2000 00:00:00 GMT",
+      "original": true,
+      "candidate": true
+    },
+    {
+      "input": "Fri, 31 Dec 9999 23:59:59 GMT",
+      "original": true,
+      "candidate": true
+    },
+    {
+      "input": "Tue, 29 Feb 2000 12:00:00 GMT",
+      "original": true,
+      "candidate": true
+    },
+    {
+      "input": "Thu, 29 Feb 1900 12:00:00 GMT",
+      "original": true,
+      "candidate": false
+    },
+    {
+      "input": "Mon, 01 Jan 1900 24:00:00 GMT",
+      "original": true,
+      "candidate": false
+    },
+    {
+      "input": "Mon, 01 Jan 1900 00:00:60 GMT",
+      "original": true,
+      "candidate": false
+    },
+    {
+      "input": "Sat, 31 Dec 2016 23:59:60 GMT",
+      "original": true,
+      "candidate": true
+    },
+    {
+      "input": "Sun, 31 Dec 2016 23:59:60 GMT",
+      "original": true,
+      "candidate": false
+    },
+    {
+      "input": "Abc, 99 Xyz 0000 99:99:99 GMT",
+      "original": true,
+      "candidate": false
+    }
+  ],
+  "calendar_checks": 4751,
+  "status": "pass"
+}

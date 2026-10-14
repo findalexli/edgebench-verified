@@ -1,0 +1,49 @@
+{
+ "task_id": "grid_turing_robot",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/grid_turing_robot.json",
+  "sha256": "b88eff2092c1cd10f2356746f0e486f094d09c0c3966497ad1a798f7e7b83948"
+ },
+ "original_judge_image": "seededge/edgebench.judge.grid_turing_robot@sha256:f67864ad75a3a2af0f7904a05a30b888f66ce2ed5c1f3cac7d7482e578a296c3",
+ "original_judge_image_tag": "3c6f50ac4fe0",
+ "v2_judge_image_tag": "3c6f50ac4fe0-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/tmp/eval_grid_turing_robot.py",
+   "original_sha256": "99c9c55d618f6bf989389948b3ce3836e4d0ed85d410de78273de76571e717d6",
+   "original_bytes": 2532,
+   "replacement": "files/eval_grid_turing_robot.py",
+   "replacement_sha256": "285229ee262878c98b8442c0056aa4c1e1006821dc913fbdb85c1d07b3733a22",
+   "replacement_bytes": 3439,
+   "mode": "0755"
+  }
+ ],
+ "repair_patch_sha256": "13b30634fd780b9386ea33af5bd3761ae17b00392b7cd5654cc28df148fecfa9",
+ "dockerfile_sha256": "73ff94a7ce625f580523c1559785a810725aa64a54f8424a64a0409d46a85403",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "rescale_changed": false,
+ "rescale_note": "score scale unchanged; this version changes only how many cases the evaluator runs at once",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.grid_turing_robot@sha256:f67864ad75a3a2af0f7904a05a30b888f66ce2ed5c1f3cac7d7482e578a296c3"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/tmp/eval_grid_turing_robot.py",
+    "sha256": "99c9c55d618f6bf989389948b3ce3836e4d0ed85d410de78273de76571e717d6"
+   }
+  ],
+  "outputs": {
+   "files/eval_grid_turing_robot.py": "285229ee262878c98b8442c0056aa4c1e1006821dc913fbdb85c1d07b3733a22"
+  },
+  "repair_patch_sha256": "13b30634fd780b9386ea33af5bd3761ae17b00392b7cd5654cc28df148fecfa9",
+  "materialize_sh_sha256": "baff39404e644206f451637e817876ffb3ca09665f41e5f9e0fe1373b3b44c2c"
+ }
+}

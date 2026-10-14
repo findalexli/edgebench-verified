@@ -1,0 +1,440 @@
+[swscaler @ 0x55f05c561780] No accelerated colorspace conversion found from yuv420p to rgb24.
+[swscaler @ 0x55f05c5620f0] No accelerated colorspace conversion found from yuv420p to rgb24.
+[swscaler @ 0x55f05c598da0] No accelerated colorspace conversion found from yuv420p to bgra.
+[swscaler @ 0x55f05c7285d0] No accelerated colorspace conversion found from yuv420p to bgra.
+[swscaler @ 0x55f05c6cade0] No accelerated colorspace conversion found from yuv422p to rgb24.
+[swscaler @ 0x55f05c6cade0] No accelerated colorspace conversion found from yuv422p to rgb24.
+[swscaler @ 0x55f05c9ad820] No accelerated colorspace conversion found from yuv420p to rgb24.
+[swscaler @ 0x55f05c9ad820] No accelerated colorspace conversion found from yuv420p to rgb24.
+=== Correctness checks ===
+Correctness: 30/30 workloads passed
+  [PASS] yuv420p→rgb24 720x576  PSNR=inf
+  [PASS] yuv420p→bgra 352x288  PSNR=inf
+  [PASS] rgb24→yuv420p 720x576  PSNR=inf
+  [PASS] rgb24→bgr24 352x288  PSNR=inf
+  [PASS] rgb24→rgba 720x576  PSNR=inf
+  [PASS] rgb24→gray8 1280x720  PSNR=inf
+  [PASS] rgba→yuv420p 720x576  PSNR=inf
+  [PASS] bgra→rgb24 1280x720  PSNR=inf
+  [PASS] yuv422p→rgb24 1280x720  PSNR=inf
+  [PASS] yuv444p→rgb24 352x288  PSNR=inf
+  [PASS] nv12→rgb24 720x576  PSNR=inf
+  [PASS] nv21→rgb24 352x288  PSNR=inf
+  [PASS] rgb24→nv12 800x600  PSNR=inf
+  [PASS] rgb24→nv21 1280x720  PSNR=inf
+  [PASS] gray8→rgb24 800x600  PSNR=inf
+  [PASS] yuv420p→nv12 352x288  PSNR=inf
+  [PASS] nv12→yuv420p 352x288  PSNR=inf
+  [PASS] rgba→bgra 352x288  PSNR=inf
+  [PASS] bgr24→rgb24 800x600  PSNR=inf
+  [PASS] bgr24→yuv420p 800x600  PSNR=inf
+  [PASS] yuv444p→yuv420p 1280x720  PSNR=inf
+  [PASS] yuv420p→gray8 720x576  PSNR=inf
+  [PASS] rgb24→yuv422p 720x576  PSNR=inf
+  [PASS] rgb24→rgb24 1280x720→640x360 bilinear  PSNR=inf
+  [PASS] rgb24→rgb24 640x480→1280x960 bilinear  PSNR=inf
+  [PASS] yuv420p→rgb24 1280x720→640x360 bilinear  PSNR=inf
+  [PASS] rgb24→yuv420p 800x600→400x300 bilinear  PSNR=inf
+  [PASS] rgb24→rgb24 720x576→360x288 nearest  PSNR=inf
+  [PASS] rgb24→rgb24 352x288→704x576 bicubic  PSNR=inf
+  [PASS] rgba→rgba 1280x720→960x540 bilinear  PSNR=inf
+
+=== Performance benchmark ===
+  yuv420p→rgb24 1080p: baseline=1.293ms candidate=1.279ms speedup=1.010x
+  rgb24→yuv420p 1080p: baseline=9.974ms candidate=9.917ms speedup=1.006x
+  rgb24→bgra 1080p: baseline=1.275ms candidate=1.267ms speedup=1.006x
+  rgb24→nv12 1080p: baseline=9.579ms candidate=9.553ms speedup=1.003x
+  rgba→rgb24 4K: baseline=4.877ms candidate=4.253ms speedup=1.147x
+  yuv420p→rgb24 4K→1080p bilinear: baseline=19.759ms candidate=19.050ms speedup=1.037x
+  rgb24 1080p→4K bilinear upscale: baseline=52.222ms candidate=43.737ms speedup=1.194x
+  rgb24→yuv420p 1080p→360p bilinear: baseline=7.390ms candidate=7.381ms speedup=1.001x
+  rgb24 1080p→360p nearest: baseline=2.357ms candidate=2.353ms speedup=1.002x
+  rgb24 720p→1080p bicubic upscale: baseline=21.446ms candidate=21.458ms speedup=0.999x
+
+Geometric mean speedup: 1.0386x
+Score: 1.038559
+{
+  "score": 1.038559,
+  "reward": 1.038559,
+  "subscores": [
+    {
+      "name": "correctness",
+      "score": 1.0
+    },
+    {
+      "name": "speedup",
+      "score": 1.0386
+    }
+  ],
+  "additional_data": {
+    "correctness_passed": 30,
+    "correctness_total": 30,
+    "geometric_mean_speedup": 1.038559,
+    "workloads_benchmarked": 10,
+    "per_workload_speedups": [
+      1.0105,
+      1.0058,
+      1.0065,
+      1.0027,
+      1.1467,
+      1.0372,
+      1.194,
+      1.0011,
+      1.0015,
+      0.9994
+    ],
+    "benchmark_results": [
+      {
+        "label": "yuv420p\u2192rgb24 1080p",
+        "baseline_ms": 1.2928,
+        "candidate_ms": 1.2793,
+        "speedup": 1.0105
+      },
+      {
+        "label": "rgb24\u2192yuv420p 1080p",
+        "baseline_ms": 9.9739,
+        "candidate_ms": 9.9167,
+        "speedup": 1.0058
+      },
+      {
+        "label": "rgb24\u2192bgra 1080p",
+        "baseline_ms": 1.275,
+        "candidate_ms": 1.2668,
+        "speedup": 1.0065
+      },
+      {
+        "label": "rgb24\u2192nv12 1080p",
+        "baseline_ms": 9.5787,
+        "candidate_ms": 9.5531,
+        "speedup": 1.0027
+      },
+      {
+        "label": "rgba\u2192rgb24 4K",
+        "baseline_ms": 4.8766,
+        "candidate_ms": 4.2525,
+        "speedup": 1.1467
+      },
+      {
+        "label": "yuv420p\u2192rgb24 4K\u21921080p bilinear",
+        "baseline_ms": 19.7595,
+        "candidate_ms": 19.0502,
+        "speedup": 1.0372
+      },
+      {
+        "label": "rgb24 1080p\u21924K bilinear upscale",
+        "baseline_ms": 52.222,
+        "candidate_ms": 43.7369,
+        "speedup": 1.194
+      },
+      {
+        "label": "rgb24\u2192yuv420p 1080p\u2192360p bilinear",
+        "baseline_ms": 7.3897,
+        "candidate_ms": 7.3813,
+        "speedup": 1.0011
+      },
+      {
+        "label": "rgb24 1080p\u2192360p nearest",
+        "baseline_ms": 2.357,
+        "candidate_ms": 2.3534,
+        "speedup": 1.0015
+      },
+      {
+        "label": "rgb24 720p\u21921080p bicubic upscale",
+        "baseline_ms": 21.4463,
+        "candidate_ms": 21.4584,
+        "speedup": 0.9994
+      }
+    ],
+    "correctness_results": [
+      {
+        "label": "yuv420p\u2192rgb24 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv420p\u2192bgra 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192yuv420p 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192bgr24 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192rgba 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192gray8 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgba\u2192yuv420p 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "bgra\u2192rgb24 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv422p\u2192rgb24 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv444p\u2192rgb24 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "nv12\u2192rgb24 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "nv21\u2192rgb24 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192nv12 800x600",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192nv21 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "gray8\u2192rgb24 800x600",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv420p\u2192nv12 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "nv12\u2192yuv420p 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgba\u2192bgra 352x288",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "bgr24\u2192rgb24 800x600",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "bgr24\u2192yuv420p 800x600",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv444p\u2192yuv420p 1280x720",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "yuv420p\u2192gray8 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192yuv422p 720x576",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 60.0
+      },
+      {
+        "label": "rgb24\u2192rgb24 1280x720\u2192640x360 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgb24\u2192rgb24 640x480\u21921280x960 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "yuv420p\u2192rgb24 1280x720\u2192640x360 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgb24\u2192yuv420p 800x600\u2192400x300 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity,
+          Infinity,
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgb24\u2192rgb24 720x576\u2192360x288 nearest",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgb24\u2192rgb24 352x288\u2192704x576 bicubic",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      },
+      {
+        "label": "rgba\u2192rgba 1280x720\u2192960x540 bilinear",
+        "status": "pass",
+        "min_psnr": Infinity,
+        "plane_psnrs": [
+          Infinity
+        ],
+        "threshold": 40.0
+      }
+    ],
+    "reason": "Correctness OK (30/30), geometric mean speedup 1.0386x",
+    "total_time_ms": 0
+  }
+}

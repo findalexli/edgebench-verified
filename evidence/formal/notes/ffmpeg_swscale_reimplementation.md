@@ -1,3 +1,5 @@
+> Historical v2 proof/model. The v2.2 patch supersedes this specification; this file and the saved Lean output remain evidence for v2 only. The new component checks are linked from the repair package.
+
 # ffmpeg_swscale_reimplementation: formal note
 
 ## Claim

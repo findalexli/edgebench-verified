@@ -43,6 +43,26 @@ add("college_english_exam_bank", "Paired table", "raw", [
  ("J D, then A on re-ask", "trigger", "true", "true", "81", "77"),
  ("K no JSON, then A on re-ask", "trigger", "false", "true", "", "77"),
 ])
+# college revision v2.2: original (v1) against the current fixed grader v2.2 (the v2.1 arm is in results.md)
+add("college_english_exam_bank", "Revision v2.2 (2026-10-13): the last JSON block decides; decimal-string rule scores", "raw", [
+ ("GA R001 veto only in `veto_reason`", "trigger", "true", "false", "3", ""),
+ ("GB R009 deduction in an extra checkpoint", "trigger", "true", "false", "15", ""),
+ ("GC R009 veto flag, rule has no veto conditions", "trigger", "true", "false", "15", ""),
+ ("GD R009 floor wording after character 200", "trigger", "true", "false", "15", ""),
+ ("M R001 negative checkpoint + veto marker", "valid", "true", "true", "0", "0"),
+ ("N A's block, then D's block, one output", "trigger", "true", "false", "81", ""),
+ ("O D's block, then A's block, one output", "valid", "true", "true", "77", "77"),
+ ("P A's block, then a truncated block, one output", "valid", "true", "true", "77", "77"),
+ ("NA N, then A on re-ask", "trigger", "true", "true", "81", "77"),
+ ("NZ full-marks block, then D's block, one output", "trigger", "true", "false", "81", ""),
+ ("NU A's JSON, then D's JSON, unfenced, one output", "trigger", "true", "false", "81", ""),
+ ("QA A with R009's rule score as the string `\"11\"`", "valid", "true", "true", "77", "77"),
+ ("QB A with every rule score as a padded string such as `\" 11.0 \"`", "valid", "true", "true", "77", "77"),
+ ("QC A with R009's rule score `true`", "invalid", "true", "false", "77", ""),
+ ("QD A with R009's rule score `\"twelve\"`", "invalid", "true", "false", "77", ""),
+ ("QE I with R009's score `\"0\"` and all-zero checkpoints", "trigger", "true", "false", "15", ""),
+ ("QF F with R009's score `\"0\"` and no checkpoints", "invalid", "true", "false", "0", ""),
+])
 
 # cta: composite verdict cells
 src = "Paired v1/v2 results: cta_risk_budget_optimization"
@@ -54,10 +74,19 @@ add("cta_risk_budget_optimization", src, "verdict", [
  ("Invalid control (over the limit even natively)", "invalid", "1/1; cb 0 / 1", "1/1; cb 0 / 1", "", ""),
  ("Shipped reference positions (component)", "baseline", "violations 0/1565; cb 1 / 5", "violations 32/1565 (2.04%); cb 0 / 1", "", ""),
 ])
-add("cta_risk_budget_optimization", src, "raw", [
+# TOTAL_SCORE is the 0-100 normalized value (raw is the x/80 in the result text)
+add("cta_risk_budget_optimization", src, "normalized", [
  ("Full original scorer, complete shipped reference", "valid",
   "TOTAL_SCORE 20.0 (raw 16/80); M1 4, M2 0, M3 0 (\"Veto: annual vol 1.3% outside [5%,20%]\"), M4 2, M5 10; valid, pass_rate 1.0, exit 0",
   "identical: 20.0, the same metric breakdown, the same veto. Logs are identical apart from timings", "20.0", "20.0"),
+])
+# cta v2.1 (current fix): full original eval_cmd, three jobs with identical scores
+src = "v2.1 native paired run (2026-10-13)"
+add("cta_risk_budget_optimization", src, "normalized", [
+ ("shipped standard answer", "baseline", "TOTAL_SCORE 20 (raw 16); risk vetoed: annual vol 1.3%", "TOTAL_SCORE 20, same veto", "20", "20"),
+ ("leveraged (overseas 45% of NAV)", "trigger", "TOTAL_SCORE 58.75 (raw 47); violations 0/1564; cross_border 5", "TOTAL_SCORE 53.75 (raw 43); violations 1564/1564; cross_border 1", "58.75", "53.75"),
+ ("unleveraged (overseas 28% of NAV)", "trigger", "TOTAL_SCORE 66.25 (raw 53); violations 1564/1564; cross_border 1", "TOTAL_SCORE 71.25 (raw 57); violations 0/1564; cross_border 5", "66.25", "71.25"),
+ ("unleveraged-navgap (1 of 1564 dates without NAV)", "valid", "TOTAL_SCORE 66.25 (raw 53); cross_border 1", "TOTAL_SCORE 68.75 (raw 55); violations 1/1564; cross_border 3", "66.25", "68.75"),
 ])
 
 # dabic (partial; excluded): score raw=norm, result = valid flag
@@ -87,9 +116,18 @@ add("exchange_core_throughput", "Paired results: exchange_core_throughput v1 vs 
  ("`feeleak`", "invalid", "RE 0", "WA 0", "", ""),
  ("`compileerr`", "invalid", "RE 0", "WA 0", "", ""),
 ])
+add("exchange_core_throughput", "Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13)", "raw", [
+ ("unmodified engine, 4 CPUs run 1", "valid", "OK 1059", "gate OK (33 tests), OK 1194", "1059", "1194"),
+ ("unmodified engine, 4 CPUs run 2", "valid", "OK 965", "gate OK (33 tests), OK 811", "965", "811"),
+ ("unmodified engine, 4 CPUs run 3", "valid", "OK 972", "gate OK (33 tests), OK 1073", "972", "1073"),
+ ("`topo21`, 4 CPUs run 1", "valid", "OK 1644", "gate OK (33 tests), OK 1687", "1644", "1687"),
+ ("`topo21`, 4 CPUs run 2", "valid", "OK 1994", "gate OK (33 tests), OK 1684", "1994", "1684"),
+ ("`topo21`, 4 CPUs run 3", "valid", "OK 1894", "gate OK (33 tests), OK 1832", "1894", "1832"),
+])
 
 # ffmpeg (-b run, only table in file)
-add("ffmpeg_swscale_reimplementation", "Paired results: ffmpeg_swscale_reimplementation v1 vs v2", "raw", [
+# ffmpeg rows above the v2.2 block are the historical v2 job; v2 here is the superseded v2 scorer.
+add("ffmpeg_swscale_reimplementation", "Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2)", "raw", [
  ("forwarding shim, each frame once (`ref_r1`)", "valid", "", "", "0.967353", "0.980056"),
  ("forwarding shim, each frame twice (`ref_r2`, about 2× slower)", "valid", "", "", "0.509049", "0.507032"),
  ("shipped scaffold", "baseline", "", "", "0.447819", "0.012416"),
@@ -97,6 +135,12 @@ add("ffmpeg_swscale_reimplementation", "Paired results: ffmpeg_swscale_reimpleme
  ("silent no-op on 3:1 downscale", "trigger", "", "", "2.884506", "0.000463"),
  ("errors on RGBA→RGB24", "trigger", "", "", "1.305860", "0.000451"),
  ("unsupported yuv420p→rgb24", "invalid", "0.0 (28/30)", "0.0 (28/30)", "0.0", "0.0"),
+])
+# ffmpeg v2.2 (current patch): native full-scorer controls; v2 = v2.2; result = correctness workloads passed
+add("ffmpeg_swscale_reimplementation", "v2.2 native result (2026-10-13)", "raw", [
+ ("Forward every call to FFmpeg", "valid", "30/30", "30/30", "1.056386", "1.020061"),
+ ("Skip second call of each context", "trigger", "30/30", "30/30", "1.038559", "0.000000"),
+ ("Always return an error", "invalid", "0/30", "0/30", "0.000000", "0.000000"),
 ])
 
 # git: reward 0-1 (score = reward x 100); result = tests passed ("–": tests ran, reward ignores them)
@@ -121,11 +165,16 @@ add("graph_node_classification", "Paired table", "normalized", [
  ("shrink (one real prediction, rest `\"x\"`)", "trigger", "true", "false", "16.026", ""),
  ("missing_half (half the test nodes)", "invalid", "false", "false", "", ""),
 ])
+# graph revision v2.1: original (v1) against the current fixed verifier v2.1 (the first fixed verifier is in results.md)
+add("graph_node_classification", "Revision v2.1 (2026-10-13): integer node-id keys", "normalized", [
+ ("neighbor_intkeys", "trigger", "true", "true", "0.000", "24.089"),
+ ("dupkeys_after_str", "invalid", "true", "false", "19.896", ""),
+])
 
-# integer compression
+# integer compression: result = raw / normalized on the current linear 1..320 scale (results.md, "Score scale revision")
 add("integer_compression_codec", "Paired v1/v2 results: integer_compression_codec", "raw", [
- ("shipped Varint starter (unchanged)", "trigger", "0.2327 / 0.2327", "0.9786 / 0.9786 (repeat 1.0155)", "0.2327", "0.9786"),
- ("delta + zigzag + varint", "valid", "0.8253 / 0.8253", "6.7024 / 6.7024 (repeat 6.9708)", "0.8253", "6.7024"),
+ ("shipped Varint starter (unchanged)", "trigger", "0.2327 / 0.2327", "0.9786 / 0.00 (repeat 1.0155 / 0.00)", "0.2327", "0.9786"),
+ ("delta + zigzag + varint", "valid", "0.8253 / 0.8253", "6.7024 / 1.79 (repeat 6.9708 / 1.87)", "0.8253", "6.7024"),
  ("starter with one corrupted value", "invalid", "0 / 0", "0 / 0", "0", "0"),
 ])
 
@@ -146,6 +195,24 @@ add("jagua_nesting_optimization", "3. Full original scorer (TaskSpec `eval.sh`, 
  ("Shipped baseline (candidate = reference)", "valid", "0 / 16 / 0", "0 / 16 / 0", "0.000000", "0.000000"),
  ("seed_shift (honest: same LBF, different PRNG stream)", "valid", "6 / 10 / 0", "6 / 10 / 0", "1.644419", "1.644419"),
  ("drop_last_item (one item missing)", "invalid", "0 / 16 / 0, all `demand_mismatch`", "0 / 16 / 0, all `demand_mismatch`", "0.000000", "0.000000"),
+])
+# jagua revision v2.1: original (v1) against the current fixed grader v2.1 (the superseded v2 arm is in results.md)
+add("jagua_nesting_optimization", "Full original scorer (TaskSpec `eval.sh`, `--network none`)", "raw", [
+ ("Shipped baseline (rev. v2.1)", "valid", "0 / 16 / 0", "0 / 16 / 0", "0.000000", "0.000000"),
+ ("seed_shift (rev. v2.1)", "valid", "6 / 10 / 0", "6 / 10 / 0", "1.644419", "1.644419"),
+ ("drop_last_item (rev. v2.1)", "invalid", "0 / 16 / 0", "0 / 16 / 0", "0.000000", "0.000000"),
+ ("seed_shift_f32deg (honest: seed_shift with f32-derived angles)", "valid", "6 / 10 / 0", "6 / 10 / 0", "1.644419", "1.644419"),
+ ("seed_shift_wrongdeg (every angle + 0.01°)", "invalid", "0 / 16 / 0: 8 `overlap`, 7 `out_of_strip`, 1 valid without improvement (case 0012, `gardeyn3`)", "1 / 15 / 0, 15 `orientation_not_allowed`", "0.000000", "0.186857"),
+])
+add("jagua_nesting_optimization", "Witnesses (`validate_solution` of each image)", "verdict", [
+ ("f32_rot90_f64deg (allowed [0, 90, 180, 270])", "valid", "accept", "accept", "", ""),
+ ("f32_rot180_f64deg (allowed [0, 180])", "valid", "accept", "accept", "", ""),
+ ("f32_rot_minus90_f64deg", "valid", "accept", "accept", "", ""),
+ ("f32_rot270_f64deg", "valid", "accept", "accept", "", ""),
+ ("near_tol_rot_90.0009 (0.9 × the v2.1 tolerance)", "valid", "accept", "accept", "", ""),
+ ("wrong_rot_90.002 (2 × the v2.1 tolerance)", "trigger", "accept", "reject `orientation_not_allowed_0`", "", ""),
+ ("wrong_rot_90.01 (10 × the v2.1 tolerance)", "trigger", "accept", "reject `orientation_not_allowed_0`", "", ""),
+ ("wrong_rot_45 (allowed [0, 90, 180, 270])", "trigger", "accept", "reject `orientation_not_allowed_0`", "", ""),
 ])
 
 # lean: score raw (=normalized); result = repaired/targets
@@ -196,6 +263,12 @@ add("schemathesis_datagen_pipeline", "Final paired run (year ≥ 1900 floor remo
  ("rfc850 (invalid)", "invalid", "", "", "0.467094", "0.467094"),
  ("starter", "baseline", "", "", "0.323504", "0.323504"),
 ])
+# schemathesis datagen v2.1 (current fix): clean native rerun, original eval_cmd
+add("schemathesis_datagen_pipeline", "v2.1 native rerun (2026-10-13, year ≥ 1900 restored)", "raw", [
+ ("stdlib_1900 (`email.utils.format_datetime`, years 1900–9999)", "valid", "", "", "0.477350", "0.477350"),
+ ("stdlib_any_year (same formatter, years 0001–9999)", "invalid", "", "", "0.477350", "0.467094"),
+ ("garbage_shape (`999, 99 888 0000 99:99:99 GMT`)", "invalid", "", "", "0.477350", "0.467094"),
+])
 
 # schemathesis reporting
 add("schemathesis_reporting_observability", "Paired v1/v2 results: schemathesis_reporting_observability", "raw", [
@@ -233,10 +306,11 @@ add("tree_block_partitioning", "Paired v1/v2 results: tree_block_partitioning", 
  ("T2 = `std.cpp` with the second merge factor dropped (`make_invalid_variant.py`); others empty", "invalid", "0.25 / 0.25 (T2 1/10, 9 WA)", "0.25 / 0.25 (T2 1/10, 9 WA)", "0.25", "0.25"),
 ])
 
-# triangulation: normalized; result = cases OK
+# triangulation: normalized; result = cases OK. v2 = the current fixed version v2.2 (results.md section
+# "Convex-hull coverage, package v2.2"; the v2.1 values 0.054 / 48.95 stay in results.md as history).
 add("triangulation_coloring_optimization", "Full judge (`eval_cmd`, 10 hidden cases)", "normalized", [
- ("shipped `solution.py` (do nothing)", "valid", "10/10", "10/10", "0.055", "0.054"),
- ("`greedy.py` (greedy recolour + greedy README-legal convex flips)", "valid", "10/10", "10/10", "48.87", "48.95"),
+ ("shipped `solution.py` (do nothing)", "valid", "10/10", "10/10", "0.055", "0.000"),
+ ("`greedy.py` (greedy recolour + greedy README-legal convex flips)", "valid", "10/10", "10/10", "48.87", "48.66"),
  ("`nonconvex_flip.py` (do nothing + one README-forbidden non-convex flip per case)", "trigger", "10/10 accepted", "0/10 (WA \"Invalid flip\")", "0.052", ""),
  ("`wrong_count.py` (recolours vertex 1, claims C=0)", "invalid", "0/10 (WA)", "0/10 (WA)", "", ""),
 ])
@@ -304,7 +378,8 @@ add("warehouse_forklift_routing", "CPU share at 4 CPUs (current fixed version, 2
 
 # vibrating / apple / triangulation CPU share (added 2026-10-12, after rust in the CSV so earlier
 # line numbers stay stable). v1 = original grader, v2 = fixed version, at 4 grader CPUs unless the arm
-# ends in "| 8" (the 8-CPU row of the results.md table). Score columns are left empty where results.md
+# ends in "| 8" or is the `cpu20` row whose original-grader result is 50 OK (the 8-CPU row of the
+# results.md table). Score columns are left empty where results.md
 # gives TOTAL with thousands separators, which is kept verbatim in the result columns.
 CPU_ROWS = []
 CPU_ROWS.append(("vibrating_path_graph_coloring", "vibrating_path_graph_coloring v2: paired results", "raw", [
@@ -314,7 +389,7 @@ CPU_ROWS.append(("vibrating_path_graph_coloring", "vibrating_path_graph_coloring
  ("`wall25` (works until 25 s wall clock)", "valid", "36 OK, 14 TLE, TOTAL inf", "50 OK, TOTAL 24,650,014", "", ""),
  ("`wall25`, repeat 1 / repeat 2", "valid", "50 OK, 24,650,014", "50 OK, 24,650,014", "", ""),
  ("`spin40` (bad control, 40 s CPU per case)", "invalid", "0 OK, 50 TLE, TOTAL inf", "0 OK, 50 TLE, TOTAL inf", "", ""),
- ("`cpu20` (20 s CPU per case) | 8", "valid", "50 OK, TOTAL 24,650,014", "50 OK, TOTAL 24,650,014", "", ""),
+ ("`cpu20` (20 s CPU per case)", "valid", "50 OK, TOTAL 24,650,014", "50 OK, TOTAL 24,650,014", "", ""),
 ]))
 CPU_ROWS.append(("apple_incremental_game", "apple_incremental_game v2: paired results", "raw", [
  ("`cpu0` (honest control alone)", "baseline", "50 OK, TOTAL 99,714,418 (5.04)", "50 OK, TOTAL 99,714,418 (5.04)", "", ""),
@@ -322,17 +397,17 @@ CPU_ROWS.append(("apple_incremental_game", "apple_incremental_game v2: paired re
  ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 48 TLE, TOTAL 3,955,266 (0.00)", "50 OK, TOTAL 99,714,418 (5.04)", "", ""),
  ("`wall25` (works until 25 s wall clock)", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
  ("`spin40` (bad control, 40 s CPU per case)", "invalid", "0 OK, 50 TLE, TOTAL 0", "0 OK, 50 TLE, TOTAL 0", "", ""),
- ("`cpu20` (20 s CPU per case) | 8", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
+ ("`cpu20` (20 s CPU per case)", "valid", "50 OK, TOTAL 99,714,418", "50 OK, TOTAL 99,714,418", "", ""),
 ]))
 # triangulation: the original grader scores the original cases, the fixed version the regenerated ones,
-# so valid totals differ (866,166 against 863,058), as in its existing rows.
-CPU_ROWS.append(("triangulation_coloring_optimization", "CPU-quota parallelism (added 2026-10-12)", "raw", [
- ("`cpu0` (control alone)", "baseline", "10 OK, 866,166", "10 OK, 863,058", "", ""),
- ("`cpu20` (20 s CPU per case)", "trigger", "2 OK, 8 TLE, inf (no score)", "10 OK, 863,058 (48.95)", "", ""),
- ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 8 TLE, inf", "10 OK, 863,058", "", ""),
- ("`wall25` (works until 25 s wall clock)", "valid", "10 OK, 866,166", "10 OK, 863,058", "", ""),
+# so valid totals differ (866,166 against 874,742). v2 = the current fixed version v2.2 (2026-10-13 paired run).
+CPU_ROWS.append(("triangulation_coloring_optimization", "Convex-hull coverage, package v2.2 (2026-10-13, issue #57)", "raw", [
+ ("`cpu0` (control alone)", "baseline", "10 OK, 866,166", "10 OK, 874,742", "", ""),
+ ("`cpu20` (20 s CPU per case)", "trigger", "2 OK, 8 TLE, inf (no score)", "10 OK, 874,742 (48.66)", "", ""),
+ ("`cpu28` (28 s CPU per case)", "trigger", "2 OK, 8 TLE, inf", "10 OK, 874,742", "", ""),
+ ("`wall25` (works until 25 s wall clock)", "valid", "10 OK, 866,166", "10 OK, 874,742", "", ""),
  ("`spin40` (bad control, 40 s CPU per case)", "invalid", "10 TLE, inf", "10 TLE, inf", "", ""),
- ("`cpu20` | 8", "valid", "10 OK, 866,166", "10 OK, 863,058", "", ""),
+ ("`cpu20` | 8", "valid", "10 OK, 866,166", "10 OK, 874,742", "", ""),
 ]))
 
 # rust: verbatim eval_cmd, score out of 100; v1 = original grader as shipped, v2 = fixed version.
@@ -405,7 +480,9 @@ TASK_CPUS = {
 SOURCE_CPUS = {
     ("smt_solver", "Corpus: 69 scoped hidden files (verdict counts)"): 4,
     ("warehouse_forklift_routing", "Paired run"): 2,
+    ("exchange_core_throughput", "Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13)"): 4,
     ("triangulation_coloring_optimization", "Full judge (`eval_cmd`, 10 hidden cases)"): 8,
+    ("ffmpeg_swscale_reimplementation", "v2.2 native result (2026-10-13)"): 2,
 }
 CPU_SHARE = {"apple_incremental_game", "vibrating_path_graph_coloring", "triangulation_coloring_optimization",
              "grid_turing_robot", "molecular_self_assembly"}   # summary.txt: c4-* rows cpus=4, c8-* rows cpus=8
@@ -419,7 +496,9 @@ def cpus(task, arm, src, v1r):
     if (task, src) in SOURCE_CPUS:
         return SOURCE_CPUS[(task, src)]
     if task in CPU_SHARE and src != "Full judge (`eval_cmd`, 10 hidden cases)":
-        if arm.endswith("| 8") or (task in ("grid_turing_robot", "molecular_self_assembly") and arm.startswith("`cpu20`")):
+        if arm.endswith("| 8") or (task in ("grid_turing_robot", "molecular_self_assembly") and arm.startswith("`cpu20`")) \
+                or (task in ("apple_incremental_game", "vibrating_path_graph_coloring")
+                    and arm.startswith("`cpu20`") and v1r.startswith("50 OK")):
             return 8
         return 4
     return TASK_CPUS.get(task, "")

@@ -2,6 +2,8 @@
 
 Recorded 2026-10-13T02:56Z by `python3 tools/check_formal.py`. TLA+ runs with TLC; each Lean file is recompiled one at a time in a `--memory 4g` container. A check passes only if TLC reproduces the published outcome (no error, or the expected violation for a counter-check), or if Lean compiles with no error and no `sorry` and prints the same axioms as the published output.
 
+> **Note (2026-10-13).** This is a historical log of the runner as it was then. "N theorems" counts the declarations each file prints with `#print axioms`, not every theorem in the file, and "no `sorry`" was checked only through those printed declarations' axioms. The current runner (`tools/check_formal.py`) also rejects any `declaration uses 'sorry'` warning outside the two allowlisted negative controls in `LeanAnalysisLocal.lean`, and it prints "printed declarations audited" instead of "theorems". Replaying its acceptance rule on all saved `.out` files passes (`tools/tests/test_check_formal.py`); Lean recompilation with the current runner has not been rerun.
+
 ```
 OK  TLA+ order_addition_permutation_optimization/claims: no-error (published: no-error)
 OK  TLA+ order_addition_permutation_optimization/k1_orig_best_valid: violated (published: violated)

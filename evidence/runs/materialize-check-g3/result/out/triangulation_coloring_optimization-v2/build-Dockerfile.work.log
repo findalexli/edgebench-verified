@@ -1,0 +1,40 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.work
+#1 transferring dockerfile: 569B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.work.triangulation_coloring_optimization@sha256:618da32c3f4d3b8a79ba840ab7c5d3dc75b42e755ca61c575b784d3976c7cd1f
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 51.24kB done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/seededge/edgebench.work.triangulation_coloring_optimization@sha256:618da32c3f4d3b8a79ba840ab7c5d3dc75b42e755ca61c575b784d3976c7cd1f
+#5 resolve docker.io/seededge/edgebench.work.triangulation_coloring_optimization@sha256:618da32c3f4d3b8a79ba840ab7c5d3dc75b42e755ca61c575b784d3976c7cd1f done
+#5 DONE 0.1s
+
+#6 [2/3] COPY files/tools/src/triangulation.py /home/workspace/triangulation_coloring/tools/src/triangulation.py
+#6 DONE 0.0s
+
+#7 [3/3] COPY files/sample_data/0000.txt files/sample_data/0001.txt files/sample_data/0002.txt /home/workspace/triangulation_coloring/sample_data/
+#7 DONE 0.0s
+
+#8 exporting to image
+#8 exporting layers 0.0s done
+#8 exporting manifest sha256:2cc983fd102614a71ab73080a03170f820258b6546b588868f76dd567138e6bb done
+#8 exporting config sha256:8793bcc182a8a5919e6d67cb9954f32b2a12473705418dd6c221722056989baf done
+#8 exporting attestation manifest sha256:bb322c99d292e11592bc943108edc182f58a4eba06d8c5dbe39492b31d2b98c9 done
+#8 exporting manifest list sha256:b38e2a4c0b3bc0da005f4578d3dd958885e64b800ef2507cb919b88acf6d8575 done
+#8 naming to docker.io/seededge/edgebench.work.triangulation_coloring_optimization:convex-flip-v2 done
+#8 unpacking to docker.io/seededge/edgebench.work.triangulation_coloring_optimization:convex-flip-v2 0.0s done
+#8 DONE 0.1s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)

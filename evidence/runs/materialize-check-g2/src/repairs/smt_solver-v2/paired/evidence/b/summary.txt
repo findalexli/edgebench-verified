@@ -1,0 +1,21 @@
+stage images ok 06:15:35
+files 69 expected_sat 69 manifest_rows 69
+stage witnesses rc=0 wall=422s roundtrip_rows=69 oracle_rows=53
+arm ground witnesses=69
+arm textual witnesses=42
+arm textual_true witnesses=69
+arm ground_wrong witnesses=53
+preflight textscan hits=0
+c69 ground v1 exit=0 wall=13s eval_rc=0
+c69 ground v2 exit=0 wall=35s eval_rc=0
+c69 textual v1 exit=0 wall=31s eval_rc=0
+c69 textual v2 exit=0 wall=30s eval_rc=0
+c69 textual_true v1 exit=0 wall=33s eval_rc=0
+c69 textual_true v2 exit=0 wall=34s eval_rc=0
+c69 ground_wrong v1 exit=0 wall=13s eval_rc=0
+c69 ground_wrong v2 exit=0 wall=13s eval_rc=0
+mini v1 exit=0 eval_rc=0
+mini v2 exit=0 eval_rc=0
+fulleval ground v1 exit=0 wall=26s {"valid": true, "score": 0.0, "pass_rate": 0.0, "total_tests": 774, "passed": 0, "failed": 774, "errors": 0, "summary": "score=0.000000 (0.00/100), correct=0/774", "details": [], "metrics": {"score": 
+fulleval ground v2 exit=0 wall=37s {"valid": true, "score": 0.12494829760403531, "pass_rate": 0.08914728682170543, "total_tests": 774, "passed": 69, "failed": 705, "errors": 0, "summary": "score=0.124948 (12.49/100), correct=69/774", "
+done

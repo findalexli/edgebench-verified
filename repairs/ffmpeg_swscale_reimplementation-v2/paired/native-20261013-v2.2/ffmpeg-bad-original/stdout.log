@@ -1,0 +1,206 @@
+[swscaler @ 0x55e3b6931780] No accelerated colorspace conversion found from yuv420p to rgb24.
+[swscaler @ 0x55e3b69320f0] No accelerated colorspace conversion found from yuv420p to rgb24.
+[swscaler @ 0x55e3b6ac1b80] No accelerated colorspace conversion found from yuv420p to bgra.
+[swscaler @ 0x55e3b696e420] No accelerated colorspace conversion found from yuv420p to bgra.
+[swscaler @ 0x55e3b6932980] No accelerated colorspace conversion found from yuv422p to rgb24.
+[swscaler @ 0x55e3b6932980] No accelerated colorspace conversion found from yuv422p to rgb24.
+=== Correctness checks ===
+Correctness: 0/30 workloads passed
+  [FAIL] yuv420p→rgb24 720x576  candidate process returned -3
+  [FAIL] yuv420p→bgra 352x288  candidate process returned -3
+  [FAIL] rgb24→yuv420p 720x576  candidate process returned -3
+  [FAIL] rgb24→bgr24 352x288  candidate process returned -3
+  [FAIL] rgb24→rgba 720x576  candidate process returned -3
+  [FAIL] rgb24→gray8 1280x720  candidate process returned -3
+  [FAIL] rgba→yuv420p 720x576  candidate process returned -3
+  [FAIL] bgra→rgb24 1280x720  candidate process returned -3
+  [FAIL] yuv422p→rgb24 1280x720  candidate process returned -3
+  [FAIL] yuv444p→rgb24 352x288  candidate process returned -3
+  [FAIL] nv12→rgb24 720x576  candidate process returned -3
+  [FAIL] nv21→rgb24 352x288  candidate process returned -3
+  [FAIL] rgb24→nv12 800x600  candidate process returned -3
+  [FAIL] rgb24→nv21 1280x720  candidate process returned -3
+  [FAIL] gray8→rgb24 800x600  candidate process returned -3
+  [FAIL] yuv420p→nv12 352x288  candidate process returned -3
+  [FAIL] nv12→yuv420p 352x288  candidate process returned -3
+  [FAIL] rgba→bgra 352x288  candidate process returned -3
+  [FAIL] bgr24→rgb24 800x600  candidate process returned -3
+  [FAIL] bgr24→yuv420p 800x600  candidate process returned -3
+  [FAIL] yuv444p→yuv420p 1280x720  candidate process returned -3
+  [FAIL] yuv420p→gray8 720x576  candidate process returned -3
+  [FAIL] rgb24→yuv422p 720x576  candidate process returned -3
+  [FAIL] rgb24→rgb24 1280x720→640x360 bilinear  candidate process returned -3
+  [FAIL] rgb24→rgb24 640x480→1280x960 bilinear  candidate process returned -3
+  [FAIL] yuv420p→rgb24 1280x720→640x360 bilinear  candidate process returned -3
+  [FAIL] rgb24→yuv420p 800x600→400x300 bilinear  candidate process returned -3
+  [FAIL] rgb24→rgb24 720x576→360x288 nearest  candidate process returned -3
+  [FAIL] rgb24→rgb24 352x288→704x576 bicubic  candidate process returned -3
+  [FAIL] rgba→rgba 1280x720→960x540 bilinear  candidate process returned -3
+{
+  "score": 0.0,
+  "reward": 0.0,
+  "subscores": [
+    {
+      "name": "correctness",
+      "score": 0.0
+    }
+  ],
+  "additional_data": {
+    "correctness_passed": 0,
+    "correctness_total": 30,
+    "correctness_results": [
+      {
+        "label": "yuv420p\u2192rgb24 720x576",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "yuv420p\u2192bgra 352x288",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192yuv420p 720x576",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192bgr24 352x288",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192rgba 720x576",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192gray8 1280x720",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgba\u2192yuv420p 720x576",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "bgra\u2192rgb24 1280x720",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "yuv422p\u2192rgb24 1280x720",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "yuv444p\u2192rgb24 352x288",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "nv12\u2192rgb24 720x576",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "nv21\u2192rgb24 352x288",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192nv12 800x600",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192nv21 1280x720",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "gray8\u2192rgb24 800x600",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "yuv420p\u2192nv12 352x288",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "nv12\u2192yuv420p 352x288",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgba\u2192bgra 352x288",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "bgr24\u2192rgb24 800x600",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "bgr24\u2192yuv420p 800x600",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "yuv444p\u2192yuv420p 1280x720",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "yuv420p\u2192gray8 720x576",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192yuv422p 720x576",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192rgb24 1280x720\u2192640x360 bilinear",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192rgb24 640x480\u21921280x960 bilinear",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "yuv420p\u2192rgb24 1280x720\u2192640x360 bilinear",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192yuv420p 800x600\u2192400x300 bilinear",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192rgb24 720x576\u2192360x288 nearest",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgb24\u2192rgb24 352x288\u2192704x576 bicubic",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      },
+      {
+        "label": "rgba\u2192rgba 1280x720\u2192960x540 bilinear",
+        "status": "fail",
+        "reason": "candidate process returned -3"
+      }
+    ],
+    "reason": "Correctness failed: 0/30 workloads passed",
+    "total_time_ms": 0
+  }
+}

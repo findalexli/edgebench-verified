@@ -12,7 +12,7 @@
  from typing import Dict, Iterable, List, Sequence
  
  
-@@ -13,6 +14,25 @@
+@@ -13,6 +14,36 @@
      return out
  
  
@@ -35,10 +35,21 @@
 +        raise ValueError(f"prediction for node {nid!r} is not an integer class id: {x!r}") from None
 +
 +
++def _str_keyed(mapping, what: str) -> dict:
++    """Key a submitted mapping by str(node id); reject keys that collide after str()."""
++    out = {}
++    for k, v in mapping.items():
++        sk = str(k)
++        if sk in out:
++            raise ValueError(f"{what}: duplicate node id after str(): {sk!r}")
++        out[sk] = v
++    return out
++
++
  def _f1_for_label(y_true: Sequence[int], y_pred: Sequence[int], label: int) -> float:
      tp = fp = fn = 0
      for t, p in zip(y_true, y_pred):
-@@ -86,14 +106,18 @@
+@@ -86,14 +117,23 @@
      ground_truth: Dict[str, int | str],
      confidences: Dict[str, float] | None = None,
  ) -> Dict[str, float]:
@@ -46,6 +57,11 @@
 +    # v2: every test node must have an integer class prediction. Missing or
 +    # non-integer predictions invalidate the run instead of being dropped (the
 +    # original dropped them and truncated y_true, shrinking the scored set).
++    # v2.1: keys may be node IDs of any type convertible to strings (problem.md);
++    # they are matched as str(key). Two keys with the same str() are ambiguous.
++    predictions = _str_keyed(predictions, "predictions")
++    if confidences is not None:
++        confidences = _str_keyed(confidences, "confidences")
 +    ordered_ids = list(ground_truth.keys())
 +    missing = [nid for nid in ordered_ids if nid not in predictions]
 +    if missing:

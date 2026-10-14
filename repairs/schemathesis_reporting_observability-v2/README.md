@@ -41,7 +41,7 @@ The revised JUnit test was checked the same way, three times on fresh workers wi
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/schemathesis_reporting_observability-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.schemathesis_reporting_observability:junit-coverage-v2.1 .
 ```
 
 `materialize.sh` takes the following steps:
@@ -58,5 +58,5 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
 ## Limits
 
 - The inherited Phase 4 count quirk (9 expected, 11 collected) is unchanged.
-- Only one complete implementation was tried, and every correct JUnit writer tried is built on `junit_xml` (with the suite named `schemathesis` or `api-report`). The revised JUnit test still assumes the JUnit convention that a test error is an `<error>` element inside a `<testcase>` whose `name` is the label; a writer that recorded the error as `<failure>`, or put the label only in `classname`, would fail it. `TODO.md` does not spell out either detail.
+- Only one complete implementation was tried, and every correct JUnit writer tried is built on `junit_xml` (with the suite named `schemathesis` or `api-report`). The revised JUnit test still assumes the JUnit convention that a test error is an `<error>` element inside a `<testcase>` whose `name` is the label; a writer that recorded the error as `<failure>`, or put the label only in `classname`, would fail it, and a report whose root element carries an XML namespace (`<testsuites xmlns=…>`) would also fail it (local probe; an XML declaration, a byte-order mark, CDATA or nested `testsuites` pass). `TODO.md` does not spell out these details.
 - The original task and images are untouched.

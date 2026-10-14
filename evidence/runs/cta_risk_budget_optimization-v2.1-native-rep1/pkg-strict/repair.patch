@@ -1,0 +1,56 @@
+--- a/files/eval_script.py
++++ b/files/eval_script.py
+@@ -1022,7 +1022,22 @@
+                 if 'specs' in self.raw_data:
+                     for _, r in self.raw_data['specs'].iterrows(): mult_lk[r['ticker']] = float(r['multiplier'])
+ 
+-                violations = 0; days = 0
++                ccy_lk = {}
++                if 'specs' in self.raw_data:
++                    for _, r in self.raw_data['specs'].iterrows(): ccy_lk[r['ticker']] = str(r.get('currency', 'CNY')).upper()
++                fx_s = pd.Series(dtype=float)
++                if 'fx' in self.raw_data and 'USDCNY' in self.raw_data['fx'].columns:
++                    _fx = self.raw_data['fx'].copy(); _fx['date'] = pd.to_datetime(_fx['date'])
++                    fx_s = _fx.drop_duplicates('date').set_index('date')['USDCNY'].astype(float).sort_index()
++                # Policy denominator is total fund NAV in CNY, not gross exposure.
++                nav_lk = {}
++                if nav_df is not None:
++                    nd = self._find_col(nav_df, ['date', 'date_cn'])
++                    nc = self._find_col(nav_df, ['nav', 'nav_cn'])
++                    if nd and nc:
++                        for _, r in nav_df.iterrows():
++                            nav_lk[pd.to_datetime(r[nd])] = pd.to_numeric(r[nc], errors='coerce')
++                violations = 0; days = 0; missing_nav = 0
+                 for date, dg in holdings_df.groupby('dp'):
+                     days += 1
+                     on = 0.0; tn = 0.0
+@@ -1030,14 +1045,24 @@
+                         t = r[ht[0]]; l = abs(r[hl[0]])
+                         if l == 0: continue
+                         m = mult_lk.get(t, 1); p = price_lk.get((date, t), 0)
+-                        n = l * m * p; tn += n
++                        fx = 1.0
++                        if ccy_lk.get(t, 'CNY') == 'USD':
++                            v = fx_s.asof(pd.Timestamp(date)) if len(fx_s) else float('nan')
++                            fx = 7.0 if pd.isna(v) else float(v)
++                        n = l * m * p * fx; tn += n
+                         if t in OVERSEAS_TICKERS: on += n
+-                    if tn > 0 and on/tn > 0.40: violations += 1
+-
+-                if days > 0:
++                    nav = nav_lk.get(pd.Timestamp(date), float('nan'))
++                    if not np.isfinite(nav) or nav <= 0:
++                        missing_nav += 1
++                    elif on / nav > 0.40:
++                        violations += 1
++
++                if days > 0 and missing_nav == 0:
+                     if violations == 0: cb_checks += 2
+                     elif violations/days < 0.02: cb_checks += 1
+-                    print(f"  Overseas ratio (notional value): violations{violations}/{days} days")
++                    print(f"  Overseas ratio (CNY notional / CNY NAV): violations{violations}/{days} days")
++                if missing_nav:
++                    print(f"  Overseas ratio: no ratio credit; missing/invalid same-date NAV on {missing_nav} days")
+ 
+                 # FX/cost check reuses the closed-loop verification result.
+                 trade_df = self._load_df('trade_records')

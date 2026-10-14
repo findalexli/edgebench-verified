@@ -1,0 +1,12 @@
+# Task JSON change (tasks/<id>.json -> task.json.in), moved verbatim from the earlier repair.patch.
+--- a/tasks/college_english_exam_bank.json
++++ b/task.json.in
+@@ -41,7 +41,7 @@
+     "agent_query": "Read the complete task instructions in `/home/workspace/task_instruction.md`, and complete the task according to those requirements. The final deliverables must be written to the file paths specified in `task_instruction.md`.\n"
+   },
+   "judge": {
+-    "image_tag": "6628b6d3f834",
++    "image_tag": "6628b6d3f834-ebv-v2.1",
+     "eval_cmd": "cd /home/workspace && python3 scoring/grade_with_codex.py --report . --scoring-dir scoring --task-id college_english_exam_bank --input-dir input --timeout 900",
+     "eval_timeout": 900,
+     "parser": "structured_json",

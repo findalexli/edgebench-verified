@@ -1,0 +1,54 @@
+{
+ "task_id": "college_english_exam_bank",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/college_english_exam_bank.json",
+  "sha256": "93e112ed9d4b899cff8c7f41552e0a35ce6ae2bb0bc45d109706cf39eaf0406f"
+ },
+ "original_judge_image": "seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8",
+ "original_judge_image_tag": "6628b6d3f834",
+ "v2_judge_image_tag": "6628b6d3f834-ebv-v2.2",
+ "superseded_judge_image_tag (v1.0 package)": "6628b6d3f834-ebv-v2",
+ "superseded_judge_image_tag (v2.1 package)": "6628b6d3f834-ebv-v2.1",
+ "changed_files": [
+  {
+   "image_path": "/home/workspace/scoring/grade_with_codex.py",
+   "original_sha256": "b8b2824c0d5483f8f433d4fc59e11efb8c7c18d1126b60987c99a1c2cb0e4b3f",
+   "original_bytes": 93823,
+   "replacement": "files/home/workspace/scoring/grade_with_codex.py",
+   "replacement_sha256": "a0af43609c245c4d35428430e6039e39706874ed7053b7ec87da862021c0ca9c",
+   "replacement_bytes": 100451,
+   "previous_replacement_sha256 (superseded 2026-10-13, v2.1: a numeric-string rule score was rejected; a failing last JSON block fell back to an earlier block)": "87f0e3406fadd6d09ee156bfdd84a491b0d1b9944a01a645244a3e510aed9d35",
+   "previous_replacement_sha256 (superseded 2026-10-12: deduction check read the raw row)": "1d941b58853dbd89b490b38029de23f306a4138a7c0949360754e5924bf054a6"
+  }
+ ],
+ "task_json_in_sha256": "d451898b82de3d2aaf4f20dcc8612b0c3ecc12718295ef66e44b7b22f43a8920",
+ "repair_patch_sha256": "76b10aeb5bc5d87d9f25d2b2f8b3673c86b0d3cef3619065308ec6f4c1184089",
+ "dockerfile_sha256": "c7577d674b6654896aa60cd2bab65667e7c2b83485229954b3bca30ef431493c",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "rubrics.json (unchanged)": "d05f344e0f76ceeda7fb8c1d927df662b3f5f87c91631cd9b3fdebc6162bf603",
+ "earlier_patch (proposedrepairs/college-english-assessment-completeness/patch.diff, applied then extended)": "8560cdf6bd6a961a03f6c3d0127cf582b8b2248e234d8efb1753b35f5eb4d80a",
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.college_english_exam_bank@sha256:8e9eec1057c7ab1b9b48d95cb493aa336b3ec3cea84df5bd80ad04d3009d58a8"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/scoring/grade_with_codex.py",
+    "sha256": "b8b2824c0d5483f8f433d4fc59e11efb8c7c18d1126b60987c99a1c2cb0e4b3f"
+   }
+  ],
+  "outputs": {
+   "files/home/workspace/scoring/grade_with_codex.py": "a0af43609c245c4d35428430e6039e39706874ed7053b7ec87da862021c0ca9c"
+  },
+  "repair_patch_sha256": "76b10aeb5bc5d87d9f25d2b2f8b3673c86b0d3cef3619065308ec6f4c1184089",
+  "materialize_sh_sha256": "6cf6e6ebab8b34fca0226f2133744d1e87674f8b11ff7ef9c779332342766280",
+  "task_json_diff_sha256": "b12a930ad76d1d1d6e44c493c1f075e273935ce0324f7cb9a3af7d4d8b2b31ac"
+ }
+}

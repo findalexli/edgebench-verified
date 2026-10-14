@@ -39,8 +39,7 @@ parsing, perturbation, timeouts, scoring and the rest of the answer format.
 - **Minimal.** The checker already computed `arg_values` for its congruence check, and the fix
   keys values by them. The textual path is kept as a fallback.
 - **Sound.** An answer is accepted only if every assertion evaluates to true under a single-valued
-  interpretation of each function. Lean proves that whenever the fixed checker accepts, the formula is
-  satisfiable (`fixed_sound`); the proved statement asserts that a model exists, not that the submitted
+  interpretation of each function. Lean proves that acceptance implies satisfiability in a modeled one-sort, unary-function QF_UF fragment (`fixed_sound`), not across the entire Python evaluator or all SMT-LIB features; the proved statement asserts that a model exists, not that the submitted
   witness is itself one. The
   wrong-model test submissions in the side-by-side run test this direction (see results).
 
@@ -74,7 +73,7 @@ A side-by-side run of the original and fixed graders on the same answers: [paire
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/smt_solver-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.smt_solver:fdce54253c61-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:

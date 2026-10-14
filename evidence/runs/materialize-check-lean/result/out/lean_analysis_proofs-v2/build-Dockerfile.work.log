@@ -1,0 +1,34 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.work
+#1 transferring dockerfile: 683B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.work.lean_analysis_proofs@sha256:5b67e0c53a75916896eceb86580a3a1c8e93614f29a7f26418c1f38d445e5d1a
+#2 DONE 0.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [2/2] COPY --chown=agent:agent files/work/Analysis/Section_11_2.lean files/work/Analysis/Section_11_3.lean /home/workspace/se-bmk-intern/analysis/Analysis/
+#5 ERROR: failed to calculate checksum of ref vk1i1ode7a9lrwvgkhnyvqkm2::4y20fmw9w1lj2b50bm3riofqn: "/files/work/Analysis/Section_11_3.lean": not found
+
+#6 [1/2] FROM docker.io/seededge/edgebench.work.lean_analysis_proofs@sha256:5b67e0c53a75916896eceb86580a3a1c8e93614f29a7f26418c1f38d445e5d1a
+#6 resolve docker.io/seededge/edgebench.work.lean_analysis_proofs@sha256:5b67e0c53a75916896eceb86580a3a1c8e93614f29a7f26418c1f38d445e5d1a done
+#6 CANCELED
+------
+ > [2/2] COPY --chown=agent:agent files/work/Analysis/Section_11_2.lean files/work/Analysis/Section_11_3.lean /home/workspace/se-bmk-intern/analysis/Analysis/:
+------
+Dockerfile.work:6
+--------------------
+   4 |     # (unverified) assumption that the work starter equals the judge baseline sources.
+   5 |     FROM seededge/edgebench.work.lean_analysis_proofs@sha256:5b67e0c53a75916896eceb86580a3a1c8e93614f29a7f26418c1f38d445e5d1a
+   6 | >>> COPY --chown=agent:agent files/work/Analysis/Section_11_2.lean files/work/Analysis/Section_11_3.lean /home/workspace/se-bmk-intern/analysis/Analysis/
+   7 |     
+--------------------
+ERROR: failed to build: failed to solve: failed to compute cache key: failed to calculate checksum of ref vk1i1ode7a9lrwvgkhnyvqkm2::4y20fmw9w1lj2b50bm3riofqn: "/files/work/Analysis/Section_11_3.lean": not found

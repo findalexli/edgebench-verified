@@ -1,68 +1,40 @@
-# cta_risk_budget_optimization, fixed version: the overseas-share check uses yuan-equivalent values
+# CTA risk budget v2.1: overseas CNY notional divided by fund NAV
 
-## What this fixes
+The policy requires overseas investment no greater than 40% of fund NAV, with overseas positions converted to CNY. The original grader mixed currencies and divided by gross notional. The historical v2 repair corrected currency conversion only. v2.1 retains that conversion and uses each holdings date's **total CNY NAV** as the denominator.
 
-The grader's 40% overseas-exposure check adds US-dollar and Chinese-yuan position values without converting currency, so overseas positions count about seven times too little. A portfolio that breaches the limit can pass, but a compliant one is never penalized. The fixed version converts dollar positions to yuan at that day's exchange rate before the 40% check.
+The original `_check_schema_compliance` explicitly requires total CNY NAV (approximately 1.5 billion), not unit NAV. `_compute_exposure_stats` already reads the submitted `date`/`nav` fields (including its existing aliases). v2.1 uses those fields and exact same-date alignment, with the last row for duplicate dates as in the existing exposure helper. This does not replace the original accounting/replay/authenticity checks, and does not establish that every submitted NAV is truthful.
 
-### The problem in detail
+## Holdings dates without a same-date NAV
 
-See the [review](../../evidence/reviews/cta_risk_budget_optimization.md). The cross-border sub-check
-in `eval_script.py` (40% overseas limit, about lines 1012–1040) adds `lots × multiplier × close`
-(each position's notional value) across tickers without currency conversion. Overseas closes are in USD and domestic closes in CNY.
-`risk_policy_doc.docx` requires "所有境外品种的仓位计算必须使用实时汇率折算为人民币等值" (every overseas position must be converted to its yuan equivalent at the live exchange rate). The same
-grader converts with USDCNY elsewhere, in its profit-and-loss replay and in `_compute_exposure_stats`. As a
-result, overseas exposure is undercounted about sevenfold, and only in the generous direction.
+A holdings date whose same-date NAV is missing, nonfinite or nonpositive counts as **one violation day**, exactly like a day over the 40% limit, under the original day allowance (no violation day: 2 ratio checks; violation days below 2% of holdings dates: 1; otherwise 0). No denominator is invented or forward-filled, so such a day can never be shown compliant, but it costs no more than any other violation day.
 
-## What changes
+The first v2.1 candidate (`9f5149da…`, kept as `paired/superseded-v2.1-strict-nav.patch`) instead removed all ratio credit when any single holdings date lacked a valid NAV. That is stricter than the original grader, which tolerates violation days on under 2% of days, and than `_compute_exposure_stats`, which looks NAV up with `asof`. The shipped standard answer has 1565 NAV dates and 1565 holdings dates, all aligned. But an honest engine can easily write one holdings date that its NAV file lacks (for example a final mark written after the last NAV row). The native control `unleveraged-navgap` does exactly that, 1 of 1564 holdings dates: the strict candidate scored it like a breaching portfolio (`cross_border` 1, TOTAL_SCORE 66.25), while v2.1 gives the one tolerated day 3 (TOTAL_SCORE 68.75; 5 and 71.25 with the date present). The strict candidate was therefore replaced before release.
 
-One file, `/home/workspace/scoring/eval_script.py` (`repair.patch`, +11/−1 lines).
-Inside the cross-border block, USD-priced tickers (per `contract_specs.currency`) are
-multiplied by USDCNY from `raw_data['fx']`, looked up with `asof` (the latest rate on or before the date). The fallback is 7.0 when no
-rate exists. This is exactly the series and fallback the grader's own `fx_for` helper uses.
-Nothing else changes:
-- not the 40% threshold, the day-count rules or the `cb_checks` mapping;
-- not the separate "% of NAV vs % of gross notional" question.
+## Changes and version boundary
 
-The task JSON changes only `judge.image_tag`.
+`repair.patch` changes only `/home/workspace/scoring/eval_script.py` (original `252f864a…` → `5090b56a…`). `task.json.in` changes the judge tag to `a9651058ecef-ebv-v2.1`; the original task and harness remain unchanged. The source lock records the current output, the superseded strict candidate and the superseded FX-only output. Build with `./materialize.sh && docker build -t ebv/cta_risk_budget_optimization:v2.1 .`.
 
-**Why minimal.** The conversion is applied at the single place where the notional value is formed for
-this check. Same-currency portfolios are numerically unchanged, because the factor for CNY tickers
-is 1.0.
+The 40% threshold, day-count allowance, other risk gates and score mapping remain unchanged. The ratio denominator correction can increase or decrease credit. For example, CNY overseas exposure 1050 million, gross exposure 3150 million and NAV 1500 million passes the gross-share test (1/3) but violates the policy (70%). Overseas exposure 420 million, gross 570 million and NAV 1500 million fails the gross-share test but complies with the policy (28%). At most four raw cross-border points out of 80 (five points out of 100) can change.
 
-**Score compatibility.** Fixed-version scores are not comparable with original scores for any submission that holds overseas
-(USD) contracts, if converting at USDCNY pushes the overseas share above 40% on at least one day.
-Such a submission loses cross-border ratio credit in the fixed version: up to 4 of 80 raw points, or 5
-points out of 100. Only the `cross_border` part (inside the M3 risk constraints) can change, and
-only downward.
+## Native paired run (full original `eval_cmd`)
 
-## How it was checked
+Three E2B jobs, `evidence/runs/cta_risk_budget_optimization-v2.1-native-rep{1,2,3}`, each ledger `status: exit=0`. In each worker the v2.1 image was built from this package (`materialize.sh` pulled the pinned image, extracted and patched `eval_script.py` and verified `5090b56a…`; then `docker build`). Every arm ran the task's original `eval_cmd` (`cd /home/workspace && python3 scoring/score.py`) at `--network none --memory 3g --cpus 2`. Full submissions are `paired/full_submission/main.py` with `config-<arm>.json`: a synthetic but internally consistent constant-weight portfolio whose NAV, positions, trades, costs and FX follow the grader's own replay (authenticity check 10/10), with annual volatility in [5%, 20%], maximum drawdown under 20% and participation passing, so the risk gate reaches the cross-border block. Results: [paired/results.md](paired/results.md).
 
-A side-by-side run of the original and fixed graders on the same test submissions: [paired/results.md](paired/results.md). The fix is accepted on this check alone. No
-complete shipped submission reaches the changed block through the full grader; see the results file.
+| Submission | Original | v2.1 |
+|---|---|---|
+| shipped standard answer | 20 (risk vetoed: annual vol 1.3%) | 20, same veto |
+| `leveraged`: overseas 45% of NAV, 37.5% of CNY gross | 58.75, `cross_border` 5 | **53.75**, `cross_border` 1 |
+| `unleveraged`: overseas 28% of NAV, 87.5% of CNY gross | 66.25, `cross_border` 1 | **71.25**, `cross_border` 5 |
+| `unleveraged-navgap`: as above, last NAV row missing | 66.25, `cross_border` 1 | 68.75, `cross_border` 3 |
 
-## Limits
+The same scores came out in all three jobs. The weights' signs were chosen with hindsight so the NAV passes the drawdown and volatility gates; the portfolios are scorer controls, not strategies.
 
-- The test submission that shows the problem was run through the installed grader's `_evaluate_risk_constraints`, with
-  the participation check stubbed and NAV left out, not through the full `score.py`.
-- The only complete submission in the image is the standard answer. The full grader cancels its risk part before the
-  cross-border block (annual vol 1.3%), so the full grader cannot show the change.
-- The agent's working image was not inspected for a copy of `eval_script.py`.
+## Component checks
 
-## Build and use
+`paired/check_nav_candidate.py ORIGINAL_EVAL_SCRIPT` verifies the original source hash, applies the historical, superseded and current patches in temporary directories, checks the current output hash, and calls the genuine `_evaluate_risk_constraints` method for all four versions. Ten single-day controls (leveraged violation, unleveraged compliant, compliant/bad, domestic only, exact 40% boundary, missing NAV, wrong-date NAV, zero NAV, nonfinite NAV) and three 100-day NAV-date controls (0, 1 or 2 holdings dates without NAV) pass against an exact rational oracle. Results: [paired/nav-candidate-results.json](paired/nav-candidate-results.json). Participation is stubbed there.
 
-Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
+## Historical evidence and remaining limits
 
-```bash
-./materialize.sh && docker build -t ebv/cta_risk_budget_optimization-judge:v2 .
-```
+The second half of [paired/results.md](paired/results.md) and its cloud logs validate the **FX-only v2** repair, not v2.1. `paired/fx-only-v2.patch` preserves that earlier source change, and `paired/run.sh` is retained as a historical recipe requiring explicit opt-in.
 
-`materialize.sh` takes the following steps:
-
-1. Pull the pinned image(s) by digest, unless already present.
-2. Extract the original files with `docker create` and `docker cp`. No container runs in this step.
-3. Check each original against `source-lock.json`.
-4. Apply `repair.patch` with `patch -p1`.
-5. Verify the sha256 of every file under `files/` (and `orig/`) against `source-lock.json` → `materialize.outputs`. Any mismatch fails loudly.
-
-After that, the `Dockerfile` builds without changes. Regenerated files keep the file mode they have in the image.
-See `../MATERIALIZE-CHECK.md` for how each package was verified.
+The full submissions are authored controls; no AI model or solver output was graded. The working image has not been inspected for a scorer copy. The old formal FX-only theorem is not a proof of the NAV implementation.

@@ -1,4 +1,6 @@
-# Paired results: ffmpeg_swscale_reimplementation v1 vs v2
+> Sections before "v2.2 native result" are historical v2 evidence and do not validate the current v2.2 patch; the section "v2.2 native result (2026-10-13)" below is the v2.2 run. See [followup.md](followup.md).
+
+# Paired results: ffmpeg_swscale_reimplementation v1 vs v2 (historical v2)
 
 E2B job `evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b` (exit 0, worker killed; first attempt
 lost in a host restart). Original scorer path, `--network none`; v1 = pinned judge image; v2 = image
@@ -55,3 +57,26 @@ The three trigger variants are one-line edits of the scaffold, which already fai
 **Verdict: accepted.** Wrong or missing timed output no longer earns speed credit; correct
 implementations keep their scores within timing noise; the invalid control is rejected in both.
 The scaffold's drop is correct: its output on one timed workload is genuinely wrong.
+
+## v2.2 native result (2026-10-13)
+
+The current patch, v2.2, was checked by job `ffmpeg-native-v2.2-20261013` (ledger `status: exit=0`,
+201 s; receipts in `native-20261013-v2.2/`). The original digest-pinned image and the v2.2 image ran the
+complete `compute_reward.py` (30 correctness and 10 timed workloads) on the same native C controls, in
+serial 2-CPU / 4-GiB containers with no network. All six arms exited 0. Values are raw rewards; details
+and the superseded v2.1 attempt are in [followup.md](followup.md).
+
+| Native control | Original raw reward | v2.2 raw reward | Correctness original / v2.2 | Wall seconds original / v2.2 |
+|---|---:|---:|---|---:|
+| Forward every call to FFmpeg | 1.056386 | 1.020061 | 30/30 / 30/30 | 38 / 43 |
+| Skip second call of each context | 1.038559 | 0.000000 | 30/30 / 30/30 | 33 / 25 |
+| Always return an error | 0.000000 | 0.000000 | 0/30 / 0/30 | 3 / 2 |
+
+The valid control stays positive: 1.056386 → 1.020061 is within the run-to-run spread of the original
+image on the same control (0.994937 in the v2.1 job, 1.056386 here). Timing equivalence is not asserted.
+The source-build `eval_cmd` (Rust build and submission path) was not run on v2.2.
+
+The run's recorded `pkg-ffmpeg/source-lock.json` hash (`067d812a…`, `native-20261013-v2.2/input-sha256.json`) differs
+from the committed lock (`42c5d8a0…`): the lock was edited after the run (its later edits include the validation-status text).
+The recorded `repair.patch`, `Dockerfile`, `materialize.sh` and `files/compute_reward.py` hashes equal the
+committed files.

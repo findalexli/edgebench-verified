@@ -20,6 +20,12 @@ rebuilt by reversing `repair.patch`; the fix has sha256 `df296c87…622d`. `orie
 lines 130–237). The header maps each definition to its source lines and explains why floats
 and rationals agree on the witnesses.
 
+The current fixed version v2.1 (sha256 `2c3c189e…3f98`, 2026-10-13) changes only the orientation
+tolerance, from 1e-6° to 1e-3°, inserted after v2 line 239. Lines 1–239 of v2 and v2.1 are
+byte-identical, and they hold everything this model covers, so the model, its line numbers and
+every theorem apply to v2.1 unchanged. The orientation check is not modelled (see Limits). No
+Lean statement needs to change; the header still names the v2 file it was written against.
+
 ## Result
 
 **Proved** within the stated scope.

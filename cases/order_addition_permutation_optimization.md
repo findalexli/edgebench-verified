@@ -65,6 +65,8 @@ Choice of the run's best submission (task rule `pass_rate_first`, computed with 
 - The submissions are simple: the identity permutation, and short random-swap search runs (30 s and 60 s). They are far from the reference cost. The effect on the choice of best submission does not depend on score size.
 - The choice of best submission was computed with EdgeBench's `select_best` on saved reports, not through a live `judge_server` run. The agent's working image was not run.
 - How often past leaderboard runs had a better later submission was not measured.
+- The earlier helper (`3023b9a4…`) is not kept in this repository, so the statement that the two helpers differ only in comments rests on the earlier extraction. Scores do not depend on it, because both versions grade with the installed helper.
+- The fixed image is not published to a registry; users build it with the package's `materialize.sh` and `Dockerfile` (rebuilt from scratch on a clean machine in `evidence/runs/materialize-check-g2`, `status: exit=0`).
 - The fix also changes one harness fallback. `pass_rate_first` reports `best_score = pass_rate` when the chosen submission has no score (`sforge/harness/selection.py`, `_pass_rate_first`). A run with only invalid submissions (for example badcost) therefore reports 0.6 under the original version and 0.8 under the fixed version. In both versions that value is above every valid submission's score measured here (3.3e-09 to 0.0094 out of 100, table above), so an all-invalid run reports a higher `best_score` than these valid runs.
 
 ## Reproduce

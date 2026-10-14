@@ -1,6 +1,9 @@
 # FFmpeg Swscale Reimplementation (`ffmpeg_swscale_reimplementation`)
 
-**Outcome:** Fixed. <mark>The timed speed tests were never checked for correctness, so failed or empty calls earned speed credit; the fixed version checks each timed call's return code and output.</mark>
+
+**2026-10-13 revision:** v2.2 checks every output and makes any failed workload produce exactly zero total reward. Six native full-scorer arms passed, plus 40 original-helper layout comparisons. The good control finished in 43 seconds; a repeated-call defect passed 30/30 correctness workloads but received zero after timed-output validation. The fix section below describes v2.2 and keeps the historical v2 table for the record. This follow-up does not rerun the Rust submission-build path. See [follow-up](../repairs/ffmpeg_swscale_reimplementation-v2/paired/followup.md).
+
+**Outcome:** Original defect confirmed; v2.2 repair validated on paired native scorer controls. <mark>The timed speed tests were never checked for correctness, so failed or empty calls earned speed credit; the fixed version checks each timed call's return code and output.</mark>
 
 ![Bars show an honest but unfinished library scoring 5.39, 18.93 and 17.87 out of 100 on the original grader because failed calls counted as fast; the fixed version scores 0.](figures/ffmpeg_swscale_reimplementation.svg)
 
@@ -44,13 +47,25 @@ Up to 18.93 points out of 100 are shown for an honest but unfinished variant. An
 
 ## The fix
 
-The fixed version changes only `compute_reward.py`:
+The fixed version (v2.2, the current patch) changes only `compute_reward.py`:
 
-- It checks the return code of each timed call.
-- It compares the timed output with the original library's output, using the correctness workloads' per-plane PSNR thresholds: 40 dB for scaling and 60 dB for same-size conversions. The output of the last timed call of each workload is compared; the return code of every timed call is checked.
-- A failing timed workload is treated the way the original grader already treats a crashed workload: its speedup is 0, and it stays in the geometric mean.
+- Before each of the 10 warmup and 100 timed calls of a timed workload it clears the whole output buffer, including padding, outside the timer.
+- After every call it checks the return code and compares the output with the original library's output, using the correctness workloads' per-plane PSNR thresholds: 40 dB for scaling and 60 dB for same-size conversions. These checks are outside the timer too.
+- Any failed timed workload makes the total reward exactly 0, as the task text says ("If correctness fails on any hidden workload, the score is **zero**"). Contexts are destroyed even when a check fails.
 
 Nothing else changes.
+
+Native side-by-side run of v2.2 (job `ffmpeg-native-v2.2-20261013`, ledger `status: exit=0`): the original digest-pinned image and the v2.2 image ran the complete `compute_reward.py` (30 correctness and 10 timed workloads) on the same native C test submissions, in 2-CPU / 4-GiB containers with no network. All six arms exited 0. Values are raw rewards ([`paired/results.md`](../repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md), section "v2.2 native result").
+
+| Test submission | Original grader | Fixed version v2.2 | Correctness original / v2.2 |
+| --- | --- | --- | --- |
+| forwards every call to FFmpeg (correct) | 1.056386 | 1.020061 | 30/30 / 30/30 |
+| **skips the second call of each context** | **1.038559** | **0.000000** | 30/30 / 30/30 |
+| always returns an error (bad control) | 0.000000 | 0.000000 | 0/30 / 0/30 |
+
+The correct submission stays positive; 1.056386 against 1.020061 lies within the original image's own run-to-run spread on that submission (0.994937 and 1.056386 in two jobs). The submission that skips a call passes all 30 correctness workloads but now gets exactly 0, because its timed outputs are wrong. 40 native buffer layouts matched the original helpers byte for byte before scoring.
+
+**Historical v2 run.** The first fixed version, v2, compared only the output of the last timed call of each workload and gave a failed workload a speedup of 0 inside the geometric mean, so its totals were small but positive. Its side-by-side run is kept below for the record; v2.2 supersedes it.
 
 | Submission | Role | Original grader | Fixed grader | Note on the fixed grader |
 | --- | --- | --- | --- | --- |
@@ -66,18 +81,20 @@ The values in this table are raw geometric-mean speedups, before conversion to t
 
 The three variants that show the problem are one-line edits of the starting code, so they inherit its wrong `rgb24 1080p→360p nearest` output, and the starting code alone already scores 0.012416 raw (0 out of 100) on the fixed grader. Their fixed-grader score of 0 therefore does not by itself show that the fix catches the edited workloads. The fixed grader's per-workload errors do: it reports `candidate process returned -3` on `rgba→rgb24 4K` for the RGBA→RGB24 variant and on both 3:1 workloads for the 3:1 error variant, and `timed output below PSNR threshold 40.0` on `rgb24→yuv420p 1080p→360p bilinear` for the silent no-op, each with speedup 0 (`evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/result/out/summary_parsed.txt`). No variant was built on a base whose timed outputs are all correct.
 
-**Score compatibility:** correct implementations score as on the original grader, apart from timing noise. Implementations that produce wrong output, or no output, on a timed workload lose that credit. Scores from the fixed grader are not comparable with scores from the original grader.
+**Score compatibility:** correct implementations score as on the original grader, apart from timing noise. Under v2.2 an implementation that produces wrong output, an error or no output on any timed call scores exactly 0. Scores from the fixed grader are not comparable with scores from the original grader.
 
 ## How we checked it
 
 - **Original grader in the original public image, pinned by digest.** Four submissions were built from the shipped Rust starting code, each changing a single line of `swscale_process`. They ran through the task's exact `eval_cmd` with `--network none --memory 2g --cpus 2`. That path covers `test.sh`, the source scan, the `cargo build --release` rebuild, `compute_reward.py` and `pytest_shim.sh`.
 - **Independent output check.** The original `check_correctness` routine was applied to the 10 timed workloads, with the same PSNR thresholds and the same random-number sequence. The grader itself never runs this check on those workloads.
-- **Side-by-side run of the original and fixed graders** on the same submissions, with `--network none --memory 4g --cpus 4`. It was repeated three times. No test submission changed outcome, and the test submissions that show the problem stayed near 0 on the fixed grader in every run (see `data/paired-repeatability.md`).
+- **Native side-by-side run of v2.2** on three native C test submissions through the complete `compute_reward.py` (above), after a check that v2.2's buffer snapshot matches the original helpers on 40 layouts.
+- **Side-by-side run of the original and historical v2 graders** on the same submissions, with `--network none --memory 4g --cpus 4`. It was repeated three times. No test submission changed outcome, and the test submissions that show the problem stayed near 0 on the fixed grader in every run (see `data/paired-repeatability.md`).
 
 ## Limits
 
 - No AI model or solver runs were made. Effects are shown only on test submissions and counterexamples that we wrote.
-- On the fixed grader, a single zero factor pulls the geometric mean close to 0. This follows the original convention for crashes and is not a graded penalty.
+- On v2.2, any failed timed workload sets the total to exactly 0, as the task text states for correctness failures. The historical v2 only pulled the geometric mean close to 0.
+- The v2.2 checks were run on full scorer calls with native C test submissions, not through the task's Rust build and submission `eval_cmd`; that path was run only for the original grader.
 - The timed set still differs from the correctness set. The fixed version checks timed outputs but does not add the timed configurations to the 30 correctness workloads.
 - Timings depend on the host: the first table ran on a local host in containers limited to 2 CPUs, the side-by-side table on an 8-CPU E2B host in containers limited to 4 CPUs (`env.txt`, `run.sh`).
 - The reference point of the score scale (14.155 → 43) should be derived again after the fix. No newly derived reference point is recorded.

@@ -13,7 +13,7 @@ ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
 LABEL = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repair-v2': 'Fixed', 'exclude': 'Removed'}
 MEANING = {'retain': 'No problem found.',
            'retain-with-note': 'No correctable problem found. The note records caveats that no change to the grader removes, including run-to-run or machine-dependent variation, with its size stated or marked unmeasured. These are not always small: the largest, ANN Vector Search, is about ±7 of 100 points per grading.',
-           'repair-v2': 'A problem in the grader\'s logic, data or setup that changes scores and can be corrected, however small the effect (the smallest bounded effect, Portfolio Risk, is at most 0.39 points up or 0.10 down, from a decimal sweep, not a proof); a fixed version is published and was tested against the original.',
+           'repair-v2': 'A score-affecting problem with a versioned repair package. This historical disposition does not certify every current release; consult APPLYING-FIXES.md and each case for component coverage and pending integration.',
            'exclude': 'A problem without a sound fix; the task is not part of the verified set.'}
 
 
@@ -26,11 +26,11 @@ def main():
     with (ROOT / 'data/decisions.csv').open('w', newline='') as f:
         w = csv.writer(f, lineterminator='\n')
         w.writerow(['task_id', 'name', 'decision', 'outcome', 'summary', 'effect', 'what_we_did',
-                    'technical_finding', 'technical_max_effect', 'fixed_version_folder'])
+                    'technical_finding', 'technical_max_effect', 'fixed_version_folder', 'validation_status'])
         for r in rows:
             t = r['task_id']
             w.writerow([t, names[t], r['proposed'], LABEL[r['proposed']], plain[t]['headline'], plain[t]['effect'],
-                        plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', '')])
+                        plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', ''), r.get('validation_status') or ('Historical paired scope only; see the case page and package limits' if r.get('package') else '')])
     lines = ['# Outcome for every task', '',
              'The outcome for each of the 51 public tasks. The same data is in [data/decisions.csv](data/decisions.csv); '
              'the `decision` column there uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` '

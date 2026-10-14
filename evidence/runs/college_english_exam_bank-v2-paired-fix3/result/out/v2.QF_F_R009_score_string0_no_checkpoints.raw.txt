@@ -1,0 +1,63 @@
++ echo '>>>>> Start Test Output'
+>>>>> Start Test Output
++ cd /home/workspace
++ python3 scoring/grade_with_codex.py --report . --scoring-dir scoring --task-id college_english_exam_bank --input-dir input --timeout 900
+[codex-judge] task=college_english_exam_bank
+[codex-judge] submission=. (directory)
+[codex-judge] scoring_dir=scoring
+[codex-judge] input_dir=input
+[codex-judge] mode=agent (codex reads files directly)
+[codex-judge] submission_manifest=expected=22 actual=1 missing=20
+[codex-judge] visual_assets=count=0 contact_sheet=None
+[codex-judge] structure_manifest=files=1
+[codex-judge] Created Codex config.toml (model=fixed, base_url=https://openrouter.ai/api/v1)
+[codex-judge] model=fixed, timeout=900s
+[codex-judge] provider=OpenRouter
+[codex-judge] base_url=https://openrouter.ai/api/v1
+[codex-judge] Running codex attempt 1/3...
+[codex-judge] codex exit code: 0
+[codex-judge] Last scoring JSON rejected: invalid_numeric_rule_score
+[codex-judge] Assessment attempt 1/2: no complete, consistent scoring JSON (len=9618)
+[codex-judge] Output tail: e_id": "R012", "rule_name": "最终交付规范与文档质量", "scoring_mode": "deductive", "score": 0, "max_score": 8, "reason": "扣分超过上限，本规则得0", "checkpoint_scores": [{"description": "提交清单中的任一规定成果缺失，按项扣1分；规定成果包括：A卷原卷.docx、A卷原卷.pdf、A卷答案和评分细则.docx、A卷答案和评分细则.pdf、B卷原卷.docx、B卷原卷.pdf、B卷答案和评分细则.docx、B卷答案和评分细则.pdf、C卷原卷.docx、C卷原卷.pdf、C卷答案和评分细则.docx、C卷答案和评分细则.pdf、D卷原卷.docx、D卷原卷.pdf、D卷答案和评分细则.docx、D卷答案和评分细则.pdf、E卷原卷.docx、E卷原卷.pdf、E卷答案和评分细则.docx、E卷答案和评分细则.pdf、五套组卷蓝图表.xlsx、套间重复率自检表.xlsx。", "score": 0, "max_score": 1, "evidence": "e"}, {"description": "文件命名混乱、卷别不清，或试卷与答案细则版本对应错误，扣0.5-1分。", "score": 0, "max_score": 1, "evidence": "e"}, {"description": "文档排版整洁度不足、未对照样卷格式，字体、字号、缩进方式、题干和选项呈现方式、对齐方式等不便于阅卷和归档，按严重程度扣5分。", "score": 0, "max_score": 5, "evidence": "e"}, {"description": "Excel附件不可打开、内容不完整，或Word/PDF与Excel之间信息矛盾，扣1分。", "score": 0, "max_score": 1, "evidence": "e"}]}, {"rule_id": "R009", "rule_name": "参考答案与评分细则质量", "scoring_mode": "deductive", "score": "0", "max_score": 15, "reason": "poor"}], "summary": "bad"}
+```
+
+[codex-judge] model=fixed, timeout=899s
+[codex-judge] provider=OpenRouter
+[codex-judge] base_url=https://openrouter.ai/api/v1
+[codex-judge] Running codex attempt 1/3...
+[codex-judge] codex exit code: 0
+[codex-judge] Last scoring JSON rejected: invalid_numeric_rule_score
+[codex-judge] Assessment attempt 2/2: no complete, consistent scoring JSON (len=9618)
+[codex-judge] Output tail: e_id": "R012", "rule_name": "最终交付规范与文档质量", "scoring_mode": "deductive", "score": 0, "max_score": 8, "reason": "扣分超过上限，本规则得0", "checkpoint_scores": [{"description": "提交清单中的任一规定成果缺失，按项扣1分；规定成果包括：A卷原卷.docx、A卷原卷.pdf、A卷答案和评分细则.docx、A卷答案和评分细则.pdf、B卷原卷.docx、B卷原卷.pdf、B卷答案和评分细则.docx、B卷答案和评分细则.pdf、C卷原卷.docx、C卷原卷.pdf、C卷答案和评分细则.docx、C卷答案和评分细则.pdf、D卷原卷.docx、D卷原卷.pdf、D卷答案和评分细则.docx、D卷答案和评分细则.pdf、E卷原卷.docx、E卷原卷.pdf、E卷答案和评分细则.docx、E卷答案和评分细则.pdf、五套组卷蓝图表.xlsx、套间重复率自检表.xlsx。", "score": 0, "max_score": 1, "evidence": "e"}, {"description": "文件命名混乱、卷别不清，或试卷与答案细则版本对应错误，扣0.5-1分。", "score": 0, "max_score": 1, "evidence": "e"}, {"description": "文档排版整洁度不足、未对照样卷格式，字体、字号、缩进方式、题干和选项呈现方式、对齐方式等不便于阅卷和归档，按严重程度扣5分。", "score": 0, "max_score": 5, "evidence": "e"}, {"description": "Excel附件不可打开、内容不完整，或Word/PDF与Excel之间信息矛盾，扣1分。", "score": 0, "max_score": 1, "evidence": "e"}]}, {"rule_id": "R009", "rule_name": "参考答案与评分细则质量", "scoring_mode": "deductive", "score": "0", "max_score": 15, "reason": "poor"}], "summary": "bad"}
+```
+
+[grader] fatal: Codex output did not contain complete, consistent scoring JSON
+<<<SEBENCH_GRADING_RESULT_JSON_START>>>
+{
+  "grader_status": "json_parse_failed",
+  "error": "Codex output did not contain complete, consistent scoring JSON",
+  "veto_triggered": false,
+  "veto_reason": null,
+  "summary": "评分服务暂时未完成，请先核对任务交付物是否完整。",
+  "scores": [],
+  "raw_total": 0,
+  "max_total": 0
+}
+<<<SEBENCH_GRADING_RESULT_JSON_END>>>
+>>>>> Start Structured Result
+{
+  "valid": false,
+  "score": 0,
+  "pass_rate": 0,
+  "summary": "评分服务暂时未完成，请先核对任务交付物是否完整。",
+  "metrics": {
+    "grader_status": "json_parse_failed"
+  }
+}
+>>>>> End Structured Result
++ EXIT_CODE=0
++ echo '>>>>> End Test Output'
+>>>>> End Test Output
++ echo 'Exit code: 0'
+Exit code: 0
++ exit 0

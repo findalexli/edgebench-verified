@@ -1,6 +1,6 @@
 # CTA risk budget optimization (`cta_risk_budget_optimization`)
 
-**结论：** 已修复。<mark>40% 的境外敞口检查把美元（USD）和人民币（CNY）持仓价值直接相加，没有做货币换算，因此境外美元持仓只按约七分之一计入；这一错误只会对提交有利，影响最多为 5 分（满分 100）。</mark>
+**结论：** 已在 v2.1 中修复。<mark>境外上限检查把美元和人民币价值直接相加而不换算，并且用总名义价值而不是基金净值作分母。v2.1 先换算成人民币，再除以同日的总净值；通过完整的原始评分命令，它把一个超限的加杠杆组合从 58.75 分降到 53.75 分，把一个合规的无杠杆组合从 66.25 分升到 71.25 分，三次运行结果相同。</mark>
 
 ![柱状图显示：原始评分器读到的境外占比为 0.175，通过了 0.40 的上限；而把美元持仓换算为人民币后占比为 0.595，超出上限。](figures/cta_risk_budget_optimization.svg)
 
@@ -12,6 +12,31 @@
 
 输入的风险政策文件（`risk_policy_doc.docx`，中文）把境外上限设为 40%（"境外投资比例不超过基金净值的40%"）。它还要求 "所有境外品种的仓位计算必须使用实时汇率折算为人民币等值"：每个境外持仓都必须按实时汇率折算为人民币等值。类别：专业知识工作。
 
+## 修复（v2.1）：换算成人民币并除以基金净值
+
+评分器的 `_check_schema_compliance` 要求提交的净值是以人民币计的总资本（约 15 亿），而不是单位净值。它的 `_compute_exposure_stats` 已经使用 `date` 和 `nav` 字段。v2.1 只改动一个文件 `/home/workspace/scoring/eval_script.py`。在跨境检查代码块中，它用评分器自身的 USDCNY 序列把美元持仓换算成人民币，再把以人民币计的境外名义价值除以同日的以人民币计的总净值。40% 的阈值、天数容许规则（没有违规日：2 项比例检查；违规日少于 2%：1 项；否则 0 项）、其他风险门槛和分数映射都不变。任务 JSON 中只改动 `judge.image_tag`（`a9651058ecef-ebv-v2.1`）。
+
+**没有同日净值的持仓日期。** 不虚构分母，也不向前填充。如果某个持仓日期的同日净值缺失、非有限或不为正，就把这一天算作一个违规日，与超出上限的一天相同，并适用原始的"少于 2%"容许规则。最初的一个 v2.1 候选则规定：只要有任何一天缺少净值，就取消全部比例项分数。随附标准答案的 1565 个持仓日期都有同日净值，但一个诚实的引擎很容易写出一个净值文件里没有的持仓日期，而严格规则会把这样一个合规组合当作超限组合来打分。该候选在发布前已被替换，保存为 `paired/superseded-v2.1-strict-nav.patch`。
+
+**通过完整原始评分命令的并排对照测试。** 三个 E2B 作业从修复包构建 v2.1 镜像（`materialize.sh` 和 `docker build`），并以 `--network none --memory 3g --cpus 2` 运行任务的原始 `eval_cmd`（`cd /home/workspace && python3 scoring/score.py`）。完整的测试提交是一个合成的固定权重组合（`paired/full_submission/main.py`），其净值、持仓、成交、成本和汇率都遵循评分器自身的重放（真实性检查 10/10），波动率、回撤和参与度都在风险门槛之内，因此跨境检查确实会被执行到。分数为满分 100：
+
+| 测试提交 | 原始评分器 | 修复版评分器（v2.1） |
+|---|---|---|
+| 随附标准答案 | 20（风险部分被取消：年化波动率 1.3%） | 20，相同 |
+| 加杠杆：境外占净值 45%，占人民币总名义价值 37.5% | 58.75，`cross_border` 5 | **53.75**，`cross_border` 1 |
+| 无杠杆：境外占净值 28%，占人民币总名义价值 87.5% | 66.25，`cross_border` 1 | **71.25**，`cross_border` 5 |
+| 无杠杆，缺少最后一行净值（1564 个日期中的 1 个） | 66.25，`cross_border` 1 | 68.75，`cross_border` 3（严格候选：66.25） |
+
+三个作业给出相同的分数。原始评分器让每天都超出"净值 40%"上限的加杠杆组合通过，却让每天都合规的无杠杆组合不通过；v2.1 把两者都纠正过来。只有 `cross_border` 发生变化，幅度为原始分 80 分中的 4 分（满分 100 中的 5 分）。见[结果](../repairs/cta_risk_budget_optimization-v2/paired/results.md)和[修复包说明](../repairs/cta_risk_budget_optimization-v2/README.md)。
+
+组件检查也通过：真实的原始、仅汇率、严格版和当前版风险辅助函数，在十个单日对照和三个 100 天的净值日期对照上，与精确有理数计算的参照结果一致（[候选结果](../repairs/cta_risk_budget_optimization-v2/paired/nav-candidate-results.json)）。
+
+**分数兼容性。** 对持有境外合约的组合，v2.1 的分数与原始分数不可比：跨境部分可能朝任一方向变化，最多为满分 100 中的 5 分。只持有境内合约、且每个持仓日期都有同日净值的组合得分完全相同。
+
+## 历史仅汇率修复的发现与证据
+
+本页其余部分记录较早的仅汇率修复及其证据。其中的"修复版评分器"是已被取代的 `a9651058ecef-ebv-v2`，而不是当前的 `v2.1`。较早的测试省略了净值，不能验证新的分母。
+
 ## 问题出在哪里
 
 **境外检查跳过了货币换算。** 评分器根据原始价格表，把每个持仓的名义价值（面值）重新计算为 `lots × multiplier × close`。全部 12 个境外品种都以美元计价。评分器在盈亏重放和 `_compute_exposure_stats` 中都用 USDCNY 汇率做了换算，但跨境检查代码块漏掉了换算。这与政策文件中持仓按人民币计算的规定相矛盾。数据中的 USDCNY 在 6.757 到 7.157 之间（均值 7.004）。
@@ -20,13 +45,13 @@
 - 真实数据，2021-06-01：10 手 CU.SHF 加 8 手 GC.CME，按人民币计的境外占比为 0.595。评分器读到 0.175，因此这一情形也能通过。
 - 任务自带的参考答案：按 USDCNY 换算后，随任务提供的标准答案持仓在 1565 天中有 32 天超过 40%，最高为 52.1%。原始检查报告 0 次违规，比例项拿满分。
 
-另一项观察，未修复：政策把上限表述为"基金净值的 40%"（NAV，资产净值）。评分器用的却是境外部分占总名义价值的比例。这与货币问题是两个不同的问题。
+另一项观察，历史 v2 未修复（已由上文的 v2.1 修复）：政策把上限表述为"基金净值的 40%"（NAV，资产净值）。评分器用的却是境外部分占总名义价值的比例。这与货币问题是两个不同的问题。
 
-## 影响有多大
+## 历史仅汇率修复的分数影响
 
 满分 100 分中最多 5 分（原始分 80 分中的 4 分），而且只会偏向宽松。由于 USDCNY 大于 1，这个缺陷可能让一个超出上限的组合拿到比例项分数，但永远不会惩罚一个合规的组合。只有持有美元合约的解题者受影响。其他检查可能封顶或取消分数中的风险部分，从而掩盖这一差异。
 
-## 修复
+## 历史仅汇率修复
 
 修复版只改动一个文件 `/home/workspace/scoring/eval_script.py`（+11/−1 行）。在跨境检查代码块内，美元计价的品种乘以评分器自身 `fx` 数据中截至当日的 USDCNY。缺省值为 7.0。这与现有的 `fx_for` 辅助函数所用的序列和缺省值相同。
 
@@ -50,24 +75,25 @@
 
 ## 我们如何检查
 
-- **原始评分器。** 检查在原始公开镜像上运行，镜像按摘要固定，参数为 `--network none --memory 2g --cpus 1`。我们导入已安装的 `eval_script.py`，调用原始的 `_evaluate_risk_constraints`。设置了两个输入，使跨境检查代码块能被执行到。参与度检查被替换为直接通过。`nav_history` 被省略，使波动率/回撤取消规则无法触发。跨境检查代码本身没有修改。完整的原始 `score.py` 也在随附参考答案上运行过（第 4 行）。
+- **完整的原始评分命令（v2.1）。** 原始镜像（按摘要固定）和在工作机中从修复包构建的 v2.1 镜像，在三个完整的测试组合上运行任务的 `eval_cmd`，分在三个独立的 E2B 作业中，随附标准答案只在第一个作业中运行，参数为 `--network none --memory 3g --cpus 2`（每个作业的台账记录都是 `exit=0`）；三个作业中测试组合的分数都相同。第一个作业还运行了已被取代的严格版 v2.1 候选。
+- **原始评分器（历史仅汇率检查）。** 检查在原始公开镜像上运行，镜像按摘要固定，参数为 `--network none --memory 2g --cpus 1`。我们导入已安装的 `eval_script.py`，调用原始的 `_evaluate_risk_constraints`。设置了两个输入，使跨境检查代码块能被执行到。参与度检查被替换为直接通过。`nav_history` 被省略，使波动率/回撤取消规则无法触发。跨境检查代码本身没有修改。完整的原始 `score.py` 也在随附参考答案上运行过（第 4 行）。
 - **精确算术。** 占比用 Python `Fraction` 计算。
 - **Lean 4。** Lean 4 是一个由机器检验数学证明的证明助手。`evidence/formal/lean/ebv/Ebv/FinanceExcessFx.lean` 证明了例子中的占比（未换算 1/3，按人民币计 7/9）。它证明未换算的占比通过上限，而按人民币计的占比不通过。它还证明，在汇率为 7 时，未换算占比 2/5 可能掩盖高达 14/17 的人民币占比。没有使用 `sorry`（未证明的步骤）。打印出的公理列表（针对两个占比定理和隐藏占比的界）只包含标准公理；两个通过/不通过的不等式没有打印列表。第二个文件 `evidence/formal/lean/ebv/Ebv/CtaFxCheck.lean` 为修复后的跨境循环（`eval_script.py` 第 1015–1046 行）建模。`fixed_iff_contract` 表明修复后的逐日检验就是对人民币价值做的 40% 检验；这一点按构造成立，因为模型中的人民币价值正是代码自身的公式，它把每个非美元品种都当作人民币。`orig_violation_implies_fixed` 表明修复只会降低分数，前提是每个境外品种都以美元计价、每个美元品种都是境外品种、USDCNY ≥ 1 且名义价值非负。在固定镜像的数据中这些条件成立：全部 12 个 `OVERSEAS_TICKERS` 在 `contract_specs` 中都是 `USD`，其余 18 个品种都是 `CNY`，USDCNY 在 1565 行中介于 6.7571 和 7.1566 之间，最小收盘价为 0.7753，最小乘数为 5（`evidence/formal/notes/cta_risk_budget_optimization.md`）。
 - **可重复性。** 原始评分器与修复版评分器的并排对照测试重复了三次。没有任何测试提交的判定发生变化（见 `data/paired-repeatability.md`）。
 
 ## 局限
 
-- 没有运行任何 AI 模型或解题者。影响只在我们编写的测试提交和反例以及随附参考答案上展示。
-- 展示问题的测试提交是通过已安装评分器的 `_evaluate_risk_constraints` 运行的，参与度检查被替换、净值被省略。它没有通过 `score.py` 端到端运行。镜像中唯一完整的提交是标准答案，而它的风险部分在跨境检查代码块之前就被取消了。
+- 没有运行任何 AI 模型或解题者。影响只在我们编写的测试提交和反例以及随附参考答案上展示。完整测试组合的多空方向是事后选定的，使其净值能通过回撤和波动率门槛；它们是评分器对照，不是交易策略。
+- 历史仅汇率的测试提交是通过已安装评分器的 `_evaluate_risk_constraints` 运行的，参与度检查被替换、净值被省略。v2.1 的测试提交通过 `score.py` 端到端运行，但它们是我们编写的合成组合；镜像中唯一完整的提交是标准答案，而它的风险部分在跨境检查代码块之前就被取消了。
 - 真实解题者的提交多久会受到影响，没有测量。
 - 没有检查智能体的工作镜像中是否有 `eval_script.py` 的副本。
-- "占净值的 % 与占总名义价值的 %" 这一单独的偏差没有修复。
 
 ## 复现
 
 - 原始评分器镜像：`sha256:34258d85…`。
 - 在原始评分器上的复现：`evidence/scripts/cta_risk_budget_optimization/repro_cross_border.py`。修复后的检查：`repro_repaired.py`。参考持仓：`reference_positions_share.py`。保存的输出是对应的 `.out` 文件。
 - Lean 证明：`evidence/formal/lean/ebv/Ebv/FinanceExcessFx.lean` 和 `CtaFxCheck.lean`（输出在 `FinanceExcessFx.out` 和 `CtaFxCheck.out`）。
-- 原始评分器与修复版评分器的并排对照测试：`repairs/cta_risk_budget_optimization-v2/paired/run.sh`，结果在 `paired/results.md`，证据在 `paired/evidence/`。
+- v2.1 并排对照测试：`repairs/cta_risk_budget_optimization-v2/paired/run_native_v2.1.sh` 及 `paired/full_submission/`，作业为 `evidence/runs/cta_risk_budget_optimization-v2.1-native-rep{1,2,3}`，结果在 `paired/results.md` 开头。组件检查：`paired/check_nav_candidate.py`。
+- 历史仅汇率的并排对照测试：`repairs/cta_risk_budget_optimization-v2/paired/run.sh`，结果在 `paired/results.md` 的后半部分，证据在 `paired/evidence/`。
 - 修复：`repairs/cta_risk_budget_optimization-v2/repair.patch`、`Dockerfile`、`source-lock.json`。
 - 支持记录：`repairs/cta_risk_budget_optimization-v2/`（存放修复版的文件夹）和 `evidence/reviews/cta_risk_budget_optimization.md`。

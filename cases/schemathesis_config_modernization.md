@@ -71,6 +71,8 @@ In every variant, the only test items whose results differ are the added identit
 - The overlay is a minimal implementation of Target 3, not a complete solution to the task, so the absolute scores are partial.
 - No historical submissions were examined, so how often real solvers write wrapper decorators is unknown.
 - `TODO.md` was not extracted again from the pinned work image.
+- The added test checks `schemathesis.generation.metrics.metric`; the top-level `schemathesis.metric`, which `TODO.md` names, is still only checked for being callable, so a wrapper re-exported at the top level (for example with `functools.wraps`) still passes all three metric tests although `schemathesis.metric(f) is f` is false (local probe). Closing this would need one more assertion and a new paired run.
+- The package was rebuilt from scratch on a clean machine (`evidence/runs/materialize-check-g2`, `status: exit=0`): `materialize.sh` ran unchanged, both outputs matched the lock and the built image holds the locked test files.
 - The hidden tests are not stored in this repository. They are extracted from the pinned grader image when the check is rerun.
 
 ## Reproduce

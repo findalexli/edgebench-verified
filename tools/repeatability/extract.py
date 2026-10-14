@@ -29,7 +29,6 @@ JOB = {
     'schemathesis_datagen_pipeline': 'schemathesis_datagen_pipeline-v2-paired-b',
     'schemathesis_reporting_observability': 'schemathesis_reporting_observability-v2-paired',
     'tree_block_partitioning': 'tree_block_partitioning-v2-paired',
-    'triangulation_coloring_optimization': 'triangulation-v2-paired',
     'warehouse_forklift_routing': 'warehouse_forklift_routing-v2-paired-b',
     'portfolio_risk_calibration': 'portfolio_risk_calibration-v2-paired',
     'juliet_vulnerability_analyzer': 'juliet_vulnerability_analyzer-v2-paired',
@@ -480,6 +479,147 @@ def _rust(o):
     return d
 
 
+
+# ---------------------------------------------------------------- revision jobs (2026-10-13)
+# A job given as a dict names the job (or receipts directory) of each run explicitly:
+# {'name': display name, 1: run-1 job, 2: run-2 job, 3: run-3 job}; a missing run key means that run does not exist.
+def REPS(base):
+    """three fresh runs named base-rep1, base-rep2, base-rep3"""
+    return {'name': f'{base}-rep1, -rep2, -rep3', 1: f'{base}-rep1', 2: f'{base}-rep2', 3: f'{base}-rep3'}
+
+
+def STD(job):
+    """run 1 is job, runs 2 and 3 are job-rep2 and job-rep3"""
+    return {'name': job, 1: job, 2: f'{job}-rep2', 3: f'{job}-rep3'}
+
+
+def ONE(job, run=1):
+    """a single run (not repeated)"""
+    return {'name': job if isinstance(job, str) else str(Path(job).relative_to(R)), run: job}
+
+
+def job_name(job):
+    return job['name'] if isinstance(job, dict) else job
+
+
+def _load(path, name):
+    import importlib.util
+    sp = importlib.util.spec_from_file_location(name, path)
+    m = importlib.util.module_from_spec(sp); sp.loader.exec_module(m)
+    return m
+
+
+def _job_graded(o):
+    """Run the job's own grade.py on this run's result/out in a scratch copy of the job; return graded.json."""
+    job = o.parent.parent
+    d = S / 'grade' / job.name
+    if d.exists():
+        shutil.rmtree(d)
+    d.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(['rsync', '-a', '--exclude', '/result', f'{job}/', f'{d}/'], check=True)
+    os.symlink(o.parent, d / 'result')
+    r = subprocess.run([PY, 'grade.py'], cwd=d, capture_output=True, text=True, env=dict(os.environ, EBV_REPO=str(R)))
+    if r.returncode:
+        raise RuntimeError(r.stderr[-800:])
+    return json.load(open(d / 'graded.json'))
+
+
+def _tri22A(o):
+    """full judge, 10 hidden cases (normalize.jsonl of this run): label c8_v1_greedy etc."""
+    d = {}
+    for l in rd(o.parent / 'normalize.jsonl').splitlines():
+        x = json.loads(l)
+        d[x['arm'].split('/', 1)[1]] = (f"cases_ok {x['cases_ok']}; scored {str(x['scored']).lower()}; WA {x['wa']}", x['normalized'])
+    return d
+
+
+def _tri22B(o):
+    return _games(o / 'B')
+
+
+def _x_tri22(o):
+    d = {f'{k} (normalized)': v for k, v in _tri22A(o).items()}
+    d.update(_tri22B(o))
+    return d
+
+
+def _x_tri_old(o):
+    x = p_tri(o)
+    d = {}
+    for i, s in enumerate(['donothing', 'greedy', 'nonconvex_flip', 'wrong_count']):
+        d[f'{s} v1'] = (x[i][0], x[i][2]); d[f'{s} v2.1'] = (x[i][1], x[i][3])
+    return d
+
+
+def _jagua21(o):
+    """witness verdicts and full-scorer results of v1, v2 (superseded) and v2.1: labels name-v1, name-v2, name-v2.1"""
+    d = {}
+    for v in ('v1', 'v2', 'v2.1'):
+        for name, ok, why in re.findall(r"^(\S+) \((True|False), '([^']*)'", rd(o / f'witnesses_{v}.txt'), re.M):
+            d[f'{name}-{v}'] = ('accept' if ok == 'True' else f'reject {why}', None)
+    pkg = R / 'repairs/jagua_nesting_optimization-v2'
+    gc = _load(pkg / 'paired/grade_common.py', 'gc_jagua')
+    sp = gc.specs('jagua_nesting_optimization', pkg)
+    for m in ['baseline', 'seed_shift', 'drop_last_item', 'seed_shift_f32deg', 'seed_shift_wrongdeg']:
+        for v in ('v1', 'v2', 'v2.1'):
+            h = gc.grade(sp['v1' if v == 'v1' else 'v2'], o, v, m)
+            cs = [l for l in rd(o / f'{v}.{m}.raw.txt').splitlines() if l.startswith('CASE ')]
+            c = {k: sum(1 for l in cs if l.split()[2] == k) for k in ('OK', 'WA', 'RE')}
+            d[f'{m}-{v}'] = (f"valid {str(h['valid']).lower()}; {c['OK']} / {c['WA']} / {c['RE']}", h['score'])
+    return d
+
+
+def _college3(o):
+    g = _job_graded(o)
+    return {f'{n}-{v}': (str(x['valid']).lower(), x['score']) for n, a in g.items() for v, x in a.items()}
+
+
+def _graph21(o):
+    g = _job_graded(o)
+    out = {}
+    for k, x in g.items():
+        v, m = k.split('.', 1); h = x['harness']
+        out[f'{m}-{v}'] = (str(h['valid']).lower(), h['score_0_100'] if h['valid'] else None)
+    return out
+
+
+def _cta21(o):
+    d = {}
+    for name, v, ts, gt, risk, cb, msg in re.findall(r'^(\S+) (v1|v21) exit=\d+ wall=\d+s TOTAL_SCORE (\S+) grand_total=(\S+) risk=(\S+) cross_border=(\S+) gate_failed=\S+ \|\s*(.*?)\s*$', rd(o / 'summary.txt'), re.M):
+        m = re.search(r'violations\s*(\d+/\d+)', msg)
+        d[f'{name}-{v}'] = (f"TOTAL_SCORE {ts} (raw {gt}); risk {risk}; cross_border {cb}; " + (f'violations {m.group(1)}' if m else msg), float(ts))
+    return d
+
+
+def _datagen21(o):
+    d = {}
+    for name in re.findall(r'^datagen-(\S+) exit=0 ', rd(o / 'summary.txt'), re.M):
+        j = json.load(open(o / f'datagen-{name}' / 'reward.json'))
+        d[name] = (f"phases {j['phases_passed']}/{j['total_phases']}; tests {j['tests_passed']}/{j['total_tests']}", j['reward'])
+    return d
+
+
+def _ffmpeg22(o):
+    d = {}
+    for name in re.findall(r'^ffmpeg-(\S+) exit=0 ', rd(o / 'summary.txt'), re.M):
+        j = json.load(open(o / f'ffmpeg-{name}' / 'reward.json'))
+        a = j['additional_data']
+        d[name] = (f"correct {a['correctness_passed']}/{a['correctness_total']}", j['reward'])
+    return d
+
+
+def _exc4(o):
+    return _x_exchange(o)  # defined with the supplementary parsers below
+
+
+TRI22 = STD('triangulation-v22-paired')
+JAG21 = REPS('jagua_nesting_optimization-v2.1-paired')
+COL3 = STD('college_english_exam_bank-v2-paired-fix3')
+CTA21 = REPS('cta_risk_budget_optimization-v2.1-native')
+EXC4 = [ONE(f'exchange_core_throughput-v2-cpu4m8g-rep{k}', k) for k in (1, 2, 3)]
+DG21 = ONE('schemathesis_datagen_pipeline-v2.1-native-20261013b')
+FF22 = ONE(R / 'repairs/ffmpeg_swscale_reimplementation-v2/paired/native-20261013-v2.2')
+
 WH = 'warehouse_forklift_routing-v2-cpu4-'
 VIB = 'vibrating_path_graph_coloring-v2-paired-'
 GAMES6 = [('c4-base', 'c4-base'), ('c4-cpu20', None), ('c4-cpu28', None), ('c4-wall25', None), ('c4-spin40', None), ('c8-cpu20', None)]
@@ -510,13 +650,37 @@ MULTI = {
     + [_pair(VIB + 'b', 'c4-wall25-v1'),
        ((VIB + 'c', ['c4-wall25-v1-r1', 'c4-wall25-v1-r2'], _games), (VIB + 'c', 'c4-wall25-v2', _games))]
     + [_pair(VIB + 'b', f'{n}-v1') for n in ['c4-spin40', 'c8-cpu20']],
-    'triangulation_coloring_optimization': [_pair('triangulation-v2-paired-cpu', f'{n}-v1') for n in
-                                            ['c4-base', 'c4-cpu20', 'c4-cpu28', 'c4-wall25', 'c4-spin40', 'c8-cpu20']],
+    'triangulation_coloring_optimization': [_pair(TRI22, f'c8_v1_{n}', f'c8_v22_{n}', _tri22A) for n in
+                                            ['donothing', 'greedy', 'nonconvex_flip', 'wrong_count']]
+    + [_pair(TRI22, f'{n}-v1', f'{n}-v22', _tri22B) for n in ['c4-base', 'c4-cpu20', 'c4-cpu28', 'c4-wall25', 'c4-spin40', 'c8-cpu20']],
+    'jagua_nesting_optimization': [_pair(JAG21, f'{n}-v1', f'{n}-v2.1', _jagua21) for n in
+                                   ['baseline', 'seed_shift', 'drop_last_item', 'seed_shift_f32deg', 'seed_shift_wrongdeg',
+                                    'f32_rot90_f64deg', 'f32_rot180_f64deg', 'f32_rot_minus90_f64deg', 'f32_rot270_f64deg',
+                                    'near_tol_rot_90.0009', 'wrong_rot_90.002', 'wrong_rot_90.01', 'wrong_rot_45']],
+    'college_english_exam_bank': [_pair(COL3, f'{n}-v1', f'{n}-v2', _college3) for n in
+                                  ['GA_R001_veto_reason_only', 'GB_R009_extra_checkpoint', 'GC_R009_flag_without_veto_conditions',
+                                   'GD_R009_floor_after_200_chars', 'M_R001_negative_checkpoint_veto_marker',
+                                   'N_A_block_then_D_block_one_output', 'O_D_block_then_A_block_one_output',
+                                   'P_A_block_then_truncated_block_one_output', 'NA_N_then_A_on_reask',
+                                   'NZ_full_marks_block_then_D_block_one_output', 'NU_A_then_D_unfenced_one_output',
+                                   'QA_A_R009_score_numeric_string', 'QB_A_all_scores_padded_decimal_strings', 'QC_A_R009_score_bool',
+                                   'QD_A_R009_score_word', 'QE_I_R009_score_string0_zero_checkpoints', 'QF_F_R009_score_string0_no_checkpoints']],
+    'graph_node_classification': [_pair(STD('graph_node_classification-v2-paired-v21a'), f'{n}-v1', f'{n}-v2', _graph21)
+                                  for n in ['neighbor_intkeys', 'dupkeys_after_str']],
+    'cta_risk_budget_optimization': [_pair(CTA21, f'{n}-v1', f'{n}-v21', _cta21) for n in
+                                     ['standard_answer', 'leveraged', 'unleveraged', 'unleveraged-navgap']],
+    # the six 4-CPU rows are one row per run: row "run k" is job -repk (one run each)
+    'exchange_core_throughput': [_pair(EXC4[k], f'{n}#1 v1', f'{n}#1 v2', _exc4) for n in ('control', 'topo21') for k in range(3)],
+    'schemathesis_datagen_pipeline': [_pair(DG21, f'{n}-original', f'{n}-candidate', _datagen21)
+                                      for n in ['stdlib_1900', 'stdlib_any_year', 'garbage_shape']],
+    'ffmpeg_swscale_reimplementation': [_pair(FF22, f'{n}-original', f'{n}-candidate', _ffmpeg22) for n in ['good', 'skip', 'bad']],
     'warehouse_forklift_routing': [_pair(WH + 'b', 'c4-cpu80-v1'),
                                    ((WH + 'c', 'c4-cpu140-v1', _games), (WH + 'a', 'c4-cpu140-v2', _games))],
 }
 # rows of data/paired-results.csv that come before the MULTI rows (handled by the per-task parsers above)
-MULTI_OFFSET = {'triangulation_coloring_optimization': 4, 'warehouse_forklift_routing': 5}
+MULTI_OFFSET = {'warehouse_forklift_routing': 5, 'jagua_nesting_optimization': 13, 'college_english_exam_bank': 12,
+                'graph_node_classification': 5, 'cta_risk_budget_optimization': 7, 'exchange_core_throughput': 8,
+                'schemathesis_datagen_pipeline': 8, 'ffmpeg_swscale_reimplementation': 7}
 
 
 # rows of data/paired-results.csv that are not counted as fix repeats (index -> reason)
@@ -524,6 +688,16 @@ NOT_COUNTED = {'smt_solver': {i: 'CPU-quota cap arm; that part of the SMT fix wa
 
 
 def job_out(job, run):
+    if isinstance(job, dict):  # explicit job (or receipts directory) per run; every run must have exit 0 and results
+        j = job.get(run)
+        if j is None:
+            return None
+        if isinstance(j, Path):  # receipts directory kept in a repair package
+            w = j / 'worker.json'
+            return j if (w.exists() and json.load(open(w)).get('status') == 'exit=0') else None
+        o = EV / j / 'result'
+        w = o / 'worker.json'
+        return o / 'out' if (w.exists() and json.load(open(w)).get('status') == 'exit=0' and (o / 'out').is_dir()) else None
     o = EV / (job if run == 1 else f'{job}-rep{run}') / 'result'
     w = o / 'worker.json'
     if run > 1 and not (w.exists() and json.load(open(w)).get('status') == 'exit=0' and (o / 'out').is_dir()):
@@ -539,7 +713,7 @@ def extract_multi(task, run):
             o = job_out(job, run)
             if o is None:
                 break
-            key = (job, parser.__name__)
+            key = (str(o), parser.__name__)
             if key not in cache:
                 cache[key] = parser(o)
             d = cache[key]
@@ -627,11 +801,17 @@ EXTRA = [  # (task, job, what it adds, parser)
     ('warehouse_forklift_routing', 'warehouse_forklift_routing-v2-cpu4-b', 'cpu80 at 4 CPUs (all three versions)', _x_games),
     ('warehouse_forklift_routing', 'warehouse_forklift_routing-v2-cpu4-c', 'earlier controls at 4 CPUs; cpu80 at 8 CPUs; cpu140 original', _x_games),
     ('warehouse_forklift_routing', 'warehouse_forklift_routing-v2-cpu4-d', 'near-limit control at 4 CPUs', _x_games),
-    ('triangulation_coloring_optimization', 'triangulation-v2-paired-cpu', 'CPU arms incl. earlier fixed version', _x_games),
-    ('triangulation_coloring_optimization', 'triangulation-v2-paired-cpu-controls', 'flip-rule controls vs the current fixed version, 8 and 4 CPUs', _x_tri_controls),
+    ('triangulation_coloring_optimization', 'triangulation-v2-paired-cpu', 'CPU arms, original vs the earlier fixed version (v2.1) and the version before it', _x_games),
+    ('triangulation_coloring_optimization', 'triangulation-v2-paired-cpu-controls', 'flip-rule controls vs the earlier fixed version (v2.1), 8 and 4 CPUs', _x_tri_controls),
     ('vibrating_path_graph_coloring', 'vibrating_path_graph_coloring-v2-paired-c', 'wall25 with tester-start logging', _x_games),
     ('exchange_core_throughput', 'exchange_core_throughput-v2-paired-shutdownfail', 'shutdown-failure triggers', _x_exchange),
     ('college_english_exam_bank', 'college_english_exam_bank-v2-paired-multiblock', 'multi-block responses (v1, earlier fixed, fixed)', _x_college),
+    ('triangulation_coloring_optimization', 'triangulation-v2-paired', 'full judge, original vs the earlier fixed version (v2.1)', _x_tri_old),
+    ('triangulation_coloring_optimization', TRI22, 'v2.2 job: full judge (8 and 4 CPUs), cross-version case sets and CPU arms of v1, v2.1 and v2.2', _x_tri22),
+    ('jagua_nesting_optimization', JAG21, 'v2.1 revision job: witnesses and full scorer under v1, v2 (superseded) and v2.1', _jagua21),
+    ('college_english_exam_bank', COL3, 'v2.2 revision job: all 29 responses under v1, the earlier fixed version and v2.2', _college3),
+    ('graph_node_classification', STD('graph_node_classification-v2-paired-v21a'), 'v2.1 revision (baseline, neighbor, neighbor_intkeys, dupkeys_after_str) under v1, first fixed and v2.1', _graph21),
+    ('graph_node_classification', STD('graph_node_classification-v2-paired-v21b'), 'v2.1 revision (shrink, nanconf, missing_half) under v1, first fixed and v2.1', _graph21),
     ('arc_compiler_runtime', 'arc_compiler_runtime-hang-suite', 'one hidden suite hangs (original grader only)', _x_arc),
     ('borden_source_inversion', 'borden_source_inversion-v2-paired-r3', 'controls vs v1, earlier fixed and fixed work image', _x_borden),
     ('rust_multicrate_reconstruction', 'rust_multicrate_reconstruction-v2-paired-r2-reference', 'reference (original, + cc files, fixed)', None),
@@ -647,7 +827,7 @@ def _x_rust(o):
     return d
 
 
-EXTRA = [e if e[3] else (e[0], e[1], e[2], _x_rust) for e in EXTRA if not e[1].startswith('rust')] + [
+EXTRA = [e if e[3] else (e[0], e[1], e[2], _x_rust) for e in EXTRA if not job_name(e[1]).startswith('rust')] + [
     ('rust_multicrate_reconstruction', f'rust_multicrate_reconstruction-v2-paired-r2-{s}', f'{s}: original, original + cc files, fixed', _x_rust)
     for s in ('reference', 'partial', 'bad')]
 
@@ -676,7 +856,7 @@ def completed(task, run):
 
 
 def extract(task, run):
-    if task in MULTI and task not in JOB and task not in ('smt_solver',):
+    if task in MULTI and task not in MULTI_OFFSET and task not in JOB and task not in ('smt_solver',):
         return extract_multi(task, run)
     base = {}
     if task in MULTI_OFFSET:
@@ -696,7 +876,7 @@ def extract(task, run):
          'ffmpeg_swscale_reimplementation': lambda: p_ffmpeg(o), 'integer_compression_codec': lambda: p_integer(o),
          'schemathesis_config_modernization': lambda: p_schem(o, task), 'schemathesis_datagen_pipeline': lambda: p_schem(o, task),
          'schemathesis_reporting_observability': lambda: p_schem(o, task), 'tree_block_partitioning': lambda: p_tree(o),
-         'triangulation_coloring_optimization': lambda: p_tri(o), 'warehouse_forklift_routing': lambda: p_warehouse(o),
+         'warehouse_forklift_routing': lambda: p_warehouse(o),
          'portfolio_risk_calibration': lambda: p_portfolio(o), 'juliet_vulnerability_analyzer': lambda: p_juliet(o),
          'smt_solver': lambda: p_smt(outdir('smt_solver', run, 'smt_solver-v2-paired-b'), outdir('smt_solver', run, 'smt_solver-v2-paired-c')),
          'college_english_exam_bank': lambda: p_college(run), 'graph_node_classification': lambda: p_graph(run),

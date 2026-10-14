@@ -15,7 +15,7 @@
   "kind": "open",
   "direction": "up",
   "bound": null,
-  "text": "scale ×100/109 applied exactly; up for honest fits once the convention is documented (24 raw points for a one-shot fit; less for agents that iterate on the grader's feedback)"
+  "text": "scale ×100/109 applied with published rounding uncertainty; up for honest fits once the convention is documented (24 raw points for a one-shot fit; less for agents that iterate on the grader's feedback)"
  },
  "college_english_exam_bank": {
   "kind": "open",
@@ -25,9 +25,9 @@
  },
  "cta_risk_budget_optimization": {
   "kind": "bounded",
-  "direction": "down",
+  "direction": "either",
   "bound": 5,
-  "text": "down: lenient ratio credit for USD positions"
+  "text": "v2.1 (shipped): up to the 5-point overseas-ratio component (4 of 80 raw) in either direction; three native paired runs through the original eval_cmd (58.75→53.75, 66.25→71.25). Historical FX-only proof applies to the previous denominator."
  },
  "dabic_gravity_inversion": {
   "kind": "excluded",
@@ -61,9 +61,9 @@
  },
  "graph_node_classification": {
   "kind": "open",
-  "direction": "down",
+  "direction": "either",
   "bound": null,
-  "text": "down: invalid prediction files were scored; under best-so-far selection the added variance can raise a run's score (a general lemma), but no gain for a real solver was established"
+  "text": "either: an honest run whose prediction file is keyed by integer node IDs scores 0 under the original verifier and moves up under the fix (neighbor_intkeys: 0 to 24.089 of 100); a run that violates the output contract (non-numeric or missing predictions, or keys that collide under str()) was scored by the original and moves down, and under best-so-far selection the added variance can raise a run's score (a general lemma); none of the real runs regraded was integer-keyed, and no gain for a real solver was established"
  },
  "grid_turing_robot": {
   "kind": "open",
@@ -79,15 +79,15 @@
  },
  "jagua_nesting_optimization": {
   "kind": "open",
-  "direction": "down",
+  "direction": "either",
   "bound": null,
-  "text": "down, only for layouts with overlaps"
+  "text": "either: down for layouts with overlaps and for forbidden rotations; up only in the constructed swim_cr leniency case, where the original's edge-crossing test rejects a near-touching layout that the fixed area test accepts (seed_shift_wrongdeg: 0 → 0.186857 raw); unchanged for honest layouts"
  },
  "juliet_vulnerability_analyzer": {
   "kind": "bounded",
   "direction": "up",
-  "bound": 26.47,
-  "text": "up, only for submissions that report CWE-78 findings with source = sink and trace [sink], the form of all 38 public answers: +600/241 = 2.49 for complete detection with every other trace accepted (measured 97.51 → 100.00), +15.00 for a CWE-78-only analyzer (measured 45.66 → 60.66); at most 6380/241 = 26.47 when the change lifts trace quality across the 0.60 cap (exact, from score.py:163-176; computed, not run)"
+  "bound": 26.474,
+  "text": "up, only for submissions that report CWE-78 findings with source = sink and trace [sink], the form of all 38 public answers: +600/241 = 2.49 for complete detection with every other trace accepted (measured 97.51 → 100.00), +15.00 for a CWE-78-only analyzer (measured 45.66 → 60.66); at most 6380/241 ≈ 26.473029 (conservatively bounded by 26.474) when the change lifts trace quality across the 0.60 cap (exact, from score.py:163-176; computed, not run)"
  },
  "lean_analysis_proofs": {
   "kind": "open",
@@ -123,16 +123,16 @@
   "kind": "bounded",
   "direction": "up",
   "bound": 2.13,
-  "text": "up, new runs only: 5 statements whose type contained a hidden sorry become reachable (1.18 points, measured), plus up to 4 later weak_PFR targets proved through them (2.13 points in all; the 4 are inferred from the measured rule and the upstream proof structure); re-scoring existing submissions changes nothing"
+  "text": "up, new runs only: rule arithmetic allows 1.18 points for five targets and at most 2.13 with four downstream targets. The actual five targets were not proved; component controls and inferred upstream dependencies support only a conditional limit, not measured recovery."
  },
  "portfolio_risk_calibration": {
-  "kind": "bounded",
+  "kind": "sensitivity",
   "direction": "either",
-  "bound": 0.39,
-  "bound_up": 0.39,
+  "bound": 0.3921,
+  "bound_up": 0.3921,
   "bound_down": 0.1,
-  "basis": "decimal sweep, not proved",
-  "text": "either: the fixed excess is slightly higher when positive and slightly lower when negative; at most 0.39 up (a joint bound over the excess, information-ratio and Sortino parts at the same strategy return, with the grader's 4-decimal rounding; the parts' own maxima, 0.18, 0.11 and 0.10, are not additive) and 0.10 down (excess part only), from a 50-digit decimal sweep on the fixed test data, not a proof"
+  "basis": "restricted decimal sweep, not a global bound",
+  "text": "Sensitivity assumption only: +0.3921 / −0.10 from a finite sweep at N=242/243, strategy return −30% to +100%; largest sampled joint rise 0.3913. No proved bound for all valid submissions."
  },
  "rust_multicrate_reconstruction": {
   "kind": "bounded",
@@ -167,10 +167,10 @@
   "text": "up: correct witnesses rejected (ceiling 72.40 → 78.61)"
  },
  "treant_forest": {
-  "kind": "exact",
+  "kind": "scale",
   "direction": "up",
   "bound": null,
-  "text": "scale change applied exactly"
+  "text": "Scale interval from rounded average, allowing zero-score clipping and second-segment runs; no exact inversion from the public mean."
  },
  "tree_block_partitioning": {
   "kind": "bounded",

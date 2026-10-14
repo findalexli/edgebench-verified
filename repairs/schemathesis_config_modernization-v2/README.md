@@ -34,7 +34,7 @@ The side-by-side run of the original and fixed graders is in [paired/results.md]
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/schemathesis_config_modernization-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.schemathesis_config_modernization:function-identity-v2 .
 ```
 
 `materialize.sh` takes the following steps:
@@ -52,4 +52,6 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
 - The overlay is a minimal implementation of Target 3, not a complete solution, so the absolute scores are partial.
 - No historical submissions were examined.
+- The added test checks `schemathesis.generation.metrics.metric`; the top-level `schemathesis.metric`, which `TODO.md` names, is still only checked for being callable, so a wrapper re-exported at the top level (for example with `functools.wraps`) still passes all three metric tests although `schemathesis.metric(f) is f` is false (local probe). Closing this would need one more assertion and a new paired run.
+- The package was rebuilt from scratch on a clean machine (`evidence/runs/materialize-check-g2`, `status: exit=0`): `materialize.sh` ran unchanged, both outputs matched the lock and the built image holds the locked test files.
 - The original task, its images and the earlier decision records are untouched.

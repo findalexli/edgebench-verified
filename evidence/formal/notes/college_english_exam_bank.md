@@ -51,6 +51,7 @@ The deduction check now runs at the end of `_validate_result` on the normalised 
 
 ## Limits
 
+- **Version.** The model is of v2.1 (`87f0e340…`). The current v2.2 (`a0af4360…`) changes JSON block selection (the last complete block; an earlier block only when every later one is truncated, unparseable or not a `scores` object) and reads decimal-string rule scores; neither change is modelled.
 - Text fields are abstracted to booleans. Non-dict checkpoints, the model's own `max_score` beyond clamping, and JSON block selection are not modelled; the original and fixed graders can pick different blocks when the last JSON block is incomplete.
 - C3 is about the rules the rubric marks `deductive` (all 12 here); the check does not cover additive or penalty rules.
 - A random differential run on the real functions (`probes/college_english_exam_bank/fuzz.py`, 20,000 assessments, `fuzz.out`) found no accepted assessment whose total differs from the original and no violation of C3 under the revised grader. The revised grader rejects 1,472 assessments the earlier one accepted (each has a row in the C3 failure pattern) and accepts 276 the earlier one rejected (its raw-row test fired although reconciliation does not give full marks, as in row M), all with the original total. It is a test, not a proof.

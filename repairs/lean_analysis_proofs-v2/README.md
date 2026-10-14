@@ -1,5 +1,8 @@
 # Lean Analysis Proofs, fixed version (`lean_analysis_proofs`)
 
+**Validation scope:** Component controls validate the corrected statements and target filtering. The paired runs used Mathlib `491a409`, while the actual `eval_cmd` copies the baseline with `3203991`; that execution path and both final image builds remain unverified. These records do not establish a ready end-to-end release.
+
+
 ## What this fixes
 
 Two statements that solvers must prove are false as written, so no honest submission can earn them. The original grader also scores hidden helper declarations that Lean generates, so the score depends on proof style, and three placeholder statements can never be credited. The fixed version corrects the two statements and stops scoring the generated helpers and the placeholders, leaving 2338 scored targets.
@@ -97,7 +100,7 @@ The side-by-side run of the original and fixed graders is in `paired/` (`run_loc
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/lean_analysis_proofs-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.lean_analysis_proofs:lean_analysis_proofs-v2-judge .
 ```
 
 `materialize.sh` takes the following steps:
@@ -111,10 +114,11 @@ Git does not contain any file copied from the EdgeBench images. It holds only ou
 After that, the `Dockerfile` builds without changes. Regenerated files keep the file mode they have in the image.
 See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
-`files/judge/v2-build-artifacts.tar` is not stored either. `materialize.sh` rebuilds it inside the original 33 GB grader image. It copies the patched sources in place, runs `lake build ListDeclAxiom` and `lake build` (offline, `--network none --memory 4g --cpus 2`, a few minutes) and packs the 90 artifact paths listed in `source-lock.json`. The oleans are not expected to be byte-identical, so the tar is accepted when two checks pass. The rebuilt file set must equal the locked member list. The regenerated ListDeclAxiom listing must be byte-identical to `paired/out/v2-listing.txt` (sha256 in `materialize.lean_build`). The script holds the machine-wide heavy-job lock `/tmp/ebv-heavy.lock` for the whole run. `MATERIALIZE_SKIP_LEAN_BUILD=1` regenerates only the text files; `docker build` then fails until the tar exists. `files/work/` is copied from the patched grader sources, and `orig/` is regenerated too. Build the solver image with `docker build -f Dockerfile.work -t ebv/lean_analysis_proofs-work:v2 .`. That build is still unverified, as noted below.
+`files/judge/v2-build-artifacts.tar` is not stored either. `materialize.sh` rebuilds it inside the original 33 GB grader image. It copies the patched sources in place, runs `lake build ListDeclAxiom` and `lake build` (offline, `--network none --memory 4g --cpus 2`, a few minutes) and packs the 90 artifact paths listed in `source-lock.json`. The oleans are not expected to be byte-identical, so the tar is accepted when two checks pass. The rebuilt file set must equal the locked member list. The regenerated ListDeclAxiom listing must be byte-identical to `paired/out/v2-listing.txt` (sha256 in `materialize.lean_build`). The script holds the machine-wide heavy-job lock `/tmp/ebv-heavy.lock` for the whole run. `MATERIALIZE_SKIP_LEAN_BUILD=1` regenerates only the text files; `docker build` then fails until the tar exists. `files/work/` is copied from the patched grader sources, and `orig/` is regenerated too. Build the solver image with `docker build -f Dockerfile.work -t edgebench.work.lean_analysis_proofs:lean_analysis_proofs-v2-work .`. That build is still unverified, as noted below.
 
 ## Limits
 
+- **Not verified, and why: the image builds and the actual `eval_cmd` path.** The grader image unpacks to about 33 GB, and `materialize.sh` with its Lean rebuild, plus `docker build` of both images, needs about 45 GB of free disk, more than the 21 GB E2B workers used for this audit provide: the clean-machine rebuild check of all packages could not pull the grader image there (`evidence/runs/materialize-check-lean`, `no space left on device`; the other 31 packages passed). So neither image was built, and the original `eval_cmd` (Mathlib `3203991`, full rebuild) was not run on the fixed version. This stays a documented limitation until the build is run on a machine with about 45 GB of free disk.
 - **The work image was not pulled** (only the 33 GB grader image was).
   - `Dockerfile.work` assumes that the starter lives at `/home/workspace/se-bmk-intern/analysis` and
     equals the grader's sources. It also assumes the files are owned by `agent`.

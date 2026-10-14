@@ -51,6 +51,8 @@ LANGS = {'en': {'html_lang': 'en', 'prefix': ''}, 'zh': {'html_lang': 'zh-CN', '
 ZH_FONTS = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600'
             '&family=Noto+Serif+SC:wght@400;600;700&display=swap">')
 ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
+# Shown (and written to APPLYING-FIXES.md and data/decisions.csv) for a repair without a recorded validation status.
+VALIDATION_DEFAULT = 'Historical paired scope only; see the case page and package limits'
 TABS = [('overview', 'index.html'), ('tasks', 'tasks/index.html'), ('method', 'method.html'),
         ('leaderboard', 'leaderboard.html')]
 # Grader CPUs and memory in EdgeBench's leaderboard settings (quoted in
@@ -82,15 +84,16 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     n_fix is the number of fixed tasks tested side by side (OpenRCT2's instruction-only fix has nothing
     to run); the removed task's partial fix is shown separately."""
     cols = [
-        ('1', 'Reproduced', 'on the original grader', [f'{n_tasks} tasks examined', 'correct, triggering and', 'wrong test submissions']),
-        ('2', 'Proved formally', 'Lean 4 and TLA+', [f'{n_formal} tasks, {n_thm} theorems', f'{n_tla} model-checking runs', f'{n_fix_proved} fixes proved, in model']),
-        ('3', 'Tested side by side', 'original vs fixed grader', [f'{n_fix} fixes + 1 partial fix', f'{n_cmp} comparisons', 'nearly all run 3 times']),
+        ('1', 'Examined', 'original code and images', [f'{n_tasks} tasks examined', 'source, component and', 'native evidence']),
+        ('2', 'Proved formally', 'Lean 4 and TLA+', [f'{n_formal} tasks, {n_thm} theorems', f'{n_tla} model-checking runs', f'{n_fix_proved} repair models checked']),
+        ('3', 'Historical pairs', 'components and graders', [f'{n_fix} fixes + 1 partial fix', f'{n_cmp} comparisons', 'nearly all run 3 times']),
         ('4', 'Checked on real runs', 'a public agent run', [f'{n_real} fixed tasks covered;', '7 regraded with', 'both graders;', 'Lean computed']),
     ]
     w, g = 178, 16
     o = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">',
-         '<title>Four layers of evidence: findings reproduced on the original grader, claims proved in Lean 4 or TLA+, '
-         'fixes tested side by side against the original, and fixes checked on a real agent run.</title>',
+         '<title>Four evidence layers with different scope: tasks examined in the original code and images, '
+         'models proved in Lean 4 or checked in TLA+, historical paired comparisons of saved versions, '
+         'and fixed tasks covered by one public agent run.</title>',
          '<style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} '
          '.num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}'
          '@media (prefers-color-scheme: dark){.ink{fill:#e2e9ed} .muted{fill:#95a6b1} .box{fill:#1b2630;stroke:#3a4a57} '
@@ -106,11 +109,8 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     o.append('</svg>')
     (FIG / 'evidence-layers.svg').write_text('\n'.join(o) + '\n')
     (FIG / 'evidence-layers.json').write_text(json.dumps({
-        'alt': 'Four columns: reproduced on the original grader, proved formally in Lean 4 and TLA+, tested side by side, checked on real runs.',
-        'caption': 'Four independent layers of evidence. Every finding\'s mechanism was demonstrated on the original grader; where a claim could '
-                   'be stated precisely it was also proved in Lean 4 or model-checked in TLA+; the fixes were tested side by side, almost every comparison three times '
-                   '(exceptions listed under How we verified); '
-                   'and a real agent run covers nine fixed tasks: seven were regraded with both graders (314 submissions), and the Lean Analysis effect was computed from the original grader\'s verdicts.'}) + '\n')
+        'alt': 'Four columns: examined in the original code and images, proved formally in Lean 4 and TLA+, historical paired comparisons, checked on real runs.',
+        'caption': 'Four evidence layers with different scope. Historical source/helper controls, native runs and formal models are not interchangeable or independently certified reproductions. Paired comparisons refer to the saved versions; they do not certify newer candidates. The real-agent record covers nine tasks, with seven regraded under both graders and Lean Analysis computed from saved verdicts.'}) + '\n')
 
 
 def comparison_counts():
@@ -130,7 +130,7 @@ def comparison_counts():
     executed = [k for k in runs if not derived[k]]
     graded = [k for k in executed if role[k] != 'setup']
     pr = list(csv.DictReader(open(ROOT / 'data' / 'paired-results.csv')))
-    return {'arms': {k: runs[k] for k in executed}, 'executed': len(executed), 'graded': len(graded),
+    return {'arms': {k: runs[k] for k in graded}, 'executed': len(executed), 'graded': len(graded),
             'graded3': sum(runs[k] >= 3 for k in graded), 'executed3': sum(runs[k] >= 3 for k in executed),
             'setup': len(executed) - len(graded), 'derived': sum(derived.values()),
             'not_run': len(pr) - len(runs),
@@ -182,8 +182,10 @@ class Lang:
         self.meta = LANGS[code]
         self.t = Strings(code)
         self.major = False      # the page's own text fell back to English
+        pending_path = I18N / f'pending-{code}.json'
+        self.pending = json.loads(pending_path.read_text()) if code != 'en' and pending_path.exists() else {}
         self.extra = {}
-        for name in ('figures', 'formal'):
+        for name in ('figures', 'formal', 'validation'):
             p = I18N / f'{name}.{code}.json'
             self.extra[name] = json.loads(p.read_text()) if code != 'en' and p.exists() else {}
 
@@ -193,7 +195,8 @@ class Lang:
 
     def source(self, en_path, own_path):
         """Read a per-language source, falling back to English (and marking the page pending)."""
-        if self.code != 'en' and own_path.exists():
+        stale = en_path.relative_to(ROOT).as_posix() in self.pending.get('sources', [])
+        if self.code != 'en' and own_path.exists() and not stale:
             return own_path.read_text()
         if self.code != 'en':
             self.major = True
@@ -205,7 +208,27 @@ class Lang:
     def plain(self, plain_en):
         p = ROOT / 'cases' / f'plain.{self.code}.json'
         own = json.loads(p.read_text()) if self.code != 'en' and p.exists() else {}
+        for tid in self.pending.get('plain', []):
+            own.pop(tid, None)
         return own, plain_en
+
+    def formal(self, tid):
+        translated = self.extra['formal'].get(tid, {})
+        if tid in self.pending.get('formal', []):
+            translated = {}
+        if self.code != 'en' and not translated:
+            self.t.missing.add(f'formal:{tid}')
+        return translated
+
+    def validation(self, tid, english):
+        """Translated validation status, used only while its recorded English source is current."""
+        own = self.extra['validation'].get(tid, {})
+        if self.code == 'en':
+            return english
+        if own.get('en') == english and own.get('text'):
+            return own['text']
+        self.t.missing.add(f'validation:{tid}')
+        return english
 
     def caption(self, name):
         c = self.extra['figures'].get(name)
@@ -273,7 +296,7 @@ def numbers(D):
     counts = D['counts']
     v = {k: str(counts.get(k, 0)) for k in ORDER}
     cc = comparison_counts()
-    v.update(n_cmp=cc['graded'], n_cmp3=cc['graded3'], n_cmp_tasks=cc['tasks'], n_cmp_setup=cc['setup'],
+    v.update(n_cmp=cc['graded'], n_cmp3=cc['graded3'], n_cmp_once=cc['graded'] - cc['graded3'], n_cmp_tasks=cc['tasks'], n_cmp_setup=cc['setup'],
              n_cmp_derived=cc['derived'], n_cmp_noexec=cc['not_run'],
              n_problem=counts.get('repair-v2', 0) + counts.get('exclude', 0))
     frm = D['formal']
@@ -289,51 +312,34 @@ def numbers(D):
              formal_checks=len(leans) + len(cfgs))
     imp = list(csv.DictReader(open(ROOT / 'data/impact.csv')))
     effects = json.loads((ROOT / 'evidence/impact/effects.json').read_text())
+    import math
+    def interval_cell(row, prefix):
+        # Round outward so displayed intervals remain outer bounds.
+        low = math.floor(float(row[prefix + '_low']) * 100) / 100
+        high = math.ceil(float(row[prefix + '_high']) * 100) / 100
+        return f'{low:.2f}–{high:.2f}'
     v['impact_rows'] = ''.join(
         f"<tr><td>{r['model']}</td><td class=\"n\">{float(r['published_mean']):.1f}</td>"
-        f"<td class=\"n\"><b>{float(r['worst_case_low']):.1f}–{float(r['worst_case_high']):.1f}</b></td>"
-        f"<td class=\"n\">{float(r['bounded_low']):.1f}–{float(r['bounded_high']):.1f}</td>"
-        f"<td class=\"n\">{float(r['exact_adjusted_mean']):.1f}</td></tr>"
+        f"<td class=\"n\"><b>{interval_cell(r, 'worst_case')}</b></td>"
+        f"<td class=\"n\">{interval_cell(r, 'bounded')}</td>"
+        f"<td class=\"n\">{interval_cell(r, 'sensitivity')}</td>"
+        f"<td class=\"n\">{interval_cell(r, 'scale')}</td></tr>"
         for r in imp)
-    ex = {r['model']: float(r['exact_adjusted_mean']) for r in imp}
-    shifts = [float(r['exact_adjusted_mean']) - float(r['recomputed_mean']) for r in imp]
-    lo = {r['model']: float(r['exact_adjusted_mean']) - float(r['bounded_low']) for r in imp}
-    hi = {r['model']: float(r['bounded_high']) - float(r['exact_adjusted_mean']) for r in imp}
-    v.update(wide_down=f"{max(float(r['exact_adjusted_mean']) - float(r['worst_case_low']) for r in imp):.1f}",
-             wide_up=f"{max(float(r['worst_case_high']) - float(r['exact_adjusted_mean']) for r in imp):.1f}",
-             shift_lo=f'{min(shifts):.1f}', shift_hi=f'{max(shifts):.1f}',
-             n_bound=sum(e['kind'] == 'bounded' for e in effects.values()),
-             open_down=f"{max(float(r['bounded_low']) - float(r['worst_case_low']) for r in imp):.1f}",
-             open_up=f"{max(float(r['worst_case_high']) - float(r['bounded_high']) for r in imp):.1f}",
-             n_open=sum(e['kind'] == 'open' for e in effects.values()) - 1,
-             bound_down=f'{max(lo.values()):.1f}', bound_up=f'{max(hi.values()):.1f}')
-    import estimate_impact as EI
-    lb = EI.parse_leaderboard()
-    dec = {m: EI.decomposition(lb, m) for m in EI.MODELS}
-    for k in ('dabic', 'treant', 'borden'):
-        vals = [abs(d[k]) for d in dec.values()]
-        f = '{:.2f}' if k == 'borden' else '{:.1f}'
-        v[k + '_lo'], v[k + '_hi'] = f.format(min(vals)), f.format(max(vals))
+    v.update(n_bound=sum(e['kind'] == 'bounded' for e in effects.values()),
+             n_open=sum(e['kind'] == 'open' for e in effects.values()))
+    # The leaderboard page states that every neighbouring pair overlaps in the full-domain envelope.
+    _env = sorted(imp, key=lambda r: -float(r['published_mean']))
+    assert all(float(a['worst_case_low']) <= float(b['worst_case_high']) for a, b in zip(_env, _env[1:])), \
+        'a neighbouring pair is separated in the full-domain envelope; update the leaderboard text'
     pr = list(csv.DictReader(open(ROOT / 'data/paired-results.csv')))
     v.update(paired_rows=len(pr), paired_tasks=len({r['task_id'] for r in pr}),
              paired_setup=sum(r['role'] == 'setup' for r in pr))
-    # The pairs of neighbouring models that the bounded effects could reverse, and what each rests on.
-    order = sorted(ex, key=lambda m: -ex[m])
-    fragile = [(a, b) for a, b in zip(order, order[1:]) if lo[a] + hi[b] >= ex[a] - ex[b]]
-    rests = {}
-    for a, b in fragile:
-        ua, da = EI.bounded_parts(EI.adjusted(lb, a), effects)
-        ub, db = EI.bounded_parts(EI.adjusted(lb, b), effects)
-        na = sum(x is not None for x in EI.adjusted(lb, a).values())
-        nb = sum(x is not None for x in EI.adjusted(lb, b).values())
-        parts = {t: da.get(t, 0) / na + ub.get(t, 0) / nb for t in set(da) | set(ub)}
-        top = max(parts, key=parts.get)
-        need = (ex[a] - ex[b] - (lo[a] + hi[b] - parts[top])) * nb
-        if lo[a] + hi[b] - parts[top] < ex[a] - ex[b] and da.get(top, 0) == 0:
-            rests[(a, b)] = {'task': top, 'gain': f'{ub.get(top, 0):.1f}', 'swing': f'{lo[a] + hi[b] - parts[top]:.1f}',
-                             'need': f'{need:.1f}'}
-    D['fragile'] = [{'a': a, 'b': b, 'gap': f'{ex[a] - ex[b]:.1f}', 'swing': f'{lo[a] + hi[b]:.1f}',
-                     'rests': rests.get((a, b))} for a, b in fragile]
+    # Overlap fails to certify order; it never proves a jointly attainable reversal.
+    by_model = {r['model']: r for r in imp}
+    order = sorted(by_model, key=lambda m: -float(by_model[m]['published_mean']))
+    D['fragile'] = [{'a': a, 'b': b, 'rests': None}
+                    for a, b in zip(order, order[1:])
+                    if float(by_model[a]['bounded_low']) <= float(by_model[b]['bounded_high'])]
     D['arms'] = cc['arms']
     return {k: str(x) for k, x in v.items()}
 
@@ -364,7 +370,7 @@ def generated_prose(P, D, num):
     if D['fragile']:
         parts = []
         for f in D['fragile']:
-            s = t('gen.fragile', a=f['a'], b=f['b'], gap=f['gap'], swing=f['swing'])
+            s = t('gen.fragile', a=f['a'], b=f['b'])
             r = f['rests']
             if r:
                 s += t('gen.rests_on', task=task_link(P, D, r['task']), b=f['b'], gain=r['gain'], swing=r['swing'], need=r['need'])
@@ -377,7 +383,7 @@ def generated_prose(P, D, num):
         out['rank_text'] = t('gen.rank_none')
     rows = []
     for r in D['formal']:
-        tr = P.L.extra['formal'].get(r['task'], {})
+        tr = P.L.formal(r['task'])
         if P.L.code != 'en' and not tr:
             t.missing.add(f'formal:{r["task"]}')
         rows.append(f"<tr><td>{task_link(P, D, r['task'])}</td><td>{r['tool'].replace(' ', '&nbsp;')}</td>"
@@ -394,7 +400,7 @@ def verif(P, D, tid):
     r = D['formal_by'].get(tid)
     if r:
         parts.append(t('verif.formal', tool=r['tool'].replace(' ', '&nbsp;'), what=t('verif.cov.' + r['covers'], result=r['result'] if P.L.code == 'en' else t('formal.result.' + r['result']))))
-    runs = sorted({v for (tt, _), v in D['arms'].items() if tt == tid})
+    runs = [v for (tt, _), v in D['arms'].items() if tt == tid]
     if tid == 'dabic_gravity_inversion':
         parts.append(t('verif.dabic'))
     elif not runs:
@@ -402,7 +408,7 @@ def verif(P, D, tid):
     elif min(runs) >= 3:
         parts.append(t('verif.three'))
     else:
-        parts.append(t('verif.three_but_one'))
+        parts.append(t('verif.three_but_some', n=sum(v < 3 for v in runs), m=len(runs)))
     return t('verif.join').join(parts)
 
 
@@ -443,7 +449,8 @@ def layout(P, active, title, description, content, scripts='', wide=False):
         alts.append(f'<link rel="alternate" hreflang="{LANGS[c]["html_lang"]}" href="{SITE_URL}{LANGS[c]["prefix"]}{P.rel}">')
     pending = ''
     if L.code != 'en' and (L.major or L.t.missing):
-        pending = f'<div class="pending" role="note"><div class="in">{t("pending_note")}</div></div>'
+        note = t('pending_note') if L.major else t('pending_note_partial')
+        pending = f'<div class="pending" role="note"><div class="in">{note}</div></div>'
         if L.major:
             alts.append('<meta name="robots" content="noindex">')
     out = (SRC / 'layout.html').read_text()
@@ -679,7 +686,9 @@ def task_page(L, D, i, used_figs):
     task = D['tasks'][tid]
     p = plain_for(L, D, tid)
     cat = t.opt('category.' + r['category'], r['category']) if L.code != 'en' else r['category']
-    md_dir = f'cases/{L.code}' if L.code != 'en' and (ROOT / 'cases' / L.code / f'{tid}.md').exists() else 'cases'
+    md_dir = (f'cases/{L.code}' if L.code != 'en'
+              and (ROOT / 'cases' / L.code / f'{tid}.md').exists()
+              and f'cases/{tid}.md' not in L.pending.get('sources', []) else 'cases')
     md = L.source(ROOT / 'cases' / f'{tid}.md', ROOT / 'cases' / L.code / f'{tid}.md')
     md = re.sub(r'\A\s*# [^\n]*\n', '', md)                       # the page has its own title
     # the figure is shown in the summary above the case; drop the duplicate and its caption line
@@ -693,14 +702,19 @@ def task_page(L, D, i, used_figs):
     fr = D['formal_by'].get(tid)
     formal = ''
     if fr:
-        tr = L.extra['formal'].get(tid, {})
+        tr = L.formal(tid)
         res = t.opt('formal.result.' + fr['result'], fr['result'].capitalize()) if L.code != 'en' else t('formal.result.' + fr['result'])
         formal = (f'<dt>{t("task.sum.formal")}</dt><dd>' +
                   esc(t('task.formal', result=res, tool=fr['tool'], what=tr.get('what', fr['what']), limit=tr.get('limit', fr['limit']))) + '</dd>')
+    status = ''
+    if r['proposed'] == 'repair-v2':
+        english = r.get('validation_status') or VALIDATION_DEFAULT
+        text = L.validation(tid, english) if r.get('validation_status') else t('task.sum.status_default')
+        status = f'<dt>{t("task.sum.status")}</dt><dd>{esc(text)}</dd>'
     summary = (f'<dl class="sum"><dt>{t("task.sum.about")}</dt><dd>{esc(p["about"])}</dd>'
                f'<dt>{t("task.sum.problem")}</dt><dd>{esc(p["problem"])}</dd>'
                f'<dt>{t("task.sum.effect")}</dt><dd>{esc(p["effect"])}</dd>'
-               f'<dt>{t("task.sum.action")}</dt><dd>{esc(p["action"])}</dd>{formal}</dl>')
+               f'<dt>{t("task.sum.action")}</dt><dd>{esc(p["action"])}</dd>{status}{formal}</dl>')
     grade_html, _ = grading(P, D, tid)
     # files
     links = [(BLOB + f'cases/{tid}.md', t('task.links.case')), (BLOB + f'tasks/{tid}.json', t('task.links.task_json', id=tid))]

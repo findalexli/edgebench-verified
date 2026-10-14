@@ -75,6 +75,8 @@ README 要求 "construct the groundwater solute transport equation, build an ADE
 - 只使用了一种拟合方法（多起点最小二乘、log/hinge 损失、一次带种子的 60 或 80 个起点的运行）和一种教科书模型变体。24 分的差距针对的是该变体。
 - 任务说明说参数 "must stay within"（必须保持在）取值范围内，但原始评分器并没有直接拒绝越界的测试提交（原始结果 4，封顶 15）。这一点没有改变。
 - 隐藏文件检查只列出了 `/home/workspace` 中的工作文件。
+- 评分器从计分目录导入自己的模型副本（`hidden_forward_model.py`），而不是工作目录中的 `forward_model.py`，因此修改随附 `forward_model.py` 的提交无法改变自己的分数。这一点由评分器代码推出；没有对这样的提交评分。
+- 修复包在一台干净的机器上从零重建过（`evidence/runs/materialize-check-g3`，`status: exit=0`）：`materialize.sh` 原样运行，全部 5 个输出与锁定值一致，构建出的镜像中是锁定的文件。修复版工作镜像的标签 `f389fcf94240-ebv-v2.1` 是本地构建标签；没有镜像发布到镜像仓库。
 
 ## 复现
 

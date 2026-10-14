@@ -1,0 +1,38 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 497B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 3)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 5.14kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd
+#5 resolve docker.io/seededge/edgebench.judge.graph_node_classification@sha256:518c105ec283ea9231ecb87886e0937c14a7bd937d8e385afaa3369800c5c3bd done
+#5 CACHED
+
+#6 [2/2] COPY files/home/workspace/045_graph_node_classification/verifier.py /home/workspace/045_graph_node_classification/verifier.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:1601af9b370db746ecb38921f28f017ce723be12fefaf2fd8de92f63d1fea8c8 done
+#7 exporting config sha256:86bd76514fe4bcc14113dafefe53a118432c48c8f438139f9022ca636a06cc9e done
+#7 exporting attestation manifest sha256:71773967e5abb1ce556afee9da966c21422016b77b2c9d52e123bb912320aaec done
+#7 exporting manifest list sha256:309510f2775aa9b29806ca279fd496ec4c6f9a97e5fce83b223f01d53d50db85 done
+#7 naming to docker.io/library/graph_v2prev:latest done
+#7 unpacking to docker.io/library/graph_v2prev:latest 0.0s done
+#7 DONE 0.2s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 3)
+build_rc=0

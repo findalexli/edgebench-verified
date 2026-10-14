@@ -54,9 +54,25 @@ the disruptor stops, only for the `BUSY_SPIN` wait strategy (the throughput conf
 
 The original grader credits a run whose `mvn test` fails after the average, and the harness ranks it on `TOTAL_SCORE`.
 The fixed grader scores it 0, as the task rule "`CASES_OK = 1` only when `mvn test` exits 0" implies.
-No honest engine reached this path: the control and `topo21` were `OK` in all 10 v2 timed runs (paired-b, rep2, rep3 and this job).
+No honest engine reached this path: the control and `topo21` were `OK` in all 18 v2 timed runs (paired-b, rep2, rep3, the three shutdown-failure jobs and the six leaderboard-setting runs below).
 The arm is a construction, not code from a real solver. The cause of the non-zero exit is inferred from the arm's only difference, because the grader does not print Maven's output on this path.
 
 ## Repeatability of the shutdown-failure job (2026-10-13)
 
 `evidence/runs/exchange_core_throughput-v2-paired-shutdownfail` was run three times on fresh E2B workers (`-rep2`, `-rep3`) with the same `run.sh` and `inputs/`. Every run has `status: exit=0`, and its worker was killed. Each worker rebuilt the fixed version with `materialize.sh`. All 8 graded results give the same verdict in all three runs: the control is OK under both graders with the gate OK under v2, every `shutdownbusy` and `shutdownall` run is WA under v1, and every one scores 0 under v2 (gate failed for `shutdownall`, case WA for `shutdownbusy`). The throughput numbers move between runs, as in the main repeatability table: the control 2813–3356 (v1) and 2422–3565 (v2), and the WA triggers' v1 numbers 2354–3382. No verdict depends on them.
+
+## Leaderboard judge setting: `--cpus 4 --memory 8g` (2026-10-13)
+
+E2B jobs `evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep1` (worker `iqucqbtf1ovjiqrpqeld8`, 623 s), `-rep2` (`iylihb2yjojg61k5dgyv9`, 683 s) and `-rep3` (`i7ova1zxddz4t5cvq00ro`, 643 s), each ledger `status: exit=0` with `done fail=0`. Layout of `exchange_core_throughput-cpu4v8-a/run.sh`, with the v2 image built in each worker from this package (`materialize.sh`: all 31 outputs match `source-lock.json`, v2 eval `b957210f…`; then `docker build`). Every arm ran the original `eval_cmd` with `docker run --network none --cpus 4 --memory 8g`, the leaderboard's `judge_cpu_limit: 4` and `judge_mem_limit: 8g` (inside: `nproc` 8, `cpu.max` `400000 100000`, `memory.max` 8589934592). v1 had the same 30 Maven files mounted at `/root/.m2`. Raw score = MT/s × 1000; all are below the 0-point reference 2,090.63, so every one is 0 out of 100.
+
+| Submission (4 CPUs, 8g) | Role | v1 | v2 |
+| --- | --- | --- | --- |
+| unmodified engine, 4 CPUs run 1 | valid | OK 1059 | gate OK (33 tests), OK 1194 |
+| unmodified engine, 4 CPUs run 2 | valid | OK 965 | gate OK (33 tests), OK 811 |
+| unmodified engine, 4 CPUs run 3 | valid | OK 972 | gate OK (33 tests), OK 1073 |
+| `topo21`, 4 CPUs run 1 | valid | OK 1644 | gate OK (33 tests), OK 1687 |
+| `topo21`, 4 CPUs run 2 | valid | OK 1994 | gate OK (33 tests), OK 1684 |
+| `topo21`, 4 CPUs run 3 | valid | OK 1894 | gate OK (33 tests), OK 1832 |
+
+The gate passed (`GATE OK ITFeesExchangeBasic,ITExchangeCoreIntegrationRejectionBasic tests=33`) in all six v2 runs. v2 raw scores are within throughput noise of v1 (v2 811–1194 lies partly below and partly above all seven v1 4-CPU runs, 939–1059): unmodified engine 811–1194 (v2) against 965–1059 (v1) and the earlier v1 4-CPU runs at `--memory 4g`, 939–1033; `topo21` 1684–1832 (v2) against 1644–1994 (v1) and the earlier single v1 run, 2091. Wall time per v2 run, gate included, was 168–228 s for the unmodified engine and 116–126 s for `topo21`, against the 2,400 s `eval_timeout`. The gate therefore does not change the 4-CPU result: both honest engines keep scoring as under v1, and both score 0 out of 100 at this setting, as noted in the case page.
+

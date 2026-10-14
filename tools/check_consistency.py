@@ -48,7 +48,7 @@ def main():
                  f'site/{prefix}tasks/{t}.html missing or its outcome is not {r["proposed"]}')
     site = (ROOT / 'site' / 'index.html').read_text() if (ROOT / 'site' / 'index.html').exists() else ''
     for k, n in c.items():
-        lab = {'repair-v2': 'fixed in a new version', 'exclude': 'removed, no sound fix',
+        lab = {'repair-v2': 'versioned repair packages', 'exclude': 'removed, no sound fix',
                'retain-with-note': 'Tasks kept with a note'}.get(k)
         if lab:
             need(re.search(rf'{re.escape(lab)}[^<]*</td><td class="n">{n}</td>', site), f'site Table 1 count for {k} != {n}')
@@ -61,7 +61,13 @@ def main():
     need(set(plain) == set(d), 'cases/plain.json does not cover exactly the 51 tasks')
     pre = {'retain': 'Kept as is', 'retain-with-note': 'Kept, with a note', 'repair-v2': 'Fixed in a new version', 'exclude': 'Removed'}
     for t, r in d.items():
-        need(plain.get(t, {}).get('action', '').startswith(pre[r['proposed']]), f'{t}: plain action disagrees with decision')
+        if r.get('validation_status'):
+            need(bool(plain.get(t, {}).get('action')), f'{t}: missing scoped repair action')
+            need(r['proposed'] == 'repair-v2', f'{t}: repair validation status on non-repair task')
+            applying = (ROOT / 'APPLYING-FIXES.md').read_text()
+            need(r['validation_status'] in applying, f'{t}: current validation status absent from applying guide')
+        else:
+            need(plain.get(t, {}).get('action', '').startswith(pre[r['proposed']]), f'{t}: plain action disagrees with decision')
     # case pages: one per task, decision line matches
     for t, r in d.items():
         p = ROOT / 'cases' / f'{t}.md'
@@ -69,9 +75,12 @@ def main():
         if p.exists():
             head = p.read_text()[:1500]
             want = LABEL[r['proposed']]
-            need(re.search(rf'\*\*Outcome:\*\*\s*{re.escape(want)}', head),
-                 f'case page {t} decision line does not say "{want}"')
-    # repairs: every repair-v2 has an accepted package; FINDINGS covers all 51
+            if r.get('validation_status'):
+                need(re.search(r'\*\*Outcome:\*\*\s*\S[^\n]+', head), f'{t}: missing scoped case outcome')
+            else:
+                need(re.search(rf'\*\*Outcome:\*\*\s*{re.escape(want)}', head),
+                     f'case page {t} decision line does not say "{want}"')
+    # repairs: preserve historical paired evidence; current status may have pending release gates
     for t, r in d.items():
         pkg = ROOT / 'repairs' / f'{t}-v2'
         if r['proposed'] == 'repair-v2':
@@ -86,25 +95,31 @@ def main():
     pairs = {r['task_id'] for r in csv.DictReader((ROOT / 'data/paired-results.csv').open())}
     need(pairs <= {t for t in d if (ROOT / 'repairs' / f'{t}-v2').is_dir()}, 'data/paired-results.csv has a task without a package')
     need({t for t, r in d.items() if r['proposed'] == 'repair-v2'} <= pairs, 'a repair has no paired rows')
-    # README impact sentence agrees with data/impact.csv
+    # Impact artifacts must use intervals; check freshness against the source effects.
     imp = list(csv.DictReader((ROOT / 'data/impact.csv').open()))
-    sh = [float(r['exact_adjusted_mean']) - float(r['recomputed_mean']) for r in imp]
-    dn = max(float(r['exact_adjusted_mean']) - float(r['bounded_low']) for r in imp)
-    up = max(float(r['bounded_high']) - float(r['exact_adjusted_mean']) for r in imp)
-    wd = max(float(r['exact_adjusted_mean']) - float(r['worst_case_low']) for r in imp)
-    wu = max(float(r['worst_case_high']) - float(r['exact_adjusted_mean']) for r in imp)
-    od = max(float(r['bounded_low']) - float(r['worst_case_low']) for r in imp)
-    ou = max(float(r['worst_case_high']) - float(r['bounded_high']) for r in imp)
     sys.path.insert(0, str(ROOT / 'tools'))
     import estimate_impact as EI
     lb = EI.parse_leaderboard()
-    dec = [EI.decomposition(lb, m) for m in EI.MODELS]
-    rng = lambda k, f: f'{f.format(min(abs(x[k]) for x in dec))} to {f.format(max(abs(x[k]) for x in dec))}'
-    for txt in (f'{min(sh):.1f}–{max(sh):.1f} points', f'at most {dn:.1f} points down or {up:.1f} up',
-                f'as much as {wd:.1f} points down or {wu:.1f} up', f'account for up to {od:.1f} down or {ou:.1f} up',
-                f'Treant Forest scale by {rng("treant", "{:.1f}")}', f'D-ABIC by {rng("dabic", "{:.1f}")}',
-                f'Borden Inversion scale by −{rng("borden", "{:.2f}").replace(" to ", " to −")}'):
-        need(txt in ' '.join(readme.split()), f'README impact text missing "{txt}"')
+    effects = json.loads((ROOT / 'evidence/impact/effects.json').read_text())
+    need({r['model'] for r in imp} == set(EI.MODELS), 'impact model rows differ from source')
+    for row in imp:
+        need('exact_adjusted_mean' not in row, 'impact CSV still asserts an exact adjusted mean')
+        scale = EI.scale_intervals(lb, row['model'])
+        bounded = EI.effect_intervals(scale, effects, {'bounded'})
+        sensitivity = EI.effect_intervals(bounded, effects, {'sensitivity'})
+        outer_effects = {t: (dict(e, kind='open', bound=None, bound_up=100., bound_down=100.)
+                             if e['kind'] == 'sensitivity' else e) for t, e in effects.items()}
+        outer = EI.effect_intervals(bounded, outer_effects, {'open'})
+        for prefix, values in [('scale', scale), ('bounded', bounded),
+                               ('sensitivity', sensitivity), ('worst_case', outer)]:
+            for suffix, expected in zip(('low', 'high'), EI.average_interval(values)):
+                need(abs(float(row[prefix + '_' + suffix]) - expected) < 1e-6,
+                     f"impact {row['model']} {prefix}_{suffix} is stale")
+        need(int(row['tasks_in_mean']) == len(scale), f"impact {row['model']} task count is stale")
+        need(abs(float(row['scale_midpoint_mean']) - sum(EI.average_interval(scale))/2) < 1e-6,
+             f"impact {row['model']} display midpoint is stale")
+    need(effects['portfolio_risk_calibration']['kind'] == 'sensitivity',
+         'Portfolio sweep must not enter the documented-limit category')
     # side-by-side comparison counts in README and METHOD agree with data/paired-repeatability.csv
     import build_site as BS
     cc = BS.comparison_counts()

@@ -62,6 +62,22 @@ class Solution(_Baseline):
                 "confidences": {k: out["confidences"][k] for k in keep}}
 ''',
 }
+# Honest twin of `neighbor` keyed by the integer node ids from input_data["test_nodes"]
+# (problem.md: keys "can be strings or values convertible to strings"). Same values as neighbor.
+WRAP["neighbor_intkeys"] = WRAP["neighbor"].replace("preds[str(t)] =", "preds[t] =").replace("confs[str(t)] =", "confs[t] =")
+assert WRAP["neighbor_intkeys"].count("preds[t] =") == 2 and "preds[str(t)] =" not in WRAP["neighbor_intkeys"]
+# Bad control: neighbor_intkeys with the last test node dropped and the first node repeated as a
+# string key, so the key count still equals the number of test nodes but two keys share one str().
+WRAP["dupkeys_after_str"] = WRAP["neighbor_intkeys"].replace("class Solution(_Baseline):", "class _IntNeighbor(_Baseline):", 1) + '''
+class Solution(_IntNeighbor):
+    def solve(self, input_data):
+        out = super().solve(input_data)
+        tn = [int(t) for t in input_data["test_nodes"]]
+        preds, confs = out["predictions"], out["confidences"]
+        del preds[tn[-1]], confs[tn[-1]]
+        preds[str(tn[0])] = preds[tn[0]]; confs[str(tn[0])] = confs[tn[0]]
+        return {"predictions": preds, "confidences": confs}
+'''
 (out / "baseline").mkdir(parents=True, exist_ok=True)
 (out / "baseline" / "solution.py").write_text(base, encoding="utf-8")
 for name, wrap in WRAP.items():

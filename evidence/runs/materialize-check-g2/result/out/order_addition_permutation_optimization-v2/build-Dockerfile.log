@@ -1,0 +1,37 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 532B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 3)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 6.59kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8
+#5 resolve docker.io/seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/home/workspace/complex_job_scheduling/tests/test_final_result.py /home/workspace/complex_job_scheduling/tests/test_final_result.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:e599e8a0fc9b9a355ef5277d3778fa7e8c21ca238e214bcb96968062f8768c0d done
+#7 exporting config sha256:b8fd80f68c8df9a3563b0ad141146630130581477e9349e3e647f67e7fc470ce done
+#7 exporting attestation manifest sha256:d02bc8a7efb2e3a2456fc858183ec9ede1fd5ab0d8d10bc2044f61e308592b6f done
+#7 exporting manifest list sha256:d6107849aa0f2c486b3de891e5337094dee62c87bfadda229b7566e9f2ff3383 done
+#7 naming to docker.io/seededge/edgebench.judge.order_addition_permutation_optimization:f6f385925889-ebv-v2 done
+#7 unpacking to docker.io/seededge/edgebench.judge.order_addition_permutation_optimization:f6f385925889-ebv-v2 0.0s done
+#7 DONE 0.1s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 3)

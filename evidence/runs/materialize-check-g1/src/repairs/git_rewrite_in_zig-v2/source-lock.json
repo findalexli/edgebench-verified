@@ -1,0 +1,54 @@
+{
+ "task_id": "git_rewrite_in_zig",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/git_rewrite_in_zig.json",
+  "sha256": "6ae15eab2468ec372b36ae6101310d21c34803d147fa79752c3fe55f154a7332"
+ },
+ "original_judge_image": "seededge/edgebench.judge.git_rewrite_in_zig@sha256:645bc84baa85454ad3a853ce9ef5bde80a04b502eadf088667e76f203793cae7",
+ "original_judge_image_tag": "0d404251e9c9",
+ "v2_judge_image_tag": "0d404251e9c9-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/opt/tests/test.sh",
+   "original_sha256": "c2e6d4469213855332e68080aea62bd94806c56b64e7487a54651122b03329a7",
+   "original_bytes": 13223,
+   "replacement": "files/test.sh",
+   "replacement_sha256": "87bae2a52b1566498d5fa4f3f9e523e5caae9e4364168b1d8b9ae46bd82acc7b",
+   "replacement_bytes": 14084,
+   "mode": "0755"
+  }
+ ],
+ "task_json_in_sha256": "18f74146bc525c31931d0e44c0d998fc024d036b788f1cd95add61c2806f325d",
+ "repair_patch_sha256": "290ea55d771d0e327c6033a451face18a71f4a8b2c975437cad1b951991360e4",
+ "dockerfile_sha256": "26f8d890d5c6796eee917b6e5f547966b894379683d1669a88f11727bf56671c",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "unchanged in image": {
+  "/opt/tests/compute_reward.py": "28eea3d67e5bdb409ed06df8cfe0d69be9636b58ee8b2f86900c6d5915f35d0c",
+  "/opt/tests/pytest_shim.sh": "6e38e136602a6e4b930d248afce9d3c2e857276b7ebb819464c64228c21daab6"
+ },
+ "rescale_changed": false,
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.git_rewrite_in_zig@sha256:645bc84baa85454ad3a853ce9ef5bde80a04b502eadf088667e76f203793cae7"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/opt/tests/test.sh",
+    "sha256": "c2e6d4469213855332e68080aea62bd94806c56b64e7487a54651122b03329a7"
+   }
+  ],
+  "outputs": {
+   "files/test.sh": "87bae2a52b1566498d5fa4f3f9e523e5caae9e4364168b1d8b9ae46bd82acc7b"
+  },
+  "repair_patch_sha256": "290ea55d771d0e327c6033a451face18a71f4a8b2c975437cad1b951991360e4",
+  "materialize_sh_sha256": "ff2d2bf542beb2ba8069513dce0b92ab03ce3570301c0c92cae16af392ff5396",
+  "task_json_diff_sha256": "6b39ee1dbc42eb2059c68ec22158f10145b2dd5b27c440306f3ffccfef3d8bdb"
+ }
+}

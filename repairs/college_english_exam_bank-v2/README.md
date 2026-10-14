@@ -17,7 +17,7 @@ the reconciliation finds no recorded deductions and gives the rule its full maxi
 were deducted, but every checkpoint is reported as not triggered. The reconciliation trusts the
 checkpoints and again awards full marks. Review: `evidence/reviews/college_english_exam_bank.md`.
 
-### Design decision (review caveats a and b)
+### Design decisions (review caveats a and b, edge cases e2 and e1)
 
 **(a) What happens to an invalid grading result.** EdgeBench's harness (`sforge` at `6e4e5f4`) keeps a
 `valid: false` result's score: `_grade_structured` copies `score` (0 here), and the task's `score_first`
@@ -60,6 +60,36 @@ an extra checkpoint beyond the rubric's details, a veto flag on a rule without v
 and floor wording after character 200 of `reason`. Each of these is dropped or ignored by
 normalisation or reconciliation. The check now reads the normalised rows, which closes all four.
 
+**(c) Which JSON block is scored (review edge case e2, revision v2.2, 2026-10-13).** The grading
+prompt's step 5 asks the model to check its work and then output the corrected final JSON. A model
+output can therefore hold a draft block followed by the final one. The original grader scores the
+last block that has `scores`. Version v2.1 skipped a last block that failed its checks and scored an
+earlier block that passed, without asking again. That earlier block may be the draft from before the
+model's own check, so its score can be higher or lower than the model's final assessment (row NZ in
+`paired/results.md`: a full-marks draft before an incomplete final block scored 100 under v2.1).
+The fixed version now follows the original's rule that the last `scores` object decides:
+
+- If the last block parses and passes the checks, it is scored, as in the original.
+- If the last block parses but fails the checks, the output has no usable assessment. The fixed
+  version asks again once (the same bounded re-ask as in (a)) and otherwise reports a grading failure.
+  It never scores an earlier block in this case.
+- Only if the last block is truncated, does not parse, or is not a `scores` object does it fall back
+  to the latest earlier block, as the original also does. A truncated block is not an assessment the
+  model can have meant as final, while a block that parses is the model's last word.
+
+The same rule applies to the unfenced fallback that scans the output for raw JSON objects.
+
+**(d) A rule score written as a number in a string (review edge case e1, revision v2.2).** Version
+v2.1 rejected a row whose rule `score` was not a JSON number, even when its checkpoint list was
+complete and consistent, although the original scores such a row correctly from its checkpoints.
+That turned a correct score into a grading failure when the second answer had the same form. The
+fixed version now reads a plain decimal string (`"12"`, `" 12.0 "`: optional sign, digits, optional
+decimal point, surrounding spaces) as that number, but only when the row's checkpoint list is
+complete; the converted number then goes through the same consistency check as a JSON number (b).
+Everything else stays rejected: booleans (`true` is not a score), other strings (`"twelve"`, `"12分"`,
+`"nan"`), and a decimal string on a row without a complete checkpoint list, where reconciliation
+would have to trust the rule score itself.
+
 ### Exact change (`repair.patch`, generated with `diff -u`)
 
 Only `/home/workspace/scoring/grade_with_codex.py` changes.
@@ -79,9 +109,18 @@ Only `/home/workspace/scoring/grade_with_codex.py` changes.
    reconciles to full marks.
 4. **Added.** The bounded loop in `main()` that asks again covers caveat (a). After it, the existing
    `emit_all_failed(..., status="json_parse_failed")` path reports `valid: false`.
+5. **Added (v2.2).** `extract_json_from_output` lets the last `scores` object decide (c), through
+   `_parse_scores_object` and `_validate_or_reject`.
+6. **Added (v2.2).** `_require_complete_rule_scores` converts a plain decimal-string rule score on a
+   row with complete checkpoints (`_decimal_string_value`) and returns the converted rows, which
+   `_validate_result` then normalises and checks (d).
+7. **Comment and message (v2.2).** The comment in `main()` now says what the harness does with a
+   grading failure (ranked as 0 by `score_first`; the run keeps its best other submission), and a
+   timeout of the second call reports that call's own time limit.
 
-`task.json.in` changes only `judge.image_tag` (`6628b6d3f834` to `6628b6d3f834-ebv-v2.1`). Tag `6628b6d3f834-ebv-v2`
-(v1.0 package, the first fix) is superseded, because the revised grader scores differently; rebuild.
+`task.json.in` changes only `judge.image_tag` (`6628b6d3f834` to `6628b6d3f834-ebv-v2.2`). Tags `6628b6d3f834-ebv-v2`
+(v1.0 package, the first fix) and `6628b6d3f834-ebv-v2.1` (the revision of 2026-10-12) are superseded, because the
+current grader scores differently; rebuild.
 
 The Dockerfile is `FROM` the pinned digest of the original grader image plus one `COPY`. The rubric, the
 reference attachments and the work image are unchanged. Hashes are in `source-lock.json`.
@@ -94,11 +133,21 @@ the original when the grading model:
 
 - leaves out, duplicates or invents a rule;
 - gives a row with neither a score nor a complete list of checkpoints;
-- or gives a deductive row that reports a deduction but would be scored at full marks.
+- or gives a deductive row that reports a deduction but would be scored at full marks;
+- or ends its output with a `scores` block that fails these checks, after an earlier block (c);
+- or gives a rule score that is a boolean or a string that is not a plain decimal number, or a
+  decimal string on a row without a complete checkpoint list (d).
 
-The original version scored those cases with silently filled full marks. The fixed version asks again and otherwise reports a
-grading failure. Runs with a real model may make extra grading calls (paid API cost) when the first
-assessment is incomplete.
+The original version scored the first four cases with silently filled full marks (in the fourth it
+scores the failing last block, row N: 81). It scored rows of the last kind from their checkpoints or
+rule score (rows QC, QD, QF in `paired/results.md`: 77, 77 and 0, correctly). For that last kind the
+fixed version turns a correct score into a grading failure if asking again does not help. Booleans
+and words are not scores in the prompt's format, and a string score without checkpoints is the only
+evidence for its rule, so we accept that cost rather than guess; how often a real model writes such
+rows is not measured. A plain decimal-string rule score with complete checkpoints scores exactly as
+the original (rows QA, QB: byte-identical). In the five listed cases the fixed version asks again
+and otherwise reports a grading failure. Runs with a real model may make extra grading calls (paid API
+cost) when the first assessment is incomplete.
 
 ## How it was checked
 
@@ -121,18 +170,32 @@ that leaves out a rule is rejected, and a deductive rule whose row reports a ded
 gets full marks. The last result holds for all inputs. It does not depend on how the Lean model
 represents normalisation, because the check uses the same functions as the score.
 
-The model starts from the parsed rows. The two versions can parse different JSON blocks from the
-same output: the fixed version skips a block that fails its checks and falls back to an earlier
-one, while the original scores the last block that has `scores`. Output with a complete block
-(77) followed by an incomplete one scores 81 under the original grader and 77 (valid, one call)
-under the fixed version. Measured side by side (`paired/results.md`, appendix): 81 under the original grader, 77 (valid, one call) under the fixed version; with the complete block last, or an unparseable block last, both score 77.
+The model starts from the parsed rows, so it does not cover which JSON block is parsed or the
+decimal-string conversion; both were tested on the real code instead.
+
+Revision v2.2 (2026-10-13) was checked the same way, three times on fresh workers with identical graded
+results (`evidence/runs/college_english_exam_bank-v2-paired-fix3`, `-fix3-rep2`, `-fix3-rep3`), with
+the original grader, the v2.1 fixed grader and the v2.2 one side by side on 29 responses
+(`paired/results.md`, section "Revision v2.2"). In each run the package's own `materialize.sh`
+regenerated the v2.2 grader from the pinned image and `repair.patch` (sha256 `a0af4360…`, as locked)
+before the image was built. Every response of the earlier runs except N gives the same result and
+the same structured output under v2.2 as under v2.1. The changed rows:
+
+- A complete block followed by an incomplete one in one output (N) scores 81 under the original, 77
+  under v2.1 (the earlier block, no second call) and is asked again under v2.2: a grading failure if
+  the second answer is the same, 77 if the second answer is complete (NA). A full-marks draft before
+  an incomplete block (NZ) scores 100 under v2.1 and fails under v2.2; the same holds for unfenced
+  blocks (NU). A truncated last block (P) still falls back to the complete one: 77 in all three.
+- A plain decimal-string rule score with complete checkpoints (QA, QB) scores 77 under the original
+  and v2.2 (byte-identical structured result, one call) and was a grading failure under v2.1. A
+  boolean, a word, an inconsistent "0" and a "0" without checkpoints (QC–QF) stay grading failures.
 
 ## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/college_english_exam_bank-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.college_english_exam_bank:6628b6d3f834-ebv-v2.2 .
 ```
 
 `materialize.sh` takes the following steps:
@@ -152,6 +215,11 @@ The task JSON change is in `task-json.diff`.
 
 - The deduction check covers rules the rubric marks `deductive` (all 12 in this task), not
   additive or penalty rules.
+- As in the original, a fenced block takes priority over unfenced JSON: if a model writes a fenced
+  draft and then an unfenced final JSON object, the fenced block is the one checked. This ordering is
+  unchanged from the original and was not tested.
+- Whether `codex exec` output in this image ever holds more than one `scores` block, and how often a
+  real model writes a rule score as a string or boolean, are not measured.
 
 - No live grading model was used. How often real models produce incomplete rows, and whether
   past scores were inflated, are not measured.

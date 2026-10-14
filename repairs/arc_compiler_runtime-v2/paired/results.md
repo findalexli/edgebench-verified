@@ -1,7 +1,10 @@
 # arc_compiler_runtime v2: paired results
 
 E2B job `evidence/runs/arc_compiler_runtime-v2-paired/` (one worker, 242 s, exit 0,
-worker killed; raw logs in that job's `result/out/`). For each control, `compiler/src/` was taken from
+worker killed; raw logs in that job's `result/out/`). It was repeated twice with the same script:
+`evidence/runs/arc_compiler_runtime-v2-paired-rep2/` (ledger `status: exit=0` on its second launch; the first
+launch ended `exit=2` after 27 s) and `-rep3/` (`exit=0`). `summary.csv` and all ten `suites_*` files are
+byte-identical across the three runs, so every number below holds in all three. For each control, `compiler/src/` was taken from
 the v1 work image (original digest) or the v2 work image (built from `../Dockerfile` inside the worker),
 the control overlay was applied, and the submission was scored by the **original judge image** with the
 **original `judge.eval_cmd`** under `--network none`. Public = `bash score.sh` inside the matching work image.

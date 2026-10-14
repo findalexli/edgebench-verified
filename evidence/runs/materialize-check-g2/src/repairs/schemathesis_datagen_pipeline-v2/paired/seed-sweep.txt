@@ -1,0 +1,12 @@
+Superseded: first run with a year >= 1900 floor; the final run is in evidence/runs/schemathesis_datagen_pipeline-v2-paired-b/result/out/.
+
+sweep variant=correct image=v1 failing_seeds=0/20
+sweep variant=correct image=v2 failing_seeds=0/20
+sweep variant=stdlib_1900 image=v1 failing_seeds=0/20
+sweep variant=stdlib_1900 image=v2 failing_seeds=0/20
+sweep variant=independent_fields image=v1 failing_seeds=0/20
+sweep variant=independent_fields image=v2 failing_seeds=20/20
+sweep variant=off_by_one_clock image=v1 failing_seeds=0/20
+sweep variant=off_by_one_clock image=v2 failing_seeds=20/20
+sweep variant=stdlib_any_year image=v1 failing_seeds=0/20
+sweep variant=stdlib_any_year image=v2 failing_seeds=20/20

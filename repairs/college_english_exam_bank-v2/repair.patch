@@ -5,36 +5,68 @@
 # files/home/workspace/scoring/grade_with_codex.py <- judge:/home/workspace/scoring/grade_with_codex.py
 --- a/files/home/workspace/scoring/grade_with_codex.py
 +++ b/files/home/workspace/scoring/grade_with_codex.py
-@@ -1021,14 +1021,14 @@
+@@ -1021,16 +1021,24 @@
  # Output parsing
  # ---------------------------------------------------------------------------
  
 -def extract_json_from_output(output: str) -> dict | None:
+-    """Extract JSON scoring result from codex output with validation."""
 +def extract_json_from_output(output: str, rules: list[dict]) -> dict | None:
-     """Extract JSON scoring result from codex output with validation."""
++    """Extract JSON scoring result from codex output with validation.
++
++    v2: the last JSON object with "scores" decides, as in the original. If it
++    parses but fails the completeness/consistency checks, the output has no
++    usable assessment (None, so the caller re-asks): an earlier block may be a
++    draft the model revised in its self-check, so it is not scored instead. An
++    earlier block is used only when every later one is truncated, unparseable
++    or not a scores object.
++    """
      # Try ```json block first (case-insensitive, flexible whitespace)
      pattern = r"```(?:json|JSON)?\s*\n(.*?)\n\s*```"
      matches = re.findall(pattern, output, re.DOTALL)
      if matches:
          for match in reversed(matches):
 -            result = _try_parse_and_validate(match)
-+            result = _try_parse_and_validate(match, rules)
-             if result:
-                 return result
+-            if result:
+-                return result
++            obj = _parse_scores_object(match)
++            if obj is not None:
++                return _validate_or_reject(obj, rules)
  
-@@ -1039,18 +1039,18 @@
+     # Fallback: find JSON with raw_decode from last { onwards
+     decoder = json.JSONDecoder()
+@@ -1038,19 +1046,36 @@
+         if output[i] == "{":
              try:
                  obj, _ = decoder.raw_decode(output, i)
-                 if isinstance(obj, dict) and "scores" in obj:
+-                if isinstance(obj, dict) and "scores" in obj:
 -                    return _validate_result(obj)
-+                    return _validate_result(obj, rules)
              except (json.JSONDecodeError, ValueError):
                  continue
++            if isinstance(obj, dict) and "scores" in obj:
++                return _validate_or_reject(obj, rules)
  
      return None
  
  
 -def _try_parse_and_validate(text: str) -> dict | None:
++def _parse_scores_object(text: str) -> dict | None:
++    """The parsed block if it is a JSON object with "scores", else None (truncated/unparseable/other)."""
++    try:
++        obj = json.loads(text)
++    except (json.JSONDecodeError, ValueError):
++        return None
++    return obj if isinstance(obj, dict) and "scores" in obj else None
++
++
++def _validate_or_reject(obj: dict, rules: list[dict]) -> dict | None:
++    try:
++        return _validate_result(obj, rules)
++    except ValueError as e:
++        sys.stderr.write(f"[codex-judge] Last scoring JSON rejected: {e}\n")
++        return None
++
++
 +def _try_parse_and_validate(text: str, rules: list[dict]) -> dict | None:
      try:
          obj = json.loads(text)
@@ -44,13 +76,29 @@
      except (json.JSONDecodeError, ValueError):
          pass
      return None
-@@ -1151,8 +1151,73 @@
+@@ -1151,8 +1176,96 @@
      )
  
  
 -def _validate_result(obj: dict) -> dict:
-+def _require_complete_rule_scores(obj: dict, rules: list[dict]) -> None:
-+    """Reject incomplete/malformed assessment before lossy normalization."""
++_DECIMAL_STRING = re.compile(r"\s*[+-]?(?:\d+(?:\.\d*)?|\.\d+)\s*")
++
++
++def _decimal_string_value(value: object) -> int | float | None:
++    """v2: the number a plain decimal string ("15", " 7.5 ") denotes, else None."""
++    if type(value) is not str or not _DECIMAL_STRING.fullmatch(value):
++        return None
++    text = value.strip()
++    return float(text) if "." in text else int(text)
++
++
++def _require_complete_rule_scores(obj: dict, rules: list[dict]) -> dict:
++    """Reject incomplete/malformed assessment before lossy normalization.
++
++    Returns obj with each rule score given as a plain decimal string converted
++    to that number, when the row's checkpoint list is complete (the later
++    consistency check then reads the converted number). bool is never a number.
++    """
 +    if type(rules) is not list or not rules or any(type(r) is not dict for r in rules):
 +        raise ValueError("invalid_authoritative_rule_list")
 +    expected = [r.get("rule_id") for r in rules]
@@ -62,6 +110,7 @@
 +    if len(scores) != len(expected):
 +        raise ValueError("incomplete_or_duplicate_rule_scores")
 +    seen = set()
++    rows = []
 +    for row in scores:
 +        if type(row) is not dict or type(row.get("rule_id")) is not str:
 +            raise ValueError("invalid_score_record")
@@ -70,6 +119,11 @@
 +            raise ValueError("unknown_or_duplicate_rule_score")
 +        rule = rules[expected.index(rid)]
 +        value = row.get("score")
++        number = _decimal_string_value(value)
++        if number is not None and _has_complete_checkpoints(row, rule):
++            row = dict(row, score=number)
++            value = number
++        rows.append(row)
 +        # A row must carry a finite rule score, or (v2) a complete checkpoint
 +        # vector from which reconciliation computes the rule score.
 +        if value is not None or not _has_complete_checkpoints(row, rule):
@@ -78,6 +132,7 @@
 +        seen.add(rid)
 +    if seen != set(expected):
 +        raise ValueError("incomplete_rule_scores")
++    return dict(obj, scores=rows)
 +
 +
 +def _has_complete_checkpoints(row: dict, rule: dict) -> bool:
@@ -115,11 +170,11 @@
 +
 +def _validate_result(obj: dict, rules: list[dict]) -> dict:
      """Validate and normalize the scoring result schema."""
-+    _require_complete_rule_scores(obj, rules)
++    obj = _require_complete_rule_scores(obj, rules)
      scores = obj.get("scores", [])
      validated_scores = []
      for s in scores:
-@@ -1217,7 +1282,7 @@
+@@ -1217,7 +1330,7 @@
      )
  
      veto = bool(obj.get("veto_triggered", False))
@@ -128,7 +183,7 @@
          "veto_triggered": veto,
          "veto_reason": str(obj.get("veto_reason", "")) if veto else None,
          "summary": _sanitize_summary_feedback(obj.get("summary", "")),
-@@ -1225,6 +1290,8 @@
+@@ -1225,6 +1338,8 @@
          "raw_total": raw_total,
          "max_total": max_total,
      }
@@ -137,7 +192,7 @@
  
  
  def load_rubrics_json(scoring_dir: Path) -> list[dict]:
-@@ -1610,23 +1677,36 @@
+@@ -1610,23 +1725,38 @@
      if args.dump_prompt:
          Path(args.dump_prompt).write_text(prompt, encoding="utf-8")
  
@@ -152,7 +207,8 @@
 +    # v2: an unparseable, incomplete or inconsistent assessment is a grading
 +    # failure, never a score. Re-ask while the original --timeout budget allows
 +    # (at most 1 + SEBENCH_CODEX_ASSESSMENT_RETRIES calls, default 2), then emit
-+    # valid=false so the harness excludes the attempt instead of ranking it.
++    # valid=false with score 0: score_first ranks that submission as 0 and the
++    # run keeps its best other submission.
 +    deadline = time.monotonic() + args.timeout
 +    attempts = 1 + max(0, int(os.environ.get("SEBENCH_CODEX_ASSESSMENT_RETRIES", "1")))
 +    result = None
@@ -161,9 +217,10 @@
 +        if attempt > 1 and remaining < 120:
 +            break
 +        try:
-+            codex_output = invoke_codex(prompt, timeout=args.timeout if attempt == 1 else remaining)
++            call_timeout = args.timeout if attempt == 1 else remaining
++            codex_output = invoke_codex(prompt, timeout=call_timeout)
 +        except subprocess.TimeoutExpired:
-+            emit_all_failed(f"Codex timed out after {args.timeout}s", status="timeout")
++            emit_all_failed(f"Codex timed out after {call_timeout}s", status="timeout")
 +            return 0
 +        except Exception as e:
 +            emit_all_failed(f"Codex invocation failed: {e}", status="codex_failed")

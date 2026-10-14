@@ -35,6 +35,8 @@ engines that the original version rewarded now score 0. A run whose timed Maven 
 
 A side-by-side run of the original and fixed graders on the same submissions: [paired/results.md](paired/results.md). Correct engines pass the integration tests and are timed. The two buggy engines pass the original grader and score 0 under the fixed grader.
 
+At the leaderboard judge setting (`--cpus 4 --memory 8g`), three jobs (`evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep{1,2,3}`, each ledger `exit=0`) built this image with `materialize.sh` and `docker build` and ran the unmodified engine and `topo21` under both graders. The gate passed (33 tests) in all six v2 runs, and the raw scores (811–1194 and 1684–1832) are in the range of the original grader on the same workers (965–1059 and 1644–1994); every one is below the 0-point reference, so 0 out of 100. Each v2 run, gate included, took at most 228 s of the 2,400 s `eval_timeout`.
+
 ## Limits
 
 - The two integration test classes cover fees, rejections and events, not every property a correct engine must keep.
@@ -48,7 +50,7 @@ A side-by-side run of the original and fixed graders on the same submissions: [p
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/exchange_core_throughput-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.exchange_core_throughput:2cbf65650b3c-ebv-v2 .
 ```
 
 `materialize.sh` takes the following steps:

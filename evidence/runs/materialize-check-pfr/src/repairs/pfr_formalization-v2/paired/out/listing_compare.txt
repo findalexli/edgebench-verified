@@ -1,0 +1,10 @@
+v1: SUMMARY checked=1124 bad=423; HASH checked=weak_PFR result=true; HASH checked=entropic_PFR_conjecture result=true
+v2: SUMMARY checked=1120 bad=423; HASH checked=weak_PFR result=true; HASH checked=entropic_PFR_conjecture result=true
+declarations: v1=1124 v2=1120; BAD: v1=423 v2=423; same BAD names: True
+auto-param helpers: v1=39 v2=35 (all OK, axioms=[]: True)
+non-helper declarations whose line differs: 5
+  PFR_projection: status BAD->BAD; axioms unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound] -> unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]; type identical apart from autoParam argument: True; v1 args ['sorry', 'sorry']; v2 args ['PFR_projection._auto_1', 'PFR_projection._auto_3']
+  PFR_projection': status BAD->BAD; axioms unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound] -> unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]; type identical apart from autoParam argument: True; v1 args ['sorry', 'sorry']; v2 args ["PFR_projection'._auto_1", "PFR_projection'._auto_3"]
+  app_ent_PFR: status BAD->BAD; axioms unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound] -> unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]; type identical apart from autoParam argument: True; v1 args ['sorry', 'sorry']; v2 args ['app_ent_PFR._auto_1', 'app_ent_PFR._auto_3']
+  torsion_dist_shrinking: status BAD->BAD; axioms unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound] -> unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]; type identical apart from autoParam argument: True; v1 args ['sorry', 'sorry']; v2 args ['torsion_dist_shrinking._auto_1', 'torsion_dist_shrinking._auto_3']
+  torsion_free_doubling: status BAD->BAD; axioms unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound] -> unexpected=[sorryAx]; all=[propext, sorryAx, Classical.choice, Quot.sound]; type identical apart from autoParam argument: True; v1 args ['sorry', 'sorry']; v2 args ['torsion_free_doubling._auto_1', 'torsion_free_doubling._auto_3']

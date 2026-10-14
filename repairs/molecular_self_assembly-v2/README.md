@@ -43,7 +43,7 @@ Side-by-side run of the original and fixed graders on the same solutions at `--c
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full file. Regenerate it, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/molecular_self_assembly-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.molecular_self_assembly:96df6463f5e6-ebv-v2 .
 ```
 
 `materialize.sh` pulls the pinned judge image by digest, extracts the original file with `docker create` and `docker cp` (no container runs), checks it against `source-lock.json`, applies `repair.patch` with `patch -p1` and verifies the sha256 of the result against `source-lock.json` → `materialize.outputs`. It was run on a clean copy of this package and reproduced the reference file byte for byte (sha256 `1cf8f71d…9ef0`, mode 0755).
@@ -51,6 +51,7 @@ Git does not contain any file copied from the EdgeBench images. It holds only ou
 ## Limits
 
 - The fixed grader reads its CPU quota from the cgroup (`cpu.max`). This was tested with `docker run --cpus` only, not inside a Kubernetes pod, which is the backend EdgeBench's leaderboard settings use.
+- Without a cgroup quota the fixed grader falls back to `os.cpu_count()`, which counts all of the host's CPUs, not the ones the grader may use (`os.sched_getaffinity`). Under a CPU-set limit with no quota (for example `docker run --cpuset-cpus`), or where the pod cannot see its own `cpu.max`, it can still run more cases at once than it has CPUs, as the original does. Using the affinity count would need a new paired run, so it is not changed here.
 - This fixes only the CPU contention. The other note on the [case page](../../cases/molecular_self_assembly.md) still applies and is not changed here: the README's 1 GB memory limit per solution is not enforced; only the grader container's memory limit applies.
 - The test solutions model a single-threaded solver with a fixed amount of CPU work, or one that stops at a 25 s wall-clock deadline. Multi-threaded solvers were not tested.
 - The CPU quota is rounded down: a grader with 2.5 CPUs runs 2 cases at once.

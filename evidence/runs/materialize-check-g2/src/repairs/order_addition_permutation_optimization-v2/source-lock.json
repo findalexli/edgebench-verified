@@ -1,0 +1,50 @@
+{
+ "task_id": "order_addition_permutation_optimization",
+ "version": "v2",
+ "original_task_json": {
+  "path": "tasks/order_addition_permutation_optimization.json",
+  "sha256": "d27df71e7e05146b3c8ac49932ea789e5c3d30f53bb538d8d79a8f2ef7d8b84f"
+ },
+ "original_judge_image": "seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8",
+ "original_judge_image_tag": "f6f385925889",
+ "v2_judge_image_tag": "f6f385925889-ebv-v2",
+ "changed_files": [
+  {
+   "image_path": "/home/workspace/complex_job_scheduling/tests/test_final_result.py",
+   "original_sha256": "4f1d5fad34da78a1c4083009c0ebcd6de0f2853c13e380ab446b4ad51d8301cc",
+   "original_bytes": 6265,
+   "replacement": "files/home/workspace/complex_job_scheduling/tests/test_final_result.py",
+   "replacement_sha256": "37e7bae613c314dc251129448f3d98429201ccd4d86278dec9de0de606577bd3",
+   "replacement_bytes": 6265
+  }
+ ],
+ "task_json_in_sha256": "75dfa4c28daaf32aa42d83cb2cb1e5759873d2d5522846f0120b3745d645ce1f",
+ "repair_patch_sha256": "c9c692bcd453c6013e34d8ce8495e73b822efd619d6998981e4447ad47e71600",
+ "dockerfile_sha256": "037a1e442a946b96a994cf78ee614de103cddfbe1f50606cf8261d3980395252",
+ "work_image_changed": false,
+ "task_json_fields_changed": [
+  "judge.image_tag"
+ ],
+ "installed_private_helper_sha256 (tests/score_vcpom_result.py, unchanged)": "337837af7067b3dae8d4ef068d26d8dd8ff779f9a627d95451af2ca411c99630",
+ "same_bytes_as_earlier_reviewed_candidate (repairs/order-helper-integrity-v1/source-lock.json)": true,
+ "materialize": {
+  "schema": "edgebenchverified-materialize-v1",
+  "policy": "Image-derived files are not stored in Git. materialize.sh pulls the pinned images, extracts the inputs, applies repair.patch and verifies every output below.",
+  "images": {
+   "judge": "seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8"
+  },
+  "inputs": [
+   {
+    "source": "judge",
+    "path": "/home/workspace/complex_job_scheduling/tests/test_final_result.py",
+    "sha256": "4f1d5fad34da78a1c4083009c0ebcd6de0f2853c13e380ab446b4ad51d8301cc"
+   }
+  ],
+  "outputs": {
+   "files/home/workspace/complex_job_scheduling/tests/test_final_result.py": "37e7bae613c314dc251129448f3d98429201ccd4d86278dec9de0de606577bd3"
+  },
+  "repair_patch_sha256": "c9c692bcd453c6013e34d8ce8495e73b822efd619d6998981e4447ad47e71600",
+  "materialize_sh_sha256": "8d2bcd5e8010e1d2bb168a202bf286c15dd602757c99f94c0a75b1957ea320cd",
+  "task_json_diff_sha256": "4f66a1891a1f99e2cd377f16937e027939fe0d85208e0bd87b95138ec0a8a3fb"
+ }
+}

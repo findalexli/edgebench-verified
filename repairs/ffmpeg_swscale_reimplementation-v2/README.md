@@ -12,26 +12,25 @@ Details are in the [review](../../evidence/reviews/ffmpeg_swscale_reimplementati
 
 The change is in `files/compute_reward.py`; `repair.patch` is generated from it.
 
-- The return code of each timed call is checked.
-- The timed output is compared with the output of the original FFmpeg library, using the correctness workloads' per-plane PSNR thresholds (40 dB for scaling, 60 dB for same-size conversions). The output of the last timed call of each workload is compared; the return code of every timed call is checked. PSNR is the peak signal-to-noise ratio, measured for each colour plane.
-- A failing timed workload is treated exactly as the original code already treats a crashed workload: its speedup is 0, and it is kept in the mean.
+- Every warmup and timed call checks its return code and output against the original FFmpeg result, using 40 dB for scaling and 60 dB for same-size conversion.
+- Output buffers are cleared before each call; an incomplete implementation cannot accidentally reuse a previous frame. Clearing and validation happen outside the measured call interval.
+- A failed workload forces the total raw reward to exactly zero. The historical positive floor could leave a positive overall reward when other factors were large.
+- Contexts are destroyed even when validation raises an exception.
 
-Nothing else changes.
-
-**Score compatibility:** correct implementations score as on the original grader, apart from timing noise. Implementations that produce wrong output, or no output, on a timed workload lose that credit. Scores from the fixed grader are not comparable with scores from the original grader.
+This revision is **v2.2**, with a distinct judge image tag. All-valid speedup aggregation is unchanged, but per-call checking changes execution/cache conditions and adds wall time. The valid native control finished in 43 seconds versus 38 seconds originally; this finite observation does not establish statistical timing equivalence.
 
 ## How it was checked
 
-The side-by-side run of the original and fixed graders on the same submissions is in [paired/results.md](paired/results.md).
+[Follow-up component checks](paired/followup.md) exercise the original and revised scorer functions, using deterministic library and image adapters. Correct calls retain credit; null contexts, nonzero returns, skipped writes and wrong outputs lose credit, including early and middle calls followed by a correct final call. The actual aggregation rejects one failed workload even when the other nine are 100× faster.
 
-The fix is accepted on that run. The three test submissions that show the problem (errors on 3:1 downscale, a silent no-op on 3:1 downscale, and errors on RGBA→RGB24) scored 2.881761, 2.884506 and 1.305860 on the original grader, and 0.000464, 0.000463 and 0.000451 on the fixed grader. A correct control, a shim that forwards every call to the original library, kept its score within timing noise on both graders: 0.967353 and 0.980056 when it processes each frame once, and 0.509049 and 0.507032 when it processes each frame twice (a second, about 2× slower correct control). An invalid submission (unsupported yuv420p→rgb24) scored 0.0 (28/30) on both graders. The shipped starting code dropped from 0.447819 to 0.012416. That drop is correct: its output on one timed workload (1080p→360p nearest) is below 40 dB, so it really is wrong. All values are raw geometric-mean speedups, before conversion to the 0–100 score scale.
+[Historical native paired results](paired/results.md) apply only to v2. They are preserved, but do not validate v2.2. The current v2.2 patch passed six [native paired scorer arms](paired/followup.md): the correct forwarder retained raw reward (1.056386 → 1.020061), a skipped-output control fell from 1.038559 to exactly zero despite passing 30/30 separate correctness workloads, and the always-error control stayed at zero. Forty native buffer-layout checks also passed. This follow-up invokes the full scorer directly and does not rerun the Rust submission-build path.
 
 ## Build and use
 
 Git does not contain any file copied from the EdgeBench images. It holds only our diff (`repair.patch`) and the recipe for rebuilding the full files. Regenerate them, then build:
 
 ```bash
-./materialize.sh && docker build -t ebv/ffmpeg_swscale_reimplementation-judge:v2 .
+./materialize.sh && docker build -t edgebench.judge.ffmpeg_swscale_reimplementation:d3c0aa3fa987-ebv-v2.2 .
 ```
 
 `materialize.sh` takes the following steps:
@@ -47,6 +46,6 @@ See `../MATERIALIZE-CHECK.md` for how each package was verified.
 
 ## Limits
 
-- A single zero factor drives the geometric mean to ~0. This is the original convention for crashes.
+- Every-call validation adds wall time. The first implementation exceeded a 360-second observation cap; stride-aware native copies reduced the correct-control run to 43 seconds. Approximate output can still require more PSNR computation.
 - The timed set still differs from the correctness set.
-- Timings depend on the host.
+- Timings depend on the host; clearing buffers also changes cache state.

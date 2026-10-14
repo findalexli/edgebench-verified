@@ -1,0 +1,65 @@
++ echo '>>>>> Start Test Output'
+>>>>> Start Test Output
++ cd /home/workspace
++ python3 scoring/grade_with_codex.py --report . --scoring-dir scoring --task-id college_english_exam_bank --input-dir input --timeout 900
+[codex-judge] task=college_english_exam_bank
+[codex-judge] submission=. (directory)
+[codex-judge] scoring_dir=scoring
+[codex-judge] input_dir=input
+[codex-judge] mode=agent (codex reads files directly)
+[codex-judge] submission_manifest=expected=22 actual=1 missing=20
+[codex-judge] visual_assets=count=0 contact_sheet=None
+[codex-judge] structure_manifest=files=1
+[codex-judge] Created Codex config.toml (model=fixed, base_url=https://openrouter.ai/api/v1)
+[codex-judge] model=fixed, timeout=900s
+[codex-judge] provider=OpenRouter
+[codex-judge] base_url=https://openrouter.ai/api/v1
+[codex-judge] Running codex attempt 1/3...
+[codex-judge] codex exit code: 0
+[codex-judge] Last scoring JSON rejected: incomplete_or_duplicate_rule_scores
+[codex-judge] Assessment attempt 1/2: no complete, consistent scoring JSON (len=46)
+[codex-judge] Output tail: ```json
+{"scores": [], "summary": "none"}
+```
+
+[codex-judge] model=fixed, timeout=899s
+[codex-judge] provider=OpenRouter
+[codex-judge] base_url=https://openrouter.ai/api/v1
+[codex-judge] Running codex attempt 1/3...
+[codex-judge] codex exit code: 0
+[codex-judge] Last scoring JSON rejected: incomplete_or_duplicate_rule_scores
+[codex-judge] Assessment attempt 2/2: no complete, consistent scoring JSON (len=46)
+[codex-judge] Output tail: ```json
+{"scores": [], "summary": "none"}
+```
+
+[grader] fatal: Codex output did not contain complete, consistent scoring JSON
+<<<SEBENCH_GRADING_RESULT_JSON_START>>>
+{
+  "grader_status": "json_parse_failed",
+  "error": "Codex output did not contain complete, consistent scoring JSON",
+  "veto_triggered": false,
+  "veto_reason": null,
+  "summary": "评分服务暂时未完成，请先核对任务交付物是否完整。",
+  "scores": [],
+  "raw_total": 0,
+  "max_total": 0
+}
+<<<SEBENCH_GRADING_RESULT_JSON_END>>>
+>>>>> Start Structured Result
+{
+  "valid": false,
+  "score": 0,
+  "pass_rate": 0,
+  "summary": "评分服务暂时未完成，请先核对任务交付物是否完整。",
+  "metrics": {
+    "grader_status": "json_parse_failed"
+  }
+}
+>>>>> End Structured Result
++ EXIT_CODE=0
++ echo '>>>>> End Test Output'
+>>>>> End Test Output
++ echo 'Exit code: 0'
+Exit code: 0
++ exit 0

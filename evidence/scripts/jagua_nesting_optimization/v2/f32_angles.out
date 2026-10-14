@@ -1,0 +1,21 @@
+   90 f32 rad -> f64 deg                 90.00000250447816        dev=2.504e-06
+   90 f64 rad -> f32 -> f64 deg          90.00000250447816        dev=2.504e-06
+   90 f32 rad -> f32 deg (to_degrees)    90.0                     dev=0.000e+00
+  180 f32 rad -> f64 deg                 180.00000500895632       dev=5.009e-06
+  180 f64 rad -> f32 -> f64 deg          180.00000500895632       dev=5.009e-06
+  180 f32 rad -> f32 deg (to_degrees)    180.0                    dev=0.000e+00
+  270 f32 rad -> f64 deg                 270.00000068324533       dev=6.832e-07
+  270 f64 rad -> f32 -> f64 deg          270.00000068324533       dev=6.832e-07
+  270 f32 rad -> f32 deg (to_degrees)    270.0                    dev=0.000e+00
+  -90 f32 rad -> f64 deg                 -90.00000250447816       dev=2.504e-06
+  -90 f64 rad -> f32 -> f64 deg          -90.00000250447816       dev=2.504e-06
+  -90 f32 rad -> f32 deg (to_degrees)    -90.0                    dev=0.000e+00
+ -180 f32 rad -> f64 deg                 -180.00000500895632      dev=5.009e-06
+ -180 f64 rad -> f32 -> f64 deg          -180.00000500895632      dev=5.009e-06
+ -180 f32 rad -> f32 deg (to_degrees)    -180.0                   dev=0.000e+00
+worst over allowed angles (incl. +-360 multiples up to 720):
+  f32 rad -> f64 deg                 2.004e-05
+  f64 rad -> f32 -> f64 deg          2.004e-05
+  f32 rad -> f32 deg (to_degrees)    6.104e-05
+max deviation over every 0.001 deg in [-360, 360], all paths: 4.565e-05 deg
+f32 ulp at 360 deg = 3.052e-05 deg; at 720 deg = 6.104e-05; f32 ulp at 2pi rad = 2.732e-05 deg

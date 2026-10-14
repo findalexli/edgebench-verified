@@ -35,14 +35,14 @@ feeswap 做的工作与正确的引擎相同。所以这三者之间的排名是
 
 **说明：评分器的 CPU 预算没有写明，而在 4 个 CPU 下随附引擎得 0 分。** 任务说明描述了引擎的线程拓扑（"builder defaults (4ME+2RE, msgsInGroupLimit=4096, BUSY_SPIN wait, DirectImpl orderbook, AffinityThreadFactory)"），并说 "thread topology changes (e.g. 4ME+2RE → 2ME+1RE) can have dramatic impact"（线程拓扑的改变可能有巨大影响），但没有写明 CPU 数。在 EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml` 中（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`），评分器继承 `judge_cpu_limit: 4`。这一限制是 CPU 配额：在 `--cpus 4` 的评分器容器内，`nproc` 仍报告 8，而 `/sys/fs/cgroup/cpu.max` 读数为 `400000 100000`（由 `evidence/runs/exchange_core_throughput-cpu4v8-a/run.sh` 第 17 行记录；输出文件连同镜像摘录一起不放入仓库）。所以按 `nproc` 决定自身规模的引擎会看到 8 个 CPU。
 
-在原始评分器上用原始 eval_cmd 测量（`--network none --memory 4g`，挂载与 `exchange_core_throughput-v2-paired-b` 中相同的 `~/.m2` 文件；`evidence/runs/exchange_core_throughput-cpu4v8-a/result/out/summary.txt`、`-b`）：
+在原始评分器上用原始 eval_cmd 测量（`--network none`，挂载与 `exchange_core_throughput-v2-paired-b` 中相同的 `~/.m2` 文件）。4 个 CPU 一列合并了两组运行：随附引擎 4 次、建议 1 次，使用 `--memory 4g`（`evidence/runs/exchange_core_throughput-cpu4v8-a/result/out/summary.txt`、`-b`）；以及各 3 次，使用排行榜的 `--memory 8g`（`evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep{1,2,3}`）。8 个 CPU 一列只来自第一组。
 
 | 引擎 | 4 个 CPU，原始结果（MT/s × 1000） | 4 个 CPU，满分 100 | 8 个 CPU，原始结果 | 8 个 CPU，满分 100 |
 |---|---|---|---|---|
-| 随附引擎（每种 CPU 数各 4 次运行，在两台机器上） | 939、983、1,006、1,033 | 0 | 3,418、3,617、4,155、4,638 | 46.63–75.58 |
-| 任务说明的建议，2ME+1RE（每种 CPU 数各一次运行） | 2,091 | 0.02 | 4,122 | 64.39 |
+| 随附引擎（4 个 CPU 下 7 次运行，8 个 CPU 下 4 次） | 939、965、972、983、1,006、1,033、1,059 | 0 | 3,418、3,617、4,155、4,638 | 46.63–75.58 |
+| 任务说明的建议，2ME+1RE（4 个 CPU 下 4 次运行，8 个 CPU 下 1 次） | 1,644、1,894、1,994、2,091 | 0–0.02 | 4,122 | 64.39 |
 
-在 4 个 CPU 下，随附引擎的速度低于 0 分参考点（2,090.63），因此得 0 分。任务说明自己的建议在 4 个 CPU 下让吞吐量翻倍，但也只达到 0 分点；在 8 个 CPU 下，它的单次运行结果（4,122）落在随附引擎的范围内（3,418–4,638）。所以诚实策略之间的排名取决于 CPU 数，而在排行榜设置下，每个低于约 2.09 MT/s 的引擎都得 0 分。0 分参考点的来源（在什么硬件上测得）不明。它保持不变，因为不存在可精确计算的替代值；根据这些运行设定新的参考点将是另一项决定。修复版没有改变这一点。
+在 4 个 CPU 下，随附引擎的速度低于 0 分参考点（2,090.63），因此得 0 分。任务说明自己的建议在 4 个 CPU 下让吞吐量大约翻倍（原始结果 1,644–2,091），但四次运行中有三次仍低于 0 分点，第四次只比它高 0.4，因此得满分 100 中的 0–0.02 分；在 8 个 CPU 下，它的单次运行结果（4,122）落在随附引擎的范围内（3,418–4,638）。所以诚实策略之间的排名取决于 CPU 数，而在排行榜设置下，每个低于约 2.09 MT/s 的引擎都得 0 分。0 分参考点的来源（在什么硬件上测得）不明。它保持不变，因为不存在可精确计算的替代值；根据这些运行设定新的参考点将是另一项决定。修复版没有改变这一点。在同样的设置下（`--cpus 4 --memory 8g`，即排行榜的 `judge_cpu_limit` 和 `judge_mem_limit`），修复版的三次运行每次都通过了集成测试步骤（`GATE OK … tests=33`），随附引擎的原始结果为 811、1,073 和 1,194，2ME+1RE 建议为 1,684、1,687 和 1,832；同一批工作节点上的原始评分器结果为 965–1,059 和 1,644–1,994；全部都是满分 100 中的 0 分。修复版的分数在原始评分器的吞吐量噪声范围之内（随附引擎为 811–1,194，原始评分器全部七次运行为 939–1,059）（`evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep{1,2,3}`）。
 
 ## 影响有多大
 
@@ -52,7 +52,7 @@ feeswap 做的工作与正确的引擎相同。所以这三者之间的排名是
 
 在未修改的计时测试之前，修复版评分器在一次单独的 Maven 运行中执行项目自带的集成测试 `ITFeesExchangeBasic` 和 `ITExchangeCoreIntegrationRejectionBasic`（33 个测试）。只要其中任何一个失败，提交就得 0 分（`WA`，答案错误）。计时的 Maven 运行没有改变。
 
-修复版还改变了计时运行的计分方式。原始评分器在 Maven 以非零退出时把运行标为 `WA`，但仍把吞吐量打印为分数（`CASE 0000 WA score=<MT/s × 1000>` 和 `TOTAL_SCORE <MT/s × 1000>`），而评测框架不论用例状态如何都按 `TOTAL_SCORE` 排序（`sforge/harness/grading.py` 的 `extract_score`；`selection.py` 的 `_score_first`）。修复版在状态不是 `OK` 时把分数设为 0（`repair.patch` 中的 `if status != "OK": score = 0`）。吞吐量从 `Average: … MT/s` 行解析得到，而测试只有在所有轮次都通过检查后才记录这一行（`ThroughputTestsModule.java:42-69`）；逐轮的行带有日志前缀，不匹配评分器的行首模式。所以只有当 Maven 在记录平均值之后以非零退出时，才会走到这条路径，例如引擎在关闭时出错。规则写道 "`mvn test` must still pass functional assertions"（测试仍必须通过功能断言）。并排对照中有一组走到了这条路径（`shutdownbusy`）：全部 50 轮通过、平均值被记录，然后引擎在关闭时抛出异常，但只在吞吐量配置下如此，因此集成测试仍然通过。原始评分器打印 `CASE 0000 WA score=2939`，评测框架把它当作有效提交，得 32.31 分（满分 100）；在修复版下它通过了集成测试，评分器打印 `WA score=0`，得 0 分（两次运行：原始评分器下为 2939 和 2943，修复版下为 0 和 0）。如果关闭在集成测试的配置下也失败（`shutdownall`），则会先被集成测试步骤拒绝。没有任何诚实的测试提交走到过这条路径：未修改的引擎和 `topo21` 在全部 10 次修复版计时运行中都是 `OK`。
+修复版还改变了计时运行的计分方式。原始评分器在 Maven 以非零退出时把运行标为 `WA`，但仍把吞吐量打印为分数（`CASE 0000 WA score=<MT/s × 1000>` 和 `TOTAL_SCORE <MT/s × 1000>`），而评测框架不论用例状态如何都按 `TOTAL_SCORE` 排序（`sforge/harness/grading.py` 的 `extract_score`；`selection.py` 的 `_score_first`）。修复版在状态不是 `OK` 时把分数设为 0（`repair.patch` 中的 `if status != "OK": score = 0`）。吞吐量从 `Average: … MT/s` 行解析得到，而测试只有在所有轮次都通过检查后才记录这一行（`ThroughputTestsModule.java:42-69`）；逐轮的行带有日志前缀，不匹配评分器的行首模式。所以只有当 Maven 在记录平均值之后以非零退出时，才会走到这条路径，例如引擎在关闭时出错。规则写道 "`mvn test` must still pass functional assertions"（测试仍必须通过功能断言）。并排对照中有一组走到了这条路径（`shutdownbusy`）：全部 50 轮通过、平均值被记录，然后引擎在关闭时抛出异常，但只在吞吐量配置下如此，因此集成测试仍然通过。原始评分器打印 `CASE 0000 WA score=2939`，评测框架把它当作有效提交，得 32.31 分（满分 100）；在修复版下它通过了集成测试，评分器打印 `WA score=0`，得 0 分（原始评分器在第一个作业的两次运行中为 2939 和 2943；修复版在三个作业的全部六次运行中都为 0）。如果关闭在集成测试的配置下也失败（`shutdownall`），则会先被集成测试步骤拒绝。没有任何诚实的测试提交走到过这条路径：未修改的引擎和 `topo21` 在全部 18 次修复版计时运行中都是 `OK`。
 
 修复版还从 Maven Central 预先下载了 30 个缺失的公开文件（surefire、JUnit platform、opentest4j 和 apiguardian 构件）放入镜像的 `~/.m2`，因此能在无网络时评分。在下面的原始评分器运行中，挂载了同样的文件，使原始评分器能离线运行。"原始镜像，不含新增文件"一行显示的是不挂载这些文件时的原始镜像。
 
@@ -91,7 +91,8 @@ feeswap 做的工作与正确的引擎相同。所以这三者之间的排名是
 - 这两个集成测试类覆盖手续费、拒绝和事件。它们没有覆盖正确引擎必须保持的每一项性质，因此一个有其他类型错误行为的引擎仍可能通过修复版评分器的测试步骤。
 - 修复版没有把每个用户的余额、持仓或事件流与参考运行做比较，而是使用随附的集成测试。
 - 只测试了两种不正确引擎的改动。
-- 关于 CPU 数的说明只基于一种机器（E2B，8 vCPU Xeon 2.6 GHz）：随附引擎在 4 个 CPU 下 4 次运行、在 8 个 CPU 下 4 次运行，2ME+1RE 建议各 1 次。在 8 个 CPU 下，吞吐量在不同运行和工作节点之间最多相差 36%（3,418–4,638），而且这些 8 个 CPU 的运行（`--memory 4g`）比更早的并排对照运行（2,008–3,105，`--memory 6g`，其他工作节点）更快。
+- 集成测试只在项目非默认的 Maven 配置 `it` 中运行，而不在规则所说的默认 `mvn test` 中运行；工作镜像中也没有这些测试，因此解题者在提交前无法运行它们。修复版通过这些测试来落实 "Do NOT change behavior"（不得改变行为）这一规则。
+- 关于 CPU 数的说明只基于一种机器（E2B，8 vCPU Xeon 2.6 GHz）：随附引擎在原始评分器上于 4 个 CPU 下运行 7 次、8 个 CPU 下运行 4 次，2ME+1RE 建议在 4 个 CPU 下运行 4 次、8 个 CPU 下运行 1 次。4 个 CPU 的运行使用 `--memory 4g`（随附引擎 4 次、建议 1 次）或 `--memory 8g`（各 3 次）。在 8 个 CPU 下，吞吐量在不同运行和工作节点之间最多相差 36%（3,418–4,638），而且这些 8 个 CPU 的运行（`--memory 4g`）比更早的并排对照运行（2,008–3,105，`--memory 6g`，其他工作节点）更快。
 
 ## 复现
 
@@ -100,5 +101,6 @@ feeswap 做的工作与正确的引擎相同。所以这三者之间的排名是
 - 集成测试检查：`evidence/runs/exchange_core_throughput-oracletests/run.sh`。
 - 原始评分器与修复版评分器的并排对照运行：`repairs/exchange_core_throughput-v2/paired/run.sh`。变体定义在 `paired/mutate.py` 中。
 - 第二项改动的对照组：`evidence/runs/exchange_core_throughput-v2-paired-shutdownfail/run.sh`（变体在 `inputs/mutate.py` 中）。
+- 排行榜设置（`--cpus 4 --memory 8g`）下的修复版：`evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep{1,2,3}/run.sh`，结果在 `paired/results.md` 末尾。
 - 修复包：`repairs/exchange_core_throughput-v2/`（存放修复版的文件夹），包含 `Dockerfile`、`repair.patch`、`files/` 和 `source-lock.json`。
 - 支持记录：`repairs/exchange_core_throughput-v2/paired/results.md` 和 `evidence/reviews/exchange_core_throughput-native.md`。
