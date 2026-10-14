@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The original score scale puts its reference points above the most turns the grader allows, so no submission can score above 21.02/100; the fixed version changes only the score scale.</mark>
 
-![Number line of the original 0 to 100 score scale, where everything above 21.02, the score of the 92,304-turn cap, is unreachable, compared with a fixed scale running from 3,418 to 92,304.](figures/treant_forest.svg)
+![Two number lines. The original 0 to 100 scale, with reference points 5,369, 88,189, 330,195 and 451,198 turns at 0, 20, 80 and 100, is reachable only up to the 92,304-turn cap at 21.02; the rest is marked unreachable. The fixed scale runs from 3,418 turns at 0 to 92,304 at 100. An honest test solution of 17,960 turns sits at 3.04 on the original scale and 16.36 on the fixed one.](figures/treant_forest.svg)
 
-*The original scale's reference points lie above the turn cap, so no submission can score above 21.02 of 100; the fixed scale ends at the cap, 92,304.*
+*In Treant Forest no submission can score above 21.02 out of 100, because the score scale was set for totals the checker never allows. The agent plays a grid puzzle scored by the number of turns, and the checker ends each game after 2N² turns, so the total over the 50 cases is at most 92,304, while the original scale needs 330,195 for 80 points. The fixed scale runs from the starter code's 3,418 turns (0) to the 92,304 cap (100), so an honest test solution moves from 3.04 to 16.36 and the order of submissions is unchanged; whether any submission can reach the cap is not shown.*
 
 ## What the task asks
 

@@ -24,37 +24,123 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：科学问题与机器学习</span></div><header class="task-head"><h1>Borden Source Inversion</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <span class="id">borden_source_inversion</span><p class="summary">隐藏的评分模型使用未说明且不符合物理的约定，因此一次性的教科书式解法得分接近基线。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>根据地下水监测井的读数，推断一个隐藏的地下污染源的位置、规模、时间和强度。</dd><dt>问题所在</dt><dd>评分器用一个隐藏模型预测监测井读数；文档给出了模型的组成部分，却没有说明它们如何组合。该模型把速率当作总量，忽略孔隙度和污染源持续时间，标错单位，并把污染源放在其区域的底部而不是中心。教科书模型对公开数据的拟合同样好，得分却更低。</dd><dt>影响有多大</dt><dd>对一次性的诚实拟合，约为原始 109 分中的 24 分（100 分中的 22 分）：教科书模型得 7.0 分，使用隐藏约定得 31.2 分。对根据反馈学习的智能体，影响更小，幅度未测量（其中一个达到 60.10 分）。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：解题者会拿到评分器自己的预测代码及其约定的准确描述，分数刻度从 0 到真实污染源的得分 109。</dd><dt>验证状态</dt><dd>成对原生运行（r2、r3 及其重复，均为 exit=0）在 v1 和 v2 下的原始结果完全相同；随附的正演模型与评分器的模型一致；109 是可精确计算的最大值；修复包在一台干净的机器上从零重建（materialize-check-g3）。没有在 v2 上运行智能体；影响依赖于一种教科书模型变体。</dd><dt>形式化检验</dt><dd>在 Lean 4 中已证明。修复后的刻度和每一个换算后的排行榜数值都由已发布的（一位小数的）分数精确推出。 局限：只涵盖刻度的改变；物理约定无法形式化。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
-<title>Borden Source Inversion scores</title>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：科学问题与机器学习</span></div><header class="task-head"><h1>Borden Source Inversion</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="instruction_mismatch" href="../index.html#instruction_mismatch">任务说明与评分不一致</a> <span class="id">borden_source_inversion</span><p class="summary">隐藏的评分模型使用未说明且不符合物理的约定，因此一次性的教科书式解法得分接近基线。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>根据地下水监测井的读数，推断一个隐藏的地下污染源的位置、规模、时间和强度。</dd><dt>问题所在</dt><dd>评分器用一个隐藏模型预测监测井读数；文档给出了模型的组成部分，却没有说明它们如何组合。该模型把速率当作总量，忽略孔隙度和污染源持续时间，标错单位，并把污染源放在其区域的一个面上，而不是中心。教科书模型对公开数据的拟合同样好，得分却更低。</dd><dt>影响有多大</dt><dd>对一次性的诚实拟合，约为原始 109 分中的 24 分（100 分中的 22 分）：教科书模型得 7.0 分，使用隐藏约定得 31.2 分。对反复提交的智能体，影响更小，幅度未测量：一次真实运行从 7.01 分升到 60.10 分，期间评分器每次都报告其在隐藏监测井上的误差。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：解题者会拿到评分器自己的预测代码及其约定的准确描述，分数刻度从 0 到真实污染源的得分 109。</dd><dt>问题类别</dt><dd><a href="../index.html#instruction_mismatch">任务说明与评分不一致；另涉及：分数换算与选取</a></dd><dt>验证状态</dt><dd>两次并排原生运行及其重复（全部顺利完成）在原始版和修复版下的原始结果完全相同；随附的正演模型与评分器的模型一致；109 是可精确计算的最大值；修复包在一台干净的机器上从零重建（materialize-check-g3）。没有在 v2 上运行智能体；影响依赖于一种教科书模型变体。</dd><dt>形式化检验</dt><dd>在 Lean 4 中已证明。修复后的刻度和每一个换算后的排行榜数值都由已发布的（一位小数的）分数精确推出。 局限：只涵盖刻度的改变；物理约定无法形式化。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 578" role="img">
+<title>教科书拟合得 7 分；按评分器未说明的物理约定拟合得 31 分</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
   .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
   
 </style>
-
-<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Original grader score (the true source scores 109)</text>
-<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
-<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
-<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
-<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
-<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">middle of each range</text>
-<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
-<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
-<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
-<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
-<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
-<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
-<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
-<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
-<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
-
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">教科书拟合得 7 分；按评分器未说明的物理约定拟合得 31 分</text>
+<text x="16" y="54" class="muted" font-size="14" text-anchor="start">任务：根据监测井读数，找出一个隐藏的地下污染源。</text>
+<rect x="16" y="68" width="300" height="136" rx="8" class="accBg"/>
+<text x="30" y="92" class="acc" font-size="14" text-anchor="start" font-weight="700">任务说明怎么写</text>
+<text x="30" y="116" class="ink" font-size="14" text-anchor="start">建立教科书中的地下水模型</text>
+<text x="30" y="136" class="ink" font-size="14" text-anchor="start">（对流–弥散方程）。</text>
+<text x="30" y="156" class="ink" font-size="14" text-anchor="start">C0 是浓度，单位 mg/L。</text>
+<text x="30" y="176" class="ink" font-size="14" text-anchor="start">评分器使用一个“隐藏”模型。</text>
+<rect x="328" y="68" width="376" height="136" rx="8" class="badBg"/>
+<text x="342" y="92" class="bad" font-size="14" text-anchor="start" font-weight="700">评分器的模型实际怎么做（从未说明）</text>
+<text x="342" y="114" class="ink" font-size="14" text-anchor="start">• 把质量速率当作质量</text>
+<text x="342" y="133" class="ink" font-size="14" text-anchor="start">• 忽略土壤孔隙度</text>
+<text x="342" y="152" class="ink" font-size="14" text-anchor="start">• 释放持续多久，总质量都一样</text>
+<text x="342" y="171" class="ink" font-size="14" text-anchor="start">• 把 mg/m³ 当作 mg/L 报告</text>
+<text x="342" y="190" class="ink" font-size="14" text-anchor="start">• 把污染源放在源区盒体的一个面上</text>
+<text x="16" y="228" class="muted" font-size="13" text-anchor="start">两种模型对公开数据的拟合一样好，所以解题者无法判断评分器用的是哪一种。</text>
+<text x="16" y="262" class="ink" font-size="14" text-anchor="start" font-weight="600">对公开数据的一次性拟合</text>
+<text x="16" y="280" class="muted" font-size="13" text-anchor="start">基线，以及同一拟合方法的两种物理模型</text>
+<text x="340" y="262" class="ink" font-size="14" text-anchor="start" font-weight="600">一次真实的智能体运行：4 小时内 36 个提交</text>
+<text x="340" y="280" class="muted" font-size="13" text-anchor="start">每次提交后，评分器都会报告其在隐藏监测井上的误差</text>
+<line x1="50" y1="446.0" x2="300" y2="446.0" class="rule" stroke-width="1"/>
+<line x1="372" y1="446.0" x2="666" y2="446.0" class="rule" stroke-width="1"/>
+<text x="44" y="450.5" class="muted" font-size="13" text-anchor="end">0</text>
+<text x="366" y="450.5" class="muted" font-size="13" text-anchor="end">0</text>
+<line x1="50" y1="400.3" x2="300" y2="400.3" class="rule" stroke-width="1"/>
+<line x1="372" y1="400.3" x2="666" y2="400.3" class="rule" stroke-width="1"/>
+<text x="44" y="404.786" class="muted" font-size="13" text-anchor="end">20</text>
+<text x="366" y="404.786" class="muted" font-size="13" text-anchor="end">20</text>
+<line x1="50" y1="354.6" x2="300" y2="354.6" class="rule" stroke-width="1"/>
+<line x1="372" y1="354.6" x2="666" y2="354.6" class="rule" stroke-width="1"/>
+<text x="44" y="359.071" class="muted" font-size="13" text-anchor="end">40</text>
+<text x="366" y="359.071" class="muted" font-size="13" text-anchor="end">40</text>
+<line x1="50" y1="308.9" x2="300" y2="308.9" class="rule" stroke-width="1"/>
+<line x1="372" y1="308.9" x2="666" y2="308.9" class="rule" stroke-width="1"/>
+<text x="44" y="313.357" class="muted" font-size="13" text-anchor="end">60</text>
+<text x="366" y="313.357" class="muted" font-size="13" text-anchor="end">60</text>
+<rect x="74" y="430.0" width="52" height="16.0" class="badBg"/><rect x="74" y="430.0" width="52" height="16.0" fill="none" class="badS" stroke-width="2"/>
+<text x="100" y="422.973" class="bad" font-size="15" text-anchor="middle" font-weight="700">7.01</text>
+<text x="100" y="466" class="ink" font-size="13" text-anchor="middle">取值范围中点</text>
+<text x="100" y="482" class="ink" font-size="13" text-anchor="middle">（基线）</text>
+<rect x="154" y="429.9" width="52" height="16.1" class="badBg"/><rect x="154" y="429.9" width="52" height="16.1" fill="none" class="badS" stroke-width="2"/>
+<text x="180" y="422.929" class="bad" font-size="15" text-anchor="middle" font-weight="700">7.03</text>
+<text x="180" y="466" class="ink" font-size="13" text-anchor="middle">教科书</text>
+<text x="180" y="482" class="ink" font-size="13" text-anchor="middle">模型</text>
+<rect x="234" y="374.7" width="52" height="71.3" class="goodBg"/><rect x="234" y="374.7" width="52" height="71.3" fill="none" class="goodS" stroke-width="2"/>
+<text x="260" y="367.686" class="good" font-size="15" text-anchor="middle" font-weight="700">31.2</text>
+<text x="260" y="466" class="ink" font-size="13" text-anchor="middle">评分器的</text>
+<text x="260" y="482" class="ink" font-size="13" text-anchor="middle">模型</text>
+<path d="M394.0 430.0 L423.9 430.0 L423.9 411.7 L431.4 411.7 L431.4 355.3 L483.8 355.3 L483.8 321.8 L603.6 321.8 L603.6 308.6 L656.0 308.6" fill="none" class="goodS" stroke-width="2.5"/>
+<circle cx="394.0" cy="430.0" r="3.6" class="acc"/>
+<circle cx="401.5" cy="430.0" r="3.6" class="acc"/>
+<circle cx="409.0" cy="434.5" r="3.6" class="acc"/>
+<circle cx="416.5" cy="433.4" r="3.6" class="acc"/>
+<circle cx="423.9" cy="411.7" r="3.6" class="acc"/>
+<circle cx="431.4" cy="355.3" r="3.6" class="acc"/>
+<circle cx="438.9" cy="364.6" r="3.6" class="acc"/>
+<circle cx="446.4" cy="408.8" r="3.6" class="acc"/>
+<circle cx="453.9" cy="411.7" r="3.6" class="acc"/>
+<circle cx="461.4" cy="411.7" r="3.6" class="acc"/>
+<circle cx="468.9" cy="393.0" r="3.6" class="acc"/>
+<circle cx="476.3" cy="405.7" r="3.6" class="acc"/>
+<circle cx="483.8" cy="321.8" r="3.6" class="acc"/>
+<circle cx="491.3" cy="396.1" r="3.6" class="acc"/>
+<circle cx="498.8" cy="401.5" r="3.6" class="acc"/>
+<circle cx="506.3" cy="386.7" r="3.6" class="acc"/>
+<circle cx="513.8" cy="402.9" r="3.6" class="acc"/>
+<circle cx="521.3" cy="388.0" r="3.6" class="acc"/>
+<circle cx="528.7" cy="411.7" r="3.6" class="acc"/>
+<circle cx="536.2" cy="321.8" r="3.6" class="acc"/>
+<circle cx="543.7" cy="321.8" r="3.6" class="acc"/>
+<circle cx="551.2" cy="352.2" r="3.6" class="acc"/>
+<circle cx="558.7" cy="343.1" r="3.6" class="acc"/>
+<circle cx="566.2" cy="343.1" r="3.6" class="acc"/>
+<circle cx="573.7" cy="352.0" r="3.6" class="acc"/>
+<circle cx="581.1" cy="352.1" r="3.6" class="acc"/>
+<circle cx="588.6" cy="321.8" r="3.6" class="acc"/>
+<circle cx="596.1" cy="321.8" r="3.6" class="acc"/>
+<circle cx="603.6" cy="308.6" r="3.6" class="acc"/>
+<circle cx="611.1" cy="310.5" r="3.6" class="acc"/>
+<circle cx="618.6" cy="314.8" r="3.6" class="acc"/>
+<circle cx="626.1" cy="308.6" r="3.6" class="acc"/>
+<circle cx="633.5" cy="364.6" r="3.6" class="acc"/>
+<circle cx="641.0" cy="343.1" r="3.6" class="acc"/>
+<circle cx="648.5" cy="343.1" r="3.6" class="acc"/>
+<circle cx="656.0" cy="352.5" r="3.6" class="acc"/>
+<line x1="372" y1="374.7" x2="666" y2="374.7" class="goodS" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="672" y="379.686" class="good" font-size="13" text-anchor="start">31.2</text>
+<text x="387" y="434.973" class="acc" font-size="14" text-anchor="end" font-weight="700">7.01</text>
+<text x="603.6" y="298.622" class="good" font-size="15" text-anchor="middle" font-weight="700">60.10</text>
+<circle cx="384" cy="484" r="3.6" class="acc"/>
+<text x="394" y="488" class="muted" font-size="13" text-anchor="start">每个提交</text>
+<line x1="464" y1="484" x2="484" y2="484" class="goodS" stroke-width="2.5"/>
+<text x="490" y="488" class="muted" font-size="13" text-anchor="start">截至当时的最佳</text>
+<line x1="590" y1="484" x2="610" y2="484" class="goodS" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="616" y="488" class="muted" font-size="13" text-anchor="start">一次性拟合</text>
+<line x1="372" y1="446" x2="666" y2="446" class="inkS" stroke-width="1.2"/>
+<text x="394" y="466" class="muted" font-size="13" text-anchor="middle">1</text>
+<text x="656" y="466" class="muted" font-size="13" text-anchor="middle">36</text>
+<text x="525" y="466" class="muted" font-size="13" text-anchor="middle">按提交顺序 →</text>
+<text x="50" y="298" class="muted" font-size="13" text-anchor="start">原始分</text>
+<line x1="50" y1="446" x2="300" y2="446" class="inkS" stroke-width="1.2"/>
+<text x="16" y="518" class="ink" font-size="13" text-anchor="start">分数为原始结果，范围 0 到 109；真实污染源得 109 分。修复版按原始分 × 100/109</text>
+<text x="16" y="536" class="ink" font-size="13" text-anchor="start">换算为 0–100 分：7.03 → 6.45，31.2 → 28.62，60.10 → 55.14。</text>
+<text x="16" y="564" class="good" font-size="14" text-anchor="start" font-weight="600">修复：向智能体提供评分器自己的模型文件，并写明其中的约定。</text>
 </svg>
-</div><figcaption>评分器使用未说明且不符合物理的约定，因此一次性地用教科书方法诚实拟合公开数据，只能得到基线水平的分数，比使用隐藏约定的同一拟合低约 24 分。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/borden_source_inversion.json">tasks/borden_source_inversion.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h3 id="prompt-borden-3d-groundwater-contaminant-source-inversion">Borden 3D Groundwater Contaminant Source Inversion</h3>
+</div><figcaption>教科书解法只得约 7 分，因为评分器的物理模型采用了任务说明从未交代的约定。智能体要根据监测井读数确定一个地下污染源；评分器的模型例如忽略土壤孔隙度、把质量速率当作质量，而公开数据对它和教科书模型的拟合一样好。用教科书模型一次性拟合得 7.03 分（原始分），同样的方法改用评分器的模型得 31.2 分（原始分范围为 0 到 109；换算为 0–100 分分别是 6.45 和 28.62）；一次真实的智能体运行在 36 个提交中从 7.01 分升到 60.10 分（原始分），期间评分器每次都会报告其在隐藏监测井上的误差。修复后的任务向智能体提供评分器自己的模型，并写明其中的约定，同时按原始分 × 100/109 报告 0–100 分。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/borden_source_inversion.json">tasks/borden_source_inversion.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h3 id="prompt-borden-3d-groundwater-contaminant-source-inversion">Borden 3D Groundwater Contaminant Source Inversion</h3>
 <h4 id="prompt-task">Task</h4>
 <p>You are given a Borden-style 3D groundwater contaminant migration scene derived from a Borden-AdePy reproduction workflow. Your task is to infer a <strong>finite-duration rectangular-region contaminant source</strong> from public monitoring-well readings.</p>
 <p>This is not a point-source task. A point-source answer or the old <code>x0,y0,z0,C0</code> schema is accepted only as a degenerate fallback and cannot receive full credit.</p>
@@ -131,7 +217,7 @@
 <h3 id="case-我们如何检查">我们如何检查</h3>
 <ul><li><strong>原始评分器。</strong> 所有测试提交都在原始公开镜像上运行，该镜像按摘要固定，修复版中未改动。每个提交都以 <code>--network none</code> 运行原始评分命令，分别针对原版和修复版的工作目录。</li><li><strong>独立的正演模型。</strong> 一个独立实现（5×5×1 子点、9 个脉冲、高斯核）从隐藏的真实污染源重现了全部 656 个无噪声答案读数（用 <code>evidence/scripts/borden_source_inversion/forward_check.py</code> 重新运行）。评分器自己的模型在评分器镜像中运行，与存储的读数相对误差在 8.9e-13 以内。</li><li><strong>诚实解法实验。</strong> 这些实验只在公开的含噪声、截尾数据上使用多起点有界最小二乘（60–80 个起点）。一次使用根据文档构建的教科书 ADE 模型，另一次使用评分器的精确约定。原始 <code>evaluate.py</code> 以原始参数为每个拟合得到的 <code>answer.json</code> 评分（本地 Python；numpy 1.24.4、scipy 1.10.1、pandas 2.0.3）。</li><li><strong>可重复性。</strong> 原始评分器与修复版评分器的并排对照测试重复了三次。没有任何测试提交的判定发生变化（见 <code>data/paired-repeatability.md</code>）。</li></ul>
 <h3 id="case-局限">局限</h3>
-<ul><li>我们没有运行任何 AI 模型。并排对照测试使用的是我们编写的测试提交和拟合。原始评分器上的一次第三方 Claude Opus 5.5 运行经过阅读，但没有重新评分（对同一答案，原始结果在两个评分器下完全相同）；它表明迭代的智能体可以部分学到这一约定，但它并没有检验修复。</li><li>数据对这个反问题的约束仍然很弱。使用精确模型的最佳公开数据拟合达到原始结果 31.2（28.6 分，满分 100）。修复去掉的是隐藏约定带来的扣分，而不是问题本身的难度。</li><li><code>C0</code> 仍是一种不符合物理的约定下的 "effective intensity"（有效强度）。修复版把它写进文档而不是修正它，因为修正物理需要重新生成答案。</li><li>只使用了一种拟合方法（多起点最小二乘、log/hinge 损失、一次带种子的 60 或 80 个起点的运行）和一种教科书模型变体。24 分的差距针对的是该变体。</li><li>任务说明说参数 "must stay within"（必须保持在）取值范围内，但原始评分器并没有直接拒绝越界的测试提交（原始结果 4，封顶 15）。这一点没有改变。</li><li>隐藏文件检查只列出了 <code>/home/workspace</code> 中的工作文件。</li><li>评分器从计分目录导入自己的模型副本（<code>hidden_forward_model.py</code>），而不是工作目录中的 <code>forward_model.py</code>，因此修改随附 <code>forward_model.py</code> 的提交无法改变自己的分数。这一点由评分器代码推出；没有对这样的提交评分。</li><li>修复包在一台干净的机器上从零重建过（<code>evidence/runs/materialize-check-g3</code>，<code>status: exit=0</code>）：<code>materialize.sh</code> 原样运行，全部 5 个输出与锁定值一致，构建出的镜像中是锁定的文件。修复版工作镜像的标签 <code>f389fcf94240-ebv-v2.1</code> 是本地构建标签；没有镜像发布到镜像仓库。</li></ul>
+<ul><li>我们没有运行任何 AI 模型。并排对照测试使用的是我们编写的测试提交和拟合。原始评分器上的一次第三方 Claude Opus 5.5 运行经过阅读，但没有重新评分（对同一答案，原始结果在两个评分器下完全相同）；在 36 个提交中，其最佳原始分从 7.01 升到 60.10，而评分器在每次提交后都会报告其在隐藏监测井上的误差。智能体如何利用这些反馈没有核实，这次运行也没有检验修复。</li><li>数据对这个反问题的约束仍然很弱。使用精确模型的最佳公开数据拟合达到原始结果 31.2（28.6 分，满分 100）。修复去掉的是隐藏约定带来的扣分，而不是问题本身的难度。</li><li><code>C0</code> 仍是一种不符合物理的约定下的 "effective intensity"（有效强度）。修复版把它写进文档而不是修正它，因为修正物理需要重新生成答案。</li><li>只使用了一种拟合方法（多起点最小二乘、log/hinge 损失、一次带种子的 60 或 80 个起点的运行）和一种教科书模型变体。24 分的差距针对的是该变体。</li><li>任务说明说参数 "must stay within"（必须保持在）取值范围内，但原始评分器并没有直接拒绝越界的测试提交（原始结果 4，封顶 15）。这一点没有改变。</li><li>隐藏文件检查只列出了 <code>/home/workspace</code> 中的工作文件。</li><li>评分器从计分目录导入自己的模型副本（<code>hidden_forward_model.py</code>），而不是工作目录中的 <code>forward_model.py</code>，因此修改随附 <code>forward_model.py</code> 的提交无法改变自己的分数。这一点由评分器代码推出；没有对这样的提交评分。</li><li>修复包在一台干净的机器上从零重建过（<code>evidence/runs/materialize-check-g3</code>，<code>status: exit=0</code>）：<code>materialize.sh</code> 原样运行，全部 5 个输出与锁定值一致，构建出的镜像中是锁定的文件。修复版工作镜像的标签 <code>f389fcf94240-ebv-v2.1</code> 是本地构建标签；没有镜像发布到镜像仓库。</li></ul>
 <h3 id="case-复现">复现</h3>
 <ul><li>原始评分器镜像：<code>sha256:b1a08348…</code>（修复版中未改动）。</li><li>诚实解法实验：<code>python3 evidence/scripts/borden_source_inversion/textbook_solver_check.py &lt;judge_root&gt; &lt;out_dir&gt;</code>（同一文件夹中还有 <code>judge_convention_solver_check.py</code>、<code>judge_convention_truthstart.py</code>、<code>variant_zmid_solver_check.py</code>、<code>textbook_own_prediction.py</code>、<code>forward_check.py</code>）。</li><li>并排对照测试：<code>repairs/borden_source_inversion-v2/paired/run.sh</code>（输入在 <code>paired/inputs/</code>，求解程序在 <code>paired/tools/v2_solver.py</code>）。</li><li>改动：<code>repairs/borden_source_inversion-v2/repair.patch</code>、<code>Dockerfile</code>、<code>task.json.in</code>。</li><li>支持记录：<code>repairs/borden_source_inversion-v2/</code>（存放修复版的文件夹；<code>source-lock.json</code> 中有完整哈希）。</li></ul></div></section><section id="files"><h2 class="sec">文件</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/borden_source_inversion.md">GitHub 上的本案例</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/borden_source_inversion.json">原始任务定义（tasks/borden_source_inversion.json）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/borden_source_inversion-v2">修复包（补丁、Dockerfile、任务定义）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/borden_source_inversion-v2/paired/results.md">并排对照结果：原始评分器与修复版评分器</a></li><li><a href="../../data/paired-results.csv">全部并排对照结果（paired-results.csv）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/borden_source_inversion.md">审查记录 (<code>borden_source_inversion.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/borden_source_inversion">证据脚本</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/notes/borden_source_inversion.md">形式化验证说明</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">证据索引</a></li></ul></section><nav class="pager" aria-label="全部任务"><a class="prev" href="arc_compiler_runtime.html" rel="prev"><small>&larr; 上一个</small>Arc Compiler Runtime</a><a class="all" href="index.html">全部任务</a><a class="next" href="college_english_exam_bank.html" rel="next"><small>下一个 &rarr;</small>College English Exam Bank</a></nav></div>
 </main>

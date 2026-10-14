@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 456" role="img">
+<title>在 4 个 CPU 上，每用例需要 16–28 秒（承诺 30 秒以内）的有效解法得不到分数</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
+    .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3} .onbar{fill:#10181f}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a} .ruleS{stroke:#2a3843}
+    .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c} .ruleF{fill:#1d2a34}
+  }
+</style>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">在 4 个 CPU 上，每用例需要 16–28 秒（承诺 30 秒以内）的有效解法得不到分数</text>
+<text x="16" y="46" class="muted" font-size="14">评分器同时运行 8 个测试用例。在 4 个 CPU 上每个用例只分到半个 CPU，</text>
+<text x="16" y="65" class="muted" font-size="14">所以时钟时间是计算时间的两倍；只要一个用例超时，整份提交就作废。</text>
+<line x1="80" y1="330.0" x2="660" y2="330.0" class="rule" stroke-width="1"/>
+<text x="70" y="335.0" class="muted" font-size="14" text-anchor="end">0</text>
+<line x1="80" y1="265.0" x2="660" y2="265.0" class="rule" stroke-width="1"/>
+<text x="70" y="270.0" class="muted" font-size="14" text-anchor="end">10</text>
+<line x1="80" y1="200.0" x2="660" y2="200.0" class="rule" stroke-width="1"/>
+<text x="70" y="205.0" class="muted" font-size="14" text-anchor="end">20</text>
+<text x="16" y="96" class="muted" font-size="14">每个用例的时钟时间（秒）</text>
+<line x1="80" y1="135.0" x2="660" y2="135.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="84" y="127.0" class="bad" font-size="14" font-weight="600">30 秒时限</text>
+<polyline points="138,251.4 196,238.4 254,225.3 370,199.2 486,173.1 602,146.8" fill="none" class="goodS" stroke-width="2"/>
+<circle cx="138" cy="251.4" r="5" class="good"/>
+<circle cx="196" cy="238.4" r="5" class="good"/>
+<circle cx="254" cy="225.3" r="5" class="good"/>
+<circle cx="370" cy="199.2" r="5" class="good"/>
+<circle cx="486" cy="173.1" r="5" class="good"/>
+<circle cx="602" cy="146.8" r="5" class="good"/>
+<polyline points="138,172.6 196,146.7" fill="none" class="accS" stroke-width="2"/>
+<circle cx="138" cy="172.6" r="5" class="acc"/>
+<circle cx="196" cy="146.7" r="5" class="acc"/>
+<path d="M248,126.0 L260,138.0 M260,126.0 L248,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M364,126.0 L376,138.0 M376,126.0 L364,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M480,126.0 L492,138.0 M492,126.0 L480,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M596,126.0 L608,138.0 M608,126.0 L596,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<text x="400" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">4 个 CPU：50 个用例中 48 个超时，完全没有分数</text>
+<text x="126" y="180.635" class="acc" font-size="14" font-weight="600" text-anchor="end">4 个 CPU：24 秒</text>
+<text x="208" y="151.70000000000002" class="acc" font-size="14" font-weight="600">28 秒</text>
+<text x="384" y="223.155" class="good" font-size="14" font-weight="600">8 个 CPU：时钟时间 = 计算时间</text>
+<text x="138" y="352.0" class="ink" font-size="14" text-anchor="middle">12</text>
+<text x="196" y="352.0" class="ink" font-size="14" text-anchor="middle">14</text>
+<text x="254" y="352.0" class="ink" font-size="14" text-anchor="middle">16</text>
+<text x="370" y="352.0" class="ink" font-size="14" text-anchor="middle">20</text>
+<text x="486" y="352.0" class="ink" font-size="14" text-anchor="middle">24</text>
+<text x="602" y="352.0" class="ink" font-size="14" text-anchor="middle">28</text>
+<text x="370" y="372.0" class="muted" font-size="14" text-anchor="middle">每个用例的计算时间（秒）</text>
+<text x="16" y="400" class="ink" font-size="14">修复版评分器：同时运行的用例数不超过 CPU 数（此处为 4）。这样，每用例 16 秒和 28 秒</text>
+<text x="16" y="419" class="ink" font-size="14">的解法都通过全部 50 个用例，得 19.80 分（满分 100）。</text>
+<text x="16" y="444" class="muted" font-size="13">图中为 50 个用例中最慢的一个。超时的用例在 30 秒时被终止。</text>
+</svg>

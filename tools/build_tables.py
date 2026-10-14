@@ -26,11 +26,13 @@ def main():
     with (ROOT / 'data/decisions.csv').open('w', newline='') as f:
         w = csv.writer(f, lineterminator='\n')
         w.writerow(['task_id', 'name', 'decision', 'outcome', 'summary', 'effect', 'what_we_did',
-                    'technical_finding', 'technical_max_effect', 'fixed_version_folder', 'validation_status'])
+                    'technical_finding', 'technical_max_effect', 'fixed_version_folder', 'validation_status',
+                    'problem_category', 'secondary_problem_categories'])
         for r in rows:
             t = r['task_id']
             w.writerow([t, names[t], r['proposed'], LABEL[r['proposed']], plain[t]['headline'], plain[t]['effect'],
-                        plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', ''), r.get('validation_status') or ('Historical paired scope only; see the case page and package limits' if r.get('package') else '')])
+                        plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', ''), r.get('validation_status') or ('Historical paired scope only; see the case page and package limits' if r.get('package') else ''),
+                        r.get('problem_category', ''), ';'.join(r.get('secondary_problem_categories') or [])])
     lines = ['# Outcome for every task', '',
              'The outcome for each of the 51 public tasks. The same data is in [data/decisions.csv](data/decisions.csv); '
              'the `decision` column there uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` '

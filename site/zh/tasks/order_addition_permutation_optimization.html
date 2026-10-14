@@ -24,51 +24,108 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：组合优化</span></div><header class="task-head"><h1>Order Addition Permutation Optimization</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <span class="id">order_addition_permutation_optimization</span><p class="summary">一项过时的文件检查让每份提交都失败，因此后来的改进被忽略。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>找出数字 1 到 1000 的一种排列，使一个隐藏成本函数的输出尽可能小。</dd><dt>问题所在</dt><dd>评分器的一项测试把一个辅助文件与一个过时的指纹作比较；该文件只改了注释，但这项测试对每份提交都失败。每份提交自身的分数仍然正确，但没有任何提交能通过所有测试。在该任务选取一次运行最佳结果的规则下，这次运行于是保留其第一份有效提交，而忽略后来更好的提交。</dd><dt>影响有多大</dt><dd>每份提交自身的分数不受影响。只要后来有一份有效提交得分更高，一次运行所报告的最佳分数就是错的；这种情况发生的频率未作测量。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：检查使用当前文件的指纹，因此正确的提交能通过全部五项测试，被选中的是最佳提交，而不是第一份。</dd><dt>验证状态</dt><dd>成对运行（3 次，均为 exit=0）：有效提交通过 5/5，之后更好的提交被选中，无效对照被拒绝；一次真实的存档运行通过 materialize.sh 重新评分；修复包在一台干净的机器上从零重建（materialize-check-g2）。选取规则用 select_best 离线计算，没有经过实际运行的 judge_server。</dd><dt>形式化检验</dt><dd>在 TLA+ 中已模型检验。使用原始校验和时，一次运行总是保留其第一份有效提交（在该任务通过率最高者优先的规则下）；使用修复后的校验和时，保留得分最高的有效提交。在 540 万个状态上做了检验，并在 112,944 次运行上与真实的选取代码做了对照。 局限：每次运行至多四份提交、三种分数取值。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 268" role="img">
-<title>Order Addition best submission</title>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; 全部任务</a><span>领域：组合优化</span></div><header class="task-head"><h1>Order Addition Permutation Optimization</h1><span class="badge b-repair-v2" data-outcome="repair-v2">已修复</span> <a class="badge pc" data-pcat="scale_selection" href="../index.html#scale_selection">分数换算与选取</a> <span class="id">order_addition_permutation_optimization</span><p class="summary">一项过时的文件检查让每份提交都失败，因此后来的改进被忽略。</p><nav class="toc" aria-label="摘要"><a href="#summary">摘要</a><a href="#prompt">任务说明</a><a href="#grading">如何评分</a><a href="#found">我们的发现</a><a href="#files">文件</a></nav></header><section id="summary"><h2 class="sec">摘要</h2><dl class="sum"><dt>任务</dt><dd>找出数字 1 到 1000 的一种排列，使一个隐藏成本函数的输出尽可能小。</dd><dt>问题所在</dt><dd>评分器的一项测试把一个辅助文件与一个过时的指纹作比较；该文件只改了注释，但这项测试对每份提交都失败。每份提交自身的分数仍然正确，但没有任何提交能通过所有测试。在该任务选取一次运行最佳结果的规则下，这次运行于是保留其第一份有效提交，而忽略后来更好的提交。</dd><dt>影响有多大</dt><dd>每份提交自身的分数不受影响。只要后来有一份有效提交得分更高，一次运行所报告的最佳分数就是错的；这种情况发生的频率未作测量。</dd><dt>我们的处理</dt><dd>已修复，发布新版本：检查使用当前文件的指纹，因此正确的提交能通过全部五项测试，被选中的是最佳提交，而不是第一份。</dd><dt>问题类别</dt><dd><a href="../index.html#scale_selection">分数换算与选取；另涉及：工程与运行环境</a></dd><dt>验证状态</dt><dd>成对运行（3 次，均为 exit=0）：有效提交通过 5/5，之后更好的提交被选中，无效对照被拒绝；一次真实的存档运行通过 materialize.sh 重新评分；修复包在一台干净的机器上从零重建（materialize-check-g2）。选取规则用 select_best 离线计算，没有经过实际运行的 judge_server。</dd><dt>形式化检验</dt><dd>在 TLA+ 中已模型检验。使用原始校验和时，一次运行总是保留其第一份有效提交（在该任务通过率最高者优先的规则下）；使用修复后的校验和时，保留得分最高的有效提交。在 540 万个状态上做了检验，并在 112,944 次运行上与真实的选取代码做了对照。 局限：每次运行至多四份提交、三种分数取值。</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 530" role="img">
+<title>一项过时的文件检查让每个提交都有一项测试不通过，因此一次真实智能体运行保留 3.79 分（满分 100），而不是 41.24 分</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .cell{fill:#f1f4f6}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-
-<text x="40" y="26" class="muted" font-size="15" text-anchor="start" font-weight="400">Two valid submissions, in order</text>
-<text x="16" y="96" class="ink" font-size="15" text-anchor="start" font-weight="600">Original</text>
-<text x="16" y="115" class="ink" font-size="15" text-anchor="start" font-weight="600">grader</text>
-<rect x="120" y="46" width="230" height="92" rx="6" class="warnBg" />
-<rect x="120" y="46" width="230" height="92" rx="6" fill="none" class="warnS" stroke-width="3"/>
-<text x="132" y="70" class="ink" font-size="15" text-anchor="start" font-weight="600">1st: order 1, 2, …, 1000</text>
-<text x="132" y="90" class="ink" font-size="14" text-anchor="start" font-weight="400">score 3.3 × 10⁻⁹</text>
-<text x="132" y="108" class="muted" font-size="14" text-anchor="start" font-weight="400">4/5 tests (one always fails)</text>
-<text x="132" y="128" class="warn" font-size="14" text-anchor="start" font-weight="600">kept as best (stuck)</text>
-<rect x="420" y="46" width="230" height="92" rx="6" class="badBg" />
-<rect x="420" y="46" width="230" height="92" rx="6" fill="none" class="badS" stroke-width="3"/>
-<text x="432" y="70" class="ink" font-size="15" text-anchor="start" font-weight="600">2nd: order found by search</text>
-<text x="432" y="90" class="ink" font-size="14" text-anchor="start" font-weight="400">score 0.0093733018</text>
-<text x="432" y="108" class="muted" font-size="14" text-anchor="start" font-weight="400">4/5 tests (one always fails)</text>
-<text x="432" y="128" class="bad" font-size="14" text-anchor="start" font-weight="600">better, but ignored</text>
-<path d="M358 92 L406 92 M398 86 L407 92 L398 98" fill="none" class="inkS" stroke-width="2"/>
-<text x="16" y="212" class="ink" font-size="15" text-anchor="start" font-weight="600">Fixed</text>
-<text x="16" y="231" class="ink" font-size="15" text-anchor="start" font-weight="600">version</text>
-<rect x="120" y="162" width="230" height="92" rx="6" class="accBg" />
-<rect x="120" y="162" width="230" height="92" rx="6" fill="none" class="rule" stroke-width="1.5"/>
-<text x="132" y="186" class="ink" font-size="15" text-anchor="start" font-weight="600">1st: order 1, 2, …, 1000</text>
-<text x="132" y="206" class="ink" font-size="14" text-anchor="start" font-weight="400">score 3.3 × 10⁻⁹</text>
-<text x="132" y="224" class="muted" font-size="14" text-anchor="start" font-weight="400">5/5 tests</text>
-<text x="132" y="244" class="muted" font-size="14" text-anchor="start" font-weight="600">earlier, beaten</text>
-<rect x="420" y="162" width="230" height="92" rx="6" class="goodBg" />
-<rect x="420" y="162" width="230" height="92" rx="6" fill="none" class="goodS" stroke-width="3"/>
-<text x="432" y="186" class="ink" font-size="15" text-anchor="start" font-weight="600">2nd: order found by search</text>
-<text x="432" y="206" class="ink" font-size="14" text-anchor="start" font-weight="400">score 0.0093733018</text>
-<text x="432" y="224" class="muted" font-size="14" text-anchor="start" font-weight="400">5/5 tests</text>
-<text x="432" y="244" class="good" font-size="14" text-anchor="start" font-weight="600">kept as best</text>
-<path d="M358 208 L406 208 M398 202 L407 208 L398 214" fill="none" class="inkS" stroke-width="2"/>
-
+<text x="16" y="26" class="ink" font-size="17" text-anchor="start" font-weight="600">一项过时的文件检查让每个提交都有一项测试不通过，</text>
+<text x="16" y="48" class="ink" font-size="17" text-anchor="start" font-weight="600">于是一次真实智能体运行只保留 3.79 分（满分 100），而不是 41.24 分</text>
+<text x="16" y="74" class="muted" font-size="14" text-anchor="start" font-weight="400">任务：把 1 到 1000 排成一个顺序，使一个隐藏的代价尽可能小。</text>
+<text x="16" y="94" class="muted" font-size="14" text-anchor="start" font-weight="400">5 项测试中有一项要求辅助文件是旧版本，因此所有提交都过不了这一项。</text>
+<text x="16" y="124" class="ink" font-size="14" text-anchor="start" font-weight="600">每个提交的 0–100 分，按评分顺序排列（两个评分器给出的分数相同）</text>
+<line x1="166" y1="252.0" x2="706" y2="252.0" class="rule" stroke-width="1"/>
+<text x="158" y="257.0" class="muted" font-size="13" text-anchor="end" font-weight="400">0</text>
+<line x1="166" y1="202.2" x2="706" y2="202.2" class="rule" stroke-width="1"/>
+<text x="158" y="207.22222222222223" class="muted" font-size="13" text-anchor="end" font-weight="400">20</text>
+<line x1="166" y1="152.4" x2="706" y2="152.4" class="rule" stroke-width="1"/>
+<text x="158" y="157.44444444444446" class="muted" font-size="13" text-anchor="end" font-weight="400">40</text>
+<rect x="479" y="242.6" width="34" height="9.4" class="warn"/>
+<text x="496" y="236.5775282151822" class="ink" font-size="13" text-anchor="middle" font-weight="600">3.79</text>
+<rect x="539" y="212.4" width="34" height="39.6" class="acc"/>
+<text x="556" y="206.39324374090666" class="ink" font-size="13" text-anchor="middle" font-weight="600">15.91</text>
+<rect x="599" y="212.4" width="34" height="39.6" class="acc"/>
+<text x="616" y="206.39324374090666" class="ink" font-size="13" text-anchor="middle" font-weight="600">15.91</text>
+<rect x="659" y="149.4" width="34" height="102.6" class="good"/>
+<text x="676" y="143.36624714442667" class="ink" font-size="13" text-anchor="middle" font-weight="600">41.24</text>
+<path d="M174 242 L174 236 L458 236 L458 242" fill="none" class="mutedS" stroke-width="1.2"/>
+<text x="316" y="228" class="muted" font-size="13" text-anchor="middle" font-weight="400">尚无结果文件：没有分数</text>
+<line x1="166" y1="252" x2="706" y2="252" class="inkS" stroke-width="1.2"/>
+<text x="196" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">1</text>
+<text x="196" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="256" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">2</text>
+<text x="256" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="316" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">3</text>
+<text x="316" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="376" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">4</text>
+<text x="376" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="436" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">5</text>
+<text x="436" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="496" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">6</text>
+<text x="496" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">智能体</text>
+<text x="556" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">7</text>
+<text x="556" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="616" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">8</text>
+<text x="616" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="676" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">9</text>
+<text x="676" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">智能体</text>
+<text x="16" y="318" class="ink" font-size="15" text-anchor="start" font-weight="600">原始评分器</text>
+<text x="16" y="336" class="muted" font-size="13" text-anchor="start" font-weight="400">通过的测试</text>
+<text x="16" y="354" class="bad" font-size="14" text-anchor="start" font-weight="600">保留 3.79</text>
+<rect x="170" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="196" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="230" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="256" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="290" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="316" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="350" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="376" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="410" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="436" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="470" y="300" width="52" height="58" rx="5" class="warnBg"/>
+<rect x="470" y="300" width="52" height="58" rx="5" fill="none" class="warnS" stroke-width="2.5"/>
+<text x="496" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">4/5</text>
+<text x="496" y="346" class="warn" font-size="13" text-anchor="middle" font-weight="600">保留</text>
+<rect x="530" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="556" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">4/5</text>
+<rect x="590" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="616" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">4/5</text>
+<rect x="650" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="676" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">4/5</text>
+<text x="16" y="384" class="ink" font-size="15" text-anchor="start" font-weight="600">修复版评分器</text>
+<text x="16" y="402" class="muted" font-size="13" text-anchor="start" font-weight="400">通过的测试</text>
+<text x="16" y="420" class="good" font-size="14" text-anchor="start" font-weight="600">保留 41.24</text>
+<rect x="170" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="196" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="230" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="256" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="290" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="316" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="350" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="376" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="410" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="436" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="470" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="496" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">5/5</text>
+<rect x="530" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="556" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">5/5</text>
+<rect x="590" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="616" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">5/5</text>
+<rect x="650" y="366" width="52" height="58" rx="5" class="goodBg"/>
+<rect x="650" y="366" width="52" height="58" rx="5" fill="none" class="goodS" stroke-width="2.5"/>
+<text x="676" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">5/5</text>
+<text x="676" y="412" class="good" font-size="13" text-anchor="middle" font-weight="600">保留</text>
+<text x="16" y="456" class="ink" font-size="13.5" text-anchor="start" font-weight="400">选取规则：保留通过测试最多的提交；只有 5 项全部通过时才比较分数。</text>
+<text x="16" y="476" class="muted" font-size="13.5" text-anchor="start" font-weight="400">原始：所有有分数的提交并列为 5 项中通过 4 项，第一个一直被保留。修复版：5 项全过，最好的胜出。</text>
+<text x="16" y="496" class="muted" font-size="13" text-anchor="start" font-weight="400">自动 = 平台自动评分的一份工作副本；智能体 = 智能体自己提交的。</text>
+<text x="16" y="516" class="muted" font-size="13" text-anchor="start" font-weight="400">条形颜色：金色 = 原始评分器保留的提交；绿色 = 修复版评分器保留的提交；蓝色 = 其他已评分的工作。</text>
 </svg>
-</div><figcaption>一个过时的文件指纹使每份提交至多通过 4/5 项测试，因此原始评分器保留一次运行的第一份有效提交，而忽略后来更好的提交。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/order_addition_permutation_optimization.json">tasks/order_addition_permutation_optimization.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p><strong>Role Setting</strong></p>
+</div><figcaption>一项过时的文件检查使一次真实智能体运行只保留了 3.79 分（满分 100），而后来的一个提交实际得到 41.24 分。智能体要把 1 到 1000 排成一个顺序，使一个隐藏的代价尽可能小；5 项测试中有一项要求辅助文件是旧版本，因此每个提交都有这一项测试不通过。运行保留通过测试最多的提交，只有 5 项全部通过时才比较分数，所以所有有分数的提交都并列为 5 项中通过 4 项，第一个一直被保留。修复版改正了所要求的文件版本后，有分数的提交都通过 5 项，各自的分数不变，运行保留 41.24 分。</figcaption></figure></section><section id="prompt"><h2 class="sec">要求智能体做什么</h2><p class="origin">以下是 EdgeBench 的原始任务文本，即 <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/order_addition_permutation_optimization.json">tasks/order_addition_permutation_optimization.json</a> 中的 <code>work.agent_query</code> 字段，来自字节跳动 Seed 团队在 <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">Hugging Face 上发布的 EdgeBench 数据集</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 许可。文本未作改动，仅从 Markdown 渲染为 HTML；指向任务工作区内文件的链接以纯文本显示。EdgeBench 的评测框架还会附加关于如何提交的标准说明（<code>sforge/harness/evolve_scripts.py</code>），此处未显示。任务说明是 EdgeBench 的原文，在所有语言版本中均以英文显示，未作翻译。</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><p><strong>Role Setting</strong></p>
 <p>You are an expert in black-box combinatorial optimization algorithms. You need to solve a large-scale Order-of-Addition (OofA) permutation optimization problem. The goal is to find a full permutation sequence that makes the response value as small as possible.</p>
 <p>This is a scientific problem in the field of statistical experimental design. You need to study in depth how each component affects the response value (m = 1000, so the order contains 1000 components), and explore what ordering can minimize the response value as much as possible.</p>
 <p><strong>Black-Box Evaluation Interface</strong></p>
@@ -133,16 +190,17 @@ final_num=1000</code></pre>
 <pre><code class="language-python">cost_sub = min(1.0, cost_ref / cost)
 num_sub = min(1.0, num_ref / num)
 score = 100 * (cost_sub ** 3.0) * (num_sub ** 0.5)</code></pre>
-<p>If <code>final_cost &lt;= cost_ref</code> and <code>final_num &lt;= num_ref</code>, the score is the full 100. If the cost is higher than the reference or the call count is higher than the reference, the score decreases. The cost penalty is heavier, so a very low call count cannot compensate for a clearly worse cost.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/order_addition_permutation_optimization.json">tasks/order_addition_permutation_optimization.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>cd /home/workspace/complex_job_scheduling &amp;&amp; python -m pytest tests/test_final_result.py -s -v</code></pre></dd><dt>时限</dt><dd>整个评分运行限时 10 分钟（600 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>.</code> 不计入提交：<code>tests/</code>。</dd><dt>原始结果</dt><dd>评分器运行一套测试；通过率是通过的测试所占的比例，原始结果是评分器输出的 <code>TOTAL_SCORE</code> 行上的数字（解析器 <code>pytest_v</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好。</dd><dt>从原始结果到 0–100 分</dt><dd>直线换算：原始结果为 0 时得 0 分，为 100 时得 100 分，中间的值按线性插值。超出这一范围的结果被截断为 0 或 100。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>linear</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>通过测试比例最高的提交。只有当后来的提交通过的比例严格更高时，才会替换它；只有当两者都通过全部测试时，才比较原始结果（最高）。比例相同时保留较早的提交，一个测试都没有通过的提交永远不会被保留（<code>pass_rate_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>结论：</strong> 已修复。<mark>一项文件完整性测试期望的是某个辅助文件过时的指纹，因此每份提交都会在五项测试中失败一项；按照本任务挑选一次运行最佳提交的规则，这次运行会一直停留在第一份有效提交上，而忽略之后更好的提交。</mark></p>
+<p>If <code>final_cost &lt;= cost_ref</code> and <code>final_num &lt;= num_ref</code>, the score is the full 100. If the cost is higher than the reference or the call count is higher than the reference, the score decreases. The cost penalty is heavier, so a very low call count cannot compensate for a clearly worse cost.</p></div><button type="button" class="prompt-toggle" aria-expanded="false" data-more="显示完整任务说明" data-less="收起">显示完整任务说明</button></div></section><section id="grading"><h2 class="sec">EdgeBench 如何评分</h2><p class="note">以下用通俗的话说明，依据是该任务的定义文件（<a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/order_addition_permutation_optimization.json">tasks/order_addition_permutation_optimization.json</a>）和 EdgeBench 评测框架的代码。这里描述的是原始任务；如下文案例所述，修复版可能会改变评分器。</p><dl class="grade"><dt>评分器命令</dt><dd><pre><code>cd /home/workspace/complex_job_scheduling &amp;&amp; python -m pytest tests/test_final_result.py -s -v</code></pre></dd><dt>时限</dt><dd>整个评分运行限时 10 分钟（600 秒，<code>eval_timeout</code>）。</dd><dt>提交的内容</dt><dd><code>.</code> 不计入提交：<code>tests/</code>。</dd><dt>原始结果</dt><dd>评分器运行一套测试；通过率是通过的测试所占的比例，原始结果是评分器输出的 <code>TOTAL_SCORE</code> 行上的数字（解析器 <code>pytest_v</code>）。</dd><dt>原始结果的优劣方向</dt><dd>越高越好。</dd><dt>从原始结果到 0–100 分</dt><dd>直线换算：原始结果为 0 时得 0 分，为 100 时得 100 分，中间的值按线性插值。超出这一范围的结果被截断为 0 或 100。 不是有限数的原始结果（例如 <code>inf</code>）不获得 0–100 分。 （<code>rescale.kind</code> = <code>linear</code>）<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/score_rescale.py"><code>sforge/harness/score_rescale.py</code></a></div></dd><dt>每次运行保留哪份提交</dt><dd>通过测试比例最高的提交。只有当后来的提交通过的比例严格更高时，才会替换它；只有当两者都通过全部测试时，才比较原始结果（最高）。比例相同时保留较早的提交，一个测试都没有通过的提交永远不会被保留（<code>pass_rate_first</code>）。<div class="src">来源：<a href="https://github.com/findalexli/edgebench-verified/blob/main/sforge/harness/selection.py"><code>sforge/harness/selection.py</code></a></div></dd><dt>智能体能否联网</dt><dd>否：智能体的环境与网络隔离（<code>internet: false</code>）。</dd><dt>评分机器</dt><dd>EdgeBench 官方排行榜设置中为 4 个 CPU 和 8 GB 内存：这是默认值，因为该任务没有单独设定。 <a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>。</dd></dl></section><section id="found"><h2 class="sec">我们的发现</h2><p class="note">完整案例：测试提交、独立检验和修复。文件路径指向<a href="https://github.com/findalexli/edgebench-verified">代码仓库</a>中的位置；链接在 GitHub 上打开。案例译自英文原文；如有出入，以英文原文为准。</p><div class="md"><p><strong>结论：</strong> 已修复。<mark>一项文件完整性测试期望的是某个辅助文件过时的指纹，因此每份提交都会在五项测试中失败一项；按照本任务挑选一次运行最佳提交的规则，这次运行会一直停留在第一份有分数的提交上，而忽略之后更好的提交。</mark></p>
 <h3 id="case-任务要求">任务要求</h3>
 <p>任务说明要求给出 1..1000 的一个排列（一种排序），使一个黑箱响应最小。它列出了 "the evaluator will check"（评测器将检查）的内容：不访问私有内容；基线文件未被修改；<code>final_result.txt</code> 存在；<code>final_pai</code> 是一个有效排列；<code>final_cost</code> 与重新计算的成本一致。</p>
 <p>随后，连续分数 "calculated using <code>score_cost_num(cost, num)</code> from the evaluator-side private <code>tests/score_vcpom_result.py</code>"（使用评测器一侧私有文件中的计分函数计算）。约定中没有任何地方提到辅助文件的指纹。解题者也无法影响它，因为 <code>tests/</code> 不包含在提交中。类别：组合优化。</p>
 <h3 id="case-问题出在哪里">问题出在哪里</h3>
 <p><strong>有一项测试总是失败。</strong> <code>test_private_judge_files_are_available</code> 断言已安装辅助文件的 sha256 指纹等于 <code>3023b9a4…</code>。这是早先一个带中文注释的辅助文件的指纹。后来的一个镜像层把辅助文件替换成了英文注释的译本 <code>337837af…</code>，而期望值没有更新。两个版本的辅助文件只在注释、一个文档字符串和示例标签上不同；<code>parse_result_file</code> 和 <code>score_cost_num</code> 的行为完全相同。这项检查是无条件的，对每份提交都会失败。</p>
-<ul><li><strong>每份提交的分数是正确的。</strong> 只有这一项测试失败。其余四项照常运行，<code>TOTAL_SCORE</code> 用已安装的辅助文件计算。</li><li><strong>通过率被封顶。</strong> 一份完全正确的提交得到的通过率是 0.8，而不是 1.0。</li><li><strong>一次运行的最佳提交选择被冻结。</strong> 本任务的规则（<code>pass_rate_first</code>）保留通过测试最多的提交。只有当两份提交的通过率都是 1.0 时，它才比较分数；否则，较晚的提交只有在通过率严格更高时才胜出。每份有效提交都被封顶在 0.8，因此这次运行的 <code>best_score</code> / <code>best_round</code> 停留在<strong>第一份</strong>有效提交上。</li></ul>
+<ul><li><strong>每份提交的分数是正确的。</strong> 只有这一项测试失败。其余四项照常运行，<code>TOTAL_SCORE</code> 用已安装的辅助文件计算。</li><li><strong>通过率被封顶。</strong> 一份完全正确的提交得到的通过率是 0.8，而不是 1.0。</li><li><strong>一次运行的最佳提交选择被冻结。</strong> 本任务的规则（<code>pass_rate_first</code>）保留通过测试最多的提交。只有当两份提交的通过率都是 1.0 时，它才比较分数；否则，较晚的提交只有在通过率严格更高时才胜出。每份提交都被封顶在 0.8，而每份有分数的提交都达到这一上限，因此这次运行的 <code>best_score</code> / <code>best_round</code> 停留在<strong>第一份</strong>有分数的提交上。</li></ul>
 <p>原始评分器下的例子：两份有效提交，先是恒等排列，然后是搜索结果。恒等排列得分 3.3e-09，搜索结果得分更高。预期：选中搜索结果。实际：选中恒等排列，之后更好的提交被忽略。</p>
 <h3 id="case-影响有多大">影响有多大</h3>
 <p>对于任何有不止一份有效提交、且较晚的提交得分更高的运行，这会改变其记录的分数：之后的改进在这次运行的最佳分数中被忽略。有些使用方改为取所有提交的最大值，这与顺序无关。因此，一个已发布的数字是否有误，取决于是哪个使用方得出的。每份提交自身的分数不受影响。</p>
+<p><strong>真实智能体运行。</strong> 我们用原始评分器和修复版评分器重新评分了一次第三方 Claude Opus 5.5 运行（四小时）的全部 9 份提交（<code>evidence/runs/opus55-regrade2-oa/</code>，<code>result/worker.json</code> 为 <code>status: exit=0</code>；汇总见 <code>evidence/runs/opus55-regrade2-summary/summary.json</code>）。每份提交在两种评分器下的分数完全相同。有分数的 4 份提交在原始评分器下通过 4/5 项测试，在修复版下通过 5/5 项；较早的 5 份自动提交当时还没有 <code>final_result.txt</code>，在原始评分器和修复版下分别通过 2/5 和 3/5 项。因此，原始评分器保留这次运行第一份有分数的提交，3.79 分（满分 100），修复版评分器保留最后一份，41.24 分。</p>
 <h3 id="case-修复">修复</h3>
 <p>修复版只改动 <code>tests/test_final_result.py</code> 中的一个值：<code>EXPECTED_SCORE_HELPER_SHA256</code> 改为已安装辅助文件的指纹 <code>337837af…</code>。以下内容不变：辅助文件、<code>.so</code>、基线文件、任务说明、智能体的工作镜像、解析器、挑选最佳提交的规则和分数刻度。任务 JSON 只改动 <code>judge.image_tag</code>。</p>
 <div class="tablewrap"><table><thead><tr><th>提交</th><th>角色</th><th>评分器</th><th>通过的测试</th><th style="text-align:right">pass_rate</th><th style="text-align:right">原始 TOTAL_SCORE</th><th style="text-align:right">100 分制得分</th><th>失败的测试</th></tr></thead><tbody><tr><td>identity</td><td>有效</td><td>原始版</td><td>4/5</td><td style="text-align:right">0.80</td><td style="text-align:right">3.3e-09</td><td style="text-align:right">3.3e-09</td><td>指纹</td></tr><tr><td>identity</td><td>有效</td><td>修复版</td><td><strong>5/5</strong></td><td style="text-align:right"><strong>1.00</strong></td><td style="text-align:right">3.3e-09</td><td style="text-align:right">3.3e-09</td><td>–</td></tr><tr><td>search</td><td>有效，更好</td><td>原始版</td><td>4/5</td><td style="text-align:right">0.80</td><td style="text-align:right">0.0093733018</td><td style="text-align:right">0.0093733018</td><td>指纹</td></tr><tr><td>search</td><td>有效，更好</td><td>修复版</td><td><strong>5/5</strong></td><td style="text-align:right"><strong>1.00</strong></td><td style="text-align:right">0.0093733018</td><td style="text-align:right">0.0093733018</td><td>–</td></tr><tr><td>badcost（谎报成本）</td><td>无效的测试提交</td><td>原始版</td><td>3/5</td><td style="text-align:right">0.60</td><td style="text-align:right">无</td><td style="text-align:right">无</td><td>指纹、成本不符</td></tr><tr><td>badcost</td><td>无效的测试提交</td><td>修复版</td><td>4/5</td><td style="text-align:right">0.80</td><td style="text-align:right">无</td><td style="text-align:right">无</td><td>成本不符</td></tr><tr><td>dup（不是排列）</td><td>无效的测试提交</td><td>原始版</td><td>3/5</td><td style="text-align:right">0.60</td><td style="text-align:right">无</td><td style="text-align:right">无</td><td>指纹、排列</td></tr><tr><td>dup</td><td>无效的测试提交</td><td>修复版</td><td>4/5</td><td style="text-align:right">0.80</td><td style="text-align:right">无</td><td style="text-align:right">无</td><td>排列</td></tr></tbody></table></div>
@@ -152,7 +210,7 @@ score = 100 * (cost_sub ** 3.0) * (num_sub ** 0.5)</code></pre>
 <h3 id="case-我们如何检查">我们如何检查</h3>
 <ul><li><strong>原始评分器。</strong> 在按摘要固定的原始公开镜像中对已安装的辅助文件计算哈希，并与测试期望的值比较。原始 <code>eval_cmd</code>（<code>python -m pytest tests/test_final_result.py -s -v</code>）在 <code>--network none --memory 2g --cpus 2</code> 下对有效和无效的测试提交运行。</li><li><strong>最佳提交选择。</strong> 保存的日志依次送入测试框架自己的 <code>grade_output</code>、<code>rescale_score</code> 和 <code>select_best</code>，它们来自 EdgeBench 的测试框架（<code>sforge</code>，版本 <code>6e4e5f4</code>）。</li><li><strong>形式化检查（TLA+）。</strong> 选取规则的一个有界模型逐行对应 <code>selection.py</code> 和 <code>grading.py</code>，已模型检验：5,421,361 个状态，没有违例；另有三个配置（<code>k1</code>–<code>k3</code>）如说明所述出现违例（<code>evidence/formal/tla/order_addition_permutation_optimization/</code>、<code>evidence/formal/notes/order_addition_permutation_optimization.md</code>）。</li><li><strong>原始版与修复版评分器的并排对照运行。</strong> 每份提交都在一个全新的 <code>--network none</code> 容器中通过 TaskSpec 的 <code>eval.sh</code> 运行。事先检查确认每个镜像都收集到 5 项测试。共重复三次，结论没有变化（<a href="https://github.com/findalexli/edgebench-verified/blob/main/data/paired-repeatability.md"><code>data/paired-repeatability.md</code></a>）。</li></ul>
 <h3 id="case-局限">局限</h3>
-<ul><li>没有运行任何 AI 模型或求解器。影响只在我们编写的测试提交和反例上展示。</li><li>这些提交很简单：恒等排列，以及短时间的随机交换搜索（30 s 和 60 s）。它们离参考成本很远。对最佳提交选择的影响与分数大小无关。</li><li>最佳提交选择是用 EdgeBench 的 <code>select_best</code> 在保存的报告上计算的，而不是在实际运行的 <code>judge_server</code> 上得出的。智能体的工作镜像没有运行。</li><li>没有测量过去排行榜上的运行中有多少次出现了之后更好的提交。</li><li>早先的辅助程序（<code>3023b9a4…</code>）没有保存在本仓库中，因此“两个辅助程序只在注释上不同”这一说法依赖于早先的提取。分数不依赖于这一点，因为两个版本都用已安装的辅助程序评分。</li><li>修复版镜像没有发布到镜像仓库；用户用修复包的 <code>materialize.sh</code> 和 <code>Dockerfile</code> 自行构建（在 <code>evidence/runs/materialize-check-g2</code> 中已在一台干净的机器上从零重建，<code>status: exit=0</code>）。</li><li>修复还改变了测试框架的一个回退行为。当被选中的提交没有分数时，<code>pass_rate_first</code> 报告 <code>best_score = pass_rate</code>（<code>sforge/harness/selection.py</code>，<code>_pass_rate_first</code>）。因此，只有无效提交的运行（例如 badcost）在原始版下报告 0.6，在修复版下报告 0.8。在两个版本中，这个值都高于这里测得的每份有效提交的分数（100 分制下 3.3e-09 到 0.0094，见上表），所以一次全部无效的运行报告的 <code>best_score</code> 比这些有效运行更高。</li></ul>
+<ul><li>除上面重新评分的真实运行外，影响只在我们编写的测试提交和反例上展示。这次真实运行只是一个模型的一次四小时运行，不是 12 小时排行榜的运行。</li><li>这些提交很简单：恒等排列，以及短时间的随机交换搜索（30 s 和 60 s）。它们离参考成本很远。对最佳提交选择的影响与分数大小无关。</li><li>最佳提交选择是用 EdgeBench 的 <code>select_best</code> 在保存的报告上计算的，而不是在实际运行的 <code>judge_server</code> 上得出的。智能体的工作镜像没有运行。</li><li>没有测量过去排行榜上的运行中有多少次出现了之后更好的提交。</li><li>早先的辅助程序（<code>3023b9a4…</code>）没有保存在本仓库中，因此“两个辅助程序只在注释上不同”这一说法依赖于早先的提取。分数不依赖于这一点，因为两个版本都用已安装的辅助程序评分。</li><li>修复版镜像没有发布到镜像仓库；用户用修复包的 <code>materialize.sh</code> 和 <code>Dockerfile</code> 自行构建（在 <code>evidence/runs/materialize-check-g2</code> 中已在一台干净的机器上从零重建，<code>status: exit=0</code>）。</li><li>修复还改变了测试框架的一个回退行为。当被选中的提交没有分数时，<code>pass_rate_first</code> 报告 <code>best_score = pass_rate</code>（<code>sforge/harness/selection.py</code>，<code>_pass_rate_first</code>）。因此，只有无效提交的运行（例如 badcost）在原始版下报告 0.6，在修复版下报告 0.8。在两个版本中，这个值都高于这里测得的每份有效提交的分数（100 分制下 3.3e-09 到 0.0094，见上表），所以一次全部无效的运行报告的 <code>best_score</code> 比这些有效运行更高。</li></ul>
 <h3 id="case-复现">复现</h3>
 <ul><li>原始评分器镜像：<code>sha256:6d1a1506…</code>。</li><li>脚本：<code>evidence/scripts/order_addition_permutation_optimization/run_judge.sh</code>、<code>make_result.py</code>、<code>grade_and_select.py</code>；保存的日志位于 <code>observed/</code>。</li><li>并排对照运行：<code>repairs/order_addition_permutation_optimization-v2/paired/run.sh</code>（结果位于 <code>paired/results.md</code>）。</li><li>补丁：<code>repairs/order_addition_permutation_optimization-v2/repair.patch</code>。</li><li>支撑记录：<code>repairs/order_addition_permutation_optimization-v2/</code>（存放修复版的文件夹：source-lock.json、并排对照运行的输出记录）。</li></ul></div></section><section id="files"><h2 class="sec">文件</h2><ul class="links"><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/cases/order_addition_permutation_optimization.md">GitHub 上的本案例</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/order_addition_permutation_optimization.json">原始任务定义（tasks/order_addition_permutation_optimization.json）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/repairs/order_addition_permutation_optimization-v2">修复包（补丁、Dockerfile、任务定义）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/repairs/order_addition_permutation_optimization-v2/paired/results.md">并排对照结果：原始评分器与修复版评分器</a></li><li><a href="../../data/paired-results.csv">全部并排对照结果（paired-results.csv）</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/reviews/order_addition_permutation_optimization.md">审查记录 (<code>order_addition_permutation_optimization.md</code>)</a></li><li><a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/scripts/order_addition_permutation_optimization">证据脚本</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/formal/notes/order_addition_permutation_optimization.md">形式化验证说明</a></li><li><a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/README.md">证据索引</a></li></ul></section><nav class="pager" aria-label="全部任务"><a class="prev" href="openttd_transport_ai.html" rel="prev"><small>&larr; 上一个</small>OpenTTD Transport AI</a><a class="all" href="index.html">全部任务</a><a class="next" href="pfr_formalization.html" rel="next"><small>下一个 &rarr;</small>PFR Formalization</a></nav></div>
 </main>

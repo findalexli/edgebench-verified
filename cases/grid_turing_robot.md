@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>On the publisher's 4-CPU grader, a valid solution using more than about 15 s of CPU per case times out, although the README promises 30 s per case, and one timeout voids the whole submission. The fixed version runs at most as many cases at once as the grader has CPUs. Two notes remain: an offset in the score scale's starting point (2.84 points) and the unstated rule that one failed case voids the submission (about 20 points).</mark>
 
-![Chart of wall time per test case against CPU work per case: at 8 CPUs wall time equals the work up to 28 s, while at 4 CPUs wall time is double, 12 s of work takes 24 s, and 16 s or more passes the 30 s limit and times out.](figures/grid_turing_robot.svg)
+![Line chart of clock time per test case against computing time per case. At 8 CPUs clock time equals computing time from 12 to 28 s. At 4 CPUs 12 s of computing takes 24 s and 14 s takes 28 s; 16, 20, 24 and 28 s are marked as timed out at the 30 s limit, with 48 of 50 cases timed out and no score. A note says the fixed checker passes the 16 s and 28 s solutions on all 50 cases with 19.80 out of 100.](figures/grid_turing_robot.svg)
 
-*With 4 grader CPUs each of 8 simultaneous cases gets half a CPU, so any case needing more than about 15 s of computing times out and voids the submission.*
+*On EdgeBench's official 4-CPU setting, a valid Grid Turing Robot solution that needs more than about 15 s of computing per test case gets no score, although the instructions promise 30 s per case. The agent writes a rule table that steers a robot over a grid; the checker runs 8 cases at once, so on 4 CPUs each case gets half a CPU and takes twice as long by the clock, and one timed-out case voids the whole submission. Test solutions needing 16 s and 28 s per case timed out on 48 of 50 cases under the original checker and scored 19.80 out of 100 under the fixed one, which runs no more cases at once than it has CPUs.*
 
 ## What the task asks
 

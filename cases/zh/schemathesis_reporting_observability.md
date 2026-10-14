@@ -2,7 +2,7 @@
 
 **结论：** 已修复。<mark>针对 JUnit 报告写入器的隐藏测试会接受损坏的输出，而针对在某些生成场景中省略请求体的测试永远不会失败；这两个漏洞合计给出约占分数 2.4% 的错误得分。</mark>
 
-![两个面板：原始的 JUnit 测试和原始的请求体抑制测试都让有缺陷的实现通过，而修复版测试让它们失败。](figures/schemathesis_reporting_observability.svg)
+![两个面板：原始的 JUnit 测试和原始的请求体抑制测试都让有缺陷的实现通过，而修复版测试让它们失败。](../figures/schemathesis_reporting_observability.svg)
 
 *两项隐藏测试为有缺陷的实现给了分，合计约占分数的 2.4%；修复版测试让这些有缺陷的版本失败。*
 

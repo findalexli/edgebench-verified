@@ -1,13 +1,13 @@
 # FFmpeg Swscale Reimplementation (`ffmpeg_swscale_reimplementation`)
 
 
-**2026-10-13 修订：** v2.2 检查每一次输出，并让任何失败的工作负载使总奖励恰好为零。六个原生完整计分程序对照组全部通过，另有 40 项与原始辅助函数的布局比较也全部一致。正确的对照提交在 43 秒内完成；一个重复调用缺陷在 30/30 个正确性工作负载上通过，但在计时输出验证之后得到零分。下面的“修复”一节描述 v2.2，并保留历史上的 v2 表格以作记录。这次后续检验没有重新运行 Rust 提交构建路径。参见[后续记录](../repairs/ffmpeg_swscale_reimplementation-v2/paired/followup.md)。
+**2026-10-13 修订：** v2.2 检查每一次输出，并让任何失败的工作负载使总奖励恰好为零。它与原始评分器并排运行了一次：完整计分程序共运行六次（每个评分器各三份测试提交），全部顺利完成；另有 40 项检查确认其输出缓冲区与原始辅助函数一致。正确的测试提交在 43 秒内完成；一份跳过重复调用的提交在 30/30 个正确性工作负载上通过，但其计时输出被检查后得到零分。下面的“修复”一节描述 v2.2，并保留历史上的 v2 表格以作记录。这次后续检验没有重新运行 Rust 提交构建路径。参见[后续记录](../repairs/ffmpeg_swscale_reimplementation-v2/paired/followup.md)。
 
-**结论：** 原始缺陷得到确认；v2.2 修复在成对的原生计分程序对照上得到验证。<mark>计时的速度测试从未检查正确性，因此失败或空的调用也能拿到速度分；修复版会检查每个计时调用的返回码和输出。</mark>
+**结论：** 原始缺陷得到确认；当前修复（v2.2）在三份原生测试提交上与原始评分器并排测试了一次。<mark>计时的速度测试从未检查正确性，因此失败或空的调用也能拿到速度分；修复版会检查每个计时调用的返回码和输出。</mark>
 
-![柱状图显示：一个诚实但未完成的库在原始评分器上得 5.39、18.93 和 17.87 分（满分 100），因为失败的调用被当作速度快；修复版给 0 分。](figures/ffmpeg_swscale_reimplementation.svg)
+![横向条形图，原始评分器一次运行中的得分（满分 100）：未改动的初始代码 0；在 RGBA 到 RGB24 上返回错误，5.39；在 3:1 缩小上返回错误，18.93；在 3:1 缩小上什么都不写，17.87；四者都通过 30 项正确性测试中的 30 项。注释说明一次返回错误的调用被计为 16,469 倍加速。一个方框描述当前的修复及其唯一一次并排对照运行：一份跳过重复调用的提交通过了 30 项正确性测试中的 30 项，得 0 分，一份正确的提交仍然得分。](../figures/zh/ffmpeg_swscale_reimplementation.svg)
 
-*失败或什么也不做的调用瞬间就完成，因此原始评分器为未完成的代码最多给了 18.93 分；修复版检查每个计时调用的结果，这些调用不得分。*
+*从不检查输出的速度测试让未完成的代码最多拿到 18.93 分（满分 100）。智能体要重写 FFmpeg 的图像缩放库，在通过 30 项正确性测试后按速度计分，但计时的调用从不被检查，因此一个返回错误或什么都没写的调用被算作快了数千倍。在原始评分器的一次运行中，三个只改了一行的未完成版本分别得 5.39、18.93 和 17.87 分，未改动的初始代码得 0 分，四者都通过了 30 项正确性测试。当前的修复检查每一次计时调用的输出，只要有一次失败就把总分设为恰好 0，与任务说明一致；在它唯一一次并排对照运行中，一份跳过重复调用的代码通过了全部 30 项正确性测试，得 0 分。*
 
 ## 任务要求
 
@@ -79,7 +79,7 @@ v2.2 的原生并排对照运行（作业 `ffmpeg-native-v2.2-20261013`，台账
 
 此表中的值是原始的几何平均加速比，换算到 0–100 刻度之前。两行封装提交用的是一个很薄的 C 包装层（`ref_shim.c`，源码见 `repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md`），把每个调用都转发给原始 FFmpeg 库，因此其输出按构造就是正确的。它构建了两次：一次每帧处理一次，一次每帧处理两次，后者正确但约慢 2×。这两行是两个不同的正确测试提交，而不是同一提交的两次运行；它们直接交给 `compute_reward.py`，而不是经过 `eval_cmd`，两者都不是真正的解法。此表与第一张表运行在不同的主机上，因此原始评分器的原始值不同；两者都按记录引用。初始代码在修复版评分器上的下降是正确的，因为它在一个计时工作负载上的输出确实是错的。
 
-展示问题的三个变体都是对初始代码的单行改动，因此继承了它在 `rgb24 1080p→360p nearest` 上的错误输出，而初始代码本身在修复版评分器上就已经只得原始结果 0.012416（满分 100 中的 0 分）。所以它们在修复版评分器上得 0 分，本身并不能表明修复抓住了被改动的工作负载。能表明这一点的是修复版评分器的逐工作负载错误：对 RGBA→RGB24 变体，它在 `rgba→rgb24 4K` 上报告 `candidate process returned -3`；对 3:1 返回错误的变体，它在两个 3:1 工作负载上都报告该错误；对悄无声息的空操作，它在 `rgb24→yuv420p 1080p→360p bilinear` 上报告 `timed output below PSNR threshold 40.0`，每一处的加速比都为 0（`evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/result/out/summary_parsed.txt`）。没有在一个计时输出全部正确的基础上构建任何变体。
+展示问题的三个变体都是对初始代码的单行改动，因此继承了它在 `rgb24 1080p→360p nearest` 上的错误输出，而初始代码本身在历史版 v2 评分器上就已经只得原始结果 0.012416（满分 100 中的 0 分）。这些变体只在原始评分器和 v2 上运行过，没有在当前的 v2.2 上运行。所以它们在 v2 上得 0 分，本身并不能表明修复抓住了被改动的工作负载。能表明这一点的是 v2 评分器的逐工作负载错误：对 RGBA→RGB24 变体，它在 `rgba→rgb24 4K` 上报告 `candidate process returned -3`；对 3:1 返回错误的变体，它在两个 3:1 工作负载上都报告该错误；对悄无声息的空操作，它在 `rgb24→yuv420p 1080p→360p bilinear` 上报告 `timed output below PSNR threshold 40.0`，每一处的加速比都为 0（`evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/result/out/summary_parsed.txt`）。没有在一个计时输出全部正确的基础上构建任何变体。
 
 **分数兼容性：** 除计时噪声外，正确的实现得分与原始评分器上相同。在 v2.2 下，只要在任何一次计时调用中输出错误、返回错误或没有输出，实现就恰好得 0 分。修复版评分器的分数与原始评分器的分数不可比。
 
@@ -87,7 +87,7 @@ v2.2 的原生并排对照运行（作业 `ffmpeg-native-v2.2-20261013`，台账
 
 - **原始公开镜像中的原始评分器，按摘要固定。** 在随附的 Rust 初始代码基础上构建了四份提交，每份只改动 `swscale_process` 中的一行。它们通过任务原样的 `eval_cmd` 运行，参数为 `--network none --memory 2g --cpus 2`。这条路径覆盖 `test.sh`、源码扫描、`cargo build --release` 重新构建、`compute_reward.py` 和 `pytest_shim.sh`。
 - **独立的输出检查。** 把原始的 `check_correctness` 例程应用于 10 个计时工作负载，使用相同的 PSNR 阈值和相同的随机数序列。评分器本身从不在这些工作负载上运行这项检查。
-- **v2.2 的原生并排对照运行**：在三个原生 C 测试提交上运行完整的 `compute_reward.py`（见上文）；在此之前先检查了 v2.2 的缓冲区快照在 40 种布局上与原始辅助函数一致。
+- **v2.2 的原生并排对照运行**：在三个原生 C 测试提交（一个正确的、一个跳过调用的、一个总是失败的；不是上面的三个变体）上运行完整的 `compute_reward.py`（见上文）；在此之前先检查了 v2.2 的缓冲区快照在 40 种布局上与原始辅助函数一致。
 - **原始评分器与历史上的 v2 评分器的并排对照测试**，使用相同的提交，参数为 `--network none --memory 4g --cpus 4`。重复了三次。没有任何测试提交的结果发生变化，展示问题的测试提交在每次运行中在修复版评分器上都接近 0（见 `data/paired-repeatability.md`）。
 
 ## 局限
@@ -109,6 +109,6 @@ v2.2 的原生并排对照运行（作业 `ffmpeg-native-v2.2-20261013`，台账
   - 用 `run_variant.sh` 运行它们，该脚本使用原样的 `eval_cmd.sh`。
   - 输出在 `results_local/<variant>/`。
 - 计时工作负载上的输出检查：`evidence/scripts/ffmpeg_swscale_reimplementation/check_bench_outputs.py`。记录的输出为 `bench_outputs_v0_scaffold.txt` 和 `bench_outputs_v1_rgba_rgb24_unsupported.txt`。
-- 原始评分器与修复版评分器的并排对照测试：`repairs/ffmpeg_swscale_reimplementation-v2/paired/run.sh`，同一文件夹中有 `make_variants.py`。`run.sh` 会编译 `/job/tools/ref_shim.c`；该文件不在仓库中，其源码引用在 `paired/results.md` 中。实际执行的作业及其输出在 `evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/`（`result/out/`）。
+- 原始评分器与历史版 v2 评分器的并排对照测试：`repairs/ffmpeg_swscale_reimplementation-v2/paired/run.sh`，同一文件夹中有 `make_variants.py`。`run.sh` 会编译 `/job/tools/ref_shim.c`；该文件不在仓库中，其源码引用在 `paired/results.md` 中。实际执行的作业及其输出在 `evidence/runs/ffmpeg_swscale_reimplementation-v2-paired-b/`（`result/out/`）。
 - 修复版：`repairs/ffmpeg_swscale_reimplementation-v2/`（存放修复版的文件夹），包含 `Dockerfile`、`repair.patch`、`materialize.sh` 和 `source-lock.json`。`files/compute_reward.py` 由 `materialize.sh` 生成。
 - 支持记录：`repairs/ffmpeg_swscale_reimplementation-v2/paired/results.md` 和 `evidence/reviews/ffmpeg_swscale_reimplementation.md`。

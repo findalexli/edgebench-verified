@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so a one-shot honest fit with a textbook model scores at the baseline level.</mark>
 
-![Bars of scores on the original grader, where the true source scores 109: the textbook fit 7.03 and the midpoint baseline 7.01 versus 31.2 for a fit using the grader's hidden convention.](figures/borden_source_inversion.svg)
+![Two boxes contrast what the instructions say (build the textbook groundwater model; C0 in mg/L) with five unstated conventions of the checker's model, such as ignoring soil porosity. Below, bars of raw scores (0 to 109) for a one-shot fit to the public data: a baseline at the middle of the allowed ranges, 7.01, textbook model 7.03, checker's model 31.2; beside them, the 36 submissions of a real agent run as dots, with the best score so far rising from 7.01 to 60.10 and a dashed line at 31.2. A note converts raw scores to scores out of 100 (raw × 100/109) and states the fix.](figures/borden_source_inversion.svg)
 
-*The grader uses unstated, non-physical conventions, so a one-shot honest textbook fit to the public data scores at the baseline level, about 24 points below the same fit using the hidden convention.*
+*A textbook answer scores about 7 because the checker's physics model follows conventions the instructions never state. The agent locates an underground pollution source from monitoring-well readings; the checker's model, for example, ignores soil porosity and treats a mass rate as a mass, and the public data fit it and the textbook model equally well. A one-shot fit with the textbook model scores 7.03 raw against 31.2 for the same method with the checker's model (raw results run from 0 to 109; out of 100 these are 6.45 and 28.62), and a real agent run climbed from 7.01 to 60.10 raw over 36 submissions while the checker reported its error on hidden wells after each one. The fixed task gives agents the checker's own model with its conventions written out, and reports the score out of 100 as raw × 100/109.*
 
 ## What the task asks
 
@@ -69,7 +69,7 @@ The shipped `forward_model.py` matches the grader's model with max |diff| = 0.0 
 
 ## Limits
 
-- We ran no AI model. The paired results use test submissions and fits we wrote. One third-party Claude Opus 5.5 run on the original grader was read but not regraded (raw results are identical under both graders for the same answer); it shows that iterating agents can partly learn the convention, and it does not test the fix.
+- We ran no AI model. The paired results use test submissions and fits we wrote. One third-party Claude Opus 5.5 run on the original grader was read but not regraded (raw results are identical under both graders for the same answer); its best raw score climbed from 7.01 to 60.10 over 36 submissions while the grader reported its error on the hidden wells after each one. How the agent used that feedback was not verified, and the run does not test the fix.
 - The inverse problem is still weakly determined by the data. The best public-data fit with the exact model reaches 31.2 raw (28.6 out of 100). The fix removes the penalty for the hidden convention, not the difficulty.
 - `C0` remains an "effective intensity" in a non-physical convention. The fixed version documents it rather than fixing it, because fixing the physics would require regenerating the answer key.
 - One fitting method (multi-start least squares, log/hinge loss, one seeded run of 60 or 80 starts) and one textbook model variant were used. The 24-point gap is for that variant.

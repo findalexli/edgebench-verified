@@ -68,3 +68,7 @@ E2B machine: the run's best (agent-20) scores raw 66.31 on the original grader a
 grader; an earlier one (agent-3) scores 31.11 and 114.19. On the old scale both fixed results clip to 100;
 on the fixed scale they score 50.08 and 35.48. The verdict above is unaffected: the trigger is fixed,
 correct work is scored by the documented definition, and the invalid submission is still rejected.
+This was the first regrade (agent-20 is the run's best by its recorded score). The later second regrade
+graded all 37 submissions, the top 6 three times: the run's score moves from its recorded 75.72 to 53.95
+on the fixed scale (best submission agent-26). See `evidence/runs/opus55-regrade2-summary/summary.json` and
+the case page, `cases/integer_compression_codec.md` ("Real agent submissions").

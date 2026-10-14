@@ -61,11 +61,21 @@ change. Failing submissions still score 0.
 ### Why the score scale changes
 
 Keeping the original scale (linear 0..100) would make the fixed task useless for strong solutions. Once the
-baseline is measured as documented, raw results run up to 320, and real agent submissions exceed 100: two
-submissions from a public Claude Opus 5.5 run regrade to raw 114.19 and 160.76, which the original scale would
-both clip to 100 (`../../evidence/runs/opus55-regrade/`). The fixed scale therefore runs from 1.0, the
-documented score of the starter, to 320, the largest result the formula allows. Under it those two submissions
-score 35.48 and 50.08, the starter scores 0 and the honest codec in the side-by-side test scores 1.79.
+baseline is measured as documented, raw results run up to 320, and real agent submissions exceed 100. In the
+first regrade of a public Claude Opus 5.5 run (`../../evidence/runs/opus55-regrade/`, two submissions graded once),
+agent-20 regrades to raw 160.76 (66.31 on the original grader) and agent-3 to 114.19 (31.11); the original scale
+would clip both to 100. The fixed scale therefore runs from 1.0, the documented score of the starter, to 320, the
+largest result the formula allows. Under it those two submissions score 50.08 and 35.48, the starter scores 0 and
+the honest codec in the side-by-side test scores 1.79.
+
+The run itself recorded 75.72 for its best submission (agent-20; raw on the original grader, which is also the
+score out of 100 on the original scale). The second regrade (all 37 submissions, the top 6 three times;
+`../../evidence/runs/opus55-regrade2-summary/summary.json`) picks the best submission by the run's own rule under
+each grader: raw 71.93 (auto-3) on the original grader and raw 173.10 (agent-26) on the fixed one, which is 53.95
+on the fixed scale. So, comparing like with like on our machines, the run's kept score moves from 71.93 to 53.95
+(second regrade); the 75.72 was recorded by the run on its own machine. The first regrade's
+66.31 → 50.08 is agent-20 graded once on one machine; it differs from the second regrade because of timing noise
+between machines (see Limits) and because the second regrade grades every submission.
 
 ## How it was checked
 

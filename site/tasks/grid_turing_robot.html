@@ -24,58 +24,58 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Combinatorial Optimization</span></div><header class="task-head"><h1>Grid Turing Robot</h1><span class="badge b-repair-v2" data-outcome="repair-v2">Fixed</span> <span class="id">grid_turing_robot</span><p class="summary">On the publisher&#x27;s 4-CPU grader, a solution within the 30-second limit can void the whole submission.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Write a rule table that steers a robot across a grid on 50 fixed test cases; lower total cost is better.</dd><dt>What goes wrong</dt><dd>The grader runs 8 cases at once under a 30-second wall-clock limit. On the publisher&#x27;s 4-CPU setting each case gets half a CPU, so a valid solution using 16 seconds of CPU per case timed out on 48 of 50 cases, and one timeout voids the whole submission. Also: the void rule is unstated, and the scale&#x27;s start is too high, so doing nothing scores 2.84, not 0.</dd><dt>How much it matters</dt><dd>Up to the full score for solutions using about 15 to 30 seconds of CPU per case on a 4-CPU grader; about 20 points if one case fails; at most 2.84 because the scale&#x27;s zero point is set too high, so a do-nothing program already gets 2.84 points.</dd><dt>What we did</dt><dd>Fixed in a new version: the grader runs at most as many cases at once as it has CPUs, so each case keeps its 30 seconds. One failed case still voids the submission, and a do-nothing solution still scores 2.84 instead of 0; both are noted.</dd><dt>Validation status</dt><dd>CPU-share controls validated: three identical paired native runs at 4 CPUs plus 8-CPU controls (each ledger exit=0); package rebuilt from scratch on a clean machine (materialize-check-g1). Not tested in a Kubernetes pod, at 3 or 5-7 CPUs, or with multi-threaded solvers.</dd><dt>Formal check</dt><dd>Proved in Lean 4. The misplaced reference point gives a do-nothing solution exactly 2.84005 points, and never adds more. Limit: Per-case scores taken from the saved log.</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 416" role="img">
-<title>Wall time per test case against CPU work per case, at 4 and 8 CPUs</title>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Combinatorial Optimization</span></div><header class="task-head"><h1>Grid Turing Robot</h1><span class="badge b-repair-v2" data-outcome="repair-v2">Fixed</span> <a class="badge pc" data-pcat="engineering" href="../index.html#engineering">Engineering and runtime environment</a> <span class="id">grid_turing_robot</span><p class="summary">On the publisher&#x27;s 4-CPU grader, a solution within the 30-second limit can void the whole submission.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Write a rule table that steers a robot across a grid on 50 fixed test cases; lower total cost is better.</dd><dt>What goes wrong</dt><dd>The grader runs 8 cases at once under a 30-second wall-clock limit. On the publisher&#x27;s 4-CPU setting each case gets half a CPU, so a valid solution using 16 seconds of CPU per case timed out on 48 of 50 cases, and one timeout voids the whole submission. Also: the void rule is unstated, and the scale&#x27;s start is too high, so doing nothing scores 2.84, not 0.</dd><dt>How much it matters</dt><dd>Up to the full score for solutions using about 15 to 30 seconds of CPU per case on a 4-CPU grader; about 20 points if one case fails; at most 2.84 because the scale&#x27;s zero point is set too high, so a do-nothing program already gets 2.84 points.</dd><dt>What we did</dt><dd>Fixed in a new version: the grader runs at most as many cases at once as it has CPUs, so each case keeps its 30 seconds. One failed case still voids the submission, and a do-nothing solution still scores 2.84 instead of 0; both are noted.</dd><dt>Problem category</dt><dd><a href="../index.html#engineering">Engineering and runtime environment; also Instruction–grader mismatch, Scoring scale and selection</a></dd><dt>Validation status</dt><dd>CPU-share controls validated: three identical paired native runs at 4 CPUs plus 8-CPU controls (each ledger exit=0); package rebuilt from scratch on a clean machine (materialize-check-g1). Not tested in a Kubernetes pod, at 3 or 5-7 CPUs, or with multi-threaded solvers.</dd><dt>Formal check</dt><dd>Proved in Lean 4. The misplaced reference point gives a do-nothing solution exactly 2.84005 points, and never adds more. Limit: Per-case scores taken from the saved log.</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 456" role="img">
+<title>On 4 CPUs, valid solutions needing 16–28 s of the promised 30 s per case get no score</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text x="16" y="24" class="ink" font-size="15" font-weight="600">8 test cases run at once, each limited to 30 s</text>
-<text x="16" y="44" class="muted" font-size="14">4 CPUs: half a CPU per case, so the clock runs twice as long as the work.</text>
-<line x1="80" y1="300.0" x2="660" y2="300.0" class="rule" stroke-width="1"/>
-<text x="70" y="305.0" class="muted" font-size="14" text-anchor="end">0</text>
-<line x1="80" y1="235.0" x2="660" y2="235.0" class="rule" stroke-width="1"/>
-<text x="70" y="240.0" class="muted" font-size="14" text-anchor="end">10</text>
-<line x1="80" y1="170.0" x2="660" y2="170.0" class="rule" stroke-width="1"/>
-<text x="70" y="175.0" class="muted" font-size="14" text-anchor="end">20</text>
-<text x="16" y="69.0" class="muted" font-size="14">Wall time per case (s)</text>
-<line x1="80" y1="105.0" x2="660" y2="105.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="660" y="97.0" class="bad" font-size="14" font-weight="600" text-anchor="end">30 s limit</text>
-<polyline points="138,221.4 196,208.4 254,195.3 370,169.3 486,143.3 602,116.7" fill="none" class="goodS" stroke-width="2"/>
-<circle cx="138" cy="221.4" r="5" class="good"/>
-<circle cx="196" cy="208.4" r="5" class="good"/>
-<circle cx="254" cy="195.3" r="5" class="good"/>
-<circle cx="370" cy="169.3" r="5" class="good"/>
-<circle cx="486" cy="143.3" r="5" class="good"/>
-<circle cx="602" cy="116.7" r="5" class="good"/>
-<polyline points="138,142.7 196,116.7" fill="none" class="accS" stroke-width="2"/>
-<circle cx="138" cy="142.7" r="5" class="acc"/>
-<circle cx="196" cy="116.7" r="5" class="acc"/>
-<path d="M248,99.0 L260,111.0 M260,99.0 L248,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M364,99.0 L376,111.0 M376,99.0 L364,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M480,99.0 L492,111.0 M492,99.0 L480,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M596,99.0 L608,111.0 M608,99.0 L596,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<text x="312" y="133.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">48 of 50 cases timed out</text>
-<text x="312" y="151.0" class="bad" font-size="14" text-anchor="middle">whole submission voided</text>
-<text x="126" y="150" class="acc" font-size="14" font-weight="600" text-anchor="end">4 CPUs: 24 s</text>
-<text x="208" y="122" class="acc" font-size="14" font-weight="600">28 s</text>
-<text x="378" y="191" class="good" font-size="14" font-weight="600">8 CPUs: wall time = work</text>
-<text x="138" y="322.0" class="ink" font-size="14" text-anchor="middle">12</text>
-<text x="196" y="322.0" class="ink" font-size="14" text-anchor="middle">14</text>
-<text x="254" y="322.0" class="ink" font-size="14" text-anchor="middle">16</text>
-<text x="370" y="322.0" class="ink" font-size="14" text-anchor="middle">20</text>
-<text x="486" y="322.0" class="ink" font-size="14" text-anchor="middle">24</text>
-<text x="602" y="322.0" class="ink" font-size="14" text-anchor="middle">28</text>
-<text x="370" y="342.0" class="muted" font-size="14" text-anchor="middle">CPU work per case (s)</text>
-<text x="16" y="362" class="ink" font-size="14">A solution that stops at a 25 s clock deadline passes at both settings.</text>
-<text x="16" y="382" class="ink" font-size="14">The fixed version runs 4 cases at once on 4 CPUs, so all 50 pass.</text>
-<text x="16" y="400" class="muted" font-size="13">Slowest case shown. Timed-out cases were stopped at 30 s.</text>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">On 4 CPUs, valid solutions needing 16–28 s of the promised 30 s per case get no score</text>
+<text x="16" y="46" class="muted" font-size="14">The checker runs 8 test cases at once. On 4 CPUs each case gets half a CPU,</text>
+<text x="16" y="65" class="muted" font-size="14">so the clock runs twice as long as the computing, and one timeout voids the whole submission.</text>
+<line x1="80" y1="330.0" x2="660" y2="330.0" class="rule" stroke-width="1"/>
+<text x="70" y="335.0" class="muted" font-size="14" text-anchor="end">0</text>
+<line x1="80" y1="265.0" x2="660" y2="265.0" class="rule" stroke-width="1"/>
+<text x="70" y="270.0" class="muted" font-size="14" text-anchor="end">10</text>
+<line x1="80" y1="200.0" x2="660" y2="200.0" class="rule" stroke-width="1"/>
+<text x="70" y="205.0" class="muted" font-size="14" text-anchor="end">20</text>
+<text x="16" y="96" class="muted" font-size="14">Clock time per case (s)</text>
+<line x1="80" y1="135.0" x2="660" y2="135.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="84" y="127.0" class="bad" font-size="14" font-weight="600">30 s limit</text>
+<polyline points="138,251.4 196,238.4 254,225.3 370,199.2 486,173.1 602,146.8" fill="none" class="goodS" stroke-width="2"/>
+<circle cx="138" cy="251.4" r="5" class="good"/>
+<circle cx="196" cy="238.4" r="5" class="good"/>
+<circle cx="254" cy="225.3" r="5" class="good"/>
+<circle cx="370" cy="199.2" r="5" class="good"/>
+<circle cx="486" cy="173.1" r="5" class="good"/>
+<circle cx="602" cy="146.8" r="5" class="good"/>
+<polyline points="138,172.6 196,146.7" fill="none" class="accS" stroke-width="2"/>
+<circle cx="138" cy="172.6" r="5" class="acc"/>
+<circle cx="196" cy="146.7" r="5" class="acc"/>
+<path d="M248,126.0 L260,138.0 M260,126.0 L248,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M364,126.0 L376,138.0 M376,126.0 L364,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M480,126.0 L492,138.0 M492,126.0 L480,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M596,126.0 L608,138.0 M608,126.0 L596,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<text x="400" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">4 CPUs: 48 of 50 cases timed out, no score at all</text>
+<text x="126" y="180.635" class="acc" font-size="14" font-weight="600" text-anchor="end">4 CPUs: 24 s</text>
+<text x="208" y="151.70000000000002" class="acc" font-size="14" font-weight="600">28 s</text>
+<text x="384" y="223.155" class="good" font-size="14" font-weight="600">8 CPUs: clock time = computing time</text>
+<text x="138" y="352.0" class="ink" font-size="14" text-anchor="middle">12</text>
+<text x="196" y="352.0" class="ink" font-size="14" text-anchor="middle">14</text>
+<text x="254" y="352.0" class="ink" font-size="14" text-anchor="middle">16</text>
+<text x="370" y="352.0" class="ink" font-size="14" text-anchor="middle">20</text>
+<text x="486" y="352.0" class="ink" font-size="14" text-anchor="middle">24</text>
+<text x="602" y="352.0" class="ink" font-size="14" text-anchor="middle">28</text>
+<text x="370" y="372.0" class="muted" font-size="14" text-anchor="middle">Computing time per case (s)</text>
+<text x="16" y="400" class="ink" font-size="14">Fixed checker: runs only as many cases at once as it has CPUs (4 here). The 16 s and 28 s</text>
+<text x="16" y="419" class="ink" font-size="14">solutions then pass all 50 cases and score 19.80 out of 100.</text>
+<text x="16" y="444" class="muted" font-size="13">Slowest of the 50 cases shown. Timed-out cases were stopped at 30 s.</text>
 </svg>
-</div><figcaption>With 4 grader CPUs each of 8 simultaneous cases gets half a CPU, so any case needing more than about 15 s of computing times out and voids the submission.</figcaption></figure></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/grid_turing_robot.json">tasks/grid_turing_robot.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-grid-turing-robot---transition-rule-design-ahc056">Grid Turing Robot - Transition Rule Design (AHC056)</h4>
+</div><figcaption>On EdgeBench&#x27;s official 4-CPU setting, a valid Grid Turing Robot solution that needs more than about 15 s of computing per test case gets no score, although the instructions promise 30 s per case. The agent writes a rule table that steers a robot over a grid; the checker runs 8 cases at once, so on 4 CPUs each case gets half a CPU and takes twice as long by the clock, and one timed-out case voids the whole submission. Test solutions needing 16 s and 28 s per case timed out on 48 of 50 cases under the original checker and scored 19.80 out of 100 under the fixed one, which runs no more cases at once than it has CPUs.</figcaption></figure></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/grid_turing_robot.json">tasks/grid_turing_robot.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-grid-turing-robot---transition-rule-design-ahc056">Grid Turing Robot - Transition Rule Design (AHC056)</h4>
 <p>Write <code>solution.py</code> in the project root that reads from stdin and writes to stdout.</p>
 <hr>
 <h4 id="prompt-problem-overview">Problem Overview</h4>

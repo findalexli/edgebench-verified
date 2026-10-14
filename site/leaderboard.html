@@ -31,54 +31,214 @@
 </header>
 
 <section id="summary" class="col">
-  <p>EdgeBench publishes averages of valid runs after normalizing each run's best submission. <mark>The public averages do not determine a corrected leaderboard.</mark> Original per-run raw scores and submissions are unavailable. Table&nbsp;3 gives conditional outer intervals, not estimates or demonstrated attainable outcomes. All intervals hold the valid-run set fixed, treat retained tasks as unchanged, and assume the stated effect directions and limits. Changed failure rates or solver responses require new evidence.</p>
+  <p>On the published leaderboard, Opus&nbsp;4.8 leads GPT-5.5 by 1.1 points (44.2 against 43.1). With the per-task limits we documented, their ranges are 45.49–47.30 and 44.30–46.35. <mark>These overlap, so the public data can no longer confirm which of the two is ahead.</mark> This does not show that they change places. The ranges count the 19 fixes whose size on the leaderboard is unknown as zero.</p>
+  <p>Each range in Table&nbsp;3 is the lowest and highest average the fixes could give, using only what we could measure or prove. EdgeBench publishes each model's average over its valid runs; its runs and submissions are not public, so the corrected leaderboard itself cannot be computed. The ranges are not estimates of the corrected scores, and their ends are not results anyone is known to reach. They keep the same runs valid, treat the tasks we kept as unchanged, and assume the direction and limit stated for each effect. If a fix changed which runs fail, or how agents work, new evidence would be needed.</p>
 </section>
 
 <section id="bounds" class="col">
   <h2 class="sec"><span class="num">1</span>What can and cannot be said</h2>
   <ul class="tight">
-    <li><b>Scale intervals.</b> Remove <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC</a>, convert <a class="task-link" href="tasks/borden_source_inversion.html">Borden</a> with its affine scale, and enclose <a class="task-link" href="tasks/treant_forest.html">Treant</a> with per-run affine bounds that survive averaging. A Treant average below 20 does not imply that all runs were on the same segment: zero-score clipping and the second segment prevent exact inversion. Every retained task includes ±0.05 publication-rounding uncertainty. No displayed midpoint is an inferred score.</li>
-    <li><b>Documented limits.</b> The next interval adds 10 conditional per-task limits. These include inferred <a class="task-link" href="tasks/pfr_formalization.html">PFR</a> credit, not a demonstration that the actual targets were solved. The intervals are conditional on those limits and do not assert that all extremes can occur together. This interval counts the 19 direction-only fixes as zero, so any order it certifies holds only if those fixes have no effect. <mark>The conditional intervals for Opus 4.8 and GPT-5.5 overlap.</mark> These bounds cannot certify their order; they do not prove that a reversal is attainable.</li>
-    <li><b>Portfolio sensitivity.</b> The separate column assumes +0.3921/−0.10 for <a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk</a>. Its restricted decimal sweep covers only 242 or 243 shared dates and strategy returns from −30% to +100%; 0.3913 is the largest sampled joint rise, and 0.3921 the sampled envelope with slack. Neither the grid nor Lean proves a global bound.</li>
-    <li><b>Full-domain envelope.</b> The broadest interval lets open effects span the remaining score range in their stated directions. Portfolio receives the full 0–100 domain here. In this envelope every neighbouring pair of models overlaps, so it certifies no order. These are conditional outer limits, not confidence intervals or predictions.</li>
+    <li><b>Scale only.</b> Remove <a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC</a>, convert <a class="task-link" href="tasks/borden_source_inversion.html">Borden</a> to its new 0–100 scale, and allow for <a class="task-link" href="tasks/treant_forest.html">Treant</a>'s new scale run by run. Treant's scale has two parts and cuts scores at zero, so a published Treant average does not tell us each run's score; the range allows for every possibility. Every kept task's published score is rounded, so it may be off by up to 0.05. The middle of a range is not an estimate of the corrected score.</li>
+    <li><b>Documented limits.</b> The next range adds 10 per-task limits, each the most that task's fix can change its score. They include <a class="task-link" href="tasks/pfr_formalization.html">PFR</a> credit that we inferred from the rules, not credit shown on the actual proof targets. Each limit is taken on its own; the ranges do not claim that all of them can be reached together. The 19 fixes whose size is unknown count as zero here, so any order these ranges confirm holds only if those fixes change nothing. <mark>The ranges for Opus 4.8 and GPT-5.5 overlap.</mark> The public data therefore cannot confirm which of the two is ahead; this does not show that they change places.</li>
+    <li><b>Plus Portfolio.</b> A separate column adds +0.3921/−0.10 points for <a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk</a>. The estimate comes from a limited numerical search (242 or 243 shared dates, strategy returns from −30% to +100%): the largest rise it found was 0.3913, and 0.3921 adds a margin. Neither the search nor Lean proves that no larger rise is possible.</li>
+    <li><b>Widest possible.</b> The widest range lets every fix whose size is unknown move its task's score as far as it can go in its stated direction, and lets Portfolio take any value from 0 to 100. With these ranges every pair of neighbouring models overlaps, so no place on the leaderboard can be confirmed. These are outer limits, not confidence intervals or predictions.</li>
   </ul>
-  <p class="tcap"><b>Table 3.</b> Twelve-hour public-task means and conditional outer intervals. Models retain EdgeBench's names. Endpoints are rounded outward.</p>
+  <p class="tcap"><b>Table 3.</b> Twelve-hour public-task averages and the ranges the fixes could give. Models keep EdgeBench's names. Each range is rounded outward (its low end down, its high end up).</p>
   <div class="tablewrap"><table class="bt">
-    <thead><tr><th>Model</th><th class="n">Published</th><th class="n">Full-domain envelope</th><th class="n">Documented limits</th><th class="n">Plus Portfolio sensitivity</th><th class="n">Scale intervals</th></tr></thead>
+    <thead><tr><th>Model</th><th class="n">Published</th><th class="n">Widest possible</th><th class="n">Documented limits</th><th class="n">Plus Portfolio</th><th class="n">Scale only</th></tr></thead>
     <tbody><tr><td>Opus 4.8</td><td class="n">44.2</td><td class="n"><b>36.01–67.13</b></td><td class="n">45.49–47.30</td><td class="n">45.49–47.30</td><td class="n">45.92–46.05</td></tr><tr><td>GPT-5.5</td><td class="n">43.1</td><td class="n"><b>35.54–67.81</b></td><td class="n">44.30–46.35</td><td class="n">44.30–46.36</td><td class="n">44.73–44.86</td></tr><tr><td>GPT-5.4</td><td class="n">34.2</td><td class="n"><b>28.27–62.37</b></td><td class="n">35.15–37.71</td><td class="n">35.15–37.71</td><td class="n">35.57–35.71</td></tr><tr><td>GLM-5.1</td><td class="n">30.4</td><td class="n"><b>25.29–59.55</b></td><td class="n">31.39–34.00</td><td class="n">31.38–34.01</td><td class="n">31.81–31.94</td></tr><tr><td>DS-V4-Pro</td><td class="n">25.7</td><td class="n"><b>20.45–53.98</b></td><td class="n">26.48–28.98</td><td class="n">26.47–28.99</td><td class="n">26.77–26.91</td></tr></tbody>
   </table></div>
-  <p class="note" style="margin-top:10px">Removing D-ABIC leaves 50 tasks, or 49 for Opus 4.8, which has no valid Rust result. An interval overlap means these bounds cannot certify the ranking; it does not establish a possible reversal. The Treant upper raw total is a documented bound, not a demonstrated attainable optimum. Full derivations and assumptions: <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a>.</p>
+  <p class="note" style="margin-top:10px">Removing D-ABIC leaves 50 tasks, or 49 for Opus 4.8, which has no valid Rust result. Overlapping ranges mean these limits cannot confirm the order; they do not show that two models change places. Treant's highest possible total is a documented limit, not a total any submission is known to reach. Full derivations and assumptions: <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a>.</p>
 </section>
 
 <section id="large" class="col">
   <h2 class="sec"><span class="num">2</span>Why the true effect may be large</h2>
-  <p>Several of the largest effects fall in the group whose size is unknown. <a class="task-link" href="tasks/integer_compression_codec.html">Integer Compression Codec</a> measures every submission against stored reference numbers that the documented starter cannot reach; on two real submissions the original raw result was 2.4 and 3.7 times lower than the documented definition gives. In <a class="task-link" href="tasks/openttd_transport_ai.html">OpenTTD</a>, a program that follows the instructions calls a function that does not exist and stops. Two features of EdgeBench's scoring make such effects larger rather than smaller. <mark>Because each run keeps its best score, a check that only sometimes over-credits still raises the run's result</mark>, and an agent that sees its scores for twelve hours is well placed to find a lenient check and keep using it. And because only valid runs are averaged, a run that a defect kills may be dropped rather than counted as zero.</p>
+  <p>Several of the largest effects fall in the group whose size is unknown. <a class="task-link" href="tasks/integer_compression_codec.html">Integer Compression Codec</a> measures every submission against stored reference numbers that the documented starter cannot reach; on all 37 submissions of a real agent run the original raw result was 1.7 to 4 times lower than the documented definition gives. In <a class="task-link" href="tasks/openttd_transport_ai.html">OpenTTD</a>, a program that follows the instructions calls a function that does not exist and stops. Two features of EdgeBench's scoring make such effects larger rather than smaller. <mark>Because each run keeps its best score, a check that only sometimes over-credits still raises the run's result</mark>, and an agent that sees its scores for twelve hours is well placed to find a lenient check and keep using it. And because only valid runs are averaged, a run that a defect kills may be dropped rather than counted as zero.</p>
 </section>
 
 <section id="real-runs" class="col">
   <h2 class="sec"><span class="num">3</span>A check against real agent runs</h2>
+  <figure class="fig" id="fig-real-runs"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 806" role="img">
+<title>A real agent run, regraded: the run&#x27;s score moved in 2 of 7 tasks</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
+  .accBg{fill:#e3eff4} .ioRing{stroke:#ffffff} .ioBand{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">A real agent run, regraded: the run&#x27;s score moved in 2 of 7 tasks</text>
+<text x="16" y="54" class="muted" font-size="14" text-anchor="start" font-weight="400">One four-hour Claude Opus 5.5 run per task, regraded with the original and the fixed checker.</text>
+<circle cx="22" cy="78" r="5" class="bg mutedS" stroke-width="2"/>
+<text x="34" y="82" class="ink" font-size="13" text-anchor="start" font-weight="400">original checker</text>
+<circle cx="174.48" cy="78" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="186.48" y="82" class="ink" font-size="13" text-anchor="start" font-weight="400">fixed checker</text>
+<circle cx="305.12" cy="78" r="5" class="bg accS" stroke-width="2" stroke-dasharray="2 2"/>
+<text x="317.12" y="82" class="ink" font-size="13" text-anchor="start" font-weight="400">computed, not run</text>
+<text x="214" y="100" class="ink" font-size="13" text-anchor="start" font-weight="600">The run&#x27;s kept score (out of 100)</text>
+<text x="598" y="100" class="ink" font-size="13" text-anchor="middle" font-weight="600">Largest change for one submission</text>
+<text x="214" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
+<text x="334" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">50</text>
+<text x="454" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">100</text>
+<text x="523" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">−25</text>
+<text x="598" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
+<text x="673" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">+25</text>
+<line x1="214" y1="124" x2="214" y2="154" class="rule" stroke-width="1"/>
+<line x1="214" y1="189" x2="214" y2="200" class="rule" stroke-width="1"/>
+<line x1="214" y1="217" x2="214" y2="221" class="rule" stroke-width="1"/>
+<line x1="214" y1="273" x2="214" y2="305" class="rule" stroke-width="1"/>
+<line x1="214" y1="340" x2="214" y2="372" class="rule" stroke-width="1"/>
+<line x1="214" y1="390" x2="214" y2="422" class="rule" stroke-width="1"/>
+<line x1="214" y1="474" x2="214" y2="506" class="rule" stroke-width="1"/>
+<line x1="214" y1="541" x2="214" y2="573" class="rule" stroke-width="1"/>
+<line x1="214" y1="608" x2="214" y2="640" class="rule" stroke-width="1"/>
+<line x1="214" y1="658" x2="214" y2="669" class="rule" stroke-width="1"/>
+<line x1="214" y1="686" x2="214" y2="690" class="rule" stroke-width="1"/>
+<line x1="334" y1="124" x2="334" y2="133" class="rule" stroke-width="1"/>
+<line x1="334" y1="150" x2="334" y2="154" class="rule" stroke-width="1"/>
+<line x1="334" y1="189" x2="334" y2="200" class="rule" stroke-width="1"/>
+<line x1="334" y1="217" x2="334" y2="221" class="rule" stroke-width="1"/>
+<line x1="334" y1="273" x2="334" y2="305" class="rule" stroke-width="1"/>
+<line x1="334" y1="340" x2="334" y2="372" class="rule" stroke-width="1"/>
+<line x1="334" y1="390" x2="334" y2="401" class="rule" stroke-width="1"/>
+<line x1="334" y1="418" x2="334" y2="422" class="rule" stroke-width="1"/>
+<line x1="334" y1="474" x2="334" y2="506" class="rule" stroke-width="1"/>
+<line x1="334" y1="541" x2="334" y2="552" class="rule" stroke-width="1"/>
+<line x1="334" y1="569" x2="334" y2="573" class="rule" stroke-width="1"/>
+<line x1="334" y1="608" x2="334" y2="640" class="rule" stroke-width="1"/>
+<line x1="334" y1="658" x2="334" y2="669" class="rule" stroke-width="1"/>
+<line x1="334" y1="686" x2="334" y2="690" class="rule" stroke-width="1"/>
+<line x1="454" y1="124" x2="454" y2="154" class="rule" stroke-width="1"/>
+<line x1="454" y1="189" x2="454" y2="221" class="rule" stroke-width="1"/>
+<line x1="454" y1="273" x2="454" y2="305" class="rule" stroke-width="1"/>
+<line x1="454" y1="340" x2="454" y2="372" class="rule" stroke-width="1"/>
+<line x1="454" y1="390" x2="454" y2="422" class="rule" stroke-width="1"/>
+<line x1="454" y1="474" x2="454" y2="506" class="rule" stroke-width="1"/>
+<line x1="454" y1="541" x2="454" y2="573" class="rule" stroke-width="1"/>
+<line x1="454" y1="608" x2="454" y2="640" class="rule" stroke-width="1"/>
+<line x1="454" y1="658" x2="454" y2="690" class="rule" stroke-width="1"/>
+<line x1="598" y1="124" x2="598" y2="133" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="150" x2="598" y2="154" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="189" x2="598" y2="221" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="273" x2="598" y2="305" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="340" x2="598" y2="372" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="390" x2="598" y2="422" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="474" x2="598" y2="485" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="502" x2="598" y2="506" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="541" x2="598" y2="552" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="569" x2="598" y2="573" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="608" x2="598" y2="619" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="636" x2="598" y2="640" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="658" x2="598" y2="669" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="686" x2="598" y2="690" class="rule" stroke-width="1.5"/>
+<text x="16" y="139.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Order Addition Permutation</text>
+<text x="16" y="154.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Optimization</text>
+<line x1="223.1" y1="142" x2="313.0" y2="142" class="mutedS" stroke-width="2"/>
+<circle cx="223.1" cy="142" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="312.968" cy="142" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="322.968" y="146.5" class="ink" font-size="13" text-anchor="start" font-weight="400">3.79 → 41.24</text>
+<text x="598" y="146.5" class="ink" font-size="13" text-anchor="middle" font-weight="400">0 (scores identical)</text>
+<text x="214" y="167" class="muted" font-size="13" text-anchor="start" font-weight="400">Each submission keeps its own score; the fixed checker keeps a</text>
+<text x="214" y="184" class="muted" font-size="13" text-anchor="start" font-weight="400">later, better one (9 submissions).</text>
+<text x="16" y="213.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Integer Compression Codec</text>
+<line x1="386.6" y1="209" x2="343.5" y2="209" class="mutedS" stroke-width="2"/>
+<circle cx="386.6" cy="209" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="343.479" cy="209" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="333.479" y="213.5" class="ink" font-size="13" text-anchor="end" font-weight="400">71.93–73.03 → 53.95</text>
+<rect x="509.0" y="203" width="89.0" height="12" rx="2" class="acc" stroke-width="1.5"/>
+<text x="604" y="213.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−29.68</text>
+<text x="214" y="234" class="muted" font-size="13" text-anchor="start" font-weight="400">Raw results rise 1.7–4×; the fixed 0–100 scale lowers the run&#x27;s</text>
+<text x="214" y="251" class="muted" font-size="13" text-anchor="start" font-weight="400">score; the run itself recorded 75.72 on its own machine (37</text>
+<text x="214" y="268" class="muted" font-size="13" text-anchor="start" font-weight="400">submissions).</text>
+<text x="16" y="297.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Lean Analysis Proofs</text>
+<line x1="446.5" y1="293" x2="450.2" y2="293" class="mutedS" stroke-width="2"/>
+<circle cx="446.5" cy="293" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="450.2" cy="293" r="5" class="bg accS" stroke-width="2" stroke-dasharray="2 2"/>
+<text x="436.472" y="297.5" class="ink" font-size="13" text-anchor="end" font-weight="400">96.86 → 98.42</text>
+<rect x="598.0" y="287" width="14.8" height="12" rx="2" class="bg accS" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="592" y="297.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+4.95</text>
+<text x="214" y="318" class="muted" font-size="13" text-anchor="start" font-weight="400">Computed from the original checker&#x27;s saved verdicts, not run (20</text>
+<text x="214" y="335" class="muted" font-size="13" text-anchor="start" font-weight="400">submissions).</text>
+<text x="16" y="357.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Juliet Vulnerability</text>
+<text x="16" y="372.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Analyzer</text>
+<line x1="453.2" y1="360" x2="453.2" y2="360" class="mutedS" stroke-width="2"/>
+<circle cx="453.2" cy="360" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="453.184" cy="360" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="443.184" y="364.5" class="ink" font-size="13" text-anchor="end" font-weight="400">99.66 = 99.66</text>
+<rect x="598.0" y="354" width="75.8" height="12" rx="2" class="acc" stroke-width="1.5"/>
+<text x="592" y="364.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+25.26</text>
+<text x="214" y="385" class="muted" font-size="13" text-anchor="start" font-weight="400">14 of 105 submissions changed; the best one did not.</text>
+<text x="16" y="414.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Molecular Self Assembly</text>
+<line x1="448.5" y1="410" x2="454.0" y2="410" class="mutedS" stroke-width="2"/>
+<circle cx="448.5" cy="410" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="410" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="438.511" y="414.5" class="ink" font-size="13" text-anchor="end" font-weight="400">95.91–100 → 100</text>
+<rect x="598.0" y="404" width="36.7" height="12" rx="2" class="acc" stroke-width="1.5"/>
+<text x="592" y="414.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+12.22</text>
+<text x="214" y="435" class="muted" font-size="13" text-anchor="start" font-weight="400">All 8 graded submissions rose; the kept one was already near the</text>
+<text x="214" y="452" class="muted" font-size="13" text-anchor="start" font-weight="400">top of the scale; the run itself recorded 100 on its own machine</text>
+<text x="214" y="469" class="muted" font-size="13" text-anchor="start" font-weight="400">(8 of 13 graded).</text>
+<text x="16" y="498.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Tree Block Partitioning</text>
+<line x1="454.0" y1="494" x2="454.0" y2="494" class="mutedS" stroke-width="2"/>
+<circle cx="454.0" cy="494" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="494" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="444" y="498.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
+<text x="598" y="498.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
+<text x="214" y="519" class="muted" font-size="13" text-anchor="start" font-weight="400">Differences come from timing near the time limit, under both</text>
+<text x="214" y="536" class="muted" font-size="13" text-anchor="start" font-weight="400">checkers (13 of 25 graded).</text>
+<text x="16" y="565.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Graph Node Classification</text>
+<line x1="431.2" y1="561" x2="431.1" y2="561" class="mutedS" stroke-width="2"/>
+<circle cx="431.2" cy="561" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="431.115" cy="561" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="421.115" y="565.5" class="ink" font-size="13" text-anchor="end" font-weight="400">90.44–90.60 → 90.43–90.60</text>
+<text x="598" y="565.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
+<text x="214" y="586" class="muted" font-size="13" text-anchor="start" font-weight="400">The spread is timing noise under both checkers; the run itself</text>
+<text x="214" y="603" class="muted" font-size="13" text-anchor="start" font-weight="400">recorded 90.85 on its own machine (112 of 118 graded).</text>
+<text x="16" y="625.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Schemathesis Config</text>
+<text x="16" y="640.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Modernization</text>
+<line x1="454.0" y1="628" x2="454.0" y2="628" class="mutedS" stroke-width="2"/>
+<circle cx="454.0" cy="628" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="628" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="444" y="632.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
+<text x="598" y="632.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">problem never occurred</text>
+<text x="214" y="653" class="muted" font-size="13" text-anchor="start" font-weight="400">All 30 submissions score the same under both checkers.</text>
+<text x="16" y="682.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Borden Source Inversion</text>
+<circle cx="346.3" cy="678" r="5" class="bg mutedS" stroke-width="2"/>
+<text x="336.337" y="682.5" class="ink" font-size="13" text-anchor="end" font-weight="400">55.14 (raw 60.10)</text>
+<text x="598" y="682.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">same grader; needs a new run</text>
+<text x="214" y="703" class="muted" font-size="13" text-anchor="start" font-weight="400">Grader unchanged, so old answers score the same (60.10 raw, 55.14</text>
+<text x="214" y="720" class="muted" font-size="13" text-anchor="start" font-weight="400">out of 100); the fix changes the instructions, so only new runs</text>
+<text x="214" y="737" class="muted" font-size="13" text-anchor="start" font-weight="400">can show its effect.</text>
+<text x="16" y="762" class="muted" font-size="13" text-anchor="start" font-weight="400">Both checkers regraded on our machines; a range is the spread over three gradings.</text>
+<text x="16" y="780" class="muted" font-size="13" text-anchor="start" font-weight="400">It shows the problems happen to real agents, and sometimes do not. It does not measure the</text>
+<text x="16" y="798" class="muted" font-size="13" text-anchor="start" font-weight="400">effect on the 12-hour leaderboard.</text>
+
+</svg>
+</div><figcaption><b>Figure 1.</b> We regraded one four-hour Claude Opus 5.5 run, submission by submission, with the original and the fixed checker. The run&#x27;s kept score changed in 2 of the 7 regraded tasks: Order Addition 3.79 → 41.24, although no single submission&#x27;s score changed, and Integer Codec 71.93 → 53.95 on the fixed scale (the run itself recorded 75.72 on its own machine). Both sides are regrades on our machines. In 2 more tasks single submissions changed by up to 25.26 points while the kept score did not, and in 3 the problem never occurred. In Borden Inversion the grader is unchanged, so the run&#x27;s answers score the same (60.10 raw, 55.14 out of 100); the fix changes the instructions, so only new runs can show its effect. It shows that the problems happen to real agents, and sometimes do not; it does not measure the effect on the 12-hour leaderboard.</figcaption></figure>
   <p>EdgeBench has not released its runs. A third party has, however, published one run of Claude Opus&nbsp;5.5 on 16 of the public tasks: four hours per task, with every submission the agent made and the score the original grader gave it. Nine of those 16 tasks are ones we fixed. The other seven we kept unchanged, so there is nothing to regrade.</p>
-  <p><b>Which fixes old submissions can test.</b> A saved submission is the agent's answer to the task as it was. If a fix changes only the grader, the same answer can be given to the original grader and to the fixed one, and the comparison is fair, because the agent saw exactly the same task either way. If a fix changes what the agent sees (the instructions, a starter file, a statement to prove), the agent would have worked differently, so grading its old answers with the fixed version measures nothing.</p>
+  <p><b>Which fixes old submissions can test.</b> A saved submission is the agent's answer to the task as it was. If a fix changes only the grader, the same answer can be given to the original grader and to the fixed one, and the comparison is fair, because the agent saw exactly the same task either way. If a fix changes only what the agent sees (the instructions or a starter file), the grader is the same, so old answers score the same under both versions; the agent would have worked differently with the new instructions, so only a new run can show the fix's effect.</p>
   <ul class="tight">
-    <li><b>Regraded: 7 tasks.</b> Their fixes change the grader alone. We graded 314 submissions with both graders (349 paired gradings, counting repeats), using the run's own grading script and the official 4 CPUs, and recomputed each task's score with EdgeBench's rule of keeping the best submission so far. Graders that depend on timing were run three times for the submissions that decide the score. As a check on the replay, the original grader reproduced the run's recorded result exactly for all 144 submissions of the three tasks whose graders do not depend on timing.</li>
-    <li><b>Not regraded: 2 tasks.</b> The <a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> fix changes only the instructions and a starter file. The <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a> grader needs a 33&nbsp;GB image and 16&nbsp;GiB of memory, more than our machines have, so its effect was computed from the original grader's verdict on each proof target instead.</li>
+    <li><b>Regraded: 7 tasks.</b> Their fixes change the grader alone. We graded 314 submissions with both graders (349 paired gradings, counting repeats), using the run's own grading script and the official 4 CPUs, and recomputed each task's score with EdgeBench's rule of keeping the best submission so far. Both columns of Table&nbsp;4 are these regrades on our machines; where the run's own recorded score differs, the note gives it. Graders that depend on timing were run three times for the submissions that decide the score. As a check on the replay, the original grader reproduced the run's recorded result exactly for all 144 submissions of the three tasks whose graders do not depend on timing.</li>
+    <li><b>Not regraded: 2 tasks.</b> The <a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> fix changes only the instructions and a starter file; its grader is unchanged, so the run's answers score the same under both versions. The <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a> grader needs an image that unpacks to about 33&nbsp;GB and 16&nbsp;GB of memory, more than our machines have, so its effect was computed from the original grader's verdict on each proof target instead. Its fix also corrects two statements to prove; they were false, so no answer could earn them before, and the run's verdicts on every other target do not depend on them.</li>
   </ul>
-  <p class="tcap"><b>Table 4.</b> The run's score on each fixed task (0–100, best submission so far), as recorded in the run and under the fixed version.</p>
+  <p class="tcap"><b>Table 4.</b> The run's score on each fixed task (0–100, best submission so far) under the original and the fixed version, both regraded on our machines; a range is the spread over three gradings.</p>
   <div class="tablewrap"><table class="bt">
     <thead><tr><th>Task</th><th>Fix changes</th><th class="n">Original</th><th class="n">Fixed</th><th>Note</th></tr></thead>
     <tbody>
-      <tr><td><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a></td><td>grader</td><td class="n">3.79</td><td class="n"><b>41.24</b></td><td><mark>The original grader fails every result on a stale checksum, so the run kept its first agent submission; the fixed grader keeps a later one.</mark> All 9 submissions.</td></tr>
-      <tr><td><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a></td><td>grader, scale</td><td class="n">75.72</td><td class="n"><b>about 50–54</b></td><td>Every submission's raw result rises 1.7 to 4 times; the fixed task's new scale puts the best at about 50–54. The same submission varies by up to ±20% between machines under both graders. All 37.</td></tr>
-      <tr><td><a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a></td><td>grader</td><td class="n">99.66</td><td class="n">99.66</td><td>14 early submissions used the trace form shown in the public examples and lost up to 25 points; later ones used the form the hidden grader expects. All 105.</td></tr>
-      <tr><td><a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Self-Assembly</a></td><td>grader (CPUs)</td><td class="n">100</td><td class="n">100</td><td>Every graded submission scores 3–4% higher in raw terms, but the run was already above the top of the scale. 8 of 13.</td></tr>
+      <tr><td><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a></td><td>grader</td><td class="n">3.79</td><td class="n"><b>41.24</b></td><td><mark>The original grader fails one test of every submission on a stale checksum, so the run kept its first scored submission (the sixth graded); the fixed grader keeps a later one.</mark> All 9 submissions.</td></tr>
+      <tr><td><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a></td><td>grader, scale</td><td class="n">71.93</td><td class="n"><b>53.95</b></td><td><mark>The fix lowers this run's score.</mark> The run itself recorded 75.72 on its own machine. Every submission's raw result rises 1.7 to 4 times, and the fixed task's new 0–100 scale puts the run's best at 53.95. The same submission varies by up to ±20% between machines under both graders. All 37.</td></tr>
+      <tr><td><a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a></td><td>grader</td><td class="n">99.66</td><td class="n">99.66</td><td>14 early submissions scored up to 25.26 points higher under the fix; later ones scored the same under both. All 105.</td></tr>
+      <tr><td><a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Self-Assembly</a></td><td>grader (CPUs)</td><td class="n">95.91–100</td><td class="n">100</td><td>Every graded submission scores higher: about 2–4.5% in raw terms, and up to 12.22 points out of 100 for a single submission (86.03 → 98.25). The run's best was already near the top of the scale, so its score stays at or near 100 (the run recorded 100). 8 of 13.</td></tr>
       <tr><td><a class="task-link" href="tasks/tree_block_partitioning.html">Tree Block Partitioning</a></td><td>grader</td><td class="n">100</td><td class="n">100</td><td>The defect never occurred: the affected sub-task scores the same under both graders. 13 of 25.</td></tr>
-      <tr><td><a class="task-link" href="tasks/graph_node_classification.html">Graph Node Classification</a></td><td>grader</td><td class="n">90.85</td><td class="n">90.43–90.60</td><td>The defect never occurred: every submission is valid under both. The difference is timing noise; the original grader on our machines gives 90.44–90.60. 112 of 118 (6 are missing from the archive).</td></tr>
+      <tr><td><a class="task-link" href="tasks/graph_node_classification.html">Graph Node Classification</a></td><td>grader</td><td class="n">90.44–90.60</td><td class="n">90.43–90.60</td><td>The defect never occurred: every submission is valid under both. The spread is timing noise; the run itself recorded 90.85 on its own machine. 112 of 118 (6 are missing from the archive).</td></tr>
       <tr><td><a class="task-link" href="tasks/schemathesis_config_modernization.html">Schemathesis Config</a></td><td>grader</td><td class="n">100</td><td class="n">100</td><td>The defect never occurred: every submission scores the same under both. All 30.</td></tr>
-      <tr><td><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a></td><td>instructions, starter file</td><td class="n">60.10</td><td class="n">not regradable</td><td>The same answers score 55.14 on the fixed task's new scale; that is only the change of scale.</td></tr>
+      <tr><td><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a></td><td>instructions, starter file</td><td class="n">60.10 raw</td><td class="n">60.10 raw</td><td>Raw results on the task's 0–109 scale; the fixed task reports the same answer as 55.14 out of 100, which is only its new scale. Grader unchanged, so old answers score the same. The fix changes the instructions, so only new runs can show its effect.</td></tr>
       <tr><td><a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a></td><td>grader, two statements</td><td class="n">96.86</td><td class="n">98.42</td><td>Computed, not run: the original verdicts counted against the fixed list of proof targets.</td></tr>
     </tbody>
   </table></div>
-  <p>In <a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a> and <a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> the agent learned the hidden convention from the grader's feedback. Early submissions lost points; later ones did not. In Juliet the run's final score is therefore unchanged by the fix. In Borden the first submissions scored about 7, which is what a one-shot fit that follows the documentation scores, and the agent climbed to 60.10 by iterating.</p>
+  <p>In <a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a>, 14 of 105 submissions, all early ones, rose under the fix, and the kept score of 99.66 did not change. In <a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>, whose grader is unchanged, the run's best score climbed from 7.01 to 60.10 over 36 submissions while the checker reported its error on the hidden wells after each one; 7.01 is about what a one-shot fit that follows the documentation scores.</p>
   <p>This is one model and one four-hour run per task, rather than three twelve-hour runs. It shows that the problems occur in practice, but it cannot measure the effect on the leaderboard.</p>
   <p class="note">Full figures, task by task: <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a> and <a href="data/impact.csv">impact.csv</a>. Every grading: <code>evidence/runs/opus55-regrade2-summary/summary.json</code>.</p>
 </section>

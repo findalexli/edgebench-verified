@@ -31,6 +31,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from names import names as task_names  # noqa: E402
 import mdrender  # noqa: E402
+import categories as PC  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'site'
@@ -86,13 +87,13 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     cols = [
         ('1', 'Examined', 'original code and images', [f'{n_tasks} tasks examined', 'source, component and', 'native evidence']),
         ('2', 'Proved formally', 'Lean 4 and TLA+', [f'{n_formal} tasks, {n_thm} theorems', f'{n_tla} model-checking runs', f'{n_fix_proved} repair models checked']),
-        ('3', 'Historical pairs', 'components and graders', [f'{n_fix} fixes + 1 partial fix', f'{n_cmp} comparisons', 'nearly all run 3 times']),
+        ('3', 'Side by side', 'original vs fixed checker', [f'{n_fix} fixes + 1 partial fix', f'{n_cmp} comparisons', 'nearly all run 3 times']),
         ('4', 'Checked on real runs', 'a public agent run', [f'{n_real} fixed tasks covered;', '7 regraded with', 'both graders;', 'Lean computed']),
     ]
     w, g = 178, 16
     o = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">',
          '<title>Four evidence layers with different scope: tasks examined in the original code and images, '
-         'models proved in Lean 4 or checked in TLA+, historical paired comparisons of saved versions, '
+         'models proved in Lean 4 or checked in TLA+, side-by-side tests of the original and the fixed checker, '
          'and fixed tasks covered by one public agent run.</title>',
          '<style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} '
          '.num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}'
@@ -109,8 +110,8 @@ def evidence_figure(n_tasks, n_formal, n_thm, n_tla, n_fix, n_fix_proved, n_cmp,
     o.append('</svg>')
     (FIG / 'evidence-layers.svg').write_text('\n'.join(o) + '\n')
     (FIG / 'evidence-layers.json').write_text(json.dumps({
-        'alt': 'Four columns: examined in the original code and images, proved formally in Lean 4 and TLA+, historical paired comparisons, checked on real runs.',
-        'caption': 'Four evidence layers with different scope. Historical source/helper controls, native runs and formal models are not interchangeable or independently certified reproductions. Paired comparisons refer to the saved versions; they do not certify newer candidates. The real-agent record covers nine tasks, with seven regraded under both graders and Lean Analysis computed from saved verdicts.'}) + '\n')
+        'alt': 'Four columns: examined in the original code and images, proved formally in Lean 4 and TLA+, tested side by side on the original and the fixed checker, checked on real runs.',
+        'caption': 'Four kinds of evidence, each covering something different. Reading the code, testing parts of a checker, running the whole checker and formal models answer different questions and do not stand in for one another. Side-by-side tests compare the original checker with the version of each fix that was tested, which is not always the latest. One public agent run covers nine fixed tasks: seven regraded with both checkers, and Lean Analysis computed from saved verdicts.'}) + '\n')
 
 
 def comparison_counts():
@@ -130,7 +131,8 @@ def comparison_counts():
     executed = [k for k in runs if not derived[k]]
     graded = [k for k in executed if role[k] != 'setup']
     pr = list(csv.DictReader(open(ROOT / 'data' / 'paired-results.csv')))
-    return {'arms': {k: runs[k] for k in graded}, 'executed': len(executed), 'graded': len(graded),
+    src = {(r['task_id'], r['arm']): r['source'] for r in pr}
+    return {'arms': {k: runs[k] for k in graded}, 'arm_src': src, 'executed': len(executed), 'graded': len(graded),
             'graded3': sum(runs[k] >= 3 for k in graded), 'executed3': sum(runs[k] >= 3 for k in executed),
             'setup': len(executed) - len(graded), 'derived': sum(derived.values()),
             'not_run': len(pr) - len(runs),
@@ -232,6 +234,8 @@ class Lang:
 
     def caption(self, name):
         c = self.extra['figures'].get(name)
+        if isinstance(c, dict):     # {"caption": ..., "alt": ...}; the alt text is used on the case pages
+            c = c.get('caption')
         if c:
             return c
         if self.code != 'en':
@@ -241,6 +245,11 @@ class Lang:
 
 def esc(s):
     return html.escape(str(s), quote=True)
+
+
+def plain_html(s):
+    """A plain-words summary field: escaped text, with `code` spans shown as code."""
+    return re.sub(r'`([^`]+)`', r'<code>\1</code>', esc(s))
 
 
 def nobraces(s):
@@ -286,7 +295,10 @@ def load_data():
     config = (ROOT / CONFIG_MD).read_text()
     for t in LEAN_8CPU + SMT_16CPU:
         assert t in config and t in tasks, f'{t} not in {CONFIG_MD}'
+    bad = PC.validate(decisions)
+    assert not bad, bad
     return {'decisions': decisions, 'rows': rows, 'tasks': tasks, 'names': names, 'plain': plain,
+            'pcat': PC.by_primary(decisions), 'pcat2': PC.by_secondary(decisions),
             'formal': frm, 'formal_by': {x['task']: x for x in frm},
             'counts': Counter(r['proposed'] for r in rows)}
 
@@ -299,6 +311,8 @@ def numbers(D):
     v.update(n_cmp=cc['graded'], n_cmp3=cc['graded3'], n_cmp_once=cc['graded'] - cc['graded3'], n_cmp_tasks=cc['tasks'], n_cmp_setup=cc['setup'],
              n_cmp_derived=cc['derived'], n_cmp_noexec=cc['not_run'],
              n_problem=counts.get('repair-v2', 0) + counts.get('exclude', 0))
+    assert sum(len(x) for x in D['pcat'].values()) == int(v['n_problem']), 'problem categories do not cover every problem task'
+    v.update({f'pcat_n_{k}': len(D['pcat'][k]) for k in PC.KEYS})
     frm = D['formal']
     leans = [p for p in (ROOT / 'evidence/formal/lean/ebv/Ebv').glob('*.lean') if p.with_suffix('.out').exists()]
     thms = sum(len({t for t in re.findall(r"^'[^']+' (?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)",
@@ -309,6 +323,8 @@ def numbers(D):
     v.update(formal_tasks=len(frm), lean_files=len(leans), lean_thms=thms, tla_runs=len(cfgs),
              tla_models=len({c.parent for c in cfgs}), fix_proved=fix_proved,
              fix_partly=sum(r['covers'] == 'fix' and r['result'].startswith('partly') for r in frm),
+             fix_earlier=sum(r['covers'] == 'fix' and r['result'] in ('proved', 'model-checked') and not r['covers_current']
+                             for r in frm),
              formal_checks=len(leans) + len(cfgs))
     imp = list(csv.DictReader(open(ROOT / 'data/impact.csv')))
     effects = json.loads((ROOT / 'evidence/impact/effects.json').read_text())
@@ -341,6 +357,7 @@ def numbers(D):
                     for a, b in zip(order, order[1:])
                     if float(by_model[a]['bounded_low']) <= float(by_model[b]['bounded_high'])]
     D['arms'] = cc['arms']
+    D['arm_src'] = cc['arm_src']
     return {k: str(x) for k, x in v.items()}
 
 
@@ -391,6 +408,19 @@ def generated_prose(P, D, num):
                     f"<br><span style=\"color:var(--muted)\">{t('formal.covers.' + r['covers'])}</span></td>"
                     f"<td>{esc(tr.get('what', r['what']))}</td><td>{esc(tr.get('limit', r['limit']))}</td></tr>")
     out['formal_rows'] = ''.join(rows)
+    # problem categories: the count and the tasks of each (primary, then secondary)
+    by = {r['task_id']: r for r in D['rows']}
+
+    def links(ids):
+        ids = sorted(ids, key=lambda x: D['names'][x].lower())
+        return t('pcat.join').join(task_link(P, D, x) + (t('pcat.removed_mark') if by[x]['proposed'] == 'exclude' else '')
+                                   for x in ids)
+    for k in PC.KEYS:
+        out[f'pcat_count_{k}'] = t('pcat.count', n=len(D['pcat'][k]))
+        line = t('pcat.tasks_line', n=len(D['pcat'][k]), tasks=links(D['pcat'][k]), href=f'{P.root}tasks/index.html#{k}')
+        if D['pcat2'][k]:
+            line += '<br>' + t('pcat.secondary_line', tasks=links(D['pcat2'][k]))
+        out[f'pcat_tasks_{k}'] = line
     return out
 
 
@@ -399,12 +429,20 @@ def verif(P, D, tid):
     parts = [t('verif.lead')]
     r = D['formal_by'].get(tid)
     if r:
-        parts.append(t('verif.formal', tool=r['tool'].replace(' ', '&nbsp;'), what=t('verif.cov.' + r['covers'], result=r['result'] if P.L.code == 'en' else t('formal.result.' + r['result']))))
+        # a proof of a superseded version of the fix says so (evidence/formal/summary.json: covers_current)
+        cov = r['covers'] + ('_earlier' if r['covers'] == 'fix' and not r['covers_current'] else '')
+        parts.append(t('verif.formal', tool=r['tool'].replace(' ', '&nbsp;'), what=t('verif.cov.' + cov, result=r['result'] if P.L.code == 'en' else t('formal.result.' + r['result']))))
     runs = [v for (tt, _), v in D['arms'].items() if tt == tid]
+    # comparisons of the current revision (a source naming v2.1, v2.2, ...) when earlier versions were also compared
+    is_cur = lambda a: re.match(r'(Revision )?v2\.\d', D['arm_src'].get((tid, a), '')) is not None  # noqa: E731
+    cur = [v for (tt, a), v in D['arms'].items() if tt == tid and is_cur(a)]
+    old = [v for (tt, a), v in D['arms'].items() if tt == tid and not is_cur(a)]
     if tid == 'dabic_gravity_inversion':
         parts.append(t('verif.dabic'))
     elif not runs:
         parts.append(t('verif.norun'))
+    elif cur and old and max(cur) == 1 and min(old) >= 3:
+        parts.append(t('verif.current_once'))
     elif min(runs) >= 3:
         parts.append(t('verif.three'))
     else:
@@ -412,11 +450,39 @@ def verif(P, D, tid):
     return t('verif.join').join(parts)
 
 
+def headline_values():
+    """{{headline:<key>}} values for the Overview, from data/headline.json (tools/build_impact_figures.py).
+
+    An unknown key raises KeyError, so a missing number fails the build instead of showing a placeholder."""
+    h = json.loads((ROOT / 'data' / 'headline.json').read_text())
+    rr, lb = h['real_run'], h['leaderboard']
+    pub, sc, dl = lb['published'], lb['scale_only'], lb['documented_limits']
+    a, b = 'Opus 4.8', 'GPT-5.5'
+    oa = rr['kept_score_changes']['order_addition_permutation_optimization']
+    f2 = lambda x: f'{x:.2f}'
+    return {
+        'tasks_10pt': str(h['measured_change_10_or_more']['count']),
+        'real_regraded': str(rr['regraded_with_both_checkers']),
+        'real_run_changed': str(len(rr['kept_score_changes'])),
+        'real_subs_changed': str(len(rr['single_submissions_change_kept_score_does_not'])),
+        'real_never': str(len(rr['problem_never_occurred'])),
+        'oa_orig': f2(oa[0]), 'oa_fixed': f2(oa[1]),
+        'top1_pub': f'{pub[a]:.1f}', 'top2_pub': f'{pub[b]:.1f}', 'top_gap': f'{pub[a] - pub[b]:.1f}',
+        'top1_scale_low': f2(sc[a][0]), 'top1_scale_high': f2(sc[a][1]),
+        'top2_scale_low': f2(sc[b][0]), 'top2_scale_high': f2(sc[b][1]),
+        'top1_low': f2(dl[a][0]), 'top1_high': f2(dl[a][1]),
+        'top2_low': f2(dl[b][0]), 'top2_high': f2(dl[b][1]),
+    }
+
+
 def expand(P, D, num, text):
     """Fill a prose template for one page."""
     t = P.L.t
     text = re.sub(r'\{\{t:([\w.\-]+)\}\}', lambda m: t(m.group(1)), text)
     text = re.sub(r'\{\{task:(\w+)(?:\|([^{}]*))?\}\}', lambda m: task_link(P, D, m.group(1), m.group(2)), text)
+    if '{{headline:' in text:
+        hv = headline_values()
+        text = re.sub(r'\{\{headline:(\w+)\}\}', lambda m: hv[m.group(1)], text)
     n = 0
 
     def figure(m):
@@ -493,24 +559,33 @@ TASKS_JS = """<script>
   var list = document.getElementById('cards'); if (!list) return;
   var items = [].slice.call(list.children), q = document.getElementById('q');
   var count = document.getElementById('count'), empty = document.getElementById('empty');
-  var tpl = count.getAttribute('data-tpl'), filt = 'all';
-  var buttons = [].slice.call(document.querySelectorAll('#filters button'));
+  var tpl = count.getAttribute('data-tpl'), filt = 'all', cat = 'all';
+  var buttons = [].slice.call(document.querySelectorAll('#filters button[data-f]'));
+  var cbuttons = [].slice.call(document.querySelectorAll('#cfilters button[data-c]'));
   function apply(push) {
     var term = q.value.trim().toLowerCase(), shown = 0;
     items.forEach(function (li) {
       var ok = (filt === 'all' || li.getAttribute('data-outcome') === filt) &&
+               (cat === 'all' || li.getAttribute('data-pcat') === cat) &&
                (!term || li.getAttribute('data-search').indexOf(term) >= 0);
       li.classList.toggle('card-hidden', !ok); if (ok) shown++;
     });
     count.textContent = tpl.replace('{shown}', shown).replace('{total}', items.length);
     empty.hidden = shown > 0;
     buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === filt)); });
-    if (push) { try { history.replaceState(null, '', filt === 'all' ? location.pathname + location.search : '#' + filt); } catch (e) {} }
+    cbuttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-c') === cat)); });
+    if (push) {
+      var hs = [filt, cat].filter(function (x) { return x !== 'all'; }).join('+');
+      try { history.replaceState(null, '', hs ? '#' + hs : location.pathname + location.search); } catch (e) {}
+    }
   }
   buttons.forEach(function (b) { b.addEventListener('click', function () { filt = b.getAttribute('data-f'); apply(true); }); });
+  cbuttons.forEach(function (b) { b.addEventListener('click', function () { cat = b.getAttribute('data-c'); apply(true); }); });
   q.addEventListener('input', function () { apply(false); });
-  var h = location.hash.slice(1);
-  if (buttons.some(function (b) { return b.getAttribute('data-f') === h; })) filt = h;
+  location.hash.slice(1).split('+').forEach(function (h) {
+    if (buttons.some(function (b) { return b.getAttribute('data-f') === h; })) filt = h;
+    if (cbuttons.some(function (b) { return b.getAttribute('data-c') === h; })) cat = h;
+  });
   apply(false);
 })();
 </script>"""
@@ -531,24 +606,32 @@ def tasks_index(L, D):
     btns = [f'<button type="button" data-f="all" aria-pressed="true">{t("tasks.all", n=len(D["rows"]))}</button>']
     btns += [f'<button type="button" data-f="{k}" aria-pressed="false">{t("tasks.filter", label=t("outcome." + k), n=counts[k])}</button>'
              for k in ORDER if counts.get(k)]
+    cbtns = [f'<button type="button" data-c="all" aria-pressed="true">{t("tasks.cat_all")}</button>']
+    cbtns += [f'<button type="button" data-c="{k}" aria-pressed="false">{t("tasks.filter", label=t("pcat." + k + ".short"), n=len(D["pcat"][k]))}</button>'
+              for k in PC.KEYS]
     cards = []
     for r in D['rows']:
         tid = r['task_id']
         p = plain_for(L, D, tid)
         cat = t.opt('category.' + r['category'], r['category']) if L.code != 'en' else r['category']
-        search = ' '.join([r['name'], tid, r['category'], cat, p['headline'], p['about'], t('outcome.' + r['proposed'])]).lower()
+        pk = PC.primary(r) or ''
+        pname = t('pcat.' + pk) if pk else ''
+        search = ' '.join([r['name'], tid, r['category'], cat, p['headline'], p['about'], t('outcome.' + r['proposed']),
+                           pname]).lower()
+        chip = f'<span class="badge pc">{t("pcat." + pk + ".short")}</span>' if pk else ''
         cards.append(
-            f'<li data-task="{tid}" data-outcome="{r["proposed"]}" data-search="{esc(search)}">'
+            f'<li data-task="{tid}" data-outcome="{r["proposed"]}" data-pcat="{pk}" data-search="{esc(search)}">'
             f'<a class="card" href="{tid}.html"><span class="top"><span>{esc(cat)}</span>'
-            f'<span class="badge b-{r["proposed"]}">{t("outcome." + r["proposed"])}</span></span>'
+            f'<span class="badges">{chip}<span class="badge b-{r["proposed"]}">{t("outcome." + r["proposed"])}</span></span></span>'
             f'<span class="name">{esc(r["name"])}</span><span class="line">{esc(p["headline"])}</span>'
             f'<span class="go">{t("tasks.open")} &rarr;</span></a></li>')
     body = (f'<header class="title tasks-head"><p class="kicker">{t("tasks.kicker")}</p><h1>{t("tasks.h1")}</h1>'
             f'<p class="subtitle" style="font-style:normal;font-size:19px">{t("tasks.intro")}</p>'
-            f'<p class="note">{t("tasks.legend")}</p></header>'
+            f'<p class="note">{t("tasks.legend")} {t("tasks.legend_cat")}</p></header>'
             f'<section class="wide" style="padding-top:6px">'
-            f'<div class="controls" id="filters" role="group" aria-label="{esc(t("tasks.filter_label"))}">{"".join(btns)}'
-            f'<div class="search"><label for="q" class="skip">{t("tasks.search_label")}</label>'
+            f'<div class="controls" id="filters" role="group" aria-label="{esc(t("tasks.filter_label"))}">{"".join(btns)}</div>'
+            f'<div class="controls cfilters" id="cfilters" role="group" aria-label="{esc(t("tasks.filter_cat_label"))}">{"".join(cbtns)}</div>'
+            f'<div class="controls"><div class="search"><label for="q" class="skip">{t("tasks.search_label")}</label>'
             f'<input id="q" type="search" placeholder="{esc(t("tasks.search_placeholder"))}" autocomplete="off"></div></div>'
             f'<p class="count" id="count" aria-live="polite" data-tpl="{esc(t("tasks.count", shown="{shown}", total="{total}"))}">'
             f'{t("tasks.count", shown=len(cards), total=len(cards))}</p>'
@@ -692,7 +775,7 @@ def task_page(L, D, i, used_figs):
     md = L.source(ROOT / 'cases' / f'{tid}.md', ROOT / 'cases' / L.code / f'{tid}.md')
     md = re.sub(r'\A\s*# [^\n]*\n', '', md)                       # the page has its own title
     # the figure is shown in the summary above the case; drop the duplicate and its caption line
-    md = re.sub(r'\n!\[[^\]]*\]\(figures/[^)]+\)\n\n\*[^\n]*\*\n', '\n', md, count=1)
+    md = re.sub(r'\n!\[[^\]]*\]\((?:\.\./)?figures/[^)]+\)\n\n\*[^\n]*\*\n', '\n', md, count=1)
     case_html = mdrender.render(md, link=case_link_fn(P, D, md_dir, used_figs), heading_offset=1, slug_prefix='case-')
     prompt_html = mdrender.render(task['work']['agent_query'], link=prompt_link, heading_offset=2, slug_prefix='prompt-')
     figure = ''
@@ -706,15 +789,22 @@ def task_page(L, D, i, used_figs):
         res = t.opt('formal.result.' + fr['result'], fr['result'].capitalize()) if L.code != 'en' else t('formal.result.' + fr['result'])
         formal = (f'<dt>{t("task.sum.formal")}</dt><dd>' +
                   esc(t('task.formal', result=res, tool=fr['tool'], what=tr.get('what', fr['what']), limit=tr.get('limit', fr['limit']))) + '</dd>')
+    pk = PC.primary(r)
+    category = ''
+    if pk:
+        sec = PC.secondary(r)
+        ctext = (t('task.category.with_secondary', primary=t('pcat.' + pk), secondary=t('pcat.join').join(t('pcat.' + x) for x in sec))
+                 if sec else t('task.category.primary_only', primary=t('pcat.' + pk)))
+        category = (f'<dt>{t("task.sum.category")}</dt><dd><a href="{P.root}index.html#{pk}">{esc(ctext)}</a></dd>')
     status = ''
     if r['proposed'] == 'repair-v2':
         english = r.get('validation_status') or VALIDATION_DEFAULT
         text = L.validation(tid, english) if r.get('validation_status') else t('task.sum.status_default')
         status = f'<dt>{t("task.sum.status")}</dt><dd>{esc(text)}</dd>'
-    summary = (f'<dl class="sum"><dt>{t("task.sum.about")}</dt><dd>{esc(p["about"])}</dd>'
-               f'<dt>{t("task.sum.problem")}</dt><dd>{esc(p["problem"])}</dd>'
-               f'<dt>{t("task.sum.effect")}</dt><dd>{esc(p["effect"])}</dd>'
-               f'<dt>{t("task.sum.action")}</dt><dd>{esc(p["action"])}</dd>{status}{formal}</dl>')
+    summary = (f'<dl class="sum"><dt>{t("task.sum.about")}</dt><dd>{plain_html(p["about"])}</dd>'
+               f'<dt>{t("task.sum.problem")}</dt><dd>{plain_html(p["problem"])}</dd>'
+               f'<dt>{t("task.sum.effect")}</dt><dd>{plain_html(p["effect"])}</dd>'
+               f'<dt>{t("task.sum.action")}</dt><dd>{plain_html(p["action"])}</dd>{category}{status}{formal}</dl>')
     grade_html, _ = grading(P, D, tid)
     # files
     links = [(BLOB + f'cases/{tid}.md', t('task.links.case')), (BLOB + f'tasks/{tid}.json', t('task.links.task_json', id=tid))]
@@ -749,6 +839,7 @@ def task_page(L, D, i, used_figs):
             f'<span>{t("task.field", field=esc(cat))}</span></div>'
             f'<header class="task-head"><h1>{esc(r["name"])}</h1>'
             f'<span class="badge b-{r["proposed"]}" data-outcome="{r["proposed"]}">{t("outcome." + r["proposed"])}</span> '
+            + (f'<a class="badge pc" data-pcat="{pk}" href="{P.root}index.html#{pk}">{t("pcat." + pk)}</a> ' if pk else '') +
             f'<span class="id">{tid}</span>'
             f'<p class="summary">{esc(p["headline"])}{"." if P.L.code == "en" else "。"}</p>'
             f'<nav class="toc" aria-label="{esc(t("task.summary.h2"))}">{toc}</nav></header>'

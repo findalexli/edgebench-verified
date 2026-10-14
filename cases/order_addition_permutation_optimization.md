@@ -1,10 +1,10 @@
 # Order Addition Permutation Optimization (`order_addition_permutation_optimization`)
 
-**Outcome:** Fixed. <mark>A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first valid submission and ignores better later ones.</mark>
+**Outcome:** Fixed. <mark>A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first scored submission and ignores better later ones.</mark>
 
-![Two rows showing the same two valid submissions: the original grader keeps the first, lower-scoring one as best, while the fixed version keeps the second, better one.](figures/order_addition_permutation_optimization.svg)
+![Bar chart of the nine submissions of one real agent run, in the order they were graded: five early ones with no score, then 3.79, 15.91, 15.91 and 41.24 out of 100; the bar kept by the original checker is gold, the one kept by the fixed checker green, the others blue. Below it, tests passed by each submission: the original checker gives 2/5 or 4/5 and keeps submission 6 (3.79); the fixed checker gives 3/5 or 5/5 and keeps submission 9 (41.24).](figures/order_addition_permutation_optimization.svg)
 
-*A stale file fingerprint caps every submission at 4/5 tests, so the original grader keeps a run's first valid submission and ignores better later ones.*
+*An outdated file check made a real agent run keep 3.79 out of 100 although a later submission earned 41.24. The agent orders the numbers 1 to 1000 to make a hidden cost small; one of the five tests expects an older version of a helper file, so every submission fails it. The run keeps the submission that passes the most tests and compares scores only when all five pass, so every scored submission ties at 4 of 5 and the first one stays. With the expected file version corrected, the scored submissions pass 5 of 5, each score is unchanged, and the run keeps 41.24.*
 
 ## What the task asks
 
@@ -18,13 +18,15 @@ A continuous score is then "calculated using `score_cost_num(cost, num)` from th
 
 - **Each submission's score is correct.** Only this one test fails. The other four still run, and `TOTAL_SCORE` is computed with the installed helper.
 - **Pass rate is capped.** A fully correct submission gets pass rate 0.8 instead of 1.0.
-- **The run's choice of best submission freezes.** This task's rule (`pass_rate_first`) keeps the submission that passes the most tests. It compares scores only when both pass rates are 1.0. Otherwise a later submission wins only with a strictly higher pass rate. Every valid submission is capped at 0.8, so the run's `best_score` / `best_round` stay on the **first** valid submission.
+- **The run's choice of best submission freezes.** This task's rule (`pass_rate_first`) keeps the submission that passes the most tests. It compares scores only when both pass rates are 1.0. Otherwise a later submission wins only with a strictly higher pass rate. Every submission is capped at 0.8 and every scored one reaches it, so the run's `best_score` / `best_round` stay on the **first** scored submission.
 
 Example under the original grader: two valid submissions in the order identity, then search. The identity permutation scores 3.3e-09, and the search result scores higher. Expected: search is chosen. Observed: identity is chosen, and the better later submission is ignored.
 
 ## How much it matters
 
 This changes the recorded score of any run with more than one valid submission where a later one scores higher. The later improvement is ignored in the run's best score. Some consumers instead take the maximum over all submissions, which does not depend on order. So whether a published number is wrong depends on which consumer produced it. Each submission's own score is unaffected.
+
+**Real agent run.** We regraded all 9 submissions of a third-party Claude Opus 5.5 run (four hours; `evidence/runs/opus55-regrade2-oa/`, `result/worker.json` `status: exit=0`; combined in `evidence/runs/opus55-regrade2-summary/summary.json`) with the original and the fixed grader. Each submission's score is identical under both. The 4 submissions with a score pass 4/5 tests under the original grader and 5/5 under the fixed one; the 5 earlier automatic submissions, which had no `final_result.txt` yet, pass 2/5 and 3/5. So the original grader keeps the run's first scored submission, 3.79 out of 100, and the fixed grader keeps the last, 41.24.
 
 ## The fix
 
@@ -61,7 +63,7 @@ Choice of the run's best submission (task rule `pass_rate_first`, computed with 
 
 ## Limits
 
-- No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
+- Apart from the regraded real run above, effects are shown on test submissions and counterexamples we wrote. The real run is one model and one four-hour run, not the 12-hour leaderboard runs.
 - The submissions are simple: the identity permutation, and short random-swap search runs (30 s and 60 s). They are far from the reference cost. The effect on the choice of best submission does not depend on score size.
 - The choice of best submission was computed with EdgeBench's `select_best` on saved reports, not through a live `judge_server` run. The agent's working image was not run.
 - How often past leaderboard runs had a better later submission was not measured.

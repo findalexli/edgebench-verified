@@ -1,35 +1,121 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
-<title>Borden Source Inversion scores</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 578" role="img">
+<title>A textbook fit scores 7; the checker's unstated physics is worth 31</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
   .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
   @media (prefers-color-scheme: dark){
     .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .rule{stroke:#2a3843} .bg{fill:#152029}
     .good{fill:#6cc79a} .bad{fill:#f08a7c} .warn{fill:#e0a64a} .acc{fill:#6cb6d3}
-    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a}
+    .goodS{stroke:#6cc79a} .badS{stroke:#f08a7c} .accS{stroke:#6cb6d3} .inkS{stroke:#e2e9ed} .warnS{stroke:#e0a64a} .mutedS{stroke:#95a6b1}
     .goodBg{fill:#15302a} .badBg{fill:#3a1f1c} .warnBg{fill:#352a16} .accBg{fill:#16303c}
   }
 </style>
-
-<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Original grader score (the true source scores 109)</text>
-<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
-<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
-<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
-<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
-<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">middle of each range</text>
-<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
-<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
-<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
-<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
-<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
-<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
-<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
-<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
-<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
-
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">A textbook fit scores 7; the checker's unstated physics is worth 31</text>
+<text x="16" y="54" class="muted" font-size="14" text-anchor="start">Task: find a hidden underground pollution source from monitoring-well readings.</text>
+<rect x="16" y="68" width="300" height="136" rx="8" class="accBg"/>
+<text x="30" y="92" class="acc" font-size="14" text-anchor="start" font-weight="700">What the instructions say</text>
+<text x="30" y="116" class="ink" font-size="14" text-anchor="start">Build the textbook groundwater model</text>
+<text x="30" y="136" class="ink" font-size="14" text-anchor="start">(the advection–dispersion equation).</text>
+<text x="30" y="156" class="ink" font-size="14" text-anchor="start">C0 is a concentration, in mg/L.</text>
+<text x="30" y="176" class="ink" font-size="14" text-anchor="start">The checker uses a “hidden” model.</text>
+<rect x="328" y="68" width="376" height="136" rx="8" class="badBg"/>
+<text x="342" y="92" class="bad" font-size="14" text-anchor="start" font-weight="700">What the checker's model does (never stated)</text>
+<text x="342" y="114" class="ink" font-size="14" text-anchor="start">• treats a mass rate as a mass</text>
+<text x="342" y="133" class="ink" font-size="14" text-anchor="start">• ignores soil porosity</text>
+<text x="342" y="152" class="ink" font-size="14" text-anchor="start">• same total mass for any release duration</text>
+<text x="342" y="171" class="ink" font-size="14" text-anchor="start">• reports mg/m³ as mg/L</text>
+<text x="342" y="190" class="ink" font-size="14" text-anchor="start">• puts the source on one face of its box</text>
+<text x="16" y="228" class="muted" font-size="13" text-anchor="start">The public data fit both models equally well, so a solver cannot tell which one the checker uses.</text>
+<text x="16" y="262" class="ink" font-size="14" text-anchor="start" font-weight="600">One-shot fit to the public data</text>
+<text x="16" y="280" class="muted" font-size="13" text-anchor="start">baseline, and the same fit with two physics models</text>
+<text x="340" y="262" class="ink" font-size="14" text-anchor="start" font-weight="600">A real agent run: 36 submissions in 4 hours</text>
+<text x="340" y="280" class="muted" font-size="13" text-anchor="start">after each one, the checker reports its error on hidden wells</text>
+<line x1="50" y1="446.0" x2="300" y2="446.0" class="rule" stroke-width="1"/>
+<line x1="372" y1="446.0" x2="666" y2="446.0" class="rule" stroke-width="1"/>
+<text x="44" y="450.5" class="muted" font-size="13" text-anchor="end">0</text>
+<text x="366" y="450.5" class="muted" font-size="13" text-anchor="end">0</text>
+<line x1="50" y1="400.3" x2="300" y2="400.3" class="rule" stroke-width="1"/>
+<line x1="372" y1="400.3" x2="666" y2="400.3" class="rule" stroke-width="1"/>
+<text x="44" y="404.786" class="muted" font-size="13" text-anchor="end">20</text>
+<text x="366" y="404.786" class="muted" font-size="13" text-anchor="end">20</text>
+<line x1="50" y1="354.6" x2="300" y2="354.6" class="rule" stroke-width="1"/>
+<line x1="372" y1="354.6" x2="666" y2="354.6" class="rule" stroke-width="1"/>
+<text x="44" y="359.071" class="muted" font-size="13" text-anchor="end">40</text>
+<text x="366" y="359.071" class="muted" font-size="13" text-anchor="end">40</text>
+<line x1="50" y1="308.9" x2="300" y2="308.9" class="rule" stroke-width="1"/>
+<line x1="372" y1="308.9" x2="666" y2="308.9" class="rule" stroke-width="1"/>
+<text x="44" y="313.357" class="muted" font-size="13" text-anchor="end">60</text>
+<text x="366" y="313.357" class="muted" font-size="13" text-anchor="end">60</text>
+<rect x="74" y="430.0" width="52" height="16.0" class="badBg"/><rect x="74" y="430.0" width="52" height="16.0" fill="none" class="badS" stroke-width="2"/>
+<text x="100" y="422.973" class="bad" font-size="15" text-anchor="middle" font-weight="700">7.01</text>
+<text x="100" y="466" class="ink" font-size="13" text-anchor="middle">Midpoint</text>
+<text x="100" y="482" class="ink" font-size="13" text-anchor="middle">baseline</text>
+<rect x="154" y="429.9" width="52" height="16.1" class="badBg"/><rect x="154" y="429.9" width="52" height="16.1" fill="none" class="badS" stroke-width="2"/>
+<text x="180" y="422.929" class="bad" font-size="15" text-anchor="middle" font-weight="700">7.03</text>
+<text x="180" y="466" class="ink" font-size="13" text-anchor="middle">Textbook</text>
+<text x="180" y="482" class="ink" font-size="13" text-anchor="middle">model</text>
+<rect x="234" y="374.7" width="52" height="71.3" class="goodBg"/><rect x="234" y="374.7" width="52" height="71.3" fill="none" class="goodS" stroke-width="2"/>
+<text x="260" y="367.686" class="good" font-size="15" text-anchor="middle" font-weight="700">31.2</text>
+<text x="260" y="466" class="ink" font-size="13" text-anchor="middle">Checker's</text>
+<text x="260" y="482" class="ink" font-size="13" text-anchor="middle">model</text>
+<path d="M394.0 430.0 L423.9 430.0 L423.9 411.7 L431.4 411.7 L431.4 355.3 L483.8 355.3 L483.8 321.8 L603.6 321.8 L603.6 308.6 L656.0 308.6" fill="none" class="goodS" stroke-width="2.5"/>
+<circle cx="394.0" cy="430.0" r="3.6" class="acc"/>
+<circle cx="401.5" cy="430.0" r="3.6" class="acc"/>
+<circle cx="409.0" cy="434.5" r="3.6" class="acc"/>
+<circle cx="416.5" cy="433.4" r="3.6" class="acc"/>
+<circle cx="423.9" cy="411.7" r="3.6" class="acc"/>
+<circle cx="431.4" cy="355.3" r="3.6" class="acc"/>
+<circle cx="438.9" cy="364.6" r="3.6" class="acc"/>
+<circle cx="446.4" cy="408.8" r="3.6" class="acc"/>
+<circle cx="453.9" cy="411.7" r="3.6" class="acc"/>
+<circle cx="461.4" cy="411.7" r="3.6" class="acc"/>
+<circle cx="468.9" cy="393.0" r="3.6" class="acc"/>
+<circle cx="476.3" cy="405.7" r="3.6" class="acc"/>
+<circle cx="483.8" cy="321.8" r="3.6" class="acc"/>
+<circle cx="491.3" cy="396.1" r="3.6" class="acc"/>
+<circle cx="498.8" cy="401.5" r="3.6" class="acc"/>
+<circle cx="506.3" cy="386.7" r="3.6" class="acc"/>
+<circle cx="513.8" cy="402.9" r="3.6" class="acc"/>
+<circle cx="521.3" cy="388.0" r="3.6" class="acc"/>
+<circle cx="528.7" cy="411.7" r="3.6" class="acc"/>
+<circle cx="536.2" cy="321.8" r="3.6" class="acc"/>
+<circle cx="543.7" cy="321.8" r="3.6" class="acc"/>
+<circle cx="551.2" cy="352.2" r="3.6" class="acc"/>
+<circle cx="558.7" cy="343.1" r="3.6" class="acc"/>
+<circle cx="566.2" cy="343.1" r="3.6" class="acc"/>
+<circle cx="573.7" cy="352.0" r="3.6" class="acc"/>
+<circle cx="581.1" cy="352.1" r="3.6" class="acc"/>
+<circle cx="588.6" cy="321.8" r="3.6" class="acc"/>
+<circle cx="596.1" cy="321.8" r="3.6" class="acc"/>
+<circle cx="603.6" cy="308.6" r="3.6" class="acc"/>
+<circle cx="611.1" cy="310.5" r="3.6" class="acc"/>
+<circle cx="618.6" cy="314.8" r="3.6" class="acc"/>
+<circle cx="626.1" cy="308.6" r="3.6" class="acc"/>
+<circle cx="633.5" cy="364.6" r="3.6" class="acc"/>
+<circle cx="641.0" cy="343.1" r="3.6" class="acc"/>
+<circle cx="648.5" cy="343.1" r="3.6" class="acc"/>
+<circle cx="656.0" cy="352.5" r="3.6" class="acc"/>
+<line x1="372" y1="374.7" x2="666" y2="374.7" class="goodS" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="672" y="379.686" class="good" font-size="13" text-anchor="start">31.2</text>
+<text x="387" y="434.973" class="acc" font-size="14" text-anchor="end" font-weight="700">7.01</text>
+<text x="603.6" y="298.622" class="good" font-size="15" text-anchor="middle" font-weight="700">60.10</text>
+<circle cx="384" cy="484" r="3.6" class="acc"/>
+<text x="394" y="488" class="muted" font-size="13" text-anchor="start">each submission</text>
+<line x1="504" y1="484" x2="524" y2="484" class="goodS" stroke-width="2.5"/>
+<text x="530" y="488" class="muted" font-size="13" text-anchor="start">best so far</text>
+<line x1="610" y1="484" x2="630" y2="484" class="goodS" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="636" y="488" class="muted" font-size="13" text-anchor="start">one-shot fit</text>
+<line x1="372" y1="446" x2="666" y2="446" class="inkS" stroke-width="1.2"/>
+<text x="394" y="466" class="muted" font-size="13" text-anchor="middle">1</text>
+<text x="656" y="466" class="muted" font-size="13" text-anchor="middle">36</text>
+<text x="525" y="466" class="muted" font-size="13" text-anchor="middle">submissions in order →</text>
+<text x="50" y="298" class="muted" font-size="13" text-anchor="start">raw score</text>
+<line x1="50" y1="446" x2="300" y2="446" class="inkS" stroke-width="1.2"/>
+<text x="16" y="518" class="ink" font-size="13" text-anchor="start">Scores are raw results from 0 to 109; the true source scores 109. The fixed version converts</text>
+<text x="16" y="536" class="ink" font-size="13" text-anchor="start">them to a score out of 100 as raw × 100/109: 7.03 → 6.45, 31.2 → 28.62, 60.10 → 55.14.</text>
+<text x="16" y="564" class="good" font-size="14" text-anchor="start" font-weight="600">Fix: agents get the checker's own model as a file, with its conventions written out.</text>
 </svg>

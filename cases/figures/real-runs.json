@@ -1,0 +1,15 @@
+{
+ "alt": "Nine rows, one per fixed task in a third-party Claude Opus 5.5 run. The left panel shows the run's kept score out of 100 under the original checker (hollow circle) and the fixed checker (filled circle), both regraded on our machines. The right panel shows the largest change for any single submission as a bar from zero, or says that the problem never occurred or that the grader is unchanged and only a new run can show the fix's effect.",
+ "caption": "We regraded one four-hour Claude Opus 5.5 run, submission by submission, with the original and the fixed checker. The run's kept score changed in 2 of the 7 regraded tasks: Order Addition 3.79 → 41.24, although no single submission's score changed, and Integer Codec 71.93 → 53.95 on the fixed scale (the run itself recorded 75.72 on its own machine). Both sides are regrades on our machines. In 2 more tasks single submissions changed by up to 25.26 points while the kept score did not, and in 3 the problem never occurred. In Borden Inversion the grader is unchanged, so the run's answers score the same (60.10 raw, 55.14 out of 100); the fix changes the instructions, so only new runs can show its effect. It shows that the problems happen to real agents, and sometimes do not; it does not measure the effect on the 12-hour leaderboard.",
+ "sources": {
+  "order_addition_permutation_optimization": "evidence/runs/opus55-regrade2-summary/summary.json",
+  "integer_compression_codec": "evidence/runs/opus55-regrade2-summary/summary.json",
+  "lean_analysis_proofs": "evidence/runs/opus55-regrade2-lean-derived/result/out/lean_derived.json",
+  "juliet_vulnerability_analyzer": "evidence/runs/opus55-regrade2-summary/summary.json",
+  "molecular_self_assembly": "evidence/runs/opus55-regrade2-summary/summary.json",
+  "tree_block_partitioning": "evidence/runs/opus55-regrade2-summary/summary.json",
+  "graph_node_classification": "evidence/runs/opus55-regrade2-summary/summary.json",
+  "schemathesis_config_modernization": "evidence/runs/opus55-regrade2-summary/summary.json",
+  "borden_source_inversion": "evidence/runs/opus55-rollouts-meta/submission-histories.json"
+ }
+}

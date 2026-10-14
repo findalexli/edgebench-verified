@@ -2,9 +2,9 @@
 
 **Outcome:** Fixed. <mark>The original correctness check does not catch wrong fees or lost messages, so incorrect engines receive full credit; the fixed version requires the project's own integration tests to pass and grades without network access.</mark>
 
-![Bars show the original grader giving full credit to an engine with wrong fees (24.40) and one that loses messages (15.62), as well as to the correct engine (7.14), with a note that the gaps are within speed noise, while the fixed version rejects both broken engines with 0.](figures/exchange_core_throughput.svg)
+![A grid of pass and fail marks. Rows: the correct engine, an engine that charges sellers the wrong fee rate (the rate for orders that wait on the book instead of the rate for orders that trade at once), and an engine that never delivers trade messages. Under the original checker all three pass and are scored on speed; under the fixed checker, which also runs 33 of the project's own tests, the correct engine passes and both broken engines are rejected with a score of 0. Notes explain the speed score (0 at 2.09 million transactions per second or slower, 100 at 6 million), give the overlapping speed scores (correct engine 0–24.19, wrong fee 7.77–24.40, lost messages 4.71–15.62 out of 100), and say that at 4 CPUs even the correct engine scores 0 for speed.](figures/exchange_core_throughput.svg)
 
-*The original grader gives broken engines full credit; their higher single-run scores are within speed noise. The fixed version scores them 0.*
+*Two engines with realistic bugs pass the original checker and are scored on speed; the fixed checker rejects them. The agent must make a stock-exchange matching engine faster without changing what it does, but the original checker only confirms that money balances overall and that the order books match, so an engine that charges selling traders the wrong fee and one that never delivers trade messages both pass and get a speed score out of 100 (7.77–24.40 and 4.71–15.62 over four runs each, against 0–24.19 for the correct engine over seven; the differences are run-to-run variation). The fixed checker first runs 33 of the project's own tests: both broken engines score 0 in all three side-by-side runs, and the correct engine still passes, also in three runs at the leaderboard's 4 CPUs, where it is too slow to score above 0 for speed.*
 
 ## What the task asks
 
@@ -46,7 +46,7 @@ At 4 CPUs the shipped engine runs below the 0-point reference (2,090.63), so it 
 
 ## How much it matters
 
-A broken engine gets full throughput credit instead of 0. Across the four original-grader runs of each broken engine (the single run above and the three side-by-side runs), feeswap scored 7.77–24.40 and dropevents 4.71–15.62 out of 100 (raw 2,269–2,704 and 2,197–2,465); the unmodified engine scored 0–37.52 (raw 2,008–3,105) in the same runs, so these scores are within throughput noise. Any solver whose optimization breaks fees or event delivery while keeping the global balance at zero gets full credit instead of 0.
+A broken engine gets full throughput credit instead of 0. Across the four original-grader runs of each broken engine (the single run above and the three side-by-side runs), feeswap scored 7.77–24.40 and dropevents 4.71–15.62 out of 100 (raw 2,269–2,704 and 2,197–2,465); the unmodified engine scored 0–24.19 (raw 2,008–2,698) in the seven original-grader runs made alongside them (the correct test submission above and the original-grader side of the three side-by-side runs), so these scores are within throughput noise. Any solver whose optimization breaks fees or event delivery while keeping the global balance at zero gets full credit instead of 0.
 
 ## The fix
 
@@ -86,7 +86,7 @@ The raw result is MT/s × 1000. RE means a run error. The single-run results in 
 ## Limits
 
 - No AI model or solver was run. Effects are shown only on test submissions and counterexamples we wrote.
-- Throughput varies by up to 38% between runs of one submission on the same machine type (`data/paired-repeatability.md`). Across the three side-by-side runs the unmodified engine ran at 2,008–3,105 raw (0–37.52 out of 100); 2,008 and 2,050 are below the 0-point reference (2,090.63), so a correct engine can score 0. The single-run scores out of 100 above are not a comparison controlled for that variation.
+- Throughput varies by up to 38% between runs of one submission on the same machine type (`data/paired-repeatability.md`). Across the three side-by-side runs, under either grader, the unmodified engine ran at 2,008–3,105 raw (0–37.52 out of 100; 0–24.19 under the original grader alone); 2,008 and 2,050 are below the 0-point reference (2,090.63), so a correct engine can score 0. The single-run scores out of 100 above are not a comparison controlled for that variation.
 - The second change (score 0 when the timed test's Maven run fails after printing an average) is tested only on a constructed shutdown failure (`shutdownbusy`, `evidence/runs/exchange_core_throughput-v2-paired-shutdownfail`), not on code from a real solver.
 - The two integration test classes cover fees, rejections and events. They do not cover every property a correct engine must keep, so an engine with other kinds of wrong behaviour could still pass the fixed grader's test step.
 - The fixed version does not compare per-user balances, positions or the event stream against a reference run. It uses the shipped integration tests instead.

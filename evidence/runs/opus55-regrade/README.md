@@ -19,5 +19,10 @@ the submission's own recorded `eval.sh` and `judge_one.sh`, with `--network none
 | Integer Codec | agent-3 | raw 31.11 | raw 114.19 (35.48) |
 | Order Addition | agent-1, auto-6, agent-2 | 4 of 5 tests each (stale checksum) | 5 of 5 tests each |
 
+This is the first regrade: two Integer Codec submissions, each graded once on one machine ("the run's best"
+means best by the run's recorded score). The second regrade (`../opus55-regrade2-summary/summary.json`) graded
+all 37 Integer Codec submissions, the top 6 three times; it gives the figure we cite for the run, 75.72 (recorded)
+→ 53.95 on the fixed scale (best submission agent-26). agent-20's 160.76 here lies inside its second-regrade range.
+
 Raw outputs: `result/out/logs/`. The run's own submission histories for all seven fixed tasks are summarised in
 `../opus55-rollouts-meta/submission-histories.json`.

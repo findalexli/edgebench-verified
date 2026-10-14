@@ -24,42 +24,49 @@
 </div></header>
 
 <main id="content">
-<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Combinatorial Optimization</span></div><header class="task-head"><h1>Treant Forest</h1><span class="badge b-repair-v2" data-outcome="repair-v2">Fixed</span> <span class="id">treant_forest</span><p class="summary">The score scale tops out at 21 of 100 for any submission.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Solve 50 fixed cases of a grid puzzle adapted from an AtCoder programming contest; each case scores the number of turns survived, and higher is better.</dd><dt>What goes wrong</dt><dd>The grader caps each case at 2N² turns, where N is the grid size, so no total can exceed 92,304. The score scale&#x27;s reference points were set far above this, up to 330,195 for the top rank, so no submission can score above 21.02 out of 100. The README does not mention the cap. At the publisher&#x27;s 4 grader CPUs each case gets about half a CPU; solutions using up to 58 seconds of computing per case still passed (the slowest took 116 of the grader&#x27;s 120 seconds), so the README&#x27;s full 60 seconds would sit at the limit; a solver that stops at a wall-clock deadline gets about half the computing time.</dd><dt>How much it matters</dt><dd>Every submission&#x27;s score is squeezed into 0 to 21, with ordering kept. A simple honest test submission scored 3.04.</dd><dt>What we did</dt><dd>Fixed in a new version: only the score scale changes, running straight from the starter&#x27;s total (3,418) to the turn cap (92,304). Raw totals are identical; the simple honest test submission now scores 16.36.</dd><dt>Validation status</dt><dd>Anchor-only repair: raw scores identical under both versions in paired runs, honest policy 3.04 -&gt; 16.36 normalized, invalid control 0 in both; package rebuilt from scratch on a clean machine (materialize-check-g3). The 92,304 cap is a documented bound, not shown attainable.</dd><dt>Formal check</dt><dd>Partly proved in Lean 4. Each case scores at most 2N². The total bound 92,304 maps to 2543510/121003 under the original scale. The formulas establish conditional per-score conversions, not exact conversion of all published leaderboard averages. Limit: 92,304 is an upper bound, not a demonstrated attainable total. Averaging across clipping or piecewise boundaries invalidates conversion from an aggregate alone..</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img">
-<title>Treant Forest score scale</title>
+<div class="col"><div class="crumbs"><a href="index.html">&larr; All tasks</a><span>Field: Combinatorial Optimization</span></div><header class="task-head"><h1>Treant Forest</h1><span class="badge b-repair-v2" data-outcome="repair-v2">Fixed</span> <a class="badge pc" data-pcat="scale_selection" href="../index.html#scale_selection">Scoring scale and selection</a> <span class="id">treant_forest</span><p class="summary">The score scale tops out at 21 of 100 for any submission.</p><nav class="toc" aria-label="Summary"><a href="#summary">Summary</a><a href="#prompt">The instructions</a><a href="#grading">How it is graded</a><a href="#found">What we found</a><a href="#files">Files</a></nav></header><section id="summary"><h2 class="sec">Summary</h2><dl class="sum"><dt>The task</dt><dd>Solve 50 fixed cases of a grid puzzle adapted from an AtCoder programming contest; each case scores the number of turns survived, and higher is better.</dd><dt>What goes wrong</dt><dd>The grader caps each case at 2N² turns, where N is the grid size, so no total can exceed 92,304. The score scale&#x27;s reference points were set far above this, up to 330,195 for the top rank, so no submission can score above 21.02 out of 100. The README does not mention the cap. At the publisher&#x27;s 4 grader CPUs each case gets about half a CPU; solutions using up to 58 seconds of computing per case still passed (the slowest took 116 of the grader&#x27;s 120 seconds), so the README&#x27;s full 60 seconds would sit at the limit; a solver that stops at a wall-clock deadline gets about half the computing time.</dd><dt>How much it matters</dt><dd>Every submission&#x27;s score is squeezed into 0 to 21, with ordering kept. A simple honest test submission scored 3.04.</dd><dt>What we did</dt><dd>Fixed in a new version: only the score scale changes, running straight from the starter&#x27;s total (3,418) to the turn cap (92,304). Raw totals are identical; the simple honest test submission now scores 16.36.</dd><dt>Problem category</dt><dd><a href="../index.html#scale_selection">Scoring scale and selection; also Engineering and runtime environment</a></dd><dt>Validation status</dt><dd>Anchor-only repair: raw scores identical under both versions in paired runs, honest policy 3.04 -&gt; 16.36 normalized, invalid control 0 in both; package rebuilt from scratch on a clean machine (materialize-check-g3). The 92,304 cap is a documented bound, not shown attainable.</dd><dt>Formal check</dt><dd>Partly proved in Lean 4. Each case scores at most 2N². The total bound 92,304 maps to 2543510/121003 under the original scale. The formulas establish conditional per-score conversions, not exact conversion of all published leaderboard averages. Limit: 92,304 is an upper bound, not a demonstrated attainable total. Averaging across clipping or piecewise boundaries invalidates conversion from an aggregate alone..</dd></dl><figure class="fig"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 392" role="img">
+<title>No submission can score above 21.02 out of 100</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
   text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-
-<text x="40" y="26" class="muted" font-size="15" text-anchor="start" font-weight="400">Original score scale (0 to 100)</text>
-<rect x="40" y="70" width="134.5" height="28" class="goodBg"/><rect x="174.5" y="70" width="505.5" height="28" class="badBg"/>
-<text x="427" y="89" class="bad" font-size="15" text-anchor="middle" font-weight="600">unreachable</text>
-<line x1="174.5" y1="46" x2="174.5" y2="98" class="inkS" stroke-width="2"/>
-<text x="182" y="50" class="ink" font-size="14" text-anchor="start" font-weight="600">Turn cap: 92,304 total turns = 21.02</text>
-<line x1="40" y1="98" x2="40" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="40" y="124" class="ink" font-size="15" text-anchor="start" font-weight="600">0</text>
-<text x="40" y="142" class="muted" font-size="14" text-anchor="start" font-weight="400">5,369</text>
-<line x1="168" y1="98" x2="168" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="168" y="124" class="ink" font-size="15" text-anchor="middle" font-weight="600">20</text>
-<text x="168" y="142" class="muted" font-size="14" text-anchor="middle" font-weight="400">88,189</text>
-<line x1="552" y1="98" x2="552" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="552" y="124" class="ink" font-size="15" text-anchor="middle" font-weight="600">80</text>
-<text x="552" y="142" class="muted" font-size="14" text-anchor="middle" font-weight="400">330,195</text>
-<line x1="680" y1="98" x2="680" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="680" y="124" class="ink" font-size="15" text-anchor="end" font-weight="600">100</text>
-<text x="680" y="142" class="muted" font-size="14" text-anchor="end" font-weight="400">451,198</text>
-<text x="40" y="166" class="muted" font-size="13" text-anchor="start" font-weight="400">Bold: score out of 100. Grey: total turns needed for that score.</text>
-<text x="40" y="192" class="muted" font-size="15" text-anchor="start" font-weight="400">Fixed score scale (0 to 100)</text>
-<rect x="40" y="204" width="640" height="28" class="goodBg"/>
-<text x="40" y="254" class="ink" font-size="15" text-anchor="start" font-weight="600">0 = 3,418 turns (starter)</text>
-<text x="680" y="254" class="ink" font-size="15" text-anchor="end" font-weight="600">100 = 92,304 turns (the cap)</text>
-
+<text x="16" y="24" class="ink" font-size="16" font-weight="600">No submission can score above 21.02 out of 100</text>
+<text x="16" y="46" class="muted" font-size="14">The checker ends each game after 2N² turns, so the total over the 50 cases is at most 92,304.</text>
+<text x="40" y="80" class="muted" font-size="15">Original score scale</text>
+<rect x="40" y="120" width="134.5" height="28" class="goodBg"/><rect x="174.5" y="120" width="505.5" height="28" class="badBg"/>
+<text x="427" y="139" class="bad" font-size="15" font-weight="600" text-anchor="middle">unreachable</text>
+<line x1="174.5" y1="98" x2="174.5" y2="148" class="inkS" stroke-width="2"/>
+<text x="182.5" y="110" class="ink" font-size="14" font-weight="600">Cap: 92,304 turns = 21.02</text>
+<circle cx="59.5" cy="134" r="5" class="acc"/>
+<text x="69.5" y="139" class="acc" font-size="14" font-weight="600">3.04</text>
+<line x1="40.0" y1="148" x2="40.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="40.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="start">0</text>
+<text x="40.0" y="192" class="muted" font-size="14" text-anchor="start">5,369</text>
+<line x1="168.0" y1="148" x2="168.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="168.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="middle">20</text>
+<text x="168.0" y="192" class="muted" font-size="14" text-anchor="middle">88,189</text>
+<line x1="552.0" y1="148" x2="552.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="552.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="middle">80</text>
+<text x="552.0" y="192" class="muted" font-size="14" text-anchor="middle">330,195</text>
+<line x1="680.0" y1="148" x2="680.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="680.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="end">100</text>
+<text x="680.0" y="192" class="muted" font-size="14" text-anchor="end">451,198</text>
+<text x="40" y="216" class="muted" font-size="13">Bold: score out of 100. Grey: total turns needed for that score.</text>
+<text x="40" y="256" class="muted" font-size="15">Fixed score scale</text>
+<rect x="40" y="268" width="640" height="28" class="goodBg"/>
+<circle cx="144.7" cy="282" r="5" class="acc"/>
+<text x="154.7" y="287" class="acc" font-size="14" font-weight="600">16.36</text>
+<text x="40" y="318" class="ink" font-size="15" font-weight="600">0 = 3,418 turns (starter code)</text>
+<text x="680" y="318" class="ink" font-size="15" font-weight="600" text-anchor="end">100 = 92,304 turns (the cap)</text>
+<circle cx="46" cy="347" r="5" class="acc"/>
+<text x="58" y="352" class="acc" font-size="14" font-weight="600">Honest test solution: 17,960 turns, the same raw result on both scales</text>
+<text x="40" y="378" class="muted" font-size="13">Order of submissions unchanged. Whether any submission can reach the cap is not shown.</text>
 </svg>
-</div><figcaption>The original scale&#x27;s reference points lie above the turn cap, so no submission can score above 21.02 of 100; the fixed scale ends at the cap, 92,304.</figcaption></figure></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/treant_forest.json">tasks/treant_forest.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-treants-forest---maze-obstruction-strategy-ahc054">Treant's Forest - Maze Obstruction Strategy (AHC054)</h4>
+</div><figcaption>In Treant Forest no submission can score above 21.02 out of 100, because the score scale was set for totals the checker never allows. The agent plays a grid puzzle scored by the number of turns, and the checker ends each game after 2N² turns, so the total over the 50 cases is at most 92,304, while the original scale needs 330,195 for 80 points. The fixed scale runs from the starter code&#x27;s 3,418 turns (0) to the 92,304 cap (100), so an honest test solution moves from 3.04 to 16.36 and the order of submissions is unchanged; whether any submission can reach the cap is not shown.</figcaption></figure></section><section id="prompt"><h2 class="sec">What the agent is asked to do</h2><p class="origin">This is EdgeBench's original task text, the <code>work.agent_query</code> field of <a href="https://github.com/findalexli/edgebench-verified/blob/main/tasks/treant_forest.json">tasks/treant_forest.json</a>, from the <a href="https://huggingface.co/datasets/ByteDance-Seed/EdgeBench">EdgeBench dataset on Hugging Face</a> by ByteDance Seed, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It is shown unchanged, rendered from Markdown to HTML; links to files inside the task's workspace are shown as plain text. EdgeBench's harness adds its standard instructions on how to submit (<code>sforge/harness/evolve_scripts.py</code>), which are not shown.</p><div class="prompt clamped"><div class="prompt-body md" lang="en"><h4 id="prompt-treants-forest---maze-obstruction-strategy-ahc054">Treant's Forest - Maze Obstruction Strategy (AHC054)</h4>
 <p>Write <code>solution.py</code> in the project root that reads from stdin and writes to stdout.</p>
 <hr>
 <h4 id="prompt-problem-overview">Problem Overview</h4>

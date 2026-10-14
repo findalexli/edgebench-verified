@@ -17,6 +17,60 @@ def need(cond, msg):
         problems.append(msg)
 
 
+def check_categories(d, readme, findings):
+    """Every problem task has exactly one valid primary category, and every shown category count agrees."""
+    sys.path.insert(0, str(ROOT / 'tools'))
+    import categories as PC
+    decisions = list(d.values())
+    for m in PC.validate(decisions):
+        need(False, f'data/decisions.json: {m}')
+    prim = PC.by_primary(decisions)
+    problem = {t for t, r in d.items() if r['proposed'] in PC.PROBLEM}
+    listed = [t for ids in prim.values() for t in ids]
+    need(sorted(listed) == sorted(problem), 'problem categories do not give every fixed or removed task exactly one primary category')
+    strings = {lang: json.loads((ROOT / 'tools/i18n' / f'{lang}.json').read_text()) for lang in ('en', 'zh')}
+    en = strings['en']
+    # README: the category table and the section headings
+    for i, k in enumerate(PC.KEYS, 1):
+        n = len(prim[k])
+        name = re.escape(en['pcat.' + k])
+        need(re.search(rf'^\| {name} \| {n} \|', readme, re.M), f'README category table count for {k} != {n}')
+        need(re.search(rf'^### {i}\. {name} \({n} tasks\)$', readme, re.M), f'README heading count for {k} != {n}')
+    need(re.search(rf'^\| \*\*Total\*\* \| \*\*{len(problem)}\*\* \| \|$', readme, re.M), 'README category total wrong')
+    # FINDINGS.md: one section per category, its count and exactly its tasks
+    for i, k in enumerate(PC.KEYS, 1):
+        m = re.search(rf'^## {i}\. {re.escape(en["pcat." + k])}\n\n\*\*(\d+) tasks\.\*\*(.*?)(?=^## )', findings, re.M | re.S)
+        need(m and int(m[1]) == len(prim[k]), f'FINDINGS.md count for {k} wrong')
+        if m:
+            need(sorted(re.findall(r'^\| \[[^\]]+\]\(cases/(\w+)\.md\)', m[2], re.M)) == prim[k],
+                 f'FINDINGS.md section {k} lists the wrong tasks')
+    # the site: overview headings, the task-list filter and cards, the badge on every task page
+    for prefix, lang in (('', 'en'), ('zh/', 'zh')):
+        ov = ROOT / 'site' / prefix / 'index.html'
+        if not ov.exists():
+            continue
+        ovt = ov.read_text()
+        cnt = strings[lang].get('pcat.count', en['pcat.count'])
+        for k in PC.KEYS:
+            n = len(prim[k])
+            want = cnt.replace('{n}', str(n))
+            need(re.search(rf'<h3 id="{k}">.*?<span class="hcount">{re.escape(want)}</span></h3>', ovt),
+                 f'site/{prefix}index.html heading count for {k} != {n}')
+            need(len(re.findall(re.escape(want), ovt)) >= 2, f'site/{prefix}index.html count list for {k} missing')
+        idx = (ROOT / 'site' / prefix / 'tasks' / 'index.html').read_text()
+        cards = dict(re.findall(r'data-task="(\w+)" data-outcome="[\w-]+" data-pcat="(\w*)"', idx))
+        need(cards == {t: (r.get('problem_category') or '') for t, r in d.items()},
+             f'site/{prefix}tasks/index.html card categories disagree with data/decisions.json')
+        for k in PC.KEYS:
+            m = re.search(rf'data-c="{k}"[^>]*>[^<]*?[(（](\d+)[)）]</button>', idx)
+            need(m and int(m[1]) == len(prim[k]), f'site/{prefix}tasks/index.html filter count for {k} wrong')
+        for t, r in d.items():
+            page = (ROOT / 'site' / prefix / 'tasks' / f'{t}.html').read_text()
+            got = re.findall(r'data-pcat="(\w+)"', page)
+            need(got == ([r.get('problem_category')] if t in problem else []),
+                 f'site/{prefix}tasks/{t}.html category badge {got} disagrees with data/decisions.json')
+
+
 def main():
     d = {r['task_id']: r for r in json.loads((ROOT / 'data/decisions.json').read_text())}
     tasks = {p.stem for p in (ROOT / 'tasks').glob('*.json')}
@@ -46,12 +100,17 @@ def main():
             tp = ROOT / 'site' / prefix / 'tasks' / f'{t}.html'
             need(tp.exists() and f'data-outcome="{r["proposed"]}"' in tp.read_text(),
                  f'site/{prefix}tasks/{t}.html missing or its outcome is not {r["proposed"]}')
-    site = (ROOT / 'site' / 'index.html').read_text() if (ROOT / 'site' / 'index.html').exists() else ''
-    for k, n in c.items():
-        lab = {'repair-v2': 'versioned repair packages', 'exclude': 'removed, no sound fix',
-               'retain-with-note': 'Tasks kept with a note'}.get(k)
-        if lab:
-            need(re.search(rf'{re.escape(lab)}[^<]*</td><td class="n">{n}</td>', site), f'site Table 1 count for {k} != {n}')
+    # the Overview's headline-numbers block (en and zh) carries data-count attributes
+    for prefix in ('', 'zh/'):
+        ov = ROOT / 'site' / prefix / 'index.html'
+        if prefix and not ov.exists():
+            continue
+        ovt = ov.read_text() if ov.exists() else ''
+        for k, n in list(c.items()) + [('n_problem', c.get('repair-v2', 0) + c.get('exclude', 0))]:
+            if k == 'retain':
+                continue
+            need(re.search(rf'data-count="{re.escape(k)}">{n}<', ovt),
+                 f'site/{prefix}index.html headline count for {k} != {n}')
     # data/decisions.csv / DECISIONS.md
     rows = list(csv.DictReader((ROOT / 'data/decisions.csv').open()))
     need({r['task_id']: r['decision'] for r in rows} == {t: r['proposed'] for t, r in d.items()},
@@ -92,6 +151,7 @@ def main():
     findings = (ROOT / 'FINDINGS.md').read_text()
     for t in d:
         need(f'cases/{t}.md' in findings, f'FINDINGS.md omits {t}')
+    check_categories(d, readme, findings)
     pairs = {r['task_id'] for r in csv.DictReader((ROOT / 'data/paired-results.csv').open())}
     need(pairs <= {t for t in d if (ROOT / 'repairs' / f'{t}-v2').is_dir()}, 'data/paired-results.csv has a task without a package')
     need({t for t, r in d.items() if r['proposed'] == 'repair-v2'} <= pairs, 'a repair has no paired rows')
@@ -144,6 +204,11 @@ def main():
             if key in m and (pkg / fname).exists():
                 need(m[key] == hashlib.sha256((pkg / fname).read_bytes()).hexdigest(),
                      f'{pkg.name}: source-lock {key} is stale')
+    # the impact figures, their Chinese captions and data/headline.json match what the data gives
+    sys.path.insert(0, str(ROOT / 'tools'))
+    import build_impact_figures as BIF
+    for m in BIF.check():
+        need(False, m)
     for m in problems:
         print('MISMATCH:', m)
     print(f'{dict(c)}; {len(problems)} problems')

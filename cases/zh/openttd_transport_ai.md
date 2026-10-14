@@ -2,7 +2,7 @@
 
 **结论：** 已修复。<mark>任务说明要求解题者最大化一个游戏函数 `AICompany.GetCompanyValue`，但它在固定的游戏版本中并不存在，因此调用它的脚本会崩溃，随附的初始程序也在第一次调用它时崩溃；修复改的是任务说明和初始程序，而不是评分器。</mark>
 
-![流程图：原始任务说明指定的 GetCompanyValue 在 OpenTTD 13.4 中不存在，因此调用它的脚本在该调用处终止，其公司停止行动；修复版的任务说明和初始程序改用确实存在的 GetQuarterlyCompanyValue，脚本得以继续运行。一条注释说明评分器不变，初始程序在两个版本中都得 0 分。](figures/openttd_transport_ai.svg)
+![流程图：原始任务说明指定的 GetCompanyValue 在 OpenTTD 13.4 中不存在，因此调用它的脚本在该调用处终止，其公司停止行动；修复版的任务说明和初始程序改用确实存在的 GetQuarterlyCompanyValue，脚本得以继续运行。一条注释说明评分器不变，初始程序在两个版本中都得 0 分。](../figures/openttd_transport_ai.svg)
 
 *任务要求解题者调用一个不存在的游戏函数，因此初始程序在第一次调用它时就崩溃了；修复改动了任务说明和初始程序。*
 

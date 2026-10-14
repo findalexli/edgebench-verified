@@ -113,10 +113,17 @@ table.bt td:first-child, table.bt th:first-child { padding-left: 2px; }
 .badge.b-repair-v2 { color: var(--fixed); background: var(--fixed-bg); }
 .badge.b-exclude { color: var(--removed); background: var(--removed-bg); }
 .badge.b-retain-with-note, .badge.b-retain { color: var(--soft); background: var(--kept-bg); }
+/* Problem-category badges (outlined, so they do not compete with the outcome colours) */
+.badge.pc { color: var(--soft); background: var(--paper); border: 1px solid var(--rule); padding: 4px 8px; text-decoration: none; }
+a.badge.pc:hover { border-color: var(--link); color: var(--link); }
+.badges { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+h3 .hcount { font: 500 0.7em/1 var(--sans); color: var(--muted); margin-left: 0.5em; white-space: nowrap; }
+p.pcat-tasks { font: 15px/1.6 var(--sans); color: var(--soft); }
 
 /* Tasks index */
 .controls { font: 14.5px/1.4 var(--sans); display: none; flex-wrap: wrap; gap: 10px 10px; align-items: center; margin: 22px 0 8px; }
 .js .controls { display: flex; }
+.controls + .controls { margin-top: 0; }
 .controls button { font: 500 14px/1 var(--sans); cursor: pointer; color: var(--soft); background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 8px 13px; }
 .controls button[aria-pressed="true"] { color: #fff; background: var(--ink); border-color: var(--ink); }
 .controls .search { flex: 1 1 220px; min-width: 0; }
@@ -128,7 +135,7 @@ ul.cards li { margin: 0; min-width: 0; }
 a.card { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 16px 18px 14px; border: 1px solid var(--rule); border-radius: 8px; color: var(--ink); text-decoration: none; background: var(--paper);
   transition: border-color .12s, box-shadow .12s; }
 a.card:hover { border-color: var(--link); box-shadow: 0 2px 10px rgba(26,79,139,0.12); }
-a.card .top { display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 13px/1.3 var(--sans); color: var(--muted); }
+a.card .top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 10px; font: 13px/1.3 var(--sans); color: var(--muted); }
 a.card .name { font: 600 19px/1.3 var(--serif); }
 a.card .line { font: 15px/1.5 var(--sans); color: var(--soft); }
 a.card .go { margin-top: auto; font: 500 14px var(--sans); color: var(--link); }
@@ -246,4 +253,5 @@ footer { max-width: 700px; margin: 56px auto 0; padding: 16px 24px 40px; border-
 :lang(zh) .subtitle, :lang(zh) em, :lang(zh) i, :lang(zh) figcaption { font-style: normal; }
 :lang(zh) h1, :lang(zh) h2.sec, :lang(zh) .kicker, :lang(zh) .abstract h2,
 :lang(zh) dl.sum dt, :lang(zh) .pager small { letter-spacing: 0; }
-:lang(zh) #bounds table.bt td:first-child { white-space: nowrap; }
+#bounds table.bt td:first-child { white-space: nowrap; }
+#bounds table.bt th.n { white-space: normal; }

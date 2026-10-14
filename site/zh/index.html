@@ -24,67 +24,239 @@
 </div></header>
 
 <main id="content">
+<style>
+.hl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 22px 0 10px; }
+.hl-grid > div { border: 1px solid var(--rule); border-radius: 8px; padding: 14px 14px 12px; background: var(--tint); }
+.hl-grid .hl-n { display: block; font: 600 28px/1.15 var(--sans); color: var(--ink); }
+.hl-grid .hl-l { display: block; font: 14.5px/1.45 var(--sans); color: var(--soft); margin-top: 6px; }
+.removed-box { border: 1.5px solid var(--rule-strong); border-radius: 8px; padding: 4px 18px 6px; margin: 26px 0 30px; background: var(--tint); }
+.removed-box h4 { font: 600 13px/1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 16px 0 6px; }
+@media (max-width: 720px) { .hl-grid { grid-template-columns: 1fr 1fr; } .removed-box { padding: 2px 14px 4px; } }
+@media (max-width: 420px) { .hl-grid { grid-template-columns: 1fr; } }
+</style>
 <header class="title">
   <h1>EdgeBench Verified</h1>
-  <p class="subtitle">对 51 个公开 EdgeBench 任务背后评分器的审计</p>
+  <p class="subtitle">我们检验了为 51 个公开 EdgeBench 任务打分的隐藏评分器</p>
   <div class="meta">
     <span>版本 1.0</span><span>2026 年 10 月 12 日</span>
     <a href="https://github.com/findalexli/edgebench-verified">GitHub 上的代码、数据和修复</a>
     <a href="#cite">引用方式</a>
   </div>
+  <div class="abstract">
+    <h2>概要</h2>
+    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 用 51 个公开的工程和科学任务给 AI 智能体排名。在每个任务里，智能体工作数小时，由一个隐藏的评分器给它提交的结果打 0 到 100 分。我们像测试任何程序一样测试了每个评分器：分别交给它正确的工作、有错误的工作，以及严格按任务说明完成的工作。<mark>在 51 个任务中有 32 个，评分器给某些提交打错了分。</mark>因为比承诺更严的时限，正确的解法得了零分；正确的答案被拒绝；有错误的程序拿到满分；任务说明里从未提到的规则被强制执行；有一个分数刻度让任何提交都不可能超过 21 分。我们为其中 31 个任务发布了修复，移除了 1 个。我们检验修复的方法是：用原始评分器和修复版评分器并排给同一批提交打分。凡是有公开的智能体运行记录的任务，我们也重新评了分：其中一个任务里，那次运行的成绩从 3.8 变为 41.2（满分 100）。仅凭公开的平均分无法重算排行榜，但足以说明：<mark>排行榜前两名的先后已无法确认。</mark></p>
+  </div>
+  <div class="hl-grid" id="headline">
+    <div><span class="hl-n">51</span><span class="hl-l">检查的公开任务</span></div>
+    <div><span class="hl-n" data-count="n_problem">32</span><span class="hl-l">评分器给某些提交打错了分的任务：<span data-count="repair-v2">31</span> 个已修复，<span data-count="exclude">1</span> 个已移除。其余 <span data-count="retain-with-note">19</span> 个保留（附说明）</span></div>
+    <div><span class="hl-n">10</span><span class="hl-l">问题本身使诚实的工作损失 10 分或以上（满分 100）的任务（在单个提交上，或在一次运行保留的分数上实测）</span></div>
+    <div><span class="hl-n">7</span><span class="hl-l">在一次真实智能体运行上重新评分的已修复任务：运行成绩改变的有 2 个，另有 2 个只有单个提交改变，3 个任务中问题从未出现</span></div>
+    <div><span class="hl-n">3.79 → 41.24</span><span class="hl-l">真实运行成绩的最大变化，满分 100（<a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>）</span></div>
+    <div><span class="hl-n">前两名</span><span class="hl-l">其先后已无法从公开数据确认：公布成绩 44.2 对 43.1，计入已记录的上限后区间为 45.49–47.30 和 44.30–46.35</span></div>
+  </div>
+  <figure class="fig" id="fig-impact-overview"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1243" role="img">
+<title>在 32 个有问题的任务中，有 10 个任务的问题本身使诚实的工作实测损失 10 分或以上</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
+  .accBg{fill:#e3eff4} .ioRing{stroke:#ffffff} .ioBand{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">在 32 个有问题的任务中，有 10 个任务的问题本身使诚实的工作实测损失 10 分或</text>
+<text x="16" y="54" class="ink" font-size="18" text-anchor="start" font-weight="700">以上</text>
+<text x="16" y="78" class="muted" font-size="14" text-anchor="start" font-weight="400">每个问题一旦发生，对一份受影响提交的作用（满分 100 分）。</text>
+<circle cx="22" cy="104" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="34" y="108" class="ink" font-size="13" text-anchor="start" font-weight="400">在我们的测试提交上实测</text>
+<path d="M203 98L209 104L203 110L197 104Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="215" y="108" class="ink" font-size="13" text-anchor="start" font-weight="400">在一次真实智能体运行上实测</text>
+<rect x="16" y="120" width="34" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="58" y="130" class="ink" font-size="13" text-anchor="start" font-weight="400">已证明或计算出的上限：变化不会更大</text>
+<path d="M305 120L311 126L305 132L299 126Z" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>
+<text x="317" y="130" class="ink" font-size="13" text-anchor="start" font-weight="400">按真实运行计算，未实际运行</text>
+<text x="574" y="148" class="ink" font-size="13" text-anchor="start" font-weight="600">只知道方向</text>
+<text x="574" y="164" class="muted" font-size="13" text-anchor="start" font-weight="400">（大小未知）</text>
+<text x="262" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
+<text x="333" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">25</text>
+<text x="404" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">50</text>
+<text x="475" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">75</text>
+<text x="546" y="164" class="muted" font-size="13" text-anchor="middle" font-weight="400">100</text>
+<line x1="262.0" y1="172" x2="262.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="333.0" y1="172" x2="333.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="404.0" y1="172" x2="404.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="475.0" y1="172" x2="475.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="546.0" y1="172" x2="546.0" y2="1175" class="rule" stroke-width="1"/>
+<line x1="568" y1="172" x2="568" y2="1175" class="rule" stroke-width="1" stroke-dasharray="3 3"/>
+<rect x="10" y="184" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="200" class="ink" font-size="14" text-anchor="start" font-weight="600">工程与运行环境 · 5 个任务</text>
+<text x="16" y="223" class="ink" font-size="13" text-anchor="start" font-weight="400">Rust Multicrate</text>
+<text x="16" y="238" class="ink" font-size="13" text-anchor="start" font-weight="400">Reconstruction</text>
+<rect x="262" y="221" width="83.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="320.816" cy="226" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="353.985" y="230.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+20.71（上限 29.22）</text>
+<text x="16" y="259" class="ink" font-size="13" text-anchor="start" font-weight="400">Grid Turing Robot</text>
+<circle cx="318.232" cy="255" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="327.232" y="259.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+19.80（原为无分）</text>
+<text x="16" y="281" class="ink" font-size="13" text-anchor="start" font-weight="400">Molecular Self Assembly</text>
+<path d="M296.702 271L302.702 277L296.702 283L290.702 277Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="305.702" y="281.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+12.22（真实运行）</text>
+<text x="16" y="303" class="ink" font-size="13" text-anchor="start" font-weight="400">Apple Incremental Game</text>
+<circle cx="276.314" cy="299" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.314" y="303.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+5.04（原为 0）</text>
+<text x="16" y="325" class="ink" font-size="13" text-anchor="start" font-weight="400">Vibrating Path Graph</text>
+<text x="16" y="340" class="ink" font-size="13" text-anchor="start" font-weight="400">Coloring</text>
+<circle cx="267.85" cy="328" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="276.85" y="332.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+2.06（原为无分）</text>
+<rect x="10" y="352" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="368" class="ink" font-size="14" text-anchor="start" font-weight="600">评分逻辑错误（事实性错误） · 15 个任务</text>
+<text x="16" y="391" class="ink" font-size="13" text-anchor="start" font-weight="400">College English Exam Bank</text>
+<circle cx="546" cy="387" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="537" y="391.5" class="ink" font-size="13" text-anchor="end" font-weight="400">−100：空评分报告</text>
+<text x="16" y="413" class="ink" font-size="13" text-anchor="start" font-weight="400">Exchange Core Throughput</text>
+<line x1="275.4" y1="409" x2="331.3" y2="409" class="accS" stroke-width="2"/>
+<circle cx="275.376" cy="409" r="5" class="acc ioRing" stroke-width="1.5"/>
+<circle cx="331.296" cy="409" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="340.296" y="413.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−4.71 至 −24.40（速度波动）</text>
+<text x="16" y="435" class="ink" font-size="13" text-anchor="start" font-weight="400">Graph Node Classification</text>
+<circle cx="330.413" cy="431" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="339.413" y="435.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+24.09（原为 0）</text>
+<text x="16" y="457" class="ink" font-size="13" text-anchor="start" font-weight="400">FFmpeg swscale</text>
+<text x="16" y="472" class="ink" font-size="13" text-anchor="start" font-weight="400">Reimplementation</text>
+<circle cx="315.761" cy="460" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="324.761" y="464.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−18.93</text>
+<text x="16" y="493" class="ink" font-size="13" text-anchor="start" font-weight="400">SMT Solver</text>
+<circle cx="279.636" cy="489" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="288.636" y="493.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+6.21（完美求解器）</text>
+<text x="16" y="515" class="ink" font-size="13" text-anchor="start" font-weight="400">CTA Risk Budget Optimization</text>
+<rect x="262" y="506" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="276.2" cy="511" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.2" y="515.5" class="ink" font-size="13" text-anchor="start" font-weight="400">±5.00（上限 5）</text>
+<text x="16" y="537" class="ink" font-size="13" text-anchor="start" font-weight="400">Lean Analysis Proofs</text>
+<path d="M276.047 527L282.047 533L276.047 539L270.047 533Z" class="bg warnS" stroke-width="1.8" stroke-dasharray="2.5 2"/>
+<text x="285.047" y="537.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.95（按真实运行计算）</text>
+<text x="16" y="559" class="ink" font-size="13" text-anchor="start" font-weight="400">Tree Block Partitioning</text>
+<rect x="262" y="550" width="14.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="275.49" cy="555" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="285.2" y="559.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+4.75（上限 5）</text>
+<text x="16" y="581" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Reporting</text>
+<text x="16" y="596" class="ink" font-size="13" text-anchor="start" font-weight="400">Observability</text>
+<rect x="262" y="579" width="13.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="266.743" cy="584" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="284.518" y="588.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.67（上限 4.76）</text>
+<text x="16" y="617" class="ink" font-size="13" text-anchor="start" font-weight="400">D-ABIC Gravity Inversion</text>
+<circle cx="264.954" cy="627.5" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="273.954" y="632" class="ink" font-size="13" text-anchor="start" font-weight="400">+1.04（实测）</text>
+<text x="574" y="617" class="muted" font-size="13" text-anchor="start" font-weight="400">计算示例：C = 30 时</text>
+<text x="574" y="632" class="muted" font-size="13" text-anchor="start" font-weight="400">为 48.06，随 C 增</text>
+<text x="574" y="647" class="muted" font-size="13" text-anchor="start" font-weight="400">大；任务已移除</text>
+<text x="16" y="668" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Datagen</text>
+<text x="16" y="683" class="ink" font-size="13" text-anchor="start" font-weight="400">Pipeline</text>
+<rect x="262" y="666" width="2.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="264.925" cy="671" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="273.925" y="675.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−1.03（上限 1.03）</text>
+<text x="16" y="704" class="ink" font-size="13" text-anchor="start" font-weight="400">Schemathesis Config</text>
+<text x="16" y="719" class="ink" font-size="13" text-anchor="start" font-weight="400">Modernization</text>
+<rect x="262" y="702" width="1.8" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="263.775" cy="707" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="272.775" y="711.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−0.625（上限 0.625）</text>
+<text x="16" y="740" class="ink" font-size="13" text-anchor="start" font-weight="400">Equivalence Class Divide and</text>
+<text x="16" y="755" class="ink" font-size="13" text-anchor="start" font-weight="400">Conquer</text>
+<rect x="262" y="738" width="27.5" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="298.463" y="747.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 9.67（降低）</text>
+<text x="16" y="776" class="ink" font-size="13" text-anchor="start" font-weight="400">PFR Formalization</text>
+<rect x="262" y="767" width="6.0" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="277.049" y="776.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 2.13，未实测</text>
+<text x="16" y="798" class="ink" font-size="13" text-anchor="start" font-weight="400">Jagua Nesting Optimization</text>
+<text x="574" y="798.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↓ 重叠布局被接受</text>
+<rect x="10" y="811" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="827" class="ink" font-size="14" text-anchor="start" font-weight="600">任务说明与评分不一致 · 9 个任务</text>
+<text x="16" y="850" class="ink" font-size="13" text-anchor="start" font-weight="400">Triangulation Coloring</text>
+<text x="16" y="865" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
+<circle cx="400.194" cy="853" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="409.194" y="850" class="ink" font-size="13" text-anchor="start" font-weight="400">+48.66（时限部分；</text>
+<text x="409.194" y="865" class="ink" font-size="13" text-anchor="start" font-weight="400">原为无分）</text>
+<text x="574" y="857.5" class="muted" font-size="13" text-anchor="start" font-weight="400">+ 规则变化 ↕</text>
+<text x="16" y="886" class="ink" font-size="13" text-anchor="start" font-weight="400">Arc Compiler Runtime</text>
+<circle cx="357.623" cy="882" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="366.623" y="886.5" class="ink" font-size="13" text-anchor="start" font-weight="400">33.67（69.26 对 35.59）</text>
+<text x="16" y="908" class="ink" font-size="13" text-anchor="start" font-weight="400">Juliet Vulnerability</text>
+<text x="16" y="923" class="ink" font-size="13" text-anchor="start" font-weight="400">Analyzer</text>
+<rect x="262" y="906" width="75.2" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<circle cx="304.6" cy="911" r="5" class="acc ioRing" stroke-width="1.5"/>
+<path d="M333.738 905L339.738 911L333.738 917L327.738 911Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="346.186" y="908" class="ink" font-size="13" text-anchor="start" font-weight="400">+15.00；真实运行 +25.26</text>
+<text x="346.186" y="923" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 26.47</text>
+<text x="16" y="944" class="ink" font-size="13" text-anchor="start" font-weight="400">Borden Source Inversion</text>
+<circle cx="324.963" cy="940" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="333.963" y="944.5" class="ink" font-size="13" text-anchor="start" font-weight="400">22.17（28.62 对 6.45）</text>
+<text x="16" y="966" class="ink" font-size="13" text-anchor="start" font-weight="400">Portfolio Risk Calibration</text>
+<circle cx="262.199" cy="962" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="271.199" y="966.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+0.07</text>
+<text x="16" y="988" class="ink" font-size="13" text-anchor="start" font-weight="400">Warehouse Forklift Routing</text>
+<rect x="262" y="979" width="86.9" height="10" fill="none" class="accS" stroke-width="1.5"/>
+<text x="357.864" y="988.5" class="ink" font-size="13" text-anchor="start" font-weight="400">上限 30.59</text>
+<text x="574" y="988.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 原为无分</text>
+<text x="16" y="1010" class="ink" font-size="13" text-anchor="start" font-weight="400">Git Rewrite in Zig</text>
+<text x="574" y="1010.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 可达全部分数</text>
+<text x="16" y="1032" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenRCT2 Theme Park AI</text>
+<text x="574" y="1032.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↕ 未测量</text>
+<text x="16" y="1054" class="ink" font-size="13" text-anchor="start" font-weight="400">OpenTTD Transport AI</text>
+<text x="574" y="1054.5" class="muted" font-size="13" text-anchor="start" font-weight="400">↑ 可达全部分数</text>
+<rect x="10" y="1067" width="700" height="22" rx="3" class="ioBand"/>
+<text x="16" y="1083" class="ink" font-size="14" text-anchor="start" font-weight="600">分数换算与选取 · 3 个任务</text>
+<text x="16" y="1106" class="ink" font-size="13" text-anchor="start" font-weight="400">Order Addition Permutation</text>
+<text x="16" y="1121" class="ink" font-size="13" text-anchor="start" font-weight="400">Optimization</text>
+<path d="M368.361 1103L374.361 1109L368.361 1115L362.361 1109Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="377.361" y="1113.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+37.45：运行保留的成绩</text>
+<text x="16" y="1142" class="ink" font-size="13" text-anchor="start" font-weight="400">Integer Compression Codec</text>
+<path d="M346.278 1132L352.278 1138L346.278 1144L340.278 1138Z" class="warn ioRing" stroke-width="1.5"/>
+<text x="355.278" y="1142.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−29.68（真实运行，新刻度）</text>
+<text x="16" y="1164" class="ink" font-size="13" text-anchor="start" font-weight="400">Treant Forest</text>
+<circle cx="299.829" cy="1160" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="308.829" y="1164.5" class="ink" font-size="13" text-anchor="start" font-weight="400">+13.32（3.04 → 16.36）</text>
+<text x="16" y="1197" class="muted" font-size="13" text-anchor="start" font-weight="400">+ / −：修复版评分器给分更多 / 更少。无符号：两份诚实提交之间的差距，它们只在一项未说明的约定上不同</text>
+<text x="16" y="1216" class="muted" font-size="13" text-anchor="start" font-weight="400">（Arc：错误报告格式；Borden：物理模型）；评分器不变。</text>
+<text x="16" y="1235" class="muted" font-size="13" text-anchor="start" font-weight="400">对大多数任务，这些问题在排行榜上发生的频率未知。</text>
+
+</svg>
+</div><figcaption><b>图 1</b> 在 32 个有问题的任务中，有 10 个任务的问题本身使诚实的工作实测损失 10 分或以上（满分 100）。有错误或空白的工作被错误加分（College English、FFmpeg）会在图中显示，但不计入。对 Arc 和 Borden，这是两份只在一项未说明的约定上不同的诚实提交之间的差距；来自修复后新刻度的变化（Integer Codec）不计入。每一行显示问题一旦发生对一份提交的作用：实心标记是实测变化，空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，这些问题在排行榜上发生的频率未知。</figcaption></figure>
   <div class="cta">
     <a class="btn" href="tasks/index.html">浏览全部 51 个任务 &rarr;</a>
     <p>每个任务都有自己的页面：智能体收到的任务说明、EdgeBench 如何对工作评分，以及我们的发现。</p>
   </div>
-  <div class="abstract">
-    <h2>摘要</h2>
-    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> 对工程与科学任务中的智能体进行评分。本审计检查了全部 51 个公开任务。历史处置为 31 个修复包、19 个附说明保留的任务和 1 个移除的任务。<mark>修复包不等于整个任务已经获得验证。</mark>证据包括原始辅助函数测试、原生评分器运行和形式化模型，各有其适用范围。Datagen 的年份范围修正通过了原生评分器对照，FFmpeg 的输出检查和失败归零规则通过了原生计分程序对照。CTA 以基金净资产为分母的修正，在原始评分命令下通过了原生并排对照运行。Warehouse 需要独立的主机端等待修复。32 个修复包中有 31 个在一台干净的机器上从零重建成功；Lean Analysis 的评分器镜像约需 45 GB 磁盘空间，未能重建。尚待完成的检验：FFmpeg 的提交构建路径；Warehouse 的等待修复在真实后端上的集成；Lean Analysis 的镜像构建和实际评分路径；PFR 在五个实际目标上的得分恢复，这需要真实的证明；Equivalence 在全部六道题上的逐题检查；以及 Vibrating Path 零命中格式问题的影响，在 50 个用例中有 13 个仍未解决。Triangulation 重新生成的输入现在恰好覆盖其凸包（v2.2）。公开平均分不能确定修正后的排行榜：Treant 需要区间，Portfolio 的扫描只是敏感性情景，区间重叠也不能证明排名能够反转。参见<a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">当前修复包状态</a>及<a href="leaderboard.html">影响分析</a>。</p>
-  </div>
-  <p class="tcap"><b>表 1.</b> 审计的主要数字。</p>
-  <div class="tablewrap"><table class="bt">
-    <tbody>
-      <tr><td>检查的公开任务</td><td class="n">51</td><td></td></tr>
-      <tr><td>评分器存在可纠正、且会改变分数的问题的任务</td><td class="n">32</td><td></td></tr>
-      <tr><td style="padding-left:1.4em" class="o-repair-v2">有版本号的修复包；验证范围因包而异</td><td class="n">31</td><td class="note">当前的集成局限按修复包分别列出</td></tr>
-      <tr><td style="padding-left:1.4em" class="o-exclude">已移除，不存在可靠的修复</td><td class="n">1</td><td></td></tr>
-      <tr><td>保留（附说明）的任务：没有可纠正的问题；任何运行间或机器之间的波动均已记录</td><td class="n">19</td><td class="note">最大：每次评分约 ±7 分（ANN Vector Search）</td></tr>
-      <tr><td>在 Lean&nbsp;4 或 TLA+ 中有形式化结果的任务</td><td class="n">26</td><td class="note">286 个 Lean 定理，20 次 TLA+ 模型检验运行</td></tr>
-      <tr><td>历史修复模型中的已验证性质</td><td class="n">10</td><td class="note">另有 4 项部分证明</td></tr>
-      <tr><td>历史形式化检验；重跑需要对应工具链</td><td class="n">45</td><td class="note">历史结果；当前候选版本需另行验证</td></tr>
-      <tr><td>原版与修复版本的历史对照</td><td class="n">254</td><td class="note">240 项运行 3 次，14 项只运行一次；有一个原始评分器的结果发生变化，修复版评分器的结果没有变化；详见<a href="method.html#procedure">方法</a>页</td></tr>
-    </tbody>
-  </table></div>
 </header>
 
 <section id="background" class="col">
   <h2 class="sec"><span class="num">1</span>EdgeBench 是什么，如何为智能体打分</h2>
-  <p>一个 EdgeBench 任务给智能体书面的任务说明和初始文件：让一个交易引擎更快，为一款策略游戏编写机器人，补完一个数学库中的证明，根据传感器读数推断地下水污染的来源。智能体在十二小时内可以随意多次提交，并能看到每次的分数。一个由任务作者编写的隐藏评分器程序，在隐藏的测试用例上运行每份提交，并产生一个原始结果，例如成本、速度或通过的测试数。原始结果再按作者为该任务选定的参考点换算为 0 到 100 分。每次运行保留其最佳分数；每个模型在每个任务上有三次运行，对其中有效的运行取平均（整体失败的运行，例如崩溃的运行，被舍弃）；一个模型的总成绩是它在各任务上的平均分。</p>
-  <p>因此，分数可能在四个环节出错（图&nbsp;1）：评分器可能接受错误的工作；可能拒绝正确的工作，或执行智能体未被告知的规则；换算到 0–100 分的刻度可能无法达到，或测定有误；一次运行可能保留了错误的提交。这四种情况我们都发现了，此外还有第五种，它位于评分器代码之外：评分器所运行的机器。EdgeBench 的官方设置给评分器 4 个 CPU（除非任务另有设定），而有六个评分器同时运行的工作量超过了这个数（<a href="#cpu">第&nbsp;3.1 节</a>）。</p>
+  <p>一个 EdgeBench 任务给智能体书面的任务说明和初始文件：让一个交易引擎更快，为一款策略游戏编写机器人，补完一个数学库中的证明，根据传感器读数推断地下水污染的来源。智能体在十二小时内可以随意多次提交，并能看到每次的分数。一个由任务作者编写的隐藏评分器，在隐藏的测试用例上运行每份提交，并产生一个原始结果，例如成本、速度或通过的测试数。原始结果再按作者为该任务选定的参考点换算为 0 到 100 分。每次运行保留其最佳分数；每个模型在每个任务上有三次运行，对其中有效的运行取平均（整体失败的运行，例如崩溃的运行，被舍弃）；一个模型的总成绩是它在各任务上的平均分。</p>
+  <p>因此，分数可能在四个环节出错（图&nbsp;2）：评分器可能接受错误的工作；可能拒绝正确的工作，或执行智能体未被告知的规则；换算到 0–100 分的刻度可能无法达到，或测定有误；一次运行可能保留了错误的提交。这四种情况我们都发现了，此外还有第五种，它位于评分器代码之外：评分器所运行的机器。EdgeBench 的官方设置给评分器 4 个 CPU（除非任务另有设定），而有六个评分器同时运行的工作量超过了这个数（<a href="#engineering">第&nbsp;3.1 节</a>）。</p>
   <figure class="fig" id="fig-scoring-pipeline"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 268" role="img">
-<title>EdgeBench's scoring pipeline: the agent submits work, a hidden grader produces a raw result, the raw result is converted to 0 to 100, each run keeps its best score so far, the valid runs of a task (three per model) are averaged, and then the tasks are averaged. Four markers show where a grader can go wrong.</title>
+<title>EdgeBench 的评分流程：智能体提交工作，隐藏评分器给出原始结果，原始结果换算为 0 到 100 分，每次运行保留截至当时的最佳分数，对一个任务的有效运行（每个模型三次）取平均，再对各任务取平均。四个标记显示评分器可能出错的位置。</title>
 <style>
   .ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .arr{stroke:#8a9097;fill:none} .head{fill:#8a9097}
   .mk{fill:#9b2c2c} .mkt{fill:#ffffff}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
 <g>
 <rect class="box" x="0.5" y="40.5" width="135" height="68" rx="6"/>
-<text class="ink" x="68.0" y="69" text-anchor="middle" font-size="16" font-weight="600">The agent</text>
-<text class="muted" x="68.0" y="90" text-anchor="middle" font-size="14">submits work</text>
+<text class="ink" x="68.0" y="69" text-anchor="middle" font-size="16" font-weight="600">智能体</text>
+<text class="muted" x="68.0" y="90" text-anchor="middle" font-size="14">提交工作</text>
 <rect class="box" x="156.5" y="40.5" width="135" height="68" rx="6"/>
-<text class="ink" x="224.0" y="69" text-anchor="middle" font-size="16" font-weight="600">Hidden grader</text>
-<text class="muted" x="224.0" y="90" text-anchor="middle" font-size="14">raw result</text>
+<text class="ink" x="224.0" y="69" text-anchor="middle" font-size="16" font-weight="600">隐藏评分器</text>
+<text class="muted" x="224.0" y="90" text-anchor="middle" font-size="14">给出原始结果</text>
 <rect class="box" x="312.5" y="40.5" width="135" height="68" rx="6"/>
-<text class="ink" x="380.0" y="69" text-anchor="middle" font-size="16" font-weight="600">0–100 scale</text>
-<text class="muted" x="380.0" y="90" text-anchor="middle" font-size="14">reference points</text>
+<text class="ink" x="380.0" y="69" text-anchor="middle" font-size="16" font-weight="600">0–100 分刻度</text>
+<text class="muted" x="380.0" y="90" text-anchor="middle" font-size="14">按参考点换算</text>
 <rect class="box" x="468.5" y="40.5" width="135" height="68" rx="6"/>
-<text class="ink" x="536.0" y="69" text-anchor="middle" font-size="16" font-weight="600">Best so far</text>
-<text class="muted" x="536.0" y="90" text-anchor="middle" font-size="14">kept for each run</text>
+<text class="ink" x="536.0" y="69" text-anchor="middle" font-size="16" font-weight="600">截至当时的最佳</text>
+<text class="muted" x="536.0" y="90" text-anchor="middle" font-size="14">每次运行保留</text>
 <rect class="box" x="624.5" y="40.5" width="135" height="68" rx="6"/>
-<text class="ink" x="692.0" y="64" text-anchor="middle" font-size="16" font-weight="600">Average</text>
-<text class="muted" x="692.0" y="83" text-anchor="middle" font-size="14">valid runs (of 3),</text>
-<text class="muted" x="692.0" y="100" text-anchor="middle" font-size="14">then all tasks</text>
+<text class="ink" x="692.0" y="64" text-anchor="middle" font-size="16" font-weight="600">平均</text>
+<text class="muted" x="692.0" y="83" text-anchor="middle" font-size="14">3 次中的有效运行，</text>
+<text class="muted" x="692.0" y="100" text-anchor="middle" font-size="14">再对所有任务</text>
 <path class="arr" stroke-width="1.5" d="M137 74 H149"/><path class="head" d="M156 74 l-7 -4 v8 z"/>
 <path class="arr" stroke-width="1.5" d="M293 74 H305"/><path class="head" d="M312 74 l-7 -4 v8 z"/>
 <path class="arr" stroke-width="1.5" d="M449 74 H461"/><path class="head" d="M468 74 l-7 -4 v8 z"/>
@@ -94,28 +266,28 @@
 <circle class="mk" cx="380.0" cy="20" r="12"/><text class="mkt" x="380.0" y="25" text-anchor="middle" font-size="13" font-weight="600">3</text>
 <circle class="mk" cx="536.0" cy="20" r="12"/><text class="mkt" x="536.0" y="25" text-anchor="middle" font-size="13" font-weight="600">4</text>
 <circle class="mk" cx="11" cy="147" r="10"/><text class="mkt" x="11" y="152" text-anchor="middle" font-size="13" font-weight="600">1</text>
-<text class="ink" x="30" y="152" font-size="15.5">Accepts wrong work</text><text class="muted" x="30" y="173" font-size="14">Exchange Core, Jagua Nesting</text>
+<text class="ink" x="30" y="152" font-size="15.5">接受错误的工作</text><text class="muted" x="30" y="173" font-size="14">Exchange Core、Jagua Nesting</text>
 <circle class="mk" cx="399" cy="147" r="10"/><text class="mkt" x="399" y="152" text-anchor="middle" font-size="13" font-weight="600">2</text>
-<text class="ink" x="418" y="152" font-size="15.5">Rejects correct work, or an unstated rule</text><text class="muted" x="418" y="173" font-size="14">SMT Solver, Borden, Triangulation, Warehouse</text>
+<text class="ink" x="418" y="152" font-size="15.5">拒绝正确的工作，或执行未说明的规则</text><text class="muted" x="418" y="173" font-size="14">SMT Solver、Borden、Triangulation、Warehouse</text>
 <circle class="mk" cx="11" cy="209" r="10"/><text class="mkt" x="11" y="214" text-anchor="middle" font-size="13" font-weight="600">3</text>
-<text class="ink" x="30" y="214" font-size="15.5">Scale unreachable or mismeasured</text><text class="muted" x="30" y="235" font-size="14">Treant Forest, Integer Codec</text>
+<text class="ink" x="30" y="214" font-size="15.5">刻度无法达到或测量有误</text><text class="muted" x="30" y="235" font-size="14">Treant Forest、Integer Codec</text>
 <circle class="mk" cx="399" cy="209" r="10"/><text class="mkt" x="399" y="214" text-anchor="middle" font-size="13" font-weight="600">4</text>
-<text class="ink" x="418" y="214" font-size="15.5">Keeps the wrong submission</text><text class="muted" x="418" y="235" font-size="14">Order Addition</text>
+<text class="ink" x="418" y="214" font-size="15.5">保留了错误的提交</text><text class="muted" x="418" y="235" font-size="14">Order Addition</text>
 </g></svg>
-</div><figcaption><b>图 1</b> EdgeBench 如何把智能体的工作变成排行榜上的一个数字，以及我们发现评分器出错的四个位置。每个标记列出了出现该问题的任务。</figcaption></figure>
+</div><figcaption><b>图 2</b> EdgeBench 如何把智能体的工作变成排行榜上的一个数字，以及我们发现评分器出错的四个位置。每个标记列出了出现该问题的任务。</figcaption></figure>
   <p class="note">每个任务页都针对单个任务详细说明这些内容：其评分器命令、时限、提交的内容、原始结果如何换算为 0–100 分，以及一次运行保留哪份提交。<a href="tasks/index.html">打开任务列表</a>。</p>
 </section>
 
 <section id="what" class="col">
   <h2 class="sec"><span class="num">2</span>我们做了什么</h2>
-  <p>对 51 个公开任务中的每一个，我们只问一个问题：如果一个智能体做出诚实、正确的工作，它能否得到任务所承诺的分数？证据追踪至原始评分器代码和最终分数。原生运行、辅助函数对照和形式化模型分别回答不同问题，单独任何一种都不能验证整个当前修复包（图&nbsp;2）。随后，每个任务得到以下三种结果之一：</p>
+  <p>对 51 个公开任务中的每一个，我们只问一个问题：如果一个智能体做出诚实、正确的工作，它能否得到任务所承诺的分数？证据追踪至原始评分器代码和最终分数。真实评分器的运行、对其组成部分的测试和形式化模型分别回答不同问题，单独任何一种都不能验证每一项当前的修复（图&nbsp;3）。随后，每个任务得到以下三种结果之一：</p>
   <ul class="tight">
-    <li><b class="o-repair-v2">修复包（31 个任务）。</b>评分器的逻辑、数据或配置可以纠正。我们发布带版本号的修复包，各案例说明对照测试的覆盖范围和待完成的集成验证。</li>
-    <li><b class="o-retain-with-note">保留（附说明）（19 个任务）。</b>未发现可纠正的问题。说明中记录了修改评分器也无法消除的附带情况，例如运行之间或机器之间的波动。</li>
+    <li><b class="o-repair-v2">已修复（31 个任务）。</b>评分器的逻辑、数据或配置可以纠正。我们把每项修复作为该任务的新版本发布。各案例页说明并排对照测试的覆盖范围和尚待完成的集成工作；<a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">应用修复</a>列出了尚未完成的步骤。</li>
+    <li><b class="o-retain-with-note">保留（附说明）（19 个任务）。</b>未发现可纠正的问题。说明中记录了修改评分器也无法消除的注意事项，例如运行之间或机器之间的波动。</li>
     <li><b class="o-exclude">已移除（1 个任务）。</b>不存在可靠的修复。</li>
   </ul>
   <figure class="fig" id="fig-evidence-layers"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img">
-<title>Four evidence layers with different scope: tasks examined in the original code and images, models proved in Lean 4 or checked in TLA+, historical paired comparisons of saved versions, and fixed tasks covered by one public agent run.</title>
+<title>Four evidence layers with different scope: tasks examined in the original code and images, models proved in Lean 4 or checked in TLA+, side-by-side tests of the original and the fixed checker, and fixed tasks covered by one public agent run.</title>
 <style>.ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .hl{fill:#fff6c8;stroke:#d9c25a} .num{fill:#1a4f8b} text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}</style>
 <rect class="box" x="0.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="16" y="36" font-size="26" font-weight="600">1</text>
@@ -130,11 +302,11 @@
 <text class="muted" x="210" y="87" font-size="14">Lean 4 and TLA+</text>
 <text class="ink" x="210" y="124" font-size="14">26 tasks, 286 theorems</text>
 <text class="ink" x="210" y="148" font-size="14">20 model-checking runs</text>
-<text class="ink" x="210" y="172" font-size="14">10 repair models checked</text>
+<text class="ink" x="210" y="172" font-size="14">9 repair models checked</text>
 <rect class="box" x="388.5" y="0.5" width="177" height="208" rx="8"/>
 <text class="num" x="404" y="36" font-size="26" font-weight="600">3</text>
-<text class="ink" x="404" y="66" font-size="16.5" font-weight="600">Historical pairs</text>
-<text class="muted" x="404" y="87" font-size="14">components and graders</text>
+<text class="ink" x="404" y="66" font-size="16.5" font-weight="600">Side by side</text>
+<text class="muted" x="404" y="87" font-size="14">original vs fixed checker</text>
 <text class="ink" x="404" y="124" font-size="14">30 fixes + 1 partial fix</text>
 <text class="ink" x="404" y="148" font-size="14">254 comparisons</text>
 <text class="ink" x="404" y="172" font-size="14">nearly all run 3 times</text>
@@ -147,420 +319,1035 @@
 <text class="ink" x="598" y="172" font-size="14">both graders;</text>
 <text class="ink" x="598" y="196" font-size="14">Lean computed</text>
 </svg>
-</div><figcaption><b>图 2</b> 四个证据层次，各有其适用范围。历史上的源代码与辅助函数对照、原生运行和形式化模型不能相互替代，也不是彼此独立、经过认证的复现。成对对照针对的是保存下来的版本，不能为较新的候选版本提供认证。真实智能体记录覆盖九个任务：其中七个用两种评分器重新评分，Lean Analysis 则根据保存的判定计算得出。</figcaption></figure>
+</div><figcaption><b>图 3</b> 四类证据，各自涵盖不同的内容。阅读代码、测试评分器的部分组件、运行完整的评分器以及形式化模型，回答的是不同的问题，彼此不能相互替代。并排对照测试比较的是原始评分器与经过测试的那个修复版本，而它不一定是最新版本。一次公开的智能体运行覆盖九个已修复任务：其中七个用两种评分器重新评分，Lean Analysis 则根据保存的判定计算得出。</figcaption></figure>
 </section>
 
 <section id="findings" class="col">
   <h2 class="sec"><span class="num">3</span>问题出在哪里</h2>
-  <p>下面的例子具有代表性，按问题类型分组。全部任务列在<a href="tasks/index.html">任务</a>页，每个任务都有完整的案例，包括测试提交、独立检验和修复。下文中的每个任务名称都链接到其页面。</p>
+  <p>每个存在问题的任务（共 32 个：31 个已修复，1 个已移除）都有一个主要类别，按其主要缺陷的机制确定，还可能有次要类别。共有四个类别：</p>
+  <ul class="tight">
+    <li><b><a href="#engineering">工程与运行环境</a></b>（5 个任务）：评分器在实际环境中不能正确运行。</li>
+    <li><b><a href="#grader_logic">评分逻辑错误（事实性错误）</a></b>（15 个任务）：评分器把错误的工作判为正确，或把正确的工作判为错误。</li>
+    <li><b><a href="#instruction_mismatch">任务说明与评分不一致</a></b>（9 个任务）：评分器要求了任务说明没有写明的东西，或与任务说明相矛盾。</li>
+    <li><b><a href="#scale_selection">分数换算与选取</a></b>（3 个任务）：0–100 分的刻度无法达到、参考点有误，或保留了错误的提交。</li>
+  </ul>
+  <p>下面每个类别先给出通俗的解释和所属任务，再给出两到五个例子，每个例子配一幅图。全部任务列在<a href="tasks/index.html">任务</a>页，可按类别筛选；每个任务都有完整的案例，包括测试提交、独立检验和修复。下文中的每个任务名称都链接到其页面。</p>
 
-  <h3 id="cpu"><span class="num">3.1</span>评分器分到的 CPU 少于它同时运行的工作数</h3>
-  <p>EdgeBench 的官方排行榜设置给每个评分器 4 个 CPU，除非任务另有设定；七个 Lean 任务为 8 个，<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 为 16 个（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>）。有六个没有单独设定的评分器，在每个用例的承诺时限下同时运行 8 个测试用例（<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a> 也同时运行 8 个，但允许的时间是承诺时间的两倍）。因此在 4 个 CPU 上，每个用例只分到约半个 CPU，而任务说明从未写明评分器的 CPU 数；在评分器内部，系统报告的是宿主机的 CPU 数（在我们的测试机上为 8），而不是限制值。<span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a></span> 承诺每个测试用例 30 秒。<mark>一个每个用例计算 16 秒的解法，在 4 个 CPU 上 50 个用例中有 48 个超时，而一次超时就会使整份提交作废；在 8 个 CPU 上，同一解法通过全部用例。</mark><a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>、<a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>、<a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> 和 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 的情况相同：按 CPU 时间预算设计的解法会失去大多数用例或全部分数。墙钟时限并不承诺独占 CPU 时间；该修复采用更一致的资源策略。按截止时间停止的解法通常不会被作废，但只得到一半的计算时间；在 Vibrating Path 的九次原始评分器评分中，有一次这样的解法被作废，原因可能是共享 CPU 的任务自带检查器超时了。修复后，同时运行的用例数不超过评分器的 CPU 数；我们在 4 个和 8 个 CPU 下分别进行了并排对照测量。在 <a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a> 中，分数是速度，未修改的引擎在 4 个 CPU 上得 0 分，在 8 个 CPU 上约得 47–76 分，因此该任务的说明记录了：其分数取决于评分器的 CPU 数。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：说明：已证明 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-grid_turing_robot"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 416" role="img">
-<title>Wall time per test case against CPU work per case, at 4 and 8 CPUs</title>
+  <h3 id="engineering"><span class="num">3.1</span>工程与运行环境<span class="hcount">5 个任务</span></h3>
+  <p>评分器的评分规则本身也许没有错，但它在实际使用的环境中不能正确运行。常见原因包括：同时运行的测试用例需要的 CPU 多于评分器分到的 CPU，诚实的解法因此超时；隐藏测试被插入到无法编译的位置；评分器需要的文件在公开镜像中缺失；测试在第一次失败时就停止，并把其余测试记为失败；或者结果受计时快慢影响。这时，诚实的工作会因为与其质量无关的原因而失分。</p>
+  <p class="pcat-tasks">以此为主要类别的任务共 5 个：<a class="task-link" href="tasks/apple_incremental_game.html">Apple Incremental Game</a>、<a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>、<a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Self Assembly</a>、<a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate Reconstruction</a>、<a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path Graph Coloring</a>。<a href="tasks/index.html#engineering">在任务列表中查看</a>。<br>以此为次要类别的任务：<a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core Throughput</a>、<a class="task-link" href="tasks/git_rewrite_in_zig.html">Git Rewrite in Zig</a>、<a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition Permutation Optimization</a>、<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring Optimization</a>、<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>。</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>：无法编译的隐藏测试。</span>智能体要重建一个由 14 个包组成的 Rust 项目，并被要求不得修改测试。评分器向全部 14 个包加入隐藏测试，其中在 search（12 分）和命令行程序（10 分）这两个包里，测试被放在无法编译的位置。<mark>对每个不改动测试和配置的解题者，这两个包（共 100 分中的 22 分）都得 0 分。</mark>同一个完整、正确的解法，在原始评分器下得 73.99 分，在修复版下得 94.70 分（满分 100），提高 20.71 分：search +11.29，命令行程序 +9.32，另有一项因前面的失败而被原始评分器跳过的测试 +0.10。（解题者仍可以打开 search 的 <code>parallel</code> 设置使其通过编译，这不需要修改任何测试；但任务中没有任何内容提示这一做法。）修复把隐藏测试放到能够编译的位置，并运行每一个测试文件。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：部分模型检验 · 修复经并排对照测试，三次运行（4 项对照中有 1 项只运行了一次）</p>
+  <figure class="fig" id="fig-rust_multicrate_reconstruction"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 448" role="img">
+<title>无法编译的隐藏测试让 100 分中的 22 分归零</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleF{fill:#eef2f4}
   .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text x="16" y="24" class="ink" font-size="15" font-weight="600">8 test cases run at once, each limited to 30 s</text>
-<text x="16" y="44" class="muted" font-size="14">4 CPUs: half a CPU per case, so the clock runs twice as long as the work.</text>
-<line x1="80" y1="300.0" x2="660" y2="300.0" class="rule" stroke-width="1"/>
-<text x="70" y="305.0" class="muted" font-size="14" text-anchor="end">0</text>
-<line x1="80" y1="235.0" x2="660" y2="235.0" class="rule" stroke-width="1"/>
-<text x="70" y="240.0" class="muted" font-size="14" text-anchor="end">10</text>
-<line x1="80" y1="170.0" x2="660" y2="170.0" class="rule" stroke-width="1"/>
-<text x="70" y="175.0" class="muted" font-size="14" text-anchor="end">20</text>
-<text x="16" y="69.0" class="muted" font-size="14">Wall time per case (s)</text>
-<line x1="80" y1="105.0" x2="660" y2="105.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="660" y="97.0" class="bad" font-size="14" font-weight="600" text-anchor="end">30 s limit</text>
-<polyline points="138,221.4 196,208.4 254,195.3 370,169.3 486,143.3 602,116.7" fill="none" class="goodS" stroke-width="2"/>
-<circle cx="138" cy="221.4" r="5" class="good"/>
-<circle cx="196" cy="208.4" r="5" class="good"/>
-<circle cx="254" cy="195.3" r="5" class="good"/>
-<circle cx="370" cy="169.3" r="5" class="good"/>
-<circle cx="486" cy="143.3" r="5" class="good"/>
-<circle cx="602" cy="116.7" r="5" class="good"/>
-<polyline points="138,142.7 196,116.7" fill="none" class="accS" stroke-width="2"/>
-<circle cx="138" cy="142.7" r="5" class="acc"/>
-<circle cx="196" cy="116.7" r="5" class="acc"/>
-<path d="M248,99.0 L260,111.0 M260,99.0 L248,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M364,99.0 L376,111.0 M376,99.0 L364,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M480,99.0 L492,111.0 M492,99.0 L480,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<path d="M596,99.0 L608,111.0 M608,99.0 L596,111.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
-<text x="312" y="133.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">48 of 50 cases timed out</text>
-<text x="312" y="151.0" class="bad" font-size="14" text-anchor="middle">whole submission voided</text>
-<text x="126" y="150" class="acc" font-size="14" font-weight="600" text-anchor="end">4 CPUs: 24 s</text>
-<text x="208" y="122" class="acc" font-size="14" font-weight="600">28 s</text>
-<text x="378" y="191" class="good" font-size="14" font-weight="600">8 CPUs: wall time = work</text>
-<text x="138" y="322.0" class="ink" font-size="14" text-anchor="middle">12</text>
-<text x="196" y="322.0" class="ink" font-size="14" text-anchor="middle">14</text>
-<text x="254" y="322.0" class="ink" font-size="14" text-anchor="middle">16</text>
-<text x="370" y="322.0" class="ink" font-size="14" text-anchor="middle">20</text>
-<text x="486" y="322.0" class="ink" font-size="14" text-anchor="middle">24</text>
-<text x="602" y="322.0" class="ink" font-size="14" text-anchor="middle">28</text>
-<text x="370" y="342.0" class="muted" font-size="14" text-anchor="middle">CPU work per case (s)</text>
-<text x="16" y="362" class="ink" font-size="14">A solution that stops at a 25 s clock deadline passes at both settings.</text>
-<text x="16" y="382" class="ink" font-size="14">The fixed version runs 4 cases at once on 4 CPUs, so all 50 pass.</text>
-<text x="16" y="400" class="muted" font-size="13">Slowest case shown. Timed-out cases were stopped at 30 s.</text>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">无法编译的隐藏测试让 100 分中的 22 分归零</text>
+<text x="16" y="44" class="muted" font-size="14">智能体要重建一个包含 14 个包的 Rust 项目，并被要求不得修改测试。</text>
+<text x="16" y="78" class="ink" font-size="14" font-weight="600">评分器向全部 14 个包加入隐藏测试</text>
+<text x="16" y="96" class="bad" font-size="14">其中两个包，测试被放在无法编译的位置</text>
+<rect x="16" y="110" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="129" class="ink" font-size="13">types</text>
+<rect x="196" y="110" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="129" class="ink" font-size="13">code</text>
+<rect x="16" y="144" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="163" class="ink" font-size="13">factory-protocol</text>
+<rect x="196" y="144" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="163" class="ink" font-size="13">diffs</text>
+<rect x="16" y="178" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="197" class="ink" font-size="13">pty</text>
+<rect x="196" y="178" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="197" class="ink" font-size="13">recording</text>
+<rect x="16" y="212" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="231" class="ink" font-size="13">store</text>
+<rect x="196" y="212" width="172" height="28" rx="4" class="badBg"/>
+<rect x="196" y="212" width="172" height="28" rx="4" fill="none" class="badS" stroke-width="1.5"/>
+<text x="206" y="231" class="bad" font-size="13" font-weight="600">search：12 分 → 0</text>
+<rect x="16" y="246" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="265" class="ink" font-size="13">core</text>
+<rect x="196" y="246" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="265" class="ink" font-size="13">mux</text>
+<rect x="16" y="280" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="299" class="ink" font-size="13">factory</text>
+<rect x="196" y="280" width="172" height="28" rx="4" class="ruleF"/>
+<text x="206" y="299" class="ink" font-size="13">mcp</text>
+<rect x="16" y="314" width="172" height="28" rx="4" class="ruleF"/>
+<text x="26" y="333" class="ink" font-size="13">tui-test</text>
+<rect x="196" y="314" width="172" height="28" rx="4" class="badBg"/>
+<rect x="196" y="314" width="172" height="28" rx="4" fill="none" class="badS" stroke-width="1.5"/>
+<text x="206" y="333" class="bad" font-size="13" font-weight="600">cli：10 分 → 0</text>
+<text x="16" y="370" class="ink" font-size="13">cli 是命令行程序。测试和配置保持原样时，</text>
+<text x="16" y="388" class="ink" font-size="13">这两个包都得 0 分。</text>
+<text x="420" y="78" class="ink" font-size="14" font-weight="600">同一个完整、正确的解法</text>
+<text x="420" y="96" class="muted" font-size="14">满分 100，同一份代码评分两次</text>
+<line x1="448" y1="330.0" x2="704" y2="330.0" class="rule" stroke-width="1"/>
+<text x="440" y="335.0" class="muted" font-size="13" text-anchor="end">0</text>
+<line x1="448" y1="228.0" x2="704" y2="228.0" class="rule" stroke-width="1"/>
+<text x="440" y="233.0" class="muted" font-size="13" text-anchor="end">50</text>
+<line x1="448" y1="126.0" x2="704" y2="126.0" class="rule" stroke-width="1"/>
+<text x="440" y="131.0" class="muted" font-size="13" text-anchor="end">100</text>
+<rect x="460" y="179.1" width="80" height="150.9" class="bad"/>
+<text x="500.0" y="201.1" class="bg" font-size="15" font-weight="600" text-anchor="middle">73.99</text>
+<text x="500.0" y="348" class="ink" font-size="13" text-anchor="middle">原始评分器</text>
+<rect x="556" y="136.8" width="80" height="193.2" class="good"/>
+<text x="596.0" y="158.8" class="bg" font-size="15" font-weight="600" text-anchor="middle">94.70</text>
+<text x="596.0" y="348" class="ink" font-size="13" text-anchor="middle">修复版评分器</text>
+<line x1="540" y1="179.1" x2="648" y2="179.1" class="inkS" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M642,136.8 H648 V179.1 H642" fill="none" class="inkS" stroke-width="1.5"/>
+<text x="654" y="162.9" class="good" font-size="14" font-weight="600">+20.71</text>
+<text x="420" y="370" class="ink" font-size="13">增加：search +11.29，cli +9.32，</text>
+<text x="420" y="388" class="ink" font-size="13">一项被评分器跳过的测试 +0.10</text>
+<text x="16" y="418" class="muted" font-size="13">原始评分器按发布方的运行环境评分。若用按原样发布的文件，会缺少四个库文件，</text>
+<text x="16" y="435" class="muted" font-size="13">同一解法得 27.61 分。</text>
 </svg>
-</div><figcaption><b>图 3</b> 在评分器 CPU 数为 4 时，同时运行的 8 个用例每个只分到半个 CPU，因此任何需要超过约 15 秒计算的用例都会超时，并使整份提交作废。 <a href="tasks/grid_turing_robot.html" class="case-link">阅读案例</a></figcaption></figure>
+</div><figcaption><b>图 4</b> 对每个不改动测试和配置的解题者，无法编译的隐藏测试让 100 分中的 22 分归零。智能体要重建一个包含 14 个包的 Rust 项目，并被要求不得修改测试；评分器向全部 14 个包加入隐藏测试，其中在 search（12 分）和命令行程序（10 分）这两个包里，测试被放在无法编译的位置，因此两者都得 0 分。同一个完整、正确的解法，在发布方运行的原始评分器下得 73.99 分（满分 100），在修复版评分器下得 94.70 分；修复版把隐藏测试放在能编译的位置，并且会运行原始评分器在先前失败后跳过的测试。 <a href="tasks/rust_multicrate_reconstruction.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/grid_turing_robot.html">Grid Robot</a>：八个测试用例共用四个处理器。</span>任务说明承诺每个测试用例 30 秒。评分器同时运行八个用例，而 EdgeBench 的官方设置只给它四个处理器（<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">设置原文引录</a>），所以每个用例只分到约半个处理器。<mark>一个每个用例计算 16 秒的诚实解法，在 50 个用例中有 48 个超时，而只要有一个超时，整份提交就作废；修复后，同一解法得到它应得的 19.80 分（满分 100）。</mark>修复后，同时运行的用例数不超过评分器的处理器数。另有五个任务存在同样的问题：<a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path</a>、<a class="task-link" href="tasks/molecular_self_assembly.html">Molecular Assembly</a>、<a class="task-link" href="tasks/apple_incremental_game.html">Apple Game</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation</a> 和 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a>。在 Molecular Assembly 的一次真实智能体运行中，修复使单个提交最多提高 12.22 分（满分 100；见<a href="leaderboard.html#real-runs">真实运行</a>）。按截止时间停止的解法通常不会被作废，但只得到一半的计算时间。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：注意事项：已证明 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-grid_turing_robot"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 456" role="img">
+<title>在 4 个 CPU 上，每用例需要 16–28 秒（承诺 30 秒以内）的有效解法得不到分数</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">在 4 个 CPU 上，每用例需要 16–28 秒（承诺 30 秒以内）的有效解法得不到分数</text>
+<text x="16" y="46" class="muted" font-size="14">评分器同时运行 8 个测试用例。在 4 个 CPU 上每个用例只分到半个 CPU，</text>
+<text x="16" y="65" class="muted" font-size="14">所以时钟时间是计算时间的两倍；只要一个用例超时，整份提交就作废。</text>
+<line x1="80" y1="330.0" x2="660" y2="330.0" class="rule" stroke-width="1"/>
+<text x="70" y="335.0" class="muted" font-size="14" text-anchor="end">0</text>
+<line x1="80" y1="265.0" x2="660" y2="265.0" class="rule" stroke-width="1"/>
+<text x="70" y="270.0" class="muted" font-size="14" text-anchor="end">10</text>
+<line x1="80" y1="200.0" x2="660" y2="200.0" class="rule" stroke-width="1"/>
+<text x="70" y="205.0" class="muted" font-size="14" text-anchor="end">20</text>
+<text x="16" y="96" class="muted" font-size="14">每个用例的时钟时间（秒）</text>
+<line x1="80" y1="135.0" x2="660" y2="135.0" class="badS" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="84" y="127.0" class="bad" font-size="14" font-weight="600">30 秒时限</text>
+<polyline points="138,251.4 196,238.4 254,225.3 370,199.2 486,173.1 602,146.8" fill="none" class="goodS" stroke-width="2"/>
+<circle cx="138" cy="251.4" r="5" class="good"/>
+<circle cx="196" cy="238.4" r="5" class="good"/>
+<circle cx="254" cy="225.3" r="5" class="good"/>
+<circle cx="370" cy="199.2" r="5" class="good"/>
+<circle cx="486" cy="173.1" r="5" class="good"/>
+<circle cx="602" cy="146.8" r="5" class="good"/>
+<polyline points="138,172.6 196,146.7" fill="none" class="accS" stroke-width="2"/>
+<circle cx="138" cy="172.6" r="5" class="acc"/>
+<circle cx="196" cy="146.7" r="5" class="acc"/>
+<path d="M248,126.0 L260,138.0 M260,126.0 L248,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M364,126.0 L376,138.0 M376,126.0 L364,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M480,126.0 L492,138.0 M492,126.0 L480,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<path d="M596,126.0 L608,138.0 M608,126.0 L596,138.0" class="badS" stroke-width="3" stroke-linecap="round" fill="none"/>
+<text x="400" y="123.0" class="bad" font-size="14" font-weight="600" text-anchor="middle">4 个 CPU：50 个用例中 48 个超时，完全没有分数</text>
+<text x="126" y="180.635" class="acc" font-size="14" font-weight="600" text-anchor="end">4 个 CPU：24 秒</text>
+<text x="208" y="151.70000000000002" class="acc" font-size="14" font-weight="600">28 秒</text>
+<text x="384" y="223.155" class="good" font-size="14" font-weight="600">8 个 CPU：时钟时间 = 计算时间</text>
+<text x="138" y="352.0" class="ink" font-size="14" text-anchor="middle">12</text>
+<text x="196" y="352.0" class="ink" font-size="14" text-anchor="middle">14</text>
+<text x="254" y="352.0" class="ink" font-size="14" text-anchor="middle">16</text>
+<text x="370" y="352.0" class="ink" font-size="14" text-anchor="middle">20</text>
+<text x="486" y="352.0" class="ink" font-size="14" text-anchor="middle">24</text>
+<text x="602" y="352.0" class="ink" font-size="14" text-anchor="middle">28</text>
+<text x="370" y="372.0" class="muted" font-size="14" text-anchor="middle">每个用例的计算时间（秒）</text>
+<text x="16" y="400" class="ink" font-size="14">修复版评分器：同时运行的用例数不超过 CPU 数（此处为 4）。这样，每用例 16 秒和 28 秒</text>
+<text x="16" y="419" class="ink" font-size="14">的解法都通过全部 50 个用例，得 19.80 分（满分 100）。</text>
+<text x="16" y="444" class="muted" font-size="13">图中为 50 个用例中最慢的一个。超时的用例在 30 秒时被终止。</text>
+</svg>
+</div><figcaption><b>图 5</b> 在 EdgeBench 官方的 4 CPU 设置下，Grid Turing Robot 中每个测试用例需要超过约 15 秒计算的有效解法得不到分数，尽管任务说明承诺每个用例 30 秒。智能体要编写一张驱动机器人在网格上移动的规则表；评分器同时运行 8 个用例，因此在 4 个 CPU 上每个用例只分到半个 CPU，时钟时间是计算时间的两倍，而只要一个用例超时，整份提交就作废。每用例需要 16 秒和 28 秒的测试解法在原始评分器上 50 个用例中有 48 个超时，在修复版评分器上得 19.80 分（满分 100）；修复版同时运行的用例数不超过 CPU 数。 <a href="tasks/grid_turing_robot.html" class="case-link">阅读案例</a></figcaption></figure>
 
-  <h3 id="too-low"><span class="num">3.2</span>正确的工作得分过低</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a>。</span>智能体要重建一个大型 Rust 项目。评分器以无法编译的方式把隐藏测试插入项目的两个部分，<mark>因此对每个遵守“不得修改测试”这一规则的智能体，这两个部分（共 100 分中的 22 分）都得 0 分。</mark>一个完整的解法得 73.99 分，而不是 94.70 分。（公开的归档还缺少四个库文件；恢复这些文件后，初始文件能够精确复现发布方记录的分数，因此发布方自己的评分很可能具备这些文件，这第二个问题只影响使用公开镜像评分的人。）</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：部分模型检验 · 修复经并排对照测试，三次运行（4 项对照中有 1 项只运行一次）</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>。</span>智能体要用 Zig 语言重写 git。有几项任务说明从未提到的检查：只要项目中含有一个普通的构建文件（例如一条常用的 Zig 构建命令留下的文件），或含有一个把智能体的输出与真实 git 相比较的测试（而任务说明恰恰鼓励写这种测试），整个分数就会被设为 0。修复会删除遗留的构建文件，并取消对测试代码的检查，而不是把分数清零。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>。</span>智能体要在一个数学库中补全证明。在 423 条命题中，有五条在命题本身内部藏有一个缺口标记（Lean 的 <code>sorry</code>），这是由文件声明默认参数的方式引入的，因此任何证明都无法获得这些分数；任何使用了它们的后续证明也会被拒绝。这五条共占 100 分中的 1.18 分，连同使用它们的后续证明最多为 2.13 分（推断所得）。只有本来能证明它们的智能体才会失分，因此这一缺陷也可能掩盖智能体之间的差异。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
-  <p><span class="lead-in"><a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>。</span>智能体要构建一个逻辑公式求解器。当公式可满足时，求解器必须给出一个示例赋值，由评分器检查。检查器按调用的书写方式而不是按参数求值的结果来查找函数的值，因此同一个书写形式的调用可能代表两个不同的值。<mark>因此，正确的答案在 27 道隐藏题目上被拒绝，一个完美求解器的分数从 78.61 降到 72.40。</mark></p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：修复正确性：已证明 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-smt_solver"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img">
-<title>SMT Solver witness checker</title>
+  <h3 id="grader_logic"><span class="num">3.2</span>评分逻辑错误（事实性错误）<span class="hcount">15 个任务</span></h3>
+  <p>任务要求的内容是对的，但评分器的检查有误：把错误的工作判为正确，或把正确的工作判为错误。例如：正确性检查漏掉真实的缺陷，校验器漏掉重叠的形状，成本检查少算一项，随任务提供的库计算出错，答案检查器误读有效答案，要证明的命题按原文是假的，或者分数取自提交对自身结果的报告。在错误的提交被接受时，它的得分可以与正确的提交一样高，甚至更高。</p>
+  <p class="pcat-tasks">以此为主要类别的任务共 15 个：<a class="task-link" href="tasks/college_english_exam_bank.html">College English Exam Bank</a>、<a class="task-link" href="tasks/cta_risk_budget_optimization.html">CTA Risk Budget Optimization</a>、<a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>（已移除）、<a class="task-link" href="tasks/equivalence_class_divide_and_conquer.html">Equivalence Class Divide and Conquer</a>、<a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core Throughput</a>、<a class="task-link" href="tasks/ffmpeg_swscale_reimplementation.html">FFmpeg swscale Reimplementation</a>、<a class="task-link" href="tasks/graph_node_classification.html">Graph Node Classification</a>、<a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting Optimization</a>、<a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis Proofs</a>、<a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>、<a class="task-link" href="tasks/schemathesis_config_modernization.html">Schemathesis Config Modernization</a>、<a class="task-link" href="tasks/schemathesis_datagen_pipeline.html">Schemathesis Datagen Pipeline</a>、<a class="task-link" href="tasks/schemathesis_reporting_observability.html">Schemathesis Reporting Observability</a>、<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>、<a class="task-link" href="tasks/tree_block_partitioning.html">Tree Block Partitioning</a>。<a href="tasks/index.html#grader_logic">在任务列表中查看</a>。<br>以此为次要类别的任务：<a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate Reconstruction</a>。</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>：有错误的交易所也能通过。</span>智能体要在不改变功能的前提下让一个证券交易撮合引擎运行得更快，按速度计分。原始评分器只核对资金总体是否平衡、订单簿是否一致。<mark>两个现实中常见的小错误都能通过，并被当作正确程序计分：一个向卖方收错了手续费，另一个从不发送成交消息。</mark>在四次运行中，它们分别得 7.77–24.40 分和 4.71–15.62 分（满分 100），落在正确引擎的运行间速度波动范围内（与它们同批的原始评分器运行中为 0–24.19 分）。项目自带的测试能发现这两个错误；修复版评分器要求这些测试通过，并给这两个有错误的引擎记 0 分。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：发现：部分证明 · 修复经并排对照测试，三次运行（13 项对照中有 6 项只运行了一次）</p>
+  <figure class="fig" id="fig-exchange_core_throughput"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 466" role="img">
+<title>通过/不通过对照：原始评分器让一个正确的交易引擎和两个带有现实错误的引擎（向卖方收错手续费、从不发送成交消息）都通过，并按速度给三者计分；修复版评分器先运行项目自带的测试，仍让正确引擎通过，并以 0 分拒绝两个有错误的引擎。</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .markS{stroke:#ffffff}
   .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-
+<text x="16" y="30" font-size="18" font-weight="700" class="ink">两个有错误的交易引擎通过了原始评分器，并按速度得分</text>
+<text x="16" y="54" font-size="14" class="muted">任务：在不改变功能的前提下，让一个证券交易撮合引擎运行得更快。</text>
+<text x="410.0" y="92" font-size="15" font-weight="700" text-anchor="middle" class="ink">原始评分器</text>
+<text x="410.0" y="110" font-size="13" text-anchor="middle" class="muted">只核对资金总额和订单簿</text>
+<text x="610.0" y="92" font-size="15" font-weight="700" text-anchor="middle" class="ink">修复版评分器</text>
+<text x="610.0" y="110" font-size="13" text-anchor="middle" class="muted">另外运行项目自带的 33 个测试</text>
+<line x1="16" y1="124" x2="704" y2="124" class="rule" stroke-width="1"/>
+<text x="16" y="151" font-size="15" font-weight="700" class="ink">正确的引擎</text>
+<text x="16" y="171" font-size="13" class="muted">项目原有的引擎，未作改动</text>
+<rect x="316" y="134" width="188" height="44" rx="6" class="goodBg"/>
+<g transform="translate(340,156)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="360" y="161" font-size="14" class="good">通过，按速度计分</text>
+<rect x="516" y="134" width="188" height="44" rx="6" class="goodBg"/>
+<g transform="translate(540,156)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="560" y="161" font-size="14" class="good">通过，按速度计分</text>
+<line x1="16" y1="188" x2="704" y2="188" class="rule" stroke-width="1"/>
+<text x="16" y="215" font-size="15" font-weight="700" class="ink">向卖方收错手续费</text>
+<text x="16" y="235" font-size="13" class="muted">按错误的费率收费；总额仍平衡</text>
+<rect x="316" y="198" width="188" height="44" rx="6" class="goodBg"/>
+<g transform="translate(340,220)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="360" y="225" font-size="14" class="good">通过，按速度计分</text>
+<rect x="516" y="198" width="188" height="44" rx="6" class="badBg"/>
+<g transform="translate(540,220)"><circle r="11" class="bad"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="560" y="225" font-size="14" class="bad">被拒绝，记 0 分</text>
+<line x1="16" y1="252" x2="704" y2="252" class="rule" stroke-width="1"/>
+<text x="16" y="279" font-size="15" font-weight="700" class="ink">从不发送成交消息</text>
+<text x="16" y="299" font-size="13" class="muted">用户收不到订单的处理结果</text>
+<rect x="316" y="262" width="188" height="44" rx="6" class="goodBg"/>
+<g transform="translate(340,284)"><circle r="11" class="good"/><path d="M-5.5 0.5 L-1.5 4.5 L5.5 -4" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="360" y="289" font-size="14" class="good">通过，按速度计分</text>
+<rect x="516" y="262" width="188" height="44" rx="6" class="badBg"/>
+<g transform="translate(540,284)"><circle r="11" class="bad"/><path d="M-4.5 -4.5 L4.5 4.5 M4.5 -4.5 L-4.5 4.5" fill="none" class="markS" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="560" y="289" font-size="14" class="bad">被拒绝，记 0 分</text>
+<line x1="16" y1="316" x2="704" y2="316" class="rule" stroke-width="1"/>
+<text x="16" y="342" font-size="13" class="muted">速度分（满分 100）：引擎在计时测试中每秒处理的交易笔数；</text>
+<text x="16" y="361" font-size="13" class="muted">每秒 209 万笔或更慢记 0 分，每秒 600 万笔记 100 分。</text>
+<text x="16" y="387" font-size="13" class="muted">在原始评分器下，三者的速度分在多次运行间相互重叠（正确引擎 0–24.19，收错手续费 7.77–24.40，</text>
+<text x="16" y="406" font-size="13" class="muted">丢失消息 4.71–15.62）：这些错误并没有带来速度优势，只是没有被发现。</text>
+<text x="16" y="432" font-size="13" class="muted">在 4 个 CPU 下（EdgeBench 排行榜的设置），连正确的引擎速度分也是 0；修复版评分器仍让它通过。</text>
+<text x="16" y="451" font-size="13" class="muted"></text>
+</svg>
+</div><figcaption><b>图 6</b> 两个带有现实错误的引擎通过了原始评分器，并按速度得分；修复版评分器拒绝了它们。智能体要在不改变功能的前提下让一个证券交易撮合引擎运行得更快，但原始评分器只核对资金总额是否平衡、订单簿是否一致，因此一个向卖方收错手续费的引擎和一个从不发送成交消息的引擎都能通过，并得到速度分（满分 100）：各四次运行分别为 7.77–24.40 和 4.71–15.62，正确引擎七次运行为 0–24.19，这些差异属于运行间波动。修复版评分器先运行项目自带的 33 个测试：在三次并排对照测试中，两个有错误的引擎都记 0 分，正确引擎仍然通过；在排行榜设置的 4 个 CPU 下的三次运行中它也通过，只是速度太慢，速度分为 0。 <a href="tasks/exchange_core_throughput.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/college_english_exam_bank.html">College English</a>：一份空的评分报告得 100 分。</span>由一个 AI 模型依据 12 条共 100 分的规则给智能体出的试卷打分。若模型的回答漏掉某条规则，评分器的代码会给这条规则记满分，并仍判定结果有效。<mark>一份什么都没评的评分报告得 100 分（满分 100）；</mark>漏掉一条 15 分规则的报告得 81 分而不是 77 分，或得 15 分而不是 0 分。修复版评分器会重新请求模型评分，否则报告评分失败。真实评分报告漏评规则的频率未知。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：早期版本的修复已证明 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-college_english_exam_bank"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 408" role="img">
+<title>一份空白的评分报告得了 100 分：AI 评分模型漏掉的规则被记满分</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text x="16" y="26" class="ink" font-size="16" font-weight="600">一份空白的评分报告得了 100 分：AI 评分模型漏掉的规则被记满分</text>
+<text x="16" y="48" class="muted" font-size="14">由一个 AI 模型依据 12 条规则（共 100 分）给试卷打分。</text>
+<text x="250" y="82" class="muted" font-size="14">得分（满分 100），原始评分器</text>
+<text x="704" y="82" class="muted" font-size="14" text-anchor="end">修复版评分器</text>
+<text x="16" y="111" class="ink" font-size="15">空白的评分报告</text>
+<text x="16" y="129" class="muted" font-size="13">没有评任何规则</text>
+<rect class="badBg" x="250" y="96" width="220" height="30"/><rect class="bad" x="250" y="96" width="220.0" height="30"/>
+<text x="462.0" y="117" class="onbar" font-size="15" font-weight="600" text-anchor="end">100</text>
+<text x="704" y="117" class="good" font-size="15" font-weight="600" text-anchor="end">评分失败</text>
+<text x="16" y="163" class="ink" font-size="15">漏评一条规则</text>
+<text x="16" y="181" class="muted" font-size="13">真实分数 77</text>
+<rect class="badBg" x="250" y="148" width="220" height="30"/><rect class="bad" x="250" y="148" width="178.2" height="30"/>
+<text x="420.2" y="169" class="onbar" font-size="15" font-weight="600" text-anchor="end">81</text>
+<text x="704" y="169" class="good" font-size="15" font-weight="600" text-anchor="end">评分失败</text>
+<text x="16" y="215" class="ink" font-size="15">漏评一条规则</text>
+<text x="16" y="233" class="muted" font-size="13">真实分数 0</text>
+<rect class="badBg" x="250" y="200" width="220" height="30"/><rect class="bad" x="250" y="200" width="33.0" height="30"/>
+<text x="291.0" y="221" class="bad" font-size="15" font-weight="600">15</text>
+<text x="704" y="221" class="good" font-size="15" font-weight="600" text-anchor="end">评分失败</text>
+<text x="16" y="267" class="ink" font-size="15">漏评一条规则，</text>
+<text x="16" y="285" class="muted" font-size="13">重新请求后完整</text>
+<rect class="badBg" x="250" y="252" width="220" height="30"/><rect class="bad" x="250" y="252" width="178.2" height="30"/>
+<text x="420.2" y="273" class="onbar" font-size="15" font-weight="600" text-anchor="end">81</text>
+<text x="704" y="273" class="good" font-size="15" font-weight="600" text-anchor="end">77</text>
+<line class="rule" x1="250" y1="92" x2="250" y2="286" stroke-width="1.5"/>
+<text x="16" y="330" class="muted" font-size="14">漏评的规则值 15 分。AI 评分模型的回答中缺少的任何规则，原始评分器都记满分，</text>
+<text x="16" y="349" class="muted" font-size="14">并仍判定结果有效。</text>
+<text x="16" y="376" class="ink" font-size="14">修复版评分器：再向 AI 评分模型请求一次；若回答仍不完整，则报告评分失败（记 0 分），</text>
+<text x="16" y="395" class="ink" font-size="14">而不是给出虚高的分数。</text>
+</svg>
+</div><figcaption><b>图 7</b> 一份空白的评分报告得了 100 分（满分 100），因为原始评分器给 AI 评分模型漏掉的每条规则都记满分。在 College English Exam Bank 中，由一个 AI 模型依据 12 条规则给智能体出的试卷打分；模型的回答若漏掉某条规则，评分器会给这条规则记满分，并仍判定结果有效，因此漏掉一条 15 分的规则会让真实的 77 分变成 81 分，真实的 0 分变成 15 分。修复版评分器会再次请求 AI 评分模型，第二次回答完整时正常计分（77 分）；若回答仍不完整，则报告评分失败。真实的 AI 评分模型漏评规则的频率未测量。 <a href="tasks/college_english_exam_bank.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>：正确答案被拒绝。</span>智能体要编写一个逻辑题求解器，题目有解时必须给出一个示例解。评分器按表达式的写法而不是其实际含义查值；当同一段文字在一道题中代表两个不同的值时，任何正确答案都无法通过。<mark>这使 27 道隐藏题目无法得分，完美求解器的最高分从 78.61 降到 72.40（满分 100）。</mark>（正确的“无解”答案最多只得一道题五分之一的分数，所以即使是完美求解器最高也只有 78.61 分。）在另外 42 道题上，它会拒绝按任务说明所述方式写出的答案。修复版评分器按实际含义查值，在全部 69 道题上都接受正确答案。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：修复正确性：部分证明 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-smt_solver"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 410" role="img">
+<title>评分器按字面写法读取答案，因此 27 道有解的题永远无法通过</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">评分器按字面写法读取答案，因此 27 道有解的题永远无法通过</text>
+<text x="16" y="46" class="muted" font-size="14">例：x 在一行中代表 a，在下一行中代表 b，所以“(f x)”表示两个不同的值。</text>
+<g transform="translate(0,52)">
 <rect x="16" y="12" width="328" height="270" rx="8" fill="none" class="rule" stroke-width="1.5"/>
-<text x="180" y="38" class="muted" font-size="15" text-anchor="middle" font-weight="400">Original checker</text>
+<text x="180" y="38" class="muted" font-size="15" text-anchor="middle">原始评分器</text>
 <rect x="28" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="28" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
-<text x="102" y="75" class="ink" font-size="14" text-anchor="middle" font-weight="400">let x = a</text>
-<text x="102" y="95" class="ink" font-size="14" text-anchor="middle" font-weight="600">(f x) = a</text>
+<text x="102" y="75" class="ink" font-size="14" text-anchor="middle">let x = a</text>
+<text x="102" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = a</text>
 <rect x="184" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="184" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
-<text x="258" y="75" class="ink" font-size="14" text-anchor="middle" font-weight="400">let x = b</text>
-<text x="258" y="95" class="ink" font-size="14" text-anchor="middle" font-weight="600">(f x) = b</text>
+<text x="258" y="75" class="ink" font-size="14" text-anchor="middle">let x = b</text>
+<text x="258" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = b</text>
 <path d="M102 108 L166 166 M258 108 L194 166" fill="none" class="inkS" stroke-width="2"/>
 <rect x="135" y="168" width="90" height="34" rx="5" class="badBg"/><rect x="135" y="168" width="90" height="34" rx="5" fill="none" class="badS" stroke-width="2"/>
-<text x="180" y="191" class="bad" font-size="16" text-anchor="middle" font-weight="600">(f x)</text>
-<text x="180" y="224" class="muted" font-size="14" text-anchor="middle" font-weight="400">one text key, two values</text>
-<text x="180" y="258" class="bad" font-size="17" text-anchor="middle" font-weight="700">no answer passes ✗</text>
+<text x="180" y="191" class="bad" font-size="16" font-weight="600" text-anchor="middle">(f x)</text>
+<text x="180" y="224" class="muted" font-size="14" text-anchor="middle">一个文字键，两个值</text>
+<text x="180" y="258" class="bad" font-size="16" font-weight="700" text-anchor="middle">任何正确答案都无法通过 ✗</text>
 <rect x="376" y="12" width="328" height="270" rx="8" fill="none" class="rule" stroke-width="1.5"/>
-<text x="540" y="38" class="muted" font-size="15" text-anchor="middle" font-weight="400">Fixed checker</text>
+<text x="540" y="38" class="muted" font-size="15" text-anchor="middle">修复版评分器</text>
 <rect x="388" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="388" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
-<text x="462" y="75" class="ink" font-size="14" text-anchor="middle" font-weight="400">let x = a</text>
-<text x="462" y="95" class="ink" font-size="14" text-anchor="middle" font-weight="600">(f x) = a</text>
-<rect x="544" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="544" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
-<text x="618" y="75" class="ink" font-size="14" text-anchor="middle" font-weight="400">let x = b</text>
-<text x="618" y="95" class="ink" font-size="14" text-anchor="middle" font-weight="600">(f x) = b</text>
+<text x="462" y="75" class="ink" font-size="14" text-anchor="middle">let x = a</text>
+<text x="462" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = a</text>
 <path d="M462 108 L462 164" fill="none" class="inkS" stroke-width="2"/>
 <rect x="422" y="168" width="80" height="34" rx="5" class="goodBg"/><rect x="422" y="168" width="80" height="34" rx="5" fill="none" class="goodS" stroke-width="2"/>
-<text x="462" y="191" class="good" font-size="16" text-anchor="middle" font-weight="600">(f a)</text>
+<text x="462" y="191" class="good" font-size="16" font-weight="600" text-anchor="middle">(f a)</text>
+<rect x="544" y="54" width="148" height="52" rx="5" class="accBg"/><rect x="544" y="54" width="148" height="52" rx="5" fill="none" class="accS" stroke-width="1.5"/>
+<text x="618" y="75" class="ink" font-size="14" text-anchor="middle">let x = b</text>
+<text x="618" y="95" class="ink" font-size="14" font-weight="600" text-anchor="middle">(f x) = b</text>
 <path d="M618 108 L618 164" fill="none" class="inkS" stroke-width="2"/>
 <rect x="578" y="168" width="80" height="34" rx="5" class="goodBg"/><rect x="578" y="168" width="80" height="34" rx="5" fill="none" class="goodS" stroke-width="2"/>
-<text x="618" y="191" class="good" font-size="16" text-anchor="middle" font-weight="600">(f b)</text>
-<text x="540" y="224" class="muted" font-size="14" text-anchor="middle" font-weight="400">one key per actual argument</text>
-<text x="540" y="258" class="good" font-size="17" text-anchor="middle" font-weight="700">correct answer accepted ✓</text>
-<text x="16" y="306" class="ink" font-size="14" text-anchor="start" font-weight="400">27 hidden problems unwinnable originally; a perfect solver's</text>
-<text x="16" y="326" class="ink" font-size="14" text-anchor="start" font-weight="400">maximum is 72.40 instead of 78.61.</text>
-
+<text x="618" y="191" class="good" font-size="16" font-weight="600" text-anchor="middle">(f b)</text>
+<text x="540" y="224" class="muted" font-size="14" text-anchor="middle">每个实际参数一个键</text>
+<text x="540" y="258" class="good" font-size="16" font-weight="700" text-anchor="middle">正确答案被接受 ✓</text>
+</g>
+<text x="16" y="360" class="ink" font-size="14">原始评分器：27 道有解的隐藏题目永远无法通过，因此完美求解器最多只能得 72.40 分</text>
+<text x="16" y="379" class="ink" font-size="14">（满分 100），而不是 78.61 分。另有 42 道题，按任务说明所述方式写出的答案被拒绝。</text>
+<text x="16" y="398" class="ink" font-size="14">修复版评分器在全部 69 道题上都接受正确答案。</text>
 </svg>
-</div><figcaption><b>图 4</b> 原始检查器按文本查找函数的值，因此有 27 道可满足的隐藏题目无法得分；修复版检查器使用实际的参数。 <a href="tasks/smt_solver.html" class="case-link">阅读案例</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>。</span>智能体要根据监测井推断一个地下污染源的位置、规模和时间。评分器用一个物理模型预测隐藏的读数，而模型的约定在任务说明中从未写明：除其他问题外，它忽略土壤孔隙度，把速率当作总量，并把污染源放在其区域的底部。<mark>一个基于教科书物理的诚实拟合得 7.0 分；使用评分器约定的同一拟合方法得 31.2 分。</mark>修复版把评分器的模型提供给智能体。一个根据评分器的分数反复迭代的智能体，也可以部分地学到这一约定（见<a href="leaderboard.html#real-runs">与真实智能体运行的对照</a>）。</p>
+</div><figcaption><b>图 8</b> SMT Solver 的评分器按表达式的字面写法而不是参数实际代表的值来查找函数值，因此 27 道有解的隐藏题目永远无法通过。智能体要编写一个逻辑求解器，并为每道有解的题目给出一个示例解；当同一段文字（例如 (f x)）代表两个不同的值时，任何正确的解都会被拒绝；另有 42 道题，按任务说明所述方式写出的解也被拒绝。这使完美求解器的最高分从 78.61 降到 72.40（满分 100；正确的“无解”答案最多只得一道题五分之一的分数，所以即使是完美求解器最高也只有 78.61 分）。修复版评分器先计算参数的值，并在全部 69 道题上接受正确的解。 <a href="tasks/smt_solver.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/ffmpeg_swscale_reimplementation.html">FFmpeg Swscale</a>：瞬间失败的代码拿到速度分。</span>智能体要重写一个图像缩放库，得分取决于正确性和速度。速度测试只计时、不检查输出，于是一个直接失败或什么都不做的调用几乎瞬间“完成”。<mark>在原始评分器下，未完成的代码因此最多拿到 18.93 分（满分 100）</mark>（在同一次运行中，三个测试版本分别得 5.39、18.93 和 17.87 分，未改动的初始代码得 0 分）。修复版评分器检查每次计时调用的输出，任何一项工作负载失败都使总分恰好为 0：在它唯一一次并排对照运行中，一份跳过重复调用的代码通过了全部 30 项正确性测试，得 0 分。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：早期版本的修复已证明 · 当前修复经并排对照测试一次；早期版本三次运行</p>
+  <figure class="fig" id="fig-ffmpeg_swscale_reimplementation"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 495" role="img">
+<title>失败的调用看起来很快：未完成的代码最多拿到 18.93 分（满分 100）</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4} .accBox{fill:#eef6f9}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text x="16" y="26" class="ink" font-size="16" font-weight="600">失败的调用看起来很快：未完成的代码最多拿到 18.93 分（满分 100）</text>
+<text x="16" y="48" class="muted" font-size="14">智能体要重写一个图像缩放库；速度测试为每次调用计时，却从不检查其输出。</text>
+<text x="16" y="82" class="ink" font-size="14" font-weight="600">1. 问题：原始评分器下的得分（满分 100；一次运行，2 个 CPU）</text>
+<text x="704" y="82" class="muted" font-size="13" text-anchor="end">正确性测试</text>
+<text x="16" y="111" class="ink" font-size="15">初始代码，</text>
+<text x="16" y="129" class="ink" font-size="15">未改动</text>
+<rect class="badBg" x="210" y="96" width="400" height="30"/>
+<text x="218.00" y="117" class="ink" font-size="15" font-weight="600">0</text>
+<text x="704" y="117" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="163" class="ink" font-size="15">在 RGBA→RGB24 上</text>
+<text x="16" y="181" class="ink" font-size="15">返回错误</text>
+<rect class="badBg" x="210" y="148" width="400" height="30"/>
+<rect class="bad" x="210" y="148" width="21.56" height="30"/>
+<text x="239.56" y="169" class="bad" font-size="15" font-weight="600">5.39</text>
+<text x="704" y="169" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="215" class="ink" font-size="15">在 3:1 缩小上</text>
+<text x="16" y="233" class="ink" font-size="15">返回错误</text>
+<rect class="badBg" x="210" y="200" width="400" height="30"/>
+<rect class="bad" x="210" y="200" width="75.72" height="30"/>
+<text x="293.72" y="221" class="bad" font-size="15" font-weight="600">18.93</text>
+<text x="704" y="221" class="ink" font-size="15" text-anchor="end">30/30</text>
+<text x="16" y="267" class="ink" font-size="15">在 3:1 缩小上</text>
+<text x="16" y="285" class="ink" font-size="15">什么都不写</text>
+<rect class="badBg" x="210" y="252" width="400" height="30"/>
+<rect class="bad" x="210" y="252" width="71.48" height="30"/>
+<text x="289.48" y="273" class="bad" font-size="15" font-weight="600">17.87</text>
+<text x="704" y="273" class="ink" font-size="15" text-anchor="end">30/30</text>
+<line class="rule" x1="210" y1="92" x2="210" y2="286" stroke-width="1.5"/>
+<text x="210" y="304" class="muted" font-size="13" text-anchor="middle">0</text>
+<text x="610" y="304" class="muted" font-size="13" text-anchor="middle">100</text>
+<text x="16" y="332" class="muted" font-size="14">一次立即返回错误的调用被计为 16,469 倍的加速。四个版本都通过了 30 项正确性测试，</text>
+<text x="16" y="351" class="muted" font-size="14">因为这些测试从不涉及被计时的那几种转换。</text>
+<rect x="8" y="376" width="704" height="111" rx="8" class="accBox"/>
+<text x="20" y="398" class="ink" font-size="14" font-weight="600">2. 当前的修复检查每次计时调用的输出；只要有一次失败，总分即为 0，</text>
+<text x="20" y="417" class="ink" font-size="14" font-weight="600">与任务说明一致。</text>
+<text x="20" y="436" class="ink" font-size="14" font-weight="400">它唯一一次并排对照运行（2 个 CPU，原始加速比）：一份跳过重复调用的代码通过了</text>
+<text x="20" y="455" class="ink" font-size="14" font-weight="400">全部 30 项正确性测试，得 0（原始评分器为 1.04）；一份正确的提交仍得 1.02</text>
+<text x="20" y="474" class="ink" font-size="14" font-weight="400">（原始评分器为 1.06）。上面三个未完成的版本没有在当前修复上运行。</text>
+</svg>
+</div><figcaption><b>图 9</b> 从不检查输出的速度测试让未完成的代码最多拿到 18.93 分（满分 100）。智能体要重写 FFmpeg 的图像缩放库，在通过 30 项正确性测试后按速度计分，但计时的调用从不被检查，因此一个返回错误或什么都没写的调用被算作快了数千倍。在原始评分器的一次运行中，三个只改了一行的未完成版本分别得 5.39、18.93 和 17.87 分，未改动的初始代码得 0 分，四者都通过了 30 项正确性测试。当前的修复检查每一次计时调用的输出，只要有一次失败就把总分设为恰好 0，与任务说明一致；在它唯一一次并排对照运行中，一份跳过重复调用的代码通过了全部 30 项正确性测试，得 0 分。 <a href="tasks/ffmpeg_swscale_reimplementation.html" class="case-link">阅读案例</a></figcaption></figure>
+  <div class="removed-box">
+    <h4>我们移除的唯一任务</h4>
+    <p><span class="lead-in"><a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>。</span><mark>约 42 分（满分 100；两部分，分别为 12 分和 30 分）来自提交自己的结果文件，从未经过核实。</mark>可靠的修复需要评分器根据隐藏数据重新计算这些分数，因此该任务被移除。另一个问题——对任务说明允许的两种公式之一的隐性扣分——已修复，但不足以保留该任务。</p>
+    <p class="verif"><b>证据：</b>已在原始评分器上复现 · 部分修复经并排对照测试，三次运行；任务已移除</p>
+    <figure class="fig" id="fig-dabic_gravity_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 378" role="img">
+<title>100 分中有 42 分来自提交自己的声明，因此该任务被移除</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+  
+</style>
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">100 分中有 42 分来自提交自己的声明，因此该任务被移除</text>
+<text x="16" y="54" class="muted" font-size="14" text-anchor="start">任务：用 D-ABIC 方法，从重力数据推断地下密度。分数为 0–100 分。</text>
+<text x="16" y="88" class="ink" font-size="14" text-anchor="start" font-weight="600">这 100 分从哪里来</text>
+<rect x="16.0" y="100" width="240.8" height="44" class="goodBg"/><rect x="16.0" y="100" width="240.8" height="44" fill="none" class="goodS" stroke-width="2"/>
+<text x="136.4" y="129" class="good" font-size="16" text-anchor="middle" font-weight="700">35 分</text>
+<text x="24" y="168" class="good" font-size="13" text-anchor="start" font-weight="600">由评分器重新计算：</text>
+<text x="24" y="187" class="ink" font-size="13" text-anchor="start">在隐藏测试用例上</text>
+<text x="24" y="206" class="ink" font-size="13" text-anchor="start">运行提交的代码</text>
+<rect x="256.8" y="100" width="289.0" height="44" class="badBg"/><rect x="256.8" y="100" width="289.0" height="44" fill="none" class="badS" stroke-width="2"/>
+<text x="298.1" y="129" class="bad" font-size="18" text-anchor="middle" font-weight="700">12 分</text><text x="442.6" y="129" class="bad" font-size="18" text-anchor="middle" font-weight="700">30 分 · 共 42 分</text>
+<line x1="339.4" y1="100" x2="339.4" y2="144" class="badS" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="264.8" y="168" class="bad" font-size="13" text-anchor="start" font-weight="600">从提交自己的结果文件中读取，</text>
+<text x="264.8" y="187" class="ink" font-size="13" text-anchor="start">按原样计分；</text>
+<text x="264.8" y="206" class="ink" font-size="13" text-anchor="start">评分器从不核实</text>
+<rect x="545.8" y="100" width="158.2" height="44" class="warnBg"/><rect x="545.8" y="100" width="158.2" height="44" fill="none" class="warnS" stroke-width="2"/>
+<text x="624.88" y="129" class="warn" font-size="16" text-anchor="middle" font-weight="700">23 分</text>
+<text x="553.76" y="168" class="warn" font-size="13" text-anchor="start" font-weight="600">其他检查</text>
+<text x="553.76" y="187" class="ink" font-size="13" text-anchor="start">代码文本：3 分</text>
+<text x="553.76" y="206" class="ink" font-size="13" text-anchor="start">行为监控：8 分</text>
+<text x="553.76" y="225" class="ink" font-size="13" text-anchor="start">报告关键词：12 分</text>
+<rect x="16" y="240" width="688" height="80" rx="8" class="badBg"/>
+<text x="32" y="264" class="bad" font-size="15" text-anchor="start" font-weight="700">为什么移除该任务，而不是修复</text>
+<text x="32" y="286" class="ink" font-size="13.5" text-anchor="start">可靠的修复需要评分器根据隐藏数据自行重新计算这 42 分，而不是从提交中读取。</text>
+<text x="32" y="306" class="ink" font-size="13.5" text-anchor="start">做不到这一点，这 42 分奖励的就是声明，而不是实际工作。</text>
+<text x="16" y="346" class="muted" font-size="13" text-anchor="start">另一个问题已修复，但不足以保留该任务：两种允许且等价的方法形式之一被暗中扣分</text>
+<text x="16" y="364" class="muted" font-size="13" text-anchor="start">（同样高水平的工作：88.92 分对 42.86 分，满分 100，按评分器自己的规则计算）。</text>
+</svg>
+</div><figcaption><b>图 10</b> 100 分中有 42 分来自提交对自己工作所报告的数值，评分器从不核实，因此该任务被移除。智能体要实现 D-ABIC 重力反演方法；评分器只在隐藏测试用例上运行代码、重新计算 35 分，另有两部分（分别为 12 分和 30 分）直接按提交自己的结果文件计分。可靠的修复需要评分器根据隐藏数据自行重新计算这 42 分。另一个问题，即对两种允许且等价的方法形式之一的隐性扣分（同样高水平的工作在 C = 26 时：88.92 分对 42.86 分，满分 100，差距随 C 增大，按评分器自己的规则计算），已经修复，但不足以保留该任务。 <a href="tasks/dabic_gravity_inversion.html" class="case-link">阅读案例</a></figcaption></figure>
+  </div>
+
+  <h3 id="instruction_mismatch"><span class="num">3.3</span>任务说明与评分不一致<span class="hcount">9 个任务</span></h3>
+  <p>评分器执行的每条规则单独看也许都合理，但它不是智能体被告知的规则。评分器要求了任务说明没有写明的东西，或与任务说明相矛盾：时限比承诺的短，漏掉了一个几何条件，输出格式或约定没有文档说明，有任务说明从未提及的检查，有一个并不存在的函数，或用了不同的公式。于是，忠实遵循任务说明的智能体被按另一条规则评分。</p>
+  <p class="pcat-tasks">以此为主要类别的任务共 9 个：<a class="task-link" href="tasks/arc_compiler_runtime.html">Arc Compiler Runtime</a>、<a class="task-link" href="tasks/borden_source_inversion.html">Borden Source Inversion</a>、<a class="task-link" href="tasks/git_rewrite_in_zig.html">Git Rewrite in Zig</a>、<a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet Vulnerability Analyzer</a>、<a class="task-link" href="tasks/openrct2_theme_park_ai.html">OpenRCT2 Theme Park AI</a>、<a class="task-link" href="tasks/openttd_transport_ai.html">OpenTTD Transport AI</a>、<a class="task-link" href="tasks/portfolio_risk_calibration.html">Portfolio Risk Calibration</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring Optimization</a>、<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>。<a href="tasks/index.html#instruction_mismatch">在任务列表中查看</a>。<br>以此为次要类别的任务：<a class="task-link" href="tasks/cta_risk_budget_optimization.html">CTA Risk Budget Optimization</a>、<a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>（已移除）、<a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>、<a class="task-link" href="tasks/schemathesis_reporting_observability.html">Schemathesis Reporting Observability</a>、<a class="task-link" href="tasks/smt_solver.html">SMT Solver</a>、<a class="task-link" href="tasks/vibrating_path_graph_coloring.html">Vibrating Path Graph Coloring</a>。</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a>：承诺 150 秒，60 秒就被截停。</span>任务说明承诺每个测试用例 30 秒，也就是每组五个用例共 150 秒。评分器却在每组运行 60 秒后就停止，而只要一次超时，整份提交就作废。<mark>一个每个用例只用 13 秒（不到承诺时间的一半）的测试解法因此完全没有分数；</mark>修复后，50 组输入全部正常计分。修复把时限提高到承诺的 150 秒，并使同时运行的输入数不超过评分器的处理器数。修复中确保最后到达的结果也被计入的那一部分，已单独测试，但尚未在完整的 EdgeBench 运行中检验。另外，一个在 Lean 中证明的界限表明，在该任务的刻度下任何有效答案都不可能超过约 30.6 分（满分 100）；这一上限只作了记录，没有改变。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：注意事项：已证明 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-warehouse_forklift_routing"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 446" role="img">
+<title>承诺 150 秒，60 秒就被截停：用足时间的解法得不到分数</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text x="16" y="24" class="ink" font-size="15" font-weight="600">承诺 150 秒，60 秒就被截停：用足时间的解法得不到分数</text>
+<text x="16" y="46" class="muted" font-size="14">每组输入包含 5 个测试用例，任务说明承诺每个用例 30 秒，即每组输入 150 秒。</text>
+<text x="16" y="80" class="muted" font-size="14">EdgeBench 4 CPU 设置下每组输入的时间（同时运行 8 组输入）</text>
+<text x="16" y="132" class="ink" font-size="15" font-weight="600">原始评分器</text>
+<rect x="160" y="112" width="104.0" height="30" class="acc"/>
+<rect x="264.0" y="112" width="104.0" height="30" class="accBg"/>
+<rect x="368.0" y="112" width="312.0" height="30" class="badBg"/>
+<text x="524.0" y="132" class="bad" font-size="14" font-weight="600" text-anchor="middle">已承诺，却被判超时</text>
+<line x1="368.0" y1="104" x2="368.0" y2="150" class="badS" stroke-width="2.5"/>
+<text x="362.0" y="100" class="bad" font-size="14" font-weight="600" text-anchor="end">60 秒时限</text>
+<text x="160.0" y="166" class="acc" font-size="13" font-weight="600">约 30 秒计算（每组输入半个 CPU），随后被截停</text>
+<text x="16" y="216" class="ink" font-size="15" font-weight="600">修复版评分器</text>
+<rect x="160" y="196" width="520.0" height="30" class="good"/>
+<text x="170" y="216" class="onbar" font-size="14" font-weight="600">150 秒时限；最多同时运行 4 组输入，每组一个 CPU</text>
+<text x="160.0" y="248" class="muted" font-size="13" text-anchor="start">0 秒</text>
+<text x="264.0" y="248" class="muted" font-size="13" text-anchor="middle">30 秒</text>
+<text x="368.0" y="248" class="muted" font-size="13" text-anchor="middle">60 秒</text>
+<text x="680.0" y="248" class="muted" font-size="13" text-anchor="end">150 秒</text>
+<line x1="16" y1="266" x2="704" y2="266" class="rule" stroke-width="1"/>
+<text x="16" y="290" class="muted" font-size="14">实测：同一批测试提交在两个评分器上的结果</text>
+<text x="470" y="290" class="muted" font-size="14" text-anchor="middle">原始评分器</text>
+<text x="704" y="290" class="muted" font-size="14" text-anchor="end">修复版评分器</text>
+<text x="16" y="316" class="ink" font-size="14">每个用例等待 13 秒（每组 65 秒）</text>
+<text x="470" y="316" class="bad" font-size="14" font-weight="600" text-anchor="middle">50 组全部超时：无分数</text>
+<text x="704" y="316" class="good" font-size="14" font-weight="600" text-anchor="end">50 组全部计分</text>
+<text x="16" y="340" class="ink" font-size="14">每组输入计算 80 秒</text>
+<text x="470" y="340" class="bad" font-size="14" font-weight="600" text-anchor="middle">50 组全部超时：无分数</text>
+<text x="704" y="340" class="good" font-size="14" font-weight="600" text-anchor="end">50 组全部计分</text>
+<text x="16" y="364" class="ink" font-size="14">每组输入计算 140 秒</text>
+<text x="470" y="364" class="bad" font-size="14" font-weight="600" text-anchor="middle">50 组全部超时：无分数</text>
+<text x="704" y="364" class="good" font-size="14" font-weight="600" text-anchor="end">50 组全部计分</text>
+<rect x="16" y="380" width="688" height="54" rx="6" class="warnBg"/>
+<text x="28" y="402" class="ink" font-size="13">已记录、未修复：任何有效答案的得分都不可能超过约 30.6 分（满分 100；各组分数取整前为 30.3）。</text>
+<text x="28" y="422" class="ink" font-size="13">更高的分数要求比任何有效答案都更短的路线（已在 Lean 中针对测试程序的模型证明）。</text>
+</svg>
+</div><figcaption><b>图 11</b> 在 Warehouse Forklift Routing 中，用足任务说明所承诺时间的解法得不到分数。任务说明承诺每个测试用例 30 秒、每组五个用例共 150 秒，但原始评分器在每组输入运行 60 秒时就将其终止；在 EdgeBench 的 4 CPU 设置下，它还同时运行 8 组输入，因此每组只得到约 30 秒的计算时间；只要一次超时，整份提交就没有分数。每个用例等待 13 秒或每组输入计算 80 秒、140 秒的测试提交，在原始评分器上没有分数，在修复版评分器上 50 组输入全部计分；修复版允许 150 秒，并且同时运行的输入组数不超过 CPU 数（它还需要在 EdgeBench 的运行器中延长最终等待时间，这一部分只做了局部测试）。另一个上限已记录、未修复：任何有效答案的得分都不可能超过约 30.6 分（满分 100）。 <a href="tasks/warehouse_forklift_routing.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/arc_compiler_runtime.html">Arc Compiler</a>：同样的代码得 69 分或 36 分。</span>智能体要完成一个小型编译器。占三分之一分值（100 分中的 33.67 分）的隐藏测试要求错误报告采用某种特定格式，而初始代码用的是另一种格式，智能体能看到的任何材料都没有说明哪种才对。<mark>同一个诚实的错误检查器，用隐藏格式得 69.26 分，用初始代码的格式只得 35.59 分。</mark>修复后的任务写明了所需格式；评分器以及任何一份代码的得分都不变。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-arc_compiler_runtime"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 318" role="img">
+<title>同一份代码得 69.26 分还是 35.59 分，取决于一种任务说明从未提到的返回格式</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text x="16" y="26" class="ink" font-size="16" font-weight="600">同一份代码得 69.26 分还是 35.59 分，取决于一种任务说明从未提到的返回格式</text>
+<text x="16" y="48" class="muted" font-size="14">价值 33.67 分（满分 100）的隐藏测试调用编译器的错误检查器，并只接受一种格式。</text>
+<text x="16" y="84" class="ink" font-size="15">返回列表 [{level, message}]（隐藏测试要求的格式）</text>
+<rect x="16" y="94" width="526.4" height="34" class="good"/>
+<text x="552.4" y="118" font-size="17" font-weight="700" class="ink">69.26<tspan class="muted" font-size="14" font-weight="400">（满分 100）</tspan></text>
+<text x="16" y="164" class="ink" font-size="15">沿用初始代码的 {ok, errors, warnings, program}</text>
+<rect x="16" y="174" width="270.5" height="34" class="bad"/>
+<text x="296.5" y="198" font-size="17" font-weight="700" class="ink">35.59<tspan class="muted" font-size="14" font-weight="400">（满分 100）</tspan></text>
+<rect x="16" y="246" width="688" height="58" rx="8" class="warnBg"/>
+<text x="32" y="270" class="ink" font-size="14">两者的错误检查逻辑完全相同。类型检查测试通过数：128/128 对 0。</text>
+<text x="32" y="292" class="ink" font-size="14">智能体能看到的文件都没有说明这一格式。修复在文档中写明了它；评分器未改动。</text>
+</svg>
+</div><figcaption><b>图 12</b> 在 Arc Compiler Runtime 中，同一个诚实的错误检查器得 69.26 分还是 35.59 分（满分 100），只取决于一种任务说明从未提到的返回格式。智能体要完成一个小型编译器；价值 33.67 分的隐藏测试要求错误报告是 {level, message} 的列表，而初始代码返回另一种格式，智能体能看到的任何材料都没有说明哪种才对。修复在任务说明中写明了这一格式；评分器未改动，因此同一份代码的得分与以前相同。 <a href="tasks/arc_compiler_runtime.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet Analyzer</a>：公开示例教的是错误的格式。</span>智能体要编写一个查找 C 代码安全漏洞、并指出每个漏洞起点的工具。对于命令注入漏洞，全部 38 个公开示例都把起点标在执行命令的那一行，而全部 120 个隐藏答案都把起点标在读取输入的那一行，原始评分器只接受隐藏答案的写法。<mark>一个只找出命令注入缺陷、照公开示例写答案的分析器会损失 15 分（45.66 对 60.66，满分 100）</mark>；找出全部缺陷的分析器损失 2.49 分，最坏情况下损失 26.47 分（精确计算所得，未实际运行）。在一次真实智能体运行中，105 个提交中有 14 个受到影响，全部是早期提交，其中两个相差约 25 分（70.00 对 95.22 和 95.26）；后来的提交和运行保留的成绩都不受影响。修复版评分器接受两种写法。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-juliet_vulnerability_analyzer"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 572" role="img">
+<title>一个按公开示例写答案的分析器丢掉 100 分中的 15 分</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,"Noto Sans SC",monospace}
+  
+</style>
+
+<text x="16" y="30" font-size="18" font-weight="700" class="ink">一个按公开示例写答案的分析器丢掉 100 分中的 15 分</text>
+<text x="16" y="56" font-size="15" class="muted">任务：在 C 代码中找出命令注入缺陷，并为每个缺陷报告它的源头和轨迹。</text>
+
+<!-- what source, sink and trace mean -->
+<rect x="16" y="68" width="688" height="92" rx="8" class="accBg"/>
+<text x="32" y="94" font-size="14" class="muted mono">第 112 行</text>
+<text x="110" y="94" font-size="14" class="ink mono">data = recv(...);</text>
+<text x="300" y="94" font-size="14" class="ink">← 源头：危险输入进入程序的地方</text>
+<text x="32" y="120" font-size="14" class="muted mono">第 152 行</text>
+<text x="110" y="120" font-size="14" class="ink mono">execv(data, ...);</text>
+<text x="300" y="120" font-size="14" class="ink">← 汇点：这个输入被当作命令执行的地方</text>
+<text x="32" y="148" font-size="14" class="muted">轨迹：一条发现所报告的代码行列表，从源头到汇点。示例已简化。</text>
+
+<!-- the two ways of writing the answer -->
+<rect x="16" y="174" width="336" height="94" rx="8" class="warnBg"/>
+<text x="32" y="198" font-size="15" font-weight="700" class="ink">公开示例（38 个中的 38 个）</text>
+<text x="32" y="220" font-size="14" class="ink">源头 = 第 152 行，即汇点本身</text>
+<text x="32" y="240" font-size="14" class="ink">轨迹 = <tspan class="mono">[152]</tspan></text>
+<text x="32" y="260" font-size="14" class="muted">解题者能看到并用来自测的答案</text>
+
+<rect x="368" y="174" width="336" height="94" rx="8" class="accBg"/>
+<text x="384" y="198" font-size="15" font-weight="700" class="ink">隐藏答案（120 个中的 120 个）</text>
+<text x="384" y="220" font-size="14" class="ink">源头 = 第 112 行，即读取输入的行</text>
+<text x="384" y="240" font-size="14" class="ink">轨迹 = <tspan class="mono">[112, 152]</tspan></text>
+<text x="384" y="260" font-size="14" class="muted">原始评分器唯一接受的写法</text>
+
+<!-- scores: bars start at x=300, 4 px per point -->
+<text x="16" y="298" font-size="15" font-weight="700" class="ink">同一个分析器，找到同样的 120 个缺陷：得分（满分 100）</text>
+
+<text x="16" y="326" font-size="15" font-weight="600" class="ink">按公开示例的写法（源头在汇点）</text>
+<text x="290" y="351" font-size="14" text-anchor="end" class="muted">原始评分器</text>
+<rect x="300" y="334" width="182.6" height="24" class="bad"/>
+<text x="490" y="352" font-size="16" font-weight="700" class="ink">45.66</text>
+<text x="290" y="381" font-size="14" text-anchor="end" class="muted">修复版评分器</text>
+<rect x="300" y="364" width="242.6" height="24" class="good"/>
+<text x="550" y="382" font-size="16" font-weight="700" class="ink">60.66</text>
+<text x="704" y="367" font-size="15" font-weight="700" text-anchor="end" class="warn">+15.00</text>
+
+<text x="16" y="418" font-size="15" font-weight="600" class="ink">按隐藏答案的写法（源头在输入行）</text>
+<text x="290" y="443" font-size="14" text-anchor="end" class="muted">原始评分器</text>
+<rect x="300" y="426" width="242.6" height="24" class="good"/>
+<text x="550" y="444" font-size="16" font-weight="700" class="ink">60.66</text>
+<text x="290" y="473" font-size="14" text-anchor="end" class="muted">修复版评分器</text>
+<rect x="300" y="456" width="242.6" height="24" class="good"/>
+<text x="550" y="474" font-size="16" font-weight="700" class="ink">60.66</text>
+<text x="704" y="459" font-size="15" text-anchor="end" class="muted">不变</text>
+
+<!-- real run and fix -->
+<rect x="16" y="496" width="688" height="66" rx="8" class="goodBg"/>
+<text x="32" y="520" font-size="14" class="ink"><tspan font-weight="700">修复版评分器：两种写法都接受。</tspan>在一次真实的 AI 智能体运行中，有一份提交</text>
+<text x="32" y="544" font-size="14" class="ink">从 70.00 分升到 95.26 分（满分 100；105 份提交中有 14 份上升；该次运行保留的分数 99.66 不变）。</text>
+</svg>
+</div><figcaption><b>图 13</b> 一个按公开示例的方式写答案的分析器，在隐藏评分器下丢掉了 100 分中的 15 分（这是一个只找出命令注入缺陷的分析器；损失大小取决于分析器，找出全部缺陷的分析器损失 2.49 分，最多为 26.47 分，按精确计算）。该任务要求找出 C 代码中的命令注入缺陷，并为每个缺陷给出源头（危险输入进入程序的那一行）和轨迹（从源头到执行命令那一行的代码行列表）；全部 38 个公开示例都把源头放在最后执行命令的那一行，而隐藏评分器只接受读取输入的那一行。同一个分析器找到同样的 120 个缺陷，按公开写法得 45.66 分（满分 100），按隐藏写法得 60.66 分；在一次真实智能体运行中，有一份提交从 70.00 分升到 95.26 分（105 份中有 14 份变化；运行保留的 99.66 分不变）。修复版评分器两种写法都接受。 <a href="tasks/juliet_vulnerability_analyzer.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a>：评分器的物理模型与教科书不同。</span>智能体要根据监测井读数推断地下污染源的位置。评分器用一个物理模型预测读数，但任务说明从未交代该模型的约定，例如它忽略了土壤孔隙度。<mark>按教科书方法拟合的诚实答案得 7.03 分，同样的拟合改用评分器的约定则得 31.2 分</mark>（这是该任务 0–109 范围内的原始结果；折合为满分 100 时为 6.45 和 28.62 分）。在一次真实智能体运行中（评分器没有改变，其答案在两个版本下得分相同），36 份提交的最佳成绩从 7.01 升到 60.10，而评分器在每次提交后都报告其在隐藏监测井上的误差。修复后的任务向智能体提供评分器所用的模型。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：已发布数字：已证明 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-borden_source_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
-<title>Borden Source Inversion scores</title>
+  <figure class="fig" id="fig-borden_source_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 578" role="img">
+<title>教科书拟合得 7 分；按评分器未说明的物理约定拟合得 31 分</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
   .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
   
 </style>
-
-<text x="16" y="28" class="muted" font-size="15" text-anchor="start" font-weight="400">Original grader score (the true source scores 109)</text>
-<text x="16" y="68" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit,</text>
-<text x="16" y="86" class="ink" font-size="14" text-anchor="start" font-weight="400">textbook model</text>
-<rect x="260" y="54" width="86.4" height="34" class="badBg"/><rect x="260" y="54" width="86.4" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.36857142857144" y="78" class="ink" font-size="16" text-anchor="start" font-weight="700">7.03</text>
-<text x="16" y="120" class="ink" font-size="14" text-anchor="start" font-weight="400">Baseline:</text>
-<text x="16" y="138" class="ink" font-size="14" text-anchor="start" font-weight="400">middle of each range</text>
-<rect x="260" y="106" width="86.1" height="34" class="badBg"/><rect x="260" y="106" width="86.1" height="34" fill="none" class="badS" stroke-width="2"/>
-<text x="354.12285714285713" y="130" class="ink" font-size="16" text-anchor="start" font-weight="700">7.01</text>
-<text x="16" y="172" class="ink" font-size="14" text-anchor="start" font-weight="400">Honest fit, grader's</text>
-<text x="16" y="190" class="ink" font-size="14" text-anchor="start" font-weight="400">hidden convention</text>
-<rect x="260" y="158" width="383.3" height="34" class="goodBg"/><rect x="260" y="158" width="383.3" height="34" fill="none" class="goodS" stroke-width="2"/>
-<text x="651.3142857142857" y="182" class="ink" font-size="16" text-anchor="start" font-weight="700">31.2</text>
-<line x1="260" y1="46" x2="260" y2="214" class="inkS" stroke-width="1.5"/>
-<path d="M346.4 214 L643.3 214 M354.4 208 L346.4 214 L354.4 220 M635.3 208 L643.3 214 L635.3 220" fill="none" class="warnS" stroke-width="2"/>
-<text x="494.84142857142854" y="242" class="warn" font-size="16" text-anchor="middle" font-weight="700">about 24 points lost</text>
-<text x="16" y="276" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: solvers are given the grader's convention.</text>
-
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">教科书拟合得 7 分；按评分器未说明的物理约定拟合得 31 分</text>
+<text x="16" y="54" class="muted" font-size="14" text-anchor="start">任务：根据监测井读数，找出一个隐藏的地下污染源。</text>
+<rect x="16" y="68" width="300" height="136" rx="8" class="accBg"/>
+<text x="30" y="92" class="acc" font-size="14" text-anchor="start" font-weight="700">任务说明怎么写</text>
+<text x="30" y="116" class="ink" font-size="14" text-anchor="start">建立教科书中的地下水模型</text>
+<text x="30" y="136" class="ink" font-size="14" text-anchor="start">（对流–弥散方程）。</text>
+<text x="30" y="156" class="ink" font-size="14" text-anchor="start">C0 是浓度，单位 mg/L。</text>
+<text x="30" y="176" class="ink" font-size="14" text-anchor="start">评分器使用一个“隐藏”模型。</text>
+<rect x="328" y="68" width="376" height="136" rx="8" class="badBg"/>
+<text x="342" y="92" class="bad" font-size="14" text-anchor="start" font-weight="700">评分器的模型实际怎么做（从未说明）</text>
+<text x="342" y="114" class="ink" font-size="14" text-anchor="start">• 把质量速率当作质量</text>
+<text x="342" y="133" class="ink" font-size="14" text-anchor="start">• 忽略土壤孔隙度</text>
+<text x="342" y="152" class="ink" font-size="14" text-anchor="start">• 释放持续多久，总质量都一样</text>
+<text x="342" y="171" class="ink" font-size="14" text-anchor="start">• 把 mg/m³ 当作 mg/L 报告</text>
+<text x="342" y="190" class="ink" font-size="14" text-anchor="start">• 把污染源放在源区盒体的一个面上</text>
+<text x="16" y="228" class="muted" font-size="13" text-anchor="start">两种模型对公开数据的拟合一样好，所以解题者无法判断评分器用的是哪一种。</text>
+<text x="16" y="262" class="ink" font-size="14" text-anchor="start" font-weight="600">对公开数据的一次性拟合</text>
+<text x="16" y="280" class="muted" font-size="13" text-anchor="start">基线，以及同一拟合方法的两种物理模型</text>
+<text x="340" y="262" class="ink" font-size="14" text-anchor="start" font-weight="600">一次真实的智能体运行：4 小时内 36 个提交</text>
+<text x="340" y="280" class="muted" font-size="13" text-anchor="start">每次提交后，评分器都会报告其在隐藏监测井上的误差</text>
+<line x1="50" y1="446.0" x2="300" y2="446.0" class="rule" stroke-width="1"/>
+<line x1="372" y1="446.0" x2="666" y2="446.0" class="rule" stroke-width="1"/>
+<text x="44" y="450.5" class="muted" font-size="13" text-anchor="end">0</text>
+<text x="366" y="450.5" class="muted" font-size="13" text-anchor="end">0</text>
+<line x1="50" y1="400.3" x2="300" y2="400.3" class="rule" stroke-width="1"/>
+<line x1="372" y1="400.3" x2="666" y2="400.3" class="rule" stroke-width="1"/>
+<text x="44" y="404.786" class="muted" font-size="13" text-anchor="end">20</text>
+<text x="366" y="404.786" class="muted" font-size="13" text-anchor="end">20</text>
+<line x1="50" y1="354.6" x2="300" y2="354.6" class="rule" stroke-width="1"/>
+<line x1="372" y1="354.6" x2="666" y2="354.6" class="rule" stroke-width="1"/>
+<text x="44" y="359.071" class="muted" font-size="13" text-anchor="end">40</text>
+<text x="366" y="359.071" class="muted" font-size="13" text-anchor="end">40</text>
+<line x1="50" y1="308.9" x2="300" y2="308.9" class="rule" stroke-width="1"/>
+<line x1="372" y1="308.9" x2="666" y2="308.9" class="rule" stroke-width="1"/>
+<text x="44" y="313.357" class="muted" font-size="13" text-anchor="end">60</text>
+<text x="366" y="313.357" class="muted" font-size="13" text-anchor="end">60</text>
+<rect x="74" y="430.0" width="52" height="16.0" class="badBg"/><rect x="74" y="430.0" width="52" height="16.0" fill="none" class="badS" stroke-width="2"/>
+<text x="100" y="422.973" class="bad" font-size="15" text-anchor="middle" font-weight="700">7.01</text>
+<text x="100" y="466" class="ink" font-size="13" text-anchor="middle">取值范围中点</text>
+<text x="100" y="482" class="ink" font-size="13" text-anchor="middle">（基线）</text>
+<rect x="154" y="429.9" width="52" height="16.1" class="badBg"/><rect x="154" y="429.9" width="52" height="16.1" fill="none" class="badS" stroke-width="2"/>
+<text x="180" y="422.929" class="bad" font-size="15" text-anchor="middle" font-weight="700">7.03</text>
+<text x="180" y="466" class="ink" font-size="13" text-anchor="middle">教科书</text>
+<text x="180" y="482" class="ink" font-size="13" text-anchor="middle">模型</text>
+<rect x="234" y="374.7" width="52" height="71.3" class="goodBg"/><rect x="234" y="374.7" width="52" height="71.3" fill="none" class="goodS" stroke-width="2"/>
+<text x="260" y="367.686" class="good" font-size="15" text-anchor="middle" font-weight="700">31.2</text>
+<text x="260" y="466" class="ink" font-size="13" text-anchor="middle">评分器的</text>
+<text x="260" y="482" class="ink" font-size="13" text-anchor="middle">模型</text>
+<path d="M394.0 430.0 L423.9 430.0 L423.9 411.7 L431.4 411.7 L431.4 355.3 L483.8 355.3 L483.8 321.8 L603.6 321.8 L603.6 308.6 L656.0 308.6" fill="none" class="goodS" stroke-width="2.5"/>
+<circle cx="394.0" cy="430.0" r="3.6" class="acc"/>
+<circle cx="401.5" cy="430.0" r="3.6" class="acc"/>
+<circle cx="409.0" cy="434.5" r="3.6" class="acc"/>
+<circle cx="416.5" cy="433.4" r="3.6" class="acc"/>
+<circle cx="423.9" cy="411.7" r="3.6" class="acc"/>
+<circle cx="431.4" cy="355.3" r="3.6" class="acc"/>
+<circle cx="438.9" cy="364.6" r="3.6" class="acc"/>
+<circle cx="446.4" cy="408.8" r="3.6" class="acc"/>
+<circle cx="453.9" cy="411.7" r="3.6" class="acc"/>
+<circle cx="461.4" cy="411.7" r="3.6" class="acc"/>
+<circle cx="468.9" cy="393.0" r="3.6" class="acc"/>
+<circle cx="476.3" cy="405.7" r="3.6" class="acc"/>
+<circle cx="483.8" cy="321.8" r="3.6" class="acc"/>
+<circle cx="491.3" cy="396.1" r="3.6" class="acc"/>
+<circle cx="498.8" cy="401.5" r="3.6" class="acc"/>
+<circle cx="506.3" cy="386.7" r="3.6" class="acc"/>
+<circle cx="513.8" cy="402.9" r="3.6" class="acc"/>
+<circle cx="521.3" cy="388.0" r="3.6" class="acc"/>
+<circle cx="528.7" cy="411.7" r="3.6" class="acc"/>
+<circle cx="536.2" cy="321.8" r="3.6" class="acc"/>
+<circle cx="543.7" cy="321.8" r="3.6" class="acc"/>
+<circle cx="551.2" cy="352.2" r="3.6" class="acc"/>
+<circle cx="558.7" cy="343.1" r="3.6" class="acc"/>
+<circle cx="566.2" cy="343.1" r="3.6" class="acc"/>
+<circle cx="573.7" cy="352.0" r="3.6" class="acc"/>
+<circle cx="581.1" cy="352.1" r="3.6" class="acc"/>
+<circle cx="588.6" cy="321.8" r="3.6" class="acc"/>
+<circle cx="596.1" cy="321.8" r="3.6" class="acc"/>
+<circle cx="603.6" cy="308.6" r="3.6" class="acc"/>
+<circle cx="611.1" cy="310.5" r="3.6" class="acc"/>
+<circle cx="618.6" cy="314.8" r="3.6" class="acc"/>
+<circle cx="626.1" cy="308.6" r="3.6" class="acc"/>
+<circle cx="633.5" cy="364.6" r="3.6" class="acc"/>
+<circle cx="641.0" cy="343.1" r="3.6" class="acc"/>
+<circle cx="648.5" cy="343.1" r="3.6" class="acc"/>
+<circle cx="656.0" cy="352.5" r="3.6" class="acc"/>
+<line x1="372" y1="374.7" x2="666" y2="374.7" class="goodS" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="672" y="379.686" class="good" font-size="13" text-anchor="start">31.2</text>
+<text x="387" y="434.973" class="acc" font-size="14" text-anchor="end" font-weight="700">7.01</text>
+<text x="603.6" y="298.622" class="good" font-size="15" text-anchor="middle" font-weight="700">60.10</text>
+<circle cx="384" cy="484" r="3.6" class="acc"/>
+<text x="394" y="488" class="muted" font-size="13" text-anchor="start">每个提交</text>
+<line x1="464" y1="484" x2="484" y2="484" class="goodS" stroke-width="2.5"/>
+<text x="490" y="488" class="muted" font-size="13" text-anchor="start">截至当时的最佳</text>
+<line x1="590" y1="484" x2="610" y2="484" class="goodS" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="616" y="488" class="muted" font-size="13" text-anchor="start">一次性拟合</text>
+<line x1="372" y1="446" x2="666" y2="446" class="inkS" stroke-width="1.2"/>
+<text x="394" y="466" class="muted" font-size="13" text-anchor="middle">1</text>
+<text x="656" y="466" class="muted" font-size="13" text-anchor="middle">36</text>
+<text x="525" y="466" class="muted" font-size="13" text-anchor="middle">按提交顺序 →</text>
+<text x="50" y="298" class="muted" font-size="13" text-anchor="start">原始分</text>
+<line x1="50" y1="446" x2="300" y2="446" class="inkS" stroke-width="1.2"/>
+<text x="16" y="518" class="ink" font-size="13" text-anchor="start">分数为原始结果，范围 0 到 109；真实污染源得 109 分。修复版按原始分 × 100/109</text>
+<text x="16" y="536" class="ink" font-size="13" text-anchor="start">换算为 0–100 分：7.03 → 6.45，31.2 → 28.62，60.10 → 55.14。</text>
+<text x="16" y="564" class="good" font-size="14" text-anchor="start" font-weight="600">修复：向智能体提供评分器自己的模型文件，并写明其中的约定。</text>
 </svg>
-</div><figcaption><b>图 5</b> 评分器使用未说明且不符合物理的约定，因此一次性地用教科书方法诚实拟合公开数据，只能得到基线水平的分数，比使用隐藏约定的同一拟合低约 24 分。 <a href="tasks/borden_source_inversion.html" class="case-link">阅读案例</a></figcaption></figure>
+</div><figcaption><b>图 14</b> 教科书解法只得约 7 分，因为评分器的物理模型采用了任务说明从未交代的约定。智能体要根据监测井读数确定一个地下污染源；评分器的模型例如忽略土壤孔隙度、把质量速率当作质量，而公开数据对它和教科书模型的拟合一样好。用教科书模型一次性拟合得 7.03 分（原始分），同样的方法改用评分器的模型得 31.2 分（原始分范围为 0 到 109；换算为 0–100 分分别是 6.45 和 28.62）；一次真实的智能体运行在 36 个提交中从 7.01 分升到 60.10 分（原始分），期间评分器每次都会报告其在隐藏监测井上的误差。修复后的任务向智能体提供评分器自己的模型，并写明其中的约定，同时按原始分 × 100/109 报告 0–100 分。 <a href="tasks/borden_source_inversion.html" class="case-link">阅读案例</a></figcaption></figure>
 
-  <h3 id="accepted"><span class="num">3.3</span>错误的工作被接受</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/exchange_core_throughput.html">Exchange Core</a>。</span>智能体要在不改变行为的前提下加速一个证券交易所撮合引擎。评分器的正确性检查只确认资金总体平衡、订单簿一致。<mark>两个现实中可能出现、只需改动一处的缺陷——向卖方吃单者收取挂单手续费而非吃单手续费，以及不发送成交消息——都能通过检查并获得满分</mark>，而项目自带的测试套件能发现这两个缺陷。修复版要求先通过这些测试，再测量速度。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：发现：部分证明 · 修复经并排对照测试，三次运行（13 项对照中有 6 项只运行一次）</p>
-  <figure class="fig" id="fig-exchange_core_throughput"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>Bar chart: under the original grader, engines with wrong fees (24.40) or dropped events (15.62) receive full credit, as does the correct engine (7.14); the differences are within speed noise. The fixed grader gives both broken engines 0.</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-
-<text x="16" y="30" font-size="18" font-weight="700" class="ink">Broken engines pass the correctness check</text>
-<text x="196" y="68" font-size="14" class="muted">Original grader, score out of 100 (single runs)</text>
-<text x="528" y="68" font-size="14" class="muted">Fixed version</text>
-<line x1="196" y1="78" x2="196" y2="270" class="rule" stroke-width="1.5"/>
-<text x="16" y="116" font-size="15" class="ink">Correct engine</text>
-<rect x="196" y="96" width="71.4" height="30" class="acc"/>
-<text x="276" y="118" font-size="16" font-weight="700" class="ink">7.14</text>
-<rect x="520" y="96" width="184" height="30" rx="6" class="goodBg"/><text x="612" y="117" font-size="15" text-anchor="middle" class="good">passes</text>
-<text x="16" y="186" font-size="15" class="ink">Wrong fees</text>
-<rect x="196" y="166" width="244" height="30" class="bad"/>
-<text x="450" y="188" font-size="16" font-weight="700" class="ink">24.40</text>
-<rect x="520" y="166" width="184" height="30" rx="6" class="badBg"/><text x="612" y="187" font-size="15" text-anchor="middle" class="bad">rejected: 0</text>
-<text x="16" y="256" font-size="15" class="ink">Lost messages</text>
-<rect x="196" y="236" width="156.2" height="30" class="bad"/>
-<text x="362" y="258" font-size="16" font-weight="700" class="ink">15.62</text>
-<rect x="520" y="236" width="184" height="30" rx="6" class="badBg"/><text x="612" y="257" font-size="15" text-anchor="middle" class="bad">rejected: 0</text>
-<text x="16" y="292" font-size="13" class="muted">The gaps between these single runs are within speed noise (about ±20% from run to run).</text>
-</svg>
-</div><figcaption><b>图 6</b> 原始评分器给有缺陷的引擎满分；它们较高的单次运行分数处在速度噪声范围之内。修复版给它们 0 分。 <a href="tasks/exchange_core_throughput.html" class="case-link">阅读案例</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting</a>。</span>智能体要把平面形状尽可能紧密地排入一条带状区域。评分器漏掉了许多重叠，例如一个形状滑过另一个形状的一半，<mark>因此一个不可行的布局可以胜过所有可行的布局。</mark></p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：修复正确性：部分证明 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-jagua_nesting_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 292" role="img">
-<title>Jagua Nesting overlap check</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-
-<rect x="16" y="12" width="336" height="268" rx="8" fill="none" class="rule" stroke-width="1.5"/>
-<text x="184" y="40" class="muted" font-size="15" text-anchor="middle" font-weight="400">Original grader</text>
-<rect x="76" y="70" width="110" height="110" class="accBg" fill-opacity="0.8"/><rect x="131" y="70" width="110" height="110" class="warnBg" fill-opacity="0.8"/>
-<rect x="131" y="70" width="55" height="110" class="bad" fill-opacity="0.45"/>
-<rect x="76" y="70" width="110" height="110" fill="none" class="accS" stroke-width="2.5"/><rect x="131" y="70" width="110" height="110" fill="none" class="inkS" stroke-width="2.5"/>
-<text x="184" y="208" class="bad" font-size="14" text-anchor="middle" font-weight="400">overlap area 50 (each square 10 × 10)</text>
-<text x="184" y="254" class="bad" font-size="20" text-anchor="middle" font-weight="700">accepted ✓</text>
-<rect x="368" y="12" width="336" height="268" rx="8" fill="none" class="rule" stroke-width="1.5"/>
-<text x="536" y="40" class="muted" font-size="15" text-anchor="middle" font-weight="400">Fixed version</text>
-<rect x="428" y="70" width="110" height="110" class="accBg" fill-opacity="0.8"/><rect x="483" y="70" width="110" height="110" class="warnBg" fill-opacity="0.8"/>
-<rect x="483" y="70" width="55" height="110" class="bad" fill-opacity="0.45"/>
-<rect x="428" y="70" width="110" height="110" fill="none" class="accS" stroke-width="2.5"/><rect x="483" y="70" width="110" height="110" fill="none" class="inkS" stroke-width="2.5"/>
-<text x="536" y="208" class="bad" font-size="14" text-anchor="middle" font-weight="400">overlap area 50 (each square 10 × 10)</text>
-<text x="536" y="254" class="good" font-size="20" text-anchor="middle" font-weight="700">rejected ✗</text>
-
-</svg>
-</div><figcaption><b>图 7</b> 原始的有效性检查漏掉了许多真实的重叠，例如相互滑过一半的正方形；修复版评分器测量重叠面积，拒绝任何超过较小形状面积百万分之一的重叠。 <a href="tasks/jagua_nesting_optimization.html" class="case-link">阅读案例</a></figcaption></figure>
-
-  <h3 id="unstated"><span class="num">3.4</span>评分器执行了任务说明中没有写明的规则</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring</a>。</span>任务说明只允许在两个三角形构成凸形时翻转其公共边。<mark>评分器遗漏了这一条件，而隐藏测试用例也是由同一条错误规则生成的：</mark>全部十个用例都含有相互重叠的三角形，而且在其中一个用例上，一次被禁止的翻转改善了分数。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：修复正确性：已证明 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-triangulation_coloring_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>Sketch of a dart-shaped quadrilateral where flipping the inner edge makes two triangles overlap; the original grader accepts the flip (Score = 41) and the fixed version rejects it as an invalid flip.</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-
-<text x="16" y="30" font-size="18" font-weight="700" class="ink">A forbidden flip is accepted</text>
-<polygon points="60,250 180,170 300,250 180,70" class="warnBg"/>
-<polygon points="60,250 180,170 300,250 180,70" fill="none" class="inkS" stroke-width="2"/>
-<line x1="180" y1="170" x2="180" y2="70" class="inkS" stroke-width="2"/>
-<polygon points="60,250 180,170 300,250" class="bad" fill-opacity="0.3"/>
-<line x1="60" y1="250" x2="300" y2="250" class="badS" stroke-width="4" stroke-dasharray="9 6"/>
-<text x="174" y="144" font-size="13" class="muted" text-anchor="end">old</text><text x="174" y="160" font-size="13" class="muted" text-anchor="end">edge</text>
-<text x="180" y="234" font-size="13" text-anchor="middle" font-weight="600" class="bad">overlap</text>
-<text x="16" y="60" font-size="13" class="muted">Sketch: four-sided shape with a dent (not convex)</text>
-<text x="180" y="278" font-size="14" text-anchor="middle" class="bad">new edge: triangles overlap</text>
-<rect x="352" y="56" width="352" height="64" rx="8" class="badBg"/>
-<text x="368" y="82" font-size="15" font-weight="700" class="bad">Original grader: accepted</text>
-<text x="368" y="106" font-size="15" class="ink">Flip scored as normal (score 41)</text>
-<rect x="352" y="132" width="352" height="64" rx="8" class="goodBg"/>
-<text x="368" y="158" font-size="15" font-weight="700" class="good">Fixed version: rejected</text>
-<text x="368" y="182" font-size="15" class="ink">Error: invalid flip</text>
-<text x="352" y="228" font-size="14" class="muted">Real hidden case 0009:</text>
-<text x="352" y="252" font-size="15" class="ink">one forbidden flip improves (lowers) the score</text>
-<text x="352" y="276" font-size="15" font-weight="700" class="ink">644,809 → 641,611</text>
-</svg>
-</div><figcaption><b>图 8</b> 原始评分器接受规则所禁止的翻转，其中一次甚至改善了分数（越低越好：在隐藏用例 0009 上从 644,809 降到 641,611）；修复版拒绝它们。 <a href="tasks/triangulation_coloring_optimization.html" class="case-link">阅读案例</a></figcaption></figure>
-  <p><span class="lead-in"><a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a>。</span>任务说明承诺每个测试用例 30 秒，即每个由五个用例组成的输入 150 秒。<mark>评分器在 60 秒后就停止每个输入，而一次超时就会使整份提交作废</mark>，因此一个用足了所承诺时间的解法得零分。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：发现：已证明 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-warehouse_forklift_routing"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 276" role="img">
-<title>Warehouse Routing time limit</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-
-<text x="40" y="26" class="muted" font-size="15" text-anchor="start" font-weight="400">Time allowed per input (5 test cases)</text>
-<line x1="296.0" y1="56" x2="296.0" y2="100" class="inkS" stroke-width="2"/>
-<text x="288.0" y="52" class="ink" font-size="14" text-anchor="end" font-weight="600">Enforced: 60 s</text>
-<line x1="680" y1="56" x2="680" y2="100" class="inkS" stroke-width="2"/>
-<text x="680" y="52" class="ink" font-size="14" text-anchor="end" font-weight="600">Promised: 5 × 30 s = 150 s</text>
-<rect x="40" y="100" width="256.0" height="30" class="goodBg"/><rect x="296.0" y="100" width="384.0" height="30" class="badBg"/>
-<text x="168.0" y="121" class="good" font-size="15" text-anchor="middle" font-weight="600">scored</text>
-<text x="488.0" y="121" class="bad" font-size="15" text-anchor="middle" font-weight="600">promised but scored 0</text>
-<text x="40" y="152" class="muted" font-size="14" text-anchor="start" font-weight="400">0 s</text>
-<text x="296.0" y="152" class="muted" font-size="14" text-anchor="middle" font-weight="400">60 s</text>
-<text x="680" y="152" class="muted" font-size="14" text-anchor="end" font-weight="400">150 s</text>
-<line x1="317.3" y1="188" x2="317.3" y2="160" class="badS" stroke-width="2.5"/><path d="M311.3 167 L317.3 157 L323.3 167 Z" class="bad"/>
-<text x="40" y="212" class="bad" font-size="15" text-anchor="start" font-weight="600">Test submission: 13 s per test case (65 s per input), within the promise, times out.</text>
-<text x="40" y="234" class="ink" font-size="14" text-anchor="start" font-weight="400">Original grader: all 50 inputs time out, whole submission invalid.</text>
-<text x="40" y="256" class="good" font-size="14" text-anchor="start" font-weight="600">Fixed version: limit 150 s, all 50 inputs scored.</text>
-
-</svg>
-</div><figcaption><b>图 9</b> 任务说明承诺每个测试用例 30 秒、每个输入 150 秒，但原始评分器执行的是 60 秒，因此一个在某个输入上耗时超过 60 秒的解题者，尽管仍在承诺之内，也会失去全部分数。 <a href="tasks/warehouse_forklift_routing.html" class="case-link">阅读案例</a></figcaption></figure>
-
-  <h3 id="scale"><span class="num">3.5</span>0–100 分数刻度无法达到</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>。</span>每个测试用例按存活的回合数计分，而评分器限制了回合数，因此总数不可能超过 92,304。0–100 分数刻度的参考点却设得远高于这个上限。<mark>任何提交的得分都不可能超过 100 分中的 21.02 分。</mark>修复后的刻度从初始程序的总数延伸到已证明的上界（尚未证明可达）。<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Routing</a> 也有同样的问题，而且是通过证明而非测量确立的：一个在 Lean 中证明的下界表明，任何有效答案的得分都不可能超过约 30.6（在精确下界处为 30.3）。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：已发布数字：部分证明 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-treant_forest"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img">
-<title>Treant Forest score scale</title>
-<style>
-  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
-  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-  
-</style>
-
-<text x="40" y="26" class="muted" font-size="15" text-anchor="start" font-weight="400">Original score scale (0 to 100)</text>
-<rect x="40" y="70" width="134.5" height="28" class="goodBg"/><rect x="174.5" y="70" width="505.5" height="28" class="badBg"/>
-<text x="427" y="89" class="bad" font-size="15" text-anchor="middle" font-weight="600">unreachable</text>
-<line x1="174.5" y1="46" x2="174.5" y2="98" class="inkS" stroke-width="2"/>
-<text x="182" y="50" class="ink" font-size="14" text-anchor="start" font-weight="600">Turn cap: 92,304 total turns = 21.02</text>
-<line x1="40" y1="98" x2="40" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="40" y="124" class="ink" font-size="15" text-anchor="start" font-weight="600">0</text>
-<text x="40" y="142" class="muted" font-size="14" text-anchor="start" font-weight="400">5,369</text>
-<line x1="168" y1="98" x2="168" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="168" y="124" class="ink" font-size="15" text-anchor="middle" font-weight="600">20</text>
-<text x="168" y="142" class="muted" font-size="14" text-anchor="middle" font-weight="400">88,189</text>
-<line x1="552" y1="98" x2="552" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="552" y="124" class="ink" font-size="15" text-anchor="middle" font-weight="600">80</text>
-<text x="552" y="142" class="muted" font-size="14" text-anchor="middle" font-weight="400">330,195</text>
-<line x1="680" y1="98" x2="680" y2="106" class="inkS" stroke-width="1.5"/>
-<text x="680" y="124" class="ink" font-size="15" text-anchor="end" font-weight="600">100</text>
-<text x="680" y="142" class="muted" font-size="14" text-anchor="end" font-weight="400">451,198</text>
-<text x="40" y="166" class="muted" font-size="13" text-anchor="start" font-weight="400">Bold: score out of 100. Grey: total turns needed for that score.</text>
-<text x="40" y="192" class="muted" font-size="15" text-anchor="start" font-weight="400">Fixed score scale (0 to 100)</text>
-<rect x="40" y="204" width="640" height="28" class="goodBg"/>
-<text x="40" y="254" class="ink" font-size="15" text-anchor="start" font-weight="600">0 = 3,418 turns (starter)</text>
-<text x="680" y="254" class="ink" font-size="15" text-anchor="end" font-weight="600">100 = 92,304 turns (the cap)</text>
-
-</svg>
-</div><figcaption><b>图 10</b> 原始分数刻度的参考点高于回合上限，因此任何提交的得分都不可能超过 100 分中的 21.02 分；修复后的刻度终止于该上限 92,304。 <a href="tasks/treant_forest.html" class="case-link">阅读案例</a></figcaption></figure>
-
-  <h3 id="selection"><span class="num">3.6</span>保留了错误的提交</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>。</span>评分器的五项测试之一把一个辅助文件与一个过时的校验和作比较，因此每份提交都无法通过它。在该任务选取一次运行最佳结果的规则下（通过测试最多者优先，相同时取最早的），<mark>每次运行所报告的最佳结果都被冻结在其第一份有效提交上，后来的改进永远不被计入。</mark>如果改为保留最高分，则不受影响。<a href="leaderboard.html#real-runs">与真实智能体运行的对照</a>表明，这种情况确实在一次真实的智能体运行中发生了。</p>
+  <h3 id="scale_selection"><span class="num">3.4</span>分数换算与选取<span class="hcount">3 个任务</span></h3>
+  <p>原始结果计算正确，但把它变成最终分数的环节出了错：把原始结果换算到 0–100 分的参考点无法达到，或是在别的对象上测得的，因此分数被压缩或偏移；或者，挑选每次运行最佳提交的选取规则保留了错误的提交。</p>
+  <p class="pcat-tasks">以此为主要类别的任务共 3 个：<a class="task-link" href="tasks/integer_compression_codec.html">Integer Compression Codec</a>、<a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition Permutation Optimization</a>、<a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>。<a href="tasks/index.html#scale_selection">在任务列表中查看</a>。<br>以此为次要类别的任务：<a class="task-link" href="tasks/borden_source_inversion.html">Borden Source Inversion</a>、<a class="task-link" href="tasks/grid_turing_robot.html">Grid Turing Robot</a>、<a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse Forklift Routing</a>。</p>
+  <p><span class="lead-in"><a class="task-link" href="tasks/order_addition_permutation_optimization.html">Order Addition</a>：后来更好的工作从不计入。</span>每次运行报告其最佳提交，先按评分器五项测试中通过的数量来选。其中一项测试用一个过时的文件指纹去比对辅助文件，所以每个提交都有这一项测试不通过，所有有分数的提交都并列为 5 项中通过 4 项，运行只能停留在第一个有分数的提交上。<mark>在一次真实智能体运行中，这使报告成绩停在 3.79 分（满分 100），而后来一个提交实际得到 41.24 分。</mark>修复更新了这个指纹；每个提交本身的分数不变。改为保留最高分的使用者不受影响。</p>
   <p class="verif"><b>证据：</b>已在原始评分器上复现 · TLA+：修复正确性：已模型检验 · 修复经并排对照测试，三次运行</p>
-  <figure class="fig" id="fig-order_addition_permutation_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 268" role="img">
-<title>Order Addition best submission</title>
+  <figure class="fig" id="fig-order_addition_permutation_optimization"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 530" role="img">
+<title>一项过时的文件检查让每个提交都有一项测试不通过，因此一次真实智能体运行保留 3.79 分（满分 100），而不是 41.24 分</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510}
-  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .cell{fill:#f1f4f6}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-
-<text x="40" y="26" class="muted" font-size="15" text-anchor="start" font-weight="400">Two valid submissions, in order</text>
-<text x="16" y="96" class="ink" font-size="15" text-anchor="start" font-weight="600">Original</text>
-<text x="16" y="115" class="ink" font-size="15" text-anchor="start" font-weight="600">grader</text>
-<rect x="120" y="46" width="230" height="92" rx="6" class="warnBg" />
-<rect x="120" y="46" width="230" height="92" rx="6" fill="none" class="warnS" stroke-width="3"/>
-<text x="132" y="70" class="ink" font-size="15" text-anchor="start" font-weight="600">1st: order 1, 2, …, 1000</text>
-<text x="132" y="90" class="ink" font-size="14" text-anchor="start" font-weight="400">score 3.3 × 10⁻⁹</text>
-<text x="132" y="108" class="muted" font-size="14" text-anchor="start" font-weight="400">4/5 tests (one always fails)</text>
-<text x="132" y="128" class="warn" font-size="14" text-anchor="start" font-weight="600">kept as best (stuck)</text>
-<rect x="420" y="46" width="230" height="92" rx="6" class="badBg" />
-<rect x="420" y="46" width="230" height="92" rx="6" fill="none" class="badS" stroke-width="3"/>
-<text x="432" y="70" class="ink" font-size="15" text-anchor="start" font-weight="600">2nd: order found by search</text>
-<text x="432" y="90" class="ink" font-size="14" text-anchor="start" font-weight="400">score 0.0093733018</text>
-<text x="432" y="108" class="muted" font-size="14" text-anchor="start" font-weight="400">4/5 tests (one always fails)</text>
-<text x="432" y="128" class="bad" font-size="14" text-anchor="start" font-weight="600">better, but ignored</text>
-<path d="M358 92 L406 92 M398 86 L407 92 L398 98" fill="none" class="inkS" stroke-width="2"/>
-<text x="16" y="212" class="ink" font-size="15" text-anchor="start" font-weight="600">Fixed</text>
-<text x="16" y="231" class="ink" font-size="15" text-anchor="start" font-weight="600">version</text>
-<rect x="120" y="162" width="230" height="92" rx="6" class="accBg" />
-<rect x="120" y="162" width="230" height="92" rx="6" fill="none" class="rule" stroke-width="1.5"/>
-<text x="132" y="186" class="ink" font-size="15" text-anchor="start" font-weight="600">1st: order 1, 2, …, 1000</text>
-<text x="132" y="206" class="ink" font-size="14" text-anchor="start" font-weight="400">score 3.3 × 10⁻⁹</text>
-<text x="132" y="224" class="muted" font-size="14" text-anchor="start" font-weight="400">5/5 tests</text>
-<text x="132" y="244" class="muted" font-size="14" text-anchor="start" font-weight="600">earlier, beaten</text>
-<rect x="420" y="162" width="230" height="92" rx="6" class="goodBg" />
-<rect x="420" y="162" width="230" height="92" rx="6" fill="none" class="goodS" stroke-width="3"/>
-<text x="432" y="186" class="ink" font-size="15" text-anchor="start" font-weight="600">2nd: order found by search</text>
-<text x="432" y="206" class="ink" font-size="14" text-anchor="start" font-weight="400">score 0.0093733018</text>
-<text x="432" y="224" class="muted" font-size="14" text-anchor="start" font-weight="400">5/5 tests</text>
-<text x="432" y="244" class="good" font-size="14" text-anchor="start" font-weight="600">kept as best</text>
-<path d="M358 208 L406 208 M398 202 L407 208 L398 214" fill="none" class="inkS" stroke-width="2"/>
-
+<text x="16" y="26" class="ink" font-size="17" text-anchor="start" font-weight="600">一项过时的文件检查让每个提交都有一项测试不通过，</text>
+<text x="16" y="48" class="ink" font-size="17" text-anchor="start" font-weight="600">于是一次真实智能体运行只保留 3.79 分（满分 100），而不是 41.24 分</text>
+<text x="16" y="74" class="muted" font-size="14" text-anchor="start" font-weight="400">任务：把 1 到 1000 排成一个顺序，使一个隐藏的代价尽可能小。</text>
+<text x="16" y="94" class="muted" font-size="14" text-anchor="start" font-weight="400">5 项测试中有一项要求辅助文件是旧版本，因此所有提交都过不了这一项。</text>
+<text x="16" y="124" class="ink" font-size="14" text-anchor="start" font-weight="600">每个提交的 0–100 分，按评分顺序排列（两个评分器给出的分数相同）</text>
+<line x1="166" y1="252.0" x2="706" y2="252.0" class="rule" stroke-width="1"/>
+<text x="158" y="257.0" class="muted" font-size="13" text-anchor="end" font-weight="400">0</text>
+<line x1="166" y1="202.2" x2="706" y2="202.2" class="rule" stroke-width="1"/>
+<text x="158" y="207.22222222222223" class="muted" font-size="13" text-anchor="end" font-weight="400">20</text>
+<line x1="166" y1="152.4" x2="706" y2="152.4" class="rule" stroke-width="1"/>
+<text x="158" y="157.44444444444446" class="muted" font-size="13" text-anchor="end" font-weight="400">40</text>
+<rect x="479" y="242.6" width="34" height="9.4" class="warn"/>
+<text x="496" y="236.5775282151822" class="ink" font-size="13" text-anchor="middle" font-weight="600">3.79</text>
+<rect x="539" y="212.4" width="34" height="39.6" class="acc"/>
+<text x="556" y="206.39324374090666" class="ink" font-size="13" text-anchor="middle" font-weight="600">15.91</text>
+<rect x="599" y="212.4" width="34" height="39.6" class="acc"/>
+<text x="616" y="206.39324374090666" class="ink" font-size="13" text-anchor="middle" font-weight="600">15.91</text>
+<rect x="659" y="149.4" width="34" height="102.6" class="good"/>
+<text x="676" y="143.36624714442667" class="ink" font-size="13" text-anchor="middle" font-weight="600">41.24</text>
+<path d="M174 242 L174 236 L458 236 L458 242" fill="none" class="mutedS" stroke-width="1.2"/>
+<text x="316" y="228" class="muted" font-size="13" text-anchor="middle" font-weight="400">尚无结果文件：没有分数</text>
+<line x1="166" y1="252" x2="706" y2="252" class="inkS" stroke-width="1.2"/>
+<text x="196" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">1</text>
+<text x="196" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="256" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">2</text>
+<text x="256" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="316" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">3</text>
+<text x="316" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="376" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">4</text>
+<text x="376" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="436" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">5</text>
+<text x="436" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="496" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">6</text>
+<text x="496" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">智能体</text>
+<text x="556" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">7</text>
+<text x="556" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="616" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">8</text>
+<text x="616" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">自动</text>
+<text x="676" y="270" class="ink" font-size="13" text-anchor="middle" font-weight="600">9</text>
+<text x="676" y="286" class="muted" font-size="13" text-anchor="middle" font-weight="400">智能体</text>
+<text x="16" y="318" class="ink" font-size="15" text-anchor="start" font-weight="600">原始评分器</text>
+<text x="16" y="336" class="muted" font-size="13" text-anchor="start" font-weight="400">通过的测试</text>
+<text x="16" y="354" class="bad" font-size="14" text-anchor="start" font-weight="600">保留 3.79</text>
+<rect x="170" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="196" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="230" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="256" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="290" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="316" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="350" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="376" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="410" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="436" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">2/5</text>
+<rect x="470" y="300" width="52" height="58" rx="5" class="warnBg"/>
+<rect x="470" y="300" width="52" height="58" rx="5" fill="none" class="warnS" stroke-width="2.5"/>
+<text x="496" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">4/5</text>
+<text x="496" y="346" class="warn" font-size="13" text-anchor="middle" font-weight="600">保留</text>
+<rect x="530" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="556" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">4/5</text>
+<rect x="590" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="616" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">4/5</text>
+<rect x="650" y="300" width="52" height="58" rx="5" class="cell"/>
+<text x="676" y="326" class="ink" font-size="15" text-anchor="middle" font-weight="600">4/5</text>
+<text x="16" y="384" class="ink" font-size="15" text-anchor="start" font-weight="600">修复版评分器</text>
+<text x="16" y="402" class="muted" font-size="13" text-anchor="start" font-weight="400">通过的测试</text>
+<text x="16" y="420" class="good" font-size="14" text-anchor="start" font-weight="600">保留 41.24</text>
+<rect x="170" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="196" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="230" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="256" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="290" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="316" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="350" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="376" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="410" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="436" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">3/5</text>
+<rect x="470" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="496" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">5/5</text>
+<rect x="530" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="556" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">5/5</text>
+<rect x="590" y="366" width="52" height="58" rx="5" class="cell"/>
+<text x="616" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">5/5</text>
+<rect x="650" y="366" width="52" height="58" rx="5" class="goodBg"/>
+<rect x="650" y="366" width="52" height="58" rx="5" fill="none" class="goodS" stroke-width="2.5"/>
+<text x="676" y="392" class="ink" font-size="15" text-anchor="middle" font-weight="600">5/5</text>
+<text x="676" y="412" class="good" font-size="13" text-anchor="middle" font-weight="600">保留</text>
+<text x="16" y="456" class="ink" font-size="13.5" text-anchor="start" font-weight="400">选取规则：保留通过测试最多的提交；只有 5 项全部通过时才比较分数。</text>
+<text x="16" y="476" class="muted" font-size="13.5" text-anchor="start" font-weight="400">原始：所有有分数的提交并列为 5 项中通过 4 项，第一个一直被保留。修复版：5 项全过，最好的胜出。</text>
+<text x="16" y="496" class="muted" font-size="13" text-anchor="start" font-weight="400">自动 = 平台自动评分的一份工作副本；智能体 = 智能体自己提交的。</text>
+<text x="16" y="516" class="muted" font-size="13" text-anchor="start" font-weight="400">条形颜色：金色 = 原始评分器保留的提交；绿色 = 修复版评分器保留的提交；蓝色 = 其他已评分的工作。</text>
 </svg>
-</div><figcaption><b>图 11</b> 一个过时的文件指纹使每份提交至多通过 4/5 项测试，因此原始评分器保留一次运行的第一份有效提交，而忽略后来更好的提交。 <a href="tasks/order_addition_permutation_optimization.html" class="case-link">阅读案例</a></figcaption></figure>
-
-  <h3 id="removed"><span class="num">3.7</span>一个没有可靠修复的任务</h3>
-  <p><span class="lead-in"><a class="task-link" href="tasks/dabic_gravity_inversion.html">D-ABIC Gravity Inversion</a>。</span><mark>该任务有四十二分来自提交对其自身工作所报告的数字，评分器无法核查这些数字。</mark>评分器还暗中惩罚任务说明明确允许的两种数学上等价的形式之一。我们修复了第二个问题，但第一个问题没有能保留该任务的修复办法，因此该任务被移除。</p>
-  <p class="verif"><b>证据：</b>已在原始评分器上复现 · 部分修复经并排对照测试，三次运行；任务已移除</p>
-  <figure class="fig" id="fig-dabic_gravity_inversion"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img">
-<title>D-ABIC Gravity Inversion form penalty</title>
+</div><figcaption><b>图 15</b> 一项过时的文件检查使一次真实智能体运行只保留了 3.79 分（满分 100），而后来的一个提交实际得到 41.24 分。智能体要把 1 到 1000 排成一个顺序，使一个隐藏的代价尽可能小；5 项测试中有一项要求辅助文件是旧版本，因此每个提交都有这一项测试不通过。运行保留通过测试最多的提交，只有 5 项全部通过时才比较分数，所以所有有分数的提交都并列为 5 项中通过 4 项，第一个一直被保留。修复版改正了所要求的文件版本后，有分数的提交都通过 5 项，各自的分数不变，运行保留 41.24 分。 <a href="tasks/order_addition_permutation_optimization.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/treant_forest.html">Treant Forest</a>：任何提交都不可能超过 21 分。</span>评分器在固定回合数后结束每局游戏，所以总数不可能超过 92,304。原 0–100 分刻度却按总数可达 330,195 来设定，<mark>因此即使是完美的提交也只能得 21.02 分（满分 100）。</mark>修复后的刻度从初始程序的总数延伸到评分器允许的最高总数（是否有提交能达到尚未证明）。一个诚实的测试解法从 3.04 分变为 16.36 分，提交之间的先后顺序不变。</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：已发布数字：部分证明 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-treant_forest"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 392" role="img">
+<title>任何提交的得分都不可能超过 21.02 分（满分 100）</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78} .onbar{fill:#ffffff}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .ruleS{stroke:#d3dbe0}
+  .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4} .ruleF{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+<text x="16" y="24" class="ink" font-size="16" font-weight="600">任何提交的得分都不可能超过 21.02 分（满分 100）</text>
+<text x="16" y="46" class="muted" font-size="14">评分器在 2N² 回合后结束每局游戏，因此 50 个用例的总回合数最多为 92,304。</text>
+<text x="40" y="80" class="muted" font-size="15">原始分数刻度</text>
+<rect x="40" y="120" width="134.5" height="28" class="goodBg"/><rect x="174.5" y="120" width="505.5" height="28" class="badBg"/>
+<text x="427" y="139" class="bad" font-size="15" font-weight="600" text-anchor="middle">无法达到</text>
+<line x1="174.5" y1="98" x2="174.5" y2="148" class="inkS" stroke-width="2"/>
+<text x="182.5" y="110" class="ink" font-size="14" font-weight="600">上限：92,304 回合 = 21.02</text>
+<circle cx="59.5" cy="134" r="5" class="acc"/>
+<text x="69.5" y="139" class="acc" font-size="14" font-weight="600">3.04</text>
+<line x1="40.0" y1="148" x2="40.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="40.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="start">0</text>
+<text x="40.0" y="192" class="muted" font-size="14" text-anchor="start">5,369</text>
+<line x1="168.0" y1="148" x2="168.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="168.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="middle">20</text>
+<text x="168.0" y="192" class="muted" font-size="14" text-anchor="middle">88,189</text>
+<line x1="552.0" y1="148" x2="552.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="552.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="middle">80</text>
+<text x="552.0" y="192" class="muted" font-size="14" text-anchor="middle">330,195</text>
+<line x1="680.0" y1="148" x2="680.0" y2="156" class="inkS" stroke-width="1.5"/>
+<text x="680.0" y="174" class="ink" font-size="15" font-weight="600" text-anchor="end">100</text>
+<text x="680.0" y="192" class="muted" font-size="14" text-anchor="end">451,198</text>
+<text x="40" y="216" class="muted" font-size="13">粗体：得分（满分 100）。灰色：得到该分数所需的总回合数。</text>
+<text x="40" y="256" class="muted" font-size="15">修复版分数刻度</text>
+<rect x="40" y="268" width="640" height="28" class="goodBg"/>
+<circle cx="144.7" cy="282" r="5" class="acc"/>
+<text x="154.7" y="287" class="acc" font-size="14" font-weight="600">16.36</text>
+<text x="40" y="318" class="ink" font-size="15" font-weight="600">0 = 3,418 回合（初始代码）</text>
+<text x="680" y="318" class="ink" font-size="15" font-weight="600" text-anchor="end">100 = 92,304 回合（上限）</text>
+<circle cx="46" cy="347" r="5" class="acc"/>
+<text x="58" y="352" class="acc" font-size="14" font-weight="600">诚实的测试解法：17,960 回合，两种刻度下原始结果相同</text>
+<text x="40" y="378" class="muted" font-size="13">提交之间的先后顺序不变。是否有提交能达到上限尚未证明。</text>
+</svg>
+</div><figcaption><b>图 16</b> 在 Treant Forest 中，任何提交的得分都不可能超过 21.02 分（满分 100），因为分数刻度是按评分器根本不允许的总数设定的。智能体玩一个以回合数计分的网格谜题，评分器在 2N² 回合后结束每局游戏，因此 50 个用例的总回合数最多为 92,304，而原始刻度要 330,195 回合才给 80 分。修复版刻度从初始代码的 3,418 回合（0 分）到 92,304 回合的上限（100 分），因此一个诚实的测试解法从 3.04 分变为 16.36 分，提交之间的先后顺序不变；是否有提交能达到上限尚未证明。 <a href="tasks/treant_forest.html" class="case-link">阅读案例</a></figcaption></figure>
+  <p><span class="lead-in"><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a>：一个不可能的参考数值。</span>智能体要为整数列表编写压缩器，得分以存储的初始代码参考结果为基准。其中一个存储值声称每个整数只需 5.13 位，低于初始代码这种格式至少需要的 8 位；初始代码实际需要 38.98 位。结果是初始代码只得约 0.23（原始结果），而不是文档所说的 1.0，各数据集的实际权重也与公布的不同。修复在同一次运行中测量初始代码，并设定新的 0–100 分刻度：从初始代码的结果到公式允许的最高值。<mark>一次真实智能体运行的成绩因此从 71.93 分变为 53.95 分（满分 100，两者都在我们的机器上重新评分）：修复既可能提高分数，也可能降低分数。</mark>（该运行在它自己的机器上记录的是 75.72 分。）</p>
+  <p class="verif"><b>证据：</b>已在原始评分器上复现 · Lean&nbsp;4：修复正确性：部分证明 · 修复经并排对照测试，三次运行</p>
+  <figure class="fig" id="fig-integer_compression_codec"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 532" role="img">
+<title>评分器存储的参考值不可能达到，因此所有分数都有偏差</title>
 <style>
   .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
   .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
-  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .inkS{stroke:#14212b}
+  .goodS{stroke:#2c7a57} .badS{stroke:#ad3528} .accS{stroke:#0f5c78} .warnS{stroke:#9a6510} .inkS{stroke:#14212b}
   .goodBg{fill:#e4f2ea} .badBg{fill:#f6e2df} .warnBg{fill:#f6ecda} .accBg{fill:#e3eff4}
-  text{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","PingFang SC","Microsoft YaHei","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif}
   
 </style>
-<text class="ink" x="16" y="30" font-size="18" font-weight="600">Same work, different form, half the score</text>
-<text class="muted" x="16" y="62" font-size="14">Score of the same strong work on the original grader (computed from its own penalty rule)</text>
-<text class="ink" x="16" y="98" font-size="15">Data form</text>
-<rect class="good" x="130" y="76" width="444.6" height="32"/>
-<text class="good" x="582.6" y="98" font-size="15" font-weight="600">88.92</text>
-<text class="ink" x="16" y="142" font-size="15">Model form</text>
-<rect class="bad" x="130" y="120" width="214.3" height="32"/>
-<text class="bad" x="352.3" y="142" font-size="15" font-weight="600">42.86</text>
-<text class="muted" x="16" y="190" font-size="14">Measured at a moderate level: data form 26.82, model form 25.77; the fix brings the model form to 26.81.</text>
-<rect class="warnBg" x="16" y="212" width="688" height="56" rx="8"/>
-<text class="warn" x="32" y="236" font-size="16" font-weight="600">Task still removed</text>
-<text class="ink" x="32" y="258" font-size="15">42 points are results the submission reports about itself, which the grader never checks.</text>
+<text x="16" y="28" font-size="18" font-weight="700" class="ink">评分器存储的参考值不可能达到，因此所有分数都有偏差</text>
+<text x="16" y="52" font-size="14" class="muted">任务：改进一个整数压缩器。分数以初始代码为基准计算。</text>
+<text x="16" y="88" font-size="15" font-weight="600" class="ink">1. 初始代码在 docids 数据集上每个数所用的位数（越少越好）</text>
+<text x="16" y="121" font-size="14" class="ink">评分器中存储的参考值</text>
+<rect x="250" y="104" width="56.4" height="24" class="bad"/>
+<text x="346" y="122" font-size="16" font-weight="700" class="bad">5.13</text>
+<text x="16" y="159" font-size="14" class="ink">初始代码的实测值</text>
+<rect x="250" y="142" width="428.8" height="24" class="acc"/>
+<text x="670.8" y="160" font-size="16" font-weight="700" text-anchor="end" class="bg">38.98</text>
+<line x1="338" y1="98" x2="338" y2="172" class="warnS" stroke-width="2" stroke-dasharray="5 3"/>
+<text x="338" y="190" font-size="14" text-anchor="middle" class="warn">最少 8 位</text>
+<text x="16" y="214" font-size="14" class="muted">初始代码以整字节存储每个数，因此每个数不可能少于 8 位。</text>
+<text x="16" y="233" font-size="14" class="muted">8 个数据集中有 5 个的存储参考值低于 8 位。</text>
+<line x1="16" y1="252" x2="704" y2="252" class="rule" stroke-width="1.5"/>
+<text x="16" y="280" font-size="15" font-weight="600" class="ink">2. 这对分数的影响</text>
+<text x="16" y="306" font-size="14" class="muted">未改动的初始代码，原始结果（文档：1.0）</text>
+<text x="16" y="337" font-size="15" class="ink">原始</text>
+<rect x="96" y="320" width="51.2" height="24" class="bad"/>
+<text x="155.2" y="338" font-size="16" font-weight="700" class="ink">0.23</text>
+<text x="16" y="377" font-size="15" class="ink">修复版</text>
+<rect x="96" y="360" width="215.3" height="24" class="good"/>
+<text x="324" y="378" font-size="16" font-weight="700" class="ink">0.98</text>
+<line x1="316" y1="314" x2="316" y2="390" class="inkS" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="316" y="406" font-size="14" text-anchor="middle" class="muted">1.0</text>
+<text x="16" y="428" font-size="13" class="muted">修复版评分器：0 分（满分 100），</text>
+<text x="16" y="445" font-size="13" class="muted">初始代码就是零点。</text>
+<line x1="364" y1="292" x2="364" y2="450" class="rule" stroke-width="1.5"/>
+<text x="380" y="306" font-size="14" class="muted">真实运行在各评分器下的最佳提交（0–100 分）</text>
+<text x="380" y="337" font-size="15" class="ink">原始</text>
+<rect x="460" y="320" width="220" height="24" class="accBg"/>
+<rect x="460" y="320" width="158.2" height="24" class="bad"/>
+<text x="626.2" y="338" font-size="16" font-weight="700" class="ink">71.93</text>
+<text x="380" y="377" font-size="15" class="ink">修复版</text>
+<rect x="460" y="360" width="220" height="24" class="accBg"/>
+<rect x="460" y="360" width="118.7" height="24" class="good"/>
+<text x="586.7" y="378" font-size="16" font-weight="700" class="ink">53.95</text>
+<text x="460" y="402" font-size="13" text-anchor="middle" class="muted">0</text>
+<text x="680" y="402" font-size="13" text-anchor="middle" class="muted">100</text>
+<text x="380" y="424" font-size="13" class="muted">在修复版评分器上原始结果提高到 1.7 到 4 倍，</text>
+<text x="380" y="441" font-size="13" class="muted">但其 0–100 分刻度从初始代码（0 分）</text>
+<text x="380" y="458" font-size="13" class="muted">到公式的最大值 320（100 分）。</text>
+<rect x="16" y="474" width="688" height="52" rx="8" class="warnBg"/>
+<text x="30" y="496" font-size="15" class="ink">修复：评分器在同一次运行中测量初始代码，并以它作为参考。</text>
+<text x="30" y="516" font-size="13" class="muted">右图：我们在自己的机器上用两个评分器重新评分了全部 37 份提交；该次运行自己记录的是 75.72。</text>
 </svg>
-</div><figcaption><b>图 12</b> 原始评分器暗中惩罚两种被允许且等价的形式之一，但该任务无论如何都被移除，因为有 42 分来自提交自行报告的结果。 <a href="tasks/dabic_gravity_inversion.html" class="case-link">阅读案例</a></figcaption></figure>
+</div><figcaption><b>图 17</b> 评分器把每份提交与一个存储的初始代码参考值做比较，而初始代码根本达不到这个值，因此所有分数都有偏差。任务是改进一个整数压缩器；在 docids 数据集上，存储的参考值为每个数 5.13 位，低于任何整字节格式所需的 8 位，而初始代码实际用 38.98 位（8 个数据集中有 5 个的存储值低于 8）。结果是未改动的初始代码的原始分数为 0.23，而不是文档所述的 1.0，并且每个原始结果都被压低了一个随数据集而变的倍数。修复版评分器在同一次运行中测量初始代码（初始代码的原始分数为 0.98），并在其 0 到 100 分的刻度上把初始代码定为 0 分、把公式的最大值 320 定为 100 分；因此一次真实 Claude Opus 5.5 运行的最佳提交在我们的机器上重新评分后，原始评分器下为 71.93 分（满分 100），修复版评分器下为 53.95 分（该运行自己记录的是 75.72 分）。 <a href="tasks/integer_compression_codec.html" class="case-link">阅读案例</a></figcaption></figure>
+
+  <p class="note">其他已修复的任务，例如 <a class="task-link" href="tasks/jagua_nesting_optimization.html">Jagua Nesting</a>、<a class="task-link" href="tasks/pfr_formalization.html">PFR Formalization</a>、<a class="task-link" href="tasks/triangulation_coloring_optimization.html">Triangulation Coloring</a> 和 <a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a>，见上面的类别列表及其各自的页面。</p>
   <div class="cta">
     <a class="btn" href="tasks/index.html">浏览全部 51 个任务 &rarr;</a>
-    <p>以上例子只涉及少数任务。任务列表包含所有结果，并提供筛选和搜索。</p>
+    <p>以上例子涉及 14 个任务。任务列表包含所有结果，并提供筛选和搜索。</p>
   </div>
 </section>
 
 <section id="impact" class="col">
   <h2 class="sec"><span class="num">4</span>对已发布排行榜的影响</h2>
-  <p>EdgeBench 公布每个模型在每个任务上的分数：三次十二小时运行中各次运行最佳分数的平均值。我们问的是，一旦问题得到纠正，每个模型在 51 个公开任务上的平均分会如何变化。<mark>如实的回答是：这无法从公开数据中确定。</mark>要测量它，要么需要对智能体的原始提交重新评分，而 EdgeBench 没有公开这些提交；要么需要在修复后的任务上重新运行这些模型，而本次审计没有这样做。可以精确陈述的是：</p>
-  <ul class="tight">
-    <li><b>条件区间。</b>计算考虑了舍入及 Treant 带截断的分段刻度。中点只用于描述区间，并非已知的修正后模型平均分。</li>
-    <li><b>适用范围。</b>界限针对指定缺陷。Portfolio 的有限扫描单独作为敏感性情景，不作为全局界限。</li>
-    <li><b>排名。</b>区间重叠既不能确定先后，也不能证明实际可实现的排名反转。</li>
-  </ul>
-  <p><mark>这些条件界限无法确认 Opus 4.8 与 GPT-5.5 的先后顺序；区间重叠不证明排名颠倒可以实现。</mark>其余相邻模型的先后顺序，只在只知道方向的修复没有影响时才能确认；在完整分数域包络中，每一对相邻模型的区间都相互重叠。</p>
-  <p class="more-link"><a href="leaderboard.html">完整的排行榜分析，包括表&nbsp;3 和与真实智能体运行的对照</a></p>
+  <p>EdgeBench 没有公开其智能体的提交，因此无法计算修正后的排行榜。只有一项检验可行：第三方公开了一个模型在 16 个公开任务上的一次四小时运行，其中九个是我们修复过的任务。我们用原始评分器和修复版评分器重新给这些提交打分。这些问题确实发生在真实智能体身上，有时也并未发生（见下图）。</p>
+  <figure class="fig" id="fig-real-runs"><div class="scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 686" role="img">
+<title>重新评分一次真实智能体运行：7 个任务中有 2 个的运行成绩发生变化</title>
+<style>
+  .ink{fill:#14212b} .muted{fill:#566773} .rule{stroke:#d3dbe0} .bg{fill:#ffffff}
+  .good{fill:#2c7a57} .bad{fill:#ad3528} .warn{fill:#9a6510} .acc{fill:#0f5c78}
+  .accS{stroke:#0f5c78} .inkS{stroke:#14212b} .warnS{stroke:#9a6510} .mutedS{stroke:#566773}
+  .accBg{fill:#e3eff4} .ioRing{stroke:#ffffff} .ioBand{fill:#eef2f4}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  
+</style>
+
+<text x="16" y="30" class="ink" font-size="18" text-anchor="start" font-weight="700">重新评分一次真实智能体运行：7 个任务中有 2 个的运行成绩发生变化</text>
+<text x="16" y="54" class="muted" font-size="14" text-anchor="start" font-weight="400">每个任务一次四小时的 Claude Opus 5.5 运行，分别用原始评分器和修复版评分器重新评分。</text>
+<circle cx="22" cy="78" r="5" class="bg mutedS" stroke-width="2"/>
+<text x="34" y="82" class="ink" font-size="13" text-anchor="start" font-weight="400">原始评分器</text>
+<circle cx="123" cy="78" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="135" y="82" class="ink" font-size="13" text-anchor="start" font-weight="400">修复版评分器</text>
+<circle cx="237" cy="78" r="5" class="bg accS" stroke-width="2" stroke-dasharray="2 2"/>
+<text x="249" y="82" class="ink" font-size="13" text-anchor="start" font-weight="400">计算所得，未实际运行</text>
+<text x="214" y="100" class="ink" font-size="13" text-anchor="start" font-weight="600">运行保留的成绩（满分 100）</text>
+<text x="598" y="100" class="ink" font-size="13" text-anchor="middle" font-weight="600">单份提交的最大变化</text>
+<text x="214" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
+<text x="334" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">50</text>
+<text x="454" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">100</text>
+<text x="523" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">−25</text>
+<text x="598" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">0</text>
+<text x="673" y="116" class="muted" font-size="13" text-anchor="middle" font-weight="400">+25</text>
+<line x1="214" y1="124" x2="214" y2="154" class="rule" stroke-width="1"/>
+<line x1="214" y1="172" x2="214" y2="183" class="rule" stroke-width="1"/>
+<line x1="214" y1="200" x2="214" y2="204" class="rule" stroke-width="1"/>
+<line x1="214" y1="239" x2="214" y2="271" class="rule" stroke-width="1"/>
+<line x1="214" y1="289" x2="214" y2="321" class="rule" stroke-width="1"/>
+<line x1="214" y1="339" x2="214" y2="371" class="rule" stroke-width="1"/>
+<line x1="214" y1="406" x2="214" y2="438" class="rule" stroke-width="1"/>
+<line x1="214" y1="456" x2="214" y2="488" class="rule" stroke-width="1"/>
+<line x1="214" y1="523" x2="214" y2="555" class="rule" stroke-width="1"/>
+<line x1="214" y1="573" x2="214" y2="584" class="rule" stroke-width="1"/>
+<line x1="214" y1="601" x2="214" y2="605" class="rule" stroke-width="1"/>
+<line x1="334" y1="124" x2="334" y2="133" class="rule" stroke-width="1"/>
+<line x1="334" y1="150" x2="334" y2="154" class="rule" stroke-width="1"/>
+<line x1="334" y1="172" x2="334" y2="183" class="rule" stroke-width="1"/>
+<line x1="334" y1="200" x2="334" y2="204" class="rule" stroke-width="1"/>
+<line x1="334" y1="239" x2="334" y2="271" class="rule" stroke-width="1"/>
+<line x1="334" y1="289" x2="334" y2="321" class="rule" stroke-width="1"/>
+<line x1="334" y1="339" x2="334" y2="350" class="rule" stroke-width="1"/>
+<line x1="334" y1="367" x2="334" y2="371" class="rule" stroke-width="1"/>
+<line x1="334" y1="406" x2="334" y2="438" class="rule" stroke-width="1"/>
+<line x1="334" y1="456" x2="334" y2="467" class="rule" stroke-width="1"/>
+<line x1="334" y1="484" x2="334" y2="488" class="rule" stroke-width="1"/>
+<line x1="334" y1="523" x2="334" y2="555" class="rule" stroke-width="1"/>
+<line x1="334" y1="573" x2="334" y2="584" class="rule" stroke-width="1"/>
+<line x1="334" y1="601" x2="334" y2="605" class="rule" stroke-width="1"/>
+<line x1="454" y1="124" x2="454" y2="154" class="rule" stroke-width="1"/>
+<line x1="454" y1="172" x2="454" y2="204" class="rule" stroke-width="1"/>
+<line x1="454" y1="239" x2="454" y2="271" class="rule" stroke-width="1"/>
+<line x1="454" y1="289" x2="454" y2="321" class="rule" stroke-width="1"/>
+<line x1="454" y1="339" x2="454" y2="371" class="rule" stroke-width="1"/>
+<line x1="454" y1="406" x2="454" y2="438" class="rule" stroke-width="1"/>
+<line x1="454" y1="456" x2="454" y2="488" class="rule" stroke-width="1"/>
+<line x1="454" y1="523" x2="454" y2="555" class="rule" stroke-width="1"/>
+<line x1="454" y1="573" x2="454" y2="605" class="rule" stroke-width="1"/>
+<line x1="598" y1="124" x2="598" y2="133" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="150" x2="598" y2="154" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="172" x2="598" y2="204" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="239" x2="598" y2="271" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="289" x2="598" y2="321" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="339" x2="598" y2="371" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="406" x2="598" y2="417" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="434" x2="598" y2="438" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="456" x2="598" y2="467" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="484" x2="598" y2="488" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="523" x2="598" y2="534" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="551" x2="598" y2="555" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="573" x2="598" y2="584" class="rule" stroke-width="1.5"/>
+<line x1="598" y1="601" x2="598" y2="605" class="rule" stroke-width="1.5"/>
+<text x="16" y="139.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Order Addition Permutation</text>
+<text x="16" y="154.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Optimization</text>
+<line x1="223.1" y1="142" x2="313.0" y2="142" class="mutedS" stroke-width="2"/>
+<circle cx="223.1" cy="142" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="312.968" cy="142" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="322.968" y="146.5" class="ink" font-size="13" text-anchor="start" font-weight="400">3.79 → 41.24</text>
+<text x="598" y="146.5" class="ink" font-size="13" text-anchor="middle" font-weight="400">0（分数相同）</text>
+<text x="214" y="167" class="muted" font-size="13" text-anchor="start" font-weight="400">每份提交自身的分数不变；修复版评分器保留了后来一份更好的提交（9 份提交）。</text>
+<text x="16" y="196.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Integer Compression Codec</text>
+<line x1="386.6" y1="192" x2="343.5" y2="192" class="mutedS" stroke-width="2"/>
+<circle cx="386.6" cy="192" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="343.479" cy="192" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="333.479" y="196.5" class="ink" font-size="13" text-anchor="end" font-weight="400">71.93–73.03 → 53.95</text>
+<rect x="509.0" y="186" width="89.0" height="12" rx="2" class="acc" stroke-width="1.5"/>
+<text x="604" y="196.5" class="ink" font-size="13" text-anchor="start" font-weight="400">−29.68</text>
+<text x="214" y="217" class="muted" font-size="13" text-anchor="start" font-weight="400">原始结果提高 1.7–4 倍；修复后的 0–100 分刻度使运行成绩降低；该运行在它自</text>
+<text x="214" y="234" class="muted" font-size="13" text-anchor="start" font-weight="400">己的机器上记录的是 75.72（37 份提交）。</text>
+<text x="16" y="263.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Lean Analysis Proofs</text>
+<line x1="446.5" y1="259" x2="450.2" y2="259" class="mutedS" stroke-width="2"/>
+<circle cx="446.5" cy="259" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="450.2" cy="259" r="5" class="bg accS" stroke-width="2" stroke-dasharray="2 2"/>
+<text x="436.472" y="263.5" class="ink" font-size="13" text-anchor="end" font-weight="400">96.86 → 98.42</text>
+<rect x="598.0" y="253" width="14.8" height="12" rx="2" class="bg accS" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="592" y="263.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+4.95</text>
+<text x="214" y="284" class="muted" font-size="13" text-anchor="start" font-weight="400">由原始评分器保存的逐项判定计算得出，未实际运行（20 份提交）。</text>
+<text x="16" y="306.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Juliet Vulnerability</text>
+<text x="16" y="321.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Analyzer</text>
+<line x1="453.2" y1="309" x2="453.2" y2="309" class="mutedS" stroke-width="2"/>
+<circle cx="453.2" cy="309" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="453.184" cy="309" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="443.184" y="313.5" class="ink" font-size="13" text-anchor="end" font-weight="400">99.66 = 99.66</text>
+<rect x="598.0" y="303" width="75.8" height="12" rx="2" class="acc" stroke-width="1.5"/>
+<text x="592" y="313.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+25.26</text>
+<text x="214" y="334" class="muted" font-size="13" text-anchor="start" font-weight="400">105 份提交中有 14 份分数变化；最佳提交不变。</text>
+<text x="16" y="363.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Molecular Self Assembly</text>
+<line x1="448.5" y1="359" x2="454.0" y2="359" class="mutedS" stroke-width="2"/>
+<circle cx="448.5" cy="359" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="359" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="438.511" y="363.5" class="ink" font-size="13" text-anchor="end" font-weight="400">95.91–100 → 100</text>
+<rect x="598.0" y="353" width="36.7" height="12" rx="2" class="acc" stroke-width="1.5"/>
+<text x="592" y="363.5" class="ink" font-size="13" text-anchor="end" font-weight="400">+12.22</text>
+<text x="214" y="384" class="muted" font-size="13" text-anchor="start" font-weight="400">全部 8 份受评提交的分数都上升；保留的提交原本已接近刻度顶端；该运行在它自</text>
+<text x="214" y="401" class="muted" font-size="13" text-anchor="start" font-weight="400">己的机器上记录的是 100（13 份中评了 8 份）。</text>
+<text x="16" y="430.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Tree Block Partitioning</text>
+<line x1="454.0" y1="426" x2="454.0" y2="426" class="mutedS" stroke-width="2"/>
+<circle cx="454.0" cy="426" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="426" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="444" y="430.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
+<text x="598" y="430.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">问题从未发生</text>
+<text x="214" y="451" class="muted" font-size="13" text-anchor="start" font-weight="400">差异来自接近时限时的计时波动，两个评分器都有（25 份中评了 13 份）。</text>
+<text x="16" y="480.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Graph Node Classification</text>
+<line x1="431.2" y1="476" x2="431.1" y2="476" class="mutedS" stroke-width="2"/>
+<circle cx="431.2" cy="476" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="431.115" cy="476" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="421.115" y="480.5" class="ink" font-size="13" text-anchor="end" font-weight="400">90.44–90.60 → 90.43–90.60</text>
+<text x="598" y="480.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">问题从未发生</text>
+<text x="214" y="501" class="muted" font-size="13" text-anchor="start" font-weight="400">两个评分器下的差异都是计时波动；该运行在它自己的机器上记录的是 90.85（118</text>
+<text x="214" y="518" class="muted" font-size="13" text-anchor="start" font-weight="400">份中评了 112 份）。</text>
+<text x="16" y="540.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Schemathesis Config</text>
+<text x="16" y="555.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Modernization</text>
+<line x1="454.0" y1="543" x2="454.0" y2="543" class="mutedS" stroke-width="2"/>
+<circle cx="454.0" cy="543" r="5" class="bg mutedS" stroke-width="2"/>
+<circle cx="454" cy="543" r="5" class="acc ioRing" stroke-width="1.5"/>
+<text x="444" y="547.5" class="ink" font-size="13" text-anchor="end" font-weight="400">100 = 100</text>
+<text x="598" y="547.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">问题从未发生</text>
+<text x="214" y="568" class="muted" font-size="13" text-anchor="start" font-weight="400">全部 30 份提交在两个评分器下得分相同。</text>
+<text x="16" y="597.5" class="ink" font-size="13" text-anchor="start" font-weight="600">Borden Source Inversion</text>
+<circle cx="346.3" cy="593" r="5" class="bg mutedS" stroke-width="2"/>
+<text x="336.337" y="597.5" class="ink" font-size="13" text-anchor="end" font-weight="400">55.14（原始结果 60.10）</text>
+<text x="598" y="597.5" class="muted" font-size="13" text-anchor="middle" font-weight="400">评分器不变；需要新的运行</text>
+<text x="214" y="618" class="muted" font-size="13" text-anchor="start" font-weight="400">评分器不变，因此旧答案得分相同（原始结果 60.10，即 55.14 分，满分</text>
+<text x="214" y="635" class="muted" font-size="13" text-anchor="start" font-weight="400">100）；该修复改变的是任务说明，只有新的运行才能显示它的作用。</text>
+<text x="16" y="660" class="muted" font-size="13" text-anchor="start" font-weight="400">两个评分器都在我们的机器上重新评分；区间为三次评分的范围。</text>
+<text x="16" y="678" class="muted" font-size="13" text-anchor="start" font-weight="400">它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。</text>
+
+</svg>
+</div><figcaption><b>图 18</b> 我们用原始评分器和修复版评分器逐份重新评分了一次四小时的 Claude Opus 5.5 运行。在可重新评分的 7 个任务中，有 2 个的运行保留成绩发生变化：Order Addition 从 3.79 变为 41.24（但没有任何单份提交的分数变化），Integer Codec 在修复后的刻度上从 71.93 变为 53.95（该运行在它自己的机器上记录的是 75.72）。两边都是在我们的机器上重新评分的结果。另有 2 个任务中，单份提交的分数最多变化 25.26 分，而保留的成绩不变；还有 3 个任务中问题从未发生。在 Borden Inversion 中评分器没有改变，因此该运行的答案得分相同（原始结果 60.10，即 55.14 分，满分 100）；该修复改变的是任务说明，只有新的运行才能显示它的作用。它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。</figcaption></figure>
+  <p>在已公布的排行榜上，Opus&nbsp;4.8 以 1.1 分领先 GPT-5.5（44.2 对 43.1）。仅用公开平均分即可计算的修正保持这一顺序：45.92–46.05 对 44.73–44.86。加入我们记录的各任务影响上限后，区间扩大到 45.49–47.30 和 44.30–46.35。<mark>两者重叠，因此仅凭公开数据已无法确认哪个模型领先。</mark>这并不表明两者名次互换；要判定这一点，需要原始提交或重新运行。这些区间把每一项在排行榜上大小未知的修复都按零计算。</p>
+  <p class="note"><mark>这些区间无法确认 Opus 4.8 与 GPT-5.5 的先后顺序；区间重叠并不表明两者名次互换。</mark>排行榜上的其他名次，只有在那些大小未知的修复毫无影响时才成立。如果允许这些修复取其全部可能范围，排行榜上没有任何名次能够确认。</p>
+  <p class="more-link"><a href="leaderboard.html">完整的排行榜分析，包括表&nbsp;3 和真实运行的重新评分</a></p>
 </section>
 
 <section id="method" class="col">
@@ -573,7 +1360,7 @@
     <li><b>追踪到最终分数。</b>只有改变了诚实工作的 0–100 分的问题才被计入。</li>
     <li><b>对原版和修复版本进行对照，</b>使用相同的测试提交：共 254 项评分对照，其中 240 项运行三次。</li>
   </ol>
-  <p>51 个任务中有 26 个有形式化结果，包括 286 个 Lean 定理和 20 次 TLA+ 模型检验运行。<mark>历史形式化结果在明确模型内覆盖 10 项修复机制，另有 4 项部分证明。它们不验证改动后的候选版本、完整评分器行为或镜像集成。</mark>形式化检验也纠正了我们：有一项已发布的修复覆盖范围比所说的窄，现已修订。</p>
+  <p>51 个任务中有 26 个有形式化结果，包括 286 个 Lean 定理和 20 次 TLA+ 模型检验运行。<mark>已保存的形式化结果在明确的模型内证明了 9 项修复（其中 5 项针对的是修复的早期版本），另有 5 项部分证明。它们不证明修复的后续版本、整个评分器或已发布的镜像。</mark>形式化检验也纠正了我们：有一项已发布的修复覆盖范围比所说的窄，现已修订。</p>
   <p class="more-link"><a href="method.html">完整的方法：每个步骤、形式化结果表&nbsp;2，以及局限</a></p>
 </section>
 
@@ -583,7 +1370,7 @@
     <li><b>先运行原始评分器，再对它进行推理。</b>大多数问题是通过阅读代码发现的，但只有靠一份能触发问题的提交才得以确证。若干看似合理的发现没能通过这一步。</li>
     <li><b>形式化工具在小而明确的问题上很有成效。</b>一个错误的定理、一个算术缺口、一个下界和一个别名缺陷，都得到了确定的结论。大多数评分器问题涉及约定、文件格式或时间，对这些问题，任何证明都不如一次并排对照运行来得省力。</li>
     <li><b>证明的价值取决于它与代码的联系。</b>我们在 <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a> 任务自己的镜像中、基于其自己的定义陈述了反驳。我们在 294 个字符串上把 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse</a> 的模型与真实的测试程序进行了对照，并把每个 TLA+ 步骤对应到一行源代码。没有这些联系，证明论证的就是另一回事了。</li>
-    <li><b>每项检查都需要反向检验。</b>每个 TLA+ 模型都有一个必须失败的配置，每个 Lean 证明都打印出它所依赖的公理，修复应同时接受正确及错误输入的测试；实际覆盖范围见案例页。一个不可能失败的检查什么也说明不了。</li>
+    <li><b>每项检查都需要反向检验。</b>每个 TLA+ 模型都有一个必须失败的配置，每个 Lean 证明都打印出它所依赖的公理，每项修复都应分别用正确和错误的工作来测试；实际覆盖范围见各案例页。一个不可能失败的检查什么也说明不了。</li>
     <li><b>形式化证明不仅检查基准，也检查我们自己的工作。</b>把部分修复机制写成 Lean 或 TLA+ 模型，暴露出一项覆盖范围比发布时所说的窄的修复，以及八处不够精确的表述。每一处都是因为某次证明尝试在一个我们没想到要测试的情形上失败而发现的。</li>
     <li><b>要在发布方的机器设置下测试，而不只是在方便的机器上。</b>我们第一轮并排对照测试是在 8 个 CPU 上运行评分器的。排行榜的设置给大多数评分器 4 个 CPU，而在 4 个 CPU 下，有六个评分器会让在 8 个 CPU 下能通过的诚实工作超时。我们起初还以为 <a class="task-link" href="tasks/smt_solver.html">SMT Solver</a> 分到 4 个，而它的设置给了 16 个。代码在两种设置下都是正确的；出错的只是机器与代码的组合。</li>
     <li><b>新的审查者能发现作者自己看不到的问题。</b>第二轮审查者不了解我们的背景，他们发现了 CPU 问题、<a class="task-link" href="tasks/rust_multicrate_reconstruction.html">Rust Multicrate</a> 中两个隐藏测试问题、<a class="task-link" href="tasks/git_rewrite_in_zig.html">Git in Zig</a> 中未公开的检查，以及 <a class="task-link" href="tasks/pfr_formalization.html">PFR</a> 中一个隐藏的占位符，这些大多出现在我们原本保留的任务中；他们还发现我们自己的几项修复需要扩展或修订。每一项随后都由一次运行而不是由论证来确定。</li>

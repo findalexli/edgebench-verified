@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 268" role="img">
+<title>EdgeBench 的评分流程：智能体提交工作，隐藏评分器给出原始结果，原始结果换算为 0 到 100 分，每次运行保留截至当时的最佳分数，对一个任务的有效运行（每个模型三次）取平均，再对各任务取平均。四个标记显示评分器可能出错的位置。</title>
+<style>
+  .ink{fill:#1b1f23} .muted{fill:#5f6368} .box{fill:#f6f7f9;stroke:#c9ced4} .arr{stroke:#8a9097;fill:none} .head{fill:#8a9097}
+  .mk{fill:#9b2c2c} .mkt{fill:#ffffff}
+  text{font-family:"IBM Plex Sans","Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){
+    .ink{fill:#e2e9ed} .muted{fill:#95a6b1} .box{fill:#1b2630;stroke:#3a4a57} .arr{stroke:#7d8b96} .head{fill:#7d8b96}
+    .mk{fill:#f08a7c} .mkt{fill:#152029}
+  }
+</style>
+<g>
+<rect class="box" x="0.5" y="40.5" width="135" height="68" rx="6"/>
+<text class="ink" x="68.0" y="69" text-anchor="middle" font-size="16" font-weight="600">智能体</text>
+<text class="muted" x="68.0" y="90" text-anchor="middle" font-size="14">提交工作</text>
+<rect class="box" x="156.5" y="40.5" width="135" height="68" rx="6"/>
+<text class="ink" x="224.0" y="69" text-anchor="middle" font-size="16" font-weight="600">隐藏评分器</text>
+<text class="muted" x="224.0" y="90" text-anchor="middle" font-size="14">给出原始结果</text>
+<rect class="box" x="312.5" y="40.5" width="135" height="68" rx="6"/>
+<text class="ink" x="380.0" y="69" text-anchor="middle" font-size="16" font-weight="600">0–100 分刻度</text>
+<text class="muted" x="380.0" y="90" text-anchor="middle" font-size="14">按参考点换算</text>
+<rect class="box" x="468.5" y="40.5" width="135" height="68" rx="6"/>
+<text class="ink" x="536.0" y="69" text-anchor="middle" font-size="16" font-weight="600">截至当时的最佳</text>
+<text class="muted" x="536.0" y="90" text-anchor="middle" font-size="14">每次运行保留</text>
+<rect class="box" x="624.5" y="40.5" width="135" height="68" rx="6"/>
+<text class="ink" x="692.0" y="64" text-anchor="middle" font-size="16" font-weight="600">平均</text>
+<text class="muted" x="692.0" y="83" text-anchor="middle" font-size="14">3 次中的有效运行，</text>
+<text class="muted" x="692.0" y="100" text-anchor="middle" font-size="14">再对所有任务</text>
+<path class="arr" stroke-width="1.5" d="M137 74 H149"/><path class="head" d="M156 74 l-7 -4 v8 z"/>
+<path class="arr" stroke-width="1.5" d="M293 74 H305"/><path class="head" d="M312 74 l-7 -4 v8 z"/>
+<path class="arr" stroke-width="1.5" d="M449 74 H461"/><path class="head" d="M468 74 l-7 -4 v8 z"/>
+<path class="arr" stroke-width="1.5" d="M605 74 H617"/><path class="head" d="M624 74 l-7 -4 v8 z"/>
+<circle class="mk" cx="207.0" cy="20" r="12"/><text class="mkt" x="207.0" y="25" text-anchor="middle" font-size="13" font-weight="600">1</text>
+<circle class="mk" cx="241.0" cy="20" r="12"/><text class="mkt" x="241.0" y="25" text-anchor="middle" font-size="13" font-weight="600">2</text>
+<circle class="mk" cx="380.0" cy="20" r="12"/><text class="mkt" x="380.0" y="25" text-anchor="middle" font-size="13" font-weight="600">3</text>
+<circle class="mk" cx="536.0" cy="20" r="12"/><text class="mkt" x="536.0" y="25" text-anchor="middle" font-size="13" font-weight="600">4</text>
+<circle class="mk" cx="11" cy="147" r="10"/><text class="mkt" x="11" y="152" text-anchor="middle" font-size="13" font-weight="600">1</text>
+<text class="ink" x="30" y="152" font-size="15.5">接受错误的工作</text><text class="muted" x="30" y="173" font-size="14">Exchange Core、Jagua Nesting</text>
+<circle class="mk" cx="399" cy="147" r="10"/><text class="mkt" x="399" y="152" text-anchor="middle" font-size="13" font-weight="600">2</text>
+<text class="ink" x="418" y="152" font-size="15.5">拒绝正确的工作，或执行未说明的规则</text><text class="muted" x="418" y="173" font-size="14">SMT Solver、Borden、Triangulation、Warehouse</text>
+<circle class="mk" cx="11" cy="209" r="10"/><text class="mkt" x="11" y="214" text-anchor="middle" font-size="13" font-weight="600">3</text>
+<text class="ink" x="30" y="214" font-size="15.5">刻度无法达到或测量有误</text><text class="muted" x="30" y="235" font-size="14">Treant Forest、Integer Codec</text>
+<circle class="mk" cx="399" cy="209" r="10"/><text class="mkt" x="399" y="214" text-anchor="middle" font-size="13" font-weight="600">4</text>
+<text class="ink" x="418" y="214" font-size="15.5">保留了错误的提交</text><text class="muted" x="418" y="235" font-size="14">Order Addition</text>
+</g></svg>
