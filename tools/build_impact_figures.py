@@ -116,7 +116,7 @@ DERIVED = {
 }
 # Rows whose only evidence is a direction (no size): a short phrase for the direction column.
 DIRECTION = {
-    'jagua_nesting_optimization': ('↓ overlaps accepted', '↓ 重叠布局被接受', ('evidence/impact/effects.json', 'down for layouts with overlaps')),
+    'jagua_nesting_optimization': ('↓ overlaps accepted', '↓ 接受了重叠布局', ('evidence/impact/effects.json', 'down for layouts with overlaps')),
     'openttd_transport_ai': ('↑ up to whole score', '↑ 可达全部分数', ('cases/openttd_transport_ai.md', 'Up to the whole score for a solver that follows the instructions')),
     'git_rewrite_in_zig': ('↑ up to whole score', '↑ 可达全部分数', ('cases/git_rewrite_in_zig.md', 'loses its whole score under the original grader, up to 100 points')),
     'openrct2_theme_park_ai': ('↕ not measured', '↕ 未测量', ('cases/openrct2_theme_park_ai.md', 'This was not measured as a score change.')),
@@ -133,14 +133,14 @@ LIMIT_LABEL = {
     'pfr_formalization': ('limit 2.13, not run', '上限 2.13，未实测'),
     'warehouse_forklift_routing': ('limit 30.59', '上限 30.59'),
 }
-# The headline rule: the problem itself cost an honest submission 10 or more points out of 100, measured. Credit wrongly
-# given to broken or empty work is shown in the chart but not counted. Arc and Borden count (the same honest work loses 33.67 or
+# The headline rule: the problem itself cost a good-faith submission 10 or more points out of 100, measured. Credit wrongly
+# given to broken or empty work is shown in the chart but not counted. Arc and Borden count (the same good-faith work loses 33.67 or
 # 22.17 points depending on how it is written); Order Addition counts by the score the run keeps.
 # Tasks whose 10-point measurement is excluded from the headline count, with the reason.
 NOT_COUNTED = {
     'college_english_exam_bank': 'credit given to broken work (an empty grading report scored 100), not points lost by '
-                                 'honest work; shown in the chart, not counted',
-    'ffmpeg_swscale_reimplementation': 'credit given to unfinished work (up to 18.93), not points lost by honest work; shown in '
+                                 'good-faith work; shown in the chart, not counted',
+    'ffmpeg_swscale_reimplementation': 'credit given to unfinished work (up to 18.93), not points lost by good-faith work; shown in '
                                        'the chart, not counted',
     'integer_compression_codec': 'the −29.68 comes from the fixed task\'s new 0–100 scale, not from the problem: every '
                                  'submission\'s raw result rose 1.7–4× under the fix',
@@ -152,12 +152,12 @@ NOT_COUNTED = {
 
 T = {
     'en': dict(
-        ov_title='In {n10} of {n} problem tasks, the problem itself cost honest work 10 points or more (measured)',
+        ov_title='In {n10} of {n} tasks with a problem, the problem itself cost good-faith work 10 points or more (measured)',
         ov_sub='What each problem does to one affected submission when it occurs (points out of 100).',
         leg_test='Measured on our test submission', leg_real='Measured on a real agent run',
         leg_bar='Proved or computed limit: the change cannot be larger', leg_comp='Computed from a real run, not run',
         dir_head='Direction only', dir_head2='(size unknown)',
-        foot1=('+ / −: the fixed checker gives more / less. No sign: the gap between two honest submissions that differ only in '
+        foot1=('+ / −: the fixed checker gives more / less. No sign: the gap between two good-faith submissions that differ only in '
                'an unstated convention (Arc: error-report format; Borden: physics model); the checker is unchanged.'),
         foot2='How often each problem occurred on the leaderboard is unknown for most tasks.',
         rr_title='A real agent run, regraded: the run\'s score moved in {nk} of {nr} tasks',
@@ -166,24 +166,24 @@ T = {
         rr_leg_o='original checker', rr_leg_f='fixed checker', rr_leg_c='computed, not run',
         never='problem never occurred', notregr='same grader; needs a new run', zero='0 (scores identical)',
         rr_ranges='Both checkers regraded on our machines; a range is the spread over three gradings.',
-        rr_foot='It shows the problems happen to real agents, and sometimes do not. It does not measure the effect on the 12-hour leaderboard.',
+        rr_foot='So the problems do reach real agents, though not every time. The run does not measure the effect on the 12-hour leaderboard.',
     ),
     'zh': dict(
-        ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务的问题本身使诚实的工作实测损失 10 分或以上',
-        ov_sub='每个问题一旦发生，对一份受影响提交的作用（满分 100 分）。',
+        ov_title='在 {n} 个有问题的任务中，有 {n10} 个任务的问题本身让按要求完成的工作实测少得 10 分或更多',
+        ov_sub='每个问题发生时，对一份受影响的提交影响多大（满分 100 分）。',
         leg_test='在我们的测试提交上实测', leg_real='在一次真实智能体运行上实测',
         leg_bar='已证明或计算出的上限：变化不会更大', leg_comp='按真实运行计算，未实际运行',
         dir_head='只知道方向', dir_head2='（大小未知）',
-        foot1=('+ / −：修复版评分器给分更多 / 更少。无符号：两份诚实提交之间的差距，它们只在一项未说明的约定上不同'
-               '（Arc：错误报告格式；Borden：物理模型）；评分器不变。'),
+        foot1=('+ / −：修复版评分器给分更多 / 更少。无符号：两份按要求完成的提交之间的差距，二者只差在一项未说明的约定上'
+               '（Arc：错误报告格式；Borden：物理模型），评分器不变。'),
         foot2='对大多数任务，这些问题在排行榜上发生的频率未知。',
         rr_title='重新评分一次真实智能体运行：{nr} 个任务中有 {nk} 个的运行成绩发生变化',
         rr_sub='每个任务一次四小时的 Claude Opus 5.5 运行，分别用原始评分器和修复版评分器重新评分。',
         rr_h1='运行保留的成绩（满分 100）', rr_h2='单份提交的最大变化',
         rr_leg_o='原始评分器', rr_leg_f='修复版评分器', rr_leg_c='计算所得，未实际运行',
         never='问题从未发生', notregr='评分器不变；需要新的运行', zero='0（分数相同）',
-        rr_ranges='两个评分器都在我们的机器上重新评分；区间为三次评分的范围。',
-        rr_foot='它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。',
+        rr_ranges='两个评分器的分数都是在我们的机器上重新评出的；区间是三次评分的范围。',
+        rr_foot='可见这些问题确实会出现在真实智能体身上，但并非每次都出现。这次运行不能衡量对 12 小时排行榜的影响。',
     ),
 }
 ZH_PCAT = json.loads((ROOT / 'tools/i18n/zh.json').read_text())
@@ -808,15 +808,14 @@ def build():
              'a filled diamond (a real agent run; hollow and dashed when computed from a run\'s saved verdicts, not run), and a '
              'proved or computed limit as a hollow bar starting at 0. A separate column on the right lists effects whose '
              'direction is known but whose size is not.'),
-        caption=(f'In {n10} of the {len(rows)} tasks with a problem, the problem itself cost honest work 10 points or more '
+        caption=(f'In {n10} of the {len(rows)} tasks with a problem, the problem itself cost good-faith work 10 points or more '
                  'out of 100, measured. Credit wrongly given to broken or empty work (College English, FFmpeg) is shown but not '
-                 'counted. For Arc and Borden this is the '
-                 'gap between two honest submissions that differ only in an unstated convention; a change that comes from a '
-                 'fix\'s new scale (Integer Codec) does not count. '
-                 'Each row shows what the problem does to one submission when it occurs: filled marks are measured changes, '
-                 'hollow bars are proved or computed limits that the change cannot exceed, and the right-hand column lists effects '
-                 'whose direction is known but whose size is not. How often each problem occurred on the leaderboard is unknown '
-                 'for most tasks.'),
+                 'counted. For Arc and Borden the figure is the gap between two good-faith submissions that differ only in an '
+                 'unstated convention. A change that comes from a fix\'s new scale (Integer Codec) does not count. '
+                 'Each row shows what the problem does to one submission when it occurs. Filled marks are measured changes; '
+                 'hollow bars are proved or computed limits that the change cannot exceed; the right-hand column lists effects '
+                 'whose direction is known but whose size is not. For most tasks we do not know how often the problem occurred '
+                 'on the leaderboard.'),
         sources=sources)
     r_or = rr['order_addition_permutation_optimization']
     r_ic = rr['integer_compression_codec']
@@ -835,7 +834,7 @@ def build():
                  f'score did not, and in {len(never)} the problem never occurred. In Borden Inversion the grader is unchanged, so '
                  f'the run\'s answers score the same ({r_bo["recorded_raw"]:.2f} raw, {r_bo["orig"]:.2f} out of 100); the fix '
                  'changes the instructions, so only new runs can show its effect. It shows that the problems happen to real '
-                 'agents, and sometimes do not; it does not measure the effect on the 12-hour leaderboard.'),
+                 'agents, though not every time; it does not measure the effect on the 12-hour leaderboard.'),
         sources={t: rr[t]['src'] for t in RR_ORDER})
     out['cases/figures/impact-overview.json'] = json.dumps(ov, ensure_ascii=False, indent=1) + '\n'
     out['cases/figures/real-runs.json'] = json.dumps(rrj, ensure_ascii=False, indent=1) + '\n'
@@ -843,11 +842,11 @@ def build():
     big_subs = max(abs(rr[t]['big']) for t in subs_only)
     zh = {
         'impact-overview': dict(
-            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务的问题本身使诚实的工作实测损失 10 分或以上（满分 100）。'
-                     '有错误或空白的工作被错误加分（College English、FFmpeg）会在图中显示，但不计入。对 Arc 和 Borden，这是两份只在一项未说明的约定上不同的诚实提交之间的差距；'
-                     '来自修复后新刻度的变化（Integer Codec）不计入。每一行显示问题一旦发生对一份提交的'
-                     '作用：实心标记是实测变化，空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，'
-                     '这些问题在排行榜上发生的频率未知。'),
+            caption=(f'在 {len(rows)} 个有问题的任务中，有 {n10} 个任务的问题本身让按要求完成的工作实测少得 10 分或更多（满分 100）。'
+                     '有错误或空白的工作错误地得到的分数（College English、FFmpeg）画在图中，但不计入。Arc 和 Borden 的数值是两份按要求完成的提交之间的差距，'
+                     '二者只差在一项未说明的约定上。修复后的新刻度带来的变化（Integer Codec）不计入。每一行显示问题发生时对一份提交的'
+                     '影响：实心标记是实测变化；空心条是已证明或计算出的上限，变化不会超过它；右侧一栏列出只知道方向、不知道大小的影响。对大多数任务，'
+                     '我们不知道这些问题在排行榜上发生得有多频繁。'),
             alt=(f'一张图，每个有问题的任务占一行（共 {len(rows)} 行），按问题类别分组。每行在 0 到 100 的横轴上，用实心圆（我们的测试提交）或实心菱形'
                  '（真实智能体运行；按运行保存的判定计算、未实际运行时为空心虚线菱形）表示一份受影响提交的实测变化，用从 0 开始的空心条表示已证明或计算出的上限。右侧单独一栏列出只知道方向、大小未知的影响。')),
         'real-runs': dict(
@@ -858,7 +857,7 @@ def build():
                      f'另有 {len(subs_only)} 个任务中，单份提交的分数最多变化 {big_subs:.2f} 分，而保留的成绩不变；还有 {len(never)} 个任务中问题从未发生。'
                      f'在 Borden Inversion 中评分器没有改变，因此该运行的答案得分相同（原始结果 {r_bo["recorded_raw"]:.2f}，即 {r_bo["orig"]:.2f} 分，满分 100）；'
                      '该修复改变的是任务说明，只有新的运行才能显示它的作用。'
-                     '它表明这些问题确实发生在真实智能体身上，有时也并未发生；它不能衡量对 12 小时排行榜的影响。'),
+                     '可见这些问题确实会出现在真实智能体身上，但并非每次都出现；这次运行不能衡量对 12 小时排行榜的影响。'),
             alt=(f'{len(RR_ORDER)} 行，每行是第三方 Claude Opus 5.5 运行中的一个已修复任务。左侧面板显示运行保留的成绩（满分 100）：空心圆为原始评分器，'
                  '实心圆为修复版评分器，两者都在我们的机器上重新评分。右侧面板用从零出发的条形显示单份提交的最大变化，或注明问题从未发生，'
                  '或注明评分器不变、只有新的运行才能显示修复的作用。')),
@@ -875,9 +874,9 @@ def build():
         'by_category': cat_counts,
         'measured_change_10_or_more': {
             'count': n10,
-            'rule': ('the problem itself cost an honest submission 10 or more points out of 100, '
+            'rule': ('the problem itself cost a good-faith submission 10 or more points out of 100, '
                      'measured on our test submission or a real agent run: in one '
-                     'submission\'s score, between two honest submissions that differ only in an unstated convention (Arc, '
+                     'submission\'s score, between two good-faith submissions that differ only in an unstated convention (Arc, '
                      'Borden; the checker is unchanged), or in the score a run keeps (Order Addition). Computed limits, and '
                      'changes that come from a fix\'s new 0–100 scale, do not count'),
             'in_one_submission': {'count': len(sub10), 'tasks': sub10},
