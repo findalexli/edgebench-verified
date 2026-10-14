@@ -1,6 +1,6 @@
 # Case pages
 
-One page per public EdgeBench task: what the task asks, what goes wrong, how much it matters, the fix, how it was checked, the limits, and how to reproduce it.
+Each public EdgeBench task has one page, covering what the task asks, what goes wrong, how much it matters, the fix, how it was checked, the limits, and how to reproduce it.
 
 | Task | Field | Outcome | In one line |
 | --- | --- | --- | --- |
@@ -22,7 +22,7 @@ One page per public EdgeBench task: what the task asks, what goes wrong, how muc
 | [FFmpeg swscale Reimplementation](ffmpeg_swscale_reimplementation.md) | Systems & Software Engineering | Fixed | Timed speed tests never check output, so failed calls earn speed credit |
 | [FLT Regular Formalization](flt_regular_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; the 25 scored proofs match the task's own list |
 | [Git Rewrite in Zig](git_rewrite_in_zig.md) | Systems & Software Engineering | Fixed | Undisclosed file checks give a good-faith program 0; after the fix a correct git still earns 100 |
-| [Graph Node Classification](graph_node_classification.md) | Scientific Problems & ML | Fixed | Non-numeric predictions are silently dropped and the run still counts as valid |
+| [Graph Node Classification](graph_node_classification.md) | Scientific Problems & ML | Fixed | The grader drops non-numeric predictions without warning and still counts the run as valid |
 | [Grid Turing Robot](grid_turing_robot.md) | Combinatorial Optimization | Fixed | On the publisher's 4-CPU grader, a solution within the 30-second limit can void the whole submission |
 | [Integer Compression Codec](integer_compression_codec.md) | Systems & Software Engineering | Fixed | Scores compare against stored numbers the documented starter cannot produce |
 | [Jagua Nesting Optimization](jagua_nesting_optimization.md) | Combinatorial Optimization | Fixed | The grader accepts overlapping shapes as valid layouts |
