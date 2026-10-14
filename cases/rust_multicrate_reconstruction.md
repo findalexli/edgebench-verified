@@ -2,6 +2,10 @@
 
 **Outcome:** Fixed. <mark>The original grader inserts hidden tests where they do not compile, so two whole crates score 0 for every solver who leaves the tests unchanged, as the task requires: cas-search (12 points) and cas-cli (10 points). Cargo also stops at the first failing test file and the grader counts the tests that did not run as failed. In the publisher's grading environment a complete solution scores 73.99 out of 100; with the fixed version it scores 94.70. Separately, the published images lack four vendored files, so with them as shipped the same solution scores 27.61; this did not affect the publisher's own grading.</mark>
 
+![Two panels. Left: the project's 14 packages as tiles; two are marked in red, search (12 points, scored 0) and cli, the command-line program (10 points, scored 0), because the checker places their hidden tests where they cannot compile. Right: bars, out of 100, for one complete, correct solution: 73.99 with the original checker and 94.70 with the fixed checker, a gain of 20.71 (search +11.29, cli +9.32, a skipped test +0.10).](figures/rust_multicrate_reconstruction.svg)
+
+*Hidden tests that cannot compile zero out 22 of 100 points for every solver who leaves the tests unchanged. The agent rebuilds a 14-package Rust project and is told not to edit the tests; the checker inserts its hidden tests into two packages, search (12 points) and the command-line program (10 points), in places where they do not compile, so both score 0. A complete, correct solution scores 73.99 out of 100 with the original checker as the publisher ran it and 94.70 with the fixed checker, which places the hidden tests where they compile and also runs tests the original skipped after an earlier failure.*
+
 ## What the task asks
 
 The task says: "Complete the missing Rust implementations in the unpacked CAS workspace." It adds that "the hidden evaluator runs additional tests for the same public crate and CLI contracts". A crate is a Rust package; the workspace has 14 of them.
