@@ -47,8 +47,9 @@ def main():
     doc = f"""# Applying the fixes
 
 Each repair package defines a new version of an original EdgeBench task, in EdgeBench's own
-format. Validation depth differs by package; the status table and package limits are authoritative. Nothing in the original release is modified: the original task definitions stay in `tasks/`,
-and the original software images are used unchanged as the base of each fix.
+format. The packages are validated to different depths, and the status table and each package's
+limits are the authoritative record. The original release is left as it is. Its task definitions stay
+in `tasks/`, and each fix uses the original software images, unchanged, as its base.
 
 ## What a fix contains
 
@@ -61,9 +62,9 @@ Each fix lives in its own folder, `repairs/<task_id>-v2/` ("v2" marks the fixed 
 | `materialize.sh` | Rebuilds the changed files: downloads the original public image, extracts the original files, applies the patch, and checks every result against the fingerprints in `source-lock.json` |
 | `Dockerfile` (and `Dockerfile.work` when the agent's starting files change) | Builds the fixed image on top of the exact original image, adding only the changed files |
 | `task.json.in` | The fixed task definition: a copy of `tasks/<task_id>.json` with only the necessary fields changed |
-| `paired/` | The side-by-side test: the same test submissions graded by the original and the fixed grader |
+| `paired/` | The side-by-side test, in which the original and the fixed grader grade the same test submissions |
 
-Only the patch is distributed, never copies of the original files, so the fixes can be published
+The packages contain only the patch and no copies of the original files, so we can publish the fixes
 without redistributing EdgeBench's images.
 
 ## Build and use one fix
@@ -81,42 +82,43 @@ cp task.json.in <your EdgeBench checkout>/tasks/<task_id>.json   # not this repo
 
 EdgeBench's runner finds images by the names `edgebench.judge.<task_id>:<image_tag>` (the grader)
 and `edgebench.work.<task_id>:<image_tag>` (the agent's environment), reading the tags from the task
-definition. These tags name images you build locally; no fixed image is published to a registry.
-Warehouse also requires the host-side final-drain overlay described below; replacing
-its task definition and grader image alone leaves the 900-second final-result collection defect.
+definition. These tags name images you build locally; we publish no fixed image to a registry.
+Warehouse also needs the host-side final-drain overlay described below. Replacing only its task
+definition and grader image leaves the 900-second defect in final-result collection.
 Maintainers who build images from source can apply `repair.patch` to their source tree instead.
 The paths in the patch are the paths inside the image.
 
 ## Warehouse host-side integration
 
 The [final-drain overlay](repairs/harness-final-drain-v1/README.md) is separate from the Warehouse
-judge-image patch. It polls until recorded jobs are terminal, allows a queue-aware bounded wait,
-and reports failure rather than returning an incomplete final score. Materialize it into a new
-source directory and run the harness from that directory; this repository's locked `sforge/` mirror
-stays unchanged. Its paired deterministic tests exercise the real patched drain and result assembly,
-including a long evaluation and a serial queue (a conservative model: the upstream judge server
-grades submissions concurrently). Full Docker/Kubernetes integration remains unverified. The overlay
-changes final-result collection for every task run through the materialized tree, can wait up to
-`300 + n·(eval_timeout + 300)` seconds for `n` pending submissions, and keeps the work sandbox
-allocated meanwhile; use it for Warehouse runs or accept that change.
+judge-image patch. It polls until every recorded job is in a terminal state, waits for a bounded
+time that takes the queue into account, and reports a failure instead of returning an incomplete
+final score. Materialize it into a new source directory and run the harness from that directory;
+this repository's locked `sforge/` mirror stays unchanged. Its paired deterministic tests exercise
+the real patched drain and result assembly, including a long evaluation and a serial queue (a
+conservative model, since the upstream judge server grades submissions concurrently). We have not
+verified full Docker/Kubernetes integration. The overlay changes final-result collection for every
+task run through the materialized tree. It can wait up to `300 + n·(eval_timeout + 300)` seconds for
+`n` pending submissions and keeps the work sandbox allocated meanwhile, so use it for Warehouse runs
+or accept that change.
 
 ## Test a fix yourself
 
 `paired/run.sh` reruns the side-by-side test. Most published runs used E2B cloud sandboxes with 8
 virtual CPUs and 8 GiB of memory, with the grader limited to the CPU count each case page states
-(1 to 8). These fixes differ:
-- Lean Analysis uses `paired/run_local.sh`, which was run on a local host with 16 CPUs and 15 GB.
-- OpenRCT2 has no run script, because only its instructions changed and nothing that runs was
-  modified.
+(1 to 8). These fixes use other scripts:
+- Lean Analysis uses `paired/run_local.sh`, which we ran on a local host with 16 CPUs and 15 GB.
+- OpenRCT2 has no run script, because its fix changes only the instructions and nothing that runs.
 - Git in Zig uses `paired/run_gates.sh` and `paired/run_oracle.sh`.
 - PFR Formalization uses `paired/build_v2.sh` and `paired/grade_variants.sh`.
 - Rust Multicrate uses the templates `paired/run-paired.sh.in` and `paired/run-failfast.sh.in`.
 - Triangulation and Warehouse Routing also have `paired/run-cpu4.sh` for the 4-CPU tests.
 - The separate host overlay uses `python3 repairs/harness-final-drain-v1/test_drain.py` from the repository root (deterministic component tests, no cloud calls).
 
-The results are in each `paired/results.md` and together in [data/paired-results.csv](data/paired-results.csv).
-These are the acceptance criteria; the table distinguishes demonstrated controls from incomplete
-release validation, component tests, and documentation-only changes:
+Each package's results are in its `paired/results.md`, and all of them are in
+[data/paired-results.csv](data/paired-results.csv). The status table separates demonstrated controls
+from incomplete release validation, component tests and documentation-only changes. The acceptance
+criteria are:
 - the test submission that shows the problem is now graded correctly;
 - correct test submissions keep their scores, or the change is explained;
 - wrong test submissions are still rejected.
@@ -124,8 +126,8 @@ release validation, component tests, and documentation-only changes:
 ## Scores are not comparable across versions
 
 A score from a fixed version cannot be compared with a score from the original task or the original
-leaderboard. Regrade submissions with the fixed version rather than mixing the two. Each fix's
-README says exactly which submissions' scores change.
+leaderboard. Regrade submissions with the fixed version instead of mixing the two. Each fix's
+README says which submissions' scores change.
 
 ## What each fix changes
 
@@ -133,11 +135,11 @@ README says exactly which submissions' scores change.
 | --- | --- | --- | --- | --- |
 {chr(10).join(rows)}
 
-For each task the tag with the highest suffix (`v2.1` or `v2.2`) replaces every earlier one (`v2`,
-and `v2.1` where a `v2.2` exists), whose grader or work image differs from the current fix; an image
-built from an earlier package must be rebuilt. The work
-image column shows the tag of the agent's environment where the fix changes it; "unchanged" means the
-original work image and tag are used.
+For each task, the tag with the highest suffix (`v2.1` or `v2.2`) replaces every earlier one (`v2`,
+and `v2.1` where a `v2.2` exists). The earlier tags' grader or work images differ from the current
+fix, so rebuild any image built from an earlier package. Where the fix changes the agent's
+environment, the work image column gives its tag; "unchanged" means the fix uses the original work
+image and tag.
 
 Tasks kept with a note need no change. Their notes are in [FINDINGS.md](FINDINGS.md) and on the
 case pages.
