@@ -1,0 +1,24 @@
+[2026-10-20T14:58:59+00:00] created i4gf5aiunovno63zy4kor
+[2026-10-20T14:58:59+00:00] started run.sh
+[2026-10-20T15:14:04+00:00] checkpoint 1 (42582731 bytes)
+[2026-10-20T15:29:13+00:00] checkpoint 2 (106567754 bytes)
+[2026-10-20T15:44:26+00:00] checkpoint 3 (170443572 bytes)
+[2026-10-20T15:47:39+00:00] paused+resumed (gap 11.8s)
+[2026-10-20T15:59:55+00:00] checkpoint 4 (234282228 bytes)
+[2026-10-20T16:15:14+00:00] checkpoint 5 (298122919 bytes)
+[2026-10-20T16:30:25+00:00] checkpoint 6 failed: CommandExitException: Command exited with code 1 and error:
+
+gzip: stdout: No space left on device
+tar: /tmp/out.tar.gz: Wrote only 2048 of 10240 bytes
+tar: Child returned status 1
+tar: Error is not recoverable: exiting no
+[2026-10-20T16:36:02+00:00] paused+resumed (gap 6.5s)
+[2026-10-20T16:45:42+00:00] checkpoint 7 failed: CommandExitException: Command exited with code 1 and error:
+
+gzip: stdout: No space left on device
+tar: /tmp/out.tar.gz: Wrote only 4096 of 10240 bytes
+tar: Child returned status 1
+tar: Error is not recoverable: exiting no
+[2026-10-20T17:01:11+00:00] checkpoint 8 (489620728 bytes)
+[2026-10-20T17:16:40+00:00] checkpoint 9 (510884096 bytes)
+[2026-10-20T17:18:08+00:00] {"job": "e2e-gemini-s2h-rust_multicrate_reconstruction-v2", "template": "harbor-worker-v4-s99-25g-v4-20260921-9345d11f", "created_at": "2026-10-20T14:58:58+00:00", "budget_s": 10800, "kind": "e2e-long", "segment_s": 2880, "sandbox_id": "i4gf5aiunovno63zy4kor", "status": "exit=0", "elapsed_s": 8349, "pauses": [{"at_s": 2908, "gap_s": 11.8}, {"at_s": 5817, "gap_s": 6.5}], "killed": true, "ended_at": "2026-10-20T17:18:08+00:00"}

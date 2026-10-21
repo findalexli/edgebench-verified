@@ -1,0 +1,51 @@
+{"job": "qwen35-regrade-graph_node_classification-s3", "template": "harbor-worker-v4", "created_at": "2026-10-20T03:44:58+00:00", "budget_s": 3150, "sandbox_id": "id19o30ozx441y68ev0m7", "status": "error:ReadTimeout", "elapsed_s": 2287, "killed": "failed:ConnectError", "ended_at": "2026-10-20T04:23:16+00:00"}
+Traceback (most recent call last):
+  File "/home/alex/edgebench-verified/tools/e2b_run.py", line 112, in <module>
+    main()
+  File "/home/alex/edgebench-verified/tools/e2b_run.py", line 82, in main
+    r = sb.commands.run('cat /job/out/exit_code 2>/dev/null || echo running',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 220, in run
+    proc = self._start(
+           ^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 283, in _start
+    raise handle_rpc_exception(e)
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 270, in _start
+    start_event = events.__next__()
+                  ^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b_connect/client.py", line 423, in call_server_stream
+    with self.pool.stream(**req_data) as http_resp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/interfaces.py", line 77, in stream
+    response = self.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: The read operation timed out

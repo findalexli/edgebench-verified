@@ -1,0 +1,38 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 656B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 5)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 21.86kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466
+#5 resolve docker.io/seededge/edgebench.judge.jagua_nesting_optimization@sha256:4f029bf7c86d4762ecb7f183b6e1a016fcf8b705ac0efe28aed8f5e9e5208466 done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/home/workspace/jagua_task_scorer/evaluate.py /home/workspace/jagua_task_scorer/evaluate.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:135ce38fe6ac6047b22b6e8a4bdabdafcb5a5e79279731af27cd4c635c5357fe done
+#7 exporting config sha256:4e87b5f3f5a5e1eb9f9c52542dba741fb6542271d659b11e24baa19c8fca46ed done
+#7 exporting attestation manifest sha256:3ba6b56178123dc1f18997014f01e5f4ac97901237d85923599e36563e5ccc88 done
+#7 exporting manifest list sha256:6dd181b2e6394b97102cff8ac1c8762e8497449dfd6bb9c1f3b34cec3a294995 done
+#7 naming to docker.io/ebv-xg/jagua_nesting_optimization:v2 done
+#7 unpacking to docker.io/ebv-xg/jagua_nesting_optimization:v2 0.0s done
+#7 DONE 0.1s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 5)
+rc=0

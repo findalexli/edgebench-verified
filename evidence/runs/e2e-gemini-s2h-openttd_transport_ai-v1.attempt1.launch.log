@@ -1,0 +1,85 @@
+[2026-10-20T09:52:50+00:00] created ij6pqylludr8pm47puctb
+[2026-10-20T09:52:51+00:00] started run.sh
+[2026-10-20T10:07:53+00:00] checkpoint 1 (45146 bytes)
+[2026-10-20T10:22:55+00:00] checkpoint 2 (137631 bytes)
+[2026-10-20T10:37:57+00:00] checkpoint 3 (391765 bytes)
+[2026-10-20T10:41:04+00:00] paused+resumed (gap 6.6s)
+[2026-10-20T10:53:05+00:00] checkpoint 4 (421422 bytes)
+[2026-10-20T11:08:07+00:00] checkpoint 5 (446369 bytes)
+[2026-10-20T11:23:10+00:00] checkpoint 6 (475465 bytes)
+[2026-10-20T11:25:10+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:26:10+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:27:10+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:28:11+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:29:11+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:30:07+00:00] paused+resumed (gap 5.6s)
+[2026-10-20T11:38:39+00:00] checkpoint 7 (495080 bytes)
+[2026-10-20T11:41:39+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:42:39+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:43:39+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:44:39+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:45:39+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:46:39+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:47:40+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:48:40+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:49:40+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:50:40+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:51:40+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:52:40+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:53:40+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:54:41+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T11:55:41+00:00] poll error ReadTimeout: The read operation timed out; reconnecting
+[2026-10-20T12:00:41+00:00] {"job": "e2e-gemini-s2h-openttd_transport_ai-v1", "template": "harbor-worker-v4-s99-25g-v4-20260921-9345d11f", "created_at": "2026-10-20T09:52:49+00:00", "budget_s": 10800, "kind": "e2e-long", "segment_s": 2880, "sandbox_id": "ij6pqylludr8pm47puctb", "status": "error:ReadTimeout:The read operation timed out", "elapsed_s": 7671, "pauses": [{"at_s": 2887, "gap_s": 6.6}, {"at_s": 5832, "gap_s": 5.6}], "killed": true, "ended_at": "2026-10-20T12:00:41+00:00"}
+Traceback (most recent call last):
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 180, in <module>
+    main()
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 115, in main
+    r = run(sb, 'cat /job/out/exit_code 2>/dev/null || echo running', 30)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 45, in run
+    return sb.commands.run(cmd, user='root', timeout=t, request_timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 220, in run
+    proc = self._start(
+           ^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 283, in _start
+    raise handle_rpc_exception(e)
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 270, in _start
+    start_event = events.__next__()
+                  ^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b_connect/client.py", line 423, in call_server_stream
+    with self.pool.stream(**req_data) as http_resp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/interfaces.py", line 77, in stream
+    response = self.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: The read operation timed out

@@ -1,0 +1,38 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 592B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.exchange_core_throughput@sha256:6b1617315cd2bdc7248ed057b449042c215b90c7571e302378d3c8b3202bbb8d
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 401.67kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/seededge/edgebench.judge.exchange_core_throughput@sha256:6b1617315cd2bdc7248ed057b449042c215b90c7571e302378d3c8b3202bbb8d
+#5 resolve docker.io/seededge/edgebench.judge.exchange_core_throughput@sha256:6b1617315cd2bdc7248ed057b449042c215b90c7571e302378d3c8b3202bbb8d 0.0s done
+#5 DONE 0.1s
+
+#6 [2/3] COPY files/eval_exchange_core.py /tmp/eval_exchange_core.py
+#6 DONE 0.0s
+
+#7 [3/3] COPY files/m2/repository/ /root/.m2/repository/
+#7 DONE 0.0s
+
+#8 exporting to image
+#8 exporting layers 0.1s done
+#8 exporting manifest sha256:0aee062b52c8782943456cd85f6d75ca63dcf50d7cc596733e0fa40dae9f8f2f done
+#8 exporting config sha256:a33b8a06c0e725c793a54ce3f470a222576d2ada97c0efda3b608545097e869e done
+#8 exporting attestation manifest sha256:436d6aab843e7097065fa29121ba0c02a4aaa01adf49f01b2775e8c783541820
+#8 exporting attestation manifest sha256:436d6aab843e7097065fa29121ba0c02a4aaa01adf49f01b2775e8c783541820 done
+#8 exporting manifest list sha256:c0f30afed30772055ce17630fd641248e77a42722a5ba452f21bece9c307d8d2 done
+#8 naming to docker.io/ebv-xg/exchange_core_throughput:v2 done
+#8 unpacking to docker.io/ebv-xg/exchange_core_throughput:v2 0.1s done
+#8 DONE 0.2s
+rc=0

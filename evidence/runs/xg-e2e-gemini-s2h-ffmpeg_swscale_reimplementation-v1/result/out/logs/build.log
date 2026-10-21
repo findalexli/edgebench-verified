@@ -1,0 +1,34 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 466B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.ffmpeg_swscale_reimplementation@sha256:38b256686afe14f6cec76790a7e884eb46ac70eb918a60351942a9c35c0f879f
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 25.55kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.ffmpeg_swscale_reimplementation@sha256:38b256686afe14f6cec76790a7e884eb46ac70eb918a60351942a9c35c0f879f
+#5 resolve docker.io/seededge/edgebench.judge.ffmpeg_swscale_reimplementation@sha256:38b256686afe14f6cec76790a7e884eb46ac70eb918a60351942a9c35c0f879f 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/compute_reward.py /opt/tests/compute_reward.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:206e5ad44c0650dbd80c3376dc94efa2d2d14f175c0ae0265b0a953435e287f9 done
+#7 exporting config sha256:84f0827e1f49fd0d0c2157ea2aa22b6f355cdca0abd97d2b7795d8fb2f2377da done
+#7 exporting attestation manifest sha256:716463970361eaffec0a1c1acd7a501ee2e5c10c14c804cabd0d564b1477ab3c done
+#7 exporting manifest list sha256:8ada565af577a0da1526f99cd078f5c780ab2160604cf8a7beb7a2c8f7221917 done
+#7 naming to docker.io/ebv-xg/ffmpeg_swscale_reimplementation:v2 done
+#7 unpacking to docker.io/ebv-xg/ffmpeg_swscale_reimplementation:v2 0.0s done
+#7 DONE 0.1s
+rc=0
