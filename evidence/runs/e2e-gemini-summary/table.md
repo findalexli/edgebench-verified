@@ -19,7 +19,7 @@
 | openrct2_theme_park_ai | 26.03 | 27.50 | - / - | - / - |
 | openttd_transport_ai | 0.00 | 0.00 | - / - | - / - |
 | order_addition_permutation_optimization | 0.00 | 25.04 | 0.00 / 7.70 | 0.00 / 25.04 |
-| pfr_formalization | - | - | - / - | - / - |
+| pfr_formalization | 27.42 | 24.11 | 27.42 / 27.42 | - / - |
 | portfolio_risk_calibration | 0r | 31.56r | 0r / 0r | 31.61r / 31.56r |
 | rust_multicrate_reconstruction | 13.99 | 2.39 | 13.99 / 25.47 | 3.77 / 7.33 |
 | schemathesis_config_modernization | 3.15 | 3.15 | 3.15 / 3.15 | 3.15 / 3.15 |

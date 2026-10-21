@@ -5,7 +5,7 @@ Usage: python3 analyze.py OUT.json
 Selection is EdgeBench's own select_best with the task's policy; scores are converted with each version's
 rescale (None when the version defines none, in which case the raw score is reported).
 """
-import glob, json, os, sys
+import glob, json, os, re, sys
 from pathlib import Path
 
 REPO = Path('/home/alex/edgebench-verified'); sys.path.insert(0, str(REPO))
@@ -48,11 +48,21 @@ def sel(es, s):
 
 
 out = {}
-tasks = sorted({Path(p).name[len('e2e-gemini-s2h-'):-3] for p in glob.glob(str(RUNS / 'e2e-gemini-s2h-*-v[12]'))})
+# Runs on E2B are e2e-gemini-s2h-*; tasks too large for an E2B worker ran on the audit host (e2e-gemini-local-*).
+tasks = sorted({re.sub(r'^e2e-gemini-(s2h|local)-', '', Path(p).name)[:-3] for p in glob.glob(str(RUNS / 'e2e-gemini-*-v[12]'))
+                if re.match(r'e2e-gemini-(s2h|local)-', Path(p).name)})
+
+
+def job_name(t, ver):
+    for tag in ('s2h', 'local'):
+        j = f'e2e-gemini-{tag}-{t}-{ver}'
+        if (RUNS / j / 'result/summary.json').exists(): return j
+    return f'e2e-gemini-s2h-{t}-{ver}'
+
 for t in tasks:
     res = {}
     for run_ver in ('v1', 'v2'):
-        job = f'e2e-gemini-s2h-{t}-{run_ver}'
+        job = job_name(t, run_ver)
         sm = RUNS / job / 'result/summary.json'
         if not sm.exists():
             res[run_ver] = None; continue
