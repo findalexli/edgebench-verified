@@ -1,0 +1,40 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.10kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.rust_multicrate_reconstruction@sha256:d1d18aed02e81e5f09938de0272a76a72fab174a784613aefa3eb51443f6e408
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 94.45kB done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/seededge/edgebench.judge.rust_multicrate_reconstruction@sha256:d1d18aed02e81e5f09938de0272a76a72fab174a784613aefa3eb51443f6e408
+#5 resolve docker.io/seededge/edgebench.judge.rust_multicrate_reconstruction@sha256:d1d18aed02e81e5f09938de0272a76a72fab174a784613aefa3eb51443f6e408 0.0s done
+#5 DONE 0.1s
+
+#6 [2/3] COPY files/ /tmp/ebv-v2/
+#6 DONE 0.0s
+
+#7 [3/3] RUN set -eu;     cd /home/workspace/cas_rust_benchmark;     echo "5e2fb3e39b3a815a47e9aa144397d6a70415e12df0d5d88e598d8783f0294e4e  cas_rust_benchmark.tar.gz" | sha256sum -c -;     t=$(mktemp -d); tar -xzf cas_rust_benchmark.tar.gz -C "$t"; B="$t/cas_rust_benchmark";     cp -r /tmp/ebv-v2/judge/. "$B/judge/";     D="$B/workspace/agent-start/vendor-deps/cc/src/target"; mkdir -p "$D";     cp /tmp/ebv-v2/vendor-deps/cc/src/target/*.rs "$D/";     chown -R --reference="$B/workspace/agent-start/vendor-deps/cc/src" "$D";     chmod 0755 "$D"; chmod 0644 "$D"/*.rs;     tar --numeric-owner -czf cas_rust_benchmark.tar.gz -C "$t" cas_rust_benchmark;     rm -rf "$t" /tmp/ebv-v2
+#7 0.949 cas_rust_benchmark.tar.gz: OK
+#7 DONE 30.7s
+
+#8 exporting to image
+#8 exporting layers
+#8 exporting layers 5.3s done
+#8 exporting manifest sha256:08686166aa140b9ef593a6101a645388c20e8ca1d88bab60598ea456205a7c5c done
+#8 exporting config sha256:8bc08495c6df7b150134ea1b1cfa05a83478cad46b5a2a222a9aa83306c9120a done
+#8 exporting attestation manifest sha256:c45c3b36beeb92e1903840aa094e306d35be2a6ae1bed69d1a8db283e75f837b done
+#8 exporting manifest list sha256:c509ce7639cca80fc496d8d83de5c7098de128aa7c64b60579556cc1bde7b054 done
+#8 naming to docker.io/ebv-xg/rust_multicrate_reconstruction:v2 done
+#8 unpacking to docker.io/ebv-xg/rust_multicrate_reconstruction:v2
+#8 unpacking to docker.io/ebv-xg/rust_multicrate_reconstruction:v2 0.5s done
+#8 DONE 5.9s
+rc=0

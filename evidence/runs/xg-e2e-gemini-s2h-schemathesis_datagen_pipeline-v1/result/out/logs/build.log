@@ -1,0 +1,38 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 380B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.schemathesis_datagen_pipeline@sha256:16b21364d67906d802e24d0b3b4505c42a6ac0f91cd5b382bb4c9d1d20224d37
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 7.28kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.schemathesis_datagen_pipeline@sha256:16b21364d67906d802e24d0b3b4505c42a6ac0f91cd5b382bb4c9d1d20224d37
+#5 resolve docker.io/seededge/edgebench.judge.schemathesis_datagen_pipeline@sha256:16b21364d67906d802e24d0b3b4505c42a6ac0f91cd5b382bb4c9d1d20224d37 done
+#5 DONE 0.2s
+
+#6 [2/2] COPY files/tests/test_01_header_strategies.py /tests/test_01_header_strategies.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:461b5796934202e8dbddd9e8c69223184e21b83c0e29ad15554d4deec8eaab07 done
+#7 exporting config sha256:157db27d502360cebb1554795e1d629c61e5373c885448b7cc42fbbeea410ae2 done
+#7 exporting attestation manifest sha256:f04913c47086ee654d6d488845c23515de1bbea2f864a9cd6cdd40cdd3437bf1 done
+#7 exporting manifest list sha256:9bd47b34d6d307a077df23e23e1faa3b6f79d565ee04f750ce111e54e6fb3058 done
+#7 naming to docker.io/ebv-xg/schemathesis_datagen_pipeline:v2 done
+#7 unpacking to docker.io/ebv-xg/schemathesis_datagen_pipeline:v2 0.0s done
+#7 DONE 0.1s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)
+rc=0

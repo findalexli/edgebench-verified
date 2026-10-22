@@ -50,6 +50,7 @@ def main():
     ap.add_argument('--job', required=True, type=Path)
     ap.add_argument('--lifetime', type=int, default=3600)
     ap.add_argument('--budget', type=int, default=3000, help='seconds allowed for run.sh')
+    ap.add_argument('--template', default=TEMPLATE)
     a = ap.parse_args()
     job = a.job.resolve()
     assert (job / 'run.sh').is_file(), 'job needs run.sh'
@@ -62,8 +63,8 @@ def main():
     assert key, 'no E2B key: set E2B_API_KEY or EBV_E2B_ENV, or write .internal/e2b-env-path'
     out = job / 'result'
     out.mkdir(exist_ok=False)
-    entry = {'job': job.name, 'template': TEMPLATE, 'created_at': now(), 'budget_s': a.budget}
-    sb = Sandbox.create(template=TEMPLATE, timeout=a.lifetime, api_key=key, request_timeout=30,
+    entry = {'job': job.name, 'template': a.template, 'created_at': now(), 'budget_s': a.budget}
+    sb = Sandbox.create(template=a.template, timeout=a.lifetime, api_key=key, request_timeout=30,
                         metadata={'purpose': 'edgebench-verified-native', 'job': job.name})
     entry['sandbox_id'] = sb.sandbox_id
     record({**entry, 'event': 'created'})
@@ -78,9 +79,22 @@ def main():
         h.disconnect()
         deadline = time.monotonic() + a.budget + 60
         status = 'timeout'
+        last_ok = time.monotonic()
         while time.monotonic() < deadline:
-            r = sb.commands.run('cat /job/out/exit_code 2>/dev/null || echo running',
-                                user='root', timeout=20, request_timeout=30)
+            try:
+                r = sb.commands.run('cat /job/out/exit_code 2>/dev/null || echo running',
+                                    user='root', timeout=20, request_timeout=30)
+                last_ok = time.monotonic()
+            except Exception:
+                # A local network outage must not abandon a worker that keeps running.
+                if time.monotonic() - last_ok > 600:
+                    raise
+                time.sleep(20)
+                try:
+                    sb = Sandbox.connect(entry['sandbox_id'], api_key=key, request_timeout=30)
+                except Exception:
+                    pass
+                continue
             if r.stdout.strip() != 'running':
                 status = 'exit=' + r.stdout.strip()
                 break

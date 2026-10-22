@@ -1,0 +1,82 @@
+[2026-10-20T15:01:29+00:00] created i4pv6mm3n33p1kfrgumvy
+[2026-10-20T15:01:30+00:00] started run.sh
+[2026-10-20T15:16:38+00:00] checkpoint 1 (115912151 bytes)
+[2026-10-20T15:31:59+00:00] checkpoint 2 (347858084 bytes)
+[2026-10-20T15:43:30+00:00] poll error RemoteProtocolError: Server disconnected without sending a response.; reconnecting
+[2026-10-20T15:47:33+00:00] checkpoint 3 (522114829 bytes)
+[2026-10-20T15:49:39+00:00] paused+resumed (gap 5.5s)
+[2026-10-20T16:02:52+00:00] checkpoint 4 (695835765 bytes)
+[2026-10-20T16:18:15+00:00] checkpoint 5 (869557465 bytes)
+[2026-10-20T16:33:44+00:00] checkpoint 6 (1043278651 bytes)
+[2026-10-20T16:37:51+00:00] paused+resumed (gap 5.5s)
+[2026-10-20T16:48:58+00:00] checkpoint 7 (1216999278 bytes)
+[2026-10-20T17:04:15+00:00] checkpoint 8 (1390721081 bytes)
+[2026-10-20T17:06:47+00:00] {"job": "e2e-gemini-s2h-schemathesis_config_modernization-v2", "template": "harbor-worker-v4-s99-25g-v4-20260921-9345d11f", "created_at": "2026-10-20T15:01:28+00:00", "budget_s": 10800, "kind": "e2e-long", "segment_s": 2880, "sandbox_id": "i4pv6mm3n33p1kfrgumvy", "status": "error:RemoteProtocolError:Server disconnected without sending a response.", "elapsed_s": 7518, "pauses": [{"at_s": 2885, "gap_s": 5.5}, {"at_s": 5776, "gap_s": 5.5}], "killed": true, "ended_at": "2026-10-20T17:06:47+00:00"}
+Traceback (most recent call last):
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 231, in _receive_event
+    raise RemoteProtocolError(msg)
+httpcore.RemoteProtocolError: Server disconnected without sending a response.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 185, in <module>
+    main()
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 159, in main
+    collect(sb, out, 'out.tar.gz')
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 51, in collect
+    raw = sb.files.read('/tmp/out.tar.gz', format='bytes', user='root', request_timeout=600)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/filesystem/filesystem.py", line 157, in read
+    r = self._envd_api.get(
+        ^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_client.py", line 1053, in get
+    return self.request(
+           ^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/api/client_sync/__init__.py", line 26, in handle_request
+    response = super().handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/.local/share/uv/python/cpython-3.12.12-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.RemoteProtocolError: Server disconnected without sending a response.
