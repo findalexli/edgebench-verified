@@ -88,7 +88,7 @@ submissions** with the original and the fixed judge, so a difference there is th
 | openrct2_theme_park_ai | 26.03 | 27.50 | - / - | - / - |
 | openttd_transport_ai | 0.00 | 0.00 | - / - | - / - |
 | order_addition_permutation_optimization | 0.00 | 25.04 | 0.00 / 7.70 | 0.00 / 25.04 |
-| pfr_formalization | 27.42 | 24.11 | 27.42 / 27.42 | - / - |
+| pfr_formalization | 27.42 | 24.11 | 27.42 / 27.42 | 24.11 / 24.11 |
 | portfolio_risk_calibration | 0r | 31.56r | 0r / 0r | 31.61r / 31.56r |
 | rust_multicrate_reconstruction | 13.99 | 2.39 | 13.99 / 25.47 | 3.77 / 7.33 |
 | schemathesis_config_modernization | 3.15 | 3.15 | 3.15 / 3.15 | 3.15 / 3.15 |
@@ -142,10 +142,12 @@ variation):
 
 The v1 run's best submission repaired 116 of 423 `sorry`s (27.42%), the v2 run's 102 (24.11%); in the other
 rounds the agent's edits did not compile, which both judges score as no result. The cross-grade of the v1 run
-gives every one of its 23 submissions the same result under the original and the fixed judge, equal to the
-in-run grade. The v2 run's cross-grade did not run (the host's Docker stopped responding first).
+and of the v2 run give every one of the 46 submissions the same result under the original and the fixed judge,
+equal to the in-run grade: Gemini's 2 h submissions do not reach what the repair changes.
 
 ### Not verified end to end
 
-- **lean_analysis_proofs**: its work and judge images unpack to about 50 GB, more than the audit host's Docker
-  disk had free; no E2B worker has the room either.
+- **lean_analysis_proofs**: its work and judge images unpack to about 50 GB and its judge's Lean build needs
+  more than 3 GB, more than an E2B worker on this account provides (8 GiB, 28 GB disk). One run on the audit
+  host completed the 2 h agent run, but every in-run grade was killed for memory (exit 137) and the worker
+  then ran out of memory itself; it is not reported. Verifying this task end to end needs a larger machine.
