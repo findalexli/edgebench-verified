@@ -255,6 +255,13 @@ Evidence ranges from source inspection and original-helper controls to full nati
    removed task's partial fix; 240 of them run three times; 2 setup runs that prepare inputs are not
    counted), one outcome changed, under the original grader. At 4 CPUs, Vibrating Path's valid deadline-based test submission timed out on 14 cases in one of its nine original-grader gradings, which is the timing problem the fix removes. No fixed-grader outcome changed. The exceptions are these: OpenRCT2's fix changes only its instructions and has nothing to run; Lean Analysis repeats ran locally rather than on fresh machines; Integer Codec's final 0–100 scale was applied to the recorded raw results; the revised College English grader was itself run three times; and 14 comparisons ran once: the Rust starter's fixed-version score (each run takes about 40 minutes and nearly fills the machine's disk), the CTA v2.1 standard answer, the six Exchange Core rows at 4 CPUs (one row per run of a three-run job), and the three controls each of Datagen v2.1 and FFmpeg v2.2 (single runs).
 
+5. We also ran the fixed tasks end to end. A real agent (Gemini 4 Argon, 2 h) worked on the original
+   and the fixed version of every repaired task under EdgeBench's own harness, and every submission was
+   graded with both the original and the fixed grader. 62 of the 64 runs finished; lean_analysis_proofs
+   was too large to run. Separately, every submission of a third-party Qwen3.5 run was regraded with both
+   graders. The results are in `evidence/runs/e2e-gemini-summary/` and
+   `evidence/runs/qwen35-regrade-summary/`.
+
 The formal runner (`python3 tools/check_formal.py`) reruns supported checks when the required tools are installed; its regression tests validate result parsing separately from recompiling proofs. The full method is in
 [METHOD.md](METHOD.md).
 
