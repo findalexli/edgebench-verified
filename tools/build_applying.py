@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parent))
 from names import names as task_names  # noqa: E402
+import review as RV  # noqa: E402
 
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
 REPAIRS = ROOT / 'repairs'
@@ -144,7 +145,7 @@ image and tag.
 Tasks kept with a note need no change. Their notes are in [FINDINGS.md](FINDINGS.md) and on the
 case pages.
 """
-    (ROOT / 'APPLYING-FIXES.md').write_text(doc)
+    (ROOT / 'first-audit/APPLYING-FIXES.md').write_text(RV.relink(doc))
     print(len(rows), 'packages')
 
 

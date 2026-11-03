@@ -1,5 +1,7 @@
 # Portfolio Risk Calibration (`portfolio_risk_calibration`)
 
+**Second review (November 2026): Not confirmed.** The excess-return formula differs from the stated one, but a modified file on a local scoring path moved only from 15.35 to 15.34 (or 15.27 with aligned annualization). Harm on the current judge remains unverified. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The original grader computes yearly excess return by converting the difference of the two period returns to a yearly figure, instead of taking the difference of the two yearly returns as the instructions state. The fixed version uses the stated formula. A restricted decimal sweep on the full test period found a largest joint rise of 0.3913 points and a sampled envelope of 0.3921; this is not a global bound. Lean preserves the order and sign of excess values for a fixed benchmark and exponent under domain assumptions, not total-score ordering.</mark>
 
 ## What the task asks

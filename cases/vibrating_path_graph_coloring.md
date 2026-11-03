@@ -1,5 +1,7 @@
 # Vibrating Path Graph Coloring (`vibrating_path_graph_coloring`)
 
+**Second review (November 2026): Confirmed.** Eight cases run at once on the official 4 CPUs, and one timeout makes the whole total `inf`. A real Opus solver gets `inf` on all 15 gradings and 19.77-19.98 with 4 cases at once. The same file passed all 7 grades during its own run on the published judge image, so the grading is non-repeatable. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>On the publisher's 4-CPU grader, a valid solution using more than about 14 s of CPU per case times out, although the README promises 30 s per case, and one timeout leaves the whole submission without a score. The fixed version runs at most as many cases at once as the grader has CPUs and allows 900 s instead of 600 s for the whole run. The tester's rejection of the README's three-line zero-hit form remains as a note; its score effect is ruled out on 37 certified cases and remains unresolved on 13 cases.</mark>
 
 ## What the task asks

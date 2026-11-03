@@ -1,0 +1,31 @@
+job community9-integer_compression_codec-smoke status exit=0
+job community9-integer_compression_codec-a status exit=0
+new-bad                          n=3 s=[0.0000, 0.0000, 0.0000] raw=[0.000000, 0.000000, 0.000000] valid=[True, True, True] rt=[22.6, 22.1, 22.9]
+new-flipA                        n=5 s=[31.5619, 33.6101, 29.3547, 34.7779, 31.1680] raw=[101.682387, 108.216293, 94.641498, 111.941588, 100.425888] valid=[True, True, True, True, True] rt=[23.8, 23.6, 23.5, 23.8, 23.5]
+new-flipB                        n=5 s=[35.0676, 38.8314, 37.2223, 34.2757, 36.0116] raw=[112.865581, 124.872100, 119.739251, 110.339430, 115.876863] valid=[True, True, True, True, True] rt=[17.7, 16.3, 17.0, 17.6, 17.3]
+new-starter                      n=4 s=[0.0000, 0.0000, 0.0000, 0.0000] raw=[0.878100, 0.846620, 0.850088, 0.846217] valid=[True, True, True, True] rt=[22.0, 22.2, 21.8, 22.0]
+new-top                          n=4 s=[52.1962, 48.4657, 52.1962, 52.0228] raw=[167.505801, 155.605677, 167.505801, 166.952652] valid=[True, True, True, True] rt=[22.3, 25.0, 24.5, 24.8]
+old-bad                          n=4 s=[0.0000, 0.0000, 0.0000, 0.0000] raw=[0.000000, 0.000000, 0.000000, 0.000000] valid=[True, True, True, True] rt=[22.5, 22.5, 22.4, 22.2]
+old-flipA                        n=5 s=[63.0887, 57.7096, 64.3955, 52.6021, 59.2276] raw=[63.088675, 57.709572, 64.395477, 52.602060, 59.227605] valid=[True, True, True, True, True] rt=[24.3, 23.4, 22.7, 24.2, 24.2]
+old-flipB                        n=5 s=[62.7046, 63.5915, 64.3784, 63.5717, 62.6402] raw=[62.704563, 63.591500, 64.378442, 63.571739, 62.640249] valid=[True, True, True, True, True] rt=[17.5, 17.1, 17.1, 17.8, 17.2]
+old-starter                      n=4 s=[0.2562, 0.2497, 0.2500, 0.2511] raw=[0.256204, 0.249694, 0.250026, 0.251081] valid=[True, True, True, True] rt=[22.1, 22.5, 22.4, 22.3]
+old-top                          n=4 s=[73.7803, 73.4410, 73.4432, 73.7331] raw=[73.780274, 73.440977, 73.443184, 73.733144] valid=[True, True, True, True] rt=[23.8, 24.2, 24.7, 23.8]
+
+per dataset, starter on each judge (documented S_i = 1.0 everywhere):
+old-starter {'docids': 0.097, 'ts_sec': 0.084, 'ts_ns': 0.172, 'temp': 0.499, 'grid': 0.411, 'zipf': 0.306, 'rand': 0.625, 'sparse': 0.144} max/min 7.46
+new-starter {'docids': 0.771, 'ts_sec': 0.697, 'ts_ns': 0.827, 'temp': 1.951, 'grid': 0.919, 'zipf': 0.524, 'rand': 0.791, 'sparse': 0.767} max/min 3.72
+
+bpi identical across repeats and judges:
+top distinct size vectors 1 repeats 8
+starter distinct size vectors 1 repeats 8
+flipA distinct size vectors 1 repeats 10
+flipB distinct size vectors 1 repeats 10
+
+order of the pair on each judge, raw:
+old A [63.089, 57.71, 64.395, 52.602, 59.228] B [62.705, 63.591, 64.378, 63.572, 62.64] mean diff A-B -3.973 overlap
+  normalized means 59.405 63.377
+new A [101.682, 108.216, 94.641, 111.942, 100.426] B [112.866, 124.872, 119.739, 110.339, 115.877] mean diff A-B -13.357 overlap
+  normalized means 32.095 36.282
+
+top real: current 73.60; corrected bpi raw 164.39, which the task's 0..100 scale clips to 100; on 1..320 51.22
+starter raw: current 0.2518; corrected bpi 0.8553; documented 1.0

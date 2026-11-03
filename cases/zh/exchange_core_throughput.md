@@ -1,5 +1,7 @@
 # Exchange Core Throughput (`exchange_core_throughput`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 有错误的引擎确实能得分，但在官方的 4 个 CPU 上，正确的工作大多也是 0 分，没有真实运行受影响。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>原始评分器的正确性检查发现不了收错的手续费或丢失的消息，所以有错误的引擎也能拿到全部分数。修复版要求项目自带的集成测试通过，并且能在无网络的环境中评分。</mark>
 
 ![通过/不通过标记组成的表格。各行分别是：正确的引擎；按错误费率向卖方收费的引擎（收取挂单等待成交的费率，而不是立即成交的费率）；从不发送成交消息的引擎。在原始评分器下，三者都通过并按速度计分；修复版评分器另外运行项目自带的 33 个测试，正确引擎通过，两个有错误的引擎不通过，记 0 分。注释说明速度分的含义（每秒 209 万笔或更慢记 0 分，每秒 600 万笔记 100 分），列出相互重叠的速度分（满分 100：正确引擎 0–24.19，收错手续费 7.77–24.40，丢失消息 4.71–15.62），并指出在 4 个 CPU 下连正确引擎的速度分也是 0。](../figures/zh/exchange_core_throughput.svg)
@@ -33,7 +35,7 @@ feeswap 做的工作量与正确的引擎相同，所以三者之间的排名只
 
 原始评分器也不能离线评分。固定版本镜像的 `~/.m2`（本地 Maven 缓存）里缺少 `surefire-junit-platform:3.0.0-M3`。在 `--network none` 下，每份提交都会失败，未修改的引擎也一样（`CASE 0000 RE score=0 / TOTAL_SCORE 0`）。评测框架给评分器容器开了网络，`internet: false` 只管智能体容器。所以原始评分要靠评分时能连上 Maven Central。
 
-还有一条说明。任务没有写明评分器有多少 CPU，而在 4 个 CPU 下随附引擎得 0 分。任务说明描述了引擎的线程拓扑（"builder defaults (4ME+2RE, msgsInGroupLimit=4096, BUSY_SPIN wait, DirectImpl orderbook, AffinityThreadFactory)"），并说 "thread topology changes (e.g. 4ME+2RE → 2ME+1RE) can have dramatic impact"（线程拓扑的改变可能有巨大影响），但没有写明 CPU 数。在 EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml` 中（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`），评分器继承 `judge_cpu_limit: 4`。这个限制是 CPU 配额。在 `--cpus 4` 的评分器容器内，`nproc` 仍报告 8，而 `/sys/fs/cgroup/cpu.max` 读数为 `400000 100000`（由 `evidence/runs/exchange_core_throughput-cpu4v8-a/run.sh` 第 17 行记录；输出文件和镜像摘录一起没有放进仓库）。所以按 `nproc` 决定线程规模的引擎会以为有 8 个 CPU。
+还有一条说明。任务没有写明评分器有多少 CPU，而在 4 个 CPU 下随附引擎得 0 分。任务说明描述了引擎的线程拓扑（"builder defaults (4ME+2RE, msgsInGroupLimit=4096, BUSY_SPIN wait, DirectImpl orderbook, AffinityThreadFactory)"），并说 "thread topology changes (e.g. 4ME+2RE → 2ME+1RE) can have dramatic impact"（线程拓扑的改变可能有巨大影响），但没有写明 CPU 数。在 EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml` 中（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`），评分器继承 `judge_cpu_limit: 4`。这个限制是 CPU 配额。在 `--cpus 4` 的评分器容器内，`nproc` 仍报告 8，而 `/sys/fs/cgroup/cpu.max` 读数为 `400000 100000`（由 `evidence/runs/exchange_core_throughput-cpu4v8-a/run.sh` 第 17 行记录；输出文件和镜像摘录一起没有放进仓库）。所以按 `nproc` 决定线程规模的引擎会以为有 8 个 CPU。
 
 我们在原始评分器上用原始 eval_cmd 测量（`--network none`，挂载与 `exchange_core_throughput-v2-paired-b` 中相同的 `~/.m2` 文件）。4 个 CPU 一列合并了两组运行：随附引擎 4 次、建议 1 次，使用 `--memory 4g`（`evidence/runs/exchange_core_throughput-cpu4v8-a/result/out/summary.txt`、`-b`）；以及各 3 次，使用排行榜的 `--memory 8g`（`evidence/runs/exchange_core_throughput-v2-cpu4m8g-rep{1,2,3}`）。8 个 CPU 一列只来自第一组。
 

@@ -1,5 +1,7 @@
 # Lean Analysis Proofs (`lean_analysis_proofs`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 两条必须证明的命题是假的，这一点已在 Lean 中证明。计算出的分数影响极小，评分器镜像也太大，我们无法重跑。 下文是第一轮审计的原始记录。
+
 **结论：** 修复在组件对照上得到验证；完整的发布集成尚待完成。<mark>解题者要证明的陈述中有两个是错的；原始评分器还给编译器生成的辅助声明计分，所以同一个定理的正确证明，换一种证明风格，得分可能不同。</mark>
 
 ![一根表示原有 2901 个计分目标的条形：修复版保留其中 2338 个，不再计分的有 560 个隐藏的编译器生成辅助项和 3 个占位陈述；标注指出两个错误陈述，以及当 omega 策略使一个辅助项改名时，一个正确证明少得一分（25 对 26）。](../figures/lean_analysis_proofs.svg)
@@ -86,7 +88,7 @@
 
 - 原始评分器来自按摘要固定的公开镜像（Lean 4.28.0）。我们用未修改的评分器给上述六个 Section_4_1 变体评分。在评分器仓库中运行 `lake build ListDeclAxiom`，打印出 `SUMMARY checked=4743 bad=2901`。我们按名字模式统计辅助目标，并在镜像中逐个查了辅助项的父声明。
 - 为了在 Lean 中做形式化检查，我们写了一个反驳文件，导入任务自己的 `Chapter11` 定义，在评分器镜像中用 `lake env lean` 运行（`--network none --memory 4g --cpus 2`）。Lean 内核证明了每个字面陈述的否定，针对的是已安装的定义，而不是 Mathlib（Lean 的数学库）里的类似定义。在 Lean 4.34.1 下的本地副本结果相同。两个更正后的陈述都在修复版评分器的仓库中有了不含 `sorry` 的证明。这些证明都只用公理 `propext`、`Classical.choice` 和 `Quot.sound`。
-- 在并排对照运行中，原始评分器和修复版评分器在本地的评分器镜像中给上述测试提交评分。对照重复了三次，结果都没有变化（[`data/paired-repeatability.md`](../data/paired-repeatability.md)）。对 S 和 W，第一次原始评分器结果是更早的原生运行，在 `evidence/scripts/lean_aux_names/out/report_{S,W}.json.gz` 中（同一镜像，评分器逐字节相同），因此对 S 和 W，只有两次重复运行（`evidence/runs/lean_analysis_proofs-v2-paired-rep2/` 和 `-rep3/`）在并排作业中用原始评分器为它们评分。
+- 在并排对照运行中，原始评分器和修复版评分器在本地的评分器镜像中给上述测试提交评分。对照重复了三次，结果都没有变化（[`data/paired-repeatability.md`](../../data/paired-repeatability.md)）。对 S 和 W，第一次原始评分器结果是更早的原生运行，在 `evidence/scripts/lean_aux_names/out/report_{S,W}.json.gz` 中（同一镜像，评分器逐字节相同），因此对 S 和 W，只有两次重复运行（`evidence/runs/lean_analysis_proofs-v2-paired-rep2/` 和 `-rep3/`）在并排作业中用原始评分器为它们评分。
 
 ## 局限
 

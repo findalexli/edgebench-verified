@@ -1,0 +1,11 @@
+--- a/edgebench/tasks/rust_multicrate_reconstruction/environment/vendor/build_vendor.py
++++ b/edgebench/tasks/rust_multicrate_reconstruction/environment/vendor/build_vendor.py
+@@ -54,7 +54,7 @@
+             # v1's bundle was packed without any directory named `target`, *after*
+             # cargo had written .cargo-checksum.json: those files are listed in the
+             # checksum but absent on disk (only cc/src/target/*.rs is affected).
+-            dropped = "target" in parts[:-1]
++            dropped = False
+             target = os.path.join(dst, rel)
+             if m.isdir():
+                 if not dropped:

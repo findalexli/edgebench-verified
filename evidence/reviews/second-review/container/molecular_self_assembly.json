@@ -1,0 +1,1283 @@
+{
+ "task": "molecular_self_assembly",
+ "conditions": "hot4 = 4 vCPUs online, one judge, quota 4 (cpu.max 400000 100000, nproc 4, SFORGE_CPUS=4); q4 = 8 online, one judge, quota 4; x2/x3/x5 = 8 online, that many judges at once, each quota 4, so x3 and x5 give each judge about 2.6 and 1.6 CPUs, below the official 4. Measured per arm in cpu_per_wall, host_busy_pct and load1.",
+ "claims": [
+  {
+   "part": "timeout half",
+   "verdict": "NOT_REPRODUCED",
+   "witness": "real unchanged: auto2 = sha ceb40560bd (auto-2), auto8 = 46f7580fd6, agent1 = 3479560785",
+   "arms": [
+    {
+     "label": "auto2 new hot4",
+     "scores": [
+      13.92,
+      13.92,
+      13.92
+     ],
+     "n": 3,
+     "cases_ok": [
+      35,
+      35,
+      35
+     ],
+     "tle": [
+      15,
+      15,
+      15
+     ],
+     "cpu_s_per_case": [
+      9.8,
+      9.7,
+      9.7
+     ],
+     "cpu_per_wall": [
+      3.77,
+      3.76,
+      3.76
+     ],
+     "host_busy_pct": [
+      85.0,
+      85.0,
+      85.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      3.9,
+      3.7,
+      4.2
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "auto2 old hot4",
+     "scores": [
+      13.92,
+      13.92,
+      13.92
+     ],
+     "n": 3,
+     "cases_ok": [
+      35,
+      35,
+      35
+     ],
+     "tle": [
+      15,
+      15,
+      15
+     ],
+     "cpu_s_per_case": [
+      5.6,
+      5.6,
+      5.6
+     ],
+     "cpu_per_wall": [
+      3.76,
+      3.77,
+      3.76
+     ],
+     "host_busy_pct": [
+      76.0,
+      79.0,
+      79.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      4.0,
+      5.0,
+      5.7
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "auto2 new x3",
+     "scores": [
+      13.92,
+      13.92,
+      13.92
+     ],
+     "n": 3,
+     "cases_ok": [
+      35,
+      35,
+      35
+     ],
+     "tle": [
+      15,
+      15,
+      15
+     ],
+     "cpu_s_per_case": [
+      7.0,
+      7.0,
+      7.0
+     ],
+     "cpu_per_wall": [
+      2.61,
+      2.6,
+      2.61
+     ],
+     "host_busy_pct": [
+      88.0,
+      88.0,
+      88.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      11.8,
+      11.8,
+      11.8
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto2 old x3",
+     "scores": [
+      13.92,
+      13.92,
+      13.92
+     ],
+     "n": 3,
+     "cases_ok": [
+      35,
+      35,
+      35
+     ],
+     "tle": [
+      15,
+      15,
+      15
+     ],
+     "cpu_s_per_case": [
+      4.1,
+      4.1,
+      4.2
+     ],
+     "cpu_per_wall": [
+      2.56,
+      2.57,
+      2.57
+     ],
+     "host_busy_pct": [
+      82.0,
+      82.0,
+      82.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      11.8,
+      11.8,
+      11.8
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto2 new x5",
+     "scores": [
+      13.92,
+      13.92,
+      13.92,
+      13.92,
+      13.92
+     ],
+     "n": 5,
+     "cases_ok": [
+      35,
+      35,
+      35,
+      35,
+      35
+     ],
+     "tle": [
+      15,
+      15,
+      15,
+      15,
+      15
+     ],
+     "cpu_s_per_case": [
+      4.4,
+      4.5,
+      4.5,
+      4.4,
+      4.5
+     ],
+     "cpu_per_wall": [
+      1.57,
+      1.58,
+      1.57,
+      1.56,
+      1.57
+     ],
+     "host_busy_pct": [
+      91.0,
+      89.0,
+      89.0,
+      89.0,
+      89.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      19.8,
+      19.7,
+      19.7,
+      19.7,
+      19.7
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto2 old x5",
+     "scores": [
+      13.92,
+      13.92,
+      13.92,
+      13.92,
+      13.92
+     ],
+     "n": 5,
+     "cases_ok": [
+      35,
+      35,
+      35,
+      35,
+      35
+     ],
+     "tle": [
+      15,
+      15,
+      15,
+      15,
+      15
+     ],
+     "cpu_s_per_case": [
+      2.9,
+      2.9,
+      3.0,
+      2.9,
+      2.9
+     ],
+     "cpu_per_wall": [
+      1.57,
+      1.56,
+      1.57,
+      1.56,
+      1.56
+     ],
+     "host_busy_pct": [
+      86.0,
+      86.0,
+      86.0,
+      86.0,
+      86.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      23.5,
+      23.5,
+      23.5,
+      23.5,
+      23.5
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto8 new x5",
+     "scores": [
+      65.62,
+      65.62,
+      65.62,
+      65.62,
+      65.63,
+      65.69,
+      65.66,
+      65.66,
+      65.68,
+      65.68
+     ],
+     "n": 10,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      8.7,
+      8.7,
+      8.7,
+      8.8,
+      8.9,
+      8.7,
+      8.7,
+      8.7,
+      8.8,
+      8.7
+     ],
+     "cpu_per_wall": [
+      1.59,
+      1.59,
+      1.59,
+      1.59,
+      1.59,
+      1.58,
+      1.58,
+      1.59,
+      1.6,
+      1.59
+     ],
+     "host_busy_pct": [
+      95.0,
+      95.0,
+      95.0,
+      95.0,
+      94.0,
+      95.0,
+      95.0,
+      95.0,
+      95.0,
+      95.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      20.2,
+      20.2,
+      20.2,
+      20.2,
+      20.1,
+      18.5,
+      18.5,
+      18.5,
+      18.5,
+      18.5
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto8 old x5",
+     "scores": [
+      64.53,
+      64.53,
+      64.57,
+      64.59,
+      64.53,
+      64.63,
+      64.63,
+      64.63,
+      64.63,
+      64.63
+     ],
+     "n": 10,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      4.9,
+      4.9,
+      4.9,
+      5.0,
+      4.9,
+      4.8,
+      4.9,
+      4.9,
+      4.9,
+      4.9
+     ],
+     "cpu_per_wall": [
+      1.58,
+      1.59,
+      1.58,
+      1.6,
+      1.58,
+      1.6,
+      1.58,
+      1.59,
+      1.58,
+      1.59
+     ],
+     "host_busy_pct": [
+      91.0,
+      91.0,
+      90.0,
+      90.0,
+      90.0,
+      92.0,
+      91.0,
+      91.0,
+      91.0,
+      91.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      25.6,
+      25.6,
+      25.6,
+      25.6,
+      25.6,
+      29.5,
+      29.4,
+      29.4,
+      29.4,
+      29.4
+     ],
+     "online": [
+      "0-7"
+     ]
+    }
+   ],
+   "effect_points": 0.0,
+   "fix_tested": "auto2 13.92 -> 13.92, the same 15 cases time out on both pools, also at x5",
+   "correct_work_keeps_score": "yes: auto4 29.47 -> 29.47, auto2 13.92 -> 13.92",
+   "note": "No case timed out on old only: auto2 loses the same 15 cases on both pools (they still exceed 30 s with a full CPU each), auto8 times out nowhere even at x5, agent1 nowhere at hot4; weakest point: only these real files were tried, a slower fixed-work solver could still hit it.",
+   "claim": "Eight concurrent cases sharing four CPUs can exhaust the 30-second wall timeout despite requiring under 30 CPU seconds, and halve deadline-based search computation.",
+   "job": "evidence/runs/community9-molecular_self_assembly-a evidence/runs/community9-molecular_self_assembly-b evidence/runs/community9-molecular_self_assembly-c",
+   "table_script": "evidence/scripts/second_review/c9_molecular_self_assembly_table.py"
+  },
+  {
+   "part": "deadline search half",
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged: auto8 = sha 46f7580fd6 (auto-8), agent1 = sha 3479560785 (agent-1); controls auto4 6cee3f53f9, starter 9741c488ea, bad control auto2 (no help)",
+   "arms": [
+    {
+     "label": "agent1 new hot4",
+     "scores": [
+      62.47,
+      62.57,
+      62.56
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      20.3,
+      20.3,
+      20.2
+     ],
+     "cpu_per_wall": [
+      3.81,
+      3.81,
+      3.81
+     ],
+     "host_busy_pct": [
+      91.0,
+      91.0,
+      91.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      4.1,
+      3.7,
+      4.3
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "agent1 old hot4",
+     "scores": [
+      61.03,
+      61.06,
+      61.11
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      10.8,
+      10.8,
+      10.8
+     ],
+     "cpu_per_wall": [
+      3.69,
+      3.7,
+      3.69
+     ],
+     "host_busy_pct": [
+      84.0,
+      85.0,
+      85.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      6.4,
+      5.9,
+      6.4
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "auto4 new hot4",
+     "scores": [
+      29.47,
+      29.47
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      1.7,
+      1.7
+     ],
+     "cpu_per_wall": [
+      3.87,
+      3.89
+     ],
+     "host_busy_pct": [
+      59.0,
+      59.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      7.5,
+      5.0
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "auto4 old hot4",
+     "scores": [
+      29.47,
+      29.47
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      1.7,
+      1.6
+     ],
+     "cpu_per_wall": [
+      3.82,
+      3.86
+     ],
+     "host_busy_pct": [
+      57.0,
+      58.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      11.4,
+      4.5
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "auto8 new hot4",
+     "scores": [
+      66.47,
+      66.43,
+      66.43
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      20.5,
+      20.5,
+      20.5
+     ],
+     "cpu_per_wall": [
+      3.81,
+      3.81,
+      3.81
+     ],
+     "host_busy_pct": [
+      91.0,
+      91.0,
+      91.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      4.1,
+      3.7,
+      4.4
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "auto8 old hot4",
+     "scores": [
+      65.32,
+      65.29,
+      65.32
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      11.1,
+      11.1,
+      11.0
+     ],
+     "cpu_per_wall": [
+      3.71,
+      3.73,
+      3.75
+     ],
+     "host_busy_pct": [
+      85.0,
+      86.0,
+      85.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      5.4,
+      6.0,
+      6.7
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "auto8 new q4",
+     "scores": [
+      66.47,
+      66.47
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      20.7,
+      20.7
+     ],
+     "cpu_per_wall": [
+      3.84,
+      3.86
+     ],
+     "host_busy_pct": [
+      46.0,
+      46.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      3.8,
+      3.7
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto8 old q4",
+     "scores": [
+      65.03,
+      65.28
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      11.2,
+      11.2
+     ],
+     "cpu_per_wall": [
+      3.74,
+      3.73
+     ],
+     "host_busy_pct": [
+      43.0,
+      43.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      3.2,
+      3.5
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto8 new x3",
+     "scores": [
+      65.74,
+      65.76,
+      65.82
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      14.3,
+      14.2,
+      14.2
+     ],
+     "cpu_per_wall": [
+      2.61,
+      2.59,
+      2.59
+     ],
+     "host_busy_pct": [
+      93.0,
+      93.0,
+      93.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      12.4,
+      12.4,
+      12.4
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto8 old x3",
+     "scores": [
+      64.7,
+      64.63,
+      64.68
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      7.7,
+      7.7,
+      7.8
+     ],
+     "cpu_per_wall": [
+      2.56,
+      2.56,
+      2.6
+     ],
+     "host_busy_pct": [
+      89.0,
+      88.0,
+      88.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      16.5,
+      16.5,
+      16.5
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto8 new x5",
+     "scores": [
+      65.62,
+      65.62,
+      65.62,
+      65.62,
+      65.63,
+      65.69,
+      65.66,
+      65.66,
+      65.68,
+      65.68
+     ],
+     "n": 10,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      8.7,
+      8.7,
+      8.7,
+      8.8,
+      8.9,
+      8.7,
+      8.7,
+      8.7,
+      8.8,
+      8.7
+     ],
+     "cpu_per_wall": [
+      1.59,
+      1.59,
+      1.59,
+      1.59,
+      1.59,
+      1.58,
+      1.58,
+      1.59,
+      1.6,
+      1.59
+     ],
+     "host_busy_pct": [
+      95.0,
+      95.0,
+      95.0,
+      95.0,
+      94.0,
+      95.0,
+      95.0,
+      95.0,
+      95.0,
+      95.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      20.2,
+      20.2,
+      20.2,
+      20.2,
+      20.1,
+      18.5,
+      18.5,
+      18.5,
+      18.5,
+      18.5
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "auto8 old x5",
+     "scores": [
+      64.53,
+      64.53,
+      64.57,
+      64.59,
+      64.53,
+      64.63,
+      64.63,
+      64.63,
+      64.63,
+      64.63
+     ],
+     "n": 10,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      4.9,
+      4.9,
+      4.9,
+      5.0,
+      4.9,
+      4.8,
+      4.9,
+      4.9,
+      4.9,
+      4.9
+     ],
+     "cpu_per_wall": [
+      1.58,
+      1.59,
+      1.58,
+      1.6,
+      1.58,
+      1.6,
+      1.58,
+      1.59,
+      1.58,
+      1.59
+     ],
+     "host_busy_pct": [
+      91.0,
+      91.0,
+      90.0,
+      90.0,
+      90.0,
+      92.0,
+      91.0,
+      91.0,
+      91.0,
+      91.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      25.6,
+      25.6,
+      25.6,
+      25.6,
+      25.6,
+      29.5,
+      29.4,
+      29.4,
+      29.4,
+      29.4
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "starter new hot4",
+     "scores": [
+      0.01,
+      0.01
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      0.2,
+      0.2
+     ],
+     "cpu_per_wall": [
+      3.46,
+      3.42
+     ],
+     "host_busy_pct": [
+      10.0,
+      13.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      1.4,
+      1.3
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "starter old hot4",
+     "scores": [
+      0.01,
+      0.01
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      0.2,
+      0.2
+     ],
+     "cpu_per_wall": [
+      3.52,
+      3.45
+     ],
+     "host_busy_pct": [
+      14.0,
+      13.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      1.9,
+      1.0
+     ],
+     "online": [
+      "0-3"
+     ]
+    }
+   ],
+   "effect_points": 1.13,
+   "effect_by_condition": {
+    "auto8 hot4": 1.13,
+    "agent1 hot4": 1.46,
+    "auto8 q4": 1.31,
+    "auto8 x3": 1.1,
+    "auto8 x5": 1.06
+   },
+   "fix_tested": "auto8 hot4 65.29-65.32 -> 66.43-66.47, CPU s per case 11.0 vs 20.5; agent1 hot4 61.03-61.11 -> 62.47-62.57, CPU s per case 10.8 vs 20.2",
+   "correct_work_keeps_score": "yes for solvers without a deadline gain: auto4 29.47 -> 29.47, starter 0.01 -> 0.01; deadline solvers rise",
+   "note": "Scores repeat within 0.25 on one setting and drop 0.7-0.8 from hot4 to x5 on both pools (auto8 old 65.31 to 64.59, new 66.44 to 65.65), so load moves the score less than the pool does; weakest point: the gain is about 1.1-1.5 points, on deadline solvers only.",
+   "claim": "Eight concurrent cases sharing four CPUs can exhaust the 30-second wall timeout despite requiring under 30 CPU seconds, and halve deadline-based search computation.",
+   "job": "evidence/runs/community9-molecular_self_assembly-a evidence/runs/community9-molecular_self_assembly-b evidence/runs/community9-molecular_self_assembly-c",
+   "table_script": "evidence/scripts/second_review/c9_molecular_self_assembly_table.py"
+  }
+ ]
+}

@@ -3,6 +3,7 @@
   <h1>Effect on the published leaderboard</h1>
   <p class="subtitle">What the corrected graders could change, and what cannot be determined from public data</p>
 </header>
+<div class="col"><p class="note">This page describes the first audit, on the original release. <a href="{{root}}index.html#findings">Which of its findings hold up on the current judge</a> is on the Overview.</p></div>
 
 <section id="summary" class="col">
   <p>On the published leaderboard, Opus&nbsp;4.8 leads GPT-5.5 by {{headline:top_gap}} points ({{headline:top1_pub}} against {{headline:top2_pub}}). With the per-task limits we documented, their ranges are {{headline:top1_low}}–{{headline:top1_high}} and {{headline:top2_low}}–{{headline:top2_high}}. <mark>These overlap, so the public data can no longer confirm which of the two is ahead.</mark> This does not show that they change places. The ranges count the {{n_open}} fixes whose size on the leaderboard is unknown as zero.</p>
@@ -22,7 +23,7 @@
     <thead><tr><th>Model</th><th class="n">Published</th><th class="n">Widest possible</th><th class="n">Documented limits</th><th class="n">Plus Portfolio</th><th class="n">Scale only</th></tr></thead>
     <tbody>{{impact_rows}}</tbody>
   </table></div>
-  <p class="note" style="margin-top:10px">Removing D-ABIC leaves 50 tasks, or 49 for Opus 4.8, which has no valid Rust result. Overlapping ranges mean these limits cannot confirm the order; they do not show that two models change places. Treant's highest possible total is a documented limit, not a total any submission is known to reach. <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a> gives the full derivations and assumptions.</p>
+  <p class="note" style="margin-top:10px">Removing D-ABIC leaves 50 tasks, or 49 for Opus 4.8, which has no valid Rust result. Overlapping ranges mean these limits cannot confirm the order; they do not show that two models change places. Treant's highest possible total is a documented limit, not a total any submission is known to reach. <a href="https://github.com/findalexli/edgebench-verified/blob/main/first-audit/IMPACT.md">IMPACT.md</a> gives the full derivations and assumptions.</p>
 </section>
 
 <section id="large" class="col">
@@ -56,5 +57,5 @@
   </table></div>
   <p>In {{task:juliet_vulnerability_analyzer|Juliet}}, 14 of 105 submissions, all early ones, rose under the fix, and the kept score of 99.66 did not change. In {{task:borden_source_inversion|Borden Inversion}}, whose grader is unchanged, the run's best score climbed from 7.01 to 60.10 over 36 submissions while the checker reported its error on the hidden wells after each one; 7.01 is about what a one-shot fit that follows the documentation scores.</p>
   <p>The check covers one model, with one four-hour run per task instead of three twelve-hour runs. It shows that the problems occur in practice, but it cannot measure the effect on the leaderboard.</p>
-  <p class="note">Full figures, task by task: <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a> and <a href="{{site_root}}data/impact.csv">impact.csv</a>. Every grading: <code>evidence/runs/opus55-regrade2-summary/summary.json</code>.</p>
+  <p class="note">Full figures, task by task: <a href="https://github.com/findalexli/edgebench-verified/blob/main/first-audit/IMPACT.md">IMPACT.md</a> and <a href="{{site_root}}data/impact.csv">impact.csv</a>. Every grading: <code>evidence/runs/opus55-regrade2-summary/summary.json</code>.</p>
 </section>

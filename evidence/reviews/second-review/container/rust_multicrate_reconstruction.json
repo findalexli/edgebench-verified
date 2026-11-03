@@ -1,0 +1,224 @@
+{
+ "task": "rust_multicrate_reconstruction",
+ "claims": [
+  {
+   "claim": "Cargo fail-fast charges unexecuted passing tests as failures.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real unchanged: agent-1, auto-8, agent-5; starter as the no-work control",
+   "arms": [
+    {
+     "label": "real agent-1, current judge",
+     "scores": [
+      1.4711,
+      1.4711
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-1, --no-fail-fast",
+     "scores": [
+      1.7460999999999998,
+      1.7460999999999998
+     ],
+     "n": 2
+    },
+    {
+     "label": "real auto-8, current judge",
+     "scores": [
+      8.5443,
+      8.5443
+     ],
+     "n": 2
+    },
+    {
+     "label": "real auto-8, --no-fail-fast",
+     "scores": [
+      8.7683,
+      8.7683
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-5, current judge",
+     "scores": [
+      17.1997,
+      17.1997,
+      17.1997
+     ],
+     "n": 3
+    },
+    {
+     "label": "real agent-5, --no-fail-fast",
+     "scores": [
+      17.2997,
+      17.2997,
+      17.2997
+     ],
+     "n": 3
+    },
+    {
+     "label": "starter, current judge",
+     "scores": [
+      1.4711,
+      1.4711
+     ],
+     "n": 2
+    },
+    {
+     "label": "starter, --no-fail-fast",
+     "scores": [
+      1.7460999999999998,
+      1.7460999999999998
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-5, cc files restored",
+     "scores": [
+      27.1706,
+      27.1706
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-5, cc files restored and --no-fail-fast",
+     "scores": [
+      27.598,
+      27.598
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": 0.275,
+   "fix_tested": "old vs --no-fail-fast, same files: agent-1 1.4711 -> 1.7461, auto-8 8.5443 -> 8.7683, agent-5 17.1997 -> 17.2997; with cc files restored agent-5 27.1706 -> 27.5980",
+   "correct_work_keeps_score": "yes: no score falls; every arm rises and is exact across repeats",
+   "job": "evidence/runs/community9-rust_multicrate_reconstruction-a and -b, -cc-d",
+   "table_script": "evidence/scripts/second_review/c9_rust_multicrate_reconstruction_table.py",
+   "note": "Real and exactly repeatable but below 1 point on every real file (best real run 17.20, unchanged by the claim's size), even with cc restored (+0.43); weakest point: the no-work starter gains as much as agent-1 (+0.275), so it does not separate work."
+  },
+  {
+   "claim": "A passing exempt cas-pty test forgives an unrelated failure.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real unchanged: agent-5 (trigger); agent-1 and the starter as controls where the excused test really fails",
+   "arms": [
+    {
+     "label": "real agent-5, current judge",
+     "scores": [
+      17.1997,
+      17.1997,
+      17.1997
+     ],
+     "n": 3
+    },
+    {
+     "label": "real agent-5, exact FAILED check",
+     "scores": [
+      17.0997,
+      17.0997,
+      17.0997
+     ],
+     "n": 3
+    },
+    {
+     "label": "control: real agent-1, current judge",
+     "scores": [
+      1.4711,
+      1.4711
+     ],
+     "n": 2
+    },
+    {
+     "label": "control: real agent-1, exact FAILED check",
+     "scores": [
+      1.4711,
+      1.4711
+     ],
+     "n": 2
+    },
+    {
+     "label": "control: starter, current judge",
+     "scores": [
+      1.4711,
+      1.4711
+     ],
+     "n": 2
+    },
+    {
+     "label": "control: starter, exact FAILED check",
+     "scores": [
+      1.4711,
+      1.4711
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": -0.1,
+   "fix_tested": "old vs exact FAILED match: agent-5 17.1997 -> 17.0997 (cas-pty 10/11 -> 9/11); agent-1 1.4711 -> 1.4711; starter 1.4711 -> 1.4711",
+   "correct_work_keeps_score": "yes: controls where the excused test fails are unchanged; the fix lowers only the wrongly credited file",
+   "job": "evidence/runs/community9-rust_multicrate_reconstruction-a and -b, -smoke",
+   "table_script": "evidence/scripts/second_review/c9_rust_multicrate_reconstruction_table.py",
+   "note": "Measured on the best real run, exact in 3 of 3 repeats, but worth 0.10 of 100 and capped at 4/40 by construction; weakest point: only agent-5 of the 9 distinct real files was graded as a trigger, and the fix removes credit rather than adding it."
+  },
+  {
+   "claim": "Four missing cc files block nine scored crates.",
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged: agent-5; synthetic: reference (upstream CAS v1.0.0 bodies, hidden tests removed); starter as the no-work control",
+   "arms": [
+    {
+     "label": "real agent-5, current judge",
+     "scores": [
+      17.1997,
+      17.1997
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-5, cc files restored",
+     "scores": [
+      27.1706,
+      27.1706
+     ],
+     "n": 2
+    },
+    {
+     "label": "reference, current judge",
+     "scores": [
+      27.6091,
+      27.6091
+     ],
+     "n": 2
+    },
+    {
+     "label": "reference, cc files restored",
+     "scores": [
+      73.9926,
+      73.9926
+     ],
+     "n": 2
+    },
+    {
+     "label": "starter, current judge",
+     "scores": [
+      1.4711,
+      1.4711
+     ],
+     "n": 2
+    },
+    {
+     "label": "starter, cc files restored",
+     "scores": [
+      3.8189000000000006,
+      3.8189000000000006
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": 9.9709,
+   "fix_tested": "old vs build_vendor.py writing the 4 files (checksums match 4 of 4), same files: agent-5 17.1997 -> 27.1706, reference 27.6091 -> 73.9926, starter 1.4711 -> 3.8189",
+   "correct_work_keeps_score": "yes: all rise, agent-5 by 9.97 and the reference by 46.38, while the no-work starter gains only 2.35",
+   "job": "evidence/runs/community9-rust_multicrate_reconstruction-cc-a, -cc-b, -cc-c",
+   "table_script": "evidence/scripts/second_review/c9_rust_multicrate_reconstruction_table.py",
+   "note": "No blind spot here: no real run beats the block (best archived 17.20, NOTES' historical best 27.37, a complete solution 27.61 as shipped); weakest point: upstream already documents this as Known issue 1 and keeps it for comparability, arms ran at 8 vCPU with CARGO_BUILD_JOBS=8 (old-judge scores equal the official 4 CPU ones), and cas-search and cas-cli still fail to compile with the files restored, capping the reference at 73.99."
+  }
+ ]
+}

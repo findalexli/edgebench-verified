@@ -1,5 +1,7 @@
 # Git Rewrite in Zig (`git_rewrite_in_zig`)
 
+**Second review (November 2026): Real, small or unseen.** An ordinary object file or an unimported test calling system git takes a real implementation from 36.86 to 0, but none of the 46 distinct real archives has either. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The original grader sets the whole score to 0 when the submitted folder has a leftover build file (`main`, `main.o`) or a source line that runs the system `git`, even inside a test. A solver that follows the instructions can produce both, and the prompt mentions neither check. The fixed version deletes the leftovers before building and drops the source-text check, and a correct git still scores 100.</mark>
 
 ## What the task asks

@@ -1,115 +1,103 @@
 # Findings
 
-Each row gives one of the 51 public EdgeBench tasks, its problem in one line, and how much the problem changes a score out of 100. The task name links to the full case, which covers what the task asks, what goes wrong, how it was checked, the fix, and its limits.
+12 of the 51 public EdgeBench tasks have a measured score change on the current judge, large enough to matter. Effects are out of 100 unless stated otherwise. How the review worked is in [METHOD.md](METHOD.md); the data is in [data/review.json](data/review.json).
 
-We group the 32 tasks with a problem (fixed or removed) into four categories by how their main defect arises. Each task is listed under its one primary category and may have secondary ones, shown in the "Also" column. Kept tasks follow in their own sections.
+A task is confirmed when the measured change reaches real work: regrading a real submission shows it, or a repeatability failure affects any submission. A defect that is large only on a trigger no real submission we hold uses stays with the others. Graph Node, for example, drops from 90.52-90.57 to 1.95-2.01 if predictions use integer keys, which the task permits.
 
-| Category | Tasks (primary) |
+| Task | What goes wrong | Measured effect | Upstream |
+| --- | --- | --- | --- |
+| [Apple Incremental Game](cases/apple_incremental_game.md) | The same eight-at-once pool costs real files points at 4 CPUs and many cases under load. | At true 4 CPUs a real file scores 68.10-70.60, against 73.25-73.92 with a smaller pool, with no timeouts (n=5). In an overload test, five judges sharing 8 CPUs, it scored 3.09-19.78 with the original pool and 17.81-68.87 with the smaller one across three workers (n=20 each). The smaller pool also lost cases on the noisiest worker. | Same mechanism as PR #36; not reported separately. |
+| [Arc Compiler Runtime](cases/arc_compiler_runtime.md) | Hidden tests expect an `analyze()` return shape that nothing the agent sees describes. | A real Opus submission scores 61.31 as submitted and 94.81 with only the return shape changed (n=2 each). One real run each: best 61.31 on the original task, 96.06 with the shape documented. | Not yet reported. |
+| [Integer Compression Codec](cases/integer_compression_codec.md) | A stored baseline figure is impossible for the documented starter, which distorts how the datasets are weighted. | The starter gets 0.25 raw against the documented 1.0, and 0.855 with the exact figures. A real submission scores 73.60 today; with the figures corrected its raw score is 164.4, which clips to 100 on the existing scale, or gives 51.22 on a new 1..320 scale. So the size of the fix depends on the scale. No ranking change was shown, and real runs reach 73.78 today. | Not yet reported. Choosing a fix means choosing a new scale, which is the maintainers' call. |
+| [Juliet Vulnerability Analyzer](cases/juliet_vulnerability_analyzer.md) | Any `.py` or `.sh` file containing the word `infer`, even in a comment, loses 100 points. Separately, CWE-416 findings that start at the release are rejected. | A real analyzer scores 0 and would score 79.59 with the fix; another goes from 90.70 to 0 with one added comment (n=6). CWE-416: a real analyzer loses 3.34, from 89.00 to 85.66 (n=3), though that solver turned the option off and its best score lost nothing. | Reported: issue #39 and PR #35 (the `infer` part). |
+| [NetHack Dungeon Agent](cases/nethack_dungeon_agent.md) | Seeding silently fails, so the 20 graded games differ every time. | Our bot scores 6.8-15.5 over 12 gradings, and 14.5 on all 12 once seeding works, all on one day; NetHack also reads the clock, so repeatability across dates is untested. The bot is ours; there is no real submission to test. | Listed in upstream's known issues. |
+| [OpenRCT2 Theme Park AI](cases/openrct2_theme_park_ai.md) | The instruction promises about four game years, but the 120 seconds per scenario fit 68 to 69 of 992 game days. | A real plugin scores 27.50 under the official budget (n=3). Direct evaluator runs continued to 992 days score 16.44 (n=2), so for this plugin the short run inflates the score. No judge fix was tested. Real files also vary between gradings, up to 11.40-44.73, but randomness in the plugins may cause that, so we don't count it against the judge. | The short run is listed in upstream's known issues; issue #12 raises a separate question about this task's scale. |
+| [Rust Multicrate Reconstruction](cases/rust_multicrate_reconstruction.md) | Four source files are missing, which blocks nine scored crates. | At 8 vCPUs, restoring the files raises a real submission from 17.20 to 27.17 and a reference we rebuilt from upstream code from 27.61 to 73.99 (n=2). Original-judge scores matched 4-CPU results, but the restored arm wasn't run at 4 CPUs. Two crates still fail because of separate hidden-test defects. The starter also rises, from 1.47 to 3.82, so old scores don't carry over. | Listed in upstream's known issues. |
+| [Schemathesis Datagen Pipeline](cases/schemathesis_datagen_pipeline.md) | The hidden header test imports names and expects format keys that `TODO.md` never gives, so every real `headers` module scores 0 of 15 on it. | Once those are supplied, a real submission goes from 72.31 to 85.64 or 86.67; the two values come from a flaky test. The 8 real modules are 2 distinct versions. | Not yet reported. |
+| [SMT Solver](cases/smt_solver.md) | The validator's recursion crashes on 5 hard files when a solver answers `sat`; no score file gets written, and the judge still reports a valid 0. | A real solver scores 0.00 on the shipped judge and 47.04 and 46.17 with a larger validator stack. The 5 crashing answers still fail validation; preventing the crash restores credit earned on other cases. Measured at 8 CPUs and 7 GB, not the official 16 and 16 GB, with 6 to 7 solver OOM kills per run. No real run shows it. | Not yet reported. |
+| [Treant Forest](cases/treant_forest.md) | The tester stops each game at an undocumented turn cap, so no submission can pass 21.02, while the 0-100 scale assumes totals the cap rules out. | All 87 archived real reports sit at 20.46-21.02, so the cap hides real differences between them. Removing the cap with the scale unchanged raises one real submission by 15.83 and reorders the ones we tested, though some long replays hit the tester's time limit. The four real submissions we measured read a destination list the README says solutions don't use; a grid-only control scores 3.04 with or without the cap. | Listed in upstream's known issues. Whether to change the cap, the scale or both is the maintainers' call. |
+| [Vibrating Path Graph Coloring](cases/vibrating_path_graph_coloring.md) | Eight cases run at once on the official 4 CPUs, and one timeout makes the whole total `inf`. | A real Opus solver gets `inf` on all 15 gradings and 19.77-19.98 with 4 cases at once. The same file passed all 7 grades during its own run on the published judge image, so the grading is non-repeatable. | Reported: issue #40 and PR #36. |
+| [Wesnoth Tactical AI](cases/wesnoth_tactical_ai.md) | The same file gets different scores despite fixed seeds. | Wesnoth's stock AI scores 36 to 43 over 8 gradings with no timeouts. We haven't found the cause, and there is no real submission to test. | Listed in upstream's known issues. |
+
+<details>
+<summary>The other 39 tasks, including first-audit claims we withdrew</summary>
+
+Our first audit reported problems in 32 tasks. Of those 32, 10 are confirmed, 13 are real but small or unseen, 1 has changed upstream and 8 are not confirmed.
+
+| Status | Tasks |
 | --- | ---: |
-| [Engineering and runtime environment](#1-engineering-and-runtime-environment) | 5 |
-| [Grader correctness and factual errors](#2-grader-correctness-and-factual-errors) | 15 |
-| [Instruction–grader mismatch](#3-instructiongrader-mismatch) | 9 |
-| [Scoring scale and selection](#4-scoring-scale-and-selection) | 3 |
-| **Total** | **32** |
+| Confirmed | 12 |
+| Real, small or unseen | 15 |
+| Changed upstream | 1 |
+| Not confirmed | 8 |
+| No problem found | 15 |
+| **Total** | **51** |
 
-"How much it matters" is the largest change we demonstrated or proved for one submission. It is not an estimate of the effect on the published leaderboard, which is in [IMPACT.md](IMPACT.md).
+### Real, small or unseen
 
-## 1. Engineering and runtime environment
+The defect exists, but it moves about a point or less, or it is large only when triggered and no real submission we hold triggers it.
 
-**5 tasks.** The grader's scoring rules may be right, but the grader does not run correctly in the setting where EdgeBench uses it. Typical causes are test cases that run at once on fewer CPUs than they need, so that good-faith solutions time out; hidden tests inserted where they do not compile; files the grader needs that are missing from the published images; a test run that stops at its first failure and counts the rest as failed; or a result that depends on timing. Good-faith work then loses points for reasons unrelated to its quality.
+| Task | Why it is here | First audit |
+| --- | --- | --- |
+| [D-ABIC Gravity Inversion](cases/dabic_gravity_inversion.md) | An undisclosed gate costs a model-space solver 1.08 points, but 0 of 75 real reports use that form. The self-reported points are a separate design question. | Removed |
+| [DCSS Dungeon AI](cases/dcss_dungeon_ai.md) | Upstream's notes record one bot at raw 1556.0-5211.2 on the current judge, which computes to 32.82-54.61. Our own weaker bots spread by under 1 point, so we did not reproduce the large swing or isolate its cause. | Kept, with a note |
+| [Exchange Core Throughput](cases/exchange_core_throughput.md) | Broken engines do earn credit, but at the official 4 CPUs correct work mostly scores 0 too, and no real run was affected. | Fixed |
+| [FFmpeg swscale Reimplementation](cases/ffmpeg_swscale_reimplementation.md) | Making a conversion fail raises a score by 12.82, but no real run gained from it. | Fixed |
+| [Git Rewrite in Zig](cases/git_rewrite_in_zig.md) | An ordinary object file or an unimported test calling system git takes a real implementation from 36.86 to 0, but none of the 46 distinct real archives has either. | Fixed |
+| [Graph Node Classification](cases/graph_node_classification.md) | Changing a real solver's predictions to integer keys, which the task permits, takes it from 90.52-90.57 to 1.95-2.01. No real submission we hold uses them. | Fixed |
+| [Grid Turing Robot](cases/grid_turing_robot.md) | A smaller pool is worth +0.67 to +0.71 on valid real files. No real file goes from invalid to valid. | Fixed |
+| [Lean Analysis Proofs](cases/lean_analysis_proofs.md) | Two required statements are false, which is proved in Lean. The computed score effect is tiny, and the grader image is too large for us to rerun. | Fixed |
+| [Molecular Self Assembly](cases/molecular_self_assembly.md) | A smaller pool gives deadline search more CPU, worth +1.13 to +1.46. The timeouts we first blamed on the pool occur on both pools. | Fixed |
+| [Ordinal Notation Well-Foundedness](cases/ordinal_notation_well_foundedness.md) | A file-name filter can drop a needed proof helper (1.18 to 0). Only our own proof triggers it. We hold no real submission for this task, though upstream records historical runs. | Kept, with a note |
+| [PFR Formalization](cases/pfr_formalization.md) | Five scored statements carry a hidden `sorry` in their type, so no submission can earn them: 5 of 423 targets, or 1.18 points. A volunteer Lean user checked this by hand and passed it: with the workaround, all five completed proofs receive credit (398/423 to 403/423). We did not rerun it on the current judge. | Fixed |
+| [Schemathesis Config Modernization](cases/schemathesis_config_modernization.md) | A forwarding decorator gets 0.67 points too many. No real submission writes one. | Fixed |
+| [Schemathesis Reporting Observability](cases/schemathesis_reporting_observability.md) | Two checks give 1.00 to 1.43 points too many, and a third takes 1.43 from a valid report without the word schemathesis. One unchanged real file is affected (2.0 instead of 1.0). | Fixed |
+| [Triangulation Coloring Optimization](cases/triangulation_coloring_optimization.md) | A smaller pool is worth +0.32 to +0.59, with no timeouts in any condition. | Fixed |
+| [Warehouse Forklift Routing](cases/warehouse_forklift_routing.md) | The judge allows 60 s per input. Five cases at 30 s each suggest 150 s, though another README passage calls whole inputs test cases. Edited solvers with long deadlines recover under a longer limit; real submissions we hold are unaffected, and the pool makes about no difference. | Fixed |
 
-| Task | Outcome | Also | What goes wrong | How much it matters |
-| --- | --- | --- | --- | --- |
-| [Apple Incremental Game](cases/apple_incremental_game.md) | Fixed | – | On the publisher's 4-CPU grader, cases within the 30-second limit time out and score 0 | Up to nearly the full score for solutions using about 15 to 30 seconds of CPU per case on a 4-CPU grader; solutions that stop at a deadline got half the computing time. The memory note concerns only users who rely on the stated limit. |
-| [Grid Turing Robot](cases/grid_turing_robot.md) | Fixed | Instruction–grader mismatch; Scoring scale and selection | On the publisher's 4-CPU grader, a solution within the 30-second limit can void the whole submission | Up to the full score for solutions using about 15 to 30 seconds of CPU per case on a 4-CPU grader; about 20 points if one case fails; at most 2.84 because the scale's zero point is set too high, so a do-nothing program already gets 2.84 points. |
-| [Molecular Self Assembly](cases/molecular_self_assembly.md) | Fixed | – | On the publisher's 4-CPU grader, cases within the 30-second limit time out and score 0 | Up to nearly the full score for solutions using about 15 to 30 seconds of CPU per case on a 4-CPU grader; solutions that stop at a deadline got half the computing time. We found no way for extra memory to raise a score. |
-| [Rust Multicrate Reconstruction](cases/rust_multicrate_reconstruction.md) | Fixed | Grader correctness and factual errors | Hidden tests that cannot compile zero two packages; fixed | In the publisher's grading environment a complete, correct solution scores 73.99 out of 100, against 94.70 with the fix (+20.71); no submission can gain more than 29.2. Stopping at the first failing test file costs 0.4 to 3.3 points in the measured submissions. Graded with the published images as shipped, the same solution scores 27.6. |
-| [Vibrating Path Graph Coloring](cases/vibrating_path_graph_coloring.md) | Fixed | Instruction–grader mismatch | On the publisher's 4-CPU grader, a solution within the 30-second limit can leave the whole submission without a score | Up to the full score for solutions using about 14 to 30 seconds of CPU per case on a 4-CPU grader; solutions that stop at a deadline got half the computing time. The format mismatch has zero effect on 37 certified cases; its effect on the other 13 is unresolved. |
+### Changed upstream
 
-## 2. Grader correctness and factual errors
+Real on the original release, no longer applies on the `community` branch.
 
-**15 tasks.** The task asks for the right thing, but the grader checks it wrongly and marks wrong work as right, or right work as wrong. Examples include a correctness check that misses real bugs, a validator that misses overlapping shapes, a cost check that leaves out one term, a supplied library that miscalculates, an answer checker that misreads valid answers, a statement to be proved that is false as written, or points taken from numbers the submission reports about itself. Where the grader accepts a wrong submission, that submission can score as high as a correct one, or higher.
+| Task | Why it is here | First audit |
+| --- | --- | --- |
+| [Order Addition Permutation Optimization](cases/order_addition_permutation_optimization.md) | Real on the original release: a real run kept 3.79 instead of the 41.24 a later submission earned. `community` changed how a run picks its best, so this no longer applies there. | Fixed |
 
-| Task | Outcome | Also | What goes wrong | How much it matters |
-| --- | --- | --- | --- | --- |
-| [College English Exam Bank](cases/college_english_exam_bank.md) | Fixed | – | Rubric rules the AI grader leaves out are counted as full marks | Raises a score by up to the value of the left-out rules; an empty assessment scores 100. Any submission can be affected when the AI model's assessment is incomplete. |
-| [CTA Risk Budget Optimization](cases/cta_risk_budget_optimization.md) | Fixed | Instruction–grader mismatch | The overseas-exposure limit check skips currency conversion, so dollar positions are undercounted | Up to 5 points out of 100, in either direction, for portfolios holding overseas contracts. Through the full scoring command, a leveraged portfolio that breaches the limit drops from 58.75 to 53.75 and a compliant unleveraged one rises from 66.25 to 71.25. |
-| [D-ABIC Gravity Inversion](cases/dabic_gravity_inversion.md) | Removed | Instruction–grader mismatch | 42 points come from the submission's own unchecked self-reported results | 42 points cannot be verified, for any submission. Choosing the allowed but penalised model-space formula can cost a strong solution 46.06 points at C = 26 and 48.06 at C = 30, computed from the grader's own rule (the gap grows with C) (3.2 points of the total before the grader's penalty factor, at every level). |
-| [Equivalence Class Divide and Conquer](cases/equivalence_class_divide_and_conquer.md) | Fixed | – | One sub-problem's grader leaves the last state's size out of the cost limit check | An upper bound is 9.67 of 100 points if all 28 large official inputs are affected (5.17 for one). We did not demonstrate a solution that attains these changes on the official inputs. |
-| [Exchange Core Throughput](cases/exchange_core_throughput.md) | Fixed | Engineering and runtime environment | The correctness check misses wrong fees and lost messages, so broken engines get full credit | Engines with these bugs get full credit instead of 0; across four runs each they scored 4.7–24.4 out of 100 and the correct engine 0–37.5, all within speed noise. At 4 grader CPUs any engine below about 2.09 million transactions per second scores 0; the prompt's own suggested thread change ran at 1.64–2.09 million in four runs, a score of 0–0.02. |
-| [FFmpeg swscale Reimplementation](cases/ffmpeg_swscale_reimplementation.md) | Fixed | – | Timed speed tests never check output, so failed calls earn speed credit | Up to 18.93 points out of 100 shown for unfinished submissions made in good faith whose library fails or does nothing on a timed conversion. |
-| [Graph Node Classification](cases/graph_node_classification.md) | Fixed | – | The grader drops non-numeric predictions without warning and still counts the run as valid | For submissions with missing or non-numeric predictions, the added chance can raise a run's kept best score (general proof), but we showed no gain for a real solver. A submission keyed by whole-number node IDs loses its whole score; none of the real solver submissions we regraded was keyed that way. |
-| [Jagua Nesting Optimization](cases/jagua_nesting_optimization.md) | Fixed | – | The grader accepts overlapping shapes as valid layouts | Layouts with overlaps can score above every valid layout. We did not measure the size. Valid layouts without overlaps are unaffected. |
-| [Lean Analysis Proofs](cases/lean_analysis_proofs.md) | Fixed | – | Two required statements are false; some points depend on proof style | At least 49 of 2901 points (1.69%) are out of reach for any complete, correct solution; up to 466 points could depend on proof style. |
-| [PFR Formalization](cases/pfr_formalization.md) | Fixed | – | Five statements could never be earned because their type contained a hidden `sorry` | Five targets cannot be earned (1.18 points); up to nine are affected when downstream proofs use them (2.13 points, inferred). The resulting 98.82 ceiling is an upper bound, not an attained score. We have not measured recovery on the actual targets or the leaderboard impact. |
-| [Schemathesis Config Modernization](cases/schemathesis_config_modernization.md) | Fixed | – | One test does not check that a function is returned unchanged | At most 1/160 of the total (0.625 points) per run, either way: a wrapper decorator loses up to that; a correct one with that test group partly passed gains up to that. |
-| [Schemathesis Datagen Pipeline](cases/schemathesis_datagen_pipeline.md) | Fixed | – | The date test checks only the format, not whether dates are real | At most about 1% of the total score, only for generators that produce invalid dates or times; they get the same credit as correct generators. |
-| [Schemathesis Reporting Observability](cases/schemathesis_reporting_observability.md) | Fixed | Instruction–grader mismatch | Two hidden tests give credit for wrong or broken output | Wrong credit of about 2.4% of the total: 1/70 (about 1.4%) and 1/100 (1.0%); a correct writer with another suite name loses 1/70. The fixed version moves a score at most 4.76 points down, or 2.76 up (up to 4.76 only if a submission makes the GeneratedValue class unimportable). |
-| [SMT Solver](cases/smt_solver.md) | Fixed | Instruction–grader mismatch | The answer checker misreads some valid solutions, so 27 hidden problems cannot be won | A perfect solver's maximum falls from 78.61 to 72.40 (6.21 points). All solvers lose the 27 problems; those following the documented format also lose 42 more. |
-| [Tree Block Partitioning](cases/tree_block_partitioning.md) | Fixed | – | The supplied grading library miscalculates when a value multiplies itself | At most 5 of 100 points, only for submissions that multiply a value by itself. The other 95 points are unaffected. |
+### Not confirmed
 
-## 3. Instruction–grader mismatch
+The first audit's claim did not hold up, or we could not settle it. It may still be a true statement about the code; we could not show it moves a good-faith solver's score on the current judge.
 
-**9 tasks.** Each rule the grader applies may be reasonable on its own, but it is not the rule the agent was given. The grader enforces something the instructions do not state, or contradicts what they say. Examples are a shorter time limit than promised, a geometric condition left out, an undocumented output format or convention, checks the instructions never mention, a function that does not exist, or a different formula. The grader then scores an agent that follows the instructions faithfully by a different rule.
+| Task | Why it is here | First audit |
+| --- | --- | --- |
+| [Borden Source Inversion](cases/borden_source_inversion.md) | The unstated model didn't stop one real run from reaching raw 108.97 of 109 through score feedback, while a run with the model documented reached 52.86. Single runs like these don't show what documenting it would change. | Fixed |
+| [College English Exam Bank](cases/college_english_exam_bank.md) | The code gives full marks for omitted rules, but every example is a constructed grader reply, and no real submission hit it. | Fixed |
+| [CTA Risk Budget Optimization](cases/cta_risk_budget_optimization.md) | The limit formula differs from the policy, but a real submission we checked scores 50.0 both ways. | Fixed |
+| [Equivalence Class Divide and Conquer](cases/equivalence_class_divide_and_conquer.md) | The cost accounting is off, but reference and naive submissions score the same either way, and the swing needs an input we added. | Fixed |
+| [Jagua Nesting Optimization](cases/jagua_nesting_optimization.md) | The overlap bug exists, but we have no good-faith submission that gains or loses from it. | Fixed |
+| [OpenTTD Transport AI](cases/openttd_transport_ai.md) | The named API doesn't exist, but we measured no loss for a productive AI. The archived idle script scored 0, and a corrected one was not game-tested. | Fixed |
+| [Portfolio Risk Calibration](cases/portfolio_risk_calibration.md) | The excess-return formula differs from the stated one, but a modified file on a local scoring path moved only from 15.35 to 15.34 (or 15.27 with aligned annualization). Harm on the current judge remains unverified. | Fixed |
+| [Tree Block Partitioning](cases/tree_block_partitioning.md) | The supplied multiply is wrong when operands alias, but none of the 61 real archives hits it. | Fixed |
 
-| Task | Outcome | Also | What goes wrong | How much it matters |
-| --- | --- | --- | --- | --- |
-| [Arc Compiler Runtime](cases/arc_compiler_runtime.md) | Fixed | – | Hidden tests need an undocumented output format worth a third of the score | Any solver who keeps the starter's format or does not guess the required message wording loses up to 33.67 points, without warning. |
-| [Borden Source Inversion](cases/borden_source_inversion.md) | Fixed | Scoring scale and selection | Hidden grading model uses unstated, non-physical conventions, so one-shot textbook solutions score near baseline | For a one-shot fit that follows the documentation, about 24 of the original 109 points (22 of 100): 7.0 with a textbook model, 31.2 with the hidden conventions. Agents that submit repeatedly lose less, by an unmeasured amount. One real run climbed from 7.01 to 60.10 while the grader reported its error on the hidden wells. |
-| [Git Rewrite in Zig](cases/git_rewrite_in_zig.md) | Fixed | Engineering and runtime environment | Undisclosed file checks give a good-faith program 0; after the fix a correct git still earns 100 | A good-faith submission that trips a check loses its whole score (up to 100 points). The time limit costs a correct git 2.6 points with 8 scripts per CPU, and nothing at 4 or fewer. |
-| [Juliet Vulnerability Analyzer](cases/juliet_vulnerability_analyzer.md) | Fixed | – | Public and hidden examples mark command-injection traces differently, and the original grader accepts only the hidden form | Only analyzers that use the public command-injection form are affected, and only upward: 2.49 points out of 100 for one that finds every bug with every other trace right, and 15 points for one that finds only the command-injection bugs (both measured). At most 26.47 points, computed exactly from the grader's formula, not run. |
-| [OpenRCT2 Theme Park AI](cases/openrct2_theme_park_ai.md) | Fixed | – | Instructions promise about 4 game years; the grader runs about 68 game days | We did not measure a score change. The grader measures company value after about 2 months instead of 4 years, which affects solvers who planned for the stated length. |
-| [OpenTTD Transport AI](cases/openttd_transport_ai.md) | Fixed | – | The instructions name a game function that does not exist | Up to the whole score for a submission that follows the instructions and calls the missing function. Submissions that use a different function are not affected. |
-| [Portfolio Risk Calibration](cases/portfolio_risk_calibration.md) | Fixed | – | Excess return uses a slightly different formula than the instructions state | Under its assumptions, a limited numerical search puts the change between −0.10 and +0.3921 points; this is not a bound for every case. In the side-by-side test the full score changes by +0.07 points. Lean shows that the fix keeps the sign and order of excess returns within the stated range. |
-| [Triangulation Coloring Optimization](cases/triangulation_coloring_optimization.md) | Fixed | Engineering and runtime environment | The grader allows mesh moves the instructions forbid, and its test inputs overlap | Changes which moves are allowed for every solver; we did not measure how much a strong solver gains from forbidden moves. On a 4-CPU grader, solutions using about 15 to 30 seconds of CPU per case lost their whole score. |
-| [Warehouse Forklift Routing](cases/warehouse_forklift_routing.md) | Fixed | Engineering and runtime environment; Scoring scale and selection | Time limit is stricter than promised, and no score can exceed about 30 | A solver taking 60 to 150 seconds on any input, or more than about 30 seconds of CPU per input on the publisher's 4-CPU grader (half a CPU each under the 60-second limit), loses its whole score; every solver is capped at about 30.6 out of 100 (30.3 before display rounding). |
+### No problem found
 
-## 4. Scoring scale and selection
-
-**3 tasks.** The grader computes the raw result correctly, but the step that turns it into the final score goes wrong. Either the reference points that convert the raw result to 0–100 cannot be reached or were measured on something else, which compresses or shifts the scores, or the rule that picks each run's best submission keeps the wrong one.
-
-| Task | Outcome | Also | What goes wrong | How much it matters |
-| --- | --- | --- | --- | --- |
-| [Integer Compression Codec](cases/integer_compression_codec.md) | Fixed | – | Scores compare against stored numbers the documented starter cannot produce | All submissions. Raw: starter about 0.23, not 1.0; a simple correct codec about 0.8, not 6 to 8; dataset weights off 7 to 9 times. Fixed scale: starter 0, codec about 1.8. |
-| [Order Addition Permutation Optimization](cases/order_addition_permutation_optimization.md) | Fixed | Engineering and runtime environment | An outdated file check fails every submission, so later improvements are ignored | Each submission's own score is unaffected. A run's reported best score is wrong whenever a later valid submission scores higher; we did not measure how often this happened. |
-| [Treant Forest](cases/treant_forest.md) | Fixed | Engineering and runtime environment | The score scale tops out at 21 of 100 for any submission | Every submission's score is squeezed into 0 to 21, with ordering kept. A simple, valid test submission scored 3.04. |
-
-## Kept: real issues that do not change scores
-
-Each issue here is real, but either it cannot change a good-faith submission's score out of 100 by a meaningful amount or the task states it openly, so the grader needs no change.
-
-| Task | Outcome | What goes wrong | How much it matters |
-| --- | --- | --- | --- |
-| [BipedalWalker Locomotion RL](cases/bipedalwalker_locomotion_rl.md) | Kept, with a note | Scores are capped at 30 out of 100 by design, as the task states | Every submission is limited to 30 of 100. A mismatched file scores like an untrained walker (about 10 with all loading checks passed). |
-| [Vehicle Routing Time Windows](cases/vehicle_routing_time_windows.md) | Kept, with a note | Checker uses files solvers may edit; per-instance time argument does not fit the total | None for a program reporting its own cost and budgeting about 20 seconds per instance. Using the full 60 seconds caps the score near 37 (computed). We did not test editing the header or flags. |
-| [Ordinal Notation Well-Foundedness](cases/ordinal_notation_well_foundedness.md) | Kept, with a note | Grader correct; published results show targets 1–6 proved, 7–9 (64 of 85 points) open | We found no effect on genuine proofs. A proof needing a helper file with an excluded name, or taking over 300 seconds to compile, would fail. |
-
-## Kept: scores that depend on chance, machine speed or network access
-
-The grader works, but repeated runs or different machines can give different scores. No change to the grader removes this noise, so we keep these tasks with a note even where the effect is large (about ±7 of 100 points per grading in ANN Vector Search).
-
-| Task | Outcome | What goes wrong | How much it matters |
-| --- | --- | --- | --- |
-| [NetHack Dungeon Agent](cases/nethack_dungeon_agent.md) | Kept, with a note | Game seeding silently fails, so the 20 graded games are random and scores vary | For the starter, 0.02 points out of 100. For competent agents (up to 41.9 recorded) we did not measure the variation, so its effect is unknown. A game over 120 seconds scores 0. |
-| [Wesnoth Tactical AI](cases/wesnoth_tactical_ai.md) | Kept, with a note | The supplied starter program is broken, and repeat games give different results | The broken starter scores 0 for anyone submitting or building on it unchanged. Non-repeatable games move a score by about ±4–5 of 100 points per grading (binomial estimate, not measured). |
-| [ANN Vector Search QPS](cases/ann_vector_search_qps.md) | Kept, with a note | No scoring problem found; measured speed depends on the machine | Speed varied 1.29-fold between three isolated gradings of one configuration: 13.3 of 100 points (about ±7 per grading) in the range where agents score (23.8–59.7). Scores from different machines are not comparable. |
-| [DCSS Dungeon AI](cases/dcss_dungeon_ai.md) | Kept, with a note | Scoring matches the instructions; scores depend on machine speed | We did not measure the effect of machine speed. |
-| [Wireless Electricity Layout](cases/wireless_electricity_layout.md) | Kept, with a note | A program that fails to compile can be listed as best, but scores never change | The compile-failure rule changes no score (proved in Lean). Separately, one failed or timed-out case scores the whole submission 0; under a 5-second wall-clock limit this is machine-dependent (unmeasured). The starter scores 0. |
-| [Ad Placement Optimization](cases/ad_placement_optimization.md) | Kept, with a note | No problem found; overlap and boundary checks match the original contest rules | The scoring rules have no effect. With under 2 CPUs, a solver that times itself by CPU time rather than wall-clock time can time out on every case (not measured). |
-| [New Foundations Consistency](cases/new_foundations_consistency.md) | Kept, with a note | Valid result with internet access, shown only for the unmodified starter; cannot grade offline | No effect measured. Offline graders give no score at all. The renaming risk is at most 0.67% of the score, an upper bound, not a measured loss. |
-| [K-12 Math Recommendation](cases/k12_math_recommendation.md) | Kept, with a note | No scoring problem found; shipped example reports are out of date | No effect on submissions that follow the rules under normal memory limits. Under a tight address-space limit every submission gets 0 with an error. |
-
-## Kept: no problem found
-
-The grader scores good-faith work as the task promises. Each of these tasks carries a short usage note.
+Nothing to correct. Each of these tasks carries a short usage note on its case page.
 
 | Task | What we checked |
 | --- | --- |
+| [Ad Placement Optimization](cases/ad_placement_optimization.md) | No problem found; overlap and boundary checks match the original contest rules |
 | [Anchorhead Text Adventure](cases/anchorhead_text_adventure.md) | No scoring problem; the grader counts each game's final score, not its peak |
+| [ANN Vector Search QPS](cases/ann_vector_search_qps.md) | No scoring problem found; measured speed depends on the machine |
+| [BipedalWalker Locomotion RL](cases/bipedalwalker_locomotion_rl.md) | Scores are capped at 30 out of 100 by design, as the task states |
 | [Carleson Formalization](cases/carleson_formalization.md) | No problem found; one placeholder definition accepts any value |
 | [Combinatorial Games Formalization](cases/combinatorial_games_formalization.md) | No problem found; correct proofs in different styles earn the same credit |
 | [FLT Regular Formalization](cases/flt_regular_formalization.md) | No problem found; the 25 scored proofs match the task's own list |
+| [K-12 Math Recommendation](cases/k12_math_recommendation.md) | No scoring problem found; shipped example reports are out of date |
+| [New Foundations Consistency](cases/new_foundations_consistency.md) | Valid result with internet access, shown only for the unmodified starter; cannot grade offline |
 | [Sphere Eversion Formalization](cases/sphere_eversion_formalization.md) | No problem found; no scored item found out of reach because of generated names |
 | [Trinity Text Adventure](cases/trinity_text_adventure.md) | No problem found; the score is the game's own, and play is repeatable |
 | [Tryst Text Adventure](cases/tryst_text_adventure.md) | No problem found; the score is the game's own repeatable score |
+| [Vehicle Routing Time Windows](cases/vehicle_routing_time_windows.md) | Checker uses files solvers may edit; per-instance time argument does not fit the total |
 | [VLIW Kernel Optimization](cases/vliw_kernel_optimization.md) | No problem found for submissions that follow the rules |
+| [Wireless Electricity Layout](cases/wireless_electricity_layout.md) | A program that fails to compile can be listed as best, but scores never change |
+
+</details>

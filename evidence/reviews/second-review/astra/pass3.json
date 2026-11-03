@@ -1,0 +1,239 @@
+{
+ "counts_including_withheld": {
+  "WEAKER": 12,
+  "NEEDS_CONTAINER": 10,
+  "HOLDS": 24
+ },
+ "claims": [
+  {
+   "task": "anchorhead_text_adventure",
+   "claim": "Sessions count final rather than peak score, but the audit treats this as harmless.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "apple_incremental_game",
+   "claim": "Eight concurrent cases sharing four CPUs can wrongly time out otherwise valid searches.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "arc_compiler_runtime",
+   "claim": "Hidden tests require an undocumented analyze() return shape and diagnostic wording, penalizing implementations that preserve the starter interface.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "bipedalwalker_locomotion_rl",
+   "claim": "Checkpoint loading can silently discard trained weights and evaluate randomly initialized parameters.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "borden_source_inversion",
+   "claim": "Undisclosed amplitude and source-plane conventions penalize a plausible good-faith transport model.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "college_english_exam_bank",
+   "claim": "Omitted rubric rules receive full marks, potentially inflating good-faith submissions.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "cta_risk_budget_optimization",
+   "claim": "The current overseas-limit check omits USD-to-CNY conversion and divides by gross notional instead of fund NAV, allowing both overcredit and undercredit.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "dabic_gravity_inversion",
+   "claim": "An undisclosed data-space gate penalizes the explicitly permitted model-space implementation.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "dcss_dungeon_ai",
+   "claim": "Identical good-faith bots can receive different scores because the evaluator injects inputs according to wall-clock timing.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "exchange_core_throughput",
+   "claim": "Missing fee/event checks award incorrect engines full credit.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "exchange_core_throughput",
+   "claim": "A Maven failure after the average still receives throughput credit.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "ffmpeg_swscale_reimplementation",
+   "claim": "Unchecked timed outputs and ignored error returns let unfinished implementations earn undeserved normalized speedup credit.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "git_rewrite_in_zig",
+   "claim": "Harmless Zig build leftovers can zero the entire score.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "git_rewrite_in_zig",
+   "claim": "Test-only system-git calls can zero an otherwise legitimate implementation.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "grid_turing_robot",
+   "claim": "Eight concurrent cases sharing four CPUs can invalidate solutions requiring less than 30 CPU seconds per case.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "integer_compression_codec",
+   "claim": "The stored baseline contradicts the documented Varint starter and changes effective dataset weighting.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "integer_compression_codec",
+   "claim": "Fixed reference throughput and short timing measurements produce host-dependent, non-repeatable scores.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "juliet_vulnerability_analyzer",
+   "claim": "CWE-416 findings starting at the release witness are incorrectly rejected.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "lean_analysis_proofs",
+   "claim": "MajorizesOn.anti_symm and PiecewiseConstantOn.div are false required targets.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "lean_analysis_proofs",
+   "claim": "Correct proofs receive different credit because compiler-generated auxiliary names and types change.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "lean_analysis_proofs",
+   "claim": "At least 49 targets are unreachable for a complete correct solution.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "molecular_self_assembly",
+   "claim": "Eight concurrent cases sharing four CPUs can exhaust the 30-second wall timeout despite requiring under 30 CPU seconds, and halve deadline-based search computation.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "nethack_dungeon_agent",
+   "claim": "Failed seeding makes the 20-game score non-repeatable.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "openrct2_theme_park_ai",
+   "claim": "The promised approximately four-year simulation is cut short by the official 120-second budget, and scoring uses the last available snapshot.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "openttd_transport_ai",
+   "claim": "The prompt and starter call a nonexistent API, killing otherwise good-faith scripts.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "openttd_transport_ai",
+   "claim": "The advertised company-value formula incorrectly credits infrastructure and purchase-price vehicle value.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "ordinal_notation_well_foundedness",
+   "claim": "Undocumented helper-name exclusions can discard correct proof dependencies.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "pfr_formalization",
+   "claim": "Five baseline targets cannot receive credit when solvers preserve their supplied signatures, because those types contain sorryAx.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "portfolio_risk_calibration",
+   "claim": "The judge annualizes the difference of period returns instead of subtracting annualized returns, changing excess-return, information-ratio and Sortino points.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "claim": "Cargo fail-fast charges unexecuted passing tests as failures.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "claim": "A passing exempt cas-pty test forgives an unrelated failure.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "claim": "Four missing cc files block nine scored crates.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "schemathesis_config_modernization",
+   "claim": "Phase 3 overcredits a forwarding metric decorator because it checks callability rather than required function identity.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "schemathesis_datagen_pipeline",
+   "claim": "The HTTP-date test awards credit to generators producing impossible dates, mismatched weekdays and invalid clock times.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "schemathesis_reporting_observability",
+   "claim": "The JUnit check awards credit to malformed XML and reports that omit recorded errors.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "schemathesis_reporting_observability",
+   "claim": "The body-suppression check is vacuous because it filters coverage values using the wrong GeneratedValue class.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "schemathesis_reporting_observability",
+   "claim": "A correct JUnit writer can lose credit solely because its report lacks the word schemathesis.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "smt_solver",
+   "claim": "Textual UF lookup rejects correct witnesses using documented ground-term keys.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "treant_forest",
+   "claim": "Unreachable normalization anchors compress legitimate scores below 21.021/100.",
+   "verdict": "HOLDS"
+  },
+  {
+   "task": "tree_block_partitioning",
+   "claim": "T2's supplied multiplication mishandles self-aliasing, potentially penalizing otherwise correct solvers.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "triangulation_coloring_optimization",
+   "claim": "Eight concurrent cases on four CPUs cause avoidable timeouts and invalidate otherwise viable solutions.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "vehicle_routing_time_windows",
+   "claim": "Building the verifier against submitted headers can reject legitimate solver refactors.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "vliw_kernel_optimization",
+   "claim": "Ordinary JSON diagnostics can invalidate a correct kernel, contradicting the audit's exclusively out-of-scope characterization.",
+   "verdict": "WEAKER"
+  },
+  {
+   "task": "warehouse_forklift_routing",
+   "claim": "Eight simultaneous inputs on four official CPUs materially reduce usable computation and cause avoidable timeouts.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "wesnoth_tactical_ai",
+   "claim": "Identical submissions receive non-repeatable scores despite fixed seeds.",
+   "verdict": "NEEDS_CONTAINER"
+  },
+  {
+   "task": "wesnoth_tactical_ai",
+   "claim": "Harmless comments and identifiers can zero an otherwise valid submission.",
+   "verdict": "WEAKER"
+  }
+ ]
+}

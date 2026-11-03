@@ -1,5 +1,7 @@
 # Triangulation Coloring Optimization (`triangulation_coloring_optimization`)
 
+**Second review (November 2026): Real, small or unseen.** A smaller pool is worth +0.32 to +0.59, with no timeouts in any condition. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The grader's rule for legal edge flips leaves out the README's convexity condition; the same rule generated all ten hidden inputs, which contain overlapping or folded triangles, and it also decides which submitted moves the grader accepts. Separately, on the publisher's 4-CPU grader a valid solution using more than about 15 s of CPU per case times out, although the README promises 30 s per case, and one timeout leaves the submission without a score; the fixed version also runs at most as many cases at once as the grader has CPUs.</mark>
 
 The fixed version is at package v2.2. Its regenerated inputs cover their convex hull exactly, as a triangulation of the points must, and an exact census finds 0 gaps and 0 overlaps in all 13 files. The previous fixed version (v2.1) left 1 to 3 hull triangles missing in 12 of 13 regenerated files; the paired runs found no wrong or unrepeatable score from that gap, and v2.1 and v2.2 grade the same inputs identically.

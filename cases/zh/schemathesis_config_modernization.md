@@ -1,5 +1,7 @@
 # Schemathesis config modernization (`schemathesis_config_modernization`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 转发式装饰器多得 0.67 分。没有真实提交这样写。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>Phase 3 的测试只检查 `@schemathesis.metric` 返回的东西能否调用，没有检查它是否原样返回该函数。换成修复版测试，包装器会少过一项测试，即分数的 1/160（100 分制下 0.625 分）。</mark>
 
 ![Phase 3 测试结果：原始测试让正确的装饰器和包装器都以 15/15 通过；修复版测试使包装器为 15/16。](../figures/schemathesis_config_modernization.svg)

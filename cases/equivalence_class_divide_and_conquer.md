@@ -1,5 +1,7 @@
 # Equivalence Class Divide And Conquer (`equivalence_class_divide_and_conquer`)
 
+**Second review (November 2026): Not confirmed.** The cost accounting is off, but reference and naive submissions score the same either way, and the swing needs an input we added. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The grader for sub-problem T3 leaves the size of the last neighbourhood reached out of its cost total, so it accepts costs up to the limit plus that size. The excess is small (at most 10⁶, 0.04% of the budget), we have shown no score gain, and a three-token fix closes it.</mark>
 
 ![A cost scale with the 2.5·10⁹ limit and a tiny gap above it where the original checker wrongly accepts an over-limit answer of 2.501·10⁹; the fixed checker rejects it.](figures/equivalence_class_divide_and_conquer.svg)

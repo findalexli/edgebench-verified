@@ -1,5 +1,7 @@
 # Schemathesis config modernization (`schemathesis_config_modernization`)
 
+**Second review (November 2026): Real, small or unseen.** A forwarding decorator gets 0.67 points too many. No real submission writes one. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The Phase 3 tests check only that `@schemathesis.metric` returns something callable, not that it returns the function unchanged; under the fixed tests a wrapper loses one test item, 1/160 of the score (0.625 points out of 100).</mark>
 
 ![Phase 3 test results: the original tests pass both a correct decorator and a wrapper at 15/15; the fixed tests fail the wrapper at 15/16.](figures/schemathesis_config_modernization.svg)

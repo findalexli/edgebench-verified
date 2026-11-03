@@ -1,5 +1,7 @@
 # CTA risk budget optimization (`cta_risk_budget_optimization`)
 
+**第二轮复核（2026 年 11 月）：未确认。** 限额公式与政策不一致，但我们检查的一份真实提交两种算法都是 50.0 分。 下文是第一轮审计的原始记录。
+
 **结论：** 已在 v2.1 中修复。<mark>境外上限检查把美元价值和人民币价值直接相加，没有换算，分母用的是总名义价值，而不是基金净值。v2.1 先换算成人民币，再除以同日的总净值。用完整的原始评分命令测试，它把一个超限的加杠杆组合从 58.75 分降到 53.75 分，把一个合规的无杠杆组合从 66.25 分升到 71.25 分，三次运行结果相同。</mark>
 
 ![柱状图显示：原始评分器读到的境外占比为 0.175，通过了 0.40 的上限；而把美元持仓换算为人民币后占比为 0.595，超出上限。](../figures/cta_risk_budget_optimization.svg)
@@ -27,9 +29,9 @@
 | 无杠杆：境外占净值 28%，占人民币总名义价值 87.5% | 66.25，`cross_border` 1 | **71.25**，`cross_border` 5 |
 | 无杠杆，缺少最后一行净值（1564 个日期中的 1 个） | 66.25，`cross_border` 1 | 68.75，`cross_border` 3（严格候选：66.25） |
 
-三个作业给出的分数相同。加杠杆组合每天都超出"净值 40%"的上限，原始评分器却让它通过；无杠杆组合每天都合规，原始评分器却判它不通过。v2.1 把两者都纠正了。只有 `cross_border` 有变化，幅度为原始分 80 分中的 4 分（满分 100 中的 5 分）。见[结果](../repairs/cta_risk_budget_optimization-v2/paired/results.md)和[修复包说明](../repairs/cta_risk_budget_optimization-v2/README.md)。
+三个作业给出的分数相同。加杠杆组合每天都超出"净值 40%"的上限，原始评分器却让它通过；无杠杆组合每天都合规，原始评分器却判它不通过。v2.1 把两者都纠正了。只有 `cross_border` 有变化，幅度为原始分 80 分中的 4 分（满分 100 中的 5 分）。见[结果](../../repairs/cta_risk_budget_optimization-v2/paired/results.md)和[修复包说明](../../repairs/cta_risk_budget_optimization-v2/README.md)。
 
-组件检查也通过了。原始版、仅汇率版、严格版和当前版这四个真实的风险辅助函数，在十个单日对照和三个 100 天的净值日期对照上，都与用精确有理数算出的参照结果一致（[候选结果](../repairs/cta_risk_budget_optimization-v2/paired/nav-candidate-results.json)）。
+组件检查也通过了。原始版、仅汇率版、严格版和当前版这四个真实的风险辅助函数，在十个单日对照和三个 100 天的净值日期对照上，都与用精确有理数算出的参照结果一致（[候选结果](../../repairs/cta_risk_budget_optimization-v2/paired/nav-candidate-results.json)）。
 
 持有境外合约的组合，v2.1 的分数与原始分数不能比较，因为跨境部分可能升也可能降，最多相差满分 100 中的 5 分。只持有境内合约、且每个持仓日期都有同日净值的组合，得分完全相同。
 

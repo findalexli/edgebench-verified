@@ -1,5 +1,7 @@
 # Integer compression codec (`integer_compression_codec`)
 
+**Second review (November 2026): Confirmed.** A stored baseline figure is impossible for the documented starter, which distorts how the datasets are weighted. The starter gets 0.25 raw against the documented 1.0, and 0.855 with the exact figures. A real submission scores 73.60 today; with the figures corrected its raw score is 164.4, which clips to 100 on the existing scale, or gives 51.22 on a new 1..320 scale. So the size of the fix depends on the scale. No ranking change was shown, and real runs reach 73.78 today. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The grader compares submissions against stored baseline numbers that the documented Varint starter cannot produce, so the starter scores about 0.23 instead of the documented 1.0 and the datasets are in effect weighted differently from what is published.</mark>
 
 ![Top: bars of bits per number for the starter code on the docids dataset. The checker's stored reference is 5.13, left of a dashed line at the 8-bit minimum for any whole-byte format; the starter measures 38.98. Bottom left: the unchanged starter's raw result is 0.23 on the original checker and 0.98 on the fixed checker, against a dashed line at the documented 1.0. Bottom right: a real agent run's best submission scores 71.93 out of 100 on the original checker and 53.95 out of 100 on the fixed checker, both regraded on our machines.](figures/integer_compression_codec.svg)

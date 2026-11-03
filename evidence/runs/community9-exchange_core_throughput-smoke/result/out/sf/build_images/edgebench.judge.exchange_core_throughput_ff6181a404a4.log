@@ -1,0 +1,74 @@
+docker build --platform linux/amd64 -f /job/new/edgebench/tasks/exchange_core_throughput/judge/Dockerfile -t edgebench.judge.exchange_core_throughput:ff6181a404a4 --build-arg BASE_IMAGE=edgebench.base.java:3c3c78a47237 /job/new/edgebench/tasks/exchange_core_throughput
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.89kB done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 22)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 29)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/edgebench.base.java:3c3c78a47237
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [m2 1/5] FROM docker.io/library/edgebench.base.java:3c3c78a47237@sha256:a75649a8cdb69e04df24db6814e3b3e01e51cd9bb4e72619a51b72795c429f8c
+#4 resolve docker.io/library/edgebench.base.java:3c3c78a47237@sha256:a75649a8cdb69e04df24db6814e3b3e01e51cd9bb4e72619a51b72795c429f8c 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 1.62MB 0.0s done
+#5 DONE 0.0s
+
+#6 [m2 2/5] COPY environment/m2/ /build/m2/
+#6 DONE 0.3s
+
+#7 [m2 3/5] RUN python3 -I /build/m2/fetch_m2.py /build/m2/central.tsv /out/repository /build/m2/resolver-state.json
+#7 5.578 fetch_m2: 1325 files from https://repo1.maven.org/maven2, 1325 .sha1 derived, 890 resolver-state files -> /out/repository
+#7 DONE 5.9s
+
+#8 [m2 4/5] COPY judge/m2-extra/ /build/m2-extra/
+#8 DONE 0.1s
+
+#9 [m2 5/5] RUN python3 -I /build/m2/fetch_m2.py /build/m2-extra/central.tsv /out/repository /build/m2-extra/resolver-state.json
+#9 0.801 fetch_m2: 58 files from https://repo1.maven.org/maven2, 58 .sha1 derived, 33 resolver-state files -> /out/repository
+#9 DONE 0.8s
+
+#10 [stage-1 2/8] COPY --from=m2 /out/repository /root/.m2/repository
+#10 DONE 0.5s
+
+#11 [stage-1 3/8] COPY environment/exchange-core/ /home/workspace/exchange-core/
+#11 DONE 0.1s
+
+#12 [stage-1 4/8] COPY judge/upstream-src-test/ /home/workspace/exchange-core/src/test/
+#12 DONE 0.0s
+
+#13 [stage-1 5/8] WORKDIR /home/workspace/exchange-core
+#13 DONE 0.0s
+
+#14 [stage-1 6/8] RUN sed -i 's|<version>1.18.12.0</version>|<version>1.18.20.0</version>|g' pom.xml  && rm -f src/test/java/exchange/core2/tests/perf/modules/ITOrderBook*.java  && sed -i '/\.matchingEnginesNum([0-9]*)/d; /\.riskEnginesNum([0-9]*)/d; /\.msgsInGroupLimit([0-9]*)/d' src/test/java/exchange/core2/tests/perf/PerfThroughput.java  && git init -q && git config user.email 'sebench@local' && git config user.name 'sebench'  && git add -A  && GIT_AUTHOR_DATE='1780756251 +0000' GIT_COMMITTER_DATE='1780756251 +0000' git commit -m 'init' -q  && test "$(git rev-parse HEAD)" = 738fe560a020bb77d0336da0d97c7ccfe905155a
+#14 DONE 0.2s
+
+#15 [stage-1 7/8] COPY judge/eval_exchange_core.py judge/run.sh judge/write_result.py /judge/
+#15 DONE 0.0s
+
+#16 [stage-1 8/8] RUN chmod 755 /judge/eval_exchange_core.py /judge/run.sh /judge/write_result.py
+#16 DONE 0.3s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 3.7s done
+#17 exporting manifest sha256:b1e1c4312d47a3a72888cfcc025d15bdbfe074d7617d6d0ad96b8d7e292ae930 done
+#17 exporting config sha256:41784fb220df29adbc40e5ce89208decec9d3f7acd55226833222edf010609f2 done
+#17 exporting attestation manifest sha256:a06d013af26f053a94fe9fefae69df5e6fe9a6b670501e4ec402c10f4030d48c done
+#17 exporting manifest list sha256:2b8af0e7b3531878dca4eb0edbb9848474fcf03817f30fc818bc39ae15a31ea5 done
+#17 naming to docker.io/library/edgebench.judge.exchange_core_throughput:ff6181a404a4 done
+#17 unpacking to docker.io/library/edgebench.judge.exchange_core_throughput:ff6181a404a4
+#17 unpacking to docker.io/library/edgebench.judge.exchange_core_throughput:ff6181a404a4 1.3s done
+#17 DONE 5.1s
+
+ [33m2 warnings found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 22)
+ - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 29)

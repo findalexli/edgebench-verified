@@ -1,5 +1,7 @@
 # Graph Node Classification (`graph_node_classification`)
 
+**Second review (November 2026): Real, small or unseen.** Changing a real solver's predictions to integer keys, which the task permits, takes it from 90.52-90.57 to 1.95-2.01. No real submission we hold uses them. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The original grader silently drops predictions that are not whole numbers and still marks the run valid.</mark>
 
 ![Original grader drops every non-integer prediction, scores the one prediction left against the first label in each of 10 rounds and calls the run valid; the fixed version rejects it.](figures/graph_node_classification.svg)

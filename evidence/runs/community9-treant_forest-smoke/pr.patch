@@ -1,0 +1,8 @@
+--- a/edgebench/tasks/treant_forest/task.toml
++++ b/edgebench/tasks/treant_forest/task.toml
+@@ -31,4 +31,4 @@
+ 
+ [score]
+ direction = "maximize"
+-rescale = { kind = "piecewise_max", baseline = 5369.0, rank30 = 88189.0, rank1 = 330195.0, super_anchor = 451198.0 }
++rescale = { kind = "linear", lower = 3418.0, upper = 92304.0 }

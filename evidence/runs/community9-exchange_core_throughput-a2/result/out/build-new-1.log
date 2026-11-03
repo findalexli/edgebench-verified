@@ -1,0 +1,72 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.89kB done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 22)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 29)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/edgebench.base.java:3c3c78a47237
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [m2 1/5] FROM docker.io/library/edgebench.base.java:3c3c78a47237@sha256:e4ccc5c5154578fa9aa148cd7cf80c1348236d6adb779a6702ceda2a001e24d9
+#4 resolve docker.io/library/edgebench.base.java:3c3c78a47237@sha256:e4ccc5c5154578fa9aa148cd7cf80c1348236d6adb779a6702ceda2a001e24d9 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 1.62MB 0.0s done
+#5 DONE 0.0s
+
+#6 [m2 3/5] RUN python3 -I /build/m2/fetch_m2.py /build/m2/central.tsv /out/repository /build/m2/resolver-state.json
+#6 CACHED
+
+#7 [stage-1 5/8] WORKDIR /home/workspace/exchange-core
+#7 CACHED
+
+#8 [stage-1 4/8] COPY judge/upstream-src-test/ /home/workspace/exchange-core/src/test/
+#8 CACHED
+
+#9 [m2 2/5] COPY environment/m2/ /build/m2/
+#9 CACHED
+
+#10 [m2 4/5] COPY judge/m2-extra/ /build/m2-extra/
+#10 CACHED
+
+#11 [stage-1 3/8] COPY environment/exchange-core/ /home/workspace/exchange-core/
+#11 CACHED
+
+#12 [m2 5/5] RUN python3 -I /build/m2/fetch_m2.py /build/m2-extra/central.tsv /out/repository /build/m2-extra/resolver-state.json
+#12 CACHED
+
+#13 [stage-1 2/8] COPY --from=m2 /out/repository /root/.m2/repository
+#13 CACHED
+
+#14 [stage-1 6/8] RUN sed -i 's|<version>1.18.12.0</version>|<version>1.18.20.0</version>|g' pom.xml  && rm -f src/test/java/exchange/core2/tests/perf/modules/ITOrderBook*.java  && sed -i '/\.matchingEnginesNum([0-9]*)/d; /\.riskEnginesNum([0-9]*)/d; /\.msgsInGroupLimit([0-9]*)/d' src/test/java/exchange/core2/tests/perf/PerfThroughput.java  && git init -q && git config user.email 'sebench@local' && git config user.name 'sebench'  && git add -A  && GIT_AUTHOR_DATE='1780756251 +0000' GIT_COMMITTER_DATE='1780756251 +0000' git commit -m 'init' -q  && test "$(git rev-parse HEAD)" = 738fe560a020bb77d0336da0d97c7ccfe905155a
+#14 CACHED
+
+#15 [stage-1 7/8] COPY judge/eval_exchange_core.py judge/run.sh judge/write_result.py /judge/
+#15 DONE 0.1s
+
+#16 [stage-1 8/8] RUN chmod 755 /judge/eval_exchange_core.py /judge/run.sh /judge/write_result.py
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers 0.1s done
+#17 exporting manifest sha256:b185e9fc274b3c52ced137fe3bdf55ac72ade75e81fc6aefbd78e51d359b57e0 done
+#17 exporting config sha256:db9604b7d95117579493f12c709a8ff5aa4e7b01f912aa4bb6599af4c57270dd done
+#17 exporting attestation manifest sha256:9eb976b19a12c2b94e46bc2d4f5b9519e250c549354ade96fd88e45738c49675 0.0s done
+#17 exporting manifest list sha256:d5d31e76bcd2b09c937ef89c61c02c7d2b85a4b23092e68c1d06aa08c6c8ee88 done
+#17 naming to docker.io/library/edgebench.judge.exchange_core_throughput:ff6181a404a4 done
+#17 unpacking to docker.io/library/edgebench.judge.exchange_core_throughput:ff6181a404a4 0.0s done
+#17 DONE 0.2s
+
+ [33m2 warnings found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 22)
+ - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 29)
+Building images for 1 task(s)...
+  [exchange_core_throughput] base=edgebench.base.java:3c3c78a47237  work=edgebench.work.exchange_core_throughput:161084c117d4  judge=edgebench.judge.exchange_core_throughput:ff6181a404a4
+Done.

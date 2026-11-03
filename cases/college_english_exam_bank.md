@@ -1,5 +1,7 @@
 # College English exam bank (`college_english_exam_bank`)
 
+**Second review (November 2026): Not confirmed.** The code gives full marks for omitted rules, but every example is a constructed grader reply, and no real submission hit it. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The original grader gave full marks for any rubric rule that the AI grading model did not assess, and still reported the result as valid.</mark>
 
 ![Horizontal bars of scores out of 100 under the original checker: an empty grading report 100, one 15-point rule skipped 81 (true score 77) and 15 (true score 0), and a skipped rule that is complete when asked again 81. The fixed-checker column shows grading failure, grading failure, grading failure and 77.](figures/college_english_exam_bank.svg)

@@ -1,0 +1,47 @@
+--- a/edgebench/tasks/rust_multicrate_reconstruction/judge/cas_judge/tools/score.py
++++ b/edgebench/tasks/rust_multicrate_reconstruction/judge/cas_judge/tools/score.py
+@@ -265,7 +265,7 @@
+ 
+     try:
+         result = subprocess.run(
+-            ["cargo", "test", "--frozen", "-p", pkg, "--", "--test-threads=4"],
++            ["cargo", "test", "--frozen", "--no-fail-fast", "-p", pkg, "--", "--test-threads=4"],
+             capture_output=True, text=True, timeout=timeout_sec,
+             cwd=workspace_dir,
+             env={**os.environ, "RUST_BACKTRACE": "0"},
+@@ -280,6 +280,7 @@
+                 blocked_by=None, duration_sec=duration, error_message=stderr[:500])
+ 
+         passed, failed = 0, 0
++        failed_test_paths = set()
+         pub_passed, pub_failed, hid_passed, hid_failed = 0, 0, 0, 0
+         hidden_set = HIDDEN_TESTS_BY_CRATE.get(crate_name, set())
+ 
+@@ -299,13 +300,15 @@
+                     if is_hidden: hid_passed += 1
+                     else: pub_passed += 1
+                 elif result_str == "FAILED":
++                    failed_test_paths.add(test_path)
+                     if is_hidden: hid_failed += 1
+                     else: pub_failed += 1
+ 
+         known = KNOWN_FAILURES.get(crate_name, [])
+         if known and failed > 0:
+             for test_name in known:
+-                if test_name in stdout:
++                if ((crate_name == "cas-pty" and test_name in failed_test_paths)
++                        or (crate_name != "cas-pty" and test_name in stdout)):
+                     failed -= 1
+                     passed += 1
+                     pub_passed += 1
+--- a/edgebench/tasks/rust_multicrate_reconstruction/environment/vendor/build_vendor.py
++++ b/edgebench/tasks/rust_multicrate_reconstruction/environment/vendor/build_vendor.py
+@@ -54,7 +54,7 @@
+             # v1's bundle was packed without any directory named `target`, *after*
+             # cargo had written .cargo-checksum.json: those files are listed in the
+             # checksum but absent on disk (only cc/src/target/*.rs is affected).
+-            dropped = "target" in parts[:-1]
++            dropped = False
+             target = os.path.join(dst, rel)
+             if m.isdir():
+                 if not dropped:

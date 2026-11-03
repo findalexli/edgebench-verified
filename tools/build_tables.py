@@ -7,6 +7,7 @@ from collections import Counter
 from pathlib import Path
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parent))
 from names import names as task_names  # noqa: E402
+import review as RV  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
@@ -23,32 +24,34 @@ def main():
     names = task_names()
     assert len(rows) == 51 and set(plain) == {r['task_id'] for r in rows}
     counts = Counter(r['proposed'] for r in rows)
+    rev = RV.load()
     with (ROOT / 'data/decisions.csv').open('w', newline='') as f:
         w = csv.writer(f, lineterminator='\n')
         w.writerow(['task_id', 'name', 'decision', 'outcome', 'summary', 'effect', 'what_we_did',
                     'technical_finding', 'technical_max_effect', 'fixed_version_folder', 'validation_status',
-                    'problem_category', 'secondary_problem_categories'])
+                    'problem_category', 'secondary_problem_categories', 'second_review_status'])
         for r in rows:
             t = r['task_id']
             w.writerow([t, names[t], r['proposed'], LABEL[r['proposed']], plain[t]['headline'], plain[t]['effect'],
                         plain[t]['action'], r['finding'], r.get('max_effect', ''), r.get('package', ''), r.get('validation_status') or ('Historical paired scope only; see the case page and package limits' if r.get('package') else ''),
-                        r.get('problem_category', ''), ';'.join(r.get('secondary_problem_categories') or [])])
+                        r.get('problem_category', ''), ';'.join(r.get('secondary_problem_categories') or []), RV.status(rev, t)])
     lines = ['# Outcome for every task', '',
              'The same data for all 51 public tasks is in [data/decisions.csv](data/decisions.csv), whose `decision` '
-             'column uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` (removed).', '', '| Outcome | Tasks | Meaning |', '| --- | ---: | --- |']
+             'column uses the codes `retain-with-note`, `repair-v2` (fixed) and `exclude` (removed). These are the first audit\'s outcomes; which of them held up is in [FINDINGS.md](FINDINGS.md).', '', '| Outcome | Tasks | Meaning |', '| --- | ---: | --- |']
     lines += [f'| {LABEL[k]} | {counts[k]} | {MEANING[k]} |' for k in ORDER if counts.get(k)]
     lines += ['| **Total** | **51** | |', '', '| Task | Outcome | What we found | How much it matters |',
               '| --- | --- | --- | --- |']
     for r in sorted(rows, key=lambda r: names[r['task_id']]):
         t = r['task_id']
         lines.append(f"| [{names[t]}](cases/{t}.md) | {LABEL[r['proposed']]} | {plain[t]['headline']} | {plain[t]['effect']} |")
-    (ROOT / 'DECISIONS.md').write_text('\n'.join(lines) + '\n')
+    (ROOT / 'first-audit/DECISIONS.md').write_text(RV.relink('\n'.join(lines) + '\n'))
     cats = {json.loads(f.read_text())['task_id']: json.loads(f.read_text())['category'] for f in (ROOT / 'tasks').glob('*.json')}
-    idx = ['# Case pages', '', 'Each public EdgeBench task has one page, covering what the task asks, what goes wrong, how much it '
-           'matters, the fix, how it was checked, the limits, and how to reproduce it.', '',
-           '| Task | Field | Outcome | In one line |', '| --- | --- | --- | --- |']
-    idx += [f"| [{names[t]}]({t}.md) | {cats[t]} | {LABEL[d]} | {plain[t]['headline']} |"
-            for t, d in sorted(((r['task_id'], r['proposed']) for r in rows), key=lambda x: names[x[0]])]
+    rev = RV.load()
+    idx = ['# Case pages', '', 'One page per public EdgeBench task, confirmed tasks first. The status is from the second review; each page '
+           "keeps the first audit's record under its status line.", '',
+           '| Task | Field | Status | In one line |', '| --- | --- | --- | --- |']
+    idx += [f"| [{names[t]}]({t}.md) | {cats[t]} | {RV.LABELS[RV.status(rev, t)]} | {rev[t]['line'] if t in rev else plain[t]['headline']} |"
+            for t in sorted((r['task_id'] for r in rows), key=lambda t: (RV.status(rev, t) != 'confirmed', names[t]))]
     (ROOT / 'cases' / 'INDEX.md').write_text('\n'.join(idx) + '\n')
     print(dict(counts))
 

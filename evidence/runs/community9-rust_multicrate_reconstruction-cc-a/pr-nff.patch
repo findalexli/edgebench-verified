@@ -1,0 +1,11 @@
+--- a/edgebench/tasks/rust_multicrate_reconstruction/judge/cas_judge/tools/score.py
++++ b/edgebench/tasks/rust_multicrate_reconstruction/judge/cas_judge/tools/score.py
+@@ -265,7 +265,7 @@
+ 
+     try:
+         result = subprocess.run(
+-            ["cargo", "test", "--frozen", "-p", pkg, "--", "--test-threads=4"],
++            ["cargo", "test", "--frozen", "--no-fail-fast", "-p", pkg, "--", "--test-threads=4"],
+             capture_output=True, text=True, timeout=timeout_sec,
+             cwd=workspace_dir,
+             env={**os.environ, "RUST_BACKTRACE": "0"},

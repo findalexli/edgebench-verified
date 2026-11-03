@@ -3,6 +3,7 @@
   <h1>对已发布排行榜的影响</h1>
   <p class="subtitle">修正后的评分器可能改变什么，以及哪些问题无法从公开数据中确定</p>
 </header>
+<div class="col"><p class="note">本页介绍的是针对原始版本的第一轮审计。<a href="{{root}}index.html#findings">其中哪些发现在当前评分器上站得住</a>，见概览页。</p></div>
 
 <section id="summary" class="col">
   <p>在公布的排行榜上，Opus&nbsp;4.8 以 {{headline:top_gap}} 分领先 GPT-5.5（{{headline:top1_pub}} 对 {{headline:top2_pub}}）。计入我们记录的各任务上限后，两者的区间分别为 {{headline:top1_low}}–{{headline:top1_high}} 和 {{headline:top2_low}}–{{headline:top2_high}}。<mark>两个区间重叠，所以仅凭公开数据已无法确认谁领先。</mark>这并不说明两者名次互换。在排行榜上影响大小未知的 {{n_open}} 项修复，这些区间都按零计算。</p>
@@ -22,7 +23,7 @@
     <thead><tr><th>模型</th><th class="n">已发布</th><th class="n">最宽可能范围</th><th class="n">已记录上限</th><th class="n">加 Portfolio</th><th class="n">只计刻度</th></tr></thead>
     <tbody>{{impact_rows}}</tbody>
   </table></div>
-  <p class="note" style="margin-top:10px">移除 D-ABIC 后剩 50 个任务；Opus 4.8 没有有效的 Rust 结果，因此为 49 个。区间重叠说明这些上限确认不了先后顺序，并不说明两个模型名次互换。Treant 可能的最高总数是已记录的上限，不是已知有提交达到的总数。完整推导和假设见 <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a>。</p>
+  <p class="note" style="margin-top:10px">移除 D-ABIC 后剩 50 个任务；Opus 4.8 没有有效的 Rust 结果，因此为 49 个。区间重叠说明这些上限确认不了先后顺序，并不说明两个模型名次互换。Treant 可能的最高总数是已记录的上限，不是已知有提交达到的总数。完整推导和假设见 <a href="https://github.com/findalexli/edgebench-verified/blob/main/first-audit/IMPACT.md">IMPACT.md</a>。</p>
 </section>
 
 <section id="large" class="col">
@@ -56,5 +57,5 @@
   </table></div>
   <p>在 {{task:juliet_vulnerability_analyzer|Juliet}} 中，105 份提交里有 14 份（都是早期提交）修复后得分提高，而保留的成绩 99.66 没有变化。{{task:borden_source_inversion|Borden Inversion}} 的评分器没有改变。这次运行在 36 份提交中把最佳成绩从 7.01 提高到 60.10，其间评分器每次提交后都报告答案在隐藏监测井上的误差；7.01 大约是按文档一次性拟合能得到的分数。</p>
   <p>这次检验只涉及一个模型，每个任务一次四小时的运行，而不是三次十二小时的运行。它说明这些问题在实际中确实会发生，但测不出对排行榜的影响。</p>
-  <p class="note">逐个任务的完整数字：<a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a> 和 <a href="{{site_root}}data/impact.csv">impact.csv</a>。每一次评分：<code>evidence/runs/opus55-regrade2-summary/summary.json</code>。</p>
+  <p class="note">逐个任务的完整数字：<a href="https://github.com/findalexli/edgebench-verified/blob/main/first-audit/IMPACT.md">IMPACT.md</a> 和 <a href="{{site_root}}data/impact.csv">impact.csv</a>。每一次评分：<code>evidence/runs/opus55-regrade2-summary/summary.json</code>。</p>
 </section>

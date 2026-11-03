@@ -1,0 +1,55 @@
+--- a/edgebench/tasks/schemathesis_reporting_observability/judge/tests/test_02_reporting.py
++++ b/edgebench/tasks/schemathesis_reporting_observability/judge/tests/test_02_reporting.py
+@@ -47,13 +47,20 @@
+ 
+ 
+ def test_junitxml_writer_context_manager():
+-    """JunitXmlWriter writes XML with test label."""
++    """JunitXmlWriter writes well-formed XML with the test label and the recorded error."""
++    import xml.etree.ElementTree as ET
++
+     stream = StringIO()
+     with JunitXmlWriter(output=stream) as writer:
+         writer.record_error("test_label", "something went wrong")
+-    content = stream.getvalue()
+-    assert "schemathesis" in content
+-    assert "test_label" in content
++    root = ET.fromstring(stream.getvalue())
++    cases = [case for case in root.iter("testcase") if case.get("name") == "test_label"]
++    assert cases, "no testcase named test_label"
++    assert any(
++        "something went wrong" in (error.text or "") + (error.get("message") or "")
++        for case in cases
++        for error in case.findall("error")
++    ), "recorded error is missing from the report"
+ 
+ 
+ def test_vcr_writer_context_manager_no_error():
+--- a/edgebench/tasks/schemathesis_reporting_observability/judge/tests/test_05_email_coverage.py
++++ b/edgebench/tasks/schemathesis_reporting_observability/judge/tests/test_05_email_coverage.py
+@@ -91,11 +91,10 @@
+     so OBJECT_UNEXPECTED_PROPERTIES would still be generated even with
+     allow_extra_parameters=False for body parameters.
+     """
+-    from schemathesis.generation.coverage import cover_schema_iter, CoverageContext, CoverageScenario
++    from schemathesis.generation.coverage import cover_schema_iter, CoverageContext, CoverageScenario, GeneratedValue
+     from schemathesis.core.parameters import ParameterLocation
+     from schemathesis.generation.modes import GenerationMode
+     from schemathesis.specs.openapi.formats import get_default_format_strategies
+-    from schemathesis.specs.openapi.negative import GeneratedValue
+     import jsonschema_rs
+ 
+     schema = {
+@@ -120,11 +119,10 @@
+ 
+ def test_query_unexpected_parameters_control_deny():
+     """allow-extra-parameters=False suppresses unexpected query properties (existing behavior)."""
+-    from schemathesis.generation.coverage import cover_schema_iter, CoverageContext, CoverageScenario
++    from schemathesis.generation.coverage import cover_schema_iter, CoverageContext, CoverageScenario, GeneratedValue
+     from schemathesis.core.parameters import ParameterLocation
+     from schemathesis.generation.modes import GenerationMode
+     from schemathesis.specs.openapi.formats import get_default_format_strategies
+-    from schemathesis.specs.openapi.negative import GeneratedValue
+     import jsonschema_rs
+ 
+     schema = {

@@ -1,5 +1,7 @@
 # Wesnoth Tactical AI (`wesnoth_tactical_ai`)
 
+**Second review (November 2026): Confirmed.** The same file gets different scores despite fixed seeds. Wesnoth's stock AI scores 36 to 43 over 8 gradings with no timeouts. We haven't found the cause, and there is no real submission to test. The text below is the first audit's record.
+
 **Outcome:** Kept, with a note. <mark>The full grading run fits its time budget on one 8-vCPU host (80 to 172 s against 900 s), but the supplied starter's recruiting setting is broken on the pinned game version, so it scores 0, and games are not repeatable.</mark>
 
 ## What the task asks

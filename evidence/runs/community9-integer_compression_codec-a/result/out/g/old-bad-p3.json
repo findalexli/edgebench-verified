@@ -1,0 +1,126 @@
+{
+ "task": "integer_compression_codec",
+ "archive": "/job/subs/bad.tar.gz",
+ "raw_score": 0.0,
+ "score_0_100": 0.0,
+ "valid": true,
+ "summary": "score=0.000000, datasets=8, status=ok",
+ "exit_code": 0,
+ "timed_out": false,
+ "runtime_s": 22.2,
+ "result_found": true,
+ "log_tail": "runner_judge.py exit code: 0\n>>>>> Start Structured Result\n{\"valid\": true, \"score\": 0.0, \"summary\": \"score=0.000000, datasets=8, status=ok\", \"details\": [], \"metrics\": {\"score\": 0.0, \"overall_score\": 0.0, \"num_cases\": 8, \"status\": \"ok\", \"compile_log\": \"== make clean ==\\nrm -f src/codec.o libintcompress.so tools/bench tools/verify\\n\\n\\n== make -j4 ==\\ng++ -std=c++17 -O3 -march=x86-64-v3 -fno-exceptions -fno-rtti -Wall -Wextra -Wno-unused-parameter -Iinclude -fPIC -c -o src/codec.o src/codec.cpp\\ng++ -shared -std=c++17 -O3 -march=x86-64-v3 -fno-exceptions -fno-rtti -Wall -Wextra -Wno-unused-parameter -Iinclude -fPIC -o libintcompress.so src/codec.o\\ng++ -std=c++17 -O2 -Iinclude -o tools/bench tools/bench.cpp -L. -lintcompress -lpthread -Wl,-rpath,'$ORIGIN/..'\\ng++ -std=c++17 -O2 -Iinclude -o tools/verify tools/verify.cpp -L. -lintcompress -lpthread -Wl,-rpath,'$ORIGIN/..'\\n\\n\", \"runtime_log\": \"\", \"per_dataset\": [{\"name\": \"docids\", \"weight\": 2.0, \"n\": 100000000, \"encoded_bytes\": 487276069, \"encode_ms\": 271.675, \"decode_ms\": 395.431, \"decode_gbps\": 0.9421, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"ts_sec\", \"weight\": 1.5, \"n\": 50000000, \"encoded_bytes\": 250000004, \"encode_ms\": 142.09, \"decode_ms\": 201.994, \"decode_gbps\": 0.9221, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"ts_ns\", \"weight\": 1.5, \"n\": 50000000, \"encoded_bytes\": 246753740, \"encode_ms\": 140.029, \"decode_ms\": 200.675, \"decode_gbps\": 0.9282, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"temp\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 100000004, \"encode_ms\": 68.474, \"decode_ms\": 140.993, \"decode_gbps\": 1.3211, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"grid\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 246847587, \"encode_ms\": 182.394, \"decode_ms\": 238.632, \"decode_gbps\": 0.7806, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"zipf\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 78909904, \"encode_ms\": 307.806, \"decode_ms\": 328.645, \"decode_gbps\": 0.5668, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"rand\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 246848891, \"encode_ms\": 186.939, \"decode_ms\": 235.682, \"decode_gbps\": 0.7903, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"sparse\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 241176008, \"encode_ms\": 135.533, \"decode_ms\": 198.913, \"decode_gbps\": 0.9364, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}]}}\n>>>>> End Structured Result\n{\"score\": 0.0, \"valid\": true, \"summary\": \"score=0.000000, datasets=8, status=ok\"}\n",
+ "result": {
+  "score": 0.0,
+  "valid": true,
+  "summary": "score=0.000000, datasets=8, status=ok",
+  "details": [],
+  "metrics": {
+   "score": 0.0,
+   "overall_score": 0.0,
+   "num_cases": 8,
+   "status": "ok",
+   "compile_log": "== make clean ==\nrm -f src/codec.o libintcompress.so tools/bench tools/verify\n\n\n== make -j4 ==\ng++ -std=c++17 -O3 -march=x86-64-v3 -fno-exceptions -fno-rtti -Wall -Wextra -Wno-unused-parameter -Iinclude -fPIC -c -o src/codec.o src/codec.cpp\ng++ -shared -std=c++17 -O3 -march=x86-64-v3 -fno-exceptions -fno-rtti -Wall -Wextra -Wno-unused-parameter -Iinclude -fPIC -o libintcompress.so src/codec.o\ng++ -std=c++17 -O2 -Iinclude -o tools/bench tools/bench.cpp -L. -lintcompress -lpthread -Wl,-rpath,'$ORIGIN/..'\ng++ -std=c++17 -O2 -Iinclude -o tools/verify tools/verify.cpp -L. -lintcompress -lpthread -Wl,-rpath,'$ORIGIN/..'\n\n",
+   "runtime_log": "",
+   "per_dataset": [
+    {
+     "name": "docids",
+     "weight": 2.0,
+     "n": 100000000,
+     "encoded_bytes": 487276069,
+     "encode_ms": 271.675,
+     "decode_ms": 395.431,
+     "decode_gbps": 0.9421,
+     "roundtrip_ok": false,
+     "score": 0.0,
+     "error": "roundtrip mismatch"
+    },
+    {
+     "name": "ts_sec",
+     "weight": 1.5,
+     "n": 50000000,
+     "encoded_bytes": 250000004,
+     "encode_ms": 142.09,
+     "decode_ms": 201.994,
+     "decode_gbps": 0.9221,
+     "roundtrip_ok": false,
+     "score": 0.0,
+     "error": "roundtrip mismatch"
+    },
+    {
+     "name": "ts_ns",
+     "weight": 1.5,
+     "n": 50000000,
+     "encoded_bytes": 246753740,
+     "encode_ms": 140.029,
+     "decode_ms": 200.675,
+     "decode_gbps": 0.9282,
+     "roundtrip_ok": false,
+     "score": 0.0,
+     "error": "roundtrip mismatch"
+    },
+    {
+     "name": "temp",
+     "weight": 1.0,
+     "n": 50000000,
+     "encoded_bytes": 100000004,
+     "encode_ms": 68.474,
+     "decode_ms": 140.993,
+     "decode_gbps": 1.3211,
+     "roundtrip_ok": false,
+     "score": 0.0,
+     "error": "roundtrip mismatch"
+    },
+    {
+     "name": "grid",
+     "weight": 1.0,
+     "n": 50000000,
+     "encoded_bytes": 246847587,
+     "encode_ms": 182.394,
+     "decode_ms": 238.632,
+     "decode_gbps": 0.7806,
+     "roundtrip_ok": false,
+     "score": 0.0,
+     "error": "roundtrip mismatch"
+    },
+    {
+     "name": "zipf",
+     "weight": 1.0,
+     "n": 50000000,
+     "encoded_bytes": 78909904,
+     "encode_ms": 307.806,
+     "decode_ms": 328.645,
+     "decode_gbps": 0.5668,
+     "roundtrip_ok": false,
+     "score": 0.0,
+     "error": "roundtrip mismatch"
+    },
+    {
+     "name": "rand",
+     "weight": 1.0,
+     "n": 50000000,
+     "encoded_bytes": 246848891,
+     "encode_ms": 186.939,
+     "decode_ms": 235.682,
+     "decode_gbps": 0.7903,
+     "roundtrip_ok": false,
+     "score": 0.0,
+     "error": "roundtrip mismatch"
+    },
+    {
+     "name": "sparse",
+     "weight": 1.0,
+     "n": 50000000,
+     "encoded_bytes": 241176008,
+     "encode_ms": 135.533,
+     "decode_ms": 198.913,
+     "decode_gbps": 0.9364,
+     "roundtrip_ok": false,
+     "score": 0.0,
+     "error": "roundtrip mismatch"
+    }
+   ]
+  }
+ },
+ "log": "runner_judge.py exit code: 0\n>>>>> Start Structured Result\n{\"valid\": true, \"score\": 0.0, \"summary\": \"score=0.000000, datasets=8, status=ok\", \"details\": [], \"metrics\": {\"score\": 0.0, \"overall_score\": 0.0, \"num_cases\": 8, \"status\": \"ok\", \"compile_log\": \"== make clean ==\\nrm -f src/codec.o libintcompress.so tools/bench tools/verify\\n\\n\\n== make -j4 ==\\ng++ -std=c++17 -O3 -march=x86-64-v3 -fno-exceptions -fno-rtti -Wall -Wextra -Wno-unused-parameter -Iinclude -fPIC -c -o src/codec.o src/codec.cpp\\ng++ -shared -std=c++17 -O3 -march=x86-64-v3 -fno-exceptions -fno-rtti -Wall -Wextra -Wno-unused-parameter -Iinclude -fPIC -o libintcompress.so src/codec.o\\ng++ -std=c++17 -O2 -Iinclude -o tools/bench tools/bench.cpp -L. -lintcompress -lpthread -Wl,-rpath,'$ORIGIN/..'\\ng++ -std=c++17 -O2 -Iinclude -o tools/verify tools/verify.cpp -L. -lintcompress -lpthread -Wl,-rpath,'$ORIGIN/..'\\n\\n\", \"runtime_log\": \"\", \"per_dataset\": [{\"name\": \"docids\", \"weight\": 2.0, \"n\": 100000000, \"encoded_bytes\": 487276069, \"encode_ms\": 271.675, \"decode_ms\": 395.431, \"decode_gbps\": 0.9421, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"ts_sec\", \"weight\": 1.5, \"n\": 50000000, \"encoded_bytes\": 250000004, \"encode_ms\": 142.09, \"decode_ms\": 201.994, \"decode_gbps\": 0.9221, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"ts_ns\", \"weight\": 1.5, \"n\": 50000000, \"encoded_bytes\": 246753740, \"encode_ms\": 140.029, \"decode_ms\": 200.675, \"decode_gbps\": 0.9282, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"temp\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 100000004, \"encode_ms\": 68.474, \"decode_ms\": 140.993, \"decode_gbps\": 1.3211, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"grid\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 246847587, \"encode_ms\": 182.394, \"decode_ms\": 238.632, \"decode_gbps\": 0.7806, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"zipf\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 78909904, \"encode_ms\": 307.806, \"decode_ms\": 328.645, \"decode_gbps\": 0.5668, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"rand\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 246848891, \"encode_ms\": 186.939, \"decode_ms\": 235.682, \"decode_gbps\": 0.7903, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}, {\"name\": \"sparse\", \"weight\": 1.0, \"n\": 50000000, \"encoded_bytes\": 241176008, \"encode_ms\": 135.533, \"decode_ms\": 198.913, \"decode_gbps\": 0.9364, \"roundtrip_ok\": false, \"score\": 0.0, \"error\": \"roundtrip mismatch\"}]}}\n>>>>> End Structured Result\n{\"score\": 0.0, \"valid\": true, \"summary\": \"score=0.000000, datasets=8, status=ok\"}\n"
+}

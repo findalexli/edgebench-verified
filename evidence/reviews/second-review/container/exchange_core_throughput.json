@@ -1,0 +1,188 @@
+{
+ "task": "exchange_core_throughput",
+ "claims": [
+  {
+   "claim": "Missing fee/event checks award incorrect engines full credit.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real modified at the defect: agent-12 with a fee swap (feeswap) or with events not forwarded (dropevents); the round3 edit, removing matchedOrderCompleted (ordercomp), did not reproduce",
+   "arms": [
+    {
+     "label": "4 CPUs agent-12 real, old",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    {
+     "label": "4 CPUs feeswap, old",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    {
+     "label": "4 CPUs feeswap, fixed",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    {
+     "label": "4 CPUs dropevents, old (job c)",
+     "scores": [
+      2.83,
+      1.72,
+      2.17
+     ],
+     "n": 3
+    },
+    {
+     "label": "4 CPUs dropevents, fixed (job c)",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    {
+     "label": "4 CPUs ordercomp, old",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    {
+     "label": "8 CPUs agent-12 real, old",
+     "scores": [
+      36.78,
+      46.52,
+      44.66,
+      51.23,
+      47.48,
+      53.04
+     ],
+     "n": 6
+    },
+    {
+     "label": "8 CPUs feeswap, old",
+     "scores": [
+      39.81,
+      24.72,
+      36.29
+     ],
+     "n": 3
+    },
+    {
+     "label": "8 CPUs dropevents, old (job c)",
+     "scores": [
+      53.53,
+      49.77,
+      55.14
+     ],
+     "n": 3
+    },
+    {
+     "label": "8 CPUs ordercomp, old",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": 0,
+   "fix_tested": "gate on ITFeesExchangeBasic, ITExchangeCoreIntegrationRejectionBasic and ITExchangeCoreIntegrationBasic (40 tests): feeswap and dropevents WA 0 in all runs; at 8 CPUs feeswap would have had mean 33.61",
+   "correct_work_keeps_score": "unclear: all 9 fixed-judge control runs pass the gate with status OK, but at 8 CPUs the timed score fell from mean 46.62 (n=6) to 40.12 (n=6), ranges overlapping; at 4 CPUs both are 0",
+   "job": "evidence/runs/community9-exchange_core_throughput-{smoke,a2,b,c}",
+   "table_script": "evidence/scripts/second_review/c9_exchange_core_throughput_table.py",
+   "note": "Broken engines get status OK and the same throughput range as correct ones; effect_points is the official 4 CPUs on the slowest worker, with 2.24 on another and 33.61 only at 8 CPUs, and only 10 of 110 real runs clear the floor (max 21.88); weakest point: the reviewer found no real archive touching this code, and ordercomp scores RE 0 because the test's order generator reads that flag."
+  },
+  {
+   "claim": "A Maven failure after the average still receives throughput credit.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "synthetic: agent-12 whose ExchangeCore.shutdown throws after the average is logged, only for the throughput wait strategy",
+   "arms": [
+    {
+     "label": "4 CPUs agent-12 real, old",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    {
+     "label": "4 CPUs shutdownbusy, old",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    {
+     "label": "4 CPUs shutdownbusy, old (smoke worker)",
+     "scores": [
+      8.8
+     ],
+     "n": 1
+    },
+    {
+     "label": "4 CPUs shutdownbusy, fixed",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    {
+     "label": "8 CPUs agent-12 real, old",
+     "scores": [
+      36.78,
+      46.52,
+      44.66,
+      51.23,
+      47.48,
+      53.04
+     ],
+     "n": 6
+    },
+    {
+     "label": "8 CPUs shutdownbusy, old",
+     "scores": [
+      34.41,
+      22.85,
+      43.55
+     ],
+     "n": 3
+    },
+    {
+     "label": "8 CPUs shutdownbusy, fixed",
+     "scores": [
+      0,
+      0,
+      0
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": 0,
+   "fix_tested": "score 0 when status is not OK: shutdownbusy WA with credit (8 CPUs mean 33.6) -> WA 0 in all 6 fixed runs",
+   "correct_work_keeps_score": "unclear: all 9 fixed-judge control runs pass the gate with status OK, but at 8 CPUs the timed score fell from mean 46.62 (n=6) to 40.12 (n=6), ranges overlapping; at 4 CPUs both are 0",
+   "job": "evidence/runs/community9-exchange_core_throughput-{smoke,a2,b,c}",
+   "table_script": "evidence/scripts/second_review/c9_exchange_core_throughput_table.py",
+   "note": "effect_points is the official 4 CPUs on the slowest worker; Maven fails and the throughput still scores, up to 43.55 at 8 CPUs and 8.8 at 4 CPUs on one worker, 0 at 4 CPUs on the slowest; weakest point: the failure is constructed and the reviewer found no real run with a failed Maven and positive credit."
+  }
+ ]
+}

@@ -1,0 +1,479 @@
+{
+ "task": "warehouse_forklift_routing",
+ "conditions": "hot4 = 4 vCPUs online, one judge, quota 4 (cpu.max 400000 100000, nproc 4, SFORGE_CPUS=4); q4 = 8 online, one judge, quota 4; x2/x3/x5 = 8 online, that many judges at once, each quota 4, so x3 and x5 give each judge about 2.6 and 1.6 CPUs, below the official 4. Measured per arm in cpu_per_wall, host_busy_pct and load1.",
+ "claims": [
+  {
+   "verdict": "NOT_REPRODUCED",
+   "witness": "real unchanged: a15 = sha 886d0388b2 (agent-15), a13 = 413dcfd937, a2 = 0b8c704241 (agent-2); bad 24994aaebd (47/50 WA)",
+   "arms": [
+    {
+     "label": "a13 new hot4",
+     "scores": [
+      19.52,
+      19.52,
+      19.52
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      15.1,
+      15.2,
+      15.1
+     ],
+     "cpu_per_wall": [
+      3.77,
+      3.79,
+      3.79
+     ],
+     "host_busy_pct": [
+      89.0,
+      89.0,
+      89.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      4.3,
+      3.6,
+      4.2
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "a13 old hot4",
+     "scores": [
+      19.51,
+      19.51,
+      19.51
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      9.1,
+      9.0,
+      9.1
+     ],
+     "cpu_per_wall": [
+      3.79,
+      3.81,
+      3.81
+     ],
+     "host_busy_pct": [
+      85.0,
+      86.0,
+      86.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      7.7,
+      5.7,
+      6.5
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "a15 new hot4",
+     "scores": [
+      19.51,
+      19.51,
+      19.51
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      16.3,
+      16.3,
+      16.3
+     ],
+     "cpu_per_wall": [
+      3.82,
+      3.81,
+      3.81
+     ],
+     "host_busy_pct": [
+      90.0,
+      90.0,
+      90.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      4.2,
+      3.8,
+      4.4
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "a15 old hot4",
+     "scores": [
+      19.51,
+      19.51,
+      19.51
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      9.4,
+      9.4,
+      9.4
+     ],
+     "cpu_per_wall": [
+      3.75,
+      3.74,
+      3.76
+     ],
+     "host_busy_pct": [
+      84.0,
+      84.0,
+      85.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      5.8,
+      6.0,
+      6.8
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "a15 new x3",
+     "scores": [
+      19.51,
+      19.51,
+      19.51
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      12.0,
+      12.0,
+      12.0
+     ],
+     "cpu_per_wall": [
+      2.58,
+      2.58,
+      2.58
+     ],
+     "host_busy_pct": [
+      92.0,
+      92.0,
+      92.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      12.3,
+      12.3,
+      12.3
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "a15 old x3",
+     "scores": [
+      19.51,
+      19.51,
+      19.51
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      6.7,
+      6.7,
+      6.7
+     ],
+     "cpu_per_wall": [
+      2.53,
+      2.53,
+      2.53
+     ],
+     "host_busy_pct": [
+      87.0,
+      87.0,
+      87.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      15.8,
+      15.8,
+      15.8
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "a2 new hot4",
+     "scores": [
+      18.31,
+      18.31,
+      18.31
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      2.5,
+      2.5,
+      2.5
+     ],
+     "cpu_per_wall": [
+      3.69,
+      3.71,
+      3.74
+     ],
+     "host_busy_pct": [
+      66.0,
+      66.0,
+      66.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      3.5,
+      3.2,
+      4.0
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "a2 old hot4",
+     "scores": [
+      18.31,
+      18.31,
+      18.31
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      2.5,
+      2.5,
+      2.5
+     ],
+     "cpu_per_wall": [
+      3.73,
+      3.74,
+      3.78
+     ],
+     "host_busy_pct": [
+      66.0,
+      66.0,
+      66.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      3.3,
+      3.9,
+      4.5
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "bad new hot4",
+     "scores": [
+      null,
+      null
+     ],
+     "n": 2,
+     "cases_ok": [
+      47,
+      47
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      0.5,
+      0.5
+     ],
+     "cpu_per_wall": [
+      3.65,
+      3.64
+     ],
+     "host_busy_pct": [
+      29.0,
+      27.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      1.7,
+      1.4
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "bad old hot4",
+     "scores": [
+      null,
+      null
+     ],
+     "n": 2,
+     "cases_ok": [
+      47,
+      47
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      0.5,
+      0.5
+     ],
+     "cpu_per_wall": [
+      3.75,
+      3.76
+     ],
+     "host_busy_pct": [
+      26.0,
+      29.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      1.8,
+      1.7
+     ],
+     "online": [
+      "0-3"
+     ]
+    }
+   ],
+   "effect_points": 0.01,
+   "effect_by_condition": {
+    "a15 hot4": 0.0,
+    "a13 hot4": 0.01,
+    "a2 hot4": 0.0,
+    "a15 x3": 0.0
+   },
+   "fix_tested": "a15 19.51-19.51 -> 19.51-19.51, a13 19.51-19.51 -> 19.52-19.52, a2 18.31-18.31 -> 18.31-18.31; zero timeouts; CPU s per case a15 9.4 vs 16.3",
+   "correct_work_keeps_score": "yes: a2 raw 1069.6999999999998 -> 1069.6999999999998, bad control null on both pools",
+   "note": "CPU per case rises on the new pool (a15 9.4 vs 16.3 s) but the score moves at most 0.01 (a13 raw 873.6 -> 873.3), and cases take about 20 s of the 60 s limit; weakest point: x5 not run, x3 on a15 only, no q4 arm, and no real solver near the limit.",
+   "claim": "Eight simultaneous inputs on four official CPUs materially reduce usable computation and cause avoidable timeouts.",
+   "job": "evidence/runs/community9-warehouse_forklift_routing-a",
+   "table_script": "evidence/scripts/second_review/c9_warehouse_forklift_routing_table.py"
+  }
+ ]
+}

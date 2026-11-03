@@ -1,0 +1,17 @@
+--- a/edgebench/tasks/dcss_dungeon_ai/judge/eval_dcss.py
++++ b/edgebench/tasks/dcss_dungeon_ai/judge/eval_dcss.py
+@@ -66,13 +66,7 @@
+         logf.write(f"{time.time():.1f} suicide end\n")
+ 
+ def _dismiss_loop(session, stop):
+-    keys = ["' '", "' '", "' '", "$'\\r'", "' '", "' '", "$'\\e'"]
+-    i = 0
+-    while not stop.is_set():
+-        try: _stuff(session, keys[i % len(keys)])
+-        except: pass
+-        i += 1
+-        stop.wait(1.5)
++    stop.wait()
+ 
+ def _alive(session):
+     return subprocess.run(f"screen -list 2>/dev/null | grep -q {session}",

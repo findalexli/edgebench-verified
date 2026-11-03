@@ -1,5 +1,7 @@
 # Triangulation Coloring Optimization (`triangulation_coloring_optimization`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 缩小并行数提高 0.32 到 0.59 分，所有条件下都没有超时。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>评分器判断边能否翻转的规则漏了 README 里的凸性条件。十个隐藏输入全是用这条规则生成的，里面有重叠或折叠的三角形。评分器接受提交里的哪些操作，也由这条规则决定。另外，README 承诺每个用例 30 s，可在发布方 4 个 CPU 的评分器上，有效解法每个用例只要用了超过约 15 s CPU 就会超时，而只要一个用例超时，整份提交就没有分数。修复版还限制同时运行的用例数不超过评分器的 CPU 数。</mark>
 
 现在的修复版是修复包 v2.2。它重新生成的输入都恰好覆盖各自的凸包，这是点集三角剖分的必要条件。一次精确普查在全部 13 个文件里查出 0 处空缺、0 处重叠。上一个修复版（v2.1）重新生成的 13 个文件中，有 12 个缺了 1–3 个凸包三角形。并排对照运行没有发现这些空缺导致分数出错或不可重复，v2.1 和 v2.2 对相同输入的评分也完全相同。
@@ -27,7 +29,7 @@
 - 在原始评分器下的用例 0009 上，随附的什么都不做的输出得 `Score = 644809`（U=803）。加上一次 README 禁止的非凸翻转（边 39–52）后，评分器照样接受，得 `Score = 641611`（U=801）。一次违规操作反而让官方分数变好了（越低越好）。
 - 最小的例子 N=4。输入是一个有效的两三角形网格，四边形有一个优角（向内凹的）顶点。原始测试程序接受了这次违规翻转（`Score = 41`），翻转后的两个三角形互相重叠。可见这个问题不依赖于有缺陷的输入。
 
-在 4 个 CPU 的评分器上，每个用例承诺的 30 s 缩水成约 15 s CPU 时间。README 写明 "Time limit: **30 seconds per case**"（第 50 行）。评分器 `/tmp/eval_triangulation_coloring.py` 同时跑 8 个用例（`max_workers=min(8, len(case_files))`，第 44 行），墙钟时限 30 s（`TIME_LIMIT = 30`，第 9 行）。超时的用例得 `float('inf')`（第 36 行），整份提交因此没有 100 分制得分（`sforge/harness/score_rescale.py:75-76`）。任务没有规定 CPU 数。EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml`（引文见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`）里，评分器沿用 `judge_cpu_limit: 4`，所以前 8 个用例每个约分到半个 CPU。我们在原始评分器上用 `--cpus 4` 测了这一点（`evidence/runs/triangulation_coloring_optimization-cpu4v8-a/result/out/summary.txt`、`-b`），做法是在正常的 `greedy.py` 对照解法后面附加固定量的 CPU 计算。每个用例 12 或 14 s 时 10/10 通过。每个用例 20 s 时，两个工作节点上都是 2 个 OK、8 个 TLE，`TOTAL_SCORE inf`。换成 `--cpus 8`，20 s 的解法 10/10 通过，得 866,166（100 分制下 48.87 分）。按 25 s 墙钟截止时间停下的解法，4 个 CPU 时每个用例平均分到 15.00 s CPU（中位数 12.62 s；10 个用例中有 2 个在最后单独运行），8 个 CPU 时是 24.97 s。
+在 4 个 CPU 的评分器上，每个用例承诺的 30 s 缩水成约 15 s CPU 时间。README 写明 "Time limit: **30 seconds per case**"（第 50 行）。评分器 `/tmp/eval_triangulation_coloring.py` 同时跑 8 个用例（`max_workers=min(8, len(case_files))`，第 44 行），墙钟时限 30 s（`TIME_LIMIT = 30`，第 9 行）。超时的用例得 `float('inf')`（第 36 行），整份提交因此没有 100 分制得分（`sforge/harness/score_rescale.py:75-76`）。任务没有规定 CPU 数。EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml`（引文见 [`evidence/impact/edgebench-leaderboard-config.md`](../../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`）里，评分器沿用 `judge_cpu_limit: 4`，所以前 8 个用例每个约分到半个 CPU。我们在原始评分器上用 `--cpus 4` 测了这一点（`evidence/runs/triangulation_coloring_optimization-cpu4v8-a/result/out/summary.txt`、`-b`），做法是在正常的 `greedy.py` 对照解法后面附加固定量的 CPU 计算。每个用例 12 或 14 s 时 10/10 通过。每个用例 20 s 时，两个工作节点上都是 2 个 OK、8 个 TLE，`TOTAL_SCORE inf`。换成 `--cpus 8`，20 s 的解法 10/10 通过，得 866,166（100 分制下 48.87 分）。按 25 s 墙钟截止时间停下的解法，4 个 CPU 时每个用例平均分到 15.00 s CPU（中位数 12.62 s；10 个用例中有 2 个在最后单独运行），8 个 CPU 时是 24.97 s。
 
 有一点限制了危害。智能体的工作镜像里随附了同样的 `verifier.py`、`tester` 和样例，所以智能体本地测试看到的规则和评分器完全一样，分数前后一致、可以重复。问题出在实际计分的问题和文档描述的不一样。
 

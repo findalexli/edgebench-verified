@@ -1,0 +1,42 @@
+== A. official path: sforge eval, 120 s per scenario, 4 CPUs; final normalized score = raw/400
+agent-1 n=3 normalized [27.5, 27.5, 27.5] spread=0.00 mean=27.50 all_valid=True
+   run 1 raw=11000 runtime=361s samples per scenario=[42, 42, 42] scenario norms=['1.1000', '1.1000', '1.1000']
+   run 2 raw=11000 runtime=361s samples per scenario=[42, 42, 42] scenario norms=['1.1000', '1.1000', '1.1000']
+   run 3 raw=11000 runtime=361s samples per scenario=[42, 41, 42] scenario norms=['1.1000', '1.1000', '1.1000']
+agent-10 n=3 normalized [33.3325, 16.6675, 33.3325] spread=16.67 mean=27.78 all_valid=True
+   run 1 raw=13333 runtime=44s samples per scenario=[8, 5] scenario norms=['0.0000', '2.0000', '2.0000']
+   run 2 raw=6667 runtime=124s samples per scenario=[41] scenario norms=['0.0000', '2.0000', '0.0000']
+   run 3 raw=13333 runtime=154s samples per scenario=[28, 10] scenario norms=['2.0000', '0.0000', '2.0000']
+agent-11 n=3 normalized [50.0, 50.0, 37.7575] spread=12.24 mean=45.92 all_valid=True
+   run 1 raw=20000 runtime=149s samples per scenario=[3, 4, 41] scenario norms=['2.0000', '2.0000', '2.0000']
+   run 2 raw=20000 runtime=99s samples per scenario=[12, 4, 10] scenario norms=['2.0000', '2.0000', '2.0000']
+   run 3 raw=15103 runtime=68s samples per scenario=[12, 1, 2] scenario norms=['2.0000', '1.1631', '1.3679']
+auto-30 n=3 normalized [26.36, 37.7575, 50.0] spread=23.64 mean=38.04 all_valid=True
+   run 1 raw=10544 runtime=39s samples per scenario=[1, 10] scenario norms=['0.0000', '1.1631', '2.0000']
+   run 2 raw=15103 runtime=50s samples per scenario=[8, 1, 2] scenario norms=['2.0000', '1.1631', '1.3679']
+   run 3 raw=20000 runtime=255s samples per scenario=[3, 41, 42] scenario norms=['2.0000', '2.0000', '2.0000']
+auto-45 n=3 normalized [11.4, 44.7325, 43.025] spread=33.33 mean=33.05 all_valid=True
+   run 1 raw=4560 runtime=13s samples per scenario=[2] scenario norms=['0.0000', '0.0000', '1.3679']
+   run 2 raw=17893 runtime=155s samples per scenario=[28, 8, 2] scenario norms=['2.0000', '2.0000', '1.3679']
+   run 3 raw=17210 runtime=55s samples per scenario=[3, 1, 11] scenario norms=['2.0000', '1.1631', '2.0000']
+auto-6 n=3 normalized [6.53, 6.475, 9.1675] spread=2.69 mean=7.39 all_valid=True
+   run 1 raw=2612 runtime=129s samples per scenario=[1, 41] scenario norms=['0.2337', '0.5500', '0.0000']
+   run 2 raw=2590 runtime=132s samples per scenario=[41, 2] scenario norms=['0.0000', '0.5500', '0.2269']
+   run 3 raw=3667 runtime=243s samples per scenario=[42, 41] scenario norms=['0.5500', '0.5500', '0.0000']
+== B. direct judge evaluate(), timeout 2000 s, one container per scenario
+agent-1-r1 large: at 120 s days=69 samples=42 value=115160 norm=1.1000 | end days=990 t=1670.39 DONE=True samples=588 value=98080 norm=1.1000 judge_reported=1.1 __ENGINE_RC__ -15
+agent-1-r1 medium: at 120 s days=68 samples=41 value=159440 norm=1.1000 | end days=990 t=1672.59 DONE=True samples=588 value=50070 norm=0.5731 judge_reported=0.5731456043956044 __ENGINE_RC__ -15
+agent-1-r1 small: at 120 s days=68 samples=41 value=106480 norm=1.1000 | end days=990 t=1672.5 DONE=True samples=589 value=14820 norm=0.2999 judge_reported=0.2998785916632942 __ENGINE_RC__ -15
+agent-1-r2 large: at 120 s days=68 samples=41 value=115300 norm=1.1000 | end days=990 t=1670.65 DONE=True samples=588 value=98080 norm=1.1000 judge_reported=1.1 __ENGINE_RC__ -15
+agent-1-r2 medium: at 120 s days=68 samples=41 value=159440 norm=1.1000 | end days=990 t=1672.95 DONE=True samples=588 value=50070 norm=0.5731 judge_reported=0.5731456043956044 __ENGINE_RC__ -15
+agent-1-r2 small: at 120 s days=68 samples=41 value=106480 norm=1.1000 | end days=990 t=1672.77 DONE=True samples=589 value=14820 norm=0.2999 judge_reported=0.2998785916632942 __ENGINE_RC__ -15
+v2-auto-26-r1 large: at 120 s days=68 samples=41 value=115300 norm=1.1000 | end days=990 t=1670.72 DONE=True samples=588 value=97940 norm=1.1000 judge_reported=1.1 __ENGINE_RC__ -15
+v2-auto-26-r1 medium: at 120 s days=68 samples=41 value=134870 norm=1.1000 | end days=990 t=1672.83 DONE=True samples=588 value=50700 norm=0.5804 judge_reported=0.5803571428571429 __ENGINE_RC__ -15
+v2-auto-26-r1 small: at 120 s days=68 samples=41 value=95210 norm=1.1000 | end days=990 t=1672.98 DONE=True samples=589 value=15030 norm=0.3041 judge_reported=0.30412788344799674 __ENGINE_RC__ -15
+v2-auto-26-r2 large: at 120 s days=68 samples=41 value=115300 norm=1.1000 | end days=990 t=1671.15 DONE=True samples=588 value=97940 norm=1.1000 judge_reported=1.1 __ENGINE_RC__ -15
+v2-auto-26-r2 medium: at 120 s days=68 samples=41 value=134870 norm=1.1000 | end days=990 t=1672.96 DONE=True samples=588 value=50700 norm=0.5804 judge_reported=0.5803571428571429 __ENGINE_RC__ -15
+v2-auto-26-r2 small: at 120 s days=68 samples=41 value=95210 norm=1.1000 | end days=990 t=1672.79 DONE=True samples=589 value=15030 norm=0.3041 judge_reported=0.30412788344799674 __ENGINE_RC__ -15
+agent-1-r1: final normalized at 120 s=27.50 at end of run=16.44 (raw 11000 -> 6577)
+agent-1-r2: final normalized at 120 s=27.50 at end of run=16.44 (raw 11000 -> 6577)
+v2-auto-26-r1: final normalized at 120 s=27.50 at end of run=16.54 (raw 11000 -> 6615)
+v2-auto-26-r2: final normalized at 120 s=27.50 at end of run=16.54 (raw 11000 -> 6615)

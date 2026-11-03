@@ -1,0 +1,72 @@
+{
+ "task": "schemathesis_config_modernization",
+ "claims": [
+  {
+   "claim": "Phase 3 overcredits a forwarding metric decorator because it checks callability rather than required function identity.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real modified at the defect: agent-16 whose metric registers func and returns a functools.wraps forwarding wrapper",
+   "arms": [
+    {
+     "label": "agent-16 real, old",
+     "scores": [
+      99.0,
+      99.0,
+      99.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-16 real, fixed",
+     "scores": [
+      99.0,
+      99.0,
+      99.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "wrapper, old",
+     "scores": [
+      99.0,
+      99.0,
+      99.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "wrapper, fixed",
+     "scores": [
+      98.33330000000001,
+      98.33330000000001,
+      98.33330000000001
+     ],
+     "n": 3
+    },
+    {
+     "label": "starter, old",
+     "scores": [
+      3.1466000000000003,
+      3.1466000000000003,
+      3.1466000000000003
+     ],
+     "n": 3
+    },
+    {
+     "label": "starter, fixed",
+     "scores": [
+      3.1466000000000003,
+      3.1466000000000003,
+      3.1466000000000003
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": 0.6667,
+   "fix_tested": "test asserts metric(f) is f: wrapper 99.0 -> 98.3333",
+   "correct_work_keeps_score": "yes, agent-16 99.0 -> 99.0",
+   "job": "evidence/runs/community9-schemathesis_config_modernization-a and -b",
+   "table_script": "evidence/scripts/second_review/c9_schemathesis_config_modernization_table.py",
+   "note": "Below 1 point, with zero spread and the same result through sforge eval; weakest point: all 27 real archives with a metrics module use return METRICS.register(func), so no real submission gains this credit."
+  }
+ ]
+}

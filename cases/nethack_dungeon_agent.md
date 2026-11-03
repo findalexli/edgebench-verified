@@ -1,5 +1,7 @@
 # NetHack Dungeon Agent (`nethack_dungeon_agent`)
 
+**Second review (November 2026): Confirmed.** Seeding silently fails, so the 20 graded games differ every time. Our bot scores 6.8-15.5 over 12 gradings, and 14.5 on all 12 once seeding works, all on one day; NetHack also reads the clock, so repeatability across dates is untested. The bot is ours; there is no real submission to test. The text below is the first audit's record.
+
 **Outcome:** Kept, with a note. <mark>The grader's call that should fix each game's random seed silently fails, so the 20 graded games are random and scores are not repeatable from run to run.</mark>
 
 ## What the task asks

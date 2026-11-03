@@ -1,5 +1,7 @@
 # SMT Solver (`smt_solver`)
 
+**Second review (November 2026): Confirmed.** The validator's recursion crashes on 5 hard files when a solver answers `sat`; no score file gets written, and the judge still reports a valid 0. A real solver scores 0.00 on the shipped judge and 47.04 and 46.17 with a larger validator stack. The 5 crashing answers still fail validation; preventing the crash restores credit earned on other cases. Measured at 8 CPUs and 7 GB, not the official 16 and 16 GB, with 6 to 7 solver OOM kills per run. No real run shows it. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The answer checker looks up a function's value by its literal text, so no solver can win 27 satisfiable hidden problems.</mark>
 
 ![Two panels. Original checker: two lines, 'let x = a, (f x) = a' and 'let x = b, (f x) = b', both point to one key '(f x)', labelled one text key, two values, no correct answer passes. Fixed checker: the same two lines point to separate keys '(f a)' and '(f b)', correct answer accepted. A note gives 27 unwinnable problems, a perfect solver's maximum of 72.40 instead of 78.61, and 42 more problems where answers in the documented form were rejected.](figures/smt_solver.svg)

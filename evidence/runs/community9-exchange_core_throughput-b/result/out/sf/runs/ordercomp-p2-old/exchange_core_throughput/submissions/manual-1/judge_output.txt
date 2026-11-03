@@ -1,0 +1,88 @@
+DEBUG: no MT/s line found. Output tail:
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- surefire:3.0.0-M3:test (default-test) @ exchange-core ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running exchange.core2.tests.perf.PerfThroughput
+2026-11-02/16:18:09.369/UTC [ForkJoinPool.commonPool-worker-2] DEBUG e.c.t.u.UserCurrencyAccountsGenerator - Generating users with 10000 accounts (40 currencies)...
+2026-11-02/16:18:09.418/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Building exchange core from configuration: ExchangeConfiguration{
+  ordersProcessingCfg=OrdersProcessingConfiguration(riskProcessingMode=FULL_PER_CURRENCY, marginTradingMode=MARGIN_TRADING_ENABLED)
+  performanceCfg=PerformanceConfiguration{ringBufferSize=32768, matchingEnginesNum=2, riskEnginesNum=1, msgsInGroupLimit=4096, maxGroupDurationNs=4000000, sendL2ForEveryCmd=false, l2RefreshDepth=8, threadFactory=AffinityThreadFactory, waitStrategy=YIELDING, orderBookFactory=PerformanceConfiguration$$Lambda$409/0x00007fe0ac1327d8, binaryCommandsLz4CompressorFactory=PerformanceConfiguration$$Lambda$408/0x00007fe0ac132278}
+  initStateCfg=InitialStateConfiguration(exchangeId=EC0, snapshotId=0, snapshotBaseSeq=0, journalTimestampNs=0, throwIfSnapshotNotFound=false)
+  reportsQueriesCfg=ReportsQueriesConfiguration{reportConstructors=[10001:StateHashReportQuery, 10002:SingleUserReportQuery, 10003:TotalCurrencyBalanceReportQuery], binaryCommandConstructors=[1002:BatchAddAccountsCommand, 1003:BatchAddSymbolsCommand]}
+  loggingCfg=LoggingConfiguration(loggingLevels=[LOGGING_WARNINGS])
+  serializationCfg=SerializationConfiguration(enableJournaling=false, serializationProcessorFactory=exchange.core2.core.common.config.SerializationConfiguration$$Lambda$412/0x00007fe0ac1399a8@e25951c)}
+2026-11-02/16:18:09.427/UTC [ForkJoinPool.commonPool-worker-2] DEBUG e.c.t.u.UserCurrencyAccountsGenerator - Generated 2995 users with 10000 accounts up to 40 different currencies in 23.2ms
+2026-11-02/16:18:09.587/UTC [ForkJoinPool.commonPool-worker-1] DEBUG e.c.tests.util.TestOrdersGenerator - All test commands generated in 158ms
+2026-11-02/16:18:09.587/UTC [Thread-AF-1-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - java.util.concurrent.ThreadPoolExecutor$Worker@5717c37[State = -1, empty queue] will be running on thread=Thread-AF-1-cpu7 pinned to cpu 7
+2026-11-02/16:18:09.592/UTC [Thread-AF-2-cpu6] DEBUG e.c.core.utils.AffinityThreadFactory - java.util.concurrent.ThreadPoolExecutor$Worker@4816278d[State = -1, empty queue] will be running on thread=Thread-AF-2-cpu6 pinned to cpu 6
+2026-11-02/16:18:09.600/UTC [Thread-AF-3-cpu5] DEBUG e.c.core.utils.AffinityThreadFactory - java.util.concurrent.ThreadPoolExecutor$Worker@147a5d08[State = -1, empty queue] will be running on thread=Thread-AF-3-cpu5 pinned to cpu 5
+2026-11-02/16:18:09.615/UTC [main] DEBUG exchange.core2.core.ExchangeCore - Starting disruptor...
+2026-11-02/16:18:09.616/UTC [Thread-AF-3-cpu5] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@147a5d08[State = 0, empty queue]
+2026-11-02/16:18:09.616/UTC [main] WARN  e.c.core.utils.AffinityThreadFactory - Task TwoStepMasterProcessor{R1_0} was already pinned
+2026-11-02/16:18:09.617/UTC [Thread-AF-2-cpu6] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@4816278d[State = 0, empty queue]
+2026-11-02/16:18:09.619/UTC [Thread-AF-4-cpu6] DEBUG e.c.core.utils.AffinityThreadFactory - TwoStepMasterProcessor{R1_0} will be running on thread=Thread-AF-4-cpu6 pinned to cpu 6
+2026-11-02/16:18:09.620/UTC [Thread-AF-1-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from java.util.concurrent.ThreadPoolExecutor$Worker@5717c37[State = 0, empty queue]
+2026-11-02/16:18:09.622/UTC [Thread-AF-5-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - TwoStepMasterProcessor{R1_0} will be running on thread=Thread-AF-5-cpu7 pinned to cpu 7
+2026-11-02/16:18:09.624/UTC [Thread-AF-6-cpu5] DEBUG e.c.core.utils.AffinityThreadFactory - GroupingProcessor{GL=4096} will be running on thread=Thread-AF-6-cpu5 pinned to cpu 5
+2026-11-02/16:18:09.624/UTC [Thread-AF-5-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from TwoStepMasterProcessor{R1_0}
+2026-11-02/16:18:09.626/UTC [Thread-AF-7-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - com.lmax.disruptor.BatchEventProcessor@20f5281c will be running on thread=Thread-AF-7-cpu7 pinned to cpu 7
+2026-11-02/16:18:09.642/UTC [Thread-AF-8-cpu4] DEBUG e.c.core.utils.AffinityThreadFactory - com.lmax.disruptor.BatchEventProcessor@56c4278e will be running on thread=Thread-AF-8-cpu4 pinned to cpu 4
+2026-11-02/16:18:09.642/UTC [main] DEBUG e.c.core.utils.AffinityThreadFactory - Skip pinning slave processor: TwoStepSlaveProcessor{R2_0}
+2026-11-02/16:18:09.647/UTC [Thread-AF-9-cpu3] DEBUG e.c.core.utils.AffinityThreadFactory - com.lmax.disruptor.BatchEventProcessor@301eda63 will be running on thread=Thread-AF-9-cpu3 pinned to cpu 3
+2026-11-02/16:18:09.652/UTC [Thread-9] WARN  net.openhft.affinity.LockInventory - No reservable Core for Thread[Thread-9,5,main]
+2026-11-02/16:18:09.667/UTC [Thread-AF-10-cpu2] DEBUG e.c.core.utils.AffinityThreadFactory - java.util.concurrent.ThreadPoolExecutor$Worker@71329995[State = -1, empty queue] will be running on thread=Thread-AF-10-cpu2 pinned to cpu 2
+2026-11-02/16:18:09.838/UTC [main] INFO  exchange.core2.core.ExchangeCore - Shutdown disruptor...
+2026-11-02/16:18:09.840/UTC [main] INFO  exchange.core2.core.ExchangeCore - Disruptor stopped
+2026-11-02/16:18:09.840/UTC [Thread-AF-8-cpu4] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from com.lmax.disruptor.BatchEventProcessor@56c4278e
+2026-11-02/16:18:09.842/UTC [Thread-R1_0] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from TwoStepMasterProcessor{R1_0}
+2026-11-02/16:18:09.842/UTC [Thread-AF-6-cpu5] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from GroupingProcessor{GL=4096}
+2026-11-02/16:18:09.843/UTC [Thread-AF-7-cpu7] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from com.lmax.disruptor.BatchEventProcessor@20f5281c
+2026-11-02/16:18:09.851/UTC [Thread-AF-9-cpu3] DEBUG e.c.core.utils.AffinityThreadFactory - Removing cpu lock/reservation from com.lmax.disruptor.BatchEventProcessor@301eda63
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.681 s <<< FAILURE! - in exchange.core2.tests.perf.PerfThroughput
+[ERROR] testThroughputPeak  Time elapsed: 0.578 s  <<< ERROR!
+java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.util.concurrent.CompletionException: java.lang.IllegalStateException: Exception while generating commands for symbol 40000
+	at exchange.core2.tests.perf.PerfThroughput.testThroughputPeak(PerfThroughput.java:63)
+Caused by: java.util.concurrent.ExecutionException: java.util.concurrent.CompletionException: java.lang.IllegalStateException: Exception while generating commands for symbol 40000
+	at exchange.core2.tests.perf.PerfThroughput.testThroughputPeak(PerfThroughput.java:63)
+Caused by: java.util.concurrent.CompletionException: java.lang.IllegalStateException: Exception while generating commands for symbol 40000
+Caused by: java.lang.IllegalStateException: Exception while generating commands for symbol 40000
+Caused by: java.util.concurrent.ExecutionException: java.lang.IllegalStateException: Unsuccessful result code: MATCHING_UNKNOWN_ORDER_ID for OrderCommand(command=MOVE_ORDER, orderId=27, symbol=40000, price=34401, size=0, reserveBidPrice=0, action=null, orderType=null, uid=2871, timestamp=0, userCookie=0, eventsGroup=0, serviceFlags=0, resultCode=VALID_FOR_MATCHING_ENGINE, matcherEvent=null, marketData=null)
+Caused by: java.lang.IllegalStateException: Unsuccessful result code: MATCHING_UNKNOWN_ORDER_ID for OrderCommand(command=MOVE_ORDER, orderId=27, symbol=40000, price=34401, size=0, reserveBidPrice=0, action=null, orderType=null, uid=2871, timestamp=0, userCookie=0, eventsGroup=0, serviceFlags=0, resultCode=VALID_FOR_MATCHING_ENGINE, matcherEvent=null, marketData=null)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   PerfThroughput.testThroughputPeak:63 » Runtime java.util.concurrent.ExecutionE...
+[INFO] 
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.254 s
+[INFO] Finished at: 2026-11-02T16:18:10Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M3:test (default-test) on project exchange-core: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/workspace/exchange-core/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+CASE 0000 RE score=0
+TOTAL_SCORE 0
+CASES_OK 0
+CASES_TOTAL 1
+eval_exchange_core.py exit code: 0
+--- result.json ---
+{"valid": true, "summary": "0/1 tests passed. Failed: case_0000_RE", "metrics": {"pass_rate": 0.0, "cases_ok": 0, "cases_total": 1, "average_mt_s": null, "eval_exit_code": 0}, "score": 0.0}

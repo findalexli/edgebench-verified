@@ -1,5 +1,7 @@
 # Jagua Nesting Optimization (`jagua_nesting_optimization`)
 
+**Second review (November 2026): Not confirmed.** The overlap bug exists, but we have no good-faith submission that gains or loses from it. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The original grader's validity check accepts large overlaps between shapes, such as identical placements, shapes inside other shapes and shapes slid halfway over others, so it cannot guarantee that a winning layout is possible to cut.</mark>
 
 ![Two squares slid halfway over each other with a shaded overlap of area 50 (each square is 10 by 10); the original grader accepts the layout and the fixed grader rejects it.](figures/jagua_nesting_optimization.svg)

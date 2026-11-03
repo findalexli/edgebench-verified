@@ -1,5 +1,7 @@
 # OpenTTD Transport AI (`openttd_transport_ai`)
 
+**Second review (November 2026): Not confirmed.** The named API doesn't exist, but we measured no loss for a productive AI. The archived idle script scored 0, and a corrected one was not game-tested. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The instructions tell the solver to maximize a game function, `AICompany.GetCompanyValue`, that does not exist in the pinned game version, so a script that calls it crashes, and the supplied starter program crashes at its first call to it; the fix changes the instructions and the starter, not the grader.</mark>
 
 ![A flow shows the original instructions naming GetCompanyValue, which does not exist in OpenTTD 13.4, so a script that calls it dies at that call and its company stops acting, while the fixed instructions and starter name GetQuarterlyCompanyValue, which exists, so the script keeps running; a note says the grader is unchanged and the starter scores 0 in both versions.](figures/openttd_transport_ai.svg)

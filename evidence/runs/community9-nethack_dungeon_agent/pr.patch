@@ -1,0 +1,15 @@
+--- a/edgebench/tasks/nethack_dungeon_agent/judge/eval_nethack.py
++++ b/edgebench/tasks/nethack_dungeon_agent/judge/eval_nethack.py
+@@ -68,10 +68,8 @@
+ 
+ 
+ def reset_env(env, seed):
+-    try:
+-        env.seed(seed)
+-    except Exception:
+-        pass
++    seed_value = EVAL_SEED_BASE + int(seed)
++    env.unwrapped.nethack._pynethack.set_initial_seeds(seed_value, seed_value, False, None)
+     reset_result = env.reset()
+     if isinstance(reset_result, tuple):
+         return reset_result[0], reset_result[1] if len(reset_result) > 1 else {}

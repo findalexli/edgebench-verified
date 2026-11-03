@@ -1,5 +1,7 @@
 # Vibrating Path Graph Coloring (`vibrating_path_graph_coloring`)
 
+**第二轮复核（2026 年 11 月）：已确认。** 官方配置的 4 个 CPU 上同时运行 8 个用例，只要一个超时，总分就变成 `inf`。 一个真实的 Opus 求解器 15 次评分全部是 `inf`，同时运行 4 个用例时得 19.77-19.98。同一文件在自己那次运行中，在公开的评分器镜像上 7 次评分全部通过，所以评分结果不可重复。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>README 承诺每个用例 30 s，可在发布方 4 个 CPU 的评分器上，有效解法每个用例只要用了超过约 14 s CPU 就会超时，而只要一个用例超时，整份提交就没有分数。修复版限制同时运行的用例数不超过评分器的 CPU 数，并把整次运行的时限从 600 s 提高到 900 s。测试程序不接受 README 规定的三行零命中格式，这一点作为说明保留。在 37 个有证书的用例上，它对分数没有影响，另外 13 个用例还没有定论。</mark>
 
 ## 任务要求
@@ -38,7 +40,7 @@ README 没有给零命中的情形留任何例外。`tools/README.md` 里没有�
 
 一个用例失败，整份提交就作废。评测程序把答案错误、超时或运行出错的用例都记为 `float('inf')`，再加进总分（`/tmp/eval_vibrating_path.py`，第 20、35、37、39 和 54 行）。所以只要一个用例失败，就是 `TOTAL_SCORE inf`。EdgeBench 的评测框架把它当作原始结果（无穷大）收下，而 `rescale_score` 遇到无穷大不给 100 分制的分数（`sforge/harness/score_rescale.py:75-76`）。于是那份提交没有分数。在 `score_first` 下，更早的、没有失败用例的提交仍会保留。任务说明只说 "Final score = sum of individual case scores"（最终分数为各用例分数之和），没说失败的用例记多少分。
 
-在 4 个 CPU 的评分器上，每个用例承诺的 30 s 缩水成约 14 s CPU 时间，修复版纠正了这一点。README 承诺 "Time limit | 30 seconds / test case"（第 54 行）。时限按墙钟时间算（`TIME_LIMIT = 30`，第 9 行），同时跑 8 个用例（`ProcessPoolExecutor(max_workers=min(8, len(case_files)))`，第 45 行）。任务没有规定 CPU 数。EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml`（引文见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`）里，评分器沿用 `judge_cpu_limit: 4`。八个用例在 4 个 CPU 上每个约分到半个 CPU，还要和任务的 Python 测试程序抢 CPU。测试程序每个用例要 5.6–19.0 s CPU 时间（50 个用例共 579.6 s，在 1 个 CPU 上对正常对照解法的输出逐个用例测得，见 `repairs/vibrating_path_graph_coloring-v2/paired/tester_time.out`）。
+在 4 个 CPU 的评分器上，每个用例承诺的 30 s 缩水成约 14 s CPU 时间，修复版纠正了这一点。README 承诺 "Time limit | 30 seconds / test case"（第 54 行）。时限按墙钟时间算（`TIME_LIMIT = 30`，第 9 行），同时跑 8 个用例（`ProcessPoolExecutor(max_workers=min(8, len(case_files)))`，第 45 行）。任务没有规定 CPU 数。EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml`（引文见 [`evidence/impact/edgebench-leaderboard-config.md`](../../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`）里，评分器沿用 `judge_cpu_limit: 4`。八个用例在 4 个 CPU 上每个约分到半个 CPU，还要和任务的 Python 测试程序抢 CPU。测试程序每个用例要 5.6–19.0 s CPU 时间（50 个用例共 579.6 s，在 1 个 CPU 上对正常对照解法的输出逐个用例测得，见 `repairs/vibrating_path_graph_coloring-v2/paired/tester_time.out`）。
 
 下表是在原始评分器上用 `--cpus 4` 测得的结果（`evidence/runs/vibrating_path_graph_coloring-cpu4v8-a/result/out/summary.txt`、`-b`；在 `vibrating_path_graph_coloring-v2-paired-a` 中重复）。
 
@@ -48,7 +50,7 @@ README 没有给零命中的情形留任何例外。`tools/README.md` 里没有�
 | 每个用例 20 s CPU（在两台机器上测得） | **2 OK，48 TLE，TOTAL `inf`（无分数）** | 50 OK，TOTAL 24,650,014（100 分制下 2.06 分） |
 | 计算到 25 s 墙钟截止时间 | 50 OK，TOTAL 24,650,014；每个用例 CPU 中位数 12.7 s | 50 OK，TOTAL 24,650,014；中位数 24.9 s |
 
-另一次 4 个 CPU 的原始评分器运行（`evidence/runs/vibrating_path_graph_coloring-v2-paired-b`）里，25 s 截止时间的解法丢了 14 个用例（36 OK，14 TLE，TOTAL `inf`）。那次运行中，每个解法进程都在开始后 27.14 s 以内结束，而 14 个超时用例全在测试程序最慢的 25 个用例之列。测试程序超时（它自己的 `timeout=60`）和解法超时，评测程序报的都是 `TLE`。所以可能是测试程序只分到约半个 CPU，撞上了自己的 60 s 超时。这个原因是推断的，没有直接观察到。那次运行没记下测试程序的启动时间，而在另一个工作节点上记了这些时间的重复运行（`vibrating_path_graph_coloring-v2-paired-c`）两次都是 50/50 通过。原始评分器给这个解法一共评了九次（`-b` 和 `-c` 各运行三次，后者每次运行评两次分），只有这一次失败。修复版下六次评分全部通过（[可重复性](../repairs/vibrating_path_graph_coloring-v2/paired/results.md)）。
+另一次 4 个 CPU 的原始评分器运行（`evidence/runs/vibrating_path_graph_coloring-v2-paired-b`）里，25 s 截止时间的解法丢了 14 个用例（36 OK，14 TLE，TOTAL `inf`）。那次运行中，每个解法进程都在开始后 27.14 s 以内结束，而 14 个超时用例全在测试程序最慢的 25 个用例之列。测试程序超时（它自己的 `timeout=60`）和解法超时，评测程序报的都是 `TLE`。所以可能是测试程序只分到约半个 CPU，撞上了自己的 60 s 超时。这个原因是推断的，没有直接观察到。那次运行没记下测试程序的启动时间，而在另一个工作节点上记了这些时间的重复运行（`vibrating_path_graph_coloring-v2-paired-c`）两次都是 50/50 通过。原始评分器给这个解法一共评了九次（`-b` 和 `-c` 各运行三次，后者每次运行评两次分），只有这一次失败。修复版下六次评分全部通过（[可重复性](../../repairs/vibrating_path_graph_coloring-v2/paired/results.md)）。
 
 任务随附了一条说明。零命中时，测试程序接受两行输出，却不接受 README 写的三行格式（命中那一行为空）。在 37 个官方用例上，零命中的答案已证明无效，其余 13 个还没有定论。让解析器两种格式都接受，可以消除格式不一致，但这样的修复不在本修复包里，也没有证明它在官方用例上给出相同的分数。
 

@@ -1,0 +1,42 @@
+#!/bin/bash
+# Old vs new judge on EdgeBench community @ 1187e2ca503d5ba3b4d23a50e7851f730a8126de: build both from source on this worker,
+# grade the same archives with tools/judge_local.py and/or `sforge eval`. SMT real solver, full hidden set, sforge eval, stack fix on both judges.
+set -uo pipefail
+T=smt_solver; SHA=1187e2ca503d5ba3b4d23a50e7851f730a8126de; O=/job/out; mkdir -p $O/g $O/s; cd /job
+START=$(date +%s); LIMIT=3280; ONLY=base
+nproc >$O/env.txt; free -m >>$O/env.txt; date -u >>$O/env.txt; docker version --format '{{.Server.Version}}' >>$O/env.txt
+curl -LsSf https://astral.sh/uv/install.sh | sh >$O/uv.log 2>&1; export PATH=$HOME/.local/bin:$PATH
+git clone -q --filter=blob:none --no-checkout -b community https://github.com/ByteDance-Seed/EdgeBench.git base >$O/clone.log 2>&1
+( cd base && git sparse-checkout set --no-cone '/*.md' '/tools/' '/pyproject.toml' '/README*' '/LICENSE' '/sforge/' '/edgebench/benchmark.toml' '/edgebench/bases/' "/edgebench/tasks/$T/" && git checkout -q $SHA ) >>$O/clone.log 2>&1 || { echo clone-failed; exit 2; }
+git -C base rev-parse HEAD >>$O/env.txt
+cp -r base new; ( cd new && git apply /job/pr.patch ) || { echo patch-failed; exit 3; }
+uv venv -q --python 3.12 v >>$O/uv.log 2>&1; uv pip install -q --python v/bin/python -e base >>$O/uv.log 2>&1 || { echo install-failed; exit 4; }
+tag(){ ( cd $1 && /job/v/bin/python -c "from pathlib import Path; from sforge.harness.task_spec import load_task; print(load_task(Path('edgebench/tasks/$T')).judge_image_key)" ); }
+[ -f /job/prebuild.sh ] && source /job/prebuild.sh
+sides="base new"; [ "$ONLY" = base ] && sides=base; [ "$ONLY" = new ] && sides=new
+# `sforge build` exits 0 when a build fails, so check the image; retry a failed apt mirror fetch.
+for t in $sides; do for try in 1 2 3; do ( cd $t && /job/v/bin/python -m sforge build --task $T ) >$O/build-$t-$try.log 2>&1; docker image inspect "$(tag $t)" >/dev/null 2>&1 && break; echo "build-retry $t $try" >>$O/summary.txt; sleep 60; done; docker image inspect "$(tag $t)" >/dev/null 2>&1 || { echo build-failed $t; tail -30 $O/build-$t-$try.log; exit 5; }; [ -f /job/postbuild.sh ] && source /job/postbuild.sh; done
+docker images --format '{{.Repository}}:{{.Tag}} {{.ID}}' | grep -E 'edgebench\.(judge|work)' >$O/images.txt
+IMGOLD=$(tag base); IMGNEW=$(tag new); echo "old $IMGOLD new $IMGNEW" >$O/tags.txt
+for t in $sides; do i=$IMGOLD; [ $t = new ] && i=$IMGNEW; docker image inspect $i --format "$t {{.Id}}" >>$O/tags.txt; docker run --rm --network none --entrypoint sh $i -c 'find /judge /home/workspace/smt_judge/scripts /opt/evaluator /opt/tests -maxdepth 2 -type f 2>/dev/null | sort | xargs sha256sum' >$O/judge-$t.sha 2>&1; done
+sha256sum /job/subs/*.tar.gz >$O/subs.sha 2>/dev/null
+echo "setup_s $(( $(date +%s)-START ))" >>$O/summary.txt
+fits(){ local el=$(( $(date +%s)-START )); [ $(( el+$1 )) -le $LIMIT ] && return 0; echo "SKIP $2 est=$1 elapsed=$el" >>$O/summary.txt; return 1; }
+grade(){ # label side archive-or-empty est_seconds (judge_local: task.toml limits, no SFORGE_CPUS)
+  local sd=$2 img d; [ $sd = old ] && { img=$IMGOLD; d=base; } || { img=$IMGNEW; d=new; }
+  fits $4 "$1-$sd" || return 0
+  local a="--empty"; [ "$3" != empty ] && a="--archive /job/subs/$3"
+  ( cd $d && /job/v/bin/python tools/judge_local.py --task-dir edgebench/tasks/$T --image $img $a --out $O/g/$1-$sd.json ) >>$O/g/stdout.jsonl 2>>$O/g/stderr.log
+  echo "$1 $sd rc=$? t=$(( $(date +%s)-START ))" >>$O/summary.txt
+}
+SEVAL_ARGS=${SEVAL_ARGS:-}
+seval(){ # label side archive est_seconds (real harness: fresh judge container, task.toml limits, SFORGE_CPUS)
+  local sd=$2 d; [ $sd = old ] && d=base || d=new
+  fits $4 "$1-$sd-sforge" || return 0
+  ( cd $d && /job/v/bin/python -m sforge --silent --log-dir /job/sl eval --task $T --archive /job/subs/$3 --run-id $1-$sd $SEVAL_ARGS --json ) >$O/s/$1-$sd.log 2>&1
+  echo "sforge $1 $sd rc=$? t=$(( $(date +%s)-START ))" >>$O/summary.txt
+  cp /job/sl/runs/$1-$sd/$T/submissions/manual-1/test_output.txt $O/s/$1-$sd.test_output.txt 2>/dev/null
+  cp /job/sl/runs/$1-$sd/$T/submissions/manual-1/report.json $O/s/$1-$sd.report.json 2>/dev/null
+}
+source /job/arms.sh
+docker system df >>$O/env.txt; echo done >>$O/summary.txt

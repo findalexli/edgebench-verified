@@ -1,0 +1,26 @@
+arm judge n mean0_100 min max raw | per-run
+agent7 new 3 44.12 41.54 46.73 [17.813481, 15.150502, 12.934646]
+     41.1 [] ['Correctness OK (30/30), geometric mean sp']
+agent7 old 3 43.49 42.27 44.32 [15.355828, 14.938104, 13.529917]
+     37.4 [] ['Correctness OK (30/30), geometric mean sp']
+agent7_err new 3 0 0 0 [0.411087, 0.371962, 0.36918]
+     42.1 [] ['Correctness OK (30/30), geometric mean sp']
+agent7_err old 3 55.99 55.67 56.41 [31.31295, 32.3529, 30.899333]
+     36.7 [] ['Correctness OK (30/30), geometric mean sp']
+auto18 new 3 43.33 41.47 45.32 [16.332058, 14.323285, 12.881955]
+     38.3 [] ['Correctness OK (30/30), geometric mean sp']
+auto18 old 3 43.36 41.5 45.71 [16.728847, 12.902525, 14.040045]
+     36.5 [] ['Correctness OK (30/30), geometric mean sp']
+auto18_err new 3 0 0 0 [0.466105, 0.391313, 0.375151]
+     38.9 [] ['Correctness OK (30/30), geometric mean sp']
+auto18_err old 3 56.18 53.82 58.61 [37.040007, 27.573982, 31.762639]
+     36.6 [] ['Correctness OK (30/30), geometric mean sp']
+auto18_noop new 3 0 0 0 [0.408785, 0.383339, 0.375708]
+     39.5 [] ['Correctness OK (30/30), geometric mean sp']
+auto18_noop old 3 56.76 55.84 58.46 [36.706347, 31.227369, 31.500987]
+     36.5 [] ['Correctness OK (30/30), geometric mean sp']
+--- real reports
+reports 89 best (46.117868279843265, 17.153814, 'ion/auto-18')
+regraded real archives 89 timed-output failures {('rgb24 1080p\\u2192360p nearest', 'candidate output below PSNR threshold 40.0 '): 7}
+archives with a failure (run, id, speedup on the v2 check): [('-r2', 'agent-1', '0.0000'), ('-r2', 'auto-1', '0.0000'), ('-r2', 'auto-2', '0.0000'), ('-r2', 'auto-3', '0.0000'), ('ion', 'agent-1', '0.0000'), ('ion', 'auto-1', '0.0000'), ('ion', 'auto-2', '0.0000')]
+their reported raw and 0-100 scores: [(0.446542, 0.0), (0.451154, 0.0), (0.452752, 0.0), (0.449019, 0.0), (0.422348, 0.0), (0.432919, 0.0), (0.43744, 0.0)]

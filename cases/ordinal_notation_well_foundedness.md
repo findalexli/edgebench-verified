@@ -1,5 +1,7 @@
 # Ordinal Notation Well-Foundedness (`ordinal_notation_well_foundedness`)
 
+**Second review (November 2026): Real, small or unseen.** A file-name filter can drop a needed proof helper (1.18 to 0). Only our own proof triggers it. We hold no real submission for this task, though upstream records historical runs. The text below is the first audit's record.
+
 **Outcome:** Kept, with a note. <mark>The Coq grader credits complete, correct proofs and rejects `Admitted` and axiom-based proofs, but the task does not document two limits (the filter on helper file names and the 300 s compile limit). The publisher's results show closed proofs of targets 1 to 6; whether targets 7 to 9 (64 of 85 points) can be proved is not known.</mark>
 
 ## What the task asks

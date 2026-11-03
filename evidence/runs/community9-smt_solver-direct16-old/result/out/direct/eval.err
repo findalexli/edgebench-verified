@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/workspace/smt_judge/scripts/evaluate.py", line 1023, in <module>
+    main()
+  File "/home/workspace/smt_judge/scripts/evaluate.py", line 945, in main
+    results = evaluate_logic(
+  File "/home/workspace/smt_judge/scripts/evaluate.py", line 782, in evaluate_logic
+    result = classify_result(future.result(), expected)
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+concurrent.futures.process.BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending.

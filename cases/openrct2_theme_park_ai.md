@@ -1,5 +1,7 @@
 # OpenRCT2 Theme Park AI (`openrct2_theme_park_ai`)
 
+**Second review (November 2026): Confirmed.** The instruction promises about four game years, but the 120 seconds per scenario fit 68 to 69 of 992 game days. A real plugin scores 27.50 under the official budget (n=3). Direct evaluator runs continued to 992 days score 16.44 (n=2), so for this plugin the short run inflates the score. No judge fix was tested. Real files also vary between gradings, up to 11.40-44.73, but randomness in the plugins may cause that, so we don't count it against the judge. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The prompt promises about 4 game years per scenario, but the 120 s time budget covers about 68 game days, so the score is a snapshot taken early in the game; the fix corrects the prompt.</mark>
 
 ![Two bars show 68 to 69 game days reached in the 120 s per-scenario budget against the promised 992 days (about 4 years), and the 120 s budget against the 1,667 s that 992 days would need per scenario.](figures/openrct2_theme_park_ai.svg)

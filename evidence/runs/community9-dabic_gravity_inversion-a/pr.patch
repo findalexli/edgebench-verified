@@ -1,0 +1,33 @@
+diff --git a/edgebench/tasks/dabic_gravity_inversion/judge/eval_dabic_v2.py b/edgebench/tasks/dabic_gravity_inversion/judge/eval_dabic_v2.py
+--- a/edgebench/tasks/dabic_gravity_inversion/judge/eval_dabic_v2.py
++++ b/edgebench/tasks/dabic_gravity_inversion/judge/eval_dabic_v2.py
+@@ -375,12 +375,19 @@
+             or self.svd_calls > 0
+         )
+         uses_bad_det = self.det_calls > 0
+-        structural_failure = (not is_data_space) or (not beta_truly_updated) or uses_bad_det
++        # The task lets the solver pick the model-space or the data-space form; either dimension counts.
++        is_model_space = (
++            len(square_dims) > 0
++            and n_cell_match >= max(1, len(square_dims) // 2)
++            and n_cell_match > n_data_match
++        )
++        known_space = is_data_space or is_model_space
++        structural_failure = (not known_space) or (not beta_truly_updated) or uses_bad_det
+         valid_for_selection = beta_truly_updated and uses_proper_logdet and not uses_bad_det
+ 
+         # E1: 0-7 内, scale 0.8 -> 0-5.6
+         e1_raw = 0.0
+-        if is_data_space:        e1_raw += 4.0
++        if known_space:          e1_raw += 4.0
+         if beta_truly_updated:   e1_raw += 2.0
+         if uses_proper_logdet and not uses_bad_det:
+             e1_raw += 1.0
+@@ -397,6 +404,7 @@
+             "E1_score": float(e1_raw * 0.8),
+             "E2_score": float(e2_raw * 0.8),
+             "is_data_space": is_data_space,
++            "is_model_space": is_model_space,
+             "beta_truly_updated": beta_truly_updated,
+             "uses_proper_logdet": uses_proper_logdet,
+             "uses_bad_det": uses_bad_det,

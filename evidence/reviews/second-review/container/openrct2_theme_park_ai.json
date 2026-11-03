@@ -1,0 +1,118 @@
+{
+ "task": "openrct2_theme_park_ai",
+ "claims": [
+  {
+   "claim": "The promised approximately four-year simulation is cut short by the official 120-second budget, and scoring uses the last available snapshot.",
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged: opus-v1 agent-1 (the round3 witness) and opus-v2 auto-26",
+   "arms": [
+    {
+     "label": "agent-1, official 120 s, sforge eval, 68 to 69 days, no DONE",
+     "scores": [
+      27.5,
+      27.5,
+      27.5
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-1, direct evaluate() run to DONE at 992 days",
+     "scores": [
+      16.4425,
+      16.4425
+     ],
+     "n": 2
+    },
+    {
+     "label": "v2 auto-26, replay of the direct run cut at 120 s",
+     "scores": [
+      27.5,
+      27.5
+     ],
+     "n": 2
+    },
+    {
+     "label": "v2 auto-26, direct evaluate() run to DONE at 992 days",
+     "scores": [
+      16.5375,
+      16.5375
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": 11.06,
+   "fix_tested": "none: the v2 repair changes only the prompt, so it cannot change a score",
+   "correct_work_keeps_score": "not applicable, no judge fix tested",
+   "job": "evidence/runs/community9-openrct2_theme_park_ai-reps, evidence/runs/community9-openrct2_theme_park_ai-long",
+   "table_script": "evidence/scripts/second_review/c9_openrct2_theme_park_ai_table.py",
+   "note": "The budget fits 68 to 69 of 992 game days, and the same plugin scores 27.50 there but 16.44 at the promised horizon because the 1.10 cap hides a later value collapse, so truncation inflates these scores; the weakest points are two similar capped plugins and full-horizon runs through direct evaluate() in one container per scenario rather than sforge eval."
+  },
+  {
+   "claim": "Additional, not in round3: identical real submissions get different final scores because the engine exits early at a varying moment and the judge scores the last snapshot.",
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged: opus-v1 auto-45, auto-30, agent-11, agent-10, auto-6",
+   "arms": [
+    {
+     "label": "auto-45, official",
+     "scores": [
+      11.4,
+      44.7325,
+      43.025
+     ],
+     "n": 3
+    },
+    {
+     "label": "auto-30, official",
+     "scores": [
+      26.36,
+      37.7575,
+      50.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-10, official",
+     "scores": [
+      33.3325,
+      16.6675,
+      33.3325
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-11, official",
+     "scores": [
+      50.0,
+      50.0,
+      37.7575
+     ],
+     "n": 3
+    },
+    {
+     "label": "auto-6, official",
+     "scores": [
+      6.53,
+      6.475,
+      9.1675
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-1, official, no early exit (control)",
+     "scores": [
+      27.5,
+      27.5,
+      27.5
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": 33.3325,
+   "fix_tested": "none",
+   "correct_work_keeps_score": "not applicable, no fix tested",
+   "job": "evidence/runs/community9-openrct2_theme_park_ai-reps, evidence/runs/community9-openrct2_theme_park_ai-smoke",
+   "table_script": "evidence/scripts/second_review/c9_openrct2_theme_park_ai_table.py",
+   "note": "Five of six real files vary by 2.69 to 33.33 points in 3 official gradings and a scenario with no sample scores 0; the weakest point is that the exit code (SIGSEGV, -11) was recorded only in the direct smoke of agent-10, so for the others an early exit is inferred from short runtimes and low sample counts, and the plugins' bursts of failed actions may trigger it."
+  }
+ ]
+}

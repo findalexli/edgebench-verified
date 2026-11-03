@@ -1,0 +1,257 @@
+[
+  {
+    "task_id": "arc_compiler_runtime",
+    "status": "confirmed",
+    "line": "Hidden tests expect an `analyze()` return shape that nothing the agent sees describes.",
+    "line_zh": "隐藏测试要求 `analyze()` 返回一种智能体看到的任何材料都没有说明的形式。",
+    "effect": "A real Opus submission scores 61.31 as submitted and 94.81 with only the return shape changed (n=2 each). One real run each: best 61.31 on the original task, 96.06 with the shape documented.",
+    "effect_zh": "一份真实的 Opus 提交原样得 61.31，只改返回形式后得 94.81（各 n=2）。真实运行各一次：原任务最好成绩 61.31，写明返回形式后 96.06。",
+    "upstream": "Not yet reported."
+  },
+  {
+    "task_id": "smt_solver",
+    "status": "confirmed",
+    "line": "The validator's recursion crashes on 5 hard files when a solver answers `sat`; no score file gets written, and the judge still reports a valid 0.",
+    "line_zh": "求解器对 5 个难题回答 `sat` 时，验证程序的递归会崩溃；分数文件没有写出，评分器却仍报告一个有效的 0 分。",
+    "effect": "A real solver scores 0.00 on the shipped judge and 47.04 and 46.17 with a larger validator stack. The 5 crashing answers still fail validation; preventing the crash restores credit earned on other cases. Measured at 8 CPUs and 7 GB, not the official 16 and 16 GB, with 6 to 7 solver OOM kills per run. No real run shows it.",
+    "effect_zh": "一个真实求解器在原评分器上得 0.00，加大验证程序的栈后得 47.04 和 46.17。引发崩溃的 5 个答案仍然验证不通过；避免崩溃只是恢复了其他用例上已得的分数。测量条件是 8 个 CPU 和 7 GB，不是官方的 16 个 CPU 和 16 GB，每次运行有 6 到 7 次求解器被内存杀死。真实运行中尚未观察到这一现象。",
+    "upstream": "Not yet reported."
+  },
+  {
+    "task_id": "rust_multicrate_reconstruction",
+    "status": "confirmed",
+    "line": "Four source files are missing, which blocks nine scored crates.",
+    "line_zh": "缺少四个源文件，导致九个计分的 crate 无法通过。",
+    "effect": "At 8 vCPUs, restoring the files raises a real submission from 17.20 to 27.17 and a reference we rebuilt from upstream code from 27.61 to 73.99 (n=2). Original-judge scores matched 4-CPU results, but the restored arm wasn't run at 4 CPUs. Two crates still fail because of separate hidden-test defects. The starter also rises, from 1.47 to 3.82, so old scores don't carry over.",
+    "effect_zh": "在 8 个 vCPU 上，补回这些文件后，一份真实提交从 17.20 升到 27.17，我们根据上游代码重建的参考解从 27.61 升到 73.99（n=2）。原评分器的分数与 4 个 CPU 的结果一致，但补回文件的情况没有在 4 个 CPU 上运行。另外两个 crate 仍因隐藏测试的其他缺陷无法通过。初始代码也从 1.47 升到 3.82，所以旧分数不能直接沿用。",
+    "upstream": "Listed in upstream's known issues."
+  },
+  {
+    "task_id": "schemathesis_datagen_pipeline",
+    "status": "confirmed",
+    "line": "The hidden header test imports names and expects format keys that `TODO.md` never gives, so every real `headers` module scores 0 of 15 on it.",
+    "line_zh": "隐藏的 header 测试要导入的名称和要求的格式键，`TODO.md` 都没有给出，所以每个真实的 `headers` 模块在这项测试上都是 0/15。",
+    "effect": "Once those are supplied, a real submission goes from 72.31 to 85.64 or 86.67; the two values come from a flaky test. The 8 real modules are 2 distinct versions.",
+    "effect_zh": "补上这些内容后，一份真实提交从 72.31 升到 85.64 或 86.67，两个值的差别来自一项不稳定的测试。8 个真实模块实际只有 2 个不同版本。",
+    "upstream": "Not yet reported."
+  },
+  {
+    "task_id": "juliet_vulnerability_analyzer",
+    "status": "confirmed",
+    "line": "Any `.py` or `.sh` file containing the word `infer`, even in a comment, loses 100 points. Separately, CWE-416 findings that start at the release are rejected.",
+    "line_zh": "只要 `.py` 或 `.sh` 文件里出现 `infer` 这个词，哪怕在注释里，也要扣 100 分。另外，从释放点开始的 CWE-416 结果会被拒绝。",
+    "effect": "A real analyzer scores 0 and would score 79.59 with the fix; another goes from 90.70 to 0 with one added comment (n=6). CWE-416: a real analyzer loses 3.34, from 89.00 to 85.66 (n=3), though that solver turned the option off and its best score lost nothing.",
+    "effect_zh": "一个真实分析器得 0 分，修复后可得 79.59；另一个只加一行注释就从 90.70 变成 0（n=6）。CWE-416：一个真实分析器损失 3.34，从 89.00 降到 85.66（n=3），但该求解器后来关掉了这个选项，最好成绩没有损失。",
+    "upstream": "Reported: issue #39 and PR #35 (the `infer` part)."
+  },
+  {
+    "task_id": "vibrating_path_graph_coloring",
+    "status": "confirmed",
+    "line": "Eight cases run at once on the official 4 CPUs, and one timeout makes the whole total `inf`.",
+    "line_zh": "官方配置的 4 个 CPU 上同时运行 8 个用例，只要一个超时，总分就变成 `inf`。",
+    "effect": "A real Opus solver gets `inf` on all 15 gradings and 19.77-19.98 with 4 cases at once. The same file passed all 7 grades during its own run on the published judge image, so the grading is non-repeatable.",
+    "effect_zh": "一个真实的 Opus 求解器 15 次评分全部是 `inf`，同时运行 4 个用例时得 19.77-19.98。同一文件在自己那次运行中，在公开的评分器镜像上 7 次评分全部通过，所以评分结果不可重复。",
+    "upstream": "Reported: issue #40 and PR #36."
+  },
+  {
+    "task_id": "apple_incremental_game",
+    "status": "confirmed",
+    "line": "The same eight-at-once pool costs real files points at 4 CPUs and many cases under load.",
+    "line_zh": "同样的 8 用例并行方式，在 4 个 CPU 上会让真实提交丢分，负载高时还会丢掉大量用例。",
+    "effect": "At true 4 CPUs a real file scores 68.10-70.60, against 73.25-73.92 with a smaller pool, with no timeouts (n=5). In an overload test, five judges sharing 8 CPUs, it scored 3.09-19.78 with the original pool and 17.81-68.87 with the smaller one across three workers (n=20 each). The smaller pool also lost cases on the noisiest worker.",
+    "effect_zh": "在真正的 4 个 CPU 上，一份真实提交得 68.10-70.60，缩小并行数后得 73.25-73.92，没有超时（n=5）。在过载测试中（五个评分器共用 8 个 CPU，三台机器），原并行数得 3.09-19.78，缩小后得 17.81-68.87（各 n=20）。在最嘈杂的机器上，缩小后的并行数同样丢了用例。",
+    "upstream": "Same mechanism as PR #36; not reported separately."
+  },
+  {
+    "task_id": "treant_forest",
+    "status": "confirmed",
+    "line": "The tester stops each game at an undocumented turn cap, so no submission can pass 21.02, while the 0-100 scale assumes totals the cap rules out.",
+    "line_zh": "测试程序在一个没有写明的回合上限处结束每局，所以任何提交都超不过 21.02，而 0-100 分的刻度却假定了这个上限不可能达到的总分。",
+    "effect": "All 87 archived real reports sit at 20.46-21.02, so the cap hides real differences between them. Removing the cap with the scale unchanged raises one real submission by 15.83 and reorders the ones we tested, though some long replays hit the tester's time limit. The four real submissions we measured read a destination list the README says solutions don't use; a grid-only control scores 3.04 with or without the cap.",
+    "effect_zh": "全部 87 份真实报告都集中在 20.46-21.02，上限掩盖了它们之间的真实差别。保持刻度不变、去掉上限，会让一份真实提交提高 15.83 分，并改变测试过的提交的排序，不过一些较长的回放会触及测试程序的时限。我们测量的四份真实提交都读取了 README 称解法不使用的目的地列表；只读地图的对照提交无论有没有上限都得 3.04。",
+    "upstream": "Listed in upstream's known issues. Whether to change the cap, the scale or both is the maintainers' call."
+  },
+  {
+    "task_id": "integer_compression_codec",
+    "status": "confirmed",
+    "line": "A stored baseline figure is impossible for the documented starter, which distorts how the datasets are weighted.",
+    "line_zh": "存储的基准数字对文档所述的初始代码来说不可能达到，这扭曲了各数据集的权重。",
+    "effect": "The starter gets 0.25 raw against the documented 1.0, and 0.855 with the exact figures. A real submission scores 73.60 today; with the figures corrected its raw score is 164.4, which clips to 100 on the existing scale, or gives 51.22 on a new 1..320 scale. So the size of the fix depends on the scale. No ranking change was shown, and real runs reach 73.78 today.",
+    "effect_zh": "初始代码的原始分是 0.25，文档写的是 1.0，用准确数字后为 0.855。一份真实提交现在得 73.60；修正数字后原始分是 164.4，在现有刻度上封顶为 100，换成新的 1..320 刻度则是 51.22。所以修复的影响大小取决于刻度。没有发现排名变化，真实运行现在能达到 73.78。",
+    "upstream": "Not yet reported. Choosing a fix means choosing a new scale, which is the maintainers' call."
+  },
+  {
+    "task_id": "openrct2_theme_park_ai",
+    "status": "confirmed",
+    "line": "The instruction promises about four game years, but the 120 seconds per scenario fit 68 to 69 of 992 game days.",
+    "line_zh": "任务说明承诺大约四个游戏年，但每个场景 120 秒的预算只够跑完 992 个游戏日中的 68 到 69 个。",
+    "effect": "A real plugin scores 27.50 under the official budget (n=3). Direct evaluator runs continued to 992 days score 16.44 (n=2), so for this plugin the short run inflates the score. No judge fix was tested. Real files also vary between gradings, up to 11.40-44.73, but randomness in the plugins may cause that, so we don't count it against the judge.",
+    "effect_zh": "一个真实插件在官方预算内得 27.50（n=3）。直接调用评估程序跑满 992 天则得 16.44（n=2），所以对这个插件来说，运行时间短反而抬高了分数。我们没有测试评分器修复。真实文件在多次评分之间也有波动，最大为 11.40-44.73，但这可能来自插件自身的随机性，所以我们不把它算作评分器的问题。",
+    "upstream": "The short run is listed in upstream's known issues; issue #12 raises a separate question about this task's scale."
+  },
+  {
+    "task_id": "nethack_dungeon_agent",
+    "status": "confirmed",
+    "line": "Seeding silently fails, so the 20 graded games differ every time.",
+    "line_zh": "设置随机种子会悄悄失败，所以每次评分的 20 局游戏都不一样。",
+    "effect": "Our bot scores 6.8-15.5 over 12 gradings, and 14.5 on all 12 once seeding works, all on one day; NetHack also reads the clock, so repeatability across dates is untested. The bot is ours; there is no real submission to test.",
+    "effect_zh": "我们写的机器人 12 次评分得 6.8-15.5，种子生效后 12 次都是 14.5，都在同一天运行；NetHack 还会读取时钟，所以跨日期的可重复性没有测试。机器人是我们自己写的，没有真实提交可供测试。",
+    "upstream": "Listed in upstream's known issues."
+  },
+  {
+    "task_id": "wesnoth_tactical_ai",
+    "status": "confirmed",
+    "line": "The same file gets different scores despite fixed seeds.",
+    "line_zh": "即使种子固定，同一文件也会得到不同分数。",
+    "effect": "Wesnoth's stock AI scores 36 to 43 over 8 gradings with no timeouts. We haven't found the cause, and there is no real submission to test.",
+    "effect_zh": "Wesnoth 自带的 AI 8 次评分得 36 到 43，没有超时。我们还没有找到原因，也没有真实提交可供测试。",
+    "upstream": "Listed in upstream's known issues."
+  },
+  {
+    "task_id": "schemathesis_reporting_observability",
+    "status": "minor",
+    "line": "Two checks give 1.00 to 1.43 points too many, and a third takes 1.43 from a valid report without the word schemathesis. One unchanged real file is affected (2.0 instead of 1.0).",
+    "line_zh": "两项检查多给 1.00 到 1.43 分，第三项会让不含 schemathesis 一词的有效报告少得 1.43 分。只有一个未修改的真实文件受影响（得 2.0，应为 1.0）。"
+  },
+  {
+    "task_id": "schemathesis_config_modernization",
+    "status": "minor",
+    "line": "A forwarding decorator gets 0.67 points too many. No real submission writes one.",
+    "line_zh": "转发式装饰器多得 0.67 分。没有真实提交这样写。"
+  },
+  {
+    "task_id": "exchange_core_throughput",
+    "status": "minor",
+    "line": "Broken engines do earn credit, but at the official 4 CPUs correct work mostly scores 0 too, and no real run was affected.",
+    "line_zh": "有错误的引擎确实能得分，但在官方的 4 个 CPU 上，正确的工作大多也是 0 分，没有真实运行受影响。"
+  },
+  {
+    "task_id": "ffmpeg_swscale_reimplementation",
+    "status": "minor",
+    "line": "Making a conversion fail raises a score by 12.82, but no real run gained from it.",
+    "line_zh": "让一个转换失败反而能加 12.82 分，但没有真实运行因此得利。"
+  },
+  {
+    "task_id": "git_rewrite_in_zig",
+    "status": "minor",
+    "line": "An ordinary object file or an unimported test calling system git takes a real implementation from 36.86 to 0, but none of the 46 distinct real archives has either.",
+    "line_zh": "普通的目标文件，或一个未被引用、调用系统 git 的测试，会把一份真实实现从 36.86 变成 0，但 46 个不同的真实提交都没有这两种情况。"
+  },
+  {
+    "task_id": "dabic_gravity_inversion",
+    "status": "minor",
+    "line": "An undisclosed gate costs a model-space solver 1.08 points, but 0 of 75 real reports use that form. The self-reported points are a separate design question.",
+    "line_zh": "一项未说明的门槛让模型空间解法损失 1.08 分，但 75 份真实报告没有一份采用这种形式。自报分数是另一个设计问题。"
+  },
+  {
+    "task_id": "dcss_dungeon_ai",
+    "status": "minor",
+    "line": "Upstream's notes record one bot at raw 1556.0-5211.2 on the current judge, which computes to 32.82-54.61. Our own weaker bots spread by under 1 point, so we did not reproduce the large swing or isolate its cause.",
+    "line_zh": "上游说明记录一个机器人在当前评分器上的原始分为 1556.0-5211.2，折算为 32.82-54.61。我们自己写的较弱的机器人波动不到 1 分，所以没有复现这么大的波动，也没有查明原因。"
+  },
+  {
+    "task_id": "ordinal_notation_well_foundedness",
+    "status": "minor",
+    "line": "A file-name filter can drop a needed proof helper (1.18 to 0). Only our own proof triggers it. We hold no real submission for this task, though upstream records historical runs.",
+    "line_zh": "文件名过滤可能丢掉需要的证明辅助文件（1.18 变 0）。只有我们自己的证明触发过。我们手上没有这个任务的真实提交，不过上游记录了历史运行。"
+  },
+  {
+    "task_id": "molecular_self_assembly",
+    "status": "minor",
+    "line": "A smaller pool gives deadline search more CPU, worth +1.13 to +1.46. The timeouts we first blamed on the pool occur on both pools.",
+    "line_zh": "缩小并行数让限时搜索得到更多 CPU，提高 1.13 到 1.46 分。我们最初归咎于并行的超时，在两种并行数下都会出现。"
+  },
+  {
+    "task_id": "grid_turing_robot",
+    "status": "minor",
+    "line": "A smaller pool is worth +0.67 to +0.71 on valid real files. No real file goes from invalid to valid.",
+    "line_zh": "缩小并行数让有效的真实提交提高 0.67 到 0.71 分。没有真实提交因此从无效变为有效。"
+  },
+  {
+    "task_id": "triangulation_coloring_optimization",
+    "status": "minor",
+    "line": "A smaller pool is worth +0.32 to +0.59, with no timeouts in any condition.",
+    "line_zh": "缩小并行数提高 0.32 到 0.59 分，所有条件下都没有超时。"
+  },
+  {
+    "task_id": "warehouse_forklift_routing",
+    "status": "minor",
+    "line": "The judge allows 60 s per input. Five cases at 30 s each suggest 150 s, though another README passage calls whole inputs test cases. Edited solvers with long deadlines recover under a longer limit; real submissions we hold are unaffected, and the pool makes about no difference.",
+    "line_zh": "评分器每个输入只给 60 秒。五个用例各 30 秒意味着 150 秒，但 README 的另一处把整个输入称为测试用例。改成长时限的解法在放宽后能恢复得分；我们手上的真实提交不受影响，并行数也几乎没有影响。",
+    "upstream": "Draft PR #38."
+  },
+  {
+    "task_id": "graph_node_classification",
+    "status": "minor",
+    "line": "Changing a real solver's predictions to integer keys, which the task permits, takes it from 90.52-90.57 to 1.95-2.01. No real submission we hold uses them.",
+    "line_zh": "把真实求解器的预测改成整数键（任务允许这样做），分数就从 90.52-90.57 降到 1.95-2.01。我们手上的真实提交都没有这样做。",
+    "upstream": "Draft PR #37."
+  },
+  {
+    "task_id": "lean_analysis_proofs",
+    "status": "minor",
+    "line": "Two required statements are false, which is proved in Lean. The computed score effect is tiny, and the grader image is too large for us to rerun.",
+    "line_zh": "两条必须证明的命题是假的，这一点已在 Lean 中证明。计算出的分数影响极小，评分器镜像也太大，我们无法重跑。",
+    "upstream": "Reported by someone else: issue #31."
+  },
+  {
+    "task_id": "order_addition_permutation_optimization",
+    "status": "changed-upstream",
+    "line": "Real on the original release: a real run kept 3.79 instead of the 41.24 a later submission earned. `community` changed how a run picks its best, so this no longer applies there.",
+    "line_zh": "在原始版本上确实存在：一次真实运行保留了 3.79，而不是后来一份提交得到的 41.24。`community` 改变了选取最好成绩的方式，所以这个问题在那里已不存在。"
+  },
+  {
+    "task_id": "borden_source_inversion",
+    "status": "not-confirmed",
+    "line": "The unstated model didn't stop one real run from reaching raw 108.97 of 109 through score feedback, while a run with the model documented reached 52.86. Single runs like these don't show what documenting it would change.",
+    "line_zh": "未说明的模型并没有阻止一次真实运行借助分数反馈达到原始分 108.97（满分 109），而写明模型后的一次运行只有 52.86。这样的单次运行不能说明写明模型会带来什么变化。"
+  },
+  {
+    "task_id": "jagua_nesting_optimization",
+    "status": "not-confirmed",
+    "line": "The overlap bug exists, but we have no good-faith submission that gains or loses from it.",
+    "line_zh": "重叠判断的缺陷确实存在，但我们没有发现哪份善意提交因此得利或受损。"
+  },
+  {
+    "task_id": "equivalence_class_divide_and_conquer",
+    "status": "not-confirmed",
+    "line": "The cost accounting is off, but reference and naive submissions score the same either way, and the swing needs an input we added.",
+    "line_zh": "成本计算确实有误，但参考解和简单解在两种情况下得分相同，分数变化需要我们额外添加的输入才会出现。"
+  },
+  {
+    "task_id": "college_english_exam_bank",
+    "status": "not-confirmed",
+    "line": "The code gives full marks for omitted rules, but every example is a constructed grader reply, and no real submission hit it.",
+    "line_zh": "代码确实给遗漏的规则打满分，但所有例子都是构造的评分回复，没有真实提交触发。"
+  },
+  {
+    "task_id": "cta_risk_budget_optimization",
+    "status": "not-confirmed",
+    "line": "The limit formula differs from the policy, but a real submission we checked scores 50.0 both ways.",
+    "line_zh": "限额公式与政策不一致，但我们检查的一份真实提交两种算法都是 50.0 分。"
+  },
+  {
+    "task_id": "openttd_transport_ai",
+    "status": "not-confirmed",
+    "line": "The named API doesn't exist, but we measured no loss for a productive AI. The archived idle script scored 0, and a corrected one was not game-tested.",
+    "line_zh": "文中提到的 API 确实不存在，但我们没有测到它让正常工作的 AI 损失分数。存档的空闲脚本得 0 分，修正后的脚本没有实际运行游戏测试。"
+  },
+  {
+    "task_id": "portfolio_risk_calibration",
+    "status": "not-confirmed",
+    "line": "The excess-return formula differs from the stated one, but a modified file on a local scoring path moved only from 15.35 to 15.34 (or 15.27 with aligned annualization). Harm on the current judge remains unverified.",
+    "line_zh": "超额收益公式与文档不同，但一个修改过的文件在本地评分路径上只从 15.35 变成 15.34（年化方式对齐后为 15.27）。在当前评分器上的损害尚未验证。"
+  },
+  {
+    "task_id": "tree_block_partitioning",
+    "status": "not-confirmed",
+    "line": "The supplied multiply is wrong when operands alias, but none of the 61 real archives hits it.",
+    "line_zh": "提供的乘法在操作数别名时确实出错，但 61 个真实提交没有一个触发。"
+  },
+  {
+    "task_id": "pfr_formalization",
+    "status": "minor",
+    "line": "Five scored statements carry a hidden `sorry` in their type, so no submission can earn them: 5 of 423 targets, or 1.18 points. A volunteer Lean user checked this by hand and passed it: with the workaround, all five completed proofs receive credit (398/423 to 403/423). We did not rerun it on the current judge.",
+    "line_zh": "五条计分陈述的类型里藏着 `sorry`，任何提交都拿不到这部分分数：423 个目标中的 5 个，即 1.18 分。一位志愿的 Lean 用户人工核查后判定通过：使用变通方案后，五个完成的证明全部得分（398/423 变为 403/423）。我们没有在当前评分器上重跑。"
+  }
+]

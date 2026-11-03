@@ -111,6 +111,10 @@ table.bt td:first-child, table.bt th:first-child { padding-left: 2px; }
 /* Outcome badges */
 .badge { display: inline-block; font: 600 12.5px/1 var(--sans); letter-spacing: 0.02em; padding: 5px 9px; border-radius: 999px; white-space: nowrap; vertical-align: middle; }
 .badge.b-repair-v2 { color: var(--fixed); background: var(--fixed-bg); }
+.badge.b-confirmed { color: var(--fixed); background: var(--fixed-bg); }
+.badge.b-not-confirmed { color: var(--removed); background: var(--removed-bg); }
+.badge.b-minor, .badge.b-changed-upstream, .badge.b-no-problem { color: var(--soft); background: var(--kept-bg); }
+.note-inline { color: var(--muted); }
 .badge.b-exclude { color: var(--removed); background: var(--removed-bg); }
 .badge.b-retain-with-note, .badge.b-retain { color: var(--soft); background: var(--kept-bg); }
 /* Problem-category badges (outlined, so they do not compete with the outcome colours) */

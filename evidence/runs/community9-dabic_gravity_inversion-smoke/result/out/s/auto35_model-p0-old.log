@@ -1,0 +1,105 @@
+Evaluating archive for task: dabic_gravity_inversion
+  Archive size: 1211033 bytes
+  Run ID:       auto35_model-p0-old
+  Log dir:      /job/sl/runs/auto35_model-p0-old/dabic_gravity_inversion/submissions/manual-1
+
+
+Results:
+  Valid:       True
+  Score:       18.966534398274305
+  Score 0-100: None
+  Summary:     Tier 2 合成精确 | total=19.0/100 | A=2.0 | B=5.2 | C=17.4 | D=19.4 | E=4.8 | F=8.0
+  Runtime:     115.97s
+  Timed out:   False
+
+{
+  "task_id": "dabic_gravity_inversion",
+  "submission_id": "auto35_model-p0-old",
+  "score": 18.966534398274305,
+  "score_0_100": null,
+  "valid": true,
+  "summary": "Tier 2 合成精确 | total=19.0/100 | A=2.0 | B=5.2 | C=17.4 | D=19.4 | E=4.8 | F=8.0",
+  "details": [
+    {
+      "name": "A_static",
+      "status": "PASSED",
+      "message": "score=2.00/3.0"
+    },
+    {
+      "name": "B_synthetic",
+      "status": "PASSED",
+      "message": "score=5.24/12.0"
+    },
+    {
+      "name": "C_hidden",
+      "status": "PASSED",
+      "message": "score=17.35/35.0"
+    },
+    {
+      "name": "D_vinton",
+      "status": "PASSED",
+      "message": "score=19.40/30.0"
+    },
+    {
+      "name": "E_behavior",
+      "status": "PASSED",
+      "message": "score=4.80/8.0"
+    },
+    {
+      "name": "F_report",
+      "status": "PASSED",
+      "message": "score=8.00/12.0"
+    }
+  ],
+  "metrics": {
+    "tier": 2,
+    "tier_name": "Tier 2 合成精确",
+    "raw_total": 56.786031132557795,
+    "structural_penalty": 0.334,
+    "penalty_reason": "immature_hidden_vinton_report_evidence",
+    "penalty_thresholds": {
+      "C_min": 19.5,
+      "D_min": 12.0,
+      "F_min": 8.0
+    },
+    "penalty_observed": {
+      "C": 17.35085374590328,
+      "D": 19.397362503857302,
+      "F": 8.0
+    },
+    "valid_for_selection": true,
+    "is_data_space": false,
+    "beta_truly_updated": true,
+    "uses_proper_logdet": true,
+    "uses_bad_det": false,
+    "structural_failure": true,
+    "n_unique_beta_orders": 14,
+    "n_matrix_dims_captured": 34,
+    "data_sizes_used": [
+      80,
+      252,
+      500
+    ],
+    "cell_sizes_used": [
+      600,
+      1800,
+      4480
+    ],
+    "n_data_space_matrix_matches": 0,
+    "n_model_space_matrix_matches": 34,
+    "hidden_data_sizes": [
+      80,
+      252,
+      500
+    ],
+    "hidden_cell_sizes": [
+      600,
+      1800,
+      4480
+    ]
+  },
+  "timed_out": false,
+  "runtime_seconds": 115.96796202659607,
+  "submitted_at": 1793633922.7284617,
+  "error": null
+}

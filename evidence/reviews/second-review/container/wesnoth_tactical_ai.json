@@ -1,0 +1,40 @@
+{
+ "task": "wesnoth_tactical_ai",
+ "claims": [
+  {
+   "claim": "Identical submissions receive non-repeatable scores despite fixed seeds.",
+   "verdict": "CONFIRMED",
+   "witness": "synthetic: Wesnoth's own stock RCA AI with only id renamed, a first step a solver would plausibly submit; no real submission exists in evidence/runs",
+   "arms": [
+    {
+     "label": "stock RCA AI, same file, sforge eval, 4 CPUs, 8 gradings",
+     "scores": [
+      43.0,
+      42.0,
+      39.0,
+      40.0,
+      36.0,
+      37.0,
+      42.0,
+      40.0
+     ],
+     "n": 8
+    },
+    {
+     "label": "shipped starter (control, stuck at 0)",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": 7.0,
+   "fix_tested": "none: the source of the randomness was not identified",
+   "correct_work_keeps_score": "unclear, no fix tested",
+   "job": "evidence/runs/community9-wesnoth_tactical_ai",
+   "table_script": "evidence/scripts/second_review/c9_wesnoth_tactical_ai_table.py",
+   "note": "Spread 36 to 43 (sd 2.47) with 0 game timeouts and a judge timeout in none of 8 gradings, so timeouts are excluded, and at most 4 of 60 games match the first grading; the weakest point is a stock-AI witness at about 40, not a real submission, with the cause not identified."
+  }
+ ]
+}

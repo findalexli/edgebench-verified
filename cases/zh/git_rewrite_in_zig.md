@@ -1,5 +1,7 @@
 # Git Rewrite in Zig (`git_rewrite_in_zig`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 普通的目标文件，或一个未被引用、调用系统 git 的测试，会把一份真实实现从 36.86 变成 0，但 46 个不同的真实提交都没有这两种情况。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>如果提交的文件夹里留有构建产物（`main`、`main.o`），或者有一行源码调用系统的 `git`（哪怕只在测试里），原始评分器就把整份提交记 0 分。按规则做题的解题者也可能碰上这两种情况，而任务说明对这两项检查只字未提。修复版在构建前删掉残留文件，并去掉了源码文本检查；正确的 git 仍得 100 分。</mark>
 
 ## 任务要求
@@ -28,7 +30,7 @@ CPU 上限是一条说明，修复没有改动它。`test.sh` 同时运行 `npro
 - 在 `--cpus 1` 下，`t1092` 和 `t0027` 恰好跑满 120 s 时遭到切断，丢了 42 + 722 = 764 个测试（29,075 − 28,311），奖励值为 0.973723（`reward.json`）。只有这两个脚本的通过数与 8-CPU 运行不同。
 - 只有 `t1092` 带有评分器的 `# TIMEOUT after 120s` 标记（`timeouts.txt`）。`t0027` 的输出也在 120 s 时被切断，却没有这个标记，所以这个标记漏计了超时。
 - 脚本用时取每个结果文件从创建到最后一次写入的时间（`stat_times.txt`）。起作用的是每个 CPU 分到几个脚本，所以 16 核主机配 `--cpus 2` 的表现与最后一行相同。比 C git 慢的 Zig 移植版会更早撞上时限。
-- EdgeBench 的排行榜设置给这个评分器 4 个 CPU（默认值，本任务没有另行设置；引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）。在 8 核主机上，这相当于每个 CPU 2 个脚本，即上表 `--cpus 4` 一行。这时没有脚本被切断，最慢的用了 120 s 中的 45 s，正确的 git 得 100 分。主机核数更多时，`nproc` 和每个 CPU 的脚本数都更高（32 核主机为每个 CPU 8 个，即最后一行）；排行榜用的主机有多少核，我们不知道。不做配置时，评测框架不设 CPU 配额（`judge_cpu_limit` 为 `None`，`sforge/harness/config.py:69`），也就不会出现这种情况。我们把这一点写进文档，但不做改动。
+- EdgeBench 的排行榜设置给这个评分器 4 个 CPU（默认值，本任务没有另行设置；引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../../evidence/impact/edgebench-leaderboard-config.md)）。在 8 核主机上，这相当于每个 CPU 2 个脚本，即上表 `--cpus 4` 一行。这时没有脚本被切断，最慢的用了 120 s 中的 45 s，正确的 git 得 100 分。主机核数更多时，`nproc` 和每个 CPU 的脚本数都更高（32 核主机为每个 CPU 8 个，即最后一行）；排行榜用的主机有多少核，我们不知道。不做配置时，评测框架不设 CPU 配额（`judge_cpu_limit` 为 `None`，`sforge/harness/config.py:69`），也就不会出现这种情况。我们把这一点写进文档，但不做改动。
 
 随任务发布的说明有两条。
 

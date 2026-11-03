@@ -1,5 +1,7 @@
 # Schemathesis data-generation pipeline (`schemathesis_datagen_pipeline`)
 
+**Second review (November 2026): Confirmed.** The hidden header test imports names and expects format keys that `TODO.md` never gives, so every real `headers` module scores 0 of 15 on it. Once those are supplied, a real submission goes from 72.31 to 85.64 or 86.67; the two values come from a flaky test. The 8 real modules are 2 distinct versions. The text below is the first audit's record.
+
 
 **2026-10-13 revision:** v2.1 restores the RFC year floor (year ≥ 1900). A clean native run (`schemathesis_datagen_pipeline-v2.1-native-20261013b`, ledger `exit=0`) built the v2.1 image from the package and ran the original evaluation command on six arms. The valid generator kept reward 0.477350, while the pre-1900 and garbage generators fell to 0.467094. These finite controls do not certify the whole task. See [follow-up](../repairs/schemathesis_datagen_pipeline-v2/paired/followup.md).
 

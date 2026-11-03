@@ -1,0 +1,11 @@
+--- a/edgebench/tasks/molecular_self_assembly/judge/eval_molecules.py
++++ b/edgebench/tasks/molecular_self_assembly/judge/eval_molecules.py
+@@ -59,7 +59,7 @@
+     os.chdir(WORK_DIR)
+     case_files = sorted(f for f in glob.glob(os.path.join(CASES_DIR, "*")) if os.path.isfile(f))
+     results = {}
+-    max_workers = min(int(os.environ.get("SEBENCH_MOLECULES_WORKERS", "8")), len(case_files))
++    max_workers = min(int(os.environ.get("SEBENCH_MOLECULES_WORKERS", "8")), int(os.environ.get("SFORGE_CPUS", 4)), len(case_files))
+     with ProcessPoolExecutor(max_workers=max_workers) as pool:
+         futures = {pool.submit(run_case, (i, cf)): i for i, cf in enumerate(case_files)}
+         for fut in as_completed(futures):

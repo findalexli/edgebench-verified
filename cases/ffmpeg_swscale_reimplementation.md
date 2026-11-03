@@ -1,5 +1,7 @@
 # FFmpeg Swscale Reimplementation (`ffmpeg_swscale_reimplementation`)
 
+**Second review (November 2026): Real, small or unseen.** Making a conversion fail raises a score by 12.82, but no real run gained from it. The text below is the first audit's record.
+
 
 **2026-10-13 revision:** v2.2 checks every output and makes any failed workload produce exactly zero total reward. We ran it once side by side with the original. That run had six runs of the complete scorer (three test submissions on each checker), all of which finished, plus 40 checks that its output buffers match the original helpers. The correct test submission finished in 43 seconds. One that skips repeated calls passed 30/30 correctness workloads but scored zero once v2.2 checked its timed outputs. The fix section below describes v2.2 and keeps the historical v2 table for the record. This follow-up does not rerun the Rust submission-build path. See [follow-up](../repairs/ffmpeg_swscale_reimplementation-v2/paired/followup.md).
 

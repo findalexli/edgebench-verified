@@ -1,0 +1,1404 @@
+{
+ "task": "apple_incremental_game",
+ "conditions": "hot4 = 4 vCPUs online, one judge, quota 4 (cpu.max 400000 100000, nproc 4, SFORGE_CPUS=4); q4 = 8 online, one judge, quota 4; x2/x3/x5 = 8 online, that many judges at once, each quota 4, so x3 and x5 give each judge about 2.6 and 1.6 CPUs, below the official 4. Measured per arm in cpu_per_wall, host_busy_pct and load1.",
+ "claims": [
+  {
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged: fork = sha 265f3a3690 (agent-16, r2, TL=28), st = sha 9dc3e08fa1 (agent-5, no fork); good controls fast 27f8b6e81a and fix80 3fd2da3925",
+   "arms": [
+    {
+     "label": "fast new hot4",
+     "scores": [
+      6.37,
+      6.37,
+      6.37
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      0.1,
+      0.1,
+      0.1
+     ],
+     "cpu_per_wall": [
+      3.08,
+      3.22,
+      3.05
+     ],
+     "host_busy_pct": [
+      5.0,
+      7.0,
+      6.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      0.8,
+      0.6,
+      1.0
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "fast old hot4",
+     "scores": [
+      6.37,
+      6.37,
+      6.37
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      0.1,
+      0.1,
+      0.1
+     ],
+     "cpu_per_wall": [
+      3.18,
+      3.27,
+      3.16
+     ],
+     "host_busy_pct": [
+      6.0,
+      7.0,
+      8.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      0.8,
+      1.0,
+      1.4
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "fast old q4",
+     "scores": [
+      6.37
+     ],
+     "n": 1,
+     "cases_ok": [
+      50
+     ],
+     "tle": [
+      0
+     ],
+     "cpu_s_per_case": [
+      0.1
+     ],
+     "cpu_per_wall": [
+      3.34
+     ],
+     "host_busy_pct": [
+      3.0
+     ],
+     "steal_pct": [
+      0.0
+     ],
+     "load1": [
+      4.2
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "fix80 new hot4",
+     "scores": [
+      19.88,
+      19.88
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      8.6,
+      8.7
+     ],
+     "cpu_per_wall": [
+      3.77,
+      3.79
+     ],
+     "host_busy_pct": [
+      84.0,
+      84.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      4.5,
+      3.6
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "fix80 old hot4",
+     "scores": [
+      19.88,
+      19.88
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      8.2,
+      8.4
+     ],
+     "cpu_per_wall": [
+      3.83,
+      3.85
+     ],
+     "host_busy_pct": [
+      86.0,
+      85.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      5.1,
+      5.7
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "fork new hot4",
+     "scores": [
+      73.25,
+      73.69,
+      73.67,
+      73.92,
+      73.26
+     ],
+     "n": 5,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      27.8,
+      27.8,
+      27.9,
+      27.8,
+      27.8
+     ],
+     "cpu_per_wall": [
+      3.81,
+      3.81,
+      3.82,
+      3.81,
+      3.81
+     ],
+     "host_busy_pct": [
+      92.0,
+      92.0,
+      93.0,
+      92.0,
+      92.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      4.1,
+      3.9,
+      4.1,
+      4.1,
+      4.1
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "fork old hot4",
+     "scores": [
+      68.99,
+      68.83,
+      68.82,
+      70.6,
+      68.1
+     ],
+     "n": 5,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5
+     ],
+     "cpu_per_wall": [
+      3.68,
+      3.68,
+      3.68,
+      3.68,
+      3.68
+     ],
+     "host_busy_pct": [
+      86.0,
+      86.0,
+      87.0,
+      86.0,
+      84.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      5.7,
+      6.3,
+      6.7,
+      6.3,
+      6.0
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "fork new q4",
+     "scores": [
+      73.14,
+      72.65
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      28.0,
+      28.0
+     ],
+     "cpu_per_wall": [
+      3.84,
+      3.84
+     ],
+     "host_busy_pct": [
+      47.0,
+      47.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.1
+     ],
+     "load1": [
+      3.8,
+      3.7
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "fork old q4",
+     "scores": [
+      66.18,
+      66.37,
+      69.74,
+      70.68,
+      69.26,
+      68.68,
+      67.67,
+      65.49
+     ],
+     "n": 8,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      14.6,
+      14.6,
+      14.6,
+      14.6,
+      14.6,
+      14.6,
+      14.6,
+      14.6
+     ],
+     "cpu_per_wall": [
+      3.71,
+      3.71,
+      3.71,
+      3.71,
+      3.71,
+      3.71,
+      3.71,
+      3.71
+     ],
+     "host_busy_pct": [
+      44.0,
+      44.0,
+      43.0,
+      43.0,
+      43.0,
+      43.0,
+      43.0,
+      43.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      8.3,
+      2.9,
+      3.7,
+      3.3,
+      3.0,
+      3.6,
+      3.5,
+      2.8
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "fork new x2",
+     "scores": [
+      72.98,
+      73.36
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      27.9,
+      27.9
+     ],
+     "cpu_per_wall": [
+      3.82,
+      3.82
+     ],
+     "host_busy_pct": [
+      92.0,
+      92.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      8.0,
+      8.0
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "fork old x2",
+     "scores": [
+      68.12,
+      67.89
+     ],
+     "n": 2,
+     "cases_ok": [
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      14.5,
+      14.6
+     ],
+     "cpu_per_wall": [
+      3.69,
+      3.7
+     ],
+     "host_busy_pct": [
+      86.0,
+      86.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0
+     ],
+     "load1": [
+      12.7,
+      12.7
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "fork new x3",
+     "scores": [
+      71.8,
+      70.48,
+      70.57
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      19.1,
+      19.0,
+      18.9
+     ],
+     "cpu_per_wall": [
+      2.61,
+      2.61,
+      2.59
+     ],
+     "host_busy_pct": [
+      95.0,
+      95.0,
+      95.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      12.1,
+      12.1,
+      12.1
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "fork old x3",
+     "scores": [
+      65.28,
+      64.17,
+      63.96
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      10.1,
+      10.1,
+      10.1
+     ],
+     "cpu_per_wall": [
+      2.56,
+      2.56,
+      2.56
+     ],
+     "host_busy_pct": [
+      90.0,
+      90.0,
+      90.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      17.3,
+      17.3,
+      17.3
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "fork new x5",
+     "scores": [
+      62.95,
+      63.3,
+      63.86,
+      63.49,
+      63.89,
+      64.14,
+      63.71,
+      64.21,
+      64.48,
+      63.73,
+      68.32,
+      67.82,
+      67.36,
+      68.87,
+      68.23,
+      18.29,
+      17.81,
+      18.32,
+      18.79,
+      17.82
+     ],
+     "n": 20,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      44,
+      43,
+      44,
+      45,
+      43
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      6,
+      7,
+      6,
+      5,
+      7
+     ],
+     "cpu_s_per_case": [
+      11.7,
+      11.6,
+      11.6,
+      11.6,
+      11.6,
+      11.6,
+      11.6,
+      11.6,
+      11.6,
+      11.6,
+      11.6,
+      11.7,
+      11.6,
+      11.6,
+      11.7,
+      11.6,
+      11.6,
+      11.7,
+      11.6,
+      11.7
+     ],
+     "cpu_per_wall": [
+      1.59,
+      1.59,
+      1.58,
+      1.58,
+      1.59,
+      1.59,
+      1.58,
+      1.59,
+      1.59,
+      1.59,
+      1.59,
+      1.59,
+      1.59,
+      1.58,
+      1.59,
+      1.58,
+      1.58,
+      1.59,
+      1.57,
+      1.57
+     ],
+     "host_busy_pct": [
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4
+     ],
+     "load1": [
+      20.0,
+      20.0,
+      20.0,
+      20.0,
+      20.0,
+      18.8,
+      18.8,
+      18.8,
+      18.8,
+      18.8,
+      20.2,
+      20.2,
+      20.2,
+      20.2,
+      20.2,
+      20.1,
+      20.1,
+      20.1,
+      20.1,
+      20.1
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "fork old x5",
+     "scores": [
+      8.16,
+      8.67,
+      8.16,
+      8.15,
+      8.17,
+      9.18,
+      9.68,
+      9.18,
+      9.17,
+      8.69,
+      19.31,
+      19.78,
+      18.83,
+      19.78,
+      19.31,
+      3.11,
+      3.61,
+      4.62,
+      3.59,
+      3.09
+     ],
+     "n": 20,
+     "cases_ok": [
+      24,
+      25,
+      24,
+      24,
+      24,
+      26,
+      27,
+      26,
+      26,
+      25,
+      46,
+      47,
+      45,
+      47,
+      46,
+      14,
+      15,
+      17,
+      15,
+      14
+     ],
+     "tle": [
+      26,
+      25,
+      26,
+      26,
+      26,
+      24,
+      23,
+      24,
+      24,
+      25,
+      4,
+      3,
+      5,
+      3,
+      4,
+      36,
+      35,
+      33,
+      35,
+      36
+     ],
+     "cpu_s_per_case": [
+      6.5,
+      6.5,
+      6.5,
+      6.5,
+      6.5,
+      6.5,
+      6.4,
+      6.5,
+      6.5,
+      6.5,
+      6.3,
+      6.3,
+      6.3,
+      6.3,
+      6.3,
+      6.5,
+      6.5,
+      6.5,
+      6.6,
+      6.6
+     ],
+     "cpu_per_wall": [
+      1.59,
+      1.59,
+      1.58,
+      1.59,
+      1.59,
+      1.59,
+      1.58,
+      1.59,
+      1.59,
+      1.58,
+      1.58,
+      1.58,
+      1.59,
+      1.59,
+      1.59,
+      1.59,
+      1.58,
+      1.58,
+      1.59,
+      1.59
+     ],
+     "host_busy_pct": [
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0,
+      94.0,
+      93.0,
+      93.0,
+      93.0,
+      93.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      28.1,
+      28.1,
+      28.1,
+      28.0,
+      28.0,
+      31.2,
+      31.2,
+      31.2,
+      31.2,
+      31.2,
+      28.0,
+      28.0,
+      28.0,
+      28.0,
+      28.0,
+      29.1,
+      29.0,
+      29.0,
+      29.0,
+      29.0
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "st new hot4",
+     "scores": [
+      67.47,
+      68.23,
+      69.04
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      24.0,
+      24.0,
+      24.0
+     ],
+     "cpu_per_wall": [
+      3.81,
+      3.81,
+      3.81
+     ],
+     "host_busy_pct": [
+      92.0,
+      92.0,
+      92.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      4.1,
+      3.8,
+      4.3
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "st old hot4",
+     "scores": [
+      63.95,
+      64.61,
+      63.56,
+      62.95
+     ],
+     "n": 4,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      12.6,
+      12.6,
+      12.6,
+      12.6
+     ],
+     "cpu_per_wall": [
+      3.68,
+      3.68,
+      3.69,
+      3.68
+     ],
+     "host_busy_pct": [
+      84.0,
+      86.0,
+      86.0,
+      86.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      5.7,
+      6.0,
+      6.5,
+      5.8
+     ],
+     "online": [
+      "0-3"
+     ]
+    },
+    {
+     "label": "st new q4",
+     "scores": [
+      67.68
+     ],
+     "n": 1,
+     "cases_ok": [
+      50
+     ],
+     "tle": [
+      0
+     ],
+     "cpu_s_per_case": [
+      24.0
+     ],
+     "cpu_per_wall": [
+      3.81
+     ],
+     "host_busy_pct": [
+      46.0
+     ],
+     "steal_pct": [
+      0.0
+     ],
+     "load1": [
+      3.7
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "st old q4",
+     "scores": [
+      61.37
+     ],
+     "n": 1,
+     "cases_ok": [
+      50
+     ],
+     "tle": [
+      0
+     ],
+     "cpu_s_per_case": [
+      12.7
+     ],
+     "cpu_per_wall": [
+      3.72
+     ],
+     "host_busy_pct": [
+      43.0
+     ],
+     "steal_pct": [
+      0.0
+     ],
+     "load1": [
+      6.2
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "st new x3",
+     "scores": [
+      64.56,
+      63.84,
+      65.39
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      16.4,
+      16.4,
+      16.4
+     ],
+     "cpu_per_wall": [
+      2.6,
+      2.6,
+      2.6
+     ],
+     "host_busy_pct": [
+      94.0,
+      94.0,
+      94.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      12.2,
+      12.2,
+      12.2
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "st old x3",
+     "scores": [
+      58.94,
+      60.17,
+      59.11
+     ],
+     "n": 3,
+     "cases_ok": [
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      8.8,
+      8.8,
+      8.8
+     ],
+     "cpu_per_wall": [
+      2.56,
+      2.56,
+      2.55
+     ],
+     "host_busy_pct": [
+      89.0,
+      89.0,
+      89.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      16.7,
+      16.7,
+      16.7
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "st new x5",
+     "scores": [
+      61.57,
+      61.26,
+      60.54,
+      61.55,
+      60.85
+     ],
+     "n": 5,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      10.1,
+      10.2,
+      10.1,
+      10.1,
+      10.1
+     ],
+     "cpu_per_wall": [
+      1.59,
+      1.6,
+      1.58,
+      1.59,
+      1.59
+     ],
+     "host_busy_pct": [
+      96.0,
+      96.0,
+      96.0,
+      96.0,
+      96.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      20.3,
+      20.3,
+      20.3,
+      20.3,
+      20.3
+     ],
+     "online": [
+      "0-7"
+     ]
+    },
+    {
+     "label": "st old x5",
+     "scores": [
+      55.16,
+      54.11,
+      55.37,
+      54.59,
+      55.17
+     ],
+     "n": 5,
+     "cases_ok": [
+      50,
+      50,
+      50,
+      50,
+      50
+     ],
+     "tle": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cpu_s_per_case": [
+      5.5,
+      5.5,
+      5.5,
+      5.5,
+      5.6
+     ],
+     "cpu_per_wall": [
+      1.58,
+      1.59,
+      1.58,
+      1.58,
+      1.6
+     ],
+     "host_busy_pct": [
+      92.0,
+      92.0,
+      92.0,
+      92.0,
+      92.0
+     ],
+     "steal_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "load1": [
+      27.6,
+      27.6,
+      27.6,
+      27.6,
+      27.6
+     ],
+     "online": [
+      "0-7"
+     ]
+    }
+   ],
+   "effect_points": 4.49,
+   "effect_by_condition": {
+    "fork hot4": 4.49,
+    "st hot4": 4.47,
+    "fork q4": 4.89,
+    "fork x3": 6.48,
+    "fork x5 (3 workers)": 43.36,
+    "st x5": 6.27
+   },
+   "fix_tested": "old vs new same files: fork hot4 68.1-70.6 -> 73.25-73.92; st hot4 62.95-64.61 -> 67.47-69.04; fork x5 cases OK 14-47 -> 43-50",
+   "correct_work_keeps_score": "yes for solvers without a clock: fast 6.37 -> 6.37, fix80 19.88 -> 19.88; clock solvers rise, no mapping from old scores",
+   "note": "Non-repeatable and load dependent: the fork file passed 5 of 5 in-run grades and all 5 hot4 grades, q4 grades had no timeouts either, but the old pool gave 14-47 of 50 at x5 across 3 workers (score 3.09-19.78); weakest point: zero timeouts this round at the official 4 CPUs, timeouts needed x5 overload (earlier one-judge timeouts are judge_local, 2 of 6 workers), and the new pool itself lost 5-7 cases at x5 on the noisiest worker (job e).",
+   "claim": "Eight concurrent cases sharing four CPUs can wrongly time out otherwise valid searches.",
+   "job": "evidence/runs/community9-apple_incremental_game-a evidence/runs/community9-apple_incremental_game-b evidence/runs/community9-apple_incremental_game-c evidence/runs/community9-apple_incremental_game-d evidence/runs/community9-apple_incremental_game-e evidence/runs/community9-apple_incremental_game-smoke",
+   "table_script": "evidence/scripts/second_review/c9_apple_incremental_game_table.py"
+  }
+ ]
+}

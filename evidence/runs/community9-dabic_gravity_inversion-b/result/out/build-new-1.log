@@ -1,0 +1,55 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.84kB done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 18)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/edgebench.base.python:a37db157a0ed
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/7] FROM docker.io/library/edgebench.base.python:a37db157a0ed@sha256:889e14bfa0d4bd8653caf3e9aa1743eb2dc7ec83863d9ba4b4d65ba14449dc38
+#4 resolve docker.io/library/edgebench.base.python:a37db157a0ed@sha256:889e14bfa0d4bd8653caf3e9aa1743eb2dc7ec83863d9ba4b4d65ba14449dc38 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 67.90kB done
+#5 DONE 0.0s
+
+#6 [2/7] COPY environment/requirements.lock environment/build-requirements.lock /tmp/
+#6 CACHED
+
+#7 [3/7] RUN set -eux;     pip install --no-cache-dir --require-hashes --target /tmp/bdeps -r /tmp/build-requirements.lock;     PYTHONPATH=/tmp/bdeps pip install --no-cache-dir --no-build-isolation --ignore-installed --require-hashes -r /tmp/requirements.lock;     rm -rf /tmp/bdeps /tmp/requirements.lock /tmp/build-requirements.lock
+#7 CACHED
+
+#8 [4/7] COPY judge/eval_dabic_v2.py /opt/evaluator/
+#8 DONE 0.0s
+
+#9 [5/7] COPY judge/run.sh judge/emit_result.py /judge/
+#9 DONE 0.0s
+
+#10 [6/7] RUN chmod -R 555 /opt/evaluator && chmod 755 /judge/run.sh /judge/emit_result.py  && mkdir -p /home/workspace/dabic_gravity_vinton
+#10 DONE 0.2s
+
+#11 [7/7] WORKDIR /home/workspace/dabic_gravity_vinton
+#11 DONE 0.0s
+
+#12 exporting to image
+#12 exporting layers 0.1s done
+#12 exporting manifest sha256:2deffedb7e435e36b33f1d0ca6f6d20c012c537460d1135403f71ae18b91224e done
+#12 exporting config sha256:51f257c2a826860b1259cf58843d4d6b88d488c4563bcf9efc99423a74758814 done
+#12 exporting attestation manifest sha256:504668b8c60dbf17d6c2ab50ca9d188e365185ab23e639e49f205418841f468a 0.0s done
+#12 exporting manifest list sha256:71e8fab2bde56ed16e3d1ab38ecbae814eeac34e5f133ad4d19d50b9576e79a4 done
+#12 naming to docker.io/library/edgebench.judge.dabic_gravity_inversion:7a3e8c014bee done
+#12 unpacking to docker.io/library/edgebench.judge.dabic_gravity_inversion:7a3e8c014bee 0.0s done
+#12 DONE 0.2s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 18)
+Building images for 1 task(s)...
+  [dabic_gravity_inversion] base=edgebench.base.python:a37db157a0ed  work=edgebench.work.dabic_gravity_inversion:9ee3ae907bd8  judge=edgebench.judge.dabic_gravity_inversion:7a3e8c014bee
+Done.

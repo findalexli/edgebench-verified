@@ -1,184 +1,84 @@
 <style>
-.hl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 22px 0 10px; }
-.hl-grid > div { border: 1px solid var(--rule); border-radius: 8px; padding: 14px 14px 12px; background: var(--tint); }
-.hl-grid .hl-n { display: block; font: 600 28px/1.15 var(--sans); color: var(--ink); }
-.hl-grid .hl-l { display: block; font: 14.5px/1.45 var(--sans); color: var(--soft); margin-top: 6px; }
+.hl-one { display: flex; align-items: baseline; gap: 14px; margin: 22px 0 8px; }
+.hl-one .hl-n { font: 600 44px/1 var(--sans); color: var(--ink); }
+.hl-one .hl-l { font: 16px/1.45 var(--sans); color: var(--soft); }
 .removed-box { border: 1.5px solid var(--rule-strong); border-radius: 8px; padding: 4px 18px 6px; margin: 26px 0 30px; background: var(--tint); }
 .removed-box h4 { font: 600 13px/1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 16px 0 6px; }
-@media (max-width: 720px) { .hl-grid { grid-template-columns: 1fr 1fr; } .removed-box { padding: 2px 14px 4px; } }
-@media (max-width: 420px) { .hl-grid { grid-template-columns: 1fr; } }
 </style>
 <header class="title">
   <h1>EdgeBench Verified</h1>
-  <p class="subtitle">We tested the hidden checkers that score the 51 public EdgeBench tasks</p>
+  <p class="subtitle">Which problems in the hidden checkers behind the 51 public EdgeBench tasks hold up</p>
   <div class="meta">
-    <span>Version 1.0</span><span>12 October 2026</span>
+    <span>Version 1.1</span><span>2 November 2026</span>
     <a href="https://github.com/findalexli/edgebench-verified">Code, data and fixes on GitHub</a>
     <a href="#cite">How to cite</a>
   </div>
   <div class="abstract">
     <h2>In short</h2>
-    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> ranks AI agents on 51 public engineering and science tasks. In each task an agent works for hours, and a hidden checker program scores what it submits, from 0 to 100. We tested each checker the way you would test any program, by giving it correct work, broken work and work that follows the instructions to the letter. <mark>In {{n_problem}} of the 51 tasks the checker scored some submissions wrongly.</mark> Checkers gave correct solutions zero under time limits stricter than promised, rejected correct answers, gave full credit to broken programs and enforced rules the instructions never stated. On one task's score scale, no submission could score above 21. We published fixes for {{repair-v2}} of these tasks and removed {{exclude}} task. We checked the fixes by grading the same submissions with the original and the fixed checker side by side. Where a public agent run was available, we also regraded its submissions; in one task the run's score moves from 3.8 to 41.2 out of 100. The published averages are not enough to recompute the leaderboard, but they do show that <mark>its top two places can no longer be confirmed.</mark></p>
+    <p><a href="https://github.com/ByteDance-Seed/EdgeBench">EdgeBench</a> ranks AI agents on 51 public engineering and science tasks. In each task an agent works for hours, and a hidden checker program scores what it submits, from 0 to 100. Our first audit reported problems in 32 of those tasks. We then tried to break our own findings: an independent AI reviewer attacked each one, and we measured what survived on the current <code>community</code> judge, using real agent submissions where they exist. <mark>{{rc_confirmed}} tasks hold up as problems that matter: a good-faith solver is scored wrongly or non-repeatably, and we measured how much.</mark> The rest are small, already changed upstream, or not confirmed, and we say which.</p>
   </div>
-  <div class="hl-grid" id="headline">
-    <div><span class="hl-n">51</span><span class="hl-l">public tasks examined</span></div>
-    <div><span class="hl-n" data-count="n_problem">{{n_problem}}</span><span class="hl-l">tasks where the checker scored some submissions wrongly: <span data-count="repair-v2">{{repair-v2}}</span> fixed, <span data-count="exclude">{{exclude}}</span> removed. The other <span data-count="retain-with-note">{{retain-with-note}}</span> are kept, with a note</span></div>
-    <div><span class="hl-n">{{headline:tasks_10pt}}</span><span class="hl-l">tasks where the problem itself cost good-faith work 10 or more points out of 100 (measured on one submission, or on the score a run keeps)</span></div>
-    <div><span class="hl-n">{{headline:real_regraded}}</span><span class="hl-l">fixed tasks regraded on a real agent run: the run's score changed in {{headline:real_run_changed}}, single submissions changed in {{headline:real_subs_changed}} more, and the problem never occurred in {{headline:real_never}}</span></div>
-    <div><span class="hl-n">{{headline:oa_orig}} → {{headline:oa_fixed}}</span><span class="hl-l">the largest change in a real run's score, out of 100 ({{task:order_addition_permutation_optimization|Order Addition}})</span></div>
-    <div><span class="hl-n">Top two</span><span class="hl-l">their order can no longer be confirmed from public data: {{headline:top1_pub}} against {{headline:top2_pub}} published, ranges {{headline:top1_low}}–{{headline:top1_high}} and {{headline:top2_low}}–{{headline:top2_high}} once the documented limits are applied</span></div>
-  </div>
-  {{fig:impact-overview}}
+  <div class="hl-one" id="headline"><span class="hl-n" data-count="confirmed">{{rc_confirmed}}</span><span class="hl-l">tasks confirmed: a measured score change on the current judge, large enough to matter.</span></div>
+  <p class="note">The other tasks: <span data-count="minor">{{rc_minor}}</span> real but small or unseen, <span data-count="changed-upstream">{{rc_changed_upstream}}</span> changed upstream, <span data-count="not-confirmed">{{rc_not_confirmed}}</span> not confirmed, <span data-count="no-problem">{{rc_no_problem}}</span> with no problem found. <a href="#others">Why each is there</a>.</p>
   <div class="cta">
-    <a class="btn" href="{{root}}tasks/index.html">Browse all 51 tasks &rarr;</a>
-    <p>Each task has its own page with the instructions the agent receives, how EdgeBench scores the work, and what we found.</p>
+    <a class="btn" href="{{root}}tasks/index.html">See the confirmed tasks &rarr;</a>
+    <p>Each task has its own page with the instructions the agent receives, how EdgeBench scores the work, the second review's status and the first audit's full record.</p>
   </div>
 </header>
 
 <section id="background" class="col">
   <h2 class="sec"><span class="num">1</span>What EdgeBench is and how it scores an agent</h2>
   <p>An EdgeBench task gives the agent written instructions and starter files: make a trading engine faster, write a bot for a strategy game, finish the proofs in a mathematics library, infer the source of groundwater pollution from sensor readings. The agent can submit as often as it likes during its twelve hours, and it sees each score. A hidden checker program (EdgeBench calls it the grader), written by the task's authors, runs every submission on hidden test cases and produces a raw result, such as a cost, a speed or a count of passed tests. EdgeBench converts the raw result to a score from 0 to 100 using reference points the authors chose for that task. Each run keeps its best score. Each model has three runs per task; EdgeBench averages the valid runs and drops a run that failed as a whole, for example by crashing. A model's headline number is its average over tasks.</p>
-  <p>A score can therefore go wrong at four points (Figure&nbsp;2): the checker can accept wrong work; it can reject correct work or apply a rule the agent was not told; the conversion to 0–100 can be unreachable or mismeasured; and the run can keep the wrong submission. We found all four, and a fifth source of error outside the checker's code, the machine it runs on. EdgeBench's official settings give a checker 4 CPUs unless the task overrides it, and six checkers run more work at once than that (<a href="#engineering">Section&nbsp;3.1</a>).</p>
+  <p>A score can therefore go wrong at four points (Figure&nbsp;1): the checker can accept wrong work; it can reject correct work or apply a rule the agent was not told; the conversion to 0–100 can be unreachable or mismeasured; and the run can keep the wrong submission. We found all four, and a fifth source of error outside the checker's code, the machine it runs on. EdgeBench's official settings give a checker 4 CPUs unless the task overrides it, and six checkers run more work at once than that ({{task:vibrating_path_graph_coloring|Vibrating Path}}).</p>
   {{fig:scoring-pipeline}}
   <p class="note">Each task page gives these details for its task: the checker command, the time limit, what is submitted, how the raw result becomes 0–100 and which submission a run keeps. <a href="{{root}}tasks/index.html">Open the task list</a>.</p>
 </section>
 
 <section id="what" class="col">
-  <h2 class="sec"><span class="num">2</span>What we did</h2>
-  <p>For each of the 51 public tasks we asked whether an agent that solves the task correctly and by the rules gets the score the task promises. We traced the evidence to the original checker code and to the final score. Runs of the real checker, tests of its parts and formal models answer different questions; none alone certifies every current fix (Figure&nbsp;3). Each task then received one of three outcomes:</p>
-  <ul class="tight">
-    <li><b class="o-repair-v2">Fixed ({{repair-v2}} tasks).</b> The checker's logic, data or setup can be corrected. We publish each fix as a new version of the task. Case pages state what the side-by-side checks cover and what integration work remains; <a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">Applying the fixes</a> lists the open steps.</li>
-    <li><b class="o-retain-with-note">Kept, with a note ({{retain-with-note}} tasks).</b> No correctable problem found. The note records caveats that no change to the checker removes, such as variation between runs or machines.</li>
-    <li><b class="o-exclude">Removed ({{exclude}} task).</b> No sound fix was possible.</li>
-  </ul>
-  {{fig:evidence-layers}}
+  <h2 class="sec"><span class="num">2</span>How we reviewed</h2>
+  <p>The first audit asked of each task whether an agent that solves it correctly and by the rules gets the score the task promises. It tested the original release and published fixes for 31 tasks. The second review, in November 2026, asked which of those findings hold up against the current judge, using EdgeBench's own contribution rule: <b>a good-faith solver is scored wrongly or non-repeatably, and the final score moves.</b></p>
+  <ol class="steps">
+    <li><b>Attack.</b> An independent model (GPT-6 Astra) reviewed 146 claims in the current code, rechecked 48 from scratch and attacked 46, trying to refute them. It ran pure functions but no containers.</li>
+    <li><b>Measure.</b> Where we could, we built the judge from <code>community</code> at <code>1187e2c</code> and graded a control and a trigger differing only at the defect, repeated at least twice; repeatability claims used at least three gradings of one file. Other evidence includes single agent runs, direct evaluator runs, local scoring tests and calculations, and each result says which.</li>
+    <li><b>Check against real runs.</b> A claim counts for less if real solvers score well despite it. One reviewer-approved claim fell this way: on Borden Inversion, a real run reached raw 108.97 of 109.</li>
+  </ol>
+  <p class="note">Limits: most tasks have one model's real runs, or none. The SMT results ran below official resources, because of our cloud account's cap. "Not confirmed" means we could not show harm on the current judge, not that the first audit's measurements on the original release were wrong; those are kept on each task page.</p>
 </section>
 
 <section id="findings" class="col">
-  <h2 class="sec"><span class="num">3</span>What goes wrong</h2>
-  <p>Every task with a problem ({{n_problem}} tasks: {{repair-v2}} fixed, {{exclude}} removed) has one primary category, chosen by how its main defect arises, and may have secondary ones. The four categories are:</p>
-  <ul class="tight">
-    <li><b><a href="#engineering">{{t:pcat.engineering}}</a></b> ({{pcat_count_engineering}}): the checker does not run correctly in the real setup.</li>
-    <li><b><a href="#grader_logic">{{t:pcat.grader_logic}}</a></b> ({{pcat_count_grader_logic}}): the checker marks wrong work as right, or right work as wrong.</li>
-    <li><b><a href="#instruction_mismatch">{{t:pcat.instruction_mismatch}}</a></b> ({{pcat_count_instruction_mismatch}}): the checker enforces something the instructions do not state, or contradicts them.</li>
-    <li><b><a href="#scale_selection">{{t:pcat.scale_selection}}</a></b> ({{pcat_count_scale_selection}}): the 0–100 scale cannot be reached, a reference point is wrong, or the wrong submission is kept.</li>
-  </ul>
-  <p>Each category below has a short explanation, its list of tasks and two to five examples, each with a figure. The <a href="{{root}}tasks/index.html">Tasks</a> page lists every task and can be filtered by category; each task's page has the full case, with the test submissions, the independent checks and the fix. Every task name below links to its page.</p>
-
-  <h3 id="engineering"><span class="num">3.1</span>{{t:pcat.engineering}} <span class="hcount">{{pcat_count_engineering}}</span></h3>
-  <p>{{t:pcat.engineering.blurb}}</p>
-  <p class="pcat-tasks">{{pcat_tasks_engineering}}</p>
-  <p><span class="lead-in">{{task:rust_multicrate_reconstruction|Rust Multicrate}}: hidden tests that cannot compile.</span> The agent rebuilds a 14-package Rust project and is told not to edit the tests. The checker adds hidden tests to all 14 packages, and in two of them, search (12 points) and the command-line program (10 points), it places them where they do not compile. <mark>Both packages, 22 of the 100 points, score 0 for every solver who leaves the tests and package settings unchanged.</mark> A complete, correct solution scores 73.99 out of 100 with the original checker and 94.70 with the fixed one, a gain of 20.71 (search +11.29, the command-line program +9.32, and +0.10 from a test the original skipped after an earlier failure). (A solver could still make search compile by turning on its <code>parallel</code> setting, which edits no test; nothing in the task points to it.) The fix places the hidden tests where they compile and runs every test file.</p>
-  <p class="verif">{{verif:rust_multicrate_reconstruction}}</p>
-  {{fig:rust_multicrate_reconstruction|rust_multicrate_reconstruction}}
-  <p><span class="lead-in">{{task:grid_turing_robot|Grid Robot}}: eight test cases share four processors.</span> The instructions promise 30 seconds per test case. The checker runs eight cases at the same time, and EdgeBench's official settings give it four processors (<a href="https://github.com/findalexli/edgebench-verified/blob/main/evidence/impact/edgebench-leaderboard-config.md">the settings, quoted</a>), so each case gets about half a processor. <mark>A valid solution that computes for 16 seconds per case times out on 48 of its 50 cases, and one timeout throws out the whole submission; with the fix the same solution scores its 19.80 out of 100.</mark> The fix runs no more cases at once than the checker has processors. Five more tasks share this problem: {{task:vibrating_path_graph_coloring|Vibrating Path}}, {{task:molecular_self_assembly|Molecular Assembly}}, {{task:apple_incremental_game|Apple Game}}, {{task:triangulation_coloring_optimization|Triangulation}} and {{task:warehouse_forklift_routing|Warehouse Routing}}. In a real agent run on Molecular Assembly, single submissions rose by up to 12.22 points out of 100 under the fix (<a href="{{root}}leaderboard.html#real-runs">real runs</a>). Solutions that stop at a fixed clock time are usually not thrown out, but they get only half the computing time.</p>
-  <p class="verif">{{verif:grid_turing_robot}}</p>
-  {{fig:grid_turing_robot|grid_turing_robot}}
-
-  <h3 id="grader_logic"><span class="num">3.2</span>{{t:pcat.grader_logic}} <span class="hcount">{{pcat_count_grader_logic}}</span></h3>
-  <p>{{t:pcat.grader_logic.blurb}}</p>
-  <p class="pcat-tasks">{{pcat_tasks_grader_logic}}</p>
-  <p><span class="lead-in">{{task:exchange_core_throughput|Exchange Core}}: a broken stock exchange passes.</span> The agent makes a stock-exchange engine faster without changing what it does, and is scored on speed. The original checker only confirms that money balances overall and that the order books match. <mark>Two realistic small bugs pass and are scored as correct. One charges sellers the wrong fee; the other never delivers trade messages.</mark> Across four runs they scored 7.77–24.40 and 4.71–15.62 out of 100, within the run-to-run speed noise of the correct engine (0–24.19 in the original-checker runs alongside them). The project's own tests catch both bugs; the fixed checker requires those tests to pass and gives the broken engines 0.</p>
-  <p class="verif">{{verif:exchange_core_throughput}}</p>
-  {{fig:exchange_core_throughput|exchange_core_throughput}}
-  <p><span class="lead-in">{{task:college_english_exam_bank|College English}}: an empty grading report scores 100.</span> An AI model grades the agent's exam papers against 12 rules worth 100 points. If the model's answer leaves a rule out, the checker's code gives that rule full marks and still calls the result valid. <mark>A grading report that assesses nothing scores 100 out of 100;</mark> one that skips a single 15-point rule scores 81 instead of 77, or 15 instead of 0. The fixed checker asks the model again and otherwise reports a grading failure. We do not know how often real grading reports skipped rules.</p>
-  <p class="verif">{{verif:college_english_exam_bank}}</p>
-  {{fig:college_english_exam_bank|college_english_exam_bank}}
-  <p><span class="lead-in">{{task:smt_solver|SMT Solver}}: correct answers rejected.</span> The agent builds a solver for logic puzzles and must give an example answer whenever a puzzle has one. The checker looks up a value by how it is written, not by what it stands for, so when the same text means two different things in one puzzle, no correct answer can pass. <mark>This makes 27 hidden puzzles impossible to win and lowers a perfect solver's maximum from 78.61 to 72.40 out of 100.</mark> (A correct "no solution" answer earns at most a fifth of a puzzle's credit, so even a perfect solver tops out at 78.61.) On 42 more puzzles it rejects answers written the way the instructions describe. The fixed checker looks values up by what they stand for and accepts correct answers on all 69.</p>
-  <p class="verif">{{verif:smt_solver}}</p>
-  {{fig:smt_solver|smt_solver}}
-  <p><span class="lead-in">{{task:ffmpeg_swscale_reimplementation|FFmpeg Swscale}}: code that fails instantly earns speed credit.</span> The agent rewrites an image-resizing library and is scored on correctness and speed. The speed tests time conversions without checking their output, so a call that fails or does nothing "finishes" almost instantly. <mark>Unfinished code earned up to 18.93 out of 100 this way under the original checker</mark> (5.39, 18.93 and 17.87 for three test versions, against 0 for the unchanged starter code, in the same run). The fixed checker checks the output of every timed call, and any failed workload makes the total exactly 0. In its one side-by-side run, code that skips repeated calls passed all 30 correctness tests and still scored 0.</p>
-  <p class="verif">{{verif:ffmpeg_swscale_reimplementation}}</p>
-  {{fig:ffmpeg_swscale_reimplementation|ffmpeg_swscale_reimplementation}}
-  <div class="removed-box">
-    <h4>The one task we removed</h4>
-    <p><span class="lead-in">{{task:dabic_gravity_inversion|D-ABIC Gravity Inversion}}.</span> <mark>About 42 of the 100 points (two parts, worth 12 and 30) come from the submission's own results file and are never verified.</mark> A sound fix would need the checker to recompute them from hidden data, so we removed the task. We fixed a second problem, a hidden penalty on one of the two formulas the instructions allow, but that fix alone does not make the task usable.</p>
-    <p class="verif">{{verif:dabic_gravity_inversion}}</p>
-    {{fig:dabic_gravity_inversion|dabic_gravity_inversion}}
-  </div>
-
-  <h3 id="instruction_mismatch"><span class="num">3.3</span>{{t:pcat.instruction_mismatch}} <span class="hcount">{{pcat_count_instruction_mismatch}}</span></h3>
-  <p>{{t:pcat.instruction_mismatch.blurb}}</p>
-  <p class="pcat-tasks">{{pcat_tasks_instruction_mismatch}}</p>
-  <p><span class="lead-in">{{task:warehouse_forklift_routing|Warehouse Routing}}: promised 150 seconds, cut off at 60.</span> The instructions promise 30 seconds per test case, or 150 seconds for each input of five cases. The checker stops each input after 60 seconds, and a single timeout throws out the whole submission. <mark>A test solution that takes 13 seconds per case, less than half the promise, gets no score at all;</mark> with the fix all 50 inputs are scored. The fix raises the limit to the promised 150 seconds and runs no more inputs at once than the checker has processors. One part of the fix, which makes sure results that arrive at the very end are counted, has been tested on its own but not yet in a full EdgeBench run. Separately, we proved in Lean that no valid answer can score above about 30.6 out of 100 on this task's scale; we document that limit and leave it unchanged.</p>
-  <p class="verif">{{verif:warehouse_forklift_routing}}</p>
-  {{fig:warehouse_forklift_routing|warehouse_forklift_routing}}
-  <p><span class="lead-in">{{task:arc_compiler_runtime|Arc Compiler}}: the same code scores 69 or 36.</span> The agent finishes a small compiler. Hidden tests worth a third of the points (33.67 of 100) expect error reports in one particular format, while the starter code uses another and nothing the agent can see says which is right. <mark>One error checker, written in good faith, scores 69.26 when it reports errors in the hidden format and 35.59 in the starter's.</mark> The fixed task documents the format; the checker and the score of any given code are unchanged.</p>
-  <p class="verif">{{verif:arc_compiler_runtime}}</p>
+  <h2 class="sec"><span class="num">3</span>What holds up</h2>
+  <p>A task is confirmed when the measured change reaches real work: regrading a real submission shows it, or a repeatability failure affects any submission. A defect that is large only on a trigger no real submission we hold uses stays with the others. Graph Node, for example, drops from 90.52-90.57 to 1.95-2.01 if predictions use integer keys, which the task permits.</p>
+  <p>Each entry gives the defect, the measured effect on a score out of 100 unless stated otherwise, and whether upstream knows.</p>
+  {{review_confirmed}}
   {{fig:arc_compiler_runtime|arc_compiler_runtime}}
-  <p><span class="lead-in">{{task:juliet_vulnerability_analyzer|Juliet Analyzer}}: the public examples teach the wrong format.</span> The agent writes a tool that finds security bugs in C code and reports where each one starts. For command-injection bugs, all 38 public examples mark the start at the line that runs the command, but all 120 hidden answers mark it at the line where the input is read, and the original checker accepts only the hidden form. <mark>An analyzer that finds only the command-injection bugs and copies the public examples loses 15 points (45.66 against 60.66 out of 100)</mark>; one that finds every bug loses 2.49, and the worst case is 26.47 (computed exactly, not run). In a real agent run, 14 of 105 submissions, all early ones, were affected, two by about 25 points (70.00 against 95.22 and 95.26); later submissions and the run's kept score were not. The fixed checker accepts both forms.</p>
-  <p class="verif">{{verif:juliet_vulnerability_analyzer}}</p>
-  {{fig:juliet_vulnerability_analyzer|juliet_vulnerability_analyzer}}
-  <p><span class="lead-in">{{task:borden_source_inversion|Borden Inversion}}: the checker's physics is not the textbook's.</span> The agent locates an underground pollution source from monitoring-well readings. The checker predicts the readings with a physics model whose conventions the instructions never state; for example, it ignores soil porosity. <mark>A standard textbook fit scores 7.03 and the same fit using the checker's conventions 31.2</mark> (raw results on this task's 0–109 range; 6.45 and 28.62 out of 100). In a real agent run, whose answers score the same under the unchanged grader, the best score climbed from 7.01 to 60.10 over 36 submissions while the checker reported its error on the hidden wells after each one. The fixed task gives agents the checker's model.</p>
-  <p class="verif">{{verif:borden_source_inversion}}</p>
-  {{fig:borden_source_inversion|borden_source_inversion}}
-
-  <h3 id="scale_selection"><span class="num">3.4</span>{{t:pcat.scale_selection}} <span class="hcount">{{pcat_count_scale_selection}}</span></h3>
-  <p>{{t:pcat.scale_selection.blurb}}</p>
-  <p class="pcat-tasks">{{pcat_tasks_scale_selection}}</p>
-  <p><span class="lead-in">{{task:order_addition_permutation_optimization|Order Addition}}: the run's later, better work never counts.</span> Each run reports its best submission, chosen first by how many of the checker's five tests pass. One test compares a helper file against an outdated fingerprint, so every submission fails it, every scored submission ties at 4 of 5, and the run is stuck with its first scored submission. <mark>In a real agent run this kept 3.79 out of 100 instead of the 41.24 a later submission earned.</mark> The fix updates the fingerprint; each submission's own score is unchanged. Anyone who keeps the highest score instead is not affected.</p>
-  <p class="verif">{{verif:order_addition_permutation_optimization}}</p>
-  {{fig:order_addition_permutation_optimization|order_addition_permutation_optimization}}
-  <p><span class="lead-in">{{task:treant_forest|Treant Forest}}: no submission can score above 21.</span> The checker stops each game after a fixed number of turns, so no total can exceed 92,304. The 0–100 scale was set as if totals up to 330,195 were possible, <mark>so even a perfect submission would score 21.02 out of 100.</mark> The fixed scale runs from the starter's total to the most the checker allows (we have not shown that any submission can reach it). A simple test solution moves from 3.04 to 16.36, and the order of submissions is unchanged.</p>
-  <p class="verif">{{verif:treant_forest}}</p>
   {{fig:treant_forest|treant_forest}}
-  <p><span class="lead-in">{{task:integer_compression_codec|Integer Codec}}: an impossible reference number.</span> The agent writes a compressor for lists of numbers and is scored against stored reference results for the starter code. One stored figure claims 5.13 bits per number, below the 8-bit minimum for the starter's format; the starter needs 38.98. As a result the starter scores about 0.23 instead of the documented 1.0 (raw), and the datasets count differently from what is published. The fix measures the starter in the same run and sets a new 0–100 scale from the starter's result to the highest the formula allows. <mark>That moves a real agent run from 71.93 to 53.95 out of 100, both regraded on our machines, so a fix can lower a score as well as raise it.</mark> (The run itself recorded 75.72 on its own machine.)</p>
-  <p class="verif">{{verif:integer_compression_codec}}</p>
-  {{fig:integer_compression_codec|integer_compression_codec}}
-
-  <p class="note">Other fixed tasks, such as {{task:jagua_nesting_optimization|Jagua Nesting}}, {{task:pfr_formalization|PFR Formalization}}, {{task:triangulation_coloring_optimization|Triangulation Coloring}} and {{task:git_rewrite_in_zig|Git in Zig}}, are described in the category lists above and on their own pages.</p>
-  <div class="cta">
-    <a class="btn" href="{{root}}tasks/index.html">Browse all 51 tasks &rarr;</a>
-    <p>The examples above cover 14 tasks. The task list has every outcome, with filters and search.</p>
-  </div>
+  <details id="others"><summary>The other tasks, including first-audit claims we withdrew</summary>
+  <h3 id="minor"><span class="num">3.1</span>Real, but small or unseen in real work</h3>
+  {{review_minor}}
+  <h3 id="changed-upstream"><span class="num">3.2</span>Changed upstream</h3>
+  {{review_changed_upstream}}
+  <h3 id="not-confirmed"><span class="num">3.3</span>Not confirmed</h3>
+  <p>A first-audit claim listed here may still be a true statement about the code. It is here because we could not show that it moves a good-faith solver's score on the current judge.</p>
+  {{review_not_confirmed}}
+  </details>
 </section>
 
-<section id="impact" class="col">
-  <h2 class="sec"><span class="num">4</span>Effect on the published leaderboard</h2>
-  <p>EdgeBench has not released its agents' submissions, so we cannot compute the corrected leaderboard. We could make one check. A third party published one four-hour run of one model on 16 public tasks, nine of them tasks we fixed. We regraded its submissions with the original and the fixed checker. In that run some of the problems did affect the agent and some never came up (figure below).</p>
-  {{fig:real-runs}}
-  <p>On the published leaderboard, Opus&nbsp;4.8 leads GPT-5.5 by {{headline:top_gap}} points ({{headline:top1_pub}} against {{headline:top2_pub}}). The corrections that can be computed from the public averages keep that order: {{headline:top1_scale_low}}–{{headline:top1_scale_high}} against {{headline:top2_scale_low}}–{{headline:top2_scale_high}}. Adding the per-task limits we documented widens the ranges to {{headline:top1_low}}–{{headline:top1_high}} and {{headline:top2_low}}–{{headline:top2_high}}. <mark>These overlap, so the public data can no longer confirm which model is ahead.</mark> This does not show that they change places; deciding that needs the original submissions or new runs. These ranges count every fix whose size on the leaderboard is unknown as zero.</p>
-  <p class="note">{{rank_text}}</p>
-  <p class="more-link"><a href="{{root}}leaderboard.html">The full leaderboard analysis, with Table&nbsp;3 and the real-run regrade</a></p>
+<section id="first-audit" class="col">
+  <h2 class="sec"><span class="num">4</span>The first audit</h2>
+  <p>This review corrects our first audit, which tested the original release, reported problems in 32 of the 51 tasks and estimated ranges for the published leaderboard. Of those 32, 10 are confirmed, 13 are real but small or unseen, 1 has changed upstream and 8 are not confirmed. Those ranges count every first-audit fix, including fixes for claims this review did not confirm, and we have not recomputed them. Each task page keeps the first audit's record.</p>
+  <p class="more-link"><a href="{{root}}method.html">The method</a> · <a href="{{root}}leaderboard.html">The first audit's leaderboard analysis</a></p>
 </section>
 
-<section id="method" class="col">
-  <h2 class="sec"><span class="num">5</span>How we verified</h2>
-  <ol class="steps">
-    <li><b>Use the original grader,</b> EdgeBench's published grading software, pulled from its public images and identified by a cryptographic fingerprint.</li>
-    <li><b>Quote the promise</b> verbatim from the instructions and documents the agent receives.</li>
-    <li><b>Show the problem with test submissions:</b> a correct one, which must score as promised; one that triggers the problem; and a wrong one, which must be rejected.</li>
-    <li><b>Confirm it independently,</b> with exact arithmetic, a separate implementation, exhaustive search, or a formal proof in Lean&nbsp;4 or TLA+.</li>
-    <li><b>Follow it to the final score.</b> A problem counts only if it changes the 0–100 score of a good-faith submission.</li>
-    <li><b>Compare original and repaired versions</b> on the same test submissions: {{n_cmp}} graded comparisons, {{n_cmp3}} of them run three times.</li>
-  </ol>
-  <p>{{formal_tasks}} of the 51 tasks have formal results, with {{lean_thms}} Lean theorems and {{tla_runs}} TLA+ model-checking runs. <mark>The saved formal results prove {{fix_proved}} fixes within explicit models ({{fix_earlier}} of them an earlier version of the fix) and {{fix_partly}} more in part. They do not prove later versions of a fix, the whole checker or the published images.</mark> The formal checks also caught a mistake of ours. One shipped fix was narrower than we had published, and we revised it.</p>
-  <p class="more-link"><a href="{{root}}method.html">The full method: every step, Table&nbsp;2 of formal results, and the limitations</a></p>
-</section>
-
-<section id="lessons" class="col">
-  <h2 class="sec"><span class="num">6</span>Lessons</h2>
-  <ul class="tight">
-    <li><b>Run the original grader before reasoning about it.</b> We found most problems by reading code, but only a submission that triggers a problem settled it. Several plausible findings did not survive that step.</li>
-    <li><b>Formal tools work best on small, precise questions.</b> They settled a false theorem, an arithmetic gap, a lower bound and an aliasing bug outright. Most grader problems concern conventions, file formats or timing, which no proof addresses as cheaply as a side-by-side run.</li>
-    <li><b>A proof needs a link to the code it describes.</b> We stated the {{task:lean_analysis_proofs|Lean Analysis}} refutations against the task's own definitions inside its own image. We matched the {{task:warehouse_forklift_routing|Warehouse}} model to the real tester on 294 strings, and mapped each TLA+ step to a line of source.</li>
-    <li><b>Every check needs a counter-check,</b> because a check that cannot fail shows nothing. Each TLA+ model has a configuration that must fail, each Lean proof prints its axioms, and each fix should be tested on wrong work as well as right work; case pages state the actual coverage.</li>
-    <li><b>Formal proofs also checked our own work.</b> Writing some fix mechanisms down as Lean or TLA+ models exposed one fix that was narrower than published and eight imprecise statements. We found each one when a proof attempt failed on a case we had not thought to test.</li>
-    <li><b>Test on the publisher's machine settings.</b> Our first round of side-by-side tests ran graders on 8 CPUs. The leaderboard's settings give most of them 4, and at 4 CPUs six graders time out good-faith work that passes at 8. We also first assumed {{task:smt_solver|SMT Solver}} got 4; its settings give it 16. The code was correct in both settings; only the combination of the machine and the code was wrong.</li>
-    <li><b>Reviewers new to the work found what we had missed.</b> A second round of reviewers who did not share our context found the CPU problem, two hidden-test problems in {{task:rust_multicrate_reconstruction|Rust Multicrate}}, undisclosed checks in {{task:git_rewrite_in_zig|Git in Zig}} and a hidden placeholder in {{task:pfr_formalization|PFR}}, mostly in tasks we had kept, and several of our own fixes that needed extending or revising. We then settled each one with a run.</li>
-    <li><b>Test what a fix is for, not only what it changes.</b> The first {{task:integer_compression_codec|Integer Codec}} fix corrected the baseline exactly as documented and passed every test, but real submissions showed that it saturated the score scale. Neither proofs nor our own tests had caught that; checking the fix against real agent work did.</li>
-  </ul>
-</section>
 
 <section id="data" class="col">
   <h2 class="sec">Data and code</h2>
   <dl class="data">
+    <dt>Second review</dt><dd><a href="https://github.com/findalexli/edgebench-verified/blob/main/data/review.json">review.json</a> · <a href="https://github.com/findalexli/edgebench-verified/tree/main/evidence/reviews/second-review">verdicts and reviewer output</a></dd>
     <dt>Repository</dt><dd><a href="https://github.com/findalexli/edgebench-verified">github.com/findalexli/edgebench-verified</a>: fixes, case pages, evidence, Lean and TLA+ files</dd>
     <dt>Outcomes</dt><dd><a href="{{site_root}}data/decisions.csv">decisions.csv</a> · <a href="{{site_root}}data/decisions.json">decisions.json</a></dd>
     <dt>Fix tests</dt><dd><a href="{{site_root}}data/paired-results.csv">paired-results.csv</a>: {{paired_rows}} rows over {{paired_tasks}} tasks, original and fixed grader: {{n_cmp}} graded comparisons, {{paired_setup}} setup rows, {{n_cmp_derived}} derived score cap (Treant Forest, not executed) and {{n_cmp_noexec}} instruction-only check (OpenRCT2, nothing to run)</dd>
     <dt>Repeat runs</dt><dd><a href="{{site_root}}data/paired-repeatability.csv">paired-repeatability.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/data/paired-repeatability.md">report</a></dd>
-    <dt>Leaderboard effect</dt><dd><a href="{{site_root}}data/impact.csv">impact.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">report</a></dd>
-    <dt>Documents</dt><dd><a href="https://github.com/findalexli/edgebench-verified/blob/main/FINDINGS.md">Findings</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/METHOD.md">Method</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/APPLYING-FIXES.md">Applying the fixes</a></dd>
+    <dt>Leaderboard effect</dt><dd><a href="{{site_root}}data/impact.csv">impact.csv</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/first-audit/IMPACT.md">report</a></dd>
+    <dt>Documents</dt><dd><a href="https://github.com/findalexli/edgebench-verified/blob/main/FINDINGS.md">Findings</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/METHOD.md">Method</a> · <a href="https://github.com/findalexli/edgebench-verified/blob/main/first-audit/APPLYING-FIXES.md">Applying the fixes</a></dd>
   </dl>
   <h3 id="cite">How to cite</h3>
 <pre class="bib">@misc{edgebenchverified2026,
@@ -186,7 +86,7 @@
                   the 51 Public {EdgeBench} Tasks},
   author       = {Li, Shengzhi},
   year         = {2026},
-  note         = {Version 1.0},
+  note         = {Version 1.1},
   howpublished = {\url{https://github.com/findalexli/edgebench-verified}}
 }</pre>
 </section>

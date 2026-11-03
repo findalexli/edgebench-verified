@@ -1,0 +1,17 @@
+--- a/edgebench/tasks/schemathesis_config_modernization/judge/tests/test_03_metric_system.py
++++ b/edgebench/tasks/schemathesis_config_modernization/judge/tests/test_03_metric_system.py
+@@ -58,12 +58,12 @@
+ 
+ 
+ def test_metric_decorator_returns_function():
+-    @metric
+     def another_metric(ctx):
+         return 2.0
+ 
+-    assert callable(another_metric)
++    decorated = metric(another_metric)
+     METRICS.unregister("another_metric")
++    assert decorated is another_metric
+ 
+ 
+ def test_builtin_response_time():

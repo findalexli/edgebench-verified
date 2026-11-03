@@ -1,5 +1,19 @@
 # Method
 
+## The second review (November 2026)
+
+The first audit tested the original release. The second review asked which of its findings hold on the current judge, using EdgeBench's contribution rule: a good-faith solver is scored wrongly or non-repeatably, and the final score moves.
+
+1. **Attack.** An independent model (GPT-6 Astra) reviewed 146 claims in the current code, rechecked 48 from scratch and attacked 46, trying to refute them. It ran pure functions but no containers. Its output is in [evidence/reviews/second-review/astra/](evidence/reviews/second-review/astra/); 8 first-pass claims about deliberate gaming are out of scope and not published.
+2. **Measure.** Where we could, we built the judge from `community` at `1187e2c` and graded a control and a trigger differing only at the defect, repeated at least twice; repeatability claims used at least three gradings of one file. Other evidence includes single agent runs, direct evaluator runs, local scoring tests and calculations, and each result says which. Verdicts are in [evidence/reviews/second-review/container/](evidence/reviews/second-review/container/), with the table scripts in [evidence/scripts/second_review/](evidence/scripts/second_review/).
+3. **Check against real runs.** A claim counts for less if real solvers score well despite it.
+
+A task is confirmed when the measured change reaches real work: regrading a real submission shows it, or a repeatability failure affects any submission. A defect that is large only on a trigger no real submission we hold uses stays with the others. Graph Node, for example, drops from 90.52-90.57 to 1.95-2.01 if predictions use integer keys, which the task permits.
+
+Limits: most tasks have one model's real runs, or none. The SMT results ran at 8 CPUs and 7 GB, not the official 16 and 16 GB, because of our cloud account's cap. Lean Analysis and PFR were not rerun. "Not confirmed" means we could not show harm on the current judge, not that the first audit's measurements on the original release were wrong.
+
+The rest of this page describes the first audit.
+
 ## The question
 
 EdgeBench scores an agent's work by running a hidden grader program on it. For each of the 51
@@ -108,7 +122,7 @@ are in [data/paired-repeatability.md](data/paired-repeatability.md).
 
 ## Effect on the published leaderboard
 
-[IMPACT.md](IMPACT.md) applies the findings to EdgeBench's published per-task scores. Where the
+[IMPACT.md](first-audit/IMPACT.md) applies the findings to EdgeBench's published per-task scores. Where the
 published averages allow it, it recomputes the removal of D-ABIC and the changes of scale. For Treant, converting an average is not exact when the runs behind it cross the clipping point or the boundary between the scale's two linear segments. The original submissions are not public, so the other effects are conditional bounds or sensitivity estimates. When the bounds are larger than the gap between two models, they cannot confirm the order of those models, and they also do not prove that a reversal is possible.
 
 ## Limits
@@ -133,7 +147,7 @@ published averages allow it, it recomputes the removal of D-ABIC and the changes
 - Some findings rest on reading the grader's code or on exact arithmetic rather than on a full run
   of the grader, and their case pages say so.
 - AI agents reviewed this work. Every published claim is tied to a saved evidence file, but
-  agreement between agents is not independent human reproduction.
+  agreement between agents is not independent human reproduction. Volunteers have begun checking findings by hand; PFR Formalization has a recorded human pass.
 
 ## Rebuilding the publication
 

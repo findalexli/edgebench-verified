@@ -1,0 +1,48 @@
+--- a/edgebench/tasks/exchange_core_throughput/judge/eval_exchange_core.py
++++ b/edgebench/tasks/exchange_core_throughput/judge/eval_exchange_core.py
+@@ -7,6 +7,11 @@
+ WORK_DIR = "/home/workspace/exchange-core"
+ TIMEOUT = 1800
+ TEST_CLASS = "PerfThroughput#testThroughputPeak"
++# Correctness gate: the project's own tests for fees, command results and trade events. A separate
++# Maven run before the timed test, so the timed run itself is unchanged.
++GATE_TESTS = "ITFeesExchangeBasic,ITExchangeCoreIntegrationRejectionBasic,ITExchangeCoreIntegrationBasic"
++GATE_TIMEOUT = 600
++GATE_MIN_TESTS = 40  # 5 + 28 + 7 shipped tests
+ 
+ # For delombok (mvn main process) — needs exports to javac internals
+ DELOMBOK_OPTS = (
+@@ -51,6 +56,24 @@
+         f"-DargLine={TEST_JVM_OPTS}",
+     ]
+     env = {**os.environ, "MAVEN_OPTS": DELOMBOK_OPTS}
++    gate_cmd = [a.replace(f"-Dtest={TEST_CLASS}", f"-Dtest={GATE_TESTS}") for a in cmd]
++    try:
++        gate = subprocess.run(gate_cmd, env=env, capture_output=True,
++                              text=True, timeout=GATE_TIMEOUT, cwd=WORK_DIR)
++        gate_out, gate_rc = gate.stdout + "\n" + gate.stderr, gate.returncode
++    except subprocess.TimeoutExpired:
++        gate_out, gate_rc = "gate timeout", -1
++    gate_runs = re.findall(r"Tests run:\s*(\d+),\s*Failures:\s*(\d+),\s*Errors:\s*(\d+)", gate_out)
++    gate_total = int(gate_runs[-1][0]) if gate_runs else 0
++    if gate_rc != 0 or gate_total < GATE_MIN_TESTS:
++        print("\n".join(gate_out.splitlines()[-60:]), flush=True)
++        print(f"DEBUG: correctness gate failed (rc={gate_rc}, tests={gate_total})", flush=True)
++        print("CASE 0000 WA score=0  # correctness gate failed", flush=True)
++        print("TOTAL_SCORE 0", flush=True)
++        print("CASES_OK 0", flush=True)
++        print("CASES_TOTAL 1", flush=True)
++        return
++    print(f"GATE OK {GATE_TESTS} tests={gate_total}", flush=True)
+     try:
+         proc = subprocess.run(cmd, env=env, capture_output=True,
+                               text=True, timeout=TIMEOUT, cwd=WORK_DIR)
+@@ -84,6 +107,8 @@
+ 
+     score = int(round(avg * 1000))
+     status = "OK" if rc == 0 and score > 0 else "WA"
++    if status != "OK":
++        score = 0  # no throughput credit when the timed Maven run failed
+     print(f"CASE 0000 {status} score={score}  # Average={avg:.3f} MT/s",
+           flush=True)
+     print(f"TOTAL_SCORE {score}", flush=True)
