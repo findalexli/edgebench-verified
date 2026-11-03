@@ -1,5 +1,7 @@
 # Apple Incremental Game (`apple_incremental_game`)
 
+**第二轮复核（2026 年 11 月）：已确认。** 同样的 8 用例并行方式，在 4 个 CPU 上会让真实提交丢分，负载高时还会丢掉大量用例。 在真正的 4 个 CPU 上，一份真实提交得 68.10-70.60，缩小并行数后得 73.25-73.92，没有超时（n=5）。在过载测试中（五个评分器共用 8 个 CPU，三台机器），原并行数得 3.09-19.78，缩小后得 17.81-68.87（各 n=20）。在最嘈杂的机器上，缩小后的并行数同样丢了用例。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>README 承诺每个用例 30 s，但在发布方的 4-CPU 评分器上，每个用例用掉超过约 15 s CPU 的有效解法会超时，超时的用例得 0 分。修复版同时运行的用例数不超过评分器的 CPU 数。分数刻度的低端与一个独立模拟的结果一致；高端参考点没有核实；1 GB 内存上限没有对每个解法执行。</mark>
 
 ## 任务要求
@@ -12,7 +14,7 @@
 
 - 评分器用 `piecewise_max` 方法换算原始结果（换算到 0–100 之前的数值）。0 分的参考点是 45,000,000（每个用例 900,000，即 S = 2⁹）。排名第 1 的参考点 282,791,094 对应 80 分，100 分对应 289,952,856.4（`tasks/apple_incremental_game.json`，`judge.rescale`；`sforge/harness/score_rescale.py`，`piecewise_max`）。随任务提供的初始解法什么也不做，S = K = 1，所以原始结果为 0，对应 0 分。我们另写了一个简单的贪心模拟器，它的原始结果为 **237,518,875**（每个用例 4.75M），对应 **17.7** 分（满分 100）。这低于排名第 30 水平的参考点（每个用例 5.25M），先后顺序符合预期。这一项只检查了刻度的低端。
 - 我们没有核实高端参考点。rank30、rank1 和 100 分这三个点（262,328,915.67、282,791,094 和 289,952,856.42）不是整数；乘以 3 和乘以 12 后才得到整数（786,986,747 和 3,479,434,277），看起来可能是从另一个用例数换算来的。它们的来源，以及在这 50 个用例上能否拿到 100 分，我们没有核实。姊妹任务 Treant 用的是同一套评估器代码，它排名第 1 的参考点是可达最大值的 3.58 倍（`evidence/reviews/_game-tasks-correctness.md`，第 8 节）。
-- 在 4-CPU 评分器上，每个用例的 30 s 缩水为约 15 s CPU（已修复）。README 承诺 "Time limit | 30 seconds / test case"（第 71 行）。这个时限按墙钟时间计（`TIME_LIMIT = 30`，`/tmp/eval_apple_incremental_game.py` 第 9 行），评分器同时运行 8 个用例（`max_workers=min(8, len(case_files))`，第 45 行），超时的用例得 0 分（第 37 行）。任务没有规定 CPU 数。EdgeBench 的排行榜配置是 `examples/all-tasks-k8s/experiment.yaml`（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`），其中评分器继承 `judge_cpu_limit: 4`，于是 8 个用例每个大约分到半个 CPU。我们在原始评分器上用 `--cpus 4` 测量（`evidence/runs/apple_incremental_game-cpu4v8-a/result/out/summary.txt`，`-b`；在 `apple_incremental_game-v2-paired` 中重复），用的是我们自己写的正常贪心对照解法（TOTAL 99,714,418，5.04 分，满分 100）。随任务提供的基线每个用例都得 0 分，看不出 OK 与 TLE 的差别，所以我们没有用它。每个用例额外做 12 或 14 s CPU 工作时，50/50 通过；额外做 20 s 时，两个工作节点上都有 50 个用例中的 48 个超时，总分降到 3,955,266，即 0 分（满分 100）。在 `--cpus 8` 下全部通过，得 99,714,418。一个在 25 s 墙钟截止时间停止的解法，在 4 个 CPU 下每个用例平均只得到 13.00 s CPU，在 8 个 CPU 下为 24.94 s。
+- 在 4-CPU 评分器上，每个用例的 30 s 缩水为约 15 s CPU（已修复）。README 承诺 "Time limit | 30 seconds / test case"（第 71 行）。这个时限按墙钟时间计（`TIME_LIMIT = 30`，`/tmp/eval_apple_incremental_game.py` 第 9 行），评分器同时运行 8 个用例（`max_workers=min(8, len(case_files))`，第 45 行），超时的用例得 0 分（第 37 行）。任务没有规定 CPU 数。EdgeBench 的排行榜配置是 `examples/all-tasks-k8s/experiment.yaml`（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`），其中评分器继承 `judge_cpu_limit: 4`，于是 8 个用例每个大约分到半个 CPU。我们在原始评分器上用 `--cpus 4` 测量（`evidence/runs/apple_incremental_game-cpu4v8-a/result/out/summary.txt`，`-b`；在 `apple_incremental_game-v2-paired` 中重复），用的是我们自己写的正常贪心对照解法（TOTAL 99,714,418，5.04 分，满分 100）。随任务提供的基线每个用例都得 0 分，看不出 OK 与 TLE 的差别，所以我们没有用它。每个用例额外做 12 或 14 s CPU 工作时，50/50 通过；额外做 20 s 时，两个工作节点上都有 50 个用例中的 48 个超时，总分降到 3,955,266，即 0 分（满分 100）。在 `--cpus 8` 下全部通过，得 99,714,418。一个在 25 s 墙钟截止时间停止的解法，在 4 个 CPU 下每个用例平均只得到 13.00 s CPU，在 8 个 CPU 下为 24.94 s。
 - 评分可以重复，评估器代码不引入随机性。逐用例分数来自测试程序 `tools/bin/tester`。我们没有检查它的代码，但在各次 CPU 运行中，它给我们贪心对照解法的输出打分，每次都是 99,714,418。
 
 任务文本（README）写明内存上限为 1 GB，但评分器没有对每个解法执行这一上限。
@@ -75,4 +77,4 @@
 
 - 审查记录：`evidence/reviews/_game-tasks-correctness.md`，第 9 节。
 - 贪心模拟器：`evidence/scripts/_game-tasks-triage/apple/greedy_lookahead.py`。
-- 原始评分器：评分器镜像中的文件 `eval_apple_incremental_game.py`（sha256 见[审查记录](../evidence/reviews/_game-tasks-correctness.md)）。本仓库没有发布它的副本。
+- 原始评分器：评分器镜像中的文件 `eval_apple_incremental_game.py`（sha256 见[审查记录](../../evidence/reviews/_game-tasks-correctness.md)）。本仓库没有发布它的副本。

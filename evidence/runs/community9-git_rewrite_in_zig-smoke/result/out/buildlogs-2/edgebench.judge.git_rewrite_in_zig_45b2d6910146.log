@@ -1,0 +1,98 @@
+docker build --platform linux/amd64 -f /job/base/edgebench/tasks/git_rewrite_in_zig/judge/Dockerfile -t edgebench.judge.git_rewrite_in_zig:45b2d6910146 --build-arg BASE_IMAGE=edgebench.base.cpp:67f57d824691 /job/base/edgebench/tasks/git_rewrite_in_zig
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.70kB done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 17)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 21)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 26)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 33)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/edgebench.base.cpp:67f57d824691
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [suite 1/4] FROM docker.io/library/edgebench.base.cpp:67f57d824691@sha256:a387450164768f7734f3e6cf9b0c86225c94ff3af29530c8ac36e00b4d7694a8
+#4 resolve docker.io/library/edgebench.base.cpp:67f57d824691@sha256:a387450164768f7734f3e6cf9b0c86225c94ff3af29530c8ac36e00b4d7694a8 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 749B done
+#5 DONE 0.0s
+
+#6 [suite 2/4] COPY environment/git-release.sh environment/git-release.exclude /build/
+#6 CACHED
+
+#7 [suite 3/4] COPY judge/test-lib.sh.patch /build/
+#7 CACHED
+
+#8 [zig 2/3] COPY environment/zig.sh /build/zig.sh
+#8 CACHED
+
+#9 [suite 4/4] RUN sh /build/git-release.sh suite /out/git-test-suite /build/test-lib.sh.patch  && cd /out && tar --sort=name --owner=0 --group=0 --numeric-owner --mtime='2026-04-01 04:13:21Z'       -cf - git-test-suite | gzip -n -9 > /out/git-test-suite.tar.gz
+#9 CACHED
+
+#10 [gitsrc 3/3] RUN sh /build/git-release.sh src /out/git-src
+#10 CACHED
+
+#11 [stage-3  2/12] COPY environment/setup.sh /setup/setup.sh
+#11 CACHED
+
+#12 [zig 3/3] RUN sh /build/zig.sh
+#12 CACHED
+
+#13 [stage-3  3/12] RUN sh /setup/setup.sh judge && rm -rf /setup
+#13 0.158 + role=judge
+#13 0.158 + export DEBIAN_FRONTEND=noninteractive
+#13 0.158 + pkgs=wget=1.21.2-2ubuntu1.1 xz-utils=5.2.5-2ubuntu1.1 python3=3.10.6-1~22.04.1 zlib1g-dev=1:1.2.11.dfsg-2ubuntu9.2
+#13 0.158 + [ judge = judge ]
+#13 0.158 + pkgs=wget=1.21.2-2ubuntu1.1 xz-utils=5.2.5-2ubuntu1.1 python3=3.10.6-1~22.04.1 zlib1g-dev=1:1.2.11.dfsg-2ubuntu9.2 strace=5.16-0ubuntu3 file=1:5.41-3ubuntu0.1 libssl-dev=3.0.2-0ubuntu1.25 libcurl4-openssl-dev=7.81.0-1ubuntu1.24
+#13 0.158 + apt-get update -qq
+#13 8.329 W: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/dists/jammy/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]
+#13 8.329 W: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/dists/jammy-updates/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]
+#13 8.329 W: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/dists/jammy-security/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]
+#13 8.329 W: Some index files failed to download. They have been ignored, or old ones used instead.
+#13 8.329 + apt-get install -y --no-install-recommends -qq wget=1.21.2-2ubuntu1.1 xz-utils=5.2.5-2ubuntu1.1 python3=3.10.6-1~22.04.1 zlib1g-dev=1:1.2.11.dfsg-2ubuntu9.2 strace=5.16-0ubuntu3 file=1:5.41-3ubuntu0.1 libssl-dev=3.0.2-0ubuntu1.25 libcurl4-openssl-dev=7.81.0-1ubuntu1.24
+#13 8.345 E: Unable to locate package wget
+#13 8.345 E: Unable to locate package python3
+#13 8.345 E: Unable to locate package zlib1g-dev
+#13 8.345 E: Unable to locate package strace
+#13 8.345 E: Unable to locate package file
+#13 8.345 E: Unable to locate package libssl-dev
+#13 8.345 E: Unable to locate package libcurl4-openssl-dev
+#13 ERROR: process "/bin/sh -c sh /setup/setup.sh judge && rm -rf /setup" did not complete successfully: exit code: 100
+------
+ > [stage-3  3/12] RUN sh /setup/setup.sh judge && rm -rf /setup:
+8.329 W: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/dists/jammy-security/InRelease  503  Service Unavailable [IP: 185.125.189.69 443]
+8.329 W: Some index files failed to download. They have been ignored, or old ones used instead.
+8.329 + apt-get install -y --no-install-recommends -qq wget=1.21.2-2ubuntu1.1 xz-utils=5.2.5-2ubuntu1.1 python3=3.10.6-1~22.04.1 zlib1g-dev=1:1.2.11.dfsg-2ubuntu9.2 strace=5.16-0ubuntu3 file=1:5.41-3ubuntu0.1 libssl-dev=3.0.2-0ubuntu1.25 libcurl4-openssl-dev=7.81.0-1ubuntu1.24
+8.345 E: Unable to locate package wget
+8.345 E: Unable to locate package python3
+8.345 E: Unable to locate package zlib1g-dev
+8.345 E: Unable to locate package strace
+8.345 E: Unable to locate package file
+8.345 E: Unable to locate package libssl-dev
+8.345 E: Unable to locate package libcurl4-openssl-dev
+------
+
+ [33m4 warnings found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 21)
+ - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 26)
+ - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 33)
+ - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 17)
+Dockerfile:35
+--------------------
+  33 |     FROM ${BASE_IMAGE}
+  34 |     COPY environment/setup.sh /setup/setup.sh
+  35 | >>> RUN sh /setup/setup.sh judge && rm -rf /setup
+  36 |     COPY --from=zig /usr/local/zig/ /usr/local/zig/
+  37 |     # COPY creates the top dir as root; v1's root `tar xf` left it uid/gid 1000 like the rest of the tree.
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c sh /setup/setup.sh judge && rm -rf /setup" did not complete successfully: exit code: 100

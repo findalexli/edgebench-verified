@@ -1,5 +1,7 @@
 # DCSS Dungeon Crawl Stone Soup AI (`dcss_dungeon_ai`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 上游说明记录一个机器人在当前评分器上的原始分为 1556.0-5211.2，折算为 32.82-54.61。我们自己写的较弱的机器人波动不到 1 分，所以没有复现这么大的波动，也没有查明原因。 下文是第一轮审计的原始记录。
+
 **结论：** 保留（附说明）。<mark>正常运行时，分数与任务的承诺一致；没有游戏结束记录的一局计 0 分，这也符合任务说明的暗示；说明涉及分数依赖墙钟速度，以及最高参考点没有核实。</mark>
 
 ## 任务要求
@@ -24,7 +26,7 @@
 下面几点需要说明。
 
 - 没有 morgue 的一局计 0 分。这符合任务说明的暗示，不是缺陷。任务说明把分数说成全部 5 局的平均值。如果一局没有写出 morgue（例如强制退出序列两次都失败），这一局得 0 分，评分器照样输出全部 5 局的平均值作为分数，同时输出 `"valid": ok == total`（`eval_dcss.py:210-221`）。EdgeBench 的评测框架保留这个分数。`_grade_structured` 原样照抄，任务的 `score_first` 选取规则不读 `valid`（`sforge/harness/grading.py:200-217`、`sforge/harness/selection.py:83-103`，EdgeBench 版本 `6e4e5f4`）。处于 wizard 或 explore 模式的一局也这样处理。这一结论来自源码，我们还把评分器的输出格式离线送进评测框架验证过；我们在真实运行中没有观察到这条路径。
-- 分数依赖墙钟和主机速度。种子是固定的，但分数大致等于回合速度 × 900 s，而回合速度取决于同时运行的五个游戏进程分到多少 CPU。任务 JSON 没有设 CPU 上限；发布方的排行榜设置（`examples/all-tasks-k8s/experiment.yaml`（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)），sha256 `d9d29979…43be`）给评分器 4 个 CPU 跑这五局。游戏过程中，评分器还每隔 1.5 s 墙钟时间发送一次空格、CR 和 Esc，这串输入依赖计时。任务说明承认有 "small score noise"（小的分数噪声），但我们没有测量噪声有多大。
+- 分数依赖墙钟和主机速度。种子是固定的，但分数大致等于回合速度 × 900 s，而回合速度取决于同时运行的五个游戏进程分到多少 CPU。任务 JSON 没有设 CPU 上限；发布方的排行榜设置（`examples/all-tasks-k8s/experiment.yaml`（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../../evidence/impact/edgebench-leaderboard-config.md)），sha256 `d9d29979…43be`）给评分器 4 个 CPU 跑这五局。游戏过程中，评分器还每隔 1.5 s 墙钟时间发送一次空格、CR 和 Esc，这串输入依赖计时。任务说明承认有 "small score noise"（小的分数噪声），但我们没有测量噪声有多大。
 - 原始平均分 50,000（100 分的参考点）能否在 900 s 内达到，我们没有核实，也没有任何强机器人的运行记录。随任务提供的基线机器人得分基本为 0。
 
 随任务发布的说明写了两条。
@@ -54,5 +56,5 @@
 ## 复现
 
 - 审查记录：`evidence/reviews/_game-tasks-correctness.md`，第 4 节。
-- 固定版本的评分器副本：评分器镜像中的文件 `eval_dcss.py`（sha256 见[审查记录](../evidence/reviews/_game-tasks-correctness.md)）。
+- 固定版本的评分器副本：评分器镜像中的文件 `eval_dcss.py`（sha256 见[审查记录](../../evidence/reviews/_game-tasks-correctness.md)）。
 - 评测框架的评分和选取（EdgeBench `6e4e5f4`）：`sforge/harness/grading.py`、`sforge/harness/selection.py`、`sforge/harness/score_rescale.py`。

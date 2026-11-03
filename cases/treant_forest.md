@@ -1,5 +1,7 @@
 # Treant's Forest (`treant_forest`)
 
+**Second review (November 2026): Confirmed.** The tester stops each game at an undocumented turn cap, so no submission can pass 21.02, while the 0-100 scale assumes totals the cap rules out. All 87 archived real reports sit at 20.46-21.02, so the cap hides real differences between them. Removing the cap with the scale unchanged raises one real submission by 15.83 and reorders the ones we tested, though some long replays hit the tester's time limit. The four real submissions we measured read a destination list the README says solutions don't use; a grid-only control scores 3.04 with or without the cap. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The original score scale puts its reference points above the most turns the grader allows, so no submission can score above 21.02/100; the fixed version changes only the score scale.</mark>
 
 ![Two number lines. The original 0 to 100 scale, with reference points 5,369, 88,189, 330,195 and 451,198 turns at 0, 20, 80 and 100, is reachable only up to the 92,304-turn cap at 21.02; the rest is marked unreachable. The fixed scale runs from 3,418 turns at 0 to 92,304 at 100. A greedy test solution of 17,960 turns sits at 3.04 on the original scale and 16.36 on the fixed one.](figures/treant_forest.svg)

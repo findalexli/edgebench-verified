@@ -1,5 +1,7 @@
 # Order Addition Permutation Optimization (`order_addition_permutation_optimization`)
 
+**第二轮复核（2026 年 11 月）：上游已改变。** 在原始版本上确实存在：一次真实运行保留了 3.79，而不是后来一份提交得到的 41.24。`community` 改变了选取最好成绩的方式，所以这个问题在那里已不存在。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>一项文件完整性测试期望的是辅助文件的一个过时指纹，所以每份提交都有五项测试中的一项不通过。按本任务挑选一次运行最佳提交的规则，运行会一直停在第一份有分数的提交上，忽略之后更好的提交。</mark>
 
 ![柱状图，按评分顺序显示一次真实智能体运行的 9 个提交：前 5 个没有分数，之后依次为 3.79、15.91、15.91 和 41.24（满分 100）；原始评分器保留的柱为金色，修复版评分器保留的柱为绿色，其余为蓝色。下方是每个提交通过的测试数：原始评分器给出 2/5 或 4/5，保留第 6 个提交（3.79）；修复版评分器给出 3/5 或 5/5，保留第 9 个提交（41.24）。](../figures/zh/order_addition_permutation_optimization.svg)
@@ -59,7 +61,7 @@
 - 我们在按摘要固定的原始公开镜像里算出已安装辅助文件的哈希，和测试期望的值比较。在 `--network none --memory 2g --cpus 2` 下，用原始 `eval_cmd`（`python -m pytest tests/test_final_result.py -s -v`）评有效和无效的测试提交。
 - 为了确定最佳提交的选择，我们把保存的日志依次交给 EdgeBench 测试框架（`sforge`，版本 `6e4e5f4`）自带的 `grade_output`、`rescale_score` 和 `select_best`。
 - 作为 TLA+ 形式化检查，我们为选取规则建了一个有界模型，逐行对应 `selection.py` 和 `grading.py`。模型检验遍历 5,421,361 个状态，没有违例。另外三个配置（`k1`–`k3`）如说明所述出现违例（`evidence/formal/tla/order_addition_permutation_optimization/`、`evidence/formal/notes/order_addition_permutation_optimization.md`）。
-- 在原始版与修复版评分器的并排对照运行中，每份提交都在全新的 `--network none` 容器里经 TaskSpec 的 `eval.sh` 运行。我们事先确认过每个镜像都收集到 5 项测试。一共重复了三次，结论不变（[`data/paired-repeatability.md`](../data/paired-repeatability.md)）。
+- 在原始版与修复版评分器的并排对照运行中，每份提交都在全新的 `--network none` 容器里经 TaskSpec 的 `eval.sh` 运行。我们事先确认过每个镜像都收集到 5 项测试。一共重复了三次，结论不变（[`data/paired-repeatability.md`](../../data/paired-repeatability.md)）。
 
 ## 局限
 

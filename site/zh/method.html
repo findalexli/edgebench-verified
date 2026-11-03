@@ -20,7 +20,7 @@
 <header class="bar"><div class="in">
   <a class="home" href="index.html">EdgeBench Verified</a>
   <span class="lang" aria-label="语言"><a href="../method.html" hreflang="en" lang="en">EN</a> / <a href="../zh/method.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
-  <nav class="tabs" aria-label="站点"><a href="index.html">概览</a><a href="tasks/index.html">任务</a><a href="method.html" aria-current="page">方法</a><a href="leaderboard.html">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+  <nav class="tabs" aria-label="站点"><a href="index.html">概览</a><a href="tasks/index.html">任务</a><a href="method.html" aria-current="page">方法</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
 </div></header>
 
 <main id="content">
@@ -29,6 +29,7 @@
   <h1>我们如何检验这些结论</h1>
   <p class="subtitle">原始评分器上的证据、范围明确的形式化模型，以及针对具体版本的修复检验</p>
 </header>
+<div class="col"><p class="note">本页介绍的是针对原始版本的第一轮审计。<a href="index.html#findings">其中哪些发现在当前评分器上站得住</a>，见概览页。</p></div>
 
 <section id="procedure" class="col">
   <h2 class="sec"><span class="num">1</span>流程</h2>
@@ -98,6 +99,19 @@
     <li>CPU 实验证实了结果对资源敏感。只规定墙钟时限，并不等于承诺独占一个核心或同等的 CPU 秒数；限制并行度是一项明确的策略改动。大多数成对作业在 E2B 沙箱中运行；Lean Analysis 用的是一台本地主机。速度测量结果在其他环境中可能不同。</li>
     <li>以提交 83181b7f 时的状态计，32 个修复包中有 31 个在干净的机器上从零重建成功；Lean Analysis 例外，它的评分器镜像约需 45 GB 磁盘空间。之后修订过的修复包，只由后来的运行覆盖。</li>
     <li>CTA 的净资产修正在原始评分命令下通过了成对原生运行，但没有给解题者的输出评分。Triangulation 重新生成的 v2.2 输入恰好覆盖其凸包。有限的对照和形式化模型不能确立整个任务的正确性。</li>
+  </ul>
+</section>
+
+<section id="lessons" class="col">
+  <h2 class="sec">经验</h2>
+  <ul class="tight">
+    <li><b>先运行原始评分器，再推理。</b>大多数问题是我们读代码时发现的，但要靠一份能触发问题的提交才能坐实。有几项看似合理的发现没能过这一关。</li>
+    <li><b>形式化工具适合小而明确的问题。</b>一个错误的定理、一个算术缺口、一个下界和一个别名缺陷，都得到了确定的结论。大多数评分器问题涉及约定、文件格式或时间，处理这类问题，任何证明都不如一次并排对照运行省事。</li>
+    <li><b>证明需要和它描述的代码对应起来。</b>对 <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a>，我们在该任务自己的镜像中、用它自己的定义陈述反驳。对 <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse</a>，我们在 294 个字符串上把模型和真实的测试程序对照，并把每个 TLA+ 步骤对应到一行源代码。</li>
+    <li><b>每项检查都需要反向检验，因为不可能失败的检查什么也说明不了。</b>每个 TLA+ 模型都有一个必定失败的配置，每个 Lean 证明都打印它依赖的公理，每项修复都应该分别拿正确和错误的工作来测试；实际覆盖范围见各案例页。</li>
+    <li><b>形式化证明也检查了我们自己的工作。</b>我们把部分修复机制写成 Lean 或 TLA+ 模型，结果发现一项修复的覆盖范围比发布时说的窄，还发现八处表述不够精确。每一处的发现，都是因为某次证明尝试在我们没想到要测的情形上失败了。</li>
+    <li><b>要测试修复是否达到目的，不只测它改了什么。</b><a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a> 的第一版修复完全按文档改正了基线，也通过了每一项测试，但真实提交表明它让分数刻度饱和了。证明和我们自己写的测试都没发现这一点，拿真实的智能体工作检查修复才发现了它。</li>
+    <li><b>审查者认可不等于实测。</b>代码追踪判定许多说法成立。放到当前评分器上用真实提交实测后，其中几条缩小到 1 分或更少，有一条被真实运行推翻，而影响最大的两项发现（SMT 崩溃和 Datagen 接口），审查的任何一轮都没有提到。</li>
   </ul>
 </section>
 

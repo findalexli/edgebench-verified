@@ -1,5 +1,7 @@
 # PFR Formalization (`pfr_formalization`)
 
+**Second review (November 2026): Real, small or unseen.** Five scored statements carry a hidden `sorry` in their type, so no submission can earn them: 5 of 423 targets, or 1.18 points. A volunteer Lean user checked this by hand and passed it: with the workaround, all five completed proofs receive credit (398/423 to 403/423). We did not rerun it on the current judge. The text below is the first audit's record.
+
 **Outcome:** Type-contamination repair validated; recovered target credit and solver-image integration pending. <mark>Five scored statements carry a real `sorry` in their type, added silently by how Lean's module system handles an automatic argument declared with `variable`. So no submission can earn them (1.18 points out of 100), and a later proof that uses one of them is also marked as depending on `sorry`. The fixed version writes the argument into the five statements; nothing else changes. Correct proofs of one helper-bearing theorem in two styles score identically.</mark>
 
 ## What the task asks

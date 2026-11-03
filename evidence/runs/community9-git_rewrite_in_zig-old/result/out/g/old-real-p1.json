@@ -1,0 +1,95 @@
+{
+ "task": "git_rewrite_in_zig",
+ "archive": "/job/gen/real.tar.gz",
+ "raw_score": 0.368702,
+ "score_0_100": 36.8702,
+ "valid": true,
+ "summary": "1/1 tests passed",
+ "exit_code": 0,
+ "timed_out": false,
+ "runtime_s": 347.5,
+ "result_found": true,
+ "log_tail": "cat: /tmp/verifier.log: No such file or directory\n# subscore::t0xxx-basics-and-infrastructure = 0.4304  [diagnostic, passed=2315 failed=2509 skipped=84 oracle_baseline=5379]\n# subscore::t1xxx-tree-operations = 0.4669  [diagnostic, passed=1490 failed=1657 skipped=124 oracle_baseline=3191]\n# subscore::t2xxx-checkout-worktree = 0.348  [diagnostic, passed=341 failed=624 skipped=22 oracle_baseline=980]\n# subscore::t3xxx-index-ls-files = 0.4496  [diagnostic, passed=2148 failed=2614 skipped=113 oracle_baseline=4778]\n# subscore::t4xxx-diff = 0.3994  [diagnostic, passed=1392 failed=2075 skipped=63 oracle_baseline=3485]\n# subscore::t5xxx-fetch-push-transport = 0.1244  [diagnostic, passed=565 failed=3847 skipped=139 oracle_baseline=4540]\n# subscore::t6xxx-merge-rebase-revision = 0.4212  [diagnostic, passed=992 failed=1364 skipped=112 oracle_baseline=2355]\n# subscore::t7xxx-porcelain = 0.3516  [diagnostic, passed=1024 failed=1839 skipped=320 oracle_baseline=2912]\n# subscore::t8xxx-patchwork-sendemail = 0.3367  [diagnostic, passed=166 failed=327 skipped=0 oracle_baseline=493]\n# subscore::t9xxx-svn-p4-gui-misc = 0.2983  [diagnostic, passed=287 failed=671 skipped=8 oracle_baseline=962]\ntests/eval.py::overall_score PASSED  [score=0.368702]\n=== 1 passed, 0 failed in 0.00s ===\nTOTAL_SCORE 0.368702\n--- result.json: score=0.368702 valid=True summary=1/1 tests passed\n",
+ "result": {
+  "score": 0.368702,
+  "valid": true,
+  "summary": "1/1 tests passed",
+  "details": [
+   {
+    "name": "tests/eval.py::overall_score",
+    "status": "PASSED"
+   }
+  ],
+  "metrics": {
+   "pass_rate": 1.0,
+   "total_passed": 10720,
+   "total_failed": 17527,
+   "total_skipped": 985,
+   "total_attempted": 28247,
+   "scripts_run": 1007,
+   "subscores": [
+    {
+     "subtask": "t0xxx-basics-and-infrastructure",
+     "score": 0.4304,
+     "stdout": "passed=2315 failed=2509 skipped=84 oracle_baseline=5379",
+     "stderr": ""
+    },
+    {
+     "subtask": "t1xxx-tree-operations",
+     "score": 0.4669,
+     "stdout": "passed=1490 failed=1657 skipped=124 oracle_baseline=3191",
+     "stderr": ""
+    },
+    {
+     "subtask": "t2xxx-checkout-worktree",
+     "score": 0.348,
+     "stdout": "passed=341 failed=624 skipped=22 oracle_baseline=980",
+     "stderr": ""
+    },
+    {
+     "subtask": "t3xxx-index-ls-files",
+     "score": 0.4496,
+     "stdout": "passed=2148 failed=2614 skipped=113 oracle_baseline=4778",
+     "stderr": ""
+    },
+    {
+     "subtask": "t4xxx-diff",
+     "score": 0.3994,
+     "stdout": "passed=1392 failed=2075 skipped=63 oracle_baseline=3485",
+     "stderr": ""
+    },
+    {
+     "subtask": "t5xxx-fetch-push-transport",
+     "score": 0.1244,
+     "stdout": "passed=565 failed=3847 skipped=139 oracle_baseline=4540",
+     "stderr": ""
+    },
+    {
+     "subtask": "t6xxx-merge-rebase-revision",
+     "score": 0.4212,
+     "stdout": "passed=992 failed=1364 skipped=112 oracle_baseline=2355",
+     "stderr": ""
+    },
+    {
+     "subtask": "t7xxx-porcelain",
+     "score": 0.3516,
+     "stdout": "passed=1024 failed=1839 skipped=320 oracle_baseline=2912",
+     "stderr": ""
+    },
+    {
+     "subtask": "t8xxx-patchwork-sendemail",
+     "score": 0.3367,
+     "stdout": "passed=166 failed=327 skipped=0 oracle_baseline=493",
+     "stderr": ""
+    },
+    {
+     "subtask": "t9xxx-svn-p4-gui-misc",
+     "score": 0.2983,
+     "stdout": "passed=287 failed=671 skipped=8 oracle_baseline=962",
+     "stderr": ""
+    }
+   ]
+  }
+ },
+ "log": "cat: /tmp/verifier.log: No such file or directory\n# subscore::t0xxx-basics-and-infrastructure = 0.4304  [diagnostic, passed=2315 failed=2509 skipped=84 oracle_baseline=5379]\n# subscore::t1xxx-tree-operations = 0.4669  [diagnostic, passed=1490 failed=1657 skipped=124 oracle_baseline=3191]\n# subscore::t2xxx-checkout-worktree = 0.348  [diagnostic, passed=341 failed=624 skipped=22 oracle_baseline=980]\n# subscore::t3xxx-index-ls-files = 0.4496  [diagnostic, passed=2148 failed=2614 skipped=113 oracle_baseline=4778]\n# subscore::t4xxx-diff = 0.3994  [diagnostic, passed=1392 failed=2075 skipped=63 oracle_baseline=3485]\n# subscore::t5xxx-fetch-push-transport = 0.1244  [diagnostic, passed=565 failed=3847 skipped=139 oracle_baseline=4540]\n# subscore::t6xxx-merge-rebase-revision = 0.4212  [diagnostic, passed=992 failed=1364 skipped=112 oracle_baseline=2355]\n# subscore::t7xxx-porcelain = 0.3516  [diagnostic, passed=1024 failed=1839 skipped=320 oracle_baseline=2912]\n# subscore::t8xxx-patchwork-sendemail = 0.3367  [diagnostic, passed=166 failed=327 skipped=0 oracle_baseline=493]\n# subscore::t9xxx-svn-p4-gui-misc = 0.2983  [diagnostic, passed=287 failed=671 skipped=8 oracle_baseline=962]\ntests/eval.py::overall_score PASSED  [score=0.368702]\n=== 1 passed, 0 failed in 0.00s ===\nTOTAL_SCORE 0.368702\n--- result.json: score=0.368702 valid=True summary=1/1 tests passed\n"
+}

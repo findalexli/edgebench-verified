@@ -1,5 +1,7 @@
 # D-ABIC Gravity Inversion (`dabic_gravity_inversion`)
 
+**Second review (November 2026): Real, small or unseen.** An undisclosed gate costs a model-space solver 1.08 points, but 0 of 75 real reports use that form. The self-reported points are a separate design question. The text below is the first audit's record.
+
 **Outcome:** Removed. <mark>42 points come from results the submission reports about itself, which the grader cannot verify. A partial fix removes a second, undisclosed penalty on one of two allowed forms, but it does not make the task usable.</mark>
 
 ![A 100-point bar split into 35 points the checker recomputes by running the code on hidden test cases, 42 points (12 + 30) read from the submission's own results file and never verified, and 23 points from other checks (code text 3, behaviour monitor 8, report keywords 12). A box explains that a sound fix would need the checker to recompute the 42 points itself, and a note mentions a second, fixed problem: one of two allowed method forms was penalised (88.92 against 42.86 out of 100 for the same strong work).](figures/dabic_gravity_inversion.svg)

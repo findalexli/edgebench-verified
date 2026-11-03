@@ -1,0 +1,73 @@
+job community9-treant_forest-smoke status exit=0
+job community9-treant_forest-a status exit=0
+new-agent10                      n=3 s=[99.6985, 100.0000, 100.0000] raw=[92036.000000, 92304.000000, 92304.000000] valid=[True, True, True] rt=[62.3, 80.1, 77.4]
+new-agent33                      n=2 s=[97.4597, 97.4597] raw=[90046.000000, 90046.000000] valid=[True, True] rt=[71.2, 80.7]
+new-greedy                       n=2 s=[16.3603, 16.3603] raw=[17960.000000, 17960.000000] valid=[True, True] rt=[6.8, 8.3]
+new-invalid                      n=2 s=[0.0000, 0.0000] raw=[0.000000, 0.000000] valid=[True, True] rt=[0.7, 0.7]
+new-starter                      n=2 s=[0.0000, 0.0000] raw=[3418.000000, 3418.000000] valid=[True, True] rt=[1.6, 1.7]
+nocap-agent1                     n=2 s=[38.9129, 38.9129] raw=[164473.000000, 164473.000000] valid=[True, True] rt=[73.0, 73.9]
+nocap-agent10                    n=3 s=[37.0872, 35.8773, 37.3966] raw=[157109.000000, 152229.000000, 158357.000000] valid=[True, True, True] rt=[63.2, 93.8, 99.4]
+nocap-agent33                    n=2 s=[35.2721, 35.3465] raw=[149788.000000, 150088.000000] valid=[True, True] rt=[90.3, 91.7]
+nocap-agent40                    n=2 s=[38.9298, 34.5417] raw=[164541.000000, 146842.000000] valid=[True, True] rt=[82.8, 90.1]
+nocap-greedy                     n=2 s=[3.0406, 3.0406] raw=[17960.000000, 17960.000000] valid=[True, True] rt=[7.8, 6.9]
+nocap-starter                    n=2 s=[0.0000, 0.0000] raw=[3418.000000, 3418.000000] valid=[True, True] rt=[1.7, 1.6]
+old-agent1                       n=2 s=[20.6987, 20.6987] raw=[91007.000000, 91007.000000] valid=[True, True] rt=[58.5, 60.0]
+old-agent10                      n=3 s=[20.9605, 20.9523, 20.9513] raw=[92063.000000, 92030.000000, 92026.000000] valid=[True, True, True] rt=[62.8, 75.8, 76.5]
+old-agent33                      n=2 s=[20.4604, 20.4604] raw=[90046.000000, 90046.000000] valid=[True, True] rt=[77.2, 78.8]
+old-agent40                      n=2 s=[20.9905, 20.9468] raw=[92184.000000, 92008.000000] valid=[True, True] rt=[70.4, 74.0]
+old-greedy                       n=2 s=[3.0406, 3.0406] raw=[17960.000000, 17960.000000] valid=[True, True] rt=[7.1, 7.4]
+old-invalid                      n=2 s=[0.0000, 0.0000] raw=[0.000000, 0.000000] valid=[True, True] rt=[0.8, 0.8]
+old-starter                      n=2 s=[0.0000, 0.0000] raw=[3418.000000, 3418.000000] valid=[True, True] rt=[1.6, 1.8]
+
+per-case: how many of 50 cases sit at 2N^2 on the capped judge, and exceed it when the stop is removed
+  s-new-agent10            raw=92036 cases=50 OK=50 nonOK=[] top=3042
+  new-agent10-p1           raw=92304 cases=50 OK=50 nonOK=[] top=3042
+  new-agent10-p2           raw=92304 cases=50 OK=50 nonOK=[] top=3042
+  new-agent33-p1           raw=90046 cases=50 OK=50 nonOK=[] top=3042
+  new-agent33-p2           raw=90046 cases=50 OK=50 nonOK=[] top=3042
+  new-greedy-p1            raw=17960 cases=50 OK=50 nonOK=[] top=1358
+  new-greedy-p2            raw=17960 cases=50 OK=50 nonOK=[] top=1358
+  new-invalid-p1           raw=0 cases=50 OK=0 nonOK=[('0000', 'WA'), ('0001', 'WA'), ('0002', 'WA'), ('0003', 'WA'), ('0004', 'WA')] top=0
+  new-invalid-p2           raw=0 cases=50 OK=0 nonOK=[('0000', 'WA'), ('0001', 'WA'), ('0002', 'WA'), ('0003', 'WA'), ('0004', 'WA')] top=0
+  new-starter-p1           raw=3418 cases=50 OK=50 nonOK=[] top=277
+  new-starter-p2           raw=3418 cases=50 OK=50 nonOK=[] top=277
+  nocap-agent1-p1          raw=164473 cases=50 OK=50 nonOK=[] top=13120
+  nocap-agent1-p2          raw=164473 cases=50 OK=50 nonOK=[] top=13120
+  s-nocap-agent10          raw=157109 cases=50 OK=50 nonOK=[] top=14575
+  nocap-agent10-p1         raw=152229 cases=50 OK=49 nonOK=[('0001', 'TLE')] top=11250
+  nocap-agent10-p2         raw=158357 cases=50 OK=50 nonOK=[] top=14575
+  nocap-agent33-p1         raw=149788 cases=50 OK=49 nonOK=[('0001', 'TLE')] top=11250
+  nocap-agent33-p2         raw=150088 cases=50 OK=49 nonOK=[('0001', 'TLE')] top=11250
+  nocap-agent40-p1         raw=164541 cases=50 OK=50 nonOK=[] top=14575
+  nocap-agent40-p2         raw=146842 cases=50 OK=49 nonOK=[('0001', 'TLE')] top=11250
+  nocap-greedy-p1          raw=17960 cases=50 OK=50 nonOK=[] top=1358
+  nocap-greedy-p2          raw=17960 cases=50 OK=50 nonOK=[] top=1358
+  nocap-starter-p1         raw=3418 cases=50 OK=50 nonOK=[] top=277
+  nocap-starter-p2         raw=3418 cases=50 OK=50 nonOK=[] top=277
+  old-agent1-p1            raw=91007 cases=50 OK=50 nonOK=[] top=3042
+  old-agent1-p2            raw=91007 cases=50 OK=50 nonOK=[] top=3042
+  s-old-agent10            raw=92063 cases=50 OK=50 nonOK=[] top=3042
+  old-agent10-p1           raw=92030 cases=50 OK=50 nonOK=[] top=3042
+  old-agent10-p2           raw=92026 cases=50 OK=50 nonOK=[] top=3042
+  old-agent33-p1           raw=90046 cases=50 OK=50 nonOK=[] top=3042
+  old-agent33-p2           raw=90046 cases=50 OK=50 nonOK=[] top=3042
+  old-agent40-p1           raw=92184 cases=50 OK=50 nonOK=[] top=3042
+  old-agent40-p2           raw=92008 cases=50 OK=50 nonOK=[] top=3042
+  old-greedy-p1            raw=17960 cases=50 OK=50 nonOK=[] top=1358
+  old-greedy-p2            raw=17960 cases=50 OK=50 nonOK=[] top=1358
+  old-invalid-p1           raw=0 cases=50 OK=0 nonOK=[('0000', 'WA'), ('0001', 'WA'), ('0002', 'WA'), ('0003', 'WA'), ('0004', 'WA')] top=0
+  old-invalid-p2           raw=0 cases=50 OK=0 nonOK=[('0000', 'WA'), ('0001', 'WA'), ('0002', 'WA'), ('0003', 'WA'), ('0004', 'WA')] top=0
+  old-starter-p1           raw=3418 cases=50 OK=50 nonOK=[] top=277
+  old-starter-p2           raw=3418 cases=50 OK=50 nonOK=[] top=277
+  agent10: cases where nocap > capped: 48/50; capped sum 92030, nocap sum 152229
+  agent40: cases where nocap > capped: 50/50; capped sum 92184, nocap sum 164541
+  agent33: cases where nocap > capped: 48/50; capped sum 90046, nocap sum 149788
+  agent1: cases where nocap > capped: 47/50; capped sum 91007, nocap sum 164473
+  greedy: cases where nocap > capped: 0/50; capped sum 17960, nocap sum 17960
+
+real archive (all 87 reports): raw and normalized
+  reports 87 unique files 53 raw min 90046.0 max 92304.0 normalized min 20.460 max 21.020
+  reports at exactly 92304: 20; files with a report at 92304: 12
+
+effect agent10: linear rescale +78.94, stop removed on the same anchors +15.83
+order flip: agent1 capped 20.699 < agent10 capped 20.955; stop removed agent1 38.913 > agent10 36.787

@@ -1,0 +1,7098 @@
+{
+"final_crash_as_error": 0.533101727416481,
+"final_crash_rerun_big_stack": 0.533101727416481,
+"counts_crash_as_error": {
+"correct": 361,
+"error": 12,
+"invalid_model": 1,
+"status_only_unsat": 91,
+"timeout": 309
+},
+"counts_big_stack": {
+"correct": 361,
+"error": 7,
+"invalid_model": 6,
+"status_only_unsat": 91,
+"timeout": 309
+},
+"crashes": {
+"QF_UFLRA/7cf7d9bc1df9f7f0.smt2": {
+"logic": "QF_UFLRA",
+"difficulty": "hard",
+"rc": -11,
+"stack": [
+"Fatal Python error: Segmentation fault",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 415 in parse_numeric_literal",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 607 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 647 in <genexpr>",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 647 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 621 in eval"
+],
+"retry_default_rc": [
+-11,
+-11
+],
+"big_stack_rc": 0,
+"big_stack_answer": "sat",
+"big_stack_model_valid": false,
+"big_stack_time": 25.201,
+"expected": "sat"
+},
+"QF_UFLRA/85b67deb9ba8a2ab.smt2": {
+"logic": "QF_UFLRA",
+"difficulty": "hard",
+"rc": -11,
+"stack": [
+"Fatal Python error: Segmentation fault",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 599 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 647 in <genexpr>",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 647 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 621 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 647 in <genexpr>"
+],
+"retry_default_rc": [
+-11,
+-11
+],
+"big_stack_rc": 0,
+"big_stack_answer": "sat",
+"big_stack_model_valid": false,
+"big_stack_time": 2.072,
+"expected": "sat"
+},
+"QF_UFLRA/8e72757e0b560007.smt2": {
+"logic": "QF_UFLRA",
+"difficulty": "hard",
+"rc": -11,
+"stack": [
+"Fatal Python error: Segmentation fault",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 410 in parse_numeric_literal",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 607 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 647 in <genexpr>",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 647 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 621 in eval"
+],
+"retry_default_rc": [
+-11,
+-11
+],
+"big_stack_rc": 0,
+"big_stack_answer": "sat",
+"big_stack_model_valid": false,
+"big_stack_time": 1.958,
+"expected": "sat"
+},
+"QF_UFLRA/bc8b317ecdcf7301.smt2": {
+"logic": "QF_UFLRA",
+"difficulty": "hard",
+"rc": -11,
+"stack": [
+"Fatal Python error: Segmentation fault",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 379 in canonical_term",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 419 in parse_numeric_literal",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 607 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 645 in <genexpr>",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 645 in eval"
+],
+"retry_default_rc": [
+-11,
+-11
+],
+"big_stack_rc": 0,
+"big_stack_answer": "sat",
+"big_stack_model_valid": false,
+"big_stack_time": 9.431,
+"expected": "sat"
+},
+"QF_UFLRA/e4bf0f1de993c180.smt2": {
+"logic": "QF_UFLRA",
+"difficulty": "hard",
+"rc": -11,
+"stack": [
+"Fatal Python error: Segmentation fault",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 415 in parse_numeric_literal",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 607 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 645 in <genexpr>",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 645 in eval",
+"  File \"/home/workspace/smt_judge/scripts/evaluate.py\", line 621 in eval"
+],
+"retry_default_rc": [
+-11,
+-11
+],
+"big_stack_rc": 0,
+"big_stack_answer": "sat",
+"big_stack_model_valid": false,
+"big_stack_time": 8.641,
+"expected": "sat"
+}
+},
+"rows": [
+{
+"benchmark": "QF_UF/009a88de4f694bb6.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.68,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/01d6ef8990efdeee.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.793,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/0261dd52f80bff66.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.067,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/0623ad98ca443aee.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.092,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/08df21d56cade7a0.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.561,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/09300d58669da2a2.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.23,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/0b2af1f455638522.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.04,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/0b358b4cf143ef86.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.067,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/0bfc9c8f2306ad2a.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.319,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/128483758c5f63ea.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.333,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/139384f6d4de7c86.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.828,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/13f1e2379f704bab.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.636,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/1488965ac0a9a757.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.496,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/14df82d153e57244.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.034,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/152cd4c48857d8bb.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.637,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/16d38ee4d3e77a45.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 20.682,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/1791ae99dfdc5456.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.063,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/1c34027884da3df4.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 31.431,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/1ce04c7158379391.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.072,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/1d3f5ff94542a9fa.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.966,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/1e806c2f89fd8e0d.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 12.848,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/21463152dadb65b6.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 6.638,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/23d32d75e661dff7.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.43,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/23d384ce4e47d878.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.073,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/240a80a437aa1b74.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 6.251,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/2590ae51d20295e7.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.102,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/262004955826f4f9.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.088,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/26704c820c49b053.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.551,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/26ee99243ea2e6ca.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.683,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/26f7f026cf2ebd48.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.165,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/274f30ba9365a3e1.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.69,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/27a276ea67016cfc.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.895,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/27be88527d34e9b9.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 12.853,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/27e8b21f9051952e.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.591,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/282aa52883d1d3f8.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.746,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/292068192dbb1b08.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.507,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/2d57ade29ffd9bc4.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.917,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/307d9e56238e9247.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.028,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/313eaaa1c4aedf7e.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.959,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/348ff94566d61586.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.172,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/3555b3b7e63ba1eb.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 8.115,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/3683438c4461f537.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/3e09669d9c6e5f2f.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 8.19,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/4012861b17f6f64e.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 57.4,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/411a872294e19d66.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 7.194,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/41f9165db6e54062.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.224,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/426acc61f40d1287.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.099,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/42fada2895528080.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 42.709,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/47166ad44992022f.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 58.556,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/4889cc9c2eb96936.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.091,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/491f0fa407959f73.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.104,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/492edcef7dbdcea6.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.868,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/4b20f7272b053c47.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.089,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/4cbf6f6d84b6623b.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.577,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/4ce48c194a13aea8.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.081,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/5005d362c3acc601.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 26.39,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/5132e409d5f2af39.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.097,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/53d66929575d7af9.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.993,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/543a09e043297316.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.965,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/59956732a7cb44ec.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.504,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/5a6333b3781d55af.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 28.935,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/5a674df4628e2287.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.111,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/5e18e8e5af5f5742.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.026,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/5e373d8eabfe9252.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.073,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/5e862a2cdb66c121.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.089,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/61e868f7837d3140.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.471,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6252a80071a5dc65.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.394,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/631affa38c8a85fd.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.118,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/63f375609fa84175.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 50.507,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/643836958f86d9e0.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.017,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6731f2d0067fb8c6.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.829,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/696d30b6f4590323.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.081,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6a6b8e2f89e663c5.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 3.338,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6b33d6a7628e3b80.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.814,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6bc55bdc175dfb96.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.12,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6d139cbf5a5b5bfa.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.198,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6dd7abfe747e2b9e.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.962,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6e21ba572540a78b.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.103,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6eb5e3d7359026e0.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.521,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6f8ed96ad49e6704.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.633,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6f9cea9c54f0ce0e.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/6fc2dbd032653419.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.48,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/72e88de372d9350c.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.108,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/745378d143d9953e.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.505,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/755dd17d0ac4c3a5.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.03,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/75a0f1aefe803934.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.085,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/793c3120a8ffa8e9.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.103,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/79f4ca54c7f5a5f0.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.59,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/7a24f1896fb5d676.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.581,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/7dbce7969d3782fd.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.969,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/7e8bff24f8e0be3a.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.025,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/7ea75f481e1443bd.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 47.235,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/7f241b4733c35b2e.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.533,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/81108cc786a52431.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.712,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/81b677a374f1bf61.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.618,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/849d15d7cee31ed8.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/857b52f75c1e9196.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.74,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/868b2093791be29a.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.069,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/86ad1fc63e1eb369.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.114,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/879916742e5904af.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.983,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/89d66b75b00d9c8d.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.002,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/8a5210dbc8dae3bd.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 59.682,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/8ac69615ae9d79e6.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/8acbdc971b407681.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 9.32,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/8b66f6dbd27e147e.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.881,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/8b8e79bdc80d765a.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.091,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/8e0e7fac283f1523.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 4.384,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/8f8bca3305af07be.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.095,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/91bac422c7019e57.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.589,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/91dbbeef4b0cf432.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 18.419,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/92a1356502c9dc54.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.331,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/92cc83ec7c83e2d1.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 6.002,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/93f4f886c4f64d72.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.113,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/94d3ebc7e87a94e4.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.135,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/94d75504b98080e9.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.089,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/95b445c8f69d9a5f.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.102,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/96d03d9ddd5e95e7.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.033,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/9712f1609f360851.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.802,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/993b1b43e4e00e5d.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.427,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/9a499d97c43f9d41.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.335,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/9ad056dc66d07898.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.097,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/9c9a94db1c57b466.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.768,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/9d4abea43a2bf337.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.117,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/9d6d5ce7a797b366.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.1,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/9df0b4c62d76eee8.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.337,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/a3749b006b387a76.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.094,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/a3b3a99adb257983.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.118,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/a3dc9027c940d114.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.904,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/a51576c434dc5f77.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.096,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/a551b2375d8425bb.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.097,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/a757e927145cdefe.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 51.752,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/a879aec57728f1e6.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.487,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/aa10903a62da6654.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 14.877,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/ab8dceb5964c56f6.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.676,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/ac8c2fae305981a1.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/adab07f563ea6f6b.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.105,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/aee9e7bf07323d27.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.116,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/b03a0877cad15b31.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.032,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/b4e0baff870842bd.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 5.922,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/b5be5771cb742fcd.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.712,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/b971c7aaa01599bc.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.898,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/b9c29d2d45e39e42.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.911,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/b9f2c270f297b8f9.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.944,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/baed5bfcf72c73df.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.298,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/bf3187a99f5bd0f3.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.075,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/c012206aa26d9cf2.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.085,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/c1a7e57fdf66d330.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.184,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/c3a45668cc2a4901.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.315,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/c705a4322053c24f.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 22.124,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/c70c815c36884876.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.315,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/c7ac5112c4db4b0a.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 4.785,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/c9d96744f3e68156.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.804,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/cb8ac7abec3d3bc9.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.368,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/cdc512b1bfbfd382.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.595,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/cf13ddcb75a113fc.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.087,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d0e6f7e46c576f2c.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.527,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d1f69bb5dee40928.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.852,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d2bd1beca1f73a1b.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.201,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d2ecb96246ebc720.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 12.924,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d30f6ba6a165118d.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d4dcf8d66243acb8.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.671,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d6cac60709ab1951.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.079,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d6f1ca4e36bb5a6b.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.583,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d773949de78c9f52.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 15.184,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d8b43e04aa0a138c.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.428,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d8fbb0cf7a47e60f.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.097,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d90505c0e8d5eb1d.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/d9c704d90c2b240d.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.138,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/dbe08ad4a62e8d7b.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 10.185,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/dc1e45112af6b87b.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.964,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/ddad2a33ce62c6ec.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.715,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/de00a88ab589e31a.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/de3c1de1bd5cdc48.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.313,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/decce715b718b2ab.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.478,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/e1f1b65e4749ddda.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.67,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/e2d5b61c7cc060a0.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.097,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/e4c9c7567dee4e0f.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.473,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/e606d91a29b00064.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.259,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/e6c218b13afff8e2.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.744,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/ecf0a1d08a363aaa.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.003,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/ee3d82cafc081255.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.723,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/eebdd99ef3769857.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.06,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/f1e397e3831737e4.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.51,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/f381252f1fc5ca34.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 6.444,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/f4bbb42d92f84963.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.458,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/f59b772d03f70ed5.smt2",
+"logic": "QF_UF",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.079,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/f63c28c2ea11ba00.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 24.4,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/f92966ddc1b7a8d9.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.042,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/fa1943ea44ae174a.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.799,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/fb945abf5bba0d31.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.501,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/fd1e1b5fdf3c1301.smt2",
+"logic": "QF_UF",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.198,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UF/fe6c306a1ebcb686.smt2",
+"logic": "QF_UF",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 50.124,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/02282a43ad57483d.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.232,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/032ce298b24a5dd9.smt2",
+"logic": "QF_LRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.086,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/05924c3950c41a6f.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/07987ead1dd5775e.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.126,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/08b9fdc004ba8d1b.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.033,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/09b07d7d9823ffd6.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.098,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/0a3ccfce1cccd1da.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.108,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/0b8d5e2b8eed22b3.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 7.451,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/0bd09e7d41fd9884.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.123,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/0cc6bf15635b9be6.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.118,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/0f68c7a70e4edb8c.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.191,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/10532d006fd3e171.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.739,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/10d89fe1bcb15479.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.117,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/11b6d91f9f76b72c.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 46.654,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/128b267cd4e83067.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.132,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/12963aeab3895fc7.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.123,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/14457458d16fd78a.smt2",
+"logic": "QF_LRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.1,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/1454d3dc8bc51110.smt2",
+"logic": "QF_LRA",
+"verdict": "error",
+"answer": "error:stdout",
+"time": 42.412,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/17855cfed4ccceaf.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.113,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/17ce58412f7747ff.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.117,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/1898501df0366e49.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/1c3c9661bd1837af.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.163,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/1d158d3809c1b4d7.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 61.126,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/1deeb440e0bf5015.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.226,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/1dfc4d6ee473f138.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 6.59,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/1edcec2ec9fce86f.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 8.576,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/1fd3839c139d2f34.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.119,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/20b9ce724f1fd403.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 59.206,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2216b3ebf9a75925.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.116,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/247a4540fb4aca28.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.231,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/24f2c23c10e17cff.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.12,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/24f2cb3dcc531d38.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.702,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/25d18b34c5fdfef9.smt2",
+"logic": "QF_LRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.097,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/25ef4c19246e9c65.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.131,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2683c1512c03a976.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 20.266,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/26f0ae8aec8a9e8a.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/27324534ed00b8c3.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/29211d1dd064f46f.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.151,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2b033d6cfe5833d8.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 31.931,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2b1f9f9cd423b947.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.362,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2b2f82d236bc9628.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.153,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2bf3f1a93df6e017.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.158,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2c406598894f85d2.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.141,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2f96d5db123b5220.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.137,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/2fbfaa3c4cf10e9e.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/301cef240c92b7f0.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.137,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/31745a07b243eb9c.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.125,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/334cb5ea44aada3f.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.075,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/33a0d199b7f0265f.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.141,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/33e441c1d832e14a.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 33.209,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/34577ed63af2ae0b.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.104,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/373fa09058fb0ed3.smt2",
+"logic": "QF_LRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.077,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/376cede5115520e8.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.115,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/37861583e457d113.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 32.94,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/37b65801deceb25f.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/37dd8a6d217370e0.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.083,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/38536e4e3099108f.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.202,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/387a6e07e064e7ee.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.131,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/39e8018c48ddb66b.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.134,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/3a485873ad18cdb4.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.205,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/3ba368f054547579.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.153,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/3c9a51c7b2e0a1f2.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.315,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/3ceb775b1ce57091.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.436,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/3d62310972fd04ad.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.137,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/3dcf4d0fdf5103ef.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.105,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/3f3bd5923719ae8a.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.137,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/3fbc737a07a8630f.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.096,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/4067e7e6571004ac.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.099,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/416253b355e5322a.smt2",
+"logic": "QF_LRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 44.862,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/4489753afee78636.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 5.809,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/45f8f96d4a5f6c4a.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.137,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/477f8cf04360d0da.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.094,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/4803630652612d02.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.113,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/49d964568e18ccb3.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.103,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/4b81a0b7a73d6a27.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.162,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/4bf859d8524ffadf.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/4c5cf51d3f7bf57c.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.184,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/4e053572c6adb55d.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.292,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/528d278e3ea8f34a.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.101,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/52ba3853db7abc51.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 5.004,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/567ab1d71ad0026b.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 61.319,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/56c4bf3b8def552c.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.125,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/57aead5ba48f89e7.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.126,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/57c8170636be3cb0.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.191,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/58ef88f307785e4f.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 27.431,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/59be2a1aa25dda53.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.097,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/5a7b29503f7a97a0.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/5ab480fd31b82cea.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.11,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/5e676dfbf98027a2.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.066,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/5e72b1174a17c0c8.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.162,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/5f0e99ba43c315ba.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 34.163,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/60aeec1b042c02dd.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.136,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/61364fd74e30baa8.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.126,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/61ac601c2737d2a7.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.144,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/627b1e9c36143fda.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.1,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/630b753f7dfe899c.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.161,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/640e94374c39390c.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.127,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/6477a168a6f82e1c.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 51.332,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/676cfe66cfa317ef.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.234,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/692b796aec9fc941.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.092,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/69ee04525bfe3fe4.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.135,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/6a706297dc5d786d.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.295,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/6b47315d5c88f82a.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.113,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/6f0f1478ebb2aebe.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 32.326,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/6f58a0fde8335963.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.296,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/70220e00f73d557b.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.143,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/7231fb605d8d510c.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.149,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/73ea1891ecf686dc.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.182,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/7777d51611fa51d5.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.19,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/791c8069be730f03.smt2",
+"logic": "QF_LRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 39.565,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/799d483f5ede1e29.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.142,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/7a82f77d36abc328.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/7bfa76cd59762be7.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.144,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/7ff95d8aef983209.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.221,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/831f8de9535ea044.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.13,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/836847d1a5add4b0.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.647,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/83b9378d4a8ae82e.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 34.575,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/85ceaf983f902ba8.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.117,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/86108dc39893e339.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 64.204,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/87187b7c1aba944b.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.142,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/8736ed698c4d9871.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.229,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/87f96572a2423888.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.885,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/8811ea67f39ef61a.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.113,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/88423473bb9fbf58.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.1,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/8a799c14c8452921.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.603,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/8ec430ab6139ddf3.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.16,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/90d119824b1a4151.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 5.597,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/914fb2d14c8bbd3d.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.112,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9306e0e9d0fce4cc.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.127,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/948b1239ef08ed00.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/95110a01f3c322ac.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.134,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9681757e62001219.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.09,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/98192d6f247623e5.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.292,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9981f3bc7f359d84.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.13,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9a2a9b4db8441a78.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 8.891,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9aca886a83f52d8b.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 36.515,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9b500117d55a0b8c.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 5.143,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9c230f35236f69c1.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9cc8eee06a059175.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.14,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/9e4d72392e151e13.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 44.167,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a02d9c3394f4e2cc.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.114,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a1198bea3964eda4.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.8,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a1460e5e1ed8b4a4.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.166,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a1b9d8b0bff00c34.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.115,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a2ce9702b4ccc212.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.713,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a3c1ab175777373e.smt2",
+"logic": "QF_LRA",
+"verdict": "error",
+"answer": "error:stdout",
+"time": 55.54,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a54d5bad46c0cb19.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.14,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a58c018db29176e0.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.198,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a72dfe97717b5066.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.143,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a79c94eb82bfe351.smt2",
+"logic": "QF_LRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.094,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a7aa6b8fbe570a0e.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.571,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a82b949f31cdd8a5.smt2",
+"logic": "QF_LRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.078,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/a90adb9497063920.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.101,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/aa89d18baf96f436.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.145,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/af5cbffa2b974c53.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.173,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b179a109efd5a147.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.311,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b1ed36eb9425883f.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b4446906981c8673.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.14,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b4b2e794122d6c5d.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.278,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b573dcaf91570bf4.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.144,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b5eb7f0f72d31dcc.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.102,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b62e85bf98f1c6be.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.126,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b6e8f2eaa1a10527.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 34.275,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b6ee516a62a08993.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.216,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b8d310dd25c88049.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.132,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/b91b044f363cf5f9.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.118,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/bb4f71a4b145db7f.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.117,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/bcb8e1b7424bdb23.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/bd57294c9dfc93c3.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.136,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/bd72fd7d023dab03.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.149,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/c12bf79d312dc1dd.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.24,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/c22b5d0d70ade050.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.101,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/c70e034cea81fa97.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/c9bfcb7a576f4e51.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.259,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/c9f09384e37f2591.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.314,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/cee4e18030e07e78.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.214,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d033d0050d14998e.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 16.356,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d0b369d95d6fb741.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.129,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d0ee748e06a92675.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.132,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d10eaf17fc935787.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 73.269,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d179b5c4a96a48e2.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.123,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d1c68511542d2d21.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.17,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d2229686bccd06b4.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.268,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d27514370593a3af.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.12,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d2dcabb039b9567e.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.128,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d4d2780fe5a3b787.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.184,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d5ce6e0806d33a61.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d64f6eee75a0e4fd.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 38.786,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/d81389ecfb6cabdf.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.081,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/da589ee9f774ea27.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.16,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/da9fc45268a9e8a4.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.085,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/dd9f53d3edfb4930.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.145,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/dea60641c7d82183.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.104,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/df4403e256fcbb45.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.253,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/e1fedfe1ec969c66.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.146,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/e362a3e379baa510.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.178,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/e3fd5210f90a1bb7.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.089,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/e45c987658dc5920.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 65.376,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/e8cb594d62586563.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 26.413,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/ebdf053155436931.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.118,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/ee761db7566e7af4.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.14,
+"difficulty": "medium",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/ef437714448a931c.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.118,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/ef8ce40e86ae8c54.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.135,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/f090cf7293eb6438.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.868,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/f1391715750c8d0a.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.149,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/f13f6693eee582fb.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.161,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/f93f8e3e97da58af.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.329,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/fab388d58cce1089.smt2",
+"logic": "QF_LRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 5.343,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/fb1efb37468785e4.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.136,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/fccd8631c31e952e.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.14,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/fd4ccd04a02147d6.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.257,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/fe997afae0bf015d.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.124,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LRA/ff74b2edffbb68ee.smt2",
+"logic": "QF_LRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.146,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0060c278247d8504.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.104,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0184950c3c5e5be8.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.117,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/01fc8a435357c3fe.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/029e390e08d4bc83.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0428500a9ecf2376.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.125,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/04e6624be9b7dbd2.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.098,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/059cf5e3a6b06cc2.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.571,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/071eedbd746b3bbb.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.114,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/085cbb5be5301fa8.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/08c722196d955fc9.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 13.991,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0a3f5b093f993718.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.441,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0a67b031e50bbd80.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.134,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0bc4b6c06863e6c5.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.501,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0c8e59530b900d9b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0d6c1a1b7c1bd522.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.113,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0f316ed74a574a5d.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.164,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/0fd2cf837ce6a6f6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.105,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/11c9bdb1f3cfab85.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.915,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/122ba0f4322f8f85.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.126,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/13408adf2fe7363c.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.099,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/14bbd5482396f9a3.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 7.405,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/168d1119e0572c9b.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.872,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/17c813cfd79e23f6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/191a1d0abf117b12.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 57.467,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/1a28de933b47239f.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 16.274,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/1a3ec38340bcedc3.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.104,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/1b96733376dfc6c6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/1dce816ad565ed8e.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.095,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/20aae9d909b4ee4d.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 74.188,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/216b29e7c2de7271.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.14,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/236a4d5c86e7727b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/23ce8842813ecd53.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.139,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/23fd8e12f4cc9886.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 58.012,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/240dba4714bd8201.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.098,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/24102283f3c50ff3.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 11.227,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/272762f2cf16303e.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/282a4833afb5f6be.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.132,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/2a50411f55620408.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.738,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/2b8f45aa46580da1.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.366,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/2befd4280a523614.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.13,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/2cb3062df6449bdb.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.11,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/2d7240c15a7eacbe.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.108,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/2e5a8bb8afa781e6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.115,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/2ef32eb90843dfc9.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.092,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/30da88951793226a.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.399,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/31578aea6e5f00cc.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/32d65cc036dbd88c.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 11.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/32db5fa8e167bab2.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.544,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/334b7c41ba436be2.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.102,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/345812deac2bc80b.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 13.663,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/37aafe4e022c3d53.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.836,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/392574840f82738a.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 14.96,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/3a261b782798770d.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.105,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/3c5433308af6d496.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.541,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/3de30217d5ee7185.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.101,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/423a1c90eca231d7.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 33.476,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/426df3d556a4a843.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 3.907,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/43a17335fdc5aeb6.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 21.542,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/45cd323ab7c69f31.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 7.086,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/474d717bb62620c4.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 10.007,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/48b47ba5c9c148c5.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.423,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/4a75d0a95a71f908.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.113,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/4adc9514640c18dd.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.101,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/4cb56f67b34c4432.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/52e3d50798d0bbaf.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.02,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/532fbb63af06d01d.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.762,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/555583e4dcdeffca.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.115,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/55e0e0b1689a25c6.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.819,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/565258ac1718c967.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.103,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/56cdd59ab6dff7ec.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 18.099,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/572bd56e318661f1.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.098,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/57bf72e3843eb592.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 30.592,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/5a70fca4a5b2b4f6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/5addcdd378de8b53.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 41.545,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/5ced2067a8e1c010.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.095,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/5f2210cfe3790acf.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 21.086,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/5faa161b367ba8fe.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.097,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/6042c5373cd83cdb.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.098,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/61483aeaf10bbdee.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.473,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/618f3bcefda7cf52.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.554,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/62d48684a5454612.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.129,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/62e8acb2928a7c65.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.757,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/64e724b62f211a78.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.104,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/65ed2571850b9f3e.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 5.754,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/66e070d62220cc97.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 8.087,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/67447bdec153feae.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.125,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/679ef1b891b51428.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/69be67dc3624cb9c.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.315,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/6ad15c45032425f3.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.103,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/6b3fbb2895b29c9b.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.376,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/7013eb7cb47441bf.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.112,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/70eeab7d6132e1ea.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/7136c2fb33c2e5e3.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.098,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/76e441865fa11e58.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/76eb7eaa1ac533c0.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.983,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/772c894452f547d1.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 1.046,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/7787a52f28ce1339.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 41.217,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/7804163b0c6d3d1f.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/7a09fd8b2aa4102e.smt2",
+"logic": "QF_LIA",
+"verdict": "invalid_model",
+"answer": "sat",
+"time": 0.551,
+"difficulty": "hard",
+"model_error": "assertion is false: (>= 1800 |tot_penalty|)"
+},
+{
+"benchmark": "QF_LIA/7a808b9a88bf654f.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 44.518,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/7be876ea5235503f.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.741,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/7c05db32699977d6.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 56.304,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/7e06e89a864f703f.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/80109764785a706a.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/81e9202400d7d4e2.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.097,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/8231ff46293f0a3c.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.11,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/8261d97883b45e75.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.125,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/82cef7e543177749.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.077,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/82eab423c4787cb2.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.13,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/845f72409942ffbc.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.137,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/85470f1b274774ac.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.98,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/85b1f5c32e1f7cd3.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.105,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/89ed7cf10e613faa.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.11,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/8b989d234c361a63.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 25.441,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/8daeb87cdeb9f0d9.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/902c7d58983db657.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.116,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/904cacbfeb17920b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.123,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/907b5e93ee287605.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.113,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/9200397298b8159d.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.139,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/920238a264e7d1aa.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.126,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/927f1cc9d8fe612f.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.117,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/93cb9fc86f789f62.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.094,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/94c2a8e1ffc3e37f.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 7.472,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/94f6202150dd41f5.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 64.127,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/967ef1ea2e531477.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.108,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/974fdb77cde3655b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.095,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/9777a6dbc6bc482c.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.104,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/97e95e8cf12bccb9.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.728,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/9bd4d97615eee28a.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.949,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/9c13d3ac4c296701.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 20.371,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/9c2375b757141a2b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/9e3c7485bca202c3.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 6.024,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/a30787fa9bb4de8a.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 1.854,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/a436f737ccce9f93.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.103,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/a4591f8ef28d44f8.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/a4a36e283c5f9f2b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/a72e16f22f95f337.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 6.048,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/a73b9878cb2fcf8b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/a89946e9bf149a85.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.101,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/a9c9ce75347d78f8.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 37.59,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/aa460498c6694823.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 12.74,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/aaf2e38461fea37b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.125,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/abed12b00d1242f4.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 25.358,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ac9c6b78681fc9d2.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.72,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/acce96374367d799.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ad941510b260a97e.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 53.39,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/add07c10df44cda5.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 26.811,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b08a2dce189e50bd.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b13f5c78d044e0f1.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 37.593,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b36b5fcd50967887.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.088,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b68573de2013afec.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.136,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b6d533b0b136421c.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b73fe4241aea2591.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.102,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b744b95e27c118e0.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.243,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b76eb2de3230f9a6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/b926149983082154.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.112,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ba402afc253d08c2.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 22.767,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ba43adf1274b9560.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.124,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/baecbcc32bcb7752.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 11.859,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/bb9c1dccb2a4a677.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.096,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/bcf91035d732ae24.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.141,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/bd399c2b67d8d991.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.153,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/bdbb4119299b89a9.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.368,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/bfe0d4b125d27f34.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 78.95,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c2ef9e85112e11dc.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 5.225,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c3152a4e6306bd2c.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.599,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c400cd76391b1a6e.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 22.505,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c463f1beefaeb608.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.644,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c4d51f0a7efcc9e6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.117,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c524f896009c4f25.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.116,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c5680b9bd6002c44.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.101,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c591673f12914e50.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.1,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c6db27cfe828336d.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 10.962,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c742c6f21ebffb7b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.125,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/c8e59953c99ade87.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.438,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ca8a9bcbb83b0ae0.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.092,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/cb00c50bc53f29cd.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.94,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/cba5d1d831f35dbf.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.085,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ccede21123dd2911.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 28.796,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/cdaf2d29444b9f55.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.108,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/cf5673f9147b39cb.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.89,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/cf74c30d1a6ccd1b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.101,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d10a0ec47a973593.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.134,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d18cf69ef201bec0.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.11,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d2ef69a2b9e9ba14.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 7.013,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d3826237e297544d.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.124,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d5034404fbe80107.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 23.558,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d5ff94559f60a872.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 14.684,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d65a394cc845d594.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.126,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d6f28416ba74563a.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.099,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d80dc0b062eb1502.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 17.524,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d8298e5e631b76f2.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.12,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d8848800869cc83e.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.112,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d8bed9b52dbcc231.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d918419e836b7c2a.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 19.804,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d98f134405ea4ef2.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.104,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/d9e8a7c8f89cc972.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.105,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/db01ae696a621780.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.434,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/dc2fc23f236f2824.smt2",
+"logic": "QF_LIA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 16.805,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/dc64eafdf5121ed6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.123,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/dc6afdc6dfa02f26.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.808,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/dcd78c76a2b690c2.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.095,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/de1ab6ed0119ee9a.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.13,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/de9f930fda004159.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.112,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/df17afab4f087d49.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 66.536,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/df280faa7912f32a.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.747,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/e2f1cddba22d88b3.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.117,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/e4af47d7fd4bba8a.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.13,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/e660b493ef73627b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/e6d5e4cd3f11d6f0.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.091,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ea68ff75705bf4a1.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.126,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/eaf719628216ff4c.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/eb231d09cc519168.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.118,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ebf62e4aaccd89a6.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.125,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ed1eccd46006bf13.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ed51a0cfdd78b126.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.131,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ee12f4def79dc008.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.094,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/eee3ceb30d175f22.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.098,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/f15dfb43640dac1d.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.105,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/f1dc6c06f9bf8d27.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.09,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/f5a43d8fad077ab1.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.094,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/fbc6db5e68fe2586.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.093,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/fd51c00da657b58b.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.112,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/fd79dab81c304a16.smt2",
+"logic": "QF_LIA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.516,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/fd7d13bdfe3d2884.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.091,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/fe0003ff685d3025.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 62.699,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_LIA/ff90fb9758552ede.smt2",
+"logic": "QF_LIA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 62.866,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/01efa71af1caee26.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.565,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/09a326e84589983a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.256,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/0d73cf880abf6535.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.403,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/0dc7d39ec95e2fbe.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.101,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/0f797f165d5ff66e.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.273,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/11d4fa4ee43dd822.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.316,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/1384bb42c0e0ae34.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.134,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/1853d1f322f59726.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.534,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/19b4d2521dd73828.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 22.383,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/1aeb71c87a7c09ce.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.106,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/1bb42510f48ac14c.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.984,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/1c3b125a5bd99679.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.462,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/1c841ed3ec9d5629.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.735,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/1f792de198047dcc.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.409,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/2079817d9a08bd4c.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:stdout",
+"time": 23.189,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/20c7e2cc2967ef3f.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.288,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/216bb2e3217098ab.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.965,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/2211cfe98ec48283.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.606,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/239da8b50cf562d5.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 4.074,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/265311c89ce97e47.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.104,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/2c11f3ab7f9b2634.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.12,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/2d40c49a2b9de7af.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.262,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/2ff1b3dc3a256385.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.119,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/30cdc71fe858b508.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 9.782,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/314e404136581ab3.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.397,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/322500a5477a6032.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.182,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/32c7ba972d8c839c.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.426,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/32ee25749a8e6be3.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.121,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/359d21182afe48c4.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.095,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/36b7cc5dca2fa69d.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.134,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/374846382d2c8f24.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.123,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/380f305e2e5e7079.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.471,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/38222acb2ff8dcd3.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.132,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/386c1338fd2eef1a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.78,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/38ae59418a2a648f.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.978,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/38dbb49a9eec1367.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.161,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/3a03c1fe736e8302.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.034,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/3c0bb827109ece2a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.138,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/3d2498dd2bd76092.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.177,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/3e0629390fbba04a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:stdout",
+"time": 17.794,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/3e750ade845b100e.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.19,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/40229d3c7a365ad3.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.683,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/414a91a6eb4f8f75.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.695,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/42900cc5d41f4893.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.267,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/42d6c7d505c7f678.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.286,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/471afc44f8a78b56.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.107,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/47fc1434a00372bd.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.292,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/498eddce8630227a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.882,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/5031990c104c8a15.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.181,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/52c7352d05285f76.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.349,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/5764465acd3eeecb.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.109,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/59425570258e33c6.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.115,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/5a3f35d4779eb93b.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.09,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/5b50b825f6f71bf0.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.148,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/5bcc801230a49b04.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.145,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/60632c7e675fa071.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.238,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/6119e57336958691.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 4.996,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/63a267d0cc68c784.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:stdout",
+"time": 15.439,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/66f3689aaa3b4c2a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.227,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/6846cf3b24715275.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.609,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/68fcb7e7a1d039d1.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.023,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/6a39cf2732fac807.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.501,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/6f8a6132bb287b86.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.543,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/74d49881bdae0d05.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.537,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/76072dbc24460288.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.171,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/768ba340afaf1225.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.578,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/7893e4fafcca141a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 33.679,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/78e51a42427d451a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.851,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/7c563847ec67561b.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.56,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/7cf7d9bc1df9f7f0.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:crash",
+"time": 0.0,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/7d447dfc5e75a776.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.08,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/7e106c5093fd7427.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.114,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/85b67deb9ba8a2ab.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:crash",
+"time": 0.0,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/89260bbe957da3e0.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.141,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/89411f0c9903cbcd.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.129,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/898141b392110c76.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.272,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/8a5e4896f97851bb.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.137,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/8c536f081246e718.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:stdout",
+"time": 17.591,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/8e3f96d90c08903a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 3.414,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/8e72757e0b560007.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:crash",
+"time": 0.0,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/975b3b2822c8478b.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.152,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/9b7edf0f7fe6da16.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.226,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/9c20e86114a60d90.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.388,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/9ca33108f7fbae56.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.446,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/9d13c1a5aeac263e.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:stdout",
+"time": 25.732,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/9e4af4d2c072f713.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.137,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/9f6a39b8b8fa188d.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.583,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/a32b80ba2d44b7cb.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.137,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/a35808b32fb9e6b7.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.783,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/ad3c3eb45d5837cf.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.621,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/b0a0d859cd4a5111.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.137,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/b1db6679a720d6f5.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.432,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/b45707ca3f7013a5.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.439,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/b7c44521b531cdcd.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.174,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/bc200cd379afee77.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.176,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/bc8b317ecdcf7301.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:crash",
+"time": 0.0,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/bd176510db1d5349.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.745,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/be2cc5ef967dfd02.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.345,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/be9819f603922a3c.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.556,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/c2c57073a7117ba1.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.091,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/c470506c88994450.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 2.605,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/c4d6bbab1927e475.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.154,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/c567723676a34882.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.129,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/c72c050534b5e7cb.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.933,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/c806ddf2f7252e40.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.235,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/c999aefdd47b985c.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 65.884,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/ca99c46c9cadabaf.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.138,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/ccf30b1e91aec732.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.13,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/cdcbb91ebd1b15b0.smt2",
+"logic": "QF_UFLRA",
+"verdict": "timeout",
+"answer": "timeout",
+"time": 60.109,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/d5a0ad020b4a8b59.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.444,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/d61b9d32c7c2f11a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.236,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/d9157441bfc19111.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 10.719,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/dc49c49f84196d05.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.495,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/dcf504a85f9d1c95.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 26.164,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/dd9b0bc6aee5034e.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.268,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e006f513a0de0fd3.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.758,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e00e15873d0ca439.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.42,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e13564dbffe23236.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.095,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e3f3072a1b710c51.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.569,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e4bf0f1de993c180.smt2",
+"logic": "QF_UFLRA",
+"verdict": "error",
+"answer": "error:crash",
+"time": 0.0,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e6ae08637b31a3ae.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 8.55,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e760a0ee874a5f2f.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.325,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e8690e3114b9a5fc.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 3.926,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e8a33683cffcaf7f.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.111,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/e933ac644e05c780.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.54,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/ec6a290b8b16f4ce.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.48,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/ecee83b27581c4cf.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.13,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/ed45e35f5495cc4e.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.912,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/ee05c707a896df74.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.364,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/ee4aae352636c851.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.363,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/f1c54f17a37d13a3.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.122,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/f271feb977630aa1.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 0.143,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/f3744fdfcafba0ea.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.39,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/f40c9b0ec1d514d3.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.092,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/f5a60a6e96639ce0.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.085,
+"difficulty": "easy",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/f63091ea2c55b7da.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.347,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/f661500983cc6c6a.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.188,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/f8bd089c16227618.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.284,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/fa4ac167c065efdb.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 0.222,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/fb49e346987c9a3f.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 1.246,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/fc245f164999cd51.smt2",
+"logic": "QF_UFLRA",
+"verdict": "status_only_unsat",
+"answer": "unsat",
+"time": 1.212,
+"difficulty": "hard",
+"model_error": ""
+},
+{
+"benchmark": "QF_UFLRA/fd765f7ce207629b.smt2",
+"logic": "QF_UFLRA",
+"verdict": "correct",
+"answer": "sat",
+"time": 1.045,
+"difficulty": "hard",
+"model_error": ""
+}
+]
+}

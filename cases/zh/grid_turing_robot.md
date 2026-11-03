@@ -1,5 +1,7 @@
 # Grid Turing Robot (`grid_turing_robot`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 缩小并行数让有效的真实提交提高 0.67 到 0.71 分。没有真实提交因此从无效变为有效。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>README 承诺每个用例 30 s，但在发布方的 4-CPU 评分器上，每个用例用掉超过约 15 s CPU 的有效解法会超时，而只要一个用例超时，整份提交就作废。修复版同时运行的用例数不超过评分器的 CPU 数。还有两项说明：分数刻度起点有偏移（2.84 分）；"一个用例失败，整份提交作废"的规则没有写明（约 20 分）。</mark>
 
 ![折线图：每个测试用例的时钟时间与计算时间的关系。8 个 CPU 时，从 12 到 28 秒，时钟时间等于计算时间。4 个 CPU 时，12 秒计算耗时 24 秒，14 秒耗时 28 秒；16、20、24 和 28 秒在 30 秒时限处标为超时，50 个用例中 48 个超时，没有分数。注释说明修复版评分器让 16 秒和 28 秒的解法通过全部 50 个用例，得 19.80 分（满分 100）。](../figures/zh/grid_turing_robot.svg)
@@ -27,7 +29,7 @@
 
 **(b) 分数刻度起点有偏移。** 配置的 0 分参考点（基线）是 9,025,986。随任务提供的初始解法什么也不做，它在 50 个评分用例上的实际总分是 7,744,909，所以得 **2.84** 分（满分 100），而不是 0 分。
 
-**(c) 在 4-CPU 评分器上，每个用例 30 s 缩水为约 15 s CPU（已修复）。** 评分器每次同时运行八个用例（`ProcessPoolExecutor(max_workers=min(8, len(case_files)))`），墙钟时限为 30 s，任务没有设 `cpu_limit`。在 EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml` 中（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`，标题为 "OFFICIAL EDGEBENCH LEADERBOARD SETTING"），`grid_turing_robot: {}` 继承 `judge_cpu_limit: 4`。k8s 后端把它设为评分器 pod 的 CPU request 和 limit（`sforge/harness/backend/k8s_backend.py:214-224`）。八个用例在 4 个 CPU 上，每个大约分到半个 CPU。所以单线程解法只要每个用例需要超过约 15 s CPU，就会超过 30 s 的墙钟时限，尽管 README 承诺 "30 seconds / test case"；而按 (a)，有一个这样的用例，整份提交就作废。
+**(c) 在 4-CPU 评分器上，每个用例 30 s 缩水为约 15 s CPU（已修复）。** 评分器每次同时运行八个用例（`ProcessPoolExecutor(max_workers=min(8, len(case_files)))`），墙钟时限为 30 s，任务没有设 `cpu_limit`。在 EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml` 中（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`，标题为 "OFFICIAL EDGEBENCH LEADERBOARD SETTING"），`grid_turing_robot: {}` 继承 `judge_cpu_limit: 4`。k8s 后端把它设为评分器 pod 的 CPU request 和 limit（`sforge/harness/backend/k8s_backend.py:214-224`）。八个用例在 4 个 CPU 上，每个大约分到半个 CPU。所以单线程解法只要每个用例需要超过约 15 s CPU，就会超过 30 s 的墙钟时限，尽管 README 承诺 "30 seconds / test case"；而按 (a)，有一个这样的用例，整份提交就作废。
 
 我们在原始评分器上用 `--cpus 4` 测量（`evidence/runs/grid_turing_robot-cpu4v8-a/result/out/summary.txt`，在 `grid_turing_robot-v2-paired` 中重复）：
 

@@ -1,0 +1,102 @@
+{
+ "task": "schemathesis_datagen_pipeline",
+ "claims": [
+  {
+   "claim": "The HTTP-date test awards credit to generators producing impossible dates, mismatched weekdays and invalid clock times.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real modified at the defect: agent-2 with the names the hidden test imports added (control), plus a Sunday-first day table or independent date fields (triggers)",
+   "arms": [
+    {
+     "label": "agent-2 real, old",
+     "scores": [
+      72.3077,
+      72.3077,
+      72.3077,
+      72.3077
+     ],
+     "n": 4
+    },
+    {
+     "label": "agent-2 names+patterns (control), old",
+     "scores": [
+      87.6923,
+      87.6923,
+      87.6923
+     ],
+     "n": 3
+    },
+    {
+     "label": "control, fixed",
+     "scores": [
+      87.6923,
+      87.6923,
+      87.6923
+     ],
+     "n": 3
+    },
+    {
+     "label": "Sunday-first, old",
+     "scores": [
+      87.6923,
+      87.6923,
+      87.6923
+     ],
+     "n": 3
+    },
+    {
+     "label": "Sunday-first, fixed",
+     "scores": [
+      86.66669999999999,
+      86.66669999999999,
+      86.66669999999999
+     ],
+     "n": 3
+    },
+    {
+     "label": "independent fields, old",
+     "scores": [
+      87.6923,
+      87.6923,
+      87.6923
+     ],
+     "n": 3
+    },
+    {
+     "label": "independent fields, fixed",
+     "scores": [
+      86.66669999999999,
+      86.66669999999999,
+      86.66669999999999
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-2 names only, old",
+     "scores": [
+      85.641,
+      86.66669999999999,
+      86.66669999999999,
+      85.641
+     ],
+     "n": 4
+    },
+    {
+     "label": "agent-2 names only, fixed",
+     "scores": [
+      86.66669999999999,
+      86.66669999999999,
+      86.66669999999999,
+      86.66669999999999
+     ],
+     "n": 4
+    }
+   ],
+   "effect_points": 1.0256,
+   "fix_tested": "calendar, weekday and clock check: Sunday-first 87.6923 -> 86.6667, independent 87.6923 -> 86.6667",
+   "correct_work_keeps_score": "yes, control 87.6923 -> 87.6923; real agent-2 72.3077 -> 72.3077",
+   "job": "evidence/runs/community9-schemathesis_datagen_pipeline-a and -b",
+   "table_script": "evidence/scripts/second_review/c9_schemathesis_datagen_pipeline_table.py",
+   "note": "Invalid dates get full credit on the old judge with zero spread; weakest point: no real submission reaches this test, because all 8 real headers modules lack names the test imports and TODO.md never gives (agent-2 72.3077 real, 85.641/86.6667 with names only, which also shows a flaky three-tiers test on the same file)."
+  }
+ ]
+}

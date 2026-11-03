@@ -20,7 +20,7 @@
 <header class="bar"><div class="in">
   <a class="home" href="index.html">EdgeBench Verified</a>
   <span class="lang" aria-label="语言"><a href="../leaderboard.html" hreflang="en" lang="en">EN</a> / <a href="../zh/leaderboard.html" hreflang="zh-CN" lang="zh-CN" aria-current="true">中文</a></span>
-  <nav class="tabs" aria-label="站点"><a href="index.html">概览</a><a href="tasks/index.html">任务</a><a href="method.html">方法</a><a href="leaderboard.html" aria-current="page">排行榜</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+  <nav class="tabs" aria-label="站点"><a href="index.html">概览</a><a href="tasks/index.html">任务</a><a href="method.html">方法</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
 </div></header>
 
 <main id="content">
@@ -29,6 +29,7 @@
   <h1>对已发布排行榜的影响</h1>
   <p class="subtitle">修正后的评分器可能改变什么，以及哪些问题无法从公开数据中确定</p>
 </header>
+<div class="col"><p class="note">本页介绍的是针对原始版本的第一轮审计。<a href="index.html#findings">其中哪些发现在当前评分器上站得住</a>，见概览页。</p></div>
 
 <section id="summary" class="col">
   <p>在公布的排行榜上，Opus&nbsp;4.8 以 1.1 分领先 GPT-5.5（44.2 对 43.1）。计入我们记录的各任务上限后，两者的区间分别为 45.49–47.30 和 44.30–46.35。<mark>两个区间重叠，所以仅凭公开数据已无法确认谁领先。</mark>这并不说明两者名次互换。在排行榜上影响大小未知的 19 项修复，这些区间都按零计算。</p>
@@ -48,7 +49,7 @@
     <thead><tr><th>模型</th><th class="n">已发布</th><th class="n">最宽可能范围</th><th class="n">已记录上限</th><th class="n">加 Portfolio</th><th class="n">只计刻度</th></tr></thead>
     <tbody><tr><td>Opus 4.8</td><td class="n">44.2</td><td class="n"><b>36.01–67.13</b></td><td class="n">45.49–47.30</td><td class="n">45.49–47.30</td><td class="n">45.92–46.05</td></tr><tr><td>GPT-5.5</td><td class="n">43.1</td><td class="n"><b>35.54–67.81</b></td><td class="n">44.30–46.35</td><td class="n">44.30–46.36</td><td class="n">44.73–44.86</td></tr><tr><td>GPT-5.4</td><td class="n">34.2</td><td class="n"><b>28.27–62.37</b></td><td class="n">35.15–37.71</td><td class="n">35.15–37.71</td><td class="n">35.57–35.71</td></tr><tr><td>GLM-5.1</td><td class="n">30.4</td><td class="n"><b>25.29–59.55</b></td><td class="n">31.39–34.00</td><td class="n">31.38–34.01</td><td class="n">31.81–31.94</td></tr><tr><td>DS-V4-Pro</td><td class="n">25.7</td><td class="n"><b>20.45–53.98</b></td><td class="n">26.48–28.98</td><td class="n">26.47–28.99</td><td class="n">26.77–26.91</td></tr></tbody>
   </table></div>
-  <p class="note" style="margin-top:10px">移除 D-ABIC 后剩 50 个任务；Opus 4.8 没有有效的 Rust 结果，因此为 49 个。区间重叠说明这些上限确认不了先后顺序，并不说明两个模型名次互换。Treant 可能的最高总数是已记录的上限，不是已知有提交达到的总数。完整推导和假设见 <a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a>。</p>
+  <p class="note" style="margin-top:10px">移除 D-ABIC 后剩 50 个任务；Opus 4.8 没有有效的 Rust 结果，因此为 49 个。区间重叠说明这些上限确认不了先后顺序，并不说明两个模型名次互换。Treant 可能的最高总数是已记录的上限，不是已知有提交达到的总数。完整推导和假设见 <a href="https://github.com/findalexli/edgebench-verified/blob/main/first-audit/IMPACT.md">IMPACT.md</a>。</p>
 </section>
 
 <section id="large" class="col">
@@ -233,7 +234,7 @@
   </table></div>
   <p>在 <a class="task-link" href="tasks/juliet_vulnerability_analyzer.html">Juliet</a> 中，105 份提交里有 14 份（都是早期提交）修复后得分提高，而保留的成绩 99.66 没有变化。<a class="task-link" href="tasks/borden_source_inversion.html">Borden Inversion</a> 的评分器没有改变。这次运行在 36 份提交中把最佳成绩从 7.01 提高到 60.10，其间评分器每次提交后都报告答案在隐藏监测井上的误差；7.01 大约是按文档一次性拟合能得到的分数。</p>
   <p>这次检验只涉及一个模型，每个任务一次四小时的运行，而不是三次十二小时的运行。它说明这些问题在实际中确实会发生，但测不出对排行榜的影响。</p>
-  <p class="note">逐个任务的完整数字：<a href="https://github.com/findalexli/edgebench-verified/blob/main/IMPACT.md">IMPACT.md</a> 和 <a href="../data/impact.csv">impact.csv</a>。每一次评分：<code>evidence/runs/opus55-regrade2-summary/summary.json</code>。</p>
+  <p class="note">逐个任务的完整数字：<a href="https://github.com/findalexli/edgebench-verified/blob/main/first-audit/IMPACT.md">IMPACT.md</a> 和 <a href="../data/impact.csv">impact.csv</a>。每一次评分：<code>evidence/runs/opus55-regrade2-summary/summary.json</code>。</p>
 </section>
 
 </main>

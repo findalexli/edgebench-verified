@@ -1,0 +1,121 @@
+{
+ "task": "integer_compression_codec",
+ "claims": [
+  {
+   "claim": "The stored baseline contradicts the documented Varint starter and changes effective dataset weighting.",
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged: auto-1 (byte-identical to the public starter), r2 agent-15, auto-3, r2 auto-5; bad control: auto-1 with one corrupted value",
+   "arms": [
+    {
+     "label": "real starter, current judge",
+     "scores": [
+      0.2562035784533384,
+      0.24969427874089142,
+      0.2500263594706098,
+      0.25108119177451615
+     ],
+     "n": 4
+    },
+    {
+     "label": "real starter, corrected bpi, 1..320",
+     "scores": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "n": 4
+    },
+    {
+     "label": "real agent-15, current judge",
+     "scores": [
+      73.78027354179567,
+      73.4409768625633,
+      73.4431836486651,
+      73.7331439871648
+     ],
+     "n": 4
+    },
+    {
+     "label": "real agent-15, corrected bpi, 1..320",
+     "scores": [
+      52.19617584959482,
+      48.46572947050396,
+      52.19617584959482,
+      52.02277493469414
+     ],
+     "n": 4
+    },
+    {
+     "label": "real auto-3, current judge",
+     "scores": [
+      63.088675426462295,
+      57.709571933317875,
+      64.39547652643279,
+      52.60205963481351,
+      59.22760474198642
+     ],
+     "n": 5
+    },
+    {
+     "label": "real auto-3, corrected bpi, 1..320",
+     "scores": [
+      31.56187678077601,
+      33.61012310218149,
+      29.354701562035736,
+      34.77792740760176,
+      31.167990090057337
+     ],
+     "n": 5
+    },
+    {
+     "label": "real r2 auto-5, current judge",
+     "scores": [
+      62.704563411063,
+      63.59149974594086,
+      64.37844234555122,
+      63.57173923050904,
+      62.64024871691518
+     ],
+     "n": 5
+    },
+    {
+     "label": "real r2 auto-5, corrected bpi, 1..320",
+     "scores": [
+      35.0675802955231,
+      38.83137944452281,
+      37.222335863458845,
+      34.27568350655696,
+      36.011555686808734
+     ],
+     "n": 5
+    },
+    {
+     "label": "bad control: corrupted starter, current judge",
+     "scores": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "n": 4
+    },
+    {
+     "label": "bad control, corrected bpi, 1..320",
+     "scores": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": -22.38,
+   "fix_tested": "old vs new on the same files, interleaved, n>=3: starter raw 0.252 -> 0.855 (documented 1.0; the remainder is the stored throughput anchors, not changed); agent-15 73.60 -> 51.22 on 1..320, raw 164.4, which the unchanged 0..100 scale would clip to 100; corrupted codec 0 on both",
+   "correct_work_keeps_score": "no: agent-15 73.60 -> 51.22 on 1..320, or 100 on the unchanged scale; order of the tested pair does not flip beyond throughput noise",
+   "job": "evidence/runs/community9-integer_compression_codec-a",
+   "table_script": "evidence/scripts/second_review/c9_integer_compression_codec_table.py",
+   "note": "Measured: the starter gets 0.25 raw against the documented 1.0 and per-dataset S_i of 0.08-0.63 against 1.0, on every run; blind spot: this is not a ceiling, a real run reaches 73.78, and the 3 flips the archive suggested did not repeat for the pair tested (auto-3 vs r2 auto-5 overlap on both judges) with no flip among repeated files, so the weighting change has no shown ranking effect and the size of the score move depends on the scale chosen."
+  }
+ ]
+}

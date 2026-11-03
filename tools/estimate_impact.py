@@ -17,6 +17,9 @@ import pathlib
 import sys
 from fractions import Fraction
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import review as RV  # noqa: E402
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MODELS = ["Opus 4.8", "GPT-5.5", "GPT-5.4", "GLM-5.1", "DS-V4-Pro"]
 PUBLISHED = {"Opus 4.8": 44.2, "GPT-5.5": 43.1, "GPT-5.4": 34.2, "GLM-5.1": 30.4, "DS-V4-Pro": 25.7}
@@ -186,6 +189,7 @@ def main():
     full = [ranking_certified((out[a]['worst_case_low'], out[a]['worst_case_high']),
                               (out[b]['worst_case_low'], out[b]['worst_case_high'])) for a, b in pairs]
     L = ["# Effect on the published leaderboard", "",
+         "> This analysis is from the first audit. Its ranges count every first-audit fix, including fixes for claims the second review did not confirm, and they have not been recomputed. See [FINDINGS.md](FINDINGS.md).", "",
          "The public task averages are not enough to compute a corrected leaderboard, because the original submissions and the raw scores of each run are not available. The intervals below carry the rounding of the public scores, the scale changes and the documented effect limits through to each model's average. They are outer envelopes. They are not estimates, and we have not shown that their endpoints can be reached. `tools/estimate_impact.py` generates this page; [data/impact.csv](data/impact.csv) has the machine-readable results.", "",
          "## Conditional score intervals", "",
          "Every interval keeps the same set of valid runs and treats kept tasks as unchanged. Each one depends on the effect directions and limits listed below, including the inferred PFR credit and the documented cap on Treant's raw total. The 'Plus documented limits' and 'Plus Portfolio sensitivity' columns count every direction-only (open) effect as zero; only the full-domain envelope lets those effects move. New runs, changed failure rates, agents adapting to a fix, or an unsupported assumption about an effect's direction can break these conditions. None of the intervals is a statistical confidence interval.", "",
@@ -231,7 +235,7 @@ def main():
     L += ["", "## Evidence and limits", "",
           "The publisher normalizes each run's score, keeps its best submission and averages the valid runs, as [the scoring-method record](evidence/impact/edgebench-scoring-method.md) describes. The scale intervals keep that set of runs, and they do not simulate how agents respond to new instructions or feedback.", "",
           "We separately regraded third-party four-hour Opus 5.5 runs ([the saved regrade summary](evidence/runs/opus55-regrade2-summary/summary.json)). They show that some defects matter in real agent runs, but they are not a regrade of this twelve-hour leaderboard. The audit covers only the 51 public tasks; the publisher also has 83 unreleased tasks. The repairs form a new version of the benchmark."]
-    (ROOT / "IMPACT.md").write_text("\n".join(L) + "\n")
+    (ROOT / "first-audit/IMPACT.md").write_text(RV.relink("\n".join(L) + "\n"))
     json.dump({m: {k: (float(v) if isinstance(v, Fraction) else v) for k, v in r.items()} for m, r in out.items()},
               sys.stdout, indent=1)
 

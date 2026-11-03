@@ -1,0 +1,117 @@
+docker build --platform linux/amd64 -f /job/base/edgebench/tasks/git_rewrite_in_zig/judge/Dockerfile -t edgebench.judge.git_rewrite_in_zig:45b2d6910146 --build-arg BASE_IMAGE=edgebench.base.cpp:67f57d824691 /job/base/edgebench/tasks/git_rewrite_in_zig
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.70kB done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 17)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 21)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 26)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 33)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/edgebench.base.cpp:67f57d824691
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 36.95kB done
+#4 DONE 0.0s
+
+#5 [suite 1/4] FROM docker.io/library/edgebench.base.cpp:67f57d824691@sha256:a387450164768f7734f3e6cf9b0c86225c94ff3af29530c8ac36e00b4d7694a8
+#5 resolve docker.io/library/edgebench.base.cpp:67f57d824691@sha256:a387450164768f7734f3e6cf9b0c86225c94ff3af29530c8ac36e00b4d7694a8 done
+#5 DONE 0.0s
+
+#6 [stage-3  2/12] COPY environment/setup.sh /setup/setup.sh
+#6 DONE 0.3s
+
+#7 [suite 2/4] COPY environment/git-release.sh environment/git-release.exclude /build/
+#7 DONE 0.3s
+
+#8 [zig 2/3] COPY environment/zig.sh /build/zig.sh
+#8 DONE 0.3s
+
+#9 [suite 3/4] COPY judge/test-lib.sh.patch /build/
+#9 DONE 0.0s
+
+#10 [suite 4/4] RUN sh /build/git-release.sh suite /out/git-test-suite /build/test-lib.sh.patch  && cd /out && tar --sort=name --owner=0 --group=0 --numeric-owner --mtime='2026-04-01 04:13:21Z'       -cf - git-test-suite | gzip -n -9 > /out/git-test-suite.tar.gz
+#10 2.007 /tmp/tmp.PekNTtH31t/git.tar.xz: OK
+#10 ...
+
+#11 [gitsrc 3/3] RUN sh /build/git-release.sh src /out/git-src
+#11 1.590 /tmp/tmp.84GaAC4i2x/git.tar.xz: OK
+#11 DONE 2.4s
+
+#12 [zig 3/3] RUN sh /build/zig.sh
+#12 0.872 + cd /root
+#12 0.872 + curl -fsSL --retry 3 -o zig-linux-x86_64-0.14.0.tar.xz https://ziglang.org/download/0.14.0/zig-linux-x86_64-0.14.0.tar.xz
+#12 ...
+
+#10 [suite 4/4] RUN sh /build/git-release.sh suite /out/git-test-suite /build/test-lib.sh.patch  && cd /out && tar --sort=name --owner=0 --group=0 --numeric-owner --mtime='2026-04-01 04:13:21Z'       -cf - git-test-suite | gzip -n -9 > /out/git-test-suite.tar.gz
+#10 2.549 patching file t/test-lib.sh
+#10 DONE 5.0s
+
+#13 [stage-3  3/12] RUN sh /setup/setup.sh judge && rm -rf /setup
+#13 0.873 + role=judge
+#13 0.873 + export DEBIAN_FRONTEND=noninteractive
+#13 0.873 + pkgs=wget=1.21.2-2ubuntu1.1 xz-utils=5.2.5-2ubuntu1.1 python3=3.10.6-1~22.04.1 zlib1g-dev=1:1.2.11.dfsg-2ubuntu9.2
+#13 0.873 + [ judge = judge ]
+#13 0.873 + pkgs=wget=1.21.2-2ubuntu1.1 xz-utils=5.2.5-2ubuntu1.1 python3=3.10.6-1~22.04.1 zlib1g-dev=1:1.2.11.dfsg-2ubuntu9.2 strace=5.16-0ubuntu3 file=1:5.41-3ubuntu0.1 libssl-dev=3.0.2-0ubuntu1.25 libcurl4-openssl-dev=7.81.0-1ubuntu1.24
+#13 0.873 + apt-get update -qq
+#13 ...
+
+#12 [zig 3/3] RUN sh /build/zig.sh
+#12 5.795 + echo 473ec26806133cf4d1918caf1a410f8403a13d979726a9045b421b685031a982  zig-linux-x86_64-0.14.0.tar.xz
+#12 5.795 + sha256sum -c -
+#12 5.964 zig-linux-x86_64-0.14.0.tar.xz: OK
+#12 5.964 + tar xf zig-linux-x86_64-0.14.0.tar.xz
+#12 9.566 + mv zig-linux-x86_64-0.14.0 /usr/local/zig
+#12 9.568 + rm zig-linux-x86_64-0.14.0.tar.xz
+#12 DONE 10.0s
+
+#13 [stage-3  3/12] RUN sh /setup/setup.sh judge && rm -rf /setup
+#13 100.7 + apt-get install -y --no-install-recommends -qq wget=1.21.2-2ubuntu1.1 xz-utils=5.2.5-2ubuntu1.1 python3=3.10.6-1~22.04.1 zlib1g-dev=1:1.2.11.dfsg-2ubuntu9.2 strace=5.16-0ubuntu3 file=1:5.41-3ubuntu0.1 libssl-dev=3.0.2-0ubuntu1.25 libcurl4-openssl-dev=7.81.0-1ubuntu1.24
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/p/python3.10/python3.10_3.10.12-1%7e22.04.15_amd64.deb  502  Bad Gateway [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/p/python3-defaults/libpython3-stdlib_3.10.6-1%7e22.04.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/p/python3-defaults/python3_3.10.6-1%7e22.04.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/f/file/libmagic-mgc_5.41-3ubuntu0.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/f/file/libmagic1_5.41-3ubuntu0.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/f/file/file_5.41-3ubuntu0.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/libu/libunwind/libunwind8_1.3.2-2build2.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/s/strace/strace_5.16-0ubuntu3_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/w/wget/wget_1.21.2-2ubuntu1.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/c/curl/libcurl4-openssl-dev_7.81.0-1ubuntu1.24_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/o/openssl/libssl-dev_3.0.2-0ubuntu1.25_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/z/zlib/zlib1g-dev_1.2.11.dfsg-2ubuntu9.2_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+#13 193.0 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+#13 ERROR: process "/bin/sh -c sh /setup/setup.sh judge && rm -rf /setup" did not complete successfully: exit code: 100
+------
+ > [stage-3  3/12] RUN sh /setup/setup.sh judge && rm -rf /setup:
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/f/file/libmagic-mgc_5.41-3ubuntu0.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/f/file/libmagic1_5.41-3ubuntu0.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/f/file/file_5.41-3ubuntu0.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/libu/libunwind/libunwind8_1.3.2-2build2.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/s/strace/strace_5.16-0ubuntu3_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/w/wget/wget_1.21.2-2ubuntu1.1_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/c/curl/libcurl4-openssl-dev_7.81.0-1ubuntu1.24_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/o/openssl/libssl-dev_3.0.2-0ubuntu1.25_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Failed to fetch https://snapshot.ubuntu.com/ubuntu/20260617T120000Z/pool/main/z/zlib/zlib1g-dev_1.2.11.dfsg-2ubuntu9.2_amd64.deb  503  Service Unavailable [IP: 185.125.189.36 443]
+193.0 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+------
+
+ [33m4 warnings found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 17)
+ - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 21)
+ - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 26)
+ - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 33)
+Dockerfile:35
+--------------------
+  33 |     FROM ${BASE_IMAGE}
+  34 |     COPY environment/setup.sh /setup/setup.sh
+  35 | >>> RUN sh /setup/setup.sh judge && rm -rf /setup
+  36 |     COPY --from=zig /usr/local/zig/ /usr/local/zig/
+  37 |     # COPY creates the top dir as root; v1's root `tar xf` left it uid/gid 1000 like the rest of the tree.
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c sh /setup/setup.sh judge && rm -rf /setup" did not complete successfully: exit code: 100

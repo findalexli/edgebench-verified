@@ -1,0 +1,42 @@
+arm judge n mean min max | per run: score C E pen is_data structural_failure data_matches cell_matches seconds
+auto35 new 3 20.076 20.067 20.093
+    ion-a p1 20.0668 True A 2.0 C 17.4 E 8.0 pen 0.334 True False 34 0 22.4
+    ion-a p2 20.0693 True A 2.0 C 17.5 E 8.0 pen 0.334 True False 34 0 22.9
+    ion-a p3 20.0933 True A 2.0 C 17.5 E 8.0 pen 0.334 True False 34 0 22.2
+auto35 old 4 20.074 20.062 20.092
+    smoke p0 20.0715 True A 2.0 C 17.5 E 8.0 pen 0.334 True False 34 0 23.1
+    ion-a p1 20.0622 True A 2.0 C 17.4 E 8.0 pen 0.334 True False 34 0 21.9
+    ion-a p2 20.0917 True A 2.0 C 17.5 E 8.0 pen 0.334 True False 34 0 23.7
+    ion-a p3 20.0691 True A 2.0 C 17.5 E 8.0 pen 0.334 True False 34 0 22.1
+auto35_baddet new 2 19.452 19.45 19.455
+    ion-b p1 19.4547 False A 1.0 C 17.4 E 7.2 pen 0.334 False True 0 34 154.6
+    ion-b p2 19.4496 False A 1.0 C 17.4 E 7.2 pen 0.334 False True 0 34 154.2
+auto35_baddet old 2 18.411 18.396 18.425
+    ion-b p1 18.3962 False A 1.0 C 17.4 E 4.0 pen 0.334 False True 0 34 158.6
+    ion-b p2 18.4251 False A 1.0 C 17.5 E 4.0 pen 0.334 False True 0 34 154.7
+auto35_const new 3 19.854 19.769 19.897
+    ion-a p1 19.8945 True A 2.0 C 16.9 E 8.0 pen 0.334 False False 0 46 133.5
+    ion-a p2 19.8972 True A 2.0 C 16.9 E 8.0 pen 0.334 False False 0 46 135.9
+    ion-a p3 19.769 True A 2.0 C 16.6 E 8.0 pen 0.334 False False 0 45 135.5
+auto35_const old 3 18.981 18.915 19.017
+    ion-a p1 19.0112 True A 2.0 C 17.5 E 4.8 pen 0.334 False True 0 46 136.0
+    ion-a p2 19.0167 True A 2.0 C 17.5 E 4.8 pen 0.334 False True 0 46 131.4
+    ion-a p3 18.9153 True A 2.0 C 17.2 E 4.8 pen 0.334 False True 0 45 132.9
+auto35_dconst new 2 19.89 19.739 20.04
+    ion-b p1 19.7387 True A 2.0 C 16.5 E 8.0 pen 0.334 True False 46 0 30.0
+    ion-b p2 20.0404 True A 2.0 C 17.4 E 8.0 pen 0.334 True False 47 0 31.7
+auto35_dconst old 2 19.978 19.917 20.04
+    ion-b p1 20.0397 True A 2.0 C 17.4 E 8.0 pen 0.334 True False 46 0 30.6
+    ion-b p2 19.9168 True A 2.0 C 17.0 E 8.0 pen 0.334 True False 46 0 31.6
+auto35_model new 3 20.053 20.04 20.073
+    ion-a p1 20.0404 True A 2.0 C 17.4 E 8.0 pen 0.334 False False 0 34 110.7
+    ion-a p2 20.0437 True A 2.0 C 17.4 E 8.0 pen 0.334 False False 0 34 110.2
+    ion-a p3 20.0734 True A 2.0 C 17.5 E 8.0 pen 0.334 False False 0 34 108.1
+auto35_model old 4 18.994 18.967 19.014
+    smoke p0 18.9665 True A 2.0 C 17.4 E 4.8 pen 0.334 False True 0 34 116.0
+    ion-a p1 19.0142 True A 2.0 C 17.5 E 4.8 pen 0.334 False True 0 34 107.7
+    ion-a p2 18.9861 True A 2.0 C 17.4 E 4.8 pen 0.334 False True 0 34 106.9
+    ion-a p3 19.0087 True A 2.0 C 17.5 E 4.8 pen 0.334 False True 0 34 106.3
+--- real reports (claude-opus-*)
+reports 75 best (20.089658590665238, 17.513501028510856, 19.397362503857302, 8.0, 0.334) -r2/auto-35 maxC 17.545302496725462 maxD 19.397362503857302 maxF 8.0
+C>=19.5 0 C>=26 0 F>=10 0 penalties [0.334] model-space hits 0 is_data_space false 1

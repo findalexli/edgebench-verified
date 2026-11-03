@@ -1,0 +1,5 @@
+4faad7b93a842cf17cab13f3ae8b3e67c4c7504a34cb02062a06cdbab985baac  /judge/eval_molecules.py
+cd291cec7825a7bd523af4b53078ce96d9f4b638b7a01207539e462bb1fcd388  /judge/grade.py
+9:TIME_LIMIT = 30
+62:    max_workers = min(int(os.environ.get("SEBENCH_MOLECULES_WORKERS", "8")), len(case_files))
+63:    with ProcessPoolExecutor(max_workers=max_workers) as pool:

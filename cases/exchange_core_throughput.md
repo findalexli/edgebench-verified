@@ -1,5 +1,7 @@
 # Exchange Core Throughput (`exchange_core_throughput`)
 
+**Second review (November 2026): Real, small or unseen.** Broken engines do earn credit, but at the official 4 CPUs correct work mostly scores 0 too, and no real run was affected. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The original correctness check does not catch wrong fees or lost messages, so incorrect engines receive full credit. The fixed version requires the project's own integration tests to pass and grades without network access.</mark>
 
 ![A grid of pass and fail marks. Rows: the correct engine, an engine that charges sellers the wrong fee rate (the rate for orders that wait on the book instead of the rate for orders that trade at once), and an engine that never delivers trade messages. Under the original checker all three pass and are scored on speed; under the fixed checker, which also runs 33 of the project's own tests, the correct engine passes and both broken engines are rejected with a score of 0. Notes explain the speed score (0 at 2.09 million transactions per second or slower, 100 at 6 million), give the overlapping speed scores (correct engine 0–24.19, wrong fee 7.77–24.40, lost messages 4.71–15.62 out of 100), and say that at 4 CPUs even the correct engine scores 0 for speed.](figures/exchange_core_throughput.svg)

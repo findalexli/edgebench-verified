@@ -1,0 +1,39 @@
+{
+ "task": "arc_compiler_runtime",
+ "claims": [
+  {
+   "claim": "Hidden tests require an undocumented analyze() return shape and diagnostic wording.",
+   "verdict": "CONFIRMED",
+   "witness": "real modified at the defect: Opus agent-36, same analysis also returned as an array",
+   "arms": [
+    {
+     "label": "agent-36 as submitted, current judge",
+     "scores": [
+      61.31,
+      61.31
+     ]
+    },
+    {
+     "label": "agent-36 also returning an array, current judge",
+     "scores": [
+      94.81,
+      94.81
+     ]
+    },
+    {
+     "label": "real run, best on the original task",
+     "scores": [
+      61.31
+     ]
+    },
+    {
+     "label": "real run, best with the shape documented",
+     "scores": [
+      96.06
+     ]
+    }
+   ],
+   "job": "evidence/runs/community8-arc_shape"
+  }
+ ]
+}

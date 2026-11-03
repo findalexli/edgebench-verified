@@ -1,0 +1,9 @@
+['community9-schemathesis_config_modernization-a', 'community9-schemathesis_config_modernization-b']
+| arm | judge | n | scores | phases (last run) | tests that failed (last run, excluded when also failing on the unchanged control) |
+|---|---|---|---|---|---|
+| starter | old | 3 | 3.1466, 3.1466, 3.1466 | 0/30 4/26 0/15 1/19 0/18 1/18 | test_api_namespace_available, test_base_transport_get_first_matching, test_base_transport_get_first_matching_none, test_base_transport_get_matching_wildcard, test_base_transport_init, test_base_transport_register_multiple_media_types, test_base_transport_register_serializer, test_base_transport_unregister_nonexistent |
+| starter | new | 3 | 3.1466, 3.1466, 3.1466 | 0/30 4/26 0/15 1/19 0/18 1/18 | test_api_namespace_available, test_base_transport_get_first_matching, test_base_transport_get_first_matching_none, test_base_transport_get_matching_wildcard, test_base_transport_init, test_base_transport_register_multiple_media_types, test_base_transport_register_serializer, test_base_transport_unregister_nonexistent |
+| agent16 | old | 3 | 99.0, 99.0, 99.0 | 29/30 26/26 15/15 19/19 18/18 18/18 | test_path_to_section_name_with_path, test_phase_1 |
+| agent16 | new | 3 | 99.0, 99.0, 99.0 | 29/30 26/26 15/15 19/19 18/18 18/18 | test_path_to_section_name_with_path, test_phase_1 |
+| agent16_wrapper | old | 3 | 99.0, 99.0, 99.0 | 29/30 26/26 15/15 19/19 18/18 18/18 | test_path_to_section_name_with_path, test_phase_1 |
+| agent16_wrapper | new | 3 | 98.3333, 98.3333, 98.3333 | 29/30 26/26 14/15 19/19 18/18 18/18 | test_metric_decorator_returns_function, test_path_to_section_name_with_path, test_phase_1, test_phase_3 |

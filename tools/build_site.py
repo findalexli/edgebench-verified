@@ -31,7 +31,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from names import names as task_names  # noqa: E402
 import mdrender  # noqa: E402
-import categories as PC  # noqa: E402
+import categories as PC
+import review as RV  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'site'
@@ -54,8 +55,7 @@ ZH_FONTS = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?fami
 ORDER = ['repair-v2', 'exclude', 'retain-with-note', 'retain']
 # Shown (and written to APPLYING-FIXES.md and data/decisions.csv) for a repair without a recorded validation status.
 VALIDATION_DEFAULT = 'Historical paired scope only; see the case page and package limits'
-TABS = [('overview', 'index.html'), ('tasks', 'tasks/index.html'), ('method', 'method.html'),
-        ('leaderboard', 'leaderboard.html')]
+TABS = [('overview', 'index.html'), ('tasks', 'tasks/index.html'), ('method', 'method.html')]
 # Grader CPUs and memory in EdgeBench's leaderboard settings (quoted in
 # evidence/impact/edgebench-leaderboard-config.md): 4 CPUs / 8 GB by default, the Lean override 8 / 16 GB,
 # and SMT Solver 16 / 16 GB. The build checks these ids against that page.
@@ -290,7 +290,11 @@ def load_data():
     for r in decisions:
         t = r['task_id']
         rows.append({**r, 'name': names[t], 'category': tasks[t]['category']})
-    rows.sort(key=lambda r: (ORDER.index(r['proposed']), r['name'].lower()))
+    review = RV.load()
+    assert set(review) <= set(tasks), 'data/review.json names an unknown task'
+    for r in rows:
+        r['review'] = RV.status(review, r['task_id'])
+    rows.sort(key=lambda r: (RV.KEYS.index(r['review']), r['name'].lower()))
     assert len(rows) == 51 and set(tasks) == {r['task_id'] for r in rows} and set(plain) == set(tasks)
     config = (ROOT / CONFIG_MD).read_text()
     for t in LEAN_8CPU + SMT_16CPU:
@@ -300,13 +304,15 @@ def load_data():
     return {'decisions': decisions, 'rows': rows, 'tasks': tasks, 'names': names, 'plain': plain,
             'pcat': PC.by_primary(decisions), 'pcat2': PC.by_secondary(decisions),
             'formal': frm, 'formal_by': {x['task']: x for x in frm},
-            'counts': Counter(r['proposed'] for r in rows)}
+            'counts': Counter(r['proposed'] for r in rows), 'review': review,
+            'rcounts': Counter(r['review'] for r in rows)}
 
 
 def numbers(D):
     """Every number placeholder of the prose templates, computed from the data (language-independent)."""
     counts = D['counts']
     v = {k: str(counts.get(k, 0)) for k in ORDER}
+    v.update({'rc_' + k.replace('-', '_'): str(D['rcounts'].get(k, 0)) for k in RV.KEYS})
     cc = comparison_counts()
     v.update(n_cmp=cc['graded'], n_cmp3=cc['graded3'], n_cmp_once=cc['graded'] - cc['graded3'], n_cmp_tasks=cc['tasks'], n_cmp_setup=cc['setup'],
              n_cmp_derived=cc['derived'], n_cmp_noexec=cc['not_run'],
@@ -408,6 +414,20 @@ def generated_prose(P, D, num):
                     f"<br><span style=\"color:var(--muted)\">{t('formal.covers.' + r['covers'])}</span></td>"
                     f"<td>{esc(tr.get('what', r['what']))}</td><td>{esc(tr.get('limit', r['limit']))}</td></tr>")
     out['formal_rows'] = ''.join(rows)
+    # the second review: what is confirmed, then everything else, from data/review.json
+    code = P.L.code
+    tick = lambda x: re.sub(r'`([^`]+)`', r'<code>\1</code>', esc(x))  # noqa: E731
+    def review_ids(k):
+        return sorted((x for x in D['review'] if D['review'][x]['status'] == k), key=lambda x: D['names'][x].lower())
+    conf = []
+    for x in review_ids('confirmed'):
+        e = D['review'][x]
+        conf.append(f'<p><span class="lead-in">{task_link(P, D, x)}.</span> {tick(RV.text(e, "line", code))} '
+                    f'{tick(RV.text(e, "effect", code))} <span class="note-inline">{tick(RV.text(e, "upstream", code))}</span></p>')
+    out['review_confirmed'] = ''.join(conf)
+    for k in ('minor', 'changed-upstream', 'not-confirmed'):
+        out['review_' + k.replace('-', '_')] = '<ul class="tight">' + ''.join(
+            f'<li><b>{task_link(P, D, x)}.</b> {tick(RV.text(D["review"][x], "line", code))}</li>' for x in review_ids(k)) + '</ul>'
     # problem categories: the count and the tasks of each (primary, then secondary)
     by = {r['task_id']: r for r in D['rows']}
 
@@ -559,13 +579,13 @@ TASKS_JS = """<script>
   var list = document.getElementById('cards'); if (!list) return;
   var items = [].slice.call(list.children), q = document.getElementById('q');
   var count = document.getElementById('count'), empty = document.getElementById('empty');
-  var tpl = count.getAttribute('data-tpl'), filt = 'all', cat = 'all';
+  var tpl = count.getAttribute('data-tpl'), filt = 'confirmed', cat = 'all';
   var buttons = [].slice.call(document.querySelectorAll('#filters button[data-f]'));
   var cbuttons = [].slice.call(document.querySelectorAll('#cfilters button[data-c]'));
   function apply(push) {
     var term = q.value.trim().toLowerCase(), shown = 0;
     items.forEach(function (li) {
-      var ok = (filt === 'all' || li.getAttribute('data-outcome') === filt) &&
+      var ok = (term || filt === 'all' || li.getAttribute('data-review') === filt) &&
                (cat === 'all' || li.getAttribute('data-pcat') === cat) &&
                (!term || li.getAttribute('data-search').indexOf(term) >= 0);
       li.classList.toggle('card-hidden', !ok); if (ok) shown++;
@@ -575,7 +595,7 @@ TASKS_JS = """<script>
     buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === filt)); });
     cbuttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-c') === cat)); });
     if (push) {
-      var hs = [filt, cat].filter(function (x) { return x !== 'all'; }).join('+');
+      var hs = [filt === 'confirmed' ? '' : filt, cat === 'all' ? '' : cat].filter(Boolean).join('+');
       try { history.replaceState(null, '', hs ? '#' + hs : location.pathname + location.search); } catch (e) {}
     }
   }
@@ -603,34 +623,33 @@ def tasks_index(L, D):
     P = Page(L, 'tasks/index.html')
     t = L.t
     counts = D['counts']
-    btns = [f'<button type="button" data-f="all" aria-pressed="true">{t("tasks.all", n=len(D["rows"]))}</button>']
-    btns += [f'<button type="button" data-f="{k}" aria-pressed="false">{t("tasks.filter", label=t("outcome." + k), n=counts[k])}</button>'
-             for k in ORDER if counts.get(k)]
+    btns = [f'<button type="button" data-f="confirmed" aria-pressed="true">{t("tasks.filter", label=t("review.confirmed"), n=D["rcounts"]["confirmed"])}</button>',
+            f'<button type="button" data-f="all" aria-pressed="false">{t("tasks.all", n=len(D["rows"]))}</button>']
     cbtns = [f'<button type="button" data-c="all" aria-pressed="true">{t("tasks.cat_all")}</button>']
     cbtns += [f'<button type="button" data-c="{k}" aria-pressed="false">{t("tasks.filter", label=t("pcat." + k + ".short"), n=len(D["pcat"][k]))}</button>'
               for k in PC.KEYS]
     cards = []
-    for r in D['rows']:
+    for r in sorted(D['rows'], key=lambda r: r['review'] != 'confirmed'):
         tid = r['task_id']
         p = plain_for(L, D, tid)
         cat = t.opt('category.' + r['category'], r['category']) if L.code != 'en' else r['category']
         pk = PC.primary(r) or ''
         pname = t('pcat.' + pk) if pk else ''
-        search = ' '.join([r['name'], tid, r['category'], cat, p['headline'], p['about'], t('outcome.' + r['proposed']),
+        # a reviewed task's card carries the second review's line, not the first audit's headline
+        card_line = RV.text(D['review'][tid], 'line', L.code).replace('`', '') if tid in D['review'] else p['headline']
+        search = ' '.join([r['name'], tid, r['category'], cat, card_line, p['headline'], p['about'], t('outcome.' + r['proposed']),
                            pname]).lower()
-        chip = f'<span class="badge pc">{t("pcat." + pk + ".short")}</span>' if pk else ''
         cards.append(
-            f'<li data-task="{tid}" data-outcome="{r["proposed"]}" data-pcat="{pk}" data-search="{esc(search)}">'
+            f'<li data-task="{tid}" data-outcome="{r["proposed"]}" data-review="{r["review"]}" data-pcat="{pk}" data-search="{esc(search)}">'
             f'<a class="card" href="{tid}.html"><span class="top"><span>{esc(cat)}</span>'
-            f'<span class="badges">{chip}<span class="badge b-{r["proposed"]}">{t("outcome." + r["proposed"])}</span></span></span>'
-            f'<span class="name">{esc(r["name"])}</span><span class="line">{esc(p["headline"])}</span>'
+            f'<span class="badges"><span class="badge b-{r["review"]}">{t("review." + r["review"])}</span></span></span>'
+            f'<span class="name">{esc(r["name"])}</span><span class="line">{esc(card_line)}</span>'
             f'<span class="go">{t("tasks.open")} &rarr;</span></a></li>')
     body = (f'<header class="title tasks-head"><p class="kicker">{t("tasks.kicker")}</p><h1>{t("tasks.h1")}</h1>'
             f'<p class="subtitle" style="font-style:normal;font-size:19px">{t("tasks.intro")}</p>'
-            f'<p class="note">{t("tasks.legend")} {t("tasks.legend_cat")}</p></header>'
+            f'<p class="note">{t("tasks.legend")}</p></header>'
             f'<section class="wide" style="padding-top:6px">'
             f'<div class="controls" id="filters" role="group" aria-label="{esc(t("tasks.filter_label"))}">{"".join(btns)}</div>'
-            f'<div class="controls cfilters" id="cfilters" role="group" aria-label="{esc(t("tasks.filter_cat_label"))}">{"".join(cbtns)}</div>'
             f'<div class="controls"><div class="search"><label for="q" class="skip">{t("tasks.search_label")}</label>'
             f'<input id="q" type="search" placeholder="{esc(t("tasks.search_placeholder"))}" autocomplete="off"></div></div>'
             f'<p class="count" id="count" aria-live="polite" data-tpl="{esc(t("tasks.count", shown="{shown}", total="{total}"))}">'
@@ -789,22 +808,24 @@ def task_page(L, D, i, used_figs):
         res = t.opt('formal.result.' + fr['result'], fr['result'].capitalize()) if L.code != 'en' else t('formal.result.' + fr['result'])
         formal = (f'<dt>{t("task.sum.formal")}</dt><dd>' +
                   esc(t('task.formal', result=res, tool=fr['tool'], what=tr.get('what', fr['what']), limit=tr.get('limit', fr['limit']))) + '</dd>')
-    pk = PC.primary(r)
     category = ''
-    if pk:
-        sec = PC.secondary(r)
-        ctext = (t('task.category.with_secondary', primary=t('pcat.' + pk), secondary=t('pcat.join').join(t('pcat.' + x) for x in sec))
-                 if sec else t('task.category.primary_only', primary=t('pcat.' + pk)))
-        category = (f'<dt>{t("task.sum.category")}</dt><dd><a href="{P.root}index.html#{pk}">{esc(ctext)}</a></dd>')
+    rv = D['review'].get(tid)
+    if rv:
+        tick = lambda x: re.sub(r'`([^`]+)`', r'<code>\1</code>', esc(x))  # noqa: E731
+        category = (f'<dt>{t("task.sum.review")}</dt><dd><b>{t("review." + r["review"])}.</b> {tick(RV.text(rv, "line", L.code))} '
+                    f'{tick(RV.text(rv, "effect", L.code))} {tick(RV.text(rv, "upstream", L.code))}</dd>')
+    category += f'<dt>{t("task.sum.first")}</dt><dd>{t("outcome." + r["proposed"])}</dd>'
     status = ''
     if r['proposed'] == 'repair-v2':
         english = r.get('validation_status') or VALIDATION_DEFAULT
         text = L.validation(tid, english) if r.get('validation_status') else t('task.sum.status_default')
         status = f'<dt>{t("task.sum.status")}</dt><dd>{esc(text)}</dd>'
+    # with a second review, these rows are the first audit's record and say so
+    old = '_first' if tid in D['review'] else ''
     summary = (f'<dl class="sum"><dt>{t("task.sum.about")}</dt><dd>{plain_html(p["about"])}</dd>'
-               f'<dt>{t("task.sum.problem")}</dt><dd>{plain_html(p["problem"])}</dd>'
-               f'<dt>{t("task.sum.effect")}</dt><dd>{plain_html(p["effect"])}</dd>'
-               f'<dt>{t("task.sum.action")}</dt><dd>{plain_html(p["action"])}</dd>{category}{status}{formal}</dl>')
+               f'{category}<dt>{t("task.sum.problem" + old)}</dt><dd>{plain_html(p["problem"])}</dd>'
+               f'<dt>{t("task.sum.effect" + old)}</dt><dd>{plain_html(p["effect"])}</dd>'
+               f'<dt>{t("task.sum.action" + old)}</dt><dd>{plain_html(p["action"])}</dd>{status}{formal}</dl>')
     grade_html, _ = grading(P, D, tid)
     # files
     links = [(BLOB + f'cases/{tid}.md', t('task.links.case')), (BLOB + f'tasks/{tid}.json', t('task.links.task_json', id=tid))]
@@ -824,8 +845,9 @@ def task_page(L, D, i, used_figs):
         links.append((BLOB + f'evidence/formal/notes/{tid}.md', t('task.links.formal')))
     links.append((BLOB + 'evidence/README.md', t('task.links.evidence')))
     files = '<ul class="links">' + ''.join(f'<li><a href="{esc(h)}">{lab}</a></li>' for h, lab in links) + '</ul>'
-    rows = D['rows']
-    prv, nxt = rows[i - 1], rows[(i + 1) % len(rows)]
+    group = [r for r in D['rows'] if (r['review'] == 'confirmed') == (D['rows'][i]['review'] == 'confirmed')]
+    at = group.index(D['rows'][i])
+    prv, nxt = group[at - 1], group[(at + 1) % len(group)]
     pager = (f'<nav class="pager" aria-label="{esc(t("task.all"))}">'
              f'<a class="prev" href="{prv["task_id"]}.html" rel="prev"><small>&larr; {t("task.prev")}</small>{esc(prv["name"])}</a>'
              f'<a class="all" href="index.html">{t("task.all")}</a>'
@@ -838,10 +860,9 @@ def task_page(L, D, i, used_figs):
     body = (f'<div class="col"><div class="crumbs"><a href="index.html">&larr; {t("task.back")}</a>'
             f'<span>{t("task.field", field=esc(cat))}</span></div>'
             f'<header class="task-head"><h1>{esc(r["name"])}</h1>'
-            f'<span class="badge b-{r["proposed"]}" data-outcome="{r["proposed"]}">{t("outcome." + r["proposed"])}</span> '
-            + (f'<a class="badge pc" data-pcat="{pk}" href="{P.root}index.html#{pk}">{t("pcat." + pk)}</a> ' if pk else '') +
+            f'<span class="badge b-{r["review"]}" data-outcome="{r["proposed"]}" data-review="{r["review"]}">{t("review." + r["review"])}</span> '
             f'<span class="id">{tid}</span>'
-            f'<p class="summary">{esc(p["headline"])}{"." if P.L.code == "en" else "。"}</p>'
+            f'<p class="summary">{tick(RV.text(D["review"][tid], "line", L.code)) if tid in D["review"] else esc(p["headline"]) + ("." if P.L.code == "en" else "。")}</p>'
             f'<nav class="toc" aria-label="{esc(t("task.summary.h2"))}">{toc}</nav></header>'
             f'<section id="summary"><h2 class="sec">{t("task.summary.h2")}</h2>{summary}{figure}</section>'
             f'<section id="prompt"><h2 class="sec">{t("task.prompt.h2")}</h2>'

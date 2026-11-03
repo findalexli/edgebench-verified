@@ -1,0 +1,54 @@
+{
+ "task": "dcss_dungeon_ai",
+ "claims": [
+  {
+   "claim": "Identical good-faith bots can receive different scores because the evaluator injects inputs according to wall-clock timing.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "synthetic: shipped starter unchanged, and a small good-faith bot built on it (evidence/scripts/second_review/c9games_dcss_diver_include.rc plus autofight_stop = 0); no real submission exists in evidence/runs",
+   "arms": [
+    {
+     "label": "starter, current judge",
+     "scores": [
+      0.671,
+      0.999,
+      1.234
+     ],
+     "n": 3
+    },
+    {
+     "label": "fighter bot, current judge",
+     "scores": [
+      2.334,
+      2.6,
+      2.6
+     ],
+     "n": 3
+    },
+    {
+     "label": "starter, no injected keys",
+     "scores": [
+      0.226,
+      0.196,
+      0.175
+     ],
+     "n": 3
+    },
+    {
+     "label": "fighter bot, no injected keys",
+     "scores": [
+      0.521,
+      0.591,
+      0.521
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": 0.563,
+   "fix_tested": "_dismiss_loop sends no keys: spread falls 0.563 -> 0.051 (starter) and 0.266 -> 0.070 (fighter), but games still vary, so injection is not the only source, and this is not a usable fix",
+   "correct_work_keeps_score": "no: starter mean 0.968 -> 0.199, fighter mean 2.511 -> 0.544",
+   "job": "evidence/runs/community9-dcss_dungeon_ai-old, evidence/runs/community9-dcss_dungeon_ai-nokeys",
+   "table_script": "evidence/scripts/second_review/c9_dcss_dungeon_ai_table.py",
+   "note": "Same-file raw scores do move (starter 13.2 to 24.6, fighter 47.8 to 53.6) but under 1 final point at these low scores; the weakest point is that both witnesses score far below the 1170 and 5211 raw levels where NOTES.md reports large swings, which were not reproduced, and most gradings reached the 900 s limit, so throughput is not excluded."
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 3.30kB done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 19)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/edgebench.base.cpp:67f57d824691
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [ 1/13] FROM docker.io/library/edgebench.base.cpp:67f57d824691@sha256:18168504786672c5e398a12671e547da4f94f3ff950e5eea6bc089c38dce6458
+#4 resolve docker.io/library/edgebench.base.cpp:67f57d824691@sha256:18168504786672c5e398a12671e547da4f94f3ff950e5eea6bc089c38dce6458 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 95.73kB done
+#5 DONE 0.0s
+
+#6 [ 2/13] COPY environment/setup_apt.sh /tmp/ebv-setup/
+#6 CACHED
+
+#7 [ 5/13] RUN sh /tmp/ebv-setup/setup_toolchain.sh
+#7 CACHED
+
+#8 [ 3/13] RUN sh /tmp/ebv-setup/setup_apt.sh
+#8 CACHED
+
+#9 [ 4/13] COPY environment/setup_toolchain.sh environment/build_ffmpeg.sh /tmp/ebv-setup/
+#9 CACHED
+
+#10 [ 6/13] RUN sh /tmp/ebv-setup/build_ffmpeg.sh judge && rm -rf /tmp/ebv-setup
+#10 CACHED
+
+#11 [ 7/13] COPY judge/tests/ /opt/tests/
+#11 DONE 0.2s
+
+#12 [ 8/13] COPY environment/workspace/pixel_formats.py environment/workspace/baseline_wrapper.c      environment/workspace/swscale_api.h environment/workspace/verify_correctness.py      environment/workspace/run_dev_bench.py /opt/tests/
+#12 DONE 0.0s
+
+#13 [ 9/13] COPY environment/workspace/pixel_formats.py environment/workspace/baseline_wrapper.c /judge/
+#13 DONE 0.0s
+
+#14 [10/13] COPY judge/run.sh judge/eval.sh judge/grade.py /judge/
+#14 DONE 0.0s
+
+#15 [11/13] RUN set -eux;     chmod +x /opt/tests/*.sh;     chmod 755 /judge/run.sh /judge/eval.sh;     mkdir -p /home/workspace/swscale-impl /verifier-data;     ln -sfn /home/workspace /app;     gcc -shared -fPIC -O2 -o /verifier-data/libswscale_baseline.so /judge/baseline_wrapper.c         -I/usr/local/include -Wl,--whole-archive /usr/local/lib/libswscale.a -Wl,--no-whole-archive         /usr/local/lib/libavutil.a -lm -lpthread;     cp /verifier-data/libswscale_baseline.so /home/workspace/libswscale_public_baseline.so;     sha256sum /verifier-data/libswscale_baseline.so | awk '{print $1}' > /verifier-data/baseline_hash.txt
+#15 0.175 + chmod +x /opt/tests/pytest_shim.sh /opt/tests/test.sh
+#15 0.178 + chmod 755 /judge/run.sh /judge/eval.sh
+#15 0.181 + mkdir -p /home/workspace/swscale-impl /verifier-data
+#15 0.183 + ln -sfn /home/workspace /app
+#15 0.184 + gcc -shared -fPIC -O2 -o /verifier-data/libswscale_baseline.so /judge/baseline_wrapper.c -I/usr/local/include -Wl,--whole-archive /usr/local/lib/libswscale.a -Wl,--no-whole-archive /usr/local/lib/libavutil.a -lm -lpthread
+#15 0.281 + cp /verifier-data/libswscale_baseline.so /home/workspace/libswscale_public_baseline.so
+#15 0.286 + sha256sum /verifier-data/libswscale_baseline.so
+#15 0.286 + awk {print $1}
+#15 DONE 0.3s
+
+#16 [12/13] WORKDIR /home/workspace/swscale-impl
+#16 DONE 0.0s
+
+#17 [13/13] RUN git init -q && git config user.email 'sebench@local' && git config user.name 'sebench'  && git add -A  && GIT_AUTHOR_DATE='2026-06-09T12:53:17+00:00' GIT_COMMITTER_DATE='2026-06-09T12:53:17+00:00'     git commit -q -m 'init' --allow-empty  && git log --format='%H %s' -1
+#17 0.308 7a934f8be94d252daa7985045f61077b821d07b5 init
+#17 DONE 0.3s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 0.3s done
+#18 exporting manifest sha256:2f7420067ea59d61ee084253acf4bdbf8566a6f79fb27e3a06b15e43b9866bc3 done
+#18 exporting config sha256:562c6ecccf406e265717acb3a33ee0bb6531999762ddd36c9d971eb8742ab03d done
+#18 exporting attestation manifest sha256:eca29475e08e693e8aafc622dfc2ba590366ed61f00724cd5f97ca47d517f790 0.0s done
+#18 exporting manifest list sha256:2b1568be5c411f59e04f860475d1225ea83f92614b5c706d71fe56713d44f659 done
+#18 naming to docker.io/library/edgebench.judge.ffmpeg_swscale_reimplementation:f880b643829c done
+#18 unpacking to docker.io/library/edgebench.judge.ffmpeg_swscale_reimplementation:f880b643829c 0.1s done
+#18 DONE 0.5s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${BASE_IMAGE} results in empty or invalid base image name (line 19)
+Building images for 1 task(s)...
+  [ffmpeg_swscale_reimplementation] base=edgebench.base.cpp:67f57d824691  work=edgebench.work.ffmpeg_swscale_reimplementation:e08bfea761e9  judge=edgebench.judge.ffmpeg_swscale_reimplementation:f880b643829c
+Done.

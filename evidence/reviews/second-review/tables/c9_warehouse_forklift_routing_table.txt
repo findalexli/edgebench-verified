@@ -1,0 +1,33 @@
+community9-warehouse_forklift_routing-a status exit=0 done skips [] [] min_avail_MiB None
+
+a13     hot4  new n=3 ok=[50, 50, 50] TLE=[0, 0, 0] null=0 score=[19.52, 19.52, 19.52] mean=19.52 sec=[201, 200, 199] cpuS/case=[15.1, 15.2, 15.1] cpu/wall=[3.77, 3.79, 3.79] busy%=[89.0, 89.0, 89.0] steal%=[0.0, 0.0, 0.0] load=[4.3, 3.6, 4.2] online=['0-3']
+a13     hot4  old n=3 ok=[50, 50, 50] TLE=[0, 0, 0] null=0 score=[19.51, 19.51, 19.51] mean=19.51 sec=[121, 119, 119] cpuS/case=[9.1, 9.0, 9.1] cpu/wall=[3.79, 3.81, 3.81] busy%=[85.0, 86.0, 86.0] steal%=[0.0, 0.0, 0.0] load=[7.7, 5.7, 6.5] online=['0-3']
+a15     hot4  new n=3 ok=[50, 50, 50] TLE=[0, 0, 0] null=0 score=[19.51, 19.51, 19.51] mean=19.51 sec=[213, 213, 214] cpuS/case=[16.3, 16.3, 16.3] cpu/wall=[3.82, 3.81, 3.81] busy%=[90.0, 90.0, 90.0] steal%=[0.0, 0.0, 0.0] load=[4.2, 3.8, 4.4] online=['0-3']
+a15     hot4  old n=3 ok=[50, 50, 50] TLE=[0, 0, 0] null=0 score=[19.51, 19.51, 19.51] mean=19.51 sec=[126, 126, 125] cpuS/case=[9.4, 9.4, 9.4] cpu/wall=[3.75, 3.74, 3.76] busy%=[84.0, 84.0, 85.0] steal%=[0.0, 0.0, 0.0] load=[5.8, 6.0, 6.8] online=['0-3']
+a15     x3    new n=3 ok=[50, 50, 50] TLE=[0, 0, 0] null=0 score=[19.51, 19.51, 19.51] mean=19.51 sec=[231, 232, 232] cpuS/case=[12.0, 12.0, 12.0] cpu/wall=[2.58, 2.58, 2.58] busy%=[92.0, 92.0, 92.0] steal%=[0.0, 0.0, 0.0] load=[12.3, 12.3, 12.3] online=['0-7']
+a15     x3    old n=3 ok=[50, 50, 50] TLE=[0, 0, 0] null=0 score=[19.51, 19.51, 19.51] mean=19.51 sec=[131, 132, 132] cpuS/case=[6.7, 6.7, 6.7] cpu/wall=[2.53, 2.53, 2.53] busy%=[87.0, 87.0, 87.0] steal%=[0.0, 0.0, 0.0] load=[15.8, 15.8, 15.8] online=['0-7']
+a2      hot4  new n=3 ok=[50, 50, 50] TLE=[0, 0, 0] null=0 score=[18.31, 18.31, 18.31] mean=18.31 sec=[34, 34, 34] cpuS/case=[2.5, 2.5, 2.5] cpu/wall=[3.69, 3.71, 3.74] busy%=[66.0, 66.0, 66.0] steal%=[0.0, 0.0, 0.0] load=[3.5, 3.2, 4.0] online=['0-3']
+a2      hot4  old n=3 ok=[50, 50, 50] TLE=[0, 0, 0] null=0 score=[18.31, 18.31, 18.31] mean=18.31 sec=[34, 34, 33] cpuS/case=[2.5, 2.5, 2.5] cpu/wall=[3.73, 3.74, 3.78] busy%=[66.0, 66.0, 66.0] steal%=[0.0, 0.0, 0.0] load=[3.3, 3.9, 4.5] online=['0-3']
+bad     hot4  new n=2 ok=[47, 47] TLE=[0, 0] null=2 score=[None, None] mean=None sec=[6, 6] cpuS/case=[0.5, 0.5] cpu/wall=[3.65, 3.64] busy%=[29.0, 27.0] steal%=[0.0, 0.0] load=[1.7, 1.4] online=['0-3']
+bad     hot4  old n=2 ok=[47, 47] TLE=[0, 0] null=2 score=[None, None] mean=None sec=[6, 6] cpuS/case=[0.5, 0.5] cpu/wall=[3.75, 3.76] busy%=[26.0, 29.0] steal%=[0.0, 0.0] load=[1.8, 1.7] online=['0-3']
+
+Per-case timeouts: cases that ever timed out on one pool, count of runs per pool
+
+Paired new-old by round (same submission, condition, round, first judge of a batch)
+ a13 hot4: [0.0, 0.0, 0.0] mean 0.0
+ a15 hot4: [0.0, 0.0, 0.0] mean 0.0
+ a15 x3: [0.0] mean 0.0
+ a2 hot4: [0.0, 0.0, 0.0] mean 0.0
+
+By worker (x3, x5 and repeated conditions): cases OK and score range per job
+ a15 x3 new a: n=3 ok 50-50 score 19.51-19.51
+ a15 x3 old a: n=3 ok 50-50 score 19.51-19.51
+
+Limit check (first of each condition)
+  hot4 new hot4-a13-new-r1 nano=4000000000,cpuset=,mem=8589934592,env=[SFORGE_CPUS=4,SFORGE_MEMORY=8g,PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,LANG=C.UTF-8,GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D,PYTHON_VERSION=3.10.20,PYTHON_SHA256=de6517421601e39a9a3bc3e1bc4c7b2f239297423ee05e282598c83ec0647505,TZ=Etc/UTC] inside=400000_100000,4,
+  hot4 old hot4-a13-old-r1 nano=4000000000,cpuset=,mem=8589934592,env=[SFORGE_CPUS=4,SFORGE_MEMORY=8g,PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,LANG=C.UTF-8,GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D,PYTHON_VERSION=3.10.20,PYTHON_SHA256=de6517421601e39a9a3bc3e1bc4c7b2f239297423ee05e282598c83ec0647505,TZ=Etc/UTC] inside=400000_100000,4,
+  x3 new x3-a15-new-r1-k3 nano=4000000000,cpuset=,mem=8589934592,env=[SFORGE_CPUS=4,SFORGE_MEMORY=8g,PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,LANG=C.UTF-8,GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D,PYTHON_VERSION=3.10.20,PYTHON_SHA256=de6517421601e39a9a3bc3e1bc4c7b2f239297423ee05e282598c83ec0647505,TZ=Etc/UTC] inside=400000_100000,8,
+  x3 old x3-a15-old-r1-k3 nano=4000000000,cpuset=,mem=8589934592,env=[SFORGE_CPUS=4,SFORGE_MEMORY=8g,PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,LANG=C.UTF-8,GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D,PYTHON_VERSION=3.10.20,PYTHON_SHA256=de6517421601e39a9a3bc3e1bc4c7b2f239297423ee05e282598c83ec0647505,TZ=Etc/UTC] inside=400000_100000,8,
+
+Calibration (host Python loop, Mloops/s per process, alone and with one process per online CPU)
+  community9-warehouse_forklift_routing-a start 0-7 Mloops/s/proc [(1, 31.97), (8, 33.93)] | after-hot4-bad 0-3 Mloops/s/proc [(1, 31.35), (4, 33.31)] | after-hot4-a2 0-3 Mloops/s/proc [(1, 30.82), (4, 33.87)] | after-hot4-a15 0-3 Mloops/s/proc [(1, 32.39), (4, 32.63)] | after-x3-a15 0-7 Mloops/s/proc [(1, 32.16), (8, 32.78)] | after-hot4-a13 0-3 Mloops/s/proc [(1, 32.95), (4, 34.07)] | end 0-7 Mloops/s/proc [(1, 31.88), (8, 33.66)]

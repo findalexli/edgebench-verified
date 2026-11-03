@@ -20,7 +20,7 @@
 <header class="bar"><div class="in">
   <a class="home" href="index.html">EdgeBench Verified</a>
   <span class="lang" aria-label="Language"><a href="method.html" hreflang="en" lang="en" aria-current="true">EN</a> / <a href="zh/method.html" hreflang="zh-CN" lang="zh-CN">中文</a></span>
-  <nav class="tabs" aria-label="Site"><a href="index.html">Overview</a><a href="tasks/index.html">Tasks</a><a href="method.html" aria-current="page">Method</a><a href="leaderboard.html">Leaderboard</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
+  <nav class="tabs" aria-label="Site"><a href="index.html">Overview</a><a href="tasks/index.html">Tasks</a><a href="method.html" aria-current="page">Method</a><a href="https://github.com/findalexli/edgebench-verified">GitHub&nbsp;&#8599;</a></nav>
 </div></header>
 
 <main id="content">
@@ -29,6 +29,7 @@
   <h1>How we checked the claims</h1>
   <p class="subtitle">Original-grader evidence, bounded formal models, and version-specific repair checks</p>
 </header>
+<div class="col"><p class="note">This page describes the first audit, on the original release. <a href="index.html#findings">Which of its findings hold up on the current judge</a> is on the Overview.</p></div>
 
 <section id="procedure" class="col">
   <h2 class="sec"><span class="num">1</span>The procedure</h2>
@@ -98,6 +99,19 @@
     <li>CPU experiments establish resource sensitivity. A wall-clock limit alone does not promise a dedicated core or equal CPU-seconds; parallelism caps are explicit policy changes. Most paired jobs used E2B sandboxes; Lean Analysis used a local host. Speed measurements can differ elsewhere.</li>
     <li>We rebuilt 31 of the 32 packages, as committed at 83181b7f, from scratch on a clean machine. We did not rebuild Lean Analysis, because its grader image needs about 45 GB of disk. For packages revised later, only their later runs apply.</li>
     <li>CTA's NAV correction passes paired native runs through the original scoring command; we graded no solver output. Triangulation's regenerated v2.2 inputs cover their convex hull exactly. Finite controls and formal models do not establish whole-task correctness.</li>
+  </ul>
+</section>
+
+<section id="lessons" class="col">
+  <h2 class="sec">Lessons</h2>
+  <ul class="tight">
+    <li><b>Run the original grader before reasoning about it.</b> We found most problems by reading code, but only a submission that triggers a problem settled it. Several plausible findings did not survive that step.</li>
+    <li><b>Formal tools work best on small, precise questions.</b> They settled a false theorem, an arithmetic gap, a lower bound and an aliasing bug outright. Most grader problems concern conventions, file formats or timing, which no proof addresses as cheaply as a side-by-side run.</li>
+    <li><b>A proof needs a link to the code it describes.</b> We stated the <a class="task-link" href="tasks/lean_analysis_proofs.html">Lean Analysis</a> refutations against the task's own definitions inside its own image. We matched the <a class="task-link" href="tasks/warehouse_forklift_routing.html">Warehouse</a> model to the real tester on 294 strings, and mapped each TLA+ step to a line of source.</li>
+    <li><b>Every check needs a counter-check,</b> because a check that cannot fail shows nothing. Each TLA+ model has a configuration that must fail, each Lean proof prints its axioms, and each fix should be tested on wrong work as well as right work; case pages state the actual coverage.</li>
+    <li><b>Formal proofs also checked our own work.</b> Writing some fix mechanisms down as Lean or TLA+ models exposed one fix that was narrower than published and eight imprecise statements. We found each one when a proof attempt failed on a case we had not thought to test.</li>
+    <li><b>Test what a fix is for, not only what it changes.</b> The first <a class="task-link" href="tasks/integer_compression_codec.html">Integer Codec</a> fix corrected the baseline exactly as documented and passed every test, but real submissions showed that it saturated the score scale. Neither proofs nor our own tests had caught that; checking the fix against real agent work did.</li>
+    <li><b>A reviewer's approval is not a measurement.</b> Code tracing rated many claims as holding. Measured on the current judge with real submissions, several of them shrank to a point or less, one fell apart against a real run, and two of the largest effects, the SMT crash and the Datagen interface, were ones no review pass had named.</li>
   </ul>
 </section>
 

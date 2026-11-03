@@ -1,5 +1,7 @@
 # Borden Source Inversion (`borden_source_inversion`)
 
+**Second review (November 2026): Not confirmed.** The unstated model didn't stop one real run from reaching raw 108.97 of 109 through score feedback, while a run with the model documented reached 52.86. Single runs like these don't show what documenting it would change. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The grader predicts well readings with a hidden model whose conventions are unstated and not physical, so a one-shot fit with a textbook model scores at the baseline level.</mark>
 
 ![Two boxes contrast what the instructions say (build the textbook groundwater model; C0 in mg/L) with five unstated conventions of the checker's model, such as ignoring soil porosity. Below, bars of raw scores (0 to 109) for a one-shot fit to the public data: a baseline at the middle of the allowed ranges, 7.01, textbook model 7.03, checker's model 31.2; beside them, the 36 submissions of a real agent run as dots, with the best score so far rising from 7.01 to 60.10 and a dashed line at 31.2. A note converts raw scores to scores out of 100 (raw × 100/109) and states the fix.](figures/borden_source_inversion.svg)

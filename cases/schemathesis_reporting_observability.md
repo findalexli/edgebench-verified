@@ -1,5 +1,7 @@
 # Schemathesis reporting and observability (`schemathesis_reporting_observability`)
 
+**Second review (November 2026): Real, small or unseen.** Two checks give 1.00 to 1.43 points too many, and a third takes 1.43 from a valid report without the word schemathesis. One unchanged real file is affected (2.0 instead of 1.0). The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>The hidden test for the JUnit report writer accepts broken output, and the test for leaving request bodies out of certain generated scenarios can never fail; together the two gaps give wrong credit for about 2.4% of the score.</mark>
 
 ![Two panels: the original JUnit test and the original body-suppression test both pass broken work, while the fixed tests fail it.](figures/schemathesis_reporting_observability.svg)

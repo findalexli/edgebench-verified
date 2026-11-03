@@ -1,0 +1,162 @@
+{
+ "task": "git_rewrite_in_zig",
+ "claims": [
+  {
+   "claim": "Harmless Zig build leftovers can zero the entire score.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real modified at the defect: auto-39 (sha 5b8e7a1c) plus only root main.o from `zig build-obj src/main.zig -lc -lz`; scaffold control",
+   "arms": [
+    {
+     "label": "scaffold, current judge",
+     "scores": [
+      0.0069,
+      0.0069
+     ],
+     "n": 2
+    },
+    {
+     "label": "scaffold + root main.o from `zig build-obj src/main.zig -lc -lz`, current judge",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "scaffold + root main.o from `zig build-obj src/main.zig -lc -lz`, fixed test.sh",
+     "scores": [
+      0.0069,
+      0.0069
+     ],
+     "n": 2
+    },
+    {
+     "label": "real auto-39, current judge",
+     "scores": [
+      36.8564,
+      36.8702,
+      36.8667
+     ],
+     "n": 3
+    },
+    {
+     "label": "real auto-39 + root main.o from `zig build-obj src/main.zig -lc -lz`, current judge",
+     "scores": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "real auto-39 + root main.o from `zig build-obj src/main.zig -lc -lz`, fixed test.sh",
+     "scores": [
+      36.8702,
+      36.8564
+     ],
+     "n": 2
+    },
+    {
+     "label": "real auto-39, fixed test.sh",
+     "scores": [
+      36.8598,
+      36.8598
+     ],
+     "n": 2
+    },
+    {
+     "label": "scaffold, fixed test.sh",
+     "scores": [
+      0.0069,
+      0.0069
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": -36.8644,
+   "fix_tested": "old vs fixed test.sh on the same archives: real+root main.o from `zig build-obj src/main.zig -lc -lz` 0.0000 -> 36.8633; scaffold+root main.o from `zig build-obj src/main.zig -lc -lz` 0.0000 -> 0.0069",
+   "correct_work_keeps_score": "yes: real auto-39 36.8644 -> 36.8598, scaffold 0.0069 -> 0.0069",
+   "job": "evidence/runs/community9-git_rewrite_in_zig-old and -new",
+   "table_script": "evidence/scripts/second_review/c9_git_rewrite_in_zig_table.py",
+   "note": "The whole score goes to 0 when the trigger is present, but best real run 36.88 has no trigger, and 0 of 46 distinct real archives (26 Opus, 20 other model) contain a leftover object, a stray ELF or a git call on a Child line, so this is real but unobserved; weakest point: no real solver has hit it."
+  },
+  {
+   "claim": "Test-only system-git calls can zero an otherwise legitimate implementation.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real modified at the defect: auto-39 (sha 5b8e7a1c) plus only unimported src/oracle_test.zig with a one-line Child.init of git (zig test passes 1/1); scaffold control",
+   "arms": [
+    {
+     "label": "scaffold, current judge",
+     "scores": [
+      0.0069,
+      0.0069
+     ],
+     "n": 2
+    },
+    {
+     "label": "scaffold + unimported src/oracle_test.zig with a one-line Child.init of git (zig test passes 1/1), current judge",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "scaffold + unimported src/oracle_test.zig with a one-line Child.init of git (zig test passes 1/1), fixed test.sh",
+     "scores": [
+      0.0069,
+      0.0069
+     ],
+     "n": 2
+    },
+    {
+     "label": "real auto-39, current judge",
+     "scores": [
+      36.8564,
+      36.8702,
+      36.8667
+     ],
+     "n": 3
+    },
+    {
+     "label": "real auto-39 + unimported src/oracle_test.zig with a one-line Child.init of git (zig test passes 1/1), current judge",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "real auto-39 + unimported src/oracle_test.zig with a one-line Child.init of git (zig test passes 1/1), fixed test.sh",
+     "scores": [
+      36.8667,
+      36.8598
+     ],
+     "n": 2
+    },
+    {
+     "label": "real auto-39, fixed test.sh",
+     "scores": [
+      36.8598,
+      36.8598
+     ],
+     "n": 2
+    },
+    {
+     "label": "scaffold, fixed test.sh",
+     "scores": [
+      0.0069,
+      0.0069
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": -36.8644,
+   "fix_tested": "old vs fixed test.sh on the same archives: real+unimported src/oracle_test.zig with a one-line Child.init of git (zig test passes 1/1) 0.0000 -> 36.8633; scaffold+unimported src/oracle_test.zig with a one-line Child.init of git (zig test passes 1/1) 0.0000 -> 0.0069",
+   "correct_work_keeps_score": "yes: real auto-39 36.8644 -> 36.8598, scaffold 0.0069 -> 0.0069",
+   "job": "evidence/runs/community9-git_rewrite_in_zig-old and -new",
+   "table_script": "evidence/scripts/second_review/c9_git_rewrite_in_zig_table.py",
+   "note": "The whole score goes to 0 when the trigger is present, but best real run 36.88 has no trigger, and 0 of 46 distinct real archives (26 Opus, 20 other model) contain a leftover object, a stray ELF or a git call on a Child line, and the same call written across two lines escapes the check; weakest point: no real solver has hit it."
+  }
+ ]
+}

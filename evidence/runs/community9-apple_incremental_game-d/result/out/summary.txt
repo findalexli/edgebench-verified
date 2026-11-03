@@ -1,0 +1,26 @@
+setup_s 32
+cpus 8 online=0-7 t=36
+arm q4-fork-old-r1 side=old sub=fork rc=0 start=1793645404 end=1793645617 online=0-7
+cpus 8 online=0-7 t=249
+arm q4-fork-old-r2 side=old sub=fork rc=0 start=1793645617 end=1793645830 online=0-7
+cpus 8 online=0-7 t=462
+arm q4-fork-old-r3 side=old sub=fork rc=0 start=1793645830 end=1793646042 online=0-7
+cpus 4 online=0-3 t=678
+arm hot4-fork-old-r1 side=old sub=fork rc=0 start=1793646046 end=1793646259 online=0-3
+cpus 4 online=0-3 t=891
+arm hot4-fork-new-r1 side=new sub=fork rc=0 start=1793646259 end=1793646640 online=0-3
+cpus 8 online=0-7 t=1276
+arm x5-fork-old-r1-k4 side=old sub=fork rc=0 start=1793646644 end=1793646858 online=0-7
+arm x5-fork-old-r1-k2 side=old sub=fork rc=0 start=1793646644 end=1793646858 online=0-7
+arm x5-fork-old-r1-k3 side=old sub=fork rc=0 start=1793646644 end=1793646858 online=0-7
+arm x5-fork-old-r1-k5 side=old sub=fork rc=0 start=1793646644 end=1793646858 online=0-7
+arm x5-fork-old-r1-k1 side=old sub=fork rc=0 start=1793646644 end=1793646858 online=0-7
+cpus 8 online=0-7 t=1490
+arm x5-fork-new-r1-k5 side=new sub=fork rc=0 start=1793646858 end=1793647239 online=0-7
+arm x5-fork-new-r1-k3 side=new sub=fork rc=0 start=1793646858 end=1793647239 online=0-7
+arm x5-fork-new-r1-k2 side=new sub=fork rc=0 start=1793646858 end=1793647239 online=0-7
+arm x5-fork-new-r1-k4 side=new sub=fork rc=0 start=1793646858 end=1793647239 online=0-7
+arm x5-fork-new-r1-k1 side=new sub=fork rc=0 start=1793646858 end=1793647239 online=0-7
+cpus 8 online=0-7 t=1871
+oom_lines 0
+done

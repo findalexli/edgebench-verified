@@ -1,57 +1,57 @@
 # Case pages
 
-Each public EdgeBench task has one page, covering what the task asks, what goes wrong, how much it matters, the fix, how it was checked, the limits, and how to reproduce it.
+One page per public EdgeBench task, confirmed tasks first. The status is from the second review; each page keeps the first audit's record under its status line.
 
-| Task | Field | Outcome | In one line |
+| Task | Field | Status | In one line |
 | --- | --- | --- | --- |
-| [ANN Vector Search QPS](ann_vector_search_qps.md) | Systems & Software Engineering | Kept, with a note | No scoring problem found; measured speed depends on the machine |
-| [Ad Placement Optimization](ad_placement_optimization.md) | Combinatorial Optimization | Kept, with a note | No problem found; overlap and boundary checks match the original contest rules |
-| [Anchorhead Text Adventure](anchorhead_text_adventure.md) | Interactive Games & Simulators | Kept, with a note | No scoring problem; the grader counts each game's final score, not its peak |
-| [Apple Incremental Game](apple_incremental_game.md) | Combinatorial Optimization | Fixed | On the publisher's 4-CPU grader, cases within the 30-second limit time out and score 0 |
-| [Arc Compiler Runtime](arc_compiler_runtime.md) | Systems & Software Engineering | Fixed | Hidden tests need an undocumented output format worth a third of the score |
-| [BipedalWalker Locomotion RL](bipedalwalker_locomotion_rl.md) | Scientific Problems & ML | Kept, with a note | Scores are capped at 30 out of 100 by design, as the task states |
-| [Borden Source Inversion](borden_source_inversion.md) | Scientific Problems & ML | Fixed | Hidden grading model uses unstated, non-physical conventions, so one-shot textbook solutions score near baseline |
-| [CTA Risk Budget Optimization](cta_risk_budget_optimization.md) | Professional Knowledge Work | Fixed | The overseas-exposure limit check skips currency conversion, so dollar positions are undercounted |
-| [Carleson Formalization](carleson_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; one placeholder definition accepts any value |
-| [College English Exam Bank](college_english_exam_bank.md) | Professional Knowledge Work | Fixed | Rubric rules the AI grader leaves out are counted as full marks |
-| [Combinatorial Games Formalization](combinatorial_games_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; correct proofs in different styles earn the same credit |
-| [D-ABIC Gravity Inversion](dabic_gravity_inversion.md) | Scientific Problems & ML | Removed | 42 points come from the submission's own unchecked self-reported results |
-| [DCSS Dungeon AI](dcss_dungeon_ai.md) | Interactive Games & Simulators | Kept, with a note | Scoring matches the instructions; scores depend on machine speed |
-| [Equivalence Class Divide and Conquer](equivalence_class_divide_and_conquer.md) | Combinatorial Optimization | Fixed | One sub-problem's grader leaves the last state's size out of the cost limit check |
-| [Exchange Core Throughput](exchange_core_throughput.md) | Systems & Software Engineering | Fixed | The correctness check misses wrong fees and lost messages, so broken engines get full credit |
-| [FFmpeg swscale Reimplementation](ffmpeg_swscale_reimplementation.md) | Systems & Software Engineering | Fixed | Timed speed tests never check output, so failed calls earn speed credit |
-| [FLT Regular Formalization](flt_regular_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; the 25 scored proofs match the task's own list |
-| [Git Rewrite in Zig](git_rewrite_in_zig.md) | Systems & Software Engineering | Fixed | Undisclosed file checks give a good-faith program 0; after the fix a correct git still earns 100 |
-| [Graph Node Classification](graph_node_classification.md) | Scientific Problems & ML | Fixed | The grader drops non-numeric predictions without warning and still counts the run as valid |
-| [Grid Turing Robot](grid_turing_robot.md) | Combinatorial Optimization | Fixed | On the publisher's 4-CPU grader, a solution within the 30-second limit can void the whole submission |
-| [Integer Compression Codec](integer_compression_codec.md) | Systems & Software Engineering | Fixed | Scores compare against stored numbers the documented starter cannot produce |
-| [Jagua Nesting Optimization](jagua_nesting_optimization.md) | Combinatorial Optimization | Fixed | The grader accepts overlapping shapes as valid layouts |
-| [Juliet Vulnerability Analyzer](juliet_vulnerability_analyzer.md) | Systems & Software Engineering | Fixed | Public and hidden examples mark command-injection traces differently, and the original grader accepts only the hidden form |
-| [K-12 Math Recommendation](k12_math_recommendation.md) | Professional Knowledge Work | Kept, with a note | No scoring problem found; shipped example reports are out of date |
-| [Lean Analysis Proofs](lean_analysis_proofs.md) | Formal Math & Theorem Proving | Fixed | Two required statements are false; some points depend on proof style |
-| [Molecular Self Assembly](molecular_self_assembly.md) | Combinatorial Optimization | Fixed | On the publisher's 4-CPU grader, cases within the 30-second limit time out and score 0 |
-| [NetHack Dungeon Agent](nethack_dungeon_agent.md) | Interactive Games & Simulators | Kept, with a note | Game seeding silently fails, so the 20 graded games are random and scores vary |
-| [New Foundations Consistency](new_foundations_consistency.md) | Formal Math & Theorem Proving | Kept, with a note | Valid result with internet access, shown only for the unmodified starter; cannot grade offline |
-| [OpenRCT2 Theme Park AI](openrct2_theme_park_ai.md) | Interactive Games & Simulators | Fixed | Instructions promise about 4 game years; the grader runs about 68 game days |
-| [OpenTTD Transport AI](openttd_transport_ai.md) | Interactive Games & Simulators | Fixed | The instructions name a game function that does not exist |
-| [Order Addition Permutation Optimization](order_addition_permutation_optimization.md) | Combinatorial Optimization | Fixed | An outdated file check fails every submission, so later improvements are ignored |
-| [Ordinal Notation Well-Foundedness](ordinal_notation_well_foundedness.md) | Formal Math & Theorem Proving | Kept, with a note | Grader correct; published results show targets 1–6 proved, 7–9 (64 of 85 points) open |
-| [PFR Formalization](pfr_formalization.md) | Formal Math & Theorem Proving | Fixed | Five statements could never be earned because their type contained a hidden `sorry` |
-| [Portfolio Risk Calibration](portfolio_risk_calibration.md) | Professional Knowledge Work | Fixed | Excess return uses a slightly different formula than the instructions state |
-| [Rust Multicrate Reconstruction](rust_multicrate_reconstruction.md) | Systems & Software Engineering | Fixed | Hidden tests that cannot compile zero two packages; fixed |
-| [SMT Solver](smt_solver.md) | Combinatorial Optimization | Fixed | The answer checker misreads some valid solutions, so 27 hidden problems cannot be won |
-| [Schemathesis Config Modernization](schemathesis_config_modernization.md) | Systems & Software Engineering | Fixed | One test does not check that a function is returned unchanged |
-| [Schemathesis Datagen Pipeline](schemathesis_datagen_pipeline.md) | Systems & Software Engineering | Fixed | The date test checks only the format, not whether dates are real |
-| [Schemathesis Reporting Observability](schemathesis_reporting_observability.md) | Systems & Software Engineering | Fixed | Two hidden tests give credit for wrong or broken output |
-| [Sphere Eversion Formalization](sphere_eversion_formalization.md) | Formal Math & Theorem Proving | Kept, with a note | No problem found; no scored item found out of reach because of generated names |
-| [Treant Forest](treant_forest.md) | Combinatorial Optimization | Fixed | The score scale tops out at 21 of 100 for any submission |
-| [Tree Block Partitioning](tree_block_partitioning.md) | Combinatorial Optimization | Fixed | The supplied grading library miscalculates when a value multiplies itself |
-| [Triangulation Coloring Optimization](triangulation_coloring_optimization.md) | Combinatorial Optimization | Fixed | The grader allows mesh moves the instructions forbid, and its test inputs overlap |
-| [Trinity Text Adventure](trinity_text_adventure.md) | Interactive Games & Simulators | Kept, with a note | No problem found; the score is the game's own, and play is repeatable |
-| [Tryst Text Adventure](tryst_text_adventure.md) | Interactive Games & Simulators | Kept, with a note | No problem found; the score is the game's own repeatable score |
-| [VLIW Kernel Optimization](vliw_kernel_optimization.md) | Systems & Software Engineering | Kept, with a note | No problem found for submissions that follow the rules |
-| [Vehicle Routing Time Windows](vehicle_routing_time_windows.md) | Combinatorial Optimization | Kept, with a note | Checker uses files solvers may edit; per-instance time argument does not fit the total |
-| [Vibrating Path Graph Coloring](vibrating_path_graph_coloring.md) | Combinatorial Optimization | Fixed | On the publisher's 4-CPU grader, a solution within the 30-second limit can leave the whole submission without a score |
-| [Warehouse Forklift Routing](warehouse_forklift_routing.md) | Combinatorial Optimization | Fixed | Time limit is stricter than promised, and no score can exceed about 30 |
-| [Wesnoth Tactical AI](wesnoth_tactical_ai.md) | Interactive Games & Simulators | Kept, with a note | The supplied starter program is broken, and repeat games give different results |
-| [Wireless Electricity Layout](wireless_electricity_layout.md) | Combinatorial Optimization | Kept, with a note | A program that fails to compile can be listed as best, but scores never change |
+| [Apple Incremental Game](apple_incremental_game.md) | Combinatorial Optimization | Confirmed | The same eight-at-once pool costs real files points at 4 CPUs and many cases under load. |
+| [Arc Compiler Runtime](arc_compiler_runtime.md) | Systems & Software Engineering | Confirmed | Hidden tests expect an `analyze()` return shape that nothing the agent sees describes. |
+| [Integer Compression Codec](integer_compression_codec.md) | Systems & Software Engineering | Confirmed | A stored baseline figure is impossible for the documented starter, which distorts how the datasets are weighted. |
+| [Juliet Vulnerability Analyzer](juliet_vulnerability_analyzer.md) | Systems & Software Engineering | Confirmed | Any `.py` or `.sh` file containing the word `infer`, even in a comment, loses 100 points. Separately, CWE-416 findings that start at the release are rejected. |
+| [NetHack Dungeon Agent](nethack_dungeon_agent.md) | Interactive Games & Simulators | Confirmed | Seeding silently fails, so the 20 graded games differ every time. |
+| [OpenRCT2 Theme Park AI](openrct2_theme_park_ai.md) | Interactive Games & Simulators | Confirmed | The instruction promises about four game years, but the 120 seconds per scenario fit 68 to 69 of 992 game days. |
+| [Rust Multicrate Reconstruction](rust_multicrate_reconstruction.md) | Systems & Software Engineering | Confirmed | Four source files are missing, which blocks nine scored crates. |
+| [SMT Solver](smt_solver.md) | Combinatorial Optimization | Confirmed | The validator's recursion crashes on 5 hard files when a solver answers `sat`; no score file gets written, and the judge still reports a valid 0. |
+| [Schemathesis Datagen Pipeline](schemathesis_datagen_pipeline.md) | Systems & Software Engineering | Confirmed | The hidden header test imports names and expects format keys that `TODO.md` never gives, so every real `headers` module scores 0 of 15 on it. |
+| [Treant Forest](treant_forest.md) | Combinatorial Optimization | Confirmed | The tester stops each game at an undocumented turn cap, so no submission can pass 21.02, while the 0-100 scale assumes totals the cap rules out. |
+| [Vibrating Path Graph Coloring](vibrating_path_graph_coloring.md) | Combinatorial Optimization | Confirmed | Eight cases run at once on the official 4 CPUs, and one timeout makes the whole total `inf`. |
+| [Wesnoth Tactical AI](wesnoth_tactical_ai.md) | Interactive Games & Simulators | Confirmed | The same file gets different scores despite fixed seeds. |
+| [ANN Vector Search QPS](ann_vector_search_qps.md) | Systems & Software Engineering | No problem found | No scoring problem found; measured speed depends on the machine |
+| [Ad Placement Optimization](ad_placement_optimization.md) | Combinatorial Optimization | No problem found | No problem found; overlap and boundary checks match the original contest rules |
+| [Anchorhead Text Adventure](anchorhead_text_adventure.md) | Interactive Games & Simulators | No problem found | No scoring problem; the grader counts each game's final score, not its peak |
+| [BipedalWalker Locomotion RL](bipedalwalker_locomotion_rl.md) | Scientific Problems & ML | No problem found | Scores are capped at 30 out of 100 by design, as the task states |
+| [Borden Source Inversion](borden_source_inversion.md) | Scientific Problems & ML | Not confirmed | The unstated model didn't stop one real run from reaching raw 108.97 of 109 through score feedback, while a run with the model documented reached 52.86. Single runs like these don't show what documenting it would change. |
+| [CTA Risk Budget Optimization](cta_risk_budget_optimization.md) | Professional Knowledge Work | Not confirmed | The limit formula differs from the policy, but a real submission we checked scores 50.0 both ways. |
+| [Carleson Formalization](carleson_formalization.md) | Formal Math & Theorem Proving | No problem found | No problem found; one placeholder definition accepts any value |
+| [College English Exam Bank](college_english_exam_bank.md) | Professional Knowledge Work | Not confirmed | The code gives full marks for omitted rules, but every example is a constructed grader reply, and no real submission hit it. |
+| [Combinatorial Games Formalization](combinatorial_games_formalization.md) | Formal Math & Theorem Proving | No problem found | No problem found; correct proofs in different styles earn the same credit |
+| [D-ABIC Gravity Inversion](dabic_gravity_inversion.md) | Scientific Problems & ML | Real, small or unseen | An undisclosed gate costs a model-space solver 1.08 points, but 0 of 75 real reports use that form. The self-reported points are a separate design question. |
+| [DCSS Dungeon AI](dcss_dungeon_ai.md) | Interactive Games & Simulators | Real, small or unseen | Upstream's notes record one bot at raw 1556.0-5211.2 on the current judge, which computes to 32.82-54.61. Our own weaker bots spread by under 1 point, so we did not reproduce the large swing or isolate its cause. |
+| [Equivalence Class Divide and Conquer](equivalence_class_divide_and_conquer.md) | Combinatorial Optimization | Not confirmed | The cost accounting is off, but reference and naive submissions score the same either way, and the swing needs an input we added. |
+| [Exchange Core Throughput](exchange_core_throughput.md) | Systems & Software Engineering | Real, small or unseen | Broken engines do earn credit, but at the official 4 CPUs correct work mostly scores 0 too, and no real run was affected. |
+| [FFmpeg swscale Reimplementation](ffmpeg_swscale_reimplementation.md) | Systems & Software Engineering | Real, small or unseen | Making a conversion fail raises a score by 12.82, but no real run gained from it. |
+| [FLT Regular Formalization](flt_regular_formalization.md) | Formal Math & Theorem Proving | No problem found | No problem found; the 25 scored proofs match the task's own list |
+| [Git Rewrite in Zig](git_rewrite_in_zig.md) | Systems & Software Engineering | Real, small or unseen | An ordinary object file or an unimported test calling system git takes a real implementation from 36.86 to 0, but none of the 46 distinct real archives has either. |
+| [Graph Node Classification](graph_node_classification.md) | Scientific Problems & ML | Real, small or unseen | Changing a real solver's predictions to integer keys, which the task permits, takes it from 90.52-90.57 to 1.95-2.01. No real submission we hold uses them. |
+| [Grid Turing Robot](grid_turing_robot.md) | Combinatorial Optimization | Real, small or unseen | A smaller pool is worth +0.67 to +0.71 on valid real files. No real file goes from invalid to valid. |
+| [Jagua Nesting Optimization](jagua_nesting_optimization.md) | Combinatorial Optimization | Not confirmed | The overlap bug exists, but we have no good-faith submission that gains or loses from it. |
+| [K-12 Math Recommendation](k12_math_recommendation.md) | Professional Knowledge Work | No problem found | No scoring problem found; shipped example reports are out of date |
+| [Lean Analysis Proofs](lean_analysis_proofs.md) | Formal Math & Theorem Proving | Real, small or unseen | Two required statements are false, which is proved in Lean. The computed score effect is tiny, and the grader image is too large for us to rerun. |
+| [Molecular Self Assembly](molecular_self_assembly.md) | Combinatorial Optimization | Real, small or unseen | A smaller pool gives deadline search more CPU, worth +1.13 to +1.46. The timeouts we first blamed on the pool occur on both pools. |
+| [New Foundations Consistency](new_foundations_consistency.md) | Formal Math & Theorem Proving | No problem found | Valid result with internet access, shown only for the unmodified starter; cannot grade offline |
+| [OpenTTD Transport AI](openttd_transport_ai.md) | Interactive Games & Simulators | Not confirmed | The named API doesn't exist, but we measured no loss for a productive AI. The archived idle script scored 0, and a corrected one was not game-tested. |
+| [Order Addition Permutation Optimization](order_addition_permutation_optimization.md) | Combinatorial Optimization | Changed upstream | Real on the original release: a real run kept 3.79 instead of the 41.24 a later submission earned. `community` changed how a run picks its best, so this no longer applies there. |
+| [Ordinal Notation Well-Foundedness](ordinal_notation_well_foundedness.md) | Formal Math & Theorem Proving | Real, small or unseen | A file-name filter can drop a needed proof helper (1.18 to 0). Only our own proof triggers it. We hold no real submission for this task, though upstream records historical runs. |
+| [PFR Formalization](pfr_formalization.md) | Formal Math & Theorem Proving | Real, small or unseen | Five scored statements carry a hidden `sorry` in their type, so no submission can earn them: 5 of 423 targets, or 1.18 points. A volunteer Lean user checked this by hand and passed it: with the workaround, all five completed proofs receive credit (398/423 to 403/423). We did not rerun it on the current judge. |
+| [Portfolio Risk Calibration](portfolio_risk_calibration.md) | Professional Knowledge Work | Not confirmed | The excess-return formula differs from the stated one, but a modified file on a local scoring path moved only from 15.35 to 15.34 (or 15.27 with aligned annualization). Harm on the current judge remains unverified. |
+| [Schemathesis Config Modernization](schemathesis_config_modernization.md) | Systems & Software Engineering | Real, small or unseen | A forwarding decorator gets 0.67 points too many. No real submission writes one. |
+| [Schemathesis Reporting Observability](schemathesis_reporting_observability.md) | Systems & Software Engineering | Real, small or unseen | Two checks give 1.00 to 1.43 points too many, and a third takes 1.43 from a valid report without the word schemathesis. One unchanged real file is affected (2.0 instead of 1.0). |
+| [Sphere Eversion Formalization](sphere_eversion_formalization.md) | Formal Math & Theorem Proving | No problem found | No problem found; no scored item found out of reach because of generated names |
+| [Tree Block Partitioning](tree_block_partitioning.md) | Combinatorial Optimization | Not confirmed | The supplied multiply is wrong when operands alias, but none of the 61 real archives hits it. |
+| [Triangulation Coloring Optimization](triangulation_coloring_optimization.md) | Combinatorial Optimization | Real, small or unseen | A smaller pool is worth +0.32 to +0.59, with no timeouts in any condition. |
+| [Trinity Text Adventure](trinity_text_adventure.md) | Interactive Games & Simulators | No problem found | No problem found; the score is the game's own, and play is repeatable |
+| [Tryst Text Adventure](tryst_text_adventure.md) | Interactive Games & Simulators | No problem found | No problem found; the score is the game's own repeatable score |
+| [VLIW Kernel Optimization](vliw_kernel_optimization.md) | Systems & Software Engineering | No problem found | No problem found for submissions that follow the rules |
+| [Vehicle Routing Time Windows](vehicle_routing_time_windows.md) | Combinatorial Optimization | No problem found | Checker uses files solvers may edit; per-instance time argument does not fit the total |
+| [Warehouse Forklift Routing](warehouse_forklift_routing.md) | Combinatorial Optimization | Real, small or unseen | The judge allows 60 s per input. Five cases at 30 s each suggest 150 s, though another README passage calls whole inputs test cases. Edited solvers with long deadlines recover under a longer limit; real submissions we hold are unaffected, and the pool makes about no difference. |
+| [Wireless Electricity Layout](wireless_electricity_layout.md) | Combinatorial Optimization | No problem found | A program that fails to compile can be listed as best, but scores never change |

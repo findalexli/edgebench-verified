@@ -1,0 +1,138 @@
+{
+ "task": "smt_solver",
+ "claims": [
+  {
+   "claim": "Textual UF lookup rejects correct witnesses using documented ground-term keys.",
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged: r1 auto-6 (never scored in its run, no report); also real modified at the defect (same solver emitting documented let-expanded ground keys) on the 69 affected files",
+   "arms": [
+    {
+     "label": "real r1 auto-6 unchanged, sforge eval, stack fix on judge, old lookup (control judge)",
+     "scores": [
+      47.04,
+      46.17
+     ],
+     "n": 2
+    },
+    {
+     "label": "real r1 auto-6 unchanged, sforge eval, stack fix on judge, new lookup",
+     "scores": [
+      53.33,
+      52.1
+     ],
+     "n": 2
+    },
+    {
+     "label": "real unchanged, one process per case, evaluator scoring, old lookup",
+     "scores": [
+      47.56,
+      46.67
+     ],
+     "n": 2
+    },
+    {
+     "label": "real unchanged, one process per case, evaluator scoring, new lookup",
+     "scores": [
+      52.53,
+      53.31
+     ],
+     "n": 2
+    },
+    {
+     "label": "real unchanged, sforge eval, shipped judge, old lookup",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "real unchanged, sforge eval, shipped judge plus new lookup only",
+     "scores": [
+      0.0
+     ],
+     "n": 1
+    },
+    {
+     "label": "z3 witnesses with documented ground keys, sforge eval, old lookup",
+     "scores": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "z3 witnesses with documented ground keys, sforge eval, new lookup",
+     "scores": [
+      12.49,
+      12.49
+     ],
+     "n": 2
+    },
+    {
+     "label": "z3 witnesses with textual keys, sforge eval, old lookup",
+     "scores": [
+      6.28,
+      6.28
+     ],
+     "n": 2
+    },
+    {
+     "label": "z3 witnesses with textual keys, sforge eval, new lookup",
+     "scores": [
+      6.28,
+      6.28
+     ],
+     "n": 2
+    },
+    {
+     "label": "z3 witnesses, textual_true arm of the earlier repair, sforge eval, old lookup",
+     "scores": [
+      6.28,
+      6.28
+     ],
+     "n": 2
+    },
+    {
+     "label": "z3 witnesses, textual_true arm of the earlier repair, sforge eval, new lookup",
+     "scores": [
+      12.49,
+      12.49
+     ],
+     "n": 2
+    },
+    {
+     "label": "bad control: wrong ground witnesses, sforge eval, old lookup",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "bad control: wrong ground witnesses, sforge eval, new lookup",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": 6.11,
+   "fix_tested": "repairs/smt_solver-v2/repair.patch, paired: on the 69 affected hidden files real unchanged 42 -> 69 correct (old n=3, new n=2), real with ground keys 0 -> 69 correct (n=2); full set, stack fix on both judges, sforge eval, means 46.61 -> 52.72",
+   "correct_work_keeps_score": "yes: textual witnesses 6.28 old, 6.28 new; bad control 0 on both; real solver rises rather than falls",
+   "job": "evidence/runs/community9-smt_solver-stack-old1 (also -a, -smoke, -stack-new1, -stack-old2, -stack-new2, -iso-*, -fulla-*, -fullb-old, -direct16-old)",
+   "table_script": "evidence/scripts/second_review/c9_smt_solver_table.py",
+   "note": "The real solver loses about 6 points to this lookup and sees it on public files too (10 of 12 correct, 12 of 12 with the fix), but the full-set effect is only measurable with a second, unrequested judge fix in place because the shipped judge scores this solver 0 (see new_finding), and all runs used 8 CPUs and 7g against the official 16 and 16g, with 6 to 7 solver OOM kills per run."
+  }
+ ],
+ "new_finding": {
+  "what": "evaluate.py validator recursion overflows the C stack on 5 hard QF_UFLRA files when a solver answers sat; the segfaulting pool worker raises BrokenProcessPool, no score file is written, and the judge reports a valid 0.00 (correct=0/0).",
+  "not_a_round3_claim": true,
+  "evidence": "rc -11 on each of the 5 files, 3 of 3 tries, in all 4 per-case runs; rc 0 with a 1 GiB stack; cgroup oom_kill 0 at the crash in direct16-old",
+  "effect": "real unchanged, sforge eval: old lookup 0.00, 0.00 -> [47.04, 46.17] with the stack fix; new lookup 0.00 -> [53.33, 52.1]",
+  "fix": "evidence/scripts/second_review/c9_smt_stack_fix.py (validate_sat_witness on a 1 GiB thread stack)",
+  "limit": "Measured with 8 CPUs and 7g, not 16 and 16g; the 5 witnesses are then judged invalid and the reason was not recorded; NOTES historical best of 50.43 shows a solver can avoid it, presumably by not answering sat on those files, not measured."
+ }
+}

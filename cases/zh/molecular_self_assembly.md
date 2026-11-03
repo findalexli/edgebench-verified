@@ -1,5 +1,7 @@
 # Molecular Self Assembly (`molecular_self_assembly`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 缩小并行数让限时搜索得到更多 CPU，提高 1.13 到 1.46 分。我们最初归咎于并行的超时，在两种并行数下都会出现。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>README 承诺每个用例 30 s，但在发布方的 4-CPU 评分器上，每个用例用掉超过约 15 s CPU 的有效解法会超时，超时的用例得 0 分。修复版同时运行的用例数不超过评分器的 CPU 数。README 写明的 1 GB 内存上限仍然没有执行；我们没有发现多用内存能提高分数的办法。</mark>
 
 ## 任务要求
@@ -22,7 +24,7 @@
 - 在 R2 中，一个每个用例都用约 1.37 GB RSS 的解法，在 1 GB 上限下本应遭到拒绝或扣分，它却在全部 50 个用例上都拿了满分，总分与正确的测试提交相同。
 - R3 表明，容器上限对一个每个用例都超限的解法做了部分惩罚，这次运行丢了 50 个用例中的 4 个。丢哪几个，预计取决于计时。这不是针对每个解法的上限。
 
-在 4-CPU 评分器上，每个用例的 30 s 缩水为约 15 s CPU，修复版去掉了这个问题。30 s 时限按墙钟时间计，最多同时运行 8 个用例（`eval_molecules.py`：`TIME_LIMIT = 30`，`SEBENCH_MOLECULES_WORKERS` 默认为 8）。任务没有设 `cpu_limit`。在 EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml` 中（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`，标题为 "OFFICIAL EDGEBENCH LEADERBOARD SETTING"），评分器得到 `judge_cpu_limit: 4`，所以 8 个同时运行的用例每个大约分到半个 CPU。这样一来，单线程解法只要每个用例需要超过约 15 s CPU 就会超时；超时的用例得 0 分，提交仍算有效（与 R3 中 RE 用例走的路径相同）。
+在 4-CPU 评分器上，每个用例的 30 s 缩水为约 15 s CPU，修复版去掉了这个问题。30 s 时限按墙钟时间计，最多同时运行 8 个用例（`eval_molecules.py`：`TIME_LIMIT = 30`，`SEBENCH_MOLECULES_WORKERS` 默认为 8）。任务没有设 `cpu_limit`。在 EdgeBench 的排行榜配置 `examples/all-tasks-k8s/experiment.yaml` 中（引用见 [`evidence/impact/edgebench-leaderboard-config.md`](../../evidence/impact/edgebench-leaderboard-config.md)）（sha256 `d9d299794ba946cae8d2b7f68a7879a35bb8565d95e78107edf79802993643be`，标题为 "OFFICIAL EDGEBENCH LEADERBOARD SETTING"），评分器得到 `judge_cpu_limit: 4`，所以 8 个同时运行的用例每个大约分到半个 CPU。这样一来，单线程解法只要每个用例需要超过约 15 s CPU 就会超时；超时的用例得 0 分，提交仍算有效（与 R3 中 RE 用例走的路径相同）。
 
 我们在原始评分器上、用全部 50 个官方用例测量（`evidence/runs/molecular_self_assembly-cpu4v8/result/out/summary.txt`，在 `molecular_self_assembly-v2-paired` 中重复）。每个测试解法都是先做固定量的工作，再运行随附基线：
 

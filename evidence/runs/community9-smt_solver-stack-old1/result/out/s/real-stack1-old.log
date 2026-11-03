@@ -1,0 +1,84 @@
+Evaluating archive for task: smt_solver
+  Archive size: 29514 bytes
+  Run ID:       real-stack1-old
+  Log dir:      /job/sl/runs/real-stack1-old/smt_solver/submissions/manual-1
+
+
+Results:
+  Valid:       True
+  Score:       0.4703521687783978
+  Score 0-100: 47.03521687783978
+  Summary:     score=0.470352 (47.04/100), correct=333/774
+  Runtime:     1520.31s
+  Timed out:   False
+
+{
+  "task_id": "smt_solver",
+  "submission_id": "real-stack1-old",
+  "score": 0.4703521687783978,
+  "score_0_100": 47.03521687783978,
+  "valid": true,
+  "summary": "score=0.470352 (47.04/100), correct=333/774",
+  "details": [],
+  "metrics": {
+    "score": 0.4703521687783978,
+    "score_percent": 47.03521687783978,
+    "total": 774,
+    "correct": 333,
+    "wrong_or_failed": 441,
+    "by_logic": {
+      "QF_LIA": {
+        "total": 227,
+        "correct": 77,
+        "wrong": 0,
+        "timeout": 139,
+        "unknown": 0,
+        "error": 0,
+        "no_reference": 0,
+        "invalid_model": 1,
+        "score": 0.3480176211453745
+      },
+      "QF_LRA": {
+        "total": 213,
+        "correct": 57,
+        "wrong": 0,
+        "timeout": 146,
+        "unknown": 0,
+        "error": 2,
+        "no_reference": 0,
+        "invalid_model": 0,
+        "score": 0.27511737089201876
+      },
+      "QF_UF": {
+        "total": 192,
+        "correct": 109,
+        "wrong": 0,
+        "timeout": 21,
+        "unknown": 0,
+        "error": 0,
+        "no_reference": 0,
+        "invalid_model": 27,
+        "score": 0.6041666666666671
+      },
+      "QF_UFLRA": {
+        "total": 142,
+        "correct": 90,
+        "wrong": 0,
+        "timeout": 1,
+        "unknown": 0,
+        "error": 6,
+        "no_reference": 0,
+        "invalid_model": 5,
+        "score": 0.690140845070423
+      }
+    },
+    "v1_pass_rate": 0.43023255813953487,
+    "v1_valid": true,
+    "v1_passed": 333,
+    "v1_total_tests": 774
+  },
+  "timed_out": false,
+  "runtime_seconds": 1520.3055193424225,
+  "submitted_at": 1793642329.535858,
+  "error": null
+}

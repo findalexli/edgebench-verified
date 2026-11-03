@@ -1,5 +1,7 @@
 # Grid Turing Robot (`grid_turing_robot`)
 
+**Second review (November 2026): Real, small or unseen.** A smaller pool is worth +0.67 to +0.71 on valid real files. No real file goes from invalid to valid. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>On the publisher's 4-CPU grader, a valid solution using more than about 15 s of CPU per case times out, although the README promises 30 s per case, and one timeout voids the whole submission. The fixed version runs at most as many cases at once as the grader has CPUs. Two notes remain, one on an offset in the score scale's starting point (2.84 points) and one on the unstated rule that one failed case voids the submission (about 20 points).</mark>
 
 ![Line chart of clock time per test case against computing time per case. At 8 CPUs clock time equals computing time from 12 to 28 s. At 4 CPUs 12 s of computing takes 24 s and 14 s takes 28 s; 16, 20, 24 and 28 s are marked as timed out at the 30 s limit, with 48 of 50 cases timed out and no score. A note says the fixed checker passes the 16 s and 28 s solutions on all 50 cases with 19.80 out of 100.](figures/grid_turing_robot.svg)

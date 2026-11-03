@@ -1,5 +1,7 @@
 # DCSS Dungeon Crawl Stone Soup AI (`dcss_dungeon_ai`)
 
+**Second review (November 2026): Real, small or unseen.** Upstream's notes record one bot at raw 1556.0-5211.2 on the current judge, which computes to 32.82-54.61. Our own weaker bots spread by under 1 point, so we did not reproduce the large swing or isolate its cause. The text below is the first audit's record.
+
 **Outcome:** Kept, with a note. <mark>In normal runs the score matches what the task promises, and a game without an end-of-game record counts as 0, as the task implies. The note covers the dependence on wall-clock speed and a top reference point we did not check.</mark>
 
 ## What the task asks

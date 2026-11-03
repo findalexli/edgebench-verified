@@ -1,5 +1,7 @@
 # Arc Compiler Runtime (`arc_compiler_runtime`)
 
+**Second review (November 2026): Confirmed.** Hidden tests expect an `analyze()` return shape that nothing the agent sees describes. A real Opus submission scores 61.31 as submitted and 94.81 with only the return shape changed (n=2 each). One real run each: best 61.31 on the original task, 96.06 with the shape documented. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>Hidden tests require a return format for `analyze()` that no solver-visible file documents, and TASK.md misstates the starter's score. The fixed version documents both without changing any score.</mark>
 
 ![Two horizontal bars for the same error-checking logic: returning a list of {level, message}, as the hidden tests expect, scores 69.26 out of 100; keeping the starter code's {ok, errors, warnings, program} scores 35.59. A note says type-checking tests passed 128 of 128 versus 0, and that the fix documents the format.](figures/arc_compiler_runtime.svg)

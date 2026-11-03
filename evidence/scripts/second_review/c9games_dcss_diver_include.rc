@@ -1,0 +1,56 @@
+{
+-- Minotaur Berserker diver: the shipped baseline plus "when the level is explored, travel to the next stairs and go down".
+
+local prev_turn = -1
+local stuck = 0
+local explored = false
+local level = ""
+
+function c_message(text, channel)
+    if (text:find("Are you sure") or text:find("[yY] or [nN]"))
+       and not text:find("abandon this character") then
+        crawl.sendkeys("y")
+    elseif text:find("--more--") or text:find("%-%-more%-%-") then
+        crawl.sendkeys(" ")
+    elseif text:find("Done exploring") or text:find("Partly explored") then
+        explored = true
+    end
+end
+
+function ready()
+    local here = you.where()
+    if here ~= level then level = here; explored = false end
+    local cur = you.turns()
+    if cur == prev_turn then stuck = stuck + 1
+    else stuck = 0; prev_turn = cur end
+    if stuck == 3 then crawl.sendkeys(" "); return end
+    if stuck == 6 then crawl.sendkeys("\27"); return end
+    if stuck > 10 then stuck = 0; crawl.do_commands({"CMD_WAIT"}); return end
+
+    local hp, mhp = you.hp()
+    local pct = hp * 100 / mhp
+
+    if enemy_in_view() then crawl.do_commands({"CMD_AUTOFIGHT"}); return end
+    if pct < 60 then crawl.do_commands({"CMD_REST"}); return end
+
+    local feat = view.feature_at(0, 0)
+    if feat and (feat:find("stone_stairs_down") or feat == "escape_hatch_down") then
+        explored = false
+        crawl.sendkeys(">"); return
+    end
+    if explored then crawl.sendkeys("G>"); return end
+    crawl.sendkeys("o")
+end
+
+function enemy_in_view()
+    for x = -7, 7 do for y = -7, 7 do
+        if not (x == 0 and y == 0) then
+            local m = monster.get_monster_at(x, y)
+            if m and not m:is_firewood() and m:attitude() == 0 then return true end
+        end
+    end end
+    return false
+end
+
+function choose_stat_gain() return "s" end
+}

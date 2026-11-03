@@ -1,0 +1,97 @@
+{
+ "task": "ordinal_notation_well_foundedness",
+ "claims": [
+  {
+   "claim": "Undocumented helper-name exclusions can discard correct proof dependencies.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "synthetic: our closed task1 proof with its lemmas in one helper; control and trigger differ only in the helper's file name and its import (no real archive exists for this task)",
+   "arms": [
+    {
+     "label": "ZeroHelpers.v, old judge (control)",
+     "scores": [
+      1.1764705882352942,
+      1.1764705882352942,
+      1.1764705882352942
+     ],
+     "n": 3
+    },
+    {
+     "label": "check_zero.v, old judge (trigger)",
+     "scores": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "test_lemmas.v, old judge (trigger)",
+     "scores": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "check_zero.v, name filter removed",
+     "scores": [
+      1.1764705882352942,
+      1.1764705882352942,
+      1.1764705882352942
+     ],
+     "n": 3
+    },
+    {
+     "label": "inline proof, no helper, old and new",
+     "scores": [
+      1.1764705882352942,
+      1.1764705882352942,
+      1.1764705882352942
+     ],
+     "n": 3
+    },
+    {
+     "label": "task3 from a new Axiom (bad control), old and new: task3 uncredited",
+     "scores": [
+      1.1764705882352942,
+      1.1764705882352942,
+      1.1764705882352942
+     ],
+     "n": 3
+    },
+    {
+     "label": "good proof plus leftover broken check_scratch.v, old judge",
+     "scores": [
+      1.1764705882352942,
+      1.1764705882352942,
+      1.1764705882352942
+     ],
+     "n": 3
+    },
+    {
+     "label": "good proof plus leftover broken check_scratch.v, name filter removed",
+     "scores": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "starter, old and new",
+     "scores": [
+      0.0
+     ],
+     "n": 1
+    }
+   ],
+   "effect_points": 1.1764705882352942,
+   "fix_tested": "Removing the name patterns from submission.exclude: trigger 0 -> 1.18, but a leftover broken check_scratch.v goes 1.18 -> 0 because every submitted helper must compile (NOTES Known issue 3); documenting the names in the README is the safer fix and was not run because it cannot change a score",
+   "correct_work_keeps_score": "no: the proof with a leftover broken scratch file drops from 1.18 to 0 under the tested fix; the other correct arms stay at 1.18",
+   "job": "evidence/runs/community9-ordinal_notation_well_foundedness",
+   "table_script": "evidence/scripts/second_review/c9_ordinal_notation_well_foundedness_table.py",
+   "note": "The filter does drop a needed helper, but the only witness is ours, the per-target feedback names the missing file (Cannot find a physical path bound to logical path check_zero), and no Opus run exists; NOTES lists a publisher's historical best of 53/85 (62.35) on this rule, and its Known issue 3 says 2 of 6 sampled submissions scored 0 from helpers that never compiled, the failure the filter partly guards against, so the weakest point is whether any solver names a reusable proof library check* or test* and ignores the feedback; a larger loss (24.71 if tasks 1 to 6 shared such a helper) is computed, not measured."
+  }
+ ]
+}

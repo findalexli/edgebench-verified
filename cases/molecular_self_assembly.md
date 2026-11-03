@@ -1,5 +1,7 @@
 # Molecular Self Assembly (`molecular_self_assembly`)
 
+**Second review (November 2026): Real, small or unseen.** A smaller pool gives deadline search more CPU, worth +1.13 to +1.46. The timeouts we first blamed on the pool occur on both pools. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>On the publisher's 4-CPU grader, a valid solution using more than about 15 s of CPU per case times out, although the README promises 30 s per case, and each timed-out case scores 0. The fixed version runs at most as many cases at once as the grader has CPUs. The grader still does not enforce the 1 GB memory limit stated in the README, but we found no way for extra memory to raise scores.</mark>
 
 ## What the task asks

@@ -1,0 +1,103 @@
+Evaluating archive for task: ordinal_notation_well_foundedness
+  Archive size: 861 bytes
+  Run ID:       helper_check-p3-new
+  Log dir:      /job/sl/runs/helper_check-p3-new/ordinal_notation_well_foundedness/submissions/manual-1
+
+
+Results:
+  Valid:       True
+  Score:       1.0
+  Score 0-100: 1.1764705882352942
+  Summary:     1/9 proof targets closed; weighted score 1/85.
+  Runtime:     2.48s
+  Timed out:   False
+
+{
+  "task_id": "ordinal_notation_well_foundedness",
+  "submission_id": "helper_check-p3-new",
+  "score": 1.0,
+  "score_0_100": 1.1764705882352942,
+  "valid": true,
+  "summary": "1/9 proof targets closed; weighted score 1/85.",
+  "details": [
+    {
+      "name": "task1",
+      "status": "PASSED",
+      "score": 1,
+      "weight": 1,
+      "message": "Closed under the global context."
+    },
+    {
+      "name": "task2",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 2,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask2.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 0; 3]"
+    },
+    {
+      "name": "task3",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 2,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask3.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 0; 3; 3]"
+    },
+    {
+      "name": "task4",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 4,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask4.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 0; 4]"
+    },
+    {
+      "name": "task5",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 4,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask5.WF :\n  Acc (fun child parent : list nat => child_step parent child) [0; 1; 0; 1]"
+    },
+    {
+      "name": "task6",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 8,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask6.WF :\n  Acc (fun child parent : list nat => child_step parent child) [0; 1; 0; 2]"
+    },
+    {
+      "name": "task7",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 16,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask7.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 2; 0; 0; 2]"
+    },
+    {
+      "name": "task8",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 16,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask8.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 2; 0; 0; 2; 0; 0; 2]"
+    },
+    {
+      "name": "task9",
+      "status": "FAILED",
+      "score": 0,
+      "weight": 32,
+      "message": "Compiled, but assumptions were not closed.\nAxioms:\ntask9.WF :\n  Acc (fun child parent : list nat => child_step parent child)\n    [0; 1; 0; 2; 0; 3]"
+    }
+  ],
+  "metrics": {
+    "weighted_score": 1,
+    "max_score": 85,
+    "passed_count": 1,
+    "failed_count": 8,
+    "error_count": 0,
+    "total_count": 9,
+    "v1_pass_rate": 0.1111111111111111,
+    "v1_valid": true,
+    "v1_passed": 1,
+    "v1_total_tests": 9
+  },
+  "timed_out": false,
+  "runtime_seconds": 2.478358507156372,
+  "submitted_at": 1793634159.2632978,
+  "error": null
+}

@@ -1,0 +1,701 @@
+{
+ "counts_including_withheld": {
+  "NOT_REAL": 30,
+  "UNPROVEN": 54,
+  "REAL": 48,
+  "OUT_OF_SCOPE": 8,
+  "ALREADY_FIXED": 6
+ },
+ "claims": [
+  {
+   "task": "ad_placement_optimization",
+   "claim": "Public grading seeds cause incorrect scores.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "ad_placement_optimization",
+   "claim": "The overlap-ordering exception has no good-faith scoring effect.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "ad_placement_optimization",
+   "claim": "Unspecified CPU allocation can make CPU-budgeted solvers time out.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "ad_placement_optimization",
+   "claim": "The advertised 1 GB memory limit is unenforced.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "ad_placement_optimization",
+   "claim": "Rank anchors from different inputs invalidate normalized scores.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "anchorhead_text_adventure",
+   "claim": "Sessions count final rather than peak score, but the audit treats this as harmless.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "anchorhead_text_adventure",
+   "claim": "Undisclosed step timeouts, concurrent-session limits and idle reaping cause scoring harm.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "anchorhead_text_adventure",
+   "claim": "The 99-point walkthrough suggests the 100-point normalization ceiling is defective.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "ann_vector_search_qps",
+   "claim": "Host-dependent QPS causes approximately ±7 normalized points of variation for good-faith submissions under official settings.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "apple_incremental_game",
+   "claim": "Eight concurrent cases sharing four CPUs can wrongly time out otherwise valid searches.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "apple_incremental_game",
+   "claim": "The lower anchor is inconsistent with legitimate game scores.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "apple_incremental_game",
+   "claim": "Unverified upper anchors imply incorrect normalized scores.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "apple_incremental_game",
+   "claim": "The advertised per-solution 1 GB memory limit is unenforced.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "arc_compiler_runtime",
+   "claim": "Hidden tests require an undocumented analyze() return shape and diagnostic wording, penalizing implementations that preserve the starter interface.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "arc_compiler_runtime",
+   "claim": "TASK.md falsely states that the shipped starter scores zero on public tests.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "arc_compiler_runtime",
+   "claim": "One hanging suite invalidates the entire submission instead of losing only that suite's credit.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "bipedalwalker_locomotion_rl",
+   "claim": "The maximum normalized score is 30, making the task incorrectly scored.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "bipedalwalker_locomotion_rl",
+   "claim": "Checkpoint loading can silently discard trained weights and evaluate randomly initialized parameters.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "borden_source_inversion",
+   "claim": "Undisclosed amplitude and source-plane conventions penalize a plausible good-faith transport model.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "borden_source_inversion",
+   "claim": "The raw maximum of 109 and missing normalization cause incorrect good-faith scoring.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "carleson_formalization",
+   "claim": "The census establishes that no targets are unreachable and auxiliary scoring is stable.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "carleson_formalization",
+   "claim": "C_LorentzInterpolation accepting any value constitutes wrongful scoring.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "carleson_formalization",
+   "claim": "The unfinished upstream project makes some scored targets unattainable.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "college_english_exam_bank",
+   "claim": "Omitted rubric rules receive full marks, potentially inflating good-faith submissions.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "college_english_exam_bank",
+   "claim": "Contradictory or discarded deduction evidence can become full marks.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "college_english_exam_bank",
+   "claim": "The accepted repair preserves all previously correct scores.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "combinatorial_games_formalization",
+   "claim": "Exact auxiliary-name matching penalizes the tested correct term- and tactic-style proofs.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "combinatorial_games_formalization",
+   "claim": "The zero-unattainable-target census establishes that every correct complete solution can receive full credit.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "combinatorial_games_formalization",
+   "claim": "Auxiliaries occupying 25.1% of the score constitute a scoring defect.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "cta_risk_budget_optimization",
+   "claim": "The current overseas-limit check omits USD-to-CNY conversion and divides by gross notional instead of fund NAV, allowing both overcredit and undercredit.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "dabic_gravity_inversion",
+   "claim": "An undisclosed data-space gate penalizes the explicitly permitted model-space implementation.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "dcss_dungeon_ai",
+   "claim": "Identical good-faith bots can receive different scores because the evaluator injects inputs according to wall-clock timing.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "dcss_dungeon_ai",
+   "claim": "Missing-morgue handling can discard an honest submission's other four scores.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "dcss_dungeon_ai",
+   "claim": "The 50000-point normalization anchor is defective because reachability has not been demonstrated.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "equivalence_class_divide_and_conquer",
+   "claim": "T3 omits the last created state's size from operation cost, potentially awarding undeserved points.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "equivalence_class_divide_and_conquer",
+   "claim": "T3's pair comparisons can reject moves or marks that are valid under neighborhood set semantics.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "exchange_core_throughput",
+   "claim": "Missing fee/event checks award incorrect engines full credit.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "exchange_core_throughput",
+   "claim": "A Maven failure after the average still receives throughput credit.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "exchange_core_throughput",
+   "claim": "The grader CPU budget is undisclosed.",
+   "verdict": "ALREADY_FIXED"
+  },
+  {
+   "task": "exchange_core_throughput",
+   "claim": "CPU sensitivity and low anchors wrongly flatten or destabilize correct scores.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "exchange_core_throughput",
+   "claim": "Missing Maven artifacts prevent offline grading.",
+   "verdict": "ALREADY_FIXED"
+  },
+  {
+   "task": "ffmpeg_swscale_reimplementation",
+   "claim": "Unchecked timed outputs and ignored error returns let unfinished implementations earn undeserved normalized speedup credit.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "flt_regular_formalization",
+   "claim": "The weighted-target census warrants a scoring-defect finding.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "flt_regular_formalization",
+   "claim": "The census establishes that every target is attainable and no correct solution can lose credit.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "flt_regular_formalization",
+   "claim": "The README's 100-point grouping versus 87 total weight causes a scoring defect.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "git_rewrite_in_zig",
+   "claim": "Harmless Zig build leftovers can zero the entire score.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "git_rewrite_in_zig",
+   "claim": "Test-only system-git calls can zero an otherwise legitimate implementation.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "git_rewrite_in_zig",
+   "claim": "CPU oversubscription causes a 2.63-point loss under official settings.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "graph_node_classification",
+   "claim": "Permitted integer prediction keys lose all classification credit while remaining valid.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "graph_node_classification",
+   "claim": "NaN-confidence clipping constitutes a scoring defect.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "grid_turing_robot",
+   "claim": "Eight concurrent cases sharing four CPUs can invalidate solutions requiring less than 30 CPU seconds per case.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "grid_turing_robot",
+   "claim": "The normalization baseline wrongly awards the shipped starter 2.84 points.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "grid_turing_robot",
+   "claim": "One failed case improperly voids the submission under an undisclosed rule.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "integer_compression_codec",
+   "claim": "The stored baseline contradicts the documented Varint starter and changes effective dataset weighting.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "integer_compression_codec",
+   "claim": "Fixed reference throughput and short timing measurements produce host-dependent, non-repeatable scores.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "integer_compression_codec",
+   "claim": "Early clipping demonstrably harms honest submissions on the current judge.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "jagua_nesting_optimization",
+   "claim": "Missed positive-area overlaps materially mis-score good-faith solvers.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "jagua_nesting_optimization",
+   "claim": "Missing allowed-orientation checks materially mis-score good-faith solvers.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "jagua_nesting_optimization",
+   "claim": "The upstream judge rejects legitimate f32-derived angles.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "juliet_vulnerability_analyzer",
+   "claim": "Public-form CWE-78 findings wrongly lose hidden trace credit.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "juliet_vulnerability_analyzer",
+   "claim": "Crashing, timed-out or output-less analyzers rank equivalently to the 10-point starter.",
+   "verdict": "ALREADY_FIXED"
+  },
+  {
+   "task": "juliet_vulnerability_analyzer",
+   "claim": "CWE-416 findings starting at the release witness are incorrectly rejected.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "juliet_vulnerability_analyzer",
+   "claim": "Intermediate witnesses are never required.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "k12_math_recommendation",
+   "claim": "The scorer fails under a 512 MiB address-space limit.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "lean_analysis_proofs",
+   "claim": "MajorizesOn.anti_symm and PiecewiseConstantOn.div are false required targets.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "lean_analysis_proofs",
+   "claim": "Correct proofs receive different credit because compiler-generated auxiliary names and types change.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "lean_analysis_proofs",
+   "claim": "At least 49 targets are unreachable for a complete correct solution.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "lean_analysis_proofs",
+   "claim": "As many as 466 auxiliary credits depend on proof style.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "molecular_self_assembly",
+   "claim": "Eight concurrent cases sharing four CPUs can exhaust the 30-second wall timeout despite requiring under 30 CPU seconds, and halve deadline-based search computation.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "molecular_self_assembly",
+   "claim": "Failure to enforce the stated per-solution 1 GB memory limit causes a qualifying scoring defect.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "nethack_dungeon_agent",
+   "claim": "Failed seeding makes the 20-game score non-repeatable.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "nethack_dungeon_agent",
+   "claim": "The undisclosed 120-second limit wrongly zeroes good-faith planning agents.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "new_foundations_consistency",
+   "claim": "Grading requires a runtime doc-gen4 download and fails offline.",
+   "verdict": "ALREADY_FIXED"
+  },
+  {
+   "task": "new_foundations_consistency",
+   "claim": "Renumbering compiler-generated instance helpers can wrongly deny up to 0.67 normalized points.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "openrct2_theme_park_ai",
+   "claim": "The promised approximately four-year simulation is cut short by the official 120-second budget, and scoring uses the last available snapshot.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "openttd_transport_ai",
+   "claim": "The prompt and starter call a nonexistent API, killing otherwise good-faith scripts.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "openttd_transport_ai",
+   "claim": "The advertised company-value formula incorrectly credits infrastructure and purchase-price vehicle value.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "openttd_transport_ai",
+   "claim": "The wrong documentation path causes wrongful scoring.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "openttd_transport_ai",
+   "claim": "Newer bundled API documentation causes additional fatal calls.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "order_addition_permutation_optimization",
+   "claim": "The stale helper hash makes correct submissions fail one test and thereby receive incorrect scores.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "order_addition_permutation_optimization",
+   "claim": "The 0.8 pass-rate ceiling freezes best-of-run selection on the first valid submission.",
+   "verdict": "ALREADY_FIXED"
+  },
+  {
+   "task": "order_addition_permutation_optimization",
+   "claim": "Runs containing only invalid results receive pass-rate scores of 0.6 or 0.8, outranking weak valid results.",
+   "verdict": "ALREADY_FIXED"
+  },
+  {
+   "task": "ordinal_notation_well_foundedness",
+   "claim": "Undocumented helper-name exclusions can discard correct proof dependencies.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "ordinal_notation_well_foundedness",
+   "claim": "The undocumented 300-second compile limit wrongly penalizes honest computational proofs.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "ordinal_notation_well_foundedness",
+   "claim": "Only targets 1–6 are established, leaving 64/85 points potentially unattainable.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "pfr_formalization",
+   "claim": "Five baseline targets cannot receive credit when solvers preserve their supplied signatures, because those types contain sorryAx.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "pfr_formalization",
+   "claim": "Following the upstream proofs loses four additional weak_PFR targets, totaling 9/423.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "pfr_formalization",
+   "claim": "Generated-helper scoring may cause further proof-style unfairness beyond the tested theorem/helper pair.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "portfolio_risk_calibration",
+   "claim": "The judge annualizes the difference of period returns instead of subtracting annualized returns, changing excess-return, information-ratio and Sortino points.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "claim": "Misplaced hidden tests prevent cas-search and cas-cli from compiling.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "claim": "Cargo fail-fast charges unexecuted passing tests as failures.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "claim": "A passing exempt cas-pty test forgives an unrelated failure.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "claim": "Four missing cc files block nine scored crates.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "rust_multicrate_reconstruction",
+   "claim": "The publisher's leaderboard escaped vendor corruption and the reported gains establish current official results.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "schemathesis_config_modernization",
+   "claim": "Phase 3 overcredits a forwarding metric decorator because it checks callability rather than required function identity.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "schemathesis_datagen_pipeline",
+   "claim": "The HTTP-date test awards credit to generators producing impossible dates, mismatched weekdays and invalid clock times.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "schemathesis_reporting_observability",
+   "claim": "The JUnit check awards credit to malformed XML and reports that omit recorded errors.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "schemathesis_reporting_observability",
+   "claim": "The body-suppression check is vacuous because it filters coverage values using the wrong GeneratedValue class.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "schemathesis_reporting_observability",
+   "claim": "A correct JUnit writer can lose credit solely because its report lacks the word schemathesis.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "smt_solver",
+   "claim": "Textual UF lookup rejects correct witnesses using documented ground-term keys.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "smt_solver",
+   "claim": "Exactly 27 hidden SAT files admit no accepted witness, lowering the perfect-solver ceiling from 78.61 to 72.40.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "smt_solver",
+   "claim": "Sixteen workers and the conflicting four-worker documentation establish CPU-starvation misgrading under official settings.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "sphere_eversion_formalization",
+   "claim": "The 119 auxiliary targets are stable, and no targets are unattainable.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "sphere_eversion_formalization",
+   "claim": "The grading-time manifest swap may reject proofs that build in the workspace.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "sphere_eversion_formalization",
+   "claim": "Full rebuilding may exhaust the judge timeout for correct proofs.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "treant_forest",
+   "claim": "Unreachable normalization anchors compress legitimate scores below 21.021/100.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "treant_forest",
+   "claim": "Eight concurrent cases on four CPUs cause unfair deadline scores or violate the advertised 60-second allowance.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "treant_forest",
+   "claim": "The tester's movement semantics wrongly score good-faith solutions.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "tree_block_partitioning",
+   "claim": "T2's supplied multiplication mishandles self-aliasing, potentially penalizing otherwise correct solvers.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "triangulation_coloring_optimization",
+   "claim": "The missing convexity check wrongly scores good-faith submissions.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "triangulation_coloring_optimization",
+   "claim": "Malformed generated meshes, including overlaps and incomplete hull coverage, establish wrong scores for honest solvers.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "triangulation_coloring_optimization",
+   "claim": "Eight concurrent cases on four CPUs cause avoidable timeouts and invalidate otherwise viable solutions.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "trinity_text_adventure",
+   "claim": "Using final rather than peak session scores can wrongly penalize exploration.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "trinity_text_adventure",
+   "claim": "Undisclosed session limits cause good-faith scoring harm.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "trinity_text_adventure",
+   "claim": "Six replay sessions establish deterministic, correctly normalized Trinity scoring.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "tryst_text_adventure",
+   "claim": "Using each session's final score instead of its peak can mislead solvers and discard earlier progress.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "tryst_text_adventure",
+   "claim": "Undisclosed session limits can cause good-faith solvers to lose progress.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "tryst_text_adventure",
+   "claim": "Six replay sessions establish deterministic, correct scoring with zero effect.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "vehicle_routing_time_windows",
+   "claim": "Binary64 cost tolerance wrongly rejects good-faith solutions.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "vehicle_routing_time_windows",
+   "claim": "Unimplemented weighting and scrambling cause incorrect scores.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "vehicle_routing_time_windows",
+   "claim": "Building the verifier against submitted headers can reject legitimate solver refactors.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "vehicle_routing_time_windows",
+   "claim": "Passing 60-second budgets unfairly zeros later cases.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "vibrating_path_graph_coloring",
+   "claim": "Eight concurrent cases on four CPUs can reject valid computationally intensive solutions.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "vibrating_path_graph_coloring",
+   "claim": "Tester CPU starvation caused the 14 timeouts of a 25-second deadline solution.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "vibrating_path_graph_coloring",
+   "claim": "Rejecting documented three-line zero-hit output wrongly scores official submissions.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "vibrating_path_graph_coloring",
+   "claim": "One failed case voids a submission through an undisclosed scoring defect.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "vliw_kernel_optimization",
+   "claim": "Saturation at 1000 cycles wrongly scores faster kernels, including the reported 950-cycle submission.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "vliw_kernel_optimization",
+   "claim": "Ordinary JSON diagnostics can invalidate a correct kernel, contradicting the audit's exclusively out-of-scope characterization.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "warehouse_forklift_routing",
+   "claim": "The judge rejects solutions using the promised 30 seconds per test case.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "warehouse_forklift_routing",
+   "claim": "Eight simultaneous inputs on four official CPUs materially reduce usable computation and cause avoidable timeouts.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "warehouse_forklift_routing",
+   "claim": "Unreachable anchors establish approximately 70 points of wrongful underscoring.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "wesnoth_tactical_ai",
+   "claim": "The broken recruitment starter causes incorrect scoring.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "wesnoth_tactical_ai",
+   "claim": "Identical submissions receive non-repeatable scores despite fixed seeds.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "wesnoth_tactical_ai",
+   "claim": "The total timeout unfairly discards legitimate expensive AIs.",
+   "verdict": "UNPROVEN"
+  },
+  {
+   "task": "wesnoth_tactical_ai",
+   "claim": "Harmless comments and identifiers can zero an otherwise valid submission.",
+   "verdict": "REAL"
+  },
+  {
+   "task": "wireless_electricity_layout",
+   "claim": "Counting compilation failure once can select it over valid work and distort the final score.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "wireless_electricity_layout",
+   "claim": "One failed case zeroing the entire normalized submission is itself wrongful scoring.",
+   "verdict": "NOT_REAL"
+  },
+  {
+   "task": "wireless_electricity_layout",
+   "claim": "Host-dependent wall-clock timeouts wrongly make good-faith scores non-repeatable under official settings.",
+   "verdict": "UNPROVEN"
+  }
+ ]
+}

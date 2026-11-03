@@ -1,0 +1,45 @@
+job community9-rust_multicrate_reconstruction-smoke status exit=0
+job community9-rust_multicrate_reconstruction-a status exit=0
+job community9-rust_multicrate_reconstruction-b status exit=0
+job community9-rust_multicrate_reconstruction-cc-a status exit=0
+job community9-rust_multicrate_reconstruction-cc-b status exit=0
+job community9-rust_multicrate_reconstruction-cc-c status exit=0
+job community9-rust_multicrate_reconstruction-cc-d status exit=0
+cc8-agent5                       n=2 s=[27.1706, 27.1706] raw=[27.170600, 27.170600] valid=[True, True] rt=[816.0, 824.3]
+cc8-reference                    n=2 s=[73.9926, 73.9926] raw=[73.992600, 73.992600] valid=[True, True] rt=[881.7, 876.7]
+cc8-starter                      n=2 s=[3.8189, 3.8189] raw=[3.818900, 3.818900] valid=[True, True] rt=[792.9, 797.5]
+ccnff8-agent5                    n=2 s=[27.5980, 27.5980] raw=[27.598000, 27.598000] valid=[True, True] rt=[960.0, 933.3]
+ex-agent1                        n=2 s=[1.4711, 1.4711] raw=[1.471100, 1.471100] valid=[True, True] rt=[401.5, 294.6]
+ex-agent5                        n=3 s=[17.0997, 17.0997, 17.0997] raw=[17.099700, 17.099700, 17.099700] valid=[True, True, True] rt=[280.8, 406.9, 298.1]
+ex-starter                       n=2 s=[1.4711, 1.4711] raw=[1.471100, 1.471100] valid=[True, True] rt=[294.6, 297.7]
+nff-agent1                       n=2 s=[1.7461, 1.7461] raw=[1.746100, 1.746100] valid=[True, True] rt=[397.7, 355.5]
+nff-agent5                       n=3 s=[17.2997, 17.2997, 17.2997] raw=[17.299700, 17.299700, 17.299700] valid=[True, True, True] rt=[286.5, 421.3, 398.4]
+nff-auto8                        n=2 s=[8.7683, 8.7683] raw=[8.768300, 8.768300] valid=[True, True] rt=[398.4, 434.7]
+nff-starter                      n=2 s=[1.7461, 1.7461] raw=[1.746100, 1.746100] valid=[True, True] rt=[299.1, 298.3]
+old-agent1                       n=2 s=[1.4711, 1.4711] raw=[1.471100, 1.471100] valid=[True, True] rt=[349.0, 390.0]
+old-agent5                       n=3 s=[17.1997, 17.1997, 17.1997] raw=[17.199700, 17.199700, 17.199700] valid=[True, True, True] rt=[284.8, 392.3, 415.8]
+old-auto8                        n=2 s=[8.5443, 8.5443] raw=[8.544300, 8.544300] valid=[True, True] rt=[428.8, 390.9]
+old-starter                      n=2 s=[1.4711, 1.4711] raw=[1.471100, 1.471100] valid=[True, True] rt=[298.7, 293.0]
+old8-agent5                      n=2 s=[17.1997, 17.1997] raw=[17.199700, 17.199700] valid=[True, True] rt=[171.7, 162.0]
+old8-reference                   n=2 s=[27.6091, 27.6091] raw=[27.609100, 27.609100] valid=[True, True] rt=[178.7, 170.8]
+old8-starter                     n=2 s=[1.4711, 1.4711] raw=[1.471100, 1.471100] valid=[True, True] rt=[173.5, 166.1]
+
+nonzero crates (passed/total), first repeat:
+cc8-agent5             OK {'types': ('TEST_', 75, 136), 'code': ('TEST_', 8, 50), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 80, 98), 'pty': ('TEST_', 10, 11), 'recording': ('TEST_', 1, 29), 'store': ('TEST_', 90, 216), 'search': ('COMPI', 0, 136), 'core': ('TEST_', 20, 201), 'factory': ('TEST_', 4, 134), 'mcp': ('PASS', 16, 16), 'cli': ('COMPI', 0, 1344)}
+cc8-reference          OK {'types': ('TEST_', 135, 136), 'code': ('TEST_', 49, 50), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 89, 98), 'pty': ('TEST_', 10, 11), 'recording': ('TEST_', 25, 29), 'store': ('PASS', 216, 216), 'search': ('COMPI', 0, 136), 'core': ('TEST_', 191, 201), 'factory': ('TEST_', 131, 134), 'mcp': ('PASS', 16, 16), 'tui-test': ('TEST_', 102, 105), 'cli': ('COMPI', 0, 1344)}
+cc8-starter            OK {'types': ('TEST_', 1, 136), 'factory-protocol': ('TEST_', 13, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 1, 11), 'recording': ('TEST_', 1, 29), 'store': ('TEST_', 2, 216), 'search': ('COMPI', 0, 136), 'core': ('TEST_', 18, 201), 'factory': ('TEST_', 4, 134), 'mcp': ('TEST_', 14, 16), 'cli': ('COMPI', 0, 1344)}
+ccnff8-agent5          OK {'types': ('TEST_', 75, 136), 'code': ('TEST_', 8, 50), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 80, 98), 'pty': ('PASS', 11, 11), 'recording': ('TEST_', 1, 29), 'store': ('TEST_', 90, 216), 'search': ('COMPI', 0, 136), 'core': ('TEST_', 20, 201), 'factory': ('TEST_', 11, 134), 'mcp': ('PASS', 16, 16), 'cli': ('COMPI', 0, 1344)}
+ex-agent1              OK {'types': ('TEST_', 1, 136), 'factory-protocol': ('TEST_', 13, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 1, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}
+ex-agent5              OK {'types': ('TEST_', 75, 136), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 80, 98), 'pty': ('TEST_', 9, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}
+ex-starter             OK {'types': ('TEST_', 1, 136), 'factory-protocol': ('TEST_', 13, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 1, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}
+nff-agent1             OK {'types': ('TEST_', 1, 136), 'factory-protocol': ('TEST_', 14, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 2, 11), 'search': ('TEST_', 0, 136), 'tui-test': ('TEST_', 3, 105), 'cli': ('TEST_', 0, 1344)}
+nff-agent5             OK {'types': ('TEST_', 75, 136), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 80, 98), 'pty': ('PASS', 11, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}
+nff-auto8              OK {'types': ('TEST_', 28, 136), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 2, 11), 'search': ('TEST_', 0, 136), 'tui-test': ('TEST_', 8, 105), 'cli': ('TEST_', 0, 1344)}
+nff-starter            OK {'types': ('TEST_', 1, 136), 'factory-protocol': ('TEST_', 14, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 2, 11), 'search': ('TEST_', 0, 136), 'tui-test': ('TEST_', 3, 105), 'cli': ('TEST_', 0, 1344)}
+old-agent1             OK {'types': ('TEST_', 1, 136), 'factory-protocol': ('TEST_', 13, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 1, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}
+old-agent5             OK {'types': ('TEST_', 75, 136), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 80, 98), 'pty': ('TEST_', 10, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}
+old-auto8              OK {'types': ('TEST_', 28, 136), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 1, 11), 'search': ('TEST_', 0, 136), 'tui-test': ('TEST_', 5, 105), 'cli': ('TEST_', 0, 1344)}
+old-starter            OK {'types': ('TEST_', 1, 136), 'factory-protocol': ('TEST_', 13, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 1, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}
+old8-agent5            OK {'types': ('TEST_', 75, 136), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 80, 98), 'pty': ('TEST_', 10, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}
+old8-reference         OK {'types': ('TEST_', 135, 136), 'factory-protocol': ('TEST_', 97, 98), 'diffs': ('TEST_', 89, 98), 'pty': ('TEST_', 10, 11), 'search': ('TEST_', 0, 136), 'tui-test': ('TEST_', 102, 105), 'cli': ('TEST_', 0, 1344)}
+old8-starter           OK {'types': ('TEST_', 1, 136), 'factory-protocol': ('TEST_', 13, 98), 'diffs': ('TEST_', 12, 98), 'pty': ('TEST_', 1, 11), 'search': ('TEST_', 0, 136), 'cli': ('TEST_', 0, 1344)}

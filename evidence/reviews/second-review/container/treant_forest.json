@@ -1,0 +1,165 @@
+{
+ "task": "treant_forest",
+ "claims": [
+  {
+   "claim": "Unreachable normalization anchors compress legitimate scores below 21.021/100.",
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged (agent-10, agent-40, agent-33, agent-1 of the Opus run); synthetic controls: grid-only greedy, invalid",
+   "arms": [
+    {
+     "label": "starter, current judge",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "good control: grid-only greedy, current judge",
+     "scores": [
+      3.0405699106496016,
+      3.0405699106496016
+     ],
+     "n": 2
+    },
+    {
+     "label": "bad control: invalid, current judge",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-10, current judge",
+     "scores": [
+      20.960472054411873,
+      20.952290439080024,
+      20.95129872813071
+     ],
+     "n": 3
+    },
+    {
+     "label": "real agent-40, current judge",
+     "scores": [
+      20.990471310628664,
+      20.94683602885879
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-33, current judge",
+     "scores": [
+      20.460401808219633,
+      20.460401808219633
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-1, current judge",
+     "scores": [
+      20.698660363792634,
+      20.698660363792634
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-10, linear 3418..92304",
+     "scores": [
+      99.69849020093153,
+      100.0,
+      100.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "real agent-33, linear 3418..92304",
+     "scores": [
+      97.45966743919178,
+      97.45966743919178
+     ],
+     "n": 2
+    },
+    {
+     "label": "greedy, linear 3418..92304",
+     "scores": [
+      16.360281709155547,
+      16.360281709155547
+     ],
+     "n": 2
+    },
+    {
+     "label": "starter, linear",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "invalid, linear",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-10, tester stop removed, same anchors",
+     "scores": [
+      37.08717965670273,
+      35.87729229853805,
+      37.3965934728891
+     ],
+     "n": 3
+    },
+    {
+     "label": "real agent-40, stop removed",
+     "scores": [
+      38.92977860053057,
+      34.54170557754766
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-33, stop removed",
+     "scores": [
+      35.272100691718386,
+      35.34647901291704
+     ],
+     "n": 2
+    },
+    {
+     "label": "real agent-1, stop removed",
+     "scores": [
+      38.9129195143922,
+      38.9129195143922
+     ],
+     "n": 2
+    },
+    {
+     "label": "greedy, stop removed",
+     "scores": [
+      3.0405699106496016,
+      3.0405699106496016
+     ],
+     "n": 2
+    },
+    {
+     "label": "starter, stop removed",
+     "scores": [
+      0.0,
+      0.0
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": 15.83,
+   "fix_tested": "two: linear 3418..92304 moves agent-10 by +78.94 and keeps order; removing the tester's undocumented 2*N*N stop on the same anchors moves it by +15.83 and reorders real runs (agent-1 below agent-10 under the cap, 91007 vs about 92040 raw; above its best run without it, 164473 vs 158357)",
+   "correct_work_keeps_score": "no, every scale change moves scores up; invalid stays 0, starter stays 0, and greedy keeps 3.04 with the stop removed (it never reaches the cap)",
+   "job": "evidence/runs/community9-treant_forest-a",
+   "table_script": "evidence/scripts/second_review/c9_treant_forest_table.py",
+   "note": "Real runs do reach the ceiling: all 87 archived reports (53 files) sit at 20.46-21.02 and the stop binds 47-50 of 50 cases, so the cap hides real differences; weakest point: the four measured runs read the destination list from stdin (a text match finds it in all 53 files) although the README says solutions read only the grid (a grid-only greedy never reaches the cap, 3.04), replay of the longest uncapped case hits the tester's 60 s limit in some repeats, and the choice of fix is discretionary."
+  }
+ ]
+}

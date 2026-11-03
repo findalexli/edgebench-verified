@@ -1,0 +1,215 @@
+{
+ "task": "schemathesis_reporting_observability",
+ "claims": [
+  {
+   "claim": "The JUnit check awards credit to malformed XML and reports that omit recorded errors.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real modified at the defect: agent-12's JUnit writer with the closing tags cut (trunc), or with add_error_info removed (noerr)",
+   "arms": [
+    {
+     "label": "agent-12 real, old judge",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-12 real, fixed judge",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "trunc, old",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "trunc, fixed",
+     "scores": [
+      76.9643,
+      76.9643,
+      76.9643
+     ],
+     "n": 3
+    },
+    {
+     "label": "noerr, old",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "noerr, fixed",
+     "scores": [
+      76.9643,
+      76.9643,
+      76.9643
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": 1.4286,
+   "fix_tested": "test parses the XML and requires the recorded error: trunc 78.3929 -> 76.9643, noerr 78.3929 -> 76.9643",
+   "correct_work_keeps_score": "yes, agent-12 78.3929 -> 78.3929",
+   "job": "evidence/runs/community9-schemathesis_reporting_observability-a and -b",
+   "table_script": "evidence/scripts/second_review/c9_schemathesis_reporting_observability_table.py",
+   "note": "Both broken writers keep full credit on the old judge with zero spread; weakest point: no real archive has either bug (all 18 real writers call to_xml_report_file and add_error_info), so the trigger is constructed."
+  },
+  {
+   "claim": "The body-suppression check is vacuous because it filters coverage values using the wrong GeneratedValue class.",
+   "verdict": "CONFIRMED",
+   "witness": "real unchanged: agent-1, omits BODY; also real modified at the defect: agent-12 with BODY removed, agent-1 with BODY added",
+   "arms": [
+    {
+     "label": "agent-1 real, old",
+     "scores": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-1 real, fixed",
+     "scores": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-1 + BODY, old",
+     "scores": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-1 + BODY, fixed",
+     "scores": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-12 real, fixed",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-12 no BODY, old",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-12 no BODY, fixed",
+     "scores": [
+      77.3929,
+      77.3929,
+      77.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "starter, old",
+     "scores": [
+      2.0,
+      2.0,
+      2.0
+     ],
+     "n": 3
+    },
+    {
+     "label": "starter, fixed",
+     "scores": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": 1.0,
+   "fix_tested": "import GeneratedValue from schemathesis.generation.coverage: agent-1 2.0 -> 1.0; agent-12 without BODY 78.3929 -> 77.3929",
+   "correct_work_keeps_score": "yes, agent-12 78.3929 -> 78.3929; agent-1 + BODY 2.0 -> 2.0",
+   "job": "evidence/runs/community9-schemathesis_reporting_observability-a and -b",
+   "table_script": "evidence/scripts/second_review/c9_schemathesis_reporting_observability_table.py",
+   "note": "The test passes with or without BODY on the old judge and tells them apart on the fixed one; weakest point: agent-1, the only real omission, scores the same as the starter, and the other 20 real archives all add BODY."
+  },
+  {
+   "claim": "A correct JUnit writer can lose credit solely because its report lacks the word schemathesis.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real modified at the defect: agent-12's default suite name changed to api-tests",
+   "arms": [
+    {
+     "label": "agent-12 real, old",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "brand, old",
+     "scores": [
+      76.9643,
+      76.9643,
+      76.9643
+     ],
+     "n": 3
+    },
+    {
+     "label": "agent-12 real, fixed",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    },
+    {
+     "label": "brand, fixed",
+     "scores": [
+      78.3929,
+      78.3929,
+      78.3929
+     ],
+     "n": 3
+    }
+   ],
+   "effect_points": 1.4286,
+   "fix_tested": "test no longer requires the word: brand 76.9643 -> 78.3929",
+   "correct_work_keeps_score": "yes, agent-12 78.3929 -> 78.3929",
+   "job": "evidence/runs/community9-schemathesis_reporting_observability-a and -b",
+   "table_script": "evidence/scripts/second_review/c9_schemathesis_reporting_observability_table.py",
+   "note": "The only difference is the suite name and it costs one Phase 2 check on the old judge; weakest point: all 18 real writers keep the schemathesis suite name, so no real submission loses this credit."
+  }
+ ]
+}

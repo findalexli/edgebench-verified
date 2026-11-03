@@ -1,0 +1,78 @@
+{
+ "task": "nethack_dungeon_agent",
+ "claims": [
+  {
+   "claim": "Failed seeding makes the 20-game score non-repeatable.",
+   "verdict": "CONFIRMED",
+   "witness": "synthetic: small good-faith explorer bot (evidence/scripts/second_review/c9games_nethack_bot.py), since evidence/runs has no real submission; shipped starter as low-score control",
+   "arms": [
+    {
+     "label": "bot, current judge",
+     "scores": [
+      11.56,
+      13.08,
+      9.52,
+      8.54,
+      7.115,
+      15.47,
+      10.335,
+      9.99,
+      10.925,
+      7.465,
+      10.46,
+      6.805
+     ],
+     "n": 12
+    },
+    {
+     "label": "bot, judge seeding the core",
+     "scores": [
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5,
+      14.5
+     ],
+     "n": 12
+    },
+    {
+     "label": "starter, current judge",
+     "scores": [
+      0.17,
+      0.06,
+      0.075,
+      0.065,
+      0.1,
+      0.14
+     ],
+     "n": 6
+    },
+    {
+     "label": "starter, judge seeding the core",
+     "scores": [
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.09,
+      0.09
+     ],
+     "n": 6
+    }
+   ],
+   "effect_points": 8.665,
+   "fix_tested": "reset_env calls env.unwrapped.nethack._pynethack.set_initial_seeds(seed, seed, False, None): bot spread 8.665 -> 0.000, all 20 games identical in 11/11 re-gradings, repeat pairs equal 120/120 (old 1/120)",
+   "correct_work_keeps_score": "unclear: bot 14.5 sits inside the old range 6.805 to 15.47 but 4.4 above its mean 10.105; starter 0.09 vs mean 0.102; a fixed seed set is one sample of dungeons and every score changes",
+   "job": "evidence/runs/community9-nethack_dungeon_agent",
+   "table_script": "evidence/scripts/second_review/c9_nethack_dungeon_agent_table.py",
+   "note": "Removing only the failed seeding takes the spread to exactly 0, which settles the cause; the weakest points are a synthetic bot and a fix through a private attribute, because NetHackChallenge deliberately blocks seeding, with all runs on one day so the moon-phase clock effect is untested."
+  }
+ ]
+}

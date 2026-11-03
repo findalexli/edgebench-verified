@@ -1,0 +1,106 @@
+{
+ "task": "dabic_gravity_inversion",
+ "claims": [
+  {
+   "claim": "An undisclosed data-space gate penalizes the explicitly permitted model-space implementation.",
+   "verdict": "CONFIRMED_SMALL",
+   "witness": "real modified at the defect: r2 auto-35 (best real, 20.09) with its data-space determinant replaced by the permitted model-space one; 0 of 75 real reports used model-space",
+   "arms": [
+    {
+     "label": "r2 auto-35 unchanged (data-space), old judge",
+     "scores": [
+      20.0715,
+      20.0622,
+      20.0917,
+      20.0691
+     ],
+     "n": 4
+    },
+    {
+     "label": "r2 auto-35 unchanged (data-space), new judge",
+     "scores": [
+      20.0668,
+      20.0693,
+      20.0933
+     ],
+     "n": 3
+    },
+    {
+     "label": "auto-35 changed only to model-space determinant, old judge",
+     "scores": [
+      18.9665,
+      19.0142,
+      18.9861,
+      19.0087
+     ],
+     "n": 4
+    },
+    {
+     "label": "auto-35 changed only to model-space determinant, new judge",
+     "scores": [
+      20.0404,
+      20.0437,
+      20.0734
+     ],
+     "n": 3
+    },
+    {
+     "label": "bad control: model-space plus an explicit dense det call, old judge",
+     "scores": [
+      18.3962,
+      18.4251
+     ],
+     "n": 2
+    },
+    {
+     "label": "bad control: model-space plus an explicit dense det call, new judge",
+     "scores": [
+      19.4547,
+      19.4496
+     ],
+     "n": 2
+    },
+    {
+     "label": "auto-35 model-space, beta left alone, old judge",
+     "scores": [
+      19.0112,
+      19.0167,
+      18.9153
+     ],
+     "n": 3
+    },
+    {
+     "label": "auto-35 model-space, beta left alone, new judge",
+     "scores": [
+      19.8945,
+      19.8972,
+      19.769
+     ],
+     "n": 3
+    },
+    {
+     "label": "data-space, beta left alone, old judge",
+     "scores": [
+      20.0397,
+      19.9168
+     ],
+     "n": 2
+    },
+    {
+     "label": "data-space, beta left alone, new judge",
+     "scores": [
+      19.7387,
+      20.0404
+     ],
+     "n": 2
+    }
+   ],
+   "effect_points": 1.08,
+   "fix_tested": "paired old vs new (sforge eval, 4 CPUs): model-space old mean 18.994 -> new 20.053; model-space plus explicit dense det old 18.411 -> new 19.452, still below correct 20.053",
+   "correct_work_keeps_score": "yes: unchanged auto-35 old 20.074, new 20.076; data-space beta-left-alone old 19.978, new 19.890 (spread overlaps)",
+   "job": "evidence/runs/community9-dabic_gravity_inversion-a (also -smoke, -b)",
+   "table_script": "evidence/scripts/second_review/c9_dabic_gravity_inversion_table.py",
+   "note": "The gate does cost a model-space solver 1.08 points with spread about 0.05, but no real run hit it (0 of 75, best real 20.09, all data-space, max C 17.55, F 8.0), the reviewer's 34.4 to 72 branch needs C>=19.5 and F>=10 that no real report reached, and the model-space rewrite took about 110 s against 23 s, so the weakest point is that no ordinary solver chose it."
+  }
+ ]
+}

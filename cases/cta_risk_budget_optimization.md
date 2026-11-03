@@ -1,5 +1,7 @@
 # CTA risk budget optimization (`cta_risk_budget_optimization`)
 
+**Second review (November 2026): Not confirmed.** The limit formula differs from the policy, but a real submission we checked scores 50.0 both ways. The text below is the first audit's record.
+
 **Outcome:** Fixed in v2.1. <mark>The overseas limit check added US-dollar and yuan values without converting and divided by gross notional instead of fund NAV. v2.1 converts to yuan and divides by same-date total NAV. In three runs through the full original scoring command, it moves a leveraged breaching portfolio from 58.75 to 53.75 and a compliant unleveraged one from 66.25 to 71.25.</mark>
 
 ![Bars show an overseas share of 0.175 as the original grader reads it, passing the 0.40 limit, against 0.595 once US-dollar positions are converted to yuan, which breaches it.](figures/cta_risk_budget_optimization.svg)

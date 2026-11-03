@@ -1,5 +1,7 @@
 # Schemathesis reporting and observability (`schemathesis_reporting_observability`)
 
+**第二轮复核（2026 年 11 月）：存在，但影响小或未见。** 两项检查多给 1.00 到 1.43 分，第三项会让不含 schemathesis 一词的有效报告少得 1.43 分。只有一个未修改的真实文件受影响（得 2.0，应为 1.0）。 下文是第一轮审计的原始记录。
+
 **结论：** 已修复。<mark>JUnit 报告写入器的隐藏测试连损坏的输出都接受，检查"某些生成场景中省略请求体"的测试则永远不会失败。两个漏洞加起来，错给了约占分数 2.4% 的分。</mark>
 
 ![两个面板：原始的 JUnit 测试和原始的请求体抑制测试都让有缺陷的实现通过，而修复版测试让它们失败。](../figures/schemathesis_reporting_observability.svg)

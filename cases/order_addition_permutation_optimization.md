@@ -1,5 +1,7 @@
 # Order Addition Permutation Optimization (`order_addition_permutation_optimization`)
 
+**Second review (November 2026): Changed upstream.** Real on the original release: a real run kept 3.79 instead of the 41.24 a later submission earned. `community` changed how a run picks its best, so this no longer applies there. The text below is the first audit's record.
+
 **Outcome:** Fixed. <mark>A file-integrity test expects an outdated fingerprint of a helper file, so every submission fails one of five tests; under this task's rule for picking a run's best submission, the run then stays on its first scored submission and ignores better later ones.</mark>
 
 ![Bar chart of the nine submissions of one real agent run, in the order they were graded: five early ones with no score, then 3.79, 15.91, 15.91 and 41.24 out of 100; the bar kept by the original checker is gold, the one kept by the fixed checker green, the others blue. Below it, tests passed by each submission: the original checker gives 2/5 or 4/5 and keeps submission 6 (3.79); the fixed checker gives 3/5 or 5/5 and keeps submission 9 (41.24).](figures/order_addition_permutation_optimization.svg)
