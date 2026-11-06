@@ -4,7 +4,6 @@ One page per public EdgeBench task, confirmed tasks first. The status is from th
 
 | Task | Field | Status | In one line |
 | --- | --- | --- | --- |
-| [Apple Incremental Game](apple_incremental_game.md) | Combinatorial Optimization | Confirmed | The same eight-at-once pool costs real files points at 4 CPUs and many cases under load. |
 | [Arc Compiler Runtime](arc_compiler_runtime.md) | Systems & Software Engineering | Confirmed | Hidden tests expect an `analyze()` return shape that nothing the agent sees describes. |
 | [Integer Compression Codec](integer_compression_codec.md) | Systems & Software Engineering | Confirmed | A stored baseline figure is impossible for the documented starter, which distorts how the datasets are weighted. |
 | [Juliet Vulnerability Analyzer](juliet_vulnerability_analyzer.md) | Systems & Software Engineering | Confirmed | Any `.py` or `.sh` file containing the word `infer`, even in a comment, loses 100 points. Separately, CWE-416 findings that start at the release are rejected. |
@@ -19,6 +18,7 @@ One page per public EdgeBench task, confirmed tasks first. The status is from th
 | [ANN Vector Search QPS](ann_vector_search_qps.md) | Systems & Software Engineering | No problem found | No scoring problem found; measured speed depends on the machine |
 | [Ad Placement Optimization](ad_placement_optimization.md) | Combinatorial Optimization | No problem found | No problem found; overlap and boundary checks match the original contest rules |
 | [Anchorhead Text Adventure](anchorhead_text_adventure.md) | Interactive Games & Simulators | No problem found | No scoring problem; the grader counts each game's final score, not its peak |
+| [Apple Incremental Game](apple_incremental_game.md) | Combinatorial Optimization | Real, small or unseen | At the official 4 CPUs the eight-at-once pool leaves a real file's search less CPU, so it scores 68.10-70.60 against 73.25-73.92 with a smaller pool (n=5), but every case still passes. We have not shown a solver scored wrongly there; cases are lost only under overload. |
 | [BipedalWalker Locomotion RL](bipedalwalker_locomotion_rl.md) | Scientific Problems & ML | No problem found | Scores are capped at 30 out of 100 by design, as the task states |
 | [Borden Source Inversion](borden_source_inversion.md) | Scientific Problems & ML | Not confirmed | The unstated model didn't stop one real run from reaching raw 108.97 of 109 through score feedback, while a run with the model documented reached 52.86. Single runs like these don't show what documenting it would change. |
 | [CTA Risk Budget Optimization](cta_risk_budget_optimization.md) | Professional Knowledge Work | Not confirmed | The limit formula differs from the policy, but a real submission we checked scores 50.0 both ways. |

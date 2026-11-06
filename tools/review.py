@@ -25,8 +25,9 @@ UPSTREAM_ZH = {
     "Listed in upstream's known issues. Whether to change the cap, the scale or both is the maintainers' call.": '已列入上游的已知问题。是改上限、改刻度还是两者都改，要由维护者决定。',
     "Not yet reported. Choosing a fix means choosing a new scale, which is the maintainers' call.": '尚未向上游报告。选择修复方案就是选择新的刻度，这要由维护者决定。',
     "The short run is listed in upstream's known issues; issue #12 raises a separate question about this task's scale.": '运行时间过短已列入上游的已知问题；issue #12 就这个任务的刻度提出了另一个问题。',
-    'Draft PR #38.': '草稿 PR #38。',
-    'Draft PR #37.': '草稿 PR #37。',
+    'Draft PR #38 and issue #47, closed: no real submission found that loses an input to the limit.': '草稿 PR #38 和 issue #47 已关闭：没有找到因这个时限丢掉输入的真实提交。',
+    'Draft PR #37 and issue #46, closed: no real submission found that uses integer keys.': '草稿 PR #37 和 issue #46 已关闭：没有找到使用整数键的真实提交。',
+    'Draft PR #41 and issue #44, closed: no solver shown scored wrongly at the official 4 CPUs.': '草稿 PR #41 和 issue #44 已关闭：没有证明有解法在官方的 4 个 CPU 上被评错。',
     'Reported by someone else: issue #31.': '已由他人报告：issue #31。',
 }
 

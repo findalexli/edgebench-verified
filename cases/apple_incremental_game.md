@@ -1,6 +1,6 @@
 # Apple Incremental Game (`apple_incremental_game`)
 
-**Second review (November 2026): Confirmed.** The same eight-at-once pool costs real files points at 4 CPUs and many cases under load. At true 4 CPUs a real file scores 68.10-70.60, against 73.25-73.92 with a smaller pool, with no timeouts (n=5). In an overload test, five judges sharing 8 CPUs, it scored 3.09-19.78 with the original pool and 17.81-68.87 with the smaller one across three workers (n=20 each). The smaller pool also lost cases on the noisiest worker. The text below is the first audit's record.
+**Second review (November 2026): Real, small or unseen.** At the official 4 CPUs the eight-at-once pool leaves a real file's search less CPU, so it scores 68.10-70.60 against 73.25-73.92 with a smaller pool (n=5), but every case still passes. We have not shown a solver scored wrongly there; cases are lost only under overload. The text below is the first audit's record.
 
 **Outcome:** Fixed. <mark>On the publisher's 4-CPU grader, a valid solution using more than about 15 s of CPU per case times out, although the README promises 30 s per case, and each timed-out case scores 0. The fixed version runs at most as many cases at once as the grader has CPUs. The lower end of the score scale agrees with an independent simulation. We did not check the upper reference points, and the grader does not enforce the 1 GB memory limit for each solution.</mark>
 
