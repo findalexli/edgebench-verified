@@ -1,0 +1,37 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 549B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.integer_compression_codec@sha256:15dffad066b4bd1e4844b3d3798a605c80df8e83db547998b560c28e28e989ac
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 16.23kB done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/seededge/edgebench.judge.integer_compression_codec@sha256:15dffad066b4bd1e4844b3d3798a605c80df8e83db547998b560c28e28e989ac
+#5 resolve docker.io/seededge/edgebench.judge.integer_compression_codec@sha256:15dffad066b4bd1e4844b3d3798a605c80df8e83db547998b560c28e28e989ac done
+#5 DONE 0.1s
+
+#6 [2/3] COPY files/runner_judge.py /home/workspace/integer-compression-codec/runner_judge.py
+#6 DONE 0.0s
+
+#7 [3/3] COPY files/internal/baseline/starter/ /home/workspace/integer-compression-codec/internal/baseline/starter/
+#7 DONE 0.0s
+
+#8 exporting to image
+#8 exporting layers 0.0s done
+#8 exporting manifest sha256:cec56be2d83b7d438b30d92ad87a012654a949a014727a3abec87aa1c2087c4e done
+#8 exporting config sha256:5695b73be742aa1a7ad963c4f4dba7b919574f3228c4892b9a4a58d6f693d9dd done
+#8 exporting attestation manifest sha256:ef09d6c58806df5414422712260b46b32d8044e749ad99a543ef02d397ed6587 done
+#8 exporting manifest list sha256:c35f0a2c874766eb58acaf1e51943ef34eab68b6fa94601bc17c7c325f8c8b4f done
+#8 naming to docker.io/ebv-xg/integer_compression_codec:v2 done
+#8 unpacking to docker.io/ebv-xg/integer_compression_codec:v2 0.0s done
+#8 DONE 0.1s
+rc=0

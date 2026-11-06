@@ -1,0 +1,45 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 494B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633e75b2a21ef805961bb190c0a71afb75225986997340185eb7d67fc54
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 21.29kB 0.0s done
+#4 DONE 0.1s
+
+#5 [1/4] FROM docker.io/seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633e75b2a21ef805961bb190c0a71afb75225986997340185eb7d67fc54
+#5 resolve docker.io/seededge/edgebench.judge.schemathesis_reporting_observability@sha256:b1e16633e75b2a21ef805961bb190c0a71afb75225986997340185eb7d67fc54 0.1s done
+#5 DONE 0.2s
+
+#6 [2/4] COPY files/tests/test.sh /tests/test.sh
+#6 DONE 0.1s
+
+#7 [3/4] COPY files/tests/test_02_reporting.py /tests/test_02_reporting.py
+#7 DONE 0.0s
+
+#8 [4/4] COPY files/tests/test_05_email_coverage.py /tests/test_05_email_coverage.py
+#8 DONE 0.0s
+
+#9 exporting to image
+#9 exporting layers 0.1s done
+#9 exporting manifest sha256:072e9ad09ec94bc801b427dad34f5e1854d45ce2c7e0a48758b4fc938b29cef6
+#9 exporting manifest sha256:072e9ad09ec94bc801b427dad34f5e1854d45ce2c7e0a48758b4fc938b29cef6 done
+#9 exporting config sha256:0d1fc8361c1bf5e75734df5bfb675137599a36f98c89ef1e1813e71ad20f13e5 done
+#9 exporting attestation manifest sha256:1094ccb3791dacb338600b6f5db97c2d362e76a895f209a570fc845b9b12e476 done
+#9 exporting manifest list sha256:1463d790a74dcca892ecd8a8a8ba65501cce8b97d098f20020201ab526224838 done
+#9 naming to docker.io/ebv-q35/schemathesis_reporting_observability:v2 done
+#9 unpacking to docker.io/ebv-q35/schemathesis_reporting_observability:v2 0.1s done
+#9 DONE 0.3s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 2)
+rc=0

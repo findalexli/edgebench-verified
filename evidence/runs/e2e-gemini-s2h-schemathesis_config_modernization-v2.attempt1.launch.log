@@ -1,0 +1,26 @@
+[2026-10-20T11:43:35+00:00] created i8xwuakn8zxce15qi8nba
+[2026-10-20T11:43:35+00:00] started run.sh
+[2026-10-20T11:58:47+00:00] checkpoint 1 (173993345 bytes)
+[2026-10-20T12:14:14+00:00] checkpoint 2 (347805812 bytes)
+[2026-10-20T12:29:44+00:00] checkpoint 3 (521776351 bytes)
+[2026-10-20T12:31:52+00:00] paused+resumed (gap 7.6s)
+[2026-10-20T12:45:57+00:00] {"job": "e2e-gemini-s2h-schemathesis_config_modernization-v2", "template": "harbor-worker-v4-s99-25g-v4-20260921-9345d11f", "created_at": "2026-10-20T11:43:34+00:00", "budget_s": 10800, "kind": "e2e-long", "segment_s": 2880, "sandbox_id": "i8xwuakn8zxce15qi8nba", "status": "error:CommandExitException:Command exited with code 1 and error:\ntar: out/sforge-logs/runs/s2h-v2/schemathesis_config_modernization/submissions: file changed as we read it\n", "elapsed_s": 3742, "pauses": [{"at_s": 2889, "gap_s": 7.6}], "killed": true, "ended_at": "2026-10-20T12:45:57+00:00"}
+Traceback (most recent call last):
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 180, in <module>
+    main()
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 132, in main
+    size = collect(sb, out, f'ckpt-{n_ckpt:03d}.tar.gz')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 49, in collect
+    run(sb, 'tar -czf /tmp/out.tar.gz -C /job out', 300)
+  File "/tmp/claude-1000/-home-alex-edgebench-verified/37502328-a9c5-450d-9933-406e7f73e061/scratchpad/e2e/e2e_run.py", line 45, in run
+    return sb.commands.run(cmd, user='root', timeout=t, request_timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command.py", line 233, in run
+    else proc.wait(
+         ^^^^^^^^^^
+  File "/home/alex/agentsmd-rl/.venv/lib/python3.12/site-packages/e2b/sandbox_sync/commands/command_handle.py", line 133, in wait
+    raise CommandExitException(
+e2b.sandbox.commands.command_handle.CommandExitException: Command exited with code 1 and error:
+tar: out/sforge-logs/runs/s2h-v2/schemathesis_config_modernization/submissions: file changed as we read it
+

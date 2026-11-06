@@ -1,0 +1,33 @@
+| Task | v1 run (harness) | v2 run (harness) | v1 run: v1 judge / v2 judge | v2 run: v1 judge / v2 judge |
+|---|---|---|---|---|
+| apple_incremental_game | 20.26 | 0.00 | 20.26 / 20.26 | 0.00 / 0.00 |
+| arc_compiler_runtime | 35.59 | 73.47 | - / - | - / - |
+| borden_source_inversion | 7.012r | 100.00 | - / - | - / - |
+| college_english_exam_bank | 0r | 0r | 0r / 0r | 0r / 0r |
+| cta_risk_budget_optimization | 40.9375r | 12.5r | 40.9375r / 40.9375r | 12.5r / 12.5r |
+| dabic_gravity_inversion | none | none | none / none | none / none |
+| equivalence_class_divide_and_conquer | 24.20 | 20.00 | 24.20 / 24.20 | 20.00 / 20.00 |
+| exchange_core_throughput | 10.40 | 7.35 | 0.00 / 12.10 | 0.00 / 10.32 |
+| ffmpeg_swscale_reimplementation | 0.00 | 0.00 | 0.00 / 0.00 | 0.00 / 0.00 |
+| git_rewrite_in_zig | 0.01 | 0.01 | 0.01 / 0.01 | 0.01 / 0.01 |
+| graph_node_classification | 26.64 | 28.09 | 29.53 / 29.52 | 62.02 / 62.01 |
+| grid_turing_robot | 2.84 | 54.58 | 2.84 / 2.84 | 54.58 / 54.58 |
+| integer_compression_codec | 63.66 | 0.00 | 65.16 / 40.40 | 0.31 / 0.02 |
+| jagua_nesting_optimization | 43.2955r | 44.1276r | 43.2955r / 47.0058r | 44.3123r / 44.5067r |
+| juliet_vulnerability_analyzer | 10.00 | 79.48 | 10.00 / 10.00 | 77.91 / 79.48 |
+| molecular_self_assembly | 56.36 | 0.01 | 60.99 / 59.90 | 0.01 / 0.01 |
+| openrct2_theme_park_ai | 26.03 | 27.50 | - / - | - / - |
+| openttd_transport_ai | 0.00 | 0.00 | - / - | - / - |
+| order_addition_permutation_optimization | 0.00 | 25.04 | 0.00 / 7.70 | 0.00 / 25.04 |
+| pfr_formalization | 27.42 | 24.11 | 27.42 / 27.42 | 24.11 / 24.11 |
+| portfolio_risk_calibration | 0r | 31.56r | 0r / 0r | 31.61r / 31.56r |
+| rust_multicrate_reconstruction | 13.99 | 2.39 | 13.99 / 25.47 | 3.77 / 7.33 |
+| schemathesis_config_modernization | 3.15 | 3.15 | 3.15 / 3.15 | 3.15 / 3.15 |
+| schemathesis_datagen_pipeline | 32.35 | 32.35 | 32.35 / 32.35 | 32.35 / 32.35 |
+| schemathesis_reporting_observability | 2.00 | 2.50 | 2.00 / 2.50 | 2.00 / 2.50 |
+| smt_solver | 0.00 | 0.00 | 0.00 / 0.00 | 0.00 / 0.00 |
+| treant_forest | 20.32 | 92.71 | - / - | - / - |
+| tree_block_partitioning | 1.25 | 13.50 | 0.36 / 0.36 | 13.00 / 12.75 |
+| triangulation_coloring_optimization | 67.01 | 72.23 | 67.42 / 67.31 | 70.18 / 71.99 |
+| vibrating_path_graph_coloring | 18.64 | 32.49 | 18.64 / 18.64 | 32.49 / 32.49 |
+| warehouse_forklift_routing | none | 7.06 | none / none | 7.06 / 7.06 |

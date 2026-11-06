@@ -1,0 +1,38 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 532B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 3)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 6.59kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8
+#5 resolve docker.io/seededge/edgebench.judge.order_addition_permutation_optimization@sha256:6d1a1506f52a5cc7c95680c6df7cd72cb95f81fa236b9794aa507490b947fbd8 done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/home/workspace/complex_job_scheduling/tests/test_final_result.py /home/workspace/complex_job_scheduling/tests/test_final_result.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:0f2bf025c75ea04291da627d4e0a13d84e066197de6f296591c6ff7a2a651ca4 done
+#7 exporting config sha256:2a5b82b4f420210c0b2d9873d1fad8015276ffe1bb80320f79f07321a1cf012e done
+#7 exporting attestation manifest sha256:9fd408ab77063c3898fe4b0e41ca51282a75908823e05c4fcab4517459b5f5a5 done
+#7 exporting manifest list sha256:fcff554d624c51857c66ee3fe5b3ee90350535d5eb126feea2b8f90ee42b5a42 done
+#7 naming to docker.io/ebv-xg/order_addition_permutation_optimization:v2 done
+#7 unpacking to docker.io/ebv-xg/order_addition_permutation_optimization:v2 0.1s done
+#7 DONE 0.2s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 3)
+rc=0

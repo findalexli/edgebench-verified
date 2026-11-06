@@ -1,0 +1,34 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 559B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.warehouse_forklift_routing@sha256:ac7fdf03bb73d0f9ded21662c7c3ac246ce521ee5e6b237978a2799c7bc29cb3
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 3.34kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.warehouse_forklift_routing@sha256:ac7fdf03bb73d0f9ded21662c7c3ac246ce521ee5e6b237978a2799c7bc29cb3
+#5 resolve docker.io/seededge/edgebench.judge.warehouse_forklift_routing@sha256:ac7fdf03bb73d0f9ded21662c7c3ac246ce521ee5e6b237978a2799c7bc29cb3 done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/eval_warehouse_manager.py /tmp/eval_warehouse_manager.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:e7eac8c60c6264a29395997028642ab4658c80b38eb936b7b96b505db5f3dd42 done
+#7 exporting config sha256:7d60867d7a7d8b9f2e5a297b2f96def08f7a5d25608f73073ed69ce714257d5c done
+#7 exporting attestation manifest sha256:220b4fa7c699fff0f84173d97d2d7647f3f70dbf56cf9b0b22837c26067fd90b 0.0s done
+#7 exporting manifest list sha256:604d70002e28e58e2438cae98ce51eb5da81a78396171d3b113dd14e2ba4319b done
+#7 naming to docker.io/ebv-xg/warehouse_forklift_routing:v2 done
+#7 unpacking to docker.io/ebv-xg/warehouse_forklift_routing:v2 0.0s done
+#7 DONE 0.1s
+rc=0

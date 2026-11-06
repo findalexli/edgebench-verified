@@ -1,0 +1,47 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 820B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 4)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 186.11kB done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671
+#5 resolve docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671 0.0s done
+#5 DONE 0.1s
+
+#6 [2/5] COPY files/tools/src/triangulation.py /home/workspace/triangulation_coloring/tools/src/triangulation.py
+#6 DONE 0.0s
+
+#7 [3/5] COPY files/tools/src/delaunay.py /home/workspace/triangulation_coloring/tools/src/delaunay.py
+#7 DONE 0.0s
+
+#8 [4/5] COPY files/cases/ /home/workspace/triangulation_coloring/cases/
+#8 DONE 0.0s
+
+#9 [5/5] COPY files/eval_triangulation_coloring.py /tmp/eval_triangulation_coloring.py
+#9 DONE 0.0s
+
+#10 exporting to image
+#10 exporting layers 0.1s done
+#10 exporting manifest sha256:9b9d76005e56269302672d2ff5968fa514855660d70906c150f4629082f88e23 done
+#10 exporting config sha256:7e066661b79c52d36b97872258c7337ed923810bde6f9b1e57dad099c500e276 done
+#10 exporting attestation manifest sha256:e0879cf88209bb0dde15c87d661914d07a31693c6ae7df630271fa06735e4312 0.0s done
+#10 exporting manifest list sha256:11e55208449d23a521fd2d26f8dd17bb2aa91c0c9011458aec5230a11a3f5b36 done
+#10 naming to docker.io/ebv-q35/triangulation_coloring_optimization:v2 done
+#10 unpacking to docker.io/ebv-q35/triangulation_coloring_optimization:v2 0.1s done
+#10 DONE 0.2s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 4)
+rc=0

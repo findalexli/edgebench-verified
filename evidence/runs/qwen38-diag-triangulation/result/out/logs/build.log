@@ -1,0 +1,47 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 820B done
+#1 WARN: FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 4)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 186.11kB done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671
+#5 resolve docker.io/seededge/edgebench.judge.triangulation_coloring_optimization@sha256:beeea76373084ef4e1fe5324172cf4d5fbc166943daf4cd8b60306cd89dcf671 0.0s done
+#5 DONE 0.1s
+
+#6 [2/5] COPY files/tools/src/triangulation.py /home/workspace/triangulation_coloring/tools/src/triangulation.py
+#6 DONE 0.0s
+
+#7 [3/5] COPY files/tools/src/delaunay.py /home/workspace/triangulation_coloring/tools/src/delaunay.py
+#7 DONE 0.0s
+
+#8 [4/5] COPY files/cases/ /home/workspace/triangulation_coloring/cases/
+#8 DONE 0.0s
+
+#9 [5/5] COPY files/eval_triangulation_coloring.py /tmp/eval_triangulation_coloring.py
+#9 DONE 0.0s
+
+#10 exporting to image
+#10 exporting layers 0.1s done
+#10 exporting manifest sha256:16b53567cec9af8efc491c0dc3899b35b3be8391bee0da494c829790c9a2aed3 done
+#10 exporting config sha256:433ce4e1f49173dec62b110e4876cfe79fb63c82df9994082933563218260aab done
+#10 exporting attestation manifest sha256:d0263592058fa57d83bf24153bdb84922c4e5f7943cc21c64775e8b3374a24d3 done
+#10 exporting manifest list sha256:82bb8aeb3be15c3663a868ee7e359de1652b38064100dc1f8140720d721b7ac4 done
+#10 naming to docker.io/ebv-q35/triangulation_coloring_optimization:v2 done
+#10 unpacking to docker.io/ebv-q35/triangulation_coloring_optimization:v2 0.1s done
+#10 DONE 0.2s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromPlatformFlagConstDisallowed: FROM --platform flag should not use constant value "linux/amd64" (line 4)
+rc=0

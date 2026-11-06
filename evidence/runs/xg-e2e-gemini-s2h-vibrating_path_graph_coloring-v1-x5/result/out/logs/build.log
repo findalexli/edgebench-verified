@@ -1,0 +1,34 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 501B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.vibrating_path_graph_coloring@sha256:db8a9741831762040afb7e9819f997eb5f5293641fd5cd97d27fce3880ce084e
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 3.52kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.vibrating_path_graph_coloring@sha256:db8a9741831762040afb7e9819f997eb5f5293641fd5cd97d27fce3880ce084e
+#5 resolve docker.io/seededge/edgebench.judge.vibrating_path_graph_coloring@sha256:db8a9741831762040afb7e9819f997eb5f5293641fd5cd97d27fce3880ce084e 0.0s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY files/eval_vibrating_path.py /tmp/eval_vibrating_path.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:45c5b615b34cb76cc363bcd6918fe9adbeb0ac7ae7f837a02d16688090e82783 done
+#7 exporting config sha256:6aec48e54baef337741d06dc69d1f221320a5bafd91fac2058db6602f4863633 done
+#7 exporting attestation manifest sha256:8ffaf03a4d9633357a5b6f98da8264a481f2d35e7154221787c83a997df13aab done
+#7 exporting manifest list sha256:f97b03de65a6de00f8b3efe7a82c23bbf4f3f47609eb9a45e6c0757324de9ab6 done
+#7 naming to docker.io/ebv-xg/vibrating_path_graph_coloring:v2 done
+#7 unpacking to docker.io/ebv-xg/vibrating_path_graph_coloring:v2 0.0s done
+#7 DONE 0.1s
+rc=0

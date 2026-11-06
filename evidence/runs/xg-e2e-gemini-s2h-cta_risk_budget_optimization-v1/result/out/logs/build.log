@@ -1,0 +1,35 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 412B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/seededge/edgebench.judge.cta_risk_budget_optimization@sha256:34258d854f41e9cd5fc179fadbc6348bb8ff4118506b1862273f2a2a6d941b32
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 106.34kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/seededge/edgebench.judge.cta_risk_budget_optimization@sha256:34258d854f41e9cd5fc179fadbc6348bb8ff4118506b1862273f2a2a6d941b32
+#5 resolve docker.io/seededge/edgebench.judge.cta_risk_budget_optimization@sha256:34258d854f41e9cd5fc179fadbc6348bb8ff4118506b1862273f2a2a6d941b32 0.0s done
+#5 DONE 0.2s
+
+#6 [2/2] COPY --chown=agent:agent files/eval_script.py /home/workspace/scoring/eval_script.py
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:cc5c8b0511d58af0cc0d87537bafd816d187d40a6a9ca7c0e16038c06249ac26 done
+#7 exporting config sha256:32d1bfff46bfdf64084fab8e703b045bccf7b82d22818c370997c070729713d0 done
+#7 exporting attestation manifest sha256:a1fb0f2918e94e8fb142f4a2e9f1aac5d57e3cb892ae9e7a3bbcdf59823514be 0.0s done
+#7 exporting manifest list sha256:d19afe63c5888421bd853b16d5d2b0669b06c8b9b5fba3c0983a7ba23cfc5475 done
+#7 naming to docker.io/ebv-xg/cta_risk_budget_optimization:v2
+#7 naming to docker.io/ebv-xg/cta_risk_budget_optimization:v2 done
+#7 unpacking to docker.io/ebv-xg/cta_risk_budget_optimization:v2 0.0s done
+#7 DONE 0.1s
+rc=0
