@@ -55,12 +55,10 @@
   },
   {
     "task_id": "apple_incremental_game",
-    "status": "confirmed",
-    "line": "The same eight-at-once pool costs real files points at 4 CPUs and many cases under load.",
-    "line_zh": "同样的 8 用例并行方式，在 4 个 CPU 上会让真实提交丢分，负载高时还会丢掉大量用例。",
-    "effect": "At true 4 CPUs a real file scores 68.10-70.60, against 73.25-73.92 with a smaller pool, with no timeouts (n=5). In an overload test, five judges sharing 8 CPUs, it scored 3.09-19.78 with the original pool and 17.81-68.87 with the smaller one across three workers (n=20 each). The smaller pool also lost cases on the noisiest worker.",
-    "effect_zh": "在真正的 4 个 CPU 上，一份真实提交得 68.10-70.60，缩小并行数后得 73.25-73.92，没有超时（n=5）。在过载测试中（五个评分器共用 8 个 CPU，三台机器），原并行数得 3.09-19.78，缩小后得 17.81-68.87（各 n=20）。在最嘈杂的机器上，缩小后的并行数同样丢了用例。",
-    "upstream": "Same mechanism as PR #36; not reported separately."
+    "status": "minor",
+    "line": "At the official 4 CPUs the eight-at-once pool leaves a real file's search less CPU, so it scores 68.10-70.60 against 73.25-73.92 with a smaller pool (n=5), but every case still passes. We have not shown a solver scored wrongly there; cases are lost only under overload.",
+    "line_zh": "在官方的 4 个 CPU 上，8 用例并行让真实提交的搜索分到的 CPU 更少，得 68.10-70.60，缩小并行数后得 73.25-73.92（n=5），但所有用例仍然通过。我们没有证明有解法在官方设置下被评错；只有在过载时才会丢用例。",
+    "upstream": "Draft PR #41 and issue #44, closed: no solver shown scored wrongly at the official 4 CPUs."
   },
   {
     "task_id": "treant_forest",
@@ -178,14 +176,14 @@
     "status": "minor",
     "line": "The judge allows 60 s per input. Five cases at 30 s each suggest 150 s, though another README passage calls whole inputs test cases. Edited solvers with long deadlines recover under a longer limit; real submissions we hold are unaffected, and the pool makes about no difference.",
     "line_zh": "评分器每个输入只给 60 秒。五个用例各 30 秒意味着 150 秒，但 README 的另一处把整个输入称为测试用例。改成长时限的解法在放宽后能恢复得分；我们手上的真实提交不受影响，并行数也几乎没有影响。",
-    "upstream": "Draft PR #38."
+    "upstream": "Draft PR #38 and issue #47, closed: no real submission found that loses an input to the limit."
   },
   {
     "task_id": "graph_node_classification",
     "status": "minor",
     "line": "Changing a real solver's predictions to integer keys, which the task permits, takes it from 90.52-90.57 to 1.95-2.01. No real submission we hold uses them.",
     "line_zh": "把真实求解器的预测改成整数键（任务允许这样做），分数就从 90.52-90.57 降到 1.95-2.01。我们手上的真实提交都没有这样做。",
-    "upstream": "Draft PR #37."
+    "upstream": "Draft PR #37 and issue #46, closed: no real submission found that uses integer keys."
   },
   {
     "task_id": "lean_analysis_proofs",

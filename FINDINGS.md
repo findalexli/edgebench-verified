@@ -1,12 +1,11 @@
 # Findings
 
-12 of the 51 public EdgeBench tasks have a measured score change on the current judge, large enough to matter. Effects are out of 100 unless stated otherwise. How the review worked is in [METHOD.md](METHOD.md); the data is in [data/review.json](data/review.json).
+11 of the 51 public EdgeBench tasks have a measured score change on the current judge, large enough to matter. Effects are out of 100 unless stated otherwise. How the review worked is in [METHOD.md](METHOD.md); the data is in [data/review.json](data/review.json).
 
 A task is confirmed when the measured change reaches real work: regrading a real submission shows it, or a repeatability failure affects any submission. A defect that is large only on a trigger no real submission we hold uses stays with the others. Graph Node, for example, drops from 90.52-90.57 to 1.95-2.01 if predictions use integer keys, which the task permits.
 
 | Task | What goes wrong | Measured effect | Upstream |
 | --- | --- | --- | --- |
-| [Apple Incremental Game](cases/apple_incremental_game.md) | The same eight-at-once pool costs real files points at 4 CPUs and many cases under load. | At true 4 CPUs a real file scores 68.10-70.60, against 73.25-73.92 with a smaller pool, with no timeouts (n=5). In an overload test, five judges sharing 8 CPUs, it scored 3.09-19.78 with the original pool and 17.81-68.87 with the smaller one across three workers (n=20 each). The smaller pool also lost cases on the noisiest worker. | Same mechanism as PR #36; not reported separately. |
 | [Arc Compiler Runtime](cases/arc_compiler_runtime.md) | Hidden tests expect an `analyze()` return shape that nothing the agent sees describes. | A real Opus submission scores 61.31 as submitted and 94.81 with only the return shape changed (n=2 each). One real run each: best 61.31 on the original task, 96.06 with the shape documented. | Not yet reported. |
 | [Integer Compression Codec](cases/integer_compression_codec.md) | A stored baseline figure is impossible for the documented starter, which distorts how the datasets are weighted. | The starter gets 0.25 raw against the documented 1.0, and 0.855 with the exact figures. A real submission scores 73.60 today; with the figures corrected its raw score is 164.4, which clips to 100 on the existing scale, or gives 51.22 on a new 1..320 scale. So the size of the fix depends on the scale. No ranking change was shown, and real runs reach 73.78 today. | Not yet reported. Choosing a fix means choosing a new scale, which is the maintainers' call. |
 | [Juliet Vulnerability Analyzer](cases/juliet_vulnerability_analyzer.md) | Any `.py` or `.sh` file containing the word `infer`, even in a comment, loses 100 points. Separately, CWE-416 findings that start at the release are rejected. | A real analyzer scores 0 and would score 79.59 with the fix; another goes from 90.70 to 0 with one added comment (n=6). CWE-416: a real analyzer loses 3.34, from 89.00 to 85.66 (n=3), though that solver turned the option off and its best score lost nothing. | Reported: issue #39 and PR #35 (the `infer` part). |
@@ -20,14 +19,14 @@ A task is confirmed when the measured change reaches real work: regrading a real
 | [Wesnoth Tactical AI](cases/wesnoth_tactical_ai.md) | The same file gets different scores despite fixed seeds. | Wesnoth's stock AI scores 36 to 43 over 8 gradings with no timeouts. We haven't found the cause, and there is no real submission to test. | Listed in upstream's known issues. |
 
 <details>
-<summary>The other 39 tasks, including first-audit claims we withdrew</summary>
+<summary>The other 40 tasks, including first-audit claims we withdrew</summary>
 
-Our first audit reported problems in 32 tasks. Of those 32, 10 are confirmed, 13 are real but small or unseen, 1 has changed upstream and 8 are not confirmed.
+Our first audit reported problems in 32 tasks. Of those 32, 9 are confirmed, 14 are real but small or unseen, 1 has changed upstream and 8 are not confirmed.
 
 | Status | Tasks |
 | --- | ---: |
-| Confirmed | 12 |
-| Real, small or unseen | 15 |
+| Confirmed | 11 |
+| Real, small or unseen | 16 |
 | Changed upstream | 1 |
 | Not confirmed | 8 |
 | No problem found | 15 |
@@ -39,6 +38,7 @@ The defect exists, but it moves about a point or less, or it is large only when 
 
 | Task | Why it is here | First audit |
 | --- | --- | --- |
+| [Apple Incremental Game](cases/apple_incremental_game.md) | At the official 4 CPUs the eight-at-once pool leaves a real file's search less CPU, so it scores 68.10-70.60 against 73.25-73.92 with a smaller pool (n=5), but every case still passes. We have not shown a solver scored wrongly there; cases are lost only under overload. | Fixed |
 | [D-ABIC Gravity Inversion](cases/dabic_gravity_inversion.md) | An undisclosed gate costs a model-space solver 1.08 points, but 0 of 75 real reports use that form. The self-reported points are a separate design question. | Removed |
 | [DCSS Dungeon AI](cases/dcss_dungeon_ai.md) | Upstream's notes record one bot at raw 1556.0-5211.2 on the current judge, which computes to 32.82-54.61. Our own weaker bots spread by under 1 point, so we did not reproduce the large swing or isolate its cause. | Kept, with a note |
 | [Exchange Core Throughput](cases/exchange_core_throughput.md) | Broken engines do earn credit, but at the official 4 CPUs correct work mostly scores 0 too, and no real run was affected. | Fixed |

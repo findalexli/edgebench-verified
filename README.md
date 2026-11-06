@@ -6,14 +6,13 @@
 science tasks. A hidden checker program scores each agent's work from 0 to 100, so the ranking can
 be only as trustworthy as those checkers.
 
-**12 tasks hold up as problems that matter**, out of the 51 public ones: a good-faith solver is scored wrongly or
+**11 tasks hold up as problems that matter**, out of the 51 public ones: a good-faith solver is scored wrongly or
 non-repeatably, and we measured how much on the current `community` judge. Scores are out of 100 unless stated
 otherwise.
 
 <!-- confirmed:start -->
 | Task | What goes wrong | Measured effect | Upstream |
 | --- | --- | --- | --- |
-| [Apple Incremental Game](cases/apple_incremental_game.md) | The same eight-at-once pool costs real files points at 4 CPUs and many cases under load. | At true 4 CPUs a real file scores 68.10-70.60, against 73.25-73.92 with a smaller pool, with no timeouts (n=5). In an overload test, five judges sharing 8 CPUs, it scored 3.09-19.78 with the original pool and 17.81-68.87 with the smaller one across three workers (n=20 each). The smaller pool also lost cases on the noisiest worker. | Same mechanism as PR #36; not reported separately. |
 | [Arc Compiler Runtime](cases/arc_compiler_runtime.md) | Hidden tests expect an `analyze()` return shape that nothing the agent sees describes. | A real Opus submission scores 61.31 as submitted and 94.81 with only the return shape changed (n=2 each). One real run each: best 61.31 on the original task, 96.06 with the shape documented. | Not yet reported. |
 | [Integer Compression Codec](cases/integer_compression_codec.md) | A stored baseline figure is impossible for the documented starter, which distorts how the datasets are weighted. | The starter gets 0.25 raw against the documented 1.0, and 0.855 with the exact figures. A real submission scores 73.60 today; with the figures corrected its raw score is 164.4, which clips to 100 on the existing scale, or gives 51.22 on a new 1..320 scale. So the size of the fix depends on the scale. No ranking change was shown, and real runs reach 73.78 today. | Not yet reported. Choosing a fix means choosing a new scale, which is the maintainers' call. |
 | [Juliet Vulnerability Analyzer](cases/juliet_vulnerability_analyzer.md) | Any `.py` or `.sh` file containing the word `infer`, even in a comment, loses 100 points. Separately, CWE-416 findings that start at the release are rejected. | A real analyzer scores 0 and would score 79.59 with the fix; another goes from 90.70 to 0 with one added comment (n=6). CWE-416: a real analyzer loses 3.34, from 89.00 to 85.66 (n=3), though that solver turned the option off and its best score lost nothing. | Reported: issue #39 and PR #35 (the `infer` part). |
@@ -36,8 +35,8 @@ otherwise.
 
 **How a task qualifies.** A task is confirmed when the measured change reaches real work: regrading a real submission shows it, or a repeatability failure affects any submission. A defect that is large only on a trigger no real submission we hold uses stays with the others. Graph Node, for example, drops from 90.52-90.57 to 1.95-2.01 if predictions use integer keys, which the task permits.
 
-**A correction.** Our first audit reported problems in 32 of the 51 tasks. Of those 32, 10 are confirmed, 13 are real but small or unseen, 1 has changed upstream and 8 are not confirmed. The other 2 confirmed
-tasks are ones the first audit kept with a note. [FINDINGS.md](FINDINGS.md) lists the other 39 tasks and why each is there, and
+**A correction.** Our first audit reported problems in 32 of the 51 tasks. Of those 32, 9 are confirmed, 14 are real but small or unseen, 1 has changed upstream and 8 are not confirmed. The other 2 confirmed
+tasks are ones the first audit kept with a note. [FINDINGS.md](FINDINGS.md) lists the other 40 tasks and why each is there, and
 [first-audit/](first-audit/README.md) keeps that audit's documents. Its leaderboard estimate counts fixes this
 review did not confirm, and we have not recomputed it.
 
@@ -45,13 +44,12 @@ review did not confirm, and we have not recomputed it.
 
 - [#39](https://github.com/ByteDance-Seed/EdgeBench/issues/39) and [#35](https://github.com/ByteDance-Seed/EdgeBench/pull/35): Juliet, the word `infer`.
 - [#40](https://github.com/ByteDance-Seed/EdgeBench/issues/40) and [#36](https://github.com/ByteDance-Seed/EdgeBench/pull/36): Vibrating Path, eight cases on four CPUs.
-- Drafts: [#37](https://github.com/ByteDance-Seed/EdgeBench/pull/37) Graph Node and [#38](https://github.com/ByteDance-Seed/EdgeBench/pull/38) Warehouse Routing.
 
 ## What is in this repository
 
 | Path | Contents |
 | --- | --- |
-| [FINDINGS.md](FINDINGS.md) | The confirmed tasks, then the other 39 and why each is there |
+| [FINDINGS.md](FINDINGS.md) | The confirmed tasks, then the other 40 and why each is there |
 | [cases/](cases/INDEX.md) | One page per task |
 | [METHOD.md](METHOD.md) | How findings were established, and the limits |
 | [data/](data/README.md) | Each task's status, with the measured effect, and every side-by-side test |
@@ -73,7 +71,7 @@ review did not confirm, and we have not recomputed it.
   Analysis ran on a local host with 16 CPUs and 15 GB. The grader's CPU limit ranged from 1 to 8
   CPUs, as each case page states. Speed-based scores may differ on other machines.
 - AI agents did most of this review, and agreement between agents is not independent human reproduction.
-  Volunteers have begun checking findings by hand; PFR Formalization, outside the 12, has a recorded human pass.
+  Volunteers have begun checking findings by hand; PFR Formalization, outside the 11, has a recorded human pass.
 
 ## Citation and licenses
 
